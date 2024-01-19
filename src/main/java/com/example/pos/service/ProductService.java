@@ -52,13 +52,15 @@ public class ProductService {
         pro.setWeight(p.getWeight());
         pro.setBarcode(p.getBarcode());
         pro.setDiscount(p.getDiscount());
+        pro.setBranchId(p.getBranchId());
         // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" : p.getDiscountPercentag());
         pro.setProductStatus(p.getProductStatus()); // for detail product in or out stock
         if (file == null || file.isEmpty()) {
             pro.setProImageName(JavaConstant.defaultNameImage);
         } else {
             // JavaStorage.storeImage(file); for save image to path assests/product in project
-            String fileName = JavaStorage.setFileName(file.getOriginalFilename());
+            // String fileName = JavaStorage.setFileName(file.getOriginalFilename());
+            String fileName = file.getOriginalFilename();
  
             // save information image to table pos_file
             FileStore f = new FileStore(fileName, fileName, file.getContentType(), file.getBytes());
@@ -67,9 +69,11 @@ public class ProductService {
         }
 
         if( flagFile == null || flagFile.isEmpty() ) {
-            pro.setFlag(JavaConstant.defaultNameImage);
+            pro.setFlag(JavaConstant.defaultFlagNameImage);
         } else {
-            String flagName = JavaStorage.setFileName(flagFile.getOriginalFilename());
+            // String flagName = JavaStorage.setFileName(flagFile.getOriginalFilename());
+            String flagName = flagFile.getOriginalFilename();
+
             pro.setFlag(flagName);
             FileStore f = new FileStore(flagName, flagName, flagFile.getContentType(), flagFile.getBytes());
             fileStore.save(f);
@@ -122,18 +126,20 @@ public class ProductService {
             fileName = "";
         if (file != null && !file.isEmpty() ) {
             // save information image to table pos_file
-            String fName = JavaStorage.setFileName(file.getOriginalFilename());
-            FileStore f = new FileStore(fName, fName,file.getContentType(), file.getBytes());
-            fileStore.save(f);
-            previousPro.setProImageName(fName);
+            // String imgName = JavaStorage.setFileName(file.getOriginalFilename());
+            String imgName = file.getOriginalFilename();
+            FileStore f1 = new FileStore(imgName, imgName,file.getContentType(), file.getBytes());
+            fileStore.save(f1);
+            previousPro.setProImageName(imgName);
         }
 
-        if( Objects.equals(flagName,JavaConstant.defaultNameImage) ) flagName ="";
+        if( Objects.equals(flagName,JavaConstant.defaultFlagNameImage) ) flagName ="";
 
         if( flag != null && !flag.isEmpty() ) {
-            String fName = JavaStorage.setFileName(flag.getOriginalFilename());
-            FileStore f = new FileStore(fName, fName,flag.getContentType(), flag.getBytes());
-            fileStore.save(f);
+            // String fName = JavaStorage.setFileName(flag.getOriginalFilename());
+            String fName = flag.getOriginalFilename();
+            FileStore f2 = new FileStore(fName, fName,flag.getContentType(), flag.getBytes());
+            fileStore.save(f2);
             previousPro.setFlag(fName);
         }
 
@@ -147,6 +153,7 @@ public class ProductService {
         previousPro.setWeight(editProduct.getWeight());
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
+        previousPro.setBranchId(editProduct.getBranchId());
         previousPro.setProductStatus(editProduct.getProductStatus());  // for detail product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
         previousPro.setCatId(editProduct.getCatId());
