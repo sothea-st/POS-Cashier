@@ -105,6 +105,8 @@ public class AuthenticationController {
         }
 
         httpSession.setAttribute(JavaConstant.userId, authenticatedUser.getId());
+        httpSession.setAttribute(JavaConstant.userCode, authenticatedUser.getUserCode());
+
         authenticatedUser.setToken(jwtToken);
         authenticatedUser.setPosId(posId);
         authenticatedUser.setExpiredToken(String.valueOf(loginResponse.getExpiresIn()));
