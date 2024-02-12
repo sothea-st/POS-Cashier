@@ -338,20 +338,21 @@ public class BoxItem extends javax.swing.JPanel {
                sumDiscount += Double.valueOf(discountValue);
 
           }
+          subtotalPanel.total(0, listCom, 0, subtotalPanel);
 
-          subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
-          double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
-          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
-
-          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-          double _subDiscountKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          subtotalPanel.setLableDiscountKhr(kh.format(_subDiscountKh));
-
-          // total
-          double total = sumSubTotalUsd - sumDiscount;
-          subtotalPanel.setLableTotalUsd(dm.format(total));
-          double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
-          subtotalPanel.setLableTotalKhr(kh.format(_total));
+//          subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
+//          double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
+//          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
+//
+//          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
+//          double _subDiscountKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
+//          subtotalPanel.setLableDiscountKhr(kh.format(_subDiscountKh));
+//
+//          // total
+//          double total = sumSubTotalUsd - sumDiscount;
+//          subtotalPanel.setLableTotalUsd(dm.format(total));
+//          double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
+//          subtotalPanel.setLableTotalKhr(kh.format(_total));
      }
 
      //=================================================Create Shadow Box

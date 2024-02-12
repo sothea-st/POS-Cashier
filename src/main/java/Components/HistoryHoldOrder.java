@@ -53,7 +53,7 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
                          detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
                          detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
                          detailItem.setBackground(WindowColor.white);
-                         actionProduct.total(0, listCom, 0, subtotalPanel);
+                         subtotalPanel.total(0, listCom, 0, subtotalPanel);
                          JavaConstant.indexArrayListHold = index;
                        
                          btnPayment.setBackground(WindowColor.lightBlue);

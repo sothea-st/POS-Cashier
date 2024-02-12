@@ -3,18 +3,25 @@ package Components;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
+import Constant.JavaRoundDown;
 import Fonts.WindowFonts;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.text.DecimalFormat;
 
 /**
  *
  * @author FRONT-END.06
  */
 public class SubtotalPanel extends javax.swing.JPanel {
+ 
+     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+     DecimalFormat kh = new DecimalFormat("#,##0");
 
      /**
       * @return the labelSubtotalKhr
@@ -181,6 +188,72 @@ public class SubtotalPanel extends javax.swing.JPanel {
           ShadowRenderer render = new ShadowRenderer(shadowSize, shadowOpacity, shadowColor);
           g2.drawImage(render.createShadow(img), 0, 0, null);
           g2.drawImage(img, x, y, null);
+     }
+
+     public void total(double price, Component[] listCom, double discountProduct, SubtotalPanel subtotalPanel) {
+          double sumAmountUsd = price;
+          double sumDiscount = discountProduct;
+
+          if (listCom.length != 0) {
+               for (int i = 0; i < listCom.length; i++) {
+                    var data = ((BoxItem) listCom[i]);
+                    // sub total usd
+                    sumAmountUsd += JavaConstant.getReplace(data.getLabelAmountUsd());
+
+                    // discont usd
+                    int qty = data.getQty();
+
+                    double discount = JavaConstant.getReplace(data.getDiscountAmount());
+                    sumDiscount += Double.valueOf(discount);
+               }
+          }
+
+          subtotalPanel.setLabelSubtotalUsd(dm.format(sumAmountUsd));
+          double subTotalValueKh = JavaRoundDown.roundDown("" + sumAmountUsd * JavaConstant.exchangeRate);
+          subtotalPanel.setLabelSubtotalKhr(kh.format(subTotalValueKh));
+
+          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
+          double disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
+          subtotalPanel.setLableDiscountKhr(kh.format(disKh));
+
+          subtotalPanel.setLableDeliveryUsd(dm.format(0));
+          subtotalPanel.setLableDeliveryKhr(kh.format(0));
+          // total
+          double total = sumAmountUsd - sumDiscount;
+          subtotalPanel.setLableTotalUsd(dm.format(total));
+          double valueKh = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
+          subtotalPanel.setLableTotalKhr(kh.format(valueKh));
+
+          //          String khValue = kh.format(total * JavaConstant.exchangeRate);
+          //          khValue = khValue.replaceAll(",", "");
+          //          //          khValue = "9999967";
+          //          int l = khValue.length();
+          //          int begin = l - 2;
+          //          String last2Number = khValue.substring(begin, l);
+          //          String value = "";
+          //          if (!last2Number.equals("00")) {
+          //               String[] listStr = khValue.split("");
+          //               int lengthChar = listStr.length;
+          //
+          //               switch (lengthChar) {
+          //                    case 3:
+          //                         value = JavaRoundUpKhr.roundUp3length(listStr);
+          //                         break;
+          //                    case 4:
+          //                         value = JavaRoundUpKhr.roundUpKhr4length(listStr);
+          //                         break;
+          //                    case 5:
+          //                         value = JavaRoundUpKhr.roundUpKhr5length(listStr);
+          //                         break;
+          //                    case 6:
+          //                         value = JavaRoundUpKhr.roundUpKhr6length(listStr);
+          //                         break;
+          //                    case 7:
+          //                         value = JavaRoundUpKhr.roundUpKhr7length(listStr);
+          //                         break;
+          //               }
+          //          }
+          //          System.err.println("data value = " + value);
      }
 
      @SuppressWarnings("unchecked")
