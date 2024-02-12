@@ -2,23 +2,47 @@
 package Discount;
 
 import Color.WindowColor;
+import Components.JavaAlertMessage;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
+import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
+import Controller.ActionSearchProductController.ActionSearchProd;
+import Controller.ActionSearchProductController.ActionSearchProduct;
+import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
+import Model.PackageProduct.ProductModel;
+import Model.ProductModel.ProductDataModel;
+import Model.ProductModel.ProductSuccessData;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
+import java.awt.Component;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import okhttp3.Response;
 
 /**
  *
  * @author FRONT-END.06
  */
 public class ListProduct extends javax.swing.JDialog {
-
-    /**
-     * Creates new form ListProduct
-     */
+    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+    private String searchValue;
+    
     public ListProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        panelListProduct.setBackground(WindowColor.mediumGreen);
+        panelListProduct.setBackground(WindowColor.slightGreen);
         header.setBackground(WindowColor.darkGreen);
-        header();
+        getProduct();
+        eventSearchProduct();
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,8 +55,10 @@ public class ListProduct extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        searchField1 = new Components.SearchField();
-        getProduct = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        searchField = new Components.SearchField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listGetProduct = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -45,15 +71,22 @@ public class ListProduct extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Product Barcode");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Product Price");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Product Name");
+
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Discount");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -63,12 +96,14 @@ public class ListProduct extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,59 +113,61 @@ public class ListProduct extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
+                    .addComponent(jLabel5)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        getProduct.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setBorder(null);
 
-        javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
-        getProduct.setLayout(getProductLayout);
-        getProductLayout.setHorizontalGroup(
-            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetProduct.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout listGetProductLayout = new javax.swing.GroupLayout(listGetProduct);
+        listGetProduct.setLayout(listGetProductLayout);
+        listGetProductLayout.setHorizontalGroup(
+            listGetProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        getProductLayout.setVerticalGroup(
-            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
+        listGetProductLayout.setVerticalGroup(
+            listGetProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 468, Short.MAX_VALUE)
         );
+
+        jScrollPane1.setViewportView(listGetProduct);
 
         javax.swing.GroupLayout panelListProductLayout = new javax.swing.GroupLayout(panelListProduct);
         panelListProduct.setLayout(panelListProductLayout);
         panelListProductLayout.setHorizontalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelListProductLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(searchField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         panelListProductLayout.setVerticalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelListProductLayout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addComponent(searchField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(480, 480, 480))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelListProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelListProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelListProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelListProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -138,15 +175,90 @@ public class ListProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void header(){
-
-        for (int i=0; i<10; i++){
-            GetProduct prod = new GetProduct();
-            getProduct.add(prod);
-            getProduct.setLayout(new BoxLayout(getProduct, BoxLayout.PAGE_AXIS));
+    private void getProduct(){
+        try {
+            Response response = JavaConnection.get(JavaRoute.product + "?limit=10");
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
+                ProductDataModel[] listData = data.getData();
+                assignProduct(listData,listGetProduct);
+            } else {
+                System.err.println("fail loading product");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting product " + e);
         }
     }
     
+    
+    public void assignProduct(ProductDataModel[] listData,JPanel listGetProduct) {
+        ArrayList<ProductModel> listProduct = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            ProductModel product = new ProductModel(
+                    obj.getID(),
+                    obj.getCatID(),
+                    obj.getFlag(),
+                    obj.getWeight(),
+                    obj.getCost(),
+                    obj.getProImageName(),
+                    obj.getPrice(),
+                    obj.getBarcode(),
+                    obj.getProNameKh(),
+                    obj.getProNameEn(),
+                    obj.getProductStatus(),
+                    obj.getDiscount(),
+                    obj.getQty()
+            );
+            listProduct.add(product);
+        }
+        appendProduct(listProduct,listGetProduct);
+    }
+    
+    void appendProduct(ArrayList<ProductModel> listProduct,JPanel listGetProduct) {
+        for (int i = 0; i < listProduct.size(); i++) {
+            var listData = listProduct.get(i);
+            GetProduct prod = new GetProduct();
+            prod.setProductName(listData.getProductNameEn());
+            prod.setProductBarcode(listData.getBarcode());
+            prod.setProductPrice(dm.format(listData.getPrice()));
+            prod.setProductDiscount(listData.getDiscount());
+            
+            listGetProduct.add(prod);
+            listGetProduct.setLayout(new BoxLayout(listGetProduct, BoxLayout.PAGE_AXIS));
+        }
+    }
+    
+    
+     private void eventSearchProduct() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+
+                         if (searchValue.isEmpty()) {
+                              listGetProduct.removeAll();
+                              listGetProduct.revalidate();
+                              listGetProduct.repaint();
+                              getProduct();
+                              return;
+                         }
+                         else
+                         {
+                            listGetProduct.removeAll();
+                            ActionSearchProd.searchProduct(searchValue,listGetProduct);
+                            listGetProduct.revalidate();
+                            listGetProduct.repaint();
+                         }
+               }
+          };
+          searchField.initEvent(event);
+     }
+
     
     /**
      * @param args the command line arguments
@@ -191,13 +303,15 @@ public class ListProduct extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel getProduct;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel listGetProduct;
     private javax.swing.JPanel panelListProduct;
-    private Components.SearchField searchField1;
+    private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables
 }

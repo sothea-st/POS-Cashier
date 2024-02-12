@@ -39,22 +39,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="labelPopUpTitle1" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                          <Component id="button1" min="-2" pref="66" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          <Component id="label1" min="-2" pref="87" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
-                          <Component id="comboBox1" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="disByItem" min="-2" pref="170" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="overallDis" pref="171" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -62,56 +52,40 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="comboBox1" max="32767" attributes="0"/>
-                      <Component id="label1" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel2" min="-2" pref="19" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="disByItem" min="-2" max="-2" attributes="0"/>
+                      <Component id="overallDis" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="button1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Components.Label" name="label1">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Discount Type"/>
-          </Properties>
-        </Component>
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle1">
           <Properties>
-            <Property name="labelTitle" type="java.lang.String" value="Discount Type"/>
+            <Property name="labelTitle" type="java.lang.String" value="Discount"/>
           </Properties>
         </Component>
-        <Component class="Button.Button" name="button1">
+        <Component class="Button.Button" name="disByItem">
+          <Properties>
+            <Property name="buttonName" type="java.lang.String" value="Discount By Item"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="disByItemMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="Button.Button" name="overallDis">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="98" red="2f" type="rgb"/>
             </Property>
-            <Property name="buttonName" type="java.lang.String" value="Next"/>
+            <Property name="buttonName" type="java.lang.String" value="Overall Discount"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="overallDisMouseClicked"/>
           </Events>
-        </Component>
-        <Component class="Components.ComboBox" name="comboBox1">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -932,12 +932,20 @@ public class MainPage extends javax.swing.JFrame {
 
      }//GEN-LAST:event_btnLoginMouseEntered
 
+     //Action Discount
      private void buttonDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscountMouseClicked
-//          int l = JavaConstant.listHoldData.size();
-//          System.err.println("lenght list holde = " + l);
 
-            DiscountType dis = new DiscountType(new JFrame(), true);
-            dis.setVisible(true);
+          if (JavaConstant.token != null) {
+               DiscountType dis = new DiscountType(new JFrame(), true);
+               dis.setVisible(true);
+          }
+          else{
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage(MessageAlert.Message.OverallMessage);
+               j.setVisible(true);
+               return;
+          }
+            
 
      }//GEN-LAST:event_buttonDiscountMouseClicked
 

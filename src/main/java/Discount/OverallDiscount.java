@@ -12,6 +12,8 @@ public class OverallDiscount extends javax.swing.JDialog {
         event();
         disValue.requestFocus();
         disValue.setLabelTextField("$ 0.00");
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
     }
     
     void event() {
@@ -51,12 +53,18 @@ public class OverallDiscount extends javax.swing.JDialog {
 
         label2.setLabelName("Discount Value");
 
-        disValue.setLabelTextField("$ 0.00");
+        disValue.setLabelTextField("0");
         disValue.setValueTextField("");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setText("*");
+
+        buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonCancel1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelDiscountTypeLayout = new javax.swing.GroupLayout(panelDiscountType);
         panelDiscountType.setLayout(panelDiscountTypeLayout);
@@ -127,6 +135,10 @@ public class OverallDiscount extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
+        this.dispose();
+    }//GEN-LAST:event_buttonCancel1MouseClicked
 
     /**
      * @param args the command line arguments
