@@ -3,9 +3,6 @@ package com.example.pos.constant;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import jakarta.servlet.http.HttpSession;
-import java.math.*;
 public class JavaConstant {
     public static String success = "success";
     public static String userId = "idUser";
@@ -21,7 +18,7 @@ public class JavaConstant {
     public static String message = "msg";
     public static String msgCloseShift = "You have to close shift first to get report cashier!";
     public static String closeOpenShfitFirst = "You have to open shift first to close shift!";
-    public static double exchangeRate=4200;
+    public static double exchangeRate=4150;
     public String getDefaultPassword() {
         return defaultPassword;
     }
@@ -34,8 +31,8 @@ public class JavaConstant {
 
     public static double getTwoPrecision(double amount){
         String value = String.valueOf(amount);
-        if (value.length() > 4) {
-            String data = value.substring(0, 4);
+        if (value.length() > 5) {
+            String data = value.substring(0, 5);
             double d = Double.parseDouble(data);
             return d;
        }
