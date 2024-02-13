@@ -2,21 +2,14 @@
 package Discount;
 
 import Color.WindowColor;
-import Components.JavaAlertMessage;
 import Constant.JavaConnection;
-import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProd;
-import Controller.ActionSearchProductController.ActionSearchProduct;
 import Event.ButtonEvent;
-import LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Color;
-import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
@@ -32,6 +25,7 @@ import okhttp3.Response;
 public class ListProduct extends javax.swing.JDialog {
     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
     private String searchValue;
+    private int id;
     
     public ListProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -43,7 +37,7 @@ public class ListProduct extends javax.swing.JDialog {
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-    }
+    }   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -155,8 +149,8 @@ public class ListProduct extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,7 +161,7 @@ public class ListProduct extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelListProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelListProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -175,7 +169,7 @@ public class ListProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void getProduct(){
+    public void getProduct(){
         try {
             Response response = JavaConnection.get(JavaRoute.product + "?limit=10");
             if (response.isSuccessful()) {
@@ -226,7 +220,8 @@ public class ListProduct extends javax.swing.JDialog {
             prod.setProductBarcode(listData.getBarcode());
             prod.setProductPrice(dm.format(listData.getPrice()));
             prod.setProductDiscount(listData.getDiscount());
-            
+            prod.setProductId(listData.getId());
+            prod.setListGetProduct(listGetProduct);
             listGetProduct.add(prod);
             listGetProduct.setLayout(new BoxLayout(listGetProduct, BoxLayout.PAGE_AXIS));
         }
@@ -257,8 +252,25 @@ public class ListProduct extends javax.swing.JDialog {
                }
           };
           searchField.initEvent(event);
-     }
+    }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     /**
      * @param args the command line arguments

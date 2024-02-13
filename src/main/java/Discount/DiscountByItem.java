@@ -1,18 +1,29 @@
 
 package Discount;
 
+import Constant.JavaConnection;
+import Constant.JavaRoute;
 import Event.ButtonEvent;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class DiscountByItem extends javax.swing.JDialog {
 
+    private int id;
+    private JPanel listGetProduct;
+    
     public DiscountByItem(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         event();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        txtBarcode.requestFocus();
-        disValue.setLabelTextField("$ 0.00");
+        disValue.setLabelTextField("0");
+        disValue.requestFocus();
     }
 
     void event() {
@@ -22,7 +33,6 @@ public class DiscountByItem extends javax.swing.JDialog {
 
              }
         };
-        txtBarcode.initEvent(btnevent);
         disValue.initEvent(btnevent);
     }
 
@@ -32,26 +42,27 @@ public class DiscountByItem extends javax.swing.JDialog {
 
         panelDiscountType = new javax.swing.JPanel();
         labelPopUpTitle1 = new Components.LabelPopUpTitle();
-        label2 = new Components.Label();
         disValue = new Components.TextField();
         jLabel3 = new javax.swing.JLabel();
         buttonSave1 = new ButtonPackage.ButtonSave();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         label3 = new Components.Label();
-        txtBarcode = new Components.TextField();
-        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelPopUpTitle1.setLabelTitle("Discount By Item");
 
-        label2.setLabelName("Barcode");
-
-        disValue.setLabelTextField("$ 0.00");
+        disValue.setLabelTextField("0");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setText("*");
+
+        buttonSave1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonSave1MouseClicked(evt);
+            }
+        });
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -60,12 +71,6 @@ public class DiscountByItem extends javax.swing.JDialog {
         });
 
         label3.setLabelName("Discount Value");
-
-        txtBarcode.setLabelTextField("Scan or input barcode");
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel4.setText("*");
 
         javax.swing.GroupLayout panelDiscountTypeLayout = new javax.swing.GroupLayout(panelDiscountType);
         panelDiscountType.setLayout(panelDiscountTypeLayout);
@@ -80,32 +85,18 @@ public class DiscountByItem extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelDiscountTypeLayout.createSequentialGroup()
-                        .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDiscountTypeLayout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel4))
-                            .addGroup(panelDiscountTypeLayout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel3)))
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel3)
                         .addGap(24, 24, 24)
-                        .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(disValue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtBarcode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(disValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         panelDiscountTypeLayout.setVerticalGroup(
             panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDiscountTypeLayout.createSequentialGroup()
                 .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtBarcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(disValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -140,6 +131,57 @@ public class DiscountByItem extends javax.swing.JDialog {
        this.dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
+    private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
+
+         String discount = disValue.getValueTextField();
+         JSONObject jsonData = new JSONObject();
+         jsonData.put("discount", discount);
+         jsonData.put("id", id);
+
+         try {
+
+              if (discount == null || discount.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Discount Value can not be empty!");
+                   return;
+              }
+
+              Response response = JavaConnection.post(JavaRoute.discount, jsonData);
+              
+              if (response.isSuccessful()) {
+                   this.dispose();
+                   ListProduct list = new ListProduct(new JFrame(), true);
+//                   listGetProduct.removeAll();
+                   listGetProduct.revalidate();
+                   listGetProduct.repaint();
+                   list.getProduct();
+                   
+              } else {
+                   JOptionPane.showMessageDialog(this, "Save Failed!");
+                   return;
+              }
+
+         } catch (Exception e) {
+
+         }
+    }//GEN-LAST:event_buttonSave1MouseClicked
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public JPanel getListGetProduct() {
+        return listGetProduct;
+    }
+
+    public void setListGetProduct(JPanel listGetProduct) {
+        this.listGetProduct = listGetProduct;
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -187,11 +229,8 @@ public class DiscountByItem extends javax.swing.JDialog {
     private ButtonPackage.ButtonSave buttonSave1;
     private Components.TextField disValue;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private Components.Label label2;
     private Components.Label label3;
     private Components.LabelPopUpTitle labelPopUpTitle1;
     private javax.swing.JPanel panelDiscountType;
-    private Components.TextField txtBarcode;
     // End of variables declaration//GEN-END:variables
 }

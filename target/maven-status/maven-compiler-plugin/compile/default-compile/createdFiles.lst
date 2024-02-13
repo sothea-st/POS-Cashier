@@ -11,6 +11,7 @@ Components\HistoryHoldOrder$1.class
 Controller\ActionRequestBrand\ActionRequestBrand.class
 Receipt\Receipt$3.class
 DeleteAndCancel\CancelDialog$3.class
+Discount\DiscountByItem$4.class
 Discount\ListProduct$2$1.class
 DeleteAndCancel\DeleteDialog$4$1.class
 OpenAndCloseShift\OpenShiftJdailog.class
@@ -37,6 +38,7 @@ Discount\OverallDiscount$5.class
 Model\Sale\CustomerModel.class
 Components\HistoryHoldOrder$3.class
 Customer\Customer$2.class
+Discount\DiscountByItem$4$1.class
 Discount\OverallDiscount$5$1.class
 DeleteAndCancel\DeleteDialog$4.class
 Receipt\Receipt$4$1.class
@@ -62,7 +64,6 @@ OpenAndCloseShift\OpenShiftJdailog$4.class
 OpenAndCloseShift\OpenShiftJdailog$1.class
 Model\ReturnModel\ReturnProductModel.class
 DeleteAndCancel\CancelDialog$1.class
-Discount\DiscountByItem$3$1.class
 OpenAndCloseShift\CloseShift$2.class
 Model\Login\LoginModel.class
 Constant\JavaRoundUpKhr.class

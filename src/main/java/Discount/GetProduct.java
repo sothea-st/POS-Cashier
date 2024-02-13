@@ -2,6 +2,7 @@
 package Discount;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
@@ -9,10 +10,13 @@ public class GetProduct extends javax.swing.JPanel {
     private String productBarcode;
     private String productPrice;
     private int productDiscount;
+    private int productId;
     
+    private JPanel listGetProduct;
     
     public GetProduct() {
         initComponents();
+        id.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -20,22 +24,24 @@ public class GetProduct extends javax.swing.JPanel {
     private void initComponents() {
 
         getProduct = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        edit = new javax.swing.JLabel();
         lbBarcode = new javax.swing.JLabel();
         lbPrice = new javax.swing.JLabel();
         lbName = new javax.swing.JLabel();
         discount = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        edit.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        edit.setForeground(new java.awt.Color(0, 0, 0));
+        edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        edit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
+        edit.setText("Edit");
+        edit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                editMouseClicked(evt);
             }
         });
 
@@ -58,13 +64,17 @@ public class GetProduct extends javax.swing.JPanel {
         discount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         discount.setText("Discount");
 
+        id.setText("jLabel1");
+
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);
         getProductLayout.setHorizontalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -80,11 +90,12 @@ public class GetProduct extends javax.swing.JPanel {
             .addGroup(getProductLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(edit)
                     .addComponent(lbBarcode)
                     .addComponent(lbPrice)
                     .addComponent(discount)
-                    .addComponent(lbName))
+                    .addComponent(lbName)
+                    .addComponent(id))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -102,11 +113,34 @@ public class GetProduct extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        DiscountByItem dis = new DiscountByItem(new JFrame(),true);
-        dis.setVisible(true);
-    }//GEN-LAST:event_jLabel5MouseClicked
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
 
+        DiscountByItem dis = new DiscountByItem(new JFrame(),true);
+        dis.setId(productId);
+        dis.setListGetProduct(listGetProduct);
+        dis.setVisible(true);
+        
+    }//GEN-LAST:event_editMouseClicked
+
+    public JPanel getListGetProduct() {
+        return listGetProduct;
+    }
+
+    public void setListGetProduct(JPanel listGetProduct) {
+        this.listGetProduct = listGetProduct;
+    }
+
+   
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+        id.setText(""+productId);
+    }
+
+    
     public String getProductName() {
         return productName;
     }
@@ -146,8 +180,9 @@ public class GetProduct extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel discount;
+    private javax.swing.JLabel edit;
     private javax.swing.JPanel getProduct;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel id;
     private javax.swing.JLabel lbBarcode;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;

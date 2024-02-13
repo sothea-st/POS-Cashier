@@ -6,6 +6,7 @@ import Constant.JavaConstant;
 import Event.ButtonEvent;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 public class OverallDiscount extends javax.swing.JDialog {
 
@@ -172,6 +173,17 @@ public class OverallDiscount extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
+        
+        if (keyValue == null) {
+            JOptionPane.showMessageDialog(this, "Please select discount type!");
+            return;
+        }
+        
+        if (disValue.getValueTextField().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Discount value can not be empty!");
+            return;
+        }
+ 
         double discount = JavaConstant.getReplace(disValue.getValueTextField());
         double subTotal = JavaConstant.getReplace(totalPanel.getLabelSubtotalUsd());
         double totalPrice = 0;

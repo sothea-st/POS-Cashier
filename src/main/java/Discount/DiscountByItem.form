@@ -54,24 +54,11 @@
                           <Component id="buttonSave1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  <Component id="label2" min="-2" pref="52" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="label3" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="label3" min="-2" pref="96" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="disValue" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtBarcode" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="disValue" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -82,13 +69,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtBarcode" max="32767" attributes="0"/>
-                      <Component id="jLabel4" min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="label2" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="label3" max="32767" attributes="0"/>
                       <Component id="disValue" alignment="0" max="32767" attributes="0"/>
@@ -110,14 +91,9 @@
             <Property name="labelTitle" type="java.lang.String" value="Discount By Item"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="label2">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Barcode"/>
-          </Properties>
-        </Component>
         <Component class="Components.TextField" name="disValue">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
+            <Property name="labelTextField" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -132,6 +108,9 @@
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonSave" name="buttonSave1">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSave1MouseClicked"/>
+          </Events>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel1">
           <Events>
@@ -141,22 +120,6 @@
         <Component class="Components.Label" name="label3">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Discount Value"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtBarcode">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Scan or input barcode"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel4">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
       </SubComponents>
