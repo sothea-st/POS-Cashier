@@ -22,6 +22,7 @@ Components\ReportBox.class
 Components\HistoryHoldOrder$2.class
 Model\Category\CategoryModel.class
 Controller\ActionSearchProductController\ActionSearchProduct.class
+Discount\OverallDiscount$4.class
 OpenAndCloseShift\OpenShiftJdailog$4$1.class
 DeleteAndCancel\CancelDialog$4$1.class
 DeleteAndCancel\DeleteDialog$2.class
@@ -32,9 +33,11 @@ OpenAndCloseShift\CloseShift.class
 Customer\Customer$3.class
 Model\OpenShiftModel\OpenShiftModel.class
 DeleteAndCancel\DeleteDialog$3.class
+Discount\OverallDiscount$5.class
 Model\Sale\CustomerModel.class
 Components\HistoryHoldOrder$3.class
 Customer\Customer$2.class
+Discount\OverallDiscount$5$1.class
 DeleteAndCancel\DeleteDialog$4.class
 Receipt\Receipt$4$1.class
 OpenAndCloseShift\CloseShift$4$1.class

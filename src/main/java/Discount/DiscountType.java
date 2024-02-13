@@ -1,10 +1,20 @@
 package Discount;
 
 import Color.WindowColor;
+import Components.BoxItem;
+import Components.JavaAlertMessage;
+import Components.SubtotalPanel;
+import Constant.JavaConstant;
+import java.awt.Component;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class DiscountType extends javax.swing.JDialog {
 
+    private SubtotalPanel subtotalPanel;
+    private JPanel detailItem;
+    
+    
     public DiscountType(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -87,9 +97,27 @@ public class DiscountType extends javax.swing.JDialog {
 
     private void overallDisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_overallDisMouseClicked
         this.dispose();
-        OverallDiscount overall = new OverallDiscount(new JFrame(), true);
-        overall.setVisible(true);
-
+        Component[] listCom1 = detailItem.getComponents();
+        
+        if (listCom1.length > 0) {
+            if((JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd())) == 0.00){
+                OverallDiscount overall = new OverallDiscount(new JFrame(), true);
+                overall.setTotalPanel(subtotalPanel);
+                overall.setVisible(true);
+            }
+            else{
+                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                j.setMessage("Cannot process this function!");
+                j.setVisible(true);
+                return;
+            }
+        }
+        else{
+            JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+            j.setMessage("Cannot process this function!");
+            j.setVisible(true);
+            return;
+        }
     }//GEN-LAST:event_overallDisMouseClicked
 
     /**
@@ -131,6 +159,23 @@ public class DiscountType extends javax.swing.JDialog {
             }
         });
     }
+
+    public SubtotalPanel getSubtotalPanel() {
+        return subtotalPanel;
+    }
+
+    public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
+        this.subtotalPanel = subtotalPanel;
+    }
+
+    public JPanel getDetailItem() {
+        return detailItem;
+    }
+
+    public void setDetailItem(JPanel detailItem) {
+        this.detailItem = detailItem;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button disByItem;
