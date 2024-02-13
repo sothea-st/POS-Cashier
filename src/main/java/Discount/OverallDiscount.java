@@ -1,6 +1,7 @@
 
 package Discount;
 
+import Color.WindowColor;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
@@ -16,12 +17,14 @@ public class OverallDiscount extends javax.swing.JDialog {
     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
     DecimalFormat kh = new DecimalFormat("#,##0");
     
+    //Constructor
     public OverallDiscount(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         event();
         disValue.requestFocus();
         disValue.setLabelTextField("0");
+        panelDiscountType.setBackground(WindowColor.mediumGreen);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         addComboBox();
@@ -34,6 +37,7 @@ public class OverallDiscount extends javax.swing.JDialog {
         disType.initEvent(events);
     }
     
+    //placeholder
     void event() {
         ButtonEvent btnevent = new ButtonEvent() {
              @Override
@@ -44,6 +48,7 @@ public class OverallDiscount extends javax.swing.JDialog {
         disValue.initEvent(btnevent);
     }
     
+    //Combobox
     private void addComboBox() {
 
            map.put("Cash (USD)","cashUsd");
@@ -172,6 +177,7 @@ public class OverallDiscount extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
+    //save action
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
         
         if (keyValue == null) {

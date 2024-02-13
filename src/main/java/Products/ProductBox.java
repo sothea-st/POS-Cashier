@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import javax.swing.Icon;
 
 /**
@@ -24,21 +25,21 @@ public class ProductBox extends javax.swing.JPanel {
 
      private String qty;
      private int discountPercent;
+     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
 
-    public int getDiscountPercent() {
-        return discountPercent;
-    }
+     public int getDiscountPercent() {
+          return discountPercent;
+     }
 
-    public void setDiscountPercent(int discountPercent) {
-        this.discountPercent = discountPercent;
-        if(discountPercent > 0){
-             percent.setDiscountPercent("<html>"+discountPercent+"%"+"<br>"+"Off"+"</html>");
-             percent.setVisible(true);
-        }
-        else{
-              percent.setVisible(false);
-        }
-    }
+     public void setDiscountPercent(int discountPercent) {
+          this.discountPercent = discountPercent;
+          if (discountPercent > 0) {
+               percent.setDiscountPercent("<html>" + discountPercent + "%" + "<br>" + "Off" + "</html>");
+               percent.setVisible(true);
+          } else {
+               percent.setVisible(false);
+          }
+     }
 
      public String getQty() {
           return qty;
@@ -73,7 +74,7 @@ public class ProductBox extends javax.swing.JPanel {
 
      public void setPrice(String price) {
           this.price = price;
-          lbPrice.setText("$ "+price + " each");
+          lbPrice.setText(price + " each");
      }
 
      public String getWeight() {
@@ -103,13 +104,13 @@ public class ProductBox extends javax.swing.JPanel {
           lbName.setText(ProductName);
      }
 
-    public void setDiscountPercentag(int discountPercentag, Double wasPrice) {
-        this.discountPercentag = discountPercentag;
-        if (discountPercentag > 0) {
-            discount.setDiscountPrice("Was $"+" "+ wasPrice);
-            discount.setVisible(true);
-        }
-    }
+     public void setDiscountPercentag(int discountPercentag, Double wasPrice) {
+          this.discountPercentag = discountPercentag;
+          if (discountPercentag > 0) {
+               discount.setDiscountPrice("Was " + dm.format(wasPrice) );
+               discount.setVisible(true);
+          }
+     }
 
      public String getProductStatus() {
           return productStatus;
@@ -120,11 +121,10 @@ public class ProductBox extends javax.swing.JPanel {
           buttonStatus.setButtonName(productStatus);
           if (productStatus == "Unavailable") {
                buttonStatus.setBgColor(WindowColor.darkred);
-          } else if(productStatus == "Out Stock"){
+          } else if (productStatus == "Out Stock") {
                buttonStatus.setBgColor(WindowColor.darkred);
-          }
-          else{
-              buttonStatus.setBgColor(WindowColor.darkGreen);
+          } else {
+               buttonStatus.setBgColor(WindowColor.darkGreen);
           }
      }
 

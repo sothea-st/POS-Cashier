@@ -38,7 +38,7 @@ public class JavaConstant {
      public static String supervisor = "Supervisor";
      public static String admin = "Admin";
 
-     public static double exchangeRate = 4200;
+     public static double exchangeRate = 4150;
 
      public static double getReplace(String value) {
           String data = value.replace("$", "");

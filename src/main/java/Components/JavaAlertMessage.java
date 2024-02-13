@@ -97,7 +97,7 @@ public class JavaAlertMessage extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-         
+ 
           dispose();
      }//GEN-LAST:event_btnCloseMouseClicked
 

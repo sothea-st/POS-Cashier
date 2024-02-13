@@ -72,7 +72,7 @@ public class MainPage extends javax.swing.JFrame {
           previousEvent();
           getLogo();
           getUserIcon();
-          existFun();
+//          existFun();
      }
 
      void existFun() {

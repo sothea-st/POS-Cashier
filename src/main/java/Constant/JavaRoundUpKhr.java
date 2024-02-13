@@ -112,7 +112,7 @@ public class JavaRoundUpKhr {
                listStr[4] = numStr;
           } else {
                int num0 = Integer.parseInt(listStr[3]) + 1;
-               System.err.println("num0 = " + num0);
+             
                if (num0 < 10) {
                     listStr[3] = "" + num0;
                     listStr[4] = "0";

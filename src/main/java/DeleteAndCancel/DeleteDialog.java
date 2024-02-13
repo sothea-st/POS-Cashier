@@ -6,6 +6,7 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
@@ -115,21 +116,26 @@ public class DeleteDialog extends javax.swing.JDialog {
           }
 
           Component[] l = detailItem.getComponents();
-      
+
           if (l.length == 0) {
                btnPayment.setBackground(WindowColor.lightGray);
+               subtotalPanel.setLabelSubTitleToZero();
+               return;
           }
 
           subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
-          subtotalPanel.setLabelSubtotalKhr(kh.format(sumSubTotalUsd * JavaConstant.exchangeRate));
+          double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
+          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-          subtotalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+          double _disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
+          subtotalPanel.setLableDiscountKhr(kh.format(_disKh));
 
           // total
           double total = sumSubTotalUsd - sumDiscount;
           subtotalPanel.setLableTotalUsd(dm.format(total));
-          subtotalPanel.setLableTotalKhr(kh.format(total * JavaConstant.exchangeRate));
+          double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
+          subtotalPanel.setLableTotalKhr(kh.format(_total));
 
           this.dispose();
      }

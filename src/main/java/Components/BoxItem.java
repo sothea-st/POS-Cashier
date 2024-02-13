@@ -1,11 +1,11 @@
 package Components;
 
- 
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import DeleteAndCancel.DeleteDialog;
 import Event.ButtonEvent;
@@ -217,7 +217,6 @@ public class BoxItem extends javax.swing.JPanel {
           this.btnPayment = btnPayment;
      }
 
-     
      /**
       * Creates new form BoxItem
       */
@@ -241,6 +240,7 @@ public class BoxItem extends javax.swing.JPanel {
      DecimalFormat kh = new DecimalFormat("#,##0");
      private String discountAmt;
      private Button.Button btnPayment;
+
      public BoxItem() {
           initComponents();
 
@@ -277,11 +277,9 @@ public class BoxItem extends javax.swing.JPanel {
           boxDiscount.setVisible(false);
           getImageBtnDelete();
      }
-     
-     
-     
-     void getImageBtnDelete(){
-          Response response = JavaConnection.get(JavaRoute.bgImage+"Delete.png");
+
+     void getImageBtnDelete() {
+          Response response = JavaConnection.get(JavaRoute.bgImage + "Delete.png");
           try {
                byte[] btnImage = response.body().bytes();
                btnDelete.setIcon(new ImageIcon(btnImage));
@@ -309,8 +307,8 @@ public class BoxItem extends javax.swing.JPanel {
                setQty(getQty);
                double subAmountUsd = Double.valueOf(priceUsd) * getQty;
                setLabelAmountUsd(dm.format(subAmountUsd));
-               setLabelAmountKh(kh.format(subAmountUsd * JavaConstant.exchangeRate));
-
+               double _amountKh = JavaRoundDown.roundDown(JavaRoundDown.exchangeKh(subAmountUsd));
+               setLabelAmountKh(kh.format(_amountKh));
                double _discoutnAmt = JavaConstant.getReplace(discountAmt) * qty;
                txtDiscount.setText("Discount : " + dm.format(_discoutnAmt));
                setDiscountAmount(dm.format(_discoutnAmt));
@@ -340,17 +338,21 @@ public class BoxItem extends javax.swing.JPanel {
                sumDiscount += Double.valueOf(discountValue);
 
           }
+          subtotalPanel.total(0, listCom, 0, subtotalPanel);
 
-          subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
-          subtotalPanel.setLabelSubtotalKhr(kh.format(sumSubTotalUsd * JavaConstant.exchangeRate));
-
-          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-          subtotalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
- 
-          // total
-          double total = sumSubTotalUsd - sumDiscount;
-          subtotalPanel.setLableTotalUsd(dm.format(total));
-          subtotalPanel.setLableTotalKhr(kh.format(total * JavaConstant.exchangeRate));
+//          subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
+//          double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
+//          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
+//
+//          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
+//          double _subDiscountKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
+//          subtotalPanel.setLableDiscountKhr(kh.format(_subDiscountKh));
+//
+//          // total
+//          double total = sumSubTotalUsd - sumDiscount;
+//          subtotalPanel.setLableTotalUsd(dm.format(total));
+//          double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
+//          subtotalPanel.setLableTotalKhr(kh.format(_total));
      }
 
      //=================================================Create Shadow Box

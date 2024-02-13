@@ -20,8 +20,6 @@ import okhttp3.Response;
 
 public class ActionScanBarcodeAddProduct extends ActionProduct {
 
- 
-
      private Button btnLogin;
      private JLabel boxUserName;
      private JPanel category;
@@ -35,7 +33,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public static void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
-
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
                try {
                     if (response.isSuccessful()) {
@@ -63,7 +60,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               );
                          }
                          jdFormLogin.scanbarCodeAddProduct(product);
-                    }  
+                    }
                } catch (Exception e) {
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     j.setMessage("The product does not exist in system!");
@@ -71,6 +68,53 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     System.err.println("error scan barcode = " + e);
                }
           }
+     }
+
+     public static String returnProduct(String barcode, String invoiceNo, LoginFormJdailog jdFormLogin) {
+          String status=null;
+          if (barcode.length() == 13) {
+               Response response = JavaConnection.get(JavaRoute.returnProduct + "/getProduct?barcode=" + barcode + "&invoiceNo=" + invoiceNo + "");
+               try {
+                    if (response.isSuccessful()) {
+                         String responseData = response.body().string();
+                         ObjectMapper objMap = new ObjectMapper();
+                         ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
+                         ProductDataModel[] listProduct = model.getData();
+                   
+                         ProductModel product = null;
+                         for (int i = 0; i < listProduct.length; i++) {
+                              var obj = listProduct[i];
+                              product = new ProductModel(
+                                   obj.getID(),
+                                   obj.getCatID(),
+                                   obj.getFlag(),
+                                   obj.getWeight(),
+                                   obj.getCost(),
+                                   obj.getProImageName(),
+                                   obj.getPrice(),
+                                   obj.getBarcode(),
+                                   obj.getProNameKh(),
+                                   obj.getProNameEn(),
+                                   obj.getProductStatus(),
+                                   obj.getDiscount(),
+                                   obj.getQty()
+                              );
+                         }
+                         jdFormLogin.scanbarCodeAddProduct(product);
+                         status="success";
+                    }
+               } catch (Exception e) {
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    j.setMessage("Something wrong with invoice number or barcode!");
+                    j.setVisible(true);
+                    System.err.println("error scan barcode = " + e);
+               }
+          } else {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage("Barcode must be 13 length!");
+               j.setVisible(true);
+          }     
+          return status;
      }
 
      public Button getBtnLogin() {

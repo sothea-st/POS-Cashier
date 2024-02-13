@@ -1,37 +1,21 @@
 package LoginAndLogoutForm;
 
-import Button.Button;
 import Color.WindowColor;
-import Components.BoxItem;
 import Components.LabelTitle;
 import Components.SubtotalPanel;
-import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.PackageProduct.CategoryModel;
 import Model.PackageProduct.ProductModel;
-import Products.ProductBox;
-//import View.MainPage.MainPage;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Random;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.BevelBorder;
-
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,11 +27,9 @@ import Components.SearchField;
 import Controller.ActionProduct.ActionProduct;
 import Controller.ActionRequestBrand.ActionRequestBrand;
 import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
-import Controller.ActionSearchProductController.ActionSearchProduct;
 import Fonts.WindowFonts;
 import Model.Login.LoginModel;
 import Model.OpenShift.OpenShiftDataModel;
-import Model.OpenShiftModel.OpenShiftModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -55,10 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-/**
- *
- * @author FRONT-END.06
- */
+
 public class LoginFormJdailog extends javax.swing.JDialog {
 
      public JPanel getPanelPagination() {
@@ -244,7 +223,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
          
-         String userId="0003";
+         String userId="0005";
          String password="TT@126$kh#";
 
          JSONObject json = new JSONObject();

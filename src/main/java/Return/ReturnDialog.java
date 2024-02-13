@@ -23,75 +23,75 @@ import org.json.JSONObject;
  */
 public class ReturnDialog extends javax.swing.JDialog {
 
-    private String reasonId;
-    private LoginFormJdailog jdFormLogin;
+     private String reasonId;
+     private LoginFormJdailog jdFormLogin;
 
-    public ReturnDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        panelReturn.setBackground(WindowColor.mediumGreen);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        event();
-        addComboReason();
-        txtinvoice.requestFocus();
-        eventSelectReason();
-    }
+     public ReturnDialog(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          panelReturn.setBackground(WindowColor.mediumGreen);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          event();
+          addComboReason();
+          txtinvoice.requestFocus();
+          eventSelectReason();
+     }
 
-    void eventSelectReason() {
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                System.err.println("key value = " + key);
-                reasonId = key;
-            }
-        };
-        comboBoxReason.initEvent(event);
-    }
+     void eventSelectReason() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    System.err.println("key value = " + key);
+                    reasonId = key;
+               }
+          };
+          comboBoxReason.initEvent(event);
+     }
 
-    //Action call function placeholder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+     //Action call function placeholder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
 
-            }
-        };
-        txtinvoice.initEvent(btnevent);
-        txtBarcode.initEvent(btnevent);
-    }
+               }
+          };
+          txtinvoice.initEvent(btnevent);
+          txtBarcode.initEvent(btnevent);
+     }
 
-    private void addComboReason() {
-        HashMap<String, String> map = new HashMap<>();
-        try {
-            ArrayList<ReasonModel> reason = new ArrayList<>();
-            Response response = JavaConnection.get(JavaRoute.reason + "return");
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                JSONObject jsonObject = new JSONObject(responseData);
-                JSONArray data = jsonObject.getJSONArray("data");
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject obj = data.getJSONObject(i);
-                    ReasonModel modelReason = new ReasonModel(
-                            obj.getInt("id"),
-                            obj.getString("reason")
-                    );
-                    reason.add(modelReason);
-                    int idReason = reason.get(i).getIdReason();
-                    String reasonName = reason.get(i).getReason();
-                    map.put(reasonName, "" + idReason);
-                }
-                comboBoxReason.setMap(map);
+     private void addComboReason() {
+          HashMap<String, String> map = new HashMap<>();
+          try {
+               ArrayList<ReasonModel> reason = new ArrayList<>();
+               Response response = JavaConnection.get(JavaRoute.reason + "return");
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                         JSONObject obj = data.getJSONObject(i);
+                         ReasonModel modelReason = new ReasonModel(
+                              obj.getInt("id"),
+                              obj.getString("reason")
+                         );
+                         reason.add(modelReason);
+                         int idReason = reason.get(i).getIdReason();
+                         String reasonName = reason.get(i).getReason();
+                         map.put(reasonName, "" + idReason);
+                    }
+                    comboBoxReason.setMap(map);
 
-            } else {
-                System.err.println("fail loading data");
-            }
-        } catch (Exception e) {
-            System.err.println("error = " + e);
-        }
-    }
+               } else {
+                    System.err.println("fail loading data");
+               }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -233,7 +233,7 @@ public class ReturnDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
@@ -262,62 +262,63 @@ public class ReturnDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_button1MouseClicked
 
-    public void setResetReturn() {
-        JavaConstant.isReturn = null;
-        JavaConstant.reasonId = null;
-        JavaConstant.invoiceNo = null;
-        JavaConstant.returnerId = null;
-    }
+     public void setResetReturn() {
+          JavaConstant.isReturn = null;
+          JavaConstant.reasonId = null;
+          JavaConstant.invoiceNo = null;
+          JavaConstant.returnerId = null;
+     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ReturnDialog dialog = new ReturnDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
 
-    public LoginFormJdailog getJdFormLogin() {
-        return jdFormLogin;
-    }
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ReturnDialog dialog = new ReturnDialog(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
-    public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
-        this.jdFormLogin = jdFormLogin;
-    }
+     public LoginFormJdailog getJdFormLogin() {
+          return jdFormLogin;
+     }
+
+     public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
+          this.jdFormLogin = jdFormLogin;
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

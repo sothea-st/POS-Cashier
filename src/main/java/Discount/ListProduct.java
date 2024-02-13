@@ -30,7 +30,7 @@ public class ListProduct extends javax.swing.JDialog {
     public ListProduct(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        panelListProduct.setBackground(WindowColor.slightGreen);
+        panelListProduct.setBackground(WindowColor.mediumGreen);
         header.setBackground(WindowColor.darkGreen);
         getProduct();
         eventSearchProduct();
@@ -212,6 +212,7 @@ public class ListProduct extends javax.swing.JDialog {
         appendProduct(listProduct,listGetProduct);
     }
     
+    //Append Product into list
     void appendProduct(ArrayList<ProductModel> listProduct,JPanel listGetProduct) {
         for (int i = 0; i < listProduct.size(); i++) {
             var listData = listProduct.get(i);
@@ -228,6 +229,7 @@ public class ListProduct extends javax.swing.JDialog {
     }
     
     
+    //Action Search
      private void eventSearchProduct() {
           // this event was called when user type on searchTextField 
           ButtonEvent event = new ButtonEvent() {

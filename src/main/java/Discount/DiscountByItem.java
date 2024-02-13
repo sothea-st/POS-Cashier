@@ -1,10 +1,10 @@
 
 package Discount;
 
+import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,6 +20,7 @@ public class DiscountByItem extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         event();
+        panelDiscountType.setBackground(WindowColor.mediumGreen);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         disValue.setLabelTextField("0");
@@ -149,11 +150,11 @@ public class DiscountByItem extends javax.swing.JDialog {
               
               if (response.isSuccessful()) {
                    this.dispose();
-                   ListProduct list = new ListProduct(new JFrame(), true);
+//                   ListProduct list = new ListProduct(new JFrame(), true);
 //                   listGetProduct.removeAll();
-                   listGetProduct.revalidate();
-                   listGetProduct.repaint();
-                   list.getProduct();
+//                   listGetProduct.add(list);
+//                   listGetProduct.revalidate();
+//                   listGetProduct.repaint();
                    
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
