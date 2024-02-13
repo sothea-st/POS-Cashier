@@ -75,6 +75,9 @@ public class HoldItem extends javax.swing.JPanel {
         buttonCancel = new ButtonPackage.ButtonCancel();
         btnDelete = new ButtonPackage.ButtonCancel();
 
+        holdItem.setBackground(new java.awt.Color(255, 255, 255));
+        holdItem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbName.setText("Name");
 
@@ -105,10 +108,10 @@ public class HoldItem extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbQty, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                .addGap(90, 90, 90)
+                .addComponent(lbQty, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

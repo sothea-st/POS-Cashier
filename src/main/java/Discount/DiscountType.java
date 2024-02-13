@@ -8,6 +8,8 @@ public class DiscountType extends javax.swing.JDialog {
     public DiscountType(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
         panelDiscountType.setBackground(WindowColor.mediumGreen);
     }
 
@@ -16,63 +18,50 @@ public class DiscountType extends javax.swing.JDialog {
     private void initComponents() {
 
         panelDiscountType = new javax.swing.JPanel();
-        label1 = new Components.Label();
         labelPopUpTitle1 = new Components.LabelPopUpTitle();
-        button1 = new Button.Button();
-        comboBox1 = new Components.ComboBox();
-        jLabel2 = new javax.swing.JLabel();
+        disByItem = new Button.Button();
+        overallDis = new Button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        label1.setLabelName("Discount Type");
+        labelPopUpTitle1.setLabelTitle("Discount");
 
-        labelPopUpTitle1.setLabelTitle("Discount Type");
-
-        button1.setBackground(new java.awt.Color(47, 152, 70));
-        button1.setButtonName("Next");
-        button1.addMouseListener(new java.awt.event.MouseAdapter() {
+        disByItem.setButtonName("Discount By Item");
+        disByItem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                button1MouseClicked(evt);
+                disByItemMouseClicked(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setText("*");
+        overallDis.setBackground(new java.awt.Color(47, 152, 70));
+        overallDis.setButtonName("Overall Discount");
+        overallDis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                overallDisMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelDiscountTypeLayout = new javax.swing.GroupLayout(panelDiscountType);
         panelDiscountType.setLayout(panelDiscountTypeLayout);
         panelDiscountTypeLayout.setHorizontalGroup(
             panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panelDiscountTypeLayout.createSequentialGroup()
-                .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelDiscountTypeLayout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelDiscountTypeLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(comboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDiscountTypeLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(disByItem, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(overallDis, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelDiscountTypeLayout.setVerticalGroup(
             panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDiscountTypeLayout.createSequentialGroup()
                 .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelDiscountTypeLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGap(18, 18, 18)
+                .addGroup(panelDiscountTypeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(disByItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(overallDis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,18 +79,18 @@ public class DiscountType extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-         ListProduct list = new ListProduct(new JFrame(), true);
-         list.setVisible(true);
+    private void disByItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_disByItemMouseClicked
+        this.dispose();
+        ListProduct list = new ListProduct(new JFrame(), true);
+        list.setVisible(true);
+    }//GEN-LAST:event_disByItemMouseClicked
 
-//         OverallDiscount overall = new OverallDiscount(new JFrame(), true);
-//         overall.setVisible(true);
+    private void overallDisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_overallDisMouseClicked
+        this.dispose();
+        OverallDiscount overall = new OverallDiscount(new JFrame(), true);
+        overall.setVisible(true);
 
-//         DiscountByItem byItem = new DiscountByItem(new JFrame(), true);
-//         byItem.setVisible(true);
-
-         this.dispose();
-    }//GEN-LAST:event_button1MouseClicked
+    }//GEN-LAST:event_overallDisMouseClicked
 
     /**
      * @param args the command line arguments
@@ -144,11 +133,9 @@ public class DiscountType extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.Button button1;
-    private Components.ComboBox comboBox1;
-    private javax.swing.JLabel jLabel2;
-    private Components.Label label1;
+    private Button.Button disByItem;
     private Components.LabelPopUpTitle labelPopUpTitle1;
+    private Button.Button overallDis;
     private javax.swing.JPanel panelDiscountType;
     // End of variables declaration//GEN-END:variables
 }
