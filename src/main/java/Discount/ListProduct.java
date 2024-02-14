@@ -112,9 +112,10 @@ public class ListProduct extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
+        jScrollPane1.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane1.setBorder(null);
 
-        listGetProduct.setBackground(new java.awt.Color(255, 255, 255));
+        listGetProduct.setBackground(new java.awt.Color(176, 215, 181));
 
         javax.swing.GroupLayout listGetProductLayout = new javax.swing.GroupLayout(listGetProduct);
         listGetProduct.setLayout(listGetProductLayout);
