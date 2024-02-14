@@ -73,9 +73,9 @@ public class MainPage extends javax.swing.JFrame {
           previousEvent();
           getLogo();
           getUserIcon();
-//          existFun();
+          existFun();
           setIconImage(new ImageIcon(bg).getImage());
-
+          setTitle("King Mart");
      }
 
      void existFun() {
@@ -343,8 +343,8 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(panelCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCategoryLayout.createSequentialGroup()
                          .addContainerGap()
-                         .addComponent(jScrollPaneCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 1062, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                         .addComponent(jScrollPaneCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 1062, Short.MAX_VALUE)
+                         .addContainerGap()))
           );
           panelCategoryLayout.setVerticalGroup(
                panelCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -1,10 +1,10 @@
-
 package Discount;
 
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,31 +13,31 @@ import org.json.JSONObject;
 
 public class DiscountByItem extends javax.swing.JDialog {
 
-    private int id;
-    private JPanel listGetProduct;
-    
-    public DiscountByItem(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        event();
-        panelDiscountType.setBackground(WindowColor.mediumGreen);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        disValue.setLabelTextField("0");
-        disValue.requestFocus();
-    }
+     private int id;
+     private JPanel listGetProduct;
 
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-             @Override
-             public void onFocusGain() {
+     public DiscountByItem(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          event();
+          panelDiscountType.setBackground(WindowColor.mediumGreen);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          disValue.setLabelTextField("0");
+          disValue.requestFocus();
+     }
 
-             }
-        };
-        disValue.initEvent(btnevent);
-    }
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
 
-    @SuppressWarnings("unchecked")
+               }
+          };
+          disValue.initEvent(btnevent);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -129,7 +129,7 @@ public class DiscountByItem extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-       this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
@@ -147,18 +147,22 @@ public class DiscountByItem extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.post(JavaRoute.discount, jsonData);
-              
+
               if (response.isSuccessful()) {
-                   this.dispose();
-//                   ListProduct list = new ListProduct(new JFrame(), true);
-//                   listGetProduct.removeAll();
-//                   listGetProduct.add(list);
-//                   listGetProduct.revalidate();
-//                   listGetProduct.repaint();
+
+                   ListProduct list = new ListProduct(new JFrame(), true);
                    
+//                   listGetProduct.setBackground(Color.red);
+                   listGetProduct.removeAll();
+                   listGetProduct.revalidate();
+                   listGetProduct.repaint();
+              
+                   list.getProduct(listGetProduct);
+                   dispose();
+
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                   return;
+
               }
 
          } catch (Exception e) {
@@ -166,64 +170,64 @@ public class DiscountByItem extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_buttonSave1MouseClicked
 
-    public int getId() {
-        return id;
-    }
+     public int getId() {
+          return id;
+     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+     public void setId(int id) {
+          this.id = id;
+     }
 
-    public JPanel getListGetProduct() {
-        return listGetProduct;
-    }
+     public JPanel getListGetProduct() {
+          return listGetProduct;
+     }
 
-    public void setListGetProduct(JPanel listGetProduct) {
-        this.listGetProduct = listGetProduct;
-    }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public void setListGetProduct(JPanel listGetProduct) {
+          this.listGetProduct = listGetProduct;
+     }
+
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DiscountByItem dialog = new DiscountByItem(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(DiscountByItem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    DiscountByItem dialog = new DiscountByItem(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel1;

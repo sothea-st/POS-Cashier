@@ -37,7 +37,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-
 public class LoginFormJdailog extends javax.swing.JDialog {
 
      public JPanel getPanelPagination() {
@@ -75,7 +74,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private String catIdIndex0;
      private String catName;
      private SearchField searchBox;
- 
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -222,16 +220,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
-         
-         String userId="0005";
-         String password="TT@126$kh#";
+
+         String userId = "0005";
+         String password = "TT@126$kh#";
 
          JSONObject json = new JSONObject();
          json.put("userCode", userId);
          json.put("password", password);
 
          try {
-             
+
               if (userId == null || userId.isEmpty()) {
                    JOptionPane.showMessageDialog(this, "User ID can not be empty!");
                    return;
@@ -254,7 +252,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                         j.setMessage(model.getRoleName());
                         j.setVisible(true);
-
                         return;
                    }
 
