@@ -1,21 +1,43 @@
 
 package Discount;
 
+import Color.WindowColor;
+import Components.SubtotalPanel;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
-import javax.swing.JFrame;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 public class OverallDiscount extends javax.swing.JDialog {
 
+    private HashMap<String, String> map = new HashMap<>();
+    private String keyValue;
+    private SubtotalPanel totalPanel;
+    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+    DecimalFormat kh = new DecimalFormat("#,##0");
+    
+    //Constructor
     public OverallDiscount(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         event();
         disValue.requestFocus();
-        disValue.setLabelTextField("$ 0.00");
+        disValue.setLabelTextField("0");
+        panelDiscountType.setBackground(WindowColor.mediumGreen);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
+        addComboBox();
+        ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    keyValue = key;
+               }
+          };
+        disType.initEvent(events);
     }
     
+    //placeholder
     void event() {
         ButtonEvent btnevent = new ButtonEvent() {
              @Override
@@ -25,7 +47,16 @@ public class OverallDiscount extends javax.swing.JDialog {
         };
         disValue.initEvent(btnevent);
     }
+    
+    //Combobox
+    private void addComboBox() {
 
+           map.put("Cash (USD)","cashUsd");
+           map.put("Percent (%)","percent");
+           disType.setMap(map);
+     }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,6 +90,12 @@ public class OverallDiscount extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setText("*");
+
+        buttonSave1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonSave1MouseClicked(evt);
+            }
+        });
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,6 +177,42 @@ public class OverallDiscount extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
+    //save action
+    private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
+        
+        if (keyValue == null) {
+            JOptionPane.showMessageDialog(this, "Please select discount type!");
+            return;
+        }
+        
+        if (disValue.getValueTextField().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Discount value can not be empty!");
+            return;
+        }
+ 
+        double discount = JavaConstant.getReplace(disValue.getValueTextField());
+        double subTotal = JavaConstant.getReplace(totalPanel.getLabelSubtotalUsd());
+        double totalPrice = 0;
+        if(keyValue.equals("cashUsd")){
+            
+            totalPrice = subTotal-discount;
+            totalPanel.setLableDiscountUsd(dm.format(discount));
+            totalPanel.setLableDiscountKhr(kh.format( discount * JavaConstant.exchangeRate));
+           
+        }else if(keyValue.equals("percent")){
+            double percentValue = (discount*subTotal)/100;
+            totalPrice = subTotal-percentValue;
+            totalPanel.setLableDiscountUsd(dm.format(percentValue));
+            totalPanel.setLableDiscountKhr(kh.format( percentValue * JavaConstant.exchangeRate));
+        }
+        
+        totalPanel.setLableTotalUsd(dm.format(totalPrice));
+        totalPanel.setLableTotalKhr(kh.format( totalPrice * JavaConstant.exchangeRate));
+        totalPanel.revalidate();
+        totalPanel.repaint();
+        this.dispose();
+    }//GEN-LAST:event_buttonSave1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -181,6 +254,14 @@ public class OverallDiscount extends javax.swing.JDialog {
             }
         });
     }
+    
+     public SubtotalPanel getTotalPanel() {
+          return totalPanel;
+     }
+
+     public void setTotalPanel(SubtotalPanel totalPanel) {
+          this.totalPanel = totalPanel;
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel1;

@@ -940,6 +940,8 @@ public class MainPage extends javax.swing.JFrame {
 
           if (JavaConstant.token != null) {
                DiscountType dis = new DiscountType(new JFrame(), true);
+               dis.setSubtotalPanel(totalPanel);
+               dis.setDetailItem(detailItem);
                dis.setVisible(true);
           } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
