@@ -2,6 +2,9 @@ package View.MainPage;
 
 import Color.WindowColor;
 import Components.BackgroundImage;
+import Components.BoxItem;
+import Components.DialonInputName;
+import Components.HistoryHoldOrder;
 import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -15,9 +18,12 @@ import DeleteAndCancel.CancelDialog;
 import Discount.DiscountType;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import HoldOrder.ListHoldOrder;
 import LoginAndLogoutForm.LoginFormJdailog;
 import LoginAndLogoutForm.LogoutDialog;
 import Model.CashierReport.DataSuccessModelReport;
+import Model.HoldOrder.HoldOrderModel;
+import Model.HoldOrder.NewHoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import OpenAndCloseShift.CloseShift;
@@ -299,6 +305,7 @@ public class MainPage extends javax.swing.JFrame {
           panelPagination.setBackground(WindowColor.slightGreen);
           boxOne.setBackground(WindowColor.slightGreen);
           detailItem.setBackground(WindowColor.slightGreen);
+          panelCart.setBackground(WindowColor.darkGreen);
      }
 
      private void currenDateTime() {
@@ -317,13 +324,16 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneCategory = new javax.swing.JScrollPane();
           category = new javax.swing.JPanel();
           textField = new Components.TextField();
+          panelCart = new javax.swing.JPanel();
+          countCircleShape = new Components.countCircleShape();
+          jLabel1 = new javax.swing.JLabel();
           lbLogo = new javax.swing.JLabel();
           imgUser = new javax.swing.JLabel();
           day = new javax.swing.JPanel();
           panelprocessing = new javax.swing.JPanel();
           totalPanel = new Components.SubtotalPanel();
           btnReturn = new Button.Button();
-          button3 = new Button.Button();
+          buttonHoldOrder = new Button.Button();
           btnPayment = new Button.Button();
           btnLogin = new Button.Button();
           btnOpenShift = new Button.Button();
@@ -378,12 +388,23 @@ public class MainPage extends javax.swing.JFrame {
           );
           panelCategoryLayout.setVerticalGroup(
                panelCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGap(0, 0, Short.MAX_VALUE)
+               .addGap(0, 46, Short.MAX_VALUE)
                .addGroup(panelCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
           );
 
           textField.setLabelTextField("Scan or input barcode");
+
+          panelCart.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    panelCartMouseClicked(evt);
+               }
+          });
+          panelCart.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+          panelCart.add(countCircleShape, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
+
+          jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\mobile-app.02\\Desktop\\project\\fronent java\\king mart\\tt_pos_window\\src\\main\\resources\\image\\shopping-cart.png")); // NOI18N
+          panelCart.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 5, -1, -1));
 
           javax.swing.GroupLayout menuBarLayout = new javax.swing.GroupLayout(menuBar);
           menuBar.setLayout(menuBarLayout);
@@ -393,14 +414,18 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(37, 37, 37))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(panelCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(22, 22, 22))
           );
           menuBarLayout.setVerticalGroup(
                menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(menuBarLayout.createSequentialGroup()
-                    .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                         .addComponent(panelCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
+                    .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                              .addComponent(textField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(panelCart, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
 
@@ -427,11 +452,11 @@ public class MainPage extends javax.swing.JFrame {
                }
           });
 
-          button3.setBackground(new java.awt.Color(255, 204, 0));
-          button3.setButtonName("Hold Order");
-          button3.addMouseListener(new java.awt.event.MouseAdapter() {
+          buttonHoldOrder.setBackground(new java.awt.Color(255, 204, 0));
+          buttonHoldOrder.setButtonName("Hold Order");
+          buttonHoldOrder.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    button3MouseClicked(evt);
+                    buttonHoldOrderMouseClicked(evt);
                }
           });
 
@@ -524,7 +549,7 @@ public class MainPage extends javax.swing.JFrame {
                                    .addGroup(panelprocessingLayout.createSequentialGroup()
                                         .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(btnReprint, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                             .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                             .addComponent(buttonHoldOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -540,7 +565,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(buttonHoldOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(btnPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -944,26 +969,65 @@ public class MainPage extends javax.swing.JFrame {
           }
      }
 
+     
+     int clicked = 0;
      //Action Button Holder
-     private void button3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button3MouseClicked
+     private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
 
-          if (JavaConstant.token != null) {
-               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
-               rep.setTitle("Hold Order");
-               rep.setTextButtonLeft("Hold history");
-               rep.setTextButtonRight("Add hold order");
-               rep.setTypeForm("hold");
-               rep.setDetailItem(detailItem);
-               rep.setSubtotalPanel(totalPanel);
-               rep.setBtnPayment(btnPayment);
-               rep.setVisible(true);
-          } else {
+//          if (JavaConstant.token != null) {
+//               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
+//               rep.setTitle("Hold Order");
+//               rep.setTextButtonLeft("Hold history");
+//               rep.setTextButtonRight("Add hold order");
+//               rep.setTypeForm("hold");
+//               rep.setDetailItem(detailItem);
+//               rep.setSubtotalPanel(totalPanel);
+//               rep.setBtnPayment(btnPayment);
+//               rep.setVisible(true);
+//          } else {
+//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//               j.setMessage(MessageAlert.Message.OverallMessage);
+//               j.setVisible(true);
+//               return;
+//          }
+
+
+        if (JavaConstant.token != null) {
+            Component[] listCom1 = detailItem.getComponents();
+              if (listCom1.length == 0) {
+                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                   j.setMessage("Cannot add hold order!");
+                   j.setVisible(true);
+                   return;
+              }
+              
+            btnPayment.setBackground(WindowColor.lightGray);
+            Component[] listHold = detailItem.getComponents();
+            
+            int qty = 0;
+            for (int i = 0; i < listHold.length; i++) {
+                 var box = ((BoxItem) listHold[i]);
+                 qty += box.getQty();
+            }
+            
+            clicked++;
+            NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
+            JavaConstant.listHoldOrder.add(hh);
+            
+            countCircleShape.setCountTimes(""+clicked);   
+            
+            detailItem.removeAll();
+            detailItem.revalidate();
+            detailItem.repaint();
+            totalPanel.setLabelSubTitleToZero();
+              
+        } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage(MessageAlert.Message.OverallMessage);
                j.setVisible(true);
                return;
-          }
-     }//GEN-LAST:event_button3MouseClicked
+        }
+     }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
      private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
 
@@ -1002,6 +1066,17 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCustomerMouseClicked
 
+    //Action show hold order
+    private void panelCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseClicked
+        ListHoldOrder hold = new ListHoldOrder(new JFrame(), true);
+        hold.setDetailItem(detailItem);
+        hold.setSubtotalPanel(totalPanel);
+        hold.setBtnPayment(btnPayment);
+        hold.setVisible(true);
+    }//GEN-LAST:event_panelCartMouseClicked
+
+    
+    
      //Function call Placeholder
      void event() {
           ButtonEvent btnevent = new ButtonEvent() {
@@ -1084,17 +1159,19 @@ public class MainPage extends javax.swing.JFrame {
      private Button.Button btnPayment;
      private Button.Button btnReprint;
      private Button.Button btnReturn;
-     private Button.Button button3;
      private ButtonPackage.ButtonCancel buttonCancel1;
      private Button.Button buttonCashier;
      private Button.Button buttonCustomer;
      private Button.Button buttonDiscount;
+     private Button.Button buttonHoldOrder;
      private javax.swing.JPanel category;
      private Components.ComboBox cmboxBrand;
+     private Components.countCircleShape countCircleShape;
      private javax.swing.JLabel currentDate;
      private javax.swing.JPanel day;
      private javax.swing.JPanel detailItem;
      private javax.swing.JLabel imgUser;
+     private javax.swing.JLabel jLabel1;
      private javax.swing.JScrollPane jScrollPane2;
      private javax.swing.JScrollPane jScrollPaneCategory;
      private javax.swing.JScrollPane jScrollPaneDetail;
@@ -1105,6 +1182,7 @@ public class MainPage extends javax.swing.JFrame {
      private javax.swing.JPanel mainPanel;
      private javax.swing.JPanel menuBar;
      private Components.LabelFontGreen next;
+     private javax.swing.JPanel panelCart;
      private javax.swing.JPanel panelCategory;
      private javax.swing.JPanel panelPagination;
      private javax.swing.JPanel panelProduct;

@@ -145,16 +145,21 @@
                       <Component id="panelCategory" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="textField" min="-2" pref="259" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="panelCart" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="panelCategory" max="32767" attributes="0"/>
-                          <Component id="textField" pref="43" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="panelCategory" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="textField" alignment="0" max="32767" attributes="0"/>
+                              <Component id="panelCart" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -179,7 +184,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="46" max="32767" attributes="0"/>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Component id="jScrollPaneCategory" alignment="0" pref="43" max="32767" attributes="0"/>
                       </Group>
@@ -220,6 +225,36 @@
                 <Property name="labelTextField" type="java.lang.String" value="Scan or input barcode"/>
               </Properties>
             </Component>
+            <Container class="javax.swing.JPanel" name="panelCart">
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelCartMouseClicked"/>
+              </Events>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+                <Property name="useNullLayout" type="boolean" value="false"/>
+              </Layout>
+              <SubComponents>
+                <Component class="Components.countCircleShape" name="countCircleShape">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="30" y="0" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="2" name="C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\src\main\resources\image\shopping-cart.png"/>
+                    </Property>
+                  </Properties>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                      <AbsoluteConstraints x="6" y="5" width="-1" height="-1"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="lbLogo">
@@ -276,7 +311,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="btnReprint" pref="0" max="32767" attributes="0"/>
-                                          <Component id="button3" pref="0" max="32767" attributes="0"/>
+                                          <Component id="buttonHoldOrder" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -300,7 +335,7 @@
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnReturn" min="-2" max="-2" attributes="0"/>
-                          <Component id="button3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonHoldOrder" min="-2" max="-2" attributes="0"/>
                           <Component id="btnPayment" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonCancel1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -335,7 +370,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnReturnMouseClicked"/>
               </Events>
             </Component>
-            <Component class="Button.Button" name="button3">
+            <Component class="Button.Button" name="buttonHoldOrder">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="cc" red="ff" type="rgb"/>
@@ -343,7 +378,7 @@
                 <Property name="buttonName" type="java.lang.String" value="Hold Order"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button3MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonHoldOrderMouseClicked"/>
               </Events>
             </Component>
             <Component class="Button.Button" name="btnPayment">
