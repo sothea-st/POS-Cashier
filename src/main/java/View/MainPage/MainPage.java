@@ -414,9 +414,9 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGap(28, 28, 28)
                     .addComponent(panelCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(22, 22, 22))
+                    .addContainerGap())
           );
           menuBarLayout.setVerticalGroup(
                menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -974,59 +974,59 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
 
-//          if (JavaConstant.token != null) {
-//               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
-//               rep.setTitle("Hold Order");
-//               rep.setTextButtonLeft("Hold history");
-//               rep.setTextButtonRight("Add hold order");
-//               rep.setTypeForm("hold");
-//               rep.setDetailItem(detailItem);
-//               rep.setSubtotalPanel(totalPanel);
-//               rep.setBtnPayment(btnPayment);
-//               rep.setVisible(true);
-//          } else {
-//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//               j.setMessage(MessageAlert.Message.OverallMessage);
-//               j.setVisible(true);
-//               return;
-//          }
-
-
-        if (JavaConstant.token != null) {
-            Component[] listCom1 = detailItem.getComponents();
-              if (listCom1.length == 0) {
-                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                   j.setMessage("Cannot add hold order!");
-                   j.setVisible(true);
-                   return;
-              }
-              
-            btnPayment.setBackground(WindowColor.lightGray);
-            Component[] listHold = detailItem.getComponents();
-            
-            int qty = 0;
-            for (int i = 0; i < listHold.length; i++) {
-                 var box = ((BoxItem) listHold[i]);
-                 qty += box.getQty();
-            }
-            
-            clicked++;
-            NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
-            JavaConstant.listHoldOrder.add(hh);
-            
-            countCircleShape.setCountTimes(""+clicked);   
-            
-            detailItem.removeAll();
-            detailItem.revalidate();
-            detailItem.repaint();
-            totalPanel.setLabelSubTitleToZero();
-              
-        } else {
+          if (JavaConstant.token != null) {
+               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
+               rep.setTitle("Hold Order");
+               rep.setTextButtonLeft("Hold history");
+               rep.setTextButtonRight("Add hold order");
+               rep.setTypeForm("hold");
+               rep.setDetailItem(detailItem);
+               rep.setSubtotalPanel(totalPanel);
+               rep.setBtnPayment(btnPayment);
+               rep.setVisible(true);
+          } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage(MessageAlert.Message.OverallMessage);
                j.setVisible(true);
                return;
-        }
+          }
+
+//
+//        if (JavaConstant.token != null) {
+//            Component[] listCom1 = detailItem.getComponents();
+//              if (listCom1.length == 0) {
+//                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//                   j.setMessage("Cannot add hold order!");
+//                   j.setVisible(true);
+//                   return;
+//              }
+//              
+//            btnPayment.setBackground(WindowColor.lightGray);
+//            Component[] listHold = detailItem.getComponents();
+//            
+//            int qty = 0;
+//            for (int i = 0; i < listHold.length; i++) {
+//                 var box = ((BoxItem) listHold[i]);
+//                 qty += box.getQty();
+//            }
+//            
+//            clicked++;
+//            NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
+//            JavaConstant.listHoldOrder.add(hh);
+//            
+//            countCircleShape.setCountTimes(""+clicked);   
+//            
+//            detailItem.removeAll();
+//            detailItem.revalidate();
+//            detailItem.repaint();
+//            totalPanel.setLabelSubTitleToZero();
+//              
+//        } else {
+//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//               j.setMessage(MessageAlert.Message.OverallMessage);
+//               j.setVisible(true);
+//               return;
+//        }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
      private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
