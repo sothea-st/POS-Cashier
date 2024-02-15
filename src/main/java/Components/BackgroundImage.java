@@ -3,6 +3,7 @@ package Components;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import okhttp3.Response;
 
@@ -44,13 +45,13 @@ public class BackgroundImage extends javax.swing.JPanel {
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+                    .addGap(50, 50, 50))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 0, 0)
+                    .addContainerGap()
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
           );
      }// </editor-fold>//GEN-END:initComponents

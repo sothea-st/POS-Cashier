@@ -16,6 +16,7 @@ import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import Products.ProductBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -49,10 +50,12 @@ public class ActionProduct {
      private Button btnPayment;
      private JPanel panelPagination;
      private int count;
-
+     
      public ActionProduct() {
      }
 
+
+     
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "");
@@ -63,6 +66,7 @@ public class ActionProduct {
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
                     setCount(data.getCount());
+//                    JavaConstant.listData = listData;
                     assignProduct(listData, panelProduct);
                } else {
                     System.err.println("fail loading product");
@@ -98,12 +102,12 @@ public class ActionProduct {
      }
 
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
-
+          
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 1};
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0,0,0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0,0,0,1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0,0,0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0,0,0, 1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
@@ -116,8 +120,10 @@ public class ActionProduct {
                gbc.gridx = x;
                gbc.gridy = y;
                gbc.gridwidth = 1;
+//               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
-               gbc.insets = new Insets(5, 0, 5, 10);
+             
+               gbc.insets = new Insets(5, 0, 5, 0);
                x++;
                if (x == 5) {
                     x = 0;
@@ -144,6 +150,7 @@ public class ActionProduct {
 
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
+                                   System.err.println("listdata ffff = " + listData);
                                    eventBtnBuy(listData);
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
@@ -209,6 +216,7 @@ public class ActionProduct {
                }
 
                panelProduct.add(product, gbc);
+             
           }
      }
 

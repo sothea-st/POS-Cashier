@@ -85,6 +85,7 @@ Constant\JavaConnection.class
 Customer\Customer$1.class
 Model\Reprint\DataSuccessModel.class
 Components\HistoryHoldOrder$4$1.class
+View\MainPage\MainPage$18.class
 Model\Login\LoginModel.class
 Constant\JavaRoundUpKhr.class
 MessageAlert\Message.class

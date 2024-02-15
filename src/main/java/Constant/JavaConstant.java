@@ -1,6 +1,7 @@
 package Constant;
 
 import Model.HoldOrder.HoldOrderModel;
+import Model.ProductModel.ProductDataModel;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,9 +61,12 @@ public class JavaConstant {
           }
           return Double.parseDouble(value);
      }
-     
+
      public static String byBrandId = "Select By BrandID";
      public static String byCatID = "Select By CatID";
      public static String noResult = "No Result";
-     
+
+//     public static int rowNum = 5;
+//     public static ProductDataModel[] listData;
+
 }
