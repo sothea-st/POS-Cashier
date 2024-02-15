@@ -86,7 +86,7 @@ public class MainPage extends javax.swing.JFrame {
           existFun();
           setIconImage(new ImageIcon(bg).getImage());
           setTitle("King Mart");
-          setExtendedState(JFrame.MAXIMIZED_BOTH);
+//          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           addComponentListener(new ComponentAdapter() {
@@ -974,60 +974,59 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
 
-//          if (JavaConstant.token != null) {
-//               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
-//               rep.setTitle("Hold Order");
-//               rep.setTextButtonLeft("Hold history");
-//               rep.setTextButtonRight("Add hold order");
-//               rep.setTypeForm("hold");
-//               rep.setDetailItem(detailItem);
-//               rep.setSubtotalPanel(totalPanel);
-//               rep.setBtnPayment(btnPayment);
-//               rep.setVisible(true);
-//          } else {
-//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//               j.setMessage(MessageAlert.Message.OverallMessage);
-//               j.setVisible(true);
-//               return;
-//          }
-
-
-        if (JavaConstant.token != null) {
-            Component[] listCom1 = detailItem.getComponents();
-              if (listCom1.length == 0) {
-                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                   j.setMessage("Cannot add hold order!");
-                   j.setVisible(true);
-                   return;
-              }
-              
-            btnPayment.setBackground(WindowColor.lightGray);
-            Component[] listHold = detailItem.getComponents();
-            
-            int qty = 0;
-            for (int i = 0; i < listHold.length; i++) {
-                 var box = ((BoxItem) listHold[i]);
-                 qty += box.getQty();
-            }
-            
-            clicked++;
-            NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
-            JavaConstant.listHoldOrder.add(hh);
-            
-            int countRow = JavaConstant.listHoldOrder.size();
-            countCircleShape.setCountTimes(""+countRow);
-            
-            detailItem.removeAll();
-            detailItem.revalidate();
-            detailItem.repaint();
-            totalPanel.setLabelSubTitleToZero();
-              
-        } else {
+          if (JavaConstant.token != null) {
+               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
+               rep.setTitle("Hold Order");
+               rep.setTextButtonLeft("Hold history");
+               rep.setTextButtonRight("Add hold order");
+               rep.setTypeForm("hold");
+               rep.setDetailItem(detailItem);
+               rep.setSubtotalPanel(totalPanel);
+               rep.setBtnPayment(btnPayment);
+               rep.setVisible(true);
+          } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage(MessageAlert.Message.OverallMessage);
                j.setVisible(true);
                return;
-        }
+          }
+
+//
+//        if (JavaConstant.token != null) {
+//            Component[] listCom1 = detailItem.getComponents();
+//              if (listCom1.length == 0) {
+//                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//                   j.setMessage("Cannot add hold order!");
+//                   j.setVisible(true);
+//                   return;
+//              }
+//              
+//            btnPayment.setBackground(WindowColor.lightGray);
+//            Component[] listHold = detailItem.getComponents();
+//            
+//            int qty = 0;
+//            for (int i = 0; i < listHold.length; i++) {
+//                 var box = ((BoxItem) listHold[i]);
+//                 qty += box.getQty();
+//            }
+//            
+//            clicked++;
+//            NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
+//            JavaConstant.listHoldOrder.add(hh);
+//            
+//            countCircleShape.setCountTimes(""+clicked);   
+//            
+//            detailItem.removeAll();
+//            detailItem.revalidate();
+//            detailItem.repaint();
+//            totalPanel.setLabelSubTitleToZero();
+//              
+//        } else {
+//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//               j.setMessage(MessageAlert.Message.OverallMessage);
+//               j.setVisible(true);
+//               return;
+//        }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
      private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered

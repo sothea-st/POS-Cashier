@@ -6,6 +6,7 @@ import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import Model.HoldOrder.HoldOrderModel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -31,10 +32,19 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
           setResizable(false);
           buttonCancel.setButtonName("Close");
           ActionProduct actionProduct = new ActionProduct();
-          for (int i = 0; i < JavaConstant.listHoldData.size(); i++) {
-               String name = JavaConstant.listHoldData.get(i).getCustomerName();
-               int qty = JavaConstant.listHoldData.get(i).getQty();
-               Component[] listCom = JavaConstant.listHoldData.get(i).getListCom();
+
+        
+          callHistoryHold(JavaConstant.listHoldData);
+          panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
+          panelHold.setBorder(new EmptyBorder(0, 0, 0, 0));
+
+     }
+
+     void callHistoryHold( ArrayList<HoldOrderModel> listHoldData) {
+          for (int i = 0; i < listHoldData.size(); i++) {
+               String name = listHoldData.get(i).getCustomerName();
+               int qty = listHoldData.get(i).getQty();
+               Component[] listCom = listHoldData.get(i).getListCom();
                HoldItem h = new HoldItem();
                int index = i;
                ButtonEvent events = new ButtonEvent() {
@@ -51,29 +61,28 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
                          detailItem.setBackground(WindowColor.white);
                          subtotalPanel.total(0, listCom, 0, subtotalPanel);
                          JavaConstant.indexArrayListHold = index;
-                       
+
                          btnPayment.setBackground(WindowColor.lightBlue);
                          dispose();
                     }
 
                     @Override
                     public void onRemove(String key) {
-                         JavaConstant.listHoldData.remove(index);
+                         listHoldData.remove(index);
                          panelHold.remove(index);
+                         panelHold.removeAll();
+                         callHistoryHold(JavaConstant.listHoldData);
                          refreshPanel();
                     }
                };
 
                h.initEvent(events);
-               h.setName(name);
+               h.setName(name + "  " + index);
                h.setQty("" + qty);
                panelHold.add(h);
                refreshPanel();
 //               panelHold.add(Box.createRigidArea(new Dimension(2, 2)));
           }
-          panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
-          panelHold.setBorder(new EmptyBorder(0, 0, 0, 0));
-
      }
 
      void refreshPanel() {
@@ -217,11 +226,10 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
      }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void removeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeMouseClicked
-        
-         
-        panelHold.removeAll();
-        refreshPanel();
-        JavaConstant.listHoldData.clear();
+
+         panelHold.removeAll();
+         refreshPanel();
+         JavaConstant.listHoldData.clear();
     }//GEN-LAST:event_removeMouseClicked
 
      public static void main(String args[]) {
@@ -263,8 +271,6 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
      public void setBtnPayment(Button btnPayment) {
           this.btnPayment = btnPayment;
      }
-     
-     
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
