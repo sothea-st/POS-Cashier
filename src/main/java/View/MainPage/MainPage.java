@@ -980,8 +980,11 @@ public class MainPage extends javax.swing.JFrame {
             NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
             JavaConstant.listHoldOrder.add(hh);
             
-            countCircleShape.setCountTimes(""+clicked);   
-            
+            int countRow = JavaConstant.listHoldOrder.size();
+            countCircleShape.setCountTimes(""+countRow);   
+            countCircleShape.revalidate();
+            countCircleShape.repaint();
+
             detailItem.removeAll();
             detailItem.revalidate();
             detailItem.repaint();
