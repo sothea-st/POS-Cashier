@@ -5,12 +5,15 @@ import Button.Button;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.SubtotalPanel;
+import Components.countCircleShape;
 import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
@@ -22,6 +25,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private JPanel detailItem;
     private SubtotalPanel subtotalPanel;
     private Button btnPayment;
+    private countCircleShape countCircleShape; 
 
     public ListHoldOrder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -61,6 +65,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          
                          JavaConstant.listHoldOrder.remove(index);
                          panelHold.remove(index);
+                         countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
+                         countCircleShape.revalidate();
+                         countCircleShape.repaint();
                          refreshPanel();
                     }
 
@@ -68,6 +75,11 @@ public class ListHoldOrder extends javax.swing.JDialog {
                     public void onRemove(String key) {
                          JavaConstant.listHoldOrder.remove(index);
                          panelHold.remove(index);
+                         
+                         countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
+                         countCircleShape.revalidate();
+                         countCircleShape.repaint();
+                         
                          refreshPanel();
                     }
                };
@@ -227,6 +239,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
         panelHold.removeAll();
         refreshPanel();
         JavaConstant.listHoldOrder.clear();
+        countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
+        countCircleShape.revalidate();
+        countCircleShape.repaint();
     }//GEN-LAST:event_removeMouseClicked
 
     public JPanel getDetailItem() {
@@ -251,6 +266,14 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
     public void setBtnPayment(Button btnPayment) {
         this.btnPayment = btnPayment;
+    }
+
+    public countCircleShape getCountCircleShape() {
+        return countCircleShape;
+    }
+
+    public void setCountCircleShape(countCircleShape countCircleShape) {
+        this.countCircleShape = countCircleShape;
     }
 
     

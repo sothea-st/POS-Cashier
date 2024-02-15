@@ -9,6 +9,7 @@ import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
+import Controller.ActionProduct.ActionProduct;
 import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProduct;
 import Customer.Customer;
@@ -34,7 +35,9 @@ import Return.ApprovalCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Toolkit;
+import java.awt.Dimension;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
@@ -44,6 +47,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import okhttp3.Response;
 
@@ -82,6 +86,32 @@ public class MainPage extends javax.swing.JFrame {
           existFun();
           setIconImage(new ImageIcon(bg).getImage());
           setTitle("King Mart");
+          setExtendedState(JFrame.MAXIMIZED_BOTH);
+          currentDate.setVisible(false);
+
+          addComponentListener(new ComponentAdapter() {
+               @Override
+               public void componentResized(ComponentEvent e) {
+                    Dimension size = getSize();
+                    double width = size.width;
+                    System.err.println("width = " + size.width + " height = " + size.height);
+ 
+                    if (width <= 1478 || size.height <= 825) {
+                         JOptionPane.showMessageDialog(null, "There are limited for resizing!");
+                         setSize(1479, 826);
+                         jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+//                         JavaConstant.rowNum = 4;
+//                         ActionProduct a = new ActionProduct();
+//                         panelProduct.removeAll();
+//                         panelProduct.revalidate();
+//                         panelProduct.repaint();
+//                         a.assignProduct(JavaConstant.listData, panelProduct);
+                    }
+
+ 
+               }
+          });
+
      }
 
      void existFun() {
@@ -109,7 +139,7 @@ public class MainPage extends javax.swing.JFrame {
           Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "King Mart Small Logo.png");
           if (response.isSuccessful()) {
                try {
-                     bg = response.body().bytes();
+                    bg = response.body().bytes();
                     lbLogo.setIcon(new ImageIcon(bg));
                } catch (Exception e) {
                     System.err.println("error = " + e);
@@ -382,11 +412,11 @@ public class MainPage extends javax.swing.JFrame {
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuBarLayout.createSequentialGroup()
                 .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
         menuBarLayout.setVerticalGroup(
             menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,7 +633,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPaginationLayout.createSequentialGroup()
                         .addComponent(previous, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,14 +680,14 @@ public class MainPage extends javax.swing.JFrame {
                         .addComponent(lbPOSId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 47, Short.MAX_VALUE)))
                 .addGap(38, 38, 38))
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(93, 93, 93)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
@@ -720,26 +750,30 @@ public class MainPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+     private void loginFunc() {
+          jdFormLogin.setBoxUserName(boxUserName);
+          jdFormLogin.setBtnLogin(btnLogin);
+          jdFormLogin.setCategory(category);
+          jdFormLogin.setPanelProduct(panelProduct);
+          jdFormLogin.setjScrollPaneCategory(jScrollPaneCategory);
+          jdFormLogin.setPanelPagination(panelPagination);
+          jdFormLogin.setDetailItem(detailItem);
+          jdFormLogin.setBoxOne(boxOne);
+          jdFormLogin.setSubtotalPanel(totalPanel);
+          jdFormLogin.setBtnPayment(btnPayment);
+          jdFormLogin.setCmboxBrand(cmboxBrand);
+          jdFormLogin.setBtnOpenShift(btnOpenShift);
+          jdFormLogin.setLbPOSId(lbPOSId);
+          jdFormLogin.setLimit(limit);
+          jdFormLogin.setSearchBox(searchBox);
+          jdFormLogin.setBtnPayment(btnPayment);
+     }
+
      //Action Button Login and Logout
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
          String buttonName = btnLogin.getButtonName().toLowerCase();
          if (buttonName.equals("login")) {
-              jdFormLogin.setBoxUserName(boxUserName);
-              jdFormLogin.setBtnLogin(btnLogin);
-              jdFormLogin.setCategory(category);
-              jdFormLogin.setPanelProduct(panelProduct);
-              jdFormLogin.setjScrollPaneCategory(jScrollPaneCategory);
-              jdFormLogin.setPanelPagination(panelPagination);
-              jdFormLogin.setDetailItem(detailItem);
-              jdFormLogin.setBoxOne(boxOne);
-              jdFormLogin.setSubtotalPanel(totalPanel);
-              jdFormLogin.setBtnPayment(btnPayment);
-              jdFormLogin.setCmboxBrand(cmboxBrand);
-              jdFormLogin.setBtnOpenShift(btnOpenShift);
-              jdFormLogin.setLbPOSId(lbPOSId);
-              jdFormLogin.setLimit(limit);
-              jdFormLogin.setSearchBox(searchBox);
-              jdFormLogin.setBtnPayment(btnPayment);
+              loginFunc();
               jdFormLogin.setVisible(true);
          } else if (buttonName.equals("logout")) {
               LogoutDialog logout = new LogoutDialog(new JFrame(), true);
@@ -981,10 +1015,8 @@ public class MainPage extends javax.swing.JFrame {
             JavaConstant.listHoldOrder.add(hh);
             
             int countRow = JavaConstant.listHoldOrder.size();
-            countCircleShape.setCountTimes(""+countRow);   
-            countCircleShape.revalidate();
-            countCircleShape.repaint();
-
+            countCircleShape.setCountTimes(""+countRow);
+            
             detailItem.removeAll();
             detailItem.revalidate();
             detailItem.repaint();
@@ -1041,6 +1073,7 @@ public class MainPage extends javax.swing.JFrame {
         hold.setDetailItem(detailItem);
         hold.setSubtotalPanel(totalPanel);
         hold.setBtnPayment(btnPayment);
+        hold.setCountCircleShape(countCircleShape);
         hold.setVisible(true);
     }//GEN-LAST:event_panelCartMouseClicked
 
