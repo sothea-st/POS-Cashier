@@ -1,6 +1,7 @@
 package Constant;
 
 import Model.HoldOrder.HoldOrderModel;
+import Model.HoldOrder.NewHoldOrderModel;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class JavaConstant {
      }
 
      public static ArrayList<HoldOrderModel> listHoldData = new ArrayList<>();
+     public static ArrayList<NewHoldOrderModel> listHoldOrder= new ArrayList<>();
      public static int indexArrayListHold = 0;
      public static boolean checkOpenShift = false;
      public static String openShiftFirst = "You have to open shift first!";
