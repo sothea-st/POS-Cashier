@@ -4,13 +4,20 @@ package HoldOrder;
 import Button.Button;
 import Color.WindowColor;
 import Components.BoxItem;
+import Components.HoldItem;
 import Components.SubtotalPanel;
+import Components.countCircleShape;
 import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import Model.HoldOrder.HoldOrderModel;
+import Model.HoldOrder.NewHoldOrderModel;
+import java.awt.Color;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
@@ -22,6 +29,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private JPanel detailItem;
     private SubtotalPanel subtotalPanel;
     private Button btnPayment;
+    private countCircleShape countCircleShape; 
 
     public ListHoldOrder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -34,12 +42,18 @@ public class ListHoldOrder extends javax.swing.JDialog {
           setResizable(false);
           buttonCancel.setButtonName("Close");
           
-          ActionProduct actionProduct = new ActionProduct();
-          for (int i = 0; i < JavaConstant.listHoldOrder.size(); i++) {
-               int qty = JavaConstant.listHoldOrder.get(i).getQty();
+          callHistoryHold(JavaConstant.listHoldOrder);
+          panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
+          panelHold.setBorder(new EmptyBorder(0, 0, 0, 0));
+    }
+          
+     void callHistoryHold( ArrayList<NewHoldOrderModel> listHoldOrder) {
+         
+         for (int i = 0; i < listHoldOrder.size(); i++) {
                int number = JavaConstant.listHoldOrder.get(i).getNumber();
-               Component[] listCom = JavaConstant.listHoldOrder.get(i).getListCom();
-               HoldOrder.HoldItems h = new HoldOrder.HoldItems();
+               int qty = listHoldOrder.get(i).getQty();
+               Component[] listCom = listHoldOrder.get(i).getListCom();
+               HoldItems h = new HoldItems();
                int index = i;
                ButtonEvent events = new ButtonEvent() {
                     @Override
@@ -55,19 +69,29 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          detailItem.setBackground(WindowColor.white);
                          subtotalPanel.total(0, listCom, 0, subtotalPanel);
                          JavaConstant.indexArrayListHold = index;
-                       
+
                          btnPayment.setBackground(WindowColor.lightBlue);
                          dispose();
                          
-                         JavaConstant.listHoldOrder.remove(index);
+                         listHoldOrder.remove(index);
                          panelHold.remove(index);
+                         panelHold.removeAll();
+                         callHistoryHold(JavaConstant.listHoldOrder);
+                         countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
+                         countCircleShape.revalidate();
+                         countCircleShape.repaint();
                          refreshPanel();
                     }
 
                     @Override
                     public void onRemove(String key) {
-                         JavaConstant.listHoldOrder.remove(index);
+                         listHoldOrder.remove(index);
                          panelHold.remove(index);
+                         panelHold.removeAll();
+                         callHistoryHold(JavaConstant.listHoldOrder);
+                         countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
+                         countCircleShape.revalidate();
+                         countCircleShape.repaint();
                          refreshPanel();
                     }
                };
@@ -78,8 +102,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
                panelHold.add(h);
                refreshPanel();
           }
-          panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
-          panelHold.setBorder(new EmptyBorder(0, 0, 0, 0));
     }
     
     @SuppressWarnings("unchecked")
@@ -227,6 +249,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
         panelHold.removeAll();
         refreshPanel();
         JavaConstant.listHoldOrder.clear();
+        countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
+        countCircleShape.revalidate();
+        countCircleShape.repaint();
     }//GEN-LAST:event_removeMouseClicked
 
     public JPanel getDetailItem() {
@@ -251,6 +276,14 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
     public void setBtnPayment(Button btnPayment) {
         this.btnPayment = btnPayment;
+    }
+
+    public countCircleShape getCountCircleShape() {
+        return countCircleShape;
+    }
+
+    public void setCountCircleShape(countCircleShape countCircleShape) {
+        this.countCircleShape = countCircleShape;
     }
 
     

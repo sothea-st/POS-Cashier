@@ -20,106 +20,103 @@ public class GetProduct extends javax.swing.JPanel {
     }
 
     @SuppressWarnings("unchecked")
-     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-          getProduct = new javax.swing.JPanel();
-          edit = new javax.swing.JLabel();
-          lbBarcode = new javax.swing.JLabel();
-          lbPrice = new javax.swing.JLabel();
-          lbName = new javax.swing.JLabel();
-          discount = new javax.swing.JLabel();
-          id = new javax.swing.JLabel();
+        getProduct = new javax.swing.JPanel();
+        lbBarcode = new javax.swing.JLabel();
+        lbPrice = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        discount = new javax.swing.JLabel();
+        id = new javax.swing.JLabel();
+        buttonEdit = new Button.ButtonInstock();
 
-          getProduct.setBackground(new java.awt.Color(255, 255, 255));
-          getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getProduct.setBackground(new java.awt.Color(255, 255, 255));
+        getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-          edit.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          edit.setForeground(new java.awt.Color(0, 0, 0));
-          edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          edit.setText("Edit");
-          edit.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    editMouseClicked(evt);
-               }
-          });
+        lbBarcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbBarcode.setForeground(new java.awt.Color(0, 0, 0));
+        lbBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbBarcode.setText("Product Barcode");
 
-          lbBarcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbBarcode.setForeground(new java.awt.Color(0, 0, 0));
-          lbBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbBarcode.setText("Product Barcode");
+        lbPrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbPrice.setForeground(new java.awt.Color(0, 0, 0));
+        lbPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPrice.setText("Product Price");
 
-          lbPrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbPrice.setForeground(new java.awt.Color(0, 0, 0));
-          lbPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbPrice.setText("Product Price");
+        lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbName.setForeground(new java.awt.Color(0, 0, 0));
+        lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbName.setText("Product Name");
 
-          lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbName.setForeground(new java.awt.Color(0, 0, 0));
-          lbName.setText("Product Name");
+        discount.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        discount.setForeground(new java.awt.Color(0, 0, 0));
+        discount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        discount.setText("Discount");
 
-          discount.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          discount.setForeground(new java.awt.Color(0, 0, 0));
-          discount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          discount.setText("Discount");
+        id.setText("jLabel1");
 
-          id.setText("jLabel1");
+        buttonEdit.setButtonName("Edit");
+        buttonEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonEditMouseClicked(evt);
+            }
+        });
 
-          javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
-          getProduct.setLayout(getProductLayout);
-          getProductLayout.setHorizontalGroup(
-               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(getProductLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          );
-          getProductLayout.setVerticalGroup(
-               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(getProductLayout.createSequentialGroup()
-                    .addContainerGap()
+        javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
+        getProduct.setLayout(getProductLayout);
+        getProductLayout.setHorizontalGroup(
+            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(getProductLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(buttonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        getProductLayout.setVerticalGroup(
+            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(getProductLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                         .addComponent(edit)
-                         .addComponent(lbBarcode)
-                         .addComponent(lbPrice)
-                         .addComponent(discount)
-                         .addComponent(lbName)
-                         .addComponent(id))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          );
+                        .addComponent(lbBarcode)
+                        .addComponent(lbPrice)
+                        .addComponent(discount)
+                        .addComponent(lbName)
+                        .addComponent(id)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-          this.setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                    .addComponent(getProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-          );
-     }// </editor-fold>//GEN-END:initComponents
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(getProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(getProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
-    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-
+    private void buttonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEditMouseClicked
         DiscountByItem dis = new DiscountByItem(new JFrame(),true);
         dis.setId(productId);
         dis.setListGetProduct(listGetProduct);
         dis.setVisible(true);
-        
-    }//GEN-LAST:event_editMouseClicked
+    }//GEN-LAST:event_buttonEditMouseClicked
 
     public JPanel getListGetProduct() {
         return listGetProduct;
@@ -177,13 +174,13 @@ public class GetProduct extends javax.swing.JPanel {
     }
 
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JLabel discount;
-     private javax.swing.JLabel edit;
-     private javax.swing.JPanel getProduct;
-     private javax.swing.JLabel id;
-     private javax.swing.JLabel lbBarcode;
-     private javax.swing.JLabel lbName;
-     private javax.swing.JLabel lbPrice;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Button.ButtonInstock buttonEdit;
+    private javax.swing.JLabel discount;
+    private javax.swing.JPanel getProduct;
+    private javax.swing.JLabel id;
+    private javax.swing.JLabel lbBarcode;
+    private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lbPrice;
+    // End of variables declaration//GEN-END:variables
 }

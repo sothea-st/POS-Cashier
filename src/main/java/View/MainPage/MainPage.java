@@ -95,6 +95,8 @@ public class MainPage extends javax.swing.JFrame {
           currentDate.setVisible(false);
 
           resizeEvent();
+          
+          getShoppingImage();
 
      }
 
@@ -199,6 +201,18 @@ public class MainPage extends javax.swing.JFrame {
                try {
                     byte[] bg = response.body().bytes();
                     imgUser.setIcon(new ImageIcon(bg));
+               } catch (Exception e) {
+                    System.err.println("error = " + e);
+               }
+          }
+     }
+
+     void getShoppingImage() {
+          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "shopping-cart.png");
+          if (response.isSuccessful()) {
+               try {
+                    byte[] bg = response.body().bytes();
+                    imageShopping.setIcon(new ImageIcon(bg));
                } catch (Exception e) {
                     System.err.println("error = " + e);
                }
@@ -374,7 +388,7 @@ public class MainPage extends javax.swing.JFrame {
           textField = new Components.TextField();
           panelCart = new javax.swing.JPanel();
           countCircleShape = new Components.countCircleShape();
-          jLabel1 = new javax.swing.JLabel();
+          imageShopping = new javax.swing.JLabel();
           lbLogo = new javax.swing.JLabel();
           imgUser = new javax.swing.JLabel();
           day = new javax.swing.JPanel();
@@ -450,9 +464,7 @@ public class MainPage extends javax.swing.JFrame {
           });
           panelCart.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
           panelCart.add(countCircleShape, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
-
-          jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\mobile-app.02\\Desktop\\project\\fronent java\\king mart\\tt_pos_window\\src\\main\\resources\\image\\shopping-cart.png")); // NOI18N
-          panelCart.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 5, -1, -1));
+          panelCart.add(imageShopping, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 5, -1, -1));
 
           javax.swing.GroupLayout menuBarLayout = new javax.swing.GroupLayout(menuBar);
           menuBar.setLayout(menuBarLayout);
@@ -1022,59 +1034,58 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
 
+//          if (JavaConstant.token != null) {
+//               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
+//               rep.setTitle("Hold Order");
+//               rep.setTextButtonLeft("Hold history");
+//               rep.setTextButtonRight("Add hold order");
+//               rep.setTypeForm("hold");
+//               rep.setDetailItem(detailItem);
+//               rep.setSubtotalPanel(totalPanel);
+//               rep.setBtnPayment(btnPayment);
+//               rep.setVisible(true);
+//          } else {
+//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//               j.setMessage(MessageAlert.Message.OverallMessage);
+//               j.setVisible(true);
+//               return;
+//          }
           if (JavaConstant.token != null) {
-               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
-               rep.setTitle("Hold Order");
-               rep.setTextButtonLeft("Hold history");
-               rep.setTextButtonRight("Add hold order");
-               rep.setTypeForm("hold");
-               rep.setDetailItem(detailItem);
-               rep.setSubtotalPanel(totalPanel);
-               rep.setBtnPayment(btnPayment);
-               rep.setVisible(true);
+               Component[] listCom1 = detailItem.getComponents();
+               if (listCom1.length == 0) {
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    j.setMessage("Cannot add hold order!");
+                    j.setVisible(true);
+                    return;
+               }
+
+               btnPayment.setBackground(WindowColor.lightGray);
+               Component[] listHold = detailItem.getComponents();
+
+               int qty = 0;
+               for (int i = 0; i < listHold.length; i++) {
+                    var box = ((BoxItem) listHold[i]);
+                    qty += box.getQty();
+               }
+
+               clicked++;
+               NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
+               JavaConstant.listHoldOrder.add(hh);
+
+               int countRow = JavaConstant.listHoldOrder.size();
+               countCircleShape.setCountTimes("" + countRow);
+
+               detailItem.removeAll();
+               detailItem.revalidate();
+               detailItem.repaint();
+               totalPanel.setLabelSubTitleToZero();
+
           } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage(MessageAlert.Message.OverallMessage);
                j.setVisible(true);
                return;
           }
-
-//
-//        if (JavaConstant.token != null) {
-//            Component[] listCom1 = detailItem.getComponents();
-//              if (listCom1.length == 0) {
-//                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//                   j.setMessage("Cannot add hold order!");
-//                   j.setVisible(true);
-//                   return;
-//              }
-//              
-//            btnPayment.setBackground(WindowColor.lightGray);
-//            Component[] listHold = detailItem.getComponents();
-//            
-//            int qty = 0;
-//            for (int i = 0; i < listHold.length; i++) {
-//                 var box = ((BoxItem) listHold[i]);
-//                 qty += box.getQty();
-//            }
-//            
-//            clicked++;
-//            NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
-//            JavaConstant.listHoldOrder.add(hh);
-//            
-//            countCircleShape.setCountTimes(""+clicked);   
-//            
-//            detailItem.removeAll();
-//            detailItem.revalidate();
-//            detailItem.repaint();
-//            totalPanel.setLabelSubTitleToZero();
-//              
-//        } else {
-//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//               j.setMessage(MessageAlert.Message.OverallMessage);
-//               j.setVisible(true);
-//               return;
-//        }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
      private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
@@ -1120,6 +1131,7 @@ public class MainPage extends javax.swing.JFrame {
          hold.setDetailItem(detailItem);
          hold.setSubtotalPanel(totalPanel);
          hold.setBtnPayment(btnPayment);
+         hold.setCountCircleShape(countCircleShape);
          hold.setVisible(true);
     }//GEN-LAST:event_panelCartMouseClicked
 
@@ -1216,8 +1228,8 @@ public class MainPage extends javax.swing.JFrame {
      private javax.swing.JLabel currentDate;
      private javax.swing.JPanel day;
      private javax.swing.JPanel detailItem;
+     private javax.swing.JLabel imageShopping;
      private javax.swing.JLabel imgUser;
-     private javax.swing.JLabel jLabel1;
      private javax.swing.JScrollPane jScrollPane2;
      private javax.swing.JScrollPane jScrollPaneCategory;
      private javax.swing.JScrollPane jScrollPaneDetail;

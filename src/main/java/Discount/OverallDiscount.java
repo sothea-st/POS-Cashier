@@ -4,6 +4,7 @@ package Discount;
 import Color.WindowColor;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
+import Constant.JavaRoundDown;
 import Event.ButtonEvent;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -202,12 +203,16 @@ public class OverallDiscount extends javax.swing.JDialog {
         }else if(keyValue.equals("percent")){
             double percentValue = (discount*subTotal)/100;
             totalPrice = subTotal-percentValue;
+            
+            double dicountRoundown = JavaRoundDown.roundDown( ""+ percentValue * JavaConstant.exchangeRate);
+            
             totalPanel.setLableDiscountUsd(dm.format(percentValue));
-            totalPanel.setLableDiscountKhr(kh.format( percentValue * JavaConstant.exchangeRate));
+            totalPanel.setLableDiscountKhr(kh.format( dicountRoundown));
         }
         
+        double totalRoundown = JavaRoundDown.roundDown( ""+ totalPrice * JavaConstant.exchangeRate);
         totalPanel.setLableTotalUsd(dm.format(totalPrice));
-        totalPanel.setLableTotalKhr(kh.format( totalPrice * JavaConstant.exchangeRate));
+        totalPanel.setLableTotalKhr(kh.format( totalRoundown));
         totalPanel.revalidate();
         totalPanel.repaint();
         this.dispose();
