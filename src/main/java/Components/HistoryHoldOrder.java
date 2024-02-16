@@ -32,7 +32,6 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
           setResizable(false);
           buttonCancel.setButtonName("Close");
           ActionProduct actionProduct = new ActionProduct();
-
         
           callHistoryHold(JavaConstant.listHoldData);
           panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
@@ -77,7 +76,7 @@ public class HistoryHoldOrder extends javax.swing.JDialog {
                };
 
                h.initEvent(events);
-               h.setName(name + "  " + index);
+               h.setName(name);
                h.setQty("" + qty);
                panelHold.add(h);
                refreshPanel();

@@ -51,25 +51,26 @@ public class ActionProduct {
      private JPanel panelPagination;
      private int count;
      
+     public static int marginRight=15;
+     
+  
+     
      public ActionProduct() {
      }
 
-
-     
      public void product(int catId, int limit, JPanel panelProduct) {
+        
           try {
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "");
-
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
                     setCount(data.getCount());
-//                    JavaConstant.listData = listData;
                     assignProduct(listData, panelProduct);
                } else {
-                    System.err.println("fail loading product");
+                    System.err.println("fail loading product 333");
                }
           } catch (Exception e) {
                System.err.println("error getting product " + e);
@@ -123,13 +124,14 @@ public class ActionProduct {
 //               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
              
-               gbc.insets = new Insets(5, 0, 5, 0);
+               gbc.insets = new Insets(5, 0, 5, marginRight);
                x++;
-               if (x == 5) {
+               if (x == JavaConstant.rowNum) {
                     x = 0;
                     y++;
                }
                var listData = listProduct.get(i);
+             
                double price = listData.getPrice();
                double discount = (listData.getDiscount() * price) / 100;
                ProductBox product = new ProductBox();
@@ -150,7 +152,7 @@ public class ActionProduct {
 
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-                                   System.err.println("listdata ffff = " + listData);
+                                 
                                    eventBtnBuy(listData);
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
@@ -288,9 +290,10 @@ public class ActionProduct {
 //     }
 
      public void eventBtnBuy(ProductModel listData) {
+          
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
-
+ 
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
           try {

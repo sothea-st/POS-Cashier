@@ -68,7 +68,7 @@ public class JavaConstant {
      public static String byCatID = "Select By CatID";
      public static String noResult = "No Result";
 
-//     public static int rowNum = 5;
-//     public static ProductDataModel[] listData;
+     public static int rowNum = 5;
+     public static ProductDataModel[] listData;
 
 }

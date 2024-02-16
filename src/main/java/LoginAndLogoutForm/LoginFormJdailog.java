@@ -32,6 +32,7 @@ import Model.Login.LoginModel;
 import Model.OpenShift.OpenShiftDataModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -88,7 +89,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      //Function call Placeholder
      void event() {
-          
+
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
                public void onFocusGain() {
@@ -405,6 +406,18 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         panelProduct.revalidate();
                                         panelProduct.repaint();
                                         setCount(pro.getCount());
+                                        
+                                        // in case when user maximize application to full window 
+                                        if (MainPage.isFullScreen) {
+                                             panelProduct.removeAll();
+                                             pro.setBtnPayment(btnPayment);
+                                             panelProduct.revalidate();
+                                             panelProduct.repaint();
+                                             ActionProduct.marginRight = 15;
+                                             JavaConstant.rowNum = 7;
+                                             pro.product(catId, limit, panelProduct);
+                                        }
+
                                    } else {
                                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                                         j.setMessage("You have to open shift first!");

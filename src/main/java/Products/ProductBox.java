@@ -245,83 +245,83 @@ public class ProductBox extends javax.swing.JPanel {
      private String productStatus;
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        productBox = new javax.swing.JPanel();
-        lbName = new javax.swing.JLabel();
-        lbWeight = new javax.swing.JLabel();
-        txtBarcode = new javax.swing.JLabel();
-        flagImg = new javax.swing.JLabel();
-        buttonStatus = new Button.ButtonInstock();
-        lbPrice = new javax.swing.JLabel();
-        btnBuy = new Button.ButtonBuy();
-        jLabel1 = new javax.swing.JLabel();
-        discount = new Button.ButtonDiscount();
-        lbQty = new javax.swing.JLabel();
-        percent = new Components.CircleShape();
-        productImg = new javax.swing.JLabel();
+          productBox = new javax.swing.JPanel();
+          lbName = new javax.swing.JLabel();
+          lbWeight = new javax.swing.JLabel();
+          txtBarcode = new javax.swing.JLabel();
+          flagImg = new javax.swing.JLabel();
+          buttonStatus = new Button.ButtonInstock();
+          lbPrice = new javax.swing.JLabel();
+          btnBuy = new Button.ButtonBuy();
+          jLabel1 = new javax.swing.JLabel();
+          discount = new Button.ButtonDiscount();
+          lbQty = new javax.swing.JLabel();
+          percent = new Components.CircleShape();
+          productImg = new javax.swing.JLabel();
 
-        productBox.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+          productBox.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbName.setText("Name");
-        productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 91, 148, 25));
+          lbName.setText("Name");
+          productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 91, 148, 25));
 
-        lbWeight.setText("Weight");
-        productBox.add(lbWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 122, 77, 15));
+          lbWeight.setText("Weight");
+          productBox.add(lbWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 122, 77, 15));
 
-        txtBarcode.setText("Barcode :");
-        productBox.add(txtBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 189, 110, 17));
+          txtBarcode.setText("Barcode :");
+          productBox.add(txtBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 189, 110, 17));
 
-        flagImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        productBox.add(flagImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 122, 30, 15));
-        productBox.add(buttonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 166, 53, -1));
+          flagImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          productBox.add(flagImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 122, 30, 15));
+          productBox.add(buttonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 166, 53, -1));
 
-        lbPrice.setText("Price");
-        productBox.add(lbPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 166, 89, -1));
-        productBox.add(btnBuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 189, 32, -1));
-        productBox.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 143, 4, 17));
-        productBox.add(discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 143, 67, -1));
+          lbPrice.setText("Price");
+          productBox.add(lbPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 166, 89, -1));
+          productBox.add(btnBuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 189, 32, -1));
+          productBox.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 143, 4, 17));
+          productBox.add(discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 143, 67, -1));
 
-        lbQty.setText("lbQty");
-        productBox.add(lbQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 143, -1, -1));
-        productBox.add(percent, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, -1, 50));
+          lbQty.setText("lbQty");
+          productBox.add(lbQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(113, 143, -1, -1));
+          productBox.add(percent, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, -1, 50));
 
-        productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        productBox.add(productImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 146, 85));
+          productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          productBox.add(productImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 146, 85));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, 205, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(productBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, 205, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.ButtonBuy btnBuy;
-    private Button.ButtonInstock buttonStatus;
-    private Button.ButtonDiscount discount;
-    private javax.swing.JLabel flagImg;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lbName;
-    private javax.swing.JLabel lbPrice;
-    private javax.swing.JLabel lbQty;
-    private javax.swing.JLabel lbWeight;
-    private Components.CircleShape percent;
-    private javax.swing.JPanel productBox;
-    private javax.swing.JLabel productImg;
-    private javax.swing.JLabel txtBarcode;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private Button.ButtonBuy btnBuy;
+     private Button.ButtonInstock buttonStatus;
+     private Button.ButtonDiscount discount;
+     private javax.swing.JLabel flagImg;
+     private javax.swing.JLabel jLabel1;
+     private javax.swing.JLabel lbName;
+     private javax.swing.JLabel lbPrice;
+     private javax.swing.JLabel lbQty;
+     private javax.swing.JLabel lbWeight;
+     private Components.CircleShape percent;
+     private javax.swing.JPanel productBox;
+     private javax.swing.JLabel productImg;
+     private javax.swing.JLabel txtBarcode;
+     // End of variables declaration//GEN-END:variables
 }

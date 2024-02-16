@@ -36,6 +36,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
@@ -48,6 +50,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import okhttp3.Response;
 
@@ -61,7 +64,9 @@ public class MainPage extends javax.swing.JFrame {
 
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
 
-     public MainPage(String data) {
+     private Timer timer;
+
+     public MainPage() {
           initComponents();
           event();
           setBackground();
@@ -86,32 +91,73 @@ public class MainPage extends javax.swing.JFrame {
           existFun();
           setIconImage(new ImageIcon(bg).getImage());
           setTitle("King Mart");
-          setExtendedState(JFrame.MAXIMIZED_BOTH);
+//          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
+          resizeEvent();
+
+     }
+
+     public static boolean isFullScreen = false;
+
+     public void resizeEvent() {
+          // delay 250 for loading 
+          timer = new Timer(250, new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+
+                    Dimension size = getSize();
+                    int width = size.width;
+                    System.err.println("width = " + size.width + " height = " + size.height);
+
+                    if (width > 1900) {
+
+                         if ((getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
+                              isFullScreen = true;
+                         }
+                         ActionProduct.marginRight = 15;
+                         if (jdFormLogin.getCatId() != 0) {
+                              resizeWithData(7);
+                         }
+
+                    } else if (width > 1680) {
+                         ActionProduct.marginRight = 15;
+                         resizeWithData(6);
+                    } else if (width <= 1440) {
+                         JOptionPane.showMessageDialog(null, "There are limited for resizing!");
+                         setSize(1491, 768);
+                         ActionProduct.marginRight = 5;
+                         resizeWithData(5);
+                    } else {
+                         ActionProduct.marginRight = 5;
+                         if (jdFormLogin.getCatId() != 0) {
+                              resizeWithData(5);
+                         }
+                    }
+
+               }
+          });
+          timer.setRepeats(false); // Only fire once
           addComponentListener(new ComponentAdapter() {
                @Override
                public void componentResized(ComponentEvent e) {
-                    Dimension size = getSize();
-                    double width = size.width;
-                    System.err.println("width = " + size.width + " height = " + size.height);
- 
-                    if (width <= 1478 || size.height <= 825) {
-                         JOptionPane.showMessageDialog(null, "There are limited for resizing!");
-                         setSize(1479, 826);
-                         jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-//                         JavaConstant.rowNum = 4;
-//                         ActionProduct a = new ActionProduct();
-//                         panelProduct.removeAll();
-//                         panelProduct.revalidate();
-//                         panelProduct.repaint();
-//                         a.assignProduct(JavaConstant.listData, panelProduct);
-                    }
-
- 
+                    timer.restart();
                }
           });
+     }
 
+     public void resizeWithData(int num) {
+          ActionProduct a = new ActionProduct();
+          a.setDetailItem(detailItem);
+          a.setSubtotalPanel(totalPanel);
+          a.setBtnPayment(btnPayment);
+          JavaConstant.rowNum = num;
+          panelProduct.removeAll();
+
+          a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+
+          panelProduct.revalidate();
+          panelProduct.repaint();
      }
 
      void existFun() {
@@ -160,9 +206,11 @@ public class MainPage extends javax.swing.JFrame {
      }
 
      private void nextEvent() {
+
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
+
                     int count = jdFormLogin.getCount();
                     if (limit < count) {
                          limit += 10;
@@ -969,8 +1017,8 @@ public class MainPage extends javax.swing.JFrame {
           }
      }
 
-     
      int clicked = 0;
+
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
 
@@ -1066,17 +1114,15 @@ public class MainPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCustomerMouseClicked
 
-    //Action show hold order
+     //Action show hold order
     private void panelCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseClicked
-        ListHoldOrder hold = new ListHoldOrder(new JFrame(), true);
-        hold.setDetailItem(detailItem);
-        hold.setSubtotalPanel(totalPanel);
-        hold.setBtnPayment(btnPayment);
-        hold.setVisible(true);
+         ListHoldOrder hold = new ListHoldOrder(new JFrame(), true);
+         hold.setDetailItem(detailItem);
+         hold.setSubtotalPanel(totalPanel);
+         hold.setBtnPayment(btnPayment);
+         hold.setVisible(true);
     }//GEN-LAST:event_panelCartMouseClicked
 
-    
-    
      //Function call Placeholder
      void event() {
           ButtonEvent btnevent = new ButtonEvent() {
@@ -1145,7 +1191,7 @@ public class MainPage extends javax.swing.JFrame {
           /* Create and display the form */
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
-                    MainPage obj = new MainPage(null);
+                    MainPage obj = new MainPage();
                     obj.setVisible(true);
                }
           });

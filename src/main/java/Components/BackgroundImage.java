@@ -21,6 +21,7 @@ public class BackgroundImage extends javax.swing.JPanel {
 
      void getBgImage() {
           Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "King Mart Background.png");
+         
           if (response.isSuccessful()) {
                try {
                     byte[] bg = response.body().bytes();
