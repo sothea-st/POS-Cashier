@@ -3,6 +3,7 @@ package Receipt;
 import Components.ReceiptBox;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Controller.ReceiptController;
 import Model.Reprint.DataSuccessModel;
@@ -43,7 +44,7 @@ public class Receipt extends javax.swing.JDialog {
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
-          exchangeDollar.setText(""+JavaConstant.exchangeRate);
+          exchangeDollar.setText(kh.format(JavaConstant.exchangeRate));
      }
 
      public void printComponenet(Component component) {
@@ -842,15 +843,12 @@ public class Receipt extends javax.swing.JDialog {
                cashierName.setText(data.getEmpName());
                displayProduct(data);
                totalprice.setText(dm.format(data.getTotal()));
-               totalKhr.setText(kh.format(data.getTotal() * JavaConstant.exchangeRate));
-               
+               double totalkh = JavaRoundDown.roundDown(""+data.getTotal() * JavaConstant.exchangeRate);
+               totalKhr.setText(kh.format(totalkh));
                receiveUsd.setText(dm.format(data.getReceiveUsd()));
                receiveKhr.setText(kh.format(data.getReceiveKhr()));
                changeUsd.setText(dm.format(data.getChangeUsd()));
                changeKhr.setText(kh.format(data.getChangeKhr()));
-               
-               System.out.println("data.getReceiveUsd:" + data.getReceiveUsd());
-               
                Response generateCode= JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentNo().substring(3));
                byte[] barcode = generateCode.body().bytes();
                generateBarcode.setIcon(new ImageIcon(barcode));

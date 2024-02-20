@@ -141,14 +141,14 @@ public class ActionProduct {
                     public void onMouseClick() {
                          int qty = Integer.valueOf(product.getQty());
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         if (qty == 0) {
-
-                              j.setMessage("No Qty");
-                              j.setVisible(true);
-                              return;
-                         }
-                         qty--;
-                         product.setQty("" + qty);
+//                         if (qty == 0) {
+//
+//                              j.setMessage("No Qty");
+//                              j.setVisible(true);
+//                              return;
+//                         }
+//                         qty--;
+//                         product.setQty("" + qty);
 
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
@@ -169,15 +169,17 @@ public class ActionProduct {
                product.setQty("" + listData.getQty());
                product.initEvent(event);
 
-               if (listData.getQty() > 0) {
+//================================Product Status============================
+//               if (listData.getQty() > 0) {
                     product.setProductStatus(listData.getProductStatus());
-               } else {
-                    if (listData.getProductStatus().isEmpty()) {
-                         product.setProductStatus("Unavailable");
-                    } else {
-                         product.setProductStatus("Out Stock");
-                    }
-               }
+//               } else {
+//                    if (listData.getProductStatus().isEmpty()) {
+//                         product.setProductStatus("Unavailable");
+//                    } else {
+//                         product.setProductStatus("Out Stock");
+//                    }
+//               }
+//==========================================================================
 
                product.setDiscountPercentag(listData.getDiscount(), price);
 
@@ -311,11 +313,11 @@ public class ActionProduct {
                               obj.setQty(qty);
                               double newAmountUsd = qty * price;
                               if (listData.getDiscount() > 0) {
-                                   double discountPrice = price - (listData.getDiscount() * price) / 100;
-                                   String discountStr = dm.format(discountPrice).replace("$", "");
-                                   discountStr = discountStr.replace(",", "");
-                                   discountPrice = Double.parseDouble(discountStr);
-                                   newAmountUsd = discountPrice * qty;
+//                                   double discountPrice = price - (listData.getDiscount() * price) / 100;
+//                                   String discountStr = dm.format(discountPrice).replace("$", "");
+//                                   discountStr = discountStr.replace(",", "");
+//                                   discountPrice = Double.parseDouble(discountStr);
+                                   newAmountUsd = price * qty;
                               }
                               obj.setLabelAmountUsd(dm.format(newAmountUsd));
 
