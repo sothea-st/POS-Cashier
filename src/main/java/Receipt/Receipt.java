@@ -837,7 +837,7 @@ public class Receipt extends javax.swing.JDialog {
                address.setText("<html>" + "អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>") ;
                vattin.setText(data.getVattin());
                cusName.setText(data.getCustomerType());
-               invoiceNo.setText(data.getPaymentNo().substring(3));
+               invoiceNo.setText(data.getPaymentNo());
                contact.setText(data.getCompanyContact());
                saleDate.setText(data.getSaleDate());
                cashierName.setText(data.getEmpName());
@@ -849,10 +849,10 @@ public class Receipt extends javax.swing.JDialog {
                receiveKhr.setText(kh.format(data.getReceiveKhr()));
                changeUsd.setText(dm.format(data.getChangeUsd()));
                changeKhr.setText(kh.format(data.getChangeKhr()));
-               Response generateCode= JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentNo().substring(3));
+               Response generateCode= JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentNo());
                byte[] barcode = generateCode.body().bytes();
                generateBarcode.setIcon(new ImageIcon(barcode));
-               invoiceCode.setText(data.getPaymentNo().substring(3));
+               invoiceCode.setText(data.getPaymentNo());
 
           } catch (Exception e) {
                System.err.println("getting error at " + e);

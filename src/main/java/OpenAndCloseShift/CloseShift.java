@@ -283,14 +283,6 @@ public class CloseShift extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-
-         if (!JavaConstant.listHoldData.isEmpty()) {
-              j.setMessage("There are any trancsactions not complete yet in Hold function!");
-              j.setVisible(true);
-              return;
-         }
-
          String express = redexpress.getValueTextField();
          String khqrMnk = qrMnk.getValueTextField();
          String khqrAba = qrAba.getValueTextField();

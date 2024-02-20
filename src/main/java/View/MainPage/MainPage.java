@@ -894,13 +894,19 @@ public class MainPage extends javax.swing.JFrame {
 
               } else if (buttonName.equals("close shift")) {
 
-                   Component[] listCom1 = detailItem.getComponents();
-                   if (listCom1.length != 0) {
-                        JavaAlertMessage j = new JavaAlertMessage(this, true);
+                    Component[] listCom1 = detailItem.getComponents();
+                    JavaAlertMessage j = new JavaAlertMessage(this, true);
+                    if (listCom1.length != 0) {
                         j.setMessage("You have to remove the produt that has been bought or do the payment first!");
                         j.setVisible(true);
                         return;
-                   }
+                    }
+                   
+                    if (!JavaConstant.listHoldOrder.isEmpty()) {
+                         j.setMessage("There are any trancsactions not yet completed in Hold function!");
+                         j.setVisible(true);
+                         return;
+                    }
 
                    CloseShift close = new CloseShift(new JFrame(), true, btnOpenShift);
                    close.setPanelProduct(panelProduct);
