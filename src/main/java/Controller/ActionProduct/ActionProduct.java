@@ -157,6 +157,7 @@ public class ActionProduct {
 //                         int qty = Integer.valueOf(product.getQty());
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 //                         if (qty == 0) {
+//
 //                              j.setMessage("No Qty");
 //                              j.setVisible(true);
 //                              return;
@@ -182,15 +183,17 @@ public class ActionProduct {
                product.setQty("" + listData.getQty());
                product.initEvent(event);
 
-               if (listData.getQty() > 0) {
+//================================Product Status============================
+//               if (listData.getQty() > 0) {
                     product.setProductStatus(listData.getProductStatus());
-               } else {
-                    if (listData.getProductStatus().isEmpty()) {
-                         product.setProductStatus("Unavailable");
-                    } else {
-                         product.setProductStatus("Out Stock");
-                    }
-               }
+//               } else {
+//                    if (listData.getProductStatus().isEmpty()) {
+//                         product.setProductStatus("Unavailable");
+//                    } else {
+//                         product.setProductStatus("Out Stock");
+//                    }
+//               }
+//==========================================================================
 
                product.setDiscountPercentag(listData.getDiscount(), price);
 
