@@ -1,13 +1,12 @@
 package com.example.pos.repository;
 
 import com.example.pos.entity.Product;
+import com.example.pos.entity.models.ProductModel;
 import com.example.pos.repository.productProjection.ProductProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
@@ -16,13 +15,21 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
         boolean existsByProNameEn(String name);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n"
-                        + //
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n" + //
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
                         "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
                         "from pos_product pc\r\n" + //
                         "where pc.status=true and pc.is_deleted=false order by pc.id desc limit ?")
         List<ProductProjection> getProduct(int limit);
+
+
+        
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n" + //
+                        "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
+                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
+                        "from pos_product pc\r\n" + //
+                        "where pc.status=true and pc.is_deleted=false order by pc.id desc")
+        List<ProductProjection> getAllProduct();
 
         @Query(nativeQuery = true, value = "select count(*) from pos_product where status=true and is_deleted=false")
         int countRow();
