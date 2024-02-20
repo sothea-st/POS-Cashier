@@ -185,7 +185,7 @@ public class ActionProduct {
 
 //================================Product Status============================
 //               if (listData.getQty() > 0) {
-                    product.setProductStatus(listData.getProductStatus());
+               product.setProductStatus(listData.getProductStatus());
 //               } else {
 //                    if (listData.getProductStatus().isEmpty()) {
 //                         product.setProductStatus("Unavailable");
@@ -236,7 +236,7 @@ public class ActionProduct {
                panelProduct.add(product, gbc);
 
           }
-        
+
      }
 
      // method total is same but they do action different
@@ -365,6 +365,8 @@ public class ActionProduct {
                box.setQty(1);
                Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
                byte[] images = responseProductImage.body().bytes();
+
+
                box.setIconImage(new ImageIcon(images));
                box.setProductId(listData.getId());
 
