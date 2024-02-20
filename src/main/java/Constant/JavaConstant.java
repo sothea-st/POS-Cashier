@@ -70,5 +70,8 @@ public class JavaConstant {
 
      public static int rowNum = 5;
      public static ProductDataModel[] listData;
+     
+     
+     public static boolean isCheckProductAll=false;
 
 }

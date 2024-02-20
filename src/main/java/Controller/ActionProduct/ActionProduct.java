@@ -50,18 +50,33 @@ public class ActionProduct {
      private Button btnPayment;
      private JPanel panelPagination;
      private int count;
-     
-     public static int marginRight=15;
-     
-  
-     
+
+     public static int marginRight = 15;
+
      public ActionProduct() {
      }
 
      public void product(int catId, int limit, JPanel panelProduct) {
-        
           try {
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "");
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
+                    ProductDataModel[] listData = data.getData();
+                    setCount(data.getCount());
+                    assignProduct(listData, panelProduct);
+               } else {
+                    System.err.println("fail loading product 333");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
+
+     public void getAllProduct(JPanel panelProduct) {
+          try {
+               Response response = JavaConnection.get(JavaRoute.getAllProduct);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -103,12 +118,12 @@ public class ActionProduct {
      }
 
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
-          
+
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0,0,0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0,0,0,1}; // 1 align item to top
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0,0,0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0,0,0, 1}; // 1 align item to left 
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
@@ -123,7 +138,7 @@ public class ActionProduct {
                gbc.gridwidth = 1;
 //               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
-             
+
                gbc.insets = new Insets(5, 0, 5, marginRight);
                x++;
                if (x == JavaConstant.rowNum) {
@@ -131,7 +146,7 @@ public class ActionProduct {
                     y++;
                }
                var listData = listProduct.get(i);
-             
+
                double price = listData.getPrice();
                double discount = (listData.getDiscount() * price) / 100;
                ProductBox product = new ProductBox();
@@ -139,20 +154,18 @@ public class ActionProduct {
                ButtonEvent event = new ButtonEvent() {
                     @Override
                     public void onMouseClick() {
-                         int qty = Integer.valueOf(product.getQty());
+//                         int qty = Integer.valueOf(product.getQty());
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         if (qty == 0) {
-
-                              j.setMessage("No Qty");
-                              j.setVisible(true);
-                              return;
-                         }
-                         qty--;
-                         product.setQty("" + qty);
+//                         if (qty == 0) {
+//                              j.setMessage("No Qty");
+//                              j.setVisible(true);
+//                              return;
+//                         }
+//                         qty--;
+//                         product.setQty("" + qty);
 
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-                                 
                                    eventBtnBuy(listData);
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
@@ -218,7 +231,7 @@ public class ActionProduct {
                }
 
                panelProduct.add(product, gbc);
-             
+
           }
      }
 
@@ -288,12 +301,11 @@ public class ActionProduct {
 //          //          }
 //          //          System.err.println("data value = " + value);
 //     }
-
      public void eventBtnBuy(ProductModel listData) {
-          
+
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
- 
+
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
           try {
@@ -311,11 +323,11 @@ public class ActionProduct {
                               obj.setQty(qty);
                               double newAmountUsd = qty * price;
                               if (listData.getDiscount() > 0) {
-                                   double discountPrice = price - (listData.getDiscount() * price) / 100;
-                                   String discountStr = dm.format(discountPrice).replace("$", "");
-                                   discountStr = discountStr.replace(",", "");
-                                   discountPrice = Double.parseDouble(discountStr);
-                                   newAmountUsd = discountPrice * qty;
+//                                   double discountPrice = price - (listData.getDiscount() * price) / 100;
+//                                   String discountStr = dm.format(discountPrice).replace("$", "");
+//                                   discountStr = discountStr.replace(",", "");
+//                                   discountPrice = Double.parseDouble(discountStr);
+                                   newAmountUsd = price * qty;
                               }
                               obj.setLabelAmountUsd(dm.format(newAmountUsd));
 

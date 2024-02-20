@@ -285,13 +285,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    ActionRequestBrand.requestBrand(cmboxBrand);
 
                    //==============Add Background===============
-                   BackgroundImage bgimg = new BackgroundImage();
-                   panelProduct.removeAll();
-                   panelProduct.add(bgimg);
-                   panelProduct.revalidate();
-                   panelProduct.repaint();
+//                   BackgroundImage bgimg = new BackgroundImage();
+//                   panelProduct.removeAll();
+//                   panelProduct.add(bgimg);
+//                   panelProduct.revalidate();
+//                   panelProduct.repaint();
                    //=============================================
-
                    eventSelectBrand();
                    txtUserId.setValueTextField(null);
                    txtPassword.setValuePassword(null);
@@ -354,7 +353,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           try {
                ArrayList<CategoryModel> listCategory = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.category);
-
+               category.setLayout(new GridLayout());
                if (response.isSuccessful()) {
                     String strData = response.body().string(); // convert response to string 
                     JSONObject jsonObject = new JSONObject(strData); // conver string to jsonobject
@@ -379,34 +378,44 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          String catNameData = listCategory.get(i).getCatNameEn();
 
                          categoryTitle.setLabelTitle(catNameData);
+                         int ind = i;
+
                          ButtonEvent event = new ButtonEvent() {
                               @Override
                               public void onMouseClick() {
                                    if (JavaConstant.checkOpenShift) {
+                                        int d = ind;
                                         setCatId(catId);
                                         getPanelPagination().setVisible(true);
                                         // click on category actice background color
                                         Component[] listCom = category.getComponents();
-                                        for (int i = 0; i < listCom.length; i++) {
-                                             String title = ((LabelTitle) listCom[i]).getLabelTitle();
+                                        for (int j = 0; j < listCom.length; j++) {
+                                             String title = ((LabelTitle) listCom[j]).getLabelTitle();
                                              if (catNameData.equals(title)) {
-                                                  listCom[i].setBackground(WindowColor.black);
-                                                  setCatName("" + i);
+                                                  listCom[j].setBackground(WindowColor.black);
+                                                  setCatName("" + j);
                                              } else {
-                                                  listCom[i].setBackground(WindowColor.darkGreen);
+                                                  listCom[j].setBackground(WindowColor.darkGreen);
                                              }
                                         }
+
                                         setBrandId(0); // each time user click on category brandId will be 0
                                         cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
                                         searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
 
                                         panelProduct.removeAll();
-                                        pro.product(catId, limit, panelProduct);
+                                        if (catNameData.equals("ALL")) {
+                                             panelPagination.setVisible(false);
+                                             pro.getAllProduct(panelProduct);
+                                             listCom[0].setBackground(WindowColor.black);
+                                        } else {
+                                             pro.product(catId, limit, panelProduct);
+                                        }
                                         pro.setBtnPayment(btnPayment);
                                         panelProduct.revalidate();
                                         panelProduct.repaint();
                                         setCount(pro.getCount());
-                                        
+
                                         // in case when user maximize application to full window 
                                         if (MainPage.isFullScreen) {
                                              panelProduct.removeAll();
@@ -426,11 +435,24 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               }
                          };
                          categoryTitle.initEvent(event);
+
                     }
-                    category.setLayout(new GridLayout());
+
                     // setter of actionProduct
                     assignProduct(null);
-
+           
+                    category.getComponents()[0].setBackground(WindowColor.black);
+                    setCatId(catId);
+                    setCatName("" + 0);
+                    setBrandId(0); // each time user click on category brandId will be 0
+                    cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
+                    searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
+                    panelProduct.removeAll();
+                    pro.getAllProduct(panelProduct);
+                    pro.setBtnPayment(btnPayment);
+                    panelProduct.revalidate();
+                    panelProduct.repaint();
+                    setCount(pro.getCount());
                } else {
                     System.err.println("fail load category");
                }

@@ -3,8 +3,6 @@ package View.MainPage;
 import Color.WindowColor;
 import Components.BackgroundImage;
 import Components.BoxItem;
-import Components.DialonInputName;
-import Components.HistoryHoldOrder;
 import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -22,20 +20,20 @@ import HoldOrder.ListHoldOrder;
 import LoginAndLogoutForm.LoginFormJdailog;
 import LoginAndLogoutForm.LogoutDialog;
 import Model.CashierReport.DataSuccessModelReport;
-import Model.HoldOrder.HoldOrderModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import OpenAndCloseShift.CloseShift;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
-import Print.ReprintJdailog;
 import Receipt.CashierReport;
 import Return.ApprovalCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -44,14 +42,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import okhttp3.Response;
 
 public class MainPage extends javax.swing.JFrame {
@@ -66,8 +66,23 @@ public class MainPage extends javax.swing.JFrame {
 
      private Timer timer;
 
+     private String getComputerName() {
+
+          Map<String, String> env = System.getenv();
+          if (env.containsKey("COMPUTERNAME")) {
+               return env.get("COMPUTERNAME");
+          } else if (env.containsKey("HOSTNAME")) {
+               return env.get("HOSTNAME");
+          } else {
+               return "Unknown Computer";
+          }
+     }
+
      public MainPage() {
           initComponents();
+
+          System.err.println("dddddddddddddd = " + getComputerName());
+
           event();
           setBackground();
           currenDateTime();
@@ -95,10 +110,12 @@ public class MainPage extends javax.swing.JFrame {
           currentDate.setVisible(false);
 
           resizeEvent();
-          
+
           getShoppingImage();
 
      }
+
+    
 
      public static boolean isFullScreen = false;
 
@@ -136,7 +153,6 @@ public class MainPage extends javax.swing.JFrame {
                               resizeWithData(5);
                          }
                     }
-
                }
           });
           timer.setRepeats(false); // Only fire once
@@ -155,9 +171,7 @@ public class MainPage extends javax.swing.JFrame {
           a.setBtnPayment(btnPayment);
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
-
           a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
-
           panelProduct.revalidate();
           panelProduct.repaint();
      }
@@ -172,7 +186,6 @@ public class MainPage extends javax.swing.JFrame {
                public void windowClosing(WindowEvent evt) {
                     int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
                          "Exit?", JOptionPane.YES_NO_OPTION);
-
                     if (resp == JOptionPane.YES_OPTION) {
                          setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     } else {

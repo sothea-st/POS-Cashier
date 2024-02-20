@@ -2,6 +2,8 @@ package Constant;
 
 import Model.MessageCode.MessageCodeModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -25,7 +27,7 @@ public class JavaConnection {
           }
           return response;
      }
-     
+
      public static Response getWithoutToken(String route) {
           Response response = null;
           try {
@@ -52,7 +54,7 @@ public class JavaConnection {
                     .url(new JavaBaseUrl().getBaseUrl() + JavaRoute.login)
                     .post(body).build();
                response = client.newCall(request).execute();
-               
+
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
@@ -73,11 +75,37 @@ public class JavaConnection {
                     .post(body).build();
                response = client.newCall(request).execute();
                String data = response.body().string();
-               
+
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
           return response;
      }
 
+     public static void getImage(JLabel lableName , String imageName) {
+          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + imageName);
+          if (response.isSuccessful()) {
+               try {
+                    byte[] bg = response.body().bytes();
+                    lableName.setIcon(new ImageIcon(bg));
+               } catch (Exception e) {
+                    System.err.println("error = " + e);
+               }
+          }
+     }
+     
+      public static byte[] getBytes() {
+          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "King Mart Small Logo.png");
+          byte[] bg = null;
+          if (response.isSuccessful()) {
+               try {
+                    bg = response.body().bytes();
+               } catch (Exception e) {
+                    System.err.println("error = " + e);
+               }
+          }
+          return bg;
+     }
+
+     
 }

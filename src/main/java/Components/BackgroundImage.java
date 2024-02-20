@@ -16,21 +16,9 @@ public class BackgroundImage extends javax.swing.JPanel {
      public BackgroundImage() {
           initComponents();
           setBackground(WindowColor.slightGreen);
-          getBgImage();
+          JavaConnection.getImage(jLabel1, "King Mart Background.png");
      }
 
-     void getBgImage() {
-          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "King Mart Background.png");
-         
-          if (response.isSuccessful()) {
-               try {
-                    byte[] bg = response.body().bytes();
-                    jLabel1.setIcon(new ImageIcon(bg));
-               } catch (Exception e) {
-                    System.err.println("error = " + e);
-               }
-          }
-     }
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

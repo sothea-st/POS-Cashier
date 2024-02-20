@@ -30,7 +30,12 @@
                <version>2.15.3</version>
                <type>jar</type>
           </dependency>
-         
+          <dependency>
+               <groupId>org.javapos</groupId>
+               <artifactId>javapos-controls</artifactId>
+               <version>1.15.0</version>
+               <type>jar</type>
+          </dependency>
      </dependencies>
      
      

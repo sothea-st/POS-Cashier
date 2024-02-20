@@ -338,24 +338,28 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     // jdLoginForm.setCheckOpenShift(true);
                     JavaConstant.checkOpenShift = true;
                     JavaConstant.checkCloseShift = 1l;
-                    
-//                    Component[] listCom = category.getComponents();
-//                    listCom[0].setBackground(WindowColor.black);
-//                    String id = ((LabelTitle) listCom[0]).getLbCatId();
-//                    panelProduct.removeAll();
-//                    pro.product(Integer.parseInt(id), limit, panelProduct);
-//                    pro.setPanelProduct(panelProduct);
-//                    panelProduct.revalidate();
-//                    panelProduct.repaint();
-//                    panelPagination.setVisible(true);
-                    
+
+                    if (JavaConstant.checkOpenShift) {
+                         System.err.println("dddddddddddddd");
+                         Component[] listCom = category.getComponents();
+                         listCom[0].setBackground(WindowColor.black);
+                         String id = ((LabelTitle) listCom[0]).getLbCatId();
+                         panelProduct.removeAll();
+                         pro.product(Integer.parseInt(id), limit, panelProduct);
+                         pro.setPanelProduct(panelProduct);
+                         panelProduct.revalidate();
+                         panelProduct.repaint();
+                    } else {
+                            System.err.println("nnnnnnnnnnnnn");
+                    }
+
                } else {
                     UIManager UI = new UIManager();
                     UI.put("OptionPane.background", WindowColor.mediumGreen);
                     UI.put("Panel.background", WindowColor.mediumGreen);
                     UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
                     JOptionPane.showMessageDialog(null, "Save Failed!");
-                    return;
+
                }
 
           } catch (Exception e) {
@@ -389,8 +393,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      public void setPanelPagination(JPanel panelPagination) {
           this.panelPagination = panelPagination;
      }
-     
-     
 
      public int getLimit() {
           return limit;

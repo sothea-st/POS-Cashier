@@ -77,7 +77,7 @@ public class LabelTitle extends javax.swing.JPanel {
     public LabelTitle() {
         initComponents();
         setBackground(WindowColor.darkGreen);
-        lbTitle.setFont(WindowFonts.timeNewRomanBold16);
+        lbTitle.setFont(WindowFonts.timeNewRomanBold12);
         lbTitle.setForeground(WindowColor.white);
     }
 
@@ -101,8 +101,8 @@ public class LabelTitle extends javax.swing.JPanel {
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addGap(0, 0, 0))
+                    .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

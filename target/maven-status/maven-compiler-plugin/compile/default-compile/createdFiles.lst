@@ -149,6 +149,7 @@ Components\HoldItem$1.class
 Components\BoxItem$2.class
 Components\DialonInputName$2.class
 Controller\ActionProduct\ActionProduct$1.class
+Constant\Test.class
 Components\JavaAlertMessage$1.class
 Discount\DiscountByItem$3.class
 HoldOrder\ListHoldOrder$1.class

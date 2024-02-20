@@ -110,13 +110,13 @@ public class SubtotalPanel extends javax.swing.JPanel {
      }
 
      public void setLabelSubTitleToZero() {
-          setLabelSubtotalUsd("$0.00");
+          setLabelSubtotalUsd("$ 0.00");
           setLabelSubtotalKhr("0");
-          setLableDiscountUsd("$0.00");
+          setLableDiscountUsd("$ 0.00");
           setLableDiscountKhr("0");
-          setLableDeliveryUsd("$0.00");
+          setLableDeliveryUsd("$ 0.00");
           setLableDeliveryKhr("0");
-          setLableTotalUsd("$0.00");
+          setLableTotalUsd("$ 0.00");
           setLableTotalKhr("0");
      }
 
