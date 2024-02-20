@@ -3,6 +3,11 @@ package com.example.pos.authentication.dtos;
 public class LoginUserDto {
     private String userCode;
     private String password;
+    private String deviceName;
+
+    public String getDeviceName() {
+        return deviceName;
+    }
 
     public String getUserCode() {
         return userCode;

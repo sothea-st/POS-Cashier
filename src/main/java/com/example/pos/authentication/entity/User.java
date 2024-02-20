@@ -28,6 +28,19 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Integer id;
 
+    @Column(name = "device_id")
+    private Integer deviceId;
+
+    public void setDevice(Integer device){
+        this.deviceId = device;
+    }
+
+    public Integer getDevice(){
+        return deviceId;
+    }
+
+
+
     // private String token;
     // private String expiredToken;
     // private String posId;
