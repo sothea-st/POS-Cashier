@@ -5,6 +5,8 @@ import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -12,18 +14,18 @@ import java.awt.event.MouseListener;
  */
 public class LabelTitle extends javax.swing.JPanel {
 
-    /**
-     * @return the labelTitle
-     */
-    public String getLabelTitle() {
-        return labelTitle;
-    }
+     /**
+      * @return the labelTitle
+      */
+     public String getLabelTitle() {
+          return labelTitle;
+     }
 
-    /**
-     * @param labelTitle the labelTitle to set
-     */
-    
-    private String lbCatId;
+     /**
+      * @param labelTitle the labelTitle
+      * to set
+      */
+     private String lbCatId;
 
      public String getLbCatId() {
           return lbCatId;
@@ -31,57 +33,60 @@ public class LabelTitle extends javax.swing.JPanel {
 
      public void setLbCatId(String lbCatId) {
           this.lbCatId = lbCatId;
- 
+
      }
-    
-    
-    public void setLabelTitle(String labelTitle) {
-        this.labelTitle = labelTitle;
-        lbTitle.setText(labelTitle);
- 
-    }
 
-    public void initEvent(ButtonEvent event) {
-        lbTitle.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onMouseClick();
-            }
+     public void setLabelTitle(String labelTitle) {
+          this.labelTitle = labelTitle;
+          lbTitle.setText(labelTitle);
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                
-            }
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                
-            }
+     public void initEvent(ButtonEvent event) {
+          lbTitle.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onMouseClick();
+               }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                
-            }
+               @Override
+               public void mousePressed(MouseEvent e) {
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                
-            }
-        });
-    }
-    
-    
-    /**
-     * Creates new form LabelTitle
-     */
-    public LabelTitle() {
-        initComponents();
-        setBackground(WindowColor.darkGreen);
-        lbTitle.setFont(WindowFonts.timeNewRomanBold12);
-        lbTitle.setForeground(WindowColor.white);
-    }
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mouseReleased(MouseEvent e) {
+
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+
+               }
+          });
+     }
+
+     /**
+      * Creates new form LabelTitle
+      */
+     public LabelTitle() {
+          initComponents();
+          setBackground(WindowColor.darkGreen);
+          lbTitle.setFont(WindowFonts.timeNewRomanBold12);
+          lbTitle.setForeground(WindowColor.white);
+
+     }
+
+     public void textCenter() {
+          lbTitle.setHorizontalAlignment(SwingConstants.CENTER);
+     }
+
+     @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
@@ -113,11 +118,10 @@ public class LabelTitle extends javax.swing.JPanel {
      }// </editor-fold>//GEN-END:initComponents
 
     private void lbTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTitleMouseClicked
-        // TODO add your handling code here:
+         // TODO add your handling code here:
     }//GEN-LAST:event_lbTitleMouseClicked
 
-
-    private String labelTitle;
+     private String labelTitle;
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JLabel lbTitle;
      // End of variables declaration//GEN-END:variables

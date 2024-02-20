@@ -4,14 +4,12 @@ import Button.Button;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
-import Components.RadioButton;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import Model.CustomerType.CustomerTypeModel;
 import Model.CustomerType.SourceModel;
 import Model.ReturnModel.ReturnProductModel;
@@ -25,7 +23,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
+
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONArray;
@@ -92,7 +90,7 @@ public class PaymentOption extends javax.swing.JDialog {
           try {
                if (response.isSuccessful()) {
                     String data = response.body().string();
-                    System.err.println("data   = " + data);
+
                     JSONObject obj = new JSONObject(data);
                     String customerID = obj.getString("data");
                     txtCustomerId.setValueTextFieldCenter(customerID);
@@ -231,11 +229,11 @@ public class PaymentOption extends javax.swing.JDialog {
                     double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
                     double result = doubleReceviceUsd - doubleTotalUsd;
                     if (result < 0) {
-                         setValueLabelUsd(result, 0);
+                         setValueLabelUsd(result, 110);
                     } else if (result > 0) {
-                         setValueLabelUsd(0, result);
+                         setValueLabelUsd(1110, result);
                     } else if (result == 0) {
-                         setValueLabelUsd(0, 0);
+                         setValueLabelUsd(1110, 11110);
                     }
                }
           } else if (sign == "khr") {
@@ -1191,25 +1189,27 @@ public class PaymentOption extends javax.swing.JDialog {
          jsonData.put("dataSale", dataSale);
 
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
+         System.out.println("Payment.PaymentO fails= " + response);
+         try {
+              if (response.isSuccessful()) {
+                   dispose();
+                   detailItem.removeAll();
+                   detailItem.revalidate();
+                   detailItem.repaint();
+                   subtotalPanel.setLabelSubTitleToZero();
+                   btnPayment.setBackground(WindowColor.lightGray);
 
-         if (response.isSuccessful()) {
-              dispose();
-              detailItem.removeAll();
-              detailItem.revalidate();
-              detailItem.repaint();
-              subtotalPanel.setLabelSubTitleToZero();
-              btnPayment.setBackground(WindowColor.lightGray);
-
-              // remove hole order
-              if (!JavaConstant.listHoldData.isEmpty()) {
-                   int index = JavaConstant.indexArrayListHold;
-                   JavaConstant.listHoldData.remove(index);
-                   JavaConstant.indexArrayListHold = 0;
+                   // remove hole order
+                   if (!JavaConstant.listHoldData.isEmpty()) {
+                        int index = JavaConstant.indexArrayListHold;
+                        JavaConstant.listHoldData.remove(index);
+                        JavaConstant.indexArrayListHold = 0;
+                   }
+              } else {
+                   JOptionPane.showMessageDialog(this, "Charge Failed!");
               }
-         }
-         else{
-            JOptionPane.showMessageDialog(this, "Charge Failed!");
-            return;
+         } catch (Exception e) {
+              System.err.println("errir = " + e);
          }
 
 
@@ -1285,12 +1285,21 @@ public class PaymentOption extends javax.swing.JDialog {
      private void setValueLabelUsd(double remaining, double change) {
           lbRemainingUsd.setLabelName(df.format(remaining));
           lbChangeUsd.setLabelName(df.format(change));
+
+          double _remaining = remaining * JavaConstant.exchangeRate;
+          double _change = change * JavaConstant.exchangeRate;
+
+          lbRemainingKhr.setLabelName(dm.format(_remaining));
+          lbChangeKhr.setLabelName(dm.format(_change));
      }
 
      private void setValueLabelKhr(double remaining, double change) {
+          double _remaining = remaining / JavaConstant.exchangeRate;
+          double _change = change / JavaConstant.exchangeRate;
+          lbRemainingUsd.setLabelName(df.format(_remaining));
+          lbChangeUsd.setLabelName(df.format(_change));
 
           lbRemainingKhr.setLabelName(dm.format(remaining));
-
           lbChangeKhr.setLabelName(dm.format(change));
      }
 

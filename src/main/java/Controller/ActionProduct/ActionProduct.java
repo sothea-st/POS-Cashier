@@ -236,6 +236,7 @@ public class ActionProduct {
                panelProduct.add(product, gbc);
 
           }
+        
      }
 
      // method total is same but they do action different

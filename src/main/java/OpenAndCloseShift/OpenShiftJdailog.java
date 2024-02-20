@@ -3,6 +3,7 @@ package OpenAndCloseShift;
 import Button.Button;
 import Color.WindowColor;
 import Components.LabelTitle;
+import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -36,6 +37,9 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private LoginFormJdailog jdFormLogin;
      private int limit;
      private JPanel panelPagination;
+     private JPanel detailItem;
+     private SubtotalPanel subtotalPanel;
+     private Button btnPayment;
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -278,18 +282,18 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           json.put("createBy", JavaConstant.cashierId);
 
           try {
-              
-              System.out.println("reserveUsd :" + reserveUsd);
-              if(reserveUsd == null || reserveUsd.isEmpty()){
-                  JOptionPane.showMessageDialog(null, " Total Cash (USD) can not be empty!");
-                  return;
-              }
-              
-              if(reserveKhr == null || reserveKhr.isEmpty()){
-                  JOptionPane.showMessageDialog(null, " Total Cash (KHR) can not be empty!");
-                  return;
-              }
-              
+
+               System.out.println("reserveUsd :" + reserveUsd);
+               if (reserveUsd == null || reserveUsd.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, " Total Cash (USD) can not be empty!");
+                    return;
+               }
+
+               if (reserveKhr == null || reserveKhr.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, " Total Cash (KHR) can not be empty!");
+                    return;
+               }
+
                Response response = JavaConnection.post(JavaRoute.openShift, json);
                if (response.isSuccessful()) {
                     dispose();
@@ -298,19 +302,17 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     JavaConstant.checkOpenShift = true;
                     JavaConstant.checkCloseShift = 1l;
 
-                    if (JavaConstant.checkOpenShift) {
-                         System.err.println("dddddddddddddd");
-                         Component[] listCom = category.getComponents();
-                         listCom[0].setBackground(WindowColor.black);
-                         String id = ((LabelTitle) listCom[0]).getLbCatId();
-                         panelProduct.removeAll();
-                         pro.product(Integer.parseInt(id), limit, panelProduct);
-                         pro.setPanelProduct(panelProduct);
-                         panelProduct.revalidate();
-                         panelProduct.repaint();
-                    } else {
-                            System.err.println("nnnnnnnnnnnnn");
-                    }
+                    // after open shift will show all product at category ALL
+                    Component[] listCom = category.getComponents();
+                    listCom[0].setBackground(WindowColor.black);
+                    panelProduct.removeAll();
+                    pro.setDetailItem(detailItem);
+                    pro.getAllProduct(panelProduct);
+                    pro.setSubtotalPanel(subtotalPanel);
+                    pro.setPanelProduct(panelProduct);
+                    pro.setBtnPayment(btnPayment);
+                    panelProduct.revalidate();
+                    panelProduct.repaint();
 
                } else {
                     UIManager UI = new UIManager();
@@ -326,8 +328,24 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           }
      }// GEN-LAST:event_buttonSaveMouseClicked
 
+     public Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public void setBtnPayment(Button btnPayment) {
+          this.btnPayment = btnPayment;
+     }
+
      public DataModelDefaultPrice getDataSuccess() {
           return dataSuccess;
+     }
+
+     public SubtotalPanel getSubtotalPanel() {
+          return subtotalPanel;
+     }
+
+     public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
+          this.subtotalPanel = subtotalPanel;
      }
 
      public void setDataSuccess(DataModelDefaultPrice dataSuccess) {
@@ -343,6 +361,14 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           } catch (Exception e) {
                System.err.println("getting error at " + e);
           }
+     }
+
+     public JPanel getDetailItem() {
+          return detailItem;
+     }
+
+     public void setDetailItem(JPanel detailItem) {
+          this.detailItem = detailItem;
      }
 
      public JPanel getPanelPagination() {

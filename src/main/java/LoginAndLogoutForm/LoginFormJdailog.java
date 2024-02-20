@@ -224,7 +224,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          //String userId = txtUserId.getValueTextField();
          //String password = txtPassword.getValuePassword();
 
-         String userId = "0003";
+         String userId = "0005";
          String password = "TT@126$kh#";
 
          JSONObject json = new JSONObject();
@@ -270,6 +270,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                         if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
                              JavaConstant.checkOpenShift = true;
+
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
                              JavaConstant.numberOpenShift = Integer.valueOf("" + data.getData().getNumberOpenShift());
@@ -284,13 +285,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    getjScrollPaneCategory().setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
 
-                   //==============Add Background===============
-//                   BackgroundImage bgimg = new BackgroundImage();
-//                   panelProduct.removeAll();
-//                   panelProduct.add(bgimg);
-//                   panelProduct.revalidate();
-//                   panelProduct.repaint();
-                   //=============================================
                    eventSelectBrand();
                    txtUserId.setValueTextField(null);
                    txtPassword.setValuePassword(null);
@@ -374,6 +368,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          int catId = listCategory.get(i).getId();
                          LabelTitle categoryTitle = new LabelTitle();
                          categoryTitle.setLbCatId("" + catId);
+                         categoryTitle.textCenter();
                          category.add(categoryTitle);
                          String catNameData = listCategory.get(i).getCatNameEn();
 
@@ -440,19 +435,30 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                     // setter of actionProduct
                     assignProduct(null);
-           
-                    category.getComponents()[0].setBackground(WindowColor.black);
-                    setCatId(catId);
-                    setCatName("" + 0);
-                    setBrandId(0); // each time user click on category brandId will be 0
-                    cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
-                    searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
-                    panelProduct.removeAll();
-                    pro.getAllProduct(panelProduct);
-                    pro.setBtnPayment(btnPayment);
-                    panelProduct.revalidate();
-                    panelProduct.repaint();
-                    setCount(pro.getCount());
+
+                    if (btnOpenShift.getButtonName().equals("Close Shift")) {
+                         category.getComponents()[0].setBackground(WindowColor.black);
+                         setCatId(catId);
+                         setCatName("" + 0);
+                         setBrandId(0); // each time user click on category brandId will be 0
+                         cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
+                         searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
+                         panelProduct.removeAll();
+                         pro.getAllProduct(panelProduct);
+                         pro.setBtnPayment(btnPayment);
+                         panelProduct.revalidate();
+                         panelProduct.repaint();
+                         setCount(pro.getCount());
+                    } else {
+//                          == == == == == == == Add Background == == == == == == ==
+                         BackgroundImage bgimg = new BackgroundImage();
+                         panelProduct.removeAll();
+                         panelProduct.add(bgimg);
+                         panelProduct.revalidate();
+                         panelProduct.repaint();
+//                          == == == == == == == == == == == == == == == == == == == == == == =
+                    }
+
                } else {
                     System.err.println("fail load category");
                }

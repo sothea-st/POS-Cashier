@@ -9,7 +9,6 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -309,53 +308,56 @@ public class CloseShift extends javax.swing.JDialog {
          json.put("userId", JavaConstant.cashierId);
          json.put("posId", JavaConstant.posId);
 
-        try {
-            System.out.println("express :" + express);
-            if (express == null || express.isEmpty()) {
-                 JOptionPane.showMessageDialog(this, "RED ANT EXPRESS can not be empty!");
-                 return;
-            }
-            if (khqrMnk == null || khqrMnk.isEmpty()) {
-                 JOptionPane.showMessageDialog(this, "KHQR-NMK can not be empty!");
-                 return;
-            }
-            if (khqrAba == null || khqrAba.isEmpty()) {
-                 JOptionPane.showMessageDialog(this, "KHQR-ABA can not be empty!");
-                 return;
-            }
-            if (creditCard == null || creditCard.isEmpty()) {
-                 JOptionPane.showMessageDialog(this, "ABA-CREDIT CARD can not be empty!");
-                 return;
-            }
-            if (cashUsd == null || cashUsd.isEmpty()) {
-                 JOptionPane.showMessageDialog(this, "CASH (USD) can not be empty!");
-                 return;
-            }
-            if ( cashKhr == null || cashKhr.isEmpty()) {
-                 JOptionPane.showMessageDialog(this, "CASH (KHR) can not be empty!");
-                 return;
-            }
-            
-            Response response = JavaConnection.post(JavaRoute.closeShift, json);
-            if (response.isSuccessful()) {
-                dispose();
-                btnOpenShift.setButtonName("Open Shift");
-                JavaConstant.checkCloseShift = 0l;
-                JavaConstant.checkOpenShift = false;
-                    
-                   category.setBackground(Color.red);
+         try {
+
+              if (express == null || express.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "RED ANT EXPRESS can not be empty!");
+                   return;
+              }
+              if (khqrMnk == null || khqrMnk.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "KHQR-NMK can not be empty!");
+                   return;
+              }
+              if (khqrAba == null || khqrAba.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "KHQR-ABA can not be empty!");
+                   return;
+              }
+              if (creditCard == null || creditCard.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "ABA-CREDIT CARD can not be empty!");
+                   return;
+              }
+              if (cashUsd == null || cashUsd.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "CASH (USD) can not be empty!");
+                   return;
+              }
+              if (cashKhr == null || cashKhr.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "CASH (KHR) can not be empty!");
+                   return;
+              }
+
+              Response response = JavaConnection.post(JavaRoute.closeShift, json);
+              System.err.println("response f = " + response);
+              if (response.isSuccessful()) {
                    panelProduct.removeAll();
                    panelProduct.revalidate();
                    panelProduct.repaint();
                    getPanelPagination().setVisible(false);
+                   category.getComponents()[0].setBackground(WindowColor.darkGreen);
+                
+                   dispose();
+
+                   System.err.println("dddddddddddddddddddd");
+                   btnOpenShift.setButtonName("Open Shift");
+                   JavaConstant.checkCloseShift = 0l;
+                   JavaConstant.checkOpenShift = false;
 
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                   return;
+
               }
 
          } catch (Exception e) {
-
+              System.err.println("errr -- " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
@@ -383,8 +385,6 @@ public class CloseShift extends javax.swing.JDialog {
           this.category = category;
      }
 
-     
-     
      /**
       * @param args the command line
       * arguments
