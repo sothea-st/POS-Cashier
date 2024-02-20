@@ -106,8 +106,23 @@ public class ProductService {
     }
 
     public List<ProductModel> getProduct(int limit) {
-     
+        
         List<ProductModel> list = new ArrayList<>();
+
+        if( limit == 0 ) {
+            List<ProductProjection> allPro = repo.getAllProduct();
+            for (int i = 0; i < allPro.size(); i++) {
+                var data = allPro.get(i);
+                Integer qty = repoImp.getQty(data.getId());
+                if (qty == null)
+                    qty = 0;
+                ProductModel p = proModel(data, qty);
+                list.add(p);
+            }
+            return list;
+        }
+
+
         List<ProductProjection> lPro = repo.getProduct(limit);
         for (int i = 0; i < lPro.size(); i++) {
             var data = lPro.get(i);
