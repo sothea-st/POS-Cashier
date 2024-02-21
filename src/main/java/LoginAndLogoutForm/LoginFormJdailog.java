@@ -235,10 +235,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
          String userId = "0002";
          String password = "TT@126$kh#";
+         String deviceName = JavaConstant.getDeviceName();
+         System.err.println("device name = " + deviceName);
 
          JSONObject json = new JSONObject();
          json.put("userCode", userId);
          json.put("password", password);
+         json.put("deviceName", deviceName);
 
          try {
 
@@ -256,8 +259,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
               if (response.isSuccessful()) {
                    String responseData = response.body().string();
+
                    ObjectMapper objMap = new ObjectMapper();
                    LoginModel model = objMap.readValue(responseData, LoginModel.class);
+
+                   if (!model.getMag().equals("success")) {
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        j.setMessage(model.getMag());
+                        j.setVisible(true);
+                        return;
+                   }
 
                    if (model.getRoleID() == null) {
                         dispose();

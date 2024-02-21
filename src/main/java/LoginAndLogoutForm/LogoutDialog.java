@@ -5,12 +5,16 @@ import Color.WindowColor;
 import Components.BackgroundImage;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import Fonts.WindowFonts;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class LogoutDialog extends javax.swing.JDialog {
 
@@ -172,42 +176,54 @@ public class LogoutDialog extends javax.swing.JDialog {
               j.setMessage("You have to close shift first to log out!");
               j.setVisible(true);
               return;
-         } 
+         }
 
-      
-         btnOpenShift.setBackground(WindowColor.lightGray);
-         buttonCashier.setBackground(WindowColor.lightGray);
-         
-         lbPOSId.setText("POS ID :");
-         boxUserName.setText("");
-         category.removeAll();
-         category.revalidate();
-         category.repaint();
+
+         JSONObject json = new JSONObject();
+         json.put("id", JavaConstant.cashierId);
+         Response response = JavaConnection.post(JavaRoute.logout, json);
        
-         subtotalPanel.setLabelSubTitleToZero();
-         detailItem.removeAll();
-         detailItem.revalidate();
-         detailItem.repaint();
-         
-         //==============Add Background===============
-         BackgroundImage bgimg = new BackgroundImage();
-         panelProduct.removeAll();
-         panelProduct.add(bgimg);
-         panelProduct.revalidate();
-         panelProduct.repaint();
-         //===========================================
-         
-         btnLogin.setButtonName("Login");
-         panelPagination.setVisible(false);
+         try {
+              if (response.isSuccessful()) {
+                   btnOpenShift.setBackground(WindowColor.lightGray);
+                   buttonCashier.setBackground(WindowColor.lightGray); 
 
-         //Session
-         JavaConstant.token = null;
-         JavaConstant.fullName = null;
-         JavaConstant.userCode = null;
-         JavaConstant.posId = null;
-         JavaConstant.cashierId = null;
-         JavaConstant.checkOpenShift=false;
-         dispose();
+                   lbPOSId.setText("POS ID :");
+                   boxUserName.setText("");
+                   category.removeAll();
+                   category.revalidate();
+                   category.repaint();
+
+                   subtotalPanel.setLabelSubTitleToZero();
+                   detailItem.removeAll();
+                   detailItem.revalidate();
+                   detailItem.repaint();
+
+                   //==============Add Background===============
+                   BackgroundImage bgimg = new BackgroundImage();
+                   panelProduct.removeAll();
+                   panelProduct.add(bgimg);
+                   panelProduct.revalidate();
+                   panelProduct.repaint();
+                   //===========================================
+
+                   btnLogin.setButtonName("Login");
+                   panelPagination.setVisible(false);
+
+                   //Session
+                   JavaConstant.token = null;
+                   JavaConstant.fullName = null;
+                   JavaConstant.userCode = null;
+                   JavaConstant.posId = null;
+                   JavaConstant.cashierId = null;
+                   JavaConstant.checkOpenShift = false;
+                   dispose();
+              }
+         } catch (Exception e) {
+              System.err.println("error = " + e);
+         }
+
+
     }//GEN-LAST:event_buttonYesMouseClicked
 
     private void buttonNoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonNoMouseClicked

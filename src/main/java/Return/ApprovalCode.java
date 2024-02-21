@@ -154,15 +154,16 @@ public class ApprovalCode extends javax.swing.JDialog {
               JOptionPane.showMessageDialog(this, "Code can not be empty!");
               return;
          }
-         
+
          if (password == null || password.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Password can not be empty!");
               return;
          }
-         
+
          JSONObject json = new JSONObject();
          json.put("userCode", userCode);
          json.put("password", password);
+//         json.put("deviceName", null);
 
          Response response = JavaConnection.login(JavaRoute.login, json);
 
@@ -193,10 +194,9 @@ public class ApprovalCode extends javax.swing.JDialog {
                         j.setMessage("You have no permission use this function!");
                         j.setVisible(true);
                    }
-              }
-              else{
-                  JOptionPane.showMessageDialog(this, "Wrong code or password!");
-                  return;
+              } else {
+                   JOptionPane.showMessageDialog(this, "Wrong code or password!");
+                   return;
               }
          } catch (Exception e) {
               System.err.println("err  = " + e);
