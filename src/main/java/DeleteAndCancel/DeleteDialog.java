@@ -1,5 +1,6 @@
 package DeleteAndCancel;
 
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
@@ -36,6 +37,8 @@ public class DeleteDialog extends javax.swing.JDialog {
      DecimalFormat kh = new DecimalFormat("#,##0");
      private String reasonId;
      private Button.Button btnPayment;
+     private ButtonPackage.ButtonCancel btnCancel;
+     private Button.Button buttonHoldOrder;
 
      public DeleteDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -119,6 +122,8 @@ public class DeleteDialog extends javax.swing.JDialog {
 
           if (l.length == 0) {
                btnPayment.setBackground(WindowColor.lightGray);
+               btnCancel.setBackground(WindowColor.lightGray);
+               buttonHoldOrder.setBackground(WindowColor.lightGray);
                subtotalPanel.setLabelSubTitleToZero();
                return;
           }
@@ -234,7 +239,7 @@ public class DeleteDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
-
+        
          if (reasonId == null) {
               JOptionPane.showMessageDialog(this, "Please select a reason!");
               return;
@@ -317,6 +322,21 @@ public class DeleteDialog extends javax.swing.JDialog {
           this.subtotalPanel = subtotalPanel;
      }
 
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+
+     public Button.Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
+
+     public void setButtonHoldOrder(Button.Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel1;

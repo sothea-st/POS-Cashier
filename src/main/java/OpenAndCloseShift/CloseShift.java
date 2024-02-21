@@ -2,17 +2,12 @@ package OpenAndCloseShift;
 
 import Button.Button;
 import Color.WindowColor;
-import Components.BackgroundImage;
-import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONObject;
@@ -23,6 +18,11 @@ public class CloseShift extends javax.swing.JDialog {
      private JPanel panelProduct;
      private JPanel panelPagination;
      private JPanel category;
+     private Button btnreturn;
+     private Button btnReprint;
+     private Button buttonDiscount;
+     private Button buttonCustomer;
+     private Button buttonCashier;
 
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -335,10 +335,13 @@ public class CloseShift extends javax.swing.JDialog {
                    panelProduct.repaint();
                    getPanelPagination().setVisible(false);
                    category.getComponents()[0].setBackground(WindowColor.darkGreen);
-                
+                   
+                   btnreturn.setBackground(WindowColor.lightGray);
+                   buttonCustomer.setBackground(WindowColor.lightGray);
+                   buttonDiscount.setBackground(WindowColor.lightGray);
+                   btnReprint.setBackground(WindowColor.lightGray);
+                   buttonCashier.setBackground(WindowColor.green);
                    dispose();
-
-                   System.err.println("dddddddddddddddddddd");
                    btnOpenShift.setButtonName("Open Shift");
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
@@ -377,6 +380,48 @@ public class CloseShift extends javax.swing.JDialog {
           this.category = category;
      }
 
+    public Button getBtnreturn() {
+        return btnreturn;
+    }
+
+    public void setBtnreturn(Button btnreturn) {
+        this.btnreturn = btnreturn;
+    }
+
+    public Button getBtnReprint() {
+        return btnReprint;
+    }
+
+    public void setBtnReprint(Button btnReprint) {
+        this.btnReprint = btnReprint;
+    }
+
+    public Button getButtonDiscount() {
+        return buttonDiscount;
+    }
+
+    public void setButtonDiscount(Button buttonDiscount) {
+        this.buttonDiscount = buttonDiscount;
+    }
+
+    public Button getButtonCustomer() {
+        return buttonCustomer;
+    }
+
+    public void setButtonCustomer(Button buttonCustomer) {
+        this.buttonCustomer = buttonCustomer;
+    }
+
+    public Button getButtonCashier() {
+        return buttonCashier;
+    }
+
+    public void setButtonCashier(Button buttonCashier) {
+        this.buttonCashier = buttonCashier;
+    }
+
+    
+     
      /**
       * @param args the command line
       * arguments

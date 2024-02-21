@@ -1,5 +1,6 @@
 package Components;
 
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
@@ -217,6 +218,22 @@ public class BoxItem extends javax.swing.JPanel {
           this.btnPayment = btnPayment;
      }
 
+    public ButtonPackage.ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonPackage.ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+     
+     public Button.Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
+
+     public void setButtonHoldOrder(Button.Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
+     
      /**
       * Creates new form BoxItem
       */
@@ -240,6 +257,9 @@ public class BoxItem extends javax.swing.JPanel {
      DecimalFormat kh = new DecimalFormat("#,##0");
      private String discountAmt;
      private Button.Button btnPayment;
+     private ButtonPackage.ButtonCancel btnCancel;
+     private Button.Button buttonHoldOrder;
+     
 
      public BoxItem() {
           initComponents();
@@ -568,6 +588,8 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setProductId(b.getProductId());
          delete.setSubtotalPanel(subtotalPanel);
          delete.setBtnPayment(btnPayment);
+         delete.setBtnCancel(btnCancel);
+         delete.setButtonHoldOrder(buttonHoldOrder);
          delete.setVisible(true);
 
     }//GEN-LAST:event_btnDeleteMouseClicked

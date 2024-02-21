@@ -44,7 +44,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="remove" min="-2" pref="96" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Component id="cancel" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -70,7 +70,7 @@
                   <Component id="panelHold" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="383" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="buttonCancel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="cancel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="remove" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
@@ -79,12 +79,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
+        <Component class="ButtonPackage.ButtonCancel" name="cancel">
           <Properties>
             <Property name="buttonName" type="java.lang.String" value="Close"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCancelMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cancelMouseClicked"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="panelHold">

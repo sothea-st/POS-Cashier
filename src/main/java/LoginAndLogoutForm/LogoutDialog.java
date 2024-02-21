@@ -7,8 +7,6 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Fonts.WindowFonts;
-import View.MainPage.MainPage;
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -177,6 +175,9 @@ public class LogoutDialog extends javax.swing.JDialog {
          } 
 
       
+         btnOpenShift.setBackground(WindowColor.lightGray);
+         buttonCashier.setBackground(WindowColor.lightGray);
+         
          lbPOSId.setText("POS ID :");
          boxUserName.setText("");
          category.removeAll();
@@ -240,6 +241,8 @@ public class LogoutDialog extends javax.swing.JDialog {
      private SubtotalPanel subtotalPanel;
      private Button btnPayment;
      private JPanel panelPagination;
+     private Button btnOpenShift;
+     private Button buttonCashier;
 
      public SubtotalPanel getSubtotalPanel() {
           return subtotalPanel;
@@ -329,6 +332,24 @@ public class LogoutDialog extends javax.swing.JDialog {
           this.panelPagination = panelPagination;
      }
 
+    public Button getBtnOpenShift() {
+        return btnOpenShift;
+    }
+
+    public void setBtnOpenShift(Button btnOpenShift) {
+        this.btnOpenShift = btnOpenShift;
+    }
+
+    public Button getButtonCashier() {
+        return buttonCashier;
+    }
+
+    public void setButtonCashier(Button buttonCashier) {
+        this.buttonCashier = buttonCashier;
+    }
+
+    
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;

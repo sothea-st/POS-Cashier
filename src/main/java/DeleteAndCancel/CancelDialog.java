@@ -1,6 +1,7 @@
 package DeleteAndCancel;
 
 import Button.Button;
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.SubtotalPanel;
@@ -37,6 +38,8 @@ public class CancelDialog extends javax.swing.JDialog {
      private HashMap<String, String> map = new HashMap<>();
      private String reasonId;
      private Component[] listCom;
+     private ButtonCancel btnCancel;
+     private Button buttonHoldOrder;
 
      /**
       * Creates new form DeleteDialog
@@ -97,7 +100,7 @@ public class CancelDialog extends javax.swing.JDialog {
         labelPopUpTitle1 = new Components.LabelPopUpTitle();
         lbReason = new Components.Label();
         comboBoxReason = new Components.ComboBox();
-        buttonCancel = new ButtonPackage.ButtonCancel();
+        cancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
         jLabel1 = new javax.swing.JLabel();
 
@@ -107,9 +110,9 @@ public class CancelDialog extends javax.swing.JDialog {
 
         lbReason.setLabelName("Reason");
 
-        buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCancelMouseClicked(evt);
+                cancelMouseClicked(evt);
             }
         });
 
@@ -139,7 +142,7 @@ public class CancelDialog extends javax.swing.JDialog {
                         .addComponent(comboBoxReason, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE))
                     .addGroup(panelCancelLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
@@ -155,7 +158,7 @@ public class CancelDialog extends javax.swing.JDialog {
                     .addComponent(lbReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelCancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
@@ -177,9 +180,9 @@ public class CancelDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+    private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
          this.dispose();
-    }//GEN-LAST:event_buttonCancelMouseClicked
+    }//GEN-LAST:event_cancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
@@ -227,6 +230,8 @@ public class CancelDialog extends javax.swing.JDialog {
           Component[] listCom1 = detailItem.getComponents();
           if (listCom1.length == 0) {
                btnPayment.setBackground(WindowColor.lightGray);
+               btnCancel.setBackground(WindowColor.lightGray);
+               buttonHoldOrder.setBackground(WindowColor.lightGray);
                getDetailItem().setBorder(null);
           }
      }
@@ -319,10 +324,28 @@ public class CancelDialog extends javax.swing.JDialog {
           this.listCom = listCom;
      }
 
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+
+    public Button getButtonHoldOrder() {
+        return buttonHoldOrder;
+    }
+
+    public void setButtonHoldOrder(Button buttonHoldOrder) {
+        this.buttonHoldOrder = buttonHoldOrder;
+    }
+
+    
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
+    private ButtonPackage.ButtonCancel cancel;
     private Components.ComboBox comboBoxReason;
     private javax.swing.JLabel jLabel1;
     private Components.LabelPopUpTitle labelPopUpTitle1;
