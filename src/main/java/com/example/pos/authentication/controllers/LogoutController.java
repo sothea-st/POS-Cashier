@@ -19,10 +19,11 @@ public class LogoutController {
      @Autowired
      private UserRepository repo;
 
-     @PostMapping("/{id}")
-     public ResponseEntity<?> logout(@PathVariable("id") int id) {
-          Optional<User> user = repo.findById(id);
-          User data = user.get();
+     @PostMapping
+     public ResponseEntity<?> logout(@RequestBody User user) {
+          System.out.println("data id logout = " + user.getId());
+          Optional<User> users = repo.findById(user.getId());
+          User data = users.get();
           data.setDevice(null);
           repo.save(data);
           return JavaResponse.success("Log out success");

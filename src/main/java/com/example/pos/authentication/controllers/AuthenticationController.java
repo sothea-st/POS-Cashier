@@ -140,33 +140,36 @@ public class AuthenticationController {
         if (authenticatedUser.getRole() != null) {
             roleName = repoRole.findById(authenticatedUser.getRole()).get().getRoleName();
         }
-        System.out.println("data device name = " + loginUserDto.getDeviceName());
-        if (authenticatedUser.getDevice() == null) {
-            int count = deviceRepo.count(authenticatedUser.getId(), JavaConstant.currentDate);
-            count++;
-            Device d = new Device();
-            d.setCount(count);
-            d.setDeviceName(loginUserDto.getDeviceName());
-            d.setDate(JavaConstant.currentDate);
-            d.setUserId(authenticatedUser.getId());
-            deviceRepo.save(d);
-            Optional<User> u = userRepo.findById(authenticatedUser.getId());
-            User _user = u.get();
-            _user.setDevice(d.getId());
-            userRepo.save(_user);
-        } else {
 
-            String deviceName = deviceRepo.deviceName(authenticatedUser.getDevice());
-            deviceName = deviceName.toLowerCase();
-            if( !deviceName.equals(loginUserDto.getDeviceName().toLowerCase()) ) {
-                map.put("msg", "This user already used in other device !");
-                return ResponseEntity.ok().body(map);
+ 
+
+        if (loginUserDto.getDeviceName() != null) {
+            if (authenticatedUser.getDevice() == null) {
+                int count = deviceRepo.count(authenticatedUser.getId(), JavaConstant.currentDate);
+                count++;
+                Device d = new Device();
+                d.setCount(count);
+                d.setDeviceName(loginUserDto.getDeviceName());
+                d.setDate(JavaConstant.currentDate);
+                d.setUserId(authenticatedUser.getId());
+                deviceRepo.save(d);
+                Optional<User> u = userRepo.findById(authenticatedUser.getId());
+                User _user = u.get();
+                _user.setDevice(d.getId());
+                userRepo.save(_user);
+            } else {
+                String deviceName = deviceRepo.deviceName(authenticatedUser.getDevice());
+                deviceName = deviceName.toLowerCase();
+                if (!deviceName.equals(loginUserDto.getDeviceName().toLowerCase())) {
+                    map.put("msg", "This user already used in other device !");
+                    return ResponseEntity.ok().body(map);
+                }
             }
         }
 
         httpSession.setAttribute(JavaConstant.userId, authenticatedUser.getId());
         httpSession.setAttribute(JavaConstant.userCode, authenticatedUser.getUserCode());
-   
+
         map.put("id", authenticatedUser.getId());
         map.put("empId", authenticatedUser.getEmpId());
         map.put("userCode", authenticatedUser.getUserCode());
@@ -175,6 +178,7 @@ public class AuthenticationController {
         map.put("token", jwtToken);
         map.put("posId", posId);
         map.put("userName", userName);
+        map.put("msg", JavaConstant.success);
 
         return ResponseEntity.ok().body(map);
     }
