@@ -194,6 +194,7 @@ Event\ButtonEvent.class
 View\MainPage\MainPage$4.class
 Receipt\CashierReport$2.class
 LoginAndLogoutForm\LogoutDialog.class
+Payment\PaymentOption$25.class
 HoldOrder\ListHoldOrder$3.class
 HoldOrder\ListHoldOrder.class
 View\MainPage\MainPage$17.class
@@ -212,7 +213,6 @@ ButtonPackage\ButtonSave.class
 Receipt\Receipt$2.class
 Model\CustomerType\SourceModel.class
 HoldOrder\ListHoldOrder$4.class
-Payment\PaymentOption$24$1.class
 Components\LabelFontGreen.class
 Model\Reprint\SaleDetailModel.class
 Model\CustomerType\CustomerTypeModel.class
@@ -256,6 +256,7 @@ Components\BoxItem$1.class
 View\MainPage\MainPage$3.class
 Components\TextField.class
 Model\Login\LoginModel.class
+Payment\PaymentOption$25$1.class
 Return\ReturnDialog$5$1.class
 View\MainPage\MainPage$1.class
 LoginAndLogoutForm\LoginFormJdailog$6$1.class

@@ -7,6 +7,7 @@ import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import okhttp3.MediaType;
 
@@ -50,7 +51,7 @@ public class JavaConstant {
      }
 
      public static ArrayList<HoldOrderModel> listHoldData = new ArrayList<>();
-     public static ArrayList<NewHoldOrderModel> listHoldOrder= new ArrayList<>();
+     public static ArrayList<NewHoldOrderModel> listHoldOrder = new ArrayList<>();
      public static int indexArrayListHold = 0;
      public static boolean checkOpenShift = false;
      public static String openShiftFirst = "You have to open shift first!";
@@ -67,11 +68,19 @@ public class JavaConstant {
      public static String byBrandId = "Select By BrandID";
      public static String byCatID = "Select By CatID";
      public static String noResult = "No Result";
-
      public static int rowNum = 5;
      public static ProductDataModel[] listData;
-     
-     
-     public static boolean isCheckProductAll=false;
+     public static boolean isCheckProductAll = false;
+
+     public static String getDeviceName() {
+          Map<String, String> env = System.getenv();
+          if (env.containsKey("COMPUTERNAME")) {
+               return env.get("COMPUTERNAME");
+          } else if (env.containsKey("HOSTNAME")) {
+               return env.get("HOSTNAME");
+          } else {
+               return "Unknown";
+          }
+     }
 
 }

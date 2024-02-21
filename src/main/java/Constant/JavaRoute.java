@@ -1,7 +1,6 @@
 package Constant;
 
 public class JavaRoute {
-
      public static String login = "/auth/login";
      public static String product = "/product";
      public static String getProductByCatId = "/product/getProductByCatId";
@@ -27,5 +26,6 @@ public class JavaRoute {
      public static String getCustomerId = "/customer/getCustomerId";
      public static String bgImage = "/public/addImageForBackground/";
      public static String discount = "/product/discount";
+     public static String logout = "/logout";
 
 }
