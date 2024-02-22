@@ -2,6 +2,7 @@
 package HoldOrder;
 
 import Button.Button;
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.HoldItem;
@@ -13,7 +14,6 @@ import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
 import Model.HoldOrder.NewHoldOrderModel;
-import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
@@ -30,6 +30,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private SubtotalPanel subtotalPanel;
     private Button btnPayment;
     private countCircleShape countCircleShape; 
+    private Button buttonHoldOrder;
+    private ButtonCancel btnCancel;
 
     public ListHoldOrder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -40,7 +42,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           body.setBackground(WindowColor.mediumGreen);
           setResizable(false);
-          buttonCancel.setButtonName("Close");
+          cancel.setButtonName("Close");
           
           callHistoryHold(JavaConstant.listHoldOrder);
           panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
@@ -71,6 +73,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          JavaConstant.indexArrayListHold = index;
 
                          btnPayment.setBackground(WindowColor.lightBlue);
+                         buttonHoldOrder.setBackground(WindowColor.yellow);
+                         btnCancel.setBackground(WindowColor.darkred);
                          dispose();
                          
                          listHoldOrder.remove(index);
@@ -109,7 +113,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private void initComponents() {
 
         body = new javax.swing.JPanel();
-        buttonCancel = new ButtonPackage.ButtonCancel();
+        cancel = new ButtonPackage.ButtonCancel();
         panelHold = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -119,10 +123,10 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        buttonCancel.setButtonName("Close");
-        buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+        cancel.setButtonName("Close");
+        cancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCancelMouseClicked(evt);
+                cancelMouseClicked(evt);
             }
         });
 
@@ -196,7 +200,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(remove, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +219,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 .addComponent(panelHold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(remove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
@@ -235,9 +239,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+    private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
         this.dispose();
-    }//GEN-LAST:event_buttonCancelMouseClicked
+    }//GEN-LAST:event_cancelMouseClicked
 
      void refreshPanel() {
           panelHold.revalidate();
@@ -286,6 +290,22 @@ public class ListHoldOrder extends javax.swing.JDialog {
         this.countCircleShape = countCircleShape;
     }
 
+    public Button getButtonHoldOrder() {
+        return buttonHoldOrder;
+    }
+
+    public void setButtonHoldOrder(Button buttonHoldOrder) {
+        this.buttonHoldOrder = buttonHoldOrder;
+    }
+
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+
     
     
     /**
@@ -332,7 +352,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
-    private ButtonPackage.ButtonCancel buttonCancel;
+    private ButtonPackage.ButtonCancel cancel;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

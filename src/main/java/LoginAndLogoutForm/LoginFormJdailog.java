@@ -39,6 +39,7 @@ import com.sun.java.accessibility.util.AWTEventMonitor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import ButtonPackage.ButtonCancel;
 
 public class LoginFormJdailog extends javax.swing.JDialog {
 
@@ -78,6 +79,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private String catName;
      private SearchField searchBox;
      private TextField textField;
+     private Button buttonHoldOrder;
+     private ButtonCancel btnCancel;
+     private Button btnreturn;
+     private Button btnReprint;
+     private Button buttonDiscount;
+     private Button buttonCustomer;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -110,6 +117,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setBtnLogin(btnLogin);
           pro.setBoxOne(boxOne);
           pro.setBtnPayment(btnPayment);
+          pro.setButtonHoldOrder(buttonHoldOrder);
+          pro.setBtnCancel(btnCancel);
           pro.setCategory(category);
           pro.setDetailItem(detailItem);
           pro.setPanelPagination(panelPagination);
@@ -280,6 +289,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
                    if (responseOpenShift.isSuccessful()) {
 
+                        btnOpenShift.setBackground(WindowColor.green);
                         String result = responseOpenShift.body().string();
                         ObjectMapper objectMapper = new ObjectMapper();
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
@@ -289,6 +299,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              searchBox.disabledTextField(true);
                              textField.disabledTextField(true);
 
+                             
+                             btnreturn.setBackground(WindowColor.brown);
+                             buttonCustomer.setBackground(WindowColor.green);
+                             buttonDiscount.setBackground(WindowColor.green);
+                             btnReprint.setBackground(WindowColor.green);
+                             
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
                              JavaConstant.numberOpenShift = Integer.valueOf("" + data.getData().getNumberOpenShift());
@@ -661,6 +677,55 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.cmboxBrand = cmboxBrand;
      }
 
+    public Button getButtonHoldOrder() {
+        return buttonHoldOrder;
+    }
+
+    public void setButtonHoldOrder(Button buttonHoldOrder) {
+        this.buttonHoldOrder = buttonHoldOrder;
+    }
+
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+
+    public Button getBtnreturn() {
+        return btnreturn;
+    }
+
+    public void setBtnreturn(Button btnreturn) {
+        this.btnreturn = btnreturn;
+    }
+
+    public Button getBtnReprint() {
+        return btnReprint;
+    }
+
+    public void setBtnReprint(Button btnReprint) {
+        this.btnReprint = btnReprint;
+    }
+
+    public Button getButtonDiscount() {
+        return buttonDiscount;
+    }
+
+    public void setButtonDiscount(Button buttonDiscount) {
+        this.buttonDiscount = buttonDiscount;
+    }
+
+    public Button getButtonCustomer() {
+        return buttonCustomer;
+    }
+
+    public void setButtonCustomer(Button buttonCustomer) {
+        this.buttonCustomer = buttonCustomer;
+    }
+     
+    
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {

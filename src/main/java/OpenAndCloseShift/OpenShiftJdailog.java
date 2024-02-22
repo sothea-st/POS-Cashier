@@ -1,6 +1,7 @@
 package OpenAndCloseShift;
 
 import Button.Button;
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.LabelTitle;
 import Components.SearchField;
@@ -45,6 +46,12 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button btnPayment;
      private TextField textField;
 
+     private Button btnreturn;
+     private Button btnReprint;
+     private Button buttonDiscount;
+     private Button buttonCustomer;
+     private Button buttonHoldOrder;
+     private ButtonCancel btnCancel;
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -302,6 +309,12 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                Response response = JavaConnection.post(JavaRoute.openShift, json);
                if (response.isSuccessful()) {
                     dispose();
+                    btnreturn.setBackground(WindowColor.brown);
+                    btnReprint.setBackground(WindowColor.green);
+                    buttonDiscount.setBackground(WindowColor.green);
+                    buttonCustomer.setBackground(WindowColor.green);
+                    
+                    
                     btnOpenShift.setButtonName(JavaConstant.closeShift);
                     // jdLoginForm.setCheckOpenShift(true);
                     JavaConstant.checkOpenShift = true;
@@ -320,6 +333,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     pro.setSubtotalPanel(subtotalPanel);
                     pro.setPanelProduct(panelProduct);
                     pro.setBtnPayment(btnPayment);
+                    pro.setButtonHoldOrder(buttonHoldOrder);
+                    pro.setBtnCancel(btnCancel);
                     panelProduct.revalidate();
                     panelProduct.repaint();
 
@@ -439,6 +454,56 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
           this.jdFormLogin = jdFormLogin;
      }
+
+    public Button getBtnreturn() {
+        return btnreturn;
+    }
+
+    public void setBtnreturn(Button btnreturn) {
+        this.btnreturn = btnreturn;
+    }
+
+    public Button getBtnReprint() {
+        return btnReprint;
+    }
+
+    public void setBtnReprint(Button btnReprint) {
+        this.btnReprint = btnReprint;
+    }
+
+    public Button getButtonDiscount() {
+        return buttonDiscount;
+    }
+
+    public void setButtonDiscount(Button buttonDiscount) {
+        this.buttonDiscount = buttonDiscount;
+    }
+
+    public Button getButtonCustomer() {
+        return buttonCustomer;
+    }
+
+    public void setButtonCustomer(Button buttonCustomer) {
+        this.buttonCustomer = buttonCustomer;
+    }
+
+    public Button getButtonHoldOrder() {
+        return buttonHoldOrder;
+    }
+
+    public void setButtonHoldOrder(Button buttonHoldOrder) {
+        this.buttonHoldOrder = buttonHoldOrder;
+    }
+
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+     
+    
 
      /**
       * @param args the command line

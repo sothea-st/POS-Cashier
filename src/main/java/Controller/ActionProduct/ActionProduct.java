@@ -1,6 +1,7 @@
 package Controller.ActionProduct;
 
 import Button.Button;
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
@@ -16,7 +17,6 @@ import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import Products.ProductBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -48,9 +48,10 @@ public class ActionProduct {
      private JPanel boxOne;
      private SubtotalPanel subtotalPanel;
      private Button btnPayment;
+     private Button buttonHoldOrder;
      private JPanel panelPagination;
      private int count;
-
+     private ButtonCancel btnCancel;
      public static int marginRight = 15;
 
      public ActionProduct() {
@@ -200,8 +201,8 @@ public class ActionProduct {
                product.setDiscountPercent(listData.getDiscount());
 
                String productName;
-               if (listData.getProductNameEn().length() > 35) {
-                    productName = listData.getProductNameEn().substring(0, 34) + "...";
+               if (listData.getProductNameEn().length() > 25) {
+                    productName = listData.getProductNameEn().substring(0, 24) + "...";
                } else {
                     productName = listData.getProductNameEn();
                }
@@ -316,6 +317,8 @@ public class ActionProduct {
                BoxItem box = new BoxItem();
                box.setWasPrice("" + price);
                box.setBtnPayment(btnPayment);
+               box.setButtonHoldOrder(buttonHoldOrder);
+               box.setBtnCancel(btnCancel);
                Component[] listCom = detailItem.getComponents();
                if (listCom.length != 0) {
                     for (int i = 0; i < listCom.length; i++) {
@@ -387,6 +390,8 @@ public class ActionProduct {
                box.setListCom(listCom1);
 
                btnPayment.setBackground(WindowColor.lightBlue);
+               buttonHoldOrder.setBackground(WindowColor.yellow);
+               btnCancel.setBackground(WindowColor.darkred);
 
           } catch (Exception e) {
                System.out.println("err get product image " + e);
@@ -480,5 +485,23 @@ public class ActionProduct {
      public void setBoxUserName(JLabel boxUserName) {
           this.boxUserName = boxUserName;
      }
+
+    public Button getButtonHoldOrder() {
+        return buttonHoldOrder;
+    }
+
+    public void setButtonHoldOrder(Button buttonHoldOrder) {
+        this.buttonHoldOrder = buttonHoldOrder;
+    }
+
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
+
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
+
+    
 
 }
