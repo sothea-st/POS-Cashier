@@ -132,7 +132,7 @@
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="lbZero" min="-2" pref="80" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="labelFontBlack9" pref="172" max="32767" attributes="0"/>
+                                              <Component id="buttonChargeAndPrint" pref="172" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -272,7 +272,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelFontBlack2" min="-2" max="-2" attributes="0"/>
                               <Component id="labelFontBlack5" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelFontBlack9" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonChargeAndPrint" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -875,7 +875,7 @@
             <Property name="labelName" type="java.lang.String" value="Charge&amp;eInvoice"/>
           </Properties>
         </Component>
-        <Component class="Components.LabelFontBlack" name="labelFontBlack9">
+        <Component class="Components.LabelFontBlack" name="buttonChargeAndPrint">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="98" red="2f" type="rgb"/>
@@ -886,7 +886,7 @@
             <Property name="labelName" type="java.lang.String" value="Charge&amp;Print"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelFontBlack9MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonChargeAndPrintMouseClicked"/>
           </Events>
         </Component>
         <Component class="Components.TextFieldCenter" name="txtCustomerId">

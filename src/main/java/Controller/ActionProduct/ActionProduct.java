@@ -201,8 +201,8 @@ public class ActionProduct {
                product.setDiscountPercent(listData.getDiscount());
 
                String productName;
-               if (listData.getProductNameEn().length() > 25) {
-                    productName = listData.getProductNameEn().substring(0, 24) + "...";
+               if (listData.getProductNameEn().length() > 22) {
+                    productName = listData.getProductNameEn().substring(0, 21) + "...";
                } else {
                     productName = listData.getProductNameEn();
                }
