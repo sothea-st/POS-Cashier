@@ -4,7 +4,9 @@ import Button.Button;
 import Color.WindowColor;
 import Components.BackgroundImage;
 import Components.JavaAlertMessage;
+import Components.SearchField;
 import Components.SubtotalPanel;
+import Components.TextField;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -19,6 +21,9 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class LogoutDialog extends javax.swing.JDialog {
+
+     private SearchField searchBox;
+     private TextField textField;
 
      public LogoutDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -182,7 +187,7 @@ public class LogoutDialog extends javax.swing.JDialog {
          JSONObject json = new JSONObject();
          json.put("id", JavaConstant.cashierId);
          Response response = JavaConnection.post(JavaRoute.logout, json);
-       
+
          try {
               if (response.isSuccessful()) {
                    lbPOSId.setText("POS ID :");
@@ -214,6 +219,12 @@ public class LogoutDialog extends javax.swing.JDialog {
                    JavaConstant.posId = null;
                    JavaConstant.cashierId = null;
                    JavaConstant.checkOpenShift = false;
+                   
+                   
+                   searchBox.disabledTextField(false);
+                   textField.disabledTextField(false);
+                   
+                   
                    dispose();
               }
          } catch (Exception e) {
@@ -255,6 +266,24 @@ public class LogoutDialog extends javax.swing.JDialog {
      private Button btnPayment;
      private JPanel panelPagination;
 
+     public SearchField getSearchBox() {
+          return searchBox;
+     }
+
+     public void setSearchBox(SearchField searchBox) {
+          this.searchBox = searchBox;
+     }
+
+     public TextField getTextField() {
+          return textField;
+     }
+
+     public void setTextField(TextField textField) {
+          this.textField = textField;
+     }
+
+     
+     
      public SubtotalPanel getSubtotalPanel() {
           return subtotalPanel;
      }

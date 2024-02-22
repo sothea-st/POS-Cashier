@@ -42,16 +42,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 import okhttp3.Response;
 
 public class MainPage extends javax.swing.JFrame {
@@ -94,10 +91,12 @@ public class MainPage extends javax.swing.JFrame {
           setTitle("King Mart");
 //          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
-
           resizeEvent();
-
           getShoppingImage();
+//           
+          searchBox.disabledTextField(false);
+          textField.disabledTextField(false);
+//          textField.setFocus();
 
      }
 
@@ -111,8 +110,6 @@ public class MainPage extends javax.swing.JFrame {
 
                     Dimension size = getSize();
                     int width = size.width;
-                    System.err.println("width = " + size.width + " height = " + size.height);
-
                     if (width > 1900) {
 
                          if ((getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
@@ -289,8 +286,9 @@ public class MainPage extends javax.swing.JFrame {
           // this event was called when user type on textField 
           ButtonEvent eventData = new ButtonEvent() {
                @Override
-               public void onKeyType() {
+               public void onKeyRelease() {
                     String barcode = textField.getValueTextField();
+                    System.err.println("barcode === " + barcode);
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
@@ -823,6 +821,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setLbPOSId(lbPOSId);
           jdFormLogin.setLimit(limit);
           jdFormLogin.setSearchBox(searchBox);
+          jdFormLogin.setTextField(textField);
           jdFormLogin.setBtnPayment(btnPayment);
      }
 
@@ -844,6 +843,8 @@ public class MainPage extends javax.swing.JFrame {
               logout.setBoxOne(boxOne);
               logout.setBtnPayment(btnPayment);
               logout.setLbPOSId(lbPOSId);
+              logout.setTextField(textField);
+              logout.setSearchBox(searchBox);
               logout.setSubtotalPanel(totalPanel);
               logout.setVisible(true);
          }
@@ -865,6 +866,8 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setSubtotalPanel(totalPanel);
                              jdOpenShift.setCategory(category);
                              jdOpenShift.setPanelProduct(panelProduct);
+                             jdOpenShift.setSearchBox(searchBox);
+                             jdOpenShift.setTextField(textField);
                              jdOpenShift.setBtnPayment(btnPayment);
                              jdOpenShift.setLimit(limit);
                              jdOpenShift.setPanelPagination(panelPagination);
@@ -896,6 +899,8 @@ public class MainPage extends javax.swing.JFrame {
                    CloseShift close = new CloseShift(new JFrame(), true, btnOpenShift);
                    close.setPanelProduct(panelProduct);
                    close.setPanelPagination(panelPagination);
+                   close.setSearchBox(searchBox);
+                   close.setTextField(textField);
                    close.setCategory(category);
                    close.setVisible(true);
               }

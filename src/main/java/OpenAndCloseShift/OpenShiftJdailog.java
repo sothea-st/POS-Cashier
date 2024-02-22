@@ -3,7 +3,9 @@ package OpenAndCloseShift;
 import Button.Button;
 import Color.WindowColor;
 import Components.LabelTitle;
+import Components.SearchField;
 import Components.SubtotalPanel;
+import Components.TextField;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -29,6 +31,7 @@ import org.json.JSONObject;
  */
 public class OpenShiftJdailog extends javax.swing.JDialog {
 
+     private SearchField searchBox;
      private Button btnOpenShift;
      private LoginFormJdailog jdLoginForm;
      private DataModelDefaultPrice dataSuccess;
@@ -40,6 +43,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private JPanel detailItem;
      private SubtotalPanel subtotalPanel;
      private Button btnPayment;
+     private TextField textField;
+
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -302,6 +307,10 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     JavaConstant.checkOpenShift = true;
                     JavaConstant.checkCloseShift = 1l;
 
+                    searchBox.disabledTextField(true);
+                    textField.disabledTextField(true);
+       
+                    
                     // after open shift will show all product at category ALL
                     Component[] listCom = category.getComponents();
                     listCom[0].setBackground(WindowColor.black);
@@ -328,6 +337,26 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           }
      }// GEN-LAST:event_buttonSaveMouseClicked
 
+     public SearchField getSearchBox() {
+          return searchBox;
+     }
+
+     public void setSearchBox(SearchField searchBox) {
+          this.searchBox = searchBox;
+     }
+
+     public TextField getTextField() {
+          return textField;
+     }
+
+     public void setTextField(TextField textField) {
+          this.textField = textField;
+     }
+
+     
+     
+     
+     
      public Button getBtnPayment() {
           return btnPayment;
      }

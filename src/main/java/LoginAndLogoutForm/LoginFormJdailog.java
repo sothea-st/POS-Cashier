@@ -24,6 +24,7 @@ import Components.BackgroundImage;
 import Components.ComboBox;
 import Components.JavaAlertMessage;
 import Components.SearchField;
+import Components.TextField;
 import Controller.ActionProduct.ActionProduct;
 import Controller.ActionRequestBrand.ActionRequestBrand;
 import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
@@ -34,6 +35,7 @@ import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.java.accessibility.util.AWTEventMonitor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -75,6 +77,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private String catIdIndex0;
      private String catName;
      private SearchField searchBox;
+     private TextField textField;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -276,11 +279,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.cashierId = model.getID();
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
                    if (responseOpenShift.isSuccessful()) {
+
                         String result = responseOpenShift.body().string();
                         ObjectMapper objectMapper = new ObjectMapper();
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                         if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
                              JavaConstant.checkOpenShift = true;
+
+                             searchBox.disabledTextField(true);
+                             textField.disabledTextField(true);
 
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
@@ -299,6 +306,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    eventSelectBrand();
                    txtUserId.setValueTextField(null);
                    txtPassword.setValuePassword(null);
+
+                   if (JavaConstant.checkOpenShift) {
+                        textField.setFocus();
+                   }
 
               } else {
                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
@@ -433,6 +444,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              pro.product(catId, limit, panelProduct);
                                         }
 
+                                        if (JavaConstant.checkOpenShift) {
+                                             textField.setFocus();
+                                        }
+
                                    } else {
                                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                                         j.setMessage("You have to open shift first!");
@@ -477,6 +492,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                System.err.println("error " + e);
           }
 
+     }
+
+     public TextField getTextField() {
+          return textField;
+     }
+
+     public void setTextField(TextField textField) {
+          this.textField = textField;
      }
 
      public SearchField getSearchBox() {

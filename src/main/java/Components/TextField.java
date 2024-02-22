@@ -5,6 +5,7 @@ import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,6 +14,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -20,10 +24,10 @@ import java.awt.image.BufferedImage;
  * @author FRONT-END.06
  */
 public class TextField extends javax.swing.JPanel {
-     
+
      private String labelTextField;
      private String valueTextField;
-     
+
      public TextField() {
           initComponents();
           setBackground(WindowColor.white);
@@ -32,6 +36,7 @@ public class TextField extends javax.swing.JPanel {
 
      //Create Placeholder
      public void initEvent(ButtonEvent event) {
+
           txtText.addFocusListener(new FocusListener() {
                @Override
                public void focusGained(FocusEvent e) {
@@ -40,38 +45,47 @@ public class TextField extends javax.swing.JPanel {
                     }
                     txtText.setForeground(Color.BLACK);
                }
-               
+
                @Override
                public void focusLost(FocusEvent e) {
                     if (txtText.getText().trim().equals("")) {
                          txtText.setText(labelTextField);
                          txtText.setForeground(Color.LIGHT_GRAY);
                     }
-                    
+
                     if (txtText.getText().trim().equals(labelTextField)) {
                          txtText.setForeground(Color.LIGHT_GRAY);
                     }
                }
           });
-          
+
           txtText.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-                    String text = txtText.getText();
-                    setValueTextField(text);
-                    event.onKeyType();
+
                }
-               
+
                @Override
                public void keyPressed(KeyEvent e) {
+
                }
-               
+
                @Override
                public void keyReleased(KeyEvent e) {
-                    
+                    String text = txtText.getText();
+                    setValueTextField(text);
+                    event.onKeyRelease();
+
                }
-               
           });
+     }
+
+     public void disabledTextField(boolean value) {
+          txtText.setEnabled(value);
+     }
+
+     public void setFocus() {
+          txtText.requestFocus();
      }
 
      //=================================================Create Shadow Box
@@ -79,14 +93,14 @@ public class TextField extends javax.swing.JPanel {
      private int shadowSize = 3;
      private float shadowOpacity = 0.8f;
      private Color shadowColor = Color.GRAY;
-     
+
      @Override
      protected void paintComponent(Graphics grphcs) {
           setOpaque(false);
           createShadow(grphcs);
           super.paintComponent(grphcs);
      }
-     
+
      private void createShadow(Graphics grphcs) {
           Graphics2D g2 = (Graphics2D) grphcs;
           int size = shadowSize * 2;
@@ -128,52 +142,52 @@ public class TextField extends javax.swing.JPanel {
           g2.drawImage(render.createShadow(img), 0, 0, null);
           g2.drawImage(img, x, y, null);
      }
-     
+
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        txtText = new javax.swing.JTextField();
+          txtText = new javax.swing.JTextField();
 
-        txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtText.setBorder(null);
-        txtText.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtTextFocusGained(evt);
-            }
-        });
-        txtText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTextKeyReleased(evt);
-            }
-        });
+          txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+          txtText.setBorder(null);
+          txtText.addFocusListener(new java.awt.event.FocusAdapter() {
+               public void focusGained(java.awt.event.FocusEvent evt) {
+                    txtTextFocusGained(evt);
+               }
+          });
+          txtText.addKeyListener(new java.awt.event.KeyAdapter() {
+               public void keyReleased(java.awt.event.KeyEvent evt) {
+                    txtTextKeyReleased(evt);
+               }
+          });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtText, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtText)
-                .addContainerGap())
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtText, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtText)
+                    .addContainerGap())
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
     private void txtTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTextFocusGained
          // TODO add your handling code here:
     }//GEN-LAST:event_txtTextFocusGained
-     
+
      public String getLabelTextField() {
           return labelTextField;
      }
-     
+
      public void setLabelTextField(String labelTextField) {
           this.labelTextField = labelTextField;
           txtText.setText(labelTextField);
@@ -185,20 +199,20 @@ public class TextField extends javax.swing.JPanel {
           String txt = txtText.getText();
           setValueTextField(txt);
      }//GEN-LAST:event_txtTextKeyReleased
-     
+
      public String getValueTextField() {
           return valueTextField;
      }
-     
+
      public void setValueTextField(String valueTextField) {
           this.valueTextField = valueTextField;
           txtText.setText(valueTextField);
           txtText.setForeground(Color.BLACK);
      }
 
-     
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField txtText;
-    // End of variables declaration//GEN-END:variables
+
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JTextField txtText;
+     // End of variables declaration//GEN-END:variables
 
 }

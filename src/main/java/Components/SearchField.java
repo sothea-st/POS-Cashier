@@ -38,6 +38,7 @@ public class SearchField extends javax.swing.JPanel {
           this.placeholder = placeholder;
           textSearch.setText(placeholder);
           textSearch.setForeground(Color.LIGHT_GRAY);
+
      }
 
      public void initEvent(ButtonEvent event) {
@@ -88,6 +89,10 @@ public class SearchField extends javax.swing.JPanel {
           initComponents();
           setBackground(WindowColor.white);
           textSearch.setFont(WindowFonts.timeNewRoman14);
+     }
+
+     public void disabledTextField(boolean value) {
+          textSearch.setEnabled(value);
      }
 
      //=================================================Create Shadow Box

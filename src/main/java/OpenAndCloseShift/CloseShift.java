@@ -4,6 +4,8 @@ import Button.Button;
 import Color.WindowColor;
 import Components.BackgroundImage;
 import Components.JavaAlertMessage;
+import Components.SearchField;
+import Components.TextField;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -23,6 +25,8 @@ public class CloseShift extends javax.swing.JDialog {
      private JPanel panelProduct;
      private JPanel panelPagination;
      private JPanel category;
+     private SearchField searchBox;
+     private TextField textField;
 
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -328,20 +332,34 @@ public class CloseShift extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
-              System.err.println("response f = " + response);
+
               if (response.isSuccessful()) {
+
+                   searchBox.disabledTextField(false);
+                   searchBox.setPlaceholder("Search by name or barcode");
+
+                   textField.disabledTextField(false);
+                   textField.setLabelTextField("Scan or input barcode");
+
                    panelProduct.removeAll();
                    panelProduct.revalidate();
                    panelProduct.repaint();
                    getPanelPagination().setVisible(false);
                    category.getComponents()[0].setBackground(WindowColor.darkGreen);
-                
+
                    dispose();
 
-                   System.err.println("dddddddddddddddddddd");
                    btnOpenShift.setButtonName("Open Shift");
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
+
+                   //                          == == == == == == == Add Background == == == == == == ==
+                   BackgroundImage bgimg = new BackgroundImage();
+                   panelProduct.removeAll();
+                   panelProduct.add(bgimg);
+                   panelProduct.revalidate();
+                   panelProduct.repaint();
+//                          == == == == == == == == == == == == == == == == == == == == == == =
 
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
@@ -375,6 +393,22 @@ public class CloseShift extends javax.swing.JDialog {
 
      public void setCategory(JPanel category) {
           this.category = category;
+     }
+
+     public SearchField getSearchBox() {
+          return searchBox;
+     }
+
+     public void setSearchBox(SearchField searchBox) {
+          this.searchBox = searchBox;
+     }
+
+     public TextField getTextField() {
+          return textField;
+     }
+
+     public void setTextField(TextField textField) {
+          this.textField = textField;
      }
 
      /**

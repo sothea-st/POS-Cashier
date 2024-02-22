@@ -21,6 +21,9 @@ public interface ButtonEvent {
      default public void onKeyType() {
      }
 
+     default public void onKeyRelease() {
+     }
+
      default public void onFocusGain() {
 
      }

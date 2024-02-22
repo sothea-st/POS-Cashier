@@ -34,6 +34,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      public static void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
+
                try {
                     if (response.isSuccessful()) {
                          String responseData = response.body().string();
