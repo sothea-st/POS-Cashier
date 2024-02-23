@@ -38,6 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import ButtonPackage.ButtonCancel;
+import java.awt.Color;
 
 public class LoginFormJdailog extends javax.swing.JDialog {
 
@@ -82,6 +83,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button btnReprint;
      private Button buttonDiscount;
      private Button buttonCustomer;
+     private LabelTitle breadcrumb;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -258,6 +260,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               Response response = JavaConnection.login(JavaRoute.login, json);
 
               if (response.isSuccessful()) {
+                   btnOpenShift.setBackground(WindowColor.green);
                    String responseData = response.body().string();
 
                    ObjectMapper objMap = new ObjectMapper();
@@ -285,7 +288,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.cashierId = model.getID();
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
                    if (responseOpenShift.isSuccessful()) {
-                        btnOpenShift.setBackground(WindowColor.green);
                         String result = responseOpenShift.body().string();
                         ObjectMapper objectMapper = new ObjectMapper();
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
@@ -415,6 +417,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              if (catNameData.equals(title)) {
                                                   listCom[j].setBackground(WindowColor.black);
                                                   setCatName("" + j);
+                                                  breadcrumb.setLabelTitle(title); // add breadcrumb
                                              } else {
                                                   listCom[j].setBackground(WindowColor.darkGreen);
                                              }
@@ -433,6 +436,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              pro.product(catId, limit, panelProduct);
                                         }
                                         pro.setBtnPayment(btnPayment);
+                                        pro.setButtonHoldOrder(buttonHoldOrder);
+                                        pro.setBtnCancel(btnCancel);
                                         panelProduct.revalidate();
                                         panelProduct.repaint();
                                         setCount(pro.getCount());
@@ -441,6 +446,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         if (MainPage.isFullScreen) {
                                              panelProduct.removeAll();
                                              pro.setBtnPayment(btnPayment);
+                                             pro.setButtonHoldOrder(buttonHoldOrder);
+                                             pro.setBtnCancel(btnCancel);
                                              panelProduct.revalidate();
                                              panelProduct.repaint();
                                              ActionProduct.marginRight = 15;
@@ -700,7 +707,17 @@ public class LoginFormJdailog extends javax.swing.JDialog {
     public void setButtonCustomer(Button buttonCustomer) {
         this.buttonCustomer = buttonCustomer;
     }
+
+    public LabelTitle getBreadcrumb() {
+        return breadcrumb;
+    }
+
+    public void setBreadcrumb(LabelTitle breadcrumb) {
+        this.breadcrumb = breadcrumb;
+    }
      
+    
+    
     
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {

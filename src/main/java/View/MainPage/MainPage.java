@@ -53,6 +53,7 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class MainPage extends javax.swing.JFrame {
 
@@ -415,8 +416,8 @@ public class MainPage extends javax.swing.JFrame {
         cmboxBrand = new Components.ComboBox();
         next = new Components.LabelFontGreen();
         previous = new Components.LabelFontGreen();
-        labelTitle1 = new Components.LabelTitle();
-        labelTitle2 = new Components.LabelTitle();
+        homeMenu = new Components.LabelTitle();
+        breadcrumb = new Components.LabelTitle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -687,20 +688,21 @@ public class MainPage extends javax.swing.JFrame {
 
         previous.setLabelName("<");
 
-        labelTitle1.setBackground(new java.awt.Color(47, 155, 70));
-        labelTitle1.setLabelTitle("Home");
+        homeMenu.setBackground(new java.awt.Color(47, 155, 70));
+        homeMenu.setLabelTitle("Home");
 
-        labelTitle2.setBackground(new java.awt.Color(47, 155, 70));
-        labelTitle2.setLabelTitle("NEW ITEMS");
+        breadcrumb.setBackground(new java.awt.Color(47, 155, 70));
+        breadcrumb.setLabelTitle("NEW ITEMS");
 
         javax.swing.GroupLayout panelPaginationLayout = new javax.swing.GroupLayout(panelPagination);
         panelPagination.setLayout(panelPaginationLayout);
         panelPaginationLayout.setHorizontalGroup(
             panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPaginationLayout.createSequentialGroup()
-                .addComponent(labelTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(homeMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(breadcrumb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPaginationLayout.createSequentialGroup()
@@ -721,8 +723,8 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(panelPaginationLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(labelTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(labelTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(breadcrumb, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(homeMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -751,11 +753,11 @@ public class MainPage extends javax.swing.JFrame {
                         .addGap(0, 47, Short.MAX_VALUE)))
                 .addGap(38, 38, 38))
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(29, 29, 29)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
+                .addGap(21, 21, 21)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
@@ -841,6 +843,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setButtonCustomer(buttonCustomer);
           jdFormLogin.setButtonDiscount(buttonDiscount);
           jdFormLogin.setBtnreturn(btnReturn);
+          jdFormLogin.setBreadcrumb(breadcrumb);
      }
 
      //Action Button Login and Logout
@@ -1066,6 +1069,8 @@ public class MainPage extends javax.swing.JFrame {
                     btnPayment.setBackground(WindowColor.lightGray);
                     buttonHoldOrder.setBackground(WindowColor.lightGray);
                     btnCancel.setBackground(WindowColor.lightGray);
+                    
+                  
                     Component[] listHold = detailItem.getComponents();
 
                     int qty = 0;
@@ -1073,18 +1078,39 @@ public class MainPage extends javax.swing.JFrame {
                          var box = ((BoxItem) listHold[i]);
                          qty += box.getQty();
                     }
+                    
+                    JSONObject json = new JSONObject();
+                    json.put("note", "");
+                    json.put("qtyHole", qty);
+                    json.put("createBy", JavaConstant.cashierId);
 
-                    clicked++;
-                    NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
-                    JavaConstant.listHoldOrder.add(hh);
+//                    clicked++;
+//                    NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
+//                    JavaConstant.listHoldOrder.add(hh);
+//
+//                    int countRow = JavaConstant.listHoldOrder.size();
+//                    countCircleShape.setCountTimes("" + countRow);
 
-                    int countRow = JavaConstant.listHoldOrder.size();
-                    countCircleShape.setCountTimes("" + countRow);
 
-                    detailItem.removeAll();
-                    detailItem.revalidate();
-                    detailItem.repaint();
-                    totalPanel.setLabelSubTitleToZero();
+                    try {
+                            Response response = JavaConnection.post(JavaRoute.holdOrder, json);
+                            if (response.isSuccessful()) {
+                                detailItem.removeAll();
+                                detailItem.revalidate();
+                                detailItem.repaint();
+                                totalPanel.setLabelSubTitleToZero();
+                            } else {
+                                 UIManager UI = new UIManager();
+                                 UI.put("OptionPane.background", WindowColor.mediumGreen);
+                                 UI.put("Panel.background", WindowColor.mediumGreen);
+                                 UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+                                 JOptionPane.showMessageDialog(null, "Caannot Add Hold Order!");
+
+                            }
+
+                       } catch (Exception e) {
+
+                       }
                }
           }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
@@ -1205,6 +1231,7 @@ public class MainPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel boxOne;
     private javax.swing.JLabel boxUserName;
+    private Components.LabelTitle breadcrumb;
     private ButtonPackage.ButtonCancel btnCancel;
     private Button.Button btnLogin;
     private Button.Button btnOpenShift;
@@ -1221,13 +1248,12 @@ public class MainPage extends javax.swing.JFrame {
     private javax.swing.JLabel currentDate;
     private javax.swing.JPanel day;
     private javax.swing.JPanel detailItem;
+    private Components.LabelTitle homeMenu;
     private javax.swing.JLabel imageShopping;
     private javax.swing.JLabel imgUser;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneCategory;
     private javax.swing.JScrollPane jScrollPaneDetail;
-    private Components.LabelTitle labelTitle1;
-    private Components.LabelTitle labelTitle2;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbPOSId;
     private javax.swing.JPanel mainPanel;

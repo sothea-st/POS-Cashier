@@ -8,12 +8,19 @@ import Components.BoxItem;
 import Components.HoldItem;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import Model.HoldOrder.DataHoldOrder;
+import Model.HoldOrder.HoldOrder;
 import Model.HoldOrder.HoldOrderModel;
 import Model.HoldOrder.NewHoldOrderModel;
+import Model.ProductModel.ProductDataModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
@@ -22,6 +29,7 @@ import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import okhttp3.Response;
 
 
 public class ListHoldOrder extends javax.swing.JDialog {
@@ -38,16 +46,62 @@ public class ListHoldOrder extends javax.swing.JDialog {
         initComponents();  
           header.setBackground(WindowColor.darkGreen);
           panelHold.setBackground(WindowColor.mediumGreen);
-          remove.setFont(WindowFonts.timeNewRomanBold14);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           body.setBackground(WindowColor.mediumGreen);
           setResizable(false);
           cancel.setButtonName("Close");
-          
-          callHistoryHold(JavaConstant.listHoldOrder);
+          getHoldItem(panelHold);
+//          callHistoryHold(JavaConstant.listHoldOrder);
           panelHold.setLayout(new BoxLayout(panelHold, BoxLayout.Y_AXIS));
           panelHold.setBorder(new EmptyBorder(0, 0, 0, 0));
     }
+    
+    
+    private void getHoldItem(JPanel jpanelData){
+        try {
+               Response response = JavaConnection.get(JavaRoute.holdOrder);
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    HoldOrder data = objMap.readValue(responseData, HoldOrder.class);
+                    DataHoldOrder[] listData = data.getData();
+                    appendValue(listData, jpanelData);
+               } else {
+                    System.err.println("fail loading product");
+               }
+        } catch (Exception e) {
+             System.err.println("error getting product " + e);
+        }
+    }
+    
+    private void appendValue(DataHoldOrder[] listData, JPanel panelHold){
+         for (int i = 0; i < listData.length; i++) {
+              var obj = listData[i];
+              HoldItems h = new HoldItems();
+              
+              ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String key) { // action process
+                         detailItem.removeAll();
+                         refreshPanel();
+                         System.out.println("listData.length :" + listData.length);
+
+                         btnPayment.setBackground(WindowColor.lightBlue);
+                         buttonHoldOrder.setBackground(WindowColor.yellow);
+                         btnCancel.setBackground(WindowColor.darkred);
+                         dispose();
+                    }
+               };
+
+              h.initEvent(events);
+              h.setCountNumber(""+obj.getID());
+              h.setQty(obj.getQtyHold());
+              panelHold.add(h);
+              refreshPanel();
+         }
+    }
+    
+    
           
      void callHistoryHold( ArrayList<NewHoldOrderModel> listHoldOrder) {
          
@@ -114,12 +168,12 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
         body = new javax.swing.JPanel();
         cancel = new ButtonPackage.ButtonCancel();
-        panelHold = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        remove = new ButtonPackage.ButtonCancel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        panelHold = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,20 +183,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 cancelMouseClicked(evt);
             }
         });
-
-        panelHold.setBackground(new java.awt.Color(255, 255, 255));
-        panelHold.setForeground(new java.awt.Color(0, 0, 0));
-
-        javax.swing.GroupLayout panelHoldLayout = new javax.swing.GroupLayout(panelHold);
-        panelHold.setLayout(panelHoldLayout);
-        panelHoldLayout.setHorizontalGroup(
-            panelHoldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelHoldLayout.setVerticalGroup(
-            panelHoldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
-        );
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,13 +222,23 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        remove.setBackground(new java.awt.Color(153, 102, 0));
-        remove.setButtonName("Clear All");
-        remove.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                removeMouseClicked(evt);
-            }
-        });
+        jScrollPane1.setBorder(null);
+
+        panelHold.setBackground(new java.awt.Color(255, 255, 255));
+        panelHold.setForeground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout panelHoldLayout = new javax.swing.GroupLayout(panelHold);
+        panelHold.setLayout(panelHoldLayout);
+        panelHoldLayout.setHorizontalGroup(
+            panelHoldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelHoldLayout.setVerticalGroup(
+            panelHoldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 429, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(panelHold);
 
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
@@ -198,13 +248,11 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(bodyLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(remove, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelHold, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(bodyLayout.createSequentialGroup()
                                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -216,12 +264,10 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(panelHold, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
-                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,16 +294,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
           panelHold.repaint();
     }
      
-    private void removeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeMouseClicked
-
-        panelHold.removeAll();
-        refreshPanel();
-        JavaConstant.listHoldOrder.clear();
-        countCircleShape.setCountTimes(""+JavaConstant.listHoldOrder.size());
-        countCircleShape.revalidate();
-        countCircleShape.repaint();
-    }//GEN-LAST:event_removeMouseClicked
-
     public JPanel getDetailItem() {
         return detailItem;
     }
@@ -306,7 +342,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
         this.btnCancel = btnCancel;
     }
 
-    
     
     /**
      * @param args the command line arguments
@@ -357,7 +392,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelHold;
-    private ButtonPackage.ButtonCancel remove;
     // End of variables declaration//GEN-END:variables
 }

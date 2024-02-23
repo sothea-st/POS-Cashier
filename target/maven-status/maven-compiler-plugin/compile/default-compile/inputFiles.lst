@@ -26,6 +26,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\LoginAndLogoutForm\LoginFormJdailog.ja
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\DialonInputName.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Discount\DiscountByItem.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Receipt\CashierReport.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\HoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Controller\ActionSearchProductController\ActionSearchProduct.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\PasswordField.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\SummerySale.java
@@ -52,6 +53,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Components\Shadow\GraphicsUtilities.ja
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Sale\CustomerModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\DefaultPrice\DataModelDefaultPrice.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\TextField.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\DataHoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\NewHoldOrderModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\SubtotalPanel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\DataSuccessModelReport.java
