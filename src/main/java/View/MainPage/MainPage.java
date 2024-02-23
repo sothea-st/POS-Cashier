@@ -288,12 +288,12 @@ public class MainPage extends javax.swing.JFrame {
                @Override
                public void onKeyRelease() {
                     String barcode = textField.getValueTextField();
-                    System.err.println("barcode === " + barcode);
+                  
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
                               if (JavaConstant.checkOpenShift) {
-                                   ActionScanBarcodeAddProduct.scanBarcode(barcode, jdFormLogin);
+                                 new  ActionScanBarcodeAddProduct().scanBarcode(barcode, jdFormLogin);
                                    textField.setValueTextField("");
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
@@ -751,9 +751,9 @@ public class MainPage extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane2)
+                    .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
@@ -970,6 +970,8 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setDetailItem(detailItem);
                    pay.setBoxOne(boxOne);
                    pay.setBtnPayment(btnPayment);
+                   pay.setBtnCancel(btnCancel);
+                   pay.setButtonHoldOrder(buttonHoldOrder);
                    pay.setVisible(true);
               }
          } else {

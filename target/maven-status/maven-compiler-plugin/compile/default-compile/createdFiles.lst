@@ -262,6 +262,7 @@ View\MainPage\MainPage$16.class
 Discount\GetProduct.class
 Discount\DiscountType$2.class
 Model\Reprint\DataSuccessModel.class
+View\MainPage\PrinterService.class
 Products\ProductBox$1.class
 Model\CustomerType\SourceModel.class
 Components\LabelFontGreen.class

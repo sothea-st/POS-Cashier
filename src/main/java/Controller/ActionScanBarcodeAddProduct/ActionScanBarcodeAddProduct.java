@@ -31,48 +31,63 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      private Button btnPayment;
      private JPanel panelPagination;
 
-     public static void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
+     public void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
+               func(response,jdFormLogin);
+          }
+     }
+     
+     
+     public void scanWithoutBarcode(String barcode, LoginFormJdailog jdFormLogin) {
+          System.err.println("ddddddddddddddddddddddddd");
+          Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
+                    System.err.println("ddddddddddddddddddddddddd res = " + response);
 
-               try {
-                    if (response.isSuccessful()) {
-                         String responseData = response.body().string();
-                         ObjectMapper objMap = new ObjectMapper();
-                         ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
-                         ProductDataModel[] listProduct = model.getData();
-                         ProductModel product = null;
-                         for (int i = 0; i < listProduct.length; i++) {
-                              var obj = listProduct[i];
-                              product = new ProductModel(
-                                   obj.getID(),
-                                   obj.getCatID(),
-                                   obj.getFlag(),
-                                   obj.getWeight(),
-                                   obj.getCost(),
-                                   obj.getProImageName(),
-                                   obj.getPrice(),
-                                   obj.getBarcode(),
-                                   obj.getProNameKh(),
-                                   obj.getProNameEn(),
-                                   obj.getProductStatus(),
-                                   obj.getDiscount(),
-                                   obj.getQty()
-                              );
-                         }
-                         jdFormLogin.scanbarCodeAddProduct(product);
+          func(response,jdFormLogin);
+     }
+     
+     
+
+     void func(Response response , LoginFormJdailog jdFormLogin) {
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
+                    ProductDataModel[] listProduct = model.getData();
+                    ProductModel product = null;
+                    for (int i = 0; i < listProduct.length; i++) {
+                         var obj = listProduct[i];
+                         product = new ProductModel(
+                              obj.getID(),
+                              obj.getCatID(),
+                              obj.getFlag(),
+                              obj.getWeight(),
+                              obj.getCost(),
+                              obj.getProImageName(),
+                              obj.getPrice(),
+                              obj.getBarcode(),
+                              obj.getProNameKh(),
+                              obj.getProNameEn(),
+                              obj.getProductStatus(),
+                              obj.getDiscount(),
+                              obj.getQty()
+                         );
+                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
-               } catch (Exception e) {
-                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                    j.setMessage("The product does not exist in system!");
-                    j.setVisible(true);
-                    System.err.println("error scan barcode = " + e);
+                   
                }
+          } catch (Exception e) {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage("The product does not exist in system!");
+               j.setVisible(true);
+               System.err.println("error scan barcode = " + e);
           }
      }
 
      public static String returnProduct(String barcode, String invoiceNo, LoginFormJdailog jdFormLogin) {
-          String status=null;
+          String status = null;
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.returnProduct + "/getProduct?barcode=" + barcode + "&invoiceNo=" + invoiceNo + "");
                try {
@@ -81,7 +96,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          ObjectMapper objMap = new ObjectMapper();
                          ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
                          ProductDataModel[] listProduct = model.getData();
-                   
+
                          ProductModel product = null;
                          for (int i = 0; i < listProduct.length; i++) {
                               var obj = listProduct[i];
@@ -102,7 +117,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               );
                          }
                          jdFormLogin.scanbarCodeAddProduct(product);
-                         status="success";
+                         status = "success";
                     }
                } catch (Exception e) {
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
@@ -114,7 +129,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage("Barcode must be 13 length!");
                j.setVisible(true);
-          }     
+          }
           return status;
      }
 

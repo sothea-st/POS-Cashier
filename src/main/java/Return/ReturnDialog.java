@@ -107,7 +107,6 @@ public class ReturnDialog extends javax.swing.JDialog {
         button1 = new Button.Button();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -145,10 +144,6 @@ public class ReturnDialog extends javax.swing.JDialog {
         jLabel3.setForeground(new java.awt.Color(204, 0, 0));
         jLabel3.setText("*");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setText("*");
-
         javax.swing.GroupLayout panelReturnLayout = new javax.swing.GroupLayout(panelReturn);
         panelReturn.setLayout(panelReturnLayout);
         panelReturnLayout.setHorizontalGroup(
@@ -173,13 +168,8 @@ public class ReturnDialog extends javax.swing.JDialog {
                                 .addGroup(panelReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lbBrcode, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbReason, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addGroup(panelReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelReturnLayout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel3))
-                                    .addGroup(panelReturnLayout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addComponent(jLabel2)))))
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel3)))
                         .addGroup(panelReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelReturnLayout.createSequentialGroup()
                                 .addGap(26, 26, 26)
@@ -203,8 +193,7 @@ public class ReturnDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtBarcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbBrcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbBrcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,29 +226,31 @@ public class ReturnDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-        String barcode = txtBarcode.getValueTextField();
-        String invoiceNo = txtinvoice.getValueTextField();
-        
-        if(invoiceNo == null || invoiceNo.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
-            return;
-        }
-        
-        if(barcode == null || barcode.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
-            return;
-        }
-        
-        if(reasonId == null ){
-            JOptionPane.showMessageDialog(this, "Please select a reason!");
-            return;
-        }
-        
-        ActionScanBarcodeAddProduct.scanBarcode(barcode, jdFormLogin);
-        JavaConstant.isReturn = "return";
-        JavaConstant.reasonId = reasonId;
-        JavaConstant.invoiceNo = invoiceNo;
-        dispose();
+         String barcode = txtBarcode.getValueTextField();
+         String invoiceNo = txtinvoice.getValueTextField();
+
+         if (invoiceNo == null || invoiceNo.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
+              return;
+         }
+
+         if (reasonId == null) {
+              JOptionPane.showMessageDialog(this, "Please select a reason!");
+              return;
+         }
+
+         ActionScanBarcodeAddProduct obj = new ActionScanBarcodeAddProduct();
+         if (barcode != null) {
+              obj.scanBarcode(barcode, jdFormLogin);
+         } else {
+                 System.err.println("dddddddddddddddd34324ddddddddd");
+              obj.scanWithoutBarcode(invoiceNo, jdFormLogin);
+         }
+
+         JavaConstant.isReturn = "return";
+         JavaConstant.reasonId = reasonId;
+         JavaConstant.invoiceNo = invoiceNo;
+         dispose();
     }//GEN-LAST:event_button1MouseClicked
 
      public void setResetReturn() {
@@ -326,7 +317,6 @@ public class ReturnDialog extends javax.swing.JDialog {
     private ButtonPackage.ButtonCancel buttonCancel;
     private Components.ComboBox comboBoxReason;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private Components.LabelPopUpTitle labelPopUpTitle;
     private Components.Label lbBrcode;

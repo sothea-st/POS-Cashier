@@ -295,7 +295,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
 
           try {
 
-               System.out.println("reserveUsd :" + reserveUsd);
                if (reserveUsd == null || reserveUsd.isEmpty()) {
                     JOptionPane.showMessageDialog(null, " Total Cash (USD) can not be empty!");
                     return;
@@ -313,17 +312,12 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     btnReprint.setBackground(WindowColor.green);
                     buttonDiscount.setBackground(WindowColor.green);
                     buttonCustomer.setBackground(WindowColor.green);
-                    
-                    
+
                     btnOpenShift.setButtonName(JavaConstant.closeShift);
                     // jdLoginForm.setCheckOpenShift(true);
                     JavaConstant.checkOpenShift = true;
                     JavaConstant.checkCloseShift = 1l;
 
-                    searchBox.disabledTextField(true);
-                    textField.disabledTextField(true);
-       
-                    
                     // after open shift will show all product at category ALL
                     Component[] listCom = category.getComponents();
                     listCom[0].setBackground(WindowColor.black);
@@ -337,6 +331,10 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     pro.setBtnCancel(btnCancel);
                     panelProduct.revalidate();
                     panelProduct.repaint();
+
+                    searchBox.disabledTextField(true);
+                    textField.disabledTextField(true);
+                    textField.setFocus();
 
                } else {
                     UIManager UI = new UIManager();
@@ -368,10 +366,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.textField = textField;
      }
 
-     
-     
-     
-     
      public Button getBtnPayment() {
           return btnPayment;
      }
@@ -455,55 +449,53 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.jdFormLogin = jdFormLogin;
      }
 
-    public Button getBtnreturn() {
-        return btnreturn;
-    }
+     public Button getBtnreturn() {
+          return btnreturn;
+     }
 
-    public void setBtnreturn(Button btnreturn) {
-        this.btnreturn = btnreturn;
-    }
+     public void setBtnreturn(Button btnreturn) {
+          this.btnreturn = btnreturn;
+     }
 
-    public Button getBtnReprint() {
-        return btnReprint;
-    }
+     public Button getBtnReprint() {
+          return btnReprint;
+     }
 
-    public void setBtnReprint(Button btnReprint) {
-        this.btnReprint = btnReprint;
-    }
+     public void setBtnReprint(Button btnReprint) {
+          this.btnReprint = btnReprint;
+     }
 
-    public Button getButtonDiscount() {
-        return buttonDiscount;
-    }
+     public Button getButtonDiscount() {
+          return buttonDiscount;
+     }
 
-    public void setButtonDiscount(Button buttonDiscount) {
-        this.buttonDiscount = buttonDiscount;
-    }
+     public void setButtonDiscount(Button buttonDiscount) {
+          this.buttonDiscount = buttonDiscount;
+     }
 
-    public Button getButtonCustomer() {
-        return buttonCustomer;
-    }
+     public Button getButtonCustomer() {
+          return buttonCustomer;
+     }
 
-    public void setButtonCustomer(Button buttonCustomer) {
-        this.buttonCustomer = buttonCustomer;
-    }
+     public void setButtonCustomer(Button buttonCustomer) {
+          this.buttonCustomer = buttonCustomer;
+     }
 
-    public Button getButtonHoldOrder() {
-        return buttonHoldOrder;
-    }
+     public Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
 
-    public void setButtonHoldOrder(Button buttonHoldOrder) {
-        this.buttonHoldOrder = buttonHoldOrder;
-    }
+     public void setButtonHoldOrder(Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
-     
-    
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
 
      /**
       * @param args the command line

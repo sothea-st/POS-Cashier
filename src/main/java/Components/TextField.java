@@ -75,7 +75,6 @@ public class TextField extends javax.swing.JPanel {
                     String text = txtText.getText();
                     setValueTextField(text);
                     event.onKeyRelease();
-
                }
           });
      }
