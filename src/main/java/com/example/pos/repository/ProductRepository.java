@@ -40,8 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select * from pos_product where status=true and is_deleted=false and id=?")
         Optional<Product> getProductByOptionalId(int id);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
-                        + //
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n" + //
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
                         "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
                         "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
@@ -69,13 +68,21 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         " and pc.pro_name_en  ilike %?%")
         List<ProductProjection> searchProductByName(String proNameEn);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,  \r\n"
-                        + //
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,  \r\n"  + //
                         " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,   \r\n" + //
                         " pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired    \r\n" + //
                         " from pos_product pc where pc.status=true and pc.is_deleted=false  \r\n" + //
                         " and pc.barcode like  %?%")
         List<ProductProjection> searchProductByBarcode(String barcode);
+
+          @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,   \r\n" + //
+                                    "\t  pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,    \r\n" + //
+                                    "\t  pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired   \r\n" + //
+                                    "\t from pos_payment pp inner join pos_sale_details psd on psd.sale_id = pp.sale_id \r\n" + //
+                                    "\t inner join pos_product pc on pc.id = psd.pro_id \r\n" + //
+                                    "\t where pp.payment_no = ? ")
+        List<ProductProjection> searchProductWithInvoiceNo(String invoiceNO);
+
 
 
         

@@ -38,4 +38,21 @@ public class SearchByBarcodeOrNameService {
         return list;
     }
 
+    public List<ProductModel> searchWithInvoiceNo(String invoiceNo) {
+        List<ProductProjection> data = null;
+        List<ProductModel> list = new ArrayList<>();
+
+        data = repo.searchProductWithInvoiceNo(invoiceNo);
+
+        for (int i = 0; i < data.size(); i++) {
+            var val = data.get(i);
+            Integer qty = repoImp.getQty(val.getId());
+            if (qty == null)
+                qty = 0;
+            ProductModel p = proService.proModel(val, qty);
+            list.add(p);
+        }
+        return list;
+    }
+
 }

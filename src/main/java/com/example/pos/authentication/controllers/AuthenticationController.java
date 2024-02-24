@@ -170,6 +170,8 @@ public class AuthenticationController {
         httpSession.setAttribute(JavaConstant.userId, authenticatedUser.getId());
         httpSession.setAttribute(JavaConstant.userCode, authenticatedUser.getUserCode());
 
+
+        
         map.put("id", authenticatedUser.getId());
         map.put("empId", authenticatedUser.getEmpId());
         map.put("userCode", authenticatedUser.getUserCode());

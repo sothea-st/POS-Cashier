@@ -11,6 +11,7 @@ import com.example.pos.entity.Product;
 import com.example.pos.entity.models.ProductModel;
 import com.example.pos.service.searchByBarcodeOrNameService.SearchByBarcodeOrNameService;
 import java.util.*;
+
 @RestController
 @RequestMapping("/api/searchProductByBarcodeOrName")
 public class SearchByBarcodeOrNameController {
@@ -18,8 +19,16 @@ public class SearchByBarcodeOrNameController {
     private SearchByBarcodeOrNameService service;
 
     @GetMapping
-    public ResponseEntity<?> search(@RequestParam("code") String code,@RequestParam("valueSearch") String valueSearch) {
-        List<ProductModel> data = service.search(code,valueSearch);
+    public ResponseEntity<?> search(@RequestParam("code") String code,
+            @RequestParam("valueSearch") String valueSearch) {
+        List<ProductModel> data = service.search(code, valueSearch);
         return JavaResponse.success(data);
     }
+
+    @GetMapping("/searchWithInvoice")
+    public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo) {
+        List<ProductModel> data = service.searchWithInvoiceNo(invoiceNo);
+        return JavaResponse.success(data);
+    }
+
 }
