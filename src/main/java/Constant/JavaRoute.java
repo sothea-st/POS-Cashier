@@ -30,5 +30,7 @@ public class JavaRoute {
      public static String bgImage = "/public/addImageForBackground/";
      public static String discount = "/product/discount";
      public static String logout = "/logout";
+     public static String holdOrder = "/hold";
+     
 
 }

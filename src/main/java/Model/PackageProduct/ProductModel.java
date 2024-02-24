@@ -19,6 +19,7 @@ public class ProductModel {
      public ProductModel() {
      }
 
+     
      public ProductModel(
           int id,
           int catId,
@@ -48,15 +49,18 @@ public class ProductModel {
           this.discount = discount;
           this.qty = qty;
      }
+     
 
      public int getQty() {
           return qty;
      }
 
+     
      public void setQty(int qty) {
           this.qty = qty;
      }
 
+     
      public int getId() {
           return id;
      }

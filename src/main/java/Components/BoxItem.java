@@ -32,7 +32,8 @@ import okhttp3.Response;
  * @author MOBILE-APP.02
  */
 public class BoxItem extends javax.swing.JPanel {
-
+     
+     
      public int getLabelQuantity() {
           return labelQuantity;
      }

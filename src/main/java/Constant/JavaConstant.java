@@ -1,5 +1,7 @@
 package Constant;
 
+import Components.countCircleShape;
+import Model.HoldOrder.DataHoldOrder;
 import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
@@ -82,5 +84,9 @@ public class JavaConstant {
                return "Unknown";
           }
      }
+     
+     public static countCircleShape circleShape;
+     public static int holdId=0;
+     public static boolean holdSameProduct=false;
 
 }

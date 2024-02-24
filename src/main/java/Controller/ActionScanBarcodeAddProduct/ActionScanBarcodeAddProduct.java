@@ -33,29 +33,30 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
+
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
-               func(response,jdFormLogin);
+               System.out.println("data resonse = " + response);
+               func(response, jdFormLogin);
           }
      }
-     
-     
+
      public void scanWithoutBarcode(String barcode, LoginFormJdailog jdFormLogin) {
-          System.err.println("ddddddddddddddddddddddddd");
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
-                    System.err.println("ddddddddddddddddddddddddd res = " + response);
-
-          func(response,jdFormLogin);
+          func(response, jdFormLogin);
      }
-     
-     
 
-     void func(Response response , LoginFormJdailog jdFormLogin) {
+     void func(Response response, LoginFormJdailog jdFormLogin) {
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listProduct = model.getData();
+                    if (listProduct.length == 0) {
+                         msgAlertErr();
+                         return;
+                    }
+
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
@@ -74,16 +75,19 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getDiscount(),
                               obj.getQty()
                          );
-                          jdFormLogin.scanbarCodeAddProduct(product);
+                         jdFormLogin.scanbarCodeAddProduct(product);
                     }
-                   
+
                }
           } catch (Exception e) {
-               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-               j.setMessage("The product does not exist in system!");
-               j.setVisible(true);
-               System.err.println("error scan barcode = " + e);
+               msgAlertErr();
           }
+     }
+
+     void msgAlertErr() {
+          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+          j.setMessage("The product does not exist in system!");
+          j.setVisible(true);
      }
 
      public static String returnProduct(String barcode, String invoiceNo, LoginFormJdailog jdFormLogin) {

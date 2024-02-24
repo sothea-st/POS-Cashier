@@ -34,9 +34,9 @@ import okhttp3.Response;
 
 public class ActionProduct {
 
-     DecimalFormat df = new DecimalFormat("#,##0.00 kg");
+ 
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
-     DecimalFormat bar = new DecimalFormat("########00000000");
+ 
      DecimalFormat kh = new DecimalFormat("#,##0");
 
      private Button btnLogin;
@@ -113,7 +113,6 @@ public class ActionProduct {
                     obj.getQty()
                );
                listProduct.add(product);
-
           }
           appendProduct(listProduct, panelProduct);
      }
@@ -330,10 +329,6 @@ public class ActionProduct {
                               obj.setQty(qty);
                               double newAmountUsd = qty * price;
                               if (listData.getDiscount() > 0) {
-//                                   double discountPrice = price - (listData.getDiscount() * price) / 100;
-//                                   String discountStr = dm.format(discountPrice).replace("$", "");
-//                                   discountStr = discountStr.replace(",", "");
-//                                   discountPrice = Double.parseDouble(discountStr);
                                    newAmountUsd = price * qty;
                               }
                               obj.setLabelAmountUsd(dm.format(newAmountUsd));

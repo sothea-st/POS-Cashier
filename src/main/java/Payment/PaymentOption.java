@@ -11,6 +11,7 @@ import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import HoldOrder.HoldeModel;
 import Model.CustomerType.CustomerTypeModel;
 import Model.CustomerType.SourceModel;
 import Model.ReturnModel.ReturnProductModel;
@@ -47,7 +48,6 @@ public class PaymentOption extends javax.swing.JDialog {
      private Button btnPayment;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
-     
 
      public PaymentOption(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -1271,11 +1271,25 @@ public class PaymentOption extends javax.swing.JDialog {
                    btnPayment.setBackground(WindowColor.lightGray);
 
                    // remove hole order
-                   if (!JavaConstant.listHoldData.isEmpty()) {
-                        int index = JavaConstant.indexArrayListHold;
-                        JavaConstant.listHoldData.remove(index);
-                        JavaConstant.indexArrayListHold = 0;
+                   if (JavaConstant.holdId != 0) {
+                        ArrayList<HoldeModel> holdId = new ArrayList<>();
+                        holdId.add(new HoldeModel(JavaConstant.holdId));
+                        JSONObject json = new JSONObject();
+                        json.put("reasonId", 0); // 0 meaning product was paid
+                        json.put("listHoldDetail", holdId);
+
+                        Response responseHold = JavaConnection.delete(JavaRoute.holdOrder, json);
+
+                        if (responseHold.isSuccessful()) {
+                             JavaConstant.holdId = 0;
+                        }
                    }
+
+//                   if (!JavaConstant.listHoldData.isEmpty()) {
+//                        int index = JavaConstant.indexArrayListHold;
+//                        JavaConstant.listHoldData.remove(index);
+//                        JavaConstant.indexArrayListHold = 0;
+//                   }
               } else {
                    JOptionPane.showMessageDialog(this, "Charge Failed!");
               }
@@ -1448,23 +1462,22 @@ public class PaymentOption extends javax.swing.JDialog {
           this.btnPayment = btnPayment;
      }
 
-    public Button getButtonHoldOrder() {
-        return buttonHoldOrder;
-    }
+     public Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
 
-    public void setButtonHoldOrder(Button buttonHoldOrder) {
-        this.buttonHoldOrder = buttonHoldOrder;
-    }
+     public void setButtonHoldOrder(Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
 
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.LabelFontBlack buttonChargeAndPrint;

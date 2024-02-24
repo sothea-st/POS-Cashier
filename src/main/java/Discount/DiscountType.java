@@ -96,10 +96,11 @@ public class DiscountType extends javax.swing.JDialog {
     }//GEN-LAST:event_disByItemMouseClicked
 
     private void overallDisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_overallDisMouseClicked
-        this.dispose();
+ 
         Component[] listCom1 = detailItem.getComponents();
         double sumDiscount = 0;
         if (listCom1.length > 0) {
+             this.dispose();
              for (int i = 0; i < listCom1.length; i++) {
                 var obj = ((BoxItem) listCom1[i]);
                 sumDiscount += JavaConstant.getReplace(obj.getDiscountAmount());

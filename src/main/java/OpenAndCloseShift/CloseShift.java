@@ -10,6 +10,8 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import View.MainPage.MainPage;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -333,6 +335,16 @@ public class CloseShift extends javax.swing.JDialog {
                    return;
               }
 
+              
+              int count = new MainPage().countHold();
+              if( count > 0 ) {
+                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                   j.setMessage("There are some transactions not complete yet in Hold function!");
+                   j.setVisible(true);
+                   return;
+              }
+              
+              
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
 
               if (response.isSuccessful()) {

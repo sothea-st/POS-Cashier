@@ -82,7 +82,36 @@ public class JavaConnection {
           return response;
      }
 
-     public static void getImage(JLabel lableName , String imageName) {
+     
+     
+     
+     
+     public static Response delete(String route, JSONObject json) {
+          Response response = null;
+          String url = new JavaBaseUrl().getBaseUrl() + route;
+          try {
+               OkHttpClient client = new OkHttpClient();
+               RequestBody body = RequestBody.create(
+                    JavaConstant.JSON,
+                    json.toString());
+           
+               Request deleteRequest = new Request.Builder()
+                    .url(url)
+                    .delete(body)
+                    .addHeader("Authorization", "Bearer " + JavaConstant.token)
+                    .build();
+               response = client.newCall(deleteRequest).execute();
+          } catch (Exception e) {
+               System.err.println("getting error during call request " + e);
+          }
+          return response;
+     }
+
+     
+     
+     
+     
+     public static void getImage(JLabel lableName, String imageName) {
           Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + imageName);
           if (response.isSuccessful()) {
                try {
@@ -93,8 +122,8 @@ public class JavaConnection {
                }
           }
      }
-     
-      public static byte[] getBytes() {
+
+     public static byte[] getBytes() {
           Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "King Mart Small Logo.png");
           byte[] bg = null;
           if (response.isSuccessful()) {
@@ -107,5 +136,4 @@ public class JavaConnection {
           return bg;
      }
 
-     
 }
