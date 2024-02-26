@@ -11,25 +11,17 @@ import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
-import HoldOrder.ActionHoldOrder;
 import HoldOrder.HoldDetail;
 import HoldOrder.HoldItems;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import HoldOrder.HoldSuccess;
 import HoldOrder.HoldeModel;
-import HoldOrder.ListHoldOrder;
-import Model.CustomerType.CustomerTypeModel;
-import Model.HoldOrder.DataHoldOrder;
-import Model.HoldOrder.HoldOrder;
 import Model.Package.ReasonModel;
 import Model.PackageProduct.ProductIDModel;
 import Model.PackageProduct.ProductModel;
-import Model.Sale.ProductSaleModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,7 +33,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
 import okhttp3.Response;
@@ -405,10 +396,6 @@ public class CancelDialog extends javax.swing.JDialog {
                               System.out.println("error get hold = " + e);
                          }
 
-//                         btnPayment.setBackground(WindowColor.lightBlue);
-//                         buttonHoldOrder.setBackground(WindowColor.yellow);
-//                         btnCancel.setBackground(WindowColor.darkred);
-//                         dispose();
                     }
 
                     @Override
@@ -521,9 +508,6 @@ public class CancelDialog extends javax.swing.JDialog {
                box.setSubtotalPanel(subtotalPanel);
                box.setListCom(listCom1);
 
-//               btnPayment.setBackground(WindowColor.lightBlue);
-//               buttonHoldOrder.setBackground(WindowColor.yellow);
-//               btnCancel.setBackground(WindowColor.darkred);
           } catch (Exception e) {
                System.out.println("err get product image " + e);
           }
