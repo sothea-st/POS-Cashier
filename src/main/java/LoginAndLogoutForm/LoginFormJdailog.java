@@ -263,7 +263,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               Response response = JavaConnection.login(JavaRoute.login, json);
 
               if (response.isSuccessful()) {
-                   btnOpenShift.setBackground(WindowColor.green);
+                   
                    String responseData = response.body().string();
 
                    ObjectMapper objMap = new ObjectMapper();
@@ -284,6 +284,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         return;
                    }
 
+                   btnOpenShift.setBackground(WindowColor.green);
                    JavaConstant.token = model.getToken();
                    JavaConstant.fullName = model.getUserName();
                    JavaConstant.userCode = model.getUserCode();

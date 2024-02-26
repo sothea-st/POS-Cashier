@@ -4,29 +4,21 @@ import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
-import Components.HoldItem;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
-import Controller.ActionProduct.ActionProduct;
 import DeleteAndCancel.CancelDialog;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
-import Model.HoldOrder.DataHoldOrder;
-import Model.HoldOrder.HoldOrder;
-import Model.HoldOrder.HoldOrderModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import Model.PackageProduct.ProductModel;
-import Model.ProductModel.ProductDataModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -35,13 +27,11 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ListHoldOrder extends javax.swing.JDialog {
 
@@ -64,8 +54,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
           setResizable(false);
           cancel.setButtonName("Close");
           getHoldItem(panelHold);
-//          callHistoryHold(JavaConstant.listHoldOrder);
-//          new ActionHoldOrder(panelHold);
      }
 
      public void getHoldItem(JPanel panelHold) {
@@ -180,6 +168,25 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          btnPayment.setBackground(WindowColor.lightBlue);
                          buttonHoldOrder.setBackground(WindowColor.yellow);
                          btnCancel.setBackground(WindowColor.darkred);
+                         
+                         //Remove when Process
+                         ArrayList<HoldeModel> lstModel = new ArrayList<>();
+                         lstModel.add(new HoldeModel(obj.getID()));
+                         JSONObject json = new JSONObject();
+                         json.put("reasonId", 0);
+                         json.put("listHoldDetail", lstModel);
+
+                         Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
+
+                         try {
+                            if (response.isSuccessful()) {
+                               dispose();
+                               int count = new MainPage().countHold();
+                               countCircleShape.setCountTimes("" + count);
+                            }
+                         } catch (Exception e) {
+                            System.err.println("errr delete + " + e);
+                         }
                          dispose();
                     }
 
@@ -307,64 +314,64 @@ public class ListHoldOrder extends javax.swing.JDialog {
           }
      }
 
-     void callHistoryHold(ArrayList<NewHoldOrderModel> listHoldOrder) {
-
-          for (int i = 0; i < listHoldOrder.size(); i++) {
-               int number = JavaConstant.listHoldOrder.get(i).getNumber();
-               int qty = listHoldOrder.get(i).getQty();
-               Component[] listCom = listHoldOrder.get(i).getListCom();
-               HoldItems h = new HoldItems();
-               int index = i;
-               ButtonEvent events = new ButtonEvent() {
-                    @Override
-                    public void onSelect(String key) { // action process
-                         detailItem.removeAll();
-                         for (int j = 0; j < listCom.length; j++) {
-                              var box = ((BoxItem) listCom[j]);
-                              detailItem.add(box);
-                         }
-                         refreshPanel();
-                         detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
-                         detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
-                         detailItem.setBackground(WindowColor.white);
-                         subtotalPanel.total(0, listCom, 0, subtotalPanel);
-                         JavaConstant.indexArrayListHold = index;
-
-                         btnPayment.setBackground(WindowColor.lightBlue);
-                         buttonHoldOrder.setBackground(WindowColor.yellow);
-                         btnCancel.setBackground(WindowColor.darkred);
-                         dispose();
-
-                         listHoldOrder.remove(index);
-                         panelHold.remove(index);
-                         panelHold.removeAll();
-                         callHistoryHold(JavaConstant.listHoldOrder);
-                         countCircleShape.setCountTimes("" + JavaConstant.listHoldOrder.size());
-                         countCircleShape.revalidate();
-                         countCircleShape.repaint();
-                         refreshPanel();
-                    }
-
-                    @Override
-                    public void onRemove(String key) {
-                         listHoldOrder.remove(index);
-                         panelHold.remove(index);
-                         panelHold.removeAll();
-                         callHistoryHold(JavaConstant.listHoldOrder);
-                         countCircleShape.setCountTimes("" + JavaConstant.listHoldOrder.size());
-                         countCircleShape.revalidate();
-                         countCircleShape.repaint();
-                         refreshPanel();
-                    }
-               };
-
-               h.initEvent(events);
-               h.setCountNumber("" + number);
-               h.setQty(qty);
-               panelHold.add(h);
-               refreshPanel();
-          }
-     }
+//     void callHistoryHold(ArrayList<NewHoldOrderModel> listHoldOrder) {
+//
+//          for (int i = 0; i < listHoldOrder.size(); i++) {
+//               int number = JavaConstant.listHoldOrder.get(i).getNumber();
+//               int qty = listHoldOrder.get(i).getQty();
+//               Component[] listCom = listHoldOrder.get(i).getListCom();
+//               HoldItems h = new HoldItems();
+//               int index = i;
+//               ButtonEvent events = new ButtonEvent() {
+//                    @Override
+//                    public void onSelect(String key) { // action process
+//                         detailItem.removeAll();
+//                         for (int j = 0; j < listCom.length; j++) {
+//                              var box = ((BoxItem) listCom[j]);
+//                              detailItem.add(box);
+//                         }
+//                         refreshPanel();
+//                         detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
+//                         detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
+//                         detailItem.setBackground(WindowColor.white);
+//                         subtotalPanel.total(0, listCom, 0, subtotalPanel);
+//                         JavaConstant.indexArrayListHold = index;
+//
+//                         btnPayment.setBackground(WindowColor.lightBlue);
+//                         buttonHoldOrder.setBackground(WindowColor.yellow);
+//                         btnCancel.setBackground(WindowColor.darkred);
+//                         dispose();
+//
+//                         listHoldOrder.remove(index);
+//                         panelHold.remove(index);
+//                         panelHold.removeAll();
+//                         callHistoryHold(JavaConstant.listHoldOrder);
+//                         countCircleShape.setCountTimes("" + JavaConstant.listHoldOrder.size());
+//                         countCircleShape.revalidate();
+//                         countCircleShape.repaint();
+//                         refreshPanel();
+//                    }
+//
+//                    @Override
+//                    public void onRemove(String key) {
+//                         listHoldOrder.remove(index);
+//                         panelHold.remove(index);
+//                         panelHold.removeAll();
+//                         callHistoryHold(JavaConstant.listHoldOrder);
+//                         countCircleShape.setCountTimes("" + JavaConstant.listHoldOrder.size());
+//                         countCircleShape.revalidate();
+//                         countCircleShape.repaint();
+//                         refreshPanel();
+//                    }
+//               };
+//
+//               h.initEvent(events);
+//               h.setCountNumber("" + number);
+//               h.setQty(qty);
+//               panelHold.add(h);
+//               refreshPanel();
+//          }
+//     }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

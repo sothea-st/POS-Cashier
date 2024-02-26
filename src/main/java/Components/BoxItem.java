@@ -339,12 +339,14 @@ public class BoxItem extends javax.swing.JPanel {
           // ============ for subtotal panel
           int count = buttonAddProduct.getParent().getParent().getComponentCount();
           Component[] list = buttonAddProduct.getParent().getParent().getComponents();
-
+          
+          Component[] listCom = detailItem.getComponents();
+          System.err.println("data detailItem length = " + listCom.length);
           double sumSubTotalUsd = 0;
           double sumDiscount = 0;
 
-          for (int i = 0; i < count; i++) {
-               var data = (BoxItem) list[i];
+          for (int i = 0; i < listCom.length; i++) {
+               var data = (BoxItem) listCom[i];
                String priceStr = data.getLabelPrice();
                priceStr = priceStr.replace("$", "");
                priceStr = priceStr.replace(",", "");
