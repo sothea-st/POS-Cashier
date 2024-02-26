@@ -1,10 +1,14 @@
 package com.example.pos.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import java.util.Date;
+
+import com.example.pos.entity.models.HoldModel;
+
+import java.util.*;
 
 @Entity
 @Table(name = "pos_hold")
@@ -12,15 +16,21 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Hold {
-     @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private int id;
- 
-     @Column(name = "note",length = 50)
-     private String note;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-     @Column(name = "qty_hold",length = 50)
-     private int qtyHole;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<HoldeDetails> listHoldDetail;
+
+    @Column(name = "note", length = 50)
+    private String note;
+
+    @Column(name = "qty_hold", length = 50)
+    private int qtyHole;
+
+    @Column(name = "reason_id", length = 50)
+    private Integer reasonId;
 
     @Column(name = "create_by")
     private int createBy;
@@ -30,9 +40,9 @@ public class Hold {
     private Date createDate;
 
     @Column(name = "status")
-    private boolean status=true;
+    private boolean status = true;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted=false;
+    private boolean isDeleted = false;
 
 }

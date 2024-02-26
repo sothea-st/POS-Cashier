@@ -2,15 +2,26 @@ package com.example.pos.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.pos.entity.Hold;
+import com.example.pos.entity.HoldeDetails;
+import com.example.pos.projections.holdProjection.HoldDataModel;
+import com.example.pos.projections.holdProjection.HoldDataProjection;
+import com.example.pos.projections.holdProjection.HoldDetailModel;
 import com.example.pos.projections.holdProjection.HoldProjection;
+import com.example.pos.repository.HoldDetailsRepository;
 import com.example.pos.repository.HoldRepository;
+import com.example.pos.repository.productProjection.ProductProjection;
+import com.example.pos.util.exception.customeException.JavaNotFoundByIdGiven;
+
 import java.util.*;
+
 @Service
 public class HoldService {
      @Autowired
      private HoldRepository repo;
+
+     @Autowired
+     private HoldDetailsRepository detailRepo;
 
      public Hold addHold(Hold h) {
           Hold data = new Hold();
@@ -18,22 +29,59 @@ public class HoldService {
           data.setQtyHole(h.getQtyHole());
           data.setCreateBy(h.getCreateBy());
           repo.save(data);
+          for (int i = 0; i < h.getListHoldDetail().size(); i++) {
+               HoldeDetails d = new HoldeDetails();
+               int id = h.getListHoldDetail().get(i).getId();
+               d.setProId(id);
+               d.setHoldId(data.getId());
+               d.setQtyHold(h.getListHoldDetail().get(i).getQtyHold());
+               detailRepo.save(d);
+          }
+          data.setListHoldDetail(h.getListHoldDetail());
           return data;
      }
 
-     public List<HoldProjection> getHold(){
-          return repo.getHold();
+     public HashMap<String, Object> getHold() {
+          HashMap<String, Object> map = new HashMap<>();
+          List<HoldDataProjection> dataHold = repo.getHoldDataAll();
+          List<HoldDetailModel> list = new ArrayList<>();
+          for (int i = 0; i < dataHold.size(); i++) {
+               var data = dataHold.get(i);
+               List<HoldProjection> dataDetail = repo.getHoldDataById(data.getId());
+            
+               HoldDetailModel hold = new HoldDetailModel();
+               hold.setId(data.getId());
+               hold.setNote(data.getNote());
+               hold.setQtyHold(data.getQty_hold());
+               hold.setListDetails(dataDetail);
+               list.add(hold);
+          }
+          map.put("data", list);
+          return map;
      }
 
-     public void deleteHold(int id,Hold h) {
-          Optional<Hold> data = repo.findById(id);
-          Hold d = data.get();
-          d.setStatus(h.isStatus());
-          d.setDeleted(h.isDeleted());
-          repo.save(d);
+     public void deleteHold(Hold h) {
+          for (int i = 0; i < h.getListHoldDetail().size(); i++) {
+               int id = h.getListHoldDetail().get(i).getId();
+               Optional<Hold> data = repo.findById(id);
+               Hold d = data.get();
+               d.setStatus(false);
+               d.setDeleted(true);
+               d.setReasonId(h.getReasonId());
+               repo.save(d);
+          }
      }
 
-     
-
+     // public HashMap<String ,Object> getHoldById(int holdId){
+     // List<HoldProjection> data = repo.getHoldDataById(holdId);
+     // HoldDataProjection h = repo.getData(holdId);
+     // if( h==null ) throw new JavaNotFoundByIdGiven();
+     // HashMap<String ,Object> map = new HashMap<>();
+     // map.put("hold_id", h.getId());
+     // map.put("note", h.getNote());
+     // map.put("qty_hold", h.getQty_hold());
+     // map.put("details", data);
+     // return map;
+     // }
 
 }
