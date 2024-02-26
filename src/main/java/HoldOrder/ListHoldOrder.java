@@ -15,6 +15,9 @@ import Controller.ActionProduct.ActionProduct;
 import DeleteAndCancel.CancelDialog;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ListDetailHold;
+import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Model.HoldOrder.DataHoldOrder;
 import Model.HoldOrder.HoldOrder;
 import Model.HoldOrder.HoldOrderModel;
@@ -50,7 +53,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
      private countCircleShape countCircleShape;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
-   
 
      public ListHoldOrder(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -73,8 +75,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
-                    HoldOrder data = objMap.readValue(responseData, HoldOrder.class);
-                    DataHoldOrder[] listData = data.getData();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    DataListHold[] listData = data.getData();
                     appendValue(listData, panelHold);
                } else {
                     System.err.println("fail loading product");
@@ -84,7 +86,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           }
      }
 
-     private void appendValue(DataHoldOrder[] listData, JPanel panelHold) {
+     private void appendValue(DataListHold[] listData, JPanel panelHold) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -98,7 +100,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
           for (int i = 0; i < listData.length; i++) {
 
-               
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
                gbc.gridy = y;
@@ -111,6 +112,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                }
 
                var obj = listData[i];
+               ListDetailHold[] listDetails = listData[i].getListDetails();
                HoldItems h = new HoldItems();
 
                ButtonEvent events = new ButtonEvent() {
@@ -119,42 +121,62 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          detailItem.removeAll();
                          panelHold.revalidate();
                          panelHold.repaint();
-                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
-                         int count = new MainPage().countHold();
-                         count--;
-                         countCircleShape.setCountTimes(""+count);
-                         JavaConstant.holdId = obj.getID();
-                         try {
-                              if (responseData.isSuccessful()) {
-                                   String data = responseData.body().string();
-                                   ObjectMapper objMap = new ObjectMapper();
-                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
-                                   HoldDetail[] listDatas = model.getData().getDetails();
-                                   for (int i = 0; i < listDatas.length; i++) {
-                                        var obj = listDatas[i];
-                                        ProductModel product = new ProductModel(
-                                             obj.getID(),
-                                             obj.getCatID(),
-                                             obj.getFlag(),
-                                             obj.getWeight(),
-                                             obj.getCost(),
-                                             obj.getProImageName(),
-                                             obj.getPrice(),
-                                             obj.getBarcode(),
-                                             obj.getProNameKh(),
-                                             obj.getProNameEn(),
-                                             obj.getProductStatus(),
-                                             obj.getDiscount(),
-                                             obj.getQty()
-                                        );
-                                        addItemToCart(product);
-                                   }
-                              }
-                         } catch (Exception e) {
-                              System.out.println("error get hold = " + e);
+
+                         for (int j = 0; j < listDetails.length; j++) {
+                              var obj = listDetails[j];
+                              ProductModel product = new ProductModel(
+                                   obj.getID(),
+                                   obj.getCatID(),
+                                   obj.getFlag(),
+                                   obj.getWeight(),
+                                   obj.getCost(),
+                                   obj.getProImageName(),
+                                   obj.getPrice(),
+                                   obj.getBarcode(),
+                                   obj.getProNameKh(),
+                                   obj.getProNameEn(),
+                                   obj.getProductStatus(),
+                                   obj.getDiscount(),
+                                   obj.getQty()
+                              );
+                              addItemToCart(product);
+
                          }
 
-                
+//                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
+//                         int count = new MainPage().countHold();
+//                         count--;
+//                         countCircleShape.setCountTimes(""+count);
+//                         JavaConstant.holdId = obj.getID();
+//                         try {
+//                              if (responseData.isSuccessful()) {
+//                                   String data = responseData.body().string();
+//                                   ObjectMapper objMap = new ObjectMapper();
+//                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
+//                                   HoldDetail[] listDatas = model.getData().getDetails();
+//                                   for (int i = 0; i < listDatas.length; i++) {
+//                                        var obj = listDatas[i];
+//                                        ProductModel product = new ProductModel(
+//                                             obj.getID(),
+//                                             obj.getCatID(),
+//                                             obj.getFlag(),
+//                                             obj.getWeight(),
+//                                             obj.getCost(),
+//                                             obj.getProImageName(),
+//                                             obj.getPrice(),
+//                                             obj.getBarcode(),
+//                                             obj.getProNameKh(),
+//                                             obj.getProNameEn(),
+//                                             obj.getProductStatus(),
+//                                             obj.getDiscount(),
+//                                             obj.getQty()
+//                                        );
+//                                        addItemToCart(product);
+//                                   }
+//                              }
+//                         } catch (Exception e) {
+//                              System.out.println("error get hold = " + e);
+//                         }
                          btnPayment.setBackground(WindowColor.lightBlue);
                          buttonHoldOrder.setBackground(WindowColor.yellow);
                          btnCancel.setBackground(WindowColor.darkred);
@@ -228,23 +250,23 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          }
                     }
                }
-               
+
                ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onMouseClick() {
-                         CancelDialog cancels = new CancelDialog(new JFrame(),true);
+                         CancelDialog cancels = new CancelDialog(new JFrame(), true);
                          cancels.deleteHoldById();
                     }
                };
                box.initEvent(events);
-               
+
                box.setDiscountDigit(listData.getDiscount());
                box.setLabelProductName(listData.getProductNameEn());
                box.setLabelWeight(listData.getWeight());
                box.setLabelBarcode(listData.getBarcode());
 
                box.setLabelPrice(dm.format(price));
-               double _p = price*listData.getQty();
+               double _p = price * listData.getQty();
                box.setLabelAmountUsd(dm.format(_p));
 
                double valueRoundDown = JavaRoundDown.roundDown("" + _p * JavaConstant.exchangeRate);
@@ -285,9 +307,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
           }
      }
 
-     
-     
-     
      void callHistoryHold(ArrayList<NewHoldOrderModel> listHoldOrder) {
 
           for (int i = 0; i < listHoldOrder.size(); i++) {

@@ -15,6 +15,8 @@ import Fonts.WindowFonts;
 import HoldOrder.ActionHoldOrder;
 import HoldOrder.HoldDetail;
 import HoldOrder.HoldItems;
+import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import HoldOrder.HoldSuccess;
 import HoldOrder.HoldeModel;
 import HoldOrder.ListHoldOrder;
@@ -214,7 +216,7 @@ public class CancelDialog extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
          if (code.equals("cancel")) {
-              System.out.println("DeleteAndCancel.CancelDialog.buttonSaveMouseClicked( 44444444444444)");
+             
               JSONObject jsonData = new JSONObject();
 
               ArrayList<ProductIDModel> listCancelDetail = new ArrayList<>();
@@ -320,8 +322,8 @@ public class CancelDialog extends javax.swing.JDialog {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
-                    HoldOrder data = objMap.readValue(responseData, HoldOrder.class);
-                    DataHoldOrder[] listData = data.getData();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    DataListHold[] listData = data.getData();
                     appendValue(listData, panelHold);
                } else {
                     System.err.println("fail loading product");
@@ -331,7 +333,7 @@ public class CancelDialog extends javax.swing.JDialog {
           }
      }
 
-     private void appendValue(DataHoldOrder[] listData, JPanel panelHold) {
+     private void appendValue(DataListHold[] listData, JPanel panelHold) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
