@@ -5,6 +5,7 @@ import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Controller.ActionSearchProductController.ActionSearchProd;
 import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
@@ -30,6 +31,11 @@ public class ListProduct extends javax.swing.JDialog {
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      private String searchValue;
      private int id;
+     private JPanel panelProduct;
+     private JPanel category;
+     private JPanel panelPagination;
+
+     private LoginFormJdailog jdFormLogin;
 
      public ListProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -41,7 +47,7 @@ public class ListProduct extends javax.swing.JDialog {
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
-          searchField.requestFocus();
+          searchField.setFocus();
      }
 
      @SuppressWarnings("unchecked")
@@ -223,10 +229,10 @@ public class ListProduct extends javax.swing.JDialog {
      //Append Product into list
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel listGetProduct) {
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0,0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0};
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
           listGetProduct.setLayout(gridBagLayout);
 
@@ -239,7 +245,7 @@ public class ListProduct extends javax.swing.JDialog {
                gbc.gridy = y;
                gbc.gridwidth = 1;
                gbc.anchor = gbc.NORTH;
-              
+
 //               gbc.insets = new Insets(5, 0, 5, 10);
                x++;
                if (x == 1) {
@@ -249,14 +255,34 @@ public class ListProduct extends javax.swing.JDialog {
 
                var listData = listProduct.get(i);
                GetProduct prod = new GetProduct();
+
                prod.setProductName(listData.getProductNameEn());
                prod.setProductBarcode(listData.getBarcode());
                prod.setProductPrice(dm.format(listData.getPrice()));
                prod.setProductDiscount(listData.getDiscount());
                prod.setProductId(listData.getId());
                prod.setListGetProduct(listGetProduct);
+
+               ButtonEvent event = new ButtonEvent() {
+                    @Override
+                    public void onClick() {
+                         System.err.println("button was clicked 333 == " + jdFormLogin);
+                         DiscountByItem dis = new DiscountByItem(new JFrame(), true);
+                         dis.setId(listData.getId());
+                         dis.setListGetProduct(listGetProduct);
+                         dis.setPanelProduct(panelProduct);
+                         dis.setJdFormLogin(jdFormLogin);
+                         dis.setCategory(category);
+                         dis.setPanelPagination(panelPagination);
+                         dis.setVisible(true);
+                    }
+               };
+
+               prod.initEvent(event);
+
 //               listGetProduct.add(prod);
                listGetProduct.add(prod, gbc);
+
           }
 //          listGetProduct.setLayout(new BoxLayout(listGetProduct, BoxLayout.Y_AXIS));
      }
@@ -283,6 +309,40 @@ public class ListProduct extends javax.swing.JDialog {
                }
           };
           searchField.initEvent(event);
+     }
+
+     public JPanel getPanelPagination() {
+          return panelPagination;
+     }
+
+     public void setPanelPagination(JPanel panelPagination) {
+          this.panelPagination = panelPagination;
+     }
+     
+     
+
+     public JPanel getCategory() {
+          return category;
+     }
+
+     public void setCategory(JPanel category) {
+          this.category = category;
+     }
+
+     public LoginFormJdailog getJdFormLogin() {
+          return jdFormLogin;
+     }
+
+     public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
+          this.jdFormLogin = jdFormLogin;
+     }
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
      }
 
      public int getId() {

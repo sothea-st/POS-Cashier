@@ -95,6 +95,10 @@ public class SearchField extends javax.swing.JPanel {
           textSearch.setEnabled(value);
      }
 
+     public void setFocus() {
+          textSearch.requestFocus();
+     }
+
      //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 3;

@@ -238,7 +238,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          //String userId = txtUserId.getValueTextField();
          //String password = txtPassword.getValuePassword();
 
-         String userId = "0005";
+         String userId = "0003";
          String password = "TT@126$kh#";
          String deviceName = JavaConstant.getDeviceName();
          System.err.println("device name = " + deviceName);
@@ -290,8 +290,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.posId = model.getPosID();
                    JavaConstant.cashierId = model.getID();
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
-                   if (responseOpenShift.isSuccessful()) {
 
+                   if (responseOpenShift.isSuccessful()) {
                         btnOpenShift.setBackground(WindowColor.green);
                         String result = responseOpenShift.body().string();
                         ObjectMapper objectMapper = new ObjectMapper();
@@ -306,7 +306,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              buttonCustomer.setBackground(WindowColor.green);
                              buttonDiscount.setBackground(WindowColor.green);
                              btnReprint.setBackground(WindowColor.green);
-                             
+
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
                              JavaConstant.numberOpenShift = Integer.valueOf("" + data.getData().getNumberOpenShift());
@@ -406,6 +406,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                     for (int i = 0; i < listCategory.size(); i++) {
                          int catId = listCategory.get(i).getId();
+
                          LabelTitle categoryTitle = new LabelTitle();
                          categoryTitle.setLbCatId("" + catId);
                          categoryTitle.textCenter();
@@ -419,7 +420,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               @Override
                               public void onMouseClick() {
                                    if (JavaConstant.checkOpenShift) {
-                                        int d = ind;
+
                                         setCatId(catId);
                                         getPanelPagination().setVisible(true);
                                         // click on category actice background color
@@ -439,11 +440,17 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
                                         searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
 
+                                        // in case when user maximize application to full window 
+                                        if (MainPage.isFullScreen) {
+                                             callDataInFullScreen();
+                                        }
+
                                         panelProduct.removeAll();
                                         if (catNameData.equals("ALL")) {
                                              panelPagination.setVisible(false);
                                              pro.getAllProduct(panelProduct);
                                              listCom[0].setBackground(WindowColor.black);
+                                             setCatId(0);
                                         } else {
                                              pro.product(catId, limit, panelProduct);
                                         }
@@ -453,19 +460,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         panelProduct.revalidate();
                                         panelProduct.repaint();
                                         setCount(pro.getCount());
-
-                                        // in case when user maximize application to full window 
-                                        if (MainPage.isFullScreen) {
-                                             panelProduct.removeAll();
-                                             pro.setBtnPayment(btnPayment);
-                                             pro.setButtonHoldOrder(buttonHoldOrder);
-                                             pro.setBtnCancel(btnCancel);
-                                             panelProduct.revalidate();
-                                             panelProduct.repaint();
-                                             ActionProduct.marginRight = 15;
-                                             JavaConstant.rowNum = 7;
-                                             pro.product(catId, limit, panelProduct);
-                                        }
 
                                         if (JavaConstant.checkOpenShift) {
                                              textField.setFocus();
@@ -508,6 +502,9 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //                          == == == == == == == == == == == == == == == == == == == == == == =
                     }
 
+                    if (MainPage.isFullScreen) {
+                         callDataInFullScreen();
+                    }
                } else {
                     System.err.println("fail load category");
                }
@@ -515,6 +512,18 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                System.err.println("error " + e);
           }
 
+     }
+
+     void callDataInFullScreen() {
+          panelProduct.removeAll();
+          pro.setBtnPayment(btnPayment);
+          pro.setButtonHoldOrder(buttonHoldOrder);
+          pro.setBtnCancel(btnCancel);
+          panelProduct.revalidate();
+          panelProduct.repaint();
+          ActionProduct.marginRight = 15;
+          JavaConstant.rowNum = 7;
+          pro.getAllProduct(panelProduct);
      }
 
      public TextField getTextField() {
@@ -684,65 +693,62 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.cmboxBrand = cmboxBrand;
      }
 
-    public Button getButtonHoldOrder() {
-        return buttonHoldOrder;
-    }
+     public Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
 
-    public void setButtonHoldOrder(Button buttonHoldOrder) {
-        this.buttonHoldOrder = buttonHoldOrder;
-    }
+     public void setButtonHoldOrder(Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
 
-    public Button getBtnreturn() {
-        return btnreturn;
-    }
+     public Button getBtnreturn() {
+          return btnreturn;
+     }
 
-    public void setBtnreturn(Button btnreturn) {
-        this.btnreturn = btnreturn;
-    }
+     public void setBtnreturn(Button btnreturn) {
+          this.btnreturn = btnreturn;
+     }
 
-    public Button getBtnReprint() {
-        return btnReprint;
-    }
+     public Button getBtnReprint() {
+          return btnReprint;
+     }
 
-    public void setBtnReprint(Button btnReprint) {
-        this.btnReprint = btnReprint;
-    }
+     public void setBtnReprint(Button btnReprint) {
+          this.btnReprint = btnReprint;
+     }
 
-    public Button getButtonDiscount() {
-        return buttonDiscount;
-    }
+     public Button getButtonDiscount() {
+          return buttonDiscount;
+     }
 
-    public void setButtonDiscount(Button buttonDiscount) {
-        this.buttonDiscount = buttonDiscount;
-    }
+     public void setButtonDiscount(Button buttonDiscount) {
+          this.buttonDiscount = buttonDiscount;
+     }
 
-    public Button getButtonCustomer() {
-        return buttonCustomer;
-    }
+     public Button getButtonCustomer() {
+          return buttonCustomer;
+     }
 
-    public void setButtonCustomer(Button buttonCustomer) {
-        this.buttonCustomer = buttonCustomer;
-    }
+     public void setButtonCustomer(Button buttonCustomer) {
+          this.buttonCustomer = buttonCustomer;
+     }
 
-    public LabelTitle getBreadcrumb() {
-        return breadcrumb;
-    }
+     public LabelTitle getBreadcrumb() {
+          return breadcrumb;
+     }
 
-    public void setBreadcrumb(LabelTitle breadcrumb) {
-        this.breadcrumb = breadcrumb;
-    }
-     
-    
-    
-    
+     public void setBreadcrumb(LabelTitle breadcrumb) {
+          this.breadcrumb = breadcrumb;
+     }
+
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {

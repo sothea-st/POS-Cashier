@@ -3,8 +3,11 @@ package Discount;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
+import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
 import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,6 +18,11 @@ public class DiscountByItem extends javax.swing.JDialog {
 
      private int id;
      private JPanel listGetProduct;
+     private JPanel panelProduct;
+     private JPanel category;
+     private JPanel panelPagination;
+
+     private LoginFormJdailog jdFormLogin;
 
      public DiscountByItem(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -24,7 +32,7 @@ public class DiscountByItem extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           disValue.setLabelTextField("0");
-          disValue.requestFocus();
+          disValue.setFocus();
      }
 
      void event() {
@@ -151,12 +159,26 @@ public class DiscountByItem extends javax.swing.JDialog {
               if (response.isSuccessful()) {
 
                    ListProduct list = new ListProduct(new JFrame(), true);
-                   
-//                   listGetProduct.setBackground(Color.red);
+
+
+                   Component[] listCom = category.getComponents();
+                   for (int i = 0; i < listCom.length; i++) {
+                        category.getComponents()[i].setBackground(WindowColor.darkGreen);
+                   }
+
+                   category.revalidate();
+                   category.repaint();
+                   panelProduct.removeAll();
+                   panelProduct.revalidate();
+                   panelProduct.repaint();
+                   panelPagination.setVisible(false);
+
+       
+
                    listGetProduct.removeAll();
                    listGetProduct.revalidate();
                    listGetProduct.repaint();
-              
+
                    list.getProduct(listGetProduct);
                    dispose();
 
@@ -169,6 +191,30 @@ public class DiscountByItem extends javax.swing.JDialog {
 
          }
     }//GEN-LAST:event_buttonSave1MouseClicked
+
+     public JPanel getPanelPagination() {
+          return panelPagination;
+     }
+
+     public void setPanelPagination(JPanel panelPagination) {
+          this.panelPagination = panelPagination;
+     }
+
+     public JPanel getCategory() {
+          return category;
+     }
+
+     public void setCategory(JPanel category) {
+          this.category = category;
+     }
+
+     public LoginFormJdailog getJdFormLogin() {
+          return jdFormLogin;
+     }
+
+     public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
+          this.jdFormLogin = jdFormLogin;
+     }
 
      public int getId() {
           return id;
@@ -184,6 +230,14 @@ public class DiscountByItem extends javax.swing.JDialog {
 
      public void setListGetProduct(JPanel listGetProduct) {
           this.listGetProduct = listGetProduct;
+     }
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
      }
 
      /**

@@ -1,25 +1,66 @@
-
 package Discount;
 
+import Event.ButtonEvent;
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
-    private String productName;
-    private String productBarcode;
-    private String productPrice;
-    private int productDiscount;
-    private int productId;
-    
-    private JPanel listGetProduct;
-    
-    public GetProduct() {
-        initComponents();
-        id.setVisible(false);
-    }
+     private String productName;
+     private String productBarcode;
+     private String productPrice;
+     private int productDiscount;
+     private int productId;
+     private JPanel panelProduct;
 
-    @SuppressWarnings("unchecked")
+     private JPanel listGetProduct;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+
+     
+     
+     public void initEvent(ButtonEvent event) {
+          buttonEdit.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onClick();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+     }
+     
+     
+     
+     public GetProduct() {
+          initComponents();
+          id.setVisible(false);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -112,66 +153,65 @@ public class GetProduct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEditMouseClicked
-        DiscountByItem dis = new DiscountByItem(new JFrame(),true);
-        dis.setId(productId);
-        dis.setListGetProduct(listGetProduct);
-        dis.setVisible(true);
+//         DiscountByItem dis = new DiscountByItem(new JFrame(), true);
+//         dis.setId(productId);
+//         dis.setListGetProduct(listGetProduct);
+//       
+//         dis.setVisible(true);
     }//GEN-LAST:event_buttonEditMouseClicked
 
-    public JPanel getListGetProduct() {
-        return listGetProduct;
-    }
+     public JPanel getListGetProduct() {
+          return listGetProduct;
+     }
 
-    public void setListGetProduct(JPanel listGetProduct) {
-        this.listGetProduct = listGetProduct;
-    }
+     public void setListGetProduct(JPanel listGetProduct) {
+          this.listGetProduct = listGetProduct;
+     }
 
-   
-    public int getProductId() {
-        return productId;
-    }
+     public int getProductId() {
+          return productId;
+     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-        id.setText(""+productId);
-    }
+     public void setProductId(int productId) {
+          this.productId = productId;
+          id.setText("" + productId);
+     }
 
-    
-    public String getProductName() {
-        return productName;
-    }
+     public String getProductName() {
+          return productName;
+     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-        lbName.setText(productName);
-    }
+     public void setProductName(String productName) {
+          this.productName = productName;
+          lbName.setText(productName);
+     }
 
-    public String getProductBarcode() {
-        return productBarcode;
-    }
+     public String getProductBarcode() {
+          return productBarcode;
+     }
 
-    public void setProductBarcode(String productBarcode) {
-        this.productBarcode = productBarcode;
-        lbBarcode.setText(productBarcode);
-    }
+     public void setProductBarcode(String productBarcode) {
+          this.productBarcode = productBarcode;
+          lbBarcode.setText(productBarcode);
+     }
 
-    public String getProductPrice() {
-        return productPrice;
-    }
+     public String getProductPrice() {
+          return productPrice;
+     }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
-        lbPrice.setText(productPrice);
-    }
+     public void setProductPrice(String productPrice) {
+          this.productPrice = productPrice;
+          lbPrice.setText(productPrice);
+     }
 
-    public int getProductDiscount() {
-        return productDiscount;
-    }
+     public int getProductDiscount() {
+          return productDiscount;
+     }
 
-    public void setProductDiscount(int productDiscount) {
-        this.productDiscount = productDiscount;
-        discount.setText(productDiscount+" "+"%");
-    }
+     public void setProductDiscount(int productDiscount) {
+          this.productDiscount = productDiscount;
+          discount.setText(productDiscount + " " + "%");
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -38,7 +38,6 @@ DeleteAndCancel\CancelDialog$3.class
 Discount\DiscountByItem$4.class
 Model\ProductModel\ProductSuccessData.class
 View\MainPage\MainPage$20.class
-Discount\ListProduct$2$1.class
 Payment\PaymentOption$15.class
 Discount\OverallDiscount$3.class
 DeleteAndCancel\DeleteDialog$4$1.class
@@ -50,6 +49,7 @@ HoldOrder\HoldItems$4.class
 Model\CashierReport\SummerySale.class
 Discount\ListProduct.class
 Components\CircleShape.class
+Products\ProductBox.class
 OpenAndCloseShift\OpenShiftJdailog.class
 Controller\ActionScanBarcodeAddProduct\ActionScanBarcodeAddProduct.class
 Discount\OverallDiscount$2.class
@@ -80,11 +80,8 @@ Payment\PaymentOption$2.class
 Payment\PaymentOption$19.class
 Model\Category\CategoryModel.class
 Return\ApprovalCode.class
-<<<<<<< HEAD
 Button\Button.class
 Discount\ListProduct$1.class
-=======
->>>>>>> 384d856a6b56933b8a3a54e586a0767a0e512779
 Return\ApprovalCode$2.class
 Components\SearchField$2.class
 View\MainPage\MainPage$9.class
@@ -105,7 +102,9 @@ Components\UnEditableTextField.class
 DeleteAndCancel\DeleteDialog$2.class
 Discount\DiscountType.class
 Constant\JavaRoundDown.class
+LoginAndLogoutForm\LogoutDialog$2.class
 Components\PasswordField$2.class
+Print\ReprintByInvoicenumber$1.class
 DeleteAndCancel\CancelDialog$6.class
 Discount\GetProduct$1.class
 Print\ReprintByInvoicenumber$4$1.class
@@ -126,8 +125,10 @@ Payment\PaymentOption$18.class
 DefaultPrice\DefaultPrice.class
 Model\OpenShift\DataOpenShiftModel.class
 Payment\PaymentOption$22.class
+Print\ReprintByInvoicenumber$2.class
 Print\ReprintByInvoicenumber.class
 DeleteAndCancel\DeleteDialog$3.class
+Button\ButtonDiscount.class
 Discount\OverallDiscount$5.class
 Payment\PaymentOption$17.class
 LoginAndLogoutForm\LogoutDialog$1.class
@@ -145,6 +146,8 @@ Payment\PaymentOption$3.class
 Receipt\CashierReport.class
 Discount\DiscountByItem$4$1.class
 Components\PasswordField$1.class
+Discount\ListProduct$3.class
+Discount\GetProduct$2.class
 Components\TextField$4.class
 View\MainPage\MainPage.class
 Return\ApprovalCode$1.class
@@ -166,6 +169,7 @@ LoginAndLogoutForm\LogoutDialog$4.class
 Return\ReturnDialog$1.class
 Return\ReturnDialog.class
 Components\TextFieldCenter$3.class
+ButtonPackage\ButtonNo.class
 OpenAndCloseShift\CloseShift$4$1.class
 Discount\DiscountByItem$1.class
 LoginAndLogoutForm\LoginFormJdailog$5.class
@@ -179,6 +183,7 @@ Components\Parallelogram.class
 Customer\Customer$1.class
 Payment\PaymentOption$12.class
 Components\Shadow\GraphicsUtilities.class
+Components\Shadow\ShadowType.class
 Combobox\ComboItem.class
 Constant\JavaConstant.class
 Receipt\Receipt$1.class
@@ -198,6 +203,7 @@ View\MainPage\MainPage$5.class
 Event\ButtonEvent.class
 View\MainPage\MainPage$4.class
 Receipt\CashierReport$2.class
+LoginAndLogoutForm\LogoutDialog.class
 Payment\PaymentOption$25.class
 HoldOrder\ListHoldOrder$3.class
 HoldOrder\ListHoldOrder.class
@@ -235,6 +241,7 @@ Components\HistoryHoldOrder$4$1.class
 Components\JavaAlertMessage$2.class
 OpenAndCloseShift\OpenShiftJdailog$4.class
 Components\ComboBox$2.class
+Discount\ListProduct$3$1.class
 LoginAndLogoutForm\LoginFormJdailog$1.class
 OpenAndCloseShift\OpenShiftJdailog$1.class
 Payment\PaymentOption$10.class
