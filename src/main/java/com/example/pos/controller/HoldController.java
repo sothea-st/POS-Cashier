@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pos.components.JavaResponse;
+import com.example.pos.constant.JavaConstant;
 import com.example.pos.entity.Hold;
 import com.example.pos.entity.HoldeDetails;
 import com.example.pos.entity.models.HoldModel;
@@ -42,13 +43,21 @@ public class HoldController {
      public ResponseEntity<?> getHold() {
           HashMap<String ,Object> data = service.getHold();
           long count = repo.count();
-          return ResponseEntity.ok().body(Map.of("msg","success","data",data,"count",count));
+          data.put("count", count);
+          data.put("msg", "success");
+          return ResponseEntity.ok().body(data);
      }
 
      @DeleteMapping
      public ResponseEntity<?> deleteHold(@RequestBody Hold h) {
           service.deleteHold(h);
           return JavaResponse.success("delete success");
+     }
+
+     @PostMapping("/deleteByItem")
+     public ResponseEntity<?> deleteByItem(@RequestBody HoldeDetails h){
+          service.deleteHoldByItem(h.getHoldId(), h.getProId());
+          return JavaResponse.success(JavaConstant.success);
      }
 
      // @GetMapping("/{id}")
