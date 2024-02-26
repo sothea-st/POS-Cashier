@@ -34,7 +34,6 @@ HoldOrder\HoldItems$2.class
 DeleteAndCancel\CancelDialog$4.class
 View\MainPage\MainPage$12.class
 Return\ApprovalCode.class
-Button\Button.class
 Return\ApprovalCode$2.class
 Components\SearchField$2.class
 View\MainPage\MainPage$9.class
@@ -82,7 +81,6 @@ Discount\DiscountByItem.class
 Model\CashierReport\ReportCashier.class
 Components\Parallelogram.class
 Components\Shadow\GraphicsUtilities.class
-Components\Shadow\ShadowType.class
 Combobox\ComboItem.class
 Constant\JavaConstant.class
 Receipt\Receipt$1.class

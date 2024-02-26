@@ -127,13 +127,14 @@ public class MainPage extends javax.swing.JFrame {
                     } else if (width > 1680) {
                          ActionProduct.marginRight = 15;
                          resizeWithData(6);
-                    } else if (width <= 1440) {
+                    } else if (width <= 1491) {
                          JOptionPane.showMessageDialog(null, "There are limited for resizing!");
                          setSize(1491, 768);
                          ActionProduct.marginRight = 5;
                          resizeWithData(5);
                     } else {
                          ActionProduct.marginRight = 5;
+                         setSize(1499, 907);
                          if (jdFormLogin.getCatId() != 0) {
                               resizeWithData(5);
                          }
@@ -154,6 +155,8 @@ public class MainPage extends javax.swing.JFrame {
           a.setDetailItem(detailItem);
           a.setSubtotalPanel(totalPanel);
           a.setBtnPayment(btnPayment);
+          a.setBtnCancel(btnCancel);
+          a.setButtonHoldOrder(buttonHoldOrder);
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
           a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
