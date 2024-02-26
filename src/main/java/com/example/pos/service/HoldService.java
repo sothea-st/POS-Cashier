@@ -20,6 +20,10 @@ public class HoldService {
      @Autowired
      private HoldRepository repo;
 
+
+     @Autowired
+     private HoldDetailsRepository holdDetail;
+
      @Autowired
      private HoldDetailsRepository detailRepo;
 
@@ -70,6 +74,10 @@ public class HoldService {
                d.setReasonId(h.getReasonId());
                repo.save(d);
           }
+     }
+
+     public void deleteHoldByItem(int holdId, int proId){
+          holdDetail.deleteProductByHoldId(holdId, proId);
      }
 
      // public HashMap<String ,Object> getHoldById(int holdId){
