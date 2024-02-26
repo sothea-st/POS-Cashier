@@ -80,8 +80,11 @@ Payment\PaymentOption$2.class
 Payment\PaymentOption$19.class
 Model\Category\CategoryModel.class
 Return\ApprovalCode.class
+<<<<<<< HEAD
 Button\Button.class
 Discount\ListProduct$1.class
+=======
+>>>>>>> 384d856a6b56933b8a3a54e586a0767a0e512779
 Return\ApprovalCode$2.class
 Components\SearchField$2.class
 View\MainPage\MainPage$9.class
@@ -176,7 +179,6 @@ Components\Parallelogram.class
 Customer\Customer$1.class
 Payment\PaymentOption$12.class
 Components\Shadow\GraphicsUtilities.class
-Components\Shadow\ShadowType.class
 Combobox\ComboItem.class
 Constant\JavaConstant.class
 Receipt\Receipt$1.class
