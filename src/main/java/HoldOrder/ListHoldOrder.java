@@ -15,7 +15,6 @@ import Event.ButtonEvent;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
-import Model.HoldOrder.NewHoldOrderModel;
 import Model.PackageProduct.ProductModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -56,6 +55,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
           getHoldItem(panelHold);
      }
 
+     DataListHold[] listData;
+     
      public void getHoldItem(JPanel panelHold) {
           try {
                Response response = JavaConnection.get(JavaRoute.holdOrder);
@@ -64,7 +65,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
-                    DataListHold[] listData = data.getData();
+                    listData = data.getData();
                     appendValue(listData, panelHold);
                } else {
                     System.err.println("fail loading product");
@@ -201,6 +202,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          cancel.setCountCircleShape(countCircleShape);
                          cancel.setDetailItem(detailItem);
                          cancel.setSubtotalPanel(subtotalPanel);
+                         cancel.setLabelForTitle("Delete");
                          cancel.setVisible(true);
                          dispose();
                     }
@@ -314,65 +316,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
           }
      }
 
-//     void callHistoryHold(ArrayList<NewHoldOrderModel> listHoldOrder) {
-//
-//          for (int i = 0; i < listHoldOrder.size(); i++) {
-//               int number = JavaConstant.listHoldOrder.get(i).getNumber();
-//               int qty = listHoldOrder.get(i).getQty();
-//               Component[] listCom = listHoldOrder.get(i).getListCom();
-//               HoldItems h = new HoldItems();
-//               int index = i;
-//               ButtonEvent events = new ButtonEvent() {
-//                    @Override
-//                    public void onSelect(String key) { // action process
-//                         detailItem.removeAll();
-//                         for (int j = 0; j < listCom.length; j++) {
-//                              var box = ((BoxItem) listCom[j]);
-//                              detailItem.add(box);
-//                         }
-//                         refreshPanel();
-//                         detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
-//                         detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
-//                         detailItem.setBackground(WindowColor.white);
-//                         subtotalPanel.total(0, listCom, 0, subtotalPanel);
-//                         JavaConstant.indexArrayListHold = index;
-//
-//                         btnPayment.setBackground(WindowColor.lightBlue);
-//                         buttonHoldOrder.setBackground(WindowColor.yellow);
-//                         btnCancel.setBackground(WindowColor.darkred);
-//                         dispose();
-//
-//                         listHoldOrder.remove(index);
-//                         panelHold.remove(index);
-//                         panelHold.removeAll();
-//                         callHistoryHold(JavaConstant.listHoldOrder);
-//                         countCircleShape.setCountTimes("" + JavaConstant.listHoldOrder.size());
-//                         countCircleShape.revalidate();
-//                         countCircleShape.repaint();
-//                         refreshPanel();
-//                    }
-//
-//                    @Override
-//                    public void onRemove(String key) {
-//                         listHoldOrder.remove(index);
-//                         panelHold.remove(index);
-//                         panelHold.removeAll();
-//                         callHistoryHold(JavaConstant.listHoldOrder);
-//                         countCircleShape.setCountTimes("" + JavaConstant.listHoldOrder.size());
-//                         countCircleShape.revalidate();
-//                         countCircleShape.repaint();
-//                         refreshPanel();
-//                    }
-//               };
-//
-//               h.initEvent(events);
-//               h.setCountNumber("" + number);
-//               h.setQty(qty);
-//               panelHold.add(h);
-//               refreshPanel();
-//          }
-//     }
-
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -385,6 +328,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelHold = new javax.swing.JPanel();
+        removeAll = new ButtonPackage.ButtonCancel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -451,22 +395,31 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(panelHold);
 
+        removeAll.setButtonName("Remove All");
+        removeAll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                removeAllMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
         body.setLayout(bodyLayout);
         bodyLayout.setHorizontalGroup(
             bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bodyLayout.createSequentialGroup()
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(bodyLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, bodyLayout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(bodyLayout.createSequentialGroup()
                                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(removeAll, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
         bodyLayout.setVerticalGroup(
@@ -476,9 +429,11 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -500,6 +455,35 @@ public class ListHoldOrder extends javax.swing.JDialog {
          this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
+    // ACtion Remove All
+    private void removeAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeAllMouseClicked
+        listHolddata(listData);
+    }//GEN-LAST:event_removeAllMouseClicked
+
+    void listHolddata(DataListHold[] listData){
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            ArrayList<HoldeModel> lstModel = new ArrayList<>();
+            lstModel.add(new HoldeModel(obj.getID()));
+            JSONObject json = new JSONObject();
+            json.put("reasonId", 0);
+            json.put("listHoldDetail", lstModel);
+
+            Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
+
+            try {
+               if (response.isSuccessful()) {
+                  dispose();
+                  int count = new MainPage().countHold();
+                  countCircleShape.setCountTimes("" + count);
+               }
+            } catch (Exception e) {
+               System.err.println("errr delete + " + e);
+            }
+            dispose();
+        }
+    }
+    
      void refreshPanel() {
           panelHold.revalidate();
           panelHold.repaint();
@@ -605,5 +589,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelHold;
+    private ButtonPackage.ButtonCancel removeAll;
     // End of variables declaration//GEN-END:variables
 }

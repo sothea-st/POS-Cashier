@@ -95,7 +95,6 @@ public class MainPage extends javax.swing.JFrame {
 //           
           searchBox.disabledTextField(false);
           textField.disabledTextField(false);
-//          textField.setFocus();
 
      }
 
@@ -1022,6 +1021,7 @@ public class MainPage extends javax.swing.JFrame {
                    cancel.setCode("cancel");
                    cancel.setButtonHoldOrder(buttonHoldOrder);
                    cancel.setListCom(listCom);
+                   cancel.setLabelForTitle("Cancel");
                    cancel.setVisible(true);
               }
          }
@@ -1035,12 +1035,6 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Report Cashier
      public void reportCashier() {
           if (JavaConstant.token != null) {
-//               if (JavaConstant.checkCloseShift != null && JavaConstant.checkCloseShift == 1) {
-//                    JavaAlertMessage j = new JavaAlertMessage(this, true);
-//                    j.setMessage("You have to close shift first to get report cashier!");
-//                    j.setVisible(true);
-//                    return;
-//               }
 
                try {
                     CashierReport cashier = new CashierReport(new JFrame(), true);
@@ -1060,8 +1054,6 @@ public class MainPage extends javax.swing.JFrame {
           }
      }
 
-     int clicked = 0;
-
      public int countHold() {
           int countH = 0;
           Response responseGet = JavaConnection.get(JavaRoute.holdOrder);
@@ -1078,22 +1070,6 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
 
-//          if (JavaConstant.token != null) {
-//               ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
-//               rep.setTitle("Hold Order");
-//               rep.setTextButtonLeft("Hold history");
-//               rep.setTextButtonRight("Add hold order");
-//               rep.setTypeForm("hold");
-//               rep.setDetailItem(detailItem);
-//               rep.setSubtotalPanel(totalPanel);
-//               rep.setBtnPayment(btnPayment);
-//               rep.setVisible(true);
-//          } else {
-//               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//               j.setMessage(MessageAlert.Message.OverallMessage);
-//               j.setVisible(true);
-//               return;
-//          }
           if (JavaConstant.token != null) {
                Component[] listCom1 = detailItem.getComponents();
                if (listCom1.length != 0) {
@@ -1102,13 +1078,8 @@ public class MainPage extends javax.swing.JFrame {
                     btnCancel.setBackground(WindowColor.lightGray);
 
                     Component[] listHold = detailItem.getComponents();
-
                     ArrayList<HoldeModel> holdModel = new ArrayList<>();
 
-//                    if (JavaConstant.holdSameProduct) {
-//                         clear();
-//                         return;
-//                    }
                     int qty = 0;
                     for (int i = 0; i < listHold.length; i++) {
                          var box = ((BoxItem) listHold[i]);
@@ -1170,18 +1141,18 @@ public class MainPage extends javax.swing.JFrame {
      //Action Discount
      private void buttonDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscountMouseClicked
 
-          if (JavaConstant.token != null) {
-               if (JavaConstant.checkOpenShift) {
-                    DiscountType dis = new DiscountType(new JFrame(), true);
-                    dis.setSubtotalPanel(totalPanel);
-                    dis.setDetailItem(detailItem);
-                    dis.setPanelProduct(panelProduct);
-                    dis.setJdFormLogin(jdFormLogin);
-                    dis.setCategory(category);
-                    dis.setPanelPagination(panelPagination);
-                    dis.setVisible(true);
-               }
-          }
+        if (JavaConstant.token != null) {
+             if (JavaConstant.checkOpenShift) {
+                  DiscountType dis = new DiscountType(new JFrame(), true);
+                  dis.setSubtotalPanel(totalPanel);
+                  dis.setDetailItem(detailItem);
+                  dis.setPanelProduct(panelProduct);
+                  dis.setJdFormLogin(jdFormLogin);
+                  dis.setCategory(category);
+                  dis.setPanelPagination(panelPagination);
+                  dis.setVisible(true);
+             }
+        }
      }//GEN-LAST:event_buttonDiscountMouseClicked
 
      //Action Button Customer
@@ -1233,7 +1204,6 @@ public class MainPage extends javax.swing.JFrame {
 
      public void setActiveColor(Color activeColor) {
           this.activeColor = activeColor;
-//        menuNewItem.setBackground(activeColor);
      }
 
      /**

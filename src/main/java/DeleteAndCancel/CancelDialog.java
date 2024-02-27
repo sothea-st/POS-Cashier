@@ -4,6 +4,7 @@ import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
+import Components.LabelPopUpTitle;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaConnection;
@@ -58,6 +59,8 @@ public class CancelDialog extends javax.swing.JDialog {
      private JPanel panelHold;
      private countCircleShape countCircleShape;
      private SubtotalPanel subtotalPanel;
+     private String labelForTitle;
+     
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
 
@@ -79,10 +82,11 @@ public class CancelDialog extends javax.swing.JDialog {
                }
           };
           comboBoxReason.initEvent(events);
+         
      }
 
      private void addComboReason() {
-
+          System.out.println("labelTitle :" + labelForTitle);
           try {
                ArrayList<ReasonModel> reason = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.reason + "cancel");
@@ -117,7 +121,7 @@ public class CancelDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         panelCancel = new javax.swing.JPanel();
-        labelPopUpTitle1 = new Components.LabelPopUpTitle();
+        titlePopUp = new Components.LabelPopUpTitle();
         lbReason = new Components.Label();
         comboBoxReason = new Components.ComboBox();
         cancel = new ButtonPackage.ButtonCancel();
@@ -126,7 +130,7 @@ public class CancelDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        labelPopUpTitle1.setLabelTitle("Cancel");
+        titlePopUp.setLabelTitle("Cancel");
 
         lbReason.setLabelName("Reason");
 
@@ -150,7 +154,7 @@ public class CancelDialog extends javax.swing.JDialog {
         panelCancel.setLayout(panelCancelLayout);
         panelCancelLayout.setHorizontalGroup(
             panelCancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCancelLayout.createSequentialGroup()
                 .addGroup(panelCancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelCancelLayout.createSequentialGroup()
@@ -170,7 +174,7 @@ public class CancelDialog extends javax.swing.JDialog {
         panelCancelLayout.setVerticalGroup(
             panelCancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCancelLayout.createSequentialGroup()
-                .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
                 .addGroup(panelCancelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,7 +205,8 @@ public class CancelDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-         this.dispose();
+        System.out.println("code :" + code);
+        this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
@@ -518,6 +523,15 @@ public class CancelDialog extends javax.swing.JDialog {
           }
      }
 
+    public String getLabelForTitle() {
+        return labelForTitle;
+    }
+
+    public void setLabelForTitle(String labelForTitle) {
+        this.labelForTitle = labelForTitle;
+        titlePopUp.setLabelTitle(labelForTitle);
+    }
+     
      public String getCode() {
           return code;
      }
@@ -670,8 +684,8 @@ public class CancelDialog extends javax.swing.JDialog {
     private ButtonPackage.ButtonCancel cancel;
     private Components.ComboBox comboBoxReason;
     private javax.swing.JLabel jLabel1;
-    private Components.LabelPopUpTitle labelPopUpTitle1;
     private Components.Label lbReason;
     private javax.swing.JPanel panelCancel;
+    private Components.LabelPopUpTitle titlePopUp;
     // End of variables declaration//GEN-END:variables
 }
