@@ -9,6 +9,7 @@ import com.example.pos.entity.HoldeDetails;
 @Repository
 public interface HoldDetailsRepository extends JpaRepository<HoldeDetails,Integer> {
 
-     @Query(nativeQuery = true , value = "update pos_hold_details set status = false and is_deleted = true where hold_id = ? and pro_id = ?")
-     void deleteProductByHoldId(int holdId, int proId);
+     @Query(nativeQuery = true , value = "select id from pos_hold_details where hold_id = ? and pro_id = ?")
+     String getId(int holdId, int proId);
+
 }

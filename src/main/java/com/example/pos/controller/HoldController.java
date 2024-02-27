@@ -54,9 +54,9 @@ public class HoldController {
           return JavaResponse.success("delete success");
      }
 
-     @PostMapping("/deleteByItem")
-     public ResponseEntity<?> deleteByItem(@RequestBody HoldeDetails h){
-          service.deleteHoldByItem(h.getHoldId(), h.getProId());
+     @GetMapping("/deleteByItem")
+     public ResponseEntity<?> deleteByItem(@RequestParam("holdId") int holdId , @RequestParam("proId") int proId){
+         service.deleteHoldByItem(holdId, proId);
           return JavaResponse.success(JavaConstant.success);
      }
 
