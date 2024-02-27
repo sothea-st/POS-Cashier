@@ -285,6 +285,11 @@ public class CancelDialog extends javax.swing.JDialog {
           json.put("reasonId", reasonId);
           json.put("listHoldDetail", holdId);
 
+          if (reasonId == null) {
+                JOptionPane.showMessageDialog(this, "Please select a reason!");
+                return;
+          }
+          
           Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
 
           try {
