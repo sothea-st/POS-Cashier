@@ -18,8 +18,8 @@ import java.util.*;
 import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
 
 @RestController
-// @RequestMapping("/api/product")
-@RequestMapping("/api/public/product")
+@RequestMapping("/api/product")
+// @RequestMapping("/api/public/product")
 
 // @CrossOrigin(origins = "http://localhost:3000") 
 public class ProductController {
