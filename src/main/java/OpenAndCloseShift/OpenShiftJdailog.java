@@ -15,10 +15,12 @@ import DefaultPrice.DataModelDefaultPrice;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import LoginAndLogoutForm.LoginFormJdailog;
+import View.MainPage.MainPage;
 import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -335,6 +337,12 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     searchBox.disabledTextField(true);
                     textField.disabledTextField(true);
                     textField.setFocus();
+
+//                    if (MainPage.isFullScreen) {
+//                         System.err.println("jldjflsdjfjdsfj");
+//                         LoginFormJdailog j = new LoginFormJdailog(new JFrame(), true);
+//                         j.callDataInFullScreen();
+//                    }
 
                } else {
                     UIManager UI = new UIManager();

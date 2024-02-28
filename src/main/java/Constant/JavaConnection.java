@@ -1,7 +1,4 @@
 package Constant;
-
-import Model.MessageCode.MessageCodeModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import okhttp3.OkHttpClient;

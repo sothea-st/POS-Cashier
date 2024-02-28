@@ -1,10 +1,7 @@
 package Button;
 
 import Color.WindowColor;
-import Components.Shadow.ShadowRenderer;
-import Components.Shadow.ShadowType;
 import Event.ButtonEvent;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -22,6 +19,7 @@ public class ButtonAddProduct extends javax.swing.JPanel {
     /**
      * @return the quantity
      */
+     
     public int getQuantity() {
         return quantity;
     }
@@ -29,6 +27,8 @@ public class ButtonAddProduct extends javax.swing.JPanel {
     /**
      * @param quantity the quantity to set
      */
+    
+    
     public void setQuantity(int quantity) {
         this.quantity = quantity;
         lbQty.setText("" + quantity);

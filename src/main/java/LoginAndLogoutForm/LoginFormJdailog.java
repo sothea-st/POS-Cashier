@@ -503,7 +503,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //                          == == == == == == == == == == == == == == == == == == == == == == =
                     }
 
-                    if (MainPage.isFullScreen) {
+                    if (MainPage.isFullScreen && btnOpenShift.getButtonName().equals("Close Shift")) {
                          callDataInFullScreen();
                     }
                } else {
@@ -515,7 +515,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      }
 
-     void callDataInFullScreen() {
+     public void callDataInFullScreen() {
           panelProduct.removeAll();
           pro.setBtnPayment(btnPayment);
           pro.setButtonHoldOrder(buttonHoldOrder);
