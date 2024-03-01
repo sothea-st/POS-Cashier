@@ -12,15 +12,15 @@ import com.example.pos.components.JavaResponse;
 import com.example.pos.entity.sourceData.CancelItem;
 import com.example.pos.service.sourceDataService.CancelItemService;
  
-@RestController
-@RequestMapping("/api/cancelItem")
+// @RestController
+// @RequestMapping("/api/cancelItem")
 public class CancelItemController {
-     @Autowired
-     private CancelItemService service;
+     // @Autowired
+     // private CancelItemService service;
 
-     @PostMapping("/{type}")
-     public ResponseEntity<?> cancelItem(@PathVariable("type")String type, @RequestBody CancelItem c) {
-          service.cancelAndDeleteItem(c,type);
-          return JavaResponse.success("succes delelte item");
-     }
+     // @PostMapping("/{type}")
+     // public ResponseEntity<?> cancelItem(@PathVariable("type")String type, @RequestBody CancelItem c) {
+     //      service.cancelAndDeleteItem(c,type);
+     //      return JavaResponse.success("succes delelte item");
+     // }
 }

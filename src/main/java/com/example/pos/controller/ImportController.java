@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/import")
-@Validated
+// @RestController
+// @RequestMapping("/api/import")
+// @Validated
 public class ImportController {
-    @Autowired
-    private ImportService service;
+    // @Autowired
+    // private ImportService service;
 
-    @PostMapping
-    public ResponseEntity<?> addImport(@Valid @RequestBody Import i){
-        service.addImport(i);
-        return JavaResponse.success("success insert");
-    }
+    // @PostMapping
+    // public ResponseEntity<?> addImport(@Valid @RequestBody Import i){
+    //     service.addImport(i);
+    //     return JavaResponse.success("success insert");
+    // }
 
 }

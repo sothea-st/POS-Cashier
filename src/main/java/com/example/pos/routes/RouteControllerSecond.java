@@ -1,0 +1,371 @@
+package com.example.pos.routes;
+
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
+import java.util.HashMap;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import com.example.pos.authentication.repositories.UserRepository;
+import com.example.pos.components.JavaResponse;
+import com.example.pos.constant.JavaConstant;
+import com.example.pos.constant.JavaMessage;
+import com.example.pos.controller.generateBarcode.BarcodeGenerator;
+import com.example.pos.entity.Hold;
+import com.example.pos.entity.branch.Branch;
+import com.example.pos.entity.models.ProductModel;
+import com.example.pos.entity.people.Customer;
+import com.example.pos.entity.role.Role;
+import com.example.pos.entity.role.roleProjection.RoleProjection;
+import com.example.pos.entity.sourceData.AssignRole;
+import com.example.pos.entity.sourceData.Brand;
+import com.example.pos.entity.sourceData.DefaultPrice;
+import com.example.pos.projections.customerProjection.CustomerProjection;
+import com.example.pos.projections.defaultPriceProjection.DefaultPriceProjection;
+import com.example.pos.repository.HoldRepository;
+import com.example.pos.repository.roleAndPermissionRepository.RoleRepository;
+import com.example.pos.service.HoldService;
+import com.example.pos.service.RoleAndPermissionService.RoleService;
+import com.example.pos.service.addImageService.AddImageService;
+import com.example.pos.service.branchService.BranchService;
+import com.example.pos.service.searchByBarcodeOrNameService.SearchByBarcodeOrNameService;
+import com.example.pos.service.shiftService.DefaultPriceService;
+import com.example.pos.service.sourceDataService.BrandService;
+import com.example.pos.service.sourceDataService.CustomerService;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import jakarta.validation.Valid;
+
+@RestController
+public class RouteControllerSecond {
+     @RestController
+     @RequestMapping("/api/branch")
+     public static class RouteBranch {
+          @Autowired
+          private BranchService service;
+
+          @PostMapping
+          public ResponseEntity<?> addBranch(@Valid @RequestBody Branch b) {
+               Branch data = service.addBranch(b);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> getAllBranch() {
+               List<Branch> data = service.getAllBranch();
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<?> getBranchById(@PathVariable("id") int id) {
+               Branch data = service.getBranchById(id);
+               return JavaResponse.success(data);
+          }
+
+          @DeleteMapping("/{id}")
+          public ResponseEntity<?> deleteBranch(@PathVariable("id") int id, @RequestBody Branch b) {
+               service.deleteBranch(id, b);
+               return JavaResponse.deleteSuccess(id);
+          }
+
+          @PutMapping("/{id}")
+          public ResponseEntity<?> updateBranch(@PathVariable("id") int id, @RequestBody Branch b) {
+               Branch data = service.updateBranch(id, b);
+               return JavaResponse.success(data);
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/brand")
+     public static class RouteBrand {
+          @Autowired
+          private BrandService service;
+
+          @PostMapping
+          public ResponseEntity<?> add(@Valid @RequestBody Brand b) {
+               Brand data = service.add(b);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> read() {
+               List<Brand> data = service.read();
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<?> getBrandById(@PathVariable("id") int id) {
+               Brand data = service.getBrandById(id);
+               return JavaResponse.success(data);
+          }
+
+          @DeleteMapping("/{id}")
+          public ResponseEntity<?> deleteBrand(@PathVariable("id") int id, @RequestBody Brand b) {
+               service.deleteBrand(id, b);
+               return JavaResponse.deleteSuccess(id);
+          }
+
+          @PutMapping("/{id}")
+          public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Brand b) {
+               Brand data = service.updateBrand(id, b);
+               return JavaResponse.success(data);
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/searchProductByBarcodeOrName")
+     public static class RouteSearchProduct {
+          @Autowired
+          private SearchByBarcodeOrNameService service;
+
+          @GetMapping
+          public ResponseEntity<?> search(@RequestParam("code") String code,
+                    @RequestParam("valueSearch") String valueSearch) {
+               List<ProductModel> data = service.search(code, valueSearch);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/searchWithInvoice")
+          public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo) {
+               List<ProductModel> data = service.searchWithInvoiceNo(invoiceNo);
+               return JavaResponse.success(data);
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/role")
+     public static class RouteRole {
+          @Autowired
+          private RoleService service;
+
+          @PostMapping
+          public ResponseEntity<?> add(@Valid @RequestBody Role r) {
+               Role data = service.add(r);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> read() {
+               List<RoleProjection> data = service.getRole();
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<?> getRoleById(@PathVariable("id") int id) {
+               Role data = service.getRoleById(id);
+               return JavaResponse.success(data);
+          }
+
+          @DeleteMapping("/{id}")
+          public ResponseEntity<?> deleteRole(@PathVariable("id") int id, @RequestBody Role role) {
+               service.deleteRoleById(id, role);
+               return JavaResponse.deleteSuccess(id);
+          }
+
+          @PutMapping("/{id}")
+          public ResponseEntity<?> updateRole(@PathVariable("id") int id, @RequestBody Role role) {
+               Role data = service.updateRoleById(id, role);
+               return JavaResponse.success(data);
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/assignRole")
+     public static class RouteAssignRole {
+          @Autowired
+          private RoleService service;
+
+          @Autowired
+          private RoleRepository repoRole;
+
+          @Autowired
+          private UserRepository repoUser;
+
+          @PostMapping
+          public ResponseEntity<?> assignRole(@RequestParam("assignerId") int assignerId, @RequestBody AssignRole a) {
+               int roleId = repoUser.findById(assignerId).get().getRole();
+               String roleName = repoRole.findById(roleId).get().getRoleName();
+               if (!roleName.equals(JavaConstant.admin)) {
+                    return JavaResponse.success("This account have no permission assign role!");
+               }
+               service.assignRole(a);
+               return JavaResponse.success("Assign role success");
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/generateBarcode")
+     public static class RouteGenerateBarcode {
+          @Autowired
+          BarcodeGenerator barcodeGenerator;
+
+          @GetMapping(value = "/barcodes/{barcode}", produces = IMAGE_PNG_VALUE)
+          public ResponseEntity<BufferedImage> generate(@PathVariable("barcode") final String barcodeText)
+                    throws Exception {
+               return ResponseEntity.ok().body(barcodeGenerator.generateUSPSBarcodeImage(barcodeText));
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/defaultPrice")
+     public static class RouteDefaultPrice {
+          @Autowired
+          private DefaultPriceService service;
+
+          @PostMapping
+          public ResponseEntity<?> addDefaultPrice(@Valid @RequestBody DefaultPrice d) {
+
+               HashMap<String, String> error = new HashMap<>();
+               if (d.getCreateBy() == 0)
+                    error.put("createBy", JavaMessage.required);
+               if (d.getDefaultPriceKhr() == null)
+                    error.put("defaultPriceKhr", JavaMessage.required);
+               if (d.getDefaultPriceUsd() == null)
+                    error.put("defaultPriceUsd", JavaMessage.required);
+               if (!error.isEmpty())
+                    return JavaResponse.error(error);
+
+               DefaultPrice data = service.addDefaultPrice(d);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> getListDefaultPrice() {
+               List<DefaultPrice> data = service.getListDefaultPrice();
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<?> getDefaltPriceById(@PathVariable("id") int id) {
+               DefaultPriceProjection data = service.getDefaultPriceById(id);
+               return JavaResponse.success(data);
+          }
+
+          @PutMapping("/{id}")
+          public ResponseEntity<?> updateDefaultPrice(@PathVariable("id") int id, @RequestBody DefaultPrice d) {
+
+               DefaultPrice data = service.updateDefaultPrice(id, d);
+               return JavaResponse.success(data);
+          }
+
+          @DeleteMapping("/{id}")
+          public ResponseEntity<?> deleteDefaultPrice(@PathVariable("id") int id, @RequestBody DefaultPrice d) {
+               service.deleteDefaultPriceById(id, d);
+               return JavaResponse.deleteSuccess(id);
+          }
+
+     }
+
+     @RestController
+     @RequestMapping("/api/customer")
+     public static class RouteCustomer {
+          @Autowired
+          private CustomerService service;
+
+          @PostMapping
+          public ResponseEntity<?> add(@RequestBody Customer c) {
+               Customer data = service.add(c);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> read() {
+               List<CustomerProjection> data = service.read();
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<?> getById(@PathVariable("id") int id) {
+               Customer data = service.readById(id);
+               return JavaResponse.success(data);
+          }
+
+          @DeleteMapping("/{id}")
+          public ResponseEntity<?> delete(@PathVariable("id") int id, @RequestBody Customer c) {
+               service.deleteById(id, c);
+               return JavaResponse.deleteSuccess(id);
+          }
+
+          @PutMapping("/{id}")
+          public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Customer c) {
+               Customer data = service.update(id, c);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/getCustomerId")
+          public ResponseEntity<?> getCusotmerId() {
+               String data = service.getCustomerId();
+               return JavaResponse.success(data);
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/public/addImageForBackground")
+     public static class RouteAddImage {
+          @Autowired
+          private AddImageService service;
+
+          @PostMapping
+          public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) throws IOException {
+               service.addImage(file);
+               return JavaResponse.success(file.getOriginalFilename());
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
+               byte[] imageData = service.getFile(id);
+               return ResponseEntity.status(HttpStatus.OK)
+                         .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
+                         .body(imageData);
+          }
+     }
+
+     @RestController
+     @RequestMapping("/api/hold")
+     public static class RouteHold {
+          @Autowired
+          private HoldService service;
+
+          @Autowired
+          private HoldRepository repo;
+
+          @PostMapping
+          public ResponseEntity<?> addHolde(@RequestBody Hold h) {
+               Hold data = service.addHold(h);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> getHold() {
+               HashMap<String, Object> data = service.getHold();
+               long count = repo.count();
+               data.put("count", count);
+               data.put("msg", "success");
+               return ResponseEntity.ok().body(data);
+          }
+
+          @DeleteMapping
+          public ResponseEntity<?> deleteHold(@RequestBody Hold h) {
+               service.deleteHold(h);
+               return JavaResponse.success("delete success");
+          }
+
+          @GetMapping("/deleteByItem")
+          public ResponseEntity<?> deleteByItem(@RequestParam("holdId") int holdId, @RequestParam("proId") int proId) {
+               service.deleteHoldByItem(holdId, proId);
+               return JavaResponse.success(JavaConstant.success);
+          }
+     }
+
+}
