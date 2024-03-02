@@ -632,7 +632,6 @@ public class RouteController {
           }
      }
 
-     
      @RestController
      @RequestMapping("/api/currencyValue")
      public static class RouteCurrenValue {
@@ -670,6 +669,4 @@ public class RouteController {
           }
      }
 
-
-     
 }
