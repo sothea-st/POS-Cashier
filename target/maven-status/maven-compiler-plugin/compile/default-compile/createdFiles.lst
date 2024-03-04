@@ -98,6 +98,7 @@ DeleteAndCancel\CancelDialog$5.class
 Payment\PaymentOption$24.class
 OpenAndCloseShift\CloseShift$3.class
 View\MainPage\MainPage$10.class
+View\MainPage\PlaceholderTextField.class
 LoginAndLogoutForm\LoginFormJdailog$6.class
 Model\HoldOrder\NewHoldOrderModel.class
 View\MainPage\MainPage$5.class
