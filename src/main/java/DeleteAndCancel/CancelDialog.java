@@ -417,6 +417,7 @@ public class CancelDialog extends javax.swing.JDialog {
                          cancel.setHoldId(lstModel);
                          cancel.setPanelHold(panelHold);
                          cancel.setCountCircleShape(countCircleShape);
+                         cancel.setLabelForTitle("Delete");
                          cancel.setVisible(true);
                     }
                };
