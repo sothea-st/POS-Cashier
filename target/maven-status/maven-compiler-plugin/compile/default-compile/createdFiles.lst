@@ -30,6 +30,7 @@ Payment\PaymentOption$6.class
 LoginAndLogoutForm\LoginFormJdailog.class
 Payment\PaymentOption$23.class
 Components\PasswordField.class
+HoldOrder\ListHoldOrder$5.class
 HoldOrder\HoldItems$2.class
 DeleteAndCancel\CancelDialog$4.class
 View\MainPage\MainPage$12.class
@@ -43,6 +44,7 @@ HoldOrder\ActionHoldOrder$1.class
 Discount\OverallDiscount$4.class
 Receipt\CashierReport$1.class
 Model\Brand\BrandModel.class
+Components\NoData.class
 HoldOrder\HoldDataSuccessModel.class
 Model\Reprint\ReprintModel.class
 DeleteAndCancel\DeleteDialog$2.class
@@ -98,7 +100,6 @@ DeleteAndCancel\CancelDialog$5.class
 Payment\PaymentOption$24.class
 OpenAndCloseShift\CloseShift$3.class
 View\MainPage\MainPage$10.class
-View\MainPage\PlaceholderTextField.class
 LoginAndLogoutForm\LoginFormJdailog$6.class
 Model\HoldOrder\NewHoldOrderModel.class
 View\MainPage\MainPage$5.class
@@ -118,6 +119,7 @@ HoldOrder\HoldItems.class
 ButtonPackage\ButtonSave.class
 Receipt\Receipt$2.class
 HoldOrder\ListHoldOrder$4.class
+HoldOrder\ListHoldOrder$5$1.class
 Model\Reprint\SaleDetailModel.class
 Model\CustomerType\CustomerTypeModel.class
 Components\HoldItem$3.class

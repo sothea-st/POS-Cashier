@@ -4,6 +4,8 @@ import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
+import Components.NoData;
+import Components.NotFound;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaConnection;
@@ -27,6 +29,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
 import okhttp3.Response;
@@ -49,6 +52,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
           panelHold.setBackground(WindowColor.mediumGreen);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           body.setBackground(WindowColor.mediumGreen);
           setResizable(false);
           cancel.setButtonName("Close");
@@ -87,134 +91,140 @@ public class ListHoldOrder extends javax.swing.JDialog {
           int x = 0;
           int y = 0;
 
-          for (int i = 0; i < listData.length; i++) {
+          if(listData.length != 0){
+                for (int i = 0; i < listData.length; i++) {
 
-               GridBagConstraints gbc = new GridBagConstraints();
-               gbc.gridx = x;
-               gbc.gridy = y;
-               gbc.gridwidth = 1;
-               gbc.anchor = gbc.NORTH;
-               x++;
-               if (x == 1) {
-                    x = 0;
-                    y++;
-               }
+                     GridBagConstraints gbc = new GridBagConstraints();
+                     gbc.gridx = x;
+                     gbc.gridy = y;
+                     gbc.gridwidth = 1;
+                     gbc.anchor = gbc.NORTH;
+                     x++;
+                     if (x == 1) {
+                          x = 0;
+                          y++;
+                     }
 
-               var obj = listData[i];
-               ListDetailHold[] listDetails = listData[i].getListDetails();
-               HoldItems h = new HoldItems();
+                     var obj = listData[i];
+                     ListDetailHold[] listDetails = listData[i].getListDetails();
+                     HoldItems h = new HoldItems();
 
-               ButtonEvent events = new ButtonEvent() {
-                    @Override
-                    public void onSelect(String key) { // action process
-                         detailItem.removeAll();
-                         panelHold.revalidate();
-                         panelHold.repaint();
+                     ButtonEvent events = new ButtonEvent() {
+                          @Override
+                          public void onSelect(String key) { // action process
+                               detailItem.removeAll();
+                               panelHold.revalidate();
+                               panelHold.repaint();
 
-                         for (int j = 0; j < listDetails.length; j++) {
-                              var obj = listDetails[j];
-                              ProductModel product = new ProductModel(
-                                   obj.getID(),
-                                   obj.getCatID(),
-                                   obj.getFlag(),
-                                   obj.getWeight(),
-                                   obj.getCost(),
-                                   obj.getProImageName(),
-                                   obj.getPrice(),
-                                   obj.getBarcode(),
-                                   obj.getProNameKh(),
-                                   obj.getProNameEn(),
-                                   obj.getProductStatus(),
-                                   obj.getDiscount(),
-                                   obj.getQty()
-                              );
-                              addItemToCart(product);
+                               for (int j = 0; j < listDetails.length; j++) {
+                                    var obj = listDetails[j];
+                                    ProductModel product = new ProductModel(
+                                         obj.getID(),
+                                         obj.getCatID(),
+                                         obj.getFlag(),
+                                         obj.getWeight(),
+                                         obj.getCost(),
+                                         obj.getProImageName(),
+                                         obj.getPrice(),
+                                         obj.getBarcode(),
+                                         obj.getProNameKh(),
+                                         obj.getProNameEn(),
+                                         obj.getProductStatus(),
+                                         obj.getDiscount(),
+                                         obj.getQty()
+                                    );
+                                    addItemToCart(product);
 
-                         }
+                               }
 
-//                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
-//                         int count = new MainPage().countHold();
-//                         count--;
-//                         countCircleShape.setCountTimes(""+count);
-//                         JavaConstant.holdId = obj.getID();
-//                         try {
-//                              if (responseData.isSuccessful()) {
-//                                   String data = responseData.body().string();
-//                                   ObjectMapper objMap = new ObjectMapper();
-//                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
-//                                   HoldDetail[] listDatas = model.getData().getDetails();
-//                                   for (int i = 0; i < listDatas.length; i++) {
-//                                        var obj = listDatas[i];
-//                                        ProductModel product = new ProductModel(
-//                                             obj.getID(),
-//                                             obj.getCatID(),
-//                                             obj.getFlag(),
-//                                             obj.getWeight(),
-//                                             obj.getCost(),
-//                                             obj.getProImageName(),
-//                                             obj.getPrice(),
-//                                             obj.getBarcode(),
-//                                             obj.getProNameKh(),
-//                                             obj.getProNameEn(),
-//                                             obj.getProductStatus(),
-//                                             obj.getDiscount(),
-//                                             obj.getQty()
-//                                        );
-//                                        addItemToCart(product);
-//                                   }
-//                              }
-//                         } catch (Exception e) {
-//                              System.out.println("error get hold = " + e);
-//                         }
-                         btnPayment.setBackground(WindowColor.lightBlue);
-                         buttonHoldOrder.setBackground(WindowColor.yellow);
-                         btnCancel.setBackground(WindowColor.darkred);
-                         
-                         //Remove when Process
-                         ArrayList<HoldeModel> lstModel = new ArrayList<>();
-                         lstModel.add(new HoldeModel(obj.getID()));
-                         JSONObject json = new JSONObject();
-                         json.put("reasonId", 0);
-                         json.put("listHoldDetail", lstModel);
+      //                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
+      //                         int count = new MainPage().countHold();
+      //                         count--;
+      //                         countCircleShape.setCountTimes(""+count);
+      //                         JavaConstant.holdId = obj.getID();
+      //                         try {
+      //                              if (responseData.isSuccessful()) {
+      //                                   String data = responseData.body().string();
+      //                                   ObjectMapper objMap = new ObjectMapper();
+      //                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
+      //                                   HoldDetail[] listDatas = model.getData().getDetails();
+      //                                   for (int i = 0; i < listDatas.length; i++) {
+      //                                        var obj = listDatas[i];
+      //                                        ProductModel product = new ProductModel(
+      //                                             obj.getID(),
+      //                                             obj.getCatID(),
+      //                                             obj.getFlag(),
+      //                                             obj.getWeight(),
+      //                                             obj.getCost(),
+      //                                             obj.getProImageName(),
+      //                                             obj.getPrice(),
+      //                                             obj.getBarcode(),
+      //                                             obj.getProNameKh(),
+      //                                             obj.getProNameEn(),
+      //                                             obj.getProductStatus(),
+      //                                             obj.getDiscount(),
+      //                                             obj.getQty()
+      //                                        );
+      //                                        addItemToCart(product);
+      //                                   }
+      //                              }
+      //                         } catch (Exception e) {
+      //                              System.out.println("error get hold = " + e);
+      //                         }
+                               btnPayment.setBackground(WindowColor.lightBlue);
+                               buttonHoldOrder.setBackground(WindowColor.yellow);
+                               btnCancel.setBackground(WindowColor.darkred);
 
-                         Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
+                               //Remove when Process
+                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
+                               lstModel.add(new HoldeModel(obj.getID()));
+                               JSONObject json = new JSONObject();
+                               json.put("reasonId", 0);
+                               json.put("listHoldDetail", lstModel);
 
-                         try {
-                            if (response.isSuccessful()) {
+                               Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
+
+                               try {
+                                  if (response.isSuccessful()) {
+                                     dispose();
+                                     int count = new MainPage().countHold();
+                                     countCircleShape.setCountTimes("" + count);
+                                  }
+                               } catch (Exception e) {
+                                  System.err.println("errr delete + " + e);
+                               }
                                dispose();
-                               int count = new MainPage().countHold();
-                               countCircleShape.setCountTimes("" + count);
-                            }
-                         } catch (Exception e) {
-                            System.err.println("errr delete + " + e);
-                         }
-                         dispose();
-                    }
+                          }
 
-                    @Override
-                    public void onRemove(String key) {
-                         CancelDialog cancel = new CancelDialog(new JFrame(), true);
-                         cancel.setCode("cancelHold");
-                         ArrayList<HoldeModel> lstModel = new ArrayList<>();
-                         lstModel.add(new HoldeModel(obj.getID()));
-                         cancel.setHoldId(lstModel);
-                         cancel.setPanelHold(panelHold);
-                         cancel.setCountCircleShape(countCircleShape);
-                         cancel.setDetailItem(detailItem);
-                         cancel.setSubtotalPanel(subtotalPanel);
-                         cancel.setLabelForTitle("Delete");
-                         cancel.setVisible(true);
-                         dispose();
-                    }
-               };
+                          @Override
+                          public void onRemove(String key) {
+                               CancelDialog cancel = new CancelDialog(new JFrame(), true);
+                               cancel.setCode("cancelHold");
+                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
+                               lstModel.add(new HoldeModel(obj.getID()));
+                               cancel.setHoldId(lstModel);
+                               cancel.setPanelHold(panelHold);
+                               cancel.setCountCircleShape(countCircleShape);
+                               cancel.setDetailItem(detailItem);
+                               cancel.setSubtotalPanel(subtotalPanel);
+                               cancel.setLabelForTitle("Delete");
+                               cancel.setVisible(true);
+                               dispose();
+                          }
+                     };
 
-               h.initEvent(events);
-               int num = i + 1;
-               h.setCountNumber("" + num);
-               h.setQty(obj.getQtyHold());
-               panelHold.revalidate();
-               panelHold.repaint();
-               panelHold.add(h, gbc);
+                     h.initEvent(events);
+                     int num = i + 1;
+                     h.setCountNumber("" + num);
+                     h.setQty(obj.getQtyHold());
+                     panelHold.revalidate();
+                     panelHold.repaint();
+                     panelHold.add(h, gbc);
+                }
+          }
+          else{
+               NoData nodata = new NoData();
+               panelHold.add(nodata);
           }
 
      }
@@ -433,7 +443,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                 .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9))
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
