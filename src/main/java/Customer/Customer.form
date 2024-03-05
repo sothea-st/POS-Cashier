@@ -23,12 +23,18 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="customer" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="customer" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="customer" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="customer" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -39,84 +45,52 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="labelPopUpTitle1" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lbEarning" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="txtEarning" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lbEmail" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                          <Component id="txtEmail" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lbCustomerType" min="-2" pref="96" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" pref="13" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="comboCustType" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCoupon" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="comboCoupon" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbCustomerName" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbNationality" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="khmer" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="chinese" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                          <Component id="white" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="black" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbGender" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="male" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="asian" min="-2" max="-2" attributes="0"/>
-                                      <Component id="female" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbCustomerName" min="-2" pref="102" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" min="-2" pref="13" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-                                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lbPhone" min="-2" pref="92" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" pref="13" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtCustomerName" max="32767" attributes="0"/>
-                                          <Component id="txtPhone" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="lbCustomerType" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel1" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="cmdGender" pref="203" max="32767" attributes="0"/>
+                              <Component id="txtCustomerName" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lbPhone" min="-2" pref="92" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" pref="13" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txtPhone" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="lbCustomerType1" min="-2" pref="52" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" min="-2" pref="13" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="cmdNationality" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="buttonSave1" min="-2" pref="92" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,86 +98,29 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="comboCustType" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="lbCustomerName" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                          <Component id="jLabel3" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="lbPhone" min="-2" pref="35" max="-2" attributes="0"/>
+                          <Component id="txtCustomerName" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="lbCustomerType" min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="txtPhone" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtCustomerName" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="lbCustomerName" min="-2" pref="34" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="jLabel1" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="lbCustomerType" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="cmdGender" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="lbCustomerType1" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="cmdNationality" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtPhone" max="32767" attributes="0"/>
-                          <Component id="lbPhone" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel3" min="-2" pref="25" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbEmail" max="32767" attributes="0"/>
-                      <Component id="txtEmail" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbEarning" max="32767" attributes="0"/>
-                      <Component id="txtEarning" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="comboCoupon" max="32767" attributes="0"/>
-                      <Component id="lbCoupon" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="male" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="female" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="lbGender" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbNationality" alignment="0" min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="khmer" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="asian" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="chinese" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="white" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="black" min="-2" pref="28" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Component id="buttonSave1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="38" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -216,7 +133,7 @@
         </Component>
         <Component class="Components.Label" name="lbCustomerType">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Customer Type"/>
+            <Property name="labelName" type="java.lang.String" value="Gender"/>
           </Properties>
         </Component>
         <Component class="Components.Label" name="lbCustomerName">
@@ -229,17 +146,7 @@
             <Property name="labelName" type="java.lang.String" value="Phone Number"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbGender">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Gender"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbNationality">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Nationality"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="comboCustType">
+        <Component class="Components.ComboBox" name="cmdGender">
         </Component>
         <Component class="Components.TextField" name="txtCustomerName">
           <Properties>
@@ -249,141 +156,6 @@
         <Component class="Components.TextField" name="txtPhone">
           <Properties>
             <Property name="labelTextField" type="java.lang.String" value="000 000 0000"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="male">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Male"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="female">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Female"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="khmer">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Khmer"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="asian">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Asian"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="chinese">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Chinese"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="white">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="White"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="black">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="b5" green="d7" red="b0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="38" green="38" red="38" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Black"/>
-          </Properties>
-        </Component>
-        <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCancelMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="ButtonPackage.ButtonSave" name="buttonSave">
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
-          </Events>
-        </Component>
-        <Component class="Components.Label" name="lbEarning">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Earning ($)"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtEarning">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbCoupon">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Coupon ($)"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="comboCoupon">
-        </Component>
-        <Component class="Components.Label" name="lbEmail">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Email"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtEmail">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="example@gmail.com"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
@@ -418,6 +190,34 @@
             </Property>
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
+        </Component>
+        <Component class="Components.Label" name="lbCustomerType1">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Nationallity"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="*"/>
+          </Properties>
+        </Component>
+        <Component class="Components.ComboBox" name="cmdNationality">
+        </Component>
+        <Component class="ButtonPackage.ButtonSave" name="buttonSave1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="99" red="0" type="rgb"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSave1MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

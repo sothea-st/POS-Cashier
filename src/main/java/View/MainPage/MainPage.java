@@ -11,6 +11,8 @@ import Controller.ActionProduct.ActionProduct;
 import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProduct;
 import Customer.Customer;
+import Customer.CustomerFunction;
+import Customer.JdailogCustomer;
 import DefaultPrice.DataModelDefaultPrice;
 import DeleteAndCancel.CancelDialog;
 import Discount.DiscountType;
@@ -1159,8 +1161,11 @@ public class MainPage extends javax.swing.JFrame {
     private void buttonCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCustomerMouseClicked
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
-                   Customer cust = new Customer(new JFrame(), true);
-                   cust.setVisible(true);
+//                   Customer cust = new Customer(new JFrame(), true);
+//                   cust.setVisible(true);
+
+                    JdailogCustomer cus = new JdailogCustomer(new JFrame(),true);
+                    cus.setVisible(true);
               }
          }
     }//GEN-LAST:event_buttonCustomerMouseClicked

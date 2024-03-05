@@ -1,6 +1,8 @@
 Controller\ReceiptController.class
 Discount\ListProduct$2.class
 Payment\PaymentOption$1.class
+Customer\JdailogCustomer$2.class
+Customer\Customer$7$1.class
 Print\ReprintByInvoicenumber$3.class
 Return\ApprovalCode$4.class
 View\MainPage\MainPage$7.class
@@ -45,6 +47,7 @@ Discount\OverallDiscount$4.class
 Receipt\CashierReport$1.class
 Model\Brand\BrandModel.class
 Components\NoData.class
+Customer\JdailogCustomer$4.class
 HoldOrder\HoldDataSuccessModel.class
 Model\Reprint\ReprintModel.class
 DeleteAndCancel\DeleteDialog$2.class
@@ -94,6 +97,7 @@ Combobox\ComboItem.class
 Constant\JavaConstant.class
 Receipt\Receipt$1.class
 Receipt\Receipt.class
+Customer\Customer$7.class
 Components\LabelFontBlack.class
 Products\ProductPanel$1.class
 DeleteAndCancel\CancelDialog$5.class
@@ -115,8 +119,10 @@ Model\Sale\PaymentDetailModel.class
 Components\ComboBox.class
 Receipt\CashierReport$4$1.class
 OpenAndCloseShift\CloseShift$4.class
+Customer\Customer$6.class
 HoldOrder\HoldItems.class
 ButtonPackage\ButtonSave.class
+Customer\JdailogCustomer.class
 Receipt\Receipt$2.class
 HoldOrder\ListHoldOrder$4.class
 HoldOrder\ListHoldOrder$5$1.class
@@ -141,16 +147,20 @@ Model\OpenShift\OpenShiftDataModel.class
 Components\DialonInputName$3.class
 OpenAndCloseShift\CloseShift$2.class
 Receipt\CashierReport$4.class
+Customer\JdailogCustomer$1.class
 Components\TextFieldCenter.class
 Print\ReprintJdailog$3.class
+Customer\CustomerFunction.class
 Controller\ActionProduct\ActionProduct.class
 Components\DialonInputName$3$1.class
 Print\ReprintJdailog$4$1.class
 Components\BoxItem$1.class
 View\MainPage\MainPage$3.class
+Customer\CustomerFunction$3.class
 Return\ReturnDialog$5$1.class
 View\MainPage\MainPage$1.class
 LoginAndLogoutForm\LoginFormJdailog$6$1.class
+Customer\CustomerFunction$2.class
 LoginAndLogoutForm\LoginFormJdailog$2.class
 Discount\DiscountType$3$1.class
 Components\HoldItem$1.class
@@ -168,9 +178,11 @@ OpenAndCloseShift\OpenShiftJdailog$3.class
 Customer\Customer.class
 HoldOrder\HoldModelDir\ListDetailHold.class
 Model\Sale\SaleModel.class
+Customer\CustomerFunction$1.class
 Payment\PaymentOption$9.class
 Print\ReprintJdailog$4.class
 Components\DialonInputName$1.class
+PointCustomer\CustomerPointModel.class
 Components\HoldItem$2.class
 OpenAndCloseShift\CloseShift$1.class
 Discount\DiscountByItem$2.class
@@ -198,6 +210,7 @@ DeleteAndCancel\CancelDialog$3.class
 Discount\OverallDiscount$3.class
 Payment\PaymentOption$7.class
 Components\SubtotalPanel.class
+Customer\JdailogCustomer$3.class
 Model\CashierReport\SummerySale.class
 Components\CircleShape.class
 OpenAndCloseShift\OpenShiftJdailog.class
@@ -206,7 +219,6 @@ HoldOrder\HoldSuccess.class
 Payment\PaymentOption$14.class
 HoldOrder\HoldModelDir\ResultHoldSuccess.class
 Button\ButtonInstock.class
-Customer\Customer$5$1.class
 View\MainPage\MainPage$15.class
 Payment\PaymentOption$16.class
 Customer\Customer$5.class
@@ -241,6 +253,7 @@ Payment\PaymentOption$22.class
 Print\ReprintByInvoicenumber$2.class
 Print\ReprintByInvoicenumber.class
 DeleteAndCancel\DeleteDialog$3.class
+PointCustomer\PointCustomer.class
 Discount\OverallDiscount$5.class
 LoginAndLogoutForm\LogoutDialog$1.class
 Model\PackageProduct\CategoryModel.class
@@ -312,6 +325,7 @@ Button\ButtonAddProduct$2.class
 Button\ButtonAddProduct.class
 Model\Brand\BrandSuccessModel.class
 Components\ReceiptBox.class
+Customer\JdailogCustomer$4$1.class
 Model\PackageProduct\ProductIDModel.class
 Print\ReprintJdailog.class
 Button\ButtonAddProduct$1.class

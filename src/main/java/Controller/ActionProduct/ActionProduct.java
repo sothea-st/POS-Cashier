@@ -78,7 +78,7 @@ public class ActionProduct {
      public void getAllProduct(JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getAllProduct);
-               System.err.println("data response = " + response);
+              
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

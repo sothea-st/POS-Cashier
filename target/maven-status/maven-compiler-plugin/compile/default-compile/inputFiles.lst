@@ -10,6 +10,7 @@ C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_p
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Model\Reprint\DataSuccessModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Model\Sale\PaymentDetailModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\DeleteAndCancel\DeleteDialog.java
+C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Customer\CustomerFunction.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Components\LabelReceipt.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Controller\ActionScanBarcodeAddProduct\ActionScanBarcodeAddProduct.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\View\MainPage\PrinterService.java
@@ -76,10 +77,12 @@ C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_p
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Components\Shadow\ShadowType.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Components\LabelTitle.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Controller\ActionProduct\ActionProduct.java
+C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\PointCustomer\CustomerPointModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\HoldOrder\HoldDetail.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\com\mycompany\kingmart\KingMart.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\DataListHold.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\LoginAndLogoutForm\LogoutDialog.java
+C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Customer\JdailogCustomer.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Model\OpenShift\DataOpenShiftModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Components\PasswordField.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Constant\Test.java
@@ -118,6 +121,7 @@ C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_p
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Components\TextFieldCenter.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Constant\JavaRoute.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\ButtonPackage\ButtonNo.java
+C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\PointCustomer\PointCustomer.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Components\ComboBox.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\ListDetailHold.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\tt_pos_window\src\main\java\Button\ButtonAddProduct.java

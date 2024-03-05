@@ -96,7 +96,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtUserId.requestFocus();
-          System.err.println("hello 3333");
+       
      }
 
      //Function call Placeholder
