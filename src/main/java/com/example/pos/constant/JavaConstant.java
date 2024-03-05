@@ -18,7 +18,8 @@ public class JavaConstant {
     public static String message = "msg";
     public static String msgCloseShift = "You have to close shift first to get report cashier!";
     public static String closeOpenShfitFirst = "You have to open shift first to close shift!";
-    public static double exchangeRate=4150;
+    public static double exchangeRate = 4150;
+
     public String getDefaultPassword() {
         return defaultPassword;
     }
@@ -29,17 +30,27 @@ public class JavaConstant {
 
     public static String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
 
-    public static double getTwoPrecision(double amount){
+    public static double getTwoPrecision(double amount) {
         String value = String.valueOf(amount);
         if (value.length() > 5) {
             String data = value.substring(0, 5);
             double d = Double.parseDouble(data);
             return d;
-       }
-       return Double.parseDouble(value);
-        // double value = new BigDecimal(amount).setScale(2, RoundingMode.DOWN).doubleValue();
+        }
+        return Double.parseDouble(value);
+        // double value = new BigDecimal(amount).setScale(2,
+        // RoundingMode.DOWN).doubleValue();
         // return value;
     }
- 
+
+    public static boolean onlyDigits(String str, int n) {
+        for (int i = 0; i < n; i++) {
+            if (str.charAt(i) < '0'
+                    || str.charAt(i) > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

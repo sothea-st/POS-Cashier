@@ -157,9 +157,9 @@ public class SaleService {
         Customer cusData = new Customer();
         cusData.setCusName(cus.getCusName());
         cusData.setContact(cus.getContact());
-        cusData.setEarning(cus.getEarning());
-        cusData.setEmail(cus.getEmail());
-        cusData.setCoupon(cus.getCoupon());
+        // cusData.setEarning(cus.getEarning());
+        // cusData.setEmail(cus.getEmail());
+        // cusData.setCoupon(cus.getCoupon());
         cusData.setGender(cus.getGender());
         cusData.setNationality(cus.getNationality());
         cusData.setCustomerId(cusId);

@@ -2,10 +2,14 @@ package com.example.pos.entity.people;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.http.ResponseEntity;
 
 import com.example.pos.constant.JavaMessage;
+import com.example.pos.constant.JavaValidation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,19 +36,19 @@ public class Customer {
     @NotBlank(message = JavaMessage.required)
     @NotNull(message = JavaMessage.required)
     private String cusName;
-
     private String contact;
-    private String email;
-    @NotBlank(message = JavaMessage.required)
-    @NotNull(message = JavaMessage.required)
     private String customerId;
     private String gender;
     private String nationality;
-    private String coupon;
-    private BigDecimal earning;
+
+    @Column(name = "total_amount_earned")
+    private BigDecimal totalAmountEarned;
+
+    @Column(name = "point_earned")
+    private int pointEarned = 0;
 
     @Column(name = "customer_type_id")
-    private int customerTypeId;
+    private Integer customerTypeId;
 
     @Column(name = "status")
     private boolean status = true;
@@ -53,10 +57,22 @@ public class Customer {
     private boolean isDeleted = false;
 
     @CreationTimestamp
-    @Column(updatable = false,name = "create_date")
+    @Column(updatable = false, name = "create_date")
     private Date createDate;
 
     @Column(name = "create_by")
     private int createBy;
+
+    public ResponseEntity<?> checkPhone(String c) {
+        Map<String, Object> err = new HashMap<>();
+        String keyContact = "contact";
+        String contact = JavaValidation.checkPhone(c);
+        if (!contact.isEmpty()) {
+            err.put("msg", contact);
+            err.put("status", 500);
+            return ResponseEntity.ok().body(err);
+        }
+        return null;
+    }
 
 }

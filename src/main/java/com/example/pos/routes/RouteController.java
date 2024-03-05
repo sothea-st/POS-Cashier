@@ -1,13 +1,10 @@
 package com.example.pos.routes;
-
 import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -83,7 +80,6 @@ public class RouteController {
                Category data = service.saveCategory(c);
                return JavaResponse.success(data);
           }
-
           @GetMapping("/parentId/{parentId}")
           public ResponseEntity<?> getCategory(@PathVariable("parentId") int parentId) {
                ArrayList<Category> data = service.getCategory(parentId);

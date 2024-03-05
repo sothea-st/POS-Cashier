@@ -3,6 +3,8 @@ package com.example.pos.routes;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +23,7 @@ import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.components.JavaResponse;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.constant.JavaMessage;
+import com.example.pos.constant.JavaValidation;
 import com.example.pos.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.entity.Hold;
 import com.example.pos.entity.branch.Branch;
@@ -31,9 +34,11 @@ import com.example.pos.entity.role.roleProjection.RoleProjection;
 import com.example.pos.entity.sourceData.AssignRole;
 import com.example.pos.entity.sourceData.Brand;
 import com.example.pos.entity.sourceData.DefaultPrice;
+import com.example.pos.projections.CustomerPointProjection.CustomerPointProjection;
 import com.example.pos.projections.customerProjection.CustomerProjection;
 import com.example.pos.projections.defaultPriceProjection.DefaultPriceProjection;
 import com.example.pos.repository.HoldRepository;
+import com.example.pos.repository.peopleRepository.CustomerRepository;
 import com.example.pos.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.service.HoldService;
 import com.example.pos.service.RoleAndPermissionService.RoleService;
@@ -272,16 +277,25 @@ public class RouteControllerSecond {
      public static class RouteCustomer {
           @Autowired
           private CustomerService service;
-
+          @Autowired private CustomerRepository repo;
           @PostMapping
           public ResponseEntity<?> add(@RequestBody Customer c) {
+               HashMap<String,Object> errMap = new HashMap<>();
+               boolean isExist = repo.existsByContact(c.getContact());
+               if ( isExist ) {
+                    errMap.put("msg", "The phone number already uesd!");
+                    errMap.put("status", 500);
+                    return ResponseEntity.status(500).body(errMap);
+               }
+               if( c.checkPhone(c.getContact()) != null ) return c.checkPhone(c.getContact());
                Customer data = service.add(c);
-               return JavaResponse.success(data);
+               return ResponseEntity.ok().body(Map.of("msg","success" ,"status",200));
           }
+
 
           @GetMapping
           public ResponseEntity<?> read() {
-               List<CustomerProjection> data = service.read();
+               List<Customer> data = service.read();
                return JavaResponse.success(data);
           }
 
@@ -308,6 +322,13 @@ public class RouteControllerSecond {
                String data = service.getCustomerId();
                return JavaResponse.success(data);
           }
+
+          @GetMapping("/getCustomerPoint/{phone}")
+          public ResponseEntity<?> getCustomerPoint(@PathVariable("phone") String phone){
+               CustomerPointProjection data = service.getPoint(phone);
+               return JavaResponse.success(data);
+          }
+
      }
 
      @RestController
