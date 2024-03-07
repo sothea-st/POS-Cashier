@@ -55,6 +55,7 @@ public class ProductService {
         // pro.setCostKhr(p.getCostKhr());
         // pro.setPriceKhr(p.getPriceKhr());
         pro.setNote(p.getNote());
+        pro.setTaxId(p.getTaxId());
         pro.setCreateBy(p.getCreateBy());
         pro.setWeight(p.getWeight());
         pro.setBarcode(p.getBarcode());
@@ -180,6 +181,8 @@ public class ProductService {
 
         previousPro.setProNameKh(editProduct.getProNameKh());
         previousPro.setProNameEn(editProduct.getProNameEn());
+        previousPro.setTaxId(editProduct.getTaxId());
+
         // previousPro.setCostKhr(editProduct.getCostKhr());
         previousPro.setCost(editProduct.getCost());
         // previousPro.setPriceKhr(editProduct.getPriceKhr());

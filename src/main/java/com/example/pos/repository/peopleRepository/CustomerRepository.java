@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import com.example.pos.entity.people.Customer;
 import com.example.pos.projections.CustomerPointProjection.CustomerPointProjection;
-import com.example.pos.projections.customerProjection.CustomerProjection;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {

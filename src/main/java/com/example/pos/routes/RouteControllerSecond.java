@@ -34,7 +34,9 @@ import com.example.pos.entity.role.roleProjection.RoleProjection;
 import com.example.pos.entity.sourceData.AssignRole;
 import com.example.pos.entity.sourceData.Brand;
 import com.example.pos.entity.sourceData.DefaultPrice;
+import com.example.pos.entity.sourceData.TaxProduct;
 import com.example.pos.projections.CustomerPointProjection.CustomerPointProjection;
+import com.example.pos.projections.TaxProductProjection.TaxProductProjection;
 import com.example.pos.projections.customerProjection.CustomerProjection;
 import com.example.pos.projections.defaultPriceProjection.DefaultPriceProjection;
 import com.example.pos.repository.HoldRepository;
@@ -48,6 +50,8 @@ import com.example.pos.service.searchByBarcodeOrNameService.SearchByBarcodeOrNam
 import com.example.pos.service.shiftService.DefaultPriceService;
 import com.example.pos.service.sourceDataService.BrandService;
 import com.example.pos.service.sourceDataService.CustomerService;
+import com.example.pos.service.sourceDataService.TaxProductService;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import jakarta.validation.Valid;
@@ -387,6 +391,44 @@ public class RouteControllerSecond {
                service.deleteHoldByItem(holdId, proId);
                return JavaResponse.success(JavaConstant.success);
           }
+     }
+
+     @RestController
+     @RequestMapping("/api/taxProduct")
+     public static class RouteTaxName { 
+          @Autowired
+          private TaxProductService service;
+
+          @PostMapping
+          public ResponseEntity<?> add(@Valid @RequestBody TaxProduct t) {
+               TaxProduct data = service.add(t);
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping
+          public ResponseEntity<?> read(){
+               List<TaxProductProjection> data =  service.read();
+               return JavaResponse.success(data);
+          }
+
+          @GetMapping("/{id}")
+          public ResponseEntity<?> getById(@PathVariable("id") int id) {
+               TaxProductProjection data = service.getById(id);
+               return JavaResponse.success(data);
+          }
+
+          @PutMapping("/{id}")
+          public ResponseEntity<?> update(@PathVariable("id") int id , @RequestBody TaxProduct t) {
+               TaxProduct data = service.update(id, t);
+               return JavaResponse.success(data);
+          }
+
+          @DeleteMapping("/{id}")
+          public ResponseEntity<?> delete(@PathVariable("id") int id , @RequestBody TaxProduct t) {
+                service.delete(id, t);
+               return JavaResponse.deleteSuccess(id);
+          }
+
      }
 
 }

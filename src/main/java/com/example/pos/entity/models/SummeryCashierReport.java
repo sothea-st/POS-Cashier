@@ -2,16 +2,16 @@ package com.example.pos.entity.models;
 import java.math.*;
 public class SummeryCashierReport {
     private String title;
-    private int qty;
+    private int saleOfNum;
     private BigDecimal total;
 
     public SummeryCashierReport(){
 
     }
 
-    public SummeryCashierReport(String title , int qty , BigDecimal total) {
+    public SummeryCashierReport(String title , int saleOfNum , BigDecimal total) {
         this.title = title;
-        this.qty = qty ;
+        this.saleOfNum = saleOfNum ;
         this.total = total;
     }
 
@@ -22,11 +22,11 @@ public class SummeryCashierReport {
         return title;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setSaleOfNum(int saleOfNum) {
+        this.saleOfNum = saleOfNum;
     }
-    public int getQTy(){
-        return qty;
+    public int getSaleOfNum(){
+        return saleOfNum;
     }
 
     public BigDecimal getTotal(){

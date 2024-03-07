@@ -114,6 +114,8 @@ public class SaleService {
             dataDetail.setAmount(detail.getAmount());
             dataDetail.setDiscount(detail.getDiscount());
             dataDetail.setCreateBy(userId);
+            dataDetail.setDiscountType(detail.getDiscountType()); 
+
             repoDetail.save(dataDetail);
 
             ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
