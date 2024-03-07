@@ -11,6 +11,7 @@ import Constant.JavaRoute;
 import DeleteAndCancel.DeleteDialog;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import NewDiscounts.Discounting;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -21,8 +22,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import okhttp3.Response;
@@ -454,6 +457,11 @@ public class BoxItem extends javax.swing.JPanel {
         boxDiscount = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -597,6 +605,27 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setVisible(true);
 
     }//GEN-LAST:event_btnDeleteMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+
+        JavaConstant.productId = productId;
+        
+        if(JavaConstant.productId == productId){
+            this.setBorder( BorderFactory.createLineBorder(Color.RED) );
+        }
+        
+        Component[] listCom1 = detailItem.getComponents();
+        for (int i = 0; i < listCom1.length; i++) {
+            var obj = ((BoxItem) listCom1[i]);
+            if(obj.getProductId() != JavaConstant.productId){
+            obj.setBorder(null);
+            }
+        }
+                    
+        this.setBorder( BorderFactory.createLineBorder(Color.RED) );
+        JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
+        
+    }//GEN-LAST:event_formMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

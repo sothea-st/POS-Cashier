@@ -14,6 +14,7 @@ import Customer.Customer;
 import DefaultPrice.DataModelDefaultPrice;
 import DeleteAndCancel.CancelDialog;
 import Discount.DiscountType;
+import Discount.OverallDiscount;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import HoldOrder.HoldeModel;
@@ -23,6 +24,7 @@ import LoginAndLogoutForm.LogoutDialog;
 import Model.CashierReport.DataSuccessModelReport;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+import NewDiscounts.Discounting;
 import OpenAndCloseShift.CloseShift;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
@@ -1141,17 +1143,48 @@ public class MainPage extends javax.swing.JFrame {
      //Action Discount
      private void buttonDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscountMouseClicked
 
+//        if (JavaConstant.token != null) {
+//             if (JavaConstant.checkOpenShift) {
+//                  DiscountType dis = new DiscountType(new JFrame(), true);
+//                  dis.setSubtotalPanel(totalPanel);
+//                  dis.setDetailItem(detailItem);
+//                  dis.setPanelProduct(panelProduct);
+//                  dis.setJdFormLogin(jdFormLogin);
+//                  dis.setCategory(category);
+//                  dis.setPanelPagination(panelPagination);
+//                  dis.setVisible(true);
+//             }
+//        }
+
         if (JavaConstant.token != null) {
-             if (JavaConstant.checkOpenShift) {
-                  DiscountType dis = new DiscountType(new JFrame(), true);
-                  dis.setSubtotalPanel(totalPanel);
-                  dis.setDetailItem(detailItem);
-                  dis.setPanelProduct(panelProduct);
-                  dis.setJdFormLogin(jdFormLogin);
-                  dis.setCategory(category);
-                  dis.setPanelPagination(panelPagination);
-                  dis.setVisible(true);
-             }
+            if (JavaConstant.checkOpenShift) {       
+                Component[] listCom1 = detailItem.getComponents();
+                double sumDiscount = 0;
+                if (listCom1.length != 0) {
+                    
+                    for (int i = 0; i < listCom1.length; i++) {
+                        var obj = ((BoxItem) listCom1[i]);
+                        sumDiscount += JavaConstant.getReplace(obj.getDiscountAmount());
+                    }
+                    
+                    if(sumDiscount <= 0){
+                        Discounting dis = new Discounting(new JFrame(), true);
+                        dis.setTotalPanel(totalPanel);
+                        dis.setDetailItem(detailItem);
+                        dis.setVisible(true);
+                    }else if(JavaConstant.discountAmount <= 0){
+                        Discounting dis = new Discounting(new JFrame(), true);
+                        dis.setTotalPanel(totalPanel);
+                        dis.setDetailItem(detailItem);
+                        dis.setVisible(true);
+                    } else {
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        j.setMessage("Cannot process this function!");
+                        j.setVisible(true);
+                        return;
+                    }
+                }
+            }
         }
      }//GEN-LAST:event_buttonDiscountMouseClicked
 

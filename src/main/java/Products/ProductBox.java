@@ -119,22 +119,25 @@ public class ProductBox extends javax.swing.JPanel {
      public void setProductStatus(String productStatus) {
           this.productStatus = productStatus;
          
-          if(productStatus.isEmpty()){
-              buttonStatus.setBgColor(WindowColor.darkred);
-              buttonStatus.setButtonName("Unavailable");
-          }else{
-              buttonStatus.setBgColor(WindowColor.darkGreen);
-              buttonStatus.setButtonName(productStatus);
-          }
+//          if(productStatus.isEmpty()){
+//              buttonStatus.setBgColor(WindowColor.darkred);
+//              buttonStatus.setButtonName("Unavailable");
+//          }else{
+//              buttonStatus.setBgColor(WindowColor.darkGreen);
+//              buttonStatus.setButtonName(productStatus);
+//          }
           
 //================================Product Status============================
-//          if (productStatus == "Unavailable") {
-//               buttonStatus.setBgColor(WindowColor.darkred);
-//          } else if (productStatus == "Out Stock") {
-//               buttonStatus.setBgColor(WindowColor.darkred);
-//          } else {
-//               buttonStatus.setBgColor(WindowColor.darkGreen);
-//          }
+          if (productStatus == "Unavailable") {
+               buttonStatus.setBgColor(WindowColor.darkred);
+               buttonStatus.setButtonName("Unavailable");
+          } else if (productStatus == "Out Stock") {
+               buttonStatus.setBgColor(WindowColor.yellow);
+               buttonStatus.setButtonName("Out Stock");
+          } else {
+               buttonStatus.setBgColor(WindowColor.darkGreen);
+               buttonStatus.setButtonName(productStatus);
+          }
 //==========================================================================
 
      }
