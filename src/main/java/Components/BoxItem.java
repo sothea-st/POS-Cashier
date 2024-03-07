@@ -27,6 +27,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import okhttp3.Response;
 
@@ -301,6 +302,8 @@ public class BoxItem extends javax.swing.JPanel {
 
           boxDiscount.setVisible(false);
           getImageBtnDelete();
+          
+          
      }
 
      void getImageBtnDelete() {
@@ -317,13 +320,22 @@ public class BoxItem extends javax.swing.JPanel {
 
           int getQty = getQty();
           if (sign == "+") {
-               // add qty 
-               getQty++;
-
+                // add qty 
+                if(getProductId() == productId){
+                    if(JavaConstant.productQTyLeft > 0){
+                         getQty++;
+                    }else{
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        j.setMessage("Products are out of stock!");
+                        j.setVisible(true);
+                        return;
+                    }
+                }
           } else if (sign == "-") {
                // remove qty 
                getQty--;
           }
+          
 
           if (getQty != 0) {
                String priceUsd = getLabelPrice();

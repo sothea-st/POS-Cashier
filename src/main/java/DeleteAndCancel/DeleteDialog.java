@@ -258,6 +258,9 @@ public class DeleteDialog extends javax.swing.JDialog {
               if (response.isSuccessful()) {
                    dispose();
                    deleteItem();
+                   JavaConstant.productId = 0;
+                   JavaConstant.productQTyLeft = 0;
+                   JavaConstant.discountAmount = 1;
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
                    return;

@@ -26,6 +26,7 @@ public class JavaConstant {
      public static Long checkCloseShift;
      public static int numberOpenShift = 0;
      public static int productId;
+     public static int productQTyLeft;
      public static double discountAmount =1 ;
 //     public static Component[] listHoldData;
      public static String roleName;
