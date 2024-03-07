@@ -19,6 +19,31 @@ public class ButtonSave extends javax.swing.JPanel {
     /**
      * Creates new form ButtonSave
      */
+     
+     private String titleButton;
+     private Color bgColor;
+
+     public String getTitleButton() {
+          return titleButton;
+     }
+
+     public void setTitleButton(String titleButton) {
+          this.titleButton = titleButton;
+          btnSave.setText(titleButton);
+     }
+
+     public Color getBgColor() {
+          return bgColor;
+     }
+
+     public void setBgColor(Color bgColor) {
+          this.bgColor = bgColor;
+          btnSave.setBackground(bgColor);
+     }
+     
+     
+     
+     
     public ButtonSave() {
         initComponents();
         setBackground(WindowColor.green);

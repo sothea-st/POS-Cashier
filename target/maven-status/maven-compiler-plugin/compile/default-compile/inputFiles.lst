@@ -1,6 +1,7 @@
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaRoundUpKhr.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Button\ButtonBuy.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldDataSuccessModel.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Customer\CustomerFunction.java
 D:\POSCASHIER\tt_pos_window\src\main\java\SwitchButton\EventSwitchSelected.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Controller\ReceiptController.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\BoxItem.java
@@ -20,6 +21,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Components\NotFound.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\BackgroundImage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Return\ReturnDialog.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Button\ButtonDiscount.java
+D:\POSCASHIER\tt_pos_window\src\main\java\PointCustomer\CustomerPointModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\HistoryHoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\ReturnModel\ReturnProductModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\UnEditableTextField.java
@@ -39,6 +41,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Components\JavaAlertMessage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Brand\BrandSuccessModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Print\ReprintJdailog.java
 D:\POSCASHIER\tt_pos_window\src\main\java\View\MainPage\PrinterService.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Customer\JdailogCustomer.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Print\ReprintByInvoicenumber.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Color\WindowColor.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Discount\GetProduct.java
@@ -62,6 +65,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\DefaultPrice\DataModelDefaultPrice.jav
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\ListDetailHold.java
 D:\POSCASHIER\tt_pos_window\src\main\java\NewDiscounts\Discounting.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldeModel.java
+D:\POSCASHIER\tt_pos_window\src\main\java\PointCustomer\PointCustomer.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\TextField.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\DataHoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\NewHoldOrderModel.java

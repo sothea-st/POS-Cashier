@@ -31,6 +31,6 @@ public class JavaRoute {
      public static String discount = "/product/discount";
      public static String logout = "/logout";
      public static String holdOrder = "/hold";
-     
+     public static String getPoint = "/customer/getCustomerPoint/";
 
 }

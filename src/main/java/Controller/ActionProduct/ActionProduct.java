@@ -33,10 +33,7 @@ import javax.swing.border.BevelBorder;
 import okhttp3.Response;
 
 public class ActionProduct {
-
- 
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
- 
      DecimalFormat kh = new DecimalFormat("#,##0");
 
      private Button btnLogin;
@@ -78,7 +75,7 @@ public class ActionProduct {
      public void getAllProduct(JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getAllProduct);
-               System.err.println("data response = " + response);
+              
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

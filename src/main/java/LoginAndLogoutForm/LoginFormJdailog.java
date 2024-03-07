@@ -96,7 +96,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtUserId.requestFocus();
-          System.err.println("hello 3333");
+       
      }
 
      //Function call Placeholder
@@ -238,10 +238,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          //String userId = txtUserId.getValueTextField();
          //String password = txtPassword.getValuePassword();
 
-         String userId = "0002";
+         String userId = "0003";
          String password = "TT@126$kh#";
          String deviceName = JavaConstant.getDeviceName();
-         System.err.println("device name = " + deviceName);
+       
 
          JSONObject json = new JSONObject();
          json.put("userCode", userId);

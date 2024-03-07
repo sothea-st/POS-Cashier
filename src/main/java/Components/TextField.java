@@ -5,7 +5,6 @@ import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -14,15 +13,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author FRONT-END.06
- */
 public class TextField extends javax.swing.JPanel {
 
      private String labelTextField;
@@ -86,6 +78,8 @@ public class TextField extends javax.swing.JPanel {
      public void setFocus() {
           txtText.requestFocus();
      }
+
+  
 
      //=================================================Create Shadow Box
      private ShadowType shadowType;
