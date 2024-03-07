@@ -33,10 +33,7 @@ import javax.swing.border.BevelBorder;
 import okhttp3.Response;
 
 public class ActionProduct {
-
- 
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
- 
      DecimalFormat kh = new DecimalFormat("#,##0");
 
      private Button btnLogin;
