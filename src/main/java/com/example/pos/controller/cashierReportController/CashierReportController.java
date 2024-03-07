@@ -18,25 +18,25 @@ import com.example.pos.service.cashierReport.CashierReportService;
 import java.text.SimpleDateFormat;
 import jakarta.servlet.http.HttpSession;
 import java.util.*;
-@RestController
-@RequestMapping("/api/cashierReport")
+// @RestController
+// @RequestMapping("/api/cashierReport")
 public class CashierReportController {
-    @Autowired
-    private CashierReportService service;
+    // @Autowired
+    // private CashierReportService service;
 
-    @Autowired
-    private CloseShiftRepository repoClose;
+    // @Autowired
+    // private CloseShiftRepository repoClose;
 
-    @GetMapping
-    public ResponseEntity<?> getCashierReport(@RequestParam("userCode") String userCode,@RequestParam("userId") int userId,@RequestParam("posId") String posId){
-        HashMap<String,Object> map = new HashMap<>();
-        // OpenShift countOpenShift = repoOpen.countOpenShift((Integer) userCode, JavaConstant.currenDate);   
-        CloseShift closeShift = repoClose.getCloseShift(userCode, JavaConstant.currentDate,posId);
-        // protect when user try to processing sale but user does not open shift first
-        if (closeShift == null) {
-            map.put(JavaConstant.message, JavaConstant.msgCloseShift);
-            return JavaResponse.error(map);
-        }
-        return JavaResponse.success(service.cashierReport(userCode,userId,posId));
-    }
+    // @GetMapping
+    // public ResponseEntity<?> getCashierReport(@RequestParam("userCode") String userCode,@RequestParam("userId") int userId,@RequestParam("posId") String posId){
+    //     HashMap<String,Object> map = new HashMap<>();
+    //     // OpenShift countOpenShift = repoOpen.countOpenShift((Integer) userCode, JavaConstant.currenDate);   
+    //     CloseShift closeShift = repoClose.getCloseShift(userCode, JavaConstant.currentDate,posId);
+    //     // protect when user try to processing sale but user does not open shift first
+    //     if (closeShift == null) {
+    //         map.put(JavaConstant.message, JavaConstant.msgCloseShift);
+    //         return JavaResponse.error(map);
+    //     }
+    //     return JavaResponse.success(service.cashierReport(userCode,userId,posId));
+    // }
 }

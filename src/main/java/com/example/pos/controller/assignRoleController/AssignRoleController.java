@@ -19,27 +19,27 @@ import com.example.pos.service.RoleAndPermissionService.RoleService;
 @RestController
 @RequestMapping("/api/assignRole")
 public class AssignRoleController {
-    @Autowired
-    private RoleService service;
+    // @Autowired
+    // private RoleService service;
 
-    @Autowired  private RoleRepository repoRole;
+    // @Autowired  private RoleRepository repoRole;
 
-    @Autowired private UserRepository repoUser;
+    // @Autowired private UserRepository repoUser;
 
-    @PostMapping
-    public ResponseEntity<?> assignRole(@RequestParam("assignerId")int assignerId , @RequestBody AssignRole a) {
+    // @PostMapping
+    // public ResponseEntity<?> assignRole(@RequestParam("assignerId")int assignerId , @RequestBody AssignRole a) {
 
-        int roleId = repoUser.findById(assignerId).get().getRole();
+    //     int roleId = repoUser.findById(assignerId).get().getRole();
     
-        String roleName = repoRole.findById(roleId).get().getRoleName();
+    //     String roleName = repoRole.findById(roleId).get().getRoleName();
     
-        System.out.println("a.getAssignerId() - " + roleName);
-        if( !roleName.equals(JavaConstant.admin) ) {
-            return JavaResponse.success("This account have no permission assign role!");
-        }
+    //     System.out.println("a.getAssignerId() - " + roleName);
+    //     if( !roleName.equals(JavaConstant.admin) ) {
+    //         return JavaResponse.success("This account have no permission assign role!");
+    //     }
 
-        service.assignRole(a);
-        return JavaResponse.success("Assign role success");
-    }
+    //     service.assignRole(a);
+    //     return JavaResponse.success("Assign role success");
+    // }
 
 }

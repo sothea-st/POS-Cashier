@@ -16,22 +16,22 @@ import com.example.pos.service.sourceDataService.ReturnProductService;
 
 import jakarta.validation.Valid;
 
-@RestController
-@RequestMapping("/api/returnProduct")
+// @RestController
+// @RequestMapping("/api/returnProduct")
 public class ReturnProductController {
-    @Autowired
-    private ReturnProductService service;
+    // @Autowired
+    // private ReturnProductService service;
 
-    @PostMapping
-    public ResponseEntity<?> returnProduct(@Valid @RequestBody ReturnProduct r) {
-        service.returnProduct(r);
-        return JavaResponse.success("return product success");
-    }
+    // @PostMapping
+    // public ResponseEntity<?> returnProduct(@Valid @RequestBody ReturnProduct r) {
+    //     service.returnProduct(r);
+    //     return JavaResponse.success("return product success");
+    // }
 
-    @GetMapping("/{barcode}")
-    public ResponseEntity<?> getProductByBarcode(@PathVariable("barcode") String barcode) {
-        ProductProjection data = service.searchProdcutByBarcode(barcode);
-        return JavaResponse.success(data);
-    }
+    // @GetMapping("/{barcode}")
+    // public ResponseEntity<?> getProductByBarcode(@PathVariable("barcode") String barcode) {
+    //     ProductProjection data = service.searchProdcutByBarcode(barcode);
+    //     return JavaResponse.success(data);
+    // }
 
 }

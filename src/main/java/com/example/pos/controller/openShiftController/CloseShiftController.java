@@ -20,36 +20,36 @@ import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@RestController
-@RequestMapping("/api/closeShiftTime")
+// @RestController
+// @RequestMapping("/api/closeShiftTime")
 public class CloseShiftController {
-    @Autowired
-    private CloseShiftService service;
+    // @Autowired
+    // private CloseShiftService service;
 
-    @Autowired
-    private HttpSession session;
+    // @Autowired
+    // private HttpSession session;
 
-    @Autowired
-    private CloseShiftRepository repoClose;
+    // @Autowired
+    // private CloseShiftRepository repoClose;
 
-    @Autowired
-    private OpenShiftRepository repoOpen;
+    // @Autowired
+    // private OpenShiftRepository repoOpen;
 
 
-    @PostMapping
-    public ResponseEntity<?> closeShift(@RequestBody CloseShift c) {
-        HashMap<String,Object> map = new HashMap<>();
+    // @PostMapping
+    // public ResponseEntity<?> closeShift(@RequestBody CloseShift c) {
+    //     HashMap<String,Object> map = new HashMap<>();
     
-        OpenShift countOpenShift = repoOpen.countOpenShift(c.getUserCode(), JavaConstant.currentDate);
-        // protect when user try to processing sale but user does not open shift first
-        if (countOpenShift == null || countOpenShift.getNumberOpenShift() == 0) {
-            map.put(JavaConstant.message, JavaConstant.closeOpenShfitFirst);
-            return JavaResponse.error(map);
-        }
+    //     OpenShift countOpenShift = repoOpen.countOpenShift(c.getUserCode(), JavaConstant.currentDate);
+    //     // protect when user try to processing sale but user does not open shift first
+    //     if (countOpenShift == null || countOpenShift.getNumberOpenShift() == 0) {
+    //         map.put(JavaConstant.message, JavaConstant.closeOpenShfitFirst);
+    //         return JavaResponse.error(map);
+    //     }
         
-        CloseShift data = service.closeShift(c);
-        return JavaResponse.success(data);
-    }
+    //     CloseShift data = service.closeShift(c);
+    //     return JavaResponse.success(data);
+    // }
 
     // @GetMapping("/cashierReport")
     // public ResponseEntity<?> getCashierReport(){

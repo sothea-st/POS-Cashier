@@ -46,6 +46,11 @@ public class Product {
     @Column(name = "barcode",length = 100)
     private String barcode;
 
+    @Column(name = "tax_id",length = 100)
+    @Min(1)
+    private int taxId;
+
+
     // @Column(name = "unit_type_id",length = 30)
     // private int unitTypeId;
 

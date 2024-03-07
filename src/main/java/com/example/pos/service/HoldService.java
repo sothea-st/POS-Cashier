@@ -20,7 +20,6 @@ public class HoldService {
      @Autowired
      private HoldRepository repo;
 
-
      @Autowired
      private HoldDetailsRepository holdDetail;
 
@@ -77,19 +76,9 @@ public class HoldService {
      }
 
      public void deleteHoldByItem(int holdId, int proId){
-          holdDetail.deleteProductByHoldId(holdId, proId);
+          String holdDetailId = holdDetail.getId(holdId, proId);
+          if( holdDetailId == null ) throw new JavaNotFoundByIdGiven();
+          holdDetail.deleteById(Integer.parseInt(holdDetailId));
      }
-
-     // public HashMap<String ,Object> getHoldById(int holdId){
-     // List<HoldProjection> data = repo.getHoldDataById(holdId);
-     // HoldDataProjection h = repo.getData(holdId);
-     // if( h==null ) throw new JavaNotFoundByIdGiven();
-     // HashMap<String ,Object> map = new HashMap<>();
-     // map.put("hold_id", h.getId());
-     // map.put("note", h.getNote());
-     // map.put("qty_hold", h.getQty_hold());
-     // map.put("details", data);
-     // return map;
-     // }
 
 }

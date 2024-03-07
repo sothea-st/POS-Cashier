@@ -19,24 +19,24 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.pos.components.JavaResponse;
 import com.example.pos.service.addImageService.AddImageService;
 
-@RestController
-@RequestMapping("/api/public/addImageForBackground")
+// @RestController
+// @RequestMapping("/api/public/addImageForBackground")
 public class AddImageController {
-    @Autowired
-    private AddImageService service;
+    // @Autowired
+    // private AddImageService service;
 
-    @PostMapping
-    public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) throws IOException {
-        service.addImage(file);
-        return JavaResponse.success(file.getOriginalFilename());
-    }
+    // @PostMapping
+    // public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) throws IOException {
+    //     service.addImage(file);
+    //     return JavaResponse.success(file.getOriginalFilename());
+    // }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
-        byte[] imageData = service.getFile(id);
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
-                .body(imageData);
-    }
+    // @GetMapping("/{id}")
+    // public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
+    //     byte[] imageData = service.getFile(id);
+    //     return ResponseEntity.status(HttpStatus.OK)
+    //             .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
+    //             .body(imageData);
+    // }
 
 }

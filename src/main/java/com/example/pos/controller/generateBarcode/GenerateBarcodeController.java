@@ -30,17 +30,17 @@ import java.awt.image.BufferedImage;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
-@RestController
-@RequestMapping("/api/generateBarcode")
+// @RestController
+// @RequestMapping("/api/generateBarcode")
 public class GenerateBarcodeController {
-    @Autowired
-    BarcodeGenerator barcodeGenerator;
+    // @Autowired
+    // BarcodeGenerator barcodeGenerator;
 
-    @GetMapping(value = "/barcodes/{barcode}", produces = IMAGE_PNG_VALUE)
-    public ResponseEntity<BufferedImage> generate(
-            @PathVariable("barcode") final String barcodeText) throws Exception {
+    // @GetMapping(value = "/barcodes/{barcode}", produces = IMAGE_PNG_VALUE)
+    // public ResponseEntity<BufferedImage> generate(
+    //         @PathVariable("barcode") final String barcodeText) throws Exception {
 
-        return ResponseEntity.ok().body(barcodeGenerator.generateUSPSBarcodeImage(barcodeText));
+    //     return ResponseEntity.ok().body(barcodeGenerator.generateUSPSBarcodeImage(barcodeText));
         
-    }
+    // }
 }

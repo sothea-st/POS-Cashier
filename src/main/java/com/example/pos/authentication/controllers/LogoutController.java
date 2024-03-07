@@ -21,7 +21,6 @@ public class LogoutController {
 
      @PostMapping
      public ResponseEntity<?> logout(@RequestBody User user) {
-          System.out.println("data id logout = " + user.getId());
           Optional<User> users = repo.findById(user.getId());
           User data = users.get();
           data.setDevice(null);

@@ -36,7 +36,10 @@ public class SaleDetail {
     private BigDecimal amount ;
 
     @Column(name = "discount")
-    private int discount=0;
+    private BigDecimal discount;
+
+    @Column(name = "discount_type")
+    private String discountType;
 
     @Column(name = "create_by")
     private int createBy;
