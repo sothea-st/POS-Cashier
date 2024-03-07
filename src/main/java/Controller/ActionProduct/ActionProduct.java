@@ -152,17 +152,25 @@ public class ActionProduct {
                ButtonEvent event = new ButtonEvent() {
                     @Override
                     public void onMouseClick() {
-//                         int qty = Integer.valueOf(product.getQty());
-                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//                         if (qty == 0) {
-//
-//                              j.setMessage("No Qty");
-//                              j.setVisible(true);
-//                              return;
-//                         }
-//                         qty--;
-//                         product.setQty("" + qty);
+                        //Show message When no item or unavailable item
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        
+                        //=================================
+                         int qty = Integer.valueOf(product.getQty());
+                         
+                         if(qty ==1){
+                            product.setProductStatus("Out Stock");
+                         }
+                         if (!listData.getProductStatus().isEmpty() && qty == 0) {
 
+                              j.setMessage("Products are out of stock!");
+                              j.setVisible(true);
+                              return;
+                         }
+                         qty--;
+                         product.setQty("" + qty);
+                         
+                         //===================================
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
                                    eventBtnBuy(listData);
@@ -172,8 +180,9 @@ public class ActionProduct {
                               }
                          } else {
 
-                              j.setMessage("Product not avalible for sale!");
+                              j.setMessage("Products are not avalible for sale!");
                               j.setVisible(true);
+                              return;
                          }
                     }
                };
@@ -182,15 +191,15 @@ public class ActionProduct {
                product.initEvent(event);
 
 //================================Product Status============================
-//               if (listData.getQty() > 0) {
-               product.setProductStatus(listData.getProductStatus());
-//               } else {
-//                    if (listData.getProductStatus().isEmpty()) {
-//                         product.setProductStatus("Unavailable");
-//                    } else {
-//                         product.setProductStatus("Out Stock");
-//                    }
-//               }
+               if (listData.getQty() > 0) {
+                    product.setProductStatus(listData.getProductStatus());
+               } else {
+                    if (listData.getProductStatus().isEmpty()) {
+                         product.setProductStatus("Unavailable");
+                    } else {
+                         product.setProductStatus("Out Stock");
+                    }
+               }
 //==========================================================================
 
                product.setDiscountPercentag(listData.getDiscount(), price);
