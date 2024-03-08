@@ -541,17 +541,22 @@ public class Discounting extends javax.swing.JDialog {
          
         Component[] listHold = detailItem.getComponents();
         double sumDiscount = 0;
+        double sumTotalUsd = 0;
+        
         for (int i = 0; i < listHold.length; i++) {
             var box = ((BoxItem) listHold[i]);
             
             if(type == "dollar"){
                 if(JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId){
                     box.setDiscountAmount("$ " + discountValue);
-                    box.setBorder(null);
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
                 }
                 
                 if(JavaConstant.productId == 0){
                     box.setDiscountAmount("$ " + discountValue);
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
                 }
                 
             }else{
@@ -561,17 +566,25 @@ public class Discounting extends javax.swing.JDialog {
                 
                 if(JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId){
                     box.setDiscountAmount( dm.format(discountAmount));
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
                 }
                 
                 if(JavaConstant.productId == 0){
                     box.setDiscountAmount( dm.format(discountAmount));
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
                 }
                 
             }
             
             sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
+            sumTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1)) - sumDiscount;
             totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
             totalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+            
+            totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
+            totalPanel.setLableTotalKhr(kh.format(sumTotalUsd * JavaConstant.exchangeRate));
         }
         
         detailItem.revalidate();

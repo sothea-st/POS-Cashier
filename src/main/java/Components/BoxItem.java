@@ -239,6 +239,24 @@ public class BoxItem extends javax.swing.JPanel {
      public void setButtonHoldOrder(Button.Button buttonHoldOrder) {
           this.buttonHoldOrder = buttonHoldOrder;
      }
+
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
+    }
+
+    public double getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(double discountValue) {
+        this.discountValue = discountValue;
+    }
+     
+     
      
      /**
       * Creates new form BoxItem
@@ -265,6 +283,8 @@ public class BoxItem extends javax.swing.JPanel {
      private Button.Button btnPayment;
      private ButtonPackage.ButtonCancel btnCancel;
      private Button.Button buttonHoldOrder;
+     private String discountType;
+     private double discountValue;
      
 
      public BoxItem() {

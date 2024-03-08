@@ -1185,6 +1185,11 @@ public class MainPage extends javax.swing.JFrame {
                         j.setVisible(true);
                         return;
                     }
+                }else{
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    j.setMessage("Cannot process this function!");
+                    j.setVisible(true);
+                    return;
                 }
             }
         }

@@ -243,6 +243,9 @@ public class CancelDialog extends javax.swing.JDialog {
                         detailItem.repaint();
                         clearTotal();
                         changeColorButtonPayment();
+                        JavaConstant.productId = 0;
+                        JavaConstant.productQTyLeft = 0;
+                        JavaConstant.discountAmount = 1;
                         deleteHoldById();
 
                    } else {

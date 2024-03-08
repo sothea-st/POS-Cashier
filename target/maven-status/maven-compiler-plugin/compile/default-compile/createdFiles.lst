@@ -17,6 +17,7 @@ DeleteAndCancel\DeleteDialog.class
 DeleteAndCancel\CancelDialog$2.class
 View\MainPage\MainPage$14.class
 Components\TextField$1.class
+NewCashierReport\CashirReporting$1$1.class
 Components\ComboBox$1.class
 Discount\DiscountType$3.class
 Components\HistoryHoldOrder$1.class
@@ -32,6 +33,7 @@ Discount\ListProduct.class
 Products\ProductBox.class
 Discount\OverallDiscount$2.class
 Payment\PaymentOption$6.class
+NewCashierReport\CashirReporting.class
 LoginAndLogoutForm\LoginFormJdailog.class
 Payment\PaymentOption$23.class
 Components\PasswordField.class
@@ -326,6 +328,7 @@ Components\DialonInputName.class
 Components\HistoryHoldOrder$4$1.class
 Payment\PaymentOption$10.class
 Model\Package\ReasonModel.class
+NewCashierReport\CashirReporting$1.class
 Model\Sale\ProductSaleModel.class
 ButtonPackage\ButtonCancel.class
 Return\ReturnDialog$2.class

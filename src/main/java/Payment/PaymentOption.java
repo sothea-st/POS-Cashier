@@ -1243,6 +1243,8 @@ public class PaymentOption extends javax.swing.JDialog {
               int discountDigit = obj.getDiscountDigit();
               double unitPrice = price - (price * discountDigit) / 100;
               double p = JavaConstant.getReplace(df.format(unitPrice));
+              String discountType = obj.getDiscountType();
+              double discountVale = obj.getDiscountValue();
 
               double amount = obj.getQty() * p;
               double a = JavaConstant.getReplace(df.format(amount));
@@ -1251,11 +1253,14 @@ public class PaymentOption extends javax.swing.JDialog {
                    obj.getQty(),
                    p,
                    a,
-                   discountDigit
+                   discountVale,
+                   discountType
               );
               dataSale.add(pro);
          }
          jsonData.put("dataSale", dataSale);
+         
+         System.out.println("jsonData :" + jsonData);
 
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
