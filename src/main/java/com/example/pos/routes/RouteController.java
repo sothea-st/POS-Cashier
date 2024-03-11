@@ -33,6 +33,8 @@ import com.example.pos.entity.OpenShift;
 import com.example.pos.entity.Product;
 import com.example.pos.entity.Sale;
 import com.example.pos.entity.Supplier;
+import com.example.pos.entity.models.ProIdModel;
+import com.example.pos.entity.models.ProductAddRemoveQty;
 import com.example.pos.entity.models.ProductModel;
 import com.example.pos.entity.models.UpdateProductDiscount;
 import com.example.pos.entity.sourceData.CancelItem;
@@ -317,6 +319,14 @@ public class RouteController {
                service.addImport(i);
                return JavaResponse.success("success insert");
           }
+
+          @PostMapping("/updateQty")
+          public ResponseEntity<?> updateQty(@RequestBody ProductAddRemoveQty p ){
+               System.out.println("ddddddddd = " + p.getListProId());
+               service.updateQty(p);
+               return JavaResponse.success("success update");
+          }
+
      }
 
      @RestController

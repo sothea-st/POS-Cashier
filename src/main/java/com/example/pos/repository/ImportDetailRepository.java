@@ -21,6 +21,5 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
     @Query(nativeQuery = true , value = "select qty_old  from pos_import_detail pid where pro_id = ? order by id desc limit 1")
     Integer getQty(int proId);
 
-    
 
 }

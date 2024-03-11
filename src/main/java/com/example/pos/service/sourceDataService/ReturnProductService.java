@@ -65,6 +65,7 @@ public class ReturnProductService {
             obj.setReturnId(r.getId());
             obj.setPrice(listDetail.get(i).getPrice());
             obj.setAmount(listDetail.get(i).getAmount());
+            obj.setDiscount(listDetail.get(i).getDiscount());
             repoDetail.save(obj);
 
             // restock qty back

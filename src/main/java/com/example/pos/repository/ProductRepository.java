@@ -3,6 +3,8 @@ package com.example.pos.repository;
 import com.example.pos.entity.Product;
 import com.example.pos.entity.models.ProductModel;
 import com.example.pos.repository.productProjection.ProductProjection;
+import com.example.pos.repository.productProjection.ProductQty;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -76,12 +78,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         List<ProductProjection> searchProductByBarcode(String barcode);
 
           @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,   \r\n" + //
-                                    "\t  pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,    \r\n" + //
+                                    "\t  pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,psd.qty,     \r\n" + //
                                     "\t  pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired   \r\n" + //
                                     "\t from pos_payment pp inner join pos_sale_details psd on psd.sale_id = pp.sale_id \r\n" + //
                                     "\t inner join pos_product pc on pc.id = psd.pro_id \r\n" + //
                                     "\t where pp.payment_no = ? ")
-        List<ProductProjection> searchProductWithInvoiceNo(String invoiceNO);
+        List<ProductQty> searchProductWithInvoiceNo(String invoiceNO);
 
 
 
