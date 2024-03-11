@@ -6,15 +6,23 @@ import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import okhttp3.MediaType;
 
 public class JavaConstant {
-
+     public static void setPointer(JLabel jLabel){
+           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
+     public static void setPointer(JPanel jPanel){
+           jPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
      public static String invoiceNo;
      public static String reasonId;
      public static Integer returnerId;

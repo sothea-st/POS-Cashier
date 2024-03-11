@@ -4,6 +4,7 @@ package ButtonPackage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -24,6 +25,7 @@ public class ButtonYes extends javax.swing.JPanel {
         initComponents();
         setBackground(WindowColor.green);
         btnYes.setFont(WindowFonts.timeNewRomanBold14);
+         JavaConstant.setPointer(btnYes);
     }
 
     @SuppressWarnings("unchecked")

@@ -8,8 +8,8 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
-import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.PackageProduct.ProductModel;
@@ -33,6 +33,7 @@ import javax.swing.border.BevelBorder;
 import okhttp3.Response;
 
 public class ActionProduct {
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
 
@@ -75,7 +76,7 @@ public class ActionProduct {
      public void getAllProduct(JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getAllProduct);
-              
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -152,34 +153,33 @@ public class ActionProduct {
                ButtonEvent event = new ButtonEvent() {
                     @Override
                     public void onMouseClick() {
-                        //Show message When no item or unavailable item
-                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                        
-                        //=================================
-                         int qty = Integer.valueOf(product.getQty());
-                         
-                         if(qty ==1){
-                            product.setProductStatus("Out Stock");
-                         }
-                         if (!listData.getProductStatus().isEmpty() && qty == 0) {
+                         //Show message When no item or unavailable item
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
-                              j.setMessage("Products are out of stock!");
+                         //=================================
+                         int qty = Integer.valueOf(product.getQty());
+
+                         if (qty == 1) {
+                              product.setProductStatus("Out Stock");
+                         }
+
+                         if (!listData.getProductStatus().isEmpty() && qty == 0) {
+                              j.setMessage(JavaMessage.productOutStock);
                               j.setVisible(true);
                               return;
                          }
                          qty--;
                          product.setQty("" + qty);
-                         
+
                          //===================================
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-                                   eventBtnBuy(listData);
+                                   eventBtnBuy(listData, 1);
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
                                    j.setVisible(true);
                               }
                          } else {
-
                               j.setMessage("Products are not avalible for sale!");
                               j.setVisible(true);
                               return;
@@ -200,8 +200,8 @@ public class ActionProduct {
                          product.setProductStatus("Out Stock");
                     }
                }
-//==========================================================================
 
+//==========================================================================
                product.setDiscountPercentag(listData.getDiscount(), price);
 
                product.setDiscountPercent(listData.getDiscount());
@@ -243,7 +243,6 @@ public class ActionProduct {
                panelProduct.add(product, gbc);
 
           }
-
      }
 
      // method total is same but they do action different
@@ -312,9 +311,10 @@ public class ActionProduct {
 //          //          }
 //          //          System.err.println("data value = " + value);
 //     }
-     public void eventBtnBuy(ProductModel listData) {
+     public void eventBtnBuy(ProductModel listData, int qtyData) {
 
           double price = listData.getPrice();
+
           double discount = (listData.getDiscount() * price) / 100;
 
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
@@ -349,28 +349,41 @@ public class ActionProduct {
                               box.setListCom(listCom);
                               box.setDetailItem(detailItem);
                               subtotalPanel.total(0, listCom, 0, subtotalPanel);
+
                               return;
                          }
                     }
                }
+
                box.setDiscountDigit(listData.getDiscount());
                box.setLabelProductName(listData.getProductNameEn());
                box.setLabelWeight(listData.getWeight());
                box.setLabelBarcode(listData.getBarcode());
 
-               box.setLabelPrice(dm.format(price));
-               box.setLabelAmountUsd(dm.format(price));
+               if (qtyData > 1) {
+                    box.setLabelPrice(dm.format(price));
+                    box.setLabelAmountUsd(dm.format(price * qtyData));
 
-               double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
-               box.setLabelAmountKh(kh.format(valueRoundDown));
+                    double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
+                    box.setLabelAmountKh(kh.format(valueRoundDown));
 
-               box.setDiscountAmount(dm.format(discount));
-               box.setDiscountAmt(dm.format(discount));
+                    box.setDiscountAmount(dm.format(discount*qtyData));
+                    box.setDiscountAmt(dm.format(discount));
+                    box.setQty(qtyData);
+               } else {
+                    box.setLabelPrice(dm.format(price));
+                    box.setLabelAmountUsd(dm.format(price));
 
-               box.setQty(1);
+                    double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
+                    box.setLabelAmountKh(kh.format(valueRoundDown));
+
+                    box.setDiscountAmount(dm.format(discount));
+                    box.setDiscountAmt(dm.format(discount));
+                    box.setQty(1);
+               }
+
                Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
                byte[] images = responseProductImage.body().bytes();
-
 
                box.setIconImage(new ImageIcon(images));
                box.setProductId(listData.getId());
@@ -383,7 +396,11 @@ public class ActionProduct {
                detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
                detailItem.setBackground(WindowColor.white);
 
-               subtotalPanel.total(price, listCom, discount, subtotalPanel);
+               if (qtyData > 1) {
+                    subtotalPanel.total(price * qtyData, listCom, discount * qtyData, subtotalPanel);
+               } else {
+                    subtotalPanel.total(price, listCom, discount, subtotalPanel);
+               }
 
                // add list has one box to BoxItem (note: must be add)
                Component[] listCom1 = detailItem.getComponents();
@@ -488,22 +505,20 @@ public class ActionProduct {
           this.boxUserName = boxUserName;
      }
 
-    public Button getButtonHoldOrder() {
-        return buttonHoldOrder;
-    }
+     public Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
 
-    public void setButtonHoldOrder(Button buttonHoldOrder) {
-        this.buttonHoldOrder = buttonHoldOrder;
-    }
+     public void setButtonHoldOrder(Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
-
-    
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
 
 }

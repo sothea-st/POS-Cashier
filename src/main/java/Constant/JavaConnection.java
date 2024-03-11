@@ -1,4 +1,6 @@
 package Constant;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import okhttp3.OkHttpClient;
@@ -13,6 +15,7 @@ public class JavaConnection {
           Response response = null;
           try {
                OkHttpClient client = new OkHttpClient();
+               Logger.getLogger(OkHttpClient.class.getName()).setLevel(Level.FINE);
                Request request = new Request.Builder()
                     .url(new JavaBaseUrl().getBaseUrl() + route)
                     .header("Authorization", "Bearer " + JavaConstant.token)

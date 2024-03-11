@@ -1,8 +1,10 @@
 package Components;
 
 import Color.WindowColor;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JLabel;
@@ -79,7 +81,8 @@ public class LabelTitle extends javax.swing.JPanel {
           setBackground(WindowColor.darkGreen);
           lbTitle.setFont(WindowFonts.timeNewRomanBold12);
           lbTitle.setForeground(WindowColor.white);
-
+//          lbTitle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+          JavaConstant.setPointer(lbTitle);
      }
 
      public void textCenter() {

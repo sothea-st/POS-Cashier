@@ -520,7 +520,8 @@ public class Discounting extends javax.swing.JDialog {
     }//GEN-LAST:event_delMouseClicked
 
     private void btnDoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoneMouseClicked
-
+         
+         System.err.println("data ");
         String discountValue = inputDis.getValueTextFieldCenter();
         
         if(discountValue != null){

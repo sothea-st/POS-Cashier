@@ -1348,6 +1348,7 @@ public class PaymentOption extends javax.swing.JDialog {
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                ReturnDialog r = new ReturnDialog(new JFrame(), true);
                r.setResetReturn();
+               JavaConstant.isReturn = null;
           } else {
                System.err.println("err = 4444");
           }

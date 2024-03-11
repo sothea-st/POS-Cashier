@@ -1,6 +1,7 @@
 package Button;
 
 import Color.WindowColor;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,48 +17,48 @@ import java.awt.image.BufferedImage;
  */
 public class ButtonAddProduct extends javax.swing.JPanel {
 
-    /**
-     * @return the quantity
-     */
-     
-    public int getQuantity() {
-        return quantity;
-    }
+     /**
+      * @return the quantity
+      */
+     public int getQuantity() {
+          return quantity;
+     }
 
-    /**
-     * @param quantity the quantity to set
-     */
-    
-    
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-        lbQty.setText("" + quantity);
-    }
+     /**
+      * @param quantity the quantity to
+      * set
+      */
+     public void setQuantity(int quantity) {
+          this.quantity = quantity;
+          lbQty.setText("" + quantity);
+     }
 
-    public ButtonAddProduct() {
-        initComponents();
-        setBackground(WindowColor.white);
-        
-    }
-    
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Dimension arcs = new Dimension(15,15); //Border corners arcs {width,height}, change this to whatever you want
-        int width = getWidth();
-        int height = getHeight();
-        Graphics2D graphics = (Graphics2D) g;
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+     public ButtonAddProduct() {
+          initComponents();
+          setBackground(WindowColor.white);
+          JavaConstant.setPointer(btnPlus);
+          JavaConstant.setPointer(btnMinus);
 
-        //Draws the rounded panel with borders.
-        graphics.setColor(WindowColor.white);
-        graphics.fillRoundRect(0, 0, width-2, height-2, arcs.width, arcs.height);//paint background
-        graphics.setColor(WindowColor.darkGreen);
-        graphics.drawRoundRect(0, 0, width-2, height-2, arcs.width, arcs.height);//paint border
-    }
-    
-    private int quantity;
+     }
 
-    //=================================================Create Shadow Box
+     protected void paintComponent(Graphics g) {
+          super.paintComponent(g);
+          Dimension arcs = new Dimension(15, 15); //Border corners arcs {width,height}, change this to whatever you want
+          int width = getWidth();
+          int height = getHeight();
+          Graphics2D graphics = (Graphics2D) g;
+          graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+          //Draws the rounded panel with borders.
+          graphics.setColor(WindowColor.white);
+          graphics.fillRoundRect(0, 0, width - 2, height - 2, arcs.width, arcs.height);//paint background
+          graphics.setColor(WindowColor.darkGreen);
+          graphics.drawRoundRect(0, 0, width - 2, height - 2, arcs.width, arcs.height);//paint border
+     }
+
+     private int quantity;
+
+     //=================================================Create Shadow Box
 //    private ShadowType shadowType;
 //    private int shadowSize = 3;
 //    private float shadowOpacity = 0.8f;
@@ -111,56 +112,55 @@ public class ButtonAddProduct extends javax.swing.JPanel {
 //        g2.drawImage(render.createShadow(img), 0, 0, null);
 //        g2.drawImage(img, x, y, null);
 //    }
+     // new 18-01-2024 (hello world)
+     public void initEvent(ButtonEvent event) {
+          btnPlus.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.btnPlus();
+               }
 
-    // new 18-01-2024 (hello world)
-    public void initEvent(ButtonEvent event) {
-        btnPlus.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.btnPlus();
-            }
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+          btnMinus.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.btnMinus();
+               }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        btnMinus.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.btnMinus();
-            }
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+     }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-    }
-
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

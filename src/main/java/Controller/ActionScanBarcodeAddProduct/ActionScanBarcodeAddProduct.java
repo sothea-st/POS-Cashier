@@ -35,7 +35,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           if (barcode.length() == 13) {
 
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
-               System.out.println("data resonse = " + response);
+               
                func(response, jdFormLogin);
           }
      }

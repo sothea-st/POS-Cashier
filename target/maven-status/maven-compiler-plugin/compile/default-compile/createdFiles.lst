@@ -226,6 +226,7 @@ Return\ReturnDialog$3.class
 HoldOrder\HoldItems$3.class
 Receipt\Receipt$3.class
 DeleteAndCancel\CancelDialog$3.class
+Constant\JavaMessage.class
 Discount\OverallDiscount$3.class
 Payment\PaymentOption$7.class
 Components\SubtotalPanel.class

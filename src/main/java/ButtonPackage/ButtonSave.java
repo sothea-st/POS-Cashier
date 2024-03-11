@@ -3,6 +3,7 @@ package ButtonPackage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -48,6 +49,7 @@ public class ButtonSave extends javax.swing.JPanel {
         initComponents();
         setBackground(WindowColor.green);
         btnSave.setFont(WindowFonts.timeNewRomanBold14);
+         JavaConstant.setPointer(btnSave);
     }
 
     //=================================================Create Shadow Box

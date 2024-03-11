@@ -3,6 +3,7 @@ package ButtonPackage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -23,6 +24,7 @@ public class ButtonLogin extends javax.swing.JPanel {
         initComponents();
         setBackground(WindowColor.green);
         btnLogin.setFont(WindowFonts.timeNewRomanBold14);
+         JavaConstant.setPointer(btnLogin);
     }
 
     //=================================================Create Shadow Box
