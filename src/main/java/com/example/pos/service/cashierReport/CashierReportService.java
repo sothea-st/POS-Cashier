@@ -287,17 +287,16 @@ public class CashierReportService {
         // if (amountStr != null)
         // amount = Double.valueOf(amountStr);
 
-        int returnQty = 0;
-        String returnQtyStr = repoSaleDetail.totalReturnQty(userId, JavaConstant.currentDate, posId,
-                JavaConstant.currentDate);
-        if (returnQtyStr != null)
-            returnQty = Integer.valueOf(returnQtyStr);
+        int returnQty = repoSaleDetail.numRetured(userId, JavaConstant.currentDate,posId,JavaConstant.currentDate);
+        // String returnQtyStr = repoSaleDetail.totalReturnQty(userId, JavaConstant.currentDate, posId,
+        //         JavaConstant.currentDate);
+        // if (returnQtyStr != null)
+        //     returnQty = Integer.valueOf(returnQtyStr);
 
-        double returnAmount = 0;
-        String returnAmountStr = repoSaleDetail.totalReturnAmount(userId, JavaConstant.currentDate, posId,
-                JavaConstant.currentDate);
-        if (returnAmountStr != null)
-            returnAmount = Double.valueOf(returnAmountStr);
+        // double returnAmount = 0;
+        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(userId, JavaConstant.currentDate, posId,JavaConstant.currentDate);
+        returnAmountDiscount = returnAmountDiscount == null ? 0 : returnAmountDiscount;
+
 
         int numOfSale = repoSaleDetail.numOfSale(JavaConstant.currentDate, posId, userCode);
         Double totalAmount = repoSaleDetail.totalSaledAmount(JavaConstant.currentDate, posId, userCode);
@@ -305,10 +304,10 @@ public class CashierReportService {
         ArrayList<SummeryCashierReport> summery = new ArrayList<>();
 
         totalAmount = JavaConstant.getTwoPrecision(totalAmount == null ? 0 : totalAmount);
-        returnAmount = JavaConstant.getTwoPrecision(returnAmount);
+        returnAmountDiscount = JavaConstant.getTwoPrecision(returnAmountDiscount);
         amountDiscount = JavaConstant.getTwoPrecision(amountDiscount);
         summery.add(new SummeryCashierReport("Total Sales", numOfSale, BigDecimal.valueOf(totalAmount)));
-        summery.add(new SummeryCashierReport("Total Refund/Return", returnQty, BigDecimal.valueOf(returnAmount)));
+        summery.add(new SummeryCashierReport("Total Refund/Return", returnQty, BigDecimal.valueOf(returnAmountDiscount)));
         summery.add(new SummeryCashierReport("Total Voids", 0, BigDecimal.valueOf(0)));
         summery.add(new SummeryCashierReport("Disounts", qtyDiscount, BigDecimal.valueOf(amountDiscount)));
         map.put("SummerySale", summery);

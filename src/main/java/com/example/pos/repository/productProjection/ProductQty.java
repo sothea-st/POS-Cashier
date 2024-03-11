@@ -1,8 +1,6 @@
 package com.example.pos.repository.productProjection;
 
-import java.math.BigDecimal;
-
-public interface ProductProjection {
+public interface ProductQty {
      int getId();
      int getCat_id();
      int getBrand_id();
@@ -18,5 +16,5 @@ public interface ProductProjection {
      int getDiscount();
      String getCode_out_stock();
      String getCode_expired();
- 
+     int getQty();
 }

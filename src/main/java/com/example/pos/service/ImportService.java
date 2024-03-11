@@ -4,6 +4,8 @@ import com.example.pos.constant.JavaConstant;
 import com.example.pos.entity.Import;
 import com.example.pos.entity.ImportDetail;
 import com.example.pos.entity.Product;
+import com.example.pos.entity.models.ProIdModel;
+import com.example.pos.entity.models.ProductAddRemoveQty;
 import com.example.pos.repository.ImportDetailRepository;
 import com.example.pos.repository.ImportRepository;
 import com.example.pos.repository.ProductRepository;
@@ -25,23 +27,24 @@ public class ImportService {
 
     @Autowired
     private HttpSession session;
-    public void addImport(Import imp ) {
-       
+
+    public void addImport(Import imp) {
+
         Import data = new Import();
 
         int count = repo.countRecord();
         count++;
         String impNo = "";
-        if( count < 10 ) {
-            impNo ="0000"+count;
-        } else if ( count < 100 ) {
-            impNo ="000"+count;
-        } else if ( count < 1000 ) {
-            impNo ="00"+count;
-        } else if ( count < 10000 ) {
-            impNo ="0"+count;
+        if (count < 10) {
+            impNo = "0000" + count;
+        } else if (count < 100) {
+            impNo = "000" + count;
+        } else if (count < 1000) {
+            impNo = "00" + count;
+        } else if (count < 10000) {
+            impNo = "0" + count;
         } else {
-            impNo =""+count;
+            impNo = "" + count;
         }
 
         data.setImpNo(impNo);
@@ -56,21 +59,21 @@ public class ImportService {
 
         List<ImportDetail> listDetail = imp.getDetails();
 
-        for( int i = 0 ; i < listDetail.size(); i++ ) {
+        for (int i = 0; i < listDetail.size(); i++) {
             var value = listDetail.get(i);
             int productId = value.getProductId();
             int qtyNew = value.getQtyNew();
             ImportDetail details = new ImportDetail();
             ImportDetail getImpDetails = repoDetail.getDataImportDetail(productId);
 
-            if( getImpDetails == null ) {
+            if (getImpDetails == null) {
                 details.setQtyOld(qtyNew);
             } else {
                 int qtyOld = getImpDetails.getQtyOld();
                 int qty = qtyOld + qtyNew;
                 details.setQtyOld(qty);
             }
-            
+
             details.setImpId(data.getId());
             details.setProductId(productId);
             details.setQtyNew(qtyNew);
@@ -85,7 +88,30 @@ public class ImportService {
             pp.setProductStatus("In Stock");
             pp.setCost(value.getCost());
             repoProduct.save(pp);
-            
+
         }
     }
+
+    public void updateQty(ProductAddRemoveQty listProId) {
+
+        for (int i = 0; i < listProId.getListProId().size(); i++) {
+            Optional<ImportDetail> impData = repoDetail.findByImpId(listProId.getListProId().get(i).getProId());
+            int id = impData.get().getId();
+            int qty = impData.get().getQtyOld();
+            String _sign = listProId.getListProId().get(i).getSign();
+            if (_sign.equals("add")) {
+                qty++;
+            } else if (_sign.equals("remove")) {
+                qty--;
+            }
+            Optional<ImportDetail> data = repoDetail.findById(id);
+            ImportDetail imp = data.get();
+            imp.setQtyOld(qty);
+            repoDetail.save(imp);
+        }
+
+    }
+
+  
+
 }

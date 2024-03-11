@@ -93,17 +93,36 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "        pos.pos_id = ? and pos.open_date = ?")
         String totalReturnQty(int userId, String date, String posId, String openDate);
 
-        @Query(nativeQuery = true, value = "select sum(prd.return_amount)  from pos_sale ps\r\n" + //
-                        "        inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
-                        "        inner join pos_return_product prp on prp.payment_no = pp.payment_no \r\n" + //
-                        "        inner join pos_return_details prd on prd.return_id = prp.id \r\n" + //
-                        "        inner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
-                        "        where ps.user_id=? and ps.sale_date = ? and pp.is_return = 'returned'\r\n" + //
-                        "        and  pos.pos_id = ? and pos.open_date = ?")
-        String totalReturnAmount(int userId, String date, String posId, String openDate);
+        @Query(nativeQuery = true, value = "select trunc( sum(prd.return_amount*prd.retur_qty) - sum(((prd.return_price *prd.return_discount)/ 100)* prd.retur_qty), 2) as result\r\n" + //
+                                "from pos_sale ps\r\n" + //
+                                "inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
+                                "inner join pos_open_shift pos on pos.pos_id = ps.pos_id\r\n" + //
+                                "inner join pos_return_product prp on prp.payment_no = pp.payment_no\r\n" + //
+                                "inner join pos_return_details prd on prd.return_id = prp.id\r\n" + //
+                                "where ps.user_id = ?\r\n" + //
+                                "and ps.sale_date = ?\r\n" + //
+                                "and pp.is_return = 'returned'\r\n" + //
+                                "and pos.pos_id = ?\r\n" + //
+                                "and pos.open_date = ?;")
+        Double totalReturnAmountDiscount(int userId, String date, String posId, String openDate);
+
 
         // ============================================ new
         // ==============================================
+
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                        "\tcount(pp.*)\r\n" + //
+                        "from\r\n" + //
+                        "\tpos_sale ps             \r\n" + //
+                        "inner join pos_payment pp on\r\n" + //
+                        "\tpp.sale_id = ps.id   \r\n" + //
+                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
+                        "\twhere ps.user_id =?\r\n" + //
+                        "\tand ps.sale_date = ?  \r\n" + //
+                        "\tand pp.is_return = 'returned'\r\n" + //
+                        "\tand pos.pos_id = ?\r\n" + //
+                        "\tand pos.open_date = ?")
+        int numRetured(int userId, String saleDate, String posId, String openDate);
 
         @Query(nativeQuery = true, value = "select count(pp.*)  from pos_payment pp \r\n" + //
                         "inner join pos_sale ps on ps.id = pp.sale_id \r\n" + //
