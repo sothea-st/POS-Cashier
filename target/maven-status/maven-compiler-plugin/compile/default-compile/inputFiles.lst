@@ -10,7 +10,6 @@ D:\POSCASHIER\tt_pos_window\src\main\java\OpenAndCloseShift\CloseShift.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\LabelReceipt.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaConstant.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\PackageProduct\ProductIDModel.java
-D:\POSCASHIER\tt_pos_window\src\main\java\NewCashierReport\CashirReporting.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Category\CategoryModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Sale\PaymentDetailModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\OpenAndCloseShift\OpenShiftJdailog.java
@@ -66,6 +65,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\DefaultPrice\DataModelDefaultPrice.jav
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\ListDetailHold.java
 D:\POSCASHIER\tt_pos_window\src\main\java\NewDiscounts\Discounting.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldeModel.java
+D:\POSCASHIER\tt_pos_window\src\main\java\NewCashierReport\CashierReporting.java
 D:\POSCASHIER\tt_pos_window\src\main\java\PointCustomer\PointCustomer.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\TextField.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\DataHoldOrder.java
@@ -81,6 +81,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Controller\ActionSearchProductControll
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Login\LoginModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Reprint\DataSuccessModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldSuccess.java
+D:\POSCASHIER\tt_pos_window\src\main\java\NewCashierReport\BoxReport.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\ReceiptBox.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaBaseUrl.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Discount\ListProduct.java

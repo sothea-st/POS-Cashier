@@ -43,7 +43,7 @@ public class LabelReceipt extends javax.swing.JPanel {
 
         lbLabel = new javax.swing.JLabel();
 
-        lbLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lbLabel.setForeground(new java.awt.Color(0, 0, 0));
         lbLabel.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
