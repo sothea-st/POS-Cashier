@@ -63,13 +63,14 @@ public class ListHoldOrder extends javax.swing.JDialog {
      
      public void getHoldItem(JPanel panelHold) {
           try {
-               Response response = JavaConnection.get(JavaRoute.holdOrder);
+               Response response = JavaConnection.get(JavaRoute.holdOrder+"?userId="+JavaConstant.cashierId);
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
                     listData = data.getData();
+                  
                     appendValue(listData, panelHold);
                } else {
                     System.err.println("fail loading product");

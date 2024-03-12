@@ -6,17 +6,19 @@ public class ProductSaleModel {
     private int qty;
     private double price;
     private double amount;
-    private int discount;
+    private double discount;
+    private String discountType;
 
     public ProductSaleModel() {
     }
 
-    public ProductSaleModel(int productId, int qty, double price, double amount, int discount) {
+    public ProductSaleModel(int productId, int qty, double price, double amount, double discount, String discountType) {
         this.productId = productId;
         this.qty = qty;
         this.price = price;
         this.amount = amount;
         this.discount = discount;
+        this.discountType = discountType;
     }
 
     public int getProductId() {
@@ -51,12 +53,20 @@ public class ProductSaleModel {
         this.amount = amount;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
     }
     
     

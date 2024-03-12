@@ -3,6 +3,7 @@ package Components;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -89,6 +90,7 @@ public class SearchField extends javax.swing.JPanel {
           initComponents();
           setBackground(WindowColor.white);
           textSearch.setFont(WindowFonts.timeNewRoman14);
+          JavaConstant.setPointer(textSearch);
      }
 
      public void disabledTextField(boolean value) {

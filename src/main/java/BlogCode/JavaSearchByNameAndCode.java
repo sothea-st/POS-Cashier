@@ -1,0 +1,88 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package BlogCode;
+
+import Color.WindowColor;
+import Components.JavaAlertMessage;
+import Components.SearchField;
+import Components.TextField;
+import Constant.JavaConstant;
+import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
+import Controller.ActionSearchProductController.ActionSearchProduct;
+import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
+import java.awt.Component;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class JavaSearchByNameAndCode {
+
+     public static void searchProduct(JPanel panelProduct ,SearchField searchBox ,JPanel panelPagination ,LoginFormJdailog jdFormLogin ,JPanel category ) {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                   String valueSearch = searchBox.getValueTextSearch();
+
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    if (JavaConstant.token != null) {
+
+                         if (valueSearch.isEmpty()) {
+                              panelProduct.removeAll();
+                              panelProduct.revalidate();
+                              panelProduct.repaint();
+                              return;
+                         }
+
+                         if (JavaConstant.checkOpenShift) {
+                              ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct);
+                              panelPagination.setVisible(false);
+
+                              // each time search product by barcode or name category will remove bg color 
+                              if (jdFormLogin.getCatName() != null) {
+                                   Component[] listCom = category.getComponents();
+                                   int index = Integer.parseInt(jdFormLogin.getCatName());
+                                   listCom[index].setBackground(WindowColor.darkGreen);
+                              }
+
+                         } else {
+                              j.setMessage(JavaConstant.openShiftFirst);
+                              j.setVisible(true);
+                         }
+                    } else {
+                         j.setMessage(MessageAlert.Message.OverallMessage);
+                         j.setVisible(true);
+                    }
+               }
+          };
+          searchBox.initEvent(event);
+     }
+
+     
+     public static void scanProduct(TextField textField,LoginFormJdailog jdFormLogin){
+          ButtonEvent eventData = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    String barcode = textField.getValueTextField();
+
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    if (JavaConstant.token != null) {
+                         if (barcode.length() == 13) {
+                              if (JavaConstant.checkOpenShift) {
+                                   new ActionScanBarcodeAddProduct().scanBarcode(barcode, jdFormLogin);
+                                   textField.setValueTextField("");
+                              } else {
+                                   j.setMessage(JavaConstant.openShiftFirst);
+                                   j.setVisible(true);
+                              }
+                         }
+                    } else {
+                         j.setMessage(MessageAlert.Message.OverallMessage);
+                         j.setVisible(true);
+                    }
+               }
+          };
+          textField.initEvent(eventData);
+     }
+}

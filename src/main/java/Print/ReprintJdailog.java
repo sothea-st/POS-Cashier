@@ -137,7 +137,7 @@ public class ReprintJdailog extends javax.swing.JDialog {
          if (typeForm.equals("reprint")) {
                 // for reprint function
               Receipt rec = new Receipt(new JFrame(), true);
-              Response response = JavaConnection.get(JavaRoute.reprintByLast + JavaConstant.cashierId);
+              Response response = JavaConnection.get(JavaRoute.reprintByLast + "?userId="+JavaConstant.cashierId);
 
               this.dispose();
               if (response.isSuccessful()) {

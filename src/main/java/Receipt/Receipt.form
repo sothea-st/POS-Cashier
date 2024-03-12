@@ -933,7 +933,7 @@
                       <Color blue="38" green="38" red="38" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="text" type="java.lang.String" value="$-"/>
+                    <Property name="text" type="java.lang.String" value="- $"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel31">
@@ -1035,7 +1035,7 @@
                       <Color blue="38" green="38" red="38" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="text" type="java.lang.String" value="$-"/>
+                    <Property name="text" type="java.lang.String" value="- $"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="receiveKhr">
@@ -1047,7 +1047,7 @@
                       <Color blue="38" green="38" red="38" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="text" type="java.lang.String" value="2000"/>
+                    <Property name="text" type="java.lang.String" value="-"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel34">
@@ -1081,7 +1081,7 @@
                       <Color blue="38" green="38" red="38" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="text" type="java.lang.String" value="$-"/>
+                    <Property name="text" type="java.lang.String" value="- $"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="changeKhr">
@@ -1093,7 +1093,7 @@
                       <Color blue="38" green="38" red="38" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="text" type="java.lang.String" value="2000"/>
+                    <Property name="text" type="java.lang.String" value="-"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel1">
@@ -1163,7 +1163,7 @@
                       <Color blue="38" green="38" red="38" type="rgb"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="11"/>
-                    <Property name="text" type="java.lang.String" value="$-"/>
+                    <Property name="text" type="java.lang.String" value="- $"/>
                   </Properties>
                 </Component>
               </SubComponents>

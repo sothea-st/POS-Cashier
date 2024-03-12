@@ -4,6 +4,7 @@ package Components;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -46,6 +47,7 @@ public class LabelFontBlack extends javax.swing.JPanel {
         setBackground(WindowColor.mediumGreen);
         lbLabel.setFont(WindowFonts.timeNewRomanBold14);
         lbLabel.setForeground(WindowColor.black);
+         JavaConstant.setPointer(lbLabel);
     }
     
     //=================================================Create Shadow Box

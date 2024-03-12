@@ -1,77 +1,52 @@
 package View.MainPage;
 
+import BlogCode.ActionCloseShift;
+import BlogCode.JavaActionAddHold;
+import BlogCode.JavaActionDiscount;
+import BlogCode.JavaBlogImage;
+import BlogCode.JavaEventNextPrevious;
+import BlogCode.JavaExistScreen;
+import BlogCode.JavaSearchByNameAndCode;
+import BlogCode.ResponsiveSize;
 import Color.WindowColor;
 import Components.BackgroundImage;
-import Components.BoxItem;
-import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Controller.ActionProduct.ActionProduct;
-import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
-import Controller.ActionSearchProductController.ActionSearchProduct;
-import Customer.Customer;
-import Customer.CustomerFunction;
+import CustomeUI.CustomScrollBarUI;
 import Customer.JdailogCustomer;
 import DefaultPrice.DataModelDefaultPrice;
 import DeleteAndCancel.CancelDialog;
-import Discount.DiscountType;
-import Discount.OverallDiscount;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
-import HoldOrder.HoldeModel;
 import HoldOrder.ListHoldOrder;
 import LoginAndLogoutForm.LoginFormJdailog;
 import LoginAndLogoutForm.LogoutDialog;
-import Model.CashierReport.DataSuccessModelReport;
-import Model.ProductModel.ProductDataModel;
-import Model.ProductModel.ProductSuccessData;
-import NewDiscounts.Discounting;
-import OpenAndCloseShift.CloseShift;
+import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
-import Receipt.CashierReport;
 import Return.ApprovalCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.Timer;
-import javax.swing.UIManager;
 import okhttp3.Response;
 import org.json.JSONObject;
 
 public class MainPage extends javax.swing.JFrame {
 
-     private Color bgColor = new Color(204, 204, 204);
      private Color activeColor = new Color(56, 56, 56);
      private JPanel detailProduct;
-     private String valueSearch;
      private int limit = 10;
-
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
-
-     private Timer timer;
+ 
+     public static boolean isFullScreen = false;
 
      public MainPage() {
           initComponents();
-          event();
-          setBackground();
-          currenDateTime();
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -83,292 +58,36 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneCategory.setVisible(false);
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();
-          eventSearchProduct();
-          eventInputOrScanBarcode();
-          nextEvent();
-          previousEvent();
-          getLogo();
-          getUserIcon();
-          existFun();
-          setIconImage(new ImageIcon(bg).getImage());
+          groupEvent();
+          getImage();
+          JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-//          setExtendedState(JFrame.MAXIMIZED_BOTH);
+          // setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
-          resizeEvent();
-          getShoppingImage();
-//           
+
           searchBox.disabledTextField(false);
           textField.disabledTextField(false);
-          JavaConstant.setPointer(panelCart);
+          // custome scrollbar ui
+          jScrollPane2.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane2.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30); 
+          verticalScrollBar.setBlockIncrement(35); 
+          
+          // for resize screen
+          new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
+       
      }
 
-     public static boolean isFullScreen = false;
-
-     public void resizeEvent() {
-          // delay 250 for loading 
-          timer = new Timer(250, new ActionListener() {
-               @Override
-               public void actionPerformed(ActionEvent e) {
-
-                    Dimension size = getSize();
-                    int width = size.width;
-
-                    if (width > 1900) {
-                         if ((getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
-                              isFullScreen = true;
-                         }
-                         ActionProduct.marginRight = 15;
-                         if (jdFormLogin.getCatId() != 0) {
-                              resizeWithData(7);
-                         } else {
-                              if (JavaConstant.checkOpenShift) {
-                                   resizeWithData(7);
-                              }
-                         }
-
-                    } else if (width > 1680) {
-                         ActionProduct.marginRight = 15;
-                         resizeWithData(6);
-                    } else if (width <= 1491) {
-                         JOptionPane.showMessageDialog(null, "There are limited for resizing!");
-                         setSize(1491, 907);
-                         ActionProduct.marginRight = 5;
-                         resizeWithData(5);
-                    } else {
-                         ActionProduct.marginRight = 15;
-//                         setSize(1499, 907);
-                         if (jdFormLogin.getCatId() != 0) {
-                              resizeWithData(5);
-                         } else {
-                              if (JavaConstant.checkOpenShift) {
-                                   resizeWithData(5);
-                              }
-                         }
-                         isFullScreen = false;
-                    }
-               }
-          });
-          timer.setRepeats(false); // Only fire once
-          addComponentListener(new ComponentAdapter() {
-               @Override
-               public void componentResized(ComponentEvent e) {
-                    timer.restart();
-               }
-          });
-     }
-
-     public void resizeWithData(int num) {
-          ActionProduct a = new ActionProduct();
-          a.setDetailItem(detailItem);
-          a.setSubtotalPanel(totalPanel);
-          a.setBtnPayment(btnPayment);
-          a.setBtnCancel(btnCancel);
-          a.setButtonHoldOrder(buttonHoldOrder);
-          JavaConstant.rowNum = num;
-          panelProduct.removeAll();
-          if (jdFormLogin.getCatId() == 0) {
-               a.getAllProduct(panelProduct);
-          } else {
-               a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
-          }
-          panelProduct.revalidate();
-          panelProduct.repaint();
-     }
-
-     void existFun() {
-          UIManager UI = new UIManager();
-          UI.put("OptionPane.background", WindowColor.mediumGreen);
-          UI.put("Panel.background", WindowColor.mediumGreen);
-          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
-          addWindowListener(new WindowAdapter() {
-               public void windowClosing(WindowEvent evt) {
-                    int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
-                         "Exit?", JOptionPane.YES_NO_OPTION);
-                    if (resp == JOptionPane.YES_OPTION) {
-                         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    } else {
-                         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                    }
-               }
-          });
-     }
-     byte[] bg = null;
-
-     void getLogo() {
-          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "King Mart Small Logo.png");
-          if (response.isSuccessful()) {
-               try {
-                    bg = response.body().bytes();
-                    lbLogo.setIcon(new ImageIcon(bg));
-               } catch (Exception e) {
-                    System.err.println("error = " + e);
-               }
-          }
-     }
-
-     void getUserIcon() {
-          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "UserIcon.png");
-          if (response.isSuccessful()) {
-               try {
-                    byte[] bg = response.body().bytes();
-                    imgUser.setIcon(new ImageIcon(bg));
-               } catch (Exception e) {
-                    System.err.println("error = " + e);
-               }
-          }
-     }
-
-     void getShoppingImage() {
-          Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + "shopping-cart.png");
-          if (response.isSuccessful()) {
-               try {
-                    byte[] bg = response.body().bytes();
-                    imageShopping.setIcon(new ImageIcon(bg));
-               } catch (Exception e) {
-                    System.err.println("error = " + e);
-               }
-          }
-     }
-
-     private void nextEvent() {
-
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick() {
-
-                    int count = jdFormLogin.getCount();
-                    if (limit < count) {
-                         limit += 10;
-                    }
-                    if (jdFormLogin.getBrandId() == 0) {
-                         try {
-                              Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + limit + "");
-                              if (response.isSuccessful()) {
-                                   String responseData = response.body().string();
-                                   ObjectMapper objMap = new ObjectMapper();
-                                   ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class
-                                   );
-                                   ProductDataModel[] listData = data.getData();
-                                   jdFormLogin.assignProduct(listData);
-                              } else {
-                                   System.err.println("fail loading product");
-                              }
-                         } catch (Exception e) {
-                              System.err.println("error getting product " + e);
-                         }
-                    } else {
-                         jdFormLogin.getProductByBrandID("" + jdFormLogin.getBrandId(), limit);
-                    }
-               }
-          };
-          next.initEvent(event);
-     }
-
-     private void previousEvent() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick() {
-                    if (limit != 10) {
-                         limit -= 10;
-                    }
-
-                    if (jdFormLogin.getBrandId() == 0) {
-                         if (limit != 0) {
-                              try {
-                                   Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + limit + "");
-                                   if (response.isSuccessful()) {
-                                        String responseData = response.body().string();
-                                        ObjectMapper objMap = new ObjectMapper();
-                                        ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class
-                                        );
-                                        ProductDataModel[] listData = data.getData();
-                                        jdFormLogin.assignProduct(listData);
-                                   } else {
-                                        System.err.println("fail loading product");
-                                   }
-                              } catch (Exception e) {
-                                   System.err.println("error getting product " + e);
-                              }
-                         }
-                    } else {
-                         jdFormLogin.getProductByBrandID("" + jdFormLogin.getBrandId(), limit);
-                    }
-
-               }
-          };
-          previous.initEvent(event);
-     }
-
-     private void eventInputOrScanBarcode() {
-          // this event was called when user type on textField 
-          ButtonEvent eventData = new ButtonEvent() {
-               @Override
-               public void onKeyRelease() {
-                    String barcode = textField.getValueTextField();
-
-                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                    if (JavaConstant.token != null) {
-                         if (barcode.length() == 13) {
-                              if (JavaConstant.checkOpenShift) {
-                                   new ActionScanBarcodeAddProduct().scanBarcode(barcode, jdFormLogin);
-                                   textField.setValueTextField("");
-                              } else {
-                                   j.setMessage(JavaConstant.openShiftFirst);
-                                   j.setVisible(true);
-                              }
-                         }
-                    } else {
-                         j.setMessage(MessageAlert.Message.OverallMessage);
-                         j.setVisible(true);
-                    }
-               }
-          };
-          textField.initEvent(eventData);
-     }
-
-     private void eventSearchProduct() {
-          // this event was called when user type on searchTextField 
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
-                    valueSearch = searchBox.getValueTextSearch();
-
-                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                    if (JavaConstant.token != null) {
-
-                         if (valueSearch.isEmpty()) {
-                              panelProduct.removeAll();
-                              panelProduct.revalidate();
-                              panelProduct.repaint();
-                              return;
-                         }
-
-                         if (JavaConstant.checkOpenShift) {
-                              ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct);
-                              panelPagination.setVisible(false);
-
-                              // each time search product by barcode or name category will remove bg color 
-                              if (jdFormLogin.getCatName() != null) {
-                                   Component[] listCom = category.getComponents();
-                                   int index = Integer.parseInt(jdFormLogin.getCatName());
-                                   listCom[index].setBackground(WindowColor.darkGreen);
-                              }
-
-                         } else {
-                              j.setMessage(JavaConstant.openShiftFirst);
-                              j.setVisible(true);
-                         }
-                    } else {
-                         j.setMessage(MessageAlert.Message.OverallMessage);
-                         j.setVisible(true);
-                    }
-               }
-          };
-          searchBox.initEvent(event);
-     }
-
-     private void setBackground() {
+ 
+     void getImage() {
+          // get image from api
+          setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
+          lbLogo.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")));
+          imgUser.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
+          imageShopping.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "shopping-cart.png")));
+          // set background color 
           mainPanel.setBackground(WindowColor.slightGreen);
           panelCategory.setBackground(WindowColor.darkGreen);
           category.setBackground(WindowColor.darkGreen);
@@ -381,13 +100,23 @@ public class MainPage extends javax.swing.JFrame {
           boxOne.setBackground(WindowColor.slightGreen);
           detailItem.setBackground(WindowColor.slightGreen);
           panelCart.setBackground(WindowColor.darkGreen);
-
      }
 
-     private void currenDateTime() {
-          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy hh:mm:ss a");
-          LocalDateTime date = LocalDateTime.now();
-          currentDate.setText(dtf.format(date));
+     private void groupEvent() {
+          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin);  // pagination next
+          JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin);  // pagination previous
+          JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
+          JavaSearchByNameAndCode.scanProduct(textField, jdFormLogin); // function scan barcode or input barcode
+          
+          // this event for place holder
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          searchBox.initEvent(btnevent);
+          textField.initEvent(btnevent);
      }
 
      @SuppressWarnings("unchecked")
@@ -773,9 +502,12 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(mainPanelLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(jScrollPane2)
-                         .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(21, 21, 21)
+                         .addGroup(mainPanelLayout.createSequentialGroup()
+                              .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addGap(21, 21, 21))
+                         .addGroup(mainPanelLayout.createSequentialGroup()
+                              .addComponent(jScrollPane2)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(mainPanelLayout.createSequentialGroup()
@@ -897,11 +629,6 @@ public class MainPage extends javax.swing.JFrame {
          String buttonName = btnOpenShift.getButtonName().toLowerCase();
          if (JavaConstant.token != null) {
               if (buttonName.equals("open shift")) {
-             
-//                   if( btnOpenShift.getBackground() == WindowColor.lightGray ) {
-//                        return;
-//                   }
-                   
                    OpenShiftJdailog jdOpenShift = new OpenShiftJdailog(new JFrame(), true, btnOpenShift);
                    try {
                         Response response = JavaConnection.get(JavaRoute.getDefaultPrice);
@@ -934,34 +661,14 @@ public class MainPage extends javax.swing.JFrame {
                    jdOpenShift.setVisible(true);
 
               } else if (buttonName.equals("close shift")) {
-
-                   Component[] listCom1 = detailItem.getComponents();
-                   JavaAlertMessage j = new JavaAlertMessage(this, true);
-                   if (listCom1.length != 0) {
-                        j.setMessage("You have to remove the produt that has been bought or do the payment first!");
-                        j.setVisible(true);
-                        return;
-                   }
-
-                   if (!JavaConstant.listHoldOrder.isEmpty()) {
-                        j.setMessage("There are any trancsactions not yet completed in Hold function!");
-                        j.setVisible(true);
-                        return;
-                   }
-
-                   CloseShift close = new CloseShift(new JFrame(), true, btnOpenShift);
-                   close.setPanelProduct(panelProduct);
-                   close.setPanelPagination(panelPagination);
-                   close.setSearchBox(searchBox);
-                   close.setTextField(textField);
-                   close.setCategory(category);
-                   close.setButtonCustomer(buttonCustomer);
-                   close.setButtonDiscount(buttonDiscount);
-                   close.setBtnReprint(btnReprint);
-                   close.setBtnreturn(btnReturn);
-                   close.setButtonCashier(buttonCashier);
-                   close.setVisible(true);
-
+                   ActionCloseShift.closeShift(
+                        detailItem, panelProduct,
+                        panelPagination, category,
+                        searchBox, textField,
+                        btnOpenShift, buttonCustomer,
+                        buttonDiscount, btnReprint,
+                        btnReturn, buttonCashier
+                   );
               }
          }
     }//GEN-LAST:event_btnOpenShiftMouseClicked
@@ -1047,33 +754,38 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Report Cashier
      public void reportCashier() {
-          if (JavaConstant.token != null) {
+//          if (JavaConstant.token != null) {
+//
+//               try {
+//                    CashierReport cashier = new CashierReport(new JFrame(), true);
+//                    Response response = JavaConnection.get(
+//                         JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+//                    if (response.isSuccessful()) {
+//                         String myObject = response.body().string();
+//                         ObjectMapper objMap = new ObjectMapper();
+//                         DataSuccessModelReport d = objMap.readValue(myObject, DataSuccessModelReport.class
+//                         );
+//                         cashier.setDataSuccessReport(d);
+//                         cashier.setVisible(true);
+//                    }
+//               } catch (Exception e) {
+//                    System.err.println("error = " + e);
+//               }
+//          }
 
-               try {
-                    CashierReport cashier = new CashierReport(new JFrame(), true);
-                    Response response = JavaConnection.get(
-                         JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-                    if (response.isSuccessful()) {
-                         String myObject = response.body().string();
-                         ObjectMapper objMap = new ObjectMapper();
-                         DataSuccessModelReport d = objMap.readValue(myObject, DataSuccessModelReport.class
-                         );
-                         cashier.setDataSuccessReport(d);
-                         cashier.setVisible(true);
-                    }
-               } catch (Exception e) {
-                    System.err.println("error = " + e);
-               }
-          }
+          CashierReporting cashier = new CashierReporting(new JFrame(), true);
+          cashier.setVisible(true);
+
      }
 
      public int countHold() {
           int countH = 0;
-          Response responseGet = JavaConnection.get(JavaRoute.holdOrder);
+          Response responseGet = JavaConnection.get(JavaRoute.holdOrder+"?userId=8");
           try {
                String dataJson = responseGet.body().string();
                JSONObject jSONObject = new JSONObject(dataJson);
                countH = jSONObject.getInt("count");
+          
           } catch (Exception e) {
           }
 
@@ -1082,71 +794,14 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
-
           if (JavaConstant.token != null) {
                Component[] listCom1 = detailItem.getComponents();
                if (listCom1.length != 0) {
-                    btnPayment.setBackground(WindowColor.lightGray);
-                    buttonHoldOrder.setBackground(WindowColor.lightGray);
-                    btnCancel.setBackground(WindowColor.lightGray);
-
-                    Component[] listHold = detailItem.getComponents();
-                    ArrayList<HoldeModel> holdModel = new ArrayList<>();
-
-                    int qty = 0;
-                    for (int i = 0; i < listHold.length; i++) {
-                         var box = ((BoxItem) listHold[i]);
-                         qty += box.getQty();
-                         HoldeModel h = new HoldeModel(box.getProductId(), box.getQty());
-                         holdModel.add(h);
-                    }
-
-                    JSONObject json = new JSONObject();
-                    json.put("note", "");
-                    json.put("qtyHole", qty);
-                    json.put("createBy", JavaConstant.cashierId);
-                    json.put("listHoldDetail", holdModel);
-
-//                    clicked++;
-//                    NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
-//                    JavaConstant.listHoldOrder.add(hh);
-//
-//                    int countRow = JavaConstant.listHoldOrder.size();
-//                    countCircleShape.setCountTimes("" + countRow);
-                    try {
-                         Response response = JavaConnection.post(JavaRoute.holdOrder, json);
-
-                         if (response.isSuccessful()) {
-
-//                              Response responseGet = JavaConnection.get(JavaRoute.holdOrder);
-//                              String dataJson = responseGet.body().string();
-//                              JSONObject jSONObject = new JSONObject(dataJson);
-//                              int count = jSONObject.getInt("count");
-                              countCircleShape.setCountTimes("" + countHold());
-                              clear();
-
-                         } else {
-                              UIManager UI = new UIManager();
-                              UI.put("OptionPane.background", WindowColor.mediumGreen);
-                              UI.put("Panel.background", WindowColor.mediumGreen);
-                              UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-                              JOptionPane.showMessageDialog(null, "Caannot Add Hold Order!");
-
-                         }
-
-                    } catch (Exception e) {
-
-                    }
+                    JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnPayment, totalPanel, countCircleShape);
                }
           }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
-     void clear() {
-          detailItem.removeAll();
-          detailItem.revalidate();
-          detailItem.repaint();
-          totalPanel.setLabelSubTitleToZero();
-     }
      private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
 
      }//GEN-LAST:event_btnLoginMouseEntered
@@ -1168,32 +823,7 @@ public class MainPage extends javax.swing.JFrame {
 //        }
           if (JavaConstant.token != null) {
                if (JavaConstant.checkOpenShift) {
-                    Component[] listCom1 = detailItem.getComponents();
-                    double sumDiscount = 0;
-                    if (listCom1.length != 0) {
-
-                         for (int i = 0; i < listCom1.length; i++) {
-                              var obj = ((BoxItem) listCom1[i]);
-                              sumDiscount += JavaConstant.getReplace(obj.getDiscountAmount());
-                         }
-
-                         if (sumDiscount <= 0) {
-                              Discounting dis = new Discounting(new JFrame(), true);
-                              dis.setTotalPanel(totalPanel);
-                              dis.setDetailItem(detailItem);
-                              dis.setVisible(true);
-                         } else if (JavaConstant.discountAmount <= 0) {
-                              Discounting dis = new Discounting(new JFrame(), true);
-                              dis.setTotalPanel(totalPanel);
-                              dis.setDetailItem(detailItem);
-                              dis.setVisible(true);
-                         } else {
-                              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                              j.setMessage("Cannot process this function!");
-                              j.setVisible(true);
-                              return;
-                         }
-                    }
+                    JavaActionDiscount.discount(detailItem, totalPanel);
                }
           }
      }//GEN-LAST:event_buttonDiscountMouseClicked
@@ -1202,9 +832,6 @@ public class MainPage extends javax.swing.JFrame {
     private void buttonCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCustomerMouseClicked
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
-//                   Customer cust = new Customer(new JFrame(), true);
-//                   cust.setVisible(true);
-
                    JdailogCustomer cus = new JdailogCustomer(new JFrame(), true);
                    cus.setVisible(true);
               }
@@ -1231,18 +858,6 @@ public class MainPage extends javax.swing.JFrame {
           // TODO add your handling code here:
      }//GEN-LAST:event_btnPaymentMouseEntered
 
-     //Function call Placeholder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
-
-               }
-          };
-          searchBox.initEvent(btnevent);
-          textField.initEvent(btnevent);
-     }
-
      public JPanel getDetailProduct() {
           return detailProduct;
      }
@@ -1259,43 +874,7 @@ public class MainPage extends javax.swing.JFrame {
           this.activeColor = activeColor;
      }
 
-     /**
-      * @param args the command line
-      * arguments
-      */
      public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(MainPage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(MainPage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(MainPage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(MainPage.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
-
-          /* Create and display the form */
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     MainPage obj = new MainPage();

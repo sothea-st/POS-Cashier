@@ -170,7 +170,8 @@ public class ActionProduct {
                          }
                          qty--;
                          product.setQty("" + qty);
-
+                         JavaConstant.productQTyLeft = qty;
+                         
                          //===================================
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {

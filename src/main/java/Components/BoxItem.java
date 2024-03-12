@@ -27,6 +27,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import okhttp3.Response;
 
@@ -238,6 +239,24 @@ public class BoxItem extends javax.swing.JPanel {
           this.buttonHoldOrder = buttonHoldOrder;
      }
 
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
+    }
+
+    public double getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(double discountValue) {
+        this.discountValue = discountValue;
+    }
+     
+     
+     
      /**
       * Creates new form BoxItem
       */
@@ -263,6 +282,9 @@ public class BoxItem extends javax.swing.JPanel {
      private Button.Button btnPayment;
      private ButtonPackage.ButtonCancel btnCancel;
      private Button.Button buttonHoldOrder;
+     private String discountType;
+     private double discountValue;
+     
 
      public BoxItem() {
           initComponents();
@@ -299,6 +321,10 @@ public class BoxItem extends javax.swing.JPanel {
 
           boxDiscount.setVisible(false);
           getImageBtnDelete();
+               
+          
+          JavaConstant.setPointer(btnDelete);
+          
      }
 
      void getImageBtnDelete() {
