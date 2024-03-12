@@ -8,21 +8,21 @@ public class Data {
     private String companyLogo;
     private String companyName;
     private long totalWithdrawal;
-    private SummaryVat[] summeryVat;
+    private SummeryVat[] summeryVat;
     private String userName;
-    private DiscountSummary discountSummery;
+    private DiscountSummery discountSummery;
     private String closeDate;
     private String posID;
     private long openCashUsd;
     private String paymentNoLast;
     private double cashierTotal;
-    private SummarySale[] summeryPayemnt;
+    private SummerySale[] summeryPayemnt;
     private String companyAddress;
-    private SummarySale[] summerySale;
+    private SummerySale[] summerySale;
     private String companyContact;
     private String openDate;
     private long closeCash;
-    private SummaryVat[] summeryAllProVat;
+    private SummeryVat[] summeryAllProVat;
 
     @JsonProperty("openCashKhr")
     public long getOpenCashKhr() { return openCashKhr; }
@@ -50,9 +50,9 @@ public class Data {
     public void setTotalWithdrawal(long value) { this.totalWithdrawal = value; }
 
     @JsonProperty("SummeryVat")
-    public SummaryVat[] getSummeryVat() { return summeryVat; }
+    public SummeryVat[] getSummeryVat() { return summeryVat; }
     @JsonProperty("SummeryVat")
-    public void setSummeryVat(SummaryVat[] value) { this.summeryVat = value; }
+    public void setSummeryVat(SummeryVat[] value) { this.summeryVat = value; }
 
     @JsonProperty("userName")
     public String getUserName() { return userName; }
@@ -60,9 +60,9 @@ public class Data {
     public void setUserName(String value) { this.userName = value; }
 
     @JsonProperty("discountSummery")
-    public DiscountSummary getDiscountSummery() { return discountSummery; }
+    public DiscountSummery getDiscountSummery() { return discountSummery; }
     @JsonProperty("discountSummery")
-    public void setDiscountSummery(DiscountSummary value) { this.discountSummery = value; }
+    public void setDiscountSummery(DiscountSummery value) { this.discountSummery = value; }
 
     @JsonProperty("closeDate")
     public String getCloseDate() { return closeDate; }
@@ -90,9 +90,9 @@ public class Data {
     public void setCashierTotal(double value) { this.cashierTotal = value; }
 
     @JsonProperty("summeryPayemnt")
-    public SummarySale[] getSummeryPayemnt() { return summeryPayemnt; }
+    public SummerySale[] getSummeryPayemnt() { return summeryPayemnt; }
     @JsonProperty("summeryPayemnt")
-    public void setSummeryPayemnt(SummarySale[] value) { this.summeryPayemnt = value; }
+    public void setSummeryPayemnt(SummerySale[] value) { this.summeryPayemnt = value; }
 
     @JsonProperty("companyAddress")
     public String getCompanyAddress() { return companyAddress; }
@@ -100,9 +100,9 @@ public class Data {
     public void setCompanyAddress(String value) { this.companyAddress = value; }
 
     @JsonProperty("SummerySale")
-    public SummarySale[] getSummerySale() { return summerySale; }
+    public SummerySale[] getSummerySale() { return summerySale; }
     @JsonProperty("SummerySale")
-    public void setSummerySale(SummarySale[] value) { this.summerySale = value; }
+    public void setSummerySale(SummerySale[] value) { this.summerySale = value; }
 
     @JsonProperty("companyContact")
     public String getCompanyContact() { return companyContact; }
@@ -120,7 +120,7 @@ public class Data {
     public void setCloseCash(long value) { this.closeCash = value; }
 
     @JsonProperty("SummeryAllProVat")
-    public SummaryVat[] getSummeryAllProVat() { return summeryAllProVat; }
+    public SummeryVat[] getSummeryAllProVat() { return summeryAllProVat; }
     @JsonProperty("SummeryAllProVat")
-    public void setSummeryAllProVat(SummaryVat[] value) { this.summeryAllProVat = value; }
+    public void setSummeryAllProVat(SummeryVat[] value) { this.summeryAllProVat = value; }
 }

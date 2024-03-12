@@ -26,6 +26,7 @@ import LoginAndLogoutForm.LogoutDialog;
 import Model.CashierReport.DataSuccessModelReport;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+import Model.Report.DataSuccessCashierReport;
 import NewCashierReport.CashierReporting;
 import NewDiscounts.Discounting;
 import OpenAndCloseShift.CloseShift;
@@ -1058,8 +1059,23 @@ public class MainPage extends javax.swing.JFrame {
 //               }
 //          }
           
-           CashierReporting cashier = new CashierReporting(new JFrame(), true);
-           cashier.setVisible(true);
+           
+            try {
+                CashierReporting cashier = new CashierReporting(new JFrame(), true);
+//                Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+                Response response = JavaConnection.get(JavaRoute.cashierReport + "0005&userId=8&posId=01");
+                System.out.println("response :" + response);
+                if (response.isSuccessful()) {
+                     String myObject = response.body().string();
+                     ObjectMapper objMap = new ObjectMapper();
+                     DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
+                     );
+                     cashier.setGetData(d);
+                     cashier.setVisible(true);
+                }
+            } catch (Exception e) {
+                System.err.println("error = " + e);
+            }
           
      }
 
@@ -1103,21 +1119,10 @@ public class MainPage extends javax.swing.JFrame {
                     json.put("createBy", JavaConstant.cashierId);
                     json.put("listHoldDetail", holdModel);
 
-//                    clicked++;
-//                    NewHoldOrderModel hh = new NewHoldOrderModel(clicked, qty, listHold);
-//                    JavaConstant.listHoldOrder.add(hh);
-//
-//                    int countRow = JavaConstant.listHoldOrder.size();
-//                    countCircleShape.setCountTimes("" + countRow);
                     try {
                          Response response = JavaConnection.post(JavaRoute.holdOrder, json);
 
                          if (response.isSuccessful()) {
-
-//                              Response responseGet = JavaConnection.get(JavaRoute.holdOrder);
-//                              String dataJson = responseGet.body().string();
-//                              JSONObject jSONObject = new JSONObject(dataJson);
-//                              int count = jSONObject.getInt("count");
                               countCircleShape.setCountTimes("" + countHold());
                               clear();
 

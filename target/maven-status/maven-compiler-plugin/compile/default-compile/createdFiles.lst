@@ -1,6 +1,7 @@
 Controller\ReceiptController.class
 Discount\ListProduct$2.class
 Payment\PaymentOption$1.class
+Model\Report\Data.class
 NewDiscounts\Discounting$1.class
 Customer\JdailogCustomer$2.class
 SwitchButton\SwitchButton$1.class
@@ -84,6 +85,7 @@ Discount\DiscountByItem$4$1.class
 Components\TextField$4.class
 Receipt\CashierReport$3.class
 Discount\OverallDiscount$5$1.class
+Model\Report\DataSuccessCashierReport.class
 com\mycompany\kingmart\KingMart.class
 DeleteAndCancel\DeleteDialog$4.class
 Payment\PaymentOption.class
@@ -123,6 +125,7 @@ HoldOrder\ListHoldOrder.class
 NewDiscounts\Discounting$17.class
 DeleteAndCancel\CancelDialog.class
 Model\Sale\PaymentDetailModel.class
+Model\Report\Cash.class
 Components\ComboBox.class
 Receipt\CashierReport$4$1.class
 OpenAndCloseShift\CloseShift$4.class
@@ -222,6 +225,7 @@ Constant\JavaBaseUrl.class
 Model\CashierReport\Data.class
 OpenAndCloseShift\OpenShiftJdailog$2.class
 Constant\JavaRoute.class
+Model\Report\SummeryVat.class
 Controller\ActionRequestBrand\ActionRequestBrand.class
 Return\ReturnDialog$3.class
 HoldOrder\HoldItems$3.class
@@ -249,6 +253,7 @@ Components\Shadow\ShadowRenderer.class
 Components\ReportBox.class
 Components\HistoryHoldOrder$2.class
 Payment\PaymentOption$20.class
+Model\Report\DiscountSummery.class
 Components\LabelTitle.class
 NewDiscounts\Discounting$2.class
 Payment\PaymentOption$2.class
@@ -301,6 +306,7 @@ LoginAndLogoutForm\LogoutDialog$4.class
 Return\ReturnDialog$1.class
 Components\TextFieldCenter$3.class
 OpenAndCloseShift\CloseShift$4$1.class
+Model\Report\SummerySale.class
 Constant\JavaConnection.class
 Components\Label.class
 Components\PasswordField$3.class

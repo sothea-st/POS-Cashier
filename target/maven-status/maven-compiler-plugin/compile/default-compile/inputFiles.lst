@@ -1,3 +1,4 @@
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\DataSuccessCashierReport.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaRoundUpKhr.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Button\ButtonBuy.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldDataSuccessModel.java
@@ -39,6 +40,8 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaConnection.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Button\ButtonInstock.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\JavaAlertMessage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Brand\BrandSuccessModel.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\Data.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\DiscountSummery.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Print\ReprintJdailog.java
 D:\POSCASHIER\tt_pos_window\src\main\java\View\MainPage\PrinterService.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Customer\JdailogCustomer.java
@@ -60,6 +63,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\ResultHoldSucce
 D:\POSCASHIER\tt_pos_window\src\main\java\Combobox\ComboItem.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\Shadow\GraphicsUtilities.java
 D:\POSCASHIER\tt_pos_window\src\main\java\SwitchButton\SwitchButton.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\Cash.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Sale\CustomerModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\DefaultPrice\DataModelDefaultPrice.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\ListDetailHold.java
@@ -125,6 +129,8 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Model\PackageProduct\CategoryModel.jav
 D:\POSCASHIER\tt_pos_window\src\main\java\Receipt\Receipt.java
 D:\POSCASHIER\tt_pos_window\src\main\java\ButtonPackage\ButtonNo.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\ComboBox.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\SummerySale.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\SummeryVat.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\DataListHold.java
 D:\POSCASHIER\tt_pos_window\src\main\java\View\MainPage\MainPage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\HoldItem.java

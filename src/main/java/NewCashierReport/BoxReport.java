@@ -16,8 +16,8 @@ public class BoxReport extends javax.swing.JPanel {
     }
     
     private String title;
-    private int num;
-    private double amount;
+    private String num;
+    private String amount;
 
     public String getTitle() {
         return title;
@@ -28,22 +28,22 @@ public class BoxReport extends javax.swing.JPanel {
         name.setText("<html>"+title+"</html>");
     }
 
-    public int getNum() {
+    public String getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(String num) {
         this.num = num;
-        number.setText(""+num);
+        number.setText(num);
     }
 
-    public double getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
-        total.setText(""+amount);
+        total.setText(amount);
     }
 
     /**

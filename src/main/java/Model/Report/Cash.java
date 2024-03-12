@@ -2,7 +2,7 @@ package Model.Report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SummaryPayemnt {
+public class Cash {
     private long qtySaledDollar;
     private long amountSaledDollar;
 

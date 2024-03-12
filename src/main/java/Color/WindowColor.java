@@ -12,7 +12,7 @@ public class WindowColor {
     public static Color gray = new Color(70,84,69);
     public static Color white = new Color(255,255,255);
     public static Color slighWhite = new Color(181,181,181);
-    public static Color black = new Color(56,56,56);
+    public static Color black = new Color(0,0,0);
     public static Color light = new Color(209,255,255);
     public static Color darkGray = new Color(140,140,140);
      public static Color lightGray = new Color(204,204,204);
