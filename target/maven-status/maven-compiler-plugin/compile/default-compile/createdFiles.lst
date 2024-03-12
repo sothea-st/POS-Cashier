@@ -85,6 +85,7 @@ Components\TextField$4.class
 Receipt\CashierReport$3.class
 Discount\OverallDiscount$5$1.class
 Model\Report\DataSuccessCashierReport.class
+com\mycompany\kingmart\KingMart.class
 DeleteAndCancel\DeleteDialog$4.class
 Receipt\Receipt$4$1.class
 Payment\PaymentOption$4.class
@@ -120,6 +121,7 @@ Payment\PaymentOption$25.class
 HoldOrder\ListHoldOrder$3.class
 NewDiscounts\Discounting$17.class
 Model\Sale\PaymentDetailModel.class
+Model\Report\Cash.class
 Components\ComboBox.class
 Receipt\CashierReport$4$1.class
 OpenAndCloseShift\CloseShift$4.class
@@ -161,7 +163,6 @@ Customer\JdailogCustomer$1.class
 Components\TextFieldCenter.class
 Print\ReprintJdailog$3.class
 Customer\CustomerFunction.class
-Model\Report\DiscountSummary.class
 Controller\ActionProduct\ActionProduct.class
 Components\DialonInputName$3$1.class
 Print\ReprintJdailog$4$1.class
@@ -182,7 +183,6 @@ Components\HoldItem$1.class
 BlogCode\ResponsiveSize.class
 Components\BoxItem$2.class
 Components\DialonInputName$2.class
-Model\Report\SummaryPayemnt.class
 NewDiscounts\Discounting$14.class
 Controller\ActionProduct\ActionProduct$1.class
 Constant\Test.class
@@ -224,6 +224,7 @@ Constant\JavaBaseUrl.class
 Model\CashierReport\Data.class
 OpenAndCloseShift\OpenShiftJdailog$2.class
 Constant\JavaRoute.class
+Model\Report\SummeryVat.class
 Controller\ActionRequestBrand\ActionRequestBrand.class
 Return\ReturnDialog$3.class
 HoldOrder\HoldItems$3.class
@@ -249,6 +250,7 @@ Components\Shadow\ShadowRenderer.class
 Components\ReportBox.class
 Components\HistoryHoldOrder$2.class
 Payment\PaymentOption$20.class
+Model\Report\DiscountSummery.class
 Components\LabelTitle.class
 NewDiscounts\Discounting$2.class
 Payment\PaymentOption$2.class
@@ -298,7 +300,7 @@ LoginAndLogoutForm\LogoutDialog$4.class
 Return\ReturnDialog$1.class
 Components\TextFieldCenter$3.class
 OpenAndCloseShift\CloseShift$4$1.class
-Model\Report\SummarySale.class
+Model\Report\SummerySale.class
 Constant\JavaConnection.class
 Components\Label.class
 Components\PasswordField$3.class
@@ -317,7 +319,6 @@ Model\Reprint\DataSuccessModel.class
 Products\ProductBox$1.class
 NewDiscounts\Discounting$4.class
 Model\CustomerType\SourceModel.class
-Model\Report\SummaryVat.class
 Components\LabelFontGreen.class
 BlogCode\JavaEventNextPrevious$1.class
 Model\ProductModel\ProductDataModel.class

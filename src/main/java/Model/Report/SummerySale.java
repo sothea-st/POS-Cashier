@@ -1,10 +1,11 @@
+
 package Model.Report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SummarySale {
+public class SummerySale {
     private String title;
-    private long saleOfNum;
+    private int saleOfNum;
     private double total;
 
     @JsonProperty("title")
@@ -13,9 +14,9 @@ public class SummarySale {
     public void setTitle(String value) { this.title = value; }
 
     @JsonProperty("saleOfNum")
-    public long getSaleOfNum() { return saleOfNum; }
+    public int getSaleOfNum() { return saleOfNum; }
     @JsonProperty("saleOfNum")
-    public void setSaleOfNum(long value) { this.saleOfNum = value; }
+    public void setSaleOfNum(int value) { this.saleOfNum = value; }
 
     @JsonProperty("total")
     public double getTotal() { return total; }

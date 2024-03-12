@@ -21,6 +21,8 @@ import Event.ButtonEvent;
 import HoldOrder.ListHoldOrder;
 import LoginAndLogoutForm.LoginFormJdailog;
 import LoginAndLogoutForm.LogoutDialog;
+
+import Model.Report.DataSuccessCashierReport;
 import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
@@ -42,7 +44,7 @@ public class MainPage extends javax.swing.JFrame {
      private JPanel detailProduct;
      private int limit = 10;
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
- 
+
      public static boolean isFullScreen = false;
 
      public MainPage() {
@@ -72,15 +74,14 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
           // custom scroll speed jscrollPane for vertical
           JScrollBar verticalScrollBar = jScrollPane2.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30); 
-          verticalScrollBar.setBlockIncrement(35); 
-          
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
-       
+
      }
 
- 
      void getImage() {
           // get image from api
           setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
@@ -107,7 +108,7 @@ public class MainPage extends javax.swing.JFrame {
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
           JavaSearchByNameAndCode.scanProduct(textField, jdFormLogin); // function scan barcode or input barcode
-          
+
           // this event for place holder
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
@@ -773,19 +774,33 @@ public class MainPage extends javax.swing.JFrame {
 //               }
 //          }
 
-          CashierReporting cashier = new CashierReporting(new JFrame(), true);
-          cashier.setVisible(true);
+          try {
+               CashierReporting cashier = new CashierReporting(new JFrame(), true);
+//                Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+               Response response = JavaConnection.get(JavaRoute.cashierReport + "0005&userId=8&posId=03");
+               System.out.println("response :" + response);
+               if (response.isSuccessful()) {
+                    String myObject = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
+                    );
+                    cashier.setGetData(d);
+                    cashier.setVisible(true);
+               }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
 
      }
 
      public int countHold() {
           int countH = 0;
-          Response responseGet = JavaConnection.get(JavaRoute.holdOrder+"?userId=8");
+          Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId=8");
           try {
                String dataJson = responseGet.body().string();
                JSONObject jSONObject = new JSONObject(dataJson);
                countH = jSONObject.getInt("count");
-          
+
           } catch (Exception e) {
           }
 

@@ -1,8 +1,9 @@
+
 package Model.Report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SummaryVat {
+public class SummeryVat {
     private String title;
     private double total;
 
