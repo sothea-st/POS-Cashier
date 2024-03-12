@@ -183,7 +183,6 @@ public class LogoutDialog extends javax.swing.JDialog {
               return;
          }
 
-
          JSONObject json = new JSONObject();
          json.put("id", JavaConstant.cashierId);
          Response response = JavaConnection.post(JavaRoute.logout, json);
@@ -191,7 +190,7 @@ public class LogoutDialog extends javax.swing.JDialog {
          try {
               if (response.isSuccessful()) {
                    btnOpenShift.setBackground(WindowColor.lightGray);
-                   buttonCashier.setBackground(WindowColor.lightGray); 
+                   buttonCashier.setBackground(WindowColor.lightGray);
 
                    lbPOSId.setText("POS ID :");
                    boxUserName.setText("");
@@ -222,12 +221,12 @@ public class LogoutDialog extends javax.swing.JDialog {
                    JavaConstant.posId = null;
                    JavaConstant.cashierId = null;
                    JavaConstant.checkOpenShift = false;
-                   
-                   
+
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
-                   
-                   
+
+            
+
                    dispose();
               }
          } catch (Exception e) {
@@ -287,8 +286,6 @@ public class LogoutDialog extends javax.swing.JDialog {
           this.textField = textField;
      }
 
-     
-     
      public SubtotalPanel getSubtotalPanel() {
           return subtotalPanel;
      }
@@ -377,24 +374,22 @@ public class LogoutDialog extends javax.swing.JDialog {
           this.panelPagination = panelPagination;
      }
 
-    public Button getBtnOpenShift() {
-        return btnOpenShift;
-    }
+     public Button getBtnOpenShift() {
+          return btnOpenShift;
+     }
 
-    public void setBtnOpenShift(Button btnOpenShift) {
-        this.btnOpenShift = btnOpenShift;
-    }
+     public void setBtnOpenShift(Button btnOpenShift) {
+          this.btnOpenShift = btnOpenShift;
+     }
 
-    public Button getButtonCashier() {
-        return buttonCashier;
-    }
+     public Button getButtonCashier() {
+          return buttonCashier;
+     }
 
-    public void setButtonCashier(Button buttonCashier) {
-        this.buttonCashier = buttonCashier;
-    }
+     public void setButtonCashier(Button buttonCashier) {
+          this.buttonCashier = buttonCashier;
+     }
 
-    
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;

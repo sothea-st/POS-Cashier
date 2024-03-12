@@ -36,8 +36,7 @@ import okhttp3.Response;
  * @author MOBILE-APP.02
  */
 public class BoxItem extends javax.swing.JPanel {
-     
-     
+
      public int getLabelQuantity() {
           return labelQuantity;
      }
@@ -224,14 +223,14 @@ public class BoxItem extends javax.swing.JPanel {
           this.btnPayment = btnPayment;
      }
 
-    public ButtonPackage.ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonPackage.ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonPackage.ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
-     
+     public void setBtnCancel(ButtonPackage.ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
+
      public Button.Button getButtonHoldOrder() {
           return buttonHoldOrder;
      }
@@ -322,7 +321,9 @@ public class BoxItem extends javax.swing.JPanel {
 
           boxDiscount.setVisible(false);
           getImageBtnDelete();
+               
           
+          JavaConstant.setPointer(btnDelete);
           
      }
 
@@ -337,26 +338,21 @@ public class BoxItem extends javax.swing.JPanel {
      }
 
      void sumTotal(String sign) {
-
+  
           int getQty = getQty();
+
           if (sign == "+") {
-                // add qty 
-                if(getProductId() == productId){
-                    if(JavaConstant.productQTyLeft > 0){
-                         getQty++;
-                    }else{
-                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                        j.setMessage("Products are out of stock!");
-                        j.setVisible(true);
-                        return;
-                    }
-                }
+              
+               // add qty 
+               getQty++;
+
           } else if (sign == "-") {
                // remove qty 
                getQty--;
+               
           }
+                          System.err.println("qty data + =1=333333333333333= " + qty);
           
-
           if (getQty != 0) {
                String priceUsd = getLabelPrice();
                priceUsd = priceUsd.replace("$", "");
@@ -366,17 +362,21 @@ public class BoxItem extends javax.swing.JPanel {
                setLabelAmountUsd(dm.format(subAmountUsd));
                double _amountKh = JavaRoundDown.roundDown(JavaRoundDown.exchangeKh(subAmountUsd));
                setLabelAmountKh(kh.format(_amountKh));
-               double _discoutnAmt = JavaConstant.getReplace(discountAmt) * qty;
+               double _discoutnAmt = JavaConstant.getReplace(discountAmt) * getQty;
+              
                txtDiscount.setText("Discount : " + dm.format(_discoutnAmt));
                setDiscountAmount(dm.format(_discoutnAmt));
+               
+              
           }
+        
 
           // ============ for subtotal panel
           int count = buttonAddProduct.getParent().getParent().getComponentCount();
           Component[] list = buttonAddProduct.getParent().getParent().getComponents();
-          
+
           Component[] listCom = detailItem.getComponents();
-          System.err.println("data detailItem length = " + listCom.length);
+
           double sumSubTotalUsd = 0;
           double sumDiscount = 0;
 
@@ -392,6 +392,7 @@ public class BoxItem extends javax.swing.JPanel {
 
                String discount = data.getDiscountAmount();
                discount = discount.replace("$", "");
+
                discount = discount.replace(",", "");
                double discountValue = Double.valueOf(discount);
                sumDiscount += Double.valueOf(discountValue);
@@ -640,23 +641,23 @@ public class BoxItem extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
-        JavaConstant.productId = productId;
-        
-        if(JavaConstant.productId == productId){
-            this.setBorder( BorderFactory.createLineBorder(Color.RED) );
-        }
-        
-        Component[] listCom1 = detailItem.getComponents();
-        for (int i = 0; i < listCom1.length; i++) {
-            var obj = ((BoxItem) listCom1[i]);
-            if(obj.getProductId() != JavaConstant.productId){
-            obj.setBorder(null);
-            }
-        }
-                    
-        this.setBorder( BorderFactory.createLineBorder(Color.RED) );
-        JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
-        
+         JavaConstant.productId = productId;
+
+         if (JavaConstant.productId == productId) {
+              this.setBorder(BorderFactory.createLineBorder(Color.RED));
+         }
+
+         Component[] listCom1 = detailItem.getComponents();
+         for (int i = 0; i < listCom1.length; i++) {
+              var obj = ((BoxItem) listCom1[i]);
+              if (obj.getProductId() != JavaConstant.productId) {
+                   obj.setBorder(null);
+              }
+         }
+
+         this.setBorder(BorderFactory.createLineBorder(Color.RED));
+         JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
+
     }//GEN-LAST:event_formMouseClicked
 
 

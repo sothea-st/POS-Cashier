@@ -448,7 +448,7 @@ public class Receipt extends javax.swing.JDialog {
           jLabel29.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
           jLabel29.setForeground(new java.awt.Color(56, 56, 56));
           jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          jLabel29.setText("$-");
+          jLabel29.setText("- $");
 
           jLabel31.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
           jLabel31.setForeground(new java.awt.Color(56, 56, 56));
@@ -487,12 +487,12 @@ public class Receipt extends javax.swing.JDialog {
           receiveUsd.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
           receiveUsd.setForeground(new java.awt.Color(56, 56, 56));
           receiveUsd.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          receiveUsd.setText("$-");
+          receiveUsd.setText("- $");
 
           receiveKhr.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
           receiveKhr.setForeground(new java.awt.Color(56, 56, 56));
           receiveKhr.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          receiveKhr.setText("2000");
+          receiveKhr.setText("-");
 
           jLabel34.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
           jLabel34.setForeground(new java.awt.Color(56, 56, 56));
@@ -505,12 +505,12 @@ public class Receipt extends javax.swing.JDialog {
           changeUsd.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
           changeUsd.setForeground(new java.awt.Color(56, 56, 56));
           changeUsd.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          changeUsd.setText("$-");
+          changeUsd.setText("- $");
 
           changeKhr.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
           changeKhr.setForeground(new java.awt.Color(56, 56, 56));
           changeKhr.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          changeKhr.setText("2000");
+          changeKhr.setText("-");
 
           jLabel1.setFont(new java.awt.Font("Khmer OS Content", 0, 10)); // NOI18N
           jLabel1.setForeground(new java.awt.Color(56, 56, 56));
@@ -538,7 +538,7 @@ public class Receipt extends javax.swing.JDialog {
           jLabel41.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
           jLabel41.setForeground(new java.awt.Color(56, 56, 56));
           jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          jLabel41.setText("$-");
+          jLabel41.setText("- $");
 
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
           jPanel1.setLayout(jPanel1Layout);
@@ -865,11 +865,29 @@ public class Receipt extends javax.swing.JDialog {
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(kh.format(totalkh));
-               receiveUsd.setText(dm.format(data.getReceiveUsd()));
-           
-               receiveKhr.setText(kh.format(data.getReceiveKhr()));
-               changeUsd.setText(dm.format(data.getChangeUsd()));
-               changeKhr.setText(kh.format(data.getChangeKhr()));
+
+               if (data.getReceiveUsd() != 0 && data.getReceiveKhr() != 0) {
+                    if (data.getChangeKhr() != 0) {
+                         changeKhr.setText(kh.format(data.getChangeKhr()));
+                    }
+
+                    if (data.getChangeUsd() != 0) {
+                         changeUsd.setText(dm.format(data.getChangeUsd()));
+                    }
+                    receiveUsd.setText(dm.format(data.getReceiveUsd()));
+                    receiveKhr.setText(kh.format(data.getReceiveKhr()));
+               } else {
+                    if (data.getReceiveUsd() != 0) {
+                         receiveUsd.setText(dm.format(data.getReceiveUsd()));
+                         changeUsd.setText(dm.format(data.getChangeUsd()));
+                    }
+
+                    if (data.getReceiveKhr() != 0) {
+                         receiveKhr.setText(kh.format(data.getReceiveKhr()));
+                         changeKhr.setText(kh.format(data.getChangeKhr()));
+                    }
+               }
+
                Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentNo());
                byte[] barcode = generateCode.body().bytes();
                generateBarcode.setIcon(new ImageIcon(barcode));

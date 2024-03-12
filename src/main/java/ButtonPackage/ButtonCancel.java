@@ -3,6 +3,7 @@ package ButtonPackage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -21,6 +22,7 @@ public class ButtonCancel extends javax.swing.JPanel {
         initComponents();
         setBackground(WindowColor.darkred);
         btnCancel.setFont(WindowFonts.timeNewRomanBold14);
+         JavaConstant.setPointer(btnCancel);
     }
 
     @SuppressWarnings("unchecked")

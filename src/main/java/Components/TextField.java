@@ -3,6 +3,7 @@ package Components;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -24,6 +25,7 @@ public class TextField extends javax.swing.JPanel {
           initComponents();
           setBackground(WindowColor.white);
           txtText.setFont(WindowFonts.timeNewRoman14);
+          JavaConstant.setPointer(txtText);
      }
 
      //Create Placeholder
@@ -78,8 +80,6 @@ public class TextField extends javax.swing.JPanel {
      public void setFocus() {
           txtText.requestFocus();
      }
-
-  
 
      //=================================================Create Shadow Box
      private ShadowType shadowType;

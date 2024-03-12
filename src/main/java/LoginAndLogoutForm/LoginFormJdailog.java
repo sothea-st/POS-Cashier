@@ -27,20 +27,17 @@ import Components.SearchField;
 import Components.TextField;
 import Controller.ActionProduct.ActionProduct;
 import Controller.ActionRequestBrand.ActionRequestBrand;
-import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
-import Fonts.WindowFonts;
 import Model.Login.LoginModel;
 import Model.OpenShift.OpenShiftDataModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.java.accessibility.util.AWTEventMonitor;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import ButtonPackage.ButtonCancel;
-import java.awt.Color;
+import Constant.JavaMessage;
+
 
 public class LoginFormJdailog extends javax.swing.JDialog {
 
@@ -96,7 +93,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtUserId.requestFocus();
-       
+
      }
 
      //Function call Placeholder
@@ -230,8 +227,23 @@ public class LoginFormJdailog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      public void scanbarCodeAddProduct(ProductModel proModel) {
-          ActionScanBarcodeAddProduct action = new ActionScanBarcodeAddProduct();
-          pro.eventBtnBuy(proModel);
+          if (proModel.getQty() == 0) {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage(JavaMessage.productOutStock);
+               j.setVisible(true);
+               return;
+          }
+          pro.eventBtnBuy(proModel, proModel.getQty());
+     }
+     
+     public void scanbarCodeAddProduct(ProductModel proModel,String scanbarcode) {
+          if (proModel.getQty() == 0) {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage(JavaMessage.productOutStock);
+               j.setVisible(true);
+               return;
+          }
+          pro.eventBtnBuy(proModel, 1);
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
@@ -241,7 +253,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          String userId = "0002";
          String password = "TT@126$kh#";
          String deviceName = JavaConstant.getDeviceName();
-       
 
          JSONObject json = new JSONObject();
          json.put("userCode", userId);
@@ -263,7 +274,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               Response response = JavaConnection.login(JavaRoute.login, json);
 
               if (response.isSuccessful()) {
-                   
+
                    String responseData = response.body().string();
 
                    ObjectMapper objMap = new ObjectMapper();

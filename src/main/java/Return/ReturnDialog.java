@@ -243,7 +243,6 @@ public class ReturnDialog extends javax.swing.JDialog {
          if (barcode != null) {
               obj.scanBarcode(barcode, jdFormLogin);
          } else {
-                 System.err.println("dddddddddddddddd34324ddddddddd");
               obj.scanWithoutBarcode(invoiceNo, jdFormLogin);
          }
 

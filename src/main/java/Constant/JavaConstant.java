@@ -1,19 +1,47 @@
 package Constant;
 
+import Components.ComboBox;
 import Components.countCircleShape;
 import Model.HoldOrder.DataHoldOrder;
 import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import okhttp3.MediaType;
 
 public class JavaConstant {
+
+     public static void setPointer(JLabel jLabel) {
+          jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
+
+     public static void setPointer(JTextField txt) {
+          txt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
+
+     public static void setPointer(JComboBox cmd) {
+          cmd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
+
+     public static void setPointer(JScrollPane jb) {
+          jb.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
+
+     public static void setPointer(JPanel jPanel) {
+          jPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
 
      public static String invoiceNo;
      public static String reasonId;
@@ -27,7 +55,7 @@ public class JavaConstant {
      public static int numberOpenShift = 0;
      public static int productId;
      public static int productQTyLeft;
-     public static double discountAmount =1 ;
+     public static double discountAmount = 1;
 //     public static Component[] listHoldData;
      public static String roleName;
      public static String isReturn;
@@ -87,9 +115,9 @@ public class JavaConstant {
                return "Unknown";
           }
      }
-     
+
      public static countCircleShape circleShape;
-     public static int holdId=0;
-     public static boolean holdSameProduct=false;
+     public static int holdId = 0;
+     public static boolean holdSameProduct = false;
 
 }

@@ -3,6 +3,7 @@ package Components;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -21,6 +22,7 @@ public class PasswordField extends javax.swing.JPanel {
      public PasswordField() {
           initComponents();
           setBackground(WindowColor.white);
+          JavaConstant.setPointer(password);
      }
 
      //=================================================Create Shadow Box

@@ -8,6 +8,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Controller\ReceiptController.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\BoxItem.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Reprint\ReprintModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\OpenAndCloseShift\CloseShift.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\JavaActionDiscount.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\LabelReceipt.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaConstant.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\PackageProduct\ProductIDModel.java
@@ -37,6 +38,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\ActionHoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\PasswordField.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\SummerySale.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaConnection.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\JavaEventNextPrevious.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Button\ButtonInstock.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\JavaAlertMessage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Brand\BrandSuccessModel.java
@@ -63,6 +65,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldModelDir\ResultHoldSucce
 D:\POSCASHIER\tt_pos_window\src\main\java\Combobox\ComboItem.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\Shadow\GraphicsUtilities.java
 D:\POSCASHIER\tt_pos_window\src\main\java\SwitchButton\SwitchButton.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\ActionCloseShift.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Report\Cash.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Sale\CustomerModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\DefaultPrice\DataModelDefaultPrice.java
@@ -75,9 +78,11 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Components\TextField.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\DataHoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\NewHoldOrderModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\SubtotalPanel.java
+D:\POSCASHIER\tt_pos_window\src\main\java\CustomeUI\CustomScrollBarUI.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\DataSuccessModelReport.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Reprint\SaleDetailModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\LabelPopUpTitle.java
+D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaMessage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Package\ReasonModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Products\ProductPanel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\NoData.java
@@ -89,6 +94,8 @@ D:\POSCASHIER\tt_pos_window\src\main\java\NewCashierReport\BoxReport.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\ReceiptBox.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaBaseUrl.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Discount\ListProduct.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\JavaActionAddHold.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\JavaBlogImage.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Fonts\WindowFonts.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Brand\BrandModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\ProductModel\ProductDataModel.java
@@ -112,6 +119,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\ReportCashier.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\CircleShape.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\RadioButton.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\ProductModel\ProductSuccessData.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\JavaSearchByNameAndCode.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\LabelFontBlack.java
 D:\POSCASHIER\tt_pos_window\src\main\java\HoldOrder\HoldItems.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Customer\Customer.java
@@ -122,6 +130,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Model\CustomerType\CustomerTypeModel.j
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\TextFieldCenter.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Sale\SaleModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\DeleteAndCancel\CancelDialog.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\ResponsiveSize.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Controller\ActionProduct\ActionProduct.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\Parallelogram.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\OpenShiftModel\OpenShiftModel.java
@@ -139,4 +148,5 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\Data.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\LabelTitle.java
 D:\POSCASHIER\tt_pos_window\src\main\java\DefaultPrice\DefaultPrice.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Event\ButtonEvent.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\JavaExistScreen.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\CustomerType\SourceModel.java

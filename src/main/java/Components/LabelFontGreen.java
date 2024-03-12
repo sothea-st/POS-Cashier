@@ -3,6 +3,7 @@ package Components;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -42,6 +43,7 @@ public class LabelFontGreen extends javax.swing.JPanel {
         setBackground(WindowColor.white);
         lbLabel.setFont(WindowFonts.timeNewRomanBold14);
         lbLabel.setForeground(WindowColor.darkGreen);
+         JavaConstant.setPointer(lbLabel);
     }
     
     

@@ -14,7 +14,7 @@ public class JavaRoute {
      public static String sale = "/sale";
      public static String reason = "/reason/getReasonByCode/";
      public static String cancelAndDelete = "/cancelItem/";
-     public static String reprintByLast = "/reprint/";
+     public static String reprintByLast = "/reprint";
      public static String closeShift = "/closeShiftTime";
      public static String searchProductByBarcodeOrName = "/searchProductByBarcodeOrName";
      public static String searchWithInvoice = "/searchProductByBarcodeOrName/searchWithInvoice";

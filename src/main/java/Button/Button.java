@@ -3,6 +3,7 @@ package Button;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -31,6 +32,7 @@ public class Button extends javax.swing.JPanel {
         initComponents();
         setBackground(WindowColor.darkred);
         button.setFont(WindowFonts.timeNewRomanBold14);
+         JavaConstant.setPointer(button);
     }
     
     

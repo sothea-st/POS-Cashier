@@ -1,5 +1,6 @@
 package Components;
 
+import Constant.JavaConstant;
 import Fonts.WindowFonts;
 
 public class labelDis extends javax.swing.JPanel {
@@ -8,6 +9,7 @@ public class labelDis extends javax.swing.JPanel {
     public labelDis() {
         initComponents();
         labelDis.setFont(WindowFonts.timeNewRomanBold16);
+         JavaConstant.setPointer(labelDis);
     }
 
     @SuppressWarnings("unchecked")

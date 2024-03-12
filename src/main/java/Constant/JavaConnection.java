@@ -1,4 +1,7 @@
 package Constant;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import okhttp3.OkHttpClient;
@@ -9,6 +12,13 @@ import org.json.JSONObject;
 
 public class JavaConnection {
 
+     private static void closeConnection(OkHttpClient client) {
+          // Close the client when you're done
+          client.dispatcher().cancelAll();
+          client.dispatcher().executorService().shutdown();
+          client.connectionPool().evictAll();
+     }
+
      public static Response get(String route) {
           Response response = null;
           try {
@@ -18,7 +28,7 @@ public class JavaConnection {
                     .header("Authorization", "Bearer " + JavaConstant.token)
                     .build();
                response = client.newCall(request).execute();
-
+               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
@@ -33,7 +43,7 @@ public class JavaConnection {
                     .url(new JavaBaseUrl().getBaseUrl() + route)
                     .build();
                response = client.newCall(request).execute();
-
+               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
@@ -51,7 +61,7 @@ public class JavaConnection {
                     .url(new JavaBaseUrl().getBaseUrl() + JavaRoute.login)
                     .post(body).build();
                response = client.newCall(request).execute();
-
+               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
@@ -72,17 +82,13 @@ public class JavaConnection {
                     .post(body).build();
                response = client.newCall(request).execute();
                String data = response.body().string();
-
+               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
           return response;
      }
 
-     
-     
-     
-     
      public static Response delete(String route, JSONObject json) {
           Response response = null;
           String url = new JavaBaseUrl().getBaseUrl() + route;
@@ -91,23 +97,20 @@ public class JavaConnection {
                RequestBody body = RequestBody.create(
                     JavaConstant.JSON,
                     json.toString());
-           
+
                Request deleteRequest = new Request.Builder()
                     .url(url)
                     .delete(body)
                     .addHeader("Authorization", "Bearer " + JavaConstant.token)
                     .build();
                response = client.newCall(deleteRequest).execute();
+               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
           return response;
      }
 
-     
-     
-     
-     
      public static void getImage(JLabel lableName, String imageName) {
           Response response = JavaConnection.getWithoutToken(JavaRoute.bgImage + imageName);
           if (response.isSuccessful()) {

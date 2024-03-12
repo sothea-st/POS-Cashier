@@ -4,6 +4,7 @@ import Combobox.ComboItem;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -41,6 +42,7 @@ public class ComboBox extends javax.swing.JPanel {
 
           //Delete Border Combobox
           combo.setUI(new BasicComboBoxUI());
+          JavaConstant.setPointer(combo);
      }
 
      public void initEvent( ButtonEvent events ) {
