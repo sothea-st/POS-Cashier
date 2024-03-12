@@ -101,6 +101,7 @@ Model\CashierReport\ReportCashier.class
 Components\Parallelogram.class
 Components\Shadow\GraphicsUtilities.class
 Components\Shadow\ShadowType.class
+Combobox\ComboItem.class
 Constant\JavaConstant.class
 Receipt\Receipt$1.class
 Receipt\Receipt.class
