@@ -136,17 +136,16 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "and user_code = ?")
         Double totalSaledAmount(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((pp.price / (1 + (ppt.rate_tax / 100))) * (ppt.rate_tax / 100)), 2) AS vat\r\n"+ //
+        @Query(nativeQuery = true, value = "SELECT trunc( sum(((psd.price*psd.qty)/1.1)*0.1), 2) as vat\r\n"+ //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
                         "INNER JOIN pos_product_tax ppt ON ppt.id = pp.tax_id\r\n" + //
-                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? AND ppt.rate_tax = 10\r\n" + //
+                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? AND ppt.rate_tax > 0\r\n" + //
                         "")
         Double vat10(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((pp.price / (1 + (ppt.rate_tax / 100))) * (ppt.rate_tax / 100)), 2) AS vat\r\n"
-                        + //
+        @Query(nativeQuery = true, value = "SELECT trunc( sum(((  ((psd.price*psd.qty)/1.1) /1.006))*0.2*0.03),2) as vat\r\n" + //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
@@ -156,7 +155,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
         Double vat3(String currentDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
-                                "\ttrunc( sum((psd.price* psd.qty) / (1+ (ppt.rate_tax/100))  ) ,2 ) as vat\r\n" + //
+                                "\t trunc(sum((psd.price*psd.qty)/1.1),2) as vat\r\n" + //
                                 "from\r\n" + //
                                 "\tpos_sale ps\r\n" + //
                                 "inner join pos_sale_details psd on\r\n" + //
@@ -208,7 +207,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                                                                                                               // charge
         Double vatStateCharge(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((psd.amount/ (1 + (ppt.rate_tax / 100)))), 2) AS vat\r\n" + //
+        @Query(nativeQuery = true, value = "SELECT  trunc(sum((((psd.price*psd.qty)/1.1)/1.006)*0.2),2) as vat\r\n" + //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
