@@ -261,11 +261,10 @@ public class CashierReportService {
         map.put("paymentNoFirst", paymentNoFirst);
         map.put("paymentNoLast", paymentNoLast);
 
-        int qtyDiscount = 0;
-        String qtyDiscountStr = repoSaleDetail.totalQtyDiscount(userId, JavaConstant.currentDate, posId,
+ 
+        int qtyDiscount = repoSaleDetail.totalQtyDiscount(userId, JavaConstant.currentDate, posId,
                 JavaConstant.currentDate, userCode);
-        if (qtyDiscountStr != null)
-            qtyDiscount = Integer.valueOf(qtyDiscountStr);
+ 
 
         double amountDiscount = 0.00;
         String listDiscountQty = repoSaleDetail.totalAmountDiscount(userId, JavaConstant.currentDate, posId,

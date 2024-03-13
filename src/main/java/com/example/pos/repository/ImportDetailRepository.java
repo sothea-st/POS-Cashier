@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integer> {
-    @Query(nativeQuery = true,value = "select * from pos_import_detail pid where status =true and is_deleted =false and pid.qty_old > 0 and pid.pro_id = ? order by id desc limit 1")
+    @Query(nativeQuery = true,value = "select * from pos_import_detail pid where status =true and is_deleted =false and pid.qty_old >= 0 and pid.pro_id = ? order by id desc limit 1")
     ImportDetail getDataImportDetail(int productId);
 
     @Query(nativeQuery = true,value = "select * from pos_import_detail pid where status =true and is_deleted =false and  pro_id =? order by id desc limit 1")
