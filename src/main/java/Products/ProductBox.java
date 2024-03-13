@@ -1,7 +1,6 @@
 package Products;
 
 import Color.WindowColor;
-import Components.CircleShape;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Event.ButtonEvent;
@@ -13,14 +12,9 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import javax.swing.Icon;
 
-/**
- *
- * @author FRONT-END.06
- */
 public class ProductBox extends javax.swing.JPanel {
 
      private String qty;
@@ -107,7 +101,7 @@ public class ProductBox extends javax.swing.JPanel {
      public void setDiscountPercentag(int discountPercentag, Double wasPrice) {
           this.discountPercentag = discountPercentag;
           if (discountPercentag > 0) {
-               discount.setDiscountPrice("Was " + dm.format(wasPrice) );
+               discount.setDiscountPrice("Was " + dm.format(wasPrice));
                discount.setVisible(true);
           }
      }
@@ -118,7 +112,7 @@ public class ProductBox extends javax.swing.JPanel {
 
      public void setProductStatus(String productStatus) {
           this.productStatus = productStatus;
-         
+
 //          if(productStatus.isEmpty()){
 //              buttonStatus.setBgColor(WindowColor.darkred);
 //              buttonStatus.setButtonName("Unavailable");
@@ -126,7 +120,6 @@ public class ProductBox extends javax.swing.JPanel {
 //              buttonStatus.setBgColor(WindowColor.darkGreen);
 //              buttonStatus.setButtonName(productStatus);
 //          }
-          
 //================================Product Status============================
           if (productStatus == "Unavailable") {
                buttonStatus.setBgColor(WindowColor.darkred);
@@ -159,7 +152,7 @@ public class ProductBox extends javax.swing.JPanel {
           txtBarcode.setFont(WindowFonts.timeNewRomanBold9);
           txtBarcode.setForeground(WindowColor.gray);
           lbQty.setFont(WindowFonts.timeNewRomanBold12);
-          lbQty.setVisible(false);
+          lbQty.setVisible(true);
 
      }
 

@@ -56,6 +56,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Constant\Test.java
 D:\POSCASHIER\tt_pos_window\src\main\java\ButtonPackage\ButtonYes.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\Shadow\ShadowType.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Controller\ActionRequestBrand\ActionRequestBrand.java
+D:\POSCASHIER\tt_pos_window\src\main\java\BlogCode\ActionUpdateQty.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\labelDis.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Constant\JavaRoundDown.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Return\ApprovalCode.java
@@ -79,6 +80,7 @@ D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\DataHoldOrder.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\HoldOrder\NewHoldOrderModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\SubtotalPanel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\CustomeUI\CustomScrollBarUI.java
+D:\POSCASHIER\tt_pos_window\src\main\java\UpdateQty\UpdateQtyModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\CashierReport\DataSuccessModelReport.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Model\Reprint\SaleDetailModel.java
 D:\POSCASHIER\tt_pos_window\src\main\java\Components\LabelPopUpTitle.java

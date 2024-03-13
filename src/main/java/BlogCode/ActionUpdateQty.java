@@ -1,0 +1,44 @@
+package BlogCode;
+
+import Components.JavaAlertMessage;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaMessage;
+import Constant.JavaRoute;
+import Products.ProductBox;
+import UpdateQty.UpdateQtyModel;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import okhttp3.Response;
+import org.json.JSONObject;
+
+public class ActionUpdateQty {
+
+     public static void updateQty(int proId, String sign,ProductBox product) {
+          JSONObject json = new JSONObject();
+          ArrayList<UpdateQtyModel> model = new ArrayList<>();
+          UpdateQtyModel _updateModel = new UpdateQtyModel(proId, 1, sign);
+          model.add(_updateModel);
+          json.put("listProId", model);
+          Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
+          int _qtyUpdate = 0;
+          try {
+               String _data = _responseData.body().string();
+               JSONObject _json = new JSONObject(_data);
+               _qtyUpdate = _json.getInt("qtyUpdate");
+
+               if (_qtyUpdate < 0) {
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    j.setMessage(JavaMessage.productOutStock);
+                    j.setVisible(true);
+                    return;
+               } else if (_qtyUpdate == 0) {
+                    product.setProductStatus("Out Stock");
+               }
+               product.setQty("" + _qtyUpdate);
+          } catch (Exception e) {
+               System.err.println(e);
+          }
+         
+     }
+}

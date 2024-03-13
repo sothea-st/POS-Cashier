@@ -13,17 +13,18 @@ import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProduct;
 import Event.ButtonEvent;
 import LoginAndLogoutForm.LoginFormJdailog;
+import Model.PackageProduct.ProductModel;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class JavaSearchByNameAndCode {
 
-     public static void searchProduct(JPanel panelProduct ,SearchField searchBox ,JPanel panelPagination ,LoginFormJdailog jdFormLogin ,JPanel category ) {
+     public static void searchProduct(JPanel panelProduct, SearchField searchBox, JPanel panelPagination, LoginFormJdailog jdFormLogin, JPanel category) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyType() {
-                   String valueSearch = searchBox.getValueTextSearch();
+                    String valueSearch = searchBox.getValueTextSearch();
 
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
@@ -59,13 +60,11 @@ public class JavaSearchByNameAndCode {
           searchBox.initEvent(event);
      }
 
-     
-     public static void scanProduct(TextField textField,LoginFormJdailog jdFormLogin){
+     public static void scanProduct(TextField textField, LoginFormJdailog jdFormLogin) {
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
                     String barcode = textField.getValueTextField();
-
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
