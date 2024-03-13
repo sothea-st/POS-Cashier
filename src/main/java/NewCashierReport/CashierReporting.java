@@ -10,7 +10,14 @@ import Model.Report.SummerySale;
 import Model.Report.SummeryVat;
 import Model.Report.DataSuccessCashierReport;
 import Model.Report.DiscountSummery;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -181,11 +188,14 @@ public class CashierReporting extends javax.swing.JDialog {
         for (int i = 0; i < listDiscountSummary.length; i++) {
             var list = listDiscountSummary[i];
             BoxReport report = new BoxReport();
-            report.setTitle(list.getTitle());
-            report.setNum(""+list.getSaleOfNum());
-            report.setAmount(dm.format(list.getTotal()));
-            summaryDiscount.add(report);
-            summaryDiscount.add(Box.createRigidArea(new Dimension(2, 2)));
+            
+            if(list.getSaleOfNum() > 0){
+                report.setTitle(list.getTitle());
+                report.setNum(""+list.getSaleOfNum());
+                report.setAmount(dm.format(list.getTotal()));
+                summaryDiscount.add(report);
+                summaryDiscount.add(Box.createRigidArea(new Dimension(2, 2)));
+            }
         }
         
         BoxReport report = new BoxReport();
@@ -256,7 +266,6 @@ public class CashierReporting extends javax.swing.JDialog {
         lbTotal = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         summaryDiscount = new javax.swing.JPanel();
-        labelReceipt26 = new Components.LabelReceipt();
         labelReceipt27 = new Components.LabelReceipt();
         labelReceipt28 = new Components.LabelReceipt();
         labelReceipt29 = new Components.LabelReceipt();
@@ -274,8 +283,12 @@ public class CashierReporting extends javax.swing.JDialog {
         closedAmount = new javax.swing.JLabel();
         countedDifferent = new javax.swing.JLabel();
         summaryVatPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        btnPrint = new Button.Button();
+        labelReceipt26 = new Components.LabelReceipt();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jScrollPane1.setBorder(null);
 
@@ -505,8 +518,6 @@ public class CashierReporting extends javax.swing.JDialog {
 
         summaryDiscount.setBackground(new java.awt.Color(255, 255, 255));
 
-        labelReceipt26.setLabelName("Discount in %");
-
         labelReceipt27.setLabelName("5%");
 
         labelReceipt28.setLabelName("10%");
@@ -519,7 +530,6 @@ public class CashierReporting extends javax.swing.JDialog {
             summaryDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(summaryDiscountLayout.createSequentialGroup()
                 .addGroup(summaryDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelReceipt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelReceipt27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelReceipt28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelReceipt29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -528,9 +538,7 @@ public class CashierReporting extends javax.swing.JDialog {
         summaryDiscountLayout.setVerticalGroup(
             summaryDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(summaryDiscountLayout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(labelReceipt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(labelReceipt27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelReceipt28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -611,6 +619,35 @@ public class CashierReporting extends javax.swing.JDialog {
             summaryVatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 60, Short.MAX_VALUE)
         );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnPrint.setBackground(new java.awt.Color(47, 155, 70));
+        btnPrint.setButtonName("Print");
+        btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrintMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(236, Short.MAX_VALUE)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        labelReceipt26.setLabelName("Discount in %");
 
         javax.swing.GroupLayout reportPanelLayout = new javax.swing.GroupLayout(reportPanel);
         reportPanel.setLayout(reportPanelLayout);
@@ -704,9 +741,6 @@ public class CashierReporting extends javax.swing.JDialog {
                                     .addComponent(closedAmount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(countedDifferent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(26, 26, 26))
-                    .addGroup(reportPanelLayout.createSequentialGroup()
-                        .addComponent(lbSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportPanelLayout.createSequentialGroup()
                         .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(summaryVatPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -729,13 +763,19 @@ public class CashierReporting extends javax.swing.JDialog {
                                         .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING))
                                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(subTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(27, 27, 27))))
+                        .addGap(27, 27, 27))
+                    .addGroup(reportPanelLayout.createSequentialGroup()
+                        .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelReceipt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         reportPanelLayout.setVerticalGroup(
             reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportPanelLayout.createSequentialGroup()
                 .addGap(1, 1, 1)
-                .addComponent(lbLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(lbLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -774,7 +814,7 @@ public class CashierReporting extends javax.swing.JDialog {
                         .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(reportPanelLayout.createSequentialGroup()
                                 .addComponent(countedDifferent, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 3, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(reportPanelLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(openCashUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -835,7 +875,9 @@ public class CashierReporting extends javax.swing.JDialog {
                     .addComponent(sumTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
+                .addGap(9, 9, 9)
+                .addComponent(labelReceipt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(summaryDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -845,7 +887,9 @@ public class CashierReporting extends javax.swing.JDialog {
                     .addComponent(jLabel15))
                 .addGap(2, 2, 2)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jScrollPane1.setViewportView(reportPanel);
@@ -858,13 +902,46 @@ public class CashierReporting extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 907, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
+        printComponenet(reportPanel);
+    }//GEN-LAST:event_btnPrintMouseClicked
+
+    public void printComponenet(Component component) {
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setJobName(" Print Component ");
+
+        pj.setPrintable(new Printable() {
+            public int print(Graphics pg, PageFormat pf, int pageNum) {
+                if (pageNum > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+
+                Graphics2D g2 = (Graphics2D) pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                component.paint(g2);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        if (pj.printDialog() == false) {
+            return;
+        }
+
+        try {
+            pj.print();
+        } catch (PrinterException ex) {
+            // handle exception
+        }
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -907,6 +984,7 @@ public class CashierReporting extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel branch;
+    private Button.Button btnPrint;
     private javax.swing.JLabel cashier;
     private Components.LabelReceipt closeDate;
     private javax.swing.JLabel closedAmount;
@@ -930,6 +1008,7 @@ public class CashierReporting extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

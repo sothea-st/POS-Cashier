@@ -774,23 +774,25 @@ public class MainPage extends javax.swing.JFrame {
 //               }
 //          }
 
-          try {
-               CashierReporting cashier = new CashierReporting(new JFrame(), true);
-//                Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-                Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=7&posId=05");
-                System.out.println("response :" + response);
-                if (response.isSuccessful()) {
-                     String myObject = response.body().string();
-                     ObjectMapper objMap = new ObjectMapper();
-                     DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
-                     );
-                     cashier.setGetData(d);
-                     cashier.setVisible(true);
-                }
-            } catch (Exception e) {
-                System.err.println("error = " + e);
-            }
-          
+
+             if (JavaConstant.token != null) {
+                 try {
+                    CashierReporting cashier = new CashierReporting(new JFrame(), true);
+                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+//                     Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=7&posId=01");
+                     System.out.println("response :" + response);
+                     if (response.isSuccessful()) {
+                          String myObject = response.body().string();
+                          ObjectMapper objMap = new ObjectMapper();
+                          DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
+                          );
+                          cashier.setGetData(d);
+                          cashier.setVisible(true);
+                     }
+                 } catch (Exception e) {
+                     System.err.println("error = " + e);
+                 }
+             }
      }
 
      public int countHold() {

@@ -641,23 +641,26 @@ public class BoxItem extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
-         JavaConstant.productId = productId;
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            evt.consume();
+            JavaConstant.productId = productId;
 
-         if (JavaConstant.productId == productId) {
-              this.setBorder(BorderFactory.createLineBorder(Color.RED));
-         }
+            if (JavaConstant.productId == productId) {
+                 this.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
 
-         Component[] listCom1 = detailItem.getComponents();
-         for (int i = 0; i < listCom1.length; i++) {
-              var obj = ((BoxItem) listCom1[i]);
-              if (obj.getProductId() != JavaConstant.productId) {
-                   obj.setBorder(null);
-              }
-         }
+            Component[] listCom1 = detailItem.getComponents();
+            for (int i = 0; i < listCom1.length; i++) {
+                 var obj = ((BoxItem) listCom1[i]);
+                 if (obj.getProductId() != JavaConstant.productId) {
+                      obj.setBorder(null);
+                 }
+            }
 
-         this.setBorder(BorderFactory.createLineBorder(Color.RED));
-         JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
-
+            this.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
+        }
+       
     }//GEN-LAST:event_formMouseClicked
 
 

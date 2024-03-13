@@ -237,7 +237,6 @@ Components\SubtotalPanel.class
 Customer\JdailogCustomer$3.class
 Model\CashierReport\SummerySale.class
 Components\CircleShape.class
-NewCashierReport\CashierReporting$1$1.class
 HoldOrder\HoldSuccess.class
 Payment\PaymentOption$14.class
 HoldOrder\HoldModelDir\ResultHoldSuccess.class
