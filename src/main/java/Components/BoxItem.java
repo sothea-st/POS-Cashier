@@ -1,6 +1,6 @@
 package Components;
 
-import ButtonPackage.ButtonCancel;
+import BlogCode.ActionUpdateQty;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
@@ -11,12 +11,11 @@ import Constant.JavaRoute;
 import DeleteAndCancel.DeleteDialog;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import NewDiscounts.Discounting;
+import Products.ProductBox;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -25,16 +24,10 @@ import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import okhttp3.Response;
 
-/**
- *
- * @author MOBILE-APP.02
- */
 public class BoxItem extends javax.swing.JPanel {
 
      public int getLabelQuantity() {
@@ -239,24 +232,38 @@ public class BoxItem extends javax.swing.JPanel {
           this.buttonHoldOrder = buttonHoldOrder;
      }
 
-    public String getDiscountType() {
-        return discountType;
-    }
+     public String getDiscountType() {
+          return discountType;
+     }
 
-    public void setDiscountType(String discountType) {
-        this.discountType = discountType;
-    }
+     public void setDiscountType(String discountType) {
+          this.discountType = discountType;
+     }
 
-    public double getDiscountValue() {
-        return discountValue;
-    }
+     public double getDiscountValue() {
+          return discountValue;
+     }
 
-    public void setDiscountValue(double discountValue) {
-        this.discountValue = discountValue;
-    }
-     
-     
-     
+     public void setDiscountValue(double discountValue) {
+          this.discountValue = discountValue;
+     }
+
+     public ProductBox getProductBox() {
+          return productBox;
+     }
+
+     public void setProductBox(ProductBox productBox) {
+          this.productBox = productBox;
+     }
+
+     public int getLbQty() {
+          return lbQty;
+     }
+
+     public void setLbQty(int lbQty) {
+          this.lbQty = lbQty;
+     }
+
      /**
       * Creates new form BoxItem
       */
@@ -284,7 +291,8 @@ public class BoxItem extends javax.swing.JPanel {
      private Button.Button buttonHoldOrder;
      private String discountType;
      private double discountValue;
-     
+     private ProductBox productBox;
+     private int lbQty;
 
      public BoxItem() {
           initComponents();
@@ -321,10 +329,9 @@ public class BoxItem extends javax.swing.JPanel {
 
           boxDiscount.setVisible(false);
           getImageBtnDelete();
-               
-          
+
           JavaConstant.setPointer(btnDelete);
-          
+
      }
 
      void getImageBtnDelete() {
@@ -338,21 +345,23 @@ public class BoxItem extends javax.swing.JPanel {
      }
 
      void sumTotal(String sign) {
-  
           int getQty = getQty();
-
           if (sign == "+") {
-              
                // add qty 
+
+            
+            
                getQty++;
 
           } else if (sign == "-") {
+               if (getQty == 1) {
+                    return;
+               }
                // remove qty 
                getQty--;
-               
+              
           }
-                          System.err.println("qty data + =1=333333333333333= " + qty);
-          
+
           if (getQty != 0) {
                String priceUsd = getLabelPrice();
                priceUsd = priceUsd.replace("$", "");
@@ -363,13 +372,9 @@ public class BoxItem extends javax.swing.JPanel {
                double _amountKh = JavaRoundDown.roundDown(JavaRoundDown.exchangeKh(subAmountUsd));
                setLabelAmountKh(kh.format(_amountKh));
                double _discoutnAmt = JavaConstant.getReplace(discountAmt) * getQty;
-              
                txtDiscount.setText("Discount : " + dm.format(_discoutnAmt));
                setDiscountAmount(dm.format(_discoutnAmt));
-               
-              
           }
-        
 
           // ============ for subtotal panel
           int count = buttonAddProduct.getParent().getParent().getComponentCount();

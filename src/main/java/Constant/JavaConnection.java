@@ -81,7 +81,6 @@ public class JavaConnection {
                     .header("Authorization", "Bearer " + JavaConstant.token)
                     .post(body).build();
                response = client.newCall(request).execute();
-               String data = response.body().string();
                closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);

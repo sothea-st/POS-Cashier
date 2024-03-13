@@ -32,5 +32,6 @@ public class JavaRoute {
      public static String logout = "/logout";
      public static String holdOrder = "/hold";
      public static String getPoint = "/customer/getCustomerPoint/";
+     public static String updateQty = "/import/updateQty";
 
 }
