@@ -50,7 +50,6 @@ public class Product {
     @Min(1)
     private int taxId;
 
-
     // @Column(name = "unit_type_id",length = 30)
     // private int unitTypeId;
 

@@ -145,6 +145,7 @@ public class ProductService {
         String fileName = previousPro.getProImageName();
         String flagName = previousPro.getFlag();
 
+
         if (!Objects.equals(previousPro.getProNameKh(), editProduct.getProNameKh())) {
             boolean isExist = repo.existsByProNameKh(editProduct.getProNameKh());
             JavaValidation.checkDataAlreadyExists(isExist);
@@ -167,6 +168,7 @@ public class ProductService {
             fileStore.save(f1);
             previousPro.setProImageName(imgName);
         }
+     
 
         if (Objects.equals(flagName, JavaConstant.defaultFlagNameImage))
             flagName = "";
@@ -191,6 +193,8 @@ public class ProductService {
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
         previousPro.setBrandId(editProduct.getBrandId());
+ 
+
         previousPro.setProductStatus(editProduct.getProductStatus()); // for detail product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
         previousPro.setCatId(editProduct.getCatId());

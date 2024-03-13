@@ -321,10 +321,9 @@ public class RouteController {
           }
 
           @PostMapping("/updateQty")
-          public ResponseEntity<?> updateQty(@RequestBody ProductAddRemoveQty p ){
-               System.out.println("ddddddddd = " + p.getListProId());
-               service.updateQty(p);
-               return JavaResponse.success("success update");
+          public ResponseEntity<?> updateQty(@RequestBody ProductAddRemoveQty p){
+               int _qty = service.updateQty(p);
+               return ResponseEntity.ok().body(Map.of("qtyUpdate",_qty,"msg","success"));
           }
 
      }
@@ -368,8 +367,8 @@ public class RouteController {
                return JavaResponse.success(data);
           }
 
-          @GetMapping("/{userId}")
-          public ResponseEntity<?> getData(@PathVariable("userId") int userId) {
+          @GetMapping 
+          public ResponseEntity<?> getData(@RequestParam("userId") int userId) {
                var data = service.readData("", userId);
                return JavaResponse.success(data);
           }

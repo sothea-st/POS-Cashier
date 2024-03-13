@@ -135,8 +135,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "and user_code = ?")
         Double totalSaledAmount(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((pp.price / (1 + (ppt.rate_tax / 100))) * (ppt.rate_tax / 100)), 2) AS vat\r\n"
-                        + //
+        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((pp.price / (1 + (ppt.rate_tax / 100))) * (ppt.rate_tax / 100)), 2) AS vat\r\n"+ //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
