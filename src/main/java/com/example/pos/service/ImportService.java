@@ -6,9 +6,12 @@ import com.example.pos.entity.ImportDetail;
 import com.example.pos.entity.Product;
 import com.example.pos.entity.models.ProIdModel;
 import com.example.pos.entity.models.ProductAddRemoveQty;
+import com.example.pos.entity.models.ProductModel;
 import com.example.pos.repository.ImportDetailRepository;
 import com.example.pos.repository.ImportRepository;
 import com.example.pos.repository.ProductRepository;
+import com.example.pos.repository.productProjection.ProductProjection;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,26 +95,30 @@ public class ImportService {
         }
     }
 
-    public void updateQty(ProductAddRemoveQty listProId) {
-
-        for (int i = 0; i < listProId.getListProId().size(); i++) {
-            Optional<ImportDetail> impData = repoDetail.findByImpId(listProId.getListProId().get(i).getProId());
-            int id = impData.get().getId();
-            int qty = impData.get().getQtyOld();
-            String _sign = listProId.getListProId().get(i).getSign();
-            if (_sign.equals("add")) {
-                qty++;
-            } else if (_sign.equals("remove")) {
-                qty--;
+    public int updateQty(ProductAddRemoveQty listProId) {
+        if (listProId.getListProId().size() == 1) {
+            for (int i = 0; i < listProId.getListProId().size(); i++) {
+                Optional<ImportDetail> impData = repoDetail.findByImpId(listProId.getListProId().get(i).getProId());
+                int id = impData.get().getId();
+                int qty = impData.get().getQtyOld();
+                String _sign = listProId.getListProId().get(i).getSign();
+                if (_sign.equals("add")) {
+                    qty++;
+                } else if (_sign.equals("remove")) {
+                    qty--;
+                }
+                Optional<ImportDetail> data = repoDetail.findById(id);
+                ImportDetail imp = data.get();
+                imp.setQtyOld(qty);
+                repoDetail.save(imp);
+                // get product with qty updated
+                int _oldQty = repoDetail.getOldQty(listProId.getListProId().get(i).getProId());
+                return _oldQty;
             }
-            Optional<ImportDetail> data = repoDetail.findById(id);
-            ImportDetail imp = data.get();
-            imp.setQtyOld(qty);
-            repoDetail.save(imp);
         }
 
-    }
+        return 0;
 
-  
+    }
 
 }

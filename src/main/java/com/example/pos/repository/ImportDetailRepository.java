@@ -1,6 +1,8 @@
 package com.example.pos.repository;
 
 import com.example.pos.entity.ImportDetail;
+import com.example.pos.repository.productProjection.ProductProjection;
+
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,5 +23,16 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
     @Query(nativeQuery = true , value = "select qty_old  from pos_import_detail pid where pro_id = ? order by id desc limit 1")
     Integer getQty(int proId);
 
+    @Query(nativeQuery = true , value = "select\r\n" + //
+                "\tpid.qty_old \r\n" + //
+                "from\r\n" + //
+                "\tpos_product pc\r\n" + //
+                "inner join pos_import_detail pid on\r\n" + //
+                "\tpid.pro_id = pc.id\r\n" + //
+                "where\r\n" + //
+                "\tpc.status = true\r\n" + //
+                "\tand pc.is_deleted = false \r\n" + //
+                "\tand pc.id = ? order by pid.id desc limit 1")
+    int getOldQty(int proId);
 
 }

@@ -44,9 +44,9 @@ public class HoldService {
           return data;
      }
 
-     public HashMap<String, Object> getHold() {
+     public HashMap<String, Object> getHold(int userID) {
           HashMap<String, Object> map = new HashMap<>();
-          List<HoldDataProjection> dataHold = repo.getHoldDataAll();
+          List<HoldDataProjection> dataHold = repo.getHoldDataAll(userID);
           List<HoldDetailModel> list = new ArrayList<>();
           for (int i = 0; i < dataHold.size(); i++) {
                var data = dataHold.get(i);
