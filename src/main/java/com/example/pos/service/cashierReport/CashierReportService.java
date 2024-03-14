@@ -182,7 +182,6 @@ public class CashierReportService {
         HashMap<String, Object> _map = new HashMap<>();
         _map.put("percentag", discount);
         _map.put("cash", discountDollar);
-
         map.put("discountSummery", _map);
     }
 
