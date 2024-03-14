@@ -97,7 +97,10 @@ public class ImportService {
     }
 
     public int updateQty(ProductAddRemoveQty listProId) {
-        if (listProId.getListProId().size() == 1) {
+        int size = listProId.getListProId().size();
+        System.out.println("dddddddddddddddd = " + size);
+
+        if (size == 1) {
             for (int i = 0; i < listProId.getListProId().size(); i++) {
                 Optional<ImportDetail> impData = repoDetail.findByImpId(listProId.getListProId().get(i).getProId());
                 int id = impData.get().getId();
@@ -115,6 +118,24 @@ public class ImportService {
                 // get product with qty updated
                 int _oldQty = repoDetail.getOldQty(listProId.getListProId().get(i).getProId());
                 return _oldQty;
+            }
+        } else {
+            for (int i = 0; i < listProId.getListProId().size(); i++) {
+                var _data = listProId.getListProId().get(i);
+                Optional<ImportDetail> impData = repoDetail.findByImpId(_data.getProId());
+                int id = impData.get().getId();
+                int qty = impData.get().getQtyOld();
+                String _sign = listProId.getListProId().get(i).getSign();
+                if (_sign.equals("add")) {
+                    qty = qty + listProId.getListProId().get(i).getQty();
+                }  
+                Optional<ImportDetail> data = repoDetail.findById(id);
+                ImportDetail imp = data.get();
+                imp.setQtyOld(qty);
+                repoDetail.save(imp);
+                // get product with qty updated
+                // int _oldQty = repoDetail.getOldQty(listProId.getListProId().get(i).getProId());
+                // return _oldQty;
             }
         }
 
