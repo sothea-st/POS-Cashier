@@ -104,7 +104,7 @@ public class ImportService {
                 int qty = impData.get().getQtyOld();
                 String _sign = listProId.getListProId().get(i).getSign();
                 if (_sign.equals("add")) {
-                    qty++;
+                    qty = qty + listProId.getListProId().get(i).getQty();
                 } else if (_sign.equals("remove")) {
                     qty--;
                 }
