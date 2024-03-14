@@ -125,6 +125,9 @@ public class ImportService {
                 Optional<ImportDetail> impData = repoDetail.findByImpId(_data.getProId());
                 int id = impData.get().getId();
                 int qty = impData.get().getQtyOld();
+
+                System.out.println("jjjjjjjjjjjjjjjjjjjjj impID = " + id + " qty old = " + qty);
+
                 String _sign = listProId.getListProId().get(i).getSign();
                 if (_sign.equals("add")) {
                     qty = qty + listProId.getListProId().get(i).getQty();

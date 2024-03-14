@@ -115,17 +115,16 @@ public class SaleService {
             dataDetail.setDiscount(detail.getDiscount());
             dataDetail.setCreateBy(userId);
             dataDetail.setDiscountType(detail.getDiscountType()); 
-
             repoDetail.save(dataDetail);
 
-            ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
-            int qtyOld = getQtyOld.getQtyOld();
-            int qty = qtyOld - qtyNew;
+            // ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
+            // int qtyOld = getQtyOld.getQtyOld();
+            // int qty = qtyOld - qtyNew;
 
-            Optional<ImportDetail> getImportDetail = repoImp.findByImpId(productId);
-            ImportDetail obj = getImportDetail.get();
-            obj.setQtyOld(qty);
-            repoImp.save(obj);
+            // Optional<ImportDetail> getImportDetail = repoImp.findByImpId(productId);
+            // ImportDetail obj = getImportDetail.get();
+            // obj.setQtyOld(qty);
+            // repoImp.save(obj);
         }
 
         // save payment
