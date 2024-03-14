@@ -193,7 +193,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                                 "\tps.sale_date = ?\r\n" + //
                                 "\tand ps.pos_id = ?\r\n" + //
                                 "\tand ps.user_code = ?\r\n" + //
-                                "\tand ppt.rate_tax = 0") // for
+                                "\tand ppt.rate_tax = 0 ") // for
                                                                                                               // Non-Vat
         Double noneVat(String currentDate, String posId, String userCode);
 
