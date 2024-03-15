@@ -29,19 +29,37 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "and  pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
         String totalAmount(int userId, String date, int discount, String posId, String openDate, String userCode);
 
-        @Query(nativeQuery = true, value = "select sum(psd.qty) from pos_sale ps \r\n" + //
-                        "inner join pos_sale_details psd on psd.sale_id = ps.id \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? and psd.discount = ?\r\n" + //
-                        "and  pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
-        String totalQty(int userId, String date, int discount, String posId, String openDate, String userCode);
+        @Query(nativeQuery = true, value = "\t\r\n" + //
+                        "\tselect count(pp.*)  from pos_payment pp \r\n" + //
+                        "\tinner join pos_sale ps ON ps.id = pp.sale_id \r\n" + //
+                        "\tinner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.user_id = ?\r\n" + //
+                        "\tand ps.sale_date = ?\r\n" + //
+                        "\tand pos.pos_id = ?\r\n" + //
+                        "\tand pp.discount_value = ?\r\n" + //
+                        "\tand pos.open_date = ?\r\n" + //
+                        "\tand pos.user_code = ?\r\n" + //
+                        "\tand pp.discount_type = 'percent'\r\n" + //
+                        "\t\r\n" + //
+                        "                        ")
+        String totalQty(int userId, String date, String posId, String discount, String openDate, String userCode);
 
-        @Query(nativeQuery = true, value = "select sum(psd.qty) from pos_sale ps \r\n" + //
-                        "inner join pos_sale_details psd on psd.sale_id = ps.id \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id  \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? \r\n" + //
-                        "and  pos.pos_id = ? and pos.open_date = ? \r\n" + //
-                        "and pos.user_code = ? and psd.discount_type = '$'")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                        "\tcount( pp.*)\r\n" + //
+                        "from\r\n" + //
+                        "\tpos_sale ps\r\n" + //
+                        "inner join pos_open_shift pos on\r\n" + //
+                        "\tpos.pos_id = ps.pos_id\r\n" + //
+                        "inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
+                        "where\r\n" + //
+                        "\tps.user_id = ?\r\n" + //
+                        "\tand ps.sale_date = ?\r\n" + //
+                        "\tand pos.pos_id = ?\r\n" + //
+                        "\tand pos.open_date = ?\r\n" + //
+                        "\tand pos.user_code = ?\r\n" + //
+                        " \tand pp.discount_type = 'dollar'\r\n" + //
+                        "\t\t ")
         String totalQtyDollar(int userId, String date, String posId, String openDate, String userCode);
 
         @Query(nativeQuery = true, value = "select sum(psd.discount) from pos_sale ps \r\n" + //
@@ -49,7 +67,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "inner join pos_open_shift pos on pos.pos_id = ps.pos_id  \r\n" + //
                         "where ps.user_id = ? and ps.sale_date = ? \r\n" + //
                         "and  pos.pos_id = ? and pos.open_date = ? \r\n" + //
-                        "and pos.user_code = ? and psd.discount_type = '$'")
+                        "and pos.user_code = ? and psd.discount_type = 'dollar'")
         String totalSaledDollar(int userId, String date, String posId, String openDate, String userCode);
 
         @Query(nativeQuery = true, value = "select sum(psd2.qty) from pos_sale ps2  \r\n" + //
@@ -65,25 +83,23 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "    pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
         String totalAmount(int userId, String date, String posId, String openDate, String userCode);
 
-        @Query(nativeQuery = true, value = "select count(pp.*)  from pos_sale ps  \r\n" + //
-                                "inner join pos_sale_details psd on psd.sale_id = ps.id  \r\n" + //
-                                "inner join pos_open_shift pos on pos.pos_id = ps.pos_id  \r\n" + //
-                                "inner join pos_payment pp on pp.sale_id = psd.sale_id \r\n" + //
-                                "where ps.user_id  = ? and\r\n" + //
-                                "ps.sale_date = ? and\r\n" + //
-                                "psd.discount > 0 and \r\n" + //
-                                "pos.pos_id = ? and\r\n" + //
-                                "pos.open_date = ? and pos.user_code = ?\r\n")
-        int totalQtyDiscount(int userId, String date, String posId, String opneDate, String userCode);
+        @Query(nativeQuery = true, value = "\tselect count(ps.discount ) from pos_sale ps \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.discount > 0\r\n" + //
+                        "\t\r\n")
+        int totalQtyDiscount(String date, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "select sum(((psd.discount * pp.price) /100)*psd.qty)  as disAmount from pos_sale ps\r\n"
-                        + //
-                        "   inner join pos_sale_details psd  on psd.sale_id = ps.id\r\n" + //
-                        "   inner join pos_open_shift pos on pos.pos_id = ps.pos_id\r\n" + //
-                        "   inner join pos_product pp on pp.id = psd.pro_id \r\n" + //
-                        "   where ps.user_id  = ? and ps.sale_date = ? and \r\n" + //
-                        "   psd.discount > 0 and  pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
-        String totalAmountDiscount(int userID, String date, String posId, String openDate, String userCode);
+        @Query(nativeQuery = true, value = "\tselect sum(ps.discount ) from pos_sale ps \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.discount > 0\r\n" + //
+                        "\t\r\n")
+        String totalAmountDiscount(String date, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "select sum(prd.retur_qty)  from pos_sale ps\r\n" + //
                         "        inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
@@ -94,49 +110,42 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "        pos.pos_id = ? and pos.open_date = ?")
         String totalReturnQty(int userId, String date, String posId, String openDate);
 
-        @Query(nativeQuery = true, value = "select trunc( sum(prd.return_amount*prd.retur_qty) - sum(((prd.return_price *prd.return_discount)/ 100)* prd.retur_qty), 2) as result\r\n" + //
-                                "from pos_sale ps\r\n" + //
-                                "inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
-                                "inner join pos_open_shift pos on pos.pos_id = ps.pos_id\r\n" + //
-                                "inner join pos_return_product prp on prp.payment_no = pp.payment_no\r\n" + //
-                                "inner join pos_return_details prd on prd.return_id = prp.id\r\n" + //
-                                "where ps.user_id = ?\r\n" + //
-                                "and ps.sale_date = ?\r\n" + //
-                                "and pp.is_return = 'returned'\r\n" + //
-                                "and pos.pos_id = ?\r\n" + //
-                                "and pos.open_date = ?;")
-        Double totalReturnAmountDiscount(int userId, String date, String posId, String openDate);
-
+        @Query(nativeQuery = true, value = "\tselect sum(ps.total)  from pos_sale ps \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.sale_is_return = 'returned'")
+        Double totalReturnAmountDiscount(String date, String posId, String userCode);
 
         // ============================================ new
         // ==============================================
 
-        @Query(nativeQuery = true, value = "select\r\n" + //
-                        "\tcount(pp.*)\r\n" + //
-                        "from\r\n" + //
-                        "\tpos_sale ps             \r\n" + //
-                        "inner join pos_payment pp on\r\n" + //
-                        "\tpp.sale_id = ps.id   \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
-                        "\twhere ps.user_id =?\r\n" + //
-                        "\tand ps.sale_date = ?  \r\n" + //
-                        "\tand pp.is_return = 'returned'\r\n" + //
-                        "\tand pos.pos_id = ?\r\n" + //
-                        "\tand pos.open_date = ?")
-        int numRetured(int userId, String saleDate, String posId, String openDate);
+        @Query(nativeQuery = true, value = "\tselect count(ps.*) from pos_sale ps \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.sale_is_return = 'returned'")
+        int numRetured(String saleDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "select count(pp.*)  from pos_payment pp \r\n" + //
-                        "inner join pos_sale ps on ps.id = pp.sale_id \r\n" + //
-                        "where ps.sale_date = ? and ps.pos_id = ? \r\n" + //
-                        "and ps.user_code = ?")
+        @Query(nativeQuery = true, value = "\tselect count(ps.*) from pos_sale ps \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ? \r\n" + //
+                        "\t")
         int numOfSale(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "select sum(ps.sub_total)  from pos_sale ps \r\n" + //
-                        "where sale_date = ? and  pos_id = ?\r\n" + //
-                        "and user_code = ?")
+        @Query(nativeQuery = true, value = "\tselect sum(ps.sub_total)  from pos_sale ps \r\n" + //
+                        "\twhere\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ? \r\n" + //
+                        "\t")
         Double totalSaledAmount(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT trunc( sum(((psd.price*psd.qty)/1.1)*0.1), 2) as vat\r\n"+ //
+        @Query(nativeQuery = true, value = "SELECT trunc( sum(((psd.price*psd.qty)/1.1)*0.1), 2) as vat\r\n" + //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
@@ -145,7 +154,8 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "")
         Double vat10(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT trunc( sum(((  ((psd.price*psd.qty)/1.1) /1.006))*0.2*0.03),2) as vat\r\n" + //
+        @Query(nativeQuery = true, value = "SELECT trunc( sum(((  ((psd.price*psd.qty)/1.1) /1.006))*0.2*0.03),2) as vat\r\n"
+                        + //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
@@ -155,49 +165,50 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
         Double vat3(String currentDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
-                                "\t trunc(sum((psd.price*psd.qty)/1.1),2) as vat\r\n" + //
-                                "from\r\n" + //
-                                "\tpos_sale ps\r\n" + //
-                                "inner join pos_sale_details psd on\r\n" + //
-                                "\tps.id = psd.sale_id\r\n" + //
-                                "inner join pos_product pp on\r\n" + //
-                                "\tpsd.pro_id = pp.id\r\n" + //
-                                "inner join pos_product_tax ppt on\r\n" + //
-                                "\tppt.id = pp.tax_id\r\n" + //
-                                "inner join pos_payment pp2 on\r\n" + //
-                                "\tpp2.sale_id = psd.sale_id\r\n" + //
-                                "inner join pos_product pp3 on\r\n" + //
-                                "\tpp3.id = psd.pro_id\r\n" + //
-                                "where\r\n" + //
-                                "\tps.sale_date = ?\r\n" + //
-                                "\tand ps.pos_id = ?\r\n" + //
-                                "\tand ps.user_code = ?\r\n" + //
-                                "\tand ppt.rate_tax > 0")
+                        "\t trunc(sum((psd.price*psd.qty)/1.1),2) as vat\r\n" + //
+                        "from\r\n" + //
+                        "\tpos_sale ps\r\n" + //
+                        "inner join pos_sale_details psd on\r\n" + //
+                        "\tps.id = psd.sale_id\r\n" + //
+                        "inner join pos_product pp on\r\n" + //
+                        "\tpsd.pro_id = pp.id\r\n" + //
+                        "inner join pos_product_tax ppt on\r\n" + //
+                        "\tppt.id = pp.tax_id\r\n" + //
+                        "inner join pos_payment pp2 on\r\n" + //
+                        "\tpp2.sale_id = psd.sale_id\r\n" + //
+                        "inner join pos_product pp3 on\r\n" + //
+                        "\tpp3.id = psd.pro_id\r\n" + //
+                        "where\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ?\r\n" + //
+                        "\tand ppt.rate_tax > 0")
         Double vat(String currentDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
-                                "\ttrunc( sum((psd.price* psd.qty) / (1+ (ppt.rate_tax/100))  ) ,2 ) as vat\r\n" + //
-                                "from\r\n" + //
-                                "\tpos_sale ps\r\n" + //
-                                "inner join pos_sale_details psd on\r\n" + //
-                                "\tps.id = psd.sale_id\r\n" + //
-                                "inner join pos_product pp on\r\n" + //
-                                "\tpsd.pro_id = pp.id\r\n" + //
-                                "inner join pos_product_tax ppt on\r\n" + //
-                                "\tppt.id = pp.tax_id\r\n" + //
-                                "inner join pos_payment pp2 on\r\n" + //
-                                "\tpp2.sale_id = psd.sale_id\r\n" + //
-                                "inner join pos_product pp3 on\r\n" + //
-                                "\tpp3.id = psd.pro_id\r\n" + //
-                                "where\r\n" + //
-                                "\tps.sale_date = ?\r\n" + //
-                                "\tand ps.pos_id = ?\r\n" + //
-                                "\tand ps.user_code = ?\r\n" + //
-                                "\tand ppt.rate_tax = 0 ") // for
-                                                                                                              // Non-Vat
+                        "\ttrunc( sum((psd.price* psd.qty) / (1+ (ppt.rate_tax/100))  ) ,2 ) as vat\r\n" + //
+                        "from\r\n" + //
+                        "\tpos_sale ps\r\n" + //
+                        "inner join pos_sale_details psd on\r\n" + //
+                        "\tps.id = psd.sale_id\r\n" + //
+                        "inner join pos_product pp on\r\n" + //
+                        "\tpsd.pro_id = pp.id\r\n" + //
+                        "inner join pos_product_tax ppt on\r\n" + //
+                        "\tppt.id = pp.tax_id\r\n" + //
+                        "inner join pos_payment pp2 on\r\n" + //
+                        "\tpp2.sale_id = psd.sale_id\r\n" + //
+                        "inner join pos_product pp3 on\r\n" + //
+                        "\tpp3.id = psd.pro_id\r\n" + //
+                        "where\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand ps.pos_id = ?\r\n" + //
+                        "\tand ps.user_code = ?\r\n" + //
+                        "\tand ppt.rate_tax = 0 ") // for
+                                                   // Non-Vat
         Double noneVat(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((psd.amount / (1 + (ppt.rate_tax / 100)))), 2) AS vat\r\n" + //
+        @Query(nativeQuery = true, value = "SELECT TRUNC(SUM((psd.amount / (1 + (ppt.rate_tax / 100)))), 2) AS vat\r\n"
+                        + //
                         "FROM pos_sale ps\r\n" + //
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //

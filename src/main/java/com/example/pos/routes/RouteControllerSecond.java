@@ -374,7 +374,7 @@ public class RouteControllerSecond {
           @GetMapping
           public ResponseEntity<?> getHold(@RequestParam("userId") int userID) {
                HashMap<String, Object> data = service.getHold(userID);
-               long count = repo.count();
+               long count = repo.countResult(userID);
                data.put("count", count);
                data.put("msg", "success");
                return ResponseEntity.ok().body(data);
