@@ -178,13 +178,20 @@ public class ActionProduct {
 //                         qty--;
 //                         product.setQty("" + qty);
 //                         JavaConstant.productQTyLeft = qty;
+
+
                          //===================================
+                         int qty = Integer.valueOf(product.getQty());
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-                                   ActionUpdateQty.updateQty(listData.getId(), "remove", product);
-
-                                   eventBtnBuy(listData, 1, product);
-
+                                   if(qty > 0){
+                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
+                                       eventBtnBuy(listData, 1, product);
+                                   }else{
+                                        j.setMessage(JavaMessage.productOutStock);
+                                        j.setVisible(true);
+                                        return;
+                                   }
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
                                    j.setVisible(true);

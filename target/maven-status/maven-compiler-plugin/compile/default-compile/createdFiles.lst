@@ -57,11 +57,13 @@ NewDiscounts\Discounting$18.class
 Model\Brand\BrandModel.class
 Components\NoData.class
 Customer\JdailogCustomer$4.class
+BlogCode\QtyUpdate.class
 HoldOrder\HoldDataSuccessModel.class
 Model\Reprint\ReprintModel.class
 DeleteAndCancel\DeleteDialog$2.class
 LoginAndLogoutForm\LogoutDialog$2.class
 Components\PasswordField$2.class
+NewCashierReport\CashierReporting$2.class
 NewDiscounts\Discounting$20$1.class
 Print\ReprintByInvoicenumber$1.class
 Discount\GetProduct$1.class
@@ -86,6 +88,7 @@ Model\HoldOrder\HoldOrder.class
 Components\TextFieldCenter$2.class
 Payment\PaymentOption$3.class
 Discount\DiscountByItem$4$1.class
+NewCashierReport\CashierReporting$3$1.class
 BlogCode\JavaEventNextPrevious.class
 Components\TextField$4.class
 Receipt\CashierReport$3.class
@@ -326,6 +329,7 @@ Payment\PaymentOption$12.class
 NewDiscounts\Discounting$9.class
 Fonts\WindowFonts.class
 Components\JavaAlertMessage$2$1.class
+NewCashierReport\CashierReporting$3.class
 BlogCode\JavaActionDiscount.class
 NewDiscounts\Discounting$3.class
 Model\HoldOrder\HoldOrderModel.class

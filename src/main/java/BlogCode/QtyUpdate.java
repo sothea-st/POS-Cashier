@@ -2,7 +2,6 @@ package BlogCode;
 
 import Components.JavaAlertMessage;
 import Constant.JavaConnection;
-import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoute;
 import Products.ProductBox;
@@ -12,16 +11,17 @@ import javax.swing.JFrame;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class ActionUpdateQty {
-
-     public static void updateQty(int proId, String sign,ProductBox product) {
+public class QtyUpdate {
+    public static void updateQty(int proId, String sign,ProductBox product, int qty) {
           JSONObject json = new JSONObject();
           ArrayList<UpdateQtyModel> model = new ArrayList<>();
-          UpdateQtyModel _updateModel = new UpdateQtyModel(proId, 1, sign);
+          UpdateQtyModel _updateModel = new UpdateQtyModel(proId, qty, sign);
           model.add(_updateModel);
           json.put("listProId", model);
+          
           Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
           int _qtyUpdate = 0;
+          
           try {
                String _data = _responseData.body().string();
                JSONObject _json = new JSONObject(_data);

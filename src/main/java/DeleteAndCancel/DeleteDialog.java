@@ -1,5 +1,7 @@
 package DeleteAndCancel;
 
+import BlogCode.ActionUpdateQty;
+import BlogCode.QtyUpdate;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
@@ -13,6 +15,7 @@ import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.Package.ReasonModel;
 import Model.PackageProduct.ProductIDModel;
+import Products.ProductBox;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -39,6 +42,9 @@ public class DeleteDialog extends javax.swing.JDialog {
      private Button.Button btnPayment;
      private ButtonPackage.ButtonCancel btnCancel;
      private Button.Button buttonHoldOrder;
+     private ProductBox productBox;
+     private int qty;
+     
 
      public DeleteDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -254,13 +260,20 @@ public class DeleteDialog extends javax.swing.JDialog {
               json.put("listCancelDetail", listCancelDetail);
 
               Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "delete", json);
-
+              
+              int quantity = Integer.valueOf(getQty());
+              int productBoxQty = Integer.valueOf(productBox.getQty());
+              int sumQty = quantity + productBoxQty;
+              
               if (response.isSuccessful()) {
                    dispose();
                    deleteItem();
+                   QtyUpdate.updateQty(productId, "add", productBox,quantity);
+                   productBox.setQty(""+sumQty);
                    JavaConstant.productId = 0;
                    JavaConstant.productQTyLeft = 0;
                    JavaConstant.discountAmount = 1;
+                   
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
                    return;
@@ -340,6 +353,24 @@ public class DeleteDialog extends javax.swing.JDialog {
      public void setButtonHoldOrder(Button.Button buttonHoldOrder) {
           this.buttonHoldOrder = buttonHoldOrder;
      }
+
+    public ProductBox getProductBox() {
+        return productBox;
+    }
+
+    public void setProductBox(ProductBox productBox) {
+        this.productBox = productBox;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+     
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel1;

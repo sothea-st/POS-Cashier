@@ -4,11 +4,13 @@ import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
+import Components.JavaAlertMessage;
 import Components.LabelPopUpTitle;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
@@ -21,8 +23,10 @@ import HoldOrder.HoldeModel;
 import Model.Package.ReasonModel;
 import Model.PackageProduct.ProductIDModel;
 import Model.PackageProduct.ProductModel;
+import UpdateQty.UpdateQtyModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -60,6 +64,7 @@ public class CancelDialog extends javax.swing.JDialog {
      private countCircleShape countCircleShape;
      private SubtotalPanel subtotalPanel;
      private String labelForTitle;
+     private JPanel panelProduct;
      
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
@@ -237,6 +242,8 @@ public class CancelDialog extends javax.swing.JDialog {
 
                    Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "cancel", jsonData);
                    if (response.isSuccessful()) {
+                        
+                        updateCancelQty();
                         this.dispose();
                         detailItem.removeAll();
                         detailItem.revalidate();
@@ -259,10 +266,30 @@ public class CancelDialog extends javax.swing.JDialog {
          } else if (code.equals("cancelHold")) {
               deleteHold();
          }
-
-
     }//GEN-LAST:event_buttonSaveMouseClicked
-     public countCircleShape getCountCircleShape() {
+     
+    
+    // Add product to stock after cancel order
+    private void updateCancelQty() {
+        
+            JSONObject json = new JSONObject();
+            ArrayList<UpdateQtyModel> model = new ArrayList<>();
+                for (int i = 0; i < listCom.length; i++) {
+                var obj = ((BoxItem) listCom[i]);
+                UpdateQtyModel _updateModel = new UpdateQtyModel(obj.getProductId(),obj.getQty(), "add");
+                model.add(_updateModel);
+            }
+            json.put("listProId", model);
+          
+            Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
+            
+            panelProduct.revalidate();
+            panelProduct.repaint();
+          
+     }
+    
+    
+    public countCircleShape getCountCircleShape() {
           return countCircleShape;
      }
 
@@ -682,6 +709,15 @@ public class CancelDialog extends javax.swing.JDialog {
           this.subtotalPanel = subtotalPanel;
      }
 
+    public JPanel getPanelProduct() {
+        return panelProduct;
+    }
+
+    public void setPanelProduct(JPanel panelProduct) {
+        this.panelProduct = panelProduct;
+    }
+
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonSave buttonSave;

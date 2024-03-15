@@ -6,6 +6,7 @@ import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import DeleteAndCancel.DeleteDialog;
@@ -346,12 +347,19 @@ public class BoxItem extends javax.swing.JPanel {
 
      void sumTotal(String sign) {
           int getQty = getQty();
+          int quantity = Integer.valueOf(productBox.getQty());
+          
           if (sign == "+") {
-               // add qty 
-
-            
-            
-               getQty++;
+                if (quantity < 1) {
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    j.setMessage(JavaMessage.productOutStock);
+                    j.setVisible(true);
+                    return;
+                }
+                // add qty 
+                getQty++;
+                productBox.setQty(""+quantity--);
+                ActionUpdateQty.updateQty(productId, "remove", productBox);
 
           } else if (sign == "-") {
                if (getQty == 1) {
@@ -359,6 +367,8 @@ public class BoxItem extends javax.swing.JPanel {
                }
                // remove qty 
                getQty--;
+               productBox.setQty(""+quantity++);
+               ActionUpdateQty.updateQty(productId, "add", productBox);
               
           }
 
@@ -640,6 +650,8 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setBtnPayment(btnPayment);
          delete.setBtnCancel(btnCancel);
          delete.setButtonHoldOrder(buttonHoldOrder);
+         delete.setProductBox(productBox);
+         delete.setQty(qty);
          delete.setVisible(true);
 
     }//GEN-LAST:event_btnDeleteMouseClicked

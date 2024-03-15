@@ -741,6 +741,7 @@ public class MainPage extends javax.swing.JFrame {
                    cancel.setBtnCancel(btnCancel);
                    cancel.setCode("cancel");
                    cancel.setButtonHoldOrder(buttonHoldOrder);
+                   cancel.setPanelProduct(panelProduct);
                    cancel.setListCom(listCom);
                    cancel.setLabelForTitle("Cancel");
                    cancel.setVisible(true);
