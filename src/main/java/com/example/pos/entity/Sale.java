@@ -57,6 +57,12 @@ public class Sale {
     @Column(name = "cus_id")
     private String cusId;
 
+    @Column(name = "sale_is_return",length = 50)
+    private String saleIsReturn;
+
+    @Column(name = "discount_case",length = 50)
+    private String discountCase;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<SaleDetail> dataSale;
 

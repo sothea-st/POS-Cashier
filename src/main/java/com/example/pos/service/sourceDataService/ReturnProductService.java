@@ -6,10 +6,12 @@ import org.springframework.stereotype.Service;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.entity.ImportDetail;
 import com.example.pos.entity.Product;
+import com.example.pos.entity.Sale;
 import com.example.pos.entity.payment.Payment;
 import com.example.pos.entity.sourceData.ReturnDetails;
 import com.example.pos.entity.sourceData.ReturnProduct;
 import com.example.pos.repository.ImportDetailRepository;
+import com.example.pos.repository.SaleRepository;
 import com.example.pos.repository.paymentRepository.PaymentRepository;
 import com.example.pos.repository.productProjection.ProductProjection;
 import com.example.pos.repository.sourceDataRepository.ReturnDetailsRepository;
@@ -33,6 +35,9 @@ public class ReturnProductService {
 
     @Autowired
     private ImportDetailRepository repoImport;
+
+    @Autowired 
+    private SaleRepository repoSale;
 
     public void returnProduct(ReturnProduct re) {
         // var createBy = session.getAttribute(JavaConstant.userId);
@@ -75,6 +80,12 @@ public class ReturnProductService {
             impDetail.setQtyOld(restockQty);
             repoImport.save(impDetail);
         }
+
+        int saleId = repoDetail.getSaleId(re.getPaymentNo());
+        Optional<Sale> dataSale = repoSale.findById(saleId);
+        Sale result = dataSale.get();
+        result.setSaleIsReturn("returned");
+        repoSale.save(result);
     }
 
     public ProductProjection searchProdcutByBarcode(String barcode){

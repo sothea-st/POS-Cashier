@@ -98,8 +98,6 @@ public class ImportService {
 
     public int updateQty(ProductAddRemoveQty listProId) {
         int size = listProId.getListProId().size();
-        System.out.println("dddddddddddddddd = " + size);
-
         if (size == 1) {
             for (int i = 0; i < listProId.getListProId().size(); i++) {
                 Optional<ImportDetail> impData = repoDetail.findByImpId(listProId.getListProId().get(i).getProId());
@@ -125,9 +123,6 @@ public class ImportService {
                 Optional<ImportDetail> impData = repoDetail.findByImpId(_data.getProId());
                 int id = impData.get().getId();
                 int qty = impData.get().getQtyOld();
-
-                System.out.println("jjjjjjjjjjjjjjjjjjjjj impID = " + id + " qty old = " + qty);
-
                 String _sign = listProId.getListProId().get(i).getSign();
                 if (_sign.equals("add")) {
                     qty = qty + listProId.getListProId().get(i).getQty();

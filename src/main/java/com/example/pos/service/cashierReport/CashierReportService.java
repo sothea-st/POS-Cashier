@@ -243,38 +243,18 @@ public class CashierReportService {
         map.put("paymentNoLast", paymentNoLast);
 
  
-        int qtyDiscount = repoSaleDetail.totalQtyDiscount(userId, JavaConstant.currentDate, posId,
-                JavaConstant.currentDate, userCode);
+        int qtyDiscount = repoSaleDetail.totalQtyDiscount(JavaConstant.currentDate, posId, userCode);
  
 
         double amountDiscount = 0.00;
-        String listDiscountQty = repoSaleDetail.totalAmountDiscount(userId, JavaConstant.currentDate, posId,
-                JavaConstant.currentDate, userCode);
+        String listDiscountQty = repoSaleDetail.totalAmountDiscount(JavaConstant.currentDate, posId, userCode);
         if (listDiscountQty != null)
             amountDiscount = Double.valueOf(listDiscountQty);
-
-        // int qtySale = 0;
-        // String qtySaleStr = repoSaleDetail.totalQtySale(userId,
-        // JavaConstant.currentDate, posId,
-        // JavaConstant.currentDate,userCode);
-        // if (qtySaleStr != null)
-        // qtySale = Integer.valueOf(qtySaleStr);
-
-        // double amount = 0;
-        // String amountStr = repoSaleDetail.totalAmount(userId,
-        // JavaConstant.currentDate, posId,
-        // JavaConstant.currentDate,userCode);
-        // if (amountStr != null)
-        // amount = Double.valueOf(amountStr);
-
-        int returnQty = repoSaleDetail.numRetured(userId, JavaConstant.currentDate,posId,JavaConstant.currentDate);
-        // String returnQtyStr = repoSaleDetail.totalReturnQty(userId, JavaConstant.currentDate, posId,
-        //         JavaConstant.currentDate);
-        // if (returnQtyStr != null)
-        //     returnQty = Integer.valueOf(returnQtyStr);
+ 
+        int returnQty = repoSaleDetail.numRetured(JavaConstant.currentDate,posId,userCode);
 
         // double returnAmount = 0;
-        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(userId, JavaConstant.currentDate, posId,JavaConstant.currentDate);
+        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(JavaConstant.currentDate, posId,userCode);
         returnAmountDiscount = returnAmountDiscount == null ? 0 : returnAmountDiscount;
 
 

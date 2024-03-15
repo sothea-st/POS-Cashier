@@ -84,6 +84,8 @@ public class SaleService {
         sale.setDeliveryFee(s.getDeliveryFee());
         // sale.setTotal(s.getTotal());
         sale.setTotal(s.getTotal());
+        sale.setDiscountCase(s.getDiscountCase());
+        sale.setSaleIsReturn(s.getSaleIsReturn());
         sale.setCreateBy(userId);
 
         Customer cus = s.getCustomer();
@@ -101,7 +103,6 @@ public class SaleService {
         List<SaleDetail> details = s.getDataSale();
 
         for (int i = 0; i < details.size(); i++) {
-
             var detail = details.get(i);
             int productId = detail.getProductId();
             int qtyNew = detail.getQty();
