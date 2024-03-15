@@ -194,6 +194,8 @@ public class SaleService {
         data.setPaymentType(p.getPaymentType());
         data.setCustomerTypeId(p.getCustomerTypeId());
         data.setSourceId(p.getSourceId());
+        data.setDiscountType(p.getDiscountType());
+        data.setDiscountValue(p.getDiscountValue());
         data.setCreateBy(createBy);
         payRepo.save(data);
 

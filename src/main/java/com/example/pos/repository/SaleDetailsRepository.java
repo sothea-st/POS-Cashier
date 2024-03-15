@@ -29,19 +29,37 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "and  pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
         String totalAmount(int userId, String date, int discount, String posId, String openDate, String userCode);
 
-        @Query(nativeQuery = true, value = "select sum(psd.qty) from pos_sale ps \r\n" + //
-                        "inner join pos_sale_details psd on psd.sale_id = ps.id \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? and psd.discount = ?\r\n" + //
-                        "and  pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
-        String totalQty(int userId, String date, int discount, String posId, String openDate, String userCode);
+        @Query(nativeQuery = true, value = "\t\r\n" + //
+                                "\tselect count(pp.*)  from pos_payment pp \r\n" + //
+                                "\tinner join pos_sale ps ON ps.id = pp.sale_id \r\n" + //
+                                "\tinner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
+                                "\twhere\r\n" + //
+                                "\tps.user_id = ?\r\n" + //
+                                "\tand ps.sale_date = ?\r\n" + //
+                                "\tand pos.pos_id = ?\r\n" + //
+                                "\tand pp.discount_value = ?\r\n" + //
+                                "\tand pos.open_date = ?\r\n" + //
+                                "\tand pos.user_code = ?\r\n" + //
+                                "\tand pp.discount_type = 'percent'\r\n" + //
+                                "\t\r\n" + //
+                                "                        ")
+        String totalQty(int userId, String date,  String posId,String discount, String openDate, String userCode);
 
-        @Query(nativeQuery = true, value = "select sum(psd.qty) from pos_sale ps \r\n" + //
-                        "inner join pos_sale_details psd on psd.sale_id = ps.id \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id  \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? \r\n" + //
-                        "and  pos.pos_id = ? and pos.open_date = ? \r\n" + //
-                        "and pos.user_code = ? and psd.discount_type = '$'")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\tcount( pp.*)\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "inner join pos_open_shift pos on\r\n" + //
+                                "\tpos.pos_id = ps.pos_id\r\n" + //
+                                "inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
+                                "where\r\n" + //
+                                "\tps.user_id = ?\r\n" + //
+                                "\tand ps.sale_date = ?\r\n" + //
+                                "\tand pos.pos_id = ?\r\n" + //
+                                "\tand pos.open_date = ?\r\n" + //
+                                "\tand pos.user_code = ?\r\n" + //
+                                " \tand pp.discount_type = 'dollar'\r\n" + //
+                                "\t\t ")
         String totalQtyDollar(int userId, String date, String posId, String openDate, String userCode);
 
         @Query(nativeQuery = true, value = "select sum(psd.discount) from pos_sale ps \r\n" + //
@@ -49,7 +67,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "inner join pos_open_shift pos on pos.pos_id = ps.pos_id  \r\n" + //
                         "where ps.user_id = ? and ps.sale_date = ? \r\n" + //
                         "and  pos.pos_id = ? and pos.open_date = ? \r\n" + //
-                        "and pos.user_code = ? and psd.discount_type = '$'")
+                        "and pos.user_code = ? and psd.discount_type = 'dollar'")
         String totalSaledDollar(int userId, String date, String posId, String openDate, String userCode);
 
         @Query(nativeQuery = true, value = "select sum(psd2.qty) from pos_sale ps2  \r\n" + //

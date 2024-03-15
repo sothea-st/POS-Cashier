@@ -147,7 +147,7 @@ public class CashierReportService {
         List<SummeryCashierReport> discount = new ArrayList<>();
         for (int i = 0; i < listDiscount.size(); i++) {
             int disQty = 0;
-            String disStr = repoSaleDetail.totalQty(userId, JavaConstant.currentDate, listDiscount.get(i), posId,
+            String disStr = repoSaleDetail.totalQty(userId, JavaConstant.currentDate, posId, ""+listDiscount.get(i),
                     JavaConstant.currentDate, userCode);
             if (disStr != null)
                 disQty = Integer.valueOf(disStr);
@@ -188,34 +188,20 @@ public class CashierReportService {
     public void paymentSummery(int userId, String posId, String userCode) {
         CloseShift dCloseShift = closeShiftRepo.getCloseShift(userCode, JavaConstant.currentDate, posId);
         int qtyUsd = repoSale.countSaledNumUsd(userId, JavaConstant.currentDate, posId);
-        // String qtyUsdStr = repoSale.sumQtySaledByUsd(userId,
-        // JavaConstant.currentDate, posId, JavaConstant.currentDate,userCode);
-        // if (qtyUsdStr != null)
-        // qtyUsd = Integer.valueOf(qtyUsdStr);
+
 
         double amountPayUsd = dCloseShift.getCashUsd().doubleValue();
 
         int qtyKhr = repoSale.countSaledNumKhr(userId, JavaConstant.currentDate, posId);
-        // String qtyKhrStr = repoSale.sumQtySaledByKhr(userId,
-        // JavaConstant.currentDate, posId, JavaConstant.currentDate,userCode);
-        // if (qtyKhrStr != null)
-        // qtyKhr = Integer.valueOf(qtyKhrStr);
 
         double amountPayKhr = dCloseShift.getCashKhr().doubleValue() / JavaConstant.exchangeRate;
 
         int qtyAba = repoSale.countSaledNumAba(userId, JavaConstant.currentDate, posId);
-        // String qtyAbaStr = repoSale.totalCountQtyABA(userId,
-        // JavaConstant.currentDate, posId, JavaConstant.currentDate,userCode);
-        // if (qtyAbaStr != null)
-        // qtyAba = Integer.valueOf(qtyAbaStr);
 
         double amountAba = dCloseShift.getKhqrAba().doubleValue();
 
         int qtyMnk = repoSale.countSaledNumMnk(userId, JavaConstant.currentDate, posId);
-        // String qtyMnkStr = repoSale.totalCountQtyMNK(userId,
-        // JavaConstant.currentDate, posId, JavaConstant.currentDate,userCode);
-        // if (qtyMnkStr != null)
-        // qtyMnk = Integer.valueOf(qtyMnkStr);
+
 
         double amountMnk = dCloseShift.getKhqrMnk().doubleValue();
 
@@ -228,11 +214,7 @@ public class CashierReportService {
         double amountExpress = dCloseShift.getExpress().doubleValue();
 
         int qtyCredit = repoSale.countSaledNumCredit(userId, JavaConstant.currentDate, posId);
-        // String qtyCreditStr = repoSale.totalCountQtyCredit(userId,
-        // JavaConstant.currentDate, posId,
-        // JavaConstant.currentDate,userCode);
-        // if (qtyCreditStr != null)
-        // qtyCredit = Integer.valueOf(qtyCreditStr);
+
 
         double amountCredit = dCloseShift.getCreditCard().doubleValue();
 

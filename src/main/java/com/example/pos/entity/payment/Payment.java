@@ -70,6 +70,12 @@ public class Payment {
      @Column(name = "is_return",length = 20)
      private String isReturn;
 
+     @Column(name = "discount_type",length = 20)
+     private String discountType;
+
+     @Column(name = "discount_value",length = 20)
+     private String discountValue;
+
      @Column(name = "create_by")
      private int createBy;
 
