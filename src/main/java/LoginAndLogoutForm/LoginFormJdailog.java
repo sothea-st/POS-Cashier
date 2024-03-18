@@ -233,8 +233,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                j.setVisible(true);
                return;
           }
-        
-//          pro.eventBtnBuy(proModel, proModel.getQty());
+          pro.eventBtnBuy(proModel, proModel.getQty());
      }
      
      public void scanbarCodeAddProduct(ProductModel proModel,String scanbarcode) {
@@ -244,7 +243,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                j.setVisible(true);
                return;
           }
-//          pro.eventBtnBuy(proModel, 1);
+          pro.eventBtnBuy(proModel, 1);
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked

@@ -44,7 +44,6 @@ public class DeleteDialog extends javax.swing.JDialog {
      private Button.Button buttonHoldOrder;
      private ProductBox productBox;
      private int qty;
-     
 
      public DeleteDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -245,7 +244,7 @@ public class DeleteDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
-        
+
          if (reasonId == null) {
               JOptionPane.showMessageDialog(this, "Please select a reason!");
               return;
@@ -260,20 +259,29 @@ public class DeleteDialog extends javax.swing.JDialog {
               json.put("listCancelDetail", listCancelDetail);
 
               Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "delete", json);
-              
-              int quantity = Integer.valueOf(getQty());
-              int productBoxQty = Integer.valueOf(productBox.getQty());
-              int sumQty = quantity + productBoxQty;
-              
+
+//              JSONObject json = new JSONObject();
+//              json.put("createBy", JavaConstant.cashierId);
+//              json.put("reasonId", 1);
+//              ArrayList<ProductIDModel> listCancelDetail = new ArrayList<>();
+//              listCancelDetail.add(new ProductIDModel(productId));
+//              json.put("listCancelDetail", listCancelDetail);
+//
+//              Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "delete", json);
+
+//              int quantity = Integer.valueOf(getQty());
+//              int productBoxQty = Integer.valueOf(productBox.getQty());
+//              int sumQty = quantity + productBoxQty;
+
               if (response.isSuccessful()) {
                    dispose();
                    deleteItem();
-                   QtyUpdate.updateQty(productId, "add", productBox,quantity);
-                   productBox.setQty(""+sumQty);
+//                   QtyUpdate.updateQty(productId, "add", productBox, quantity);
+//                   productBox.setQty("" + sumQty);
                    JavaConstant.productId = 0;
                    JavaConstant.productQTyLeft = 0;
                    JavaConstant.discountAmount = 1;
-                   
+
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
                    return;
@@ -338,13 +346,13 @@ public class DeleteDialog extends javax.swing.JDialog {
           this.subtotalPanel = subtotalPanel;
      }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
 
      public Button.Button getButtonHoldOrder() {
           return buttonHoldOrder;
@@ -354,23 +362,22 @@ public class DeleteDialog extends javax.swing.JDialog {
           this.buttonHoldOrder = buttonHoldOrder;
      }
 
-    public ProductBox getProductBox() {
-        return productBox;
-    }
+     public ProductBox getProductBox() {
+          return productBox;
+     }
 
-    public void setProductBox(ProductBox productBox) {
-        this.productBox = productBox;
-    }
+     public void setProductBox(ProductBox productBox) {
+          this.productBox = productBox;
+     }
 
-    public int getQty() {
-        return qty;
-    }
+     public int getQty() {
+          return qty;
+     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
-    }
-     
-     
+     public void setQty(int qty) {
+          this.qty = qty;
+     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel1;

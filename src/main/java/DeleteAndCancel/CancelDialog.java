@@ -65,7 +65,7 @@ public class CancelDialog extends javax.swing.JDialog {
      private SubtotalPanel subtotalPanel;
      private String labelForTitle;
      private JPanel panelProduct;
-     
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
 
@@ -87,7 +87,7 @@ public class CancelDialog extends javax.swing.JDialog {
                }
           };
           comboBoxReason.initEvent(events);
-         
+
      }
 
      private void addComboReason() {
@@ -210,14 +210,14 @@ public class CancelDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
-        System.out.println("code :" + code);
-        this.dispose();
+         System.out.println("code :" + code);
+         this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
          if (code.equals("cancel")) {
-             
+
               JSONObject jsonData = new JSONObject();
 
               ArrayList<ProductIDModel> listCancelDetail = new ArrayList<>();
@@ -242,7 +242,7 @@ public class CancelDialog extends javax.swing.JDialog {
 
                    Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "cancel", jsonData);
                    if (response.isSuccessful()) {
-                        
+
                         updateCancelQty();
                         this.dispose();
                         detailItem.removeAll();
@@ -267,29 +267,32 @@ public class CancelDialog extends javax.swing.JDialog {
               deleteHold();
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
-     
-    
-    // Add product to stock after cancel order
-    private void updateCancelQty() {
-        
-            JSONObject json = new JSONObject();
-            ArrayList<UpdateQtyModel> model = new ArrayList<>();
-                for (int i = 0; i < listCom.length; i++) {
-                var obj = ((BoxItem) listCom[i]);
-                UpdateQtyModel _updateModel = new UpdateQtyModel(obj.getProductId(),obj.getQty(), "add");
-                model.add(_updateModel);
-            }
-            json.put("listProId", model);
-          
-            Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
-            
-            panelProduct.revalidate();
-            panelProduct.repaint();
-          
+
+     // Add product to stock after cancel order
+     private void updateCancelQty() {
+
+          JSONObject json = new JSONObject();
+          ArrayList<UpdateQtyModel> model = new ArrayList<>();
+          for (int i = 0; i < listCom.length; i++) {
+               var obj = ((BoxItem) listCom[i]);
+               UpdateQtyModel _updateModel = new UpdateQtyModel(obj.getProductId(), obj.getQty(), "add");
+               model.add(_updateModel);
+          }
+          json.put("listProId", model);
+
+          Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
+          try {
+               String dataString  = _responseData.body().string();
+               System.err.println("data === " + dataString);
+          } catch (Exception e) {
+          }
+
+          panelProduct.revalidate();
+          panelProduct.repaint();
+
      }
-    
-    
-    public countCircleShape getCountCircleShape() {
+
+     public countCircleShape getCountCircleShape() {
           return countCircleShape;
      }
 
@@ -321,10 +324,10 @@ public class CancelDialog extends javax.swing.JDialog {
           json.put("listHoldDetail", holdId);
 
           if (reasonId == null) {
-                JOptionPane.showMessageDialog(this, "Please select a reason!");
-                return;
+               JOptionPane.showMessageDialog(this, "Please select a reason!");
+               return;
           }
-          
+
           Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
 
           try {
@@ -507,7 +510,7 @@ public class CancelDialog extends javax.swing.JDialog {
                ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onMouseClick() {
-                        deleteHoldById();
+                         deleteHoldById();
                     }
                };
                box.initEvent(events);
@@ -554,15 +557,15 @@ public class CancelDialog extends javax.swing.JDialog {
           }
      }
 
-    public String getLabelForTitle() {
-        return labelForTitle;
-    }
+     public String getLabelForTitle() {
+          return labelForTitle;
+     }
 
-    public void setLabelForTitle(String labelForTitle) {
-        this.labelForTitle = labelForTitle;
-        titlePopUp.setLabelTitle(labelForTitle);
-    }
-     
+     public void setLabelForTitle(String labelForTitle) {
+          this.labelForTitle = labelForTitle;
+          titlePopUp.setLabelTitle(labelForTitle);
+     }
+
      public String getCode() {
           return code;
      }
@@ -709,15 +712,14 @@ public class CancelDialog extends javax.swing.JDialog {
           this.subtotalPanel = subtotalPanel;
      }
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonSave buttonSave;

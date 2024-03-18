@@ -184,14 +184,15 @@ public class ActionProduct {
                          int qty = Integer.valueOf(product.getQty());
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-                                   if(qty > 0){
-                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
-                                       eventBtnBuy(listData, 1, product);
-                                   }else{
-                                        j.setMessage(JavaMessage.productOutStock);
-                                        j.setVisible(true);
-                                        return;
-                                   }
+                                     eventBtnBuy(listData, 1);
+//                                   if(qty > 0){
+////                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
+//                                       eventBtnBuy(listData, 1);
+//                                   }else{
+//                                        j.setMessage(JavaMessage.productOutStock);
+//                                        j.setVisible(true);
+//                                        return;
+//                                   }
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
                                    j.setVisible(true);
@@ -261,13 +262,15 @@ public class ActionProduct {
           }
      }
 
-     public void eventBtnBuy(ProductModel listData, int qtyData, ProductBox product) {
+     public void eventBtnBuy(ProductModel listData, int qtyData) {
+          
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
           BoxItem box = new BoxItem();
-          box.setProductBox(product);
+//          box.setProductBox(product);
+          
           box.setWasPrice("" + price);
           box.setBtnPayment(btnPayment);
           box.setButtonHoldOrder(buttonHoldOrder);
