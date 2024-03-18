@@ -1,6 +1,7 @@
 package OpenAndCloseShift;
 
 import Button.Button;
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BackgroundImage;
 import Components.JavaAlertMessage;
@@ -31,7 +32,7 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonDiscount;
      private Button buttonCustomer;
      private Button buttonCashier;
-
+     private ButtonCancel btnCancel;
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
           initComponents();
@@ -335,16 +336,14 @@ public class CloseShift extends javax.swing.JDialog {
                    return;
               }
 
-              
               int count = new MainPage().countHold();
-              if( count > 0 ) {
+              if (count > 0) {
                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                    j.setMessage("There are some transactions not complete yet in Hold function!");
                    j.setVisible(true);
                    return;
               }
-              
-              
+
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
 
               if (response.isSuccessful()) {
@@ -363,11 +362,11 @@ public class CloseShift extends javax.swing.JDialog {
 
                    dispose();
 
-                   
                    btnreturn.setBackground(WindowColor.lightGray);
                    buttonCustomer.setBackground(WindowColor.lightGray);
                    buttonDiscount.setBackground(WindowColor.lightGray);
                    btnReprint.setBackground(WindowColor.lightGray);
+
                    buttonCashier.setBackground(WindowColor.green);
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
@@ -393,6 +392,18 @@ public class CloseShift extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
+
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
+
+    
+    
+    
+    
      public JPanel getPanelProduct() {
           return panelProduct;
      }
@@ -433,48 +444,46 @@ public class CloseShift extends javax.swing.JDialog {
           this.textField = textField;
      }
 
-    public Button getBtnreturn() {
-        return btnreturn;
-    }
+     public Button getBtnreturn() {
+          return btnreturn;
+     }
 
-    public void setBtnreturn(Button btnreturn) {
-        this.btnreturn = btnreturn;
-    }
+     public void setBtnreturn(Button btnreturn) {
+          this.btnreturn = btnreturn;
+     }
 
-    public Button getBtnReprint() {
-        return btnReprint;
-    }
+     public Button getBtnReprint() {
+          return btnReprint;
+     }
 
-    public void setBtnReprint(Button btnReprint) {
-        this.btnReprint = btnReprint;
-    }
+     public void setBtnReprint(Button btnReprint) {
+          this.btnReprint = btnReprint;
+     }
 
-    public Button getButtonDiscount() {
-        return buttonDiscount;
-    }
+     public Button getButtonDiscount() {
+          return buttonDiscount;
+     }
 
-    public void setButtonDiscount(Button buttonDiscount) {
-        this.buttonDiscount = buttonDiscount;
-    }
+     public void setButtonDiscount(Button buttonDiscount) {
+          this.buttonDiscount = buttonDiscount;
+     }
 
-    public Button getButtonCustomer() {
-        return buttonCustomer;
-    }
+     public Button getButtonCustomer() {
+          return buttonCustomer;
+     }
 
-    public void setButtonCustomer(Button buttonCustomer) {
-        this.buttonCustomer = buttonCustomer;
-    }
+     public void setButtonCustomer(Button buttonCustomer) {
+          this.buttonCustomer = buttonCustomer;
+     }
 
-    public Button getButtonCashier() {
-        return buttonCashier;
-    }
+     public Button getButtonCashier() {
+          return buttonCashier;
+     }
 
-    public void setButtonCashier(Button buttonCashier) {
-        this.buttonCashier = buttonCashier;
-    }
+     public void setButtonCashier(Button buttonCashier) {
+          this.buttonCashier = buttonCashier;
+     }
 
-    
-     
      /**
       * @param args the command line
       * arguments

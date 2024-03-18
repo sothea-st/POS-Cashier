@@ -668,7 +668,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier
+                        btnReturn, buttonCashier , btnCancel
                    );
               }
          }

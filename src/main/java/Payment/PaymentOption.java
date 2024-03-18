@@ -1260,7 +1260,7 @@ public class PaymentOption extends javax.swing.JDialog {
          }
          jsonData.put("dataSale", dataSale);
          
-         System.out.println("jsonData :" + jsonData);
+//         System.out.println("jsonData :" + jsonData);
 
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 

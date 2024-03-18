@@ -34,7 +34,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      public void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
-           
                func(response, jdFormLogin);
           }
      }
@@ -42,6 +41,46 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      public void scanWithoutBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
           func(response, jdFormLogin);
+     }
+
+     public void scanWithoutReturn(String barcode, LoginFormJdailog jdFormLogin) {
+          Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
+                    ProductDataModel[] listProduct = model.getData();
+                    if (listProduct.length == 0) {
+                         msgAlertErr();
+                         return;
+                    }
+
+                    ProductModel product = null;
+                    for (int i = 0; i < listProduct.length; i++) {
+                         var obj = listProduct[i];
+                         product = new ProductModel(
+                              obj.getID(),
+                              obj.getCatID(),
+                              obj.getFlag(),
+                              obj.getWeight(),
+                              obj.getCost(),
+                              obj.getProImageName(),
+                              obj.getPrice(),
+                              obj.getBarcode(),
+                              obj.getProNameKh(),
+                              obj.getProNameEn(),
+                              obj.getProductStatus(),
+                              obj.getDiscount(),
+                              obj.getQty()
+                         );
+                         jdFormLogin.scanbarCodeAddProduct(product);
+                    }
+
+               }
+          } catch (Exception e) {
+               msgAlertErr();
+          }
      }
 
      void func(Response response, LoginFormJdailog jdFormLogin) {
@@ -74,7 +113,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getDiscount(),
                               obj.getQty()
                          );
-                         jdFormLogin.scanbarCodeAddProduct(product,"scan");
+                         jdFormLogin.scanbarCodeAddProduct(product, "scan");
                     }
 
                }
@@ -89,7 +128,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           j.setVisible(true);
      }
 
-     public static String returnProduct(String barcode, String invoiceNo, LoginFormJdailog jdFormLogin) {
+     public static String returnProducts(String barcode, String invoiceNo, LoginFormJdailog jdFormLogin) {
           String status = null;
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.returnProduct + "/getProduct?barcode=" + barcode + "&invoiceNo=" + invoiceNo + "");

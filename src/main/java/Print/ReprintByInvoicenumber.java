@@ -153,8 +153,8 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
          try {
 
               Receipt rec = new Receipt(new JFrame(), true);
-              Response response = JavaConnection.get(JavaRoute.reprintByLast + JavaConstant.cashierId + "/" + paymentNo);
-
+              Response response = JavaConnection.get(JavaRoute.reprintByLast +"/"+JavaConstant.cashierId + "/" + paymentNo);
+       
               if (response.isSuccessful()) {
                    this.dispose();
                    String myObject = response.body().string();
