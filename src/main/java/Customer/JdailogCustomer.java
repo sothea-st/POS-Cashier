@@ -37,7 +37,7 @@ public class JdailogCustomer extends javax.swing.JDialog {
           setResizable(false);
           event();
           getPointCustomer();
-
+          txtCustomerName.requestFocusInWindow();
 //          txtPoint.disabledTextField(false);
 //          txtAmount.disabledTextField(false);
      }
