@@ -73,7 +73,6 @@ public class ImportService {
                 details.setQtyOld(qtyNew);
             } else {
                 int qtyOld = getImpDetails.getQtyOld();
-                System.out.println("dddddddddddddddddddddd = " + qtyOld);
                 int qty = qtyOld + qtyNew;
                 details.setQtyOld(qty);
             }
