@@ -18,10 +18,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class Employee {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
 
     @NotBlank(message = JavaMessage.required)
     @NotNull(message = JavaMessage.required)
@@ -52,7 +52,6 @@ public class Employee {
     @NotNull(message = JavaMessage.required)
     @Column(length = 12)
     private String contact;
-
 
     private String address;
 
