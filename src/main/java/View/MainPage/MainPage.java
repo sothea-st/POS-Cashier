@@ -668,7 +668,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier , btnCancel
+                        btnReturn, buttonCashier , btnCancel , buttonHoldOrder
                    );
               }
          }
@@ -798,7 +798,7 @@ public class MainPage extends javax.swing.JFrame {
 
      public int countHold() {
           int countH = 0;
-          Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId=8");
+          Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId="+JavaConstant.cashierId);
           try {
                String dataJson = responseGet.body().string();
                JSONObject jSONObject = new JSONObject(dataJson);

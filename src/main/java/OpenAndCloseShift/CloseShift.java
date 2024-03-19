@@ -32,7 +32,10 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonDiscount;
      private Button buttonCustomer;
      private Button buttonCashier;
+     private Button btnHold;
+
      private ButtonCancel btnCancel;
+
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
           initComponents();
@@ -366,11 +369,12 @@ public class CloseShift extends javax.swing.JDialog {
                    buttonCustomer.setBackground(WindowColor.lightGray);
                    buttonDiscount.setBackground(WindowColor.lightGray);
                    btnReprint.setBackground(WindowColor.lightGray);
-
+                   btnHold.setBackground(WindowColor.lightGray);
                    buttonCashier.setBackground(WindowColor.green);
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
                    btnOpenShift.setBackground(WindowColor.lightGray);
+                   
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
 
@@ -392,6 +396,17 @@ public class CloseShift extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+     public Button getBtnHold() {
+          return btnHold;
+     }
+
+     public void setBtnHold(Button btnHold) {
+          this.btnHold = btnHold;
+     }
+
+    
+    
+    
      public ButtonCancel getBtnCancel() {
           return btnCancel;
      }
@@ -400,10 +415,6 @@ public class CloseShift extends javax.swing.JDialog {
           this.btnCancel = btnCancel;
      }
 
-    
-    
-    
-    
      public JPanel getPanelProduct() {
           return panelProduct;
      }

@@ -487,6 +487,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                   dispose();
                   int count = new MainPage().countHold();
                   countCircleShape.setCountTimes("" + count);
+                  btnCancel.setBackground(WindowColor.lightGray);
                }
             } catch (Exception e) {
                System.err.println("errr delete + " + e);

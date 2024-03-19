@@ -334,6 +334,7 @@ BlogCode\JavaActionDiscount.class
 NewDiscounts\Discounting$3.class
 Model\HoldOrder\HoldOrderModel.class
 BlogCode\JavaSearchByNameAndCode$2.class
+pdf\PdfGenerator.class
 Discount\GetProduct.class
 Discount\DiscountType$2.class
 Model\Reprint\DataSuccessModel.class

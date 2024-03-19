@@ -32,8 +32,9 @@ public class ActionCloseShift {
           Button buttonDiscount,
           Button btnReprint,
           Button btnReturn,
-          Button buttonCashier ,
-          ButtonCancel btnCancel
+          Button buttonCashier,
+          ButtonCancel btnCancel,
+          Button btnHold
      ) {
           Component[] listCom1 = detailItem.getComponents();
           j = new JavaAlertMessage(new JFrame(), true);
@@ -56,6 +57,7 @@ public class ActionCloseShift {
           close.setTextField(textField);
           close.setCategory(category);
           close.setBtnCancel(btnCancel);
+          close.setBtnHold(btnHold);
           close.setButtonCustomer(buttonCustomer);
           close.setButtonDiscount(buttonDiscount);
           close.setBtnReprint(btnReprint);

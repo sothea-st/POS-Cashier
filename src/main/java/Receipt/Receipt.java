@@ -17,6 +17,11 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -38,6 +43,36 @@ public class Receipt extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           exchangeDollar.setText(kh.format(JavaConstant.exchangeRate));
+     }
+
+     // test printing
+     private void printReceipt(String printerName) throws PrinterException {
+          // Find the specified printer by name
+          PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, null);
+          PrintService selectedPrinter = Arrays.stream(printServices)
+               .filter(service -> service.getName().equals(printerName))
+               .findFirst()
+               .orElseThrow(() -> new IllegalArgumentException("Printer not found: " + printerName));
+
+          // Create a printer job
+          PrinterJob job = PrinterJob.getPrinterJob();
+          job.setPrintService(selectedPrinter);
+
+          // Create a printable object
+          Printable printable = (graphics, pageFormat, pageIndex) -> {
+               if (pageIndex == 0) {
+                    Graphics2D g2d = (Graphics2D) graphics;
+                    g2d.drawString(print.toString(),100,500); // Replace with actual receipt content
+    
+                    return Printable.PAGE_EXISTS;
+               } else {
+                    return Printable.NO_SUCH_PAGE;
+               }
+          };
+
+          // Set the printable and print the job
+          job.setPrintable(printable);
+          job.print();
      }
 
      public void printComponenet(Component component) {
@@ -815,7 +850,16 @@ public class Receipt extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-         printComponenet(print);
+//          try {
+//                          
+////               printReceipt("EPSON TM-T82X Receipt");
+//          } catch (PrinterException ex) {
+//               Logger.getLogger(Receipt.class.getName()).log(Level.SEVERE, null, ex);
+//               System.out.println("Receipt.Receipt.btnPrintMouseClicked(============ ) " + ex);
+//          }
+
+             printComponenet(print);
+
     }//GEN-LAST:event_btnPrintMouseClicked
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
