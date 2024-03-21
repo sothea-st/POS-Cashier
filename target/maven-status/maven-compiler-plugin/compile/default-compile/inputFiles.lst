@@ -3,7 +3,6 @@ C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Model\CashierReport\SummerySale.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Model\CashierReport\DataSuccessModelReport.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Model\Sale\PaymentDetailModel.java
-C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\View\MainPage\PrinterService.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Products\ProductPanel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\DefaultPrice\DefaultPrice.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\BlogCode\JavaSearchByNameAndCode.java
@@ -63,6 +62,7 @@ C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Model\Sale\SaleModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\ButtonPackage\ButtonNo.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Components\DialonInputName.java
+C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\pdf\MyPrinter.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\HoldOrder\HoldDataSuccessModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Return\ReturnDialog.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Customer\CustomerFunction.java
@@ -136,7 +136,6 @@ C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Model\ProductModel\ProductDataModel.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\NewCashierReport\BoxReport.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Components\NoData.java
-C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\pdf\PdfGenerator.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Products\ProductBox.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Color\WindowColor.java
 C:\Users\mobile-app.02\Desktop\project\fronent java\king mart\tt_pos_window\POS_KING_MART\src\main\java\Model\ProductModel\ProductSuccessData.java

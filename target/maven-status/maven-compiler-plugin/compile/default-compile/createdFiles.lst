@@ -19,6 +19,7 @@ SwitchButton\SwitchButton.class
 Components\HoldItem$4.class
 DeleteAndCancel\DeleteDialog.class
 DeleteAndCancel\CancelDialog$2.class
+pdf\MyPrinter.class
 BlogCode\JavaExistScreen.class
 Components\TextField$1.class
 Components\ComboBox$1.class
@@ -334,11 +335,9 @@ BlogCode\JavaActionDiscount.class
 NewDiscounts\Discounting$3.class
 Model\HoldOrder\HoldOrderModel.class
 BlogCode\JavaSearchByNameAndCode$2.class
-pdf\PdfGenerator.class
 Discount\GetProduct.class
 Discount\DiscountType$2.class
 Model\Reprint\DataSuccessModel.class
-View\MainPage\PrinterService.class
 Products\ProductBox$1.class
 NewDiscounts\Discounting$4.class
 Model\CustomerType\SourceModel.class
