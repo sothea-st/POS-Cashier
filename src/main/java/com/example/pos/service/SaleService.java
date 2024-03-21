@@ -130,9 +130,9 @@ public class SaleService {
 
         // save payment
         Payment p = s.getDataPay();
-        int count = payRepo.countRecord();
-        count++;
-        String paymentNo = paymentNo(count);
+        int count = payRepo.countSale(JavaConstant.currentDate);
+        // count++;
+        String paymentNo = paymentNo(count,s.getPosId());
         addPayment(paymentNo, saleId, p, userId);
         Company companyInfo = repoCompany.getInfoCompany();
         map.put("companyName", companyInfo.getCompanyName());
@@ -207,27 +207,21 @@ public class SaleService {
         fileStore.save(f);
     }
 
-    String paymentNo(int count) {
-        String paymentNo = "IN-";
+    String paymentNo(int count,String posId) {
+        String paymentNo = "101-"+posId+"-CN24-";
         if (count < 10) {
-            paymentNo += "00000000" + count;
-        } else if (count < 100) {
-            paymentNo += "0000000" + count;
-        } else if (count < 1000) {
-            paymentNo += "000000" + count;
-        } else if (count < 10000) {
             paymentNo += "00000" + count;
-        } else if (count < 100000) {
+        } else if (count < 100) {
             paymentNo += "0000" + count;
-        } else if (count < 1000000) {
+        }  else if (count < 1000) {
             paymentNo += "000" + count;
-        } else if (count < 10000000) {
+        } else if (count < 10000) {
             paymentNo += "00" + count;
-        } else if (count < 100000000) {
+        } else if (count < 100000) {
             paymentNo += "0" + count;
-        } else if (count < 1000000000) {
+        }  else if (count < 1000000) {
             paymentNo += "" + count;
-        }
+        } 
         return paymentNo;
     }
 
