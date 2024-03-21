@@ -1,4 +1,3 @@
-
 package NewCashierReport;
 
 import Constant.JavaConnection;
@@ -22,195 +21,200 @@ import java.text.DecimalFormat;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 
-
 public class CashierReporting extends javax.swing.JDialog {
 
-    private DataSuccessCashierReport getData;
-    
-    DecimalFormat dm = new DecimalFormat("#,##0.00");
-    DecimalFormat kh = new DecimalFormat("#,##0");
+     private DataSuccessCashierReport getData;
 
-    public CashierReporting(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setFontAndBackground();
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-    }
-    
-    private void setFontAndBackground(){
-        vattin.setFont(WindowFonts.timeNewRoman11);
-        branch.setFont(WindowFonts.timeNewRoman11);
-        openTill.setFont(WindowFonts.timeNewRomanBold11);
-        openCashKhr.setFont(WindowFonts.timeNewRoman11);
-        openCashUsd.setFont(WindowFonts.timeNewRoman11);
-    }
-    
-    public DataSuccessCashierReport getGetData() {
-        return getData;
-    }
+     DecimalFormat dm = new DecimalFormat("#,##0.00");
+     DecimalFormat kh = new DecimalFormat("#,##0");
 
-    public void setGetData(DataSuccessCashierReport getData) {
-        this.getData = getData;
-        assignValue(getData);
-    }
-    
-    
-    private void assignValue(DataSuccessCashierReport getData) {
-        
-        var data = getData.getData();
-        try {
-            Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
-            byte[] images = response.body().bytes();
-            lbLogo.setIcon(new ImageIcon(images));
-            companyname.setText(data.getCompanyName());
-            posID.setLabelName("POS № : " + data.getPosID());
-            openDate.setLabelName("Open Date : " + data.getOpenDate());
-            closeDate.setLabelName("Close Date : " + data.getCloseDate());
-            cashier.setText("Cashier : " + data.getUserName() );
-            invoicenumber.setLabelName("Invoice № : " + data.getPaymentNoFirst() + " To " + data.getPaymentNoLast());
-            openCashUsd.setText("USD " + dm.format(data.getOpenCashUsd()));
-            openCashKhr.setText("KHR " + kh.format(data.getOpenCashKhr()));
-            openTill.setText("Open Till : $ " + dm.format(data.getOpenCashKhr() / JavaConstant.exchangeRate + data.getOpenCashUsd()));
-            displaySaleSummary(data);
-            displaySummeryAllProVat(data);
-            displayPaymentSummary(data);
-            displayDiscount(data);
-            displaySummeryVat(data);
-           
-        } catch (Exception e) {
-            System.err.println("getting error at " + e);
-        }
-    }
-    
-    double sumNetSale;
-    double sumSubTotal;
+     public CashierReporting(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setFontAndBackground();
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-    private void displaySaleSummary(Data data) {
-        summarySale.removeAll();
-        SummerySale[] summerySale = data.getSummerySale();
-        
-        for (int i = 0; i < summerySale.length; i++) {
-            var list = summerySale[i];
-            BoxReport report = new BoxReport();
-            report.setTitle(list.getTitle());
-            report.setNum(""+list.getSaleOfNum());
-            report.setAmount(dm.format(list.getTotal()));
-            summarySale.add(report);
-            summarySale.add(Box.createRigidArea(new Dimension(1, 1)));
-        }
-        
-        sumSubTotal = summerySale[0].getTotal() - (summerySale[1].getTotal() + summerySale[2].getTotal()+summerySale[3].getTotal());
-        subTotal.setText(dm.format(sumSubTotal));
-        
-        transactionSale.setText("Transaction Sale : $ " + dm.format(sumSubTotal));
-        summarySale.setLayout(new BoxLayout(summarySale, BoxLayout.Y_AXIS));
-        summarySale.setBorder(new EmptyBorder(1, 1, 1, 1));
-    }
-    
-    private void displaySummeryVat(Data data) {
-        SummeryVat[] listSummaryVat = data.getSummeryVat();
-        
-        for (int i = 0; i < listSummaryVat.length; i++) {
-            var list = listSummaryVat[i];
-            BoxReport report = new BoxReport();
-            report.setTitle(list.getTitle());
-            report.setNum("");
-            
-            if(list.getTotal() == 0){
-                 report.setAmount("-");
-            }else{
-                 report.setAmount(dm.format(list.getTotal()));
-            }
-            
-            summaryVatPanel.add(report);
-            summaryVatPanel.add(Box.createRigidArea(new Dimension(1, 1)));
-            sumNetSale += list.getTotal();
-        }
-        
-        jLabel19.setText(dm.format(sumSubTotal-sumNetSale));
-        summaryVatPanel.setLayout(new BoxLayout(summaryVatPanel, BoxLayout.Y_AXIS));
-        summaryVatPanel.setBorder(new EmptyBorder(2, 2, 2, 2));
-    }
-    
-    private void displaySummeryAllProVat(Data data) {
-        netSalePanel.removeAll();
-        SummeryVat[] listSummaryProvat = data.getSummeryAllProVat();
-        for (int i = 0; i < listSummaryProvat.length; i++) {
-            var list = listSummaryProvat[i];
-            BoxReport report = new BoxReport();
-            report.setTitle(list.getTitle());
-            report.setNum("");
-            if(list.getTotal() == 0){
-                 report.setAmount("-");
-            }else{
-                 report.setAmount(dm.format(list.getTotal()));
-            }
-            
-            netSalePanel.add(report);
-            netSalePanel.add(Box.createRigidArea(new Dimension(1, 1)));
-        }
-        netSalePanel.setLayout(new BoxLayout(netSalePanel, BoxLayout.Y_AXIS));
-        netSalePanel.setBorder(new EmptyBorder(2, 2, 2, 2));
-    }
-    
-    private void displayPaymentSummary(Data data) {
-        paymentPanel.removeAll();
-        SummerySale[] listSummarySale = data.getSummeryPayemnt();
-        double sumTotalPayment = 0;
-        
-        for (int i = 0; i < listSummarySale.length; i++) {
-            var list = listSummarySale[i];
-            BoxReport report = new BoxReport();
-            report.setTitle(list.getTitle());
-            report.setNum(""+list.getSaleOfNum());
-            report.setAmount(dm.format(list.getTotal()));
-            paymentPanel.add(report);
-            paymentPanel.add(Box.createRigidArea(new Dimension(2, 2)));
-            sumTotalPayment += list.getTotal();
-        }
-        
-        sumTotal.setText(dm.format(sumTotalPayment));
-        paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
-        paymentPanel.setBorder(new EmptyBorder(2, 2, 2, 2));
-    }
-    
-    private void displayDiscount(Data data) {
-        summaryDiscount.removeAll();
-        SummerySale[] listDiscountSummary = data.getDiscountSummery().getPercentag();
-        
-        for (int i = 0; i < listDiscountSummary.length; i++) {
-            var list = listDiscountSummary[i];
-            BoxReport report = new BoxReport();
-            
-            if(list.getSaleOfNum() > 0){
-                report.setTitle(list.getTitle());
-                report.setNum(""+list.getSaleOfNum());
-                report.setAmount(dm.format(list.getTotal()));
-                summaryDiscount.add(report);
-                summaryDiscount.add(Box.createRigidArea(new Dimension(2, 2)));
-            }
-        }
-        
-        BoxReport report = new BoxReport();
-        report.setTitle("Discount in $");
-        report.setNum(""+data.getDiscountSummery().getCash().getQtySaledDollar());
-        report.setAmount(dm.format(data.getDiscountSummery().getCash().getAmountSaledDollar()));
-        summaryDiscount.add(report);
-        
-        summaryDiscount.setLayout(new BoxLayout(summaryDiscount, BoxLayout.Y_AXIS));
-        summaryDiscount.setBorder(new EmptyBorder(2, 2, 2, 2));
-    }
-    
-    
-    
-    @SuppressWarnings("unchecked")
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
+     }
+
+     private void setFontAndBackground() {
+          vattin.setFont(WindowFonts.timeNewRoman11);
+          branch.setFont(WindowFonts.timeNewRoman11);
+          openTill.setFont(WindowFonts.timeNewRomanBold11);
+          openCashKhr.setFont(WindowFonts.timeNewRoman11);
+          openCashUsd.setFont(WindowFonts.timeNewRoman11);
+     }
+
+     public DataSuccessCashierReport getGetData() {
+          return getData;
+     }
+
+     public void setGetData(DataSuccessCashierReport getData) {
+          this.getData = getData;
+          assignValue(getData);
+     }
+
+     private void assignValue(DataSuccessCashierReport getData) {
+
+          var data = getData.getData();
+          try {
+               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
+               byte[] images = response.body().bytes();
+               lbLogo.setIcon(new ImageIcon(images));
+               companyname.setText(data.getCompanyName());
+               posID.setLabelName("POS № : " + data.getPosID());
+               openDate.setLabelName("Open Date : " + data.getOpenDate());
+               closeDate.setLabelName("Close Date : " + data.getCloseDate());
+               cashier.setText("Cashier : " + data.getUserName());
+               invoicenumber.setLabelName("Invoice № : " + data.getPaymentNoFirst() + " To " + data.getPaymentNoLast());
+               openCashUsd.setText("USD " + dm.format(data.getOpenCashUsd()));
+               openCashKhr.setText("KHR " + kh.format(data.getOpenCashKhr()));
+               openTill.setText("Open Till : $ " + dm.format(data.getOpenCashKhr() / JavaConstant.exchangeRate + data.getOpenCashUsd()));
+               displaySaleSummary(data);
+               displaySummeryAllProVat(data);
+               displayPaymentSummary(data);
+               displayDiscount(data);
+               displaySummeryVat(data);
+
+          } catch (Exception e) {
+               System.err.println("getting error at " + e);
+          }
+     }
+
+     double sumNetSale;
+     double sumSubTotal;
+
+     private void displaySaleSummary(Data data) {
+          summarySale.removeAll();
+          SummerySale[] summerySale = data.getSummerySale();
+
+          for (int i = 0; i < summerySale.length; i++) {
+               var list = summerySale[i];
+               BoxReport report = new BoxReport();
+               report.setTitle(list.getTitle());
+               report.setNum("" + list.getSaleOfNum());
+               report.setAmount(dm.format(list.getTotal()));
+               summarySale.add(report);
+               summarySale.add(Box.createRigidArea(new Dimension(1, 1)));
+          }
+
+          sumSubTotal = summerySale[0].getTotal() - (summerySale[1].getTotal() + summerySale[2].getTotal() + summerySale[3].getTotal());
+          subTotal.setText(dm.format(sumSubTotal));
+
+          transactionSale.setText("Transaction Sale : $ " + dm.format(sumSubTotal));
+          summarySale.setLayout(new BoxLayout(summarySale, BoxLayout.Y_AXIS));
+          summarySale.setBorder(new EmptyBorder(1, 1, 1, 1));
+     }
+
+     private void displaySummeryVat(Data data) {
+          SummeryVat[] listSummaryVat = data.getSummeryVat();
+
+          for (int i = 0; i < listSummaryVat.length; i++) {
+               var list = listSummaryVat[i];
+               BoxReport report = new BoxReport();
+               report.setTitle(list.getTitle());
+               report.setNum("");
+
+               if (list.getTotal() == 0) {
+                    report.setAmount("-");
+               } else {
+                    report.setAmount(dm.format(list.getTotal()));
+               }
+
+               summaryVatPanel.add(report);
+               summaryVatPanel.add(Box.createRigidArea(new Dimension(1, 1)));
+               sumNetSale += list.getTotal();
+          }
+
+          jLabel19.setText(dm.format(sumSubTotal - sumNetSale));
+          summaryVatPanel.setLayout(new BoxLayout(summaryVatPanel, BoxLayout.Y_AXIS));
+          summaryVatPanel.setBorder(new EmptyBorder(2, 2, 2, 2));
+     }
+
+     private void displaySummeryAllProVat(Data data) {
+          netSalePanel.removeAll();
+          SummeryVat[] listSummaryProvat = data.getSummeryAllProVat();
+          for (int i = 0; i < listSummaryProvat.length; i++) {
+               var list = listSummaryProvat[i];
+               BoxReport report = new BoxReport();
+               report.setTitle(list.getTitle());
+               report.setNum("");
+               if (list.getTotal() == 0) {
+                    report.setAmount("-");
+               } else {
+                    report.setAmount(dm.format(list.getTotal()));
+               }
+
+               netSalePanel.add(report);
+               netSalePanel.add(Box.createRigidArea(new Dimension(1, 1)));
+          }
+          netSalePanel.setLayout(new BoxLayout(netSalePanel, BoxLayout.Y_AXIS));
+          netSalePanel.setBorder(new EmptyBorder(2, 2, 2, 2));
+     }
+
+     private void displayPaymentSummary(Data data) {
+          paymentPanel.removeAll();
+          SummerySale[] listSummarySale = data.getSummeryPayemnt();
+          double sumTotalPayment = 0;
+
+          for (int i = 0; i < listSummarySale.length; i++) {
+               var list = listSummarySale[i];
+               BoxReport report = new BoxReport();
+               report.setTitle(list.getTitle());
+               report.setNum("" + list.getSaleOfNum());
+               report.setAmount(dm.format(list.getTotal()));
+               paymentPanel.add(report);
+               paymentPanel.add(Box.createRigidArea(new Dimension(2, 2)));
+               sumTotalPayment += list.getTotal();
+          }
+
+          sumTotal.setText(dm.format(sumTotalPayment));
+          paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
+          paymentPanel.setBorder(new EmptyBorder(2, 2, 2, 2));
+     }
+
+     private void displayDiscount(Data data) {
+          summaryDiscount.removeAll();
+          SummerySale[] listDiscountSummary = data.getDiscountSummery().getPercentag();
+
+          for (int i = 0; i < listDiscountSummary.length; i++) {
+               var list = listDiscountSummary[i];
+               BoxReport report = new BoxReport();
+
+               if (list.getSaleOfNum() > 0) {
+                    report.setTitle(list.getTitle());
+                    report.setNum("" + list.getSaleOfNum());
+                    report.setAmount(dm.format(list.getTotal()));
+                    summaryDiscount.add(report);
+                    summaryDiscount.add(Box.createRigidArea(new Dimension(2, 2)));
+               }
+          }
+
+          BoxReport report = new BoxReport();
+          report.setTitle("Discount in $");
+          report.setNum("" + data.getDiscountSummery().getCash().getQtySaledDollar());
+          report.setAmount(dm.format(data.getDiscountSummery().getCash().getAmountSaledDollar()));
+          summaryDiscount.add(report);
+
+          summaryDiscount.setLayout(new BoxLayout(summaryDiscount, BoxLayout.Y_AXIS));
+          summaryDiscount.setBorder(new EmptyBorder(2, 2, 2, 2));
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -912,75 +916,75 @@ public class CashierReporting extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-        printComponenet(reportPanel);
+         printComponenet(reportPanel);
     }//GEN-LAST:event_btnPrintMouseClicked
 
-    public void printComponenet(Component component) {
-        PrinterJob pj = PrinterJob.getPrinterJob();
-        pj.setJobName(" Print Component ");
+     public void printComponenet(Component component) {
+          PrinterJob pj = PrinterJob.getPrinterJob();
+          pj.setJobName(" Print Component ");
 
-        pj.setPrintable(new Printable() {
-            public int print(Graphics pg, PageFormat pf, int pageNum) {
-                if (pageNum > 0) {
-                    return Printable.NO_SUCH_PAGE;
-                }
-
-                Graphics2D g2 = (Graphics2D) pg;
-                g2.translate(pf.getImageableX(), pf.getImageableY());
-                component.paint(g2);
-                return Printable.PAGE_EXISTS;
-            }
-        });
-        if (pj.printDialog() == false) {
-            return;
-        }
-
-        try {
-            pj.print();
-        } catch (PrinterException ex) {
-            // handle exception
-        }
-    }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CashierReporting dialog = new CashierReporting(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+          pj.setPrintable(new Printable() {
+               public int print(Graphics pg, PageFormat pf, int pageNum) {
+                    if (pageNum > 0) {
+                         return Printable.NO_SUCH_PAGE;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+
+                    Graphics2D g2 = (Graphics2D) pg;
+                    g2.translate(pf.getImageableX(), pf.getImageableY());
+                    component.paint(g2);
+                    return Printable.PAGE_EXISTS;
+               }
+          });
+          if (pj.printDialog() == false) {
+               return;
+          }
+
+          try {
+               pj.print();
+          } catch (PrinterException ex) {
+               // handle exception
+          }
+     }
+
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
+                    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(CashierReporting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    CashierReporting dialog = new CashierReporting(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel branch;
