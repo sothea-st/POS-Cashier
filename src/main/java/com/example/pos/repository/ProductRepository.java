@@ -82,7 +82,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                                     "\t  pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired   \r\n" + //
                                     "\t from pos_payment pp inner join pos_sale_details psd on psd.sale_id = pp.sale_id \r\n" + //
                                     "\t inner join pos_product pc on pc.id = psd.pro_id \r\n" + //
-                                    "\t where pp.payment_no = ? ")
+                                    "\t where pp.payment_no = ?  and pp.is_return is null")
         List<ProductQty> searchProductWithInvoiceNo(String invoiceNO);
 
 
