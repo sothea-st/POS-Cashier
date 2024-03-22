@@ -27,6 +27,7 @@ import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Return.ApprovalCode;
+import Return.PrinterReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
@@ -718,11 +719,18 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Return
     private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
+//         if (JavaConstant.token != null) {
+//              if (JavaConstant.checkOpenShift) {
+//                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
+//                   approval.setJdFormLogin(jdFormLogin);
+//                   approval.setTypeForm("return");
+//                   approval.setVisible(true);
+//              }
+//         }
+
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
-                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
-                   approval.setJdFormLogin(jdFormLogin);
-                   approval.setTypeForm("return");
+                   PrinterReturn approval = new PrinterReturn(new JFrame(), true);
                    approval.setVisible(true);
               }
          }
