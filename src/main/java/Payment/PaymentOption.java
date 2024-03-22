@@ -16,6 +16,8 @@ import Model.CustomerType.CustomerTypeModel;
 import Model.CustomerType.SourceModel;
 import Model.ReturnModel.ReturnProductModel;
 import Model.Sale.ProductSaleModel;
+import Print.ReprintJdailog;
+import Receipt.Receipt;
 import Return.ReturnDialog;
 import java.awt.Component;
 import java.text.DecimalFormat;
@@ -1192,6 +1194,7 @@ public class PaymentOption extends javax.swing.JDialog {
          jsonData.put("discount", discount);
          jsonData.put("subTotal", subTotal);
          jsonData.put("deliveryFee", "0");
+         jsonData.put("posId", JavaConstant.posId);
          jsonData.put("total", total);
 
          //get dataPay
@@ -1259,9 +1262,8 @@ public class PaymentOption extends javax.swing.JDialog {
               dataSale.add(pro);
          }
          jsonData.put("dataSale", dataSale);
-         
-//         System.out.println("jsonData :" + jsonData);
 
+//         System.out.println("jsonData :" + jsonData);
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
          try {
@@ -1289,12 +1291,14 @@ public class PaymentOption extends javax.swing.JDialog {
                              JavaConstant.holdId = 0;
                         }
                    }
+                    
+                   
+                   ReprintJdailog _reprint = new ReprintJdailog(new JFrame(), true);
+                   _reprint.reprint(false,"charge_print");
+                   
+                 
 
-//                   if (!JavaConstant.listHoldData.isEmpty()) {
-//                        int index = JavaConstant.indexArrayListHold;
-//                        JavaConstant.listHoldData.remove(index);
-//                        JavaConstant.indexArrayListHold = 0;
-//                   }
+ 
               } else {
                    JOptionPane.showMessageDialog(this, "Charge Failed!");
               }

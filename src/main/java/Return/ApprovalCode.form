@@ -129,6 +129,7 @@
         <Component class="ButtonPackage.ButtonLogin" name="buttonLogin">
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonLoginMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonLoginMouseEntered"/>
           </Events>
         </Component>
       </SubComponents>

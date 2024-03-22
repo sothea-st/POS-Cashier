@@ -21,9 +21,6 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -32,7 +29,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -43,11 +39,12 @@ import pdf.MyPrinter;
 public class Receipt extends javax.swing.JDialog {
 
      private DataSuccessModel dataSuccess;
-
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
+     private String actionPrint;
 
-     public Receipt(java.awt.Frame parent, boolean modal) {
+ 
+     public Receipt(java.awt.Frame parent, boolean modal,String actionPrint) {
           super(parent, modal);
           initComponents();
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -61,8 +58,15 @@ public class Receipt extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
-           setBackground(Color.WHITE);
+          setBackground(Color.WHITE);
           getContentPane().setBackground(Color.WHITE);
+          invoiceNo.setFont(new Font("Time New Roman", Font.BOLD, 9));
+          this.actionPrint = actionPrint;
+          
+          
+          if( actionPrint.equals("charge_print") ) {
+               printReceipt();
+          } 
      }
 
      public static void setFontSizeForLabels(Container container, int size) {
@@ -73,7 +77,6 @@ public class Receipt extends javax.swing.JDialog {
                     Font currentFont = label.getFont();
                     Font boldFont = new Font(label.getFont().getFontName(), Font.BOLD, size);
                     label.setFont(boldFont);
-
                } else if (component instanceof Container) {
                     setFontSizeForLabels((Container) component, size);
                }
@@ -211,6 +214,7 @@ public class Receipt extends javax.swing.JDialog {
 
           address.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
           address.setForeground(new java.awt.Color(56, 56, 56));
+          address.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           address.setText("ផ្ទះលេខ១៣៩១២ ផ្លូវ ៥៩៨ ភូមិខ១ សង្កាត់ច្រាំងចំរេះទី២  ខណ្ឌឬស្សីកែវ រាជធានីភ្នំពេញ");
 
           javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -218,14 +222,16 @@ public class Receipt extends javax.swing.JDialog {
           jPanel3Layout.setHorizontalGroup(
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addComponent(jLabel4)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                              .addGap(5, 5, 5)
+                              .addComponent(jLabel4)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                              .addGap(33, 33, 33)
+                              .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(26, Short.MAX_VALUE))
           );
           jPanel3Layout.setVerticalGroup(
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,9 +239,9 @@ public class Receipt extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                          .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(0, 0, 0)
                     .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap())
+                    .addGap(0, 0, 0))
           );
 
           jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
@@ -310,14 +316,14 @@ public class Receipt extends javax.swing.JDialog {
                          .addGroup(jPanel4Layout.createSequentialGroup()
                               .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(invoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel16)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                              .addGap(18, 18, 18)
+                                        .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(invoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                              .addGap(6, 6, 6)
                               .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +427,7 @@ public class Receipt extends javax.swing.JDialog {
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
-                    .addGap(35, 35, 35)
+                    .addGap(40, 40, 40)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
@@ -725,15 +731,6 @@ public class Receipt extends javax.swing.JDialog {
           printLayout.setHorizontalGroup(
                printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(printLayout.createSequentialGroup()
-                    .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(printLayout.createSequentialGroup()
-                              .addGap(141, 141, 141)
-                              .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGroup(printLayout.createSequentialGroup()
-                              .addGap(100, 100, 100)
-                              .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               .addGroup(printLayout.createSequentialGroup()
                     .addGap(32, 32, 32)
                     .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
@@ -743,39 +740,20 @@ public class Receipt extends javax.swing.JDialog {
                                    .addGroup(printLayout.createSequentialGroup()
                                         .addGap(0, 5, Short.MAX_VALUE)
                                         .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                             .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                  .addGroup(javax.swing.GroupLayout.Alignment.LEADING, printLayout.createSequentialGroup()
-                                                       .addGap(10, 10, 10)
-                                                       .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addGroup(printLayout.createSequentialGroup()
-                                                                 .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                      .addGroup(printLayout.createSequentialGroup()
-                                                                           .addGap(79, 79, 79)
-                                                                           .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                      .addGroup(printLayout.createSequentialGroup()
-                                                                           .addGap(128, 128, 128)
-                                                                           .addComponent(invoiceCode)))
-                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                            .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                 .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                      .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                      .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
-                                                                      .addGap(54, 54, 54)
-                                                                      .addComponent(jLabel35)
-                                                                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                      .addComponent(jLabel45)
-                                                                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                      .addComponent(jLabel36)
-                                                                      .addGap(2, 2, 2)
-                                                                      .addComponent(exchangeDollar)
-                                                                      .addGap(6, 6, 6))))
-                                                       .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                       .addComponent(jLabel7))
-                                                  .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addComponent(countProduct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, printLayout.createSequentialGroup()
+                                                  .addGap(106, 106, 106)
+                                                  .addComponent(jLabel35)
+                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                  .addComponent(jLabel45)
+                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                  .addComponent(jLabel36)
+                                                  .addGap(2, 2, 2)
+                                                  .addComponent(exchangeDollar)
+                                                  .addGap(6, 6, 6)
+                                                  .addComponent(jLabel7))
+                                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(countProduct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                    .addComponent(jSeparator1)
                                    .addComponent(jSeparator2))
                               .addGap(65, 65, 65))
@@ -783,6 +761,34 @@ public class Receipt extends javax.swing.JDialog {
                               .addGap(14, 14, 14)
                               .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addGap(0, 0, Short.MAX_VALUE))))
+               .addGroup(printLayout.createSequentialGroup()
+                    .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(59, 59, 59)
+                              .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                   .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(164, 164, 164)
+                              .addComponent(invoiceCode)))
+                    .addGap(0, 0, Short.MAX_VALUE))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(36, 36, 36))
+               .addGroup(printLayout.createSequentialGroup()
+                    .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(141, 141, 141)
+                              .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(113, 113, 113)
+                              .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           printLayout.setVerticalGroup(
                printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -791,7 +797,7 @@ public class Receipt extends javax.swing.JDialog {
                     .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
                     .addComponent(companyname)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(0, 0, 0)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(10, 10, 10)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -821,10 +827,10 @@ public class Receipt extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel38)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(invoiceCode)
-                    .addContainerGap(116, Short.MAX_VALUE))
+                    .addContainerGap(95, Short.MAX_VALUE))
           );
 
           jScrollPane1.setViewportView(print);
@@ -859,11 +865,12 @@ public class Receipt extends javax.swing.JDialog {
           );
           jPanel2Layout.setVerticalGroup(
                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(jPanel2Layout.createSequentialGroup()
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(11, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 8, Short.MAX_VALUE))
+                    .addContainerGap())
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -879,8 +886,8 @@ public class Receipt extends javax.swing.JDialog {
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 790, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
 
@@ -888,37 +895,45 @@ public class Receipt extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
+      
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-
-         PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
-
-         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
-         if (printServices.length > 0) {
-              PrinterJob printerJob = PrinterJob.getPrinterJob();
-              try {
-                   // Set the print service
-                   printerJob.setPrintService(printServices[0]);
-
-//                   PrinterJob printerJob = PrinterJob.getPrinterJob();
-                   PageFormat pageFormat = printerJob.defaultPage();
-                   Paper paper = new Paper();
-                   paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
-                   paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
-                   pageFormat.setPaper(paper);
-
-                   printerJob.setPrintable(new MyPrinter(print), pageFormat);
-                   // Print without showing the print dialog
-                   printerJob.print();
-
-              } catch (PrinterException ex) {
-                   ex.printStackTrace();
-              }
-         } else {
-              System.out.println("No printer found.");
-         }
-
+        
+//         printPreview(print);
+         printReceipt();
 
     }//GEN-LAST:event_btnPrintMouseClicked
+
+     public void printReceipt() {
+          // ============= print with device
+        
+          PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
+
+          PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
+          if (printServices.length > 0) {
+               PrinterJob printerJob = PrinterJob.getPrinterJob();
+               try {
+                    // Set the print service
+                    printerJob.setPrintService(printServices[0]);
+
+//                 PrinterJob printerJob = PrinterJob.getPrinterJob();
+                    PageFormat pageFormat = printerJob.defaultPage();
+                    Paper paper = new Paper();
+                    paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
+                    paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
+                    pageFormat.setPaper(paper);
+
+                    printerJob.setPrintable(new MyPrinter(print), pageFormat);
+                    // Print without showing the print dialog
+                    printerJob.print();
+
+               } catch (PrinterException ex) {
+                    ex.printStackTrace();
+               }
+          } else {
+               System.out.println("No printer found.");
+          }
+     }
+
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
          this.dispose();
@@ -927,7 +942,7 @@ public class Receipt extends javax.swing.JDialog {
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
-                    Receipt dialog = new Receipt(new javax.swing.JFrame(), true);
+                    Receipt dialog = new Receipt(new javax.swing.JFrame(), true,null);
                     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                          @Override
                          public void windowClosing(java.awt.event.WindowEvent e) {

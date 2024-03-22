@@ -780,8 +780,8 @@ public class MainPage extends javax.swing.JFrame {
                  try {
                     CashierReporting cashier = new CashierReporting(new JFrame(), true);
                      Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-//                     Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=7&posId=01");
-                     System.out.println("response :" + response);
+//                     Response response = JavaConnection.get(JavaRoute.cashierReport + "0005&userId=8&posId=08");
+                 
                      if (response.isSuccessful()) {
                           String myObject = response.body().string();
                           ObjectMapper objMap = new ObjectMapper();
