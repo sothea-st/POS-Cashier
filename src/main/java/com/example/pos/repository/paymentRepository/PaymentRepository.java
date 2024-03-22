@@ -14,6 +14,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
         @Query(nativeQuery = true, value = "select count(*) from pos_payment pp")
         int countRecord();
 
+        @Query(nativeQuery = true , value = "select count(*) from pos_sale where sale_date = ?")
+        int countSale(String currentData);
+
         @Query(nativeQuery = true, value = "select ps.total,pp.receive_usd,pp.receive_khr,\r\n" + //
                         "pp.change_usd,pp.change_khr,\r\n" + //
                         "pp.remaining_usd,pp.remaining_khr,\r\n" + //

@@ -148,7 +148,7 @@ public class RouteControllerSecond {
           @GetMapping("/searchWithInvoice")
           public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo) {
                List<ProductModel> data = service.searchWithInvoiceNo(invoiceNo);
-               if( data.isEmpty() ) return JavaResponse.success("The receipt already return!");
+               if( data.isEmpty() ) return ResponseEntity.ok().body(Map.of("msg", "success" , "data",data , "invoiceNo","The invoice already return!"));
                return ResponseEntity.ok().body(Map.of("msg", "success" , "data",data , "invoiceNo",invoiceNo));
           }
      }
