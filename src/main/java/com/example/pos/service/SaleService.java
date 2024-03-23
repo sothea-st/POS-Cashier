@@ -87,7 +87,7 @@ public class SaleService {
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
         sale.setCreateBy(userId);
-
+ 
         Customer cus = s.getCustomer();
         String cusId = null;
         int countId = cusRepo.countRecord();
@@ -143,13 +143,18 @@ public class SaleService {
         String empName = repoUser.getNameEmp(userId);
         map.put("empName", empName);
         map.put("saleDate", s.getSaleDate());
-        map.put("invoidNO", paymentNo);
-        map.put("totalUsd", s.getTotal());
-        map.put("totalKhr", s.getTotal());
+        map.put("paymentNo", paymentNo);
+        map.put("total", s.getTotal());
+        // map.put("totalKhr", s.getTotal());
         map.put("receiveUsd", p.getReceiveUsd());
         map.put("receiveKhr", p.getReceiveKhr());
-        map.put("changeUSd", p.getChangeUsd());
+        map.put("changeUsd", p.getChangeUsd());
         map.put("changeKhr", p.getChangeKhr());
+        map.put("receiveUsd", p.getReceiveUsd());
+        map.put("receiveKhr", p.getReceiveKhr());
+        map.put("customerType", "អតិថិជនទូទៅ");
+        map.put("returned", "អតិថិជនទូទៅ");
+
         List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId, JavaConstant.currentDate, saleId);
         map.put("saleDetails", listProjection);
         return map;
