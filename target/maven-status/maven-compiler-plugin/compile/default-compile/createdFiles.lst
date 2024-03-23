@@ -42,12 +42,14 @@ LoginAndLogoutForm\LoginFormJdailog.class
 Payment\PaymentOption$23.class
 Components\PasswordField.class
 HoldOrder\ListHoldOrder$5.class
+Print\EpsonPrinter.class
 HoldOrder\HoldItems$2.class
 DeleteAndCancel\CancelDialog$4.class
 View\MainPage\MainPage$12.class
 Return\ApprovalCode.class
 Button\Button.class
 Return\ApprovalCode$2.class
+Return\PrinterReturnHidden$1.class
 Components\SearchField$2.class
 View\MainPage\MainPage$9.class
 Controller\ActionSearchProductController\ActionSearchProduct.class
@@ -72,6 +74,7 @@ Print\ReprintByInvoicenumber$4$1.class
 Products\ProductPanel.class
 Return\ApprovalCode$4$1.class
 Payment\PaymentOption$21.class
+PanelToImageConverter\TestPanel.class
 Components\HistoryHoldOrder$4.class
 Components\RadioButton.class
 OpenAndCloseShift\CloseShift.class
@@ -80,6 +83,7 @@ Model\OpenShiftModel\OpenShiftModel.class
 Components\TextField$3.class
 Payment\PaymentOption$18.class
 DefaultPrice\DefaultPrice.class
+Model\ReturnModel\ModelReturnData.class
 Button\ButtonDiscount.class
 Payment\PaymentOption$17.class
 Model\Sale\CustomerModel.class
@@ -123,6 +127,7 @@ DeleteAndCancel\CancelDialog$5.class
 Payment\PaymentOption$24.class
 OpenAndCloseShift\CloseShift$3.class
 View\MainPage\MainPage$10.class
+PanelToImageConverter\TestPanel$1.class
 LoginAndLogoutForm\LoginFormJdailog$6.class
 Model\HoldOrder\NewHoldOrderModel.class
 View\MainPage\MainPage$5.class
@@ -158,6 +163,7 @@ HoldOrder\ListHoldOrder$2.class
 Components\HistoryHoldOrder.class
 Payment\PaymentOption$8.class
 Discount\OverallDiscount$1.class
+Payment\PaymentOption$26.class
 Components\JavaAlertMessage$2.class
 OpenAndCloseShift\OpenShiftJdailog$4.class
 Components\ComboBox$2.class
@@ -179,6 +185,7 @@ Components\TextFieldCenter.class
 Print\ReprintJdailog$3.class
 Customer\CustomerFunction.class
 Controller\ActionProduct\ActionProduct.class
+Receipt\TestReceipt$1.class
 Components\DialonInputName$3$1.class
 Print\ReprintJdailog$4$1.class
 Components\BoxItem$1.class
@@ -186,6 +193,7 @@ BlogCode\JavaSearchByNameAndCode.class
 Components\BoxItem$4.class
 View\MainPage\MainPage$3.class
 Customer\CustomerFunction$3.class
+Model\ReturnModel\ResultDataReturnModel.class
 Return\ReturnDialog$5$1.class
 BlogCode\ResponsiveSize$1.class
 View\MainPage\MainPage$1.class
@@ -203,8 +211,11 @@ Controller\ActionProduct\ActionProduct$1.class
 Constant\Test.class
 SwitchButton\SwitchButton$2.class
 Components\JavaAlertMessage$1.class
+Receipt\TestReceipt$1$1.class
 Discount\DiscountByItem$3.class
+PanelToImageConverter\FrameReceiptForPrint.class
 HoldOrder\HoldeModel.class
+Return\PrinterReturn$1.class
 HoldOrder\ListHoldOrder$1.class
 View\MainPage\MainPage$2.class
 LoginAndLogoutForm\LoginFormJdailog$3.class
@@ -217,6 +228,7 @@ Customer\CustomerFunction$1.class
 Payment\PaymentOption$9.class
 Print\ReprintJdailog$4.class
 NewDiscounts\Discounting$13.class
+PanelToImageConverter\FrameReceiptForPrint$1.class
 Components\DialonInputName$1.class
 PointCustomer\CustomerPointModel.class
 Components\HoldItem$2.class
@@ -240,6 +252,7 @@ NewDiscounts\Discounting$20.class
 Constant\JavaBaseUrl.class
 Model\CashierReport\Data.class
 OpenAndCloseShift\OpenShiftJdailog$2.class
+Return\ReturnBox.class
 Constant\JavaRoute.class
 Model\Report\SummeryVat.class
 Controller\ActionRequestBrand\ActionRequestBrand.class
@@ -250,6 +263,7 @@ DeleteAndCancel\CancelDialog$3.class
 Constant\JavaMessage.class
 Discount\OverallDiscount$3.class
 Payment\PaymentOption$7.class
+PanelToImageConverter\PanelData$1.class
 Components\SubtotalPanel.class
 Customer\JdailogCustomer$3.class
 Model\CashierReport\SummerySale.class
@@ -259,6 +273,7 @@ Controller\ActionScanBarcodeAddProduct\ActionScanBarcodeAddProduct.class
 HoldOrder\HoldSuccess.class
 Payment\PaymentOption$14.class
 HoldOrder\HoldModelDir\ResultHoldSuccess.class
+Return\PrinterReturnHidden$1$1.class
 Button\ButtonInstock.class
 Payment\PaymentOption$16.class
 Customer\Customer$5.class
@@ -269,6 +284,7 @@ Components\ReportBox.class
 Components\HistoryHoldOrder$2.class
 Payment\PaymentOption$20.class
 Model\Report\DiscountSummery.class
+Return\PrinterReturn.class
 Components\LabelTitle.class
 NewDiscounts\Discounting$2.class
 Payment\PaymentOption$2.class
@@ -292,6 +308,7 @@ Components\TextFieldCenter$1.class
 Customer\Customer$3.class
 Model\OpenShift\DataOpenShiftModel.class
 Payment\PaymentOption$22.class
+Return\PrinterReturn$1$1.class
 NewCashierReport\CashierReporting$1.class
 Print\ReprintByInvoicenumber$2.class
 Print\ReprintByInvoicenumber.class
@@ -302,11 +319,13 @@ LoginAndLogoutForm\LogoutDialog$1.class
 Model\PackageProduct\CategoryModel.class
 View\MainPage\MainPage$13.class
 HoldOrder\HoldItems$1.class
+Payment\PaymentOption$26$1.class
 Components\BackgroundImage.class
 Return\ApprovalCode$3.class
 Receipt\CashierReport.class
 Components\PasswordField$1.class
 Discount\ListProduct$3.class
+Receipt\TestReceipt.class
 Discount\GetProduct$2.class
 View\MainPage\MainPage.class
 Return\ApprovalCode$1.class
@@ -332,6 +351,7 @@ Fonts\WindowFonts.class
 Components\JavaAlertMessage$2$1.class
 NewCashierReport\CashierReporting$3.class
 BlogCode\JavaActionDiscount.class
+PanelToImageConverter\PanelData.class
 NewDiscounts\Discounting$3.class
 Model\HoldOrder\HoldOrderModel.class
 BlogCode\JavaSearchByNameAndCode$2.class
@@ -339,6 +359,7 @@ Discount\GetProduct.class
 Discount\DiscountType$2.class
 Model\Reprint\DataSuccessModel.class
 Products\ProductBox$1.class
+Return\PrinterReturnHidden.class
 NewDiscounts\Discounting$4.class
 Model\CustomerType\SourceModel.class
 Components\LabelFontGreen.class
@@ -363,7 +384,6 @@ NewDiscounts\Discounting$5.class
 Components\TextField.class
 Model\HoldOrder\DataHoldOrder.class
 Model\Login\LoginModel.class
-Payment\PaymentOption$25$1.class
 Discount\OverallDiscount.class
 Payment\PaymentOption$11.class
 Constant\JavaRoundUpKhr.class

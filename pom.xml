@@ -68,7 +68,12 @@
                <version>4.12</version>
           </dependency>-->
           <!--============ end printer ===================-->
-       
+<!--          <dependency>
+               <groupId>org.vesalainen.comm</groupId>
+               <artifactId>javaxcomm</artifactId>
+               <version>1.0.1</version>
+               <type>jar</type>
+          </dependency>-->
      </dependencies>
      
      

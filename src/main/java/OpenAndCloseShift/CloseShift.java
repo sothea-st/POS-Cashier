@@ -11,6 +11,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import Print.EpsonPrinter;
 import View.MainPage.MainPage;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -374,7 +375,7 @@ public class CloseShift extends javax.swing.JDialog {
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
                    btnOpenShift.setBackground(WindowColor.lightGray);
-                   
+
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
 
@@ -386,6 +387,7 @@ public class CloseShift extends javax.swing.JDialog {
                    panelProduct.repaint();
 //                          == == == == == == == == == == == == == == == == == == == == == == =
 
+//                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
 
@@ -404,9 +406,6 @@ public class CloseShift extends javax.swing.JDialog {
           this.btnHold = btnHold;
      }
 
-    
-    
-    
      public ButtonCancel getBtnCancel() {
           return btnCancel;
      }

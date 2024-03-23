@@ -136,7 +136,7 @@ public class ReprintJdailog extends javax.swing.JDialog {
 
          if (typeForm.equals("reprint")) {
               // for reprint function
-              reprint(true, "button_print");
+              reprint(true);
          } else if (typeForm.equals("hold")) {
               // for hold function
               HistoryHoldOrder h = new HistoryHoldOrder(new JFrame(), true);
@@ -148,9 +148,9 @@ public class ReprintJdailog extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_btnPrintByLastMouseClicked
 
-     public void reprint(boolean isVisible, String action) {
-          Receipt rec = new Receipt(new JFrame(), true,action);
-          Response response = JavaConnection.get(JavaRoute.reprintByLast + "?userId=" + JavaConstant.cashierId);
+     public void reprint(boolean isVisible) {
+          Receipt rec = new Receipt(new JFrame(), true);
+          Response response = JavaConnection.get(JavaRoute.reprintByLast);
         
           this.dispose();
           if (response.isSuccessful()) {
@@ -160,6 +160,7 @@ public class ReprintJdailog extends javax.swing.JDialog {
                     DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
                     rec.setDataSuccess(d);
                     rec.setVisible(isVisible);
+                     
                } catch (Exception e) {
                     System.err.println("err while loding = " + e);
                }

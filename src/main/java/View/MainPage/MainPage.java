@@ -27,6 +27,7 @@ import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Return.ApprovalCode;
+import Return.PrinterReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
@@ -726,6 +727,13 @@ public class MainPage extends javax.swing.JFrame {
                    approval.setVisible(true);
               }
          }
+
+//         if (JavaConstant.token != null) {
+//              if (JavaConstant.checkOpenShift) {
+//                   PrinterReturn approval = new PrinterReturn(new JFrame(), true);
+//                   approval.setVisible(true);
+//              }
+//         }
     }//GEN-LAST:event_btnReturnMouseClicked
 
      //Action Button Cancel
@@ -779,8 +787,8 @@ public class MainPage extends javax.swing.JFrame {
              if (JavaConstant.token != null) {
                  try {
                     CashierReporting cashier = new CashierReporting(new JFrame(), true);
-                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-//                     Response response = JavaConnection.get(JavaRoute.cashierReport + "0005&userId=8&posId=08");
+//                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+                     Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
                  
                      if (response.isSuccessful()) {
                           String myObject = response.body().string();
