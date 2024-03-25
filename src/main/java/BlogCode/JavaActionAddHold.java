@@ -38,11 +38,11 @@ public class JavaActionAddHold {
                var box = ((BoxItem) listHold[i]);
                qty += box.getQty();
                double _d =  JavaConstant.getReplace(box.getDiscountAmount());
-               System.err.println("data dddd = " + _d);
-               System.err.println("data dddd = " + box.getDiscountType());
+              
+               System.err.println("data dddd = " + box.getDiscountDigit());
 
                HoldeModel h = new HoldeModel(box.getProductId(), box.getQty(),
-                     box.getDiscountType(), _d);
+                     box.getDiscountType(), box.getDiscountDigit());
                holdModel.add(h);
           }
 

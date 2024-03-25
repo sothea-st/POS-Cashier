@@ -80,7 +80,7 @@ public class MainPage extends javax.swing.JFrame {
 
              // custome scrollbar ui
           jScrollPaneDetail.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPaneDetail.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
           // custom scroll speed jscrollPane for vertical
           JScrollBar verticalScrollBars = jScrollPaneDetail.getVerticalScrollBar();
           verticalScrollBars.setUnitIncrement(30);
