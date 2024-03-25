@@ -14,7 +14,7 @@ import java.util.*;
 @Repository
 public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer> {
 
-        @Query(nativeQuery = true, value = "select psd.price,psd.qty,pp.pro_name_en,pp.barcode from pos_sale ps \r\n" + //
+        @Query(nativeQuery = true, value = "select psd.price,psd.qty,pp.pro_name_en,pp.barcode,psd.discount ,psd.discount_type  from pos_sale ps \r\n" + //
                         " inner join pos_sale_details psd on psd.sale_id = ps.id\r\n" + //
                         " inner join pos_product pp on pp.id = psd.pro_id\r\n" + //
                         " where ps.user_id = ? and psd.sale_id = ?")
