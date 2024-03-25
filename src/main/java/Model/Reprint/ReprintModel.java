@@ -15,6 +15,7 @@ public class ReprintModel {
      private long remainingUsd;
      private String saleDate;
      private String paymentNo;
+     private String paymentBarcode;
      private double total;
      private String customerType;
      private String empName;
@@ -45,7 +46,8 @@ public class ReprintModel {
           double receiveUsd,
           String companyContact,
           String vattin,
-          String returned
+          String returned,
+          String paymentBarcode
           ) {
           this.remainingKhr = remainingKhr;
           this.companyLogo = companyLogo;
@@ -64,7 +66,8 @@ public class ReprintModel {
           this.receiveUsd = receiveUsd;
           this.companyContact = companyContact;
           this.vattin = vattin;
-           this.returned = returned;
+          this.returned = returned;
+          this.paymentBarcode = paymentBarcode;
      }
 
      @JsonProperty("remainingKhr")
@@ -166,6 +169,17 @@ public class ReprintModel {
      public void setPaymentNo(String value) {
           this.paymentNo = value;
      }
+     
+     
+     @JsonProperty("paymentBarcode")
+     public String getPaymentBarcode() {
+          return paymentBarcode;
+     }
+
+     @JsonProperty("paymentBarcode")
+     public void setPaymentBarcode(String value) {
+          this.paymentBarcode = value;
+     }
 
      @JsonProperty("total")
      public double getTotal() {
@@ -231,20 +245,20 @@ public class ReprintModel {
      public String getVattin() {
           return vattin;
      }
+
      @JsonProperty("vattin")
      public void setVattin(String vattin) {
           this.vattin = vattin;
      }
-     
-      @JsonProperty("returned")
+
+     @JsonProperty("returned")
      public String getReturned() {
           return returned;
      }
+
      @JsonProperty("returned")
      public void setReturned(String returned) {
           this.returned = returned;
      }
-     
-     
-     
+
 }

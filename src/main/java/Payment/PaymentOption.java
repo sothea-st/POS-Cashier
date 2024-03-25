@@ -1274,12 +1274,13 @@ public class PaymentOption extends javax.swing.JDialog {
 
          try {
               if (response.isSuccessful()) {
-                   dispose();
-                   btnCancel.setBackground(WindowColor.lightGray);
-                   buttonHoldOrder.setBackground(WindowColor.lightGray);
                    detailItem.removeAll();
                    detailItem.revalidate();
                    detailItem.repaint();
+                   dispose();
+                   btnCancel.setBackground(WindowColor.lightGray);
+                   buttonHoldOrder.setBackground(WindowColor.lightGray);
+
                    subtotalPanel.setLabelSubTitleToZero();
                    btnPayment.setBackground(WindowColor.lightGray);
 
@@ -1298,6 +1299,7 @@ public class PaymentOption extends javax.swing.JDialog {
                         }
                    }
 
+                   // ===== print receipt
                    Response responsePrint = JavaConnection.get(JavaRoute.reprintByLast);
                    if (response.isSuccessful()) {
                         try {
@@ -1308,14 +1310,14 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-                             re.printReceipt();
+//                             re.printReceipt();
+                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
 //                             te.revalidate();
 //                             te.repaint();
 //                             te.printPanel(d);
-
                         } catch (Exception e) {
                              System.err.println("err while loding = " + e);
                         }
@@ -1331,34 +1333,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
 
-     public void printPanel(JPanel print) {
-
-          PrinterJob printerJob = PrinterJob.getPrinterJob();
-          printerJob.setPrintable(new Printable() {
-               public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) {
-                    if (pageIndex > 0) {
-                         return Printable.NO_SUCH_PAGE;
-                    }
-
-                    Graphics2D g2d = (Graphics2D) graphics;
-                    g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-
-                    // Print the JPanel content
-                    print.printAll(g2d);
-
-                    return Printable.PAGE_EXISTS;
-               }
-          });
-
-          if (printerJob.printDialog()) {
-               try {
-                    printerJob.print();
-               } catch (PrinterException ex) {
-                    ex.printStackTrace();
-               }
-          }
-     }
-
+     
      void returnProduct() throws IOException {
           double totalReturn = 0;
           if (!txtReceiveUsd.getText().isEmpty()) {
@@ -1394,15 +1369,12 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
-          
-          
-       
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-     
+
           if (responseReturn.isSuccessful()) {
                String _data = responseReturn.body().string();
-                    System.err.println("response return = " + _data);
+               System.err.println("response return = " + _data);
                dispose();
                detailItem.removeAll();
                detailItem.revalidate();

@@ -250,7 +250,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
 
-         String userId = "0003";
+         String userId = "0005";
          String password = "TT@126$kh#";
          String deviceName = JavaConstant.getDeviceName();
 
