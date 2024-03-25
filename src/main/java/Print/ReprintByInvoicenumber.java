@@ -36,7 +36,9 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                @Override
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
-                    System.err.println("valute dat =" + value);
+                 
+                    
+                    txtInvoiceNumber.setValueTextField("101-01-CN24-" + value);
                }
           };
           
