@@ -719,18 +719,11 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Return
     private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
-//         if (JavaConstant.token != null) {
-//              if (JavaConstant.checkOpenShift) {
-//                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
-//                   approval.setJdFormLogin(jdFormLogin);
-//                   approval.setTypeForm("return");
-//                   approval.setVisible(true);
-//              }
-//         }
-
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
-                   PrinterReturn approval = new PrinterReturn(new JFrame(), true);
+                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
+                   approval.setJdFormLogin(jdFormLogin);
+                   approval.setTypeForm("return");
                    approval.setVisible(true);
               }
          }
@@ -823,7 +816,7 @@ public class MainPage extends javax.swing.JFrame {
           if (JavaConstant.token != null) {
                Component[] listCom1 = detailItem.getComponents();
                if (listCom1.length != 0) {
-                    JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnPayment, totalPanel, countCircleShape);
+                    JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape);
                }
           }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked

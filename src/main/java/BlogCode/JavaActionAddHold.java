@@ -24,7 +24,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class JavaActionAddHold {
-     public static void addHold(JPanel detailItem, Button btnPayment, Button buttonHoldOrder, Button btnCancel, SubtotalPanel totalPanel, countCircleShape countCircleShape) {
+     public static void addHold(JPanel detailItem, Button btnPayment, Button buttonHoldOrder, ButtonPackage.ButtonCancel btnCancel, SubtotalPanel totalPanel, countCircleShape countCircleShape) {
           btnPayment.setBackground(WindowColor.lightGray);
           buttonHoldOrder.setBackground(WindowColor.lightGray);
           btnCancel.setBackground(WindowColor.lightGray);
