@@ -14,10 +14,7 @@ Return\ApprovalCode$4.class
 View\MainPage\MainPage$7.class
 BlogCode\JavaBlogImage.class
 Return\ReturnDialog$4.class
-<<<<<<< HEAD
 Return\PrinterReturnHidden$3.class
-=======
->>>>>>> b363631e06bdd37c69b2e014b629c6c69c109e1e
 Receipt\Receipt$4.class
 Customer\Customer$4.class
 SwitchButton\SwitchButton.class
@@ -132,10 +129,7 @@ DeleteAndCancel\CancelDialog$5.class
 Payment\PaymentOption$24.class
 OpenAndCloseShift\CloseShift$3.class
 View\MainPage\MainPage$10.class
-<<<<<<< HEAD
-=======
 PanelToImageConverter\TestPanel$1.class
->>>>>>> b363631e06bdd37c69b2e014b629c6c69c109e1e
 LoginAndLogoutForm\LoginFormJdailog$6.class
 Model\HoldOrder\NewHoldOrderModel.class
 View\MainPage\MainPage$5.class
@@ -172,11 +166,8 @@ HoldOrder\ListHoldOrder$2.class
 Components\HistoryHoldOrder.class
 Payment\PaymentOption$8.class
 Discount\OverallDiscount$1.class
-<<<<<<< HEAD
-Return\PrinterReturn$2.class
-=======
 Payment\PaymentOption$26.class
->>>>>>> b363631e06bdd37c69b2e014b629c6c69c109e1e
+Return\PrinterReturn$2.class
 Components\JavaAlertMessage$2.class
 OpenAndCloseShift\OpenShiftJdailog$4.class
 Components\ComboBox$2.class
@@ -198,10 +189,7 @@ Components\TextFieldCenter.class
 Print\ReprintJdailog$3.class
 Customer\CustomerFunction.class
 Controller\ActionProduct\ActionProduct.class
-<<<<<<< HEAD
-=======
 Receipt\TestReceipt$1.class
->>>>>>> b363631e06bdd37c69b2e014b629c6c69c109e1e
 Components\DialonInputName$3$1.class
 Print\ReprintJdailog$4$1.class
 Components\BoxItem$1.class
@@ -279,10 +267,7 @@ DeleteAndCancel\CancelDialog$3.class
 Constant\JavaMessage.class
 Discount\OverallDiscount$3.class
 Payment\PaymentOption$7.class
-<<<<<<< HEAD
-=======
 PanelToImageConverter\PanelData$1.class
->>>>>>> b363631e06bdd37c69b2e014b629c6c69c109e1e
 Components\SubtotalPanel.class
 Customer\JdailogCustomer$3.class
 Model\CashierReport\SummerySale.class
@@ -293,10 +278,6 @@ HoldOrder\HoldSuccess.class
 Return\PrinterReturnHidden$2.class
 Payment\PaymentOption$14.class
 HoldOrder\HoldModelDir\ResultHoldSuccess.class
-<<<<<<< HEAD
-=======
-Return\PrinterReturnHidden$1$1.class
->>>>>>> b363631e06bdd37c69b2e014b629c6c69c109e1e
 Button\ButtonInstock.class
 Payment\PaymentOption$16.class
 Customer\Customer$5.class

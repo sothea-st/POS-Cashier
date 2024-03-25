@@ -1394,11 +1394,15 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
+          
+          
+       
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-
+     
           if (responseReturn.isSuccessful()) {
-
+               String _data = responseReturn.body().string();
+                    System.err.println("response return = " + _data);
                dispose();
                detailItem.removeAll();
                detailItem.revalidate();
@@ -1406,8 +1410,8 @@ public class PaymentOption extends javax.swing.JDialog {
                subtotalPanel.setLabelSubTitleToZero();
                btnPayment.setBackground(WindowColor.lightGray);
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
-               ReturnDialog r = new ReturnDialog(new JFrame(), true);
-               r.setResetReturn();
+//               ReturnDialog r = new ReturnDialog(new JFrame(), true);
+//               r.setResetReturn();
                JavaConstant.isReturn = null;
 
           } else {
