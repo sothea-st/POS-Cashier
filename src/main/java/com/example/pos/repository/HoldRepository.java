@@ -17,7 +17,7 @@ import java.util.*;
 public interface HoldRepository extends JpaRepository<Hold, Integer> {
      @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n" + //
                     "\t                        pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
-                    "\t                        pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired,ph.qty_hold as qty  \r\n" + //
+                    "\t                        pc.product_status ,ph.discount ,pc.code_out_stock ,pc.code_expired,ph.qty_hold as qty  \r\n" + //
                     "\t                        from pos_hold_details  as ph inner join pos_product pc on pc.id = ph.pro_id  \r\n" + //
                     "\t                        where ph.hold_id = ? and ph.status = true and ph.is_deleted = false")
      List<HoldProjection> getHoldDataById(int id);

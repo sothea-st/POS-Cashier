@@ -1,5 +1,5 @@
 package com.example.pos.projections.holdProjection;
-
+import java.math.*;
 public interface HoldProjection {
      int getId();
      int getCat_id();
@@ -13,8 +13,9 @@ public interface HoldProjection {
      double getCost();
      double getPrice();
      String getProduct_status();
-     int getDiscount();
      String getCode_out_stock();
      String getCode_expired();
      int getQty();
+     BigDecimal getDiscount();
+     
 }  

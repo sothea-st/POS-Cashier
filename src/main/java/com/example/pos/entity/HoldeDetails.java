@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.*;
 @Entity
 @Table(name = "pos_hold_details")
 @Data
@@ -18,6 +19,12 @@ public class HoldeDetails {
 
      @Column(name = "hold_id", length = 50)
      private int holdId;
+
+     @Column(name = "discount", scale =10,precision = 0)
+     private BigDecimal discount;
+
+     @Column(name = "discount_type")
+     private String discountType;
 
      @Column(name = "qty_hold", length = 50)
      private int qtyHold;
