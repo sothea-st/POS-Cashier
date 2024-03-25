@@ -135,28 +135,8 @@ public class ReprintJdailog extends javax.swing.JDialog {
          }
 
          if (typeForm.equals("reprint")) {
-                // for reprint function
-              Receipt rec = new Receipt(new JFrame(), true);
-              Response response = JavaConnection.get(JavaRoute.reprintByLast + "?userId="+JavaConstant.cashierId);
-
-              this.dispose();
-              if (response.isSuccessful()) {
-                   try {
-                        String myObject = response.body().string();
-                        ObjectMapper objMap = new ObjectMapper();
-                        DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
-                        rec.setDataSuccess(d);
-                        rec.setVisible(true);
-                   } catch (Exception e) {
-                        System.err.println("err while loding = " + e);
-                   }
-              } else {
-                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                   j.setMessage("Invoice is empty!");
-                   j.setVisible(true);
-                   return;
-              }
-
+              // for reprint function
+              reprint(true);
          } else if (typeForm.equals("hold")) {
               // for hold function
               HistoryHoldOrder h = new HistoryHoldOrder(new JFrame(), true);
@@ -167,6 +147,31 @@ public class ReprintJdailog extends javax.swing.JDialog {
               dispose();
          }
     }//GEN-LAST:event_btnPrintByLastMouseClicked
+
+     public void reprint(boolean isVisible) {
+          Receipt rec = new Receipt(new JFrame(), true);
+          Response response = JavaConnection.get(JavaRoute.reprintByLast);
+        
+          this.dispose();
+          if (response.isSuccessful()) {
+               try {
+                    String myObject = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
+                    rec.setDataSuccess(d);
+                    rec.setVisible(isVisible);
+                     
+               } catch (Exception e) {
+                    System.err.println("err while loding = " + e);
+               }
+          } else {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage("Invoice is empty!");
+               j.setVisible(true);
+               return;
+          }
+     }
+
 
     private void btnPrintByInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintByInvoiceMouseClicked
 

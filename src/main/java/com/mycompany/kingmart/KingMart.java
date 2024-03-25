@@ -1,21 +1,9 @@
 package com.mycompany.kingmart;
 
 import View.MainPage.MainPage;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.MediaSizeName;
-import javax.print.attribute.standard.PrinterName;
+
 
 /**
  *
@@ -26,6 +14,7 @@ public class KingMart {
      public static void main(String[] args) throws FileNotFoundException {
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
+          
 
           // ================ test 1 for print ===============
 //          PrinterService printerService = new PrinterService();

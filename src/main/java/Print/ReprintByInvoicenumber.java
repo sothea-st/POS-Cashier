@@ -10,6 +10,7 @@ import Fonts.WindowFonts;
 import Model.Reprint.DataSuccessModel;
 import Receipt.Receipt;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -146,32 +147,36 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
 
          String paymentNo = txtInvoiceNumber.getValueTextField();
          if (paymentNo == null || paymentNo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
-            return;
+              JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
+              return;
          }
 
          try {
-
-              Receipt rec = new Receipt(new JFrame(), true);
-              Response response = JavaConnection.get(JavaRoute.reprintByLast +"/"+JavaConstant.cashierId + "/" + paymentNo);
-       
-              if (response.isSuccessful()) {
-                   this.dispose();
-                   String myObject = response.body().string();
-                   ObjectMapper objMap = new ObjectMapper();
-                   DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
-                   rec.setDataSuccess(d);
-                   rec.setVisible(true);
-              } else {
-                   JOptionPane.showMessageDialog(this, "Wrong Invoice №!");
-                   return;
-              }
-
+              printReceiptWithInvoic(paymentNo);
          } catch (Exception e) {
               System.err.println("error = " + e);
          }
 
     }//GEN-LAST:event_btnPreviewMouseClicked
+
+     public void printReceiptWithInvoic(String paymentNo) throws IOException {
+
+          Receipt rec = new Receipt(new JFrame(), true);
+          Response response = JavaConnection.get(JavaRoute.reprintByLast + "/" + paymentNo);
+         
+          if (response.isSuccessful()) {
+               this.dispose();
+               String myObject = response.body().string();
+               ObjectMapper objMap = new ObjectMapper();
+               DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
+               rec.setDataSuccess(d);
+               rec.setVisible(true);
+
+          } else {
+               JOptionPane.showMessageDialog(this, "Wrong Invoice №!");
+               return;
+          }
+     }
 
      public static void main(String args[]) {
 

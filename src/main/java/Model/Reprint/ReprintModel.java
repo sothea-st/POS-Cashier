@@ -22,6 +22,7 @@ public class ReprintModel {
      private double receiveUsd;
      private String companyContact;
      private String vattin;
+     private String returned;
 
      public ReprintModel() {
      }
@@ -43,7 +44,8 @@ public class ReprintModel {
           double changeKhr,
           double receiveUsd,
           String companyContact,
-          String vattin
+          String vattin,
+          String returned
           ) {
           this.remainingKhr = remainingKhr;
           this.companyLogo = companyLogo;
@@ -62,6 +64,7 @@ public class ReprintModel {
           this.receiveUsd = receiveUsd;
           this.companyContact = companyContact;
           this.vattin = vattin;
+           this.returned = returned;
      }
 
      @JsonProperty("remainingKhr")
@@ -231,6 +234,15 @@ public class ReprintModel {
      @JsonProperty("vattin")
      public void setVattin(String vattin) {
           this.vattin = vattin;
+     }
+     
+      @JsonProperty("returned")
+     public String getReturned() {
+          return returned;
+     }
+     @JsonProperty("returned")
+     public void setReturned(String returned) {
+          this.returned = returned;
      }
      
      

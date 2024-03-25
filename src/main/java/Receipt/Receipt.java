@@ -8,6 +8,10 @@ import Constant.JavaRoute;
 import Model.Reprint.DataSuccessModel;
 import Model.Reprint.ReprintModel;
 import Model.Reprint.SaleDetailModel;
+import PanelToImageConverter.FrameReceiptForPrint;
+import PanelToImageConverter.TestPanel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -21,9 +25,6 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -32,10 +33,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import pdf.MyPrinter;
@@ -43,12 +44,43 @@ import pdf.MyPrinter;
 public class Receipt extends javax.swing.JDialog {
 
      private DataSuccessModel dataSuccess;
-
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
+     private String customerName;
+
+     public String getCustomerName() {
+          return customerName;
+     }
+
+     public void setCustomerName(String customerName) {
+          this.customerName = customerName;
+          cusName.setText(customerName);
+     }
 
      public Receipt(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
+          initComponents();
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          exchangeDollar.setText(kh.format(JavaConstant.exchangeRate));
+
+          jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
+          setFontSizeForLabels(print, 12);
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          setBackground(Color.WHITE);
+          getContentPane().setBackground(Color.WHITE);
+          invoiceNo.setFont(new Font("Time New Roman", Font.BOLD, 9));
+    
+
+     }
+
+     public Receipt(java.awt.Frame parent, boolean modal, DataSuccessModel data) {
+          super(parent, modal);
+          setDataSuccess(data);
           initComponents();
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -61,8 +93,18 @@ public class Receipt extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
-           setBackground(Color.WHITE);
+          setBackground(Color.WHITE);
           getContentPane().setBackground(Color.WHITE);
+          invoiceNo.setFont(new Font("Time New Roman", Font.BOLD, 9));
+
+     }
+
+     public void chartAndPrint() {
+          printReceipt();
+     }
+
+     public void visible() {
+          setVisible(true);
      }
 
      public static void setFontSizeForLabels(Container container, int size) {
@@ -73,14 +115,13 @@ public class Receipt extends javax.swing.JDialog {
                     Font currentFont = label.getFont();
                     Font boldFont = new Font(label.getFont().getFontName(), Font.BOLD, size);
                     label.setFont(boldFont);
-
                } else if (component instanceof Container) {
                     setFontSizeForLabels((Container) component, size);
                }
           }
      }
 
-     public void printComponenet(Component component) {
+     public void printComponenet() {
           PrinterJob pj = PrinterJob.getPrinterJob();
           pj.setJobName(" Print Component ");
 
@@ -89,9 +130,10 @@ public class Receipt extends javax.swing.JDialog {
                     if (pageNum > 0) {
                          return Printable.NO_SUCH_PAGE;
                     }
+
                     Graphics2D g2 = (Graphics2D) pg;
                     g2.translate(pf.getImageableX(), pf.getImageableY());
-                    component.paint(g2);
+                    print.paint(g2);
                     return Printable.PAGE_EXISTS;
                }
           });
@@ -201,16 +243,17 @@ public class Receipt extends javax.swing.JDialog {
 
           jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-          jLabel4.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel4.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel4.setForeground(new java.awt.Color(56, 56, 56));
           jLabel4.setText("លេខអត្តសញ្ញាណសារពើពន្ធ​(VATTIN)៖");
 
-          vattin.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          vattin.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           vattin.setForeground(new java.awt.Color(56, 56, 56));
           vattin.setText("038545848965886");
 
-          address.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          address.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           address.setForeground(new java.awt.Color(56, 56, 56));
+          address.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           address.setText("ផ្ទះលេខ១៣៩១២ ផ្លូវ ៥៩៨ ភូមិខ១ សង្កាត់ច្រាំងចំរេះទី២  ខណ្ឌឬស្សីកែវ រាជធានីភ្នំពេញ");
 
           javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -218,14 +261,16 @@ public class Receipt extends javax.swing.JDialog {
           jPanel3Layout.setHorizontalGroup(
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addComponent(jLabel4)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               .addGroup(jPanel3Layout.createSequentialGroup()
-                    .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 18, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                              .addGap(5, 5, 5)
+                              .addComponent(jLabel4)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                              .addGap(33, 33, 33)
+                              .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(26, Short.MAX_VALUE))
           );
           jPanel3Layout.setVerticalGroup(
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,9 +278,9 @@ public class Receipt extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                          .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(0, 0, 0)
                     .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap())
+                    .addGap(0, 0, 0))
           );
 
           jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
@@ -243,60 +288,60 @@ public class Receipt extends javax.swing.JDialog {
 
           jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-          jLabel8.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel8.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel8.setForeground(new java.awt.Color(56, 56, 56));
           jLabel8.setText("ឈ្មោះអតិថិជន ៖");
 
-          cusName.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          cusName.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           cusName.setForeground(new java.awt.Color(56, 56, 56));
           cusName.setText("អតិថិជនទូរទៅ");
 
-          jLabel10.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel10.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel10.setForeground(new java.awt.Color(56, 56, 56));
           jLabel10.setText("សាខាហាង ៖");
 
-          jLabel11.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel11.setForeground(new java.awt.Color(56, 56, 56));
           jLabel11.setText("Red Ant");
 
-          jLabel12.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel12.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel12.setForeground(new java.awt.Color(56, 56, 56));
           jLabel12.setText("លេខវិក្ក័យប័ត្រ ៖");
 
-          invoiceNo.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          invoiceNo.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           invoiceNo.setForeground(new java.awt.Color(56, 56, 56));
           invoiceNo.setText("000000243");
 
-          jLabel14.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel14.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel14.setForeground(new java.awt.Color(56, 56, 56));
           jLabel14.setText("លេខទូរសព្ឌ ៖");
 
-          contact.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          contact.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           contact.setForeground(new java.awt.Color(56, 56, 56));
           contact.setText("093 999 699");
 
-          jLabel16.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel16.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel16.setForeground(new java.awt.Color(56, 56, 56));
           jLabel16.setText("កាលបរិច្ឆេទ ៖");
 
-          saleDate.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          saleDate.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           saleDate.setForeground(new java.awt.Color(56, 56, 56));
           saleDate.setText("22-12-2023 9:24");
 
-          jLabel18.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel18.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel18.setForeground(new java.awt.Color(56, 56, 56));
           jLabel18.setText("អ្នកគិតលុយ ៖");
 
-          cashierName.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          cashierName.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           cashierName.setForeground(new java.awt.Color(56, 56, 56));
           cashierName.setText("RAE-0004");
 
-          jLabel20.setFont(new java.awt.Font("Khmer OS Muol", 1, 10)); // NOI18N
+          jLabel20.setFont(new java.awt.Font("Khmer OS Muol", 1, 11)); // NOI18N
           jLabel20.setForeground(new java.awt.Color(56, 56, 56));
           jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel20.setText("វិក្កយបត្រ");
 
-          jLabel46.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          jLabel46.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel46.setForeground(new java.awt.Color(56, 56, 56));
           jLabel46.setText(" /  Invoice");
 
@@ -310,14 +355,14 @@ public class Receipt extends javax.swing.JDialog {
                          .addGroup(jPanel4Layout.createSequentialGroup()
                               .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(invoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel16)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                              .addGap(18, 18, 18)
+                                        .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(invoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                              .addGap(6, 6, 6)
                               .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(jPanel4Layout.createSequentialGroup()
                                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,40 +420,40 @@ public class Receipt extends javax.swing.JDialog {
 
           jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-          jLabel21.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+          jLabel21.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel21.setForeground(new java.awt.Color(56, 56, 56));
           jLabel21.setText("ឈ្មោះទំនិញ");
 
-          jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel25.setForeground(new java.awt.Color(56, 56, 56));
           jLabel25.setText("Item Name");
 
-          jLabel22.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+          jLabel22.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel22.setForeground(new java.awt.Color(56, 56, 56));
           jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel22.setText("បរិមាណ");
 
-          jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel26.setForeground(new java.awt.Color(56, 56, 56));
           jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel26.setText("Quantity");
 
-          jLabel23.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+          jLabel23.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel23.setForeground(new java.awt.Color(56, 56, 56));
           jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel23.setText("ថ្លៃឯកតា");
 
-          jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel27.setForeground(new java.awt.Color(56, 56, 56));
           jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel27.setText("Price");
 
-          jLabel24.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+          jLabel24.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel24.setForeground(new java.awt.Color(56, 56, 56));
           jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel24.setText("ថ្លៃទំនិញ");
 
-          jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel28.setForeground(new java.awt.Color(56, 56, 56));
           jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel28.setText("Net Price");
@@ -421,10 +466,10 @@ public class Receipt extends javax.swing.JDialog {
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
-                    .addGap(35, 35, 35)
+                    .addGap(40, 40, 40)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                         .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(20, 20, 20)
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,129 +502,129 @@ public class Receipt extends javax.swing.JDialog {
           jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
           jSeparator4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
-          jLabel35.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel35.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel35.setForeground(new java.awt.Color(56, 56, 56));
           jLabel35.setText("អត្រាប្តូរប្រាក់ ");
 
-          jLabel36.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel36.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel36.setForeground(new java.awt.Color(56, 56, 56));
           jLabel36.setText("1 USD = ");
 
-          jLabel37.setFont(new java.awt.Font("Garamond", 0, 12)); // NOI18N
+          jLabel37.setFont(new java.awt.Font("Garamond", 1, 11)); // NOI18N
           jLabel37.setForeground(new java.awt.Color(56, 56, 56));
           jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel37.setText("Thank you for choosing \"RED ANT Express\" !!");
 
-          jLabel38.setFont(new java.awt.Font("Garamond", 0, 12)); // NOI18N
+          jLabel38.setFont(new java.awt.Font("Garamond", 1, 11)); // NOI18N
           jLabel38.setForeground(new java.awt.Color(56, 56, 56));
           jLabel38.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           jLabel38.setText("Receipt required for exchange or return items");
 
-          jLabel45.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel45.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel45.setForeground(new java.awt.Color(56, 56, 56));
           jLabel45.setText("/  Exchange Rate :");
 
           jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-          jLabel30.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel30.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel30.setForeground(new java.awt.Color(56, 56, 56));
           jLabel30.setText("បញ្ចុះតម្លែ");
 
-          jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel2.setForeground(new java.awt.Color(56, 56, 56));
           jLabel2.setText("/ Discount");
 
-          jLabel29.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel29.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
           jLabel29.setForeground(new java.awt.Color(56, 56, 56));
           jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel29.setText("- $");
 
-          jLabel31.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel31.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel31.setForeground(new java.awt.Color(56, 56, 56));
           jLabel31.setText("សរុប(រួមអាករ) ");
 
-          jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel3.setForeground(new java.awt.Color(56, 56, 56));
           jLabel3.setText("/  Total (All Tax Included)-USD :");
 
-          jLabel32.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel32.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel32.setForeground(new java.awt.Color(56, 56, 56));
           jLabel32.setText("សរុប(រួមអាករ) ");
 
-          jLabel39.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel39.setForeground(new java.awt.Color(56, 56, 56));
           jLabel39.setText("/  Total (All Tax Included)-Riel :");
 
-          totalprice.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          totalprice.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           totalprice.setForeground(new java.awt.Color(56, 56, 56));
           totalprice.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           totalprice.setText("$ 5.55");
 
-          totalKhr.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          totalKhr.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           totalKhr.setForeground(new java.awt.Color(56, 56, 56));
           totalKhr.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           totalKhr.setText("23,310");
 
-          jLabel33.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel33.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel33.setForeground(new java.awt.Color(56, 56, 56));
           jLabel33.setText("ប្រាក់ទទួល");
 
-          jLabel43.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel43.setForeground(new java.awt.Color(56, 56, 56));
           jLabel43.setText(" /  Received :");
 
-          receiveUsd.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          receiveUsd.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
           receiveUsd.setForeground(new java.awt.Color(56, 56, 56));
           receiveUsd.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           receiveUsd.setText("- $");
 
-          receiveKhr.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          receiveKhr.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
           receiveKhr.setForeground(new java.awt.Color(56, 56, 56));
           receiveKhr.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           receiveKhr.setText("-");
 
-          jLabel34.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel34.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel34.setForeground(new java.awt.Color(56, 56, 56));
           jLabel34.setText("ប្រាក់អាប់ ");
 
-          jLabel44.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel44.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel44.setForeground(new java.awt.Color(56, 56, 56));
           jLabel44.setText("/  Change :");
 
-          changeUsd.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          changeUsd.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
           changeUsd.setForeground(new java.awt.Color(56, 56, 56));
           changeUsd.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           changeUsd.setText("- $");
 
-          changeKhr.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          changeKhr.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
           changeKhr.setForeground(new java.awt.Color(56, 56, 56));
           changeKhr.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           changeKhr.setText("-");
 
-          jLabel1.setFont(new java.awt.Font("Khmer OS Content", 0, 10)); // NOI18N
+          jLabel1.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel1.setForeground(new java.awt.Color(56, 56, 56));
           jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel1.setText("៛");
 
-          jLabel5.setFont(new java.awt.Font("Khmer OS Content", 0, 10)); // NOI18N
+          jLabel5.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel5.setForeground(new java.awt.Color(56, 56, 56));
           jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel5.setText("៛");
 
-          jLabel6.setFont(new java.awt.Font("Khmer OS Content", 0, 10)); // NOI18N
+          jLabel6.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel6.setForeground(new java.awt.Color(56, 56, 56));
           jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel6.setText("៛");
 
-          jLabel40.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+          jLabel40.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel40.setForeground(new java.awt.Color(56, 56, 56));
           jLabel40.setText("សេវាដឹក ");
 
-          jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           jLabel9.setForeground(new java.awt.Color(56, 56, 56));
           jLabel9.setText("/  Delivery Fee :");
 
-          jLabel41.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          jLabel41.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
           jLabel41.setForeground(new java.awt.Color(56, 56, 56));
           jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel41.setText("- $");
@@ -708,15 +753,15 @@ public class Receipt extends javax.swing.JDialog {
           generateBarcode.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
           generateBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-          invoiceCode.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+          invoiceCode.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           invoiceCode.setText("jLabel1");
 
-          jLabel7.setFont(new java.awt.Font("Khmer OS Content", 0, 10)); // NOI18N
+          jLabel7.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
           jLabel7.setForeground(new java.awt.Color(56, 56, 56));
           jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           jLabel7.setText("៛");
 
-          exchangeDollar.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+          exchangeDollar.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
           exchangeDollar.setForeground(new java.awt.Color(56, 56, 56));
           exchangeDollar.setText("jLabel9");
 
@@ -725,57 +770,29 @@ public class Receipt extends javax.swing.JDialog {
           printLayout.setHorizontalGroup(
                printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(printLayout.createSequentialGroup()
-                    .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(printLayout.createSequentialGroup()
-                              .addGap(141, 141, 141)
-                              .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGroup(printLayout.createSequentialGroup()
-                              .addGap(100, 100, 100)
-                              .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-               .addGroup(printLayout.createSequentialGroup()
-                    .addGap(32, 32, 32)
+                    .addGap(45, 45, 45)
                     .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
                               .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(printLayout.createSequentialGroup()
-                                        .addGap(0, 5, Short.MAX_VALUE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                             .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                  .addGroup(javax.swing.GroupLayout.Alignment.LEADING, printLayout.createSequentialGroup()
-                                                       .addGap(10, 10, 10)
-                                                       .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addGroup(printLayout.createSequentialGroup()
-                                                                 .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                      .addGroup(printLayout.createSequentialGroup()
-                                                                           .addGap(79, 79, 79)
-                                                                           .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                      .addGroup(printLayout.createSequentialGroup()
-                                                                           .addGap(128, 128, 128)
-                                                                           .addComponent(invoiceCode)))
-                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                            .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                 .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                      .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                      .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
-                                                                      .addGap(54, 54, 54)
-                                                                      .addComponent(jLabel35)
-                                                                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                      .addComponent(jLabel45)
-                                                                      .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                      .addComponent(jLabel36)
-                                                                      .addGap(2, 2, 2)
-                                                                      .addComponent(exchangeDollar)
-                                                                      .addGap(6, 6, 6))))
-                                                       .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                       .addComponent(jLabel7))
-                                                  .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addComponent(countProduct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, printLayout.createSequentialGroup()
+                                                  .addGap(106, 106, 106)
+                                                  .addComponent(jLabel35)
+                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                  .addComponent(jLabel45)
+                                                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                  .addComponent(jLabel36)
+                                                  .addGap(2, 2, 2)
+                                                  .addComponent(exchangeDollar)
+                                                  .addGap(6, 6, 6)
+                                                  .addComponent(jLabel7))
+                                             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(countProduct, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                    .addComponent(jSeparator1)
                                    .addComponent(jSeparator2))
                               .addGap(65, 65, 65))
@@ -783,6 +800,33 @@ public class Receipt extends javax.swing.JDialog {
                               .addGap(14, 14, 14)
                               .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addGap(0, 0, Short.MAX_VALUE))))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(36, 36, 36))
+               .addGroup(printLayout.createSequentialGroup()
+                    .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(141, 141, 141)
+                              .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(113, 113, 113)
+                              .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+               .addGroup(printLayout.createSequentialGroup()
+                    .addGap(71, 71, 71)
+                    .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                              .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
+                                   .addGap(6, 6, 6)
+                                   .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                         .addGroup(printLayout.createSequentialGroup()
+                              .addGap(105, 105, 105)
+                              .addComponent(invoiceCode)))
+                    .addGap(0, 0, Short.MAX_VALUE))
           );
           printLayout.setVerticalGroup(
                printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -791,7 +835,7 @@ public class Receipt extends javax.swing.JDialog {
                     .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
                     .addComponent(companyname)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGap(0, 0, 0)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(10, 10, 10)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -821,10 +865,10 @@ public class Receipt extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jLabel38)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(generateBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(invoiceCode)
-                    .addContainerGap(116, Short.MAX_VALUE))
+                    .addContainerGap(95, Short.MAX_VALUE))
           );
 
           jScrollPane1.setViewportView(print);
@@ -851,7 +895,7 @@ public class Receipt extends javax.swing.JDialog {
           jPanel2Layout.setHorizontalGroup(
                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(269, Short.MAX_VALUE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -859,11 +903,12 @@ public class Receipt extends javax.swing.JDialog {
           );
           jPanel2Layout.setVerticalGroup(
                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(jPanel2Layout.createSequentialGroup()
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                          .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 8, Short.MAX_VALUE))
+                    .addContainerGap())
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -871,16 +916,16 @@ public class Receipt extends javax.swing.JDialog {
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+               .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
 
@@ -888,37 +933,45 @@ public class Receipt extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-
-         PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
-
-         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
-         if (printServices.length > 0) {
-              PrinterJob printerJob = PrinterJob.getPrinterJob();
-              try {
-                   // Set the print service
-                   printerJob.setPrintService(printServices[0]);
-
-//                   PrinterJob printerJob = PrinterJob.getPrinterJob();
-                   PageFormat pageFormat = printerJob.defaultPage();
-                   Paper paper = new Paper();
-                   paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
-                   paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
-                   pageFormat.setPaper(paper);
-
-                   printerJob.setPrintable(new MyPrinter(print), pageFormat);
-                   // Print without showing the print dialog
-                   printerJob.print();
-
-              } catch (PrinterException ex) {
-                   ex.printStackTrace();
-              }
-         } else {
-              System.out.println("No printer found.");
-         }
-
-
+//         printComponenet();
+         printReceipt();
+         dispose();
     }//GEN-LAST:event_btnPrintMouseClicked
+
+     public void printReceipt() {
+          // ============= print with device
+          print.revalidate();
+          print.repaint();
+          PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
+
+          PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
+          if (printServices.length > 0) {
+               PrinterJob printerJob = PrinterJob.getPrinterJob();
+               try {
+                    // Set the print service
+                    printerJob.setPrintService(printServices[0]);
+
+//                 PrinterJob printerJob = PrinterJob.getPrinterJob();
+                    PageFormat pageFormat = printerJob.defaultPage();
+                    Paper paper = new Paper();
+                    paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
+                    paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
+                    pageFormat.setPaper(paper);
+
+                    printerJob.setPrintable(new MyPrinter(print), pageFormat);
+                    // Print without showing the print dialog
+                    printerJob.print();
+
+               } catch (PrinterException ex) {
+                    ex.printStackTrace();
+               }
+          } else {
+               System.out.println("No printer found.");
+          }
+     }
+
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
          this.dispose();
@@ -943,12 +996,6 @@ public class Receipt extends javax.swing.JDialog {
           return dataSuccess;
      }
 
-     public void setDataSuccess(DataSuccessModel dataSuccess) {
-          this.dataSuccess = dataSuccess;
-          assignValue(dataSuccess);
-
-     }
-
      public static String formatString(String input) {
           StringBuilder formatted = new StringBuilder();
           int count = 0;
@@ -963,9 +1010,15 @@ public class Receipt extends javax.swing.JDialog {
           return formatted.toString();
      }
 
+     public void setDataSuccess(DataSuccessModel dataSuccess) {
+          this.dataSuccess = dataSuccess;
+          assignValue(dataSuccess);
+     }
+
      private void assignValue(DataSuccessModel dataSuccess) {
           var data = dataSuccess.getData();
           try {
+               displayProduct(data);
                Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
                byte[] images = response.body().bytes();
                logo.setIcon(new ImageIcon(images));
@@ -982,7 +1035,7 @@ public class Receipt extends javax.swing.JDialog {
 
                saleDate.setText(data.getSaleDate());
                cashierName.setText(data.getEmpName());
-               displayProduct(data);
+
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(kh.format(totalkh));
@@ -1010,6 +1063,8 @@ public class Receipt extends javax.swing.JDialog {
                }
 
                Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentNo());
+//               Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + "1000000");
+
                byte[] barcode = generateCode.body().bytes();
                generateBarcode.setIcon(new ImageIcon(barcode));
                invoiceCode.setText(data.getPaymentNo());
@@ -1040,10 +1095,10 @@ public class Receipt extends javax.swing.JDialog {
                re.setAmountStr(dm.format(amount));
                countProduct.add(re);
                countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
+               countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
+               countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
           }
 
-          countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
-          countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
      }
 
 

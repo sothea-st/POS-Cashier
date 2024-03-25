@@ -10,6 +10,8 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+import Model.ReturnModel.ModelReturnData;
+import Model.ReturnModel.ResultDataReturnModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
@@ -45,12 +47,14 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanWithoutReturn(String barcode, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
+          System.out.println("response = " + response);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
-                    ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
-                    ProductDataModel[] listProduct = model.getData();
+                    ModelReturnData model = objMap.readValue(responseData, ModelReturnData.class);
+                    ResultDataReturnModel[] listProduct = model.getData();
+               
                     if (listProduct.length == 0) {
                          msgAlertErr();
                          return;
@@ -59,6 +63,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
+                         System.err.println("price data = " + obj.getPrice());
                          product = new ProductModel(
                               obj.getID(),
                               obj.getCatID(),

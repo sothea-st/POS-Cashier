@@ -11,14 +11,16 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import javax.swing.JPanel;
 
-
 public class MyPrinter implements Printable {
 
      private JPanel panel;
+  
 
      public MyPrinter(JPanel panel) {
           this.panel = panel;
      }
+
+
 
      @Override
      public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
@@ -40,5 +42,4 @@ public class MyPrinter implements Printable {
           return Printable.PAGE_EXISTS;
      }
 
-     
 }
