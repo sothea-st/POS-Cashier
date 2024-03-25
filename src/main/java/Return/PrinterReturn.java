@@ -51,7 +51,42 @@ public class PrinterReturn extends javax.swing.JDialog {
         jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
         setFontSizeForLabels(print, 11);
         jLabel46.setFont(WindowFonts.timeNewRomanBold14);
-        assignValue();
+    }
+    
+    public void chartAndPrint() {
+          printReceipt();
+    }
+    
+    public void printReceipt() {
+          // ============= print with device
+          print.revalidate();
+          print.repaint();
+          PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
+
+          PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
+          if (printServices.length > 0) {
+               PrinterJob printerJob = PrinterJob.getPrinterJob();
+               try {
+                    // Set the print service
+                    printerJob.setPrintService(printServices[0]);
+
+//                 PrinterJob printerJob = PrinterJob.getPrinterJob();
+                    PageFormat pageFormat = printerJob.defaultPage();
+                    Paper paper = new Paper();
+                    paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
+                    paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
+                    pageFormat.setPaper(paper);
+
+                    printerJob.setPrintable(new MyPrinter(print), pageFormat);
+                    // Print without showing the print dialog
+                    printerJob.print();
+
+               } catch (PrinterException ex) {
+                    ex.printStackTrace();
+               }
+          } else {
+               System.out.println("No printer found.");
+          }
     }
     
     public static void setFontSizeForLabels(Container container, int size) {
@@ -75,70 +110,70 @@ public class PrinterReturn extends javax.swing.JDialog {
 
     public void setDataSuccess(DataSuccessModel dataSuccess) {
         this.dataSuccess = dataSuccess;
-//        assignValue(dataSuccess);
+        assignValue(dataSuccess);
     }
     
+//    
+//    private void assignValue() {
+//         for (int i = 0; i < 2; i++) {
+//              ReturnBox re = new ReturnBox();
+//              countProduct.add(re);
+//              countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
+//         }
+//         
+//         countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
+//         countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
+//    }
     
-    private void assignValue() {
-         for (int i = 0; i < 2; i++) {
-              ReturnBox re = new ReturnBox();
-              countProduct.add(re);
-              countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
-         }
-         
-         countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
-         countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
-    }
     
-    
-//    private void assignValue(DataSuccessModel dataSuccess) {
-//          var data = dataSuccess.getData();
-//          try {
-//               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
-//               byte[] images = response.body().bytes();
-//               logo.setIcon(new ImageIcon(images));
-//               companyname.setText(data.getCompanyName());
-//
-//               address.setText("<html>អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>");
-//               vattin.setText(data.getVattin());
-//               invoiceNo.setText(data.getPaymentNo());
-//
-//               if (data.getCompanyContact() != null || !data.getCompanyContact().isEmpty()) {
-//                    contact.setText(formatString(data.getCompanyContact()));
-//               }
-//
-//               saleDate.setText(data.getSaleDate());
-//               cashierName.setText(data.getEmpName());
-//               displayProduct(data);
-//               totalprice.setText(dm.format(data.getTotal()));
-//               double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
-//               totalKhr.setText(kh.format(totalkh));
-//
-//          } catch (Exception e) {
-//               System.err.println("getting error at " + e);
-//          }
-//
-//     }
+    private void assignValue(DataSuccessModel dataSuccess) {
+          var data = dataSuccess.getData();
+          try {
+               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
+               byte[] images = response.body().bytes();
+               logo.setIcon(new ImageIcon(images));
+               companyname.setText(data.getCompanyName());
+               address.setText("<html>អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>");
+               vattin.setText(data.getVattin());
+               invoiceNo.setText(data.getPaymentNo());
+               invoiceNo1.setText(data.getPaymentNo());
+               cashier.setText(data.getEmpName());
+               saleDate.setText(data.getSaleDate());
 
-//     private void displayProduct(ReprintModel data) {
-//          SaleDetailModel[] listSale = data.getSaleDetails();
-//
-//          for (int i = 0; i < listSale.length; i++) {
-//               var list = listSale[i];
-//               ReceiptBox re = new ReceiptBox();
-//               re.setProductName(list.getProNameEn());
-//               re.setBarcodeStr(list.getBarcode());
-//               re.setQtyStr("" + list.getQty());
-//               re.setUnitPriceStr(dm.format(list.getPrice()));
-//               double amount = list.getQty() * list.getPrice();
-//               re.setAmountStr(dm.format(amount));
-//               countProduct.add(re);
-//               countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
-//          }
-//
-//          countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
-//          countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
-//     }
+               if (data.getCompanyContact() != null || !data.getCompanyContact().isEmpty()) {
+                    contact.setText(formatString(data.getCompanyContact()));
+               }
+
+               displayProduct(data);
+               totalprice.setText(dm.format(data.getTotal()));
+               double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
+               totalKhr.setText(kh.format(totalkh));
+
+          } catch (Exception e) {
+               System.err.println("getting error at " + e);
+          }
+
+     }
+
+     private void displayProduct(ReprintModel data) {
+          SaleDetailModel[] listSale = data.getSaleDetails();
+
+          for (int i = 0; i < listSale.length; i++) {
+               var list = listSale[i];
+               ReturnBox re = new ReturnBox();
+               re.setProductName(list.getProNameEn());
+               re.setBarcodeStr(list.getBarcode());
+               re.setQtyStr("" + list.getQty());
+               re.setUnitPriceStr(dm.format(list.getPrice()));
+               double amount = list.getQty() * list.getPrice();
+               re.setAmountStr(dm.format(amount));
+               countProduct.add(re);
+               countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
+          }
+
+          countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
+          countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
+     }
     
 
     @SuppressWarnings("unchecked")
@@ -153,23 +188,22 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         vattin = new javax.swing.JLabel();
         address = new javax.swing.JLabel();
-        address1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        branch = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         invoiceNo = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        contact = new javax.swing.JLabel();
+        cashier = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         saleDate = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        cashierName = new javax.swing.JLabel();
+        contact = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        saleDate1 = new javax.swing.JLabel();
+        invoiceNo1 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
@@ -231,24 +265,18 @@ public class PrinterReturn extends javax.swing.JDialog {
         address.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         address.setText("អាសយដ្ខាន ​៖​ផ្ទះលេខ១៣៩១២ ផ្លូវ ៥៩៨ ភូមិខ១ សង្កាត់ច្រាំងចំរេះទី២ ");
 
-        address1.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
-        address1.setForeground(new java.awt.Color(56, 56, 56));
-        address1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        address1.setText("ខណ្ឌឬស្សីកែវ រាជធានីភ្នំពេញ");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(address1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(vattin, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(78, Short.MAX_VALUE)
+                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,10 +285,8 @@ public class PrinterReturn extends javax.swing.JDialog {
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                     .addComponent(vattin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(address1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2))
+                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
@@ -272,9 +298,9 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel10.setForeground(new java.awt.Color(56, 56, 56));
         jLabel10.setText("សាខាហាង ៖");
 
-        jLabel11.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(56, 56, 56));
-        jLabel11.setText("101-រេដអាន អិចប្រេស ទួលគោក");
+        branch.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        branch.setForeground(new java.awt.Color(56, 56, 56));
+        branch.setText("101-រេដអាន អិចប្រេស ទួលគោក");
 
         jLabel12.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(56, 56, 56));
@@ -288,9 +314,9 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel14.setForeground(new java.awt.Color(56, 56, 56));
         jLabel14.setText("អ្នកគិតលុយ ៖");
 
-        contact.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        contact.setForeground(new java.awt.Color(56, 56, 56));
-        contact.setText("RAE0004");
+        cashier.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        cashier.setForeground(new java.awt.Color(56, 56, 56));
+        cashier.setText("RAE0004");
 
         jLabel16.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(56, 56, 56));
@@ -304,9 +330,9 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel18.setForeground(new java.awt.Color(56, 56, 56));
         jLabel18.setText("លេខទូរសព្ឌ ៖");
 
-        cashierName.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        cashierName.setForeground(new java.awt.Color(56, 56, 56));
-        cashierName.setText("023 666 6696");
+        contact.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        contact.setForeground(new java.awt.Color(56, 56, 56));
+        contact.setText("023 666 6696");
 
         jLabel20.setFont(new java.awt.Font("Khmer OS Muol", 1, 10)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(56, 56, 56));
@@ -321,9 +347,9 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel17.setForeground(new java.awt.Color(56, 56, 56));
         jLabel17.setText("យោងវិក្កយត្រលេខ ៖");
 
-        saleDate1.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        saleDate1.setForeground(new java.awt.Color(56, 56, 56));
-        saleDate1.setText("............................................");
+        invoiceNo1.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        invoiceNo1.setForeground(new java.awt.Color(56, 56, 56));
+        invoiceNo1.setText("............................................");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -337,34 +363,34 @@ public class PrinterReturn extends javax.swing.JDialog {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(invoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                                .addComponent(invoiceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(contact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(branch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(saleDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(invoiceNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel46)
-                        .addGap(88, 88, 88)))
+                        .addGap(76, 76, 76)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -376,25 +402,25 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(branch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(invoiceNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
                         .addComponent(jLabel14)
-                        .addComponent(contact)))
+                        .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18)
-                        .addComponent(cashierName)))
+                        .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(saleDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(invoiceNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
@@ -621,7 +647,7 @@ public class PrinterReturn extends javax.swing.JDialog {
             .addGroup(printLayout.createSequentialGroup()
                 .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(printLayout.createSequentialGroup()
-                        .addGap(150, 150, 150)
+                        .addGap(141, 141, 141)
                         .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(printLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
@@ -653,7 +679,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel37)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(print);
@@ -794,17 +820,17 @@ public class PrinterReturn extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;
-    private javax.swing.JLabel address1;
+    private javax.swing.JLabel branch;
     private Button.Button btnBack;
     private Button.Button btnPrint;
-    private javax.swing.JLabel cashierName;
+    private javax.swing.JLabel cashier;
     private javax.swing.JLabel companyname;
     private javax.swing.JLabel contact;
     private javax.swing.JPanel countProduct;
     private javax.swing.JLabel invoiceNo;
+    private javax.swing.JLabel invoiceNo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
@@ -841,7 +867,6 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JLabel logo;
     private javax.swing.JPanel print;
     private javax.swing.JLabel saleDate;
-    private javax.swing.JLabel saleDate1;
     private javax.swing.JLabel totalKhr;
     private javax.swing.JLabel totalprice;
     private javax.swing.JLabel vattin;

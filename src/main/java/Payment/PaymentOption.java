@@ -18,6 +18,7 @@ import Model.Reprint.DataSuccessModel;
 import Model.ReturnModel.ReturnProductModel;
 import Model.Sale.ProductSaleModel;
 import Receipt.Receipt;
+import Return.PrinterReturn;
 import Return.ReturnDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
@@ -1269,7 +1270,6 @@ public class PaymentOption extends javax.swing.JDialog {
          }
          jsonData.put("dataSale", dataSale);
 
-//         System.out.println("jsonData :" + jsonData);
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
          try {
@@ -1394,24 +1394,32 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
-          
-          
-       
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
      
           if (responseReturn.isSuccessful()) {
                String _data = responseReturn.body().string();
-                    System.err.println("response return = " + _data);
                dispose();
                detailItem.removeAll();
                detailItem.revalidate();
                detailItem.repaint();
                subtotalPanel.setLabelSubTitleToZero();
                btnPayment.setBackground(WindowColor.lightGray);
+               btnCancel.setBackground(WindowColor.lightGray);
+               buttonHoldOrder.setBackground(WindowColor.lightGray);
+               
+               PrinterReturn print = new PrinterReturn(new JFrame(), true);
+               ObjectMapper objMap = new ObjectMapper();
+               DataSuccessModel d = objMap.readValue(_data, DataSuccessModel.class);
+               print.setDataSuccess(d);
+               print.revalidate();
+               print.repaint();
+               print.printReceipt();
+               
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
 //               ReturnDialog r = new ReturnDialog(new JFrame(), true);
 //               r.setResetReturn();
+
                JavaConstant.isReturn = null;
 
           } else {
