@@ -35,23 +35,23 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
+                    String value = txtInvoiceNumber.getValueTextField();
+//                    String dataValue = "101-01-CN24-" + value;
+//
+//                    dataValue = dataValue.replace("101-01-CN24-", "");
+//
+                    txtInvoiceNumber.setValueTextField(value);
+               }
+
+//               @Override
+//               public void onKeyType() {
 //                    String value = txtInvoiceNumber.getValueTextField();
 //                    String dataValue = "101-01-CN24-" + value;
 //
 //                    dataValue = dataValue.replace("101-01-CN24-", "");
 //
 //                    txtInvoiceNumber.setValueTextField(dataValue);
-               }
-
-               @Override
-               public void onKeyType() {
-                    String value = txtInvoiceNumber.getValueTextField();
-                    String dataValue = "101-01-CN24-" + value;
-
-                    dataValue = dataValue.replace("101-01-CN24-", "");
-
-                    txtInvoiceNumber.setValueTextField(dataValue);
-               }
+//               }
 
           };
 

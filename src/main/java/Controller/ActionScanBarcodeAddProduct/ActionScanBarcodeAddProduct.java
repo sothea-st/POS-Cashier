@@ -53,7 +53,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ModelReturnData model = objMap.readValue(responseData, ModelReturnData.class);
-                    ResultDataReturnModel[] listProduct = model.getData();
+                    ProductDataModel[] listProduct = model.getData();
                
                     if (listProduct.length == 0) {
                          msgAlertErr();
