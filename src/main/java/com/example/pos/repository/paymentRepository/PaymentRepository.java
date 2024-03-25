@@ -22,8 +22,10 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                                 "\tpp.receive_usd,\r\n" + //
                                 "\tpp.receive_khr,\r\n" + //
                                 "\tpp.change_usd,\r\n" + //
+                                "\tpp.payment_barcode,\r\n" + //
                                 "\tpp.change_khr,\r\n" + //
                                 "\tpp.remaining_usd,\r\n" + //
+                                "\tps.discount,\r\n" + //
                                 "\tpp.remaining_khr,\r\n" + //
                                 "\tpp.payment_no,\r\n" + //
                                 "\tps.sale_date,\r\n" + //
@@ -39,19 +41,21 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                                 "\tpct.id = pp.customer_type_id\r\n" + //
                                 "inner join pos_user pu on pu.id = ps.user_id \r\n" + //
                                 "where\r\n" + //
-                                "\tpp.payment_no = ? and ps.sale_date = ?")
-        PaymentProjection getPaymentDataWithPaymentNo(String paymentNo,String date);
+                                "\tpp.payment_no = ? ")
+        PaymentProjection getPaymentDataWithPaymentNo(String paymentNo);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                                 "\tps.total,\r\n" + //
                                 "\tpp.receive_usd,\r\n" + //
                                 "\tpp.receive_khr,\r\n" + //
                                 "\tpp.change_usd,\r\n" + //
+                                "\tpp.payment_barcode,\r\n" + //
                                 "\tpp.change_khr,\r\n" + //
                                 "\tpp.remaining_usd,\r\n" + //
                                 "\tpp.remaining_khr,\r\n" + //
                                 "\tpp.payment_no,\r\n" + //
                                 "\tps.sale_date,\r\n" + //
+                                "\tps.discount,\r\n" + //
                                 "\tpct.name as customer_type,\r\n" + //
                                 "\tpp.sale_id,\r\n" + //
                                 "\tpu.full_name , pp.is_return ,\r\n" + //
@@ -83,7 +87,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
         @Query(nativeQuery = true , value = "select pp.* from pos_sale ps inner join  \r\n" + //
                         "pos_payment pp on pp.sale_id = ps.id \r\n" + //
-                        "where payment_no = ?  and ps.sale_date =  ?")
-        Optional<Payment> getDataPayment(String paymentNo,String date);
+                        "where payment_no = ?")
+        Optional<Payment> getDataPayment(String paymentNo);
 
 }

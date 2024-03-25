@@ -17,8 +17,8 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
         @Query(nativeQuery = true, value = "select psd.price,psd.qty,pp.pro_name_en,pp.barcode from pos_sale ps \r\n" + //
                         " inner join pos_sale_details psd on psd.sale_id = ps.id\r\n" + //
                         " inner join pos_product pp on pp.id = psd.pro_id\r\n" + //
-                        " where ps.user_id = ? and ps.sale_date = ? and psd.sale_id = ?")
-        List<SaleDetailProjection> getDataDetail(int userId, String date, int saleId);
+                        " where ps.user_id = ? and psd.sale_id = ?")
+        List<SaleDetailProjection> getDataDetail(int userId , int saleId);
 
         @Query(nativeQuery = true, value = "select sum( ( ( pp.price * psd.discount  )/100 )*psd.qty  )   from pos_sale ps\r\n"
                         + //

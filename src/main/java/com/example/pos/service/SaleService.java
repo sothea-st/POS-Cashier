@@ -21,6 +21,7 @@ import com.example.pos.repository.companyRepository.CompanyRepository;
 import com.example.pos.repository.paymentRepository.PaymentRepository;
 import com.example.pos.repository.peopleRepository.CustomerRepository;
 import com.example.pos.repository.shiftRepository.OpenShiftRepository;
+import com.example.pos.service.paymentService.ReprintService;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,9 @@ public class SaleService {
 
     @Autowired
     private FileStoreRepository fileStore;
+
+    @Autowired
+    private ReprintService reprintService;
 
     // this function will return invoice
     public HashMap<String, Object> saleProduct(Sale s) throws Exception {
@@ -130,34 +134,37 @@ public class SaleService {
 
         // save payment
         Payment p = s.getDataPay();
-        int count = payRepo.countSale(JavaConstant.currentDate);
-        // count++;
+        int count = payRepo.countRecord();
+        count++;
         String paymentNo = paymentNo(count,s.getPosId());
-        addPayment(paymentNo, saleId, p, userId);
-        Company companyInfo = repoCompany.getInfoCompany();
-        map.put("companyName", companyInfo.getCompanyName());
-        map.put("vattin", companyInfo.getVattin());
-        map.put("companyContact", companyInfo.getContact());
-        map.put("companyAddress", companyInfo.getAddress());
-        map.put("companyLogo", companyInfo.getPhoto());
-        String empName = repoUser.getNameEmp(userId);
-        map.put("empName", empName);
-        map.put("saleDate", s.getSaleDate());
-        map.put("paymentNo", paymentNo);
-        map.put("total", s.getTotal());
-        // map.put("totalKhr", s.getTotal());
-        map.put("receiveUsd", p.getReceiveUsd());
-        map.put("receiveKhr", p.getReceiveKhr());
-        map.put("changeUsd", p.getChangeUsd());
-        map.put("changeKhr", p.getChangeKhr());
-        map.put("receiveUsd", p.getReceiveUsd());
-        map.put("receiveKhr", p.getReceiveKhr());
-        map.put("customerType", "អតិថិជនទូទៅ");
-        map.put("returned", null);
+        String paymentBarcode = paymentBarcode(count);
+        addPayment(paymentNo, saleId, p, userId,paymentBarcode);
+        // Company companyInfo = repoCompany.getInfoCompany();
+        // map.put("companyName", companyInfo.getCompanyName());
+        // map.put("vattin", companyInfo.getVattin());
+        // map.put("companyContact", companyInfo.getContact());
+        // map.put("companyAddress", companyInfo.getAddress());
+        // map.put("companyLogo", companyInfo.getPhoto());
+        // String empName = repoUser.getNameEmp(userId);
+        // map.put("empName", empName);
+        // map.put("saleDate", s.getSaleDate());
+        // map.put("paymentNo", paymentNo);
+        // map.put("paymentBarcode", paymentBarcode);
+        // map.put("total", s.getTotal());
+        // // map.put("totalKhr", s.getTotal());
+        // map.put("receiveUsd", p.getReceiveUsd());
+        // map.put("receiveKhr", p.getReceiveKhr());
+        // map.put("changeUsd", p.getChangeUsd());
+        // map.put("changeKhr", p.getChangeKhr());
+        // map.put("receiveUsd", p.getReceiveUsd());
+        // map.put("receiveKhr", p.getReceiveKhr());
+        // map.put("customerType", "អតិថិជនទូទៅ");
+        // map.put("returned", null);
 
-        List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId, JavaConstant.currentDate, saleId);
-        map.put("saleDetails", listProjection);
-        return map;
+        // List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId , saleId);
+        // map.put("saleDetails", listProjection);
+       return reprintService.readData("");
+       
     }
 
     public void addCustomer(Customer cus, String cusId) {
@@ -187,8 +194,9 @@ public class SaleService {
         return cusId;
     }
 
-    public void addPayment(String paymentNo, int saleId, Payment p, int createBy) throws Exception {
+    public void addPayment(String paymentNo, int saleId, Payment p, int createBy,String paymentBarcode) throws Exception {
         Payment data = new Payment();
+        data.setPaymentBarcode(paymentBarcode);
         data.setPaymentNo(paymentNo);
         data.setSaleId(saleId);
         data.setReceiveKhr(p.getReceiveKhr());
@@ -205,15 +213,33 @@ public class SaleService {
         data.setCreateBy(createBy);
         payRepo.save(data);
 
-        BufferedImage barcode = barcodeGenerator.generateUSPSBarcodeImage(paymentNo);
+        BufferedImage barcode = barcodeGenerator.generateUSPSBarcodeImage(paymentBarcode);
         byte[] bytes = BarcodeGenerator.bufferedImageToByteArray(barcode, "jpg");
         // save information image to table pos_file
-        FileStore f = new FileStore(paymentNo, paymentNo,"image/jpeg",bytes);
+        FileStore f = new FileStore(paymentBarcode, paymentBarcode,"image/jpeg",bytes);
         fileStore.save(f);
     }
 
     String paymentNo(int count,String posId) {
         String paymentNo = "101-"+posId+"-CN24-";
+        if (count < 10) {
+            paymentNo += "00000" + count;
+        } else if (count < 100) {
+            paymentNo += "0000" + count;
+        }  else if (count < 1000) {
+            paymentNo += "000" + count;
+        } else if (count < 10000) {
+            paymentNo += "00" + count;
+        } else if (count < 100000) {
+            paymentNo += "0" + count;
+        }  else if (count < 1000000) {
+            paymentNo += "" + count;
+        } 
+        return paymentNo;
+    }
+
+    String paymentBarcode(int count) {
+        String paymentNo = "";
         if (count < 10) {
             paymentNo += "00000" + count;
         } else if (count < 100) {

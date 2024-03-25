@@ -11,10 +11,12 @@ public interface PaymentProjection {
     BigDecimal getRemaining_usd();
     String getRemaining_khr();
     String getPayment_no();
+    String getPayment_barcode();
     String getSale_date();
     String getCustomer_type();
     int getSale_id();
     String getFull_name();
     int getUser_id();
     String getIs_return();
+    BigDecimal getDiscount();
 }
