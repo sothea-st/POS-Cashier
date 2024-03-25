@@ -1062,11 +1062,12 @@ public class Receipt extends javax.swing.JDialog {
                     }
                }
 
-               Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentNo());
+               Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentBarcode());
 //               Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + "1000000");
 
                byte[] barcode = generateCode.body().bytes();
                generateBarcode.setIcon(new ImageIcon(barcode));
+               
                invoiceCode.setText(data.getPaymentNo());
 
                jLabel35.setVisible(false);

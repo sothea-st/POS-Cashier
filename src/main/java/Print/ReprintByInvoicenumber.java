@@ -31,6 +31,17 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtInvoiceNumber.requestFocus();
+          
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    String value = txtInvoiceNumber.getValueTextField();
+                    System.err.println("valute dat =" + value);
+               }
+          };
+          
+          txtInvoiceNumber.initEvent(event);
+          
      }
 
      //Action call function placeholder
