@@ -112,19 +112,7 @@ public class PrinterReturn extends javax.swing.JDialog {
         this.dataSuccess = dataSuccess;
         assignValue(dataSuccess);
     }
-    
-//    
-//    private void assignValue() {
-//         for (int i = 0; i < 2; i++) {
-//              ReturnBox re = new ReturnBox();
-//              countProduct.add(re);
-//              countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
-//         }
-//         
-//         countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
-//         countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
-//    }
-    
+
     
     private void assignValue(DataSuccessModel dataSuccess) {
           var data = dataSuccess.getData();
@@ -148,6 +136,15 @@ public class PrinterReturn extends javax.swing.JDialog {
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(kh.format(totalkh));
+               
+               if(data.getDiscount() != 0){
+                   discount.setText(""+data.getDiscount());
+               }else{
+                   discount.setVisible(false);
+                   discountKh.setVisible(false);
+                   discountUsd.setVisible(false);
+               }
+               
 
           } catch (Exception e) {
                System.err.println("getting error at " + e);
@@ -217,9 +214,9 @@ public class PrinterReturn extends javax.swing.JDialog {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel37 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        discountKh = new javax.swing.JLabel();
+        discountUsd = new javax.swing.JLabel();
+        discount = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
@@ -514,18 +511,18 @@ public class PrinterReturn extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel30.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(56, 56, 56));
-        jLabel30.setText("បញ្ចុះតម្លែ");
+        discountKh.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        discountKh.setForeground(new java.awt.Color(56, 56, 56));
+        discountKh.setText("បញ្ចុះតម្លែ");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(56, 56, 56));
-        jLabel2.setText("/  Discount :");
+        discountUsd.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        discountUsd.setForeground(new java.awt.Color(56, 56, 56));
+        discountUsd.setText("/  Discount :");
 
-        jLabel29.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(56, 56, 56));
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel29.setText("- $");
+        discount.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        discount.setForeground(new java.awt.Color(56, 56, 56));
+        discount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        discount.setText("- $");
 
         jLabel31.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(56, 56, 56));
@@ -577,27 +574,26 @@ public class PrinterReturn extends javax.swing.JDialog {
                         .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(94, 94, 94))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(discountKh, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))
+                                .addComponent(discountUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(totalprice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel29, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(discount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel30, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)))
+                        .addComponent(discountUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(discountKh, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -827,6 +823,9 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JLabel companyname;
     private javax.swing.JLabel contact;
     private javax.swing.JPanel countProduct;
+    private javax.swing.JLabel discount;
+    private javax.swing.JLabel discountKh;
+    private javax.swing.JLabel discountUsd;
     private javax.swing.JLabel invoiceNo;
     private javax.swing.JLabel invoiceNo1;
     private javax.swing.JLabel jLabel1;
@@ -836,7 +835,6 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -846,9 +844,7 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel37;

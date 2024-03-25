@@ -24,6 +24,7 @@ public class ReprintModel {
      private String companyContact;
      private String vattin;
      private String returned;
+     private double discount;
 
      public ReprintModel() {
      }
@@ -47,7 +48,8 @@ public class ReprintModel {
           String companyContact,
           String vattin,
           String returned,
-          String paymentBarcode
+          String paymentBarcode,
+          double discount
           ) {
           this.remainingKhr = remainingKhr;
           this.companyLogo = companyLogo;
@@ -259,6 +261,16 @@ public class ReprintModel {
      @JsonProperty("returned")
      public void setReturned(String returned) {
           this.returned = returned;
+     }
+     
+     @JsonProperty("discount")
+     public double getDiscount() {
+          return discount;
+     }
+
+     @JsonProperty("discount")
+     public void setDiscount(double discount) {
+          this.discount = discount;
      }
 
 }
