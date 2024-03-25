@@ -24,6 +24,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class JavaActionAddHold {
+
      public static void addHold(JPanel detailItem, Button btnPayment, Button buttonHoldOrder, ButtonPackage.ButtonCancel btnCancel, SubtotalPanel totalPanel, countCircleShape countCircleShape) {
           btnPayment.setBackground(WindowColor.lightGray);
           buttonHoldOrder.setBackground(WindowColor.lightGray);
@@ -36,7 +37,12 @@ public class JavaActionAddHold {
           for (int i = 0; i < listHold.length; i++) {
                var box = ((BoxItem) listHold[i]);
                qty += box.getQty();
-               HoldeModel h = new HoldeModel(box.getProductId(), box.getQty());
+               double _d =  JavaConstant.getReplace(box.getDiscountAmount());
+               System.err.println("data dddd = " + _d);
+               System.err.println("data dddd = " + box.getDiscountType());
+
+               HoldeModel h = new HoldeModel(box.getProductId(), box.getQty(),
+                     box.getDiscountType(), _d);
                holdModel.add(h);
           }
 
@@ -50,7 +56,7 @@ public class JavaActionAddHold {
                Response response = JavaConnection.post(JavaRoute.holdOrder, json);
 
                if (response.isSuccessful()) {
-                 
+
                     countCircleShape.setCountTimes("" + new MainPage().countHold());
                     detailItem.removeAll();
                     detailItem.revalidate();
