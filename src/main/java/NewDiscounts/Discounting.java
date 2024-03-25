@@ -540,6 +540,9 @@ public class Discounting extends javax.swing.JDialog {
             return;
         }
          
+        
+         System.err.println("dddddd = " + discountValue);
+        
         Component[] listHold = detailItem.getComponents();
         double sumDiscount = 0;
         double sumSubTotalUsd = 0;
@@ -570,6 +573,7 @@ public class Discounting extends javax.swing.JDialog {
                     box.setDiscountAmount( dm.format(discountAmount));
                     box.setDiscountValue(Double.valueOf(discountValue));
                     box.setDiscountType(type);
+                  
                 }
                 
                 if(JavaConstant.productId == 0){
@@ -578,8 +582,9 @@ public class Discounting extends javax.swing.JDialog {
                     box.setDiscountType(type);
                 }
                 
+              
             }
-            
+             box.setDiscountDigit(Integer.parseInt(discountValue));
             sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
             sumSubTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1));
             sumTotalUsd = sumSubTotalUsd - sumDiscount;
