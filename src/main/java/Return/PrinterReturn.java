@@ -138,18 +138,16 @@ public class PrinterReturn extends javax.swing.JDialog {
                totalKhr.setText(kh.format(totalkh));
                
                if(data.getDiscount() != 0){
-                   discount.setText(""+data.getDiscount());
+                   discount.setText(dm.format(data.getDiscount()));
                }else{
                    discount.setVisible(false);
                    discountKh.setVisible(false);
                    discountUsd.setVisible(false);
                }
                
-
           } catch (Exception e) {
                System.err.println("getting error at " + e);
           }
-
      }
 
      private void displayProduct(ReprintModel data) {
@@ -578,7 +576,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(discountKh, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(discountUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(discountUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

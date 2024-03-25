@@ -1389,7 +1389,7 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setDataSuccess(d);
                print.revalidate();
                print.repaint();
-               print.printReceipt();
+//               print.printReceipt();
                print.setVisible(true);
                
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
