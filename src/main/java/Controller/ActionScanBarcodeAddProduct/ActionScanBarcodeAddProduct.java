@@ -47,7 +47,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanWithoutReturn(String barcode, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
-          System.out.println("response = " + response);
+         
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
