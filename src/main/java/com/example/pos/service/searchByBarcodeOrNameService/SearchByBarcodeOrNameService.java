@@ -3,6 +3,8 @@ package com.example.pos.service.searchByBarcodeOrNameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
+
+import com.example.pos.constant.JavaConstant;
 import com.example.pos.entity.Product;
 import com.example.pos.entity.models.ProductModel;
 import com.example.pos.repository.ImportDetailRepository;
@@ -42,7 +44,7 @@ public class SearchByBarcodeOrNameService {
     public List<ProductModel> searchWithInvoiceNo(String invoiceNo) {
         List<ProductQty> data = null;
         List<ProductModel> list = new ArrayList<>();
-        data = repo.searchProductWithInvoiceNo(invoiceNo);
+        data = repo.searchProductWithInvoiceNo(invoiceNo,JavaConstant.currentDate);
         for (int i = 0; i < data.size(); i++) {
             var val = data.get(i);
             ProductModel p = proModelQty(val, val.getQty());

@@ -41,7 +41,7 @@ public class ReprintService {
         if( paymentNo.isEmpty() ) {
             paymentData = repo.getPaymentDataWithoutPaymentNo();
         } else {
-            paymentData = repo.getPaymentDataWithPaymentNo(paymentNo);
+            paymentData = repo.getPaymentDataWithPaymentNo(paymentNo,JavaConstant.currentDate);
         }
 
       

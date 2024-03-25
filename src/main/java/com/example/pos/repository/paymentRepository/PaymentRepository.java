@@ -39,8 +39,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                                 "\tpct.id = pp.customer_type_id\r\n" + //
                                 "inner join pos_user pu on pu.id = ps.user_id \r\n" + //
                                 "where\r\n" + //
-                                "\tpp.payment_no = ? ")
-        PaymentProjection getPaymentDataWithPaymentNo(String paymentNo);
+                                "\tpp.payment_no = ? and ps.sale_date = ?")
+        PaymentProjection getPaymentDataWithPaymentNo(String paymentNo,String date);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                                 "\tps.total,\r\n" + //
@@ -83,7 +83,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
         @Query(nativeQuery = true , value = "select pp.* from pos_sale ps inner join  \r\n" + //
                         "pos_payment pp on pp.sale_id = ps.id \r\n" + //
-                        "where payment_no = ?")
-        Optional<Payment> getDataPayment(String paymentNo);
+                        "where payment_no = ?  and ps.sale_date =  ?")
+        Optional<Payment> getDataPayment(String paymentNo,String date);
 
 }

@@ -623,8 +623,8 @@ public class RouteController {
 
           @PostMapping
           public ResponseEntity<?> returnProduct(@Valid @RequestBody ReturnProduct r) {
-               service.returnProduct(r);
-               return JavaResponse.success("return product success");
+              HashMap<String,Object>  map = service.returnProduct(r);
+               return JavaResponse.success(map);
           }
 
           @GetMapping("/{barcode}")

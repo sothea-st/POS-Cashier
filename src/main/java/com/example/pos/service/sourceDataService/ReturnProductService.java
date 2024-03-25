@@ -16,6 +16,8 @@ import com.example.pos.repository.paymentRepository.PaymentRepository;
 import com.example.pos.repository.productProjection.ProductProjection;
 import com.example.pos.repository.sourceDataRepository.ReturnDetailsRepository;
 import com.example.pos.repository.sourceDataRepository.ReturnProductRepository;
+import com.example.pos.service.paymentService.ReprintService;
+
 import java.util.*;
 import jakarta.servlet.http.HttpSession;
 
@@ -39,7 +41,10 @@ public class ReturnProductService {
     @Autowired 
     private SaleRepository repoSale;
 
-    public void returnProduct(ReturnProduct re) {
+    @Autowired
+    private ReprintService reprintService;
+
+    public HashMap<String, Object> returnProduct(ReturnProduct re) {
         // var createBy = session.getAttribute(JavaConstant.userId);
         // int id = (Integer) createBy;
         String time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(Calendar.getInstance().getTime());
@@ -54,7 +59,7 @@ public class ReturnProductService {
         repo.save(r);
 
         // update payment is_return by payment no
-        Optional<Payment> data = repoPayment.getDataPayment(re.getPaymentNo());
+        Optional<Payment> data = repoPayment.getDataPayment(re.getPaymentNo(),JavaConstant.currentDate);
         Payment pay = data.get();
         pay.setIsReturn("returned");
         repoPayment.save(pay);
@@ -81,11 +86,13 @@ public class ReturnProductService {
             repoImport.save(impDetail);
         }
 
-        int saleId = repoDetail.getSaleId(re.getPaymentNo());
+        int saleId = repoDetail.getSaleId(re.getPaymentNo(),JavaConstant.currentDate);
         Optional<Sale> dataSale = repoSale.findById(saleId);
         Sale result = dataSale.get();
         result.setSaleIsReturn("returned");
         repoSale.save(result);
+
+        return reprintService.readData(re.getPaymentNo());
     }
 
     public ProductProjection searchProdcutByBarcode(String barcode){

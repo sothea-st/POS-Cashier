@@ -153,7 +153,7 @@ public class SaleService {
         map.put("receiveUsd", p.getReceiveUsd());
         map.put("receiveKhr", p.getReceiveKhr());
         map.put("customerType", "អតិថិជនទូទៅ");
-        map.put("returned", "អតិថិជនទូទៅ");
+        map.put("returned", null);
 
         List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId, JavaConstant.currentDate, saleId);
         map.put("saleDetails", listProjection);
