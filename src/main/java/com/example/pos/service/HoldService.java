@@ -34,9 +34,13 @@ public class HoldService {
           repo.save(data);
           for (int i = 0; i < h.getListHoldDetail().size(); i++) {
                HoldeDetails d = new HoldeDetails();
+System.out.println("dddddddddd = " + h.getListHoldDetail().get(i).getDiscount() );
+
                int id = h.getListHoldDetail().get(i).getId();
                d.setProId(id);
                d.setHoldId(data.getId());
+               d.setDiscount( h.getListHoldDetail().get(i).getDiscount());
+               d.setDiscountType(h.getListHoldDetail().get(i).getDiscountType());
                d.setQtyHold(h.getListHoldDetail().get(i).getQtyHold());
                detailRepo.save(d);
           }
