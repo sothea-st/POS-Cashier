@@ -78,6 +78,14 @@ public class MainPage extends javax.swing.JFrame {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
 
+             // custome scrollbar ui
+          jScrollPaneDetail.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPaneDetail.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBars = jScrollPaneDetail.getVerticalScrollBar();
+          verticalScrollBars.setUnitIncrement(30);
+          verticalScrollBars.setBlockIncrement(35);
+
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
 
@@ -669,7 +677,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier , btnCancel , buttonHoldOrder
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder
                    );
               }
          }
@@ -783,30 +791,29 @@ public class MainPage extends javax.swing.JFrame {
 //               }
 //          }
 
-
-             if (JavaConstant.token != null) {
-                 try {
+          if (JavaConstant.token != null) {
+               try {
                     CashierReporting cashier = new CashierReporting(new JFrame(), true);
 //                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-                     Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
-                 
-                     if (response.isSuccessful()) {
-                          String myObject = response.body().string();
-                          ObjectMapper objMap = new ObjectMapper();
-                          DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
-                          );
-                          cashier.setGetData(d);
-                          cashier.setVisible(true);
-                     }
-                 } catch (Exception e) {
-                     System.err.println("error = " + e);
-                 }
-             }
+                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
+
+                    if (response.isSuccessful()) {
+                         String myObject = response.body().string();
+                         ObjectMapper objMap = new ObjectMapper();
+                         DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
+                         );
+                         cashier.setGetData(d);
+                         cashier.setVisible(true);
+                    }
+               } catch (Exception e) {
+                    System.err.println("error = " + e);
+               }
+          }
      }
 
      public int countHold() {
           int countH = 0;
-          Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId="+JavaConstant.cashierId);
+          Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
           try {
                String dataJson = responseGet.body().string();
                JSONObject jSONObject = new JSONObject(dataJson);

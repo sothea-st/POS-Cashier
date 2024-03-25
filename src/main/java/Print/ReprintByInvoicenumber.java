@@ -31,17 +31,32 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtInvoiceNumber.requestFocus();
-          
+
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    String value = txtInvoiceNumber.getValueTextField();
-                    System.err.println("valute dat =" + value);
+//                    String value = txtInvoiceNumber.getValueTextField();
+//                    String dataValue = "101-01-CN24-" + value;
+//
+//                    dataValue = dataValue.replace("101-01-CN24-", "");
+//
+//                    txtInvoiceNumber.setValueTextField(dataValue);
                }
+
+               @Override
+               public void onKeyType() {
+                    String value = txtInvoiceNumber.getValueTextField();
+                    String dataValue = "101-01-CN24-" + value;
+
+                    dataValue = dataValue.replace("101-01-CN24-", "");
+
+                    txtInvoiceNumber.setValueTextField(dataValue);
+               }
+
           };
-          
+
           txtInvoiceNumber.initEvent(event);
-          
+
      }
 
      //Action call function placeholder
@@ -174,7 +189,7 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
 
           Receipt rec = new Receipt(new JFrame(), true);
           Response response = JavaConnection.get(JavaRoute.reprintByLast + "/" + paymentNo);
-         
+
           if (response.isSuccessful()) {
                this.dispose();
                String myObject = response.body().string();

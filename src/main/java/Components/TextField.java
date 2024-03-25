@@ -56,7 +56,9 @@ public class TextField extends javax.swing.JPanel {
           txtText.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-
+                    String text = txtText.getText();
+                    setValueTextField(text);
+                    event.onKeyType();
                }
 
                @Override

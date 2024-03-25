@@ -20,6 +20,17 @@ public class ProductDataModel {
      private String codeExpired;
      private String codeOutStock;
      private int qty;
+     private String discountType;
+
+     @JsonProperty("discountType")
+     public String getDiscountType() {
+          return discountType;
+     }
+
+     @JsonProperty("discountType")
+     public void setDiscountType(String value) {
+          this.discountType = value;
+     }
 
      @JsonProperty("brandId")
      public int getBrandID() {
