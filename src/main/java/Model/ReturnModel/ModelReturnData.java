@@ -1,20 +1,21 @@
 package Model.ReturnModel;
 
+import Model.ProductModel.ProductDataModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ModelReturnData {
 
-     private ResultDataReturnModel[] data;
+     private ProductDataModel[] data;
      private String invoiceNo;
      private String msg;
 
      @JsonProperty("data")
-     public ResultDataReturnModel[] getData() {
+     public ProductDataModel[] getData() {
           return data;
      }
 
      @JsonProperty("data")
-     public void setData(ResultDataReturnModel[] value) {
+     public void setData(ProductDataModel[] value) {
           this.data = value;
      }
 
