@@ -165,11 +165,7 @@ HoldOrder\ListHoldOrder$2.class
 Components\HistoryHoldOrder.class
 Payment\PaymentOption$8.class
 Discount\OverallDiscount$1.class
-<<<<<<< HEAD
-Payment\PaymentOption$26.class
 Return\PrinterReturn$2.class
-=======
->>>>>>> 0ced6645c5a74b1f57f0fd4c52f1ed90d5863cf8
 Components\JavaAlertMessage$2.class
 OpenAndCloseShift\OpenShiftJdailog$4.class
 Components\ComboBox$2.class
