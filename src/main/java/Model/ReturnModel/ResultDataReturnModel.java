@@ -21,7 +21,7 @@ public class ResultDataReturnModel {
      private String flag;
      private int discount;
      private double cost;
-     private int price;
+     private double price;
      private String weight;
      private String barcode;
      private int catID;
@@ -120,12 +120,12 @@ public class ResultDataReturnModel {
      }
 
      @JsonProperty("price")
-     public int getPrice() {
+     public double getPrice() {
           return price;
      }
 
      @JsonProperty("price")
-     public void setPrice(int value) {
+     public void setPrice(double value) {
           this.price = value;
      }
 
