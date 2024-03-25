@@ -360,16 +360,15 @@ public class RouteController {
           @Autowired
           private ReprintService service;
 
-          @GetMapping("/{userId}/{paymentNo}")
-          public ResponseEntity<?> getData(@PathVariable("paymentNo") String paymentNo,
-                    @PathVariable("userId") int userId) {
-               var data = service.readData(paymentNo, userId);
+          @GetMapping("/{paymentNo}")
+          public ResponseEntity<?> getData(@PathVariable("paymentNo") String paymentNo) {
+               var data = service.readData(paymentNo);
                return JavaResponse.success(data);
           }
 
           @GetMapping 
-          public ResponseEntity<?> getData(@RequestParam("userId") int userId) {
-               var data = service.readData("", userId);
+          public ResponseEntity<?> getData() {
+               var data = service.readData("");
                return JavaResponse.success(data);
           }
      }

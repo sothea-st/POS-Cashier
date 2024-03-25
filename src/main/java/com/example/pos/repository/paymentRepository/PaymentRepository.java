@@ -17,26 +17,56 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
         @Query(nativeQuery = true , value = "select count(*) from pos_sale where sale_date = ?")
         int countSale(String currentData);
 
-        @Query(nativeQuery = true, value = "select ps.total,pp.receive_usd,pp.receive_khr,\r\n" + //
-                        "pp.change_usd,pp.change_khr,\r\n" + //
-                        "pp.remaining_usd,pp.remaining_khr,\r\n" + //
-                        "pp.payment_no,ps.sale_date,\r\n" + //
-                        "pct.name as customer_type,pp.sale_id\r\n" + //
-                        "from pos_payment pp inner join pos_sale ps on ps.id = pp.sale_id \r\n" + //
-                        "inner join pos_customer_type pct on pct.id = pp.customer_type_id\r\n" + //
-                        "where pp.payment_no = ?")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\tps.total,\r\n" + //
+                                "\tpp.receive_usd,\r\n" + //
+                                "\tpp.receive_khr,\r\n" + //
+                                "\tpp.change_usd,\r\n" + //
+                                "\tpp.change_khr,\r\n" + //
+                                "\tpp.remaining_usd,\r\n" + //
+                                "\tpp.remaining_khr,\r\n" + //
+                                "\tpp.payment_no,\r\n" + //
+                                "\tps.sale_date,\r\n" + //
+                                "\tpct.name as customer_type,\r\n" + //
+                                "\tpp.sale_id,pp.is_return,\r\n" + //
+                                "\tpu.id as user_id,\r\n" + //
+                                "\tpu.full_name \r\n" + //
+                                "from\r\n" + //
+                                "\tpos_payment pp\r\n" + //
+                                "inner join pos_sale ps on\r\n" + //
+                                "\tps.id = pp.sale_id\r\n" + //
+                                "inner join pos_customer_type pct on\r\n" + //
+                                "\tpct.id = pp.customer_type_id\r\n" + //
+                                "inner join pos_user pu on pu.id = ps.user_id \r\n" + //
+                                "where\r\n" + //
+                                "\tpp.payment_no = ? ")
         PaymentProjection getPaymentDataWithPaymentNo(String paymentNo);
 
-        @Query(nativeQuery = true, value = "select ps.total,pp.receive_usd,pp.receive_khr, \r\n" + //
-                                "pp.change_usd,pp.change_khr, \r\n" + //
-                                "pp.remaining_usd,pp.remaining_khr, \r\n" + //
-                                "pp.payment_no,ps.sale_date, \r\n" + //
-                                "pct.name as customer_type,pp.sale_id \r\n" + //
-                                "from pos_payment pp inner join pos_sale ps on ps.id = pp.sale_id  \r\n" + //
-                                "inner join pos_customer_type pct on pct.id = pp.customer_type_id \r\n" + //
-                                "where ps.sale_date = ? and ps.user_id = ? \r\n" + //
-                                "order by pp.id desc limit 1")
-        PaymentProjection getPaymentDataWithoutPaymentNo(String date,int userID);
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\tps.total,\r\n" + //
+                                "\tpp.receive_usd,\r\n" + //
+                                "\tpp.receive_khr,\r\n" + //
+                                "\tpp.change_usd,\r\n" + //
+                                "\tpp.change_khr,\r\n" + //
+                                "\tpp.remaining_usd,\r\n" + //
+                                "\tpp.remaining_khr,\r\n" + //
+                                "\tpp.payment_no,\r\n" + //
+                                "\tps.sale_date,\r\n" + //
+                                "\tpct.name as customer_type,\r\n" + //
+                                "\tpp.sale_id,\r\n" + //
+                                "\tpu.full_name , pp.is_return ,\r\n" + //
+                                "\tpu.id as user_id\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_payment pp\r\n" + //
+                                "inner join pos_sale ps on\r\n" + //
+                                "\tps.id = pp.sale_id\r\n" + //
+                                "inner join pos_customer_type pct on\r\n" + //
+                                "\tpct.id = pp.customer_type_id\r\n" + //
+                                "inner join pos_user pu on pu.id = ps.user_id  \r\n" + //
+                                "order by\r\n" + //
+                                "\tpp.id desc\r\n" + //
+                                "limit 1")
+        PaymentProjection getPaymentDataWithoutPaymentNo();
 
  
 

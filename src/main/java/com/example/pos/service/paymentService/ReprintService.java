@@ -28,7 +28,7 @@ public class ReprintService {
     @Autowired
     private SaleDetailsRepository saleDetailRepo;
  
-    public HashMap<String, Object> readData(String paymentNo,int userId) {
+    public HashMap<String, Object> readData(String paymentNo) {
      
         HashMap<String, Object> map = new HashMap<>();
         Company c = companyRepo.getInfoCompany();
@@ -39,7 +39,7 @@ public class ReprintService {
         map.put("vattin", c.getVattin());
         PaymentProjection paymentData=null;
         if( paymentNo.isEmpty() ) {
-            paymentData = repo.getPaymentDataWithoutPaymentNo(JavaConstant.currentDate,userId);
+            paymentData = repo.getPaymentDataWithoutPaymentNo();
         } else {
             paymentData = repo.getPaymentDataWithPaymentNo(paymentNo);
         }
@@ -81,14 +81,15 @@ public class ReprintService {
         }
 
 
-        map.put("remainingUsd", paymentData.getRemaining_usd());
-        map.put("remainingKhr", paymentData.getRemaining_khr());
+        // map.put("remainingUsd", paymentData.getRemaining_usd());
+        // map.put("remainingKhr", paymentData.getRemaining_khr());
         map.put("paymentNo", paymentData.getPayment_no());  
         map.put("saleDate", paymentData.getSale_date());
         map.put("customerType", paymentData.getCustomer_type());
-        List<SaleDetailProjection> dataSaleDetails = saleDetailRepo.getDataDetail(userId,JavaConstant.currentDate,paymentData.getSale_id());
+        map.put("returned", paymentData.getIs_return());
+        List<SaleDetailProjection> dataSaleDetails = saleDetailRepo.getDataDetail(paymentData.getUser_id(),JavaConstant.currentDate,paymentData.getSale_id());
         map.put("saleDetails", dataSaleDetails);
-        String empName = userRepo.getNameEmp(userId);
+        String empName = userRepo.getNameEmp(paymentData.getUser_id());
         map.put("empName", empName);
         return map;
     }

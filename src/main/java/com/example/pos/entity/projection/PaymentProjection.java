@@ -14,4 +14,7 @@ public interface PaymentProjection {
     String getSale_date();
     String getCustomer_type();
     int getSale_id();
+    String getFull_name();
+    int getUser_id();
+    String getIs_return();
 }
