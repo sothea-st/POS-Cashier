@@ -41,7 +41,7 @@ public class ReprintService {
         if( paymentNo.isEmpty() ) {
             paymentData = repo.getPaymentDataWithoutPaymentNo();
         } else {
-            paymentData = repo.getPaymentDataWithPaymentNo(paymentNo,JavaConstant.currentDate);
+            paymentData = repo.getPaymentDataWithPaymentNo(paymentNo);
         }
 
       
@@ -84,10 +84,15 @@ public class ReprintService {
         // map.put("remainingUsd", paymentData.getRemaining_usd());
         // map.put("remainingKhr", paymentData.getRemaining_khr());
         map.put("paymentNo", paymentData.getPayment_no());  
+        map.put("paymentBarcode", paymentData.getPayment_barcode());  
         map.put("saleDate", paymentData.getSale_date());
         map.put("customerType", paymentData.getCustomer_type());
         map.put("returned", paymentData.getIs_return());
-        List<SaleDetailProjection> dataSaleDetails = saleDetailRepo.getDataDetail(paymentData.getUser_id(),JavaConstant.currentDate,paymentData.getSale_id());
+        map.put("discount", paymentData.getDiscount().doubleValue());
+
+        // map.put("returned", paymentData.getIs_return());
+
+        List<SaleDetailProjection> dataSaleDetails = saleDetailRepo.getDataDetail(paymentData.getUser_id() ,paymentData.getSale_id());
         map.put("saleDetails", dataSaleDetails);
         String empName = userRepo.getNameEmp(paymentData.getUser_id());
         map.put("empName", empName);

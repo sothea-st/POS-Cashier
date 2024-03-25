@@ -59,7 +59,7 @@ public class ReturnProductService {
         repo.save(r);
 
         // update payment is_return by payment no
-        Optional<Payment> data = repoPayment.getDataPayment(re.getPaymentNo(),JavaConstant.currentDate);
+        Optional<Payment> data = repoPayment.getDataPayment(re.getPaymentNo());
         Payment pay = data.get();
         pay.setIsReturn("returned");
         repoPayment.save(pay);

@@ -33,6 +33,9 @@ public class Payment {
      @Column(name = "payment_no")
      private String paymentNo;
 
+     @Column(name = "payment_barcode")
+     private String paymentBarcode;
+
      @Column(name = "sale_id")
      private int saleId;
 
