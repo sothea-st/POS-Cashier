@@ -19,6 +19,7 @@ public class ProductModel {
     private String codeExpired;
     private String codeOutStock;
     private int qty;
+    private String discountType;
 
     public ProductModel() {
     }
@@ -56,6 +57,53 @@ public class ProductModel {
         this.codeExpired = codeExpired;
         this.codeOutStock = codeOutStock;
         this.qty = qty;
+    }
+
+    public ProductModel(
+            int brandId,
+            String proNameKh,
+            String proImageName,
+            String productStatus,
+            String proNameEn,
+            int id,
+            String flag,
+            int discount,
+            double cost,
+            double price,
+            String weight,
+            String barcode,
+            int catID,
+            String codeExpired,
+            String codeOutStock,
+            int qty,
+            String discountType
+            ) {
+        this.brandId = brandId;
+        this.proNameKh = proNameKh;
+        this.proImageName = proImageName;
+        this.productStatus = productStatus;
+        this.proNameEn = proNameEn;
+        this.id = id;
+        this.flag = flag;
+        this.discount = discount;
+        this.cost = cost;
+        this.price = price;
+        this.weight = weight;
+        this.barcode = barcode;
+        this.catID = catID;
+        this.codeExpired = codeExpired;
+        this.codeOutStock = codeOutStock;
+        this.qty = qty;
+        this.discountType=discountType;
+    }
+
+
+    public String getDiscountType() {
+        return discountType;
+    }
+
+    public void setDiscountType(String discountType) {
+        this.discountType = discountType;
     }
 
     public int getBrandId() {

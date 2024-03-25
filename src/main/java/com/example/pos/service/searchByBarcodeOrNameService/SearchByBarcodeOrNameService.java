@@ -69,7 +69,9 @@ public class SearchByBarcodeOrNameService {
                 data.getCat_id(),
                 data.getCode_expired(),
                 data.getCode_out_stock(),
-                qty);
+                qty,
+                data.getDiscount_type()
+                );
         return p;
     }
 }

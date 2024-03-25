@@ -17,4 +17,5 @@ public interface ProductQty {
      String getCode_out_stock();
      String getCode_expired();
      int getQty();
+     String getDiscount_type();
 }
