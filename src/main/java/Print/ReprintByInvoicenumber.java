@@ -36,11 +36,10 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                @Override
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
-                    String dataValue = "101-01-CN24-" + value;
+                    String dataValue = "101-"+JavaConstant.posId+"-CN24-" + value;
                     txtInvoiceNumber.setValueTextField(dataValue);
-                    String _dd = txtInvoiceNumber.getValueTextField().replace("101-01-CN24-101-01-CN24-", "101-01-CN24-");
-                    System.err.println("ddddddddddd = " + _dd);
-                      txtInvoiceNumber.setValueTextField(_dd);
+                    String _dd = txtInvoiceNumber.getValueTextField().replace("101-"+JavaConstant.posId+"-CN24-101-"+JavaConstant.posId+"-CN24-", "101-"+JavaConstant.posId+"-CN24-");
+                    txtInvoiceNumber.setValueTextField(_dd);
                }
           };
 

@@ -293,8 +293,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                box.setLabelAmountKh(kh.format(valueRoundDown));
 
                
-               box.setDiscountAmount(dm.format(discount*listData.getQty()));
-               box.setDiscountAmt(dm.format(discount*listData.getQty()));
+               box.setDiscountAmount(dm.format(discount ));
+               box.setDiscountAmt(dm.format(discount ));
 
                box.setQty(listData.getQty());
                Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
@@ -311,7 +311,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
                detailItem.setBackground(WindowColor.white);
 
-               subtotalPanel.total(_p, listCom, discount*listData.getQty(), subtotalPanel);
+               subtotalPanel.total(_p, listCom, discount , subtotalPanel);
 
                // add list has one box to BoxItem (note: must be add)
                Component[] listCom1 = detailItem.getComponents();
