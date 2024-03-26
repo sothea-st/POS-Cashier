@@ -1,6 +1,7 @@
 package Components;
 
 import BlogCode.ActionUpdateQty;
+import BlogCode.JavaActionDiscount;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
@@ -622,26 +623,29 @@ public class BoxItem extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
-         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
-              evt.consume();
-              JavaConstant.productId = productId;
+        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+            evt.consume();
+            JavaConstant.productId = productId;
+            JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
 
-              if (JavaConstant.productId == productId) {
-                   this.setBorder(BorderFactory.createLineBorder(Color.RED));
-              }
-
-              Component[] listCom1 = detailItem.getComponents();
-              for (int i = 0; i < listCom1.length; i++) {
-                   var obj = ((BoxItem) listCom1[i]);
-                   if (obj.getProductId() != JavaConstant.productId) {
-                        obj.setBorder(null);
-                   }
-              }
-
-              this.setBorder(BorderFactory.createLineBorder(Color.RED));
-              JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
-         }
-
+            Component[] listCom1 = detailItem.getComponents();
+            for (int i = 0; i < listCom1.length; i++) {
+                 var obj = ((BoxItem) listCom1[i]);
+                 if (obj.getProductId() != JavaConstant.productId) {
+                      obj.setBorder(null);
+                      obj.revalidate();
+                      obj.repaint();
+                 }
+            }
+            
+            if (JavaConstant.productId == productId) {
+                 this.setBorder(BorderFactory.createLineBorder(Color.RED));
+                 this.revalidate();
+                 this.repaint();
+                 JavaActionDiscount.discount(detailItem, subtotalPanel);
+            }
+        }
+       
     }//GEN-LAST:event_formMouseClicked
 
 

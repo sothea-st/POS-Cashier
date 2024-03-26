@@ -41,6 +41,10 @@ public class JavaActionDiscount {
                     j.setVisible(true);
 
                }
+          }else{
+              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+              j.setMessage("Cannot process this function!");
+              j.setVisible(true);
           }
      }
 }
