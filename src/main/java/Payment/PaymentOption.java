@@ -1311,7 +1311,7 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.revalidate();
                              re.repaint();
 //                             re.printReceipt();
-//                             re.setVisible(true);
+                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
@@ -1389,7 +1389,7 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setDataSuccess(d);
                print.revalidate();
                print.repaint();
-               print.printReceipt();
+//               print.printReceipt();
                print.setVisible(true);
                
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null

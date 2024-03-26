@@ -583,9 +583,9 @@ public class Discounting extends javax.swing.JDialog {
                     box.setDiscountType(type);
                 }
                 
-                  box.setDiscountDigit(Integer.parseInt(discountValue));
+                box.setDiscountDigit(Integer.parseInt(discountValue));
             }
-         
+             
             sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
             sumSubTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1));
             sumTotalUsd = sumSubTotalUsd - sumDiscount;
