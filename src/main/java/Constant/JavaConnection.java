@@ -21,92 +21,95 @@ public class JavaConnection {
 
      public static Response get(String route) {
           Response response = null;
+          OkHttpClient client = new OkHttpClient();
+          Request request = new Request.Builder()
+               .url(new JavaBaseUrl().getBaseUrl() + route)
+               .header("Authorization", "Bearer " + JavaConstant.token)
+               .build();
           try {
-               OkHttpClient client = new OkHttpClient();
-               Request request = new Request.Builder()
-                    .url(new JavaBaseUrl().getBaseUrl() + route)
-                    .header("Authorization", "Bearer " + JavaConstant.token)
-                    .build();
                response = client.newCall(request).execute();
-               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
+          closeConnection(client);
           return response;
+
      }
 
      public static Response getWithoutToken(String route) {
           Response response = null;
+          OkHttpClient client = new OkHttpClient();
+          Request request = new Request.Builder()
+               .url(new JavaBaseUrl().getBaseUrl() + route)
+               .build();
           try {
-               OkHttpClient client = new OkHttpClient();
-               Request request = new Request.Builder()
-                    .url(new JavaBaseUrl().getBaseUrl() + route)
-                    .build();
                response = client.newCall(request).execute();
-               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
+          closeConnection(client);
           return response;
      }
 
      public static Response login(String route, JSONObject json) {
           Response response = null;
+          OkHttpClient client = new OkHttpClient();
+          RequestBody body = RequestBody.create(
+               JavaConstant.JSON,
+               json.toString());
+          Request request = new Request.Builder()
+               .url(new JavaBaseUrl().getBaseUrl() + JavaRoute.login)
+               .post(body).build();
           try {
-               OkHttpClient client = new OkHttpClient();
-               RequestBody body = RequestBody.create(
-                    JavaConstant.JSON,
-                    json.toString());
-               Request request = new Request.Builder()
-                    .url(new JavaBaseUrl().getBaseUrl() + JavaRoute.login)
-                    .post(body).build();
                response = client.newCall(request).execute();
-               closeConnection(client);
+
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
+          closeConnection(client);
           return response;
      }
 
      public static Response post(String route, JSONObject json) {
           Response response = null;
           String url = new JavaBaseUrl().getBaseUrl() + route;
+          OkHttpClient client = new OkHttpClient();
+          RequestBody body = RequestBody.create(
+               JavaConstant.JSON,
+               json.toString());
+          Request request = new Request.Builder()
+               .url(url)
+               .header("Authorization", "Bearer " + JavaConstant.token)
+               .post(body).build();
           try {
-               OkHttpClient client = new OkHttpClient();
-               RequestBody body = RequestBody.create(
-                    JavaConstant.JSON,
-                    json.toString());
-               Request request = new Request.Builder()
-                    .url(url)
-                    .header("Authorization", "Bearer " + JavaConstant.token)
-                    .post(body).build();
                response = client.newCall(request).execute();
-               closeConnection(client);
+
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
+          closeConnection(client);
           return response;
      }
 
      public static Response delete(String route, JSONObject json) {
           Response response = null;
           String url = new JavaBaseUrl().getBaseUrl() + route;
-          try {
-               OkHttpClient client = new OkHttpClient();
-               RequestBody body = RequestBody.create(
-                    JavaConstant.JSON,
-                    json.toString());
+          OkHttpClient client = new OkHttpClient();
+          RequestBody body = RequestBody.create(
+               JavaConstant.JSON,
+               json.toString());
 
-               Request deleteRequest = new Request.Builder()
-                    .url(url)
-                    .delete(body)
-                    .addHeader("Authorization", "Bearer " + JavaConstant.token)
-                    .build();
+          Request deleteRequest = new Request.Builder()
+               .url(url)
+               .delete(body)
+               .addHeader("Authorization", "Bearer " + JavaConstant.token)
+               .build();
+          try {
                response = client.newCall(deleteRequest).execute();
-               closeConnection(client);
           } catch (Exception e) {
                System.err.println("getting error during call request " + e);
           }
+          closeConnection(client);
           return response;
      }
 

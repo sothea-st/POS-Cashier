@@ -55,7 +55,7 @@ public class ResponsiveSize {
 
      public void resizeEvent(MainPage mainPage) {
           // delay 250 for loading 
-          timer = new Timer(250, new ActionListener() {
+          timer = new Timer(100, new ActionListener() {
                @Override
                public void actionPerformed(ActionEvent e) {
                     Dimension size = mainPage.getSize();

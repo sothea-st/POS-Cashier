@@ -27,8 +27,9 @@ public class ApprovalCode extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           event();
-          txtCode.requestFocus();
+        
           txtPassword.setTextPassowrd("Password");
+            txtCode.requestFocus();
      }
 
      //Action call function placeholder

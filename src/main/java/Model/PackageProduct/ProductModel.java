@@ -14,6 +14,7 @@ public class ProductModel {
      private String productNameEn;
      private String productStatus;
      private int discount;
+     private double discountTypeDouble;
      private int qty;
 
      public ProductModel() {
@@ -50,7 +51,45 @@ public class ProductModel {
           this.qty = qty;
      }
      
+//      public ProductModel(
+//          int id,
+//          int catId,
+//          String flag,
+//          String weight,
+//          double cost,
+//          String proImageName,
+//          double price,
+//          String barcode,
+//          String productNameKh,
+//          String productNameEn,
+//          String productStatus,
+//          double discountTypeDouble,
+//          int qty
+//     ) {
+//          this.id = id;
+//          this.catId = catId;
+//          this.flag = flag;
+//          this.weight = weight;
+//          this.cost = cost;
+//          this.proImageName = proImageName;
+//          this.price = price;
+//          this.barcode = barcode;
+//          this.productNameKh = productNameKh;
+//          this.productNameEn = productNameEn;
+//          this.productStatus = productStatus;
+//          this.discountTypeDouble = discountTypeDouble;
+//          this.qty = qty;
+//     }
 
+//     public double getDiscountTypeDouble() {
+//          return discountTypeDouble;
+//     }
+//
+//     public void setDiscountTypeDouble(double discountTypeDouble) {
+//          this.discountTypeDouble = discountTypeDouble;
+//     }
+     
+     
      public int getQty() {
           return qty;
      }

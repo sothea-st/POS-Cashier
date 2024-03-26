@@ -24,6 +24,7 @@ DeleteAndCancel\CancelDialog$2.class
 pdf\MyPrinter.class
 BlogCode\JavaExistScreen.class
 Components\TextField$1.class
+HoldOrder\ListHoldOrder$4$1.class
 Components\ComboBox$1.class
 Discount\DiscountType$3.class
 Components\HistoryHoldOrder$1.class
@@ -43,7 +44,6 @@ Payment\PaymentOption$6.class
 LoginAndLogoutForm\LoginFormJdailog.class
 Payment\PaymentOption$23.class
 Components\PasswordField.class
-HoldOrder\ListHoldOrder$5.class
 Print\EpsonPrinter.class
 HoldOrder\HoldItems$2.class
 DeleteAndCancel\CancelDialog$4.class
@@ -88,6 +88,7 @@ Model\ReturnModel\ModelReturnData.class
 Button\ButtonDiscount.class
 Payment\PaymentOption$17.class
 Model\Sale\CustomerModel.class
+Return\ReturnDialog$6.class
 Components\HistoryHoldOrder$3.class
 Customer\Customer$2.class
 Model\HoldOrder\HoldOrder.class
@@ -107,6 +108,7 @@ Receipt\Receipt$4$1.class
 Payment\PaymentOption$4.class
 Return\ReturnDialog.class
 ButtonPackage\ButtonNo.class
+Return\ReturnDialog$6$1.class
 BlogCode\ResponsiveSize$2.class
 Discount\DiscountByItem$1.class
 LoginAndLogoutForm\LoginFormJdailog$5.class
@@ -155,7 +157,6 @@ NewDiscounts\Discounting$10.class
 Receipt\Receipt$2.class
 HoldOrder\ListHoldOrder$4.class
 SwitchButton\EventSwitchSelected.class
-HoldOrder\ListHoldOrder$5$1.class
 Model\Reprint\SaleDetailModel.class
 Components\labelDis.class
 NewDiscounts\Discounting$16.class
@@ -196,7 +197,6 @@ Components\BoxItem$4.class
 View\MainPage\MainPage$3.class
 Customer\CustomerFunction$3.class
 Model\ReturnModel\ResultDataReturnModel.class
-Return\ReturnDialog$5$1.class
 BlogCode\ResponsiveSize$1.class
 View\MainPage\MainPage$1.class
 LoginAndLogoutForm\LoginFormJdailog$6$1.class

@@ -19,15 +19,8 @@ import Model.ReturnModel.ReturnProductModel;
 import Model.Sale.ProductSaleModel;
 import Receipt.Receipt;
 import Return.PrinterReturn;
-import Return.ReturnDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -49,7 +42,7 @@ public class PaymentOption extends javax.swing.JDialog {
      private String totalUsd;
      DecimalFormat dm = new DecimalFormat("#,##0");
      DecimalFormat df = new DecimalFormat("$ #,##0.00");
-     private String sign;
+     private String sign="khr";
      private Component[] listCom;
      private SubtotalPanel subtotalPanel;
      private String cusTypeId;
@@ -97,6 +90,8 @@ public class PaymentOption extends javax.swing.JDialog {
           radioButtonKhmer.setSelected(true);
           radioButtonMale.setSelected(true);
           getCusomerId();
+          txtReceiveKhr.requestFocus();
+ 
 
      }
 
@@ -980,6 +975,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void lbOneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseClicked
          String number = lbOne.getLabelName();
+         System.err.println("data one = " + sign);
          inputAmount(number);
     }//GEN-LAST:event_lbOneMouseClicked
 

@@ -178,17 +178,15 @@ public class ActionProduct {
 //                         qty--;
 //                         product.setQty("" + qty);
 //                         JavaConstant.productQTyLeft = qty;
-
-
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-                                  
-                                   if(qty > 0){
+
+                                   if (qty > 0) {
 //                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
-                                       eventBtnBuy(listData, 1);
-                                   }else{
+                                        eventBtnBuy(listData, 1);
+                                   } else {
                                         j.setMessage(JavaMessage.productOutStock);
                                         j.setVisible(true);
                                         return;
@@ -263,26 +261,30 @@ public class ActionProduct {
      }
 
      public void eventBtnBuy(ProductModel listData, int qtyData) {
-          
+
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
           BoxItem box = new BoxItem();
 //          box.setProductBox(product);
-          
+
           box.setWasPrice("" + price);
           box.setBtnPayment(btnPayment);
           box.setButtonHoldOrder(buttonHoldOrder);
           box.setBtnCancel(btnCancel);
           box.setLbQty(listData.getQty());
           Component[] listCom = detailItem.getComponents();
+
           if (listCom.length != 0) {
+               System.err.println("length data = " + listCom.length);
                for (int i = 0; i < listCom.length; i++) {
                     var obj = ((BoxItem) listCom[i]);
                     int proId = obj.getProductId();
                     int qty = obj.getQty();
                     if (proId == listData.getId()) {
+
+                         double _discountUnit = JavaConstant.getReplace(obj.getDiscountAmount());
                          qty++;
                          obj.setQty(qty);
                          double newAmountUsd = qty * price;
@@ -293,7 +295,14 @@ public class ActionProduct {
                          double valueRoundDown1 = JavaRoundDown.roundDown("" + newAmountUsd * JavaConstant.exchangeRate);
                          obj.setLabelAmountKh(kh.format(valueRoundDown1));
                          box.setSubtotalPanel(subtotalPanel);
-                         obj.setDiscountAmount(dm.format(qty * discount));
+
+                         if (_discountUnit > 0) {
+                              double _disUniteItem = ((qty * price) / 100) * obj.getDiscountDigit();
+                              obj.setDiscountAmount(dm.format(_disUniteItem));
+                         } else {
+                              obj.setDiscountAmount(dm.format(qty * discount));
+                         }
+
                          box.setListCom(listCom);
                          box.setDetailItem(detailItem);
                          subtotalPanel.total(0, listCom, 0, subtotalPanel);
@@ -328,7 +337,6 @@ public class ActionProduct {
                box.setDiscountAmount(dm.format(discount));
                box.setDiscountAmt(dm.format(discount));
                box.setQty(1);
-
           }
 
           try {

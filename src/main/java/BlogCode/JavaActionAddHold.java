@@ -25,24 +25,31 @@ import org.json.JSONObject;
 
 public class JavaActionAddHold {
 
-     public static void addHold(JPanel detailItem, Button btnPayment, Button buttonHoldOrder, ButtonPackage.ButtonCancel btnCancel, SubtotalPanel totalPanel, countCircleShape countCircleShape) {
+     public static void addHold(
+          JPanel detailItem,
+          Button btnPayment,
+          Button buttonHoldOrder,
+          ButtonPackage.ButtonCancel btnCancel,
+          SubtotalPanel totalPanel,
+          countCircleShape countCircleShape) {
           btnPayment.setBackground(WindowColor.lightGray);
           buttonHoldOrder.setBackground(WindowColor.lightGray);
           btnCancel.setBackground(WindowColor.lightGray);
-
           Component[] listHold = detailItem.getComponents();
           ArrayList<HoldeModel> holdModel = new ArrayList<>();
 
           int qty = 0;
+          HoldeModel h = new HoldeModel();
           for (int i = 0; i < listHold.length; i++) {
                var box = ((BoxItem) listHold[i]);
                qty += box.getQty();
-               double _d =  JavaConstant.getReplace(box.getDiscountAmount());
+               double _d = JavaConstant.getReplace(box.getDiscountAmount());
               
-               System.err.println("data dddd = " + box.getDiscountDigit());
-
-               HoldeModel h = new HoldeModel(box.getProductId(), box.getQty(),
-                     box.getDiscountType(), box.getDiscountDigit());
+               h = new HoldeModel(
+                    box.getProductId(),
+                    box.getQty(),
+                    box.getDiscountType(),
+                    box.getDiscountDigit());
                holdModel.add(h);
           }
 

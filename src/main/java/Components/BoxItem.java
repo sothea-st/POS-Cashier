@@ -26,6 +26,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import okhttp3.Response;
 
@@ -160,6 +161,14 @@ public class BoxItem extends javax.swing.JPanel {
      public void setDiscountDigit(int discountDigit) {
           this.discountDigit = discountDigit;
           boxDiscount.setText("" + discountDigit);
+     }
+
+     public JLabel getTxtDiscount() {
+          return txtDiscount;
+     }
+
+     public void setTxtDiscount(JLabel txtDiscount) {
+          this.txtDiscount = txtDiscount;
      }
 
      //=================================================
@@ -315,24 +324,12 @@ public class BoxItem extends javax.swing.JPanel {
 
           // new (hello world) 18-01-2024
           proId.setVisible(false);
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void btnPlus() {
-                    sumTotal("+");
-               }
-
-               @Override
-               public void btnMinus() {
-                    sumTotal("-");
-               }
-          };
-          buttonAddProduct.initEvent(event);
 
           boxDiscount.setVisible(false);
           getImageBtnDelete();
-
           JavaConstant.setPointer(btnDelete);
 
+          eventAddAndRemove();
      }
 
      void getImageBtnDelete() {
@@ -345,89 +342,56 @@ public class BoxItem extends javax.swing.JPanel {
           }
      }
 
+     public void eventAddAndRemove() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void btnPlus() {
+                    sumTotal("+");
+               }
+
+               @Override
+               public void btnMinus() {
+                    sumTotal("-");
+               }
+          };
+          buttonAddProduct.initEvent(event);
+     }
+
      void sumTotal(String sign) {
           int getQty = getQty();
-//          int quantity = Integer.valueOf(productBox.getQty());
-          
-          if (sign == "+") {
-//                if (quantity < 1) {
-//                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//                    j.setMessage(JavaMessage.productOutStock);
-//                    j.setVisible(true);
-//                    return;
-//                }
-                // add qty 
-                getQty++;
-//                productBox.setQty(""+quantity--);
-//                ActionUpdateQty.updateQty(productId, "remove", productBox);
 
+          if (sign == "+") {
+               // add qty 
+               getQty++;
           } else if (sign == "-") {
-//               if (getQty == 1) {
-//                    return;
-//               }
                // remove qty 
                getQty--;
-//               productBox.setQty(""+quantity++);
-//               ActionUpdateQty.updateQty(productId, "add", productBox);
-              
           }
 
           if (getQty != 0) {
-               String priceUsd = getLabelPrice();
-               priceUsd = priceUsd.replace("$", "");
-               priceUsd = priceUsd.replace(",", "");
+         
+               double priceUsd = JavaConstant.getReplace(getLabelPrice());
                setQty(getQty);
-               double subAmountUsd = Double.valueOf(priceUsd) * getQty;
+               double subAmountUsd = priceUsd * getQty;
                setLabelAmountUsd(dm.format(subAmountUsd));
                double _amountKh = JavaRoundDown.roundDown(JavaRoundDown.exchangeKh(subAmountUsd));
                setLabelAmountKh(kh.format(_amountKh));
-               double _discoutnAmt = JavaConstant.getReplace(discountAmt) * getQty;
-               txtDiscount.setText("Discount : " + dm.format(_discoutnAmt));
-               setDiscountAmount(dm.format(_discoutnAmt));
+
+               if (getDiscountDigit() > 0) {
+                    double _disUniteItem = ((qty * priceUsd) / 100) * getDiscountDigit();
+                    txtDiscount.setText("Discount : " + dm.format(_disUniteItem));
+                    setDiscountAmount(dm.format(_disUniteItem)); // subtotal discount will be count
+               } else {
+                    double _discoutnAmt = JavaConstant.getReplace(discountAmt) * getQty;
+                    txtDiscount.setText("Discount : " + dm.format(_discoutnAmt));
+                    setDiscountAmount(dm.format(_discoutnAmt)); // subtotal discount will be count
+               }
+
           }
 
           // ============ for subtotal panel
-          int count = buttonAddProduct.getParent().getParent().getComponentCount();
-          Component[] list = buttonAddProduct.getParent().getParent().getComponents();
-
           Component[] listCom = detailItem.getComponents();
-
-          double sumSubTotalUsd = 0;
-          double sumDiscount = 0;
-
-          for (int i = 0; i < listCom.length; i++) {
-               var data = (BoxItem) listCom[i];
-               String priceStr = data.getLabelPrice();
-               priceStr = priceStr.replace("$", "");
-               priceStr = priceStr.replace(",", "");
-               double price = Double.valueOf(priceStr);
-               int qty = data.getQty();
-               double amount = price * qty;
-               sumSubTotalUsd += amount;
-
-               String discount = data.getDiscountAmount();
-               discount = discount.replace("$", "");
-
-               discount = discount.replace(",", "");
-               double discountValue = Double.valueOf(discount);
-               sumDiscount += Double.valueOf(discountValue);
-
-          }
           subtotalPanel.total(0, listCom, 0, subtotalPanel);
-
-//          subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
-//          double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
-//          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
-//
-//          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-//          double _subDiscountKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-//          subtotalPanel.setLableDiscountKhr(kh.format(_subDiscountKh));
-//
-//          // total
-//          double total = sumSubTotalUsd - sumDiscount;
-//          subtotalPanel.setLableTotalUsd(dm.format(total));
-//          double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
-//          subtotalPanel.setLableTotalKhr(kh.format(_total));
      }
 
      //=================================================Create Shadow Box
@@ -658,26 +622,26 @@ public class BoxItem extends javax.swing.JPanel {
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 
-        if (evt.getClickCount() == 2 && !evt.isConsumed()) {
-            evt.consume();
-            JavaConstant.productId = productId;
+         if (evt.getClickCount() == 2 && !evt.isConsumed()) {
+              evt.consume();
+              JavaConstant.productId = productId;
 
-            if (JavaConstant.productId == productId) {
-                 this.setBorder(BorderFactory.createLineBorder(Color.RED));
-            }
+              if (JavaConstant.productId == productId) {
+                   this.setBorder(BorderFactory.createLineBorder(Color.RED));
+              }
 
-            Component[] listCom1 = detailItem.getComponents();
-            for (int i = 0; i < listCom1.length; i++) {
-                 var obj = ((BoxItem) listCom1[i]);
-                 if (obj.getProductId() != JavaConstant.productId) {
-                      obj.setBorder(null);
-                 }
-            }
+              Component[] listCom1 = detailItem.getComponents();
+              for (int i = 0; i < listCom1.length; i++) {
+                   var obj = ((BoxItem) listCom1[i]);
+                   if (obj.getProductId() != JavaConstant.productId) {
+                        obj.setBorder(null);
+                   }
+              }
 
-            this.setBorder(BorderFactory.createLineBorder(Color.RED));
-            JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
-        }
-       
+              this.setBorder(BorderFactory.createLineBorder(Color.RED));
+              JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
+         }
+
     }//GEN-LAST:event_formMouseClicked
 
 

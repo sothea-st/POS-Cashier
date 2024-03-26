@@ -60,17 +60,17 @@ public class ListHoldOrder extends javax.swing.JDialog {
      }
 
      DataListHold[] listData;
-     
+
      public void getHoldItem(JPanel panelHold) {
           try {
-               Response response = JavaConnection.get(JavaRoute.holdOrder+"?userId="+JavaConstant.cashierId);
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
                     listData = data.getData();
-                  
+
                     appendValue(listData, panelHold);
                } else {
                     System.err.println("fail loading product");
@@ -92,138 +92,137 @@ public class ListHoldOrder extends javax.swing.JDialog {
           int x = 0;
           int y = 0;
 
-          if(listData.length != 0){
-                for (int i = 0; i < listData.length; i++) {
+          if (listData.length != 0) {
+               for (int i = 0; i < listData.length; i++) {
 
-                     GridBagConstraints gbc = new GridBagConstraints();
-                     gbc.gridx = x;
-                     gbc.gridy = y;
-                     gbc.gridwidth = 1;
-                     gbc.anchor = gbc.NORTH;
-                     x++;
-                     if (x == 1) {
-                          x = 0;
-                          y++;
-                     }
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
+                    }
 
-                     var obj = listData[i];
-                     ListDetailHold[] listDetails = listData[i].getListDetails();
-                     HoldItems h = new HoldItems();
+                    var obj = listData[i];
+                    ListDetailHold[] listDetails = listData[i].getListDetails();
+                    HoldItems h = new HoldItems();
 
-                     ButtonEvent events = new ButtonEvent() {
-                          @Override
-                          public void onSelect(String key) { // action process
-                               detailItem.removeAll();
-                               panelHold.revalidate();
-                               panelHold.repaint();
+                    ButtonEvent events = new ButtonEvent() {
+                         @Override
+                         public void onSelect(String key) { // action process
+                              detailItem.removeAll();
+                              panelHold.revalidate();
+                              panelHold.repaint();
 
-                               for (int j = 0; j < listDetails.length; j++) {
-                                    var obj = listDetails[j];
-                                    ProductModel product = new ProductModel(
-                                         obj.getID(),
-                                         obj.getCatID(),
-                                         obj.getFlag(),
-                                         obj.getWeight(),
-                                         obj.getCost(),
-                                         obj.getProImageName(),
-                                         obj.getPrice(),
-                                         obj.getBarcode(),
-                                         obj.getProNameKh(),
-                                         obj.getProNameEn(),
-                                         obj.getProductStatus(),
-                                         obj.getDiscount(),
-                                         obj.getQty()
-                                    );
-                                    addItemToCart(product);
+                              for (int j = 0; j < listDetails.length; j++) {
+                                   var obj = listDetails[j];
+                                   ProductModel product = new ProductModel(
+                                        obj.getID(),
+                                        obj.getCatID(),
+                                        obj.getFlag(),
+                                        obj.getWeight(),
+                                        obj.getCost(),
+                                        obj.getProImageName(),
+                                        obj.getPrice(),
+                                        obj.getBarcode(),
+                                        obj.getProNameKh(),
+                                        obj.getProNameEn(),
+                                        obj.getProductStatus(),
+                                        obj.getDiscount(),
+                                        obj.getQty()
+                                   );
+                                   addItemToCart(product);
 
-                               }
+                              }
 
-      //                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
-      //                         int count = new MainPage().countHold();
-      //                         count--;
-      //                         countCircleShape.setCountTimes(""+count);
-      //                         JavaConstant.holdId = obj.getID();
-      //                         try {
-      //                              if (responseData.isSuccessful()) {
-      //                                   String data = responseData.body().string();
-      //                                   ObjectMapper objMap = new ObjectMapper();
-      //                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
-      //                                   HoldDetail[] listDatas = model.getData().getDetails();
-      //                                   for (int i = 0; i < listDatas.length; i++) {
-      //                                        var obj = listDatas[i];
-      //                                        ProductModel product = new ProductModel(
-      //                                             obj.getID(),
-      //                                             obj.getCatID(),
-      //                                             obj.getFlag(),
-      //                                             obj.getWeight(),
-      //                                             obj.getCost(),
-      //                                             obj.getProImageName(),
-      //                                             obj.getPrice(),
-      //                                             obj.getBarcode(),
-      //                                             obj.getProNameKh(),
-      //                                             obj.getProNameEn(),
-      //                                             obj.getProductStatus(),
-      //                                             obj.getDiscount(),
-      //                                             obj.getQty()
-      //                                        );
-      //                                        addItemToCart(product);
-      //                                   }
-      //                              }
-      //                         } catch (Exception e) {
-      //                              System.out.println("error get hold = " + e);
-      //                         }
-                               btnPayment.setBackground(WindowColor.lightBlue);
-                               buttonHoldOrder.setBackground(WindowColor.yellow);
-                               btnCancel.setBackground(WindowColor.darkred);
+                              //                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
+                              //                         int count = new MainPage().countHold();
+                              //                         count--;
+                              //                         countCircleShape.setCountTimes(""+count);
+                              //                         JavaConstant.holdId = obj.getID();
+                              //                         try {
+                              //                              if (responseData.isSuccessful()) {
+                              //                                   String data = responseData.body().string();
+                              //                                   ObjectMapper objMap = new ObjectMapper();
+                              //                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
+                              //                                   HoldDetail[] listDatas = model.getData().getDetails();
+                              //                                   for (int i = 0; i < listDatas.length; i++) {
+                              //                                        var obj = listDatas[i];
+                              //                                        ProductModel product = new ProductModel(
+                              //                                             obj.getID(),
+                              //                                             obj.getCatID(),
+                              //                                             obj.getFlag(),
+                              //                                             obj.getWeight(),
+                              //                                             obj.getCost(),
+                              //                                             obj.getProImageName(),
+                              //                                             obj.getPrice(),
+                              //                                             obj.getBarcode(),
+                              //                                             obj.getProNameKh(),
+                              //                                             obj.getProNameEn(),
+                              //                                             obj.getProductStatus(),
+                              //                                             obj.getDiscount(),
+                              //                                             obj.getQty()
+                              //                                        );
+                              //                                        addItemToCart(product);
+                              //                                   }
+                              //                              }
+                              //                         } catch (Exception e) {
+                              //                              System.out.println("error get hold = " + e);
+                              //                         }
+                              btnPayment.setBackground(WindowColor.lightBlue);
+                              buttonHoldOrder.setBackground(WindowColor.yellow);
+                              btnCancel.setBackground(WindowColor.darkred);
 
-                               //Remove when Process
-                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
-                               lstModel.add(new HoldeModel(obj.getID()));
-                               JSONObject json = new JSONObject();
-                               json.put("reasonId", 0);
-                               json.put("listHoldDetail", lstModel);
+                              //Remove when Process
+                              ArrayList<HoldeModel> lstModel = new ArrayList<>();
+                              lstModel.add(new HoldeModel(obj.getID()));
+                              JSONObject json = new JSONObject();
+                              json.put("reasonId", 0);
+                              json.put("listHoldDetail", lstModel);
 
-                               Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
+                              Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
 
-                               try {
-                                  if (response.isSuccessful()) {
-                                     dispose();
-                                     int count = new MainPage().countHold();
-                                     countCircleShape.setCountTimes("" + count);
-                                  }
-                               } catch (Exception e) {
-                                  System.err.println("errr delete + " + e);
-                               }
-                               dispose();
-                          }
+                              try {
+                                   if (response.isSuccessful()) {
+                                        dispose();
+                                        int count = new MainPage().countHold();
+                                        countCircleShape.setCountTimes("" + count);
+                                   }
+                              } catch (Exception e) {
+                                   System.err.println("errr delete + " + e);
+                              }
+                              dispose();
+                         }
 
-                          @Override
-                          public void onRemove(String key) {
-                               CancelDialog cancel = new CancelDialog(new JFrame(), true);
-                               cancel.setCode("cancelHold");
-                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
-                               lstModel.add(new HoldeModel(obj.getID()));
-                               cancel.setHoldId(lstModel);
-                               cancel.setPanelHold(panelHold);
-                               cancel.setCountCircleShape(countCircleShape);
-                               cancel.setDetailItem(detailItem);
-                               cancel.setSubtotalPanel(subtotalPanel);
-                               cancel.setLabelForTitle("Delete");
-                               cancel.setVisible(true);
-                               dispose();
-                          }
-                     };
+                         @Override
+                         public void onRemove(String key) {
+                              CancelDialog cancel = new CancelDialog(new JFrame(), true);
+                              cancel.setCode("cancelHold");
+                              ArrayList<HoldeModel> lstModel = new ArrayList<>();
+                              lstModel.add(new HoldeModel(obj.getID()));
+                              cancel.setHoldId(lstModel);
+                              cancel.setPanelHold(panelHold);
+                              cancel.setCountCircleShape(countCircleShape);
+                              cancel.setDetailItem(detailItem);
+                              cancel.setSubtotalPanel(subtotalPanel);
+                              cancel.setLabelForTitle("Delete");
+                              cancel.setVisible(true);
+                              dispose();
+                         }
+                    };
 
-                     h.initEvent(events);
-                     int num = i + 1;
-                     h.setCountNumber("" + num);
-                     h.setQty(obj.getQtyHold());
-                     panelHold.revalidate();
-                     panelHold.repaint();
-                     panelHold.add(h, gbc);
-                }
-          }
-          else{
+                    h.initEvent(events);
+                    int num = i + 1;
+                    h.setCountNumber("" + num);
+                    h.setQty(obj.getQtyHold());
+                    panelHold.revalidate();
+                    panelHold.repaint();
+                    panelHold.add(h, gbc);
+               }
+          } else {
                NoData nodata = new NoData();
                panelHold.add(nodata);
           }
@@ -235,97 +234,101 @@ public class ListHoldOrder extends javax.swing.JDialog {
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
+          
+          int qtyData = listData.getQty();
+          BoxItem box = new BoxItem();
+//          box.setProductBox(product);
 
-          try {
-               BoxItem box = new BoxItem();
-               box.setWasPrice("" + price);
-               box.setBtnPayment(btnPayment);
-               box.setButtonHoldOrder(buttonHoldOrder);
-               box.setBtnCancel(btnCancel);
-               Component[] listCom = detailItem.getComponents();
-               if (listCom.length != 0) {
-                    for (int i = 0; i < listCom.length; i++) {
-                         var obj = ((BoxItem) listCom[i]);
-                         int proId = obj.getProductId();
-                         int qty = obj.getQty();
-                         if (proId == listData.getId()) {
-                              qty++;
-                              obj.setQty(qty);
-                              double newAmountUsd = qty * price;
-                              if (listData.getDiscount() > 0) {
-                                   newAmountUsd = price * qty;
-                              }
-                              obj.setLabelAmountUsd(dm.format(newAmountUsd));
-
-                              double valueRoundDown1 = JavaRoundDown.roundDown("" + newAmountUsd * JavaConstant.exchangeRate);
-
-                              obj.setLabelAmountKh(kh.format(valueRoundDown1));
-                              box.setSubtotalPanel(subtotalPanel);
-                              obj.setDiscountAmount(dm.format(qty * discount));
-
-                              box.setListCom(listCom);
-                              box.setDetailItem(detailItem);
-                              subtotalPanel.total(0, listCom, 0, subtotalPanel);
-                              return;
+          box.setWasPrice("" + price);
+          box.setBtnPayment(btnPayment);
+          box.setButtonHoldOrder(buttonHoldOrder);
+          box.setBtnCancel(btnCancel);
+          box.setLbQty(listData.getQty());
+          Component[] listCom = detailItem.getComponents();
+          if (listCom.length != 0) {
+               for (int i = 0; i < listCom.length; i++) {
+                    var obj = ((BoxItem) listCom[i]);
+                    int proId = obj.getProductId();
+                    int qty = obj.getQty();
+                    if (proId == listData.getId()) {
+                         qty++;
+                         obj.setQty(qty);
+                         double newAmountUsd = qty * price;
+                         if (listData.getDiscount() > 0) {
+                              newAmountUsd = price * qty;
                          }
+                         obj.setLabelAmountUsd(dm.format(newAmountUsd));
+                         double valueRoundDown1 = JavaRoundDown.roundDown("" + newAmountUsd * JavaConstant.exchangeRate);
+                         obj.setLabelAmountKh(kh.format(valueRoundDown1));
+                         box.setSubtotalPanel(subtotalPanel);
+                         obj.setDiscountAmount(dm.format(qty * discount));
+                         box.setListCom(listCom);
+                         box.setDetailItem(detailItem);
+                         subtotalPanel.total(0, listCom, 0, subtotalPanel);
+                         return;
                     }
                }
+          }
 
-               ButtonEvent events = new ButtonEvent() {
-                    @Override
-                    public void onMouseClick() {
-                         CancelDialog cancels = new CancelDialog(new JFrame(), true);
-                         cancels.deleteHoldById();
-                    }
-               };
-               box.initEvent(events);
+          box.setDiscountDigit(listData.getDiscount());
+          box.setLabelProductName(listData.getProductNameEn());
+          box.setLabelWeight(listData.getWeight());
+          box.setLabelBarcode(listData.getBarcode());
 
-               box.setDiscountDigit(listData.getDiscount());
-               box.setLabelProductName(listData.getProductNameEn());
-               box.setLabelWeight(listData.getWeight());
-               box.setLabelBarcode(listData.getBarcode());
-
+          if (qtyData > 1) {
                box.setLabelPrice(dm.format(price));
-               double _p = price * listData.getQty();
-               box.setLabelAmountUsd(dm.format(_p));
+               box.setLabelAmountUsd(dm.format(price * qtyData));
 
-               double valueRoundDown = JavaRoundDown.roundDown("" + _p * JavaConstant.exchangeRate);
+               double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
                box.setLabelAmountKh(kh.format(valueRoundDown));
 
-               
-               box.setDiscountAmount(dm.format(discount ));
-               box.setDiscountAmt(dm.format(discount ));
+               box.setDiscountAmount(dm.format(discount * qtyData));
+               box.setDiscountAmt(dm.format(discount));
+               box.setQty(qtyData);
 
-               box.setQty(listData.getQty());
+          } else {
+               box.setLabelPrice(dm.format(price));
+               box.setLabelAmountUsd(dm.format(price));
+
+               double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
+               box.setLabelAmountKh(kh.format(valueRoundDown));
+
+               box.setDiscountAmount(dm.format(discount));
+               box.setDiscountAmt(dm.format(discount));
+               box.setQty(1);
+          }
+
+          try {
                Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
                byte[] images = responseProductImage.body().bytes();
-
                box.setIconImage(new ImageIcon(images));
-               box.setProductId(listData.getId());
-
-               detailItem.add(box);
-               // detailItem.add(Box.createRigidArea(new Dimension(2, 2)));
-               detailItem.revalidate();
-               detailItem.repaint();
-               detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
-               detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
-               detailItem.setBackground(WindowColor.white);
-
-               subtotalPanel.total(_p, listCom, discount , subtotalPanel);
-
-               // add list has one box to BoxItem (note: must be add)
-               Component[] listCom1 = detailItem.getComponents();
-               box.setDetailItem(detailItem);
-               box.setSubtotalPanel(subtotalPanel);
-               box.setListCom(listCom1);
-
-               btnPayment.setBackground(WindowColor.lightBlue);
-               buttonHoldOrder.setBackground(WindowColor.yellow);
-               btnCancel.setBackground(WindowColor.darkred);
-
           } catch (Exception e) {
-               System.out.println("err get product image " + e);
           }
+          box.setProductId(listData.getId());
+
+          detailItem.add(box);
+          // detailItem.add(Box.createRigidArea(new Dimension(2, 2)));
+          detailItem.revalidate();
+          detailItem.repaint();
+          detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
+          detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
+          detailItem.setBackground(WindowColor.white);
+
+          if (qtyData > 1) {
+               subtotalPanel.total(price * qtyData, listCom, discount * qtyData, subtotalPanel);
+          } else {
+               subtotalPanel.total(price, listCom, discount, subtotalPanel);
+          }
+
+          // add list has one box to BoxItem (note: must be add)
+          Component[] listCom1 = detailItem.getComponents();
+          box.setDetailItem(detailItem);
+          box.setSubtotalPanel(subtotalPanel);
+          box.setListCom(listCom1);
+
+          btnPayment.setBackground(WindowColor.lightBlue);
+          buttonHoldOrder.setBackground(WindowColor.yellow);
+          btnCancel.setBackground(WindowColor.darkred);
      }
 
      @SuppressWarnings("unchecked")
@@ -467,36 +470,36 @@ public class ListHoldOrder extends javax.swing.JDialog {
          this.dispose();
     }//GEN-LAST:event_cancelMouseClicked
 
-    // ACtion Remove All
+     // ACtion Remove All
     private void removeAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeAllMouseClicked
-        listHolddata(listData);
+         listHolddata(listData);
     }//GEN-LAST:event_removeAllMouseClicked
 
-    void listHolddata(DataListHold[] listData){
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            ArrayList<HoldeModel> lstModel = new ArrayList<>();
-            lstModel.add(new HoldeModel(obj.getID()));
-            JSONObject json = new JSONObject();
-            json.put("reasonId", 0);
-            json.put("listHoldDetail", lstModel);
+     void listHolddata(DataListHold[] listData) {
+          for (int i = 0; i < listData.length; i++) {
+               var obj = listData[i];
+               ArrayList<HoldeModel> lstModel = new ArrayList<>();
+               lstModel.add(new HoldeModel(obj.getID()));
+               JSONObject json = new JSONObject();
+               json.put("reasonId", 0);
+               json.put("listHoldDetail", lstModel);
 
-            Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
+               Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
 
-            try {
-               if (response.isSuccessful()) {
-                  dispose();
-                  int count = new MainPage().countHold();
-                  countCircleShape.setCountTimes("" + count);
-                  btnCancel.setBackground(WindowColor.lightGray);
+               try {
+                    if (response.isSuccessful()) {
+                         dispose();
+                         int count = new MainPage().countHold();
+                         countCircleShape.setCountTimes("" + count);
+                         btnCancel.setBackground(WindowColor.lightGray);
+                    }
+               } catch (Exception e) {
+                    System.err.println("errr delete + " + e);
                }
-            } catch (Exception e) {
-               System.err.println("errr delete + " + e);
-            }
-            dispose();
-        }
-    }
-    
+               dispose();
+          }
+     }
+
      void refreshPanel() {
           panelHold.revalidate();
           panelHold.repaint();

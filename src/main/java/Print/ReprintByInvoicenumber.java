@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 /**
  *
@@ -36,10 +37,15 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                @Override
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
-                    String dataValue = "101-"+JavaConstant.posId+"-CN24-" + value;
-                    txtInvoiceNumber.setValueTextField(dataValue);
-                    String _dd = txtInvoiceNumber.getValueTextField().replace("101-"+JavaConstant.posId+"-CN24-101-"+JavaConstant.posId+"-CN24-", "101-"+JavaConstant.posId+"-CN24-");
-                    txtInvoiceNumber.setValueTextField(_dd);
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+value);
+                    try {
+                         String _data = responseData.body().string();
+                         JSONObject obj = new JSONObject(_data);
+                         String invoice = obj.getString("data");
+                         txtInvoiceNumber.setValueTextField(invoice);
+                    } catch (Exception e) {
+                         System.err.println("response data 333= " + e);
+                    }
                }
           };
 

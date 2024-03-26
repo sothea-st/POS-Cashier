@@ -33,5 +33,6 @@ public class JavaRoute {
      public static String holdOrder = "/hold";
      public static String getPoint = "/customer/getCustomerPoint/";
      public static String updateQty = "/import/updateQty";
+     public static String getInvoice = "/searchProductByBarcodeOrName/getInvoice/";
 
 }

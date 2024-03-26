@@ -19,7 +19,6 @@ public class HoldeModel {
 
      public HoldeModel(int id) {
           this.id = id;
-
      }
 
      public int getId() {
