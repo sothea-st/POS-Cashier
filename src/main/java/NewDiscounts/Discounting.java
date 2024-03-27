@@ -546,6 +546,10 @@ public class Discounting extends javax.swing.JDialog {
                         box.setDiscountAmount("$ " + discountValue);
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
+                        
+                        //===================Remove border and prevent in button discount after input discount value=============
+                        JavaConstant.discountAmount = 1;
+                        box.setBorder(null);
                    }
 
                    if (JavaConstant.productId == 0) {
@@ -564,6 +568,10 @@ public class Discounting extends javax.swing.JDialog {
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
                         box.setDiscountDigit(Integer.parseInt(discountValue));
+                        
+                        //===================Remove border and prevent in button discount after input discount value=============
+                        JavaConstant.discountAmount = 1;
+                        box.setBorder(null);
 
                    }
 

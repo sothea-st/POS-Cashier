@@ -69,6 +69,10 @@ public class JavaActionAddHold {
                     detailItem.revalidate();
                     detailItem.repaint();
                     totalPanel.setLabelSubTitleToZero();
+                    
+                    //==========Remove ID product when after selecting and store in holdorder
+                    JavaConstant.productId = 0;
+                    JavaConstant.discountAmount = 1;
 
                } else {
                     UIManager UI = new UIManager();
