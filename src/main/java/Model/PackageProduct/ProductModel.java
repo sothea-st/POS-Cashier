@@ -14,7 +14,7 @@ public class ProductModel {
      private String productNameEn;
      private String productStatus;
      private int discount;
-     private double discountTypeDouble;
+//     private double discountTypeDouble;
      private int qty;
 
      public ProductModel() {
@@ -80,7 +80,7 @@ public class ProductModel {
 //          this.discountTypeDouble = discountTypeDouble;
 //          this.qty = qty;
 //     }
-
+//
 //     public double getDiscountTypeDouble() {
 //          return discountTypeDouble;
 //     }

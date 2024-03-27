@@ -307,6 +307,7 @@ View\MainPage\MainPage$8.class
 Components\TextField$2.class
 Components\SearchField$3.class
 Components\TextFieldCenter$1.class
+Model\HoldOrder\HoldProductModel.class
 Customer\Customer$3.class
 Model\OpenShift\DataOpenShiftModel.class
 Payment\PaymentOption$22.class

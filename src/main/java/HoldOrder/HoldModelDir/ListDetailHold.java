@@ -20,6 +20,7 @@ public class ListDetailHold {
      private String codeExpired;
      private String codeOutStock;
      private int discount;
+     private String discountType;
 
      @JsonProperty("id")
      public int getID() {
@@ -179,5 +180,15 @@ public class ListDetailHold {
      @JsonProperty("discount")
      public void setDiscount(int value) {
           this.discount = value;
+     }
+
+     @JsonProperty("discount_type")
+     public String getDiscountType() {
+          return discountType;
+     }
+
+     @JsonProperty("discount_type")
+     public void setDiscountType(String value) {
+          this.discountType = value;
      }
 }

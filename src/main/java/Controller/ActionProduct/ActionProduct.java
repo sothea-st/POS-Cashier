@@ -277,13 +277,12 @@ public class ActionProduct {
           Component[] listCom = detailItem.getComponents();
 
           if (listCom.length != 0) {
-               System.err.println("length data = " + listCom.length);
                for (int i = 0; i < listCom.length; i++) {
                     var obj = ((BoxItem) listCom[i]);
                     int proId = obj.getProductId();
                     int qty = obj.getQty();
                     if (proId == listData.getId()) {
-
+                         
                          double _discountUnit = JavaConstant.getReplace(obj.getDiscountAmount());
                          qty++;
                          obj.setQty(qty);

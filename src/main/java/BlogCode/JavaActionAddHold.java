@@ -43,14 +43,32 @@ public class JavaActionAddHold {
           for (int i = 0; i < listHold.length; i++) {
                var box = ((BoxItem) listHold[i]);
                qty += box.getQty();
-               double _d = JavaConstant.getReplace(box.getDiscountAmount());
-              
-               h = new HoldeModel(
-                    box.getProductId(),
-                    box.getQty(),
-                    box.getDiscountType(),
-                    box.getDiscountDigit());
-               holdModel.add(h);
+
+               if (box.getDiscountType() != null) {
+                    if (box.getDiscountType().equals("dollar")) {
+                         h = new HoldeModel(
+                              box.getProductId(),
+                              box.getQty(),
+                              box.getDiscountType(),
+                              box.getDiscountValue());
+                         holdModel.add(h);
+                    } else { // percent
+                         h = new HoldeModel(
+                              box.getProductId(),
+                              box.getQty(),
+                              box.getDiscountType(),
+                              box.getDiscountDigit());
+                         holdModel.add(h);
+                    }
+               } else {
+                    h = new HoldeModel(
+                         box.getProductId(),
+                         box.getQty(),
+                         box.getDiscountType(),
+                         box.getDiscountValue());
+                    holdModel.add(h);
+               }
+
           }
 
           JSONObject json = new JSONObject();

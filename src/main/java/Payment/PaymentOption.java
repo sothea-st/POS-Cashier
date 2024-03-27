@@ -1257,7 +1257,7 @@ public class PaymentOption extends javax.swing.JDialog {
               ProductSaleModel pro = new ProductSaleModel(
                    obj.getProductId(),
                    obj.getQty(),
-                   p,
+                   price,
                    a,
                    discountVale,
                    discountType

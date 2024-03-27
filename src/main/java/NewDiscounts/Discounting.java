@@ -546,6 +546,7 @@ public class Discounting extends javax.swing.JDialog {
                         box.setDiscountAmount("$ " + discountValue);
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
+                        
                    }
 
                    if (JavaConstant.productId == 0) {

@@ -274,6 +274,9 @@ public class BoxItem extends javax.swing.JPanel {
      public void setLbQty(int lbQty) {
           this.lbQty = lbQty;
      }
+     
+     
+  
 
      /**
       * Creates new form BoxItem
