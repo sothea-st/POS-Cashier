@@ -1279,6 +1279,8 @@ public class PaymentOption extends javax.swing.JDialog {
 
                    subtotalPanel.setLabelSubTitleToZero();
                    btnPayment.setBackground(WindowColor.lightGray);
+                   
+                   JavaConstant.productId = 0;
 
                    // remove hole order
                    if (JavaConstant.holdId != 0) {
@@ -1306,7 +1308,7 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-//                             re.printReceipt();
+//                             re.printReceipt(); // for print with device
                              re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();

@@ -20,6 +20,7 @@ import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
+import java.time.Year;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -37,27 +38,27 @@ import pdf.MyPrinter;
 
 public class PrinterReturn extends javax.swing.JDialog {
 
-    private DataSuccessModel dataSuccess;
-    
-    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
-    DecimalFormat kh = new DecimalFormat("#,##0");
-    
-    public PrinterReturn(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
-        setFontSizeForLabels(print, 11);
-        jLabel46.setFont(WindowFonts.timeNewRomanBold14);
-    }
-    
-    public void chartAndPrint() {
+     private DataSuccessModel dataSuccess;
+
+     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+     DecimalFormat kh = new DecimalFormat("#,##0");
+
+     public PrinterReturn(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
+          setFontSizeForLabels(print, 11);
+          jLabel46.setFont(WindowFonts.timeNewRomanBold14);
+     }
+
+     public void chartAndPrint() {
           printReceipt();
-    }
-    
-    public void printReceipt() {
+     }
+
+     public void printReceipt() {
           // ============= print with device
           print.revalidate();
           print.repaint();
@@ -87,9 +88,9 @@ public class PrinterReturn extends javax.swing.JDialog {
           } else {
                System.out.println("No printer found.");
           }
-    }
-    
-    public static void setFontSizeForLabels(Container container, int size) {
+     }
+
+     public static void setFontSizeForLabels(Container container, int size) {
           Component[] components = container.getComponents();
           for (Component component : components) {
                if (component instanceof JLabel) {
@@ -102,19 +103,18 @@ public class PrinterReturn extends javax.swing.JDialog {
                     setFontSizeForLabels((Container) component, size);
                }
           }
-    }
+     }
 
-    public DataSuccessModel getDataSuccess() {
-        return dataSuccess;
-    }
+     public DataSuccessModel getDataSuccess() {
+          return dataSuccess;
+     }
 
-    public void setDataSuccess(DataSuccessModel dataSuccess) {
-        this.dataSuccess = dataSuccess;
-        assignValue(dataSuccess);
-    }
+     public void setDataSuccess(DataSuccessModel dataSuccess) {
+          this.dataSuccess = dataSuccess;
+          assignValue(dataSuccess);
+     }
 
-    
-    private void assignValue(DataSuccessModel dataSuccess) {
+     private void assignValue(DataSuccessModel dataSuccess) {
           var data = dataSuccess.getData();
           try {
                Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
@@ -124,7 +124,18 @@ public class PrinterReturn extends javax.swing.JDialog {
                address.setText("<html>អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>");
                vattin.setText(data.getVattin());
                invoiceNo.setText(data.getPaymentNo());
-               invoiceNo1.setText(data.getPaymentNo());
+
+               int currentYear = Year.now().getValue();
+               String _year = "" + currentYear;
+               _year = _year.substring(2, _year.length());
+               String newInvoice = "CN" + _year;
+
+               String[] parts = data.getPaymentNo().split("-");
+               parts[2] = newInvoice;
+               String _payNo = parts[0] + "-" +parts[1] + "-" +parts[2] + "-" +parts[3];
+               
+
+               invoiceNo1.setText(_payNo);
                cashier.setText(data.getEmpName());
                saleDate.setText(data.getSaleDate());
 
@@ -136,15 +147,15 @@ public class PrinterReturn extends javax.swing.JDialog {
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(kh.format(totalkh));
-               
-               if(data.getDiscount() != 0){
-                   discount.setText(dm.format(data.getDiscount()));
-               }else{
-                   discount.setVisible(false);
-                   discountKh.setVisible(false);
-                   discountUsd.setVisible(false);
+
+               if (data.getDiscount() != 0) {
+                    discount.setText(dm.format(data.getDiscount()));
+               } else {
+                    discount.setVisible(false);
+                    discountKh.setVisible(false);
+                    discountUsd.setVisible(false);
                }
-               
+
           } catch (Exception e) {
                System.err.println("getting error at " + e);
           }
@@ -169,9 +180,8 @@ public class PrinterReturn extends javax.swing.JDialog {
           countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
           countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
      }
-    
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -737,80 +747,81 @@ public class PrinterReturn extends javax.swing.JDialog {
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
 
-        PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
+         PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
 
-        PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
-        if (printServices.length > 0) {
-            PrinterJob printerJob = PrinterJob.getPrinterJob();
-            try {
-                // Set the print service
-                printerJob.setPrintService(printServices[0]);
+         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
+         if (printServices.length > 0) {
+              PrinterJob printerJob = PrinterJob.getPrinterJob();
+              try {
+                   // Set the print service
+                   printerJob.setPrintService(printServices[0]);
 
-                //                   PrinterJob printerJob = PrinterJob.getPrinterJob();
-                PageFormat pageFormat = printerJob.defaultPage();
-                Paper paper = new Paper();
-                paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
-                paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
-                pageFormat.setPaper(paper);
+                   //                   PrinterJob printerJob = PrinterJob.getPrinterJob();
+                   PageFormat pageFormat = printerJob.defaultPage();
+                   Paper paper = new Paper();
+                   paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
+                   paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
+                   pageFormat.setPaper(paper);
 
-                printerJob.setPrintable(new MyPrinter(print), pageFormat);
-                // Print without showing the print dialog
-                printerJob.print();
+                   printerJob.setPrintable(new MyPrinter(print), pageFormat);
+                   // Print without showing the print dialog
+                   printerJob.print();
 
-            } catch (PrinterException ex) {
-                ex.printStackTrace();
-            }
-        } else {
-            System.out.println("No printer found.");
-        }
+              } catch (PrinterException ex) {
+                   ex.printStackTrace();
+              }
+         } else {
+              System.out.println("No printer found.");
+         }
 
     }//GEN-LAST:event_btnPrintMouseClicked
 
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PrinterReturn dialog = new PrinterReturn(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(PrinterReturn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    PrinterReturn dialog = new PrinterReturn(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address;

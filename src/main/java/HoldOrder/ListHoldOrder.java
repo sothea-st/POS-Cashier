@@ -291,7 +291,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
           } else if (listData.getDiscountType().equals("dollar")) {
                double _dollar = listData.getQty()*listData.getDiscount();
                box.setDiscountAmount(dm.format(_dollar));
-              
                box.setDiscountValue(listData.getDiscount());
           }
           box.setDiscountType(listData.getDiscountType());
