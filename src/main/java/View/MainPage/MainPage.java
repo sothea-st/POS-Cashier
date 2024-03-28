@@ -88,7 +88,7 @@ public class MainPage extends javax.swing.JFrame {
 
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
-
+         
      }
 
      void getImage() {

@@ -5,13 +5,11 @@ import Components.BoxItem;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
-import HoldOrder.HoldeModel;
 import SwitchButton.EventSwitchSelected;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -568,18 +566,23 @@ public class Discounting extends javax.swing.JDialog {
               var box = ((BoxItem) listHold[i]);
 
               if (type == "dollar") {
+                   double _dollar = box.getQty() * Double.parseDouble(discountValue);
                    if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
-                        box.setDiscountAmount("$ " + discountValue);
+
+                        box.setDiscountAmount(dm.format(_dollar));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
-                        
+ 
+
                         //===================Remove border and prevent in button discount after input discount value=============
                         JavaConstant.discountAmount = 1;
                         box.setBorder(null);
+
                    }
 
                    if (JavaConstant.productId == 0) {
-                        box.setDiscountAmount("$ " + discountValue);
+ 
+                        box.setDiscountAmount(dm.format(_dollar));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
                    }
@@ -594,7 +597,7 @@ public class Discounting extends javax.swing.JDialog {
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
                         box.setDiscountDigit(Integer.parseInt(discountValue));
-                        
+
                         //===================Remove border and prevent in button discount after input discount value=============
                         JavaConstant.discountAmount = 1;
                         box.setBorder(null);

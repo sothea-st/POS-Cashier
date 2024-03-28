@@ -1308,7 +1308,7 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-//                             re.printReceipt();
+//                             re.printReceipt(); // for print with device
                              re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();

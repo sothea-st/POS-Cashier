@@ -37,7 +37,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
           }
 
           g2.setColor(color);
-          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, 20, 100, 0, 0);
+          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, 20, thumbBounds.height, 0, 0);
           g2.dispose();
      }
 
@@ -61,7 +61,6 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
           button.setPreferredSize(dim);
           button.setMinimumSize(dim);
           button.setMaximumSize(dim);
-        
           return button;
      }
 }

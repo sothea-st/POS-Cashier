@@ -130,9 +130,6 @@
             <Component class="javax.swing.JLabel" name="logo">
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="D:\POSCASHIERMASTER\tt_pos_window\src\main\resources\image\redant.png"/>
-                </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="companyname">

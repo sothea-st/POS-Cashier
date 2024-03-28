@@ -63,7 +63,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
-                         System.err.println("price data = " + obj.getPrice());
+                       
                          product = new ProductModel(
                               obj.getID(),
                               obj.getCatID(),
