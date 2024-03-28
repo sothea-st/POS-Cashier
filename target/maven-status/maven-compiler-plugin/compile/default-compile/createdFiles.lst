@@ -39,6 +39,7 @@ HoldOrder\HoldItems$4.class
 Discount\ListProduct.class
 BlogCode\JavaSearchByNameAndCode$1.class
 Products\ProductBox.class
+NewDiscounts\Discounting$21.class
 Discount\OverallDiscount$2.class
 Payment\PaymentOption$6.class
 LoginAndLogoutForm\LoginFormJdailog.class
@@ -69,7 +70,6 @@ DeleteAndCancel\DeleteDialog$2.class
 LoginAndLogoutForm\LogoutDialog$2.class
 Components\PasswordField$2.class
 NewCashierReport\CashierReporting$2.class
-NewDiscounts\Discounting$20$1.class
 Print\ReprintByInvoicenumber$1.class
 Discount\GetProduct$1.class
 Products\ProductPanel.class
@@ -239,6 +239,7 @@ Discount\DiscountByItem$2.class
 Components\HoldItem.class
 Components\SearchField$1.class
 Components\LabelReceipt.class
+NewDiscounts\Discounting$21$1.class
 BlogCode\ActionUpdateQty.class
 Components\LabelFontGreen$2.class
 NewDiscounts\Discounting$19.class

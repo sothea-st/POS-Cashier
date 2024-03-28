@@ -1279,6 +1279,8 @@ public class PaymentOption extends javax.swing.JDialog {
 
                    subtotalPanel.setLabelSubTitleToZero();
                    btnPayment.setBackground(WindowColor.lightGray);
+                   
+                   JavaConstant.productId = 0;
 
                    // remove hole order
                    if (JavaConstant.holdId != 0) {
