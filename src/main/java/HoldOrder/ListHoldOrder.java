@@ -17,6 +17,7 @@ import Event.ButtonEvent;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
+import Model.HoldOrder.HoldProductModel;
 import Model.PackageProduct.ProductModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -119,59 +120,45 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
                               for (int j = 0; j < listDetails.length; j++) {
                                    var obj = listDetails[j];
-                                   ProductModel product = new ProductModel(
-                                        obj.getID(),
-                                        obj.getCatID(),
-                                        obj.getFlag(),
-                                        obj.getWeight(),
-                                        obj.getCost(),
-                                        obj.getProImageName(),
-                                        obj.getPrice(),
-                                        obj.getBarcode(),
-                                        obj.getProNameKh(),
-                                        obj.getProNameEn(),
-                                        obj.getProductStatus(),
-                                        obj.getDiscount(),
-                                        obj.getQty()
-                                   );
-                                   addItemToCart(product);
 
+                                   HoldProductModel product = new HoldProductModel(
+                                        obj.getID(),
+                                        obj.getFlag(),
+                                        obj.getDiscount(),
+                                        obj.getQty(),
+                                        obj.getCost(),
+                                        obj.getPrice(),
+                                        obj.getCatID(),
+                                        obj.getBarcode(),
+                                        obj.getWeight(),
+                                        obj.getDiscountType(),
+                                        obj.getProNameEn(),
+                                        obj.getCodeExpired(),
+                                        obj.getCodeOutStock(),
+                                        obj.getBrandID(),
+                                        obj.getProNameKh(),
+                                        obj.getProImageName(),
+                                        obj.getProductStatus()
+                                   );
+
+//                                   ProductModel product = new ProductModel(
+//                                        obj.getID(),
+//                                        obj.getCatID(),
+//                                        obj.getFlag(),
+//                                        obj.getWeight(),
+//                                        obj.getCost(),
+//                                        obj.getProImageName(),
+//                                        obj.getPrice(),
+//                                        obj.getBarcode(),
+//                                        obj.getProNameKh(),
+//                                        obj.getProNameEn(),
+//                                        obj.getProductStatus(),
+//                                        obj.getDiscount(),
+//                                        obj.getQty()
+//                                   );
+                                   addItemToCart(product);
                               }
 
-                              //                         Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
-                              //                         int count = new MainPage().countHold();
-                              //                         count--;
-                              //                         countCircleShape.setCountTimes(""+count);
-                              //                         JavaConstant.holdId = obj.getID();
-                              //                         try {
-                              //                              if (responseData.isSuccessful()) {
-                              //                                   String data = responseData.body().string();
-                              //                                   ObjectMapper objMap = new ObjectMapper();
-                              //                                   HoldSuccess model = objMap.readValue(data, HoldSuccess.class);
-                              //                                   HoldDetail[] listDatas = model.getData().getDetails();
-                              //                                   for (int i = 0; i < listDatas.length; i++) {
-                              //                                        var obj = listDatas[i];
-                              //                                        ProductModel product = new ProductModel(
-                              //                                             obj.getID(),
-                              //                                             obj.getCatID(),
-                              //                                             obj.getFlag(),
-                              //                                             obj.getWeight(),
-                              //                                             obj.getCost(),
-                              //                                             obj.getProImageName(),
-                              //                                             obj.getPrice(),
-                              //                                             obj.getBarcode(),
-                              //                                             obj.getProNameKh(),
-                              //                                             obj.getProNameEn(),
-                              //                                             obj.getProductStatus(),
-                              //                                             obj.getDiscount(),
-                              //                                             obj.getQty()
-                              //                                        );
-                              //                                        addItemToCart(product);
-                              //                                   }
-                              //                              }
-                              //                         } catch (Exception e) {
-                              //                              System.out.println("error get hold = " + e);
-                              //                         }
                               btnPayment.setBackground(WindowColor.lightBlue);
                               buttonHoldOrder.setBackground(WindowColor.yellow);
                               btnCancel.setBackground(WindowColor.darkred);
@@ -229,12 +216,12 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
      }
 
-     public void addItemToCart(ProductModel listData) {
+     public void addItemToCart(HoldProductModel listData) {
 
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
-          
+
           int qtyData = listData.getQty();
           BoxItem box = new BoxItem();
 //          box.setProductBox(product);
@@ -270,8 +257,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                }
           }
 
-          box.setDiscountDigit(listData.getDiscount());
-          box.setLabelProductName(listData.getProductNameEn());
+          box.setLabelProductName(listData.getProNameEn());
           box.setLabelWeight(listData.getWeight());
           box.setLabelBarcode(listData.getBarcode());
 
@@ -298,6 +284,17 @@ public class ListHoldOrder extends javax.swing.JDialog {
                box.setQty(1);
           }
 
+          if (listData.getDiscountType() == null) {
+               box.setDiscountDigit(0);
+          } else if (listData.getDiscountType().equals("percent")) {
+               box.setDiscountDigit((int) listData.getDiscount());
+          } else if (listData.getDiscountType().equals("dollar")) {
+               double _dollar = listData.getQty()*listData.getDiscount();
+               box.setDiscountAmount(dm.format(_dollar));
+              
+               box.setDiscountValue(listData.getDiscount());
+          }
+          box.setDiscountType(listData.getDiscountType());
           try {
                Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
                byte[] images = responseProductImage.body().bytes();
@@ -313,15 +310,18 @@ public class ListHoldOrder extends javax.swing.JDialog {
           detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
           detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
           detailItem.setBackground(WindowColor.white);
+          
 
-          if (qtyData > 1) {
-               subtotalPanel.total(price * qtyData, listCom, discount * qtyData, subtotalPanel);
-          } else {
-               subtotalPanel.total(price, listCom, discount, subtotalPanel);
-          }
+//          if (qtyData > 1) {
+//               subtotalPanel.total(price * qtyData, detailItem, discount * qtyData, subtotalPanel);
+//          } else {
+            
+               subtotalPanel.total(0, detailItem, 0, subtotalPanel);
+//          }
 
           // add list has one box to BoxItem (note: must be add)
           Component[] listCom1 = detailItem.getComponents();
+       
           box.setDetailItem(detailItem);
           box.setSubtotalPanel(subtotalPanel);
           box.setListCom(listCom1);
@@ -329,6 +329,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
+
+          detailItem.setBackground(WindowColor.slightGreen);
+          detailItem.setBorder(null);
      }
 
      @SuppressWarnings("unchecked")

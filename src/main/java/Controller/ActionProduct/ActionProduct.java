@@ -277,12 +277,13 @@ public class ActionProduct {
           Component[] listCom = detailItem.getComponents();
 
           if (listCom.length != 0) {
+
                for (int i = 0; i < listCom.length; i++) {
                     var obj = ((BoxItem) listCom[i]);
                     int proId = obj.getProductId();
                     int qty = obj.getQty();
                     if (proId == listData.getId()) {
-                         
+
                          double _discountUnit = JavaConstant.getReplace(obj.getDiscountAmount());
                          qty++;
                          obj.setQty(qty);
@@ -300,6 +301,12 @@ public class ActionProduct {
                               obj.setDiscountAmount(dm.format(_disUniteItem));
                          } else {
                               obj.setDiscountAmount(dm.format(qty * discount));
+                         }
+
+                         if (obj.getDiscountType() != null) {
+                              if (obj.getDiscountType().equals("dollar")) {
+                                   obj.setDiscountAmount(dm.format(qty * obj.getDiscountValue()));
+                              }
                          }
 
                          box.setListCom(listCom);
@@ -369,6 +376,9 @@ public class ActionProduct {
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
+
+          detailItem.setBackground(WindowColor.slightGreen);
+          detailItem.setBorder(null);
 
      }
 
