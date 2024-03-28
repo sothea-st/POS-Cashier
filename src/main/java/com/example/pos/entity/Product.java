@@ -70,8 +70,8 @@ public class Product {
     @Column(name = "product_status",length = 30)
     private String productStatus;
 
-    @Column(name = "discount",length = 30)
-    private int discount=0;
+    @Column(name = "discount",length = 30, precision = 10, scale = 2)
+    private BigDecimal discount;
 
     @Column(name = "status")
     private boolean status = true;

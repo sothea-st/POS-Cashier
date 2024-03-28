@@ -35,7 +35,7 @@ public class SaleDetail {
     @Column(name = "amount" , precision = 10 , scale = 2)
     private BigDecimal amount ;
 
-    @Column(name = "discount")
+    @Column(name = "discount", precision = 10, scale = 2)
     private BigDecimal discount;
 
     @Column(name = "discount_type")

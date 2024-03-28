@@ -1,10 +1,12 @@
 package com.example.pos.entity.models;
 
+import java.math.BigDecimal;
+
 import lombok.Data;
 
 @Data
 public class UpdateProductDiscount {
      private int id;
-     private int discount;
+     private BigDecimal discount;
      public UpdateProductDiscount(){}
 }

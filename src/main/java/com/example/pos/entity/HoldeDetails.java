@@ -20,7 +20,7 @@ public class HoldeDetails {
      @Column(name = "hold_id", length = 50)
      private int holdId;
 
-     @Column(name = "discount", scale =10,precision = 0)
+     @Column(name = "discount", scale =10,precision = 2)
      private BigDecimal discount;
 
      @Column(name = "discount_type")

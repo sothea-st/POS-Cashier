@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -309,7 +310,7 @@ public class ProductService {
     }
 
 
-    public Product updateDiscount(int id,int discount){
+    public Product updateDiscount(int id,BigDecimal discount){
         Optional<Product> p = repo.getProductByOptionalId(id);
         Product data = p.get();
         data.setDiscount(discount);
