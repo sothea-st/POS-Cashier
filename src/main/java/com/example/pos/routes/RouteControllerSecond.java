@@ -152,6 +152,13 @@ public class RouteControllerSecond {
                if( data.size() == 0 ) return ResponseEntity.ok().body(Map.of("msg", "success" , "data",data , "invoiceNo","The invoice already return!"));
                return ResponseEntity.ok().body(Map.of("msg", "success" , "data",data , "invoiceNo",invoiceNo));
           }
+
+          @GetMapping("/getInvoice/{paymentBarcode}")
+          public ResponseEntity<?> getInvoice(@PathVariable("paymentBarcode") String paymentBarcode) {
+               return JavaResponse.success(service.getIncoive(paymentBarcode));
+          }
+
+
      }
 
      @RestController

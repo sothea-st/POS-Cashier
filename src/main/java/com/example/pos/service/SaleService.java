@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
 import java.text.*;
+import java.time.Year;
 import java.util.*;
 
 @Service
@@ -91,7 +92,7 @@ public class SaleService {
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
         sale.setCreateBy(userId);
- 
+
         Customer cus = s.getCustomer();
         String cusId = null;
         int countId = cusRepo.countRecord();
@@ -119,7 +120,7 @@ public class SaleService {
             dataDetail.setAmount(detail.getAmount());
             dataDetail.setDiscount(detail.getDiscount());
             dataDetail.setCreateBy(userId);
-            dataDetail.setDiscountType(detail.getDiscountType()); 
+            dataDetail.setDiscountType(detail.getDiscountType());
             repoDetail.save(dataDetail);
 
             ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
@@ -136,9 +137,9 @@ public class SaleService {
         Payment p = s.getDataPay();
         int count = payRepo.countRecord();
         count++;
-        String paymentNo = paymentNo(count,s.getPosId());
+        String paymentNo = paymentNo(count, s.getPosId());
         String paymentBarcode = paymentBarcode(count);
-        addPayment(paymentNo, saleId, p, userId,paymentBarcode);
+        addPayment(paymentNo, saleId, p, userId, paymentBarcode);
         // Company companyInfo = repoCompany.getInfoCompany();
         // map.put("companyName", companyInfo.getCompanyName());
         // map.put("vattin", companyInfo.getVattin());
@@ -161,10 +162,11 @@ public class SaleService {
         // map.put("customerType", "អតិថិជនទូទៅ");
         // map.put("returned", null);
 
-        // List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId , saleId);
+        // List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId ,
+        // saleId);
         // map.put("saleDetails", listProjection);
-       return reprintService.readData("");
-       
+        return reprintService.readData("");
+
     }
 
     public void addCustomer(Customer cus, String cusId) {
@@ -194,7 +196,8 @@ public class SaleService {
         return cusId;
     }
 
-    public void addPayment(String paymentNo, int saleId, Payment p, int createBy,String paymentBarcode) throws Exception {
+    public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode)
+            throws Exception {
         Payment data = new Payment();
         data.setPaymentBarcode(paymentBarcode);
         data.setPaymentNo(paymentNo);
@@ -216,25 +219,29 @@ public class SaleService {
         BufferedImage barcode = barcodeGenerator.generateUSPSBarcodeImage(paymentBarcode);
         byte[] bytes = BarcodeGenerator.bufferedImageToByteArray(barcode, "jpg");
         // save information image to table pos_file
-        FileStore f = new FileStore(paymentBarcode, paymentBarcode,"image/jpeg",bytes);
+        FileStore f = new FileStore(paymentBarcode, paymentBarcode, "image/jpeg", bytes);
         fileStore.save(f);
     }
 
-    String paymentNo(int count,String posId) {
-        String paymentNo = "101-"+posId+"-CN24-";
+    String paymentNo(int count, String posId) {
+        int currentYear = Year.now().getValue();
+        String _year = "" + currentYear;
+        _year = _year.substring(2, _year.length());
+        // System.out.println("Current Year: " + _year.substring(2, _year.length()));
+        String paymentNo = "101-" + posId + "-"+_year+"-";
         if (count < 10) {
             paymentNo += "00000" + count;
         } else if (count < 100) {
             paymentNo += "0000" + count;
-        }  else if (count < 1000) {
+        } else if (count < 1000) {
             paymentNo += "000" + count;
         } else if (count < 10000) {
             paymentNo += "00" + count;
         } else if (count < 100000) {
             paymentNo += "0" + count;
-        }  else if (count < 1000000) {
+        } else if (count < 1000000) {
             paymentNo += "" + count;
-        } 
+        }
         return paymentNo;
     }
 
@@ -244,15 +251,15 @@ public class SaleService {
             paymentNo += "00000" + count;
         } else if (count < 100) {
             paymentNo += "0000" + count;
-        }  else if (count < 1000) {
+        } else if (count < 1000) {
             paymentNo += "000" + count;
         } else if (count < 10000) {
             paymentNo += "00" + count;
         } else if (count < 100000) {
             paymentNo += "0" + count;
-        }  else if (count < 1000000) {
+        } else if (count < 1000000) {
             paymentNo += "" + count;
-        } 
+        }
         return paymentNo;
     }
 
