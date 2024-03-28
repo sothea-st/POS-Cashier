@@ -39,8 +39,8 @@ public class Import {
     @NotBlank(message = JavaMessage.required)
     private String impDate;
 
-    @Column(name = "discount",length = 20)
-    private int discount=0;
+    @Column(name = "discount",length = 20, precision = 10, scale = 2)
+    private BigDecimal discount;
 
     @Column(name = "total",precision = 10,scale = 2)
     @NotNull(message = JavaMessage.required)

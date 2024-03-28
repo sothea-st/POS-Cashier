@@ -17,5 +17,6 @@ public interface HoldProjection {
      String getCode_expired();
      int getQty();
      BigDecimal getDiscount();
+     String getDiscount_type();
      
 }  

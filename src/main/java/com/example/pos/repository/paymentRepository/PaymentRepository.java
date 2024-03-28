@@ -11,6 +11,10 @@ import com.example.pos.entity.projection.PaymentProjection;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
+
+        @Query(nativeQuery = true , value = " select pp.payment_no  from pos_payment pp where payment_barcode = ?")
+        String getInvoice(String paymentBarcode);
+
         @Query(nativeQuery = true, value = "select count(*) from pos_payment pp")
         int countRecord();
 

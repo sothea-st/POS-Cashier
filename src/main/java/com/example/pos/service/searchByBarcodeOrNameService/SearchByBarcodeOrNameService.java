@@ -9,6 +9,7 @@ import com.example.pos.entity.Product;
 import com.example.pos.entity.models.ProductModel;
 import com.example.pos.repository.ImportDetailRepository;
 import com.example.pos.repository.ProductRepository;
+import com.example.pos.repository.paymentRepository.PaymentRepository;
 import com.example.pos.repository.productProjection.ProductProjection;
 import com.example.pos.repository.productProjection.ProductQty;
 import com.example.pos.service.ProductService;
@@ -21,6 +22,12 @@ public class SearchByBarcodeOrNameService {
     private ImportDetailRepository repoImp;
     @Autowired
     private ProductService proService;
+    @Autowired
+    private PaymentRepository repoPayment;
+
+    public String getIncoive(String paymentBarcode) {
+        return repoPayment.getInvoice(paymentBarcode);
+    }
 
     public List<ProductModel> search(String code, String nameSearch) {
         List<ProductProjection> data = null;
@@ -40,7 +47,6 @@ public class SearchByBarcodeOrNameService {
         }
         return list;
     }
-
     public List<ProductModel> searchWithInvoiceNo(String invoiceNo) {
         List<ProductQty> data = null;
         List<ProductModel> list = new ArrayList<>();
