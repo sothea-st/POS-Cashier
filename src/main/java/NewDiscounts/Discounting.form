@@ -350,6 +350,9 @@
         <Component class="SwitchButton.SwitchButton" name="switchButton1">
         </Component>
         <Component class="Components.TextFieldCenter" name="inputDis">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputDisKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
