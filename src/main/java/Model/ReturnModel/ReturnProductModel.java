@@ -8,12 +8,12 @@ public class ReturnProductModel {
     private int qty;
     private double price;
     private double amount;
-    private int discount;
+    private double discount;
 
     public ReturnProductModel() {
     }
 
-    public ReturnProductModel(int proId, int qty, double price, double amount,int discount) {
+    public ReturnProductModel(int proId, int qty, double price, double amount,double discount) {
         this.proId = proId;
         this.qty = qty;
         this.price = price;
@@ -53,11 +53,11 @@ public class ReturnProductModel {
         this.amount = amount;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
     

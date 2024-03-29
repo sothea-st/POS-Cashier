@@ -5,8 +5,6 @@
 package CustomeUI;
 
 import Color.WindowColor;
-import Constant.JavaConnection;
-import Constant.JavaConstant;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -31,7 +29,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
           g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-          Color color = Color.GRAY;
+          Color color = Color.lightGray;
           if (isThumbRollover()) {
                color = WindowColor.darkGreen;
           }

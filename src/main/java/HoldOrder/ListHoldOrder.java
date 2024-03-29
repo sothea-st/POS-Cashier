@@ -140,22 +140,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
                                         obj.getProImageName(),
                                         obj.getProductStatus()
                                    );
-
-//                                   ProductModel product = new ProductModel(
-//                                        obj.getID(),
-//                                        obj.getCatID(),
-//                                        obj.getFlag(),
-//                                        obj.getWeight(),
-//                                        obj.getCost(),
-//                                        obj.getProImageName(),
-//                                        obj.getPrice(),
-//                                        obj.getBarcode(),
-//                                        obj.getProNameKh(),
-//                                        obj.getProNameEn(),
-//                                        obj.getProductStatus(),
-//                                        obj.getDiscount(),
-//                                        obj.getQty()
-//                                   );
                                    addItemToCart(product);
                               }
 
@@ -220,7 +204,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
-          discount = JavaConstant.get4Length("" + discount); // get 2 precision
+      
+//          discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
           int qtyData = listData.getQty();
           BoxItem box = new BoxItem();
@@ -233,6 +218,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           box.setLbQty(listData.getQty());
           Component[] listCom = detailItem.getComponents();
           if (listCom.length != 0) {
+
                for (int i = 0; i < listCom.length; i++) {
                     var obj = ((BoxItem) listCom[i]);
                     int proId = obj.getProductId();
@@ -267,9 +253,20 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
                double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
                box.setLabelAmountKh(kh.format(valueRoundDown));
+               
+               double _cal = discount * qtyData;
+               String _d = "" + _cal;
+               if (_d.length() <= 5) {
+                    box.setDiscountAmount("$ " + _d);
+                    box.setDiscountAmt("$ " + _d);
+               } else {
+                    box.setDiscountAmount(dm.format(_cal));
+                    box.setDiscountAmt(dm.format(_cal));
+               }
 
-               box.setDiscountAmount(dm.format(discount * qtyData));
-               box.setDiscountAmt(dm.format(discount));
+//               box.setDiscountAmount(dm.format(discount * qtyData));
+//               box.setDiscountAmt(dm.format(discount));
+
                box.setQty(qtyData);
 
           } else {
@@ -279,21 +276,30 @@ public class ListHoldOrder extends javax.swing.JDialog {
                double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
                box.setLabelAmountKh(kh.format(valueRoundDown));
 
-               box.setDiscountAmount(dm.format(discount));
-               box.setDiscountAmt(dm.format(discount));
+               String _d = "" + discount;
+               if (_d.length() <= 5) {
+                    box.setDiscountAmount("$ " + discount);
+                    box.setDiscountAmt("$ " + discount);
+               } else {
+                    box.setDiscountAmount(dm.format(discount));
+                    box.setDiscountAmt(dm.format(discount));
+               }
+
                box.setQty(1);
           }
 
           if (listData.getDiscountType() == null) {
                box.setDiscountDigit(0);
           } else if (listData.getDiscountType().equals("percent")) {
-               box.setDiscountDigit((int) listData.getDiscount());
+               box.setDiscountDigit(listData.getDiscount());
           } else if (listData.getDiscountType().equals("dollar")) {
-               double _dollar = listData.getQty()*listData.getDiscount();
+               double _dollar = listData.getQty() * listData.getDiscount();
                box.setDiscountAmount(dm.format(_dollar));
                box.setDiscountValue(listData.getDiscount());
           }
+
           box.setDiscountType(listData.getDiscountType());
+
           try {
                Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
                byte[] images = responseProductImage.body().bytes();
@@ -309,18 +315,12 @@ public class ListHoldOrder extends javax.swing.JDialog {
           detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
           detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
           detailItem.setBackground(WindowColor.white);
-          
 
-//          if (qtyData > 1) {
-//               subtotalPanel.total(price * qtyData, detailItem, discount * qtyData, subtotalPanel);
-//          } else {
-            
-               subtotalPanel.total(0, detailItem, 0, subtotalPanel);
-//          }
+          subtotalPanel.total(0, detailItem, 0, subtotalPanel);
 
           // add list has one box to BoxItem (note: must be add)
           Component[] listCom1 = detailItem.getComponents();
-       
+
           box.setDetailItem(detailItem);
           box.setSubtotalPanel(subtotalPanel);
           box.setListCom(listCom1);
