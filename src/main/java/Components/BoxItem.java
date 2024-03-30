@@ -176,11 +176,11 @@ public class BoxItem extends javax.swing.JPanel {
           this.detailItem = detailItem;
      }
 
-     public int getDiscountDigit() {
+     public double getDiscountDigit() {
           return discountDigit;
      }
 
-     public void setDiscountDigit(int discountDigit) {
+     public void setDiscountDigit(double discountDigit) {
           this.discountDigit = discountDigit;
           boxDiscount.setText("" + discountDigit);
      }
@@ -313,7 +313,7 @@ public class BoxItem extends javax.swing.JPanel {
      private SubtotalPanel subtotalPanel;
      private Component[] listCom;
      private JPanel detailItem;
-     private int discountDigit;
+     private double discountDigit;
      private String wasPrice;
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");

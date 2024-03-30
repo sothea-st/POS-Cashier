@@ -1246,7 +1246,7 @@ public class PaymentOption extends javax.swing.JDialog {
               var obj = ((BoxItem) listCom[i]);
               double price = JavaConstant.getReplace(obj.getLabelPrice());
 
-              int discountDigit = obj.getDiscountDigit();
+              double discountDigit = obj.getDiscountDigit();
               double unitPrice = price - (price * discountDigit) / 100;
               double p = JavaConstant.getReplace(df.format(unitPrice));
               String discountType = obj.getDiscountType();
@@ -1355,7 +1355,7 @@ public class PaymentOption extends javax.swing.JDialog {
                var obj = ((BoxItem) listCom[i]);
                double price = JavaConstant.getReplace(obj.getLabelPrice());
                double amount = JavaConstant.getReplace(obj.getLabelAmountUsd());
-               int discountDigit = obj.getDiscountDigit();
+               double discountDigit = obj.getDiscountDigit();
 
                ReturnProductModel pro = new ReturnProductModel(
                     obj.getProductId(),
