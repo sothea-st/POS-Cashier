@@ -65,7 +65,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-          // setExtendedState(JFrame.MAXIMIZED_BOTH);
+           setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);
@@ -213,6 +213,9 @@ public class MainPage extends javax.swing.JFrame {
           panelCart.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     panelCartMouseClicked(evt);
+               }
+               public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    panelCartMouseEntered(evt);
                }
           });
           panelCart.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -794,8 +797,8 @@ public class MainPage extends javax.swing.JFrame {
           if (JavaConstant.token != null) {
                try {
                     CashierReporting cashier = new CashierReporting(new JFrame(), true);
-//                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
+                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
 
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
@@ -854,6 +857,7 @@ public class MainPage extends javax.swing.JFrame {
 //                  dis.setVisible(true);
 //             }
 //        }
+
           if (JavaConstant.token != null) {
                if (JavaConstant.checkOpenShift) {
                     JavaActionDiscount.discount(detailItem, totalPanel);
@@ -890,6 +894,10 @@ public class MainPage extends javax.swing.JFrame {
      private void btnPaymentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseEntered
           // TODO add your handling code here:
      }//GEN-LAST:event_btnPaymentMouseEntered
+
+     private void panelCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseEntered
+          // TODO add your handling code here:
+     }//GEN-LAST:event_panelCartMouseEntered
 
      public JPanel getDetailProduct() {
           return detailProduct;

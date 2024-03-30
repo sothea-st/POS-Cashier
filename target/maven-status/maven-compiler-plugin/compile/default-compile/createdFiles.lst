@@ -3,6 +3,7 @@ Discount\ListProduct$2.class
 Payment\PaymentOption$1.class
 Model\Report\Data.class
 NewDiscounts\Discounting$1.class
+BlogCode\AppValidation.class
 Customer\JdailogCustomer$2.class
 SwitchButton\SwitchButton$1.class
 UpdateQty\UpdateQtyModel.class

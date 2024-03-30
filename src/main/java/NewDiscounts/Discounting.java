@@ -1,11 +1,13 @@
 package NewDiscounts;
 
+import BlogCode.AppValidation;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import SwitchButton.EventSwitchSelected;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -80,7 +82,7 @@ public class Discounting extends javax.swing.JDialog {
 
           discountValue += value;
 
-          if (type == "dollar") {            
+          if (type == "dollar") {
                inputDis.setValueTextFieldCenter(discountValue);
           } else {
 
@@ -95,27 +97,52 @@ public class Discounting extends javax.swing.JDialog {
                     }
                }
           }
+          
+          
+          AppValidation.checkValidation(discountValue, inputDis);
      }
-     
-     
+
      ////Addd Validation for each button
-     private void validation(String value){
+     private void validations(String value) {
           String discountValue = inputDis.getValueTextFieldCenter();
+          AppValidation.checkValidation(discountValue, inputDis);
+//          int l = discountValue.length();
+//          if (l == 1 && discountValue.equals(".")) {
+//               inputDis.setValueTextFieldCenter("0%");
+//          }
+//
+//          if (l == 1 && discountValue.equals("0")) {
+//               inputDis.setValueTextFieldCenter("0%");
+//          }
+//
+//          if (l > 2) {
+//               int count = 0;
+//               char[] arr = discountValue.toCharArray();
+//               String _value ="";
+//               for (int i = 0; i < arr.length; i++) {
+//                    if (arr[i]== '.') {
+//                         count++;
+//                    }
+//                    if (count == 2) {
+//                       break;
+//                    }
+//                    _value+=arr[i];
+//               }
+//               inputDis.setValueTextFieldCenter(_value);
+//          }
 
-          if(discountValue.charAt(0)=='.'){
-             inputDis.setValueTextFieldCenter(discountValue.substring(1));
-          }else if(discountValue.charAt(0) == '0'){
-              if(discountValue.charAt(1) == '0'){
-                  inputDis.setValueTextFieldCenter( discountValue.substring(1));
-              }else if(discountValue.charAt(1) == '.'){
-                  inputDis.setValueTextFieldCenter( discountValue);
-              }else{
-                  inputDis.setValueTextFieldCenter( discountValue.replace("0", ""));
-              }
-          }
-
+//          if(discountValue.charAt(0)=='.'){
+//             inputDis.setValueTextFieldCenter(discountValue.substring(1));
+//          }else if(discountValue.charAt(0) == '0'){
+//              if(discountValue.charAt(1) == '0'){
+//                  inputDis.setValueTextFieldCenter( discountValue.substring(1));
+//              }else if(discountValue.charAt(1) == '.'){
+//                  inputDis.setValueTextFieldCenter( discountValue);
+//              }else{
+//                  inputDis.setValueTextFieldCenter( discountValue.replace("0", ""));
+//              }
+//          }
      }
-     
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -455,78 +482,78 @@ public class Discounting extends javax.swing.JDialog {
          String lbOne = one.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbOne);
-         validation(lbOne);
+//         validation(lbOne);
     }//GEN-LAST:event_oneMouseClicked
 
     private void twoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseClicked
          String lbTwo = two.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbTwo);
-         validation(lbTwo);
+//         validation(lbTwo);
     }//GEN-LAST:event_twoMouseClicked
 
     private void threeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseClicked
          String lbThree = three.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbThree);
-         validation(lbThree);
-         
+      //    validation(lbThree);
+
     }//GEN-LAST:event_threeMouseClicked
 
     private void fourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseClicked
          String lbFour = four.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbFour);
-         validation(lbFour);
+     //     validation(lbFour);
     }//GEN-LAST:event_fourMouseClicked
 
     private void fiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseClicked
          String lbFive = five.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbFive);
-         validation(lbFive);
+     //     validation(lbFive);
     }//GEN-LAST:event_fiveMouseClicked
 
     private void sixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseClicked
          String lbSix = six.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbSix);
-         validation(lbSix);
+      //    validation(lbSix);
     }//GEN-LAST:event_sixMouseClicked
 
     private void sevenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseClicked
          String lbSeven = seven.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbSeven);
-         validation(lbSeven);
+      //    validation(lbSeven);
     }//GEN-LAST:event_sevenMouseClicked
 
     private void eightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseClicked
          String lbEight = eight.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbEight);
-         validation(lbEight);
+       //   validation(lbEight);
     }//GEN-LAST:event_eightMouseClicked
 
     private void nineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseClicked
          String lbNine = nine.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbNine);
-         validation(lbNine);
+      //    validation(lbNine);
     }//GEN-LAST:event_nineMouseClicked
 
     private void zeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseClicked
          String lbZero = zero.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbZero);
-         validation(lbZero);
+      //    validation(lbZero);
     }//GEN-LAST:event_zeroMouseClicked
 
     private void dotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseClicked
          String lbDot = dot.getLabelDiscount();
          percentType = "noPercent";
          inputDiscount(lbDot);
-         validation(lbDot);
+      //    validation(lbDot);
     }//GEN-LAST:event_dotMouseClicked
 
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
@@ -572,7 +599,6 @@ public class Discounting extends javax.swing.JDialog {
                         box.setDiscountAmount(dm.format(_dollar));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
- 
 
                         //===================Remove border and prevent in button discount after input discount value=============
                         JavaConstant.discountAmount = 1;
@@ -581,7 +607,7 @@ public class Discounting extends javax.swing.JDialog {
                    }
 
                    if (JavaConstant.productId == 0) {
- 
+
                         box.setDiscountAmount(dm.format(_dollar));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);

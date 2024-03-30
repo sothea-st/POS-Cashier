@@ -408,10 +408,12 @@ public class BoxItem extends javax.swing.JPanel {
                     txtDiscount.setText("Discount : " + dm.format(_discoutnAmt));
                     setDiscountAmount(dm.format(_discoutnAmt)); // subtotal discount will be count
 
-                    if (discountType.equals("dollar")) {
-                         double _discoutnAmt2 = discountValue * getQty;
-                         txtDiscount.setText("Discount : " + dm.format(_discoutnAmt2));
-                         setDiscountAmount(dm.format(_discoutnAmt2)); // subtotal discount will be count
+                    if (discountType != null) {
+                         if (discountType.equals("dollar")) {
+                              double _discoutnAmt2 = discountValue * getQty;
+                              txtDiscount.setText("Discount : " + dm.format(_discoutnAmt2));
+                              setDiscountAmount(dm.format(_discoutnAmt2)); // subtotal discount will be count
+                         }
                     }
                }
 

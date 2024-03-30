@@ -487,7 +487,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                json.put("listHoldDetail", lstModel);
 
                Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
-
+              
                try {
                     if (response.isSuccessful()) {
                          dispose();

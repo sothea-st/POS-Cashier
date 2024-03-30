@@ -217,9 +217,7 @@ public class CancelDialog extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
          if (code.equals("cancel")) {
-
               JSONObject jsonData = new JSONObject();
-
               ArrayList<ProductIDModel> listCancelDetail = new ArrayList<>();
               for (int i = 0; i < listCom.length; i++) {
                    var obj = ((BoxItem) listCom[i]);
@@ -241,6 +239,7 @@ public class CancelDialog extends javax.swing.JDialog {
                    }
 
                    Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "cancel", jsonData);
+                    
                    if (response.isSuccessful()) {
 
                         updateCancelQty();
@@ -283,7 +282,6 @@ public class CancelDialog extends javax.swing.JDialog {
           Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
           try {
                String dataString  = _responseData.body().string();
-               System.err.println("data === " + dataString);
           } catch (Exception e) {
           }
 
@@ -310,7 +308,7 @@ public class CancelDialog extends javax.swing.JDialog {
                     JavaConstant.holdId = 0;
                }
           }
-          System.err.println("javaconstatn = " + JavaConstant.holdId);
+  
      }
 
      public void setCountCircleShape(countCircleShape countCircleShape) {
@@ -329,7 +327,7 @@ public class CancelDialog extends javax.swing.JDialog {
           }
 
           Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
-
+ 
           try {
                if (response.isSuccessful()) {
                     dispose();
