@@ -161,6 +161,12 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tenPercentsMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tenPercentsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tenPercentsMouseExited(evt);
+            }
         });
 
         twentyPercent.setBackground(new java.awt.Color(153, 204, 255));
@@ -168,6 +174,12 @@ public class Discounting extends javax.swing.JDialog {
         twentyPercent.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 twentyPercentMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                twentyPercentMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                twentyPercentMouseExited(evt);
             }
         });
 
@@ -177,6 +189,12 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 thirtyPercentMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                thirtyPercentMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                thirtyPercentMouseExited(evt);
+            }
         });
 
         fiftyPercent.setBackground(new java.awt.Color(153, 204, 255));
@@ -185,12 +203,24 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fiftyPercentMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fiftyPercentMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fiftyPercentMouseExited(evt);
+            }
         });
 
         one.setLabelDiscount("1");
         one.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 oneMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                oneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                oneMouseExited(evt);
             }
         });
 
@@ -199,12 +229,24 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 twoMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                twoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                twoMouseExited(evt);
+            }
         });
 
         three.setLabelDiscount("3");
         three.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 threeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                threeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                threeMouseExited(evt);
             }
         });
 
@@ -213,12 +255,24 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 delMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                delMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                delMouseExited(evt);
+            }
         });
 
         four.setLabelDiscount("4");
         four.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fourMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fourMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fourMouseExited(evt);
             }
         });
 
@@ -227,12 +281,24 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 fiveMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                fiveMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                fiveMouseExited(evt);
+            }
         });
 
         six.setLabelDiscount("6");
         six.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sixMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sixMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sixMouseExited(evt);
             }
         });
 
@@ -241,12 +307,24 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dotMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dotMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                dotMouseExited(evt);
+            }
         });
 
         seven.setLabelDiscount("7");
         seven.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sevenMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sevenMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sevenMouseExited(evt);
             }
         });
 
@@ -255,6 +333,12 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 eightMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eightMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eightMouseExited(evt);
+            }
         });
 
         nine.setLabelDiscount("9");
@@ -262,12 +346,24 @@ public class Discounting extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nineMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                nineMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                nineMouseExited(evt);
+            }
         });
 
         zero.setLabelDiscount("0");
         zero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 zeroMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                zeroMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                zeroMouseExited(evt);
             }
         });
 
@@ -633,6 +729,138 @@ public class Discounting extends javax.swing.JDialog {
 
     }//GEN-LAST:event_inputDisKeyTyped
 
+    //======================================== HOVER =================================
+    
+    private void oneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseEntered
+        one.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_oneMouseEntered
+
+    private void oneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseExited
+        one.setBackground(WindowColor.white);
+    }//GEN-LAST:event_oneMouseExited
+
+    private void twoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseEntered
+        two.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_twoMouseEntered
+
+    private void twoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseExited
+        two.setBackground(WindowColor.white);
+    }//GEN-LAST:event_twoMouseExited
+
+    private void threeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseEntered
+        three.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_threeMouseEntered
+
+    private void threeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseExited
+        three.setBackground(WindowColor.white);
+    }//GEN-LAST:event_threeMouseExited
+
+    private void delMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseEntered
+        del.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_delMouseEntered
+
+    private void delMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseExited
+        del.setBackground(WindowColor.white);
+    }//GEN-LAST:event_delMouseExited
+
+    private void fiveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseEntered
+        five.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_fiveMouseEntered
+
+    private void fiveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseExited
+        five.setBackground(WindowColor.white);
+    }//GEN-LAST:event_fiveMouseExited
+
+    private void sixMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseEntered
+        six.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_sixMouseEntered
+
+    private void sixMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseExited
+        six.setBackground(WindowColor.white);
+    }//GEN-LAST:event_sixMouseExited
+
+    private void dotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseEntered
+        dot.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_dotMouseEntered
+
+    private void dotMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseExited
+        dot.setBackground(WindowColor.white);
+    }//GEN-LAST:event_dotMouseExited
+
+    private void sevenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseEntered
+        seven.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_sevenMouseEntered
+
+    private void sevenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseExited
+        seven.setBackground(WindowColor.white);
+    }//GEN-LAST:event_sevenMouseExited
+
+    private void fourMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseEntered
+        four.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_fourMouseEntered
+
+    private void fourMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseExited
+        four.setBackground(WindowColor.white);
+    }//GEN-LAST:event_fourMouseExited
+
+    private void eightMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseEntered
+        eight.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_eightMouseEntered
+
+    private void eightMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseExited
+        eight.setBackground(WindowColor.white);
+    }//GEN-LAST:event_eightMouseExited
+
+    private void nineMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseEntered
+        nine.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_nineMouseEntered
+
+    private void nineMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseExited
+        nine.setBackground(WindowColor.white);
+    }//GEN-LAST:event_nineMouseExited
+
+    private void zeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseEntered
+        zero.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_zeroMouseEntered
+
+    private void zeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseExited
+        zero.setBackground(WindowColor.white);
+    }//GEN-LAST:event_zeroMouseExited
+
+    private void tenPercentsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenPercentsMouseEntered
+        tenPercents.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_tenPercentsMouseEntered
+
+    private void tenPercentsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenPercentsMouseExited
+        tenPercents.setBackground(WindowColor.slightBlue);
+    }//GEN-LAST:event_tenPercentsMouseExited
+
+    private void twentyPercentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twentyPercentMouseEntered
+        twentyPercent.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_twentyPercentMouseEntered
+
+    private void twentyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twentyPercentMouseExited
+        twentyPercent.setBackground(WindowColor.slightBlue);
+    }//GEN-LAST:event_twentyPercentMouseExited
+
+    private void thirtyPercentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirtyPercentMouseEntered
+        thirtyPercent.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_thirtyPercentMouseEntered
+
+    private void thirtyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirtyPercentMouseExited
+        thirtyPercent.setBackground(WindowColor.slightBlue);
+    }//GEN-LAST:event_thirtyPercentMouseExited
+
+    private void fiftyPercentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseEntered
+        fiftyPercent.setBackground(WindowColor.lightGray);
+    }//GEN-LAST:event_fiftyPercentMouseEntered
+
+    private void fiftyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseExited
+        fiftyPercent.setBackground(WindowColor.slightBlue);
+    }//GEN-LAST:event_fiftyPercentMouseExited
+    
+    //========================================================================
+    
      public JPanel getDetailItem() {
           return detailItem;
      }
