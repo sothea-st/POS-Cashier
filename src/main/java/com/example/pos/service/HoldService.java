@@ -67,15 +67,24 @@ public class HoldService {
      }
 
      public void deleteHold(Hold h) {
+      
           for (int i = 0; i < h.getListHoldDetail().size(); i++) {
                int id = h.getListHoldDetail().get(i).getId();
-               Optional<Hold> data = repo.findById(id);
+               // repo.deleteById(id);
+               Optional<Hold> data = repo.getDataById(id);
                Hold d = data.get();
                d.setStatus(false);
                d.setDeleted(true);
                d.setReasonId(h.getReasonId());
                repo.save(d);
           }
+      
+     }
+
+     public void deleteHoldById(int holdId) {
+      
+          repo.deleteById(holdId);
+      
      }
 
      public void deleteHoldByItem(int holdId, int proId){

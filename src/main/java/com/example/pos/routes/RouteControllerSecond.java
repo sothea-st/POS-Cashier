@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.example.pos.authentication.repositories.UserRepository;
+
 import com.example.pos.components.JavaResponse;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.constant.JavaMessage;
@@ -40,6 +40,7 @@ import com.example.pos.projections.TaxProductProjection.TaxProductProjection;
 import com.example.pos.projections.customerProjection.CustomerProjection;
 import com.example.pos.projections.defaultPriceProjection.DefaultPriceProjection;
 import com.example.pos.repository.HoldRepository;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.repository.peopleRepository.CustomerRepository;
 import com.example.pos.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.service.HoldService;
@@ -392,6 +393,12 @@ public class RouteControllerSecond {
           @DeleteMapping
           public ResponseEntity<?> deleteHold(@RequestBody Hold h) {
                service.deleteHold(h);
+               return JavaResponse.success("delete success");
+          }
+
+          @DeleteMapping("/deleteByHoldId")
+          public ResponseEntity<?> deleteByHoldId(@RequestParam("holdId") int holdId) {
+               service.deleteHoldById(holdId);
                return JavaResponse.success("delete success");
           }
 

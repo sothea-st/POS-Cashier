@@ -5,11 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.*;
 @Entity
-@Table(name = "pos_hold_details")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HoldeDetails {
+public class HoldData {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int id;
@@ -28,11 +27,4 @@ public class HoldeDetails {
 
      @Column(name = "qty_hold", length = 50)
      private int qtyHold;
-
-     @Column(name = "status")
-     private boolean status = true;
- 
-     @Column(name = "is_deleted")
-     private boolean isDeleted = false;
-
 }

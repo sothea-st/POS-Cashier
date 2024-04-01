@@ -1,11 +1,11 @@
-package com.example.pos.authentication.repositories;
+package com.example.pos.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.pos.authentication.entity.Device;
+import com.example.pos.entity.Device;
 
 @Repository
 public interface DeviceRepository extends JpaRepository<Device,Integer> {

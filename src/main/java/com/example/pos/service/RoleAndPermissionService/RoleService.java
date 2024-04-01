@@ -3,11 +3,11 @@ package com.example.pos.service.RoleAndPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.UserRepository;
+import com.example.pos.entity.User;
 import com.example.pos.entity.role.Role;
 import com.example.pos.entity.role.roleProjection.RoleProjection;
 import com.example.pos.entity.sourceData.AssignRole;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.util.exception.customeException.JavaNotFoundByIdGiven;
 

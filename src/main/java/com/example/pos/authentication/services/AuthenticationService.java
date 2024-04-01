@@ -2,9 +2,9 @@ package com.example.pos.authentication.services;
 
 import com.example.pos.authentication.dtos.LoginUserDto;
 import com.example.pos.authentication.dtos.RegisterUserDto;
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.constant.JavaValidation;
+import com.example.pos.entity.User;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.util.exception.customeException.FieldIsRequiredException;
 
 import org.springframework.http.HttpStatus;

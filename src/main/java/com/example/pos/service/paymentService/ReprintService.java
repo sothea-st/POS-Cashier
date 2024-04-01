@@ -2,13 +2,14 @@ package com.example.pos.service.paymentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.pos.authentication.repositories.UserRepository;
+
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.entity.Company;
 import com.example.pos.entity.payment.Payment;
 import com.example.pos.entity.projection.PaymentProjection;
 import com.example.pos.entity.projection.SaleDetailProjection;
 import com.example.pos.repository.SaleDetailsRepository;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.repository.companyRepository.CompanyRepository;
 import com.example.pos.repository.paymentRepository.PaymentRepository;
 import java.util.*;

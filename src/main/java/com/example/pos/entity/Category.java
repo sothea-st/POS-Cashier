@@ -24,11 +24,11 @@ public class Category  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false,unique = true,name = "cat_name_kh")
     @NotBlank(message =JavaMessage.required)
     private String catNameKh;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false,unique = true,name = "cat_name_en")
     @NotBlank(message = JavaMessage.required)
     private String catNameEn;
 

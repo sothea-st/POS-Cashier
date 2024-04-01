@@ -35,10 +35,15 @@ public class Customer {
 
     @NotBlank(message = JavaMessage.required)
     @NotNull(message = JavaMessage.required)
+    @Column(name = "cus_name")
     private String cusName;
+    @Column(name = "contact")
     private String contact;
+    @Column(name = "customer_id")
     private String customerId;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "nationality")
     private String nationality;
 
     @Column(name = "total_amount_earned")

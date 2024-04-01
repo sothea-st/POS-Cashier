@@ -1,10 +1,10 @@
-package com.example.pos.authentication.repositories;
+package com.example.pos.repository;
 
-//import com.example.demo.security.entity.User;
-import com.example.pos.authentication.entity.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import com.example.pos.entity.User;
 
 import java.util.Optional;
 import java.util.List;

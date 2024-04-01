@@ -20,14 +20,14 @@ public class Hold {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<HoldeDetails> listHoldDetail;
-
     @Column(name = "note", length = 50)
     private String note;
 
     @Column(name = "qty_hold", length = 50)
     private int qtyHole;
+    
+    @OneToMany
+    private List<HoldData> listHoldDetail;
 
     @Column(name = "reason_id", length = 50)
     private Integer reasonId;

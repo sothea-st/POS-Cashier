@@ -63,12 +63,14 @@ public class Sale {
     @Column(name = "discount_case",length = 50)
     private String discountCase;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany 
     private List<SaleDetail> dataSale;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne 
+    @JoinColumn(name = "data_pay_id")
     private Payment dataPay;
 
+ 
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
 

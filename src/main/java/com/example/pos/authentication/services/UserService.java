@@ -1,8 +1,9 @@
 package com.example.pos.authentication.services;
 
 
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.UserRepository;
+import com.example.pos.entity.User;
+import com.example.pos.repository.UserRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.components.JavaResponse;
+import com.example.pos.entity.User;
+import com.example.pos.repository.UserRepository;
 
 import java.util.*;
 @RestController

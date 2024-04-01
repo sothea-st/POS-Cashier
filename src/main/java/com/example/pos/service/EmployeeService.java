@@ -1,14 +1,15 @@
 package com.example.pos.service;
 
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.components.JavaStorage;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.constant.JavaValidation;
 import com.example.pos.entity.Employee;
 import com.example.pos.entity.FileStore;
+import com.example.pos.entity.User;
 import com.example.pos.repository.EmployeeRepository;
 import com.example.pos.repository.FileStoreRepository;
+import com.example.pos.repository.UserRepository;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -15,6 +15,10 @@ import java.util.*;
 
 @Repository
 public interface HoldRepository extends JpaRepository<Hold, Integer> {
+
+        @Query(nativeQuery = true , value = "select * from pos_hold where status = true and is_deleted = false and id = ?")
+        Optional<Hold> getDataById(int id);
+
      @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n" + //
                     "\t                        pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,ph.discount_type, \r\n" + //
                     "\t                        pc.product_status ,ph.discount ,pc.code_out_stock ,pc.code_expired,ph.qty_hold as qty  \r\n" + //
