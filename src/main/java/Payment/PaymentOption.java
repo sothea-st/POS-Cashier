@@ -43,7 +43,7 @@ public class PaymentOption extends javax.swing.JDialog {
      private String totalUsd;
      DecimalFormat dm = new DecimalFormat("#,##0");
      DecimalFormat df = new DecimalFormat("$ #,##0.00");
-     private String sign="khr";
+     private String sign = "khr";
      private Component[] listCom;
      private SubtotalPanel subtotalPanel;
      private String cusTypeId;
@@ -92,7 +92,6 @@ public class PaymentOption extends javax.swing.JDialog {
           radioButtonMale.setSelected(true);
           getCusomerId();
           txtReceiveKhr.requestFocus();
- 
 
      }
 
@@ -224,6 +223,7 @@ public class PaymentOption extends javax.swing.JDialog {
      }
 
      private void inputAmount(String value) {
+
           String receviUsd = txtReceiveUsd.getText();
           String receviKhr = txtReceiveKhr.getText();
 
@@ -265,6 +265,12 @@ public class PaymentOption extends javax.swing.JDialog {
                double doubleTotalUsd = Double.valueOf(strTotalUsd);
 
                if (!receviUsd.isEmpty()) {
+
+                    boolean isCheck = AppValidation.checkValidation(txtReceiveUsd);
+                    if (isCheck) {
+                         return;
+                    }
+
                     String stringReceiveUsd = receviUsd.replace(",", "");
                     double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
                     double result = doubleReceviceUsd - doubleTotalUsd;
@@ -288,6 +294,12 @@ public class PaymentOption extends javax.swing.JDialog {
                double doubleTotalKhr = Double.valueOf(strTotalKhr);
 
                if (!receviKhr.isEmpty()) {
+
+                    boolean isCheck = AppValidation.checkValidation(txtReceiveUsd);
+                    if (isCheck) {
+                         return;
+                    }
+
                     String stringReceiveKhr = receviKhr.replace(",", "");
                     double doubleReceviceKhr = Double.valueOf(stringReceiveKhr);
 
@@ -296,7 +308,6 @@ public class PaymentOption extends javax.swing.JDialog {
                          setValueLabelKhr(result, 0);
                     } else if (result > 0) {
                          setValueLabelKhr(0, result);
-
                     } else if (result == 0) {
                          setValueLabelKhr(0, 0);
                     }
@@ -1082,7 +1093,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void lbOneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseClicked
          String number = lbOne.getLabelName();
-         System.err.println("data one = " + sign);
+
          inputAmount(number);
     }//GEN-LAST:event_lbOneMouseClicked
 
@@ -1172,6 +1183,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void txtReceiveUsdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyReleased
 
+     
          String khr = txtReceiveKhr.getText();
          String usd = txtReceiveUsd.getText();
 
@@ -1386,7 +1398,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
                    subtotalPanel.setLabelSubTitleToZero();
                    btnPayment.setBackground(WindowColor.lightGray);
-                   
+
                    JavaConstant.productId = 0;
 
                    // remove hole order
@@ -1438,7 +1450,6 @@ public class PaymentOption extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
 
-     
      void returnProduct() throws IOException {
           double totalReturn = 0;
           if (!txtReceiveUsd.getText().isEmpty()) {
@@ -1487,7 +1498,7 @@ public class PaymentOption extends javax.swing.JDialog {
                btnPayment.setBackground(WindowColor.lightGray);
                btnCancel.setBackground(WindowColor.lightGray);
                buttonHoldOrder.setBackground(WindowColor.lightGray);
-               
+
                PrinterReturn print = new PrinterReturn(new JFrame(), true);
                ObjectMapper objMap = new ObjectMapper();
                DataSuccessModel d = objMap.readValue(_data, DataSuccessModel.class);
@@ -1496,11 +1507,10 @@ public class PaymentOption extends javax.swing.JDialog {
                print.repaint();
 //               print.printReceipt();
                print.setVisible(true);
-               
+
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
 //               ReturnDialog r = new ReturnDialog(new JFrame(), true);
 //               r.setResetReturn();
-
                JavaConstant.isReturn = null;
 
           } else {
