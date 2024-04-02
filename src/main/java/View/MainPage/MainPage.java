@@ -65,7 +65,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-           setExtendedState(JFrame.MAXIMIZED_BOTH);
+//           setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);
@@ -88,8 +88,8 @@ public class MainPage extends javax.swing.JFrame {
 
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
-         
-     }
+          
+     }    
 
      void getImage() {
           // get image from api
