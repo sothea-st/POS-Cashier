@@ -14,11 +14,14 @@ public class FileStore {
     @Id
     private String id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "type")
     private String type;
 
     @Lob
+    @Column(name = "byte_data")
     private byte[] byteData;
 
     public FileStore() {

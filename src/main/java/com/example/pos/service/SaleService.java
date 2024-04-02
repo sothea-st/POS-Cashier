@@ -1,6 +1,5 @@
 package com.example.pos.service;
 
-import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.entity.Company;
@@ -17,6 +16,7 @@ import com.example.pos.repository.FileStoreRepository;
 import com.example.pos.repository.ImportDetailRepository;
 import com.example.pos.repository.SaleDetailsRepository;
 import com.example.pos.repository.SaleRepository;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.repository.companyRepository.CompanyRepository;
 import com.example.pos.repository.paymentRepository.PaymentRepository;
 import com.example.pos.repository.peopleRepository.CustomerRepository;
@@ -91,6 +91,7 @@ public class SaleService {
         sale.setTotal(s.getTotal());
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
+        // sale.setDataPay(new Payment(userId, posId, posId, userId, null, null, null, posId, null, null, posId, userId, userId, posId, posId, posId, userId, null, false, false));
         sale.setCreateBy(userId);
 
         Customer cus = s.getCustomer();

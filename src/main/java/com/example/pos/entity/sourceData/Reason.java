@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.example.pos.constant.JavaMessage;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,17 +30,23 @@ public class Reason {
 
      @NotBlank(message = JavaMessage.required)
      @NotNull(message = JavaMessage.required)
+     @Column(name = "reason")
      private String reason;
 
+     @Column(name = "code")
      private String code;
 
+     @Column(name = "create_by")
      private int createBy;
 
      @CreationTimestamp
+     @Column(name = "create_date")
      private Date createDate;
 
+     @Column(name = "status")
      private boolean status=true;
 
+     @Column(name = "is_deleted")
      private boolean isDeleted=false;
      
 }

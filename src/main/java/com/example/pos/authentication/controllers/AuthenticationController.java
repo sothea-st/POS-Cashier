@@ -2,18 +2,18 @@ package com.example.pos.authentication.controllers;
 
 import com.example.pos.authentication.dtos.LoginUserDto;
 import com.example.pos.authentication.dtos.RegisterUserDto;
-import com.example.pos.authentication.entity.Device;
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.DeviceRepository;
-import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.authentication.responses.LoginResponse;
 import com.example.pos.authentication.services.AuthenticationService;
 import com.example.pos.authentication.services.JwtService;
 import com.example.pos.components.JavaResponse;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.constant.JavaValidation;
+import com.example.pos.entity.Device;
 import com.example.pos.entity.OpenShift;
+import com.example.pos.entity.User;
+import com.example.pos.repository.DeviceRepository;
 import com.example.pos.repository.EmployeeRepository;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.repository.shiftRepository.OpenShiftRepository;
 
@@ -128,7 +128,6 @@ public class AuthenticationController {
         } else {
             posId = "" + countPosId;
         }
-
         // user name
         String userName = null;
         if (authenticatedUser.getEmpId() != null) {

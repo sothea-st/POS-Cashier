@@ -30,6 +30,7 @@ public class CancelItemService {
           String time = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss a").format(Calendar.getInstance().getTime());
           String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
           // String code = c.getListCancelDetail().size() == 1 ?  "delete" : "cancel";
+        
           CancelItem data = new CancelItem();
           data.setCode(type);
           data.setReasonId(c.getReasonId());
@@ -39,6 +40,7 @@ public class CancelItemService {
           repo.save(data);
           for( int i = 0 ; i < c.getListCancelDetail().size() ; i++ ) {
                CancelItemDetail d= new CancelItemDetail();
+              
                d.setProId(c.getListCancelDetail().get(i).getProId());
                d.setCancelId(data.getId());
                repoDetails.save(d);

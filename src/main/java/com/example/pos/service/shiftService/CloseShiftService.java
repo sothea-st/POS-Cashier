@@ -3,8 +3,6 @@ package com.example.pos.service.shiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.pos.authentication.entity.User;
-import com.example.pos.authentication.repositories.UserRepository;
 import com.example.pos.constant.JavaConstant;
 import com.example.pos.entity.CloseShift;
 import com.example.pos.entity.Company;
@@ -12,12 +10,14 @@ import com.example.pos.entity.Employee;
 import com.example.pos.entity.OpenShift;
 import com.example.pos.entity.Sale;
 import com.example.pos.entity.SaleDetail;
+import com.example.pos.entity.User;
 import com.example.pos.entity.models.SummeryCashierReport;
 import com.example.pos.entity.projection.CashierReportProjection;
 
 import com.example.pos.repository.EmployeeRepository;
 import com.example.pos.repository.SaleDetailsRepository;
 import com.example.pos.repository.SaleRepository;
+import com.example.pos.repository.UserRepository;
 import com.example.pos.repository.companyRepository.CompanyRepository;
 import com.example.pos.repository.paymentRepository.PaymentRepository;
 import com.example.pos.repository.shiftRepository.CloseShiftRepository;

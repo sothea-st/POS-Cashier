@@ -2,6 +2,7 @@ package com.example.pos.repository;
 
 import com.example.pos.entity.Product;
 import com.example.pos.entity.models.ProductModel;
+import com.example.pos.projections.HeadProductProjection;
 import com.example.pos.repository.productProjection.ProductProjection;
 import com.example.pos.repository.productProjection.ProductQty;
 
@@ -12,6 +13,9 @@ import java.util.*;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+        @Query(nativeQuery = true, value = "select id,pro_name_en from product_header")
+        List<HeadProductProjection> getHead();
 
         boolean existsByProNameKh(String name);
 

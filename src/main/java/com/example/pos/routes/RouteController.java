@@ -115,11 +115,15 @@ public class RouteController {
           @Autowired
           private ProductRepository repo;
 
+          @GetMapping(value = "/getHead")
+          public ResponseEntity<?> geth(){
+               return ResponseEntity.ok().body(repo.getHead());
+          }
+
           @PostMapping
           public ResponseEntity<?> addProduct(@Valid @ModelAttribute Product product,
                     @RequestParam(value = "flagFile", required = false) MultipartFile flagFile,
                     @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-
                Product data = service.addProduct(product, file, flagFile);
                return JavaResponse.success(data);
           }

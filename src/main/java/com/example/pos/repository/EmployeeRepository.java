@@ -15,4 +15,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     @Query(nativeQuery = true,value = "select * from pos_employee where status = true and is_deleted =  false and id =?")
     Employee getEmployeeById(int id);
+
+    // @Query(nativeQuery = true , value = "select ")
+    // String getEmpName(int id);
 }

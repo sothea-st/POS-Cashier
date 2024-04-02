@@ -26,6 +26,8 @@ public class CancelItemDetail {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int id;
+     @Column(name = "cancel_id")
      private int cancelId;
+     @Column(name = "pro_id")
      private int proId;
 }

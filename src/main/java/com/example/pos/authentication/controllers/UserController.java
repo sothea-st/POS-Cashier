@@ -2,8 +2,9 @@ package com.example.pos.authentication.controllers;
 
 
 
-import com.example.pos.authentication.entity.User;
 import com.example.pos.authentication.services.UserService;
+import com.example.pos.entity.User;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,4 +1,4 @@
-package com.example.pos.authentication.entity;
+package com.example.pos.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -54,6 +54,7 @@ public class User implements UserDetails {
     //     return posId;
     // }
 
+    @Column(name = "emp_id")
     private Integer empId;
 
     public Integer getEmpId() {
@@ -72,7 +73,7 @@ public class User implements UserDetails {
     //     this.expiredToken = expired;
     // }
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "full_name")
     private String fullName;
 
     // public String getToken() {
@@ -83,7 +84,7 @@ public class User implements UserDetails {
     //     this.token = token;
     // }
 
-    @Column(unique = true, length = 100, nullable = false)
+    @Column(unique = true, length = 100, nullable = false,name = "user_code")
 //    @Email(message = JavaMessage.invalidEmail)
     @NotBlank(message = JavaMessage.required)
     private String userCode;
