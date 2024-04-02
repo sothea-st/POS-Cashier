@@ -112,4 +112,36 @@ public class AppValidation {
           }
           return false;
      }
+     
+     
+     public static String checkValidationJTextField(String discountValue, JTextField text) {
+         
+         System.out.println("Helllooooooooooooooooooo");
+         
+          int l = discountValue.length();
+          if (l == 1 && discountValue.equals(".")) {
+               text.setText(null);
+          }
+
+          if (l == 1 && discountValue.equals("0")) {
+               text.setText(null);
+          }
+          String _value = "";
+          if (l > 2) {
+               int count = 0;
+               char[] arr = discountValue.toCharArray();
+
+               for (int i = 0; i < arr.length; i++) {
+                    if (arr[i] == '.') {
+                         count++;
+                    }
+                    if (count == 2) {
+                         break;
+                    }
+                    _value += arr[i];
+               }
+               text.setText(_value);
+          }
+          return  _value;
+     }
 }
