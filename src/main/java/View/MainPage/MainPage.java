@@ -47,17 +47,19 @@ public class MainPage extends javax.swing.JFrame {
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
 
      public static boolean isFullScreen = false;
+     BackgroundImage bgimg = new BackgroundImage();
 
      public MainPage() {
           initComponents();
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          BackgroundImage bgimg = new BackgroundImage();
+          
           panelProduct.removeAll();
           panelProduct.add(bgimg);
           panelProduct.revalidate();
           panelProduct.repaint();
+          
           jScrollPaneCategory.setVisible(false);
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();
@@ -65,7 +67,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-//           setExtendedState(JFrame.MAXIMIZED_BOTH);
+          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);
@@ -78,7 +80,7 @@ public class MainPage extends javax.swing.JFrame {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
 
-             // custome scrollbar ui
+          // custome scrollbar ui
           jScrollPaneDetail.getVerticalScrollBar().setUI(new CustomScrollBarUI());
           jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
           // custom scroll speed jscrollPane for vertical
@@ -88,8 +90,8 @@ public class MainPage extends javax.swing.JFrame {
 
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
-          
-     }    
+
+     }
 
      void getImage() {
           // get image from api
@@ -510,7 +512,7 @@ public class MainPage extends javax.swing.JFrame {
                               .addComponent(lbPOSId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                               .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 47, Short.MAX_VALUE)))
+                              .addGap(0, 0, Short.MAX_VALUE)))
                     .addGap(38, 38, 38))
                .addGroup(mainPanelLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
@@ -519,7 +521,7 @@ public class MainPage extends javax.swing.JFrame {
                               .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addGap(21, 21, 21))
                          .addGroup(mainPanelLayout.createSequentialGroup()
-                              .addComponent(jScrollPane2)
+                              .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -555,13 +557,13 @@ public class MainPage extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(mainPanelLayout.createSequentialGroup()
-                              .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                              .addComponent(jScrollPaneDetail)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(panelprocessing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(mainPanelLayout.createSequentialGroup()
                               .addComponent(panelPagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(jScrollPane2))))
+                              .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE))))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -663,6 +665,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setButtonDiscount(buttonDiscount);
                              jdOpenShift.setButtonCustomer(buttonCustomer);
                              jdOpenShift.setButtonHoldOrder(buttonHoldOrder);
+                             jdOpenShift.setLoginFormJdailog(jdFormLogin);
                              jdOpenShift.setBtnCancel(btnCancel);
                              jdOpenShift.setDataSuccess(d);
                         }
@@ -680,7 +683,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder,bgimg
                    );
               }
          }
@@ -797,7 +800,7 @@ public class MainPage extends javax.swing.JFrame {
           if (JavaConstant.token != null) {
                try {
                     CashierReporting cashier = new CashierReporting(new JFrame(), true);
-                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+                    Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
 //                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
 
                     if (response.isSuccessful()) {
@@ -857,7 +860,6 @@ public class MainPage extends javax.swing.JFrame {
 //                  dis.setVisible(true);
 //             }
 //        }
-
           if (JavaConstant.token != null) {
                if (JavaConstant.checkOpenShift) {
                     JavaActionDiscount.discount(detailItem, totalPanel);

@@ -55,6 +55,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button buttonCustomer;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
+     
+     private LoginFormJdailog loginFormJdailog;
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -339,11 +341,9 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     textField.disabledTextField(true);
                     textField.setFocus();
 
-//                    if (MainPage.isFullScreen) {
-//                         System.err.println("jldjflsdjfjdsfj");
-//                         LoginFormJdailog j = new LoginFormJdailog(new JFrame(), true);
-//                         j.callDataInFullScreen();
-//                    }
+                    if (MainPage.isFullScreen) {
+                         loginFormJdailog.callDataInFullScreen();
+                    }
 
 //                     EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
 
@@ -360,6 +360,15 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
 
           }
      }// GEN-LAST:event_buttonSaveMouseClicked
+
+     public LoginFormJdailog getLoginFormJdailog() {
+          return loginFormJdailog;
+     }
+
+     public void setLoginFormJdailog(LoginFormJdailog loginFormJdailog) {
+          this.loginFormJdailog = loginFormJdailog;
+     }
+     
 
      public SearchField getSearchBox() {
           return searchBox;

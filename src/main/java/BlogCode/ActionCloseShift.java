@@ -6,6 +6,7 @@ package BlogCode;
 
 import Button.Button;
 import ButtonPackage.ButtonCancel;
+import Components.BackgroundImage;
 import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.TextField;
@@ -34,7 +35,8 @@ public class ActionCloseShift {
           Button btnReturn,
           Button buttonCashier,
           ButtonCancel btnCancel,
-          Button btnHold
+          Button btnHold,
+          BackgroundImage bgImage
      ) {
           Component[] listCom1 = detailItem.getComponents();
           j = new JavaAlertMessage(new JFrame(), true);
@@ -62,6 +64,7 @@ public class ActionCloseShift {
           close.setButtonDiscount(buttonDiscount);
           close.setBtnReprint(btnReprint);
           close.setBtnreturn(btnReturn);
+          close.setBgImage(bgImage);
           close.setButtonCashier(buttonCashier);
           close.setVisible(true);
      }

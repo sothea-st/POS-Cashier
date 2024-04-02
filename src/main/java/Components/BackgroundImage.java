@@ -2,21 +2,14 @@ package Components;
 
 import Color.WindowColor;
 import Constant.JavaConnection;
-import Constant.JavaRoute;
-import java.awt.Dimension;
-import javax.swing.ImageIcon;
-import okhttp3.Response;
 
-/**
- *
- * @author FRONT-END.06
- */
 public class BackgroundImage extends javax.swing.JPanel {
 
      public BackgroundImage() {
           initComponents();
           setBackground(WindowColor.slightGreen);
           JavaConnection.getImage(jLabel1, "King Mart Background.png");
+          jLabel1.setSize(getPreferredSize());
      }
 
 
