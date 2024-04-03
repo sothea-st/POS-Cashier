@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
 // @CrossOrigin(origins = "http://localhost:3000") 
+// @EnableScheduling
 public class PosApplication {
 
 	public static void main(String[] args) {

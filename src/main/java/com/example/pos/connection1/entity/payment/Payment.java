@@ -1,0 +1,93 @@
+package com.example.pos.connection1.entity.payment;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+import com.example.pos.connection1.constant.JavaMessage;
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "pos_payment")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Payment {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private int id;
+
+     @Column(name = "payment_no")
+     private String paymentNo;
+
+     @Column(name = "payment_barcode")
+     private String paymentBarcode;
+
+     @Column(name = "sale_id")
+     private int saleId;
+
+     @Column(name = "receive_usd",precision = 10 , scale = 2)
+     private BigDecimal receiveUsd;
+
+     @Column(name = "receive_khr",precision = 10 , scale = 0)
+     private BigDecimal receiveKhr;
+
+     @Column(name = "remaining_usd",precision = 10 , scale = 2)
+     private BigDecimal remainingUsd;
+
+     @Column(name = "remaining_khr")
+     @NotNull(message = JavaMessage.required)
+     @NotBlank(message = JavaMessage.required)
+     private String remainingKhr;
+
+     @Column(name = "change_usd",precision = 10 , scale = 2)
+     private BigDecimal changeUsd;
+
+     @Column(name = "change_khr",precision = 10 , scale = 0)
+     private BigDecimal changeKhr ;
+
+     @Column(name = "payment_type")
+     @NotNull(message = JavaMessage.required)
+     @NotBlank(message = JavaMessage.required)
+     private String paymentType;
+
+     @Column(name = "customer_type_id")
+     private int customerTypeId;
+
+     @Column(name = "source_id")
+     private int sourceId;
+
+     @Column(name = "is_return",length = 20)
+     private String isReturn;
+
+     @Column(name = "discount_type",length = 20)
+     private String discountType;
+
+     @Column(name = "discount_value",length = 20)
+     private String discountValue;
+
+     @Column(name = "create_by")
+     private int createBy;
+
+     @CreationTimestamp
+     @Column(name = "create_date")
+     private Date createDate;
+
+     @Column(name = "status")
+     private boolean status = true;
+
+     @Column(name = "is_deleted")
+     private boolean isDeleted = false;
+
+}
