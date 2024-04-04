@@ -147,16 +147,17 @@ public class RouteControllerSecond {
           @GetMapping("/searchWithInvoice")
           public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo) {
                List<ProductModel> data = service.searchWithInvoiceNo(invoiceNo);
-          
-               if( data.size() == 0 ) return ResponseEntity.ok().body(Map.of("msg", "success" , "data",data , "invoiceNo","The invoice already return!"));
-               return ResponseEntity.ok().body(Map.of("msg", "success" , "data",data , "invoiceNo",invoiceNo));
+
+               if (data.size() == 0)
+                    return ResponseEntity.ok()
+                              .body(Map.of("msg", "success", "data", data, "invoiceNo", "The invoice already return!"));
+               return ResponseEntity.ok().body(Map.of("msg", "success", "data", data, "invoiceNo", invoiceNo));
           }
 
           @GetMapping("/getInvoice/{paymentBarcode}")
           public ResponseEntity<?> getInvoice(@PathVariable("paymentBarcode") String paymentBarcode) {
                return JavaResponse.success(service.getIncoive(paymentBarcode));
           }
-
 
      }
 
@@ -232,6 +233,13 @@ public class RouteControllerSecond {
                     throws Exception {
                return ResponseEntity.ok().body(barcodeGenerator.generateEAN128BarCodeImage(barcodeText));
           }
+
+          @GetMapping(value = "/receiptBarcode/{barcode}", produces = IMAGE_PNG_VALUE)
+          public ResponseEntity<BufferedImage> generates(@PathVariable("receiptBarcode") final String receiptBarcode)
+                    throws Exception {
+               return ResponseEntity.ok().body(barcodeGenerator.generateEAN128BarCodeImage(receiptBarcode));
+          }
+
      }
 
      @RestController
@@ -289,21 +297,23 @@ public class RouteControllerSecond {
      public static class RouteCustomer {
           @Autowired
           private CustomerService service;
-          @Autowired private CustomerRepository repo;
+          @Autowired
+          private CustomerRepository repo;
+
           @PostMapping
           public ResponseEntity<?> add(@RequestBody Customer c) {
-               HashMap<String,Object> errMap = new HashMap<>();
+               HashMap<String, Object> errMap = new HashMap<>();
                boolean isExist = repo.existsByContact(c.getContact());
-               if ( isExist ) {
+               if (isExist) {
                     errMap.put("msg", "The phone number already uesd!");
                     errMap.put("status", 500);
                     return ResponseEntity.status(500).body(errMap);
                }
-               if( c.checkPhone(c.getContact()) != null ) return c.checkPhone(c.getContact());
+               if (c.checkPhone(c.getContact()) != null)
+                    return c.checkPhone(c.getContact());
                Customer data = service.add(c);
-               return ResponseEntity.ok().body(Map.of("msg","success" ,"status",200));
+               return ResponseEntity.ok().body(Map.of("msg", "success", "status", 200));
           }
-
 
           @GetMapping
           public ResponseEntity<?> read() {
@@ -336,7 +346,7 @@ public class RouteControllerSecond {
           }
 
           @GetMapping("/getCustomerPoint/{phone}")
-          public ResponseEntity<?> getCustomerPoint(@PathVariable("phone") String phone){
+          public ResponseEntity<?> getCustomerPoint(@PathVariable("phone") String phone) {
                CustomerPointProjection data = service.getPoint(phone);
                return JavaResponse.success(data);
           }
@@ -409,7 +419,7 @@ public class RouteControllerSecond {
 
      @RestController
      @RequestMapping("/api/taxProduct")
-     public static class RouteTaxName { 
+     public static class RouteTaxName {
           @Autowired
           private TaxProductService service;
 
@@ -420,8 +430,8 @@ public class RouteControllerSecond {
           }
 
           @GetMapping
-          public ResponseEntity<?> read(){
-               List<TaxProductProjection> data =  service.read();
+          public ResponseEntity<?> read() {
+               List<TaxProductProjection> data = service.read();
                return JavaResponse.success(data);
           }
 
@@ -432,17 +442,17 @@ public class RouteControllerSecond {
           }
 
           @PutMapping("/{id}")
-          public ResponseEntity<?> update(@PathVariable("id") int id , @RequestBody TaxProduct t) {
+          public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody TaxProduct t) {
                TaxProduct data = service.update(id, t);
                return JavaResponse.success(data);
           }
 
           @DeleteMapping("/{id}")
-          public ResponseEntity<?> delete(@PathVariable("id") int id , @RequestBody TaxProduct t) {
-                service.delete(id, t);
+          public ResponseEntity<?> delete(@PathVariable("id") int id, @RequestBody TaxProduct t) {
+               service.delete(id, t);
                return JavaResponse.deleteSuccess(id);
           }
 
      }
-     
+
 }
