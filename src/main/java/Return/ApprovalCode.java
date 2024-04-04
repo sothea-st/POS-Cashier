@@ -153,24 +153,24 @@ public class ApprovalCode extends javax.swing.JDialog {
 
          String userCode = txtCode.getValueTextField();
          String password = txtPassword.getValuePassword();
-//
-//         if (userCode == null || userCode.isEmpty()) {
-//              JOptionPane.showMessageDialog(this, "Code can not be empty!");
-//              return;
-//         }
-//
-//         if (password == null || password.isEmpty()) {
-//              JOptionPane.showMessageDialog(this, "Password can not be empty!");
-//              return;
-//         }
 
+         if (userCode == null || userCode.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Code can not be empty!");
+              return;
+         }
+
+         if (password == null || password.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Password can not be empty!");
+              return;
+         }
+     
          JSONObject json = new JSONObject();
          json.put("userCode", userCode);
          json.put("password", password);
 //         json.put("deviceName", null);
 
          Response response = JavaConnection.login(JavaRoute.login, json);
-
+         
          try {
               String data = response.body().string();
               if (response.isSuccessful()) {

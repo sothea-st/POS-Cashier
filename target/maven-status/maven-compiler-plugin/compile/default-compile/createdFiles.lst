@@ -89,6 +89,7 @@ Model\ReturnModel\ModelReturnData.class
 Button\ButtonDiscount.class
 Payment\PaymentOption$17.class
 Model\Sale\CustomerModel.class
+Return\ReturnDialog$6.class
 Components\HistoryHoldOrder$3.class
 Customer\Customer$2.class
 Model\HoldOrder\HoldOrder.class
@@ -108,6 +109,7 @@ Receipt\Receipt$4$1.class
 Payment\PaymentOption$4.class
 Return\ReturnDialog.class
 ButtonPackage\ButtonNo.class
+Return\ReturnDialog$6$1.class
 BlogCode\ResponsiveSize$2.class
 Discount\DiscountByItem$1.class
 LoginAndLogoutForm\LoginFormJdailog$5.class
@@ -196,7 +198,6 @@ Components\BoxItem$4.class
 View\MainPage\MainPage$3.class
 Customer\CustomerFunction$3.class
 Model\ReturnModel\ResultDataReturnModel.class
-Return\ReturnDialog$5$1.class
 BlogCode\ResponsiveSize$1.class
 View\MainPage\MainPage$1.class
 LoginAndLogoutForm\LoginFormJdailog$6$1.class

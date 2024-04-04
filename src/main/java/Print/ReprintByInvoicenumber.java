@@ -37,7 +37,10 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                @Override
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
-                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+value);
+                    
+                    String data = value.substring(2);
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+data);
+                    
                     try {
                          String _data = responseData.body().string();
                          JSONObject obj = new JSONObject(_data);
@@ -47,6 +50,7 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                          System.err.println("response data 333= " + e);
                     }
                }
+
           };
 
           txtInvoiceNumber.initEvent(event);

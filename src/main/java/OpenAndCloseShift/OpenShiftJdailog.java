@@ -55,7 +55,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button buttonCustomer;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
-     
+
      private LoginFormJdailog loginFormJdailog;
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
@@ -345,7 +345,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                          loginFormJdailog.callDataInFullScreen();
                     }
 
-//                     EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
+                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
 
                } else {
                     UIManager UI = new UIManager();
@@ -368,7 +368,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      public void setLoginFormJdailog(LoginFormJdailog loginFormJdailog) {
           this.loginFormJdailog = loginFormJdailog;
      }
-     
 
      public SearchField getSearchBox() {
           return searchBox;

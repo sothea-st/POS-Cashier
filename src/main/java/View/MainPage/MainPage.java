@@ -796,8 +796,9 @@ public class MainPage extends javax.swing.JFrame {
 //                    System.err.println("error = " + e);
 //               }
 //          }
-
+         
           if (JavaConstant.token != null) {
+
                try {
                     CashierReporting cashier = new CashierReporting(new JFrame(), true);
                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
@@ -806,8 +807,7 @@ public class MainPage extends javax.swing.JFrame {
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
                          ObjectMapper objMap = new ObjectMapper();
-                         DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
-                         );
+                         DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class);
                          cashier.setGetData(d);
                          cashier.setVisible(true);
                     }

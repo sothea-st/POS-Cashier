@@ -960,13 +960,10 @@ public class PaymentOption extends javax.swing.JDialog {
                                                   .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                        .addComponent(lbThree, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                        .addComponent(lbSix, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                  .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                       .addGroup(panelPaymentLayout.createSequentialGroup()
-                                                            .addGap(12, 12, 12)
-                                                            .addComponent(lbDot, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                       .addGroup(panelPaymentLayout.createSequentialGroup()
-                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                            .addComponent(lbDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
+                                                  .addGap(12, 12, 12)
+                                                  .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                       .addComponent(lbDot, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                                       .addComponent(lbDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))))
                     .addContainerGap(21, Short.MAX_VALUE))
                .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           );
@@ -1429,8 +1426,8 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-//                             re.printReceipt(); // for print with device
-                             re.setVisible(true);
+                             re.printReceipt(); // for print with device
+//                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
@@ -1507,8 +1504,8 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setDataSuccess(d);
                print.revalidate();
                print.repaint();
-//               print.printReceipt();
-               print.setVisible(true);
+               print.printReceipt();
+//               print.setVisible(true);
 
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
 //               ReturnDialog r = new ReturnDialog(new JFrame(), true);

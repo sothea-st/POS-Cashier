@@ -38,23 +38,24 @@ public class ReturnDialog extends javax.swing.JDialog {
           eventSelectReason();
           
           
-//             ButtonEvent event = new ButtonEvent() {
-//               @Override
-//               public void onKeyRelease() {
-//                    String value = txtinvoice.getValueTextField();
-//                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+value);
-//                    try {
-//                         String _data = responseData.body().string();
-//                         JSONObject obj = new JSONObject(_data);
-//                         String invoice = obj.getString("data");
-//                         txtinvoice.setValueTextField(invoice);
-//                    } catch (Exception e) {
-//                         System.err.println("response data 333= " + e);
-//                    }
-//               }
-//          };
-//
-//          txtinvoice.initEvent(event);
+             ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    String value = txtinvoice.getValueTextField();
+                      String barcodeValue = value.substring(2);
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+barcodeValue);
+                    try {
+                         String _data = responseData.body().string();
+                         JSONObject obj = new JSONObject(_data);
+                         String invoice = obj.getString("data");
+                         txtinvoice.setValueTextField(invoice);
+                    } catch (Exception e) {
+                         System.err.println("response data 333= " + e);
+                    }
+               }
+          };
+
+          txtinvoice.initEvent(event);
      }
 
      void eventSelectReason() {

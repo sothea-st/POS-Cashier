@@ -1062,6 +1062,7 @@ public class Receipt extends javax.swing.JDialog {
                          changeKhr.setText(kh.format(data.getChangeKhr()));
                     }
                }
+       
 
                Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentBarcode());
 //               Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + "1000000");
