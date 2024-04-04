@@ -388,7 +388,7 @@ public class CloseShift extends javax.swing.JDialog {
 //                   panelProduct.revalidate();
 //                   panelProduct.repaint();
 //                          == == == == == == == == == == == == == == == == == == == == == == =
-                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
+//                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
 

@@ -969,31 +969,31 @@ public class CashierReporting extends javax.swing.JDialog {
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
 //         printComponenet(reportPanel);
 
-         PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
-
-         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
-         if (printServices.length > 0) {
-              PrinterJob printerJob = PrinterJob.getPrinterJob();
-              try {
-                   // Set the print service
-                   printerJob.setPrintService(printServices[0]);
-                   PageFormat pageFormat = printerJob.defaultPage();
-                   Paper paper = new Paper();
-
-                   paper.setSize(6.13 * 72, 7.83 * 72); // A6 size in points (1 inch = 72 points)
-                   paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
-                   pageFormat.setPaper(paper);
-
-                   printerJob.setPrintable(new MyPrinter(reportPanel), pageFormat);
-                   // Print without showing the print dialog
-                   printerJob.print();
-
-              } catch (PrinterException ex) {
-                   ex.printStackTrace();
-              }
-         } else {
-              System.out.println("No printer found.");
-         }
+//         PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
+//
+//         PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
+//         if (printServices.length > 0) {
+//              PrinterJob printerJob = PrinterJob.getPrinterJob();
+//              try {
+//                   // Set the print service
+//                   printerJob.setPrintService(printServices[0]);
+//                   PageFormat pageFormat = printerJob.defaultPage();
+//                   Paper paper = new Paper();
+//
+//                   paper.setSize(6.13 * 72, 7.83 * 72); // A6 size in points (1 inch = 72 points)
+//                   paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
+//                   pageFormat.setPaper(paper);
+//
+//                   printerJob.setPrintable(new MyPrinter(reportPanel), pageFormat);
+//                   // Print without showing the print dialog
+//                   printerJob.print();
+//
+//              } catch (PrinterException ex) {
+//                   ex.printStackTrace();
+//              }
+//         } else {
+//              System.out.println("No printer found.");
+//         }
 
 
     }//GEN-LAST:event_btnPrintMouseClicked

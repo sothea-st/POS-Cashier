@@ -45,7 +45,7 @@ public class PaymentOption extends javax.swing.JDialog {
      DecimalFormat df = new DecimalFormat("$ #,##0.00");
      private String sign = "khr";
      private Component[] listCom;
-     private SubtotalPanel subtotalPanel;
+
      private String cusTypeId;
      private String sourceId;
      private String paymentType = JavaConstant.typeCash;
@@ -54,6 +54,7 @@ public class PaymentOption extends javax.swing.JDialog {
      private Button btnPayment;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
+     private SubtotalPanel subtotalPanel;
 
      public PaymentOption(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -1426,8 +1427,8 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-                             re.printReceipt(); // for print with device
-//                             re.setVisible(true);
+//                             re.printReceipt(); // for print with device
+                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
@@ -1449,7 +1450,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
 
-     void returnProduct() throws IOException {
+     public void returnProduct() throws IOException {
           double totalReturn = 0;
           if (!txtReceiveUsd.getText().isEmpty()) {
                totalReturn = Double.valueOf(txtReceiveUsd.getText());
@@ -1504,8 +1505,8 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setDataSuccess(d);
                print.revalidate();
                print.repaint();
-               print.printReceipt();
-//               print.setVisible(true);
+//               print.printReceipt();
+               print.setVisible(true);
 
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
 //               ReturnDialog r = new ReturnDialog(new JFrame(), true);

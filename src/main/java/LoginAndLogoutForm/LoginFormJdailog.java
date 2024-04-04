@@ -247,11 +247,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
-         String userId = txtUserId.getValueTextField();
-         String password = txtPassword.getValuePassword();
+//         String userId = txtUserId.getValueTextField();
+//         String password = txtPassword.getValuePassword();
 
-//         String userId = "0005";
-//         String password = "TT@126$kh#";
+         String userId = "0005";
+         String password = "TT@126$kh#";
          String deviceName = JavaConstant.getDeviceName();
 
          JSONObject json = new JSONObject();

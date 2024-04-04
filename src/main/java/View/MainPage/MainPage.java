@@ -27,6 +27,7 @@ import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Return.ApprovalCode;
+import Return.JdialogConfirmReturn;
 import Return.PrinterReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
@@ -54,12 +55,12 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          
+
           panelProduct.removeAll();
           panelProduct.add(bgimg);
           panelProduct.revalidate();
           panelProduct.repaint();
-          
+
           jScrollPaneCategory.setVisible(false);
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();
@@ -67,7 +68,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-          setExtendedState(JFrame.MAXIMIZED_BOTH);
+//          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);
@@ -683,7 +684,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder,bgimg
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg
                    );
               }
          }
@@ -713,22 +714,36 @@ public class MainPage extends javax.swing.JFrame {
     private void btnPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseClicked
 
          if (JavaConstant.token != null) {
-              Component[] listCom = detailItem.getComponents();
-              if (listCom.length != 0) {
-                   PaymentOption pay = new PaymentOption(new JFrame(), true);
-                   pay.setTotalUsd(totalPanel.getLableTotalUsd());
-                   pay.setListCom(listCom);
-                   pay.setSubtotalPanel(totalPanel);
-                   pay.setDetailItem(detailItem);
-                   pay.setBoxOne(boxOne);
-                   pay.setBtnPayment(btnPayment);
-                   pay.setBtnCancel(btnCancel);
-                   pay.setButtonHoldOrder(buttonHoldOrder);
-                   pay.setVisible(true);
+
+              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
+                   Component[] listCom = detailItem.getComponents();
+                   if (listCom.length != 0) {
+                        PaymentOption pay = new PaymentOption(new JFrame(), true);
+                        pay.setTotalUsd(totalPanel.getLableTotalUsd());
+                        pay.setListCom(listCom);
+                        pay.setSubtotalPanel(totalPanel);
+                        pay.setDetailItem(detailItem);
+                        pay.setBoxOne(boxOne);
+                        pay.setBtnPayment(btnPayment);
+                        pay.setBtnCancel(btnCancel);
+                        pay.setButtonHoldOrder(buttonHoldOrder);
+                        pay.setVisible(true);
+                   }
+              } else { // there is transaction retrun 
+                   JdialogConfirmReturn j = new JdialogConfirmReturn(new JFrame(), true);
+                   j.setBoxOne(boxOne);
+                   j.setBtnPayment(btnPayment);
+                   j.setBtnCancel(btnCancel);
+                   j.setSubtotalPanel(totalPanel);
+                   j.setDetailItem(detailItem);
+                   j.setVisible(true);
               }
+
          } else {
               System.err.println("System cannot open payment option");
          }
+
+
     }//GEN-LAST:event_btnPaymentMouseClicked
 
      //Action Button Return
@@ -737,7 +752,9 @@ public class MainPage extends javax.swing.JFrame {
               if (JavaConstant.checkOpenShift) {
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
                    approval.setJdFormLogin(jdFormLogin);
+
                    approval.setTypeForm("return");
+                   approval.setBtnPayment(btnPayment);
                    approval.setVisible(true);
               }
          }
@@ -796,7 +813,7 @@ public class MainPage extends javax.swing.JFrame {
 //                    System.err.println("error = " + e);
 //               }
 //          }
-         
+
           if (JavaConstant.token != null) {
 
                try {

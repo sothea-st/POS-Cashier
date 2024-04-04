@@ -30,6 +30,7 @@ Components\ComboBox$1.class
 Discount\DiscountType$3.class
 Components\HistoryHoldOrder$1.class
 CustomeUI\CustomScrollBarUI.class
+Return\JdialogConfirmReturn$2.class
 Discount\DiscountByItem$4.class
 Model\ProductModel\ProductSuccessData.class
 Payment\PaymentOption$15.class
@@ -111,6 +112,7 @@ Return\ReturnDialog.class
 ButtonPackage\ButtonNo.class
 Return\ReturnDialog$6$1.class
 BlogCode\ResponsiveSize$2.class
+Return\JdialogConfirmReturn.class
 Discount\DiscountByItem$1.class
 LoginAndLogoutForm\LoginFormJdailog$5.class
 View\MainPage\MainPage$11.class
@@ -218,6 +220,7 @@ Receipt\TestReceipt$1$1.class
 Discount\DiscountByItem$3.class
 PanelToImageConverter\FrameReceiptForPrint.class
 HoldOrder\HoldeModel.class
+Return\JdialogConfirmReturn$3$1.class
 Return\PrinterReturn$1.class
 HoldOrder\ListHoldOrder$1.class
 View\MainPage\MainPage$2.class
@@ -253,6 +256,7 @@ Print\ReprintJdailog$2.class
 Components\LabelTitle$1.class
 Components\JavaAlertMessage.class
 NewDiscounts\Discounting$20.class
+Return\JdialogConfirmReturn$1.class
 Constant\JavaBaseUrl.class
 Model\CashierReport\Data.class
 OpenAndCloseShift\OpenShiftJdailog$2.class
@@ -368,6 +372,7 @@ Return\PrinterReturnHidden.class
 NewDiscounts\Discounting$4.class
 Print\ReprintByInvoicenumber$5.class
 Model\CustomerType\SourceModel.class
+Return\JdialogConfirmReturn$3.class
 Components\LabelFontGreen.class
 BlogCode\JavaEventNextPrevious$1.class
 Model\ProductModel\ProductDataModel.class

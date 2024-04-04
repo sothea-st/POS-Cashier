@@ -1,5 +1,6 @@
 package Return;
 
+import Button.Button;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -16,7 +17,8 @@ import javax.swing.UIManager;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+ import Button.Button;
+import javax.swing.JPanel;
 /**
  *
  * @author FRONT-END.06
@@ -25,6 +27,10 @@ public class ReturnDialog extends javax.swing.JDialog {
 
      private String reasonId;
      private LoginFormJdailog jdFormLogin;
+     private Button btnPayment;
+
+     
+     
 
      public ReturnDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -36,14 +42,13 @@ public class ReturnDialog extends javax.swing.JDialog {
           addComboReason();
           txtinvoice.requestFocus();
           eventSelectReason();
-          
-          
-             ButtonEvent event = new ButtonEvent() {
+
+          ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
                     String value = txtinvoice.getValueTextField();
-                      String barcodeValue = value.substring(2);
-                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+barcodeValue);
+//                    String barcodeValue = value.substring(2); // this working with device scanner 
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + value);
                     try {
                          String _data = responseData.body().string();
                          JSONObject obj = new JSONObject(_data);
@@ -111,6 +116,17 @@ public class ReturnDialog extends javax.swing.JDialog {
           }
      }
 
+     public Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public void setBtnPayment(Button btnPayment) {
+          this.btnPayment = btnPayment;
+     }
+
+     
+     
+     
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -124,7 +140,7 @@ public class ReturnDialog extends javax.swing.JDialog {
         txtBarcode = new Components.TextField();
         comboBoxReason = new Components.ComboBox();
         buttonCancel = new ButtonPackage.ButtonCancel();
-        button1 = new Button.Button();
+        button1 = new Button();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -265,7 +281,8 @@ public class ReturnDialog extends javax.swing.JDialog {
          } else {
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
-
+         
+         btnPayment.setButtonName("Continue");
          JavaConstant.isReturn = "return";
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
@@ -332,7 +349,7 @@ public class ReturnDialog extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.Button button1;
+    private Button button1;
     private ButtonPackage.ButtonCancel buttonCancel;
     private Components.ComboBox comboBoxReason;
     private javax.swing.JLabel jLabel1;

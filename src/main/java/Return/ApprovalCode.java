@@ -14,11 +14,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import okhttp3.Response;
 import org.json.JSONObject;
+import Button.Button;
+import javax.swing.JPanel;
 
 public class ApprovalCode extends javax.swing.JDialog {
+     private Button btnPayment;
 
      private LoginFormJdailog jdFormLogin;
      private String typeForm;
+    
+     
 
      public ApprovalCode(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -183,6 +188,7 @@ public class ApprovalCode extends javax.swing.JDialog {
                         if (typeForm.equals("return")) {
                              ReturnDialog returnD = new ReturnDialog(new JFrame(), true);
                              returnD.setJdFormLogin(jdFormLogin);
+                             returnD.setBtnPayment(btnPayment);
                              returnD.setVisible(true);
                              JavaConstant.returnerId = model.getID();
                         } else if (typeForm.equals("reprint")) {
@@ -208,6 +214,18 @@ public class ApprovalCode extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buttonLoginMouseClicked
 
+     public Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public void setBtnPayment(Button btnPayment) {
+          this.btnPayment = btnPayment;
+     }
+    
+    
+    
+    
+    
      private void buttonLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoginMouseEntered
           // TODO add your handling code here:
      }//GEN-LAST:event_buttonLoginMouseEntered
