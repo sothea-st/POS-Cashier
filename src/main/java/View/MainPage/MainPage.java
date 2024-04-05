@@ -715,7 +715,7 @@ public class MainPage extends javax.swing.JFrame {
 
          if (JavaConstant.token != null) {
 
-              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
+//              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
                    Component[] listCom = detailItem.getComponents();
                    if (listCom.length != 0) {
                         PaymentOption pay = new PaymentOption(new JFrame(), true);
@@ -729,15 +729,15 @@ public class MainPage extends javax.swing.JFrame {
                         pay.setButtonHoldOrder(buttonHoldOrder);
                         pay.setVisible(true);
                    }
-              } else { // there is transaction retrun 
-                   JdialogConfirmReturn j = new JdialogConfirmReturn(new JFrame(), true);
-                   j.setBoxOne(boxOne);
-                   j.setBtnPayment(btnPayment);
-                   j.setBtnCancel(btnCancel);
-                   j.setSubtotalPanel(totalPanel);
-                   j.setDetailItem(detailItem);
-                   j.setVisible(true);
-              }
+//              } else { // there is transaction retrun 
+//                   JdialogConfirmReturn j = new JdialogConfirmReturn(new JFrame(), true);
+//                   j.setBoxOne(boxOne);
+//                   j.setBtnPayment(btnPayment);
+//                   j.setBtnCancel(btnCancel);
+//                   j.setSubtotalPanel(totalPanel);
+//                   j.setDetailItem(detailItem);
+//                   j.setVisible(true);
+//              }
 
          } else {
               System.err.println("System cannot open payment option");
@@ -752,7 +752,6 @@ public class MainPage extends javax.swing.JFrame {
               if (JavaConstant.checkOpenShift) {
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
                    approval.setJdFormLogin(jdFormLogin);
-
                    approval.setTypeForm("return");
                    approval.setBtnPayment(btnPayment);
                    approval.setVisible(true);

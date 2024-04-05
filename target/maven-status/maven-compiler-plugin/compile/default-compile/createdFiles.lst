@@ -169,6 +169,7 @@ HoldOrder\ListHoldOrder$2.class
 Components\HistoryHoldOrder.class
 Payment\PaymentOption$8.class
 Discount\OverallDiscount$1.class
+Payment\PaymentOption$26.class
 Return\PrinterReturn$2.class
 Components\JavaAlertMessage$2.class
 OpenAndCloseShift\OpenShiftJdailog$4.class
@@ -327,6 +328,7 @@ LoginAndLogoutForm\LogoutDialog$1.class
 Model\PackageProduct\CategoryModel.class
 View\MainPage\MainPage$13.class
 HoldOrder\HoldItems$1.class
+Payment\PaymentOption$26$1.class
 Components\BackgroundImage.class
 Return\ApprovalCode$3.class
 Receipt\CashierReport.class
@@ -395,7 +397,6 @@ NewDiscounts\Discounting$5.class
 Components\TextField.class
 Model\HoldOrder\DataHoldOrder.class
 Model\Login\LoginModel.class
-Payment\PaymentOption$25$1.class
 Discount\OverallDiscount.class
 Payment\PaymentOption$11.class
 Constant\JavaRoundUpKhr.class

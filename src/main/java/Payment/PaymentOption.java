@@ -16,12 +16,16 @@ import HoldOrder.HoldeModel;
 import Model.CustomerType.CustomerTypeModel;
 import Model.CustomerType.SourceModel;
 import Model.Reprint.DataSuccessModel;
+import Model.ReturnModel.ModelReturnData;
 import Model.ReturnModel.ReturnProductModel;
 import Model.Sale.ProductSaleModel;
 import Receipt.Receipt;
 import Return.PrinterReturn;
+import Return.ReturnDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -94,6 +98,33 @@ public class PaymentOption extends javax.swing.JDialog {
           getCusomerId();
           txtReceiveKhr.requestFocus();
 
+          txtReceiveUsd.setBorder(null);
+          txtReceiveKhr.setBorder(null);
+
+          evenGroup();
+
+     }
+
+     void evenGroup() {
+          txtReceiveUsd.addKeyListener(new KeyListener() {
+               @Override
+               public void keyTyped(KeyEvent e) {
+                     if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                         if (txtReceiveUsd.getText().isEmpty()) {
+                              keyDelete();
+                         }
+                    }
+               }
+               @Override
+               public void keyPressed(KeyEvent e) {
+                   
+               }
+               @Override
+               public void keyReleased(KeyEvent e) {
+
+               }
+
+          });
      }
 
      private void getCusomerId() {
@@ -228,53 +259,35 @@ public class PaymentOption extends javax.swing.JDialog {
           String receviUsd = txtReceiveUsd.getText();
           String receviKhr = txtReceiveKhr.getText();
 
-          
-//          int l = receviUsd.length();
-//          if (l == 1 && receviUsd.equals(".")) {
-//               txtReceiveUsd.setText(null);
-//               return;
-//          }
-//
-//          if (l == 1 && receviUsd.equals("0")) {
-//               txtReceiveUsd.setText(null);
-//               return;
-//          }
-//          String _value = "";
-//          if (l > 2) {
-//               int count = 0;
-//               char[] arr = receviUsd.toCharArray();
-//
-//               for (int i = 0; i < arr.length; i++) {
-//                    if (arr[i] == '.') {
-//                         count++;
-//                    }
-//                    if (count == 2) {
-//                         break;
-//                    }
-//                    _value += arr[i];
-//               }
-//               txtReceiveUsd.setText(_value);
-//          }
-          
-          if (sign == "usd") {
-               
+          if ("usd".equals(sign)) {
                receviUsd += value;
                txtReceiveUsd.setText(receviUsd);
-
                String strTotalUsd = getTotalUsd().replace("$", "");
                strTotalUsd = strTotalUsd.replace(",", "");
                double doubleTotalUsd = Double.valueOf(strTotalUsd);
-
+               boolean isCheck = AppValidation.checkValidation(txtReceiveUsd);
+               if (isCheck) {
+                    return;
+               }
                if (!receviUsd.isEmpty()) {
+                    String stringReceiveUsd = receviUsd.replace(",", "");
+                    double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
+                    double result = doubleReceviceUsd - doubleTotalUsd;
 
-                    boolean isCheck = AppValidation.checkValidation(txtReceiveUsd);
-                    if (isCheck) {
-                         return;
+                    if (result < 0) {
+                         setValueLabelUsd(result, 0);
+                    } else if (result > 0) {
+                         setValueLabelUsd(0, result);
+                    } else if (result == 0) {
+                         setValueLabelUsd(0, 0);
                     }
+               } else {
+                    receviUsd = "0";
 
                     String stringReceiveUsd = receviUsd.replace(",", "");
                     double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
                     double result = doubleReceviceUsd - doubleTotalUsd;
+
                     if (result < 0) {
                          setValueLabelUsd(result, 0);
                     } else if (result > 0) {
@@ -283,23 +296,19 @@ public class PaymentOption extends javax.swing.JDialog {
                          setValueLabelUsd(0, 0);
                     }
                }
-               
-           
-               
-          } else if (sign == "khr") {
-               
+
+          } else if ("khr".equals(sign)) {
+
                receviKhr += value;
                txtReceiveKhr.setText(receviKhr);
                String strTotalKhr = lbTotalKhr.getLabelName();
                strTotalKhr = strTotalKhr.replace(",", "");
                double doubleTotalKhr = Double.valueOf(strTotalKhr);
-
+               boolean isCheck = AppValidation.checkValidation(txtReceiveKhr);
+               if (isCheck) {
+                    return;
+               }
                if (!receviKhr.isEmpty()) {
-
-                    boolean isCheck = AppValidation.checkValidation(txtReceiveKhr);
-                    if (isCheck) {
-                         return;
-                    }
 
                     String stringReceiveKhr = receviKhr.replace(",", "");
                     double doubleReceviceKhr = Double.valueOf(stringReceiveKhr);
@@ -312,8 +321,41 @@ public class PaymentOption extends javax.swing.JDialog {
                     } else if (result == 0) {
                          setValueLabelKhr(0, 0);
                     }
+               } else {
+                    receviKhr = "0";
+                    String stringReceiveKhr = receviKhr.replace(",", "");
+                    double doubleReceviceKhr = Double.valueOf(stringReceiveKhr);
+
+                    double result = doubleReceviceKhr - doubleTotalKhr;
+                    if (result < 0) {
+                         setValueLabelKhr(result, 0);
+                    } else if (result > 0) {
+                         setValueLabelKhr(0, result);
+                    } else if (result == 0) {
+                         setValueLabelKhr(0, 0);
+                    }
                }
-             
+          }
+
+          if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
+
+               double _totalUsd = JavaConstant.getReplace(getTotalUsd());
+               double _convertToUsd = Double.parseDouble(receviKhr) / JavaConstant.exchangeRate;
+               double _usd = Double.parseDouble(receviUsd) + _convertToUsd;
+               double result = _usd - _totalUsd;
+               if (!txtReceiveUsd.getText().isEmpty()) {
+                    if (result < 0) {
+                         setValueLabelKhr(result, 0);
+                         setValueLabelUsd(result, 0);
+                    } else if (result > 0) {
+                         setValueLabelKhr(0, result);
+                         setValueLabelUsd(0, result);
+                    } else if (result == 0) {
+                         setValueLabelKhr(0, 0);
+                         setValueLabelUsd(0, 0);
+                    }
+               }
+
           }
      }
 
@@ -1093,7 +1135,6 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void lbOneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseClicked
          String number = lbOne.getLabelName();
-
          inputAmount(number);
     }//GEN-LAST:event_lbOneMouseClicked
 
@@ -1148,26 +1189,57 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbZeroMouseClicked
 
     private void lbDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseClicked
-         if (!txtReceiveUsd.getText().isEmpty()) {
-              String valueReceive = txtReceiveUsd.getText();
-              valueReceive = valueReceive.substring(0, valueReceive.length() - 1);
-              txtReceiveUsd.setText("");
-              if (valueReceive.isEmpty()) {
-                   setValueLabelUsd(0, 0);
-              }
-              inputAmount(valueReceive);
-         }
 
-         if (!txtReceiveKhr.getText().isEmpty()) {
-              String valueReceive = txtReceiveKhr.getText();
-              valueReceive = valueReceive.substring(0, valueReceive.length() - 1);
-              txtReceiveKhr.setText("");
-              if (valueReceive.isEmpty()) {
-                   setValueLabelKhr(0, 0);
-              }
-              inputAmount(valueReceive);
-         }
+         keyDelete();
+
+
     }//GEN-LAST:event_lbDeleteMouseClicked
+
+     void keyDelete() {
+          if (!txtReceiveUsd.getText().isEmpty() && !txtReceiveKhr.getText().isEmpty()) {
+               if (sign.equals("khr")) {
+                    khr(txtReceiveKhr.getText());
+               } else if (sign.equals("usd")) {
+                    usd(txtReceiveUsd.getText());
+               }
+               return;
+          }
+
+          if (!txtReceiveUsd.getText().isEmpty()) {
+               usd(txtReceiveUsd.getText());
+          } else {
+               usd("0");
+          }
+
+          if (!txtReceiveKhr.getText().isEmpty()) {
+               khr(txtReceiveKhr.getText());
+          } else {
+               khr("0");
+          }
+     }
+
+     void khr(String value) {
+//          String valueReceive = txtReceiveKhr.getText();
+          value = value.substring(0, value.length() - 1);
+          txtReceiveKhr.setText("");
+          if (value.isEmpty()) {
+               setValueLabelKhr(0, 0);
+          }
+          inputAmount(value);
+     }
+
+     void usd(String value) {
+
+//          String valueReceive = txtReceiveUsd.getText();
+          value = value.substring(0, value.length() - 1);
+          txtReceiveUsd.setText("");
+          if (value.isEmpty()) {
+               setValueLabelUsd(0, 0);
+
+          }
+          inputAmount(value);
+
+     }
 
     private void txtReceiveUsdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReceiveUsdMouseClicked
          sign = "usd";
@@ -1183,7 +1255,6 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void txtReceiveUsdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyReleased
 
-     
          String khr = txtReceiveKhr.getText();
          String usd = txtReceiveUsd.getText();
 
@@ -1278,16 +1349,19 @@ public class PaymentOption extends javax.swing.JDialog {
     private void buttonChargeAndPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChargeAndPrintMouseClicked
 
          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-         if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
-              j.setMessage("Box Receive must be have one value!");
-              j.setVisible(true);
-              return;
-         }
 
-         if (lbRemainingUsd.getLabelName().contains("-") || lbRemainingKhr.getLabelName().contains("-")) {
-              j.setMessage(" remainningUsd : " + lbRemainingUsd.getLabelName() + " <br> remainningUsd : " + lbRemainingKhr.getLabelName());
-              j.setVisible(true);
-              return;
+         if (JavaConstant.isReturn == null) {
+              if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
+                   j.setMessage("Box Receive must be have one value!");
+                   j.setVisible(true);
+                   return;
+              }
+
+              if (lbRemainingUsd.getLabelName().contains("-") || lbRemainingKhr.getLabelName().contains("-")) {
+                   j.setMessage(" remainningUsd : " + lbRemainingUsd.getLabelName() + " <br> remainningUsd : " + lbRemainingKhr.getLabelName());
+                   j.setVisible(true);
+                   return;
+              }
          }
 
          // data is return 
@@ -1509,9 +1583,11 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setVisible(true);
 
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
-//               ReturnDialog r = new ReturnDialog(new JFrame(), true);
-//               r.setResetReturn();
+               ReturnDialog r = new ReturnDialog(new JFrame(), true);
+               r.setResetReturn();
                JavaConstant.isReturn = null;
+
+               ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
 
           } else {
                System.err.println("err = 4444");
@@ -1541,99 +1617,99 @@ public class PaymentOption extends javax.swing.JDialog {
      }//GEN-LAST:event_buttonChargeAndPrintMouseEntered
 
     private void lbOneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseEntered
-        lbOne.setBackground(WindowColor.lightGray);
+         lbOne.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbOneMouseEntered
 
     private void lbOneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseExited
-        lbOne.setBackground(WindowColor.white);
+         lbOne.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbOneMouseExited
 
     private void lbTwoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTwoMouseEntered
-        lbTwo.setBackground(WindowColor.lightGray);
+         lbTwo.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbTwoMouseEntered
 
     private void lbTwoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTwoMouseExited
-        lbTwo.setBackground(WindowColor.white);
+         lbTwo.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbTwoMouseExited
 
     private void lbThreeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThreeMouseEntered
-        lbThree.setBackground(WindowColor.lightGray);
+         lbThree.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbThreeMouseEntered
 
     private void lbThreeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThreeMouseExited
-        lbThree.setBackground(WindowColor.white);
+         lbThree.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbThreeMouseExited
 
     private void lbFourMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFourMouseEntered
-        lbFour.setBackground(WindowColor.lightGray);
+         lbFour.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbFourMouseEntered
 
     private void lbFourMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFourMouseExited
-        lbFour.setBackground(WindowColor.white);
+         lbFour.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbFourMouseExited
 
     private void lbFiveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFiveMouseEntered
-        lbFive.setBackground(WindowColor.lightGray);
+         lbFive.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbFiveMouseEntered
 
     private void lbFiveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFiveMouseExited
-        lbFive.setBackground(WindowColor.white);
+         lbFive.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbFiveMouseExited
 
     private void lbSixMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSixMouseEntered
-        lbSix.setBackground(WindowColor.lightGray);
+         lbSix.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbSixMouseEntered
 
     private void lbSixMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSixMouseExited
-        lbSix.setBackground(WindowColor.white);
+         lbSix.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbSixMouseExited
 
     private void lbSevenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSevenMouseEntered
-        lbSeven.setBackground(WindowColor.lightGray);
+         lbSeven.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbSevenMouseEntered
 
     private void lbSevenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSevenMouseExited
-        lbSeven.setBackground(WindowColor.white);
+         lbSeven.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbSevenMouseExited
 
     private void lbEightMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEightMouseEntered
-        lbEight.setBackground(WindowColor.lightGray);
+         lbEight.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbEightMouseEntered
 
     private void lbEightMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEightMouseExited
-        lbEight.setBackground(WindowColor.white);
+         lbEight.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbEightMouseExited
 
     private void lbNineMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNineMouseEntered
-        lbNine.setBackground(WindowColor.lightGray);
+         lbNine.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbNineMouseEntered
 
     private void lbNineMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNineMouseExited
-        lbNine.setBackground(WindowColor.white);
+         lbNine.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbNineMouseExited
 
     private void lbDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseEntered
-        lbDelete.setBackground(WindowColor.lightGray);
+         lbDelete.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbDeleteMouseEntered
 
     private void lbDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseExited
-       lbDelete.setBackground(WindowColor.white);
+         lbDelete.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbDeleteMouseExited
 
     private void lbDotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDotMouseEntered
-        lbDot.setBackground(WindowColor.lightGray);
+         lbDot.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbDotMouseEntered
 
     private void lbDotMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDotMouseExited
-        lbDot.setBackground(WindowColor.white);
+         lbDot.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbDotMouseExited
 
     private void lbZeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbZeroMouseEntered
-        lbZero.setBackground(WindowColor.lightGray);
+         lbZero.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_lbZeroMouseEntered
 
     private void lbZeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbZeroMouseExited
-        lbZero.setBackground(WindowColor.white);
+         lbZero.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbZeroMouseExited
 
      private void setValueLabelUsd(double remaining, double change) {
@@ -1685,6 +1761,28 @@ public class PaymentOption extends javax.swing.JDialog {
           double totalKhr = Double.valueOf(moneyUsd);
           double _totalKh = JavaRoundDown.roundDown("" + totalKhr * JavaConstant.exchangeRate);
           lbTotalKhr.setLabelName(dm.format(_totalKh));
+
+          if (JavaConstant.isReturn != null) {
+
+//               if (Double.valueOf(ModelReturnData.receive_khr) > 0 && ModelReturnData.receive_usd > 0) {
+//                    txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
+//                    txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
+//               } else if (Double.valueOf(ModelReturnData.receive_khr) > 0) {
+//                    txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
+//                    txtReceiveUsd.setText(null);
+//               } else if (ModelReturnData.receive_usd > 0) {
+//                    txtReceiveKhr.setText(null);
+//                    txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
+//               }
+               txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
+               txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
+               lbChangeKhr.setLabelName("" + ModelReturnData.change_khr);
+               lbChangeUsd.setLabelName("" + ModelReturnData.change_usd);
+
+               txtReceiveKhr.setFocusable(false);
+               txtReceiveUsd.setFocusable(false);
+          }
+
      }
 
      public Component[] getListCom() {

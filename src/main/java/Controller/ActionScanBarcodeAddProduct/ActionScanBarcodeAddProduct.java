@@ -47,14 +47,19 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanWithoutReturn(String barcode, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
-         
+
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ModelReturnData model = objMap.readValue(responseData, ModelReturnData.class);
                     ProductDataModel[] listProduct = model.getData();
-               
+
+                    ModelReturnData.receive_usd = model.getReceiveUsd();
+                    ModelReturnData.receive_khr = model.getReceiveKhr();
+                    ModelReturnData.change_usd = model.getChangeUsd();
+                    ModelReturnData.change_khr = model.getChangeKhr();
+
                     if (listProduct.length == 0) {
                          msgAlertErr();
                          return;
@@ -63,7 +68,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
-                       
+
                          product = new ProductModel(
                               obj.getID(),
                               obj.getCatID(),

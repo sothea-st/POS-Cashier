@@ -67,7 +67,6 @@ public class ReturnDialog extends javax.swing.JDialog {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onSelect(String key) {
-                    System.err.println("key value = " + key);
                     reasonId = key;
                }
           };
@@ -282,7 +281,7 @@ public class ReturnDialog extends javax.swing.JDialog {
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
          
-         btnPayment.setButtonName("Continue");
+//         btnPayment.setButtonName("Continue");
          JavaConstant.isReturn = "return";
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;

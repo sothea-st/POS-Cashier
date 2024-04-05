@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-
 public class JdialogConfirmReturn extends javax.swing.JDialog {
 
      private JPanel boxOne;
@@ -29,6 +28,24 @@ public class JdialogConfirmReturn extends javax.swing.JDialog {
      private Button.Button buttonHoldOrder;
      private ButtonCancel btnCancel;
      private SubtotalPanel subtotalPanel;
+
+     public JdialogConfirmReturn(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          initComponents();
+          
+     }
+     
+     
+//     void data(){
+//          Component[] _list = detailItem.getComponents();
+//          for( int i = 0 ; i < _list.length ; i++ ) {
+//               var obj = (BoxItem)_list[i];
+//               System.err.println("ddddddddddddddd = " + obj.get);
+//          }
+//     }
+     
 
      public JPanel getBoxOne() {
           return boxOne;
@@ -44,14 +61,6 @@ public class JdialogConfirmReturn extends javax.swing.JDialog {
 
      public void setDetailItem(JPanel detailItem) {
           this.detailItem = detailItem;
-     }
-
-     public JdialogConfirmReturn(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          initComponents();
-        
      }
 
      public Button.Button getBtnPayment() {
@@ -189,7 +198,7 @@ public class JdialogConfirmReturn extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-          
+
           try {
                Component[] listCom = detailItem.getComponents();
                returnProduct(listCom);

@@ -411,8 +411,8 @@ public class Receipt extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                          .addComponent(jLabel16)
                          .addComponent(saleDate)
-                         .addComponent(jLabel18)
-                         .addComponent(cashierName)))
+                         .addComponent(cashierName)
+                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
           );
 
           jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
