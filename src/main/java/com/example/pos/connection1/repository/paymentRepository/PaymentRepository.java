@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 
+import com.example.pos.connection1.entity.models.PaymentModel;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.projection.PaymentProjection;
 
@@ -75,6 +76,19 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                                 "limit 1")
         PaymentProjection getPaymentDataWithoutPaymentNo();
 
+        @Query(nativeQuery = true , value = "select\r\n" + //
+                                "    pp.receive_usd,\r\n" + //
+                                "    pp.receive_khr,\r\n" + //
+                                "    pp.change_khr,\r\n" + //
+                                "    pp.change_usd,\r\n" + //
+                                "    ps.total\r\n" + //
+                                "from\r\n" + //
+                                "    pos_payment pp\r\n" + //
+                                "inner join pos_sale ps \r\n" + //
+                                "on pp.sale_id = ps.id\r\n" + //
+                                "where\r\n" + //
+                                "    pp.payment_no = ?")
+        PaymentModel getSomeData(String invoiceNumber);
  
 
         @Query(nativeQuery = true, value = "select pp.payment_no  from pos_sale ps\r\n" + //

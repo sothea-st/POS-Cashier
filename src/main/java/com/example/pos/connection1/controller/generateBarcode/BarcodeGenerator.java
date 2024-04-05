@@ -44,10 +44,6 @@ public class BarcodeGenerator {
         ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
     }
-
-
-
-
     
     public BufferedImage generateEAN13BarcodeImage(final String barcodeText) throws Exception {
         final Barcode barcode = BarcodeFactory.createEAN13(barcodeText);

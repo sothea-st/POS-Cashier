@@ -29,8 +29,10 @@ import com.example.pos.connection1.constant.JavaMessage;
 import com.example.pos.connection1.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.connection1.entity.Hold;
 import com.example.pos.connection1.entity.branch.Branch;
+import com.example.pos.connection1.entity.models.PaymentModel;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.people.Customer;
+import com.example.pos.connection1.entity.projection.PaymentProjection;
 import com.example.pos.connection1.entity.role.Role;
 import com.example.pos.connection1.entity.role.roleProjection.RoleProjection;
 import com.example.pos.connection1.entity.sourceData.AssignRole;
@@ -42,6 +44,7 @@ import com.example.pos.connection1.projections.TaxProductProjection.TaxProductPr
 import com.example.pos.connection1.projections.defaultPriceProjection.DefaultPriceProjection;
 import com.example.pos.connection1.repository.HoldRepository;
 import com.example.pos.connection1.repository.UserRepository;
+import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import com.example.pos.connection1.repository.peopleRepository.CustomerRepository;
 import com.example.pos.connection1.service.RoleAndPermissionService.RoleService;
 import com.example.pos.connection1.service.addImageService.AddImageService;
@@ -137,6 +140,8 @@ public class RouteControllerSecond {
           @Autowired
           private SearchByBarcodeOrNameService service;
 
+    
+
           @GetMapping
           public ResponseEntity<?> search(@RequestParam("code") String code,
                     @RequestParam("valueSearch") String valueSearch) {
@@ -146,12 +151,10 @@ public class RouteControllerSecond {
 
           @GetMapping("/searchWithInvoice")
           public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo) {
-               List<ProductModel> data = service.searchWithInvoiceNo(invoiceNo);
-
+               HashMap<String,Object> data = service.searchWithInvoiceNo(invoiceNo);
                if (data.size() == 0)
-                    return ResponseEntity.ok()
-                              .body(Map.of("msg", "success", "data", data, "invoiceNo", "The invoice already return!"));
-               return ResponseEntity.ok().body(Map.of("msg", "success", "data", data, "invoiceNo", invoiceNo));
+                    return ResponseEntity.ok().body(Map.of("msg", "success", "data", data, "invoiceNo", "The invoice already return!"));
+               return ResponseEntity.ok().body(data);
           }
 
           @GetMapping("/getInvoice/{paymentBarcode}")
