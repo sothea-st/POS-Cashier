@@ -23,9 +23,11 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import LoginAndLogoutForm.LogoutDialog;
 
 import Model.Report.DataSuccessCashierReport;
+import NewCashierReport.CashierPreview;
 import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
+import Print.ReprintJdailog;
 import Return.ApprovalCode;
 import Return.PrinterReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,7 +67,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-//           setExtendedState(JFrame.MAXIMIZED_BOTH);
+           setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);
@@ -690,19 +692,21 @@ public class MainPage extends javax.swing.JFrame {
     private void btnReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReprintMouseClicked
          if (JavaConstant.token != null) {
               //========================= reprint with supervisor===========
+//              if (JavaConstant.checkOpenShift) {
+//                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
+//                   approval.setJdFormLogin(jdFormLogin);
+//                   approval.setTypeForm("reprint");
+//                   approval.setVisible(true);
+//              }
+              //========================= reprint without supervisor=========== 
               if (JavaConstant.checkOpenShift) {
-                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
-                   approval.setJdFormLogin(jdFormLogin);
-                   approval.setTypeForm("reprint");
-                   approval.setVisible(true);
+                ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
+                rep.setTitle("Reprint Invoice");
+                rep.setTextButtonLeft("Reprint by Last");
+                rep.setTextButtonRight("Reprint by Invoice №");
+                rep.setTypeForm("reprint");
+                rep.setVisible(true);
               }
-              //========================= reprint without supervisor===========
-//              ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
-//              rep.setTitle("Reprint Invoice");
-//              rep.setTextButtonLeft("Reprint by Last");
-//              rep.setTextButtonRight("Reprint by Invoice №");
-//              rep.setTypeForm("reprint");
-//              rep.setVisible(true);
          }
     }//GEN-LAST:event_btnReprintMouseClicked
 
@@ -796,9 +800,9 @@ public class MainPage extends javax.swing.JFrame {
 
           if (JavaConstant.token != null) {
                try {
-                    CashierReporting cashier = new CashierReporting(new JFrame(), true);
+                    CashierPreview cashier = new CashierPreview(new JFrame(), true);
                      Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0003&userId=6&posId=01");
+//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=05");
 
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();

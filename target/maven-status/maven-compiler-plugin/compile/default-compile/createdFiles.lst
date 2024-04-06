@@ -13,6 +13,7 @@ Print\ReprintByInvoicenumber$3.class
 Return\PrinterReturnHidden$3$1.class
 Return\ApprovalCode$4.class
 View\MainPage\MainPage$7.class
+NewCashierReport\CashierPreview$1.class
 BlogCode\JavaBlogImage.class
 Return\ReturnDialog$4.class
 Return\PrinterReturnHidden$3.class
@@ -61,7 +62,6 @@ HoldOrder\ActionHoldOrder$1.class
 Discount\OverallDiscount$4.class
 Receipt\CashierReport$1.class
 NewDiscounts\Discounting$18.class
-Model\Brand\BrandModel.class
 Components\NoData.class
 Customer\JdailogCustomer$4.class
 BlogCode\QtyUpdate.class
@@ -81,7 +81,6 @@ Components\HistoryHoldOrder$4.class
 Components\RadioButton.class
 OpenAndCloseShift\CloseShift.class
 NewDiscounts\Discounting.class
-Model\OpenShiftModel\OpenShiftModel.class
 Components\TextField$3.class
 Payment\PaymentOption$18.class
 DefaultPrice\DefaultPrice.class
@@ -113,7 +112,6 @@ Discount\DiscountByItem$1.class
 LoginAndLogoutForm\LoginFormJdailog$5.class
 View\MainPage\MainPage$11.class
 Discount\DiscountByItem.class
-Model\CashierReport\ReportCashier.class
 Components\Parallelogram.class
 Components\Shadow\GraphicsUtilities.class
 Components\Shadow\ShadowType.class
@@ -196,6 +194,7 @@ Components\BoxItem$4.class
 View\MainPage\MainPage$3.class
 Customer\CustomerFunction$3.class
 Model\ReturnModel\ResultDataReturnModel.class
+NewCashierReport\CashierPreview$2.class
 Return\ReturnDialog$5$1.class
 BlogCode\ResponsiveSize$1.class
 View\MainPage\MainPage$1.class
@@ -224,6 +223,7 @@ LoginAndLogoutForm\LoginFormJdailog$3.class
 OpenAndCloseShift\OpenShiftJdailog$3.class
 Customer\Customer.class
 HoldOrder\HoldModelDir\ListDetailHold.class
+NewCashierReport\CashierPreview$3.class
 Model\Sale\SaleModel.class
 BlogCode\JavaActionAddHold.class
 Customer\CustomerFunction$1.class
@@ -253,7 +253,6 @@ Components\LabelTitle$1.class
 Components\JavaAlertMessage.class
 NewDiscounts\Discounting$20.class
 Constant\JavaBaseUrl.class
-Model\CashierReport\Data.class
 OpenAndCloseShift\OpenShiftJdailog$2.class
 Return\ReturnBox.class
 Constant\JavaRoute.class
@@ -269,7 +268,6 @@ Payment\PaymentOption$7.class
 PanelToImageConverter\PanelData$1.class
 Components\SubtotalPanel.class
 Customer\JdailogCustomer$3.class
-Model\CashierReport\SummerySale.class
 Components\CircleShape.class
 OpenAndCloseShift\OpenShiftJdailog.class
 Controller\ActionScanBarcodeAddProduct\ActionScanBarcodeAddProduct.class
@@ -278,6 +276,7 @@ Return\PrinterReturnHidden$2.class
 Payment\PaymentOption$14.class
 HoldOrder\HoldModelDir\ResultHoldSuccess.class
 Button\ButtonInstock.class
+NewCashierReport\CashierPreview$3$1.class
 Payment\PaymentOption$16.class
 Customer\Customer$5.class
 Components\LabelPopUpTitle.class
@@ -409,3 +408,4 @@ Print\ReprintJdailog.class
 Button\ButtonAddProduct$1.class
 BlogCode\JavaEventNextPrevious$2.class
 NewDiscounts\Discounting$7.class
+NewCashierReport\CashierPreview.class

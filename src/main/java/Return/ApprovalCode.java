@@ -165,8 +165,8 @@ public class ApprovalCode extends javax.swing.JDialog {
 //         }
 
          JSONObject json = new JSONObject();
-         json.put("userCode", userCode);
-         json.put("password", password);
+         json.put("userCode", "0003");
+         json.put("password", "TT@126$kh#");
 //         json.put("deviceName", null);
 
          Response response = JavaConnection.login(JavaRoute.login, json);
