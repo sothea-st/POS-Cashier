@@ -14,11 +14,21 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import okhttp3.Response;
 import org.json.JSONObject;
+import Button.Button;
+import ButtonPackage.ButtonCancel;
+import javax.swing.JPanel;
 
 public class ApprovalCode extends javax.swing.JDialog {
 
+     private Button btnPayment;
+
      private LoginFormJdailog jdFormLogin;
      private String typeForm;
+
+     private ButtonCancel btnCancel;
+     private Button btnHold;
+     private Button btnReturn;
+     private Button btnDiscount;
 
      public ApprovalCode(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -27,9 +37,9 @@ public class ApprovalCode extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           event();
-        
+
           txtPassword.setTextPassowrd("Password");
-            txtCode.requestFocus();
+          txtCode.requestFocus();
      }
 
      //Action call function placeholder
@@ -153,7 +163,7 @@ public class ApprovalCode extends javax.swing.JDialog {
 
          String userCode = txtCode.getValueTextField();
          String password = txtPassword.getValuePassword();
-//
+
 //         if (userCode == null || userCode.isEmpty()) {
 //              JOptionPane.showMessageDialog(this, "Code can not be empty!");
 //              return;
@@ -163,7 +173,6 @@ public class ApprovalCode extends javax.swing.JDialog {
 //              JOptionPane.showMessageDialog(this, "Password can not be empty!");
 //              return;
 //         }
-
          JSONObject json = new JSONObject();
          json.put("userCode", "0003");
          json.put("password", "TT@126$kh#");
@@ -183,6 +192,11 @@ public class ApprovalCode extends javax.swing.JDialog {
                         if (typeForm.equals("return")) {
                              ReturnDialog returnD = new ReturnDialog(new JFrame(), true);
                              returnD.setJdFormLogin(jdFormLogin);
+                             returnD.setBtnPayment(btnPayment);
+                             returnD.setBtnCancel(btnCancel);
+                             returnD.setBtnHold(btnHold);
+                             returnD.setBtnReturn(btnReturn);
+                             returnD.setBtnDiscount(btnDiscount);
                              returnD.setVisible(true);
                              JavaConstant.returnerId = model.getID();
                         } else if (typeForm.equals("reprint")) {
@@ -207,6 +221,15 @@ public class ApprovalCode extends javax.swing.JDialog {
          }
 
     }//GEN-LAST:event_buttonLoginMouseClicked
+
+     public Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public void setBtnPayment(Button btnPayment) {
+          this.btnPayment = btnPayment;
+     }
+
 
      private void buttonLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoginMouseEntered
           // TODO add your handling code here:
@@ -255,6 +278,23 @@ public class ApprovalCode extends javax.swing.JDialog {
           });
      }
 
+     public Button getBtnDiscount() {
+          return btnDiscount;
+     }
+
+     public void setBtnDiscount(Button btnDiscount) {
+          this.btnDiscount = btnDiscount;
+     }
+  
+     
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
+
      public LoginFormJdailog getJdFormLogin() {
           return jdFormLogin;
      }
@@ -269,6 +309,22 @@ public class ApprovalCode extends javax.swing.JDialog {
 
      public void setTypeForm(String typeForm) {
           this.typeForm = typeForm;
+     }
+
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
+
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
+
+     public Button getBtnHold() {
+          return btnHold;
+     }
+
+     public void setBtnHold(Button btnHold) {
+          this.btnHold = btnHold;
      }
 
 

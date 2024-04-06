@@ -29,6 +29,7 @@ import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Print.ReprintJdailog;
 import Return.ApprovalCode;
+import Return.JdialogConfirmReturn;
 import Return.PrinterReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
@@ -49,17 +50,19 @@ public class MainPage extends javax.swing.JFrame {
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
 
      public static boolean isFullScreen = false;
+     BackgroundImage bgimg = new BackgroundImage();
 
      public MainPage() {
           initComponents();
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          BackgroundImage bgimg = new BackgroundImage();
+
           panelProduct.removeAll();
           panelProduct.add(bgimg);
           panelProduct.revalidate();
           panelProduct.repaint();
+
           jScrollPaneCategory.setVisible(false);
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();
@@ -80,7 +83,7 @@ public class MainPage extends javax.swing.JFrame {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
 
-             // custome scrollbar ui
+          // custome scrollbar ui
           jScrollPaneDetail.getVerticalScrollBar().setUI(new CustomScrollBarUI());
           jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
           // custom scroll speed jscrollPane for vertical
@@ -90,8 +93,8 @@ public class MainPage extends javax.swing.JFrame {
 
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
-          
-     }    
+
+     }
 
      void getImage() {
           // get image from api
@@ -512,7 +515,7 @@ public class MainPage extends javax.swing.JFrame {
                               .addComponent(lbPOSId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                               .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 47, Short.MAX_VALUE)))
+                              .addGap(0, 0, Short.MAX_VALUE)))
                     .addGap(38, 38, 38))
                .addGroup(mainPanelLayout.createSequentialGroup()
                     .addGap(29, 29, 29)
@@ -521,8 +524,8 @@ public class MainPage extends javax.swing.JFrame {
                               .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addGap(21, 21, 21))
                          .addGroup(mainPanelLayout.createSequentialGroup()
-                              .addComponent(jScrollPane2)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                              .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(mainPanelLayout.createSequentialGroup()
@@ -557,13 +560,13 @@ public class MainPage extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(mainPanelLayout.createSequentialGroup()
-                              .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                              .addComponent(jScrollPaneDetail)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(panelprocessing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(mainPanelLayout.createSequentialGroup()
                               .addComponent(panelPagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(jScrollPane2))))
+                              .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE))))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -665,6 +668,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setButtonDiscount(buttonDiscount);
                              jdOpenShift.setButtonCustomer(buttonCustomer);
                              jdOpenShift.setButtonHoldOrder(buttonHoldOrder);
+                             jdOpenShift.setLoginFormJdailog(jdFormLogin);
                              jdOpenShift.setBtnCancel(btnCancel);
                              jdOpenShift.setDataSuccess(d);
                         }
@@ -682,7 +686,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg
                    );
               }
          }
@@ -714,31 +718,55 @@ public class MainPage extends javax.swing.JFrame {
     private void btnPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseClicked
 
          if (JavaConstant.token != null) {
-              Component[] listCom = detailItem.getComponents();
-              if (listCom.length != 0) {
-                   PaymentOption pay = new PaymentOption(new JFrame(), true);
-                   pay.setTotalUsd(totalPanel.getLableTotalUsd());
-                   pay.setListCom(listCom);
-                   pay.setSubtotalPanel(totalPanel);
-                   pay.setDetailItem(detailItem);
-                   pay.setBoxOne(boxOne);
-                   pay.setBtnPayment(btnPayment);
-                   pay.setBtnCancel(btnCancel);
-                   pay.setButtonHoldOrder(buttonHoldOrder);
-                   pay.setVisible(true);
-              }
+
+//              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
+                   Component[] listCom = detailItem.getComponents();
+                   if (listCom.length != 0) {
+                        PaymentOption pay = new PaymentOption(new JFrame(), true);
+                        pay.setTotalUsd(totalPanel.getLableTotalUsd());
+                        pay.setListCom(listCom);
+                        pay.setSubtotalPanel(totalPanel);
+                        pay.setDetailItem(detailItem);
+                        pay.setBoxOne(boxOne);
+                        pay.setBtnPayment(btnPayment);
+                        pay.setBtnReturn(btnReturn);
+                        pay.setBtnDiscount(buttonDiscount);
+                        pay.setBtnCancel(btnCancel);
+                        pay.setButtonHoldOrder(buttonHoldOrder);
+                        pay.setVisible(true);
+                   }
+//              } else { // there is transaction retrun 
+//                   JdialogConfirmReturn j = new JdialogConfirmReturn(new JFrame(), true);
+//                   j.setBoxOne(boxOne);
+//                   j.setBtnPayment(btnPayment);
+//                   j.setBtnCancel(btnCancel);
+//                   j.setSubtotalPanel(totalPanel);
+//                   j.setDetailItem(detailItem);
+//                   j.setVisible(true);
+//              }
+
          } else {
               System.err.println("System cannot open payment option");
          }
+
+
     }//GEN-LAST:event_btnPaymentMouseClicked
 
      //Action Button Return
     private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
          if (JavaConstant.token != null) {
+              
               if (JavaConstant.checkOpenShift) {
+                   if( JavaConstant.isReturn != null ) return;
+                   
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
                    approval.setJdFormLogin(jdFormLogin);
                    approval.setTypeForm("return");
+                   approval.setBtnHold(buttonHoldOrder);
+                   approval.setBtnCancel(btnCancel);
+                   approval.setBtnReturn(btnReturn);
+                   approval.setBtnDiscount(buttonDiscount);
+                   approval.setBtnPayment(btnPayment);
                    approval.setVisible(true);
               }
          }
@@ -755,6 +783,11 @@ public class MainPage extends javax.swing.JFrame {
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
 
          if (JavaConstant.token != null) {
+              
+              if( JavaConstant.isReturn != null ) {
+                   return;
+              }
+              
               Component[] listCom = detailItem.getComponents();
               if (listCom.length != 0) {
                    CancelDialog cancel = new CancelDialog(new JFrame(), true);
@@ -799,6 +832,7 @@ public class MainPage extends javax.swing.JFrame {
 //          }
 
           if (JavaConstant.token != null) {
+
                try {
                     CashierPreview cashier = new CashierPreview(new JFrame(), true);
                      Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
@@ -807,8 +841,7 @@ public class MainPage extends javax.swing.JFrame {
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
                          ObjectMapper objMap = new ObjectMapper();
-                         DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class
-                         );
+                         DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class);
                          cashier.setGetData(d);
                          cashier.setVisible(true);
                     }
@@ -835,6 +868,7 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
           if (JavaConstant.token != null) {
+               if( JavaConstant.isReturn != null ) return;
                Component[] listCom1 = detailItem.getComponents();
                if (listCom1.length != 0) {
                     JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape);
@@ -861,9 +895,9 @@ public class MainPage extends javax.swing.JFrame {
 //                  dis.setVisible(true);
 //             }
 //        }
-
           if (JavaConstant.token != null) {
                if (JavaConstant.checkOpenShift) {
+                    if( JavaConstant.isReturn != null ) return;
                     JavaActionDiscount.discount(detailItem, totalPanel);
                }
           }

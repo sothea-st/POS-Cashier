@@ -1,5 +1,6 @@
 package Return;
 
+import Button.Button;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -16,6 +17,9 @@ import javax.swing.UIManager;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import Button.Button;
+import ButtonPackage.ButtonCancel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -25,6 +29,11 @@ public class ReturnDialog extends javax.swing.JDialog {
 
      private String reasonId;
      private LoginFormJdailog jdFormLogin;
+     private Button btnPayment;
+     private ButtonCancel btnCancel;
+     private Button btnHold;
+     private Button btnReturn;
+     private Button btnDiscount;
 
      public ReturnDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -36,32 +45,31 @@ public class ReturnDialog extends javax.swing.JDialog {
           addComboReason();
           txtinvoice.requestFocus();
           eventSelectReason();
-          
-          
-//             ButtonEvent event = new ButtonEvent() {
-//               @Override
-//               public void onKeyRelease() {
-//                    String value = txtinvoice.getValueTextField();
-//                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+value);
-//                    try {
-//                         String _data = responseData.body().string();
-//                         JSONObject obj = new JSONObject(_data);
-//                         String invoice = obj.getString("data");
-//                         txtinvoice.setValueTextField(invoice);
-//                    } catch (Exception e) {
-//                         System.err.println("response data 333= " + e);
-//                    }
-//               }
-//          };
-//
-//          txtinvoice.initEvent(event);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    String value = txtinvoice.getValueTextField();
+//                    String barcodeValue = value.substring(2); // this working with device scanner 
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + value);
+                    try {
+                         String _data = responseData.body().string();
+                         JSONObject obj = new JSONObject(_data);
+                         String invoice = obj.getString("data");
+                         txtinvoice.setValueTextField(invoice);
+                    } catch (Exception e) {
+                         System.err.println("response data 333= " + e);
+                    }
+               }
+          };
+
+          txtinvoice.initEvent(event);
      }
 
      void eventSelectReason() {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onSelect(String key) {
-                    System.err.println("key value = " + key);
                     reasonId = key;
                }
           };
@@ -110,6 +118,14 @@ public class ReturnDialog extends javax.swing.JDialog {
           }
      }
 
+     public Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public void setBtnPayment(Button btnPayment) {
+          this.btnPayment = btnPayment;
+     }
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,7 +139,7 @@ public class ReturnDialog extends javax.swing.JDialog {
         txtBarcode = new Components.TextField();
         comboBoxReason = new Components.ComboBox();
         buttonCancel = new ButtonPackage.ButtonCancel();
-        button1 = new Button.Button();
+        button1 = new Button();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -265,6 +281,11 @@ public class ReturnDialog extends javax.swing.JDialog {
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
 
+         btnCancel.setBackground(WindowColor.lightGray);
+         btnHold.setBackground(WindowColor.lightGray);
+         btnReturn.setBackground(WindowColor.lightGray);
+         btnDiscount.setBackground(WindowColor.lightGray);
+
          JavaConstant.isReturn = "return";
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
@@ -321,6 +342,22 @@ public class ReturnDialog extends javax.swing.JDialog {
           });
      }
 
+     public Button getBtnDiscount() {
+          return btnDiscount;
+     }
+
+     public void setBtnDiscount(Button btnDiscount) {
+          this.btnDiscount = btnDiscount;
+     }
+
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
+
      public LoginFormJdailog getJdFormLogin() {
           return jdFormLogin;
      }
@@ -329,9 +366,25 @@ public class ReturnDialog extends javax.swing.JDialog {
           this.jdFormLogin = jdFormLogin;
      }
 
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
+
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
+
+     public Button getBtnHold() {
+          return btnHold;
+     }
+
+     public void setBtnHold(Button btnHold) {
+          this.btnHold = btnHold;
+     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.Button button1;
+    private Button button1;
     private ButtonPackage.ButtonCancel buttonCancel;
     private Components.ComboBox comboBoxReason;
     private javax.swing.JLabel jLabel1;

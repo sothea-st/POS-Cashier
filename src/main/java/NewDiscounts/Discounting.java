@@ -682,19 +682,19 @@ public class Discounting extends javax.swing.JDialog {
                         box.setDiscountAmount(dm.format(discountAmount));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
-                        box.setDiscountDigit(Integer.parseInt(discountValue));
+                        box.setDiscountDigit(Double.parseDouble(discountValue));
 
                         //===================Remove border and prevent in button discount after input discount value=============
                         JavaConstant.discountAmount = 1;
                         box.setBorder(null);
 
                    }
-
+                   
                    if (JavaConstant.productId == 0) {
                         box.setDiscountAmount(dm.format(discountAmount));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
-                        box.setDiscountDigit(Integer.parseInt(discountValue));
+                        box.setDiscountDigit(Double.parseDouble(discountValue));
                    }
 
               }

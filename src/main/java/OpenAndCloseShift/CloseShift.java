@@ -13,6 +13,7 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Print.EpsonPrinter;
 import View.MainPage.MainPage;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,6 +36,7 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonCashier;
      private Button btnHold;
 
+     private BackgroundImage bgImage;
      private ButtonCancel btnCancel;
 
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
@@ -379,14 +381,13 @@ public class CloseShift extends javax.swing.JDialog {
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
 
-                   //                          == == == == == == == Add Background == == == == == == ==
-                   BackgroundImage bgimg = new BackgroundImage();
-                   panelProduct.removeAll();
-                   panelProduct.add(bgimg);
-                   panelProduct.revalidate();
-                   panelProduct.repaint();
+                   //      == == == == == == == Add Background == == == == == == ==
+//                   BackgroundImage bgimg = new BackgroundImage();
+//                   panelProduct.removeAll();
+//                   panelProduct.add(bgImage);
+//                   panelProduct.revalidate();
+//                   panelProduct.repaint();
 //                          == == == == == == == == == == == == == == == == == == == == == == =
-
 //                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
@@ -397,6 +398,14 @@ public class CloseShift extends javax.swing.JDialog {
               System.err.println("errr -- " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
+
+     public BackgroundImage getBgImage() {
+          return bgImage;
+     }
+
+     public void setBgImage(BackgroundImage bgImage) {
+          this.bgImage = bgImage;
+     }
 
      public Button getBtnHold() {
           return btnHold;

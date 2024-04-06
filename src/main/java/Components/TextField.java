@@ -63,7 +63,9 @@ public class TextField extends javax.swing.JPanel {
 
                @Override
                public void keyPressed(KeyEvent e) {
-
+                    String text = txtText.getText();
+                    setValueTextField(text);
+                    event.onKeyType();
                }
 
                @Override

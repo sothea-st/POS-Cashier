@@ -119,7 +119,7 @@
                                       <Component id="labelFontBlack2" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="lbSeven" min="-2" pref="80" max="-2" attributes="0"/>
@@ -158,8 +158,8 @@
                                           </Group>
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lbDelete" pref="80" max="32767" attributes="0"/>
-                                              <Component id="lbDot" pref="0" max="32767" attributes="0"/>
+                                              <Component id="lbDot" pref="80" max="32767" attributes="0"/>
+                                              <Component id="lbDelete" pref="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -251,7 +251,7 @@
                               <Component id="lbTwo" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lbOne" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lbCash" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbDelete" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDelete" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
