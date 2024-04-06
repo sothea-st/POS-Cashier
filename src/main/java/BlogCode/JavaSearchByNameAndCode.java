@@ -65,9 +65,11 @@ public class JavaSearchByNameAndCode {
                @Override
                public void onKeyRelease() {
                     String barcode = textField.getValueTextField();
+                
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
+                                
                               if (JavaConstant.checkOpenShift) {
                                    new ActionScanBarcodeAddProduct().scanBarcode(barcode, jdFormLogin);
                                    textField.setValueTextField("");

@@ -17,8 +17,10 @@ import javax.swing.UIManager;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
- import Button.Button;
+import Button.Button;
+import ButtonPackage.ButtonCancel;
 import javax.swing.JPanel;
+
 /**
  *
  * @author FRONT-END.06
@@ -28,9 +30,10 @@ public class ReturnDialog extends javax.swing.JDialog {
      private String reasonId;
      private LoginFormJdailog jdFormLogin;
      private Button btnPayment;
-
-     
-     
+     private ButtonCancel btnCancel;
+     private Button btnHold;
+     private Button btnReturn;
+     private Button btnDiscount;
 
      public ReturnDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -123,9 +126,6 @@ public class ReturnDialog extends javax.swing.JDialog {
           this.btnPayment = btnPayment;
      }
 
-     
-     
-     
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -280,8 +280,12 @@ public class ReturnDialog extends javax.swing.JDialog {
          } else {
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
-         
-//         btnPayment.setButtonName("Continue");
+
+         btnCancel.setBackground(WindowColor.lightGray);
+         btnHold.setBackground(WindowColor.lightGray);
+         btnReturn.setBackground(WindowColor.lightGray);
+         btnDiscount.setBackground(WindowColor.lightGray);
+
          JavaConstant.isReturn = "return";
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
@@ -338,12 +342,44 @@ public class ReturnDialog extends javax.swing.JDialog {
           });
      }
 
+     public Button getBtnDiscount() {
+          return btnDiscount;
+     }
+
+     public void setBtnDiscount(Button btnDiscount) {
+          this.btnDiscount = btnDiscount;
+     }
+
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
+
      public LoginFormJdailog getJdFormLogin() {
           return jdFormLogin;
      }
 
      public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
           this.jdFormLogin = jdFormLogin;
+     }
+
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
+
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
+
+     public Button getBtnHold() {
+          return btnHold;
+     }
+
+     public void setBtnHold(Button btnHold) {
+          this.btnHold = btnHold;
      }
 
 

@@ -59,6 +59,8 @@ public class PaymentOption extends javax.swing.JDialog {
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
      private SubtotalPanel subtotalPanel;
+     private Button btnReturn;
+     private Button btnDiscount;
 
      public PaymentOption(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -109,16 +111,21 @@ public class PaymentOption extends javax.swing.JDialog {
           txtReceiveUsd.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-                     if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                    if (JavaConstant.isReturn != null) {
+                         return;
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
                          if (txtReceiveUsd.getText().isEmpty()) {
                               keyDelete();
                          }
                     }
                }
+
                @Override
                public void keyPressed(KeyEvent e) {
-                   
+
                }
+
                @Override
                public void keyReleased(KeyEvent e) {
 
@@ -255,6 +262,10 @@ public class PaymentOption extends javax.swing.JDialog {
      }
 
      private void inputAmount(String value) {
+
+          if (JavaConstant.isReturn != null) {
+               return;
+          }
 
           String receviUsd = txtReceiveUsd.getText();
           String receviKhr = txtReceiveKhr.getText();
@@ -1190,6 +1201,9 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void lbDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseClicked
 
+         if (JavaConstant.isReturn != null) {
+              return;
+         }
          keyDelete();
 
 
@@ -1572,6 +1586,8 @@ public class PaymentOption extends javax.swing.JDialog {
                btnPayment.setBackground(WindowColor.lightGray);
                btnCancel.setBackground(WindowColor.lightGray);
                buttonHoldOrder.setBackground(WindowColor.lightGray);
+               btnReturn.setBackground(WindowColor.brown);
+               btnDiscount.setBackground(WindowColor.green);
 
                PrinterReturn print = new PrinterReturn(new JFrame(), true);
                ObjectMapper objMap = new ObjectMapper();
@@ -1763,17 +1779,6 @@ public class PaymentOption extends javax.swing.JDialog {
           lbTotalKhr.setLabelName(dm.format(_totalKh));
 
           if (JavaConstant.isReturn != null) {
-
-//               if (Double.valueOf(ModelReturnData.receive_khr) > 0 && ModelReturnData.receive_usd > 0) {
-//                    txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
-//                    txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
-//               } else if (Double.valueOf(ModelReturnData.receive_khr) > 0) {
-//                    txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
-//                    txtReceiveUsd.setText(null);
-//               } else if (ModelReturnData.receive_usd > 0) {
-//                    txtReceiveKhr.setText(null);
-//                    txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
-//               }
                txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
                txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
                lbChangeKhr.setLabelName("" + ModelReturnData.change_khr);
@@ -1781,8 +1786,17 @@ public class PaymentOption extends javax.swing.JDialog {
 
                txtReceiveKhr.setFocusable(false);
                txtReceiveUsd.setFocusable(false);
+               txtCustomerId.requestFocusInWindow();
           }
 
+     }
+
+     public Button getBtnDiscount() {
+          return btnDiscount;
+     }
+
+     public void setBtnDiscount(Button btnDiscount) {
+          this.btnDiscount = btnDiscount;
      }
 
      public Component[] getListCom() {
@@ -1839,6 +1853,14 @@ public class PaymentOption extends javax.swing.JDialog {
 
      public void setBtnCancel(ButtonCancel btnCancel) {
           this.btnCancel = btnCancel;
+     }
+
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
      }
 
 

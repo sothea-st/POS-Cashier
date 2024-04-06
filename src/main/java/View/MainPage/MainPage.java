@@ -522,8 +522,8 @@ public class MainPage extends javax.swing.JFrame {
                               .addComponent(panelPagination, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addGap(21, 21, 21))
                          .addGroup(mainPanelLayout.createSequentialGroup()
-                              .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1015, Short.MAX_VALUE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                              .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(mainPanelLayout.createSequentialGroup()
@@ -725,6 +725,8 @@ public class MainPage extends javax.swing.JFrame {
                         pay.setDetailItem(detailItem);
                         pay.setBoxOne(boxOne);
                         pay.setBtnPayment(btnPayment);
+                        pay.setBtnReturn(btnReturn);
+                        pay.setBtnDiscount(buttonDiscount);
                         pay.setBtnCancel(btnCancel);
                         pay.setButtonHoldOrder(buttonHoldOrder);
                         pay.setVisible(true);
@@ -749,10 +751,17 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Return
     private void btnReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnMouseClicked
          if (JavaConstant.token != null) {
+              
               if (JavaConstant.checkOpenShift) {
+                   if( JavaConstant.isReturn != null ) return;
+                   
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
                    approval.setJdFormLogin(jdFormLogin);
                    approval.setTypeForm("return");
+                   approval.setBtnHold(buttonHoldOrder);
+                   approval.setBtnCancel(btnCancel);
+                   approval.setBtnReturn(btnReturn);
+                   approval.setBtnDiscount(buttonDiscount);
                    approval.setBtnPayment(btnPayment);
                    approval.setVisible(true);
               }
@@ -770,6 +779,11 @@ public class MainPage extends javax.swing.JFrame {
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
 
          if (JavaConstant.token != null) {
+              
+              if( JavaConstant.isReturn != null ) {
+                   return;
+              }
+              
               Component[] listCom = detailItem.getComponents();
               if (listCom.length != 0) {
                    CancelDialog cancel = new CancelDialog(new JFrame(), true);
@@ -850,6 +864,7 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
           if (JavaConstant.token != null) {
+               if( JavaConstant.isReturn != null ) return;
                Component[] listCom1 = detailItem.getComponents();
                if (listCom1.length != 0) {
                     JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape);
@@ -878,6 +893,7 @@ public class MainPage extends javax.swing.JFrame {
 //        }
           if (JavaConstant.token != null) {
                if (JavaConstant.checkOpenShift) {
+                    if( JavaConstant.isReturn != null ) return;
                     JavaActionDiscount.discount(detailItem, totalPanel);
                }
           }
