@@ -209,7 +209,6 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel46 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         invoiceNo1 = new javax.swing.JLabel();
-        jSeparator2 = new javax.swing.JSeparator();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -219,7 +218,6 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel27 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jSeparator3 = new javax.swing.JSeparator();
         jLabel37 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         discountKh = new javax.swing.JLabel();
@@ -233,6 +231,8 @@ public class PrinterReturn extends javax.swing.JDialog {
         totalKhr = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         countProduct = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnPrint = new Button.Button();
         btnBack = new Button.Button();
@@ -247,7 +247,6 @@ public class PrinterReturn extends javax.swing.JDialog {
         print.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\redant.png")); // NOI18N
 
         companyname.setFont(new java.awt.Font("Khmer OS Muol", 1, 10)); // NOI18N
         companyname.setForeground(new java.awt.Color(56, 56, 56));
@@ -256,16 +255,16 @@ public class PrinterReturn extends javax.swing.JDialog {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(56, 56, 56));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("លេខអត្តសញ្ញាណសារពើពន្ធ​(VATTIN)៖");
 
-        vattin.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        vattin.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         vattin.setForeground(new java.awt.Color(56, 56, 56));
         vattin.setText("038545848965886");
 
-        address.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        address.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         address.setForeground(new java.awt.Color(56, 56, 56));
         address.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         address.setText("អាសយដ្ខាន ​៖​ផ្ទះលេខ១៣៩១២ ផ្លូវ ៥៩៨ ភូមិខ១ សង្កាត់ច្រាំងចំរេះទី២ ");
@@ -287,10 +286,10 @@ public class PrinterReturn extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vattin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -299,60 +298,60 @@ public class PrinterReturn extends javax.swing.JDialog {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel10.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(56, 56, 56));
         jLabel10.setText("សាខាហាង ៖");
 
-        branch.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        branch.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         branch.setForeground(new java.awt.Color(56, 56, 56));
         branch.setText("101-រេដអាន អិចប្រេស ទួលគោក");
 
-        jLabel12.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(56, 56, 56));
         jLabel12.setText("ប័ណ្ណឥណទាន ៖");
 
-        invoiceNo.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        invoiceNo.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         invoiceNo.setForeground(new java.awt.Color(56, 56, 56));
         invoiceNo.setText("000000243");
 
-        jLabel14.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(56, 56, 56));
         jLabel14.setText("អ្នកគិតលុយ ៖");
 
-        cashier.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        cashier.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         cashier.setForeground(new java.awt.Color(56, 56, 56));
         cashier.setText("RAE0004");
 
-        jLabel16.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(56, 56, 56));
         jLabel16.setText("កាលបរិច្ឆេទ ៖");
 
-        saleDate.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        saleDate.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         saleDate.setForeground(new java.awt.Color(56, 56, 56));
         saleDate.setText("22-12-2023 9:24 AM");
 
-        jLabel18.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(56, 56, 56));
         jLabel18.setText("លេខទូរសព្ឌ ៖");
 
-        contact.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        contact.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         contact.setForeground(new java.awt.Color(56, 56, 56));
         contact.setText("023 666 6696");
 
-        jLabel20.setFont(new java.awt.Font("Khmer OS Muol", 1, 10)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Khmer OS Muol", 1, 11)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(56, 56, 56));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel20.setText("ប័ណ្ណឥណទាន");
 
-        jLabel46.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel46.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel46.setForeground(new java.awt.Color(56, 56, 56));
         jLabel46.setText(" /  CREDIT NOTE");
 
-        jLabel17.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(56, 56, 56));
         jLabel17.setText("យោងវិក្កយត្រលេខ ៖");
 
-        invoiceNo1.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        invoiceNo1.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         invoiceNo1.setForeground(new java.awt.Color(56, 56, 56));
         invoiceNo1.setText("............................................");
 
@@ -382,20 +381,20 @@ public class PrinterReturn extends javax.swing.JDialog {
                             .addComponent(cashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(contact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(branch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(invoiceNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel46)
-                        .addGap(76, 76, 76)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel46)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(branch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -412,61 +411,58 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(invoiceNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(jLabel14)
-                        .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(saleDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel18)
-                        .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(saleDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(invoiceNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(invoiceNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
-
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel21.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(56, 56, 56));
         jLabel21.setText("ឈ្មោះទំនិញ");
 
-        jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        jLabel25.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(56, 56, 56));
         jLabel25.setText("Item Name");
 
-        jLabel22.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(56, 56, 56));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("បរិមាណ");
 
-        jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        jLabel26.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(56, 56, 56));
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel26.setText("Quantity");
 
-        jLabel23.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+        jLabel23.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(56, 56, 56));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("ថ្លៃឯកតា");
 
-        jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(56, 56, 56));
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel27.setText("Price");
 
-        jLabel24.setFont(new java.awt.Font("Khmer OS Content", 1, 8)); // NOI18N
+        jLabel24.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(56, 56, 56));
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel24.setText("ថ្លៃទំនិញ");
 
-        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        jLabel28.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(56, 56, 56));
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel28.setText("Net Price");
@@ -482,78 +478,77 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(35, 35, 35)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)))
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel24))
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
-                    .addComponent(jLabel26)
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel28)))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-
-        jLabel37.setFont(new java.awt.Font("Garamond", 0, 12)); // NOI18N
+        jLabel37.setFont(new java.awt.Font("Garamond", 1, 12)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(56, 56, 56));
         jLabel37.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel37.setText("Thank you for choosing \"RED ANT Express\" !!");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        discountKh.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        discountKh.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         discountKh.setForeground(new java.awt.Color(56, 56, 56));
         discountKh.setText("បញ្ចុះតម្លែ");
 
-        discountUsd.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        discountUsd.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         discountUsd.setForeground(new java.awt.Color(56, 56, 56));
         discountUsd.setText("/  Discount :");
 
-        discount.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        discount.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         discount.setForeground(new java.awt.Color(56, 56, 56));
         discount.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         discount.setText("- $");
 
-        jLabel31.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel31.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(56, 56, 56));
         jLabel31.setText("សរុប(រួមអាករ) ");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(56, 56, 56));
         jLabel3.setText("/  Total (All Tax Included)-USD :");
 
-        jLabel32.setFont(new java.awt.Font("Khmer OS Content", 0, 8)); // NOI18N
+        jLabel32.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(56, 56, 56));
         jLabel32.setText("សរុប(រួមអាករ) ");
 
-        jLabel39.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
+        jLabel39.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(56, 56, 56));
         jLabel39.setText("/  Total (All Tax Included)-Riel :");
 
-        totalprice.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        totalprice.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         totalprice.setForeground(new java.awt.Color(56, 56, 56));
         totalprice.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         totalprice.setText("$ 5.55");
 
-        totalKhr.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        totalKhr.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         totalKhr.setForeground(new java.awt.Color(56, 56, 56));
         totalKhr.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         totalKhr.setText("23,310");
@@ -572,26 +567,22 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
+                        .addComponent(discountKh, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(discountUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalprice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(totalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                         .addGap(3, 3, 3)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(discountKh, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(discountUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(totalprice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addComponent(jLabel1))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,20 +591,20 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(discount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(discountUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(discountKh, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)))
+                        .addComponent(discountUsd, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                        .addComponent(discountKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(totalprice, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)))
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalprice, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(totalKhr, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE))
+                        .addComponent(jLabel32)
+                        .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
         );
@@ -631,38 +622,42 @@ public class PrinterReturn extends javax.swing.JDialog {
             .addGap(0, 75, Short.MAX_VALUE)
         );
 
+        jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel42.setText("..............................................................................................................................................");
+
+        jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel43.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel43.setText("..............................................................................................................................................");
+
         javax.swing.GroupLayout printLayout = new javax.swing.GroupLayout(print);
         print.setLayout(printLayout);
         printLayout.setHorizontalGroup(
             printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(printLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(141, 141, 141)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(173, Short.MAX_VALUE))
+            .addGroup(printLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jSeparator3)
                     .addComponent(companyname, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(countProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 38, Short.MAX_VALUE))
-            .addGroup(printLayout.createSequentialGroup()
-                .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(printLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(printLayout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         printLayout.setVerticalGroup(
             printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(companyname)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -672,18 +667,18 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(countProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel37)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(print);
@@ -730,7 +725,7 @@ public class PrinterReturn extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -859,6 +854,8 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -867,8 +864,6 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel print;
     private javax.swing.JLabel saleDate;

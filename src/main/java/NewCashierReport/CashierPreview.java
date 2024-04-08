@@ -310,7 +310,7 @@ public class CashierPreview extends javax.swing.JDialog {
         lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbLogo.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\redant.png")); // NOI18N
 
-        companyname.setFont(new java.awt.Font("Khmer OS Muol", 1, 12)); // NOI18N
+        companyname.setFont(new java.awt.Font("Khmer OS Muol", 1, 11)); // NOI18N
         companyname.setForeground(new java.awt.Color(0, 0, 0));
         companyname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         companyname.setText("រេដ​ អាន អិចប្រេស ឯ.ក");

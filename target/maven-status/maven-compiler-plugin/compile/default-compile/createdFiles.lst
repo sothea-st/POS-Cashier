@@ -199,11 +199,7 @@ Components\BoxItem$4.class
 View\MainPage\MainPage$3.class
 Customer\CustomerFunction$3.class
 Model\ReturnModel\ResultDataReturnModel.class
-<<<<<<< HEAD
 NewCashierReport\CashierPreview$2.class
-Return\ReturnDialog$5$1.class
-=======
->>>>>>> abe95d2e655f3daa1ed6c748e9782c61d0999d2a
 BlogCode\ResponsiveSize$1.class
 View\MainPage\MainPage$1.class
 LoginAndLogoutForm\LoginFormJdailog$6$1.class
