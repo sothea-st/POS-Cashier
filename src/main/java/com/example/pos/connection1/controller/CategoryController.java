@@ -1,0 +1,46 @@
+package com.example.pos.connection1.controller;
+
+import org.springframework.validation.annotation.Validated;
+
+
+// @RestController
+// @RequestMapping("/api/category")
+// @CrossOrigin(origins = "http://localhost:3000") 
+@Validated
+public class CategoryController {
+	
+	// @Autowired
+	// private static CategoryService service;
+
+
+	// @PostMapping
+	// public ResponseEntity<?> saveCategory(@Valid @ModelAttribute Category c) {
+	// 	Category data = service.saveCategory(c);
+	// 	return JavaResponse.success(data);
+	// }
+
+	// @GetMapping("/parentId/{parentId}")
+	// public static ResponseEntity<?> getCategory(@PathVariable("parentId") int parentId) {
+	// 	ArrayList<Category> data = service.getCategory(parentId);
+	// 	return JavaResponse.success(data);
+	// }
+
+	// @PutMapping("/{id}")
+	// public ResponseEntity<?> updateCategory(@PathVariable("id") int id, @Valid @RequestBody Category category) {
+	// 	Category data = service.updateCategory(id, category);
+	// 	return JavaResponse.success(data);
+	// }
+
+	// @GetMapping("/{id}")
+	// public ResponseEntity<?> getCategoryById(@PathVariable("id") int id) {
+	// 	Category data = service.getCategoryById(id);
+	// 	return JavaResponse.success(data);
+	// }
+
+	// @DeleteMapping("/{id}")
+	// public ResponseEntity<?> deleteCategory(@PathVariable("id") int id ,@RequestBody Category c){
+	// 	service.deleteCategory(id,c);
+	// 	return JavaResponse.deleteSuccess(id);
+	// }
+
+}

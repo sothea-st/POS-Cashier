@@ -1,0 +1,27 @@
+package com.example.pos.connection1.entity.sourceData;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+ 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "pos_cancel_detail")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CancelItemDetail {
+     @Id
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private int id;
+     @Column(name = "cancel_id")
+     private int cancelId;
+     @Column(name = "pro_id")
+     private int proId;
+}

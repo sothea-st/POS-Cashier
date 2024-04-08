@@ -1,0 +1,116 @@
+package com.example.pos.connection1.service.searchByBarcodeOrNameService;
+
+import com.example.pos.connection1.constant.JavaConstant;
+import com.example.pos.connection1.entity.models.PaymentModel;
+import com.example.pos.connection1.entity.models.ProductModel;
+import com.example.pos.connection1.repository.ImportDetailRepository;
+import com.example.pos.connection1.repository.ProductRepository;
+import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
+import com.example.pos.connection1.repository.productProjection.ProductProjection;
+import com.example.pos.connection1.repository.productProjection.ProductQty;
+import com.example.pos.connection1.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.*;
+import java.text.DecimalFormat;
+
+@Service
+public class SearchByBarcodeOrNameService {
+    @Autowired
+    private ProductRepository repo;
+    @Autowired
+    private ImportDetailRepository repoImp;
+    @Autowired
+    private ProductService proService;
+    @Autowired
+    private PaymentRepository repoPayment;
+
+    public String getIncoive(String paymentBarcode) {
+        return repoPayment.getInvoice(paymentBarcode);
+    }
+
+    public List<ProductModel> search(String code, String nameSearch) {
+        List<ProductProjection> data = null;
+        List<ProductModel> list = new ArrayList<>();
+        if (code.equals("barcode")) {
+            data = repo.searchProductByBarcode(nameSearch);
+        } else {
+            data = repo.searchProductByName(nameSearch);
+        }
+        for (int i = 0; i < data.size(); i++) {
+            var val = data.get(i);
+            Integer qty = repoImp.getQty(val.getId());
+            if (qty == null)
+                qty = 0;
+            ProductModel p = proService.proModel(val, qty);
+            list.add(p);
+        }
+        return list;
+    }
+
+    public HashMap<String, Object> searchWithInvoiceNo(String invoiceNo) {
+        HashMap<String, Object> _map = new HashMap<>();
+        List<ProductQty> data = null;
+        List<ProductModel> list = new ArrayList<>();
+        PaymentModel _model = repoPayment.getSomeData(invoiceNo);
+        data = repo.searchProductWithInvoiceNo(invoiceNo, JavaConstant.currentDate);
+        for (int i = 0; i < data.size(); i++) {
+            var val = data.get(i);
+            ProductModel p = proModelQty(val, val.getQty());
+            list.add(p);
+        }
+
+        Double _receive_khr;
+        Double _receive_usd;
+
+        Double _getUsd = _model.getReceive_usd() != null ? _model.getReceive_usd().doubleValue() : 0;
+        Double _getKhr = _model.getReceive_khr() != null ? _model.getReceive_khr().doubleValue() : 0;
+        Double _cKhr = _model.getChange_khr() != null ? _model.getChange_khr().doubleValue() : 0;
+        Double _cUsd = _model.getChange_usd() != null ? _model.getChange_usd().doubleValue() : 0;
+
+ 
+
+        _map.put("receiveUsd", JavaConstant.getTwoPrecision(_getUsd));
+        _map.put("changeUsd", JavaConstant.getTwoPrecision(_cUsd));
+
+        String _stringData = _convertString(String.valueOf(_getKhr));
+        _map.put("receiveKhr", _stringData);
+        String cKhr = _convertString(String.valueOf(_cKhr));
+        _map.put("changeKhr", cKhr);
+
+
+        _map.put("msg", "success");
+        _map.put("invoiceNo", invoiceNo);
+        _map.put("data", list);
+
+        return _map;
+    }
+
+    String _convertString(String value) {
+        value = value.replace(".", " ");
+        String[] arr = value.split(" ");
+        return arr[0];
+    }
+
+    public ProductModel proModelQty(ProductQty data, int qty) {
+        ProductModel p = new ProductModel(
+                data.getBrand_id(),
+                data.getPro_name_kh(),
+                data.getPro_image_name(),
+                data.getProduct_status(),
+                data.getPro_name_en(),
+                data.getId(),
+                data.getFlag(),
+                data.getDiscount(),
+                data.getCost(),
+                data.getPrice(),
+                data.getWeight(),
+                data.getBarcode(),
+                data.getCat_id(),
+                data.getCode_expired(),
+                data.getCode_out_stock(),
+                qty,
+                data.getDiscount_type());
+        return p;
+    }
+}
