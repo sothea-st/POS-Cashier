@@ -327,6 +327,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    dispose();
                    getBtnLogin().setButtonName("Logout");
+                   
+                  if (JavaConstant.checkOpenShift) {
+                      getBtnLogin().setBackground(WindowColor.lightGray);
+                  }
+                   
                    getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
                    lbPOSId.setText("POS ID : " + JavaConstant.posId);
                    category();

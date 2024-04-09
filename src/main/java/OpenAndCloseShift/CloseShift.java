@@ -13,7 +13,6 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Print.EpsonPrinter;
 import View.MainPage.MainPage;
-import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,6 +34,7 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonCustomer;
      private Button buttonCashier;
      private Button btnHold;
+     private Button btnLogin;
 
      private BackgroundImage bgImage;
      private ButtonCancel btnCancel;
@@ -376,7 +376,8 @@ public class CloseShift extends javax.swing.JDialog {
                    buttonCashier.setBackground(WindowColor.green);
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
-                   btnOpenShift.setBackground(WindowColor.lightGray);
+//                   btnOpenShift.setBackground(WindowColor.lightGray);
+                   btnLogin.setBackground(WindowColor.green);
 
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
@@ -503,6 +504,15 @@ public class CloseShift extends javax.swing.JDialog {
           this.buttonCashier = buttonCashier;
      }
 
+    public Button getBtnLogin() {
+        return btnLogin;
+    }
+
+    public void setBtnLogin(Button btnLogin) {
+        this.btnLogin = btnLogin;
+    }
+
+     
      /**
       * @param args the command line
       * arguments

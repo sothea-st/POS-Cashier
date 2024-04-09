@@ -84,6 +84,7 @@ public class Discounting extends javax.swing.JDialog {
 
           if (type == "dollar") {
                inputDis.setValueTextFieldCenter(discountValue);
+               AppValidation.checkValidation(discountValue, inputDis);
           } else {
 
                if (percentType == "hasPercent") {
@@ -94,12 +95,10 @@ public class Discounting extends javax.swing.JDialog {
                          inputDis.setValueTextFieldCenter(value);
                     } else {
                          inputDis.setValueTextFieldCenter(discountValue);
+                         AppValidation.checkValidation(discountValue, inputDis);
                     }
                }
           }
-          
-          
-          AppValidation.checkValidation(discountValue, inputDis);
      }
 
      ////Addd Validation for each button
