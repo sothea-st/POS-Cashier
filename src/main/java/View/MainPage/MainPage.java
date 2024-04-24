@@ -10,6 +10,7 @@ import BlogCode.JavaSearchByNameAndCode;
 import BlogCode.ResponsiveSize;
 import Color.WindowColor;
 import Components.BackgroundImage;
+import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -640,6 +641,11 @@ public class MainPage extends javax.swing.JFrame {
                 logout.setButtonCashier(buttonCashier);
                 logout.setBtnOpenShift(btnOpenShift);
                 logout.setVisible(true);
+             }else{
+                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                j.setMessage("Please Close Shift Before Log Out!");
+                j.setVisible(true);
+                return;
              }
          }
     }//GEN-LAST:event_btnLoginMouseClicked

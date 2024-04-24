@@ -318,7 +318,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     btnReprint.setBackground(WindowColor.green);
                     buttonDiscount.setBackground(WindowColor.green);
                     buttonCustomer.setBackground(WindowColor.green);
-                    btnLogin.setBackground(WindowColor.lightGray);
+//                    btnLogin.setBackground(WindowColor.lightGray);
 
                     btnOpenShift.setButtonName(JavaConstant.closeShift);
                     // jdLoginForm.setCheckOpenShift(true);
