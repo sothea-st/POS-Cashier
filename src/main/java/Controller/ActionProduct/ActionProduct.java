@@ -22,9 +22,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -242,10 +245,24 @@ public class ActionProduct {
 
                product.setBarcode(listData.getBarcode());
                // read image from api 
+               
                try {
-                    Response responseProductImg = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-                    byte[] imagePro = responseProductImg.body().bytes();
-                    product.setProductImage(new ImageIcon(imagePro));
+
+                    if (listData.getProImageName() != null) {
+                         URL imageUrl = new URL(""+JavaConnection.get(JavaRoute.readImage + listData.getProImageName()));
+                         Image image = ImageIO.read(imageUrl);
+                         ImageIcon icon = new ImageIcon(image);
+                         product.setImage(""+JavaConnection.get(JavaRoute.readImage + listData.getProImageName()));
+                    }
+
+               } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+               }
+               
+               try {
+//                    Response responseProductImg = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
+//                    byte[] imagePro = responseProductImg.body().bytes();
+//                    product.setProductImage(new ImageIcon(imagePro));
 
                     Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
                     byte[] imgs = img.body().bytes();

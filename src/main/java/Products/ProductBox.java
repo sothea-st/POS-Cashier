@@ -3,6 +3,7 @@ package Products;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -12,6 +13,8 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import javax.swing.Icon;
 
@@ -87,6 +90,12 @@ public class ProductBox extends javax.swing.JPanel {
      public void setProductImage(Icon productImage) {
           this.productImage = productImage;
           productImg.setIcon(productImage);
+     }
+     
+     public void setImage(String url) throws MalformedURLException, IOException {
+               
+         System.out.println("url :" + url);
+          JavaConstant.coverImage(url, productImg, 160, 105);
      }
 
      public String getProductName() {

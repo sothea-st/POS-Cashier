@@ -8,10 +8,16 @@ import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -119,5 +125,31 @@ public class JavaConstant {
      public static countCircleShape circleShape;
      public static int holdId = 0;
      public static boolean holdSameProduct = false;
+     
+     
+     public static void coverImage(String url , JLabel lable , int labelWidth , int labelHeight) throws MalformedURLException, IOException {
+          URL imageUrl = new URL(url);
+          
+          System.out.println("imageUrl : " + imageUrl);
+          Image image = ImageIO.read(imageUrl);
+
+          if (image != null) {
+               // Get dimensions of the JLabel
+//               int labelWidth = 160;
+//               int labelHeight = 105;
+
+               // Calculate the scale factor
+               double scaleX = (double) labelWidth / image.getWidth(null);
+               double scaleY = (double) labelHeight / image.getHeight(null);
+               double scale = Math.min(scaleX, scaleY);
+
+               // Scale the image
+               int scaledWidth = (int) (image.getWidth(null) * scale);
+               int scaledHeight = (int) (image.getHeight(null) * scale);
+               Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+               ImageIcon icon = new ImageIcon(scaledImage);
+               lable.setIcon(icon);
+          }
+     }
 
 }
