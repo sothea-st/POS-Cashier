@@ -28,7 +28,7 @@ import javax.swing.JTextField;
 import okhttp3.MediaType;
 
 public class JavaConstant {
-     
+       public static String urlImage = "http://localhost:8090/";
      
      public static void setPointer(JLabel jLabel) {
           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -131,7 +131,7 @@ public class JavaConstant {
      public static void coverImage(String url , JLabel lable , int labelWidth , int labelHeight) throws MalformedURLException, IOException {
           URL imageUrl = new URL(url);
           
-          System.out.println("imageUrl : " + imageUrl);
+        
           Image image = ImageIO.read(imageUrl);
 
           if (image != null) {

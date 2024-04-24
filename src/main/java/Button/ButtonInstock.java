@@ -43,7 +43,7 @@ public class ButtonInstock extends javax.swing.JPanel {
     public ButtonInstock() {
         initComponents();
         button.setForeground(WindowColor.white);
-        button.setFont(WindowFonts.timeNewRomanBold8);
+        button.setFont(WindowFonts.timeNewRomanBold10);
         setBackground(WindowColor.white);
     }
 

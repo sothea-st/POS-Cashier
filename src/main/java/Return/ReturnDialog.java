@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
+import View.MainPage.MainPage;
 import javax.swing.JPanel;
 
 /**
@@ -260,6 +261,9 @@ public class ReturnDialog extends javax.swing.JDialog {
          this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
+    
+    
+    
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          String barcode = txtBarcode.getValueTextField();
          String invoiceNo = txtinvoice.getValueTextField();
@@ -275,9 +279,11 @@ public class ReturnDialog extends javax.swing.JDialog {
          }
 
          ActionScanBarcodeAddProduct obj = new ActionScanBarcodeAddProduct();
+         
          if (barcode != null) {
               obj.scanBarcode(barcode, jdFormLogin);
          } else {
+              obj.setBtnPayment(btnPayment);
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
 
@@ -285,6 +291,8 @@ public class ReturnDialog extends javax.swing.JDialog {
          btnHold.setBackground(WindowColor.lightGray);
          btnReturn.setBackground(WindowColor.lightGray);
          btnDiscount.setBackground(WindowColor.lightGray);
+
+          
 
          JavaConstant.isReturn = "return";
          JavaConstant.reasonId = reasonId;

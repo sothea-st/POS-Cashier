@@ -127,10 +127,10 @@ public class ActionProduct {
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
 
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 1}; // 1 align item to top
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 1}; // 1 align item to left 
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0,0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0,0 ,1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0,0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0,0, 1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
@@ -146,7 +146,7 @@ public class ActionProduct {
 //               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
 
-               gbc.insets = new Insets(5, 0, 5, marginRight);
+               gbc.insets = new Insets(5, 0, 5, 1);
                x++;
                if (x == JavaConstant.rowNum) {
                     x = 0;
@@ -188,6 +188,11 @@ public class ActionProduct {
 
                                    if (qty > 0) {
 //                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
+                                        if (JavaConstant.isReturn != null) { 
+                                             j.setMessage(JavaAlertMessage.returnMsg);
+                                             j.setVisible(true);
+                                             return;
+                                        }
                                         eventBtnBuy(listData, 1);
                                    } else {
                                         j.setMessage(JavaMessage.productOutStock);
@@ -224,14 +229,14 @@ public class ActionProduct {
 
                product.setDiscountPercent(listData.getDiscount());
 
-               String productName;
-               if (listData.getProductNameEn().length() > 22) {
-                    productName = listData.getProductNameEn().substring(0, 21) + "...";
-               } else {
-                    productName = listData.getProductNameEn();
-               }
+//               String productName;
+//               if (listData.getProductNameEn().length() > 22) {
+//                    productName = listData.getProductNameEn().substring(0, 21) + "...";
+//               } else {
+//                    productName = listData.getProductNameEn();
+//               }
 
-               product.setProductName("<html>" + productName + "</html>");
+               product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
                product.setWeight(listData.getWeight());
 
                if (listData.getDiscount() > 0) {
@@ -249,10 +254,7 @@ public class ActionProduct {
                try {
 
                     if (listData.getProImageName() != null) {
-                         URL imageUrl = new URL(""+JavaConnection.get(JavaRoute.readImage + listData.getProImageName()));
-                         Image image = ImageIO.read(imageUrl);
-                         ImageIcon icon = new ImageIcon(image);
-                         product.setImage(""+JavaConnection.get(JavaRoute.readImage + listData.getProImageName()));
+                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/"+listData.getProImageName());
                     }
 
                } catch (Exception e) {
@@ -260,10 +262,6 @@ public class ActionProduct {
                }
                
                try {
-//                    Response responseProductImg = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-//                    byte[] imagePro = responseProductImg.body().bytes();
-//                    product.setProductImage(new ImageIcon(imagePro));
-
                     Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
                     byte[] imgs = img.body().bytes();
                     product.setFlagImage(new ImageIcon(imgs));
@@ -363,9 +361,12 @@ public class ActionProduct {
           }
 
           try {
-               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-               byte[] images = responseProductImage.body().bytes();
-               box.setIconImage(new ImageIcon(images));
+//               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
+//               byte[] images = responseProductImage.body().bytes();
+//               box.setIconImage(new ImageIcon(images));
+          
+               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/"+listData.getProImageName());
+               
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
@@ -394,8 +395,8 @@ public class ActionProduct {
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
 
-          detailItem.setBackground(WindowColor.slightGreen);
-          detailItem.setBorder(null);
+//          detailItem.setBackground(WindowColor.slightGreen);
+//          detailItem.setBorder(null);
 
      }
 

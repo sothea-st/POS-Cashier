@@ -64,12 +64,19 @@ public class JavaSearchByNameAndCode {
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
+                    if (JavaConstant.isReturn != null) {
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage(JavaAlertMessage.returnMsg);
+                         j.setVisible(true);
+                         textField.setValueTextField("");
+                         return;
+                    }
+
                     String barcode = textField.getValueTextField();
-                
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
-                                
+
                               if (JavaConstant.checkOpenShift) {
                                    new ActionScanBarcodeAddProduct().scanBarcode(barcode, jdFormLogin);
                                    textField.setValueTextField("");

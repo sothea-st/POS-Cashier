@@ -1,22 +1,28 @@
 package Products;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DecimalFormat;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class ProductBox extends javax.swing.JPanel {
 
@@ -88,13 +94,16 @@ public class ProductBox extends javax.swing.JPanel {
      }
 
      public void setProductImage(Icon productImage) {
+           
           this.productImage = productImage;
           productImg.setIcon(productImage);
      }
      
+      public void setProductImage(String url) throws IOException {
+          JavaConstant.coverImage(url, productImg, 120, 85);
+     }
+     
      public void setImage(String url) throws MalformedURLException, IOException {
-               
-         System.out.println("url :" + url);
           JavaConstant.coverImage(url, productImg, 160, 105);
      }
 
@@ -131,10 +140,10 @@ public class ProductBox extends javax.swing.JPanel {
 //          }
 //================================Product Status============================
           if (productStatus == "Unavailable") {
-               buttonStatus.setBgColor(WindowColor.darkred);
+               buttonStatus.setBgColor(WindowColor.yellow);
                buttonStatus.setButtonName("Unavailable");
           } else if (productStatus == "Out Stock") {
-               buttonStatus.setBgColor(WindowColor.yellow);
+               buttonStatus.setBgColor(WindowColor.darkred);
                buttonStatus.setButtonName("Out Stock");
           } else {
                buttonStatus.setBgColor(WindowColor.darkGreen);
@@ -152,16 +161,16 @@ public class ProductBox extends javax.swing.JPanel {
           discount.setVisible(false);
           productBox.setBackground(WindowColor.white);
           setBackground(WindowColor.white);
-          lbName.setFont(WindowFonts.timeNewRomanBold11);
+          lbName.setFont(WindowFonts.timeNewRomanBold12);
           lbName.setForeground(WindowColor.black);
-          lbWeight.setFont(WindowFonts.timeNewRomanBold10);
+          lbWeight.setFont(WindowFonts.timeNewRomanBold11);
           lbWeight.setForeground(WindowColor.gray);
           lbPrice.setFont(WindowFonts.timeNewRomanBold12);
           lbPrice.setForeground(WindowColor.darkGreen);
-          txtBarcode.setFont(WindowFonts.timeNewRomanBold9);
+          txtBarcode.setFont(WindowFonts.timeNewRomanBold10);
           txtBarcode.setForeground(WindowColor.gray);
           lbQty.setFont(WindowFonts.timeNewRomanBold12);
-          lbQty.setVisible(false);
+//          lbQty.setVisible(false);
      }
 
      //=================================================
@@ -280,26 +289,27 @@ public class ProductBox extends javax.swing.JPanel {
         productBox.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbName.setText("Name");
-        productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 160, 20));
+        productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 160, 40));
 
         lbWeight.setText("Weight");
-        productBox.add(lbWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 77, 15));
+        productBox.add(lbWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 77, 15));
 
         txtBarcode.setText("Barcode :");
-        productBox.add(txtBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 110, 17));
+        productBox.add(txtBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 110, 20));
 
         flagImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        productBox.add(flagImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 30, 15));
-        productBox.add(buttonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 70, -1));
+        productBox.add(flagImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 30, 15));
+        productBox.add(buttonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 80, 20));
 
         lbPrice.setText("Price");
-        productBox.add(lbPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 89, -1));
-        productBox.add(btnBuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 50, -1));
+        productBox.add(lbPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 89, 20));
+        productBox.add(btnBuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 50, 20));
         productBox.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 143, 4, 17));
-        productBox.add(discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 67, -1));
+        productBox.add(discount, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 67, -1));
 
+        lbQty.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         lbQty.setText("lbQty");
-        productBox.add(lbQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+        productBox.add(lbQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 50, -1));
         productBox.add(percent, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, 50));
 
         productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -310,16 +320,16 @@ public class ProductBox extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(productBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
