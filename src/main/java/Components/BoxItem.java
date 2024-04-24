@@ -350,7 +350,6 @@ public class BoxItem extends javax.swing.JPanel {
           boxDiscount.setVisible(false);
           getImageBtnDelete();
           JavaConstant.setPointer(btnDelete);
-
           eventAddAndRemove();
      }
 
@@ -365,14 +364,27 @@ public class BoxItem extends javax.swing.JPanel {
      }
 
      public void eventAddAndRemove() {
+
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void btnPlus() {
+                    if (JavaConstant.isReturn != null) {
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage(JavaAlertMessage.returnMsg);
+                         j.setVisible(true);
+                         return;
+                    }
                     sumTotal("+");
                }
 
                @Override
                public void btnMinus() {
+                    if (JavaConstant.isReturn != null) {
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage(JavaAlertMessage.returnMsg);
+                         j.setVisible(true);
+                         return;
+                    }
                     sumTotal("-");
                }
           };
@@ -633,9 +645,9 @@ public class BoxItem extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-         if( JavaConstant.isReturn != null ){
+         if (JavaConstant.isReturn != null) {
               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-              j.setMessage("In case return do not allow remove any item!");
+              j.setMessage(JavaAlertMessage.returnMsg);
               j.setVisible(true);
               return;
          }

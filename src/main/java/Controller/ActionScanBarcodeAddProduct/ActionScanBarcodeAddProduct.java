@@ -61,7 +61,9 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ModelReturnData.change_khr = model.getChangeKhr();
 
                     if (listProduct.length == 0) {
-                         msgAlertErr();
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage("The invoie already returned !");
+                         j.setVisible(true);
                          return;
                     }
 
@@ -86,10 +88,11 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          );
                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
+                    btnPayment.setButtonName("Return");
 
                }
           } catch (Exception e) {
-               msgAlertErr();
+
           }
      }
 

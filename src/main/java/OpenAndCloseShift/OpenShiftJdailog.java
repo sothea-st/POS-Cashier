@@ -55,6 +55,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button buttonCustomer;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
+     private Button btnLogin;
 
      private LoginFormJdailog loginFormJdailog;
 
@@ -317,6 +318,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     btnReprint.setBackground(WindowColor.green);
                     buttonDiscount.setBackground(WindowColor.green);
                     buttonCustomer.setBackground(WindowColor.green);
+//                    btnLogin.setBackground(WindowColor.lightGray);
 
                     btnOpenShift.setButtonName(JavaConstant.closeShift);
                     // jdLoginForm.setCheckOpenShift(true);
@@ -516,6 +518,15 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.btnCancel = btnCancel;
      }
 
+    public Button getBtnLogin() {
+        return btnLogin;
+    }
+
+    public void setBtnLogin(Button btnLogin) {
+        this.btnLogin = btnLogin;
+    }
+
+     
      /**
       * @param args the command line
       * arguments

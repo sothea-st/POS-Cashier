@@ -10,6 +10,7 @@ import BlogCode.JavaSearchByNameAndCode;
 import BlogCode.ResponsiveSize;
 import Color.WindowColor;
 import Components.BackgroundImage;
+import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -618,23 +619,30 @@ public class MainPage extends javax.swing.JFrame {
               loginFunc();
               jdFormLogin.setVisible(true);
          } else if (buttonName.equals("logout")) {
-              LogoutDialog logout = new LogoutDialog(new JFrame(), true);
-              logout.setBoxUserName(boxUserName);
-              logout.setBtnLogin(btnLogin);
-              logout.setCategory(category);
-              logout.setPanelProduct(panelProduct);
-              logout.setjScrollPaneCategory(jScrollPaneCategory);
-              logout.setPanelPagination(panelPagination);
-              logout.setDetailItem(detailItem);
-              logout.setBoxOne(boxOne);
-              logout.setBtnPayment(btnPayment);
-              logout.setLbPOSId(lbPOSId);
-              logout.setTextField(textField);
-              logout.setSearchBox(searchBox);
-              logout.setSubtotalPanel(totalPanel);
-              logout.setButtonCashier(buttonCashier);
-              logout.setBtnOpenShift(btnOpenShift);
-              logout.setVisible(true);
+             if (JavaConstant.checkOpenShift == false) {
+                LogoutDialog logout = new LogoutDialog(new JFrame(), true);
+                logout.setBoxUserName(boxUserName);
+                logout.setBtnLogin(btnLogin);
+                logout.setCategory(category);
+                logout.setPanelProduct(panelProduct);
+                logout.setjScrollPaneCategory(jScrollPaneCategory);
+                logout.setPanelPagination(panelPagination);
+                logout.setDetailItem(detailItem);
+                logout.setBoxOne(boxOne);
+                logout.setBtnPayment(btnPayment);
+                logout.setLbPOSId(lbPOSId);
+                logout.setTextField(textField);
+                logout.setSearchBox(searchBox);
+                logout.setSubtotalPanel(totalPanel);
+                logout.setButtonCashier(buttonCashier);
+                logout.setBtnOpenShift(btnOpenShift);
+                logout.setVisible(true);
+             }else{
+                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                j.setMessage("Please Close Shift Before Log Out!");
+                j.setVisible(true);
+                return;
+             }
          }
     }//GEN-LAST:event_btnLoginMouseClicked
 
@@ -666,6 +674,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setButtonHoldOrder(buttonHoldOrder);
                              jdOpenShift.setLoginFormJdailog(jdFormLogin);
                              jdOpenShift.setBtnCancel(btnCancel);
+                             jdOpenShift.setBtnLogin(btnLogin);
                              jdOpenShift.setDataSuccess(d);
                         }
                    } catch (Exception e) {
@@ -682,7 +691,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg,btnLogin
                    );
               }
          }

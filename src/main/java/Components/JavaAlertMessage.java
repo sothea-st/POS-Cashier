@@ -6,7 +6,9 @@ import Constant.JavaConstant;
 
  
 public class JavaAlertMessage extends javax.swing.JDialog {
-
+     
+     public static String returnMsg = "You are in processing return !";
+     
      private String message;
      public JavaAlertMessage(java.awt.Frame parent, boolean modal) {
           super(parent, modal);

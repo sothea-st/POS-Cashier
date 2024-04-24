@@ -1602,6 +1602,8 @@ public class PaymentOption extends javax.swing.JDialog {
                ReturnDialog r = new ReturnDialog(new JFrame(), true);
                r.setResetReturn();
                JavaConstant.isReturn = null;
+               
+               btnPayment.setButtonName("Payment");
 
                ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
 

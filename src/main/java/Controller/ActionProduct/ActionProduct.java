@@ -124,10 +124,10 @@ public class ActionProduct {
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
 
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 1}; // 1 align item to top
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 1}; // 1 align item to left 
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0,0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0,0 ,1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0,0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0,0, 1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
@@ -143,7 +143,7 @@ public class ActionProduct {
 //               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
 
-               gbc.insets = new Insets(5, 0, 5, marginRight);
+               gbc.insets = new Insets(5, 0, 5, 2);
                x++;
                if (x == JavaConstant.rowNum) {
                     x = 0;
@@ -185,6 +185,11 @@ public class ActionProduct {
 
                                    if (qty > 0) {
 //                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
+                                        if (JavaConstant.isReturn != null) { 
+                                             j.setMessage(JavaAlertMessage.returnMsg);
+                                             j.setVisible(true);
+                                             return;
+                                        }
                                         eventBtnBuy(listData, 1);
                                    } else {
                                         j.setMessage(JavaMessage.productOutStock);
@@ -376,8 +381,8 @@ public class ActionProduct {
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
 
-          detailItem.setBackground(WindowColor.slightGreen);
-          detailItem.setBorder(null);
+//          detailItem.setBackground(WindowColor.slightGreen);
+//          detailItem.setBorder(null);
 
      }
 
