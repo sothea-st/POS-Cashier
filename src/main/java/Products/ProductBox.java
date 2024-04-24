@@ -207,7 +207,7 @@ public class ProductBox extends javax.swing.JPanel {
      //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 3;
-     private float shadowOpacity = 0.8f;
+     private float shadowOpacity = 0.5f;
      private Color shadowColor = Color.GRAY;
 
      @Override

@@ -39,13 +39,13 @@ public class UnEditableTextField extends javax.swing.JPanel {
         setBackground(WindowColor.white);
         textField.setFont(WindowFonts.timeNewRoman14);
         textField.setBackground(WindowColor.white);
-        textField.setForeground(WindowColor.gray);
+        textField.setForeground(WindowColor.dark);
     }
 
     //=================================================Create Shadow Box
     private ShadowType shadowType;
-    private int shadowSize = 3;
-    private float shadowOpacity = 0.8f;
+    private int shadowSize = 1;
+    private float shadowOpacity = 0.1f;
     private Color shadowColor = Color.GRAY;
     
     @Override
@@ -99,37 +99,37 @@ public class UnEditableTextField extends javax.swing.JPanel {
     
     
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        textField = new javax.swing.JTextField();
+          textField = new javax.swing.JTextField();
 
-        textField.setEditable(false);
-        textField.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        textField.setBorder(null);
-        textField.setFocusable(false);
+          textField.setEditable(false);
+          textField.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+          textField.setBorder(null);
+          textField.setFocusable(false);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(textField)
-                .addContainerGap())
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(textField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(textField)
+                    .addContainerGap())
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
     private String uneditText;
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField textField;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JTextField textField;
+     // End of variables declaration//GEN-END:variables
 }

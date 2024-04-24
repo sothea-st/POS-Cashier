@@ -69,7 +69,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           event();
           setText();
           this.btnOpenShift = btnOpenShift;
-          txtTotalUsd.requestFocus();
+          txtTotalUsd.setFocus();
      }
 
      private void currenDateTime() {
@@ -97,186 +97,186 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        panelOpenShift = new javax.swing.JPanel();
-        txtTotalUsd = new Components.TextField();
-        txtPosId = new Components.UnEditableTextField();
-        txtUserId = new Components.UnEditableTextField();
-        txtDateTime = new Components.UnEditableTextField();
-        txtCashierName = new Components.UnEditableTextField();
-        labelPopUpTitle1 = new Components.LabelPopUpTitle();
-        lbPosId = new Components.Label();
-        IbUserId = new Components.Label();
-        lbOpenDate = new Components.Label();
-        lbTotalUsd = new Components.Label();
-        lbCashier = new Components.Label();
-        LbTotalKhr = new Components.Label();
-        buttonCancel = new ButtonPackage.ButtonCancel();
-        buttonSave = new ButtonPackage.ButtonSave();
-        txtTotalKhr = new Components.TextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+          jLabel2 = new javax.swing.JLabel();
+          panelOpenShift = new javax.swing.JPanel();
+          txtTotalUsd = new Components.TextField();
+          txtPosId = new Components.UnEditableTextField();
+          txtUserId = new Components.UnEditableTextField();
+          txtDateTime = new Components.UnEditableTextField();
+          txtCashierName = new Components.UnEditableTextField();
+          labelPopUpTitle1 = new Components.LabelPopUpTitle();
+          lbPosId = new Components.Label();
+          IbUserId = new Components.Label();
+          lbOpenDate = new Components.Label();
+          lbTotalUsd = new Components.Label();
+          lbCashier = new Components.Label();
+          LbTotalKhr = new Components.Label();
+          buttonCancel = new ButtonPackage.ButtonCancel();
+          buttonSave = new ButtonPackage.ButtonSave();
+          txtTotalKhr = new Components.TextField();
+          jLabel1 = new javax.swing.JLabel();
+          jLabel3 = new javax.swing.JLabel();
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel2.setText("*");
+          jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+          jLabel2.setText("*");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelOpenShift.setForeground(new java.awt.Color(0, 0, 0));
+          panelOpenShift.setForeground(new java.awt.Color(0, 0, 0));
 
-        txtTotalUsd.setLabelTextField("$ 0.00");
+          txtTotalUsd.setLabelTextField("$ 0.00");
 
-        txtPosId.setUneditText("01");
+          txtPosId.setUneditText("01");
 
-        txtUserId.setUneditText("0006");
+          txtUserId.setUneditText("0006");
 
-        txtDateTime.setUneditText("02-01- 2024 03:50:00 PM");
+          txtDateTime.setUneditText("02-01- 2024 03:50:00 PM");
 
-        txtCashierName.setUneditText("KIMSRON");
+          txtCashierName.setUneditText("KIMSRON");
 
-        labelPopUpTitle1.setLabelTitle("Open Shift");
+          labelPopUpTitle1.setLabelTitle("Open Shift");
 
-        lbPosId.setLabelName("POS ID");
+          lbPosId.setLabelName("POS ID");
 
-        IbUserId.setLabelName("User ID");
+          IbUserId.setLabelName("User ID");
 
-        lbOpenDate.setLabelName("Open Date / Time");
+          lbOpenDate.setLabelName("Open Date / Time");
 
-        lbTotalUsd.setLabelName("Total Cash ( USD)");
+          lbTotalUsd.setLabelName("Total Cash ( USD)");
 
-        lbCashier.setLabelName("Cashier Name");
+          lbCashier.setLabelName("Cashier Name");
 
-        LbTotalKhr.setLabelName("Total Cash ( KHR)");
+          LbTotalKhr.setLabelName("Total Cash ( KHR)");
 
-        buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCancelMouseClicked(evt);
-            }
-        });
+          buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancelMouseClicked(evt);
+               }
+          });
 
-        buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonSaveMouseClicked(evt);
-            }
-        });
+          buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonSaveMouseClicked(evt);
+               }
+          });
 
-        txtTotalKhr.setLabelTextField("0.00");
+          txtTotalKhr.setLabelTextField("0.00");
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("*");
+          jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+          jLabel1.setText("*");
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel3.setText("*");
+          jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          jLabel3.setForeground(new java.awt.Color(204, 0, 0));
+          jLabel3.setText("*");
 
-        javax.swing.GroupLayout panelOpenShiftLayout = new javax.swing.GroupLayout(panelOpenShift);
-        panelOpenShift.setLayout(panelOpenShiftLayout);
-        panelOpenShiftLayout.setHorizontalGroup(
-            panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbTotalUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LbTotalKhr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(2, 2, 2)
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(13, 13, 13))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbPosId, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(IbUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPosId, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lbOpenDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lbCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        panelOpenShiftLayout.setVerticalGroup(
-            panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPosId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbPosId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbOpenDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtUserId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(IbUserId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          javax.swing.GroupLayout panelOpenShiftLayout = new javax.swing.GroupLayout(panelOpenShift);
+          panelOpenShift.setLayout(panelOpenShiftLayout);
+          panelOpenShiftLayout.setHorizontalGroup(
+               panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                              .addGap(106, 106, 106)
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(lbTotalUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(LbTotalKhr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                              .addGap(2, 2, 2)
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                   .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(13, 13, 13))
+                                   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(txtTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(txtTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
+                              .addGap(0, 0, Short.MAX_VALUE)
+                              .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(22, 22, 22))
+                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(lbPosId, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(IbUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(txtPosId, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                   .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(lbOpenDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(lbCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                   .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(txtCashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addGap(0, 0, Short.MAX_VALUE))))
+               .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                    .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+          );
+          panelOpenShiftLayout.setVerticalGroup(
+               panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                    .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(txtPosId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(lbPosId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(lbOpenDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lbTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LbTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
-        );
+                         .addComponent(txtCashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(txtUserId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(IbUserId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(lbCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                              .addComponent(lbTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(txtTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(LbTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(txtTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                              .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(30, 30, 30)
+                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addComponent(buttonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(buttonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(17, 17, 17))
+          );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+          getContentPane().setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          );
 
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+          pack();
+          setLocationRelativeTo(null);
+     }// </editor-fold>//GEN-END:initComponents
 
      private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonCancelMouseClicked
           this.dispose();
@@ -290,7 +290,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           String posId = txtPosId.getUneditText();
           String userCode = txtUserId.getUneditText();
           String openTime = txtDateTime.getUneditText();
-
+          reserveUsd = reserveUsd.replace(",", "");
+          reserveKhr = reserveKhr.replace(",", "");
           JSONObject json = new JSONObject();
           json.put("reserveUsd", reserveUsd);
           json.put("reserveKhr", reserveKhr);
@@ -311,7 +312,11 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     return;
                }
 
+ 
+
                Response response = JavaConnection.post(JavaRoute.openShift, json);
+
+            
                if (response.isSuccessful()) {
                     dispose();
                     btnreturn.setBackground(WindowColor.brown);
@@ -348,7 +353,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     }
 
 //                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
-
                } else {
                     UIManager UI = new UIManager();
                     UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -518,15 +522,14 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.btnCancel = btnCancel;
      }
 
-    public Button getBtnLogin() {
-        return btnLogin;
-    }
+     public Button getBtnLogin() {
+          return btnLogin;
+     }
 
-    public void setBtnLogin(Button btnLogin) {
-        this.btnLogin = btnLogin;
-    }
+     public void setBtnLogin(Button btnLogin) {
+          this.btnLogin = btnLogin;
+     }
 
-     
      /**
       * @param args the command line
       * arguments
@@ -586,25 +589,25 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.jdLoginForm = jdLoginForm;
      }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Components.Label IbUserId;
-    private Components.Label LbTotalKhr;
-    private ButtonPackage.ButtonCancel buttonCancel;
-    private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private Components.LabelPopUpTitle labelPopUpTitle1;
-    private Components.Label lbCashier;
-    private Components.Label lbOpenDate;
-    private Components.Label lbPosId;
-    private Components.Label lbTotalUsd;
-    private javax.swing.JPanel panelOpenShift;
-    private Components.UnEditableTextField txtCashierName;
-    private Components.UnEditableTextField txtDateTime;
-    private Components.UnEditableTextField txtPosId;
-    private Components.TextField txtTotalKhr;
-    private Components.TextField txtTotalUsd;
-    private Components.UnEditableTextField txtUserId;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private Components.Label IbUserId;
+     private Components.Label LbTotalKhr;
+     private ButtonPackage.ButtonCancel buttonCancel;
+     private ButtonPackage.ButtonSave buttonSave;
+     private javax.swing.JLabel jLabel1;
+     private javax.swing.JLabel jLabel2;
+     private javax.swing.JLabel jLabel3;
+     private Components.LabelPopUpTitle labelPopUpTitle1;
+     private Components.Label lbCashier;
+     private Components.Label lbOpenDate;
+     private Components.Label lbPosId;
+     private Components.Label lbTotalUsd;
+     private javax.swing.JPanel panelOpenShift;
+     private Components.UnEditableTextField txtCashierName;
+     private Components.UnEditableTextField txtDateTime;
+     private Components.UnEditableTextField txtPosId;
+     private Components.TextField txtTotalKhr;
+     private Components.TextField txtTotalUsd;
+     private Components.UnEditableTextField txtUserId;
+     // End of variables declaration//GEN-END:variables
 }

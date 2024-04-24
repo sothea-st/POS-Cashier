@@ -1635,7 +1635,7 @@ public class PaymentOption extends javax.swing.JDialog {
      }//GEN-LAST:event_buttonChargeAndPrintMouseEntered
 
     private void lbOneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseEntered
-         lbOne.setBackground(WindowColor.lightGray);
+         lbOne.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbOneMouseEntered
 
     private void lbOneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseExited
@@ -1643,7 +1643,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbOneMouseExited
 
     private void lbTwoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTwoMouseEntered
-         lbTwo.setBackground(WindowColor.lightGray);
+         lbTwo.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbTwoMouseEntered
 
     private void lbTwoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTwoMouseExited
@@ -1651,7 +1651,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbTwoMouseExited
 
     private void lbThreeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThreeMouseEntered
-         lbThree.setBackground(WindowColor.lightGray);
+         lbThree.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbThreeMouseEntered
 
     private void lbThreeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThreeMouseExited
@@ -1659,7 +1659,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbThreeMouseExited
 
     private void lbFourMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFourMouseEntered
-         lbFour.setBackground(WindowColor.lightGray);
+         lbFour.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbFourMouseEntered
 
     private void lbFourMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFourMouseExited
@@ -1667,7 +1667,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbFourMouseExited
 
     private void lbFiveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFiveMouseEntered
-         lbFive.setBackground(WindowColor.lightGray);
+         lbFive.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbFiveMouseEntered
 
     private void lbFiveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFiveMouseExited
@@ -1675,7 +1675,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbFiveMouseExited
 
     private void lbSixMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSixMouseEntered
-         lbSix.setBackground(WindowColor.lightGray);
+         lbSix.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbSixMouseEntered
 
     private void lbSixMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSixMouseExited
@@ -1683,7 +1683,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbSixMouseExited
 
     private void lbSevenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSevenMouseEntered
-         lbSeven.setBackground(WindowColor.lightGray);
+         lbSeven.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbSevenMouseEntered
 
     private void lbSevenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSevenMouseExited
@@ -1691,7 +1691,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbSevenMouseExited
 
     private void lbEightMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEightMouseEntered
-         lbEight.setBackground(WindowColor.lightGray);
+         lbEight.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbEightMouseEntered
 
     private void lbEightMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEightMouseExited
@@ -1699,7 +1699,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbEightMouseExited
 
     private void lbNineMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNineMouseEntered
-         lbNine.setBackground(WindowColor.lightGray);
+         lbNine.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbNineMouseEntered
 
     private void lbNineMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNineMouseExited
@@ -1707,7 +1707,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbNineMouseExited
 
     private void lbDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseEntered
-         lbDelete.setBackground(WindowColor.lightGray);
+         lbDelete.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbDeleteMouseEntered
 
     private void lbDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseExited
@@ -1715,7 +1715,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbDeleteMouseExited
 
     private void lbDotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDotMouseEntered
-         lbDot.setBackground(WindowColor.lightGray);
+         lbDot.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbDotMouseEntered
 
     private void lbDotMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDotMouseExited
@@ -1723,7 +1723,7 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbDotMouseExited
 
     private void lbZeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbZeroMouseEntered
-         lbZero.setBackground(WindowColor.lightGray);
+         lbZero.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbZeroMouseEntered
 
     private void lbZeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbZeroMouseExited

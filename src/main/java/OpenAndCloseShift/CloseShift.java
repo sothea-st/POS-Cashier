@@ -304,6 +304,16 @@ public class CloseShift extends javax.swing.JDialog {
          String cashKhr = cashKh.getValueTextField();
          String cashUsd = cashUs.getValueTextField();
 
+         express = express.replace(",", "");
+
+         express = express.replace(",", "");
+         khqrMnk = khqrMnk.replace(",", "");
+         khqrAba = khqrAba.replace(",", "");
+         creditCard = creditCard.replace(",", "");
+
+         cashKhr = cashKhr.replace(",", "");
+         cashUsd = cashUsd.replace(",", "");
+
          JSONObject json = new JSONObject();
          json.put("express", express);
          json.put("khqrMnk", khqrMnk);
@@ -381,6 +391,7 @@ public class CloseShift extends javax.swing.JDialog {
 
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
+                   JavaConstant.isOpenShift = "Can not openshift";
 
                    //      == == == == == == == Add Background == == == == == == ==
 //                   BackgroundImage bgimg = new BackgroundImage();
@@ -504,15 +515,14 @@ public class CloseShift extends javax.swing.JDialog {
           this.buttonCashier = buttonCashier;
      }
 
-    public Button getBtnLogin() {
-        return btnLogin;
-    }
+     public Button getBtnLogin() {
+          return btnLogin;
+     }
 
-    public void setBtnLogin(Button btnLogin) {
-        this.btnLogin = btnLogin;
-    }
+     public void setBtnLogin(Button btnLogin) {
+          this.btnLogin = btnLogin;
+     }
 
-     
      /**
       * @param args the command line
       * arguments
