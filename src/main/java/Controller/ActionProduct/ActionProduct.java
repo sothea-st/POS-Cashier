@@ -22,9 +22,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -143,7 +146,7 @@ public class ActionProduct {
 //               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
 
-               gbc.insets = new Insets(5, 0, 5, 2);
+               gbc.insets = new Insets(5, 0, 5, 1);
                x++;
                if (x == JavaConstant.rowNum) {
                     x = 0;
@@ -247,10 +250,18 @@ public class ActionProduct {
 
                product.setBarcode(listData.getBarcode());
                // read image from api 
+               
                try {
-                    Response responseProductImg = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-                    byte[] imagePro = responseProductImg.body().bytes();
-                    product.setProductImage(new ImageIcon(imagePro));
+
+                    if (listData.getProImageName() != null) {
+                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/"+listData.getProImageName());
+                    }
+
+               } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+               }
+               
+               try {
                     Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
                     byte[] imgs = img.body().bytes();
                     product.setFlagImage(new ImageIcon(imgs));
@@ -350,9 +361,12 @@ public class ActionProduct {
           }
 
           try {
-               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-               byte[] images = responseProductImage.body().bytes();
-               box.setIconImage(new ImageIcon(images));
+//               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
+//               byte[] images = responseProductImage.body().bytes();
+//               box.setIconImage(new ImageIcon(images));
+          
+               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/"+listData.getProImageName());
+               
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());

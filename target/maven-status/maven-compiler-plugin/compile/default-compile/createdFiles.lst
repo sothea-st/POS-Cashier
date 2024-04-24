@@ -63,6 +63,7 @@ HoldOrder\ActionHoldOrder$1.class
 Discount\OverallDiscount$4.class
 Receipt\CashierReport$1.class
 NewDiscounts\Discounting$18.class
+Model\Brand\BrandModel.class
 Components\NoData.class
 Customer\JdailogCustomer$4.class
 BlogCode\QtyUpdate.class
@@ -82,6 +83,7 @@ Components\HistoryHoldOrder$4.class
 Components\RadioButton.class
 OpenAndCloseShift\CloseShift.class
 NewDiscounts\Discounting.class
+Model\OpenShiftModel\OpenShiftModel.class
 Components\TextField$3.class
 Payment\PaymentOption$18.class
 DefaultPrice\DefaultPrice.class
@@ -116,6 +118,7 @@ Discount\DiscountByItem$1.class
 LoginAndLogoutForm\LoginFormJdailog$5.class
 View\MainPage\MainPage$11.class
 Discount\DiscountByItem.class
+Model\CashierReport\ReportCashier.class
 Components\Parallelogram.class
 Components\Shadow\GraphicsUtilities.class
 Components\Shadow\ShadowType.class
@@ -259,6 +262,7 @@ Components\JavaAlertMessage.class
 NewDiscounts\Discounting$20.class
 Return\JdialogConfirmReturn$1.class
 Constant\JavaBaseUrl.class
+Model\CashierReport\Data.class
 OpenAndCloseShift\OpenShiftJdailog$2.class
 Return\ReturnBox.class
 Constant\JavaRoute.class
@@ -274,6 +278,7 @@ Payment\PaymentOption$7.class
 PanelToImageConverter\PanelData$1.class
 Components\SubtotalPanel.class
 Customer\JdailogCustomer$3.class
+Model\CashierReport\SummerySale.class
 Components\CircleShape.class
 OpenAndCloseShift\OpenShiftJdailog.class
 Controller\ActionScanBarcodeAddProduct\ActionScanBarcodeAddProduct.class

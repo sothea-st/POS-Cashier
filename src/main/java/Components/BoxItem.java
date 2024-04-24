@@ -22,6 +22,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -123,6 +124,10 @@ public class BoxItem extends javax.swing.JPanel {
      public void setIconImage(Icon iconImage) {
           this.iconImage = iconImage;
           img.setIcon(iconImage);
+     }
+     
+     public void setIconImage(String url) throws IOException {
+         JavaConstant.coverImage(url, img, 60, 100);
      }
 
      public String getLabelProductName() {

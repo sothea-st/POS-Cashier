@@ -79,7 +79,7 @@ public class ResponsiveSize {
                          resizeWithData(6);
                     } else if (width <= 1491) {
                          JOptionPane.showMessageDialog(null, "There are limited for resizing!");
-                         mainPage.setSize(1491, 907);
+                         mainPage.setSize(1540, 907);
                          ActionProduct.marginRight = 3;
                          resizeWithData(5);
                     } else {

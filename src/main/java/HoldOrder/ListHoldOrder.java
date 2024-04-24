@@ -329,8 +329,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
 
-          detailItem.setBackground(WindowColor.slightGreen);
-          detailItem.setBorder(null);
+//          detailItem.setBackground(WindowColor.slightGreen);
+//          detailItem.setBorder(null);
      }
 
      @SuppressWarnings("unchecked")
