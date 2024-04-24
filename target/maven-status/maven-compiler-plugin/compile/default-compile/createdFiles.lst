@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Controller\ReceiptController.class
 Discount\ListProduct$2.class
 Payment\PaymentOption$1.class
@@ -400,3 +401,5 @@ Button\ButtonAddProduct$1.class
 BlogCode\JavaEventNextPrevious$2.class
 NewDiscounts\Discounting$7.class
 NewCashierReport\CashierPreview.class
+=======
+>>>>>>> 2eac6cc473998e64a3761c687b57d7fedcaa48ed

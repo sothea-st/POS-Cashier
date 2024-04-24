@@ -37,7 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Constant.JavaMessage;
-import Products.ProductBox;
+
 
 
 public class LoginFormJdailog extends javax.swing.JDialog {
@@ -250,7 +250,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
 
-         String userId = "0002";
+         String userId = "0005";
          String password = "TT@126$kh#";
          String deviceName = JavaConstant.getDeviceName();
 
@@ -309,6 +309,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         ObjectMapper objectMapper = new ObjectMapper();
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                         if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
+                             
                              JavaConstant.checkOpenShift = true;
 
                              searchBox.disabledTextField(true);
@@ -322,6 +323,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
                              JavaConstant.numberOpenShift = Integer.valueOf("" + data.getData().getNumberOpenShift());
+                             
                         }
                    }
 
