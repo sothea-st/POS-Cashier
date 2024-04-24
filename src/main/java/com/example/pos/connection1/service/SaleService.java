@@ -216,6 +216,7 @@ public class SaleService {
         // save information image to table pos_file
         FileStore f = new FileStore(paymentBarcode, paymentBarcode, "image/jpeg", bytes);
         fileStore.save(f);
+        
     }
 
     String paymentNo(int count, String posId) {
