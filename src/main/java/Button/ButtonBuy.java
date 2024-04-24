@@ -39,7 +39,7 @@ public class ButtonBuy extends javax.swing.JPanel {
     public ButtonBuy() {
         initComponents();
         button.setForeground(WindowColor.darkGreen);
-        button.setFont(WindowFonts.timeNewRomanBold8);
+        button.setFont(WindowFonts.timeNewRomanBold10);
         setBackground(WindowColor.white);
         JavaConstant.setPointer(button);
     }

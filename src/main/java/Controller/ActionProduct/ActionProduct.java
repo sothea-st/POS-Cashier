@@ -229,14 +229,14 @@ public class ActionProduct {
 
                product.setDiscountPercent(listData.getDiscount());
 
-               String productName;
-               if (listData.getProductNameEn().length() > 22) {
-                    productName = listData.getProductNameEn().substring(0, 21) + "...";
-               } else {
-                    productName = listData.getProductNameEn();
-               }
+//               String productName;
+//               if (listData.getProductNameEn().length() > 22) {
+//                    productName = listData.getProductNameEn().substring(0, 21) + "...";
+//               } else {
+//                    productName = listData.getProductNameEn();
+//               }
 
-               product.setProductName("<html>" + productName + "</html>");
+               product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
                product.setWeight(listData.getWeight());
 
                if (listData.getDiscount() > 0) {
