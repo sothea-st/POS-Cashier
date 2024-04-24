@@ -175,10 +175,9 @@ public class PrinterReturn extends javax.swing.JDialog {
                re.setAmountStr(dm.format(amount));
                countProduct.add(re);
                countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
+               countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
+               countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
           }
-
-          countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));
-          countProduct.setBorder(new EmptyBorder(2, 2, 2, 2));
      }
 
      @SuppressWarnings("unchecked")
