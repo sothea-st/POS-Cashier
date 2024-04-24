@@ -20,12 +20,22 @@ public class TextField extends javax.swing.JPanel {
 
      private String labelTextField;
      private String valueTextField;
+     private String comma;
+
+     public String getComma() {
+          return comma;
+     }
+
+     public void setComma(String comma) {
+          this.comma = comma;
+     }
 
      public TextField() {
           initComponents();
           setBackground(WindowColor.white);
           txtText.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(txtText);
+
      }
 
      //Create Placeholder
@@ -87,8 +97,8 @@ public class TextField extends javax.swing.JPanel {
 
      //=================================================Create Shadow Box
      private ShadowType shadowType;
-     private int shadowSize = 3;
-     private float shadowOpacity = 0.8f;
+     private int shadowSize = 1;
+     private float shadowOpacity = 0.1f;
      private Color shadowColor = Color.GRAY;
 
      @Override
@@ -195,6 +205,12 @@ public class TextField extends javax.swing.JPanel {
           // TODO add your handling code here:
           String txt = txtText.getText();
           setValueTextField(txt);
+          if (comma == null) {
+               // ================ 3 length insert comma =========
+               JavaConstant.setCommaIn3Length(txtText);
+          }
+
+
      }//GEN-LAST:event_txtTextKeyReleased
 
      public String getValueTextField() {

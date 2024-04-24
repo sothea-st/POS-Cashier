@@ -29,8 +29,8 @@ public class ButtonLogin extends javax.swing.JPanel {
 
     //=================================================Create Shadow Box
     private ShadowType shadowType;
-    private int shadowSize = 3;
-    private float shadowOpacity = 0.8f;
+    private int shadowSize = 1;
+    private float shadowOpacity = 0.1f;
     private Color shadowColor = Color.GRAY;
     
     @Override

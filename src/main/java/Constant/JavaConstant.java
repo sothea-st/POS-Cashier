@@ -25,6 +25,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import okhttp3.MediaType;
 
 public class JavaConstant {
@@ -127,6 +131,8 @@ public class JavaConstant {
      public static int holdId = 0;
      public static boolean holdSameProduct = false;
      
+     public static String isOpenShift;
+     
      
      public static void coverImage(String url , JLabel lable , int labelWidth , int labelHeight) throws MalformedURLException, IOException {
           URL imageUrl = new URL(url);
@@ -151,6 +157,33 @@ public class JavaConstant {
                ImageIcon icon = new ImageIcon(scaledImage);
                lable.setIcon(icon);
           }
+     }
+     
+     
+     public static void setCommaIn3Length(JTextField txtText){
+           ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
+               @Override
+               public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                    StringBuilder builder = new StringBuilder(string.replaceAll(",", ""));
+                    for (int i = builder.length() - 3; i > 0; i -= 3) {
+                         builder.insert(i, ",");
+                    }
+                    super.insertString(fb, offset, builder.toString(), attr);
+               }
+
+               @Override
+               public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                    if (text == null) {
+                         super.replace(fb, offset, length, text, attrs);
+                         return;
+                    }
+                    StringBuilder builder = new StringBuilder(text.replaceAll(",", ""));
+                    for (int i = builder.length() - 3; i > 0; i -= 3) {
+                         builder.insert(i, ",");
+                    }
+                    super.replace(fb, offset, length, builder.toString(), attrs);
+               }
+          });
      }
 
 }

@@ -91,6 +91,8 @@ public class MainPage extends javax.swing.JFrame {
 
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
+          
+          imgUser.setVisible(false);
 
      }
 
@@ -310,6 +312,9 @@ public class MainPage extends javax.swing.JFrame {
           btnOpenShift.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     btnOpenShiftMouseClicked(evt);
+               }
+               public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    btnOpenShiftMouseEntered(evt);
                }
           });
 
@@ -652,6 +657,7 @@ public class MainPage extends javax.swing.JFrame {
          String buttonName = btnOpenShift.getButtonName().toLowerCase();
          if (JavaConstant.token != null) {
               if (buttonName.equals("open shift")) {
+                   if( JavaConstant.isOpenShift != null ) return;
                    OpenShiftJdailog jdOpenShift = new OpenShiftJdailog(new JFrame(), true, btnOpenShift);
                    try {
                         Response response = JavaConnection.get(JavaRoute.getDefaultPrice);
@@ -852,7 +858,7 @@ public class MainPage extends javax.swing.JFrame {
                     CashierPreview cashier = new CashierPreview(new JFrame(), true);
                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
 //                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=05");
-
+                    System.err.println("kkkkkkkkkkkk = " +response);
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
                          ObjectMapper objMap = new ObjectMapper();
@@ -955,6 +961,10 @@ public class MainPage extends javax.swing.JFrame {
      private void panelCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseEntered
           // TODO add your handling code here:
      }//GEN-LAST:event_panelCartMouseEntered
+
+     private void btnOpenShiftMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenShiftMouseEntered
+          // TODO add your handling code here:
+     }//GEN-LAST:event_btnOpenShiftMouseEntered
 
      public JPanel getDetailProduct() {
           return detailProduct;
