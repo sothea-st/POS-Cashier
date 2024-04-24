@@ -21,16 +21,12 @@ import Event.ButtonEvent;
 import HoldOrder.ListHoldOrder;
 import LoginAndLogoutForm.LoginFormJdailog;
 import LoginAndLogoutForm.LogoutDialog;
-
 import Model.Report.DataSuccessCashierReport;
 import NewCashierReport.CashierPreview;
-import NewCashierReport.CashierReporting;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Print.ReprintJdailog;
 import Return.ApprovalCode;
-import Return.JdialogConfirmReturn;
-import Return.PrinterReturn;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
@@ -70,7 +66,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-           setExtendedState(JFrame.MAXIMIZED_BOTH);
+//           setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);

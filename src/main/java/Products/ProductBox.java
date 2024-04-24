@@ -3,6 +3,7 @@ package Products;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -88,6 +89,9 @@ public class ProductBox extends javax.swing.JPanel {
           this.productImage = productImage;
           productImg.setIcon(productImage);
      }
+     
+     
+   
 
      public String getProductName() {
           return ProductName;

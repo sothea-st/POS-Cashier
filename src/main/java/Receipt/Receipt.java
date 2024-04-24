@@ -728,7 +728,7 @@ public class Receipt extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-          countProduct.setBackground(new java.awt.Color(255, 255, 255));
+        countProduct.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout countProductLayout = new javax.swing.GroupLayout(countProduct);
         countProduct.setLayout(countProductLayout);
@@ -741,21 +741,21 @@ public class Receipt extends javax.swing.JDialog {
             .addGap(0, 117, Short.MAX_VALUE)
         );
 
-          generateBarcode.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          generateBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        generateBarcode.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        generateBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         invoiceCode.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         invoiceCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         invoiceCode.setText("jLabel1");
 
-          jLabel7.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
-          jLabel7.setForeground(new java.awt.Color(56, 56, 56));
-          jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          jLabel7.setText("៛");
+        jLabel7.setFont(new java.awt.Font("Khmer OS Content", 1, 11)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(56, 56, 56));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel7.setText("៛");
 
-          exchangeDollar.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
-          exchangeDollar.setForeground(new java.awt.Color(56, 56, 56));
-          exchangeDollar.setText("jLabel9");
+        exchangeDollar.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
+        exchangeDollar.setForeground(new java.awt.Color(56, 56, 56));
+        exchangeDollar.setText("jLabel9");
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(0, 0, 0));
@@ -848,45 +848,45 @@ public class Receipt extends javax.swing.JDialog {
                 .addGap(114, 114, 114))
         );
 
-          jScrollPane1.setViewportView(print);
+        jScrollPane1.setViewportView(print);
 
-          jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-          btnBack.setButtonName("Back");
-          btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    btnBackMouseClicked(evt);
-               }
-          });
+        btnBack.setButtonName("Back");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
 
-          btnPrint.setBackground(new java.awt.Color(47, 155, 70));
-          btnPrint.setButtonName("Print");
-          btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    btnPrintMouseClicked(evt);
-               }
-          });
+        btnPrint.setBackground(new java.awt.Color(47, 155, 70));
+        btnPrint.setButtonName("Print");
+        btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPrintMouseClicked(evt);
+            }
+        });
 
-          javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-          jPanel2.setLayout(jPanel2Layout);
-          jPanel2Layout.setHorizontalGroup(
-               jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
-          );
-          jPanel2Layout.setVerticalGroup(
-               jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                         .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap())
-          );
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -903,14 +903,14 @@ public class Receipt extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-          pack();
-          setLocationRelativeTo(null);
-     }// </editor-fold>//GEN-END:initComponents
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
 
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
 //         printComponenet();
-//         printReceipt();
+         printReceipt();
          dispose();
     }//GEN-LAST:event_btnPrintMouseClicked
 
@@ -1046,7 +1046,6 @@ public class Receipt extends javax.swing.JDialog {
                          changeKhr.setText(kh.format(data.getChangeKhr()));
                     }
                }
-       
 
                Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + data.getPaymentBarcode());
 //               Response generateCode = JavaConnection.get(JavaRoute.generateBarcode + "1000000");

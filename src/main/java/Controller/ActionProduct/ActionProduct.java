@@ -246,7 +246,6 @@ public class ActionProduct {
                     Response responseProductImg = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
                     byte[] imagePro = responseProductImg.body().bytes();
                     product.setProductImage(new ImageIcon(imagePro));
-
                     Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
                     byte[] imgs = img.body().bytes();
                     product.setFlagImage(new ImageIcon(imgs));

@@ -34,7 +34,6 @@ public class JdialogConfirmReturn extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           initComponents();
-          
      }
      
      
