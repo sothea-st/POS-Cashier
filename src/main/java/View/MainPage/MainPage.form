@@ -46,7 +46,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                  <Component id="lbLogo" min="-2" pref="82" max="-2" attributes="0"/>
+                  <Component id="lbLogo" min="-2" pref="105" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
                   <Component id="searchBox" min="-2" pref="426" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">

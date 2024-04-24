@@ -70,6 +70,9 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           setText();
           this.btnOpenShift = btnOpenShift;
           txtTotalUsd.setFocus();
+
+          txtTotalUsd.setComma("comma");
+          txtTotalKhr.setComma("comma"); // when user type 4length it will insert , at 3 length 
      }
 
      private void currenDateTime() {
@@ -312,11 +315,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     return;
                }
 
- 
-
                Response response = JavaConnection.post(JavaRoute.openShift, json);
 
-            
                if (response.isSuccessful()) {
                     dispose();
                     btnreturn.setBackground(WindowColor.brown);

@@ -48,6 +48,13 @@ public class CloseShift extends javax.swing.JDialog {
           event();
           this.btnOpenShift = btnOpenShift;
           redexpress.requestFocus();
+
+          redexpress.setComma("comma");
+          qrMnk.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          qrAba.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          abaCreditCard.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          cashUs.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          cashKh.setComma("comma"); // when user type 4length it will insert , at 3 length 
      }
 
      void event() {
@@ -305,12 +312,9 @@ public class CloseShift extends javax.swing.JDialog {
          String cashUsd = cashUs.getValueTextField();
 
          express = express.replace(",", "");
-
-         express = express.replace(",", "");
          khqrMnk = khqrMnk.replace(",", "");
          khqrAba = khqrAba.replace(",", "");
          creditCard = creditCard.replace(",", "");
-
          cashKhr = cashKhr.replace(",", "");
          cashUsd = cashUsd.replace(",", "");
 
@@ -386,7 +390,7 @@ public class CloseShift extends javax.swing.JDialog {
                    buttonCashier.setBackground(WindowColor.green);
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
-//                   btnOpenShift.setBackground(WindowColor.lightGray);
+                   btnOpenShift.setBackground(WindowColor.lightGray);
 //                   btnLogin.setBackground(WindowColor.green);
 
                    JavaConstant.checkCloseShift = 0l;

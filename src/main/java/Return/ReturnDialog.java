@@ -65,6 +65,7 @@ public class ReturnDialog extends javax.swing.JDialog {
           };
 
           txtinvoice.initEvent(event);
+
      }
 
      void eventSelectReason() {

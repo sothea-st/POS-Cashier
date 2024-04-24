@@ -205,7 +205,7 @@ public class TextField extends javax.swing.JPanel {
           // TODO add your handling code here:
           String txt = txtText.getText();
           setValueTextField(txt);
-          if (comma == null) {
+          if (comma != null) {
                // ================ 3 length insert comma =========
                JavaConstant.setCommaIn3Length(txtText);
           }

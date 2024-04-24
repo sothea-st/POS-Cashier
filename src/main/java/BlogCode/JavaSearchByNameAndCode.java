@@ -61,7 +61,7 @@ public class JavaSearchByNameAndCode {
      }
 
      public static void scanProduct(TextField textField, LoginFormJdailog jdFormLogin) {
-          textField.setComma("data"); // for protect 3length insert ,
+         
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
