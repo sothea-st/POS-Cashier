@@ -211,9 +211,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
                         "INNER JOIN pos_product_tax ppt ON ppt.id = pp.tax_id\r\n" + //
-                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? and  pp.tax_id  = 1 ") // for VAT
-                                                                                                              // state
-                                                                                                              // charge
+                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? and  pp.tax_id  = 1 ") // for VAT state charge
         Double vatStateCharge(String currentDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "SELECT  trunc(sum((((psd.price*psd.qty)/1.1)/1.006)*0.2),2) as vat\r\n" + //

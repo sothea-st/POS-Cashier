@@ -33,6 +33,10 @@ public interface HoldRepository extends JpaRepository<Hold, Integer> {
                "where ph.status = true and ph.is_deleted = false and create_by=?")
      List<HoldDataProjection> getHoldDataAll(int userId);
 
+     @Query(nativeQuery = true, value = "select ph.id,ph.note,ph.qty_hold  from pos_hold as ph\r\n" + //
+               "where ph.status = true and ph.is_deleted = false and create_by=? and id = ?")
+     List<HoldDataProjection> getHoldDataAll(int userId,int id);
+
      @Query(nativeQuery = true, value = "select count(*) from pos_hold ph where ph.status = true and ph.is_deleted = false and create_by=?")
      long countResult(int userId);
 
