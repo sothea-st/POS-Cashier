@@ -1439,7 +1439,6 @@ public class PaymentOption extends javax.swing.JDialog {
          dataPay.put("remainingKhr", remainningKhr);
          dataPay.put("changeUsd", changeUsd);
          dataPay.put("changeKhr", changeKhr);
-         jsonData.put("dataPay", dataPay);
 
          //get customer 
          HashMap<String, Object> customer = new HashMap<>();
@@ -1467,7 +1466,7 @@ public class PaymentOption extends javax.swing.JDialog {
          if (txtCustomerName.getValueTextFieldCenter() != null) {
               jsonData.put("customer", customer);
          }
-
+         String discountType = "";
          //get dataSale 
          ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
          for (int i = 0; i < listCom.length; i++) {
@@ -1477,7 +1476,7 @@ public class PaymentOption extends javax.swing.JDialog {
               double discountDigit = obj.getDiscountDigit();
               double unitPrice = price - (price * discountDigit) / 100;
               double p = JavaConstant.getReplace(df.format(unitPrice));
-              String discountType = obj.getDiscountType();
+              discountType = obj.getDiscountType();
               double discountVale = obj.getDiscountValue();
 
               double amount = obj.getQty() * p;
@@ -1493,6 +1492,12 @@ public class PaymentOption extends javax.swing.JDialog {
               dataSale.add(pro);
          }
          jsonData.put("dataSale", dataSale);
+
+         dataPay.put("discountType", discountType);
+         dataPay.put("discountValue", discount);
+         jsonData.put("dataPay", dataPay);
+
+         System.err.println("jsonData : " + jsonData);
 
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
@@ -1630,7 +1635,6 @@ public class PaymentOption extends javax.swing.JDialog {
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                ReturnDialog r = new ReturnDialog(new JFrame(), true);
                r.setResetReturn();
-               
 
                ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
 
