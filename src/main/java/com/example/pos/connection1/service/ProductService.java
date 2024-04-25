@@ -70,6 +70,7 @@ public class ProductService {
             // project
             // String fileName = JavaStorage.setFileName(file.getOriginalFilename());
             String fileName = file.getOriginalFilename();
+            fileName = fileName.replace(" ", "-");
 
             // save information image to table pos_file
             FileStore f = new FileStore(fileName, fileName, file.getContentType(), file.getBytes());
@@ -82,7 +83,7 @@ public class ProductService {
         } else {
             // String flagName = JavaStorage.setFileName(flagFile.getOriginalFilename());
             String flagName = flagFile.getOriginalFilename();
-
+            flagName = flagName.replace(" ", "-");
             pro.setFlag(flagName);
             FileStore f = new FileStore(flagName, flagName, flagFile.getContentType(), flagFile.getBytes());
             fileStore.save(f);

@@ -33,6 +33,4 @@ public class Device {
     @Column(name = "date")
     private String date;
 
-
-
 }
