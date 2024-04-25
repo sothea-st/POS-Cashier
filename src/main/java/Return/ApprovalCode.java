@@ -21,14 +21,33 @@ import javax.swing.JPanel;
 public class ApprovalCode extends javax.swing.JDialog {
 
      private Button btnPayment;
-
      private LoginFormJdailog jdFormLogin;
      private String typeForm;
-
      private ButtonCancel btnCancel;
      private Button btnHold;
      private Button btnReturn;
      private Button btnDiscount;
+     
+     private JPanel detailItem;
+     private JPanel panelProduct;
+
+     public JPanel getDetailItem() {
+          return detailItem;
+     }
+
+     public void setDetailItem(JPanel detailItem) {
+          this.detailItem = detailItem;
+     }
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+     
+     
 
      public ApprovalCode(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -197,6 +216,8 @@ public class ApprovalCode extends javax.swing.JDialog {
                              returnD.setBtnHold(btnHold);
                              returnD.setBtnReturn(btnReturn);
                              returnD.setBtnDiscount(btnDiscount);
+                             returnD.setDetailItem(detailItem);
+                             returnD.setPanelProduct(panelProduct);
                              returnD.setVisible(true);
                              JavaConstant.returnerId = model.getID();
                         } else if (typeForm.equals("reprint")) {

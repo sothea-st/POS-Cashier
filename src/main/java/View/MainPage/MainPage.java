@@ -69,7 +69,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-           setExtendedState(JFrame.MAXIMIZED_BOTH);
+//           setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setVisible(false);
 
           searchBox.disabledTextField(false);
@@ -92,7 +92,7 @@ public class MainPage extends javax.swing.JFrame {
 
           // for resize screen
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
-          
+
           imgUser.setVisible(false);
 
      }
@@ -122,7 +122,7 @@ public class MainPage extends javax.swing.JFrame {
           JavaEventNextPrevious.eventNext(next, limit, jdFormLogin);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
-          JavaSearchByNameAndCode.scanProduct(textField, jdFormLogin); // function scan barcode or input barcode
+          JavaSearchByNameAndCode.scanProduct(textField, jdFormLogin, panelProduct, detailItem); // function scan barcode or input barcode
 
           // this event for place holder
           ButtonEvent btnevent = new ButtonEvent() {
@@ -655,7 +655,9 @@ public class MainPage extends javax.swing.JFrame {
          String buttonName = btnOpenShift.getButtonName().toLowerCase();
          if (JavaConstant.token != null) {
               if (buttonName.equals("open shift")) {
-                   if( JavaConstant.isOpenShift != null ) return;
+                   if (JavaConstant.isOpenShift != null) {
+                        return;
+                   }
                    OpenShiftJdailog jdOpenShift = new OpenShiftJdailog(new JFrame(), true, btnOpenShift);
                    try {
                         Response response = JavaConnection.get(JavaRoute.getDefaultPrice);
@@ -740,9 +742,11 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setBoxOne(boxOne);
                    pay.setBtnPayment(btnPayment);
                    pay.setBtnReturn(btnReturn);
+                   pay.setPanelProduct(panelProduct);
                    pay.setBtnDiscount(buttonDiscount);
                    pay.setBtnCancel(btnCancel);
                    pay.setButtonHoldOrder(buttonHoldOrder);
+                   pay.setjScrollPaneDetail(jScrollPaneDetail);
                    pay.setVisible(true);
               }
 //              } else { // there is transaction retrun 
@@ -768,9 +772,6 @@ public class MainPage extends javax.swing.JFrame {
 
               if (JavaConstant.checkOpenShift) {
                    if (detailItem.getComponentCount() > 0) {
-                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                        j.setMessage("You have to remove the produt that has been bought or do the payment first!");
-                        j.setVisible(true);
                         return;
                    }
 
@@ -779,6 +780,8 @@ public class MainPage extends javax.swing.JFrame {
                    }
 
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
+                   approval.setDetailItem(detailItem);
+                   approval.setPanelProduct(panelProduct);
                    approval.setJdFormLogin(jdFormLogin);
                    approval.setTypeForm("return");
                    approval.setBtnHold(buttonHoldOrder);
@@ -856,7 +859,7 @@ public class MainPage extends javax.swing.JFrame {
                     CashierPreview cashier = new CashierPreview(new JFrame(), true);
                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
 //                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=05");
-                    System.err.println("kkkkkkkkkkkk = " +response);
+
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
                          ObjectMapper objMap = new ObjectMapper();
@@ -926,15 +929,23 @@ public class MainPage extends javax.swing.JFrame {
           }
      }//GEN-LAST:event_buttonDiscountMouseClicked
 
-    
      //Action show hold order
     private void panelCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseClicked
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
+                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                   if (JavaConstant.isReturn != null) {
+                        j.setMessage(JavaAlertMessage.returnMsg);
+                        j.setVisible(true);
+                        return;
+                   }
+
                    ListHoldOrder hold = new ListHoldOrder(new JFrame(), true);
                    hold.setDetailItem(detailItem);
                    hold.setSubtotalPanel(totalPanel);
+                   hold.setPanelProduct(panelProduct);
                    hold.setBtnPayment(btnPayment);
+                   hold.setPanelProduct(panelProduct);
                    hold.setButtonHoldOrder(buttonHoldOrder);
                    hold.setCountCircleShape(countCircleShape);
                    hold.setBtnCancel(btnCancel);
@@ -953,12 +964,12 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Customer
     private void buttonCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCustomerMouseClicked
-        if (JavaConstant.token != null) {
-            if (JavaConstant.checkOpenShift) {
-                JdailogCustomer cus = new JdailogCustomer(new JFrame(), true);
-                cus.setVisible(true);
-            }
-        }
+         if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   JdailogCustomer cus = new JdailogCustomer(new JFrame(), true);
+                   cus.setVisible(true);
+              }
+         }
     }//GEN-LAST:event_buttonCustomerMouseClicked
 
      public JPanel getDetailProduct() {

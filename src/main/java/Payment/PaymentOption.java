@@ -11,6 +11,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
+import DeleteAndCancel.CancelDialog;
 import Event.ButtonEvent;
 import HoldOrder.HoldeModel;
 import Model.CustomerType.CustomerTypeModel;
@@ -36,6 +37,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONArray;
@@ -55,12 +57,31 @@ public class PaymentOption extends javax.swing.JDialog {
      private String paymentType = JavaConstant.typeCash;
      private JPanel detailItem;
      private JPanel boxOne;
+     private JPanel panelProduct;
      private Button btnPayment;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
      private SubtotalPanel subtotalPanel;
      private Button btnReturn;
      private Button btnDiscount;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+
+     private JScrollPane jScrollPaneDetail;
+
+     public JScrollPane getjScrollPaneDetail() {
+          return jScrollPaneDetail;
+     }
+
+     public void setjScrollPaneDetail(JScrollPane jScrollPaneDetail) {
+          this.jScrollPaneDetail = jScrollPaneDetail;
+     }
 
      public PaymentOption(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -1483,9 +1504,11 @@ public class PaymentOption extends javax.swing.JDialog {
                    dispose();
                    btnCancel.setBackground(WindowColor.lightGray);
                    buttonHoldOrder.setBackground(WindowColor.lightGray);
-
+                   detailItem.setBackground(WindowColor.slightGreen);
                    subtotalPanel.setLabelSubTitleToZero();
                    btnPayment.setBackground(WindowColor.lightGray);
+                   detailItem.setBackground(WindowColor.slightGreen);
+                   detailItem.setBorder(null);
 
                    JavaConstant.productId = 0;
 
@@ -1577,6 +1600,9 @@ public class PaymentOption extends javax.swing.JDialog {
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
           if (responseReturn.isSuccessful()) {
+               JavaConstant.isReturn = null;
+               JavaConstant.setBackQty(detailItem, panelProduct);
+
                String _data = responseReturn.body().string();
                dispose();
                detailItem.removeAll();
@@ -1588,6 +1614,9 @@ public class PaymentOption extends javax.swing.JDialog {
                buttonHoldOrder.setBackground(WindowColor.lightGray);
                btnReturn.setBackground(WindowColor.brown);
                btnDiscount.setBackground(WindowColor.green);
+               detailItem.setBackground(WindowColor.slightGreen);
+               detailItem.setBorder(null);
+               btnPayment.setButtonName("Payment");
 
                PrinterReturn print = new PrinterReturn(new JFrame(), true);
                ObjectMapper objMap = new ObjectMapper();
@@ -1601,9 +1630,7 @@ public class PaymentOption extends javax.swing.JDialog {
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                ReturnDialog r = new ReturnDialog(new JFrame(), true);
                r.setResetReturn();
-               JavaConstant.isReturn = null;
                
-               btnPayment.setButtonName("Payment");
 
                ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
 

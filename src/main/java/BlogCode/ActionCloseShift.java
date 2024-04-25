@@ -42,7 +42,7 @@ public class ActionCloseShift {
           Component[] listCom1 = detailItem.getComponents();
           j = new JavaAlertMessage(new JFrame(), true);
           if (listCom1.length != 0) {
-               j.setMessage("You have to remove the produt that has been bought or do the payment first!");
+               j.setMessage(JavaConstant.removeItem);
                j.setVisible(true);
                return;
           }

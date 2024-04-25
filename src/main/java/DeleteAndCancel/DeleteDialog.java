@@ -32,6 +32,7 @@ import org.json.JSONObject;
 public class DeleteDialog extends javax.swing.JDialog {
 
      // declar variable
+     private JPanel panelProduct;
      private JPanel detailItem;
      private Component[] listCom;
      private int productId;
@@ -44,6 +45,15 @@ public class DeleteDialog extends javax.swing.JDialog {
      private Button.Button buttonHoldOrder;
      private ProductBox productBox;
      private int qty;
+     private String barcode;
+
+     public String getBarcode() {
+          return barcode;
+     }
+
+     public void setBarcode(String barcode) {
+          this.barcode = barcode;
+     }
 
      public DeleteDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -148,6 +158,14 @@ public class DeleteDialog extends javax.swing.JDialog {
           subtotalPanel.setLableTotalKhr(kh.format(_total));
 
           this.dispose();
+     }
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
      }
 
      @SuppressWarnings("unchecked")
@@ -268,12 +286,39 @@ public class DeleteDialog extends javax.swing.JDialog {
 //              json.put("listCancelDetail", listCancelDetail);
 //
 //              Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "delete", json);
-
 //              int quantity = Integer.valueOf(getQty());
 //              int productBoxQty = Integer.valueOf(productBox.getQty());
 //              int sumQty = quantity + productBoxQty;
-
               if (response.isSuccessful()) {
+                   Component[] listCom = detailItem.getComponents();
+                   Component[] listCom1 = panelProduct.getComponents();
+
+                   int saleQty = 0;
+//                   String barcodeLocal;
+
+                   for (Component c : listCom) {
+                        var data = ((BoxItem) c);
+                        if (getBarcode().equals(data.getLabelBarcode())) {
+                             saleQty = data.getQty();
+//                             barcode = data.getLabelBarcode();
+                             break;
+                        }
+                   }
+
+                   for (Component c : listCom1) {
+                        var data = ((ProductBox) c);
+                        if (getBarcode().equals(data.getBarcode())) {
+                             int qty = Integer.parseInt(data.getQty());
+                             qty = qty + saleQty;
+                             data.setQty("" + qty);
+                        }
+                   }
+
+                   if (listCom.length == 1) {
+                        detailItem.setBackground(WindowColor.slightGreen);
+                        detailItem.setBorder(null);
+                   }
+
                    dispose();
                    deleteItem();
 //                   QtyUpdate.updateQty(productId, "add", productBox, quantity);

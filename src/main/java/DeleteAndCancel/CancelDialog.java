@@ -17,12 +17,14 @@ import Event.ButtonEvent;
 import HoldOrder.HoldDetail;
 import HoldOrder.HoldItems;
 import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import HoldOrder.HoldSuccess;
 import HoldOrder.HoldeModel;
 import Model.Package.ReasonModel;
 import Model.PackageProduct.ProductIDModel;
 import Model.PackageProduct.ProductModel;
+import Products.ProductBox;
 import UpdateQty.UpdateQtyModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,7 +67,19 @@ public class CancelDialog extends javax.swing.JDialog {
      private SubtotalPanel subtotalPanel;
      private String labelForTitle;
      private JPanel panelProduct;
+     private int idHold;
 
+     public int getIdHold() {
+          return idHold;
+     }
+
+     public void setIdHold(int idHold) {
+          this.idHold = idHold;
+     }
+     
+     
+     
+     
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
 
@@ -91,7 +105,7 @@ public class CancelDialog extends javax.swing.JDialog {
      }
 
      private void addComboReason() {
-          System.out.println("labelTitle :" + labelForTitle);
+
           try {
                ArrayList<ReasonModel> reason = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.reason + "cancel");
@@ -239,10 +253,10 @@ public class CancelDialog extends javax.swing.JDialog {
                    }
 
                    Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "cancel", jsonData);
-                    
-                   if (response.isSuccessful()) {
 
-                        updateCancelQty();
+                   if (response.isSuccessful()) {
+                        JavaConstant.setBackQty(detailItem, panelProduct);
+//                        updateCancelQty();
                         this.dispose();
                         detailItem.removeAll();
                         detailItem.revalidate();
@@ -263,6 +277,7 @@ public class CancelDialog extends javax.swing.JDialog {
 
               }
          } else if (code.equals("cancelHold")) {
+            
               deleteHold();
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
@@ -281,7 +296,7 @@ public class CancelDialog extends javax.swing.JDialog {
 
           Response _responseData = JavaConnection.post(JavaRoute.updateQty, json);
           try {
-               String dataString  = _responseData.body().string();
+               String dataString = _responseData.body().string();
           } catch (Exception e) {
           }
 
@@ -308,7 +323,7 @@ public class CancelDialog extends javax.swing.JDialog {
                     JavaConstant.holdId = 0;
                }
           }
-  
+
      }
 
      public void setCountCircleShape(countCircleShape countCircleShape) {
@@ -316,6 +331,8 @@ public class CancelDialog extends javax.swing.JDialog {
      }
 
      void deleteHold() {
+
+          getHold();
 
           JSONObject json = new JSONObject();
           json.put("reasonId", reasonId);
@@ -327,14 +344,14 @@ public class CancelDialog extends javax.swing.JDialog {
           }
 
           Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
- 
+
           try {
                if (response.isSuccessful()) {
                     dispose();
                     panelHold.removeAll();
                     panelHold.revalidate();
                     panelHold.repaint();
-                    getHoldItem(panelHold);
+//                    getHoldItem(panelHold);
                     int count = new MainPage().countHold();
                     countCircleShape.setCountTimes("" + count);
                     detailItem.removeAll();
@@ -347,16 +364,43 @@ public class CancelDialog extends javax.swing.JDialog {
 
      }
 
-     public void getHoldItem(JPanel panelHold) {
+     
+
+     public void getHold() {
+          DataListHold[] listHoldData;
+     ListDetailHold[] listHoldDetails;
           try {
-               Response response = JavaConnection.get(JavaRoute.holdOrder);
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId + "&id="+idHold);
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
-                    DataListHold[] listData = data.getData();
-                    appendValue(listData, panelHold);
+                    listHoldData = data.getData();
+                   
+                    Component[] listCome1 = panelProduct.getComponents();
+
+                    //    =============== update qty with hole ==================
+                    if (listHoldData.length > 0) {
+                        
+                         for (DataListHold cv : listHoldData) {
+                              ListDetailHold[] l = cv.getListDetails();
+                              for (ListDetailHold dd : l) {
+                                   String barcode = dd.getBarcode();
+                                 
+                                   int holdQty = dd.getQty();
+                                   for (Component bb : listCome1) {
+                                        var datas = ((ProductBox) bb);
+                                        int qtyShow = Integer.parseInt(datas.getQty());
+                                        if (barcode.equals(datas.getBarcode())) {
+                                             int qty = holdQty + qtyShow;
+                                             datas.setQty("" + qty);
+                                             break;
+                                        }
+                                   }
+                              }
+                         }
+                    }
                } else {
                     System.err.println("fail loading product");
                }
@@ -365,6 +409,23 @@ public class CancelDialog extends javax.swing.JDialog {
           }
      }
 
+//     public void getHoldItem(JPanel panelHold) {
+//          try {
+//               Response response = JavaConnection.get(JavaRoute.holdOrder);
+//               System.err.println("fffffffffff = " + response);
+//               if (response.isSuccessful()) {
+//                    String responseData = response.body().string();
+//                    ObjectMapper objMap = new ObjectMapper();
+//                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+//                    DataListHold[] listData = data.getData();
+//                    appendValue(listData, panelHold);
+//               } else {
+//                    System.err.println("fail loading product");
+//               }
+//          } catch (Exception e) {
+//               System.err.println("error getting product " + e);
+//          }
+//     }
      private void appendValue(DataListHold[] listData, JPanel panelHold) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column

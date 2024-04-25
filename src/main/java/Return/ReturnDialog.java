@@ -35,6 +35,27 @@ public class ReturnDialog extends javax.swing.JDialog {
      private Button btnHold;
      private Button btnReturn;
      private Button btnDiscount;
+     
+     private JPanel detailItem;
+     private JPanel panelProduct;
+
+     public JPanel getDetailItem() {
+          return detailItem;
+     }
+
+     public void setDetailItem(JPanel detailItem) {
+          this.detailItem = detailItem;
+     }
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+     
+     
 
      public ReturnDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -285,17 +306,16 @@ public class ReturnDialog extends javax.swing.JDialog {
               obj.scanBarcode(barcode, jdFormLogin);
          } else {
               obj.setBtnPayment(btnPayment);
+              obj.setBtnReturn(btnReturn);
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
 
          btnCancel.setBackground(WindowColor.lightGray);
          btnHold.setBackground(WindowColor.lightGray);
-         btnReturn.setBackground(WindowColor.lightGray);
-         btnDiscount.setBackground(WindowColor.lightGray);
+//         btnDiscount.setBackground(WindowColor.lightGray);
 
-          
 
-         JavaConstant.isReturn = "return";
+        
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
          dispose();

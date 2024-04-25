@@ -19,6 +19,7 @@ import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Model.HoldOrder.HoldProductModel;
 import Model.PackageProduct.ProductModel;
+import Products.ProductBox;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
@@ -46,6 +47,15 @@ public class ListHoldOrder extends javax.swing.JDialog {
      private countCircleShape countCircleShape;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
+     private JPanel panelProduct;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
      public ListHoldOrder(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -71,7 +81,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
                     ObjectMapper objMap = new ObjectMapper();
                     ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
                     listData = data.getData();
-
                     appendValue(listData, panelHold);
                } else {
                     System.err.println("fail loading product");
@@ -110,6 +119,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                     var obj = listData[i];
                     ListDetailHold[] listDetails = listData[i].getListDetails();
                     HoldItems h = new HoldItems();
+                    h.setPanelProduct(panelProduct);
+                    h.setDetailItem(detailItem);
 
                     ButtonEvent events = new ButtonEvent() {
                          @Override
@@ -170,15 +181,18 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
                          @Override
                          public void onRemove(String key) {
+                             
                               CancelDialog cancel = new CancelDialog(new JFrame(), true);
                               cancel.setCode("cancelHold");
                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
                               lstModel.add(new HoldeModel(obj.getID()));
+                              cancel.setIdHold(obj.getID());
                               cancel.setHoldId(lstModel);
                               cancel.setPanelHold(panelHold);
                               cancel.setCountCircleShape(countCircleShape);
                               cancel.setDetailItem(detailItem);
                               cancel.setSubtotalPanel(subtotalPanel);
+                              cancel.setPanelProduct(panelProduct);
                               cancel.setLabelForTitle("Delete");
                               cancel.setVisible(true);
                               dispose();
@@ -192,6 +206,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                     panelHold.revalidate();
                     panelHold.repaint();
                     panelHold.add(h, gbc);
+
                }
           } else {
                NoData nodata = new NoData();
@@ -204,12 +219,12 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
-      
-//          discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
+//          discount = JavaConstant.get4Length("" + discount); // get 2 precision
           int qtyData = listData.getQty();
           BoxItem box = new BoxItem();
 //          box.setProductBox(product);
+          box.setPanelProduct(panelProduct);
 
           box.setWasPrice("" + price);
           box.setBtnPayment(btnPayment);
@@ -253,7 +268,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
                double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
                box.setLabelAmountKh(kh.format(valueRoundDown));
-               
+
                double _cal = discount * qtyData;
                String _d = "" + _cal;
                if (_d.length() <= 5) {
@@ -266,7 +281,6 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
 //               box.setDiscountAmount(dm.format(discount * qtyData));
 //               box.setDiscountAmt(dm.format(discount));
-
                box.setQty(qtyData);
 
           } else {
@@ -476,8 +490,54 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private void removeAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeAllMouseClicked
          listHolddata(listData);
     }//GEN-LAST:event_removeAllMouseClicked
+    
+      public void returnQtyHold() {
+          DataListHold[] listHoldData;
+         
+          try {
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
 
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    listHoldData = data.getData();
+
+                    Component[] listCome1 = panelProduct.getComponents();
+
+                    //    =============== update qty with hole ==================
+                    if (listHoldData.length > 0) {
+
+                         for (DataListHold cv : listHoldData) {
+                              ListDetailHold[] l = cv.getListDetails();
+                              for (ListDetailHold dd : l) {
+                                   String barcode = dd.getBarcode();
+
+                                   int holdQty = dd.getQty();
+                                   for (Component bb : listCome1) {
+                                        var datas = ((ProductBox) bb);
+                                        int qtyShow = Integer.parseInt(datas.getQty());
+                                        if (barcode.equals(datas.getBarcode())) {
+                                             int qty = holdQty + qtyShow;
+                                             datas.setQty("" + qty);
+                                            break;
+                                        }
+                                   }
+                              }
+                         }
+                    }
+               } else {
+                    System.err.println("fail loading product");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
+    
      void listHolddata(DataListHold[] listData) {
+          returnQtyHold();
+          
+          
           for (int i = 0; i < listData.length; i++) {
                var obj = listData[i];
                ArrayList<HoldeModel> lstModel = new ArrayList<>();
@@ -487,7 +547,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                json.put("listHoldDetail", lstModel);
 
                Response response = JavaConnection.delete(JavaRoute.holdOrder, json);
-              
+
                try {
                     if (response.isSuccessful()) {
                          dispose();

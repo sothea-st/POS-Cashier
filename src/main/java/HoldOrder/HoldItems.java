@@ -5,12 +5,34 @@ import Color.WindowColor;
 import Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JPanel;
 
 
 public class HoldItems extends javax.swing.JPanel {
 
     private String countNumber;
     private int qty;
+    
+    private JPanel panelProduct;
+    private JPanel detailItem;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+
+     public JPanel getDetailItem() {
+          return detailItem;
+     }
+
+     public void setDetailItem(JPanel detailItem) {
+          this.detailItem = detailItem;
+     }
+    
+    
     
     public HoldItems() {
           initComponents();

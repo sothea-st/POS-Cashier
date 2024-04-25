@@ -44,14 +44,13 @@ public class JavaActionAddHold {
                var box = ((BoxItem) listHold[i]);
                qty += box.getQty();
 
- 
                String _discountType = box.getDiscountType();
                double _discountValue = box.getDiscountDigit();
-               System.err.println("discoun Vaue  = " +  box.getDiscountValue());
+             
 
                if (_discountType != null) {
                     if (_discountType.equals("dollar")) {
-                         _discountValue = JavaConstant.getReplace(""+box.getDiscountValue());
+                         _discountValue = JavaConstant.getReplace("" + box.getDiscountValue());
                     }
 
                     if (_discountType.equals("percent")) {
@@ -59,39 +58,12 @@ public class JavaActionAddHold {
                     }
                }
 
-
                h = new HoldeModel(
                     box.getProductId(),
                     box.getQty(),
                     box.getDiscountType(),
                     _discountValue);
                holdModel.add(h);
-
-//               if (box.getDiscountType() != null) {
-//                    if (box.getDiscountType().equals("dollar")) {
-//                         h = new HoldeModel(
-//                              box.getProductId(),
-//                              box.getQty(),
-//                              box.getDiscountType(),
-//                              box.getDiscountValue());
-//                         holdModel.add(h);
-//                    } else { // percent
-//                                        System.err.println("percent = " + box.getDiscountDigit());
-//                         h = new HoldeModel(
-//                              box.getProductId(),
-//                              box.getQty(),
-//                              box.getDiscountType(),
-//                              box.getDiscountDigit());
-//                         holdModel.add(h);
-//                    }
-//               } else {
-//                    h = new HoldeModel(
-//                         box.getProductId(),
-//                         box.getQty(),
-//                         box.getDiscountType(),
-//                         box.getDiscountValue());
-//                    holdModel.add(h);
-//               }
           }
 
           JSONObject json = new JSONObject();
@@ -110,6 +82,8 @@ public class JavaActionAddHold {
                     detailItem.revalidate();
                     detailItem.repaint();
                     totalPanel.setLabelSubTitleToZero();
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    detailItem.setBorder(null);
 
                     //==========Remove ID product when after selecting and store in holdorder
                     JavaConstant.productId = 0;

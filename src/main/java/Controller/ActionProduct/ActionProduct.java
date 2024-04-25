@@ -13,6 +13,10 @@ import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ListDetailHold;
+import HoldOrder.HoldModelDir.ResultHoldSuccess;
+import Model.HoldOrder.HoldProductModel;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
@@ -91,7 +95,7 @@ public class ActionProduct {
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
-                    System.err.println("fail loading product 333");
+                    System.err.println("fail loading product ");
                }
           } catch (Exception e) {
                System.err.println("error getting product " + e);
@@ -123,19 +127,43 @@ public class ActionProduct {
           }
           appendProduct(listProduct, panelProduct);
      }
+     DataListHold[] listHoldData;
+     ListDetailHold[] listHoldDetails;
+
+     void getHold() {
+          try {
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
+
+               if (response.isSuccessful()) {
+
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    listHoldData = data.getData();
+
+               } else {
+                    System.err.println("fail loading product");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
 
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
 
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0,0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0,0 ,1}; // 1 align item to top
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0,0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0,0, 1}; // 1 align item to left 
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
           int x = 0;
           int y = 0;
+
+//          ========== get hole qty =================
+          getHold();
 
           for (int i = 0; i < listProduct.size(); i++) {
 
@@ -163,7 +191,7 @@ public class ActionProduct {
                     @Override
                     public void onMouseClick() {
 
-//                         //Show message When no item or unavailable item
+                         //Show message When no item or unavailable item
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
 //                         //=================================
@@ -183,17 +211,22 @@ public class ActionProduct {
 //                         JavaConstant.productQTyLeft = qty;
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
+                         qty--;
+                         product.setQty("" + qty);
+
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
 
                                    if (qty > 0) {
 //                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
-                                        if (JavaConstant.isReturn != null) { 
+
+                                        System.err.println("java return : " +  JavaConstant.isReturn);
+                                        if (JavaConstant.isReturn != null) {
                                              j.setMessage(JavaAlertMessage.returnMsg);
                                              j.setVisible(true);
                                              return;
                                         }
-                                        eventBtnBuy(listData, 1);
+                                        eventBtnBuy(listData, 1, product);
                                    } else {
                                         j.setMessage(JavaMessage.productOutStock);
                                         j.setVisible(true);
@@ -210,9 +243,38 @@ public class ActionProduct {
                     }
                };
 
-               product.setQty("" + listData.getQty());
+               Component[] listDetailItem = detailItem.getComponents();
+
+               int qtyForShow = listData.getQty();
+
+               if (listDetailItem.length > 0) {
+                    for (Component c : listDetailItem) {
+                         var objData = ((BoxItem) c);
+                         if (listData.getBarcode().equals(objData.getLabelBarcode())) {
+                              int saleQty = objData.getQty();
+                              qtyForShow = qtyForShow - saleQty;
+                              break;
+                         }
+                    }
+               }
+
+//               =============== update qty with hole ==================
+               if (listHoldData.length > 0) {
+                    for (DataListHold c : listHoldData) {
+                         ListDetailHold[] l = c.getListDetails();
+                         for (ListDetailHold dd : l) {
+                              if (dd.getBarcode().equals(listData.getBarcode())) {
+                                   qtyForShow = qtyForShow - dd.getQty();
+                              }
+                         }
+                    }
+               }
+
+               product.setQty("" + qtyForShow);
+
                product.initEvent(event);
 
+               product.setOrgQty(listData.getQty());
 //================================Product Status============================
                if (listData.getQty() > 0) {
                     product.setProductStatus(listData.getProductStatus());
@@ -235,7 +297,6 @@ public class ActionProduct {
 //               } else {
 //                    productName = listData.getProductNameEn();
 //               }
-
                product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
                product.setWeight(listData.getWeight());
 
@@ -250,17 +311,17 @@ public class ActionProduct {
 
                product.setBarcode(listData.getBarcode());
                // read image from api 
-               
+
                try {
 
                     if (listData.getProImageName() != null) {
-                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/"+listData.getProImageName());
+                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
                     }
 
                } catch (Exception e) {
                     System.err.println("error read image = " + e);
                }
-               
+
                try {
                     Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
                     byte[] imgs = img.body().bytes();
@@ -275,14 +336,15 @@ public class ActionProduct {
           }
      }
 
-     public void eventBtnBuy(ProductModel listData, int qtyData) {
+     public void eventBtnBuy(ProductModel listData, int qtyData, ProductBox product) {
 
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
           BoxItem box = new BoxItem();
-//          box.setProductBox(product);
+          box.setProductBox(product);
+          box.setPanelProduct(panelProduct);
 
           box.setWasPrice("" + price);
           box.setBtnPayment(btnPayment);
@@ -364,9 +426,9 @@ public class ActionProduct {
 //               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
 //               byte[] images = responseProductImage.body().bytes();
 //               box.setIconImage(new ImageIcon(images));
-          
-               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/"+listData.getProImageName());
-               
+
+               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
@@ -397,7 +459,6 @@ public class ActionProduct {
 
 //          detailItem.setBackground(WindowColor.slightGreen);
 //          detailItem.setBorder(null);
-
      }
 
      public int getCount() {

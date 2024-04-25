@@ -37,6 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Constant.JavaMessage;
+import Products.ProductBox;
 
 
 
@@ -232,7 +233,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                j.setVisible(true);
                return;
           }
-          pro.eventBtnBuy(proModel, proModel.getQty());
+          pro.eventBtnBuy(proModel, proModel.getQty() , new ProductBox());
      }
      
      public void scanbarCodeAddProduct(ProductModel proModel,String scanbarcode) {
@@ -242,7 +243,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                j.setVisible(true);
                return;
           }
-          pro.eventBtnBuy(proModel, 1);
+          pro.eventBtnBuy(proModel, 1 , new ProductBox());
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
@@ -436,7 +437,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          categoryTitle.setLabelTitle(catNameData);
                          int ind = i;
 
-                         ButtonEvent event = new ButtonEvent() {
+                         ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
                                    if (JavaConstant.checkOpenShift) {

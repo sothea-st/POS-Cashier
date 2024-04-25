@@ -1,11 +1,13 @@
 package Constant;
 
+import Components.BoxItem;
 import Components.ComboBox;
 import Components.countCircleShape;
 import Model.HoldOrder.DataHoldOrder;
 import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
+import Products.ProductBox;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Image;
@@ -185,5 +187,34 @@ public class JavaConstant {
                }
           });
      }
+     
+     
+       public  static void setBackQty(JPanel detailItem , JPanel panelProduct) {
+          Component[] listDetailItem = detailItem.getComponents();
+          Component[] listPanelProduct = panelProduct.getComponents();
+
+          for (Component c : listDetailItem) {
+               var data = ((BoxItem) c);
+
+               int saleQty = data.getQty();
+
+               for (Component cc : listPanelProduct) {
+
+                    var pro = ((ProductBox) cc);
+
+                    int qty = Integer.parseInt(pro.getQty());
+
+                    if (data.getLabelBarcode().equals(pro.getBarcode())) {
+                         qty = qty + saleQty;
+                         pro.setQty("" + qty);
+                         break;
+                    }
+
+               }
+
+          }
+     }
+       
+       public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
 
 }

@@ -1,18 +1,26 @@
 package Controller.ActionScanBarcodeAddProduct;
 
 import Button.Button;
+import Color.WindowColor;
+import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
+import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ListDetailHold;
+import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import Model.ReturnModel.ModelReturnData;
 import Model.ReturnModel.ResultDataReturnModel;
+import Products.ProductBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Component;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -32,6 +40,17 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      private SubtotalPanel subtotalPanel;
      private Button btnPayment;
      private JPanel panelPagination;
+     private Button btnReturn;
+
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
+     
+     
 
      public void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
@@ -61,6 +80,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ModelReturnData.change_khr = model.getChangeKhr();
 
                     if (listProduct.length == 0) {
+                         JavaConstant.isReturn = null;
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage("The invoie already returned !");
                          j.setVisible(true);
@@ -89,7 +109,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
                     btnPayment.setButtonName("Return");
-
+                    JavaConstant.isReturn = "return";
+                    btnReturn.setBackground(WindowColor.lightGray);
                }
           } catch (Exception e) {
 
@@ -107,6 +128,9 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          msgAlertErr();
                          return;
                     }
+                    int orgQty = listProduct[0].getQty();
+
+                    setQtyJPanel(panelProduct, detailItem, listProduct[0].getBarcode(), orgQty);
 
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
@@ -133,6 +157,65 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           } catch (Exception e) {
                msgAlertErr();
           }
+     }
+
+     DataListHold[] listHoldData;
+     ListDetailHold[] listHoldDetails;
+
+     public void getHold() {
+          try {
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    listHoldData = data.getData();
+               } else {
+                    System.err.println("fail loading product");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
+
+     public void setQtyJPanel(JPanel pnaleJPanel, JPanel detailItem, String barcode, int orgQty) {
+          getHold();
+          Component[] listCome1 = panelProduct.getComponents();
+          Component[] listDetailItem = detailItem.getComponents();
+          int qtySale = 1;
+          for (Component c : listDetailItem) {
+               var data = ((BoxItem) c);
+               if (barcode.equals(data.getLabelBarcode())) {
+                    qtySale = 0;
+                    qtySale = Integer.parseInt(data.getQty() + "");
+                    qtySale++;
+               }
+          }
+
+          for (Component c : listCome1) {
+               var data = ((ProductBox) c);
+               if (barcode.equals(data.getBarcode())) {
+                    orgQty = orgQty - qtySale;
+                    data.setQty("" + orgQty);
+
+                    //    =============== update qty with hole ==================
+                    if (listHoldData.length > 0) {
+                         for (DataListHold cv : listHoldData) {
+                              ListDetailHold[] l = cv.getListDetails();
+                              for (ListDetailHold dd : l) {
+                                   if (dd.getBarcode().equals(barcode)) {
+                                        int holdQty = dd.getQty();
+                                        orgQty = orgQty - holdQty;
+                                        data.setQty("" + orgQty);
+                                   }
+                              }
+                         }
+                    }
+
+               }
+          }
+
      }
 
      void msgAlertErr() {

@@ -1,15 +1,14 @@
 package Components;
 
-import BlogCode.ActionUpdateQty;
 import BlogCode.JavaActionDiscount;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
-import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
+import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import DeleteAndCancel.DeleteDialog;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
@@ -30,7 +29,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import okhttp3.Response;
 
 public class BoxItem extends javax.swing.JPanel {
@@ -126,9 +124,9 @@ public class BoxItem extends javax.swing.JPanel {
           this.iconImage = iconImage;
           img.setIcon(iconImage);
      }
-     
+
      public void setIconImage(String url) throws IOException {
-         JavaConstant.coverImage(url, img, 60, 100);
+          JavaConstant.coverImage(url, img, 60, 100);
      }
 
      public String getLabelProductName() {
@@ -302,6 +300,14 @@ public class BoxItem extends javax.swing.JPanel {
           this.lbQty = lbQty;
      }
 
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+
      /**
       * Creates new form BoxItem
       */
@@ -331,6 +337,7 @@ public class BoxItem extends javax.swing.JPanel {
      private double discountValue;
      private ProductBox productBox;
      private int lbQty;
+     private JPanel panelProduct;
 
      public BoxItem() {
           initComponents();
@@ -357,8 +364,7 @@ public class BoxItem extends javax.swing.JPanel {
           getImageBtnDelete();
           JavaConstant.setPointer(btnDelete);
           eventAddAndRemove();
-          
-          
+
 //          Border border = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
 //          setBorder(border);
      }
@@ -378,18 +384,21 @@ public class BoxItem extends javax.swing.JPanel {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void btnPlus() {
-                    if (JavaConstant.isReturn != null) {
+                    if (JavaConstant.isReturn != null) {  // protect when cashier processing return 
+                         
+                         
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaAlertMessage.returnMsg);
                          j.setVisible(true);
                          return;
                     }
+                      
                     sumTotal("+");
                }
 
                @Override
                public void btnMinus() {
-                    if (JavaConstant.isReturn != null) {
+                    if (JavaConstant.isReturn != null) { // protect when cashier processing return 
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaAlertMessage.returnMsg);
                          j.setVisible(true);
@@ -407,9 +416,33 @@ public class BoxItem extends javax.swing.JPanel {
           if (sign == "+") {
                // add qty 
                getQty++;
+               Component[] listCome1 = panelProduct.getComponents();
+               for (Component c : listCome1) {
+                    var data = ((ProductBox) c);
+                    if (labelBarcode.equals(data.getBarcode())) {
+                         int orgQty = data.getOrgQty();
+                         orgQty = orgQty - getQty;
+                         data.setQty("" + orgQty);
+                    }
+               }
+
           } else if (sign == "-") {
                // remove qty 
                getQty--;
+
+               Component[] listCome1 = panelProduct.getComponents();
+               for (Component c : listCome1) {
+                    var data = ((ProductBox) c);
+                    if (labelBarcode.equals(data.getBarcode())) {
+                         int orgQty = data.getOrgQty();
+                         if (getQty != 0) {
+                              orgQty = orgQty - getQty;
+                              data.setQty("" + orgQty);
+                         }
+
+                    }
+               }
+
           }
 
           if (getQty != 0) {
@@ -663,6 +696,9 @@ public class BoxItem extends javax.swing.JPanel {
          }
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();
+         
+         System.out.println("get data : " + b.getLabelBarcode());
+         
          DeleteDialog delete = new DeleteDialog(new JFrame(), true);
          delete.setDetailItem(detailItem);
          delete.setListCom(listDelete);
@@ -670,7 +706,9 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setSubtotalPanel(subtotalPanel);
          delete.setBtnPayment(btnPayment);
          delete.setBtnCancel(btnCancel);
+         delete.setPanelProduct(panelProduct);
          delete.setButtonHoldOrder(buttonHoldOrder);
+         delete.setBarcode(b.getLabelBarcode());
 //         delete.setProductBox(productBox);
          delete.setQty(qty);
          delete.setVisible(true);

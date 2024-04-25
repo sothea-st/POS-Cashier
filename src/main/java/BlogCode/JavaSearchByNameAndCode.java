@@ -5,6 +5,7 @@
 package BlogCode;
 
 import Color.WindowColor;
+import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.TextField;
@@ -14,6 +15,7 @@ import Controller.ActionSearchProductController.ActionSearchProduct;
 import Event.ButtonEvent;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
+import Products.ProductBox;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -60,12 +62,12 @@ public class JavaSearchByNameAndCode {
           searchBox.initEvent(event);
      }
 
-     public static void scanProduct(TextField textField, LoginFormJdailog jdFormLogin) {
-         
+     public static void scanProduct(TextField textField, LoginFormJdailog jdFormLogin, JPanel panelProduct, JPanel detailItem) {
+
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    if (JavaConstant.isReturn != null) {
+                    if (JavaConstant.isReturn != null) { // protect when cashier processing return
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaAlertMessage.returnMsg);
                          j.setVisible(true);
@@ -77,9 +79,11 @@ public class JavaSearchByNameAndCode {
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
-
                               if (JavaConstant.checkOpenShift) {
-                                   new ActionScanBarcodeAddProduct().scanBarcode(barcode, jdFormLogin);
+                                   ActionScanBarcodeAddProduct a = new ActionScanBarcodeAddProduct();
+                                   a.setPanelProduct(panelProduct);
+                                   a.setDetailItem(detailItem);
+                                   a.scanBarcode(barcode, jdFormLogin);
                                    textField.setValueTextField("");
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
