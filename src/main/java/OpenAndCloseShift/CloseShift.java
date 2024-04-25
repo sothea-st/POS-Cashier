@@ -386,7 +386,7 @@ public class CloseShift extends javax.swing.JDialog {
                    buttonCashier.setBackground(WindowColor.green);
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
-//                   btnOpenShift.setBackground(WindowColor.lightGray);
+                   btnOpenShift.setBackground(WindowColor.lightGray);
 //                   btnLogin.setBackground(WindowColor.green);
 
                    JavaConstant.checkCloseShift = 0l;
