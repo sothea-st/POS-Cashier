@@ -3,6 +3,7 @@ package NewDiscounts;
 import BlogCode.AppValidation;
 import Color.WindowColor;
 import Components.BoxItem;
+import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
@@ -12,102 +13,105 @@ import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Discounting extends javax.swing.JDialog {
 
-     private JPanel detailItem;
-     private BoxItem box;
-     private SubtotalPanel totalPanel;
+    private JPanel detailItem;
+    private BoxItem box;
+    private SubtotalPanel totalPanel;
 
-     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
-     DecimalFormat kh = new DecimalFormat("#,##0");
+    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+    DecimalFormat kh = new DecimalFormat("#,##0");
 
-     public Discounting(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          setBackGroud();
-          switchButton();
-          inputDis.setLabelTextCenter("0%");
-          inputDis.requestFocus();
-          type = "percent";
-          event();
-     }
+    public Discounting(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setBackGroud();
+        switchButton();
+        inputDis.setLabelTextCenter("0%");
+        inputDis.requestFocus();
+        type = "percent";
+        event();
+    }
 
-     String type;
-     String percentType;
+    String type;
+    String percentType;
 
-     private void switchButton() {
-          switchButton1.addEventSelected(new EventSwitchSelected() {
-               @Override
-               public void onSelected(boolean selected) {
-                    if (selected == true) {
-                         inputDis.setValueTextFieldCenter("");
-                         inputDis.setLabelTextCenter("$ 0.00");
-                         inputDis.requestFocus();
-                         type = "dollar";
-                    } else {
-                         inputDis.setValueTextFieldCenter("");
-                         inputDis.setLabelTextCenter("0%");
-                         inputDis.requestFocus();
-                         type = "percent";
-                    }
-               }
-          });
-     }
+    private void switchButton() {
+        switchButton1.addEventSelected(new EventSwitchSelected() {
+            @Override
+            public void onSelected(boolean selected) {
 
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
+                if (selected == true) {
+                    inputDis.setValueTextFieldCenter("");
+                    inputDis.setLabelTextCenter("$ 0.00");
+                    inputDis.requestFocus();
+                    type = "dollar";
+                } else {
+                    inputDis.setValueTextFieldCenter("");
+                    inputDis.setLabelTextCenter("0%");
+                    inputDis.requestFocus();
+                    type = "percent";
+                }
 
-               }
-          };
-          inputDis.initEvent(btnevent);
-     }
+            }
+        });
+    }
 
-     private void setBackGroud() {
-          discountPanel.setBackground(WindowColor.mediumGreen);
-          calculatePanel.setBackground(WindowColor.green);
-     }
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
 
-     private void inputDiscount(String value) {
-          String discountValue = inputDis.getValueTextFieldCenter();
-          if (discountValue == null) {
-               discountValue = "";
-          }
+            }
+        };
+        inputDis.initEvent(btnevent);
+    }
 
-          discountValue += value;
+    private void setBackGroud() {
+        discountPanel.setBackground(WindowColor.mediumGreen);
+        calculatePanel.setBackground(WindowColor.green);
+    }
 
-          if (type == "dollar") {
-               inputDis.setValueTextFieldCenter(discountValue);
-               AppValidation.checkValidation(discountValue, inputDis);
-          } else {
+    private void inputDiscount(String value) {
+        String discountValue = inputDis.getValueTextFieldCenter();
+        if (discountValue == null) {
+            discountValue = "";
+        }
 
-               if (percentType == "hasPercent") {
+        discountValue += value;
+
+        if (type == "dollar") {
+            inputDis.setValueTextFieldCenter(discountValue);
+            AppValidation.checkValidation(discountValue, inputDis);
+        } else {
+
+            if (percentType == "hasPercent") {
+                inputDis.setValueTextFieldCenter(value);
+            } else {
+
+                if (inputDis.getValueTextFieldCenter() != null && inputDis.getValueTextFieldCenter().contains("%")) {
                     inputDis.setValueTextFieldCenter(value);
-               } else {
+                } else {
+                    inputDis.setValueTextFieldCenter(discountValue);
+                    AppValidation.checkValidation(discountValue, inputDis);
+                }
+            }
+        }
+    }
 
-                    if (inputDis.getValueTextFieldCenter() != null && inputDis.getValueTextFieldCenter().contains("%")) {
-                         inputDis.setValueTextFieldCenter(value);
-                    } else {
-                         inputDis.setValueTextFieldCenter(discountValue);
-                         AppValidation.checkValidation(discountValue, inputDis);
-                    }
-               }
-          }
-     }
+    ////Addd Validation for each button
+    private void validations(String value) {
+        String discountValue = inputDis.getValueTextFieldCenter();
+        AppValidation.checkValidation(discountValue, inputDis);
+    }
 
-     ////Addd Validation for each button
-     private void validations(String value) {
-          String discountValue = inputDis.getValueTextFieldCenter();
-          AppValidation.checkValidation(discountValue, inputDis);
-     }
-
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -499,219 +503,237 @@ public class Discounting extends javax.swing.JDialog {
 
     private void tenPercentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenPercentsMouseClicked
 
-         if (type == "percent") {
-              String tenPercent = tenPercents.getLabelDiscount();
-              percentType = "hasPercent";
-              inputDiscount(tenPercent);
-         }
+        if (type == "percent") {
+            String tenPercent = tenPercents.getLabelDiscount();
+            percentType = "hasPercent";
+            inputDiscount(tenPercent);
+        }
 
     }//GEN-LAST:event_tenPercentsMouseClicked
 
     private void twentyPercentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twentyPercentMouseClicked
 
-         if (type == "percent") {
-              String twentyPercents = twentyPercent.getLabelDiscount();
-              percentType = "hasPercent";
-              inputDiscount(twentyPercents);
-         }
+        if (type == "percent") {
+            String twentyPercents = twentyPercent.getLabelDiscount();
+            percentType = "hasPercent";
+            inputDiscount(twentyPercents);
+        }
 
     }//GEN-LAST:event_twentyPercentMouseClicked
 
     private void thirtyPercentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirtyPercentMouseClicked
 
-         if (type == "percent") {
-              String thirtyPercents = thirtyPercent.getLabelDiscount();
-              percentType = "hasPercent";
-              inputDiscount(thirtyPercents);
-         }
+        if (type == "percent") {
+            String thirtyPercents = thirtyPercent.getLabelDiscount();
+            percentType = "hasPercent";
+            inputDiscount(thirtyPercents);
+        }
 
     }//GEN-LAST:event_thirtyPercentMouseClicked
 
     private void fiftyPercentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseClicked
 
-         if (type == "percent") {
-              String fiftyPercents = fiftyPercent.getLabelDiscount();
-              percentType = "hasPercent";
-              inputDiscount(fiftyPercents);
-         }
+        if (type == "percent") {
+            String fiftyPercents = fiftyPercent.getLabelDiscount();
+            percentType = "hasPercent";
+            inputDiscount(fiftyPercents);
+        }
 
     }//GEN-LAST:event_fiftyPercentMouseClicked
 
     private void oneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseClicked
-         String lbOne = one.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbOne);
+        String lbOne = one.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbOne);
 //         validation(lbOne);
     }//GEN-LAST:event_oneMouseClicked
 
     private void twoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseClicked
-         String lbTwo = two.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbTwo);
+        String lbTwo = two.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbTwo);
 //         validation(lbTwo);
     }//GEN-LAST:event_twoMouseClicked
 
     private void threeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseClicked
-         String lbThree = three.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbThree);
-      //    validation(lbThree);
+        String lbThree = three.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbThree);
+        //    validation(lbThree);
 
     }//GEN-LAST:event_threeMouseClicked
 
     private void fourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseClicked
-         String lbFour = four.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbFour);
-     //     validation(lbFour);
+        String lbFour = four.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbFour);
+        //     validation(lbFour);
     }//GEN-LAST:event_fourMouseClicked
 
     private void fiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseClicked
-         String lbFive = five.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbFive);
-     //     validation(lbFive);
+        String lbFive = five.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbFive);
+        //     validation(lbFive);
     }//GEN-LAST:event_fiveMouseClicked
 
     private void sixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseClicked
-         String lbSix = six.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbSix);
-      //    validation(lbSix);
+        String lbSix = six.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbSix);
+        //    validation(lbSix);
     }//GEN-LAST:event_sixMouseClicked
 
     private void sevenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseClicked
-         String lbSeven = seven.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbSeven);
-      //    validation(lbSeven);
+        String lbSeven = seven.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbSeven);
+        //    validation(lbSeven);
     }//GEN-LAST:event_sevenMouseClicked
 
     private void eightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseClicked
-         String lbEight = eight.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbEight);
-       //   validation(lbEight);
+        String lbEight = eight.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbEight);
+        //   validation(lbEight);
     }//GEN-LAST:event_eightMouseClicked
 
     private void nineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseClicked
-         String lbNine = nine.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbNine);
-      //    validation(lbNine);
+        String lbNine = nine.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbNine);
+        //    validation(lbNine);
     }//GEN-LAST:event_nineMouseClicked
 
     private void zeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseClicked
-         String lbZero = zero.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbZero);
-      //    validation(lbZero);
+        String lbZero = zero.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbZero);
+        //    validation(lbZero);
     }//GEN-LAST:event_zeroMouseClicked
 
     private void dotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseClicked
-         String lbDot = dot.getLabelDiscount();
-         percentType = "noPercent";
-         inputDiscount(lbDot);
-      //    validation(lbDot);
+        String lbDot = dot.getLabelDiscount();
+        percentType = "noPercent";
+        inputDiscount(lbDot);
+        //    validation(lbDot);
     }//GEN-LAST:event_dotMouseClicked
 
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
-         if (!inputDis.getValueTextFieldCenter().isEmpty()) {
-              String valueReceive = inputDis.getValueTextFieldCenter();
-              valueReceive = valueReceive.substring(0, valueReceive.length() - 1);
-              inputDis.setValueTextFieldCenter("");
-              inputDiscount(valueReceive);
-         }
+        if (!inputDis.getValueTextFieldCenter().isEmpty()) {
+            String valueReceive = inputDis.getValueTextFieldCenter();
+            valueReceive = valueReceive.substring(0, valueReceive.length() - 1);
+            inputDis.setValueTextFieldCenter("");
+            inputDiscount(valueReceive);
+        }
     }//GEN-LAST:event_delMouseClicked
 
     private void btnDoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoneMouseClicked
 
-         String discountValue = inputDis.getValueTextFieldCenter();
+        Component[] listDetailItem = detailItem.getComponents();
+        if (listDetailItem.length > 0) {
+            for (Component c : listDetailItem) {
+                var data = ((BoxItem) c);
 
-         if (discountValue != null) {
-              if (discountValue.contains("$")) {
-                   discountValue = discountValue.replace("$", "");
-              }
+                if (data.getDiscountType() != null) {
+                    String localType = data.getDiscountType();
+                 
+                    if (!localType.equals(type)) {
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        j.setMessage("A single order only accept one of discount type !");
+                        j.setVisible(true);
+                        return;
+                    }
+                }
+            }
+        }
 
-              if (discountValue.contains("%")) {
-                   discountValue = discountValue.replace("%", "");
-              }
-         }
+        String discountValue = inputDis.getValueTextFieldCenter();
 
-         if (discountValue == null || discountValue.isEmpty()) {
-              JOptionPane.showMessageDialog(null, "Please input discount value!");
-              return;
-         }
+        if (discountValue != null) {
+            if (discountValue.contains("$")) {
+                discountValue = discountValue.replace("$", "");
+            }
 
-         Component[] listHold = detailItem.getComponents();
-         double sumDiscount = 0;
-         double sumSubTotalUsd = 0;
-         double sumTotalUsd = 0;
+            if (discountValue.contains("%")) {
+                discountValue = discountValue.replace("%", "");
+            }
+        }
 
-         for (int i = 0; i < listHold.length; i++) {
-              var box = ((BoxItem) listHold[i]);
+        if (discountValue == null || discountValue.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please input discount value!");
+            return;
+        }
 
-              if (type == "dollar") {
-                   double _dollar = box.getQty() * Double.parseDouble(discountValue);
-                   if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
+        Component[] listHold = detailItem.getComponents();
+        double sumDiscount = 0;
+        double sumSubTotalUsd = 0;
+        double sumTotalUsd = 0;
 
-                        box.setDiscountAmount(dm.format(_dollar));
-                        box.setDiscountValue(Double.valueOf(discountValue));
-                        box.setDiscountType(type);
+        for (int i = 0; i < listHold.length; i++) {
+            var box = ((BoxItem) listHold[i]);
 
-                        //===================Remove border and prevent in button discount after input discount value=============
-                        JavaConstant.discountAmount = 1;
-                        box.setBorder(null);
+            if (type == "dollar") {
+                double _dollar = box.getQty() * Double.parseDouble(discountValue);
+                if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
 
-                   }
+                    box.setDiscountAmount(dm.format(_dollar));
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
 
-                   if (JavaConstant.productId == 0) {
+                    //===================Remove border and prevent in button discount after input discount value=============
+                    JavaConstant.discountAmount = 1;
+                    box.setBorder(null);
 
-                        box.setDiscountAmount(dm.format(_dollar));
-                        box.setDiscountValue(Double.valueOf(discountValue));
-                        box.setDiscountType(type);
-                   }
+                }
 
-              } else {
-                   double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));
-                   double disvalue = Double.valueOf(discountValue);
-                   double discountAmount = (amount * disvalue) / 100;
+                if (JavaConstant.productId == 0) {
 
-                   if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
-                        box.setDiscountAmount(dm.format(discountAmount));
-                        box.setDiscountValue(Double.valueOf(discountValue));
-                        box.setDiscountType(type);
-                        box.setDiscountDigit(Double.parseDouble(discountValue));
+                    box.setDiscountAmount(dm.format(_dollar));
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
+                }
 
-                        //===================Remove border and prevent in button discount after input discount value=============
-                        JavaConstant.discountAmount = 1;
-                        box.setBorder(null);
+            } else {
+                double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));
+                double disvalue = Double.valueOf(discountValue);
+                double discountAmount = (amount * disvalue) / 100;
 
-                   }
-                   
-                   if (JavaConstant.productId == 0) {
-                        box.setDiscountAmount(dm.format(discountAmount));
-                        box.setDiscountValue(Double.valueOf(discountValue));
-                        box.setDiscountType(type);
-                        box.setDiscountDigit(Double.parseDouble(discountValue));
-                   }
+                if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
+                    box.setDiscountAmount(dm.format(discountAmount));
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
+                    box.setDiscountDigit(Double.parseDouble(discountValue));
 
-              }
+                    //===================Remove border and prevent in button discount after input discount value=============
+                    JavaConstant.discountAmount = 1;
+                    box.setBorder(null);
 
-              sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
-              sumSubTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1));
-              sumTotalUsd = sumSubTotalUsd - sumDiscount;
+                }
 
-              totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-              totalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+                if (JavaConstant.productId == 0) {
+                    box.setDiscountAmount(dm.format(discountAmount));
+                    box.setDiscountValue(Double.valueOf(discountValue));
+                    box.setDiscountType(type);
+                    box.setDiscountDigit(Double.parseDouble(discountValue));
+                }
 
-              totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
-              totalPanel.setLableTotalKhr(kh.format(sumTotalUsd * JavaConstant.exchangeRate));
-         }
+            }
 
-         detailItem.revalidate();
-         detailItem.repaint();
-         dispose();
+            sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
+            sumSubTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1));
+            sumTotalUsd = sumSubTotalUsd - sumDiscount;
+
+            totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
+            totalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+
+            totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
+            totalPanel.setLableTotalKhr(kh.format(sumTotalUsd * JavaConstant.exchangeRate));
+        }
+
+        detailItem.revalidate();
+        detailItem.repaint();
+        dispose();
     }//GEN-LAST:event_btnDoneMouseClicked
 
     private void inputDisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputDisKeyTyped
@@ -719,7 +741,7 @@ public class Discounting extends javax.swing.JDialog {
     }//GEN-LAST:event_inputDisKeyTyped
 
     //======================================== HOVER =================================
-    
+
     private void oneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseEntered
         one.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_oneMouseEntered
@@ -847,72 +869,71 @@ public class Discounting extends javax.swing.JDialog {
     private void fiftyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseExited
         fiftyPercent.setBackground(WindowColor.slightBlue);
     }//GEN-LAST:event_fiftyPercentMouseExited
-    
+
     //========================================================================
-    
-     public JPanel getDetailItem() {
-          return detailItem;
-     }
+    public JPanel getDetailItem() {
+        return detailItem;
+    }
 
-     public void setDetailItem(JPanel detailItem) {
-          this.detailItem = detailItem;
-     }
+    public void setDetailItem(JPanel detailItem) {
+        this.detailItem = detailItem;
+    }
 
-     public BoxItem getBox() {
-          return box;
-     }
+    public BoxItem getBox() {
+        return box;
+    }
 
-     public void setBox(BoxItem box) {
-          this.box = box;
-     }
+    public void setBox(BoxItem box) {
+        this.box = box;
+    }
 
-     public SubtotalPanel getTotalPanel() {
-          return totalPanel;
-     }
+    public SubtotalPanel getTotalPanel() {
+        return totalPanel;
+    }
 
-     public void setTotalPanel(SubtotalPanel totalPanel) {
-          this.totalPanel = totalPanel;
-     }
+    public void setTotalPanel(SubtotalPanel totalPanel) {
+        this.totalPanel = totalPanel;
+    }
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    Discounting dialog = new Discounting(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Discounting dialog = new Discounting(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnDone;
