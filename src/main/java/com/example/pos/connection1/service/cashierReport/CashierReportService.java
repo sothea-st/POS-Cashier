@@ -52,6 +52,8 @@ public class CashierReportService {
 
     private HashMap<String, Object> map = new HashMap<>();
 
+ 
+
     public HashMap<String, Object> cashierReport(String userCode, int userId, String posId) {
         int id = userId;
         // get company info
@@ -141,10 +143,9 @@ public class CashierReportService {
         List<SummeryCashierReport> discount = new ArrayList<>();
         for (int i = 0; i < listDiscount.size(); i++) {
             int disQty = 0;
-            String disStr = repoSaleDetail.totalQty(userId, JavaConstant.currentDate, posId, ""+listDiscount.get(i),
-                    JavaConstant.currentDate, userCode);
-            if (disStr != null)
-                disQty = Integer.valueOf(disStr);
+            List<Integer> disStr = repoSaleDetail.totalQty(JavaConstant.currentDate, posId,  Double.valueOf(listDiscount.get(i)));
+            if (!disStr.isEmpty())
+                disQty = disStr.size();
 
             double disAmount = 0;
             String disAmountStr = repoSaleDetail.totalAmount(userId, JavaConstant.currentDate, listDiscount.get(i),
@@ -196,7 +197,6 @@ public class CashierReportService {
 
         int qtyMnk = repoSale.countSaledNumMnk(userId, JavaConstant.currentDate, posId);
 
-
         double amountMnk = dCloseShift.getKhqrMnk().doubleValue();
 
         int qtyExpress = 0;
@@ -208,7 +208,6 @@ public class CashierReportService {
         double amountExpress = dCloseShift.getExpress().doubleValue();
 
         int qtyCredit = repoSale.countSaledNumCredit(userId, JavaConstant.currentDate, posId);
-
 
         double amountCredit = dCloseShift.getCreditCard().doubleValue();
 
@@ -222,11 +221,11 @@ public class CashierReportService {
         ArrayList<SummeryCashierReport> payment = new ArrayList<>();
         // payment.add(new SummeryCashierReport("RED ANT EXPRESS", qtyExpress,
         // BigDecimal.valueOf(amountExpress)));
-        payment.add(new SummeryCashierReport("CASH (USD)", qtyUsd, BigDecimal.valueOf(amountPayUsd)));
-        payment.add(new SummeryCashierReport("CASH (KHR)", qtyKhr, BigDecimal.valueOf(amountPayKhr)));
-        payment.add(new SummeryCashierReport("KHQR-MNK", qtyMnk, BigDecimal.valueOf(amountMnk)));
-        payment.add(new SummeryCashierReport("KHQR-ABA", qtyAba, BigDecimal.valueOf(amountAba)));
-        payment.add(new SummeryCashierReport("ABA-CREDIT CART", qtyCredit, BigDecimal.valueOf(amountCredit)));
+        payment.add(new SummeryCashierReport("Cash- Riels ("+ addCommas(dCloseShift.getCashKhr()+"") +")", qtyKhr, BigDecimal.valueOf(amountPayKhr)));
+        payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd, BigDecimal.valueOf(amountPayUsd)));
+        payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk, BigDecimal.valueOf(amountMnk)));
+        payment.add(new SummeryCashierReport("ABA QR Pay", qtyAba, BigDecimal.valueOf(amountAba)));
+        payment.add(new SummeryCashierReport("ABA-Card Payment", qtyCredit, BigDecimal.valueOf(amountCredit)));
         map.put("summeryPayemnt", payment);
     }
 
@@ -263,5 +262,25 @@ public class CashierReportService {
         summery.add(new SummeryCashierReport("Total Voids", 0, BigDecimal.valueOf(0)));
         summery.add(new SummeryCashierReport("Disounts", qtyDiscount, BigDecimal.valueOf(amountDiscount)));
         map.put("SummerySale", summery);
+    }
+
+    public static String addCommas(String str) {
+        StringBuilder result = new StringBuilder();
+        int length = str.length();
+        int count = 0;
+
+        // Iterate through the string from right to left
+        for (int i = length - 1; i >= 0; i--) {
+            char c = str.charAt(i);
+            result.insert(0, c); // Insert character at the beginning of the result string
+            count++;
+
+            // Insert comma after every 3 characters, except at the beginning
+            if (count % 3 == 0 && i != 0) {
+                result.insert(0, ',');
+            }
+        }
+
+        return result.toString();
     }
 }
