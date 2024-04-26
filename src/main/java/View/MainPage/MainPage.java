@@ -29,7 +29,6 @@ import NewCashierReport.CashierPreview;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Print.ReprintJdailog;
-import Products.ListProduct;
 import Return.ApprovalCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;

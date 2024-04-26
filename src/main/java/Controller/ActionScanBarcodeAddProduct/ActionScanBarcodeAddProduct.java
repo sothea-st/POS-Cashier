@@ -128,7 +128,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          return;
                     }
                     int orgQty = listProduct[0].getQty();
-                    setQtyJPanel(panelProduct, detailItem, listProduct[0].getBarcode(), orgQty);
+//                    setQtyJPanel(panelProduct, detailItem, listProduct[0].getBarcode(), orgQty);
                  
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
@@ -207,20 +207,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     }
                     data.setQty("" + orgQty);
 
-//                    //    =============== update qty with hole ==================
-//                    if (listHoldData.length > 0) {
-//                         for (DataListHold cv : listHoldData) {
-//                              ListDetailHold[] l = cv.getListDetails();
-//                              for (ListDetailHold dd : l) {
-//                                   if (dd.getBarcode().equals(barcode)) {
-//                                        int holdQty = dd.getQty();
-//                                        orgQty = orgQty - holdQty;
-//                                        data.setQty("" + orgQty);
-//                                        break;
-//                                   }
-//                              }
-//                         }
-//                    }
 
                     if (data.getQty().equals("0")) {
                          data.setProductStatus(JavaMessage.outStock);

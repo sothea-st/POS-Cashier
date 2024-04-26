@@ -69,6 +69,16 @@ public class CancelDialog extends javax.swing.JDialog {
      private JPanel panelProduct;
      private int idHold;
 
+     private String barcode;
+
+     public String getBarcode() {
+          return barcode;
+     }
+
+     public void setBarcode(String barcode) {
+          this.barcode = barcode;
+     }
+
      public int getIdHold() {
           return idHold;
      }
@@ -76,10 +86,7 @@ public class CancelDialog extends javax.swing.JDialog {
      public void setIdHold(int idHold) {
           this.idHold = idHold;
      }
-     
-     
-     
-     
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
 
@@ -268,16 +275,19 @@ public class CancelDialog extends javax.swing.JDialog {
                         JavaConstant.discountAmount = 1;
                         deleteHoldById();
 
+                        detailItem.setBackground(WindowColor.slightGreen);
+                        detailItem.setBorder(null);
+
                    } else {
                         JOptionPane.showMessageDialog(this, "Save Failed!");
-                        
+
                    }
 
               } catch (Exception e) {
 
               }
          } else if (code.equals("cancelHold")) {
-            
+
               deleteHold();
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
@@ -347,6 +357,17 @@ public class CancelDialog extends javax.swing.JDialog {
 
           try {
                if (response.isSuccessful()) {
+
+                    //          =========== update product status ================
+                    Component[] listProductPanel = panelProduct.getComponents();
+
+                    for (Component c : listProductPanel) {
+                         var _data = ((ProductBox) c);
+                         if (_data.getBarcode().equals(barcode)) {
+                              _data.setProductStatus(JavaMessage.inStock);
+                         }
+                    }
+
                     dispose();
                     panelHold.removeAll();
                     panelHold.revalidate();
@@ -357,6 +378,9 @@ public class CancelDialog extends javax.swing.JDialog {
                     detailItem.removeAll();
                     detailItem.revalidate();
                     detailItem.repaint();
+
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    detailItem.setBorder(null);
                }
           } catch (Exception e) {
                System.err.println("errr delete + " + e);
@@ -364,30 +388,28 @@ public class CancelDialog extends javax.swing.JDialog {
 
      }
 
-     
-
      public void getHold() {
           DataListHold[] listHoldData;
-     ListDetailHold[] listHoldDetails;
+          ListDetailHold[] listHoldDetails;
           try {
-               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId + "&id="+idHold);
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId + "&id=" + idHold);
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
                     listHoldData = data.getData();
-                   
+
                     Component[] listCome1 = panelProduct.getComponents();
 
                     //    =============== update qty with hole ==================
                     if (listHoldData.length > 0) {
-                        
+
                          for (DataListHold cv : listHoldData) {
                               ListDetailHold[] l = cv.getListDetails();
                               for (ListDetailHold dd : l) {
                                    String barcode = dd.getBarcode();
-                                 
+
                                    int holdQty = dd.getQty();
                                    for (Component bb : listCome1) {
                                         var datas = ((ProductBox) bb);

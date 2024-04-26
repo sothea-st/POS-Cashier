@@ -10,6 +10,7 @@ import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import DeleteAndCancel.CancelDialog;
@@ -181,12 +182,37 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
                          @Override
                          public void onRemove(String key) {
-                             
+                              HoldProductModel product = null;
+                              for (int j = 0; j < listDetails.length; j++) {
+                                   var obj = listDetails[j];
+
+                                   product = new HoldProductModel(
+                                        obj.getID(),
+                                        obj.getFlag(),
+                                        obj.getDiscount(),
+                                        obj.getQty(),
+                                        obj.getCost(),
+                                        obj.getPrice(),
+                                        obj.getCatID(),
+                                        obj.getBarcode(),
+                                        obj.getWeight(),
+                                        obj.getDiscountType(),
+                                        obj.getProNameEn(),
+                                        obj.getCodeExpired(),
+                                        obj.getCodeOutStock(),
+                                        obj.getBrandID(),
+                                        obj.getProNameKh(),
+                                        obj.getProImageName(),
+                                        obj.getProductStatus()
+                                   );
+                              }
+
                               CancelDialog cancel = new CancelDialog(new JFrame(), true);
                               cancel.setCode("cancelHold");
                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
                               lstModel.add(new HoldeModel(obj.getID()));
                               cancel.setIdHold(obj.getID());
+                              cancel.setBarcode(product.getBarcode());
                               cancel.setHoldId(lstModel);
                               cancel.setPanelHold(panelHold);
                               cancel.setCountCircleShape(countCircleShape);
@@ -490,10 +516,10 @@ public class ListHoldOrder extends javax.swing.JDialog {
     private void removeAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_removeAllMouseClicked
          listHolddata(listData);
     }//GEN-LAST:event_removeAllMouseClicked
-    
-      public void returnQtyHold() {
+
+     public void returnQtyHold() {
           DataListHold[] listHoldData;
-         
+
           try {
                Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
 
@@ -520,7 +546,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
                                         if (barcode.equals(datas.getBarcode())) {
                                              int qty = holdQty + qtyShow;
                                              datas.setQty("" + qty);
-                                            break;
+                                             datas.setProductStatus(JavaMessage.inStock);
+                                             
+                                             break;
                                         }
                                    }
                               }
@@ -533,11 +561,10 @@ public class ListHoldOrder extends javax.swing.JDialog {
                System.err.println("error getting product " + e);
           }
      }
-    
+
      void listHolddata(DataListHold[] listData) {
           returnQtyHold();
-          
-          
+
           for (int i = 0; i < listData.length; i++) {
                var obj = listData[i];
                ArrayList<HoldeModel> lstModel = new ArrayList<>();

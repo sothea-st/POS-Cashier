@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
+import Components.BoxItem;
 import Constant.JavaMessage;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
@@ -263,25 +264,57 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void scanbarCodeAddProduct(ProductModel proModel, String scanbarcode) {
           getHold();
           Component[] listPanelProduct = panelProduct.getComponents();
+          Component[] listDetailItem = detailItem.getComponents();
           if (proModel.getQty() == 0) {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage(JavaMessage.productOutStock);
                j.setVisible(true);
                return;
           }
+
+          
+          
+          int qtySale = 0;
+          if (listDetailItem.length > 0) {
+               for (Component c : listDetailItem) {
+                    var data = ((BoxItem) c);
+                    if (data.getLabelBarcode().equals(proModel.getBarcode())) {
+                         qtySale = data.getQty();
+                         qtySale++;
+                    }
+               }
+          }
+          
+        
+          
           for (Component cc : listPanelProduct) {
                var data = ((ProductBox) cc);
-               int orgQty = Integer.parseInt(data.getQty());
+
                if (data.getBarcode().equals(proModel.getBarcode())) {
+
+                    if (data.getQty().equals("0")) {
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage(JavaMessage.productOutStock);
+                         j.setVisible(true);
+                         return;
+                    }
+
+                    int orgQty = data.getOrgQty();
+ 
+                    orgQty = orgQty - qtySale;
+                    if (orgQty < 0) {
+                         orgQty = 0;
+                    }
 
                     //    =============== update qty with hole ==================
                     if (listHoldData.length > 0) {
                          for (DataListHold cv : listHoldData) {
                               ListDetailHold[] l = cv.getListDetails();
                               for (ListDetailHold dd : l) {
-                                   if (dd.getBarcode().equals(data.getBarcode())) {
+                                   if (dd.getBarcode().equals(proModel.getBarcode())) {
                                         int holdQty = dd.getQty();
                                         orgQty = orgQty - holdQty;
+//                                             data.setQty("" + orgQty);
                                         break;
                                    }
                               }
@@ -289,7 +322,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     }
 
                     if (data.getQty().equals("0")) {
-                         data.setProductStatus(JavaMessage.outStock);
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaMessage.productOutStock);
                          j.setVisible(true);
@@ -390,12 +422,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    dispose();
                    getBtnLogin().setButtonName("Logout");
-                   
+
                    boxUserName.setVisible(true);
                    getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
                    boxUserName.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    lbPOSId.setText("POS ID : " + JavaConstant.posId);
-                   
+
                    category();
                    getjScrollPaneCategory().setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
@@ -830,7 +862,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.breadcrumb = breadcrumb;
      }
 
-     
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
