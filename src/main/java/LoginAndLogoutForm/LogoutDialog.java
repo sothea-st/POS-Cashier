@@ -192,8 +192,9 @@ public class LogoutDialog extends javax.swing.JDialog {
                    btnOpenShift.setBackground(WindowColor.lightGray);
                    buttonCashier.setBackground(WindowColor.lightGray);
 
-                   lbPOSId.setText("POS ID :");
+                   lbPOSId.setText("");
                    boxUserName.setText("");
+                   boxUserName.setVisible(false);
                    category.removeAll();
                    category.revalidate();
                    category.repaint();
@@ -390,6 +391,7 @@ public class LogoutDialog extends javax.swing.JDialog {
           this.buttonCashier = buttonCashier;
      }
 
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
