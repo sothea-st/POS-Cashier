@@ -270,7 +270,7 @@ public class CancelDialog extends javax.swing.JDialog {
 
                    } else {
                         JOptionPane.showMessageDialog(this, "Save Failed!");
-                        return;
+                        
                    }
 
               } catch (Exception e) {

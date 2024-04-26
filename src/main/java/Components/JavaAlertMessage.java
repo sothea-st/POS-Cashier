@@ -1,15 +1,15 @@
- 
 package Components;
 
 import Color.WindowColor;
 import Constant.JavaConstant;
 
- 
 public class JavaAlertMessage extends javax.swing.JDialog {
-     
+
      public static String returnMsg = "You are in processing return !";
-     
+     public static int countTimeQty = 0;
      private String message;
+   
+
      public JavaAlertMessage(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -17,7 +17,7 @@ public class JavaAlertMessage extends javax.swing.JDialog {
           setResizable(false);
           panelMessage.setBackground(WindowColor.mediumGreen);
      }
- 
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -99,7 +99,7 @@ public class JavaAlertMessage extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
- 
+
           dispose();
      }//GEN-LAST:event_btnCloseMouseClicked
 
@@ -152,12 +152,9 @@ public class JavaAlertMessage extends javax.swing.JDialog {
 
      public void setMessage(String message) {
           this.message = message;
-          lbMessage.setText("<html>"+message+"</html>");
+          lbMessage.setText("<html>" + message + "</html>");
      }
 
-     
-     
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnClose;

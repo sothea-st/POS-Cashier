@@ -6,15 +6,21 @@ import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
-import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
+
 import DeleteAndCancel.DeleteDialog;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ListDetailHold;
+import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -385,14 +391,12 @@ public class BoxItem extends javax.swing.JPanel {
                @Override
                public void btnPlus() {
                     if (JavaConstant.isReturn != null) {  // protect when cashier processing return 
-                         
-                         
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaAlertMessage.returnMsg);
                          j.setVisible(true);
                          return;
                     }
-                      
+
                     sumTotal("+");
                }
 
@@ -410,39 +414,113 @@ public class BoxItem extends javax.swing.JPanel {
           buttonAddProduct.initEvent(event);
      }
 
+     DataListHold[] listHoldData;
+     ListDetailHold[] listHoldDetails;
+
+     public void getHold() {
+          try {
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    listHoldData = data.getData();
+               } else {
+                    System.err.println("fail loading product");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
+
      void sumTotal(String sign) {
           int getQty = getQty();
 
           if (sign == "+") {
+               getHold();
                // add qty 
                getQty++;
                Component[] listCome1 = panelProduct.getComponents();
                for (Component c : listCome1) {
                     var data = ((ProductBox) c);
                     if (labelBarcode.equals(data.getBarcode())) {
+
+                         if (data.getQty().equals("0")) {
+                              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                              j.setMessage(JavaMessage.productOutStock);
+                              j.setVisible(true);
+                              return;
+                         }
+
                          int orgQty = data.getOrgQty();
                          orgQty = orgQty - getQty;
+                         if (orgQty < 0) {
+                              orgQty = 0;
+                         }
+
+                         //    =============== update qty with hole ==================
+                         if (listHoldData.length > 0) {
+                              for (DataListHold cv : listHoldData) {
+                                   ListDetailHold[] l = cv.getListDetails();
+                                   for (ListDetailHold dd : l) {
+                                        if (dd.getBarcode().equals(labelBarcode)) {
+                                             int holdQty = dd.getQty();
+                                             orgQty = orgQty - holdQty;
+//                                             data.setQty("" + orgQty);
+                                             break;
+                                        }
+                                   }
+                              }
+                         }
+
+                         if (data.getQty().equals("0")) {
+                              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                              j.setMessage(JavaMessage.productOutStock);
+                              j.setVisible(true);
+                              return;
+                         }
+
                          data.setQty("" + orgQty);
+                         if (data.getQty().equals("0")) {
+                              data.setProductStatus(JavaMessage.outStock);
+                         }
                     }
                }
 
           } else if (sign == "-") {
+               getHold();
                // remove qty 
                getQty--;
-
                Component[] listCome1 = panelProduct.getComponents();
                for (Component c : listCome1) {
                     var data = ((ProductBox) c);
                     if (labelBarcode.equals(data.getBarcode())) {
                          int orgQty = data.getOrgQty();
+
+                         //    =============== update qty with hole ==================
+                         if (listHoldData.length > 0) {
+                              for (DataListHold cv : listHoldData) {
+                                   ListDetailHold[] l = cv.getListDetails();
+                                   for (ListDetailHold dd : l) {
+                                        if (dd.getBarcode().equals(labelBarcode)) {
+                                             int holdQty = dd.getQty();
+                                             orgQty = orgQty - holdQty;
+//                                             data.setQty("" + orgQty);
+                                             break;
+                                        }
+                                   }
+                              }
+                         }
+
                          if (getQty != 0) {
                               orgQty = orgQty - getQty;
                               data.setQty("" + orgQty);
+                              data.setProductStatus(JavaMessage.inStock);
                          }
 
                     }
                }
-
           }
 
           if (getQty != 0) {
@@ -696,9 +774,7 @@ public class BoxItem extends javax.swing.JPanel {
          }
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();
-         
-         System.out.println("get data : " + b.getLabelBarcode());
-         
+
          DeleteDialog delete = new DeleteDialog(new JFrame(), true);
          delete.setDetailItem(detailItem);
          delete.setListCom(listDelete);

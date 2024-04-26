@@ -62,6 +62,7 @@ public class ProductBox extends javax.swing.JPanel {
 
      public void setQty(String qty) {
           this.qty = qty;
+         
           lbQty.setText(qty);
      }
 
@@ -151,10 +152,10 @@ public class ProductBox extends javax.swing.JPanel {
 //              buttonStatus.setButtonName(productStatus);
 //          }
 //================================Product Status============================
-          if (productStatus == "Unavailable") {
+          if ("Unavailable".equals(productStatus)) {
                buttonStatus.setBgColor(WindowColor.yellow);
                buttonStatus.setButtonName("Unavailable");
-          } else if (productStatus == "Out Stock") {
+          } else if ("Out Stock".equals(productStatus)) {
                buttonStatus.setBgColor(WindowColor.darkred);
                buttonStatus.setButtonName("Out Stock");
           } else {

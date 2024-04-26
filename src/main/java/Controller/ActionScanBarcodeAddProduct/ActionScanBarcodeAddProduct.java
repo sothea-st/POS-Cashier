@@ -7,6 +7,7 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
 import HoldOrder.HoldModelDir.DataListHold;
@@ -49,8 +50,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      public void setBtnReturn(Button btnReturn) {
           this.btnReturn = btnReturn;
      }
-     
-     
 
      public void scanBarcode(String barcode, LoginFormJdailog jdFormLogin) {
           if (barcode.length() == 13) {
@@ -129,9 +128,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          return;
                     }
                     int orgQty = listProduct[0].getQty();
-
                     setQtyJPanel(panelProduct, detailItem, listProduct[0].getBarcode(), orgQty);
-
+                 
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
@@ -180,6 +178,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      }
 
      public void setQtyJPanel(JPanel pnaleJPanel, JPanel detailItem, String barcode, int orgQty) {
+
           getHold();
           Component[] listCome1 = panelProduct.getComponents();
           Component[] listDetailItem = detailItem.getComponents();
@@ -190,27 +189,41 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     qtySale = 0;
                     qtySale = Integer.parseInt(data.getQty() + "");
                     qtySale++;
+                    break;
                }
           }
 
           for (Component c : listCome1) {
                var data = ((ProductBox) c);
                if (barcode.equals(data.getBarcode())) {
+
+                    if (data.getQty().equals("0")) {
+                         return;
+                    }
+
                     orgQty = orgQty - qtySale;
+                    if (orgQty < 0) {
+                         orgQty = 0;
+                    }
                     data.setQty("" + orgQty);
 
-                    //    =============== update qty with hole ==================
-                    if (listHoldData.length > 0) {
-                         for (DataListHold cv : listHoldData) {
-                              ListDetailHold[] l = cv.getListDetails();
-                              for (ListDetailHold dd : l) {
-                                   if (dd.getBarcode().equals(barcode)) {
-                                        int holdQty = dd.getQty();
-                                        orgQty = orgQty - holdQty;
-                                        data.setQty("" + orgQty);
-                                   }
-                              }
-                         }
+//                    //    =============== update qty with hole ==================
+//                    if (listHoldData.length > 0) {
+//                         for (DataListHold cv : listHoldData) {
+//                              ListDetailHold[] l = cv.getListDetails();
+//                              for (ListDetailHold dd : l) {
+//                                   if (dd.getBarcode().equals(barcode)) {
+//                                        int holdQty = dd.getQty();
+//                                        orgQty = orgQty - holdQty;
+//                                        data.setQty("" + orgQty);
+//                                        break;
+//                                   }
+//                              }
+//                         }
+//                    }
+
+                    if (data.getQty().equals("0")) {
+                         data.setProductStatus(JavaMessage.outStock);
                     }
 
                }

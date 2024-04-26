@@ -9,6 +9,7 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
@@ -169,93 +170,93 @@ public class DeleteDialog extends javax.swing.JDialog {
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        panelDelete = new javax.swing.JPanel();
-        labelPopUpTitle2 = new Components.LabelPopUpTitle();
-        lbReason1 = new Components.Label();
-        buttonCancel1 = new ButtonPackage.ButtonCancel();
-        buttonSave1 = new ButtonPackage.ButtonSave();
-        jLabel1 = new javax.swing.JLabel();
-        comboBoxReason = new Components.ComboBox();
+          panelDelete = new javax.swing.JPanel();
+          labelPopUpTitle2 = new Components.LabelPopUpTitle();
+          lbReason1 = new Components.Label();
+          buttonCancel1 = new ButtonPackage.ButtonCancel();
+          buttonSave1 = new ButtonPackage.ButtonSave();
+          jLabel1 = new javax.swing.JLabel();
+          comboBoxReason = new Components.ComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelDelete.setPreferredSize(new java.awt.Dimension(379, 155));
+          panelDelete.setPreferredSize(new java.awt.Dimension(379, 155));
 
-        labelPopUpTitle2.setLabelTitle("Delete");
+          labelPopUpTitle2.setLabelTitle("Delete");
 
-        lbReason1.setLabelName("Reason");
+          lbReason1.setLabelName("Reason");
 
-        buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCancel1MouseClicked(evt);
-            }
-        });
+          buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancel1MouseClicked(evt);
+               }
+          });
 
-        buttonSave1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonSave1MouseClicked(evt);
-            }
-        });
+          buttonSave1.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonSave1MouseClicked(evt);
+               }
+          });
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("*");
+          jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+          jLabel1.setText("*");
 
-        javax.swing.GroupLayout panelDeleteLayout = new javax.swing.GroupLayout(panelDelete);
-        panelDelete.setLayout(panelDeleteLayout);
-        panelDeleteLayout.setHorizontalGroup(
-            panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPopUpTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDeleteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelDeleteLayout.createSequentialGroup()
-                        .addComponent(lbReason1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(comboBoxReason, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelDeleteLayout.createSequentialGroup()
-                        .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
-        );
-        panelDeleteLayout.setVerticalGroup(
-            panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDeleteLayout.createSequentialGroup()
-                .addComponent(labelPopUpTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbReason1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addGroup(panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
-        );
+          javax.swing.GroupLayout panelDeleteLayout = new javax.swing.GroupLayout(panelDelete);
+          panelDelete.setLayout(panelDeleteLayout);
+          panelDeleteLayout.setHorizontalGroup(
+               panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(labelPopUpTitle2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDeleteLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                         .addGroup(panelDeleteLayout.createSequentialGroup()
+                              .addComponent(lbReason1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(4, 4, 4)
+                              .addComponent(jLabel1)
+                              .addGap(18, 18, 18)
+                              .addComponent(comboBoxReason, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelDeleteLayout.createSequentialGroup()
+                              .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(12, 12, 12))
+          );
+          panelDeleteLayout.setVerticalGroup(
+               panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelDeleteLayout.createSequentialGroup()
+                    .addComponent(labelPopUpTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23)
+                    .addGroup(panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(comboBoxReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(lbReason1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                    .addGroup(panelDeleteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(17, 17, 17))
+          );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-        );
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+          getContentPane().setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(panelDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(panelDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+          );
 
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+          pack();
+          setLocationRelativeTo(null);
+     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          this.dispose();
@@ -277,18 +278,7 @@ public class DeleteDialog extends javax.swing.JDialog {
               json.put("listCancelDetail", listCancelDetail);
 
               Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "delete", json);
-
-//              JSONObject json = new JSONObject();
-//              json.put("createBy", JavaConstant.cashierId);
-//              json.put("reasonId", 1);
-//              ArrayList<ProductIDModel> listCancelDetail = new ArrayList<>();
-//              listCancelDetail.add(new ProductIDModel(productId));
-//              json.put("listCancelDetail", listCancelDetail);
-//
-//              Response response = JavaConnection.post(JavaRoute.cancelAndDelete + "delete", json);
-//              int quantity = Integer.valueOf(getQty());
-//              int productBoxQty = Integer.valueOf(productBox.getQty());
-//              int sumQty = quantity + productBoxQty;
+ 
               if (response.isSuccessful()) {
                    Component[] listCom = detailItem.getComponents();
                    Component[] listCom1 = panelProduct.getComponents();
@@ -311,6 +301,7 @@ public class DeleteDialog extends javax.swing.JDialog {
                              int qty = Integer.parseInt(data.getQty());
                              qty = qty + saleQty;
                              data.setQty("" + qty);
+                             data.setProductStatus(JavaMessage.inStock);
                         }
                    }
 
@@ -424,13 +415,13 @@ public class DeleteDialog extends javax.swing.JDialog {
      }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private ButtonPackage.ButtonCancel buttonCancel1;
-    private ButtonPackage.ButtonSave buttonSave1;
-    private Components.ComboBox comboBoxReason;
-    private javax.swing.JLabel jLabel1;
-    private Components.LabelPopUpTitle labelPopUpTitle2;
-    private Components.Label lbReason1;
-    private javax.swing.JPanel panelDelete;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private ButtonPackage.ButtonCancel buttonCancel1;
+     private ButtonPackage.ButtonSave buttonSave1;
+     private Components.ComboBox comboBoxReason;
+     private javax.swing.JLabel jLabel1;
+     private Components.LabelPopUpTitle labelPopUpTitle2;
+     private Components.Label lbReason1;
+     private javax.swing.JPanel panelDelete;
+     // End of variables declaration//GEN-END:variables
 }

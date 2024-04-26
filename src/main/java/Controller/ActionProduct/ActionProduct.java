@@ -211,28 +211,29 @@ public class ActionProduct {
 //                         JavaConstant.productQTyLeft = qty;
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
-                         qty--;
-                         product.setQty("" + qty);
 
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
-
                                    if (qty > 0) {
-//                                       ActionUpdateQty.updateQty(listData.getId(), "remove", product);
-
-                                        System.err.println("java return : " +  JavaConstant.isReturn);
                                         if (JavaConstant.isReturn != null) {
                                              j.setMessage(JavaAlertMessage.returnMsg);
                                              j.setVisible(true);
                                              return;
                                         }
                                         eventBtnBuy(listData, 1, product);
+                                        qty--;
+                                        product.setQty("" + qty);
+                                        if (qty == 0) {
+                                             product.setProductStatus(JavaMessage.outStock);
+                                        }
+
                                    } else {
+                                        product.setProductStatus(JavaMessage.outStock);
                                         j.setMessage(JavaMessage.productOutStock);
                                         j.setVisible(true);
-                                        return;
                                    }
                               } else {
+
                                    j.setMessage(JavaConstant.openShiftFirst);
                                    j.setVisible(true);
                               }
@@ -284,6 +285,10 @@ public class ActionProduct {
                     } else {
                          product.setProductStatus("Out Stock");
                     }
+               }
+
+               if (qtyForShow == 0) {
+                    product.setProductStatus("Out Stock");
                }
 
 //==========================================================================
@@ -423,12 +428,7 @@ public class ActionProduct {
           }
 
           try {
-//               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-//               byte[] images = responseProductImage.body().bytes();
-//               box.setIconImage(new ImageIcon(images));
-
                box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
-
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());

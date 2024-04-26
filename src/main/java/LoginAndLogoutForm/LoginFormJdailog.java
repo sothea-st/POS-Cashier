@@ -37,9 +37,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Constant.JavaMessage;
+import HoldOrder.HoldModelDir.DataListHold;
+import HoldOrder.HoldModelDir.ListDetailHold;
+import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
-
-
 
 public class LoginFormJdailog extends javax.swing.JDialog {
 
@@ -233,17 +234,74 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                j.setVisible(true);
                return;
           }
-          pro.eventBtnBuy(proModel, proModel.getQty() , new ProductBox());
+          pro.eventBtnBuy(proModel, proModel.getQty(), new ProductBox());
      }
-     
-     public void scanbarCodeAddProduct(ProductModel proModel,String scanbarcode) {
+
+     DataListHold[] listHoldData;
+     ListDetailHold[] listHoldDetails;
+
+     public void getHold() {
+          try {
+               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
+                    listHoldData = data.getData();
+               } else {
+                    System.err.println("fail loading product");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
+
+     public void scanbarCodeAddProduct(ProductModel proModel, String scanbarcode) {
+          getHold();
+          Component[] listPanelProduct = panelProduct.getComponents();
           if (proModel.getQty() == 0) {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage(JavaMessage.productOutStock);
                j.setVisible(true);
                return;
           }
-          pro.eventBtnBuy(proModel, 1 , new ProductBox());
+          for (Component cc : listPanelProduct) {
+               var data = ((ProductBox) cc);
+               int orgQty = Integer.parseInt(data.getQty());
+               if (data.getBarcode().equals(proModel.getBarcode())) {
+
+                    //    =============== update qty with hole ==================
+                    if (listHoldData.length > 0) {
+                         for (DataListHold cv : listHoldData) {
+                              ListDetailHold[] l = cv.getListDetails();
+                              for (ListDetailHold dd : l) {
+                                   if (dd.getBarcode().equals(data.getBarcode())) {
+                                        int holdQty = dd.getQty();
+                                        orgQty = orgQty - holdQty;
+                                        break;
+                                   }
+                              }
+                         }
+                    }
+
+                    if (data.getQty().equals("0")) {
+                         data.setProductStatus(JavaMessage.outStock);
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage(JavaMessage.productOutStock);
+                         j.setVisible(true);
+                         return;
+                    }
+
+                    data.setQty("" + orgQty);
+                    if (data.getQty().equals("0")) {
+                         data.setProductStatus(JavaMessage.outStock);
+                    }
+
+               }
+          }
+          pro.eventBtnBuy(proModel, 1, new ProductBox());
+
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
@@ -309,7 +367,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         ObjectMapper objectMapper = new ObjectMapper();
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                         if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
-                             
+
                              JavaConstant.checkOpenShift = true;
 
                              searchBox.disabledTextField(true);
@@ -323,17 +381,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
                              JavaConstant.numberOpenShift = Integer.valueOf("" + data.getData().getNumberOpenShift());
-                             
+
                         }
                    }
 
                    dispose();
                    getBtnLogin().setButtonName("Logout");
-                   
+
 //                  if (JavaConstant.checkOpenShift) {
 //                      getBtnLogin().setBackground(WindowColor.lightGray);
 //                  }
-                   
                    getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
                    lbPOSId.setText("POS ID : " + JavaConstant.posId);
                    category();
@@ -347,7 +404,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    if (JavaConstant.checkOpenShift) {
                         textField.setFocus();
                    }
-                   
+
                    JavaConstant.isOpenShift = null;
 
               } else {

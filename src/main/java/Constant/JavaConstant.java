@@ -34,8 +34,9 @@ import javax.swing.text.DocumentFilter;
 import okhttp3.MediaType;
 
 public class JavaConstant {
-       public static String urlImage = "http://localhost:8090/";
-     
+
+     public static String urlImage = "http://localhost:8090/";
+
      public static void setPointer(JLabel jLabel) {
           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
      }
@@ -132,14 +133,12 @@ public class JavaConstant {
      public static countCircleShape circleShape;
      public static int holdId = 0;
      public static boolean holdSameProduct = false;
-     
+
      public static String isOpenShift;
-     
-     
-     public static void coverImage(String url , JLabel lable , int labelWidth , int labelHeight) throws MalformedURLException, IOException {
+
+     public static void coverImage(String url, JLabel lable, int labelWidth, int labelHeight) throws MalformedURLException, IOException {
           URL imageUrl = new URL(url);
-          
-        
+
           Image image = ImageIO.read(imageUrl);
 
           if (image != null) {
@@ -160,10 +159,9 @@ public class JavaConstant {
                lable.setIcon(icon);
           }
      }
-     
-     
-     public static void setCommaIn3Length(JTextField txtText){
-           ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
+
+     public static void setCommaIn3Length(JTextField txtText) {
+          ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
                @Override
                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
                     StringBuilder builder = new StringBuilder(string.replaceAll(",", ""));
@@ -187,9 +185,8 @@ public class JavaConstant {
                }
           });
      }
-     
-     
-       public  static void setBackQty(JPanel detailItem , JPanel panelProduct) {
+
+     public static void setBackQty(JPanel detailItem, JPanel panelProduct) {
           Component[] listDetailItem = detailItem.getComponents();
           Component[] listPanelProduct = panelProduct.getComponents();
 
@@ -207,6 +204,7 @@ public class JavaConstant {
                     if (data.getLabelBarcode().equals(pro.getBarcode())) {
                          qty = qty + saleQty;
                          pro.setQty("" + qty);
+                         pro.setProductStatus(JavaMessage.inStock);
                          break;
                     }
 
@@ -214,7 +212,9 @@ public class JavaConstant {
 
           }
      }
-       
-       public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
+
+     public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
+     
+
 
 }

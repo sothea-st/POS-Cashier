@@ -1428,6 +1428,8 @@ public class PaymentOption extends javax.swing.JDialog {
          jsonData.put("posId", JavaConstant.posId);
          jsonData.put("total", total);
 
+
+
          //get dataPay
          HashMap<String, Object> dataPay = new HashMap<>();
          dataPay.put("sourceId", sourceId);
@@ -1492,13 +1494,11 @@ public class PaymentOption extends javax.swing.JDialog {
               dataSale.add(pro);
          }
          jsonData.put("dataSale", dataSale);
-
          dataPay.put("discountType", discountType);
          dataPay.put("discountValue", discount);
          jsonData.put("dataPay", dataPay);
-
-         System.err.println("jsonData : " + jsonData);
-
+         jsonData.put("discountCase", discountType);
+         
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
          try {
