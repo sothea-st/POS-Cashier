@@ -393,8 +393,10 @@ public class RouteControllerSecond {
           }
 
           @GetMapping
-          public ResponseEntity<?> getHold(@RequestParam("userId") int userID) {
-               HashMap<String, Object> data = service.getHold(userID);
+          public ResponseEntity<?> getHold(@RequestParam("userId") int userID ,
+           @RequestParam(value = "id" , required = false) Integer id) {
+
+               HashMap<String, Object> data = service.getHold(userID,id);
                long count = repo.countResult(userID);
                data.put("count", count);
                data.put("msg", "success");
