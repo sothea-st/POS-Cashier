@@ -1,5 +1,6 @@
 package LoginAndLogoutForm;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Components.LabelTitle;
 import Components.SubtotalPanel;
@@ -38,6 +39,7 @@ import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Constant.JavaMessage;
 import Products.ProductBox;
+import javax.swing.ImageIcon;
 
 
 
@@ -59,6 +61,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private JLabel lbPOSId;
      private Button btnLogin;
      private JLabel boxUserName;
+     private JLabel imgUser;
      private JPanel category;
      private JPanel panelProduct;
      private JScrollPane jScrollPaneCategory;
@@ -330,12 +333,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    dispose();
                    getBtnLogin().setButtonName("Logout");
                    
-//                  if (JavaConstant.checkOpenShift) {
-//                      getBtnLogin().setBackground(WindowColor.lightGray);
-//                  }
-                   
+                   boxUserName.setVisible(true);
                    getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
+                   boxUserName.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    lbPOSId.setText("POS ID : " + JavaConstant.posId);
+                   
                    category();
                    getjScrollPaneCategory().setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
@@ -770,6 +772,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.breadcrumb = breadcrumb;
      }
 
+     
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
