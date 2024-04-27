@@ -25,6 +25,12 @@ public class SearchByBarcodeOrNameService {
     @Autowired
     private PaymentRepository repoPayment;
 
+
+    public List<ProductProjection> getProductByBarcodeInInvoice(String barcode,String invoice){
+        return repoPayment.getProductByBarcodeInInvoice(invoice, barcode);
+    }
+
+
     public String getIncoive(String paymentBarcode) {
         return repoPayment.getInvoice(paymentBarcode);
     }
@@ -48,7 +54,7 @@ public class SearchByBarcodeOrNameService {
         return list;
     }
 
-    public HashMap<String, Object> searchWithInvoiceNo(String invoiceNo) {
+    public Map<String, Object> searchWithInvoiceNo(String invoiceNo) {
         HashMap<String, Object> _map = new HashMap<>();
         List<ProductQty> data = null;
         List<ProductModel> list = new ArrayList<>();

@@ -41,6 +41,7 @@ public class CloseShiftService {
         data.setCreditCard(c.getCreditCard());
         data.setCreateBy(c.getUserId());
         data.setPosId(c.getPosId());
+        data.setCashCount(c.getCashCount());
         repo.save(data);
 
         Optional<OpenShift> open = repoOpen.getNumberOpenShift(c.getUserCode(),closeDate);

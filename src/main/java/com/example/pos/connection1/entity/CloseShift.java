@@ -58,6 +58,10 @@ public class CloseShift {
      @Column(name = "cash_usd", precision = 10, scale = 2)
      private BigDecimal cashUsd;
 
+     @Column(name = "cash_count", precision = 10, scale = 2)
+     private BigDecimal cashCount;
+
+
      @Column(name = "create_by")
      private int createBy;
 

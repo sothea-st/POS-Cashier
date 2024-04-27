@@ -18,5 +18,4 @@ public interface ProductProjection {
      int getDiscount();
      String getCode_out_stock();
      String getCode_expired();
- 
 }
