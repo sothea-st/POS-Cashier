@@ -1,5 +1,7 @@
 package Controller.ActionScanBarcodeAddProduct;
 
+import BlogCode.ParentProductModel;
+import BlogCode.ReturnProductByBarcode;
 import Button.Button;
 import Color.WindowColor;
 import Components.BoxItem;
@@ -55,6 +57,55 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
                func(response, jdFormLogin);
+          }
+     }
+
+     public void returnWithBarcode(String barcode, LoginFormJdailog jdFormLogin, String invoice) {
+          if (barcode.length() == 13) {
+               Response response = JavaConnection.get(JavaRoute.getProductByBarcodeInInvoice + "?barcode=" + barcode + "&invoiceNumber=" + invoice);
+
+               try {
+                    if (response.isSuccessful()) {
+                         String responseData = response.body().string();
+                         ObjectMapper objMap = new ObjectMapper();
+                         ReturnProductByBarcode model = objMap.readValue(responseData, ReturnProductByBarcode.class);
+                         ParentProductModel[] listProduct = model.getData();
+
+                         if (listProduct.length == 0) {
+                              msgAlertErr();
+                              return;
+                         }
+
+                         ProductModel product = null;
+                         for (int i = 0; i < listProduct.length; i++) {
+                              var obj = listProduct[i];
+                              product = new ProductModel(
+                                   obj.getID(),
+                                   obj.getCatID(),
+                                   obj.getFlag(),
+                                   obj.getWeight(),
+                                   obj.getCost(),
+                                   obj.getProImageName(),
+                                   obj.getPrice(),
+                                   obj.getBarcode(),
+                                   obj.getProNameKh(),
+                                   obj.getProNameEn(),
+                                   obj.getProductStatus(),
+                                   obj.getDiscount(),
+                                   1
+                              );
+                              jdFormLogin.scanbarCodeAddProduct(product, "scan");
+                         }
+                         btnPayment.setButtonName("Return");
+                         JavaConstant.isReturn = "return";
+                         btnReturn.setBackground(WindowColor.lightGray);
+                    } else {
+
+                    }
+               } catch (Exception e) {
+                    System.err.println("get data err : " + e);
+                    msgAlertErr();
+               }
           }
      }
 
@@ -127,9 +178,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          msgAlertErr();
                          return;
                     }
-                    int orgQty = listProduct[0].getQty();
-//                    setQtyJPanel(panelProduct, detailItem, listProduct[0].getBarcode(), orgQty);
-                 
+
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
@@ -155,66 +204,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           } catch (Exception e) {
                msgAlertErr();
           }
-     }
-
-     DataListHold[] listHoldData;
-     ListDetailHold[] listHoldDetails;
-
-     public void getHold() {
-          try {
-               Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
-
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    ResultHoldSuccess data = objMap.readValue(responseData, ResultHoldSuccess.class);
-                    listHoldData = data.getData();
-               } else {
-                    System.err.println("fail loading product");
-               }
-          } catch (Exception e) {
-               System.err.println("error getting product " + e);
-          }
-     }
-
-     public void setQtyJPanel(JPanel pnaleJPanel, JPanel detailItem, String barcode, int orgQty) {
-
-          getHold();
-          Component[] listCome1 = panelProduct.getComponents();
-          Component[] listDetailItem = detailItem.getComponents();
-          int qtySale = 1;
-          for (Component c : listDetailItem) {
-               var data = ((BoxItem) c);
-               if (barcode.equals(data.getLabelBarcode())) {
-                    qtySale = 0;
-                    qtySale = Integer.parseInt(data.getQty() + "");
-                    qtySale++;
-                    break;
-               }
-          }
-
-          for (Component c : listCome1) {
-               var data = ((ProductBox) c);
-               if (barcode.equals(data.getBarcode())) {
-
-                    if (data.getQty().equals("0")) {
-                         return;
-                    }
-
-                    orgQty = orgQty - qtySale;
-                    if (orgQty < 0) {
-                         orgQty = 0;
-                    }
-                    data.setQty("" + orgQty);
-
-
-                    if (data.getQty().equals("0")) {
-                         data.setProductStatus(JavaMessage.outStock);
-                    }
-
-               }
-          }
-
      }
 
      void msgAlertErr() {

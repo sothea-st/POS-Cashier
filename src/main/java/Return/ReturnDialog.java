@@ -35,7 +35,7 @@ public class ReturnDialog extends javax.swing.JDialog {
      private Button btnHold;
      private Button btnReturn;
      private Button btnDiscount;
-     
+
      private JPanel detailItem;
      private JPanel panelProduct;
 
@@ -54,8 +54,6 @@ public class ReturnDialog extends javax.swing.JDialog {
      public void setPanelProduct(JPanel panelProduct) {
           this.panelProduct = panelProduct;
      }
-     
-     
 
      public ReturnDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -74,6 +72,7 @@ public class ReturnDialog extends javax.swing.JDialog {
                     String value = txtinvoice.getValueTextField();
 //                    String barcodeValue = value.substring(2); // this working with device scanner 
                     Response responseData = JavaConnection.get(JavaRoute.getInvoice + value);
+
                     try {
                          String _data = responseData.body().string();
                          JSONObject obj = new JSONObject(_data);
@@ -283,9 +282,7 @@ public class ReturnDialog extends javax.swing.JDialog {
          this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
-    
-    
-    
+
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          String barcode = txtBarcode.getValueTextField();
          String invoiceNo = txtinvoice.getValueTextField();
@@ -301,12 +298,11 @@ public class ReturnDialog extends javax.swing.JDialog {
          }
 
          ActionScanBarcodeAddProduct obj = new ActionScanBarcodeAddProduct();
-         
+         obj.setBtnPayment(btnPayment);
+         obj.setBtnReturn(btnReturn);
          if (barcode != null) {
-              obj.scanBarcode(barcode, jdFormLogin);
+              obj.returnWithBarcode(barcode, jdFormLogin, invoiceNo);
          } else {
-              obj.setBtnPayment(btnPayment);
-              obj.setBtnReturn(btnReturn);
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
 
@@ -314,8 +310,6 @@ public class ReturnDialog extends javax.swing.JDialog {
          btnHold.setBackground(WindowColor.lightGray);
 //         btnDiscount.setBackground(WindowColor.lightGray);
 
-
-        
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
          dispose();

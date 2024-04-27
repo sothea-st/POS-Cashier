@@ -21,6 +21,7 @@ Receipt\Receipt$4.class
 Customer\Customer$4.class
 SwitchButton\SwitchButton.class
 Components\HoldItem$4.class
+BlogCode\ReturnProductByBarcode.class
 DeleteAndCancel\DeleteDialog.class
 DeleteAndCancel\CancelDialog$2.class
 pdf\MyPrinter.class
@@ -359,6 +360,7 @@ DeleteAndCancel\CancelDialog$6$1.class
 HoldOrder\ActionHoldOrder.class
 LoginAndLogoutForm\LogoutDialog$4.class
 Return\ReturnDialog$1.class
+BlogCode\ParentProductModel.class
 Components\TextFieldCenter$3.class
 OpenAndCloseShift\CloseShift$4$1.class
 Model\Report\SummerySale.class

@@ -220,7 +220,7 @@ public class ProductBox extends javax.swing.JPanel {
      //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 3;
-     private float shadowOpacity = 0.5f;
+     private float shadowOpacity = 0.25f;
      private Color shadowColor = Color.GRAY;
 
      @Override
@@ -264,7 +264,7 @@ public class ProductBox extends javax.swing.JPanel {
           Graphics2D g = img.createGraphics();
           g.setColor(getBackground());
           g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-          g.fillRoundRect(0, 0, width, height, 10, 10);
+          g.fillRoundRect(0, 0, width, height, 5, 5);
 
           //  Create Shadow
           ShadowRenderer render = new ShadowRenderer(shadowSize, shadowOpacity, shadowColor);

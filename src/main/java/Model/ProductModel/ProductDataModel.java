@@ -1,9 +1,11 @@
 package Model.ProductModel;
 
+import BlogCode.ParentProductModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProductDataModel {
+public class ProductDataModel  {
 
+     private int qty;
      private int brandID;
      private String proNameKh;
      private String proImageName;
@@ -19,7 +21,6 @@ public class ProductDataModel {
      private int catID;
      private String codeExpired;
      private String codeOutStock;
-     private int qty;
      private String discountType;
 
      @JsonProperty("discountType")
