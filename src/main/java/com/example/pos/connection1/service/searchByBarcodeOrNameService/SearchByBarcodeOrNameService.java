@@ -25,11 +25,9 @@ public class SearchByBarcodeOrNameService {
     @Autowired
     private PaymentRepository repoPayment;
 
-
-    public List<ProductProjection> getProductByBarcodeInInvoice(String barcode,String invoice){
+    public List<ProductProjection> getProductByBarcodeInInvoice(String barcode, String invoice) {
         return repoPayment.getProductByBarcodeInInvoice(invoice, barcode);
     }
-
 
     public String getIncoive(String paymentBarcode) {
         return repoPayment.getInvoice(paymentBarcode);
@@ -54,16 +52,29 @@ public class SearchByBarcodeOrNameService {
         return list;
     }
 
-    public Map<String, Object> searchWithInvoiceNo(String invoiceNo) {
+    public Map<String, Object> searchWithInvoiceNo(String invoiceNo, String barcode) {
         HashMap<String, Object> _map = new HashMap<>();
         List<ProductQty> data = null;
         List<ProductModel> list = new ArrayList<>();
-        PaymentModel _model = repoPayment.getSomeData(invoiceNo);
-        data = repo.searchProductWithInvoiceNo(invoiceNo, JavaConstant.currentDate);
-        for (int i = 0; i < data.size(); i++) {
-            var val = data.get(i);
-            ProductModel p = proModelQty(val, val.getQty());
-            list.add(p);
+        PaymentModel _model = null;
+
+        _model = repoPayment.getSomeData(invoiceNo);
+
+        if (barcode == null) {
+            data = repo.searchProductWithInvoiceNo(invoiceNo, JavaConstant.currentDate);
+            for (int i = 0; i < data.size(); i++) {
+                var val = data.get(i);
+                ProductModel p = proModelQty(val, val.getQty());
+                list.add(p);
+            }
+
+        } else {
+            data = repo.searchProductWithInvoiceNoAndBarcode(invoiceNo, barcode);
+            for (int i = 0; i < data.size(); i++) {
+                var val = data.get(i);
+                ProductModel p = proModelQty(val, 1);
+                list.add(p);
+            }
         }
 
         Double _receive_khr;
@@ -74,8 +85,6 @@ public class SearchByBarcodeOrNameService {
         Double _cKhr = _model.getChange_khr() != null ? _model.getChange_khr().doubleValue() : 0;
         Double _cUsd = _model.getChange_usd() != null ? _model.getChange_usd().doubleValue() : 0;
 
- 
-
         _map.put("receiveUsd", JavaConstant.getTwoPrecision(_getUsd));
         _map.put("changeUsd", JavaConstant.getTwoPrecision(_cUsd));
 
@@ -83,7 +92,6 @@ public class SearchByBarcodeOrNameService {
         _map.put("receiveKhr", _stringData);
         String cKhr = _convertString(String.valueOf(_cKhr));
         _map.put("changeKhr", cKhr);
-
 
         _map.put("msg", "success");
         _map.put("invoiceNo", invoiceNo);
