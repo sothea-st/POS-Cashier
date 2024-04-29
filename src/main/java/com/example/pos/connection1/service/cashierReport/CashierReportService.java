@@ -84,7 +84,7 @@ public class CashierReportService {
         map.put("closeDate", closeShift.getCloseTime());
         double cashCount = closeShift.getCashCount() == null ? 0 : closeShift.getCashCount().doubleValue();
         cashCount = JavaConstant.getTwoPrecision(cashCount);
-        map.put("closeAmount", cashCount);
+        map.put("cashierCount", cashCount);
 
         // Sale summery
         SalesSummery(id, posId, userCode);
