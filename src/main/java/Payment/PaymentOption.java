@@ -1400,7 +1400,7 @@ public class PaymentOption extends javax.swing.JDialog {
          }
 
          // data is return 
-         if (JavaConstant.isReturn != null) {
+         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
               try {
                    returnProduct();
               } catch (IOException ex) {
@@ -1427,8 +1427,6 @@ public class PaymentOption extends javax.swing.JDialog {
          jsonData.put("deliveryFee", "0");
          jsonData.put("posId", JavaConstant.posId);
          jsonData.put("total", total);
-
-
 
          //get dataPay
          HashMap<String, Object> dataPay = new HashMap<>();
@@ -1480,8 +1478,6 @@ public class PaymentOption extends javax.swing.JDialog {
               double p = JavaConstant.getReplace(df.format(unitPrice));
               discountType = obj.getDiscountType();
               double discountVale = obj.getDiscountValue();
-              
-              System.out.println("discount type : " + discountType);
 
               double amount = obj.getQty() * p;
               double a = JavaConstant.getReplace(df.format(amount));
@@ -1500,7 +1496,7 @@ public class PaymentOption extends javax.swing.JDialog {
          dataPay.put("discountValue", discount);
          jsonData.put("dataPay", dataPay);
          jsonData.put("discountCase", discountType);
-         
+
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
          try {
@@ -1569,7 +1565,8 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
 
      public void returnProduct() throws IOException {
-          double totalReturn = 0;
+          DecimalFormat df = new DecimalFormat("#.##");
+          double totalReturn = 0.0;
           if (!txtReceiveUsd.getText().isEmpty()) {
                totalReturn = Double.valueOf(txtReceiveUsd.getText());
           }
@@ -1583,7 +1580,7 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonReturnData.put("paymentNo", JavaConstant.invoiceNo);
           jsonReturnData.put("reasonId", Integer.valueOf(JavaConstant.reasonId));
           jsonReturnData.put("createBy", JavaConstant.returnerId);
-          jsonReturnData.put("returnAmount", totalReturn);
+          jsonReturnData.put("returnAmount", df.format(totalReturn));
 
           //get dataSale 
           ArrayList<ReturnProductModel> dataDetails = new ArrayList<>();
@@ -1605,10 +1602,15 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonReturnData.put("dataDetails", dataDetails);
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-          System.err.println("return : " + responseReturn);
+
           if (responseReturn.isSuccessful()) {
+
+//               if (JavaConstant.returnByBarcode == null) {
+                    JavaConstant.setBackQty(detailItem, panelProduct);
+//               }
                JavaConstant.isReturn = null;
-               JavaConstant.setBackQty(detailItem, panelProduct);
+               JavaConstant.returnByBarcode = null;
+               JavaConstant.qtyReturn = null;
 
                String _data = responseReturn.body().string();
                dispose();
@@ -1813,7 +1815,7 @@ public class PaymentOption extends javax.swing.JDialog {
           double _totalKh = JavaRoundDown.roundDown("" + totalKhr * JavaConstant.exchangeRate);
           lbTotalKhr.setLabelName(dm.format(_totalKh));
 
-          if (JavaConstant.isReturn != null) {
+          if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
                txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
                txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
                lbChangeKhr.setLabelName("" + ModelReturnData.change_khr);

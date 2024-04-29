@@ -11,4 +11,5 @@ public class JavaMessage {
      public static String outStock = "Out Stock";
      public static int qtyScanning = 0;
      public static int qtyAddMore = 0;
+    
 }

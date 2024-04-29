@@ -439,51 +439,63 @@ public class BoxItem extends javax.swing.JPanel {
 
           if (sign == "+") {
                getHold();
+
                // add qty 
                getQty++;
-               Component[] listCome1 = panelProduct.getComponents();
-               for (Component c : listCome1) {
-                    var data = ((ProductBox) c);
-                    if (labelBarcode.equals(data.getBarcode())) {
 
-                         if (data.getQty().equals("0")) {
-                              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                              j.setMessage(JavaMessage.productOutStock);
-                              j.setVisible(true);
+               if (JavaConstant.returnByBarcode != null) {   /// ====== when cashier return by barcode
+
+                    if (JavaConstant.qtyReturn != null) {
+                         if (getQty > JavaConstant.qtyReturn) {
                               return;
                          }
+                    }
+//                       calculateQtyReturn("+");
 
-                         int orgQty = data.getOrgQty();
-                         orgQty = orgQty - getQty;
-                         if (orgQty < 0) {
-                              orgQty = 0;
-                         }
+               } else {
+                    Component[] listCome1 = panelProduct.getComponents();
+                    for (Component c : listCome1) {
+                         var data = ((ProductBox) c);
+                         if (labelBarcode.equals(data.getBarcode())) {
 
-                         //    =============== update qty with hole ==================
-                         if (listHoldData.length > 0) {
-                              for (DataListHold cv : listHoldData) {
-                                   ListDetailHold[] l = cv.getListDetails();
-                                   for (ListDetailHold dd : l) {
-                                        if (dd.getBarcode().equals(labelBarcode)) {
-                                             int holdQty = dd.getQty();
-                                             orgQty = orgQty - holdQty;
-//                                             data.setQty("" + orgQty);
-                                             break;
+                              if (data.getQty().equals("0")) {
+                                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                                   j.setMessage(JavaMessage.productOutStock);
+                                   j.setVisible(true);
+                                   return;
+                              }
+
+                              int orgQty = data.getOrgQty();
+                              orgQty = orgQty - getQty;
+                              if (orgQty < 0) {
+                                   orgQty = 0;
+                              }
+
+                              //    =============== update qty with hole ==================
+                              if (listHoldData.length > 0) {
+                                   for (DataListHold cv : listHoldData) {
+                                        ListDetailHold[] l = cv.getListDetails();
+                                        for (ListDetailHold dd : l) {
+                                             if (dd.getBarcode().equals(labelBarcode)) {
+                                                  int holdQty = dd.getQty();
+                                                  orgQty = orgQty - holdQty;
+                                                  break;
+                                             }
                                         }
                                    }
                               }
-                         }
 
-                         if (data.getQty().equals("0")) {
-                              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                              j.setMessage(JavaMessage.productOutStock);
-                              j.setVisible(true);
-                              return;
-                         }
+                              if (data.getQty().equals("0")) {
+                                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                                   j.setMessage(JavaMessage.productOutStock);
+                                   j.setVisible(true);
+                                   return;
+                              }
 
-                         data.setQty("" + orgQty);
-                         if (data.getQty().equals("0")) {
-                              data.setProductStatus(JavaMessage.outStock);
+                              data.setQty("" + orgQty);
+                              if (data.getQty().equals("0")) {
+                                   data.setProductStatus(JavaMessage.outStock);
+                              }
                          }
                     }
                }
@@ -491,36 +503,45 @@ public class BoxItem extends javax.swing.JPanel {
           } else if (sign == "-") {
                getHold();
                // remove qty 
-               getQty--;
-               Component[] listCome1 = panelProduct.getComponents();
-               for (Component c : listCome1) {
-                    var data = ((ProductBox) c);
-                    if (labelBarcode.equals(data.getBarcode())) {
-                         int orgQty = data.getOrgQty();
 
-                         //    =============== update qty with hole ==================
-                         if (listHoldData.length > 0) {
-                              for (DataListHold cv : listHoldData) {
-                                   ListDetailHold[] l = cv.getListDetails();
-                                   for (ListDetailHold dd : l) {
-                                        if (dd.getBarcode().equals(labelBarcode)) {
-                                             int holdQty = dd.getQty();
-                                             orgQty = orgQty - holdQty;
-//                                             data.setQty("" + orgQty);
-                                             break;
+               if (JavaConstant.returnByBarcode != null) { /// ====== when cashier return by barcode
+                    if (getQty == 1) {
+                         return;
+                    }
+                    getQty--;
+//                  calculateQtyReturn("-");
+               } else {
+                    getQty--;
+                    Component[] listCome1 = panelProduct.getComponents();
+                    for (Component c : listCome1) {
+                         var data = ((ProductBox) c);
+                         if (labelBarcode.equals(data.getBarcode())) {
+                              int orgQty = data.getOrgQty();
+
+                              //    =============== update qty with hole ==================
+                              if (listHoldData.length > 0) {
+                                   for (DataListHold cv : listHoldData) {
+                                        ListDetailHold[] l = cv.getListDetails();
+                                        for (ListDetailHold dd : l) {
+                                             if (dd.getBarcode().equals(labelBarcode)) {
+                                                  int holdQty = dd.getQty();
+                                                  orgQty = orgQty - holdQty;
+                                                  break;
+                                             }
                                         }
                                    }
                               }
-                         }
 
-                         if (getQty != 0) {
-                              orgQty = orgQty - getQty;
-                              data.setQty("" + orgQty);
-                              data.setProductStatus(JavaMessage.inStock);
-                         }
+                              if (getQty != 0) {
+                                   orgQty = orgQty - getQty;
+                                   data.setQty("" + orgQty);
+                                   data.setProductStatus(JavaMessage.inStock);
+                              }
 
+                         }
                     }
                }
+
           }
 
           if (getQty != 0) {
@@ -555,6 +576,47 @@ public class BoxItem extends javax.swing.JPanel {
           // ============ for subtotal panel
           Component[] listCom = detailItem.getComponents();
           subtotalPanel.total(0, listCom, 0, subtotalPanel);
+     }
+
+     public void calculateQtyReturn(String signData) {
+          Component[] listPanelProduct = panelProduct.getComponents();
+          Component[] listDetails = detailItem.getComponents();
+
+          for (Component c : listDetails) {
+               var _data = ((BoxItem) c);
+               int _qty = _data.getQty();
+               for (Component cc : listPanelProduct) {
+                    var pp = ((ProductBox) cc);
+                    int _qtyPanel = Integer.parseInt(pp.getQty());
+                    if (pp.getBarcode().equals(_data.getLabelBarcode())) {
+                         if (signData.equals("-")) {
+                              _qtyPanel--;
+                         } else {
+                              _qtyPanel++;
+                         }
+
+                         pp.setQty("" + _qtyPanel);
+                         break;
+                    }
+               }
+          }
+
+//          Component[] listPanelProduct = panelProduct.getComponents();
+//          Component[] listDetails = detailItem.getComponents();
+//
+//          for (Component c : listDetails) {
+//               var _data = ((BoxItem) c);
+//               int _qty = _data.getQty();
+//               for (Component cc : listPanelProduct) {
+//                    var pp = ((ProductBox) cc);
+//                    int _qtyPanel = Integer.parseInt(pp.getQty());
+//                    if (pp.getBarcode().equals(_data.getLabelBarcode())) {
+//                         _qtyPanel++;
+//                         pp.setQty("" + _qtyPanel);
+//                         break;
+//                    }
+//               }
+//          }
      }
 
      //=================================================Create Shadow Box
@@ -604,7 +666,7 @@ public class BoxItem extends javax.swing.JPanel {
           Graphics2D g = img.createGraphics();
           g.setColor(getBackground());
           g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-          g.fillRoundRect(0, 0, width, height, 10, 10);
+          g.fillRoundRect(0, 0, width, height, 0, 0);
 
           //  Create Shadow
           ShadowRenderer render = new ShadowRenderer(shadowSize, shadowOpacity, shadowColor);
@@ -766,12 +828,13 @@ public class BoxItem extends javax.swing.JPanel {
      }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-         if (JavaConstant.isReturn != null) {
+         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
               j.setMessage(JavaAlertMessage.returnMsg);
               j.setVisible(true);
               return;
          }
+
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();
 

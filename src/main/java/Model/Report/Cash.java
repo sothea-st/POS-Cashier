@@ -3,16 +3,16 @@ package Model.Report;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Cash {
-    private long qtySaledDollar;
-    private long amountSaledDollar;
+    private int qtySaledDollar;
+    private double amountSaledDollar;
 
     @JsonProperty("qtySaledDollar")
-    public long getQtySaledDollar() { return qtySaledDollar; }
+    public int getQtySaledDollar() { return qtySaledDollar; }
     @JsonProperty("qtySaledDollar")
-    public void setQtySaledDollar(long value) { this.qtySaledDollar = value; }
+    public void setQtySaledDollar(int value) { this.qtySaledDollar = value; }
 
     @JsonProperty("amountSaledDollar")
-    public long getAmountSaledDollar() { return amountSaledDollar; }
+    public double getAmountSaledDollar() { return amountSaledDollar; }
     @JsonProperty("amountSaledDollar")
-    public void setAmountSaledDollar(long value) { this.amountSaledDollar = value; }
+    public void setAmountSaledDollar(double value) { this.amountSaledDollar = value; }
 }

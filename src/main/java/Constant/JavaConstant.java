@@ -73,6 +73,8 @@ public class JavaConstant {
 //     public static Component[] listHoldData;
      public static String roleName;
      public static String isReturn;
+     public static String returnByBarcode;
+     public static Integer qtyReturn;
 
      public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
      public static String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
@@ -214,7 +216,5 @@ public class JavaConstant {
      }
 
      public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
-     
-
 
 }

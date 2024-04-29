@@ -67,7 +67,7 @@ public class JavaSearchByNameAndCode {
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    if (JavaConstant.isReturn != null) { // protect when cashier processing return
+                    if (JavaConstant.isReturn != null ) { // protect when cashier processing return
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaAlertMessage.returnMsg);
                          j.setVisible(true);

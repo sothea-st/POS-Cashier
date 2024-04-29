@@ -300,6 +300,8 @@ public class ReturnDialog extends javax.swing.JDialog {
          ActionScanBarcodeAddProduct obj = new ActionScanBarcodeAddProduct();
          obj.setBtnPayment(btnPayment);
          obj.setBtnReturn(btnReturn);
+         obj.setPanelProduct(panelProduct);
+         obj.setDetailItem(detailItem);
          if (barcode != null) {
               obj.returnWithBarcode(barcode, jdFormLogin, invoiceNo);
          } else {

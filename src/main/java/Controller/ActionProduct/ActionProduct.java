@@ -215,7 +215,7 @@ public class ActionProduct {
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
                                    if (qty > 0) {
-                                        if (JavaConstant.isReturn != null) {
+                                        if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null ) {
                                              j.setMessage(JavaAlertMessage.returnMsg);
                                              j.setVisible(true);
                                              return;

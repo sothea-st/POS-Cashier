@@ -71,6 +71,7 @@ public class CloseShift extends javax.swing.JDialog {
           abaCreditCard.initEvent(btnevent);
           cashUs.initEvent(btnevent);
           cashKh.initEvent(btnevent);
+          cashCount.initEvent(btnevent);
      }
 
      @SuppressWarnings("unchecked")
@@ -97,8 +98,8 @@ public class CloseShift extends javax.swing.JDialog {
         cashKh = new Components.TextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        label7 = new Components.Label();
-        cashKh1 = new Components.TextField();
+        lbCashCount = new Components.Label();
+        cashCount = new Components.TextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -159,9 +160,9 @@ public class CloseShift extends javax.swing.JDialog {
         jLabel6.setForeground(new java.awt.Color(204, 0, 0));
         jLabel6.setText("*");
 
-        label7.setLabelName("CASHIER COUNT");
+        lbCashCount.setLabelName("CASHIER COUNT");
 
-        cashKh1.setLabelTextField("$ 0.00");
+        cashCount.setLabelTextField("$ 0.00");
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(204, 0, 0));
@@ -226,7 +227,7 @@ public class CloseShift extends javax.swing.JDialog {
                                     .addComponent(cashKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(qrMnk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(redexpress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cashKh1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cashCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCloseShiftLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
@@ -235,7 +236,7 @@ public class CloseShift extends javax.swing.JDialog {
                     .addGroup(panelCloseShiftLayout.createSequentialGroup()
                         .addGroup(panelCloseShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCloseShiftLayout.createSequentialGroup()
-                                .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbCashCount, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelCloseShiftLayout.createSequentialGroup()
@@ -291,8 +292,8 @@ public class CloseShift extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelCloseShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCloseShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(cashKh1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cashCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbCashCount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelCloseShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,6 +333,7 @@ public class CloseShift extends javax.swing.JDialog {
          String creditCard = abaCreditCard.getValueTextField();
          String cashKhr = cashKh.getValueTextField();
          String cashUsd = cashUs.getValueTextField();
+         String countCash = cashCount.getValueTextField();
 
          express = express.replace(",", "");
          khqrMnk = khqrMnk.replace(",", "");
@@ -339,6 +341,7 @@ public class CloseShift extends javax.swing.JDialog {
          creditCard = creditCard.replace(",", "");
          cashKhr = cashKhr.replace(",", "");
          cashUsd = cashUsd.replace(",", "");
+         countCash = countCash.replace(",", "");
 
          JSONObject json = new JSONObject();
          json.put("express", express);
@@ -347,6 +350,7 @@ public class CloseShift extends javax.swing.JDialog {
          json.put("creditCard", creditCard);
          json.put("cashKhr", cashKhr);
          json.put("cashUsd", cashUsd);
+         json.put("cashCount", countCash);
          json.put("userCode", JavaConstant.userCode);
          json.put("userId", JavaConstant.cashierId);
          json.put("posId", JavaConstant.posId);
@@ -375,6 +379,11 @@ public class CloseShift extends javax.swing.JDialog {
               }
               if (cashKhr == null || cashKhr.isEmpty()) {
                    JOptionPane.showMessageDialog(this, "CASH (KHR) can not be empty!");
+                   return;
+              }
+              
+              if (countCash == null || countCash.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "CASHIER COUNT can not be empty!");
                    return;
               }
 
@@ -597,8 +606,8 @@ public class CloseShift extends javax.swing.JDialog {
     private Components.TextField abaCreditCard;
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
+    private Components.TextField cashCount;
     private Components.TextField cashKh;
-    private Components.TextField cashKh1;
     private Components.TextField cashUs;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -613,8 +622,8 @@ public class CloseShift extends javax.swing.JDialog {
     private Components.Label label4;
     private Components.Label label5;
     private Components.Label label6;
-    private Components.Label label7;
     private Components.LabelPopUpTitle labelPopUpTitle1;
+    private Components.Label lbCashCount;
     private Components.Label lbPosId;
     private javax.swing.JPanel panelCloseShift;
     private Components.TextField qrAba;

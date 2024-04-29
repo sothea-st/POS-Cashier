@@ -262,6 +262,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void scanbarCodeAddProduct(ProductModel proModel, String scanbarcode) {
+
           getHold();
           Component[] listPanelProduct = panelProduct.getComponents();
           Component[] listDetailItem = detailItem.getComponents();
@@ -272,8 +273,21 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                return;
           }
 
-          
-          
+          if (JavaConstant.returnByBarcode != null) {
+               Component[] listDetails = detailItem.getComponents();
+               for (Component c : listDetails) {
+                    var _data = ((BoxItem) c);
+                    int _qty = _data.getQty();
+                    if (JavaConstant.qtyReturn != null) { // check with qty return
+                         if (_qty > JavaConstant.qtyReturn - 1) {
+                              return;
+                         }
+                    } 
+               }
+               pro.eventBtnBuy(proModel, 1, new ProductBox());
+               return;
+          }
+
           int qtySale = 0;
           if (listDetailItem.length > 0) {
                for (Component c : listDetailItem) {
@@ -281,12 +295,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     if (data.getLabelBarcode().equals(proModel.getBarcode())) {
                          qtySale = data.getQty();
                          qtySale++;
+                         if (JavaConstant.qtyReturn != null) { // check with qty return
+                              if (qtySale > JavaConstant.qtyReturn) {
+                                   return;
+                              }
+                         }
                     }
                }
           }
-          
-        
-          
+
           for (Component cc : listPanelProduct) {
                var data = ((ProductBox) cc);
 
@@ -300,7 +317,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     }
 
                     int orgQty = data.getOrgQty();
- 
+
                     orgQty = orgQty - qtySale;
                     if (orgQty < 0) {
                          orgQty = 0;
@@ -314,7 +331,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                    if (dd.getBarcode().equals(proModel.getBarcode())) {
                                         int holdQty = dd.getQty();
                                         orgQty = orgQty - holdQty;
-//                                             data.setQty("" + orgQty);
                                         break;
                                    }
                               }
