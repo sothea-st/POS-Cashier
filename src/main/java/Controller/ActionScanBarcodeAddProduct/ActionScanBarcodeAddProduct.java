@@ -62,23 +62,33 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void returnWithBarcode(String barcode, LoginFormJdailog jdFormLogin, String invoice) {
           if (barcode.length() == 13) {
-               Response response = JavaConnection.get(JavaRoute.getProductByBarcodeInInvoice + "?barcode=" + barcode + "&invoiceNumber=" + invoice);
-
+//               Response response = JavaConnection.get(JavaRoute.getProductByBarcodeInInvoice + "?barcode=" + barcode + "&invoiceNumber=" + invoice);
+               Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice + "&barcode=" + barcode);
+              
                try {
                     if (response.isSuccessful()) {
                          String responseData = response.body().string();
                          ObjectMapper objMap = new ObjectMapper();
-                         ReturnProductByBarcode model = objMap.readValue(responseData, ReturnProductByBarcode.class);
-                         ParentProductModel[] listProduct = model.getData();
+                         ModelReturnData model = objMap.readValue(responseData, ModelReturnData.class);
+                         ProductDataModel[] listProduct = model.getData();
+
+                         ModelReturnData.receive_usd = model.getReceiveUsd();
+                         ModelReturnData.receive_khr = model.getReceiveKhr();
+                         ModelReturnData.change_usd = model.getChangeUsd();
+                         ModelReturnData.change_khr = model.getChangeKhr();
 
                          if (listProduct.length == 0) {
-                              msgAlertErr();
+                              JavaConstant.isReturn = null;
+                              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                              j.setMessage("The invoie already returned !");
+                              j.setVisible(true);
                               return;
                          }
 
                          ProductModel product = null;
                          for (int i = 0; i < listProduct.length; i++) {
                               var obj = listProduct[i];
+
                               product = new ProductModel(
                                    obj.getID(),
                                    obj.getCatID(),
@@ -92,20 +102,59 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                                    obj.getProNameEn(),
                                    obj.getProductStatus(),
                                    obj.getDiscount(),
-                                   1
+                                   obj.getQty()
                               );
-                              jdFormLogin.scanbarCodeAddProduct(product, "scan");
+                              jdFormLogin.scanbarCodeAddProduct(product);
                          }
                          btnPayment.setButtonName("Return");
                          JavaConstant.isReturn = "return";
                          btnReturn.setBackground(WindowColor.lightGray);
-                    } else {
-
                     }
                } catch (Exception e) {
-                    System.err.println("get data err : " + e);
-                    msgAlertErr();
+
                }
+//               try {
+//                    if (response.isSuccessful()) {
+//                         String responseData = response.body().string();
+//                         ObjectMapper objMap = new ObjectMapper();
+//                         ReturnProductByBarcode model = objMap.readValue(responseData, ReturnProductByBarcode.class);
+//                         ParentProductModel[] listProduct = model.getData();
+//
+//                         if (listProduct.length == 0) {
+//                              msgAlertErr();
+//                              return;
+//                         }
+//
+//                         ProductModel product = null;
+//                         for (int i = 0; i < listProduct.length; i++) {
+//                              var obj = listProduct[i];
+//                              product = new ProductModel(
+//                                   obj.getID(),
+//                                   obj.getCatID(),
+//                                   obj.getFlag(),
+//                                   obj.getWeight(),
+//                                   obj.getCost(),
+//                                   obj.getProImageName(),
+//                                   obj.getPrice(),
+//                                   obj.getBarcode(),
+//                                   obj.getProNameKh(),
+//                                   obj.getProNameEn(),
+//                                   obj.getProductStatus(),
+//                                   obj.getDiscount(),
+//                                   1
+//                              );
+//                              jdFormLogin.scanbarCodeAddProduct(product, "scan");
+//                         }
+//                         btnPayment.setButtonName("Return");
+//                         JavaConstant.isReturn = "return";
+//                         btnReturn.setBackground(WindowColor.lightGray);
+//                    } else {
+//
+//                    }
+//               } catch (Exception e) {
+//                    System.err.println("get data err : " + e);
+//                    msgAlertErr();
+//               }
           }
      }
 

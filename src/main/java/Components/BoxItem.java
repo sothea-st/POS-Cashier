@@ -560,7 +560,7 @@ public class BoxItem extends javax.swing.JPanel {
      //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 1;
-     private float shadowOpacity = 0.1f;
+     private float shadowOpacity = 0.2f;
      private Color shadowColor = Color.black;
 
      @Override

@@ -1605,7 +1605,7 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonReturnData.put("dataDetails", dataDetails);
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-
+          System.err.println("return : " + responseReturn);
           if (responseReturn.isSuccessful()) {
                JavaConstant.isReturn = null;
                JavaConstant.setBackQty(detailItem, panelProduct);
