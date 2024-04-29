@@ -52,8 +52,6 @@ public class CashierReportService {
 
     private HashMap<String, Object> map = new HashMap<>();
 
- 
-
     public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
         int id = userId;
         // get company info
@@ -84,6 +82,9 @@ public class CashierReportService {
         CloseShift closeShift = closeShiftRepo.getCloseShift(userCode, JavaConstant.currentDate, posId);
         map.put("closeCash", 1);
         map.put("closeDate", closeShift.getCloseTime());
+        double cashCount = closeShift.getCashCount() == null ? 0 : closeShift.getCashCount().doubleValue();
+        cashCount = JavaConstant.getTwoPrecision(cashCount);
+        map.put("closeAmount", cashCount);
 
         // Sale summery
         SalesSummery(id, posId, userCode);
@@ -143,7 +144,8 @@ public class CashierReportService {
         List<SummeryCashierReport> discount = new ArrayList<>();
         for (int i = 0; i < listDiscount.size(); i++) {
             int disQty = 0;
-            List<Integer> disStr = repoSaleDetail.totalQty(JavaConstant.currentDate, posId,  Double.valueOf(listDiscount.get(i)));
+            List<Integer> disStr = repoSaleDetail.totalQty(JavaConstant.currentDate, posId,
+                    Double.valueOf(listDiscount.get(i)));
             if (!disStr.isEmpty())
                 disQty = disStr.size();
 
@@ -170,7 +172,7 @@ public class CashierReportService {
         if (_amSaledDollar != null)
             _saledDollar = Double.valueOf(_amSaledDollar);
 
-        HashMap<String ,Object> discountDollar = new HashMap<>();
+        HashMap<String, Object> discountDollar = new HashMap<>();
         discountDollar.put("qtySaledDollar", _disQtyDollar);
         discountDollar.put("amountSaledDollar", BigDecimal.valueOf(_saledDollar));
 
@@ -183,7 +185,6 @@ public class CashierReportService {
     public void paymentSummery(int userId, String posId, String userCode) {
         CloseShift dCloseShift = closeShiftRepo.getCloseShift(userCode, JavaConstant.currentDate, posId);
         int qtyUsd = repoSale.countSaledNumUsd(userId, JavaConstant.currentDate, posId);
-
 
         double amountPayUsd = dCloseShift.getCashUsd().doubleValue();
 
@@ -198,8 +199,6 @@ public class CashierReportService {
         int qtyMnk = repoSale.countSaledNumMnk(userId, JavaConstant.currentDate, posId);
 
         double amountMnk = dCloseShift.getKhqrMnk().doubleValue();
-
-        double cashCount = dCloseShift.getCashCount()  == null ? 0 : dCloseShift.getCashCount().doubleValue()  ;
 
         int qtyExpress = 0;
         String qtyExpressStr = repoSale.totalCountQtyExpress(userId, JavaConstant.currentDate, posId,
@@ -219,17 +218,16 @@ public class CashierReportService {
         amountAba = JavaConstant.getTwoPrecision(amountAba);
         amountExpress = JavaConstant.getTwoPrecision(amountExpress);
         amountCredit = JavaConstant.getTwoPrecision(amountCredit);
-        cashCount = JavaConstant.getTwoPrecision(cashCount);
 
         ArrayList<SummeryCashierReport> payment = new ArrayList<>();
         // payment.add(new SummeryCashierReport("RED ANT EXPRESS", qtyExpress,
         // BigDecimal.valueOf(amountExpress)));
-        payment.add(new SummeryCashierReport("Cash- Riels ("+ addCommas(dCloseShift.getCashKhr()+"") +")", qtyKhr, BigDecimal.valueOf(amountPayKhr)));
+        payment.add(new SummeryCashierReport("Cash- Riels (" + addCommas(dCloseShift.getCashKhr() + "") + ")", qtyKhr,
+                BigDecimal.valueOf(amountPayKhr)));
         payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd, BigDecimal.valueOf(amountPayUsd)));
         payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk, BigDecimal.valueOf(amountMnk)));
         payment.add(new SummeryCashierReport("ABA QR Pay", qtyAba, BigDecimal.valueOf(amountAba)));
         payment.add(new SummeryCashierReport("ABA-Card Payment", qtyCredit, BigDecimal.valueOf(amountCredit)));
-        payment.add(new SummeryCashierReport("Cash Count", 0, BigDecimal.valueOf(cashCount)));
 
         map.put("summeryPayemnt", payment);
     }
@@ -241,18 +239,18 @@ public class CashierReportService {
         map.put("paymentNoLast", paymentNoLast);
 
         int qtyDiscount = repoSaleDetail.totalQtyDiscount(JavaConstant.currentDate, posId, userCode);
- 
+
         double amountDiscount = 0.00;
         String listDiscountQty = repoSaleDetail.totalAmountDiscount(JavaConstant.currentDate, posId, userCode);
         if (listDiscountQty != null)
             amountDiscount = Double.valueOf(listDiscountQty);
- 
-        int returnQty = repoSaleDetail.numRetured(JavaConstant.currentDate,posId,userCode);
+
+        int returnQty = repoSaleDetail.numRetured(JavaConstant.currentDate, posId, userCode);
 
         // double returnAmount = 0;
-        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(JavaConstant.currentDate, posId,userCode);
+        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(JavaConstant.currentDate, posId,
+                userCode);
         returnAmountDiscount = returnAmountDiscount == null ? 0 : returnAmountDiscount;
-
 
         int numOfSale = repoSaleDetail.numOfSale(JavaConstant.currentDate, posId, userCode);
         Double totalAmount = repoSaleDetail.totalSaledAmount(JavaConstant.currentDate, posId, userCode);
@@ -263,7 +261,8 @@ public class CashierReportService {
         returnAmountDiscount = JavaConstant.getTwoPrecision(returnAmountDiscount);
         amountDiscount = JavaConstant.getTwoPrecision(amountDiscount);
         summery.add(new SummeryCashierReport("Total Sales", numOfSale, BigDecimal.valueOf(totalAmount)));
-        summery.add(new SummeryCashierReport("Total Refund/Return", returnQty, BigDecimal.valueOf(returnAmountDiscount)));
+        summery.add(
+                new SummeryCashierReport("Total Refund/Return", returnQty, BigDecimal.valueOf(returnAmountDiscount)));
         summery.add(new SummeryCashierReport("Total Voids", 0, BigDecimal.valueOf(0)));
         summery.add(new SummeryCashierReport("Disounts", qtyDiscount, BigDecimal.valueOf(amountDiscount)));
         map.put("SummerySale", summery);
