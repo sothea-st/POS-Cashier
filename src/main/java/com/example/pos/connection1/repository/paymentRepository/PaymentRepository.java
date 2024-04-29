@@ -10,9 +10,13 @@ import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.projection.PaymentProjection;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
+import java.util.List;
+
 
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
+
+        Payment  findByPaymentNo(String paymentNo);
 
         @Query(nativeQuery = true, value = " select pp.payment_no  from pos_payment pp where payment_barcode = ?")
         String getInvoice(String paymentBarcode);

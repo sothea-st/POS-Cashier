@@ -5,10 +5,12 @@ import java.text.SimpleDateFormat;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Sale;
+import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.sourceData.ReturnDetails;
 import com.example.pos.connection1.entity.sourceData.ReturnProduct;
 import com.example.pos.connection1.repository.ImportDetailRepository;
+import com.example.pos.connection1.repository.SaleDetailsRepository;
 import com.example.pos.connection1.repository.SaleRepository;
 import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
@@ -44,7 +46,10 @@ public class ReturnProductService {
     @Autowired
     private ReprintService reprintService;
 
-    public HashMap<String, Object> returnProduct(ReturnProduct re) {
+    @Autowired
+    private SaleDetailsRepository saleDetailsRepository;
+
+    public Map<String, Object> returnProduct(ReturnProduct re) {
         // var createBy = session.getAttribute(JavaConstant.userId);
         // int id = (Integer) createBy;
         String time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(Calendar.getInstance().getTime());
@@ -65,9 +70,12 @@ public class ReturnProductService {
         repoPayment.save(pay);
 
         List<ReturnDetails> listDetail = re.getDataDetails();
-
+        Payment pays = repoPayment.findByPaymentNo(re.getPaymentNo());
+        int posSaleID = pays.getSaleId();
+   
         for (int i = 0; i < listDetail.size(); i++) {
             int proId = listDetail.get(i).getProId();
+
             int qtyReturn = listDetail.get(i).getQty();
             ReturnDetails obj = new ReturnDetails();
             obj.setProId(listDetail.get(i).getProId());
@@ -84,7 +92,14 @@ public class ReturnProductService {
             int restockQty = qtyReturn + impDetail.getQtyOld();
             impDetail.setQtyOld(restockQty);
             repoImport.save(impDetail);
+       
+            // ============ update column is_returned in table pos_sale_details to returned
+            Optional<SaleDetail> listSaleDetails = saleDetailsRepository.findBySaleIdAndProductId(posSaleID,listDetail.get(i).getProId());
+            SaleDetail valueDetail = listSaleDetails.get();
+            valueDetail.setIsReturned("returned");
+            saleDetailsRepository.save(valueDetail);
         }
+
 
         int saleId = repoDetail.getSaleId(re.getPaymentNo(),JavaConstant.currentDate);
         Optional<Sale> dataSale = repoSale.findById(saleId);
@@ -92,7 +107,8 @@ public class ReturnProductService {
         result.setSaleIsReturn("returned");
         repoSale.save(result);
 
-        return reprintService.readData(re.getPaymentNo());
+
+        return reprintService.readData(re.getPaymentNo(), re);
     }
 
     public ProductProjection searchProdcutByBarcode(String barcode){

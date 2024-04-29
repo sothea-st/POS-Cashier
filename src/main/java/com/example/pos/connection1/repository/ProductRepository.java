@@ -96,8 +96,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                                 " pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,  \r\n" + //
-                                "    pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,psd.qty,     \r\n" + //
-                                "      pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired   \r\n" + //
+                                " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,psd.qty,     \r\n" + //
+                                " pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired ,  psd.qty    \r\n" + //
                                 "from\r\n" + //
                                 "\tpos_payment pp\r\n" + //
                                 "inner join pos_sale ps on\r\n" + //
@@ -108,7 +108,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                                 "\tpc.id = psd.pro_id\r\n" + //
                                 "where\r\n" + //
                                 "\tpp.payment_no = ?\r\n" + //
-                                "\tand pc.barcode = ?")
+                                "\tand pc.barcode = ? and psd.is_returned is null")
         List<ProductQty> searchProductWithInvoiceNoAndBarcode(String invoiceNO, String barcode);
 
 }
