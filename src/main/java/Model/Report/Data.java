@@ -3,17 +3,17 @@ package Model.Report;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Data {
-    private long openCashKhr;
+    private double openCashKhr;
     private String paymentNoFirst;
     private String companyLogo;
     private String companyName;
-    private long totalWithdrawal;
+    private double totalWithdrawal;
     private SummeryVat[] summeryVat;
     private String userName;
     private DiscountSummery discountSummery;
     private String closeDate;
     private String posID;
-    private long openCashUsd;
+    private double openCashUsd;
     private String paymentNoLast;
     private double cashierTotal;
     private SummerySale[] summeryPayemnt;
@@ -21,13 +21,13 @@ public class Data {
     private SummerySale[] summerySale;
     private String companyContact;
     private String openDate;
-    private long closeCash;
+    private double closeCash;
     private SummeryVat[] summeryAllProVat;
 
     @JsonProperty("openCashKhr")
-    public long getOpenCashKhr() { return openCashKhr; }
+    public double getOpenCashKhr() { return openCashKhr; }
     @JsonProperty("openCashKhr")
-    public void setOpenCashKhr(long value) { this.openCashKhr = value; }
+    public void setOpenCashKhr(double value) { this.openCashKhr = value; }
 
     @JsonProperty("paymentNoFirst")
     public String getPaymentNoFirst() { return paymentNoFirst; }
@@ -45,9 +45,9 @@ public class Data {
     public void setCompanyName(String value) { this.companyName = value; }
 
     @JsonProperty("totalWithdrawal")
-    public long getTotalWithdrawal() { return totalWithdrawal; }
+    public double getTotalWithdrawal() { return totalWithdrawal; }
     @JsonProperty("totalWithdrawal")
-    public void setTotalWithdrawal(long value) { this.totalWithdrawal = value; }
+    public void setTotalWithdrawal(double value) { this.totalWithdrawal = value; }
 
     @JsonProperty("SummeryVat")
     public SummeryVat[] getSummeryVat() { return summeryVat; }
@@ -75,9 +75,9 @@ public class Data {
     public void setPosID(String value) { this.posID = value; }
 
     @JsonProperty("openCashUsd")
-    public long getOpenCashUsd() { return openCashUsd; }
+    public double getOpenCashUsd() { return openCashUsd; }
     @JsonProperty("openCashUsd")
-    public void setOpenCashUsd(long value) { this.openCashUsd = value; }
+    public void setOpenCashUsd(double value) { this.openCashUsd = value; }
 
     @JsonProperty("paymentNoLast")
     public String getPaymentNoLast() { return paymentNoLast; }
@@ -115,9 +115,9 @@ public class Data {
     public void setOpenDate(String value) { this.openDate = value; }
 
     @JsonProperty("closeCash")
-    public long getCloseCash() { return closeCash; }
+    public double getCloseCash() { return closeCash; }
     @JsonProperty("closeCash")
-    public void setCloseCash(long value) { this.closeCash = value; }
+    public void setCloseCash(double value) { this.closeCash = value; }
 
     @JsonProperty("SummeryAllProVat")
     public SummeryVat[] getSummeryAllProVat() { return summeryAllProVat; }

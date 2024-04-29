@@ -111,6 +111,8 @@ public class CashierPreview extends javax.swing.JDialog {
                openCashUsd.setText("USD " + dm.format(data.getOpenCashUsd()));
                openCashKhr.setText("KHR " + kh.format(data.getOpenCashKhr()));
                openTill.setText("Open Till : " + dm.format(data.getOpenCashKhr() / JavaConstant.exchangeRate + data.getOpenCashUsd()));
+               cashierCount.setText(dm.format(data.getCashierTotal()));
+               closedAmount.setText("Closed Amount : " + dm.format(data.getCloseCash()));
                displaySaleSummary(data);
                displaySummeryAllProVat(data);
                displayPaymentSummary(data);
@@ -235,6 +237,7 @@ public class CashierPreview extends javax.swing.JDialog {
           report.setTitle("Discount in $");
           report.setNum("" + data.getDiscountSummery().getCash().getQtySaledDollar());
           report.setAmount(dm.format(data.getDiscountSummery().getCash().getAmountSaledDollar()));
+          
           summaryDiscount.add(report);
 
           summaryDiscount.setLayout(new BoxLayout(summaryDiscount, BoxLayout.Y_AXIS));
@@ -282,7 +285,7 @@ public class CashierPreview extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         summaryDiscount = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        cashierCount = new javax.swing.JLabel();
         sumTotal = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         subTotal = new javax.swing.JLabel();
@@ -410,7 +413,7 @@ public class CashierPreview extends javax.swing.JDialog {
         netSalePanel.setLayout(netSalePanelLayout);
         netSalePanelLayout.setHorizontalGroup(
             netSalePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 375, Short.MAX_VALUE)
         );
         netSalePanelLayout.setVerticalGroup(
             netSalePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +434,7 @@ public class CashierPreview extends javax.swing.JDialog {
         paymentPanel.setLayout(paymentPanelLayout);
         paymentPanelLayout.setHorizontalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 375, Short.MAX_VALUE)
         );
         paymentPanelLayout.setVerticalGroup(
             paymentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,7 +455,7 @@ public class CashierPreview extends javax.swing.JDialog {
         summaryDiscount.setLayout(summaryDiscountLayout);
         summaryDiscountLayout.setHorizontalGroup(
             summaryDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 375, Short.MAX_VALUE)
         );
         summaryDiscountLayout.setVerticalGroup(
             summaryDiscountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -463,10 +466,10 @@ public class CashierPreview extends javax.swing.JDialog {
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Cashier Count");
 
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel15.setText("700.03");
+        cashierCount.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
+        cashierCount.setForeground(new java.awt.Color(0, 0, 0));
+        cashierCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        cashierCount.setText("700.03");
 
         sumTotal.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         sumTotal.setForeground(new java.awt.Color(0, 0, 0));
@@ -636,9 +639,9 @@ public class CashierPreview extends javax.swing.JDialog {
                             .addGroup(reportPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cashierCount, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(reportPanelLayout.createSequentialGroup()
-                                .addGap(0, 230, Short.MAX_VALUE)
+                                .addGap(0, 225, Short.MAX_VALUE)
                                 .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -759,7 +762,7 @@ public class CashierPreview extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cashierCount, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(156, 156, 156))
@@ -919,6 +922,7 @@ public class CashierPreview extends javax.swing.JDialog {
     private javax.swing.JLabel branch;
     private Button.Button btnPrint;
     private javax.swing.JLabel cashier;
+    private javax.swing.JLabel cashierCount;
     private Components.LabelReceipt closeDate;
     private javax.swing.JLabel closedAmount;
     private javax.swing.JLabel companyname;
@@ -927,7 +931,6 @@ public class CashierPreview extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel37;
