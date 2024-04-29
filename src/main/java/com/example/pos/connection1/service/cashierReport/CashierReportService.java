@@ -54,7 +54,7 @@ public class CashierReportService {
 
  
 
-    public HashMap<String, Object> cashierReport(String userCode, int userId, String posId) {
+    public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
         int id = userId;
         // get company info
         Company company = repoCompany.getInfoCompany();
@@ -199,6 +199,8 @@ public class CashierReportService {
 
         double amountMnk = dCloseShift.getKhqrMnk().doubleValue();
 
+        double cashCount = dCloseShift.getCashCount()  == null ? 0 : dCloseShift.getCashCount().doubleValue()  ;
+
         int qtyExpress = 0;
         String qtyExpressStr = repoSale.totalCountQtyExpress(userId, JavaConstant.currentDate, posId,
                 JavaConstant.currentDate, userCode);
@@ -217,6 +219,7 @@ public class CashierReportService {
         amountAba = JavaConstant.getTwoPrecision(amountAba);
         amountExpress = JavaConstant.getTwoPrecision(amountExpress);
         amountCredit = JavaConstant.getTwoPrecision(amountCredit);
+        cashCount = JavaConstant.getTwoPrecision(cashCount);
 
         ArrayList<SummeryCashierReport> payment = new ArrayList<>();
         // payment.add(new SummeryCashierReport("RED ANT EXPRESS", qtyExpress,
@@ -226,6 +229,8 @@ public class CashierReportService {
         payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk, BigDecimal.valueOf(amountMnk)));
         payment.add(new SummeryCashierReport("ABA QR Pay", qtyAba, BigDecimal.valueOf(amountAba)));
         payment.add(new SummeryCashierReport("ABA-Card Payment", qtyCredit, BigDecimal.valueOf(amountCredit)));
+        payment.add(new SummeryCashierReport("Cash Count", 0, BigDecimal.valueOf(cashCount)));
+
         map.put("summeryPayemnt", payment);
     }
 

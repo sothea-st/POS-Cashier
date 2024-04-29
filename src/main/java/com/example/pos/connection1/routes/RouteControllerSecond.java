@@ -140,8 +140,6 @@ public class RouteControllerSecond {
           @Autowired
           private SearchByBarcodeOrNameService service;
 
-    
-
           @GetMapping
           public ResponseEntity<?> search(@RequestParam("code") String code,
                     @RequestParam("valueSearch") String valueSearch) {
@@ -151,7 +149,7 @@ public class RouteControllerSecond {
 
           @GetMapping("/searchWithInvoice")
           public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo) {
-               HashMap<String,Object> data = service.searchWithInvoiceNo(invoiceNo);
+               Map<String, Object> data = service.searchWithInvoiceNo(invoiceNo);
                if (data.size() == 0)
                     return ResponseEntity.ok().body(Map.of("msg", "success", "data", data, "invoiceNo", "The invoice already return!"));
                return ResponseEntity.ok().body(data);
@@ -161,6 +159,15 @@ public class RouteControllerSecond {
           public ResponseEntity<?> getInvoice(@PathVariable("paymentBarcode") String paymentBarcode) {
                return JavaResponse.success(service.getIncoive(paymentBarcode));
           }
+
+
+          @GetMapping("/getProductByBarcodeInInvoice")
+          public ResponseEntity<?> getProductByBarcodeInInvoice(@RequestParam("barcode") String barcode , @RequestParam("invoiceNumber") String invoiceNumber) {
+               return JavaResponse.success(service.getProductByBarcodeInInvoice(barcode,invoiceNumber));
+          }
+
+
+          
 
      }
 
