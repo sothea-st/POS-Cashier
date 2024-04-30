@@ -86,7 +86,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private TextField textField;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
-     private Button btnreturn;
+     private Button btnReturn;
      private Button btnReprint;
      private Button buttonDiscount;
      private Button buttonCustomer;
@@ -131,6 +131,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setjScrollPaneCategory(jScrollPaneCategory);
           pro.setBoxUserName(boxUserName);
           pro.setPanelProduct(panelProduct);
+          pro.setBtnReturn(btnReturn);
           if (listData != null) {
                pro.assignProduct(listData, panelProduct);
           }
@@ -431,7 +432,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              searchBox.disabledTextField(true);
                              textField.disabledTextField(true);
 
-                             btnreturn.setBackground(WindowColor.brown);
+                             btnReturn.setBackground(WindowColor.brown);
                              buttonCustomer.setBackground(WindowColor.green);
                              buttonDiscount.setBackground(WindowColor.green);
                              btnReprint.setBackground(WindowColor.green);
@@ -593,6 +594,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         pro.setBtnPayment(btnPayment);
                                         pro.setButtonHoldOrder(buttonHoldOrder);
                                         pro.setBtnCancel(btnCancel);
+                                        pro.setBtnReturn(btnReturn);
                                         panelProduct.revalidate();
                                         panelProduct.repaint();
                                         setCount(pro.getCount());
@@ -655,6 +657,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setBtnPayment(btnPayment);
           pro.setButtonHoldOrder(buttonHoldOrder);
           pro.setBtnCancel(btnCancel);
+          pro.setBtnReturn(btnReturn);
           panelProduct.revalidate();
           panelProduct.repaint();
           ActionProduct.marginRight = 15;
@@ -845,12 +848,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.btnCancel = btnCancel;
      }
 
-     public Button getBtnreturn() {
-          return btnreturn;
+     public Button getBtnReturn() {
+          return btnReturn;
      }
 
-     public void setBtnreturn(Button btnreturn) {
-          this.btnreturn = btnreturn;
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
      }
 
      public Button getBtnReprint() {

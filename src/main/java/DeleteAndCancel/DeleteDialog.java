@@ -47,6 +47,7 @@ public class DeleteDialog extends javax.swing.JDialog {
      private ProductBox productBox;
      private int qty;
      private String barcode;
+     private Button.Button btnReturn;
 
      public String getBarcode() {
           return barcode;
@@ -140,6 +141,7 @@ public class DeleteDialog extends javax.swing.JDialog {
                btnPayment.setBackground(WindowColor.lightGray);
                btnCancel.setBackground(WindowColor.lightGray);
                buttonHoldOrder.setBackground(WindowColor.lightGray);
+               btnReturn.setBackground(WindowColor.brown);
                subtotalPanel.setLabelSubTitleToZero();
                return;
           }
@@ -264,10 +266,10 @@ public class DeleteDialog extends javax.swing.JDialog {
 
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
 
-         if (reasonId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a reason!");
-              return;
-         }
+//         if (reasonId == null) {
+//              JOptionPane.showMessageDialog(this, "Please select a reason!");
+//              return;
+//         }
 
          try {
               JSONObject json = new JSONObject();
@@ -309,7 +311,7 @@ public class DeleteDialog extends javax.swing.JDialog {
                         detailItem.setBackground(WindowColor.slightGreen);
                         detailItem.setBorder(null);
                    }
-
+                   
                    dispose();
                    deleteItem();
 //                   QtyUpdate.updateQty(productId, "add", productBox, quantity);
@@ -413,6 +415,14 @@ public class DeleteDialog extends javax.swing.JDialog {
 
      public void setQty(int qty) {
           this.qty = qty;
+     }
+     
+     public Button.Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button.Button btnReturn) {
+          this.btnReturn = btnReturn;
      }
 
 

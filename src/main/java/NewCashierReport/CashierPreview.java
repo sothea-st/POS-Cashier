@@ -96,7 +96,7 @@ public class CashierPreview extends javax.swing.JDialog {
     
     
     private void assignValue(DataSuccessCashierReport getData) {
-
+        
           var data = getData.getData();
           try {
                Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
@@ -111,8 +111,7 @@ public class CashierPreview extends javax.swing.JDialog {
                openCashUsd.setText("USD " + dm.format(data.getOpenCashUsd()));
                openCashKhr.setText("KHR " + kh.format(data.getOpenCashKhr()));
                openTill.setText("Open Till : " + dm.format(data.getOpenCashKhr() / JavaConstant.exchangeRate + data.getOpenCashUsd()));
-               cashierCount.setText(dm.format(data.getCashierTotal()));
-               closedAmount.setText("Closed Amount : " + dm.format(data.getCloseCash()));
+               cashierCount.setText(dm.format(data.getCashierCount()));
                displaySaleSummary(data);
                displaySummeryAllProVat(data);
                displayPaymentSummary(data);
@@ -198,19 +197,22 @@ public class CashierPreview extends javax.swing.JDialog {
      private void displayPaymentSummary(Data data) {
           paymentPanel.removeAll();
           SummerySale[] listSummarySale = data.getSummeryPayemnt();
-          double sumTotalPayment = 0;
-
+           double sumTotalPayment = 0;
+          
           for (int i = 0; i < listSummarySale.length; i++) {
                var list = listSummarySale[i];
                BoxReport report = new BoxReport();
+               
                report.setTitle(list.getTitle());
                report.setNum("" + list.getSaleOfNum());
                report.setAmount(dm.format(list.getTotal()));
+               
                paymentPanel.add(report);
                paymentPanel.add(Box.createRigidArea(new Dimension(2, 2)));
                sumTotalPayment += list.getTotal();
           }
 
+          closedAmount.setText("Close Amount : " + dm.format(data.getCashierCount()- (data.getOpenCashKhr() / JavaConstant.exchangeRate + data.getOpenCashUsd()+sumTotalPayment)));
           sumTotal.setText(dm.format(sumTotalPayment));
           paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));
           paymentPanel.setBorder(new EmptyBorder(2, 2, 2, 2));
@@ -237,9 +239,7 @@ public class CashierPreview extends javax.swing.JDialog {
           report.setTitle("Discount in $");
           report.setNum("" + data.getDiscountSummery().getCash().getQtySaledDollar());
           report.setAmount(dm.format(data.getDiscountSummery().getCash().getAmountSaledDollar()));
-          
           summaryDiscount.add(report);
-
           summaryDiscount.setLayout(new BoxLayout(summaryDiscount, BoxLayout.Y_AXIS));
           summaryDiscount.setBorder(new EmptyBorder(2, 2, 2, 2));
      }
@@ -541,10 +541,6 @@ public class CashierPreview extends javax.swing.JDialog {
         reportPanelLayout.setHorizontalGroup(
             reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(reportPanelLayout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(reportPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportPanelLayout.createSequentialGroup()
@@ -626,7 +622,7 @@ public class CashierPreview extends javax.swing.JDialog {
                             .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(labelReceipt26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(17, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportPanelLayout.createSequentialGroup()
                         .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(summaryDiscount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -646,6 +642,10 @@ public class CashierPreview extends javax.swing.JDialog {
                                     .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cashier, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(24, 24, 24))))
+            .addGroup(reportPanelLayout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -656,8 +656,8 @@ public class CashierPreview extends javax.swing.JDialog {
                             .addComponent(vattin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(60, 60, 60))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportPanelLayout.createSequentialGroup()
-                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(149, 149, 149))))
+                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(130, 130, 130))))
         );
         reportPanelLayout.setVerticalGroup(
             reportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

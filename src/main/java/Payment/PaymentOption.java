@@ -1509,6 +1509,7 @@ public class PaymentOption extends javax.swing.JDialog {
                    buttonHoldOrder.setBackground(WindowColor.lightGray);
                    detailItem.setBackground(WindowColor.slightGreen);
                    subtotalPanel.setLabelSubTitleToZero();
+                   btnReturn.setBackground(WindowColor.brown);
                    btnPayment.setBackground(WindowColor.lightGray);
                    detailItem.setBackground(WindowColor.slightGreen);
                    detailItem.setBorder(null);

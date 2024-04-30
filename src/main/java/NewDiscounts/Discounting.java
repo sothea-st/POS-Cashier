@@ -676,6 +676,9 @@ public class Discounting extends javax.swing.JDialog {
             if (type == "dollar") {
                 double _dollar = box.getQty() * Double.parseDouble(discountValue);
                 if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
+                        //===================Remove border and prevent in button discount after input discount value=============
+                        JavaConstant.discountAmount = 1;
+//                        box.setBorder(null);
 
                     box.setDiscountAmount(dm.format(_dollar));
                     box.setDiscountValue(Double.valueOf(discountValue));
@@ -698,6 +701,9 @@ public class Discounting extends javax.swing.JDialog {
                 double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));
                 double disvalue = Double.valueOf(discountValue);
                 double discountAmount = (amount * disvalue) / 100;
+                        //===================Remove border and prevent in button discount after input discount value=============
+                        JavaConstant.discountAmount = 1;
+//                        box.setBorder(null);
 
                 if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
                     box.setDiscountAmount(dm.format(discountAmount));
