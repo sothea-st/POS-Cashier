@@ -661,7 +661,7 @@ public class Discounting extends javax.swing.JDialog {
 
                         //===================Remove border and prevent in button discount after input discount value=============
                         JavaConstant.discountAmount = 1;
-                        box.setBorder(null);
+//                        box.setBorder(null);
 
                    }
 
@@ -685,7 +685,7 @@ public class Discounting extends javax.swing.JDialog {
 
                         //===================Remove border and prevent in button discount after input discount value=============
                         JavaConstant.discountAmount = 1;
-                        box.setBorder(null);
+//                        box.setBorder(null);
 
                    }
                    

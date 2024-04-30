@@ -202,6 +202,14 @@ public class BoxItem extends javax.swing.JPanel {
      public void setTxtDiscount(JLabel txtDiscount) {
           this.txtDiscount = txtDiscount;
      }
+     
+     public Button.Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button.Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
 
      //=================================================
      public void initEvent(ButtonEvent event) {
@@ -314,6 +322,15 @@ public class BoxItem extends javax.swing.JPanel {
           this.panelProduct = panelProduct;
      }
 
+    public double getOldDiscount() {
+        return oldDiscount;
+    }
+
+    public void setOldDiscount(double oldDiscount) {
+        this.oldDiscount = oldDiscount;
+    }
+
+     
      /**
       * Creates new form BoxItem
       */
@@ -344,6 +361,8 @@ public class BoxItem extends javax.swing.JPanel {
      private ProductBox productBox;
      private int lbQty;
      private JPanel panelProduct;
+     private double oldDiscount;
+     private Button.Button btnReturn;
 
      public BoxItem() {
           initComponents();
@@ -775,6 +794,7 @@ public class BoxItem extends javax.swing.JPanel {
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();
 
+         System.out.println("ellooooooo");
          DeleteDialog delete = new DeleteDialog(new JFrame(), true);
          delete.setDetailItem(detailItem);
          delete.setListCom(listDelete);
@@ -784,6 +804,7 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setBtnCancel(btnCancel);
          delete.setPanelProduct(panelProduct);
          delete.setButtonHoldOrder(buttonHoldOrder);
+         delete.setBtnReturn(btnReturn);
          delete.setBarcode(b.getLabelBarcode());
 //         delete.setProductBox(productBox);
          delete.setQty(qty);

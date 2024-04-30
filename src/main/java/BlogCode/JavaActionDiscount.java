@@ -19,28 +19,56 @@ public class JavaActionDiscount {
 
                for (Component listCom11 : listCom1) {
                     Components.BoxItem obj = (BoxItem) listCom11;
-                    sumDiscount += JavaConstant.getReplace(obj.getDiscountAmount());
+                    sumDiscount += JavaConstant.getReplace(""+obj.getOldDiscount());
+//                    sumDiscount += JavaConstant.getReplace(""+obj.getDiscountAmount());
+                    
+                    if(obj.getProductId() == JavaConstant.productId){
+                        if(obj.getOldDiscount() <= 0){
+                            Discounting dis = new Discounting(new JFrame(), true);
+                            dis.setTotalPanel(totalPanel);
+                            dis.setDetailItem(detailItem);
+                            dis.setVisible(true);
+                        }else{
+                            JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                            j.setMessage("Cannot add any discount!");
+                            j.setVisible(true);
+                        }
+                    } 
                }
+               
+               if(JavaConstant.productId == 0){
+                    if(sumDiscount <= 0) {
+                        Discounting dis = new Discounting(new JFrame(), true);
+                        dis.setTotalPanel(totalPanel);
+                        dis.setDetailItem(detailItem);
+                        dis.setVisible(true);
+                   }else{
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        j.setMessage("Cannot add any discount!");
+                        j.setVisible(true);
+                    }
+               }
+                
 
-               if (sumDiscount <= 0) {
-                    Discounting dis = new Discounting(new JFrame(), true);
-                    dis.setTotalPanel(totalPanel);
-                    dis.setDetailItem(detailItem);
-                    dis.setVisible(true);
-               } else if (JavaConstant.discountAmount <= 0) {
-                    Discounting dis = new Discounting(new JFrame(), true);
-                    dis.setTotalPanel(totalPanel);
-                    dis.setDetailItem(detailItem);
-                    dis.setVisible(true);
-               } else {
-                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                    j.setMessage("Cannot process this function!");
-                    j.setVisible(true);
-               }
+//               if (sumDiscount <= 0) {
+//                    Discounting dis = new Discounting(new JFrame(), true);
+//                    dis.setTotalPanel(totalPanel);
+//                    dis.setDetailItem(detailItem);
+//                    dis.setVisible(true);
+//               } else if (JavaConstant.discountAmount <= 0) {
+//                    Discounting dis = new Discounting(new JFrame(), true);
+//                    dis.setTotalPanel(totalPanel);
+//                    dis.setDetailItem(detailItem);
+//                    dis.setVisible(true);
+//               } else {
+//                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//                    j.setMessage("Cannot process this function!");
+//                    j.setVisible(true);
+//               }
                
           }else{
               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-              j.setMessage("Cannot process this function!");
+              j.setMessage("Cannot add any discount!");
               j.setVisible(true);
           }
      }

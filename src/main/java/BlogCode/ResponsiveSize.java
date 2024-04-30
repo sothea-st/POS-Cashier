@@ -33,6 +33,7 @@ public class ResponsiveSize {
      private ButtonCancel btnCancel;
      private Button buttonHoldOrder;
      private LoginFormJdailog jdFormLogin;
+     private Button btnReturn;
 
      public ResponsiveSize(
           JPanel detailItem,
@@ -41,7 +42,8 @@ public class ResponsiveSize {
           Button btnPayment,
           ButtonCancel btnCancel,
           Button buttonHoldOrder,
-          LoginFormJdailog jdFormLogin
+          LoginFormJdailog jdFormLogin,
+          Button btnReturn
      ) {
      
           this.detailItem = detailItem;
@@ -51,6 +53,7 @@ public class ResponsiveSize {
           this.btnPayment = btnPayment;
           this.buttonHoldOrder = buttonHoldOrder;
           this.jdFormLogin = jdFormLogin;
+          this.btnReturn = btnReturn;
      }
 
      public void resizeEvent(MainPage mainPage) {
@@ -111,6 +114,7 @@ public class ResponsiveSize {
           a.setBtnPayment(btnPayment);
           a.setBtnCancel(btnCancel);
           a.setButtonHoldOrder(buttonHoldOrder);
+          a.setBtnReturn(btnReturn);
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
           if (jdFormLogin.getCatId() == 0) {

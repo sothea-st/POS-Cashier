@@ -22,6 +22,7 @@ public class Data {
     private String companyContact;
     private String openDate;
     private double closeCash;
+    private double cashierCount;
     private SummeryVat[] summeryAllProVat;
 
     @JsonProperty("openCashKhr")
@@ -118,6 +119,11 @@ public class Data {
     public double getCloseCash() { return closeCash; }
     @JsonProperty("closeCash")
     public void setCloseCash(double value) { this.closeCash = value; }
+    
+    @JsonProperty("cashierCount")
+    public double getCashierCount() { return cashierCount; }
+    @JsonProperty("cashierCount")
+    public void setCashierCount(double value) { this.cashierCount = value; }
 
     @JsonProperty("SummeryAllProVat")
     public SummeryVat[] getSummeryAllProVat() { return summeryAllProVat; }

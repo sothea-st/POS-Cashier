@@ -56,6 +56,7 @@ public class ActionProduct {
      private JPanel boxOne;
      private SubtotalPanel subtotalPanel;
      private Button btnPayment;
+     private Button btnReturn;
      private Button buttonHoldOrder;
      private JPanel panelPagination;
      private int count;
@@ -355,6 +356,7 @@ public class ActionProduct {
           box.setBtnPayment(btnPayment);
           box.setButtonHoldOrder(buttonHoldOrder);
           box.setBtnCancel(btnCancel);
+          box.setBtnReturn(btnReturn);
           box.setLbQty(listData.getQty());
           Component[] listCom = detailItem.getComponents();
 
@@ -403,6 +405,7 @@ public class ActionProduct {
           box.setLabelProductName(listData.getProductNameEn());
           box.setLabelWeight(listData.getWeight());
           box.setLabelBarcode(listData.getBarcode());
+          box.setOldDiscount(listData.getDiscount());
 
           if (qtyData > 1) {
                box.setLabelPrice(dm.format(price));
@@ -456,6 +459,7 @@ public class ActionProduct {
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
+          btnReturn.setBackground(WindowColor.lightGray);
 
 //          detailItem.setBackground(WindowColor.slightGreen);
 //          detailItem.setBorder(null);
@@ -565,4 +569,13 @@ public class ActionProduct {
           this.btnCancel = btnCancel;
      }
 
+    public Button getBtnReturn() {
+        return btnReturn;
+    }
+
+    public void setBtnReturn(Button btnReturn) {
+        this.btnReturn = btnReturn;
+    }
+
+     
 }

@@ -74,7 +74,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-           setExtendedState(JFrame.MAXIMIZED_BOTH);
+//           setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setFont(WindowFonts.timeNewRomanBold14);
           lbPOSId.setFont(WindowFonts.timeNewRomanBold14);
           boxUserName.setFont(WindowFonts.timeNewRomanBold14);
@@ -98,7 +98,7 @@ public class MainPage extends javax.swing.JFrame {
           verticalScrollBars.setBlockIncrement(35);
 
           // for resize screen
-          new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin).resizeEvent(this);
+          new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin,btnReturn).resizeEvent(this);
           
           currentDateTime();
           boxUserName.setVisible(false);
@@ -337,9 +337,9 @@ public class MainPage extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnOpenShiftMouseClicked(evt);
             }
-            // public void mouseEntered(java.awt.event.MouseEvent evt) {
-            //     btnOpenShiftMouseEntered(evt);
-            // }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                // btnOpenShiftMouseEntered(evt);
+            }
         });
 
         btnReprint.setBackground(new java.awt.Color(204, 204, 204));
@@ -582,7 +582,8 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(panelPagination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2))))
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -627,7 +628,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBtnReprint(btnReprint);
           jdFormLogin.setButtonCustomer(buttonCustomer);
           jdFormLogin.setButtonDiscount(buttonDiscount);
-          jdFormLogin.setBtnreturn(btnReturn);
+          jdFormLogin.setBtnReturn(btnReturn);
           jdFormLogin.setBreadcrumb(breadcrumb);
      }
 
@@ -837,6 +838,7 @@ public class MainPage extends javax.swing.JFrame {
                    cancel.setPanelProduct(panelProduct);
                    cancel.setListCom(listCom);
                    cancel.setLabelForTitle("Cancel");
+                   cancel.setBtnReturn(btnReturn);
                    cancel.setVisible(true);
               }
          }
@@ -872,8 +874,8 @@ public class MainPage extends javax.swing.JFrame {
 
                try {
                     CashierPreview cashier = new CashierPreview(new JFrame(), true);
-//                    Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=02");
+                    Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
+//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=01");
 
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
@@ -910,7 +912,7 @@ public class MainPage extends javax.swing.JFrame {
                }
                Component[] listCom1 = detailItem.getComponents();
                if (listCom1.length != 0) {
-                    JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape);
+                    JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape,btnReturn);
                }
           }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked

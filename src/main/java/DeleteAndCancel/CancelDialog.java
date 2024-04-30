@@ -28,7 +28,6 @@ import Products.ProductBox;
 import UpdateQty.UpdateQtyModel;
 import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -68,6 +67,7 @@ public class CancelDialog extends javax.swing.JDialog {
      private String labelForTitle;
      private JPanel panelProduct;
      private int idHold;
+     private Button btnReturn;
 
      public int getIdHold() {
           return idHold;
@@ -76,8 +76,14 @@ public class CancelDialog extends javax.swing.JDialog {
      public void setIdHold(int idHold) {
           this.idHold = idHold;
      }
-     
-     
+
+    public Button getBtnReturn() {
+        return btnReturn;
+    }
+
+    public void setBtnReturn(Button btnReturn) {
+        this.btnReturn = btnReturn;
+    }
      
      
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
@@ -655,6 +661,7 @@ public class CancelDialog extends javax.swing.JDialog {
                btnPayment.setBackground(WindowColor.lightGray);
                btnCancel.setBackground(WindowColor.lightGray);
                buttonHoldOrder.setBackground(WindowColor.lightGray);
+               btnReturn.setBackground(WindowColor.brown);
                getDetailItem().setBorder(null);
           }
      }
