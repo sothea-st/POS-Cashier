@@ -47,6 +47,17 @@ public class Sale {
     @Column(name = "total" , precision = 10 , scale = 2)
     private BigDecimal total;
 
+    
+
+    @Column(name = "total_return" , precision = 10 , scale = 2)
+    private BigDecimal totalReturn;
+
+    @Column(name = "total_minus_total_return" , precision = 10 , scale = 2)
+    private BigDecimal totalMinusTotalReturn;
+
+
+
+
     @Column(name = "sub_total" , precision = 10 , scale = 2)
     private BigDecimal subTotal;
 

@@ -1,7 +1,7 @@
-package com.example.pos.connection2.projections;
+// package com.example.pos.connection2.projections;
 
-public interface ProductByCategoryProjection {
-     int getId();
-     String getName();
-     String getImage();
-}
+// public interface ProductByCategoryProjection {
+//      int getId();
+//      String getName();
+//      String getImage();
+// }

@@ -14,7 +14,7 @@ public class ReturnDetailsProduct {
  
      private int qty;
      private BigDecimal price;
-     private String proName;
+     private String pro_name_en;
      private String barcode;
      
 }

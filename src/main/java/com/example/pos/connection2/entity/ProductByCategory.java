@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductSource {
+public class ProductByCategory {
      @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

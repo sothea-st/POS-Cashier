@@ -1,5 +1,6 @@
 package com.example.pos.connection1.service.sourceDataService;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 
 import com.example.pos.connection1.constant.JavaConstant;
@@ -72,9 +73,14 @@ public class ReturnProductService {
         List<ReturnDetails> listDetail = re.getDataDetails();
         Payment pays = repoPayment.findByPaymentNo(re.getPaymentNo());
         int posSaleID = pays.getSaleId();
-   
+        
+        double sumTotalReturn = 0;
+
+
         for (int i = 0; i < listDetail.size(); i++) {
             int proId = listDetail.get(i).getProId();
+            var val = listDetail.get(i);
+            sumTotalReturn += val.getQty() * val.getPrice().doubleValue();
 
             int qtyReturn = listDetail.get(i).getQty();
             ReturnDetails obj = new ReturnDetails();
@@ -104,7 +110,11 @@ public class ReturnProductService {
         int saleId = repoDetail.getSaleId(re.getPaymentNo(),JavaConstant.currentDate);
         Optional<Sale> dataSale = repoSale.findById(saleId);
         Sale result = dataSale.get();
+      
+        double valueReturn = result.getTotal().doubleValue() - sumTotalReturn;
         result.setSaleIsReturn("returned");
+        result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn));
+        result.setTotalMinusTotalReturn(BigDecimal.valueOf(valueReturn));
         repoSale.save(result);
 
 

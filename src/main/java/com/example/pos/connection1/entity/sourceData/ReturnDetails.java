@@ -31,7 +31,7 @@ public class ReturnDetails {
     @Column(name = "retur_qty")
     private int qty;
 
-    @Column(name = "pro_name")
+    @Column(name = "pro_name_en")
     private String proName;
 
     

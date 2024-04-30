@@ -106,7 +106,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "        pos.pos_id = ? and pos.open_date = ?")
         String totalReturnQty(int userId, String date, String posId, String openDate);
 
-        @Query(nativeQuery = true, value = "\tselect sum(ps.total)  from pos_sale ps \r\n" + //
+        @Query(nativeQuery = true, value = "\tselect sum(ps.total_return)  from pos_sale ps \r\n" + //
                         "\twhere\r\n" + //
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
