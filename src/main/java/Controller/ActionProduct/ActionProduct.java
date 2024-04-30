@@ -325,7 +325,9 @@ public class ActionProduct {
                try {
 
                     if (listData.getProImageName() != null) {
-                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+
+//                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+                         product.setProductImage("http://103.101.80.108:8082/" + listData.getProImageName());
                     }
 
                } catch (Exception e) {
@@ -445,7 +447,9 @@ public class ActionProduct {
           }
 
           try {
-               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+//               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+                              box.setIconImage("http://103.101.80.108:8082//" + listData.getProImageName());
+
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
