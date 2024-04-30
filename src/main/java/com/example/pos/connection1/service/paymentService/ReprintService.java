@@ -1,5 +1,6 @@
 package com.example.pos.connection1.service.paymentService;
 
+import com.example.pos.connection1.DTO.ReturnDetailsProduct;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.Company;
 import com.example.pos.connection1.entity.projection.PaymentProjection;
@@ -151,12 +152,14 @@ public class ReprintService {
         map.put("customerType", paymentData.getCustomer_type());
         map.put("returned", paymentData.getIs_return());
         map.put("discount", paymentData.getDiscount().doubleValue());
-        List<SaleDetailProjection> dataSaleDetails = new ArrayList<>();
+        List<ReturnDetailsProduct> dataSaleDetails = new ArrayList<>();
 
         for (int i = 0; i < re.getDataDetails().size(); i++) {
-            var proId = re.getDataDetails().get(i).getProId();
-            SaleDetailProjection sale = saleDetailRepo.getDataDetailReturn(paymentData.getUser_id(),
-                    paymentData.getSale_id(), proId);
+            var data = re.getDataDetails().get(i);
+            // var proId = re.getDataDetails().get(i).getProId();
+            // SaleDetailProjection sale = saleDetailRepo.getDataDetailReturn(paymentData.getUser_id(),
+            //         paymentData.getSale_id(), proId);
+            ReturnDetailsProduct sale = new ReturnDetailsProduct(data.getQty(), data.getPrice(), data.getProName(), data.getBarcode());
             dataSaleDetails.add(sale);
         }
 

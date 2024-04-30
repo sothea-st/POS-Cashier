@@ -31,6 +31,13 @@ public class ReturnDetails {
     @Column(name = "retur_qty")
     private int qty;
 
+    @Column(name = "pro_name")
+    private String proName;
+
+    
+    @Column(name = "barcode")
+    private String barcode;
+
     @Column(name="return_price",scale = 2,precision = 10)
     private BigDecimal price ;
 
