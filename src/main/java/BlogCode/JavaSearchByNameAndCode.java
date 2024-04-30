@@ -4,6 +4,8 @@
  */
 package BlogCode;
 
+import Button.Button;
+import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
@@ -14,13 +16,16 @@ import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProduct;
 import Event.ButtonEvent;
 import LoginAndLogoutForm.LoginFormJdailog;
-import Model.PackageProduct.ProductModel;
-import Products.ProductBox;
+ 
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class JavaSearchByNameAndCode {
+     
+     private static ButtonCancel btnCancel;
+     private static Button btnPayment;
+     private static Button btnReturn;
 
      public static void searchProduct(JPanel panelProduct, SearchField searchBox, JPanel panelPagination, LoginFormJdailog jdFormLogin, JPanel category) {
           ButtonEvent event = new ButtonEvent() {
@@ -67,7 +72,7 @@ public class JavaSearchByNameAndCode {
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    if (JavaConstant.isReturn != null ) { // protect when cashier processing return
+                    if (JavaConstant.isReturn != null) { // protect when cashier processing return
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                          j.setMessage(JavaAlertMessage.returnMsg);
                          j.setVisible(true);
@@ -83,7 +88,16 @@ public class JavaSearchByNameAndCode {
                                    ActionScanBarcodeAddProduct a = new ActionScanBarcodeAddProduct();
                                    a.setPanelProduct(panelProduct);
                                    a.setDetailItem(detailItem);
-                                   a.scanBarcode(barcode, jdFormLogin);
+                                   a.setBtnCancel(btnCancel);
+                                   a.setBtnPayment(btnPayment);
+                                   a.setBtnReturn(btnReturn);
+
+                                   if (JavaConstant.returnByBarcode == null) {
+                                        a.scanBarcode(barcode, jdFormLogin);
+                                   } else {
+                                        a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.returnByBarcode); // JavaConstant.returnByBarcode is store value invoice number
+                                   }
+
                                    textField.setValueTextField("");
                               } else {
                                    j.setMessage(JavaConstant.openShiftFirst);
@@ -98,4 +112,31 @@ public class JavaSearchByNameAndCode {
           };
           textField.initEvent(eventData);
      }
+
+     public static ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
+
+     public static void setBtnCancel(ButtonCancel btnCancel) {
+          JavaSearchByNameAndCode.btnCancel = btnCancel;
+     }
+
+     public static Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public static void setBtnPayment(Button btnPayment) {
+          JavaSearchByNameAndCode.btnPayment = btnPayment;
+     }
+
+     public static Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public static void setBtnReturn(Button btnReturn) {
+          JavaSearchByNameAndCode.btnReturn = btnReturn;
+     }
+     
+     
+     
 }

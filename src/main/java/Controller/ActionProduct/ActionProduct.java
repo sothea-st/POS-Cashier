@@ -215,7 +215,7 @@ public class ActionProduct {
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
                                    if (qty > 0) {
-                                        if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null ) {
+                                        if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
                                              j.setMessage(JavaAlertMessage.returnMsg);
                                              j.setVisible(true);
                                              return;
@@ -244,28 +244,31 @@ public class ActionProduct {
                     }
                };
 
+               //    =============================== for update qty ===========================
                Component[] listDetailItem = detailItem.getComponents();
 
                int qtyForShow = listData.getQty();
 
-               if (listDetailItem.length > 0) {
-                    for (Component c : listDetailItem) {
-                         var objData = ((BoxItem) c);
-                         if (listData.getBarcode().equals(objData.getLabelBarcode())) {
-                              int saleQty = objData.getQty();
-                              qtyForShow = qtyForShow - saleQty;
-                              break;
+               if (JavaConstant.returnByBarcode == null) { // if cashier use function return this not working
+                    if (listDetailItem.length > 0) {
+                         for (Component c : listDetailItem) {
+                              var objData = ((BoxItem) c);
+                              if (listData.getBarcode().equals(objData.getLabelBarcode())) {
+                                   int saleQty = objData.getQty();
+                                   qtyForShow = qtyForShow - saleQty;
+                                   break;
+                              }
                          }
                     }
-               }
 
-//               =============== update qty with hole ==================
-               if (listHoldData.length > 0) {
-                    for (DataListHold c : listHoldData) {
-                         ListDetailHold[] l = c.getListDetails();
-                         for (ListDetailHold dd : l) {
-                              if (dd.getBarcode().equals(listData.getBarcode())) {
-                                   qtyForShow = qtyForShow - dd.getQty();
+                    //   =============== update qty with hole ==================
+                    if (listHoldData.length > 0) {
+                         for (DataListHold c : listHoldData) {
+                              ListDetailHold[] l = c.getListDetails();
+                              for (ListDetailHold dd : l) {
+                                   if (dd.getBarcode().equals(listData.getBarcode())) {
+                                        qtyForShow = qtyForShow - dd.getQty();
+                                   }
                               }
                          }
                     }
@@ -276,6 +279,7 @@ public class ActionProduct {
                product.initEvent(event);
 
                product.setOrgQty(listData.getQty());
+
 //================================Product Status============================
                if (listData.getQty() > 0) {
                     product.setProductStatus(listData.getProductStatus());
@@ -342,12 +346,15 @@ public class ActionProduct {
      }
 
      public void eventBtnBuy(ProductModel listData, int qtyData, ProductBox product) {
+          BoxItem box = new BoxItem();
+          if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
+               box.setMaxQty(listData.getQty());
+          }
 
           double price = listData.getPrice();
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
-          BoxItem box = new BoxItem();
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
 
@@ -368,6 +375,13 @@ public class ActionProduct {
 
                          double _discountUnit = JavaConstant.getReplace(obj.getDiscountAmount());
                          qty++;
+
+                         if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
+                              if (qty > listData.getQty()) {
+                                   return;
+                              }
+                         }
+
                          obj.setQty(qty);
                          double newAmountUsd = qty * price;
                          if (listData.getDiscount() > 0) {
@@ -453,9 +467,12 @@ public class ActionProduct {
           box.setSubtotalPanel(subtotalPanel);
           box.setListCom(listCom1);
 
-          btnPayment.setBackground(WindowColor.lightBlue);
-          buttonHoldOrder.setBackground(WindowColor.yellow);
-          btnCancel.setBackground(WindowColor.darkred);
+          if (JavaConstant.returnByBarcode == null) {
+               btnPayment.setBackground(WindowColor.lightBlue);
+               buttonHoldOrder.setBackground(WindowColor.yellow);
+               btnCancel.setBackground(WindowColor.darkred);
+
+          }
 
 //          detailItem.setBackground(WindowColor.slightGreen);
 //          detailItem.setBorder(null);

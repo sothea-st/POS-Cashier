@@ -146,6 +146,11 @@ public class MainPage extends javax.swing.JFrame {
           JavaEventNextPrevious.eventNext(next, limit, jdFormLogin);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
+          
+          JavaSearchByNameAndCode j = new JavaSearchByNameAndCode();
+          j.setBtnCancel(btnCancel);
+          j.setBtnPayment(btnPayment);
+          j.setBtnReturn(btnReturn);
           JavaSearchByNameAndCode.scanProduct(textField, jdFormLogin, panelProduct, detailItem); // function scan barcode or input barcode
 
           // this event for place holder
@@ -538,8 +543,7 @@ public class MainPage extends javax.swing.JFrame {
                                         .addGap(27, 27, 27)
                                         .addComponent(lbPOSId, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                              .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))))
                          .addGroup(mainPanelLayout.createSequentialGroup()
                               .addGap(29, 29, 29)
                               .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

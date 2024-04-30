@@ -227,14 +227,16 @@ public class JdialogConfirmReturn extends javax.swing.JDialog {
                double amount = JavaConstant.getReplace(obj.getLabelAmountUsd());
                double discountDigit = obj.getDiscountDigit();
 
-               ReturnProductModel pro = new ReturnProductModel(
-                    obj.getProductId(),
-                    obj.getQty(),
-                    price,
-                    amount,
-                    discountDigit
-               );
-               dataDetails.add(pro);
+//               ReturnProductModel pro = new ReturnProductModel(
+//                    obj.getProductId(),
+//                    obj.getQty(),
+//                    price,
+//                    amount,
+//                    discountDigit,
+//                    obj.getLabelProductName(),
+//                    obj.getLabelBarcode()
+//               );
+//               dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
 

@@ -238,7 +238,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                j.setVisible(true);
                return;
           }
-          pro.eventBtnBuy(proModel, proModel.getQty(), new ProductBox());
+
+          if (JavaConstant.returnByBarcode == null) {
+               pro.eventBtnBuy(proModel, proModel.getQty(), new ProductBox());
+          } else {
+               pro.eventBtnBuy(proModel, 1, new ProductBox()); // this working when cashier use function return
+          }
      }
 
      DataListHold[] listHoldData;
@@ -274,16 +279,17 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           }
 
           if (JavaConstant.returnByBarcode != null) {
-               Component[] listDetails = detailItem.getComponents();
-               for (Component c : listDetails) {
-                    var _data = ((BoxItem) c);
-                    int _qty = _data.getQty();
-                    if (JavaConstant.qtyReturn != null) { // check with qty return
-                         if (_qty > JavaConstant.qtyReturn - 1) {
-                              return;
-                         }
-                    } 
-               }
+
+//               Component[] listDetails = detailItem.getComponents();
+//               for (Component c : listDetails) {
+//                    var _data = ((BoxItem) c);
+//                    int _qty = _data.getQty();
+//                    if (JavaConstant.qtyReturn != null) { // check with qty return
+//                         if (_qty > JavaConstant.qtyReturn - 1) {
+//                              return;
+//                         }
+//                    } 
+//               }
                pro.eventBtnBuy(proModel, 1, new ProductBox());
                return;
           }
@@ -295,11 +301,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     if (data.getLabelBarcode().equals(proModel.getBarcode())) {
                          qtySale = data.getQty();
                          qtySale++;
-                         if (JavaConstant.qtyReturn != null) { // check with qty return
-                              if (qtySale > JavaConstant.qtyReturn) {
-                                   return;
-                              }
-                         }
+//                         if (JavaConstant.qtyReturn != null) { // check with qty return
+//                              if (qtySale > JavaConstant.qtyReturn) {
+//                                   return;
+//                              }
+//                         }
                     }
                }
           }
@@ -351,6 +357,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                }
           }
+
           pro.eventBtnBuy(proModel, 1, new ProductBox());
 
      }

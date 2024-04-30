@@ -9,16 +9,20 @@ public class ReturnProductModel {
     private double price;
     private double amount;
     private double discount;
+    private String proName;
+    private String barcode;
 
     public ReturnProductModel() {
     }
 
-    public ReturnProductModel(int proId, int qty, double price, double amount,double discount) {
+    public ReturnProductModel(int proId, int qty, double price, double amount,double discount,String proName, String barcode) {
         this.proId = proId;
         this.qty = qty;
         this.price = price;
         this.amount = amount;
         this.discount = discount;
+        this.proName = proName;
+        this.barcode = barcode;
     }
 
     public int getProId() {
@@ -60,6 +64,22 @@ public class ReturnProductModel {
     public void setDiscount(double discount) {
         this.discount = discount;
     }
+
+     public String getProName() {
+          return proName;
+     }
+
+     public void setProName(String proName) {
+          this.proName = proName;
+     }
+
+     public String getBarcode() {
+          return barcode;
+     }
+
+     public void setBarcode(String barcode) {
+          this.barcode = barcode;
+     }
     
     
     

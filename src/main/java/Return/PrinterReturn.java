@@ -132,8 +132,7 @@ public class PrinterReturn extends javax.swing.JDialog {
 
                String[] parts = data.getPaymentNo().split("-");
                parts[2] = newInvoice;
-               String _payNo = parts[0] + "-" +parts[1] + "-" +parts[2] + "-" +parts[3];
-               
+               String _payNo = parts[0] + "-" + parts[1] + "-" + parts[2] + "-" + parts[3];
 
                invoiceNo1.setText(_payNo);
                cashier.setText(data.getEmpName());
@@ -144,9 +143,23 @@ public class PrinterReturn extends javax.swing.JDialog {
                }
 
                displayProduct(data);
-               totalprice.setText(dm.format(data.getTotal()));
-               double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
-               totalKhr.setText(kh.format(totalkh));
+
+//               if (JavaConstant.returnByBarcode != null) {
+//                    System.err.println("3333333333333333333");
+                    double sum = 0;
+                    for (SaleDetailModel s : data.getSaleDetails()) {
+                         sum += s.getPrice() * s.getQty();
+                    }
+
+                    totalprice.setText(dm.format(sum));
+                    double totalkh = JavaRoundDown.roundDown("" + sum * JavaConstant.exchangeRate);
+                    totalKhr.setText(kh.format(totalkh));
+
+//               } else {
+//                    totalprice.setText(dm.format(data.getTotal()));
+//                    double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
+//                    totalKhr.setText(kh.format(totalkh));
+//               }
 
                if (data.getDiscount() != 0) {
                     discount.setText(dm.format(data.getDiscount()));

@@ -1,6 +1,7 @@
 package Components;
 
 import BlogCode.JavaActionDiscount;
+import Button.ButtonAddProduct;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
@@ -203,6 +204,14 @@ public class BoxItem extends javax.swing.JPanel {
           this.txtDiscount = txtDiscount;
      }
 
+     public ButtonAddProduct getButtonAddProduct() {
+          return buttonAddProduct;
+     }
+
+     public void setButtonAddProduct(ButtonAddProduct buttonAddProduct) {
+          this.buttonAddProduct = buttonAddProduct;
+     }
+
      //=================================================
      public void initEvent(ButtonEvent event) {
           btnDelete.addMouseListener(new MouseListener() {
@@ -314,6 +323,14 @@ public class BoxItem extends javax.swing.JPanel {
           this.panelProduct = panelProduct;
      }
 
+     public int getMaxQty() {
+          return maxQty;
+     }
+
+     public void setMaxQty(int maxQty) {
+          this.maxQty = maxQty;
+     }
+
      /**
       * Creates new form BoxItem
       */
@@ -344,6 +361,7 @@ public class BoxItem extends javax.swing.JPanel {
      private ProductBox productBox;
      private int lbQty;
      private JPanel panelProduct;
+     private int maxQty;
 
      public BoxItem() {
           initComponents();
@@ -444,14 +462,20 @@ public class BoxItem extends javax.swing.JPanel {
                getQty++;
 
                if (JavaConstant.returnByBarcode != null) {   /// ====== when cashier return by barcode
-
-                    if (JavaConstant.qtyReturn != null) {
-                         if (getQty > JavaConstant.qtyReturn) {
-                              return;
-                         }
+                    
+                    int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
+                    qtyTmp++;
+               
+                    if (qtyTmp > getMaxQty()) {
+                         return;
                     }
-//                       calculateQtyReturn("+");
 
+//                    if (JavaConstant.qtyReturn != null) {
+//                         if (getQty > JavaConstant.qtyReturn) {
+//                              return;
+//                         }
+//                    }
+//                       calculateQtyReturn("+");
                } else {
                     Component[] listCome1 = panelProduct.getComponents();
                     for (Component c : listCome1) {
@@ -503,15 +527,15 @@ public class BoxItem extends javax.swing.JPanel {
           } else if (sign == "-") {
                getHold();
                // remove qty 
-
+               getQty--;
                if (JavaConstant.returnByBarcode != null) { /// ====== when cashier return by barcode
-                    if (getQty == 1) {
-                         return;
-                    }
-                    getQty--;
+//                    if (getQty == 1) {
+//                         return;
+//                    }
+//                    getQty--;
 //                  calculateQtyReturn("-");
                } else {
-                    getQty--;
+
                     Component[] listCome1 = panelProduct.getComponents();
                     for (Component c : listCome1) {
                          var data = ((ProductBox) c);

@@ -10,6 +10,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import javax.swing.JLabel;
 
 /**
  *
@@ -41,6 +42,16 @@ public class ButtonAddProduct extends javax.swing.JPanel {
 
      }
 
+     public JLabel getLbQty() {
+          return lbQty;
+     }
+
+     public void setLbQty(JLabel lbQty) {
+          this.lbQty = lbQty;
+     }
+
+     
+     
      protected void paintComponent(Graphics g) {
           super.paintComponent(g);
           Dimension arcs = new Dimension(15, 15); //Border corners arcs {width,height}, change this to whatever you want

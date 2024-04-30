@@ -88,7 +88,9 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          for (int i = 0; i < listProduct.length; i++) {
                               var obj = listProduct[i];
                               JavaConstant.qtyReturn = obj.getQty();
-
+                              JavaConstant.returnByBarcode = invoice;
+                              btnPayment.setButtonName("Return");
+                              btnPayment.setBackground(WindowColor.lightBlue);
                               product = new ProductModel(
                                    obj.getID(),
                                    obj.getCatID(),
@@ -102,34 +104,10 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                                    obj.getProNameEn(),
                                    obj.getProductStatus(),
                                    obj.getDiscount(),
-                                   1
+                                   obj.getQty()
                               );
                               jdFormLogin.scanbarCodeAddProduct(product);
-                              
-
-//                              Component[] listPanelProduct = panelProduct.getComponents();
-//                              Component[] listDetails = detailItem.getComponents();
-//                              
-//                              for( Component c : listDetails ) {
-//                                   var _data = ((BoxItem)c);
-//                                   int _qty =  _data.getQty();
-//                                   for( Component cc : listPanelProduct ) {
-//                                        var pp = ((ProductBox)cc);
-//                                        int _qtyPanel = Integer.parseInt(pp.getQty());
-//                                        if( pp.getBarcode().equals(_data.getLabelBarcode()) ) {
-//                                             _qtyPanel = _qtyPanel + _qty;
-//                                             pp.setQty(""+_qtyPanel);
-//                                             break;
-//                                        }
-//                                   }
-//                              }
-
-                              
                          }
-
-                         JavaConstant.returnByBarcode = "returnByBarcode";
-                         btnPayment.setButtonName("Return");
-//                         JavaConstant.isReturn = "return";
                          btnReturn.setBackground(WindowColor.lightGray);
                     }
                } catch (Exception e) {
@@ -200,6 +178,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      void func(Response response, LoginFormJdailog jdFormLogin) {
           try {
                if (response.isSuccessful()) {
+
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);

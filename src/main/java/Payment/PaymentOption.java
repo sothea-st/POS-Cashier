@@ -1595,7 +1595,9 @@ public class PaymentOption extends javax.swing.JDialog {
                     obj.getQty(),
                     price,
                     amount,
-                    discountDigit
+                    discountDigit,
+                    obj.getLabelProductName(),
+                    obj.getLabelBarcode()
                );
                dataDetails.add(pro);
           }
@@ -1606,7 +1608,7 @@ public class PaymentOption extends javax.swing.JDialog {
           if (responseReturn.isSuccessful()) {
 
 //               if (JavaConstant.returnByBarcode == null) {
-                    JavaConstant.setBackQty(detailItem, panelProduct);
+               JavaConstant.setBackQty(detailItem, panelProduct);
 //               }
                JavaConstant.isReturn = null;
                JavaConstant.returnByBarcode = null;
