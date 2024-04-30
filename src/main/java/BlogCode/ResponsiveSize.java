@@ -111,6 +111,7 @@ public class ResponsiveSize {
           a.setBtnPayment(btnPayment);
           a.setBtnCancel(btnCancel);
           a.setButtonHoldOrder(buttonHoldOrder);
+          a.setPanelProduct(panelProduct);
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
           if (jdFormLogin.getCatId() == 0) {

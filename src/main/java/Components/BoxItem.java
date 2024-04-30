@@ -852,12 +852,16 @@ public class BoxItem extends javax.swing.JPanel {
      }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
+         
+         
          if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
               j.setMessage(JavaAlertMessage.returnMsg);
               j.setVisible(true);
               return;
          }
+         
+      
 
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();

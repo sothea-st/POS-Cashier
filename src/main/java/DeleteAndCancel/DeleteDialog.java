@@ -323,6 +323,7 @@ public class DeleteDialog extends javax.swing.JDialog {
                    return;
               }
          } catch (Exception e) {
+                 System.err.println("3333333333 e = " + e);
          }
 
     }//GEN-LAST:event_buttonSave1MouseClicked
