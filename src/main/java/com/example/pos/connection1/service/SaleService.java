@@ -66,7 +66,7 @@ public class SaleService {
     private ReprintService reprintService;
 
     // this function will return invoice
-    public HashMap<String, Object> saleProduct(Sale s) throws Exception {
+    public Map<String, Object> saleProduct(Sale s) throws Exception {
         var createBy = session.getAttribute(JavaConstant.userId);
 
         int userId = s.getUserId();
@@ -135,31 +135,7 @@ public class SaleService {
         String paymentNo = paymentNo(count, s.getPosId());
         String paymentBarcode = paymentBarcode(count);
         addPayment(paymentNo, saleId, p, userId, paymentBarcode);
-        // Company companyInfo = repoCompany.getInfoCompany();
-        // map.put("companyName", companyInfo.getCompanyName());
-        // map.put("vattin", companyInfo.getVattin());
-        // map.put("companyContact", companyInfo.getContact());
-        // map.put("companyAddress", companyInfo.getAddress());
-        // map.put("companyLogo", companyInfo.getPhoto());
-        // String empName = repoUser.getNameEmp(userId);
-        // map.put("empName", empName);
-        // map.put("saleDate", s.getSaleDate());
-        // map.put("paymentNo", paymentNo);
-        // map.put("paymentBarcode", paymentBarcode);
-        // map.put("total", s.getTotal());
-        // // map.put("totalKhr", s.getTotal());
-        // map.put("receiveUsd", p.getReceiveUsd());
-        // map.put("receiveKhr", p.getReceiveKhr());
-        // map.put("changeUsd", p.getChangeUsd());
-        // map.put("changeKhr", p.getChangeKhr());
-        // map.put("receiveUsd", p.getReceiveUsd());
-        // map.put("receiveKhr", p.getReceiveKhr());
-        // map.put("customerType", "អតិថិជនទូទៅ");
-        // map.put("returned", null);
-
-        // List<SaleDetailProjection> listProjection = repoDetail.getDataDetail(userId ,
-        // saleId);
-        // map.put("saleDetails", listProjection);
+         
         return reprintService.readData("");
 
     }

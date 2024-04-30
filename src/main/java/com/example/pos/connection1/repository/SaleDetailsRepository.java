@@ -12,10 +12,18 @@ import java.util.*;
 @Repository
 public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer> {
 
+        Optional<SaleDetail> findBySaleIdAndProductId(int saleId, int proId);
+
         @Query(nativeQuery = true, value = "select psd.price,psd.qty,pp.pro_name_en,pp.barcode from pos_sale ps \r\n" + //
                         " inner join pos_sale_details psd on psd.sale_id = ps.id\r\n" + //
                         " inner join pos_product pp on pp.id = psd.pro_id\r\n" + //
-                        " where ps.user_id = ? and psd.sale_id = ?")
+                        " where ps.user_id = ? and psd.sale_id = ? and psd.pro_id = ?  and psd.is_returned = 'returned' ")
+        SaleDetailProjection getDataDetailReturn(int userId, int saleId,int productId);
+
+        @Query(nativeQuery = true, value = "select psd.price,psd.qty,pp.pro_name_en,pp.barcode from pos_sale ps \r\n" + //
+                        " inner join pos_sale_details psd on psd.sale_id = ps.id\r\n" + //
+                        " inner join pos_product pp on pp.id = psd.pro_id\r\n" + //
+                        " where ps.user_id = ? and psd.sale_id = ?  ")
         List<SaleDetailProjection> getDataDetail(int userId, int saleId);
 
         @Query(nativeQuery = true, value = "select sum( ( ( pp.price * psd.discount  )/100 )*psd.qty  )   from pos_sale ps\r\n"

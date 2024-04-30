@@ -41,6 +41,9 @@ public class SaleDetail {
     @Column(name = "discount_type")
     private String discountType;
 
+    @Column(name = "is_returned")
+    private String isReturned;
+
     @Column(name = "create_by")
     private int createBy;
 

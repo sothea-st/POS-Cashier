@@ -67,12 +67,11 @@ public class SearchByBarcodeOrNameService {
                 ProductModel p = proModelQty(val, val.getQty());
                 list.add(p);
             }
-
         } else {
             data = repo.searchProductWithInvoiceNoAndBarcode(invoiceNo, barcode);
             for (int i = 0; i < data.size(); i++) {
                 var val = data.get(i);
-                ProductModel p = proModelQty(val, 1);
+                ProductModel p = proModelQty(val, val.getQty());
                 list.add(p);
             }
         }
