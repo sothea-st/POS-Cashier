@@ -1,4 +1,4 @@
-package com.example.pos.connection2.entity;
+package com.example.pos.connection2.DTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ProductByCategoryModel {
+public class ProductByCategoryDTO {
      @Id
      private int id;
      private String name;
