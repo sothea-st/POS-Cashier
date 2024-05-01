@@ -268,7 +268,7 @@
                               <Component id="lbSeven" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lbZero" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="labelFontBlack2" min="-2" max="-2" attributes="0"/>
                               <Component id="labelFontBlack5" min="-2" max="-2" attributes="0"/>

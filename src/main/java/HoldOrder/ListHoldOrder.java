@@ -341,9 +341,11 @@ public class ListHoldOrder extends javax.swing.JDialog {
           box.setDiscountType(listData.getDiscountType());
 
           try {
-               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-               byte[] images = responseProductImage.body().bytes();
-               box.setIconImage(new ImageIcon(images));
+//               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
+//               byte[] images = responseProductImage.body().bytes();
+//               box.setIconImage(new ImageIcon(images));
+                box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
@@ -547,7 +549,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                                              int qty = holdQty + qtyShow;
                                              datas.setQty("" + qty);
                                              datas.setProductStatus(JavaMessage.inStock);
-                                             
+
                                              break;
                                         }
                                    }

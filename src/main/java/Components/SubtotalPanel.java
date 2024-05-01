@@ -226,36 +226,36 @@ public class SubtotalPanel extends javax.swing.JPanel {
           double valueKh = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
           subtotalPanel.setLableTotalKhr(kh.format(valueKh));
 
-          //          String khValue = kh.format(total * JavaConstant.exchangeRate);
-          //          khValue = khValue.replaceAll(",", "");
-          //          //          khValue = "9999967";
-          //          int l = khValue.length();
-          //          int begin = l - 2;
-          //          String last2Number = khValue.substring(begin, l);
-          //          String value = "";
-          //          if (!last2Number.equals("00")) {
-          //               String[] listStr = khValue.split("");
-          //               int lengthChar = listStr.length;
-          //
-          //               switch (lengthChar) {
-          //                    case 3:
-          //                         value = JavaRoundUpKhr.roundUp3length(listStr);
-          //                         break;
-          //                    case 4:
-          //                         value = JavaRoundUpKhr.roundUpKhr4length(listStr);
-          //                         break;
-          //                    case 5:
-          //                         value = JavaRoundUpKhr.roundUpKhr5length(listStr);
-          //                         break;
-          //                    case 6:
-          //                         value = JavaRoundUpKhr.roundUpKhr6length(listStr);
-          //                         break;
-          //                    case 7:
-          //                         value = JavaRoundUpKhr.roundUpKhr7length(listStr);
-          //                         break;
-          //               }
-          //          }
-          //          System.err.println("data value = " + value);
+//                    String khValue = kh.format(total * JavaConstant.exchangeRate);
+//                    khValue = khValue.replaceAll(",", "");
+//                    //          khValue = "9999967";
+//                    int l = khValue.length();
+//                    int begin = l - 2;
+//                    String last2Number = khValue.substring(begin, l);
+//                    String value = "";
+//                    if (!last2Number.equals("00")) {
+//                         String[] listStr = khValue.split("");
+//                         int lengthChar = listStr.length;
+//          
+//                         switch (lengthChar) {
+//                              case 3:
+//                                   value = JavaRoundUpKhr.roundUp3length(listStr);
+//                                   break;
+//                              case 4:
+//                                   value = JavaRoundUpKhr.roundUpKhr4length(listStr);
+//                                   break;
+//                              case 5:
+//                                   value = JavaRoundUpKhr.roundUpKhr5length(listStr);
+//                                   break;
+//                              case 6:
+//                                   value = JavaRoundUpKhr.roundUpKhr6length(listStr);
+//                                   break;
+//                              case 7:
+//                                   value = JavaRoundUpKhr.roundUpKhr7length(listStr);
+//                                   break;
+//                         }
+//                    }
+//                    System.err.println("data value = " + value);
      }
 
      

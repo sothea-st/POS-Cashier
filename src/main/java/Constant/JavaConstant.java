@@ -35,7 +35,25 @@ import okhttp3.MediaType;
 
 public class JavaConstant {
 
-     public static String urlImage = "http://localhost:8090/";
+     public static String insertComma(String str) {
+          StringBuilder sb = new StringBuilder(str);
+          int length = sb.length();
+          // Start from the end of the string and insert comma every 3 characters
+          for (int i = length - 3; i > 0; i -= 3) {
+               sb.insert(i, ",");
+          }
+          return sb.toString();
+     }
+
+     public static void setCircleLoadingCursor(Component component) {
+          component.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+     }
+
+     public static void restoreDefaultCursor(Component component) {
+          component.setCursor(Cursor.getDefaultCursor());
+     }
+
+     public static String urlImage = "http://103.101.80.108:8082//";
 
      public static void setPointer(JLabel jLabel) {
           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -91,6 +109,7 @@ public class JavaConstant {
      public static String admin = "Admin";
 
      public static double exchangeRate = 4150;
+     public static double exchangeRate4050 = 4050;
 
      public static double getReplace(String value) {
           String data = value.replace("$", "");

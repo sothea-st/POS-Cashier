@@ -91,6 +91,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button buttonDiscount;
      private Button buttonCustomer;
      private LabelTitle breadcrumb;
+     private JFrame mainFrame;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -375,6 +376,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          json.put("userCode", userId);
          json.put("password", password);
          json.put("deviceName", deviceName);
+         
+         JavaConstant.setCircleLoadingCursor(mainFrame);
 
          try {
 
@@ -465,6 +468,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    }
 
                    JavaConstant.isOpenShift = null;
+                   
+                    JavaConstant.restoreDefaultCursor(mainFrame);
 
               } else {
                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
@@ -887,6 +892,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setBreadcrumb(LabelTitle breadcrumb) {
           this.breadcrumb = breadcrumb;
      }
+
+     public JFrame getMainFrame() {
+          return mainFrame;
+     }
+
+     public void setMainFrame(JFrame mainFrame) {
+          this.mainFrame = mainFrame;
+     }
+     
+     
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
