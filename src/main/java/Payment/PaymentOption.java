@@ -1744,10 +1744,9 @@ public class PaymentOption extends javax.swing.JDialog {
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
           if (responseReturn.isSuccessful()) {
-
-//               if (JavaConstant.returnByBarcode == null) {
+ 
                JavaConstant.setBackQty(detailItem, panelProduct);
-//               }
+ 
                JavaConstant.isReturn = null;
                JavaConstant.returnByBarcode = null;
                JavaConstant.qtyReturn = null;

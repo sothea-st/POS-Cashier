@@ -805,6 +805,7 @@ public class MainPage extends javax.swing.JFrame {
                    }
 
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
+                   approval.setBoxOne(boxOne);
                    approval.setDetailItem(detailItem);
                    approval.setPanelProduct(panelProduct);
                    approval.setJdFormLogin(jdFormLogin);

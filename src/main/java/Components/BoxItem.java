@@ -347,16 +347,22 @@ public class BoxItem extends javax.swing.JPanel {
           this.oldDiscount = oldDiscount;
      }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
-    
-     
+     public JPanel getBoxOne() {
+          return boxOne;
+     }
+
+     public void setBoxOne(JPanel boxOne) {
+          this.boxOne = boxOne;
+     }
+
      /**
       * Creates new form BoxItem
       */
@@ -391,6 +397,7 @@ public class BoxItem extends javax.swing.JPanel {
      private double oldDiscount;
      private Button.Button btnReturn;
      private JLabel titleOrder;
+     private JPanel boxOne;
 
      public BoxItem() {
           initComponents();
@@ -910,8 +917,7 @@ public class BoxItem extends javax.swing.JPanel {
           double sumSubTotalUsd = 0;
           double sumDiscount = 0;
           Component[] listC = detailItem.getComponents();
-    
-          
+
           for (int i = 0; i < listC.length; i++) {
                var d = (BoxItem) listC[i];
                if (productId == d.getProductId()) {
@@ -936,17 +942,6 @@ public class BoxItem extends javax.swing.JPanel {
                }
           }
 
-//          Component[] l = detailItem.getComponents();
-
-          if (listC.length == 0) {
-               btnPayment.setBackground(WindowColor.lightGray);
-               btnCancel.setBackground(WindowColor.lightGray);
-               buttonHoldOrder.setBackground(WindowColor.lightGray);
-               btnReturn.setBackground(WindowColor.brown);
-               subtotalPanel.setLabelSubTitleToZero();
-               return;
-          }
-
           subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
           double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
           subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
@@ -960,6 +955,28 @@ public class BoxItem extends javax.swing.JPanel {
           subtotalPanel.setLableTotalUsd(dm.format(total));
           double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
           subtotalPanel.setLableTotalKhr(kh.format(_total));
+
+          //          Component[] l = detailItem.getComponents();
+          if (listC.length == 1) {
+               btnPayment.setBackground(WindowColor.lightGray);
+               btnCancel.setBackground(WindowColor.lightGray);
+               buttonHoldOrder.setBackground(WindowColor.lightGray);
+               btnReturn.setBackground(WindowColor.brown);
+               subtotalPanel.setLabelSubTitleToZero();
+               detailItem.setBackground(WindowColor.mediumGreen);
+
+               btnPayment.setButtonName("Payment");
+               titleOrder.setText("CURRENT ORDER");
+               detailItem.setBackground(WindowColor.slightGreen);
+               detailItem.setBorder(null);
+
+//               ============= success delete reset value to default =============
+               JavaConstant.setBackQty(detailItem, panelProduct);
+               JavaConstant.isReturn = null;
+               JavaConstant.returnByBarcode = null;
+               JavaConstant.qtyReturn = null;
+               JavaConstant.returnByBarcode = null;
+          }
      }
 
 
@@ -981,22 +998,22 @@ public class BoxItem extends javax.swing.JPanel {
 //              }
 
               if (JavaConstant.productId == productId) {
-                    
-                    this.setBorder(BorderFactory.createLineBorder(Color.RED));
-                    this.revalidate();
-                    this.repaint();
-                    JavaActionDiscount.discount(detailItem, subtotalPanel);
-                    
-                    for (int i = 0; i < listCom1.length; i++) {
-                         var obj = ((BoxItem) listCom1[i]);
 
-                         if(obj.getOldDiscount()> 0){
-                              this.setBorder(null);
-                              this.revalidate();
-                              this.repaint();
-                              return;
-                         }
-                    }
+                   this.setBorder(BorderFactory.createLineBorder(Color.RED));
+                   this.revalidate();
+                   this.repaint();
+                   JavaActionDiscount.discount(detailItem, subtotalPanel);
+
+                   for (int i = 0; i < listCom1.length; i++) {
+                        var obj = ((BoxItem) listCom1[i]);
+
+                        if (obj.getOldDiscount() > 0) {
+                             this.setBorder(null);
+                             this.revalidate();
+                             this.repaint();
+                             return;
+                        }
+                   }
               }
          }
 

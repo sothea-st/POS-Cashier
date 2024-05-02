@@ -208,7 +208,8 @@ public class TextField extends javax.swing.JPanel {
           if (comma != null) {
                // ================ 3 length insert comma =========
                JavaConstant.setCommaIn3Length(txtText);
-               
+
+   
           }
 
 
