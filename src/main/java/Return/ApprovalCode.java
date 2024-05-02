@@ -16,6 +16,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ApprovalCode extends javax.swing.JDialog {
@@ -27,6 +28,7 @@ public class ApprovalCode extends javax.swing.JDialog {
      private Button btnHold;
      private Button btnReturn;
      private Button btnDiscount;
+     private JLabel titleOrder;
      
      private JPanel detailItem;
      private JPanel panelProduct;
@@ -218,6 +220,7 @@ public class ApprovalCode extends javax.swing.JDialog {
                              returnD.setBtnDiscount(btnDiscount);
                              returnD.setDetailItem(detailItem);
                              returnD.setPanelProduct(panelProduct);
+                             returnD.setTitleOrder(titleOrder);
                              returnD.setVisible(true);
                              JavaConstant.returnerId = model.getID();
                         } else if (typeForm.equals("reprint")) {
@@ -348,6 +351,15 @@ public class ApprovalCode extends javax.swing.JDialog {
           this.btnHold = btnHold;
      }
 
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+
+     
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private ButtonPackage.ButtonCancel buttonCancel;

@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -34,6 +35,7 @@ public class ResponsiveSize {
      private Button buttonHoldOrder;
      private LoginFormJdailog jdFormLogin;
      private Button btnReturn;
+     private JLabel titleOrder;
 
      public ResponsiveSize(
           JPanel detailItem,
@@ -43,7 +45,8 @@ public class ResponsiveSize {
           ButtonCancel btnCancel,
           Button buttonHoldOrder,
           LoginFormJdailog jdFormLogin,
-          Button btnReturn
+          Button btnReturn,
+          JLabel titleOrder
      ) {
      
           this.detailItem = detailItem;
@@ -54,6 +57,7 @@ public class ResponsiveSize {
           this.buttonHoldOrder = buttonHoldOrder;
           this.jdFormLogin = jdFormLogin;
           this.btnReturn = btnReturn;
+          this.titleOrder = titleOrder;
      }
 
      public void resizeEvent(MainPage mainPage) {
@@ -116,6 +120,7 @@ public class ResponsiveSize {
           a.setButtonHoldOrder(buttonHoldOrder);
           a.setPanelProduct(panelProduct);
           a.setBtnReturn(btnReturn);
+          a.setTitleOrder(titleOrder);
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
           if (jdFormLogin.getCatId() == 0) {

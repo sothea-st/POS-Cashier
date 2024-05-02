@@ -62,6 +62,7 @@ public class ActionProduct {
      private int count;
      private ButtonCancel btnCancel;
      public static int marginRight = 15;
+     private JLabel titleOrder;
 
      public ActionProduct() {
      }
@@ -325,7 +326,9 @@ public class ActionProduct {
                try {
 
                     if (listData.getProImageName() != null) {
-                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+
+//                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+                         product.setProductImage(JavaConstant.urlImage  + listData.getProImageName());
                     }
 
                } catch (Exception e) {
@@ -364,6 +367,7 @@ public class ActionProduct {
           box.setButtonHoldOrder(buttonHoldOrder);
           box.setBtnCancel(btnCancel);
           box.setBtnReturn(btnReturn);
+          box.setTitleOrder(titleOrder);
           box.setLbQty(listData.getQty());
           Component[] listCom = detailItem.getComponents();
 
@@ -445,7 +449,9 @@ public class ActionProduct {
           }
 
           try {
-               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+//               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+               box.setIconImage(JavaConstant.urlImage  + listData.getProImageName());
+
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
@@ -475,14 +481,17 @@ public class ActionProduct {
                buttonHoldOrder.setBackground(WindowColor.yellow);
                btnCancel.setBackground(WindowColor.darkred);
                btnReturn.setBackground(WindowColor.lightGray);
+               titleOrder.setVisible(true);
+               titleOrder.setText("CURRENT ORDER");
           }
+          
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
           btnReturn.setBackground(WindowColor.lightGray);
+          titleOrder.setVisible(true);
+          titleOrder.setText("CURRENT ORDER");
 
-//          detailItem.setBackground(WindowColor.slightGreen);
-//          detailItem.setBorder(null);
      }
 
      public int getCount() {
@@ -589,13 +598,22 @@ public class ActionProduct {
           this.btnCancel = btnCancel;
      }
 
-    public Button getBtnReturn() {
-        return btnReturn;
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
+
+    public JLabel getTitleOrder() {
+        return titleOrder;
     }
 
-    public void setBtnReturn(Button btnReturn) {
-        this.btnReturn = btnReturn;
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
     }
-
      
+     
+
 }

@@ -347,6 +347,15 @@ public class BoxItem extends javax.swing.JPanel {
         this.oldDiscount = oldDiscount;
     }
 
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+
+    
      
      /**
       * Creates new form BoxItem
@@ -381,6 +390,7 @@ public class BoxItem extends javax.swing.JPanel {
      private int maxQty;
      private double oldDiscount;
      private Button.Button btnReturn;
+     private JLabel titleOrder;
 
      public BoxItem() {
           initComponents();
@@ -885,7 +895,6 @@ public class BoxItem extends javax.swing.JPanel {
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();
 
-         System.out.println("ellooooooo");
          DeleteDialog delete = new DeleteDialog(new JFrame(), true);
          delete.setDetailItem(detailItem);
          delete.setListCom(listDelete);
@@ -897,6 +906,7 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setButtonHoldOrder(buttonHoldOrder);
          delete.setBtnReturn(btnReturn);
          delete.setBarcode(b.getLabelBarcode());
+         delete.setTitleOrder(titleOrder);
 //         delete.setProductBox(productBox);
          delete.setQty(qty);
          delete.setVisible(true);
@@ -911,20 +921,32 @@ public class BoxItem extends javax.swing.JPanel {
               JavaConstant.discountAmount = Double.valueOf(discountAmount.replace("$", ""));
 
               Component[] listCom1 = detailItem.getComponents();
-              for (int i = 0; i < listCom1.length; i++) {
-                   var obj = ((BoxItem) listCom1[i]);
-                   if (obj.getProductId() != JavaConstant.productId) {
-                        obj.setBorder(null);
-                        obj.revalidate();
-                        obj.repaint();
-                   }
-              }
+//              for (int i = 0; i < listCom1.length; i++) {
+//                   var obj = ((BoxItem) listCom1[i]);
+//                   if (obj.getProductId() != JavaConstant.productId) {
+//                        obj.setBorder(null);
+//                        obj.revalidate();
+//                        obj.repaint();
+//                   }
+//              }
 
               if (JavaConstant.productId == productId) {
-                   this.setBorder(BorderFactory.createLineBorder(Color.RED));
-                   this.revalidate();
-                   this.repaint();
-                   JavaActionDiscount.discount(detailItem, subtotalPanel);
+                    
+                    this.setBorder(BorderFactory.createLineBorder(Color.RED));
+                    this.revalidate();
+                    this.repaint();
+                    JavaActionDiscount.discount(detailItem, subtotalPanel);
+                    
+                    for (int i = 0; i < listCom1.length; i++) {
+                         var obj = ((BoxItem) listCom1[i]);
+
+                         if(obj.getOldDiscount()> 0){
+                              this.setBorder(null);
+                              this.revalidate();
+                              this.repaint();
+                              return;
+                         }
+                    }
               }
          }
 

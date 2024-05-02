@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -48,6 +49,7 @@ public class DeleteDialog extends javax.swing.JDialog {
      private int qty;
      private String barcode;
      private Button.Button btnReturn;
+     private JLabel titleOrder;
 
      public String getBarcode() {
           return barcode;
@@ -142,6 +144,7 @@ public class DeleteDialog extends javax.swing.JDialog {
                btnCancel.setBackground(WindowColor.lightGray);
                buttonHoldOrder.setBackground(WindowColor.lightGray);
                btnReturn.setBackground(WindowColor.brown);
+               titleOrder.setVisible(false);
                subtotalPanel.setLabelSubTitleToZero();
                return;
           }
@@ -425,6 +428,15 @@ public class DeleteDialog extends javax.swing.JDialog {
           this.btnReturn = btnReturn;
      }
 
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+
+     
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private ButtonPackage.ButtonCancel buttonCancel1;

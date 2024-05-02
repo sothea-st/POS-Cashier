@@ -35,6 +35,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -64,6 +65,7 @@ public class PaymentOption extends javax.swing.JDialog {
      private SubtotalPanel subtotalPanel;
      private Button btnReturn;
      private Button btnDiscount;
+     private JLabel titleOrder;
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -1512,6 +1514,7 @@ public class PaymentOption extends javax.swing.JDialog {
                    btnReturn.setBackground(WindowColor.brown);
                    btnPayment.setBackground(WindowColor.lightGray);
                    detailItem.setBackground(WindowColor.slightGreen);
+                   titleOrder.setVisible(false);
                    detailItem.setBorder(null);
 
                    JavaConstant.productId = 0;
@@ -1629,6 +1632,7 @@ public class PaymentOption extends javax.swing.JDialog {
                detailItem.setBackground(WindowColor.slightGreen);
                detailItem.setBorder(null);
                btnPayment.setButtonName("Payment");
+               titleOrder.setVisible(false);
 
                PrinterReturn print = new PrinterReturn(new JFrame(), true);
                ObjectMapper objMap = new ObjectMapper();
@@ -1902,6 +1906,16 @@ public class PaymentOption extends javax.swing.JDialog {
      public void setBtnReturn(Button btnReturn) {
           this.btnReturn = btnReturn;
      }
+
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+     
+     
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables

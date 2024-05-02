@@ -37,6 +37,7 @@ import java.util.HashMap;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -68,6 +69,7 @@ public class CancelDialog extends javax.swing.JDialog {
      private JPanel panelProduct;
      private int idHold;
      private Button btnReturn;
+     private JLabel titleOrder;
 
      private String barcode;
 
@@ -94,7 +96,14 @@ public class CancelDialog extends javax.swing.JDialog {
     public void setBtnReturn(Button btnReturn) {
         this.btnReturn = btnReturn;
     }
-     
+
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
      
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
@@ -687,6 +696,7 @@ public class CancelDialog extends javax.swing.JDialog {
                btnCancel.setBackground(WindowColor.lightGray);
                buttonHoldOrder.setBackground(WindowColor.lightGray);
                btnReturn.setBackground(WindowColor.brown);
+               titleOrder.setVisible(false);
                getDetailItem().setBorder(null);
           }
      }

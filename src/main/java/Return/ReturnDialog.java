@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import View.MainPage.MainPage;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -35,6 +36,7 @@ public class ReturnDialog extends javax.swing.JDialog {
      private Button btnHold;
      private Button btnReturn;
      private Button btnDiscount;
+     private JLabel titleOrder;
 
      private JPanel detailItem;
      private JPanel panelProduct;
@@ -310,6 +312,9 @@ public class ReturnDialog extends javax.swing.JDialog {
 
          btnCancel.setBackground(WindowColor.lightGray);
          btnHold.setBackground(WindowColor.lightGray);
+         titleOrder.setVisible(true);
+         titleOrder.setText("SALE RETURN");
+         
 //         btnDiscount.setBackground(WindowColor.lightGray);
 
          JavaConstant.reasonId = reasonId;
@@ -407,6 +412,15 @@ public class ReturnDialog extends javax.swing.JDialog {
           this.btnHold = btnHold;
      }
 
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button button1;

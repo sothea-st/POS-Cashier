@@ -35,7 +35,7 @@ import okhttp3.MediaType;
 
 public class JavaConstant {
 
-     public static String urlImage = "http://localhost:8090/";
+     public static String urlImage = "http://103.101.80.108:8082/";
 
      public static void setPointer(JLabel jLabel) {
           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
