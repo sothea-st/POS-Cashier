@@ -3,7 +3,6 @@ package OpenAndCloseShift;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
-import Components.LabelTitle;
 import Components.SearchField;
 import Components.SubtotalPanel;
 import Components.TextField;
@@ -15,13 +14,14 @@ import DefaultPrice.DataModelDefaultPrice;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import LoginAndLogoutForm.LoginFormJdailog;
-import Print.EpsonPrinter;
 import View.MainPage.MainPage;
 import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -49,7 +49,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button btnPayment;
      private TextField textField;
 
-     private Button btnreturn;
+     private Button btnReturn;
      private Button btnReprint;
      private Button buttonDiscount;
      private Button buttonCustomer;
@@ -57,6 +57,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private ButtonCancel btnCancel;
      private Button btnLogin;
      private JFrame mainFrame;
+     private JLabel titleOrder;
 
      private LoginFormJdailog loginFormJdailog;
 
@@ -320,7 +321,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                JavaConstant.setCircleLoadingCursor(mainFrame);
                if (response.isSuccessful()) {
                     dispose();
-                    btnreturn.setBackground(WindowColor.brown);
+                    btnReturn.setBackground(WindowColor.brown);
                     btnReprint.setBackground(WindowColor.green);
                     buttonDiscount.setBackground(WindowColor.green);
                     buttonCustomer.setBackground(WindowColor.green);
@@ -342,6 +343,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     pro.setBtnPayment(btnPayment);
                     pro.setButtonHoldOrder(buttonHoldOrder);
                     pro.setBtnCancel(btnCancel);
+                    pro.setBtnReturn(btnReturn);
+                    pro.setTitleOrder(titleOrder);
                     panelProduct.revalidate();
                     panelProduct.repaint();
 
@@ -475,12 +478,12 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.jdFormLogin = jdFormLogin;
      }
 
-     public Button getBtnreturn() {
-          return btnreturn;
+     public Button getBtnReturn() {
+          return btnReturn;
      }
 
-     public void setBtnreturn(Button btnreturn) {
-          this.btnreturn = btnreturn;
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
      }
 
      public Button getBtnReprint() {
@@ -538,6 +541,13 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      public void setMainFrame(JFrame mainFrame) {
           this.mainFrame = mainFrame;
      }
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
      
      
 

@@ -41,8 +41,16 @@ public class ActionCloseShift {
      ) {
           Component[] listCom1 = detailItem.getComponents();
           j = new JavaAlertMessage(new JFrame(), true);
+          
+          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+          if (JavaConstant.isReturn != null) {
+               j.setMessage(JavaAlertMessage.returnMsg);
+               j.setVisible(true);
+               return;
+          }
+
           if (listCom1.length != 0) {
-               j.setMessage(JavaConstant.removeItem);
+               j.setMessage("Please Clear Items in Current Order First!");
                j.setVisible(true);
                return;
           }

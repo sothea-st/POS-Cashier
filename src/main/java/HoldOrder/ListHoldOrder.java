@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -45,10 +46,13 @@ public class ListHoldOrder extends javax.swing.JDialog {
      private JPanel detailItem;
      private SubtotalPanel subtotalPanel;
      private Button btnPayment;
+     private Button btnReturn;
      private countCircleShape countCircleShape;
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
      private JPanel panelProduct;
+      private JLabel titleOrder;
+     
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -158,6 +162,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
                               btnPayment.setBackground(WindowColor.lightBlue);
                               buttonHoldOrder.setBackground(WindowColor.yellow);
                               btnCancel.setBackground(WindowColor.darkred);
+                              btnReturn.setBackground(WindowColor.lightGray);
+                              titleOrder.setVisible(true);
+                              titleOrder.setText("CURRENT ORDER");
 
                               //Remove when Process
                               ArrayList<HoldeModel> lstModel = new ArrayList<>();
@@ -256,6 +263,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           box.setBtnPayment(btnPayment);
           box.setButtonHoldOrder(buttonHoldOrder);
           box.setBtnCancel(btnCancel);
+          box.setBtnReturn(btnReturn);
           box.setLbQty(listData.getQty());
           Component[] listCom = detailItem.getComponents();
           if (listCom.length != 0) {
@@ -370,6 +378,9 @@ public class ListHoldOrder extends javax.swing.JDialog {
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
+          btnReturn.setBackground(WindowColor.lightGray);
+          titleOrder.setVisible(true);
+          titleOrder.setText("CURRENT ORDER");
 
 //          detailItem.setBackground(WindowColor.slightGreen);
 //          detailItem.setBorder(null);
@@ -582,7 +593,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          dispose();
                          int count = new MainPage().countHold();
                          countCircleShape.setCountTimes("" + count);
-                         btnCancel.setBackground(WindowColor.lightGray);
+//                         btnCancel.setBackground(WindowColor.lightGray);
                     }
                } catch (Exception e) {
                     System.err.println("errr delete + " + e);
@@ -643,6 +654,24 @@ public class ListHoldOrder extends javax.swing.JDialog {
      public void setBtnCancel(ButtonCancel btnCancel) {
           this.btnCancel = btnCancel;
      }
+
+    public Button getBtnReturn() {
+        return btnReturn;
+    }
+
+    public void setBtnReturn(Button btnReturn) {
+        this.btnReturn = btnReturn;
+    }
+
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+     
+    
 
      /**
       * @param args the command line

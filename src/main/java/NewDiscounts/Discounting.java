@@ -7,15 +7,17 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
 import SwitchButton.EventSwitchSelected;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class Discounting extends javax.swing.JDialog {
 
@@ -37,6 +39,7 @@ public class Discounting extends javax.swing.JDialog {
         inputDis.requestFocus();
         type = "percent";
         event();
+//        removeBorder(this);
     }
 
     String type;
@@ -545,21 +548,18 @@ public class Discounting extends javax.swing.JDialog {
         String lbOne = one.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbOne);
-//         validation(lbOne);
     }//GEN-LAST:event_oneMouseClicked
 
     private void twoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseClicked
         String lbTwo = two.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbTwo);
-//         validation(lbTwo);
     }//GEN-LAST:event_twoMouseClicked
 
     private void threeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseClicked
         String lbThree = three.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbThree);
-        //    validation(lbThree);
 
     }//GEN-LAST:event_threeMouseClicked
 
@@ -567,56 +567,48 @@ public class Discounting extends javax.swing.JDialog {
         String lbFour = four.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbFour);
-        //     validation(lbFour);
     }//GEN-LAST:event_fourMouseClicked
 
     private void fiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseClicked
         String lbFive = five.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbFive);
-        //     validation(lbFive);
     }//GEN-LAST:event_fiveMouseClicked
 
     private void sixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseClicked
         String lbSix = six.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbSix);
-        //    validation(lbSix);
     }//GEN-LAST:event_sixMouseClicked
 
     private void sevenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseClicked
         String lbSeven = seven.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbSeven);
-        //    validation(lbSeven);
     }//GEN-LAST:event_sevenMouseClicked
 
     private void eightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseClicked
         String lbEight = eight.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbEight);
-        //   validation(lbEight);
     }//GEN-LAST:event_eightMouseClicked
 
     private void nineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseClicked
         String lbNine = nine.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbNine);
-        //    validation(lbNine);
     }//GEN-LAST:event_nineMouseClicked
 
     private void zeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseClicked
         String lbZero = zero.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbZero);
-        //    validation(lbZero);
     }//GEN-LAST:event_zeroMouseClicked
 
     private void dotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseClicked
         String lbDot = dot.getLabelDiscount();
         percentType = "noPercent";
         inputDiscount(lbDot);
-        //    validation(lbDot);
     }//GEN-LAST:event_dotMouseClicked
 
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
@@ -676,9 +668,6 @@ public class Discounting extends javax.swing.JDialog {
             if (type == "dollar") {
                 double _dollar = box.getQty() * Double.parseDouble(discountValue);
                 if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
-                        //===================Remove border and prevent in button discount after input discount value=============
-                        JavaConstant.discountAmount = 1;
-//                        box.setBorder(null);
 
                     box.setDiscountAmount(dm.format(_dollar));
                     box.setDiscountValue(Double.valueOf(discountValue));
@@ -691,19 +680,19 @@ public class Discounting extends javax.swing.JDialog {
                 }
 
                 if (JavaConstant.productId == 0) {
-
-                    box.setDiscountAmount(dm.format(_dollar));
-                    box.setDiscountValue(Double.valueOf(discountValue));
-                    box.setDiscountType(type);
+                    // if you want to go to previous condition just remove box.getoldDiscount
+                    if(box.getOldDiscount() <= 0)
+                    {
+                        box.setDiscountAmount(dm.format(_dollar));
+                        box.setDiscountValue(Double.valueOf(discountValue));
+                        box.setDiscountType(type);
+                    }
                 }
 
             } else {
                 double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));
                 double disvalue = Double.valueOf(discountValue);
                 double discountAmount = (amount * disvalue) / 100;
-                        //===================Remove border and prevent in button discount after input discount value=============
-                        JavaConstant.discountAmount = 1;
-//                        box.setBorder(null);
 
                 if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
                     box.setDiscountAmount(dm.format(discountAmount));
@@ -714,14 +703,18 @@ public class Discounting extends javax.swing.JDialog {
                     //===================Remove border and prevent in button discount after input discount value=============
                     JavaConstant.discountAmount = 1;
                     box.setBorder(null);
-
                 }
 
                 if (JavaConstant.productId == 0) {
-                    box.setDiscountAmount(dm.format(discountAmount));
-                    box.setDiscountValue(Double.valueOf(discountValue));
-                    box.setDiscountType(type);
-                    box.setDiscountDigit(Double.parseDouble(discountValue));
+                    
+                    // if you want to go to previous condition just remove box.getoldDiscount
+                    if(box.getOldDiscount() <= 0)
+                    {
+                        box.setDiscountAmount(dm.format(discountAmount));
+                        box.setDiscountValue(Double.valueOf(discountValue));
+                        box.setDiscountType(type);
+                        box.setDiscountDigit(Double.parseDouble(discountValue));
+                    }
                 }
 
             }
@@ -742,6 +735,20 @@ public class Discounting extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnDoneMouseClicked
 
+//    private void removeBorder(JDialog Discounting) {
+//
+//          Discounting.addWindowListener(new WindowAdapter() {
+//               public void windowClosing(WindowEvent evt) {
+//
+//                    Component[] listHold = detailItem.getComponents();
+//                    for (int i = 0; i < listHold.length; i++) {
+//                        var box = ((BoxItem) listHold[i]);
+//                        box.setBorder(null);
+//                    }
+//               }
+//          });
+//    }
+    
     private void inputDisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputDisKeyTyped
 
     }//GEN-LAST:event_inputDisKeyTyped

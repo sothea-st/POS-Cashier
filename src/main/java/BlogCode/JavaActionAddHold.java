@@ -17,6 +17,7 @@ import HoldOrder.HoldeModel;
 import View.MainPage.MainPage;
 import java.awt.Component;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
@@ -32,11 +33,13 @@ public class JavaActionAddHold {
           ButtonPackage.ButtonCancel btnCancel,
           SubtotalPanel totalPanel,
           countCircleShape countCircleShape,
-          Button btnReturn) {
+          Button btnReturn,
+          JLabel titleOrder) {
           btnReturn.setBackground(WindowColor.brown);
           btnPayment.setBackground(WindowColor.lightGray);
           buttonHoldOrder.setBackground(WindowColor.lightGray);
           btnCancel.setBackground(WindowColor.lightGray);
+          titleOrder.setVisible(false);
           Component[] listHold = detailItem.getComponents();
           ArrayList<HoldeModel> holdModel = new ArrayList<>();
           

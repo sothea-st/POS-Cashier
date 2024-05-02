@@ -92,6 +92,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button buttonCustomer;
      private LabelTitle breadcrumb;
      private JFrame mainFrame;
+     private JLabel titleOrder;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -133,6 +134,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setBoxUserName(boxUserName);
           pro.setPanelProduct(panelProduct);
           pro.setBtnReturn(btnReturn);
+          pro.setTitleOrder(titleOrder);
           if (listData != null) {
                pro.assignProduct(listData, panelProduct);
           }
@@ -439,6 +441,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              buttonCustomer.setBackground(WindowColor.green);
                              buttonDiscount.setBackground(WindowColor.green);
                              btnReprint.setBackground(WindowColor.green);
+                             pro.setBtnReturn(btnReturn);
 
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
@@ -662,6 +665,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setBtnPayment(btnPayment);
           pro.setButtonHoldOrder(buttonHoldOrder);
           pro.setBtnCancel(btnCancel);
+          pro.setBtnReturn(btnReturn);
           pro.setBtnReturn(btnReturn);
           panelProduct.revalidate();
           panelProduct.repaint();
@@ -903,6 +907,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      
      
 
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
+
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
+
+     
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
