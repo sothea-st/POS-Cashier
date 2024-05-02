@@ -203,7 +203,7 @@ public class BoxItem extends javax.swing.JPanel {
      public void setTxtDiscount(JLabel txtDiscount) {
           this.txtDiscount = txtDiscount;
      }
-     
+
      public Button.Button getBtnReturn() {
           return btnReturn;
      }
@@ -339,15 +339,14 @@ public class BoxItem extends javax.swing.JPanel {
           this.maxQty = maxQty;
      }
 
-    public double getOldDiscount() {
-        return oldDiscount;
-    }
+     public double getOldDiscount() {
+          return oldDiscount;
+     }
 
-    public void setOldDiscount(double oldDiscount) {
-        this.oldDiscount = oldDiscount;
-    }
+     public void setOldDiscount(double oldDiscount) {
+          this.oldDiscount = oldDiscount;
+     }
 
-     
      /**
       * Creates new form BoxItem
       */
@@ -481,10 +480,10 @@ public class BoxItem extends javax.swing.JPanel {
                getQty++;
 
                if (JavaConstant.returnByBarcode != null) {   /// ====== when cashier return by barcode
-                    
+
                     int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
                     qtyTmp++;
-               
+
                     if (qtyTmp > getMaxQty()) {
                          return;
                     }
@@ -871,22 +870,14 @@ public class BoxItem extends javax.swing.JPanel {
      }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
-         
-         
-         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
-              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-              j.setMessage(JavaAlertMessage.returnMsg);
-              j.setVisible(true);
-              return;
-         }
-         
-      
-
+         DeleteDialog delete = new DeleteDialog(new JFrame(), true);
          Component[] listDelete = btnDelete.getParent().getParent().getComponents();
          var b = (BoxItem) btnDelete.getParent();
+         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
+              deleteItem();
+              return;
+         }
 
-         System.out.println("ellooooooo");
-         DeleteDialog delete = new DeleteDialog(new JFrame(), true);
          delete.setDetailItem(detailItem);
          delete.setListCom(listDelete);
          delete.setProductId(b.getProductId());
@@ -902,6 +893,63 @@ public class BoxItem extends javax.swing.JPanel {
          delete.setVisible(true);
 
     }//GEN-LAST:event_btnDeleteMouseClicked
+
+     public void deleteItem() {
+          double sumSubTotalUsd = 0;
+          double sumDiscount = 0;
+          Component[] listC = detailItem.getComponents();
+    
+          
+          for (int i = 0; i < listC.length; i++) {
+               var d = (BoxItem) listC[i];
+               if (productId == d.getProductId()) {
+                    detailItem.remove(i);
+                    detailItem.revalidate();
+                    detailItem.repaint();
+               } else {
+                    var data = (BoxItem) listC[i];
+                    String priceStr = data.getLabelPrice();
+                    priceStr = priceStr.replace("$", "");
+                    priceStr = priceStr.replace(",", "");
+                    double price = Double.valueOf(priceStr);
+                    int qty = data.getQty();
+                    double amount = price * qty;
+                    sumSubTotalUsd += amount;
+
+                    String discount = data.getDiscountAmount();
+                    discount = discount.replace("$", "");
+                    discount = discount.replace(",", "");
+                    double discountValue = JavaConstant.getReplace(d.getDiscountAmount());
+                    sumDiscount += discountValue;
+               }
+          }
+
+//          Component[] l = detailItem.getComponents();
+
+          if (listC.length == 0) {
+               btnPayment.setBackground(WindowColor.lightGray);
+               btnCancel.setBackground(WindowColor.lightGray);
+               buttonHoldOrder.setBackground(WindowColor.lightGray);
+               btnReturn.setBackground(WindowColor.brown);
+               subtotalPanel.setLabelSubTitleToZero();
+               return;
+          }
+
+          subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
+          double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
+          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
+
+          subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
+          double _disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
+          subtotalPanel.setLableDiscountKhr(kh.format(_disKh));
+
+          // total
+          double total = sumSubTotalUsd - sumDiscount;
+          subtotalPanel.setLableTotalUsd(dm.format(total));
+          double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
+          subtotalPanel.setLableTotalKhr(kh.format(_total));
+     }
+
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
 

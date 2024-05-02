@@ -293,6 +293,7 @@ public class PaymentOption extends javax.swing.JDialog {
           String receviKhr = txtReceiveKhr.getText();
 
           if ("usd".equals(sign)) {
+
                receviUsd += value;
                txtReceiveUsd.setText(receviUsd);
 
@@ -336,10 +337,21 @@ public class PaymentOption extends javax.swing.JDialog {
                     } else if (result == 0) {
                          setValueLabelUsd(0, 0);
                     }
+
+                    if (txtReceiveUsd.getText().isEmpty() && txtReceiveKhr.getText().isEmpty()) {
+                         lbRemainingKhr.setLabelName(dm.format(0));
+                         lbRemainingUsd.setLabelName(df.format(0));
+                         lbChangeKhr.setLabelName(dm.format(0));
+                         lbChangeUsd.setLabelName(df.format(0));
+                    }
+
+                    if (!receviKhr.isEmpty()) {
+                         funKhr(receviKhr);
+                    }
+
                }
 
           } else if ("khr".equals(sign)) {
-
                receviKhr += value;
                txtReceiveKhr.setText(receviKhr);
                String strTotalKhr = lbTotalKhr.getLabelName();
@@ -352,7 +364,6 @@ public class PaymentOption extends javax.swing.JDialog {
                }
                // ============ end =============
                if (!receviKhr.isEmpty()) {
-
                     String stringReceiveKhr = receviKhr.replace(",", "");
                     double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
 
@@ -366,6 +377,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     }
                } else {
                     receviKhr = "0";
+
                     String stringReceiveKhr = receviKhr.replace(",", "");
                     double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
 
@@ -377,36 +389,133 @@ public class PaymentOption extends javax.swing.JDialog {
                     } else if (result == 0) {
                          setValueLabelKhr(0, 0);
                     }
+
+                    if (txtReceiveUsd.getText().isEmpty() && txtReceiveKhr.getText().isEmpty()) {
+                         lbRemainingKhr.setLabelName(dm.format(0));
+                         lbRemainingUsd.setLabelName(df.format(0));
+                         lbChangeKhr.setLabelName(dm.format(0));
+                         lbChangeUsd.setLabelName(df.format(0));
+                    }
+
+                    if (!receviUsd.isEmpty()) {
+                         funUsd(receviUsd);
+                    }
+
                }
+
           }
 
           if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
+               if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
+                    lbRemainingKhr.setLabelName(dm.format(0));
+                    lbRemainingUsd.setLabelName(df.format(0));
+                    lbChangeKhr.setLabelName(dm.format(0));
+                    lbChangeUsd.setLabelName(df.format(0));
+               }
 
                double _totalUsd = JavaConstant.getReplace(getTotalUsd());
                double _convertToUsd = Double.parseDouble(receviKhr) / JavaConstant.exchangeRate;
+               double _usd = Double.parseDouble(receviUsd) + _convertToUsd;
+               double result = _usd - _totalUsd;
+               if (Double.parseDouble(receviUsd) > _convertToUsd) { // usd > khr
+                    paidBothValue(result, "usd");
+               } else {
+                
+                    paidBothValue(result, "khr"); // khr > usd
+               }
+          }
+     }
 
-           
+     private void paidBothValue(double value, String types) {
+          String strValue = "" + value;
+          strValue = strValue.replace("-", "");
+          double _d = Double.parseDouble(strValue);
+          double _remainingUsd = _d * JavaConstant.exchangeRate;
+          String receviUsd = txtReceiveUsd.getText();
+          String receviKhr = txtReceiveKhr.getText();
 
-                    double _usd = Double.parseDouble(receviUsd) + _convertToUsd;
-                    double result = _usd - _totalUsd;
-               
-                    System.err.println("jjjjjjjjjjjjjjj = " + result);
-                    
-                  
+          double lastPoint = 0;
+          if (value < 0) { // remaining
+               lbRemainingUsd.setLabelName(df.format(_d));
+               String _khr = JavaRoundUpKhr.setRoundNumber(_remainingUsd);
+               lbRemainingKhr.setLabelName(_khr);
 
-                    if (result < 0) {
-                         setValueLabelKhr(result, 0);
-                         setValueLabelUsd(result, 0);
-                    } else if (result > 0) {
-                         setValueLabelKhr(0, result);
-                         setValueLabelUsd(0, result);
-                    } else if (result == 0) {
-                         setValueLabelKhr(0, 0);
-                         setValueLabelUsd(0, 0);
+               lbChangeKhr.setLabelName(dm.format(0));
+               lbChangeUsd.setLabelName(df.format(0));
+
+          } else {
+               lbRemainingKhr.setLabelName(dm.format(0));
+               lbRemainingUsd.setLabelName(df.format(0));
+
+               if (types.equals("usd")) {
+                    lastPoint = _d * JavaConstant.exchangeRate4050;
+               } else {
+                    lastPoint = _d * JavaConstant.exchangeRate4050;
+               }
+
+               int cashChange = 0;
+               int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
+
+               for (int i = 0; i < arrInt.length; i++) {
+                    if (_d >= arrInt[i]) {
+
+                         if (types.equals("usd")) {
+                              lastPoint = (_d - arrInt[i]) * JavaConstant.exchangeRate4050;
+                         } else {
+                              lastPoint = (_d - arrInt[i]) * JavaConstant.exchangeRate;
+                         }
+                         cashChange = arrInt[i];
+                         break;
                     }
+               }
 
-             
+               lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(lastPoint));
 
+               lbChangeUsd.setLabelName(df.format(cashChange));
+
+          }
+
+
+          if (types.equals("khr") && txtReceiveUsd.getText().isEmpty()) {
+         
+               lbChangeUsd.setLabelName(df.format(0));
+               lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_remainingUsd));
+          }
+
+     }
+
+     private void funKhr(String receviKhr) {
+          String strTotalKhr = lbTotalKhr.getLabelName();
+          strTotalKhr = strTotalKhr.replace(",", "");
+          double doubleTotalKhr = Double.parseDouble(strTotalKhr);
+          String stringReceiveKhr = receviKhr.replace(",", "");
+          double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
+
+          double result = doubleReceviceKhr - doubleTotalKhr;
+
+          if (result < 0) {
+               setValueLabelKhr(result, 0);
+          } else if (result > 0) {
+               setValueLabelKhr(0, result);
+          } else if (result == 0) {
+               setValueLabelKhr(0, 0);
+          }
+
+          lbChangeUsd.setLabelName(df.format(0));
+     }
+
+     private void funUsd(String receviUsd) {
+          String stringReceiveUsd = receviUsd.replace(",", "");
+          double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
+          double doubleTotalUsd = JavaConstant.getReplace(getTotalUsd());
+          double result = doubleReceviceUsd - doubleTotalUsd;
+
+          if (result < 0) {
+               setValueLabelUsd(result, 0);
+          } else if (result > 0) {
+               setValueLabelUsd(0, result);
+          } else if (result == 0) {
+               setValueLabelUsd(0, 0);
           }
      }
 
@@ -1257,7 +1366,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     usd(txtReceiveUsd.getText());
                }
                return;
-          }
+          } 
 
           if (!txtReceiveUsd.getText().isEmpty()) {
                usd(txtReceiveUsd.getText());
@@ -1305,6 +1414,9 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void txtReceiveKhrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReceiveKhrMouseClicked
          sign = "khr";
+//         String khrValue = txtReceiveKhr.getText();
+//         System.err.println("jjjjjjjjj = " + khrValue);
+//         inputAmount("");
     }//GEN-LAST:event_txtReceiveKhrMouseClicked
 
     private void txtReceiveUsdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyReleased
@@ -1418,6 +1530,7 @@ public class PaymentOption extends javax.swing.JDialog {
                    j.setVisible(true);
                    return;
               }
+
          }
 
          // data is return 
@@ -1793,77 +1906,18 @@ public class PaymentOption extends javax.swing.JDialog {
      private void setValueLabelUsd(double remaining, double change) {
           String receviUsd = txtReceiveUsd.getText();
           String receviKhr = txtReceiveKhr.getText();
+          if (remaining < 0) {
+               String convertDoubleToStr = "" + remaining;
+               convertDoubleToStr = convertDoubleToStr.replace("-", "");
+               double stringToDouble = Double.parseDouble(convertDoubleToStr);
+               lbRemainingUsd.setLabelName(df.format(Double.valueOf(stringToDouble)));
+               double _re = stringToDouble * JavaConstant.exchangeRate;
 
-          //          ====================================  both value ===============================
-          if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
-         
-               System.out.println("chagne ddd = " + change);
-               
-               if (remaining < 0) {
-                    String convertDoubleToStr = "" + remaining;
-                    convertDoubleToStr = convertDoubleToStr.replace("-", "");
-                    double stringToDouble = Double.parseDouble(convertDoubleToStr);
-                    double _kh = Double.parseDouble(receviKhr) / JavaConstant.exchangeRate;
-              
-                    double _re = 0;
-                    if (Double.parseDouble(receviUsd) > _kh) {
-                         stringToDouble = stringToDouble + (_kh*2); // cuz receiveKh already once minus
-                         _re = stringToDouble * JavaConstant.exchangeRate4050;
-                    } else {
-                        stringToDouble = stringToDouble + (_kh*2);
-                         _re = stringToDouble * JavaConstant.exchangeRate;
-                    }
-                   
-                    lbRemainingUsd.setLabelName(df.format(Double.valueOf(stringToDouble)));
-                    lbRemainingKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_re));
-                    lbChangeKhr.setLabelName(dm.format(change));
-                    lbChangeUsd.setLabelName(df.format(change));
-                    return;
-               }
+               lbRemainingKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_re));
+               lbChangeKhr.setLabelName(dm.format(change));
+               lbChangeUsd.setLabelName(df.format(change));
 
-               if (change < 5) {
-                    change = change * JavaConstant.exchangeRate4050;
-                    lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(change));
-
-                    lbRemainingKhr.setLabelName(dm.format(0));
-                    lbRemainingUsd.setLabelName(df.format(0));
-               } else {
-
-                    double lastPoint = 0;
-                    int cashChange = 0;
-                    int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
-
-                    for (int i = 0; i < arrInt.length; i++) {
-                         if (change >= arrInt[i]) {
-                              lastPoint = change - arrInt[i];
-                              cashChange = arrInt[i];
-                              break;
-                         }
-                    }
-                    lbChangeUsd.setLabelName(df.format(cashChange));
-                    lastPoint = lastPoint * JavaConstant.exchangeRate4050;
-                    if (lastPoint == 0) {
-                         lbChangeKhr.setLabelName(dm.format(lastPoint));
-                    } else {
-                         lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(lastPoint));
-                    }
-
-                    lbRemainingKhr.setLabelName(dm.format(0));
-                    lbRemainingUsd.setLabelName(df.format(0));
-
-               }
           } else {
-               if (remaining < 0) {
-                    String convertDoubleToStr = "" + remaining;
-                    convertDoubleToStr = convertDoubleToStr.replace("-", "");
-                    double stringToDouble = Double.parseDouble(convertDoubleToStr);
-                    lbRemainingUsd.setLabelName(df.format(Double.valueOf(stringToDouble)));
-                    double _re = stringToDouble * JavaConstant.exchangeRate;
-                    lbRemainingKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_re));
-                    lbChangeKhr.setLabelName(dm.format(change));
-                    lbChangeUsd.setLabelName(df.format(change));
-                    return;
-               }
 
                if (change < 5) {
                     change = change * JavaConstant.exchangeRate4050;
@@ -1871,7 +1925,9 @@ public class PaymentOption extends javax.swing.JDialog {
 
                     lbRemainingKhr.setLabelName(dm.format(0));
                     lbRemainingUsd.setLabelName(df.format(0));
+                    lbChangeUsd.setLabelName(df.format(0));
                } else {
+
                     double lastPoint = 0;
                     int cashChange = 0;
                     int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
@@ -1899,27 +1955,36 @@ public class PaymentOption extends javax.swing.JDialog {
      }
 
      private void setValueLabelKhr(double remaining, double change) {
+          String receviUsd = txtReceiveUsd.getText();
+          String receviKhr = txtReceiveKhr.getText();
+          String convertDoubleToStr = "" + remaining;
+          convertDoubleToStr = convertDoubleToStr.replace("-", "");
+          double _d = Double.parseDouble(convertDoubleToStr);
+          double _remainingUsd = _d / JavaConstant.exchangeRate;
 
           if (remaining < 0) {
 
-               String convertDoubleToStr = "" + remaining;
-               convertDoubleToStr = convertDoubleToStr.replace("-", "");
-               double _d = Double.parseDouble(convertDoubleToStr);
                convertDoubleToStr = JavaRoundUpKhr.setRoundNumber(_d);
                if (txtReceiveKhr.getText().isEmpty()) {
                     lbRemainingKhr.setLabelName(lbTotalKhr.getLabelName());
                } else {
                     lbRemainingKhr.setLabelName(convertDoubleToStr);
                }
-
+               lbRemainingUsd.setLabelName(df.format(_remainingUsd));
                lbChangeKhr.setLabelName(dm.format(change));
                lbChangeUsd.setLabelName(df.format(0));
-               return;
+
+          } else {
+               if (sign.equals("khr")) {
+                    lbRemainingUsd.setLabelName(df.format(0));
+               } else if (sign.equals("usd")) {
+                    lbRemainingUsd.setLabelName(df.format(_d));
+               }
+               lbRemainingKhr.setLabelName(dm.format(0));
+               String khrValue = JavaRoundUpKhr.setRoundNumber(change);
+               lbChangeKhr.setLabelName(khrValue);
+               lbChangeUsd.setLabelName(df.format(0));
           }
-          lbRemainingKhr.setLabelName(dm.format(0));
-          String khrValue = JavaRoundUpKhr.setRoundNumber(change);
-          lbChangeKhr.setLabelName(khrValue);
-          lbChangeUsd.setLabelName(df.format(0));
 
      }
 
