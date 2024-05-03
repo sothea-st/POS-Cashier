@@ -29,6 +29,7 @@ public class ApprovalCode extends javax.swing.JDialog {
      private Button btnReturn;
      private Button btnDiscount;
      private JLabel titleOrder;
+     private JPanel boxOne;
      
      private JPanel detailItem;
      private JPanel panelProduct;
@@ -48,6 +49,15 @@ public class ApprovalCode extends javax.swing.JDialog {
      public void setPanelProduct(JPanel panelProduct) {
           this.panelProduct = panelProduct;
      }
+
+     public JPanel getBoxOne() {
+          return boxOne;
+     }
+
+     public void setBoxOne(JPanel boxOne) {
+          this.boxOne = boxOne;
+     }
+     
      
      
 
@@ -221,6 +231,7 @@ public class ApprovalCode extends javax.swing.JDialog {
                              returnD.setDetailItem(detailItem);
                              returnD.setPanelProduct(panelProduct);
                              returnD.setTitleOrder(titleOrder);
+                             returnD.setBoxOne(boxOne);
                              returnD.setVisible(true);
                              JavaConstant.returnerId = model.getID();
                         } else if (typeForm.equals("reprint")) {

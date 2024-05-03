@@ -23,6 +23,7 @@ import Model.ReturnModel.ModelReturnData;
 import Model.ReturnModel.ResultDataReturnModel;
 import Products.ProductBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
@@ -108,6 +109,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               );
                               jdFormLogin.scanbarCodeAddProduct(product);
                          }
+                         detailItem.setBackground(WindowColor.slightGreen);
+       
                          btnReturn.setBackground(WindowColor.lightGray);
                     }
                } catch (Exception e) {
@@ -169,6 +172,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     btnPayment.setButtonName("Return");
                     JavaConstant.isReturn = "return";
                     btnReturn.setBackground(WindowColor.lightGray);
+                    detailItem.setBackground(WindowColor.slightGreen);
                }
           } catch (Exception e) {
 

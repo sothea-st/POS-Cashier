@@ -109,7 +109,7 @@ public class DeleteDialog extends javax.swing.JDialog {
           }
      }
 
-     void deleteItem() {
+     public void deleteItem() {
           double sumSubTotalUsd = 0;
           double sumDiscount = 0;
 
@@ -289,13 +289,12 @@ public class DeleteDialog extends javax.swing.JDialog {
                    Component[] listCom1 = panelProduct.getComponents();
 
                    int saleQty = 0;
-//                   String barcodeLocal;
+ 
 
                    for (Component c : listCom) {
                         var data = ((BoxItem) c);
                         if (getBarcode().equals(data.getLabelBarcode())) {
                              saleQty = data.getQty();
-//                             barcode = data.getLabelBarcode();
                              break;
                         }
                    }

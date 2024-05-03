@@ -1,5 +1,7 @@
 package Constant;
 
+import java.text.DecimalFormat;
+
 public class JavaRoundUpKhr {
 
      public static String roundUp3length(String[] listStr) {
@@ -45,7 +47,7 @@ public class JavaRoundUpKhr {
                listStr[2] = numStr;
           } else {
                int num0 = Integer.parseInt(listStr[1]) + 1;
-               System.err.println("num0 = " + num0);
+
                if (num0 < 10) {
                     listStr[1] = "" + num0;
                     listStr[2] = "0";
@@ -112,7 +114,7 @@ public class JavaRoundUpKhr {
                listStr[4] = numStr;
           } else {
                int num0 = Integer.parseInt(listStr[3]) + 1;
-             
+
                if (num0 < 10) {
                     listStr[3] = "" + num0;
                     listStr[4] = "0";
@@ -155,4 +157,53 @@ public class JavaRoundUpKhr {
           return valueData;
      }
 
+     public static String roundDown(String value) {
+          int le = value.length();
+          int begin = le - 2;
+          value = value.substring(0, begin);
+          value = value + "00";
+          return value;
+     }
+
+     public static String setRoundNumber(double change) {
+          DecimalFormat dd = new DecimalFormat("#");
+          String khValue = dd.format(change);
+          String data = "";
+          int l = khValue.length();
+          if (l >= 3) {
+               int begin = l - 2;
+               String last2Number = khValue.substring(begin, l);
+               if (last2Number.equals("00")) {
+                    data = JavaConstant.insertComma(khValue);
+               } else {
+                    if (Integer.parseInt(last2Number) < 50) {
+                         data = JavaConstant.insertComma(JavaRoundUpKhr.roundDown(khValue));
+                    } else {
+                         String value = "";
+                         String[] listStr = khValue.split("");
+                         int lengthChar = listStr.length;
+
+                         switch (lengthChar) {
+                              case 3:
+                                   value = JavaRoundUpKhr.roundUp3length(listStr);
+                                   break;
+                              case 4:
+                                   value = JavaRoundUpKhr.roundUpKhr4length(listStr);
+                                   break;
+                              case 5:
+                                   value = JavaRoundUpKhr.roundUpKhr5length(listStr);
+                                   break;
+                              case 6:
+                                   value = JavaRoundUpKhr.roundUpKhr6length(listStr);
+                                   break;
+                              case 7:
+                                   value = JavaRoundUpKhr.roundUpKhr7length(listStr);
+                                   break;
+                         }
+                         data = JavaConstant.insertComma(value);
+                    }
+               }
+          }
+          return data;
+     }
 }

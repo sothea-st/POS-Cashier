@@ -39,8 +39,21 @@ public class ReturnDialog extends javax.swing.JDialog {
      private JLabel titleOrder;
 
      private JPanel detailItem;
+     private JPanel boxOne;
+
      private JPanel panelProduct;
 
+     public JPanel getBoxOne() {
+          return boxOne;
+     }
+
+     public void setBoxOne(JPanel boxOne) {
+          this.boxOne = boxOne;
+     }
+
+     
+     
+     
      public JPanel getDetailItem() {
           return detailItem;
      }
@@ -304,6 +317,7 @@ public class ReturnDialog extends javax.swing.JDialog {
          obj.setBtnReturn(btnReturn);
          obj.setPanelProduct(panelProduct);
          obj.setDetailItem(detailItem);
+         obj.setBoxOne(boxOne);
          if (barcode != null) {
               obj.returnWithBarcode(barcode, jdFormLogin, invoiceNo);
          } else {
@@ -314,9 +328,8 @@ public class ReturnDialog extends javax.swing.JDialog {
          btnHold.setBackground(WindowColor.lightGray);
          titleOrder.setVisible(true);
          titleOrder.setText("SALE RETURN");
-         
-//         btnDiscount.setBackground(WindowColor.lightGray);
 
+//         btnDiscount.setBackground(WindowColor.lightGray);
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
          dispose();
@@ -412,15 +425,14 @@ public class ReturnDialog extends javax.swing.JDialog {
           this.btnHold = btnHold;
      }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button button1;

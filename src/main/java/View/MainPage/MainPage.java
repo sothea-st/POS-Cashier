@@ -642,6 +642,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBtnReturn(btnReturn);
           jdFormLogin.setBreadcrumb(breadcrumb);
           jdFormLogin.setTitleOrder(titleOrder);
+          jdFormLogin.setMainFrame(this);
      }
 
      //Action Button Login and Logout
@@ -711,6 +712,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setBtnCancel(btnCancel);
                              jdOpenShift.setBtnLogin(btnLogin);
                              jdOpenShift.setTitleOrder(titleOrder);
+                             jdOpenShift.setMainFrame(this);
                              jdOpenShift.setDataSuccess(d);
                         }
                    } catch (Exception e) {
@@ -736,13 +738,7 @@ public class MainPage extends javax.swing.JFrame {
      //Action Button Reprint
     private void btnReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReprintMouseClicked
          if (JavaConstant.token != null) {
-              //========================= reprint with supervisor===========
-//              if (JavaConstant.checkOpenShift) {
-//                   ApprovalCode approval = new ApprovalCode(new JFrame(), true);
-//                   approval.setJdFormLogin(jdFormLogin);
-//                   approval.setTypeForm("reprint");
-//                   approval.setVisible(true);
-//              }
+ 
               //========================= reprint without supervisor=========== 
               if (JavaConstant.checkOpenShift) {
                    ReprintJdailog rep = new ReprintJdailog(new JFrame(), true);
@@ -810,6 +806,7 @@ public class MainPage extends javax.swing.JFrame {
                    }
 
                    ApprovalCode approval = new ApprovalCode(new JFrame(), true);
+                   approval.setBoxOne(boxOne);
                    approval.setDetailItem(detailItem);
                    approval.setPanelProduct(panelProduct);
                    approval.setJdFormLogin(jdFormLogin);

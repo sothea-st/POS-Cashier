@@ -606,6 +606,10 @@ public class ActionProduct {
           this.btnReturn = btnReturn;
      }
 
+     // public void setBtnReturn(Button btnReturn) {
+     //      this.btnReturn = btnReturn;
+     // }
+
     public JLabel getTitleOrder() {
         return titleOrder;
     }
