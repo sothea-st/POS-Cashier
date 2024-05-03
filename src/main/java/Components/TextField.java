@@ -205,13 +205,28 @@ public class TextField extends javax.swing.JPanel {
           // TODO add your handling code here:
           String txt = txtText.getText();
           setValueTextField(txt);
-          if (comma != null) {
-               // ================ 3 length insert comma =========
-               JavaConstant.setCommaIn3Length(txtText);
 
-   
-          }
+//          StringBuilder sb = new StringBuilder(txt);
+//          String txtValue = "";
+//          int length = sb.length();
+//          // Start from the end of the string and insert comma every 3 characters
+//          for (int i = length - 3; i > 0; i -= 3) {
+//               sb.insert(i, ",");
+//             
+//          }
+//          txtValue = sb.toString();
+          
+          
+          
 
+//          JavaConstant.insertComma(txt);
+
+//          if (comma != null) {
+//               // ================ 3 length insert comma =========
+//               JavaConstant.setCommaIn3Length(txtText);
+//
+//   
+//          }
 
      }//GEN-LAST:event_txtTextKeyReleased
 

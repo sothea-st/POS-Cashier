@@ -19,7 +19,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -56,9 +55,9 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
      private Button btnLogin;
-     private JFrame mainFrame;
      private JLabel titleOrder;
 
+     private JFrame mainFrame;
      private LoginFormJdailog loginFormJdailog;
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
@@ -283,6 +282,14 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
+     public JFrame getMainFrame() {
+          return mainFrame;
+     }
+
+     public void setMainFrame(JFrame mainFrame) {
+          this.mainFrame = mainFrame;
+     }
+
      private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonCancelMouseClicked
           this.dispose();
      }// GEN-LAST:event_buttonCancelMouseClicked
@@ -318,7 +325,9 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                }
 
                Response response = JavaConnection.post(JavaRoute.openShift, json);
+
                JavaConstant.setCircleLoadingCursor(mainFrame);
+
                if (response.isSuccessful()) {
                     dispose();
                     btnReturn.setBackground(WindowColor.brown);
@@ -352,10 +361,12 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     textField.disabledTextField(true);
                     textField.setFocus();
 
+                    JavaConstant.restoreDefaultCursor(mainFrame);
+
                     if (MainPage.isFullScreen) {
                          loginFormJdailog.callDataInFullScreen();
                     }
-                    JavaConstant.restoreDefaultCursor(mainFrame);
+
 //                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
                } else {
                     UIManager UI = new UIManager();
@@ -367,7 +378,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                }
 
           } catch (Exception e) {
-
+               System.out.println("error : " + e);
           }
      }// GEN-LAST:event_buttonSaveMouseClicked
 
@@ -534,22 +545,13 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.btnLogin = btnLogin;
      }
 
-     public JFrame getMainFrame() {
-          return mainFrame;
+     public JLabel getTitleOrder() {
+          return titleOrder;
      }
 
-     public void setMainFrame(JFrame mainFrame) {
-          this.mainFrame = mainFrame;
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
      }
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
-
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
-     
-     
 
      /**
       * @param args the command line

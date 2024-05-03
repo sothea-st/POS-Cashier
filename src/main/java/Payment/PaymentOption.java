@@ -422,7 +422,6 @@ public class PaymentOption extends javax.swing.JDialog {
                if (Double.parseDouble(receviUsd) > _convertToUsd) { // usd > khr
                     paidBothValue(result, "usd");
                } else {
-                
                     paidBothValue(result, "khr"); // khr > usd
                }
           }
@@ -452,7 +451,7 @@ public class PaymentOption extends javax.swing.JDialog {
                if (types.equals("usd")) {
                     lastPoint = _d * JavaConstant.exchangeRate4050;
                } else {
-                    lastPoint = _d * JavaConstant.exchangeRate4050;
+                    lastPoint = _d * JavaConstant.exchangeRate;
                }
 
                int cashChange = 0;

@@ -712,6 +712,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setBtnCancel(btnCancel);
                              jdOpenShift.setBtnLogin(btnLogin);
                              jdOpenShift.setTitleOrder(titleOrder);
+                             jdOpenShift.setMainFrame(this);
                              jdOpenShift.setDataSuccess(d);
                         }
                    } catch (Exception e) {
