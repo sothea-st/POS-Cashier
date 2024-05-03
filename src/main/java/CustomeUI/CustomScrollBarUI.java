@@ -13,6 +13,7 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JScrollBar;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 /**
@@ -20,8 +21,8 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  * @author MOBILE-APP.02
  */
 public class CustomScrollBarUI extends BasicScrollBarUI {
-     private final Dimension dim = new Dimension();
 
+     private final Dimension dim = new Dimension();
 
      @Override
      protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
@@ -35,14 +36,16 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
 //          }
 
           g2.setColor(color);
-          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, 10, thumbBounds.height, 0, 0);
+          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 0, 0);
           g2.dispose();
      }
 
      @Override
      protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-          g.setColor(WindowColor.slightGreen);
-          g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
+//          Graphics2D g2 = (Graphics2D) g;
+//          g2.setColor(WindowColor.gray);
+//          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 0, 0);
+//          g2.dispose();
      }
 
      @Override

@@ -7,6 +7,7 @@ import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
+import static Components.TextField.onlyDigits;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
@@ -25,6 +26,7 @@ import Receipt.Receipt;
 import Return.PrinterReturn;
 import Return.ReturnDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -426,6 +428,55 @@ public class PaymentOption extends javax.swing.JDialog {
                } else {
                     paidBothValue(result, "khr"); // khr > usd
                }
+          }
+
+          //         =============== validation ==========
+          addCommaKhr(receviKhr);
+          addCommaUsd(receviUsd);
+     }
+
+     void addCommaKhr(String receviKhr) {
+
+          //          boolean isCheck = onlyDigits(receviKhr);
+//          if (!isCheck) {
+//               String newValue = receviKhr.substring(0, receviKhr.length() - 1) + "";
+//               txtReceiveKhr.setText(newValue);
+//               return;
+//          }
+          if (receviKhr.contains(".")) {
+               return;
+          }
+          // ================ 3 length insert comma =========
+
+          if (receviKhr.length() > 3) {
+               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
+               for (int i = builder.length() - 3; i > 0; i -= 3) {
+                    builder.insert(i, ",");
+               }
+               setValueTextField(builder.toString());
+          }
+     }
+
+     void addCommaUsd(String receviUsd) {
+
+          //          boolean isCheck = onlyDigits(receviKhr);
+//          if (!isCheck) {
+//               String newValue = receviKhr.substring(0, receviKhr.length() - 1) + "";
+//               txtReceiveKhr.setText(newValue);
+//               return;
+//          }
+          if (receviUsd.contains(".")) {
+               return;
+          }
+          // ================ 3 length insert comma =========
+
+          if (receviUsd.length() > 3) {
+               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
+               for (int i = builder.length() - 3; i > 0; i -= 3) {
+                    builder.insert(i, ",");
+               }
+               txtReceiveUsd.setText(builder.toString());
+               txtReceiveUsd.setForeground(Color.BLACK);
           }
      }
 
@@ -1492,7 +1543,13 @@ public class PaymentOption extends javax.swing.JDialog {
          } else {
               setValueLabelKhr(0, 0);
          }
+
     }//GEN-LAST:event_txtReceiveKhrKeyReleased
+
+     public void setValueTextField(String valueTextField) {
+          txtReceiveKhr.setText(valueTextField);
+          txtReceiveKhr.setForeground(Color.BLACK);
+     }
 
      void calculateKhr(String totalStr, String receiveStr) {
           double totalKhrValue = JavaConstant.getReplace(totalStr);
@@ -1559,13 +1616,16 @@ public class PaymentOption extends javax.swing.JDialog {
          jsonData.put("posId", JavaConstant.posId);
          jsonData.put("total", total);
 
+         String _khr = txtReceiveKhr.getText().replace(",", "");
+         String _usd = txtReceiveUsd.getText().replace(",", "");
+
          //get dataPay
          HashMap<String, Object> dataPay = new HashMap<>();
          dataPay.put("sourceId", sourceId);
          dataPay.put("customerTypeId", cusTypeId);
          dataPay.put("paymentType", paymentType);
-         dataPay.put("receiveKhr", txtReceiveKhr.getText());
-         dataPay.put("receiveUsd", txtReceiveUsd.getText());
+         dataPay.put("receiveKhr",_khr);
+         dataPay.put("receiveUsd",_usd);
          dataPay.put("remainingUsd", remainningUsd);
          dataPay.put("remainingKhr", remainningKhr);
          dataPay.put("changeUsd", changeUsd);
