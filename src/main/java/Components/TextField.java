@@ -201,32 +201,42 @@ public class TextField extends javax.swing.JPanel {
           txtText.setForeground(Color.LIGHT_GRAY);
      }
 
+     public static boolean onlyDigits(String str) {
+          for (int i = 0; i < str.length(); i++) {
+               if (str.charAt(i) == '.' || str.charAt(i) == ',') {
+                    continue;
+               }
+               if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+                    return false;
+               }
+          }
+          return true;
+     }
+
      private void txtTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyReleased
-          // TODO add your handling code here:
+
           String txt = txtText.getText();
-          setValueTextField(txt);
 
-//          StringBuilder sb = new StringBuilder(txt);
-//          String txtValue = "";
-//          int length = sb.length();
-//          // Start from the end of the string and insert comma every 3 characters
-//          for (int i = length - 3; i > 0; i -= 3) {
-//               sb.insert(i, ",");
-//             
-//          }
-//          txtValue = sb.toString();
-          
-          
-          
+          if (comma != null) {
+               boolean isCheck = onlyDigits(txt);
+               if (!isCheck) {
+                    String newValue = txt.substring(0, txt.length() - 1) + "";
+                    txtText.setText(newValue);
+                    return;
+               }
 
-//          JavaConstant.insertComma(txt);
-
-//          if (comma != null) {
-//               // ================ 3 length insert comma =========
-//               JavaConstant.setCommaIn3Length(txtText);
-//
-//   
-//          }
+               if (txt.contains(".")) {
+                    return;
+               }
+               // ================ 3 length insert comma =========
+               if (txt.length() > 3) {
+                    StringBuilder builder = new StringBuilder(txt.replaceAll(",", ""));
+                    for (int i = builder.length() - 3; i > 0; i -= 3) {
+                         builder.insert(i, ",");
+                    }
+                    setValueTextField(builder.toString());
+               }
+          }
 
      }//GEN-LAST:event_txtTextKeyReleased
 

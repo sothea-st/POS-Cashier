@@ -20,8 +20,8 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  * @author MOBILE-APP.02
  */
 public class CustomScrollBarUI extends BasicScrollBarUI {
-
      private final Dimension dim = new Dimension();
+
 
      @Override
      protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
@@ -29,19 +29,20 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
           g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
           g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-          Color color = Color.lightGray;
-          if (isThumbRollover()) {
-               color = WindowColor.darkGreen;
-          }
+          Color color = WindowColor.gray;
+//          if (isThumbRollover()) {
+//               color = WindowColor.darkGreen;
+//          }
 
           g2.setColor(color);
-          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, 20, thumbBounds.height, 0, 0);
+          g2.fillRoundRect(thumbBounds.x, thumbBounds.y, 10, thumbBounds.height, 0, 0);
           g2.dispose();
      }
 
      @Override
      protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-          // Customize track appearance if needed
+          g.setColor(WindowColor.slightGreen);
+          g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
      }
 
      @Override

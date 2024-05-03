@@ -31,16 +31,15 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           event();
-          txtInvoiceNumber.requestFocus();
+          txtInvoiceNumber.setFocus();
 
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
-                    
-                    String data = value.substring(2);
-                    Response responseData = JavaConnection.get(JavaRoute.getInvoice+data);
-                    
+//                    String barcodeValue = value.substring(2); // this working with device scanner 
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + value);
+
                     try {
                          String _data = responseData.body().string();
                          JSONObject obj = new JSONObject(_data);
@@ -50,7 +49,6 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                          System.err.println("response data 333= " + e);
                     }
                }
-
           };
 
           txtInvoiceNumber.initEvent(event);

@@ -70,7 +70,7 @@ public class ApprovalCode extends javax.swing.JDialog {
           event();
 
           txtPassword.setTextPassowrd("Password");
-          txtCode.requestFocus();
+          txtCode.setFocus();
      }
 
      //Action call function placeholder

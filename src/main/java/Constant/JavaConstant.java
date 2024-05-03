@@ -185,6 +185,7 @@ public class JavaConstant {
           ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
                @Override
                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                    System.out.println("insertString working");
                     StringBuilder builder = new StringBuilder(string.replaceAll(",", ""));
                     for (int i = builder.length() - 3; i > 0; i -= 3) {
                          builder.insert(i, ",");
@@ -194,11 +195,15 @@ public class JavaConstant {
 
                @Override
                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                    System.out.println("replace working");
+
                     if (text == null) {
                          super.replace(fb, offset, length, text, attrs);
                          return;
                     }
+
                     StringBuilder builder = new StringBuilder(text.replaceAll(",", ""));
+
                     for (int i = builder.length() - 3; i > 0; i -= 3) {
                          builder.insert(i, ",");
                     }
@@ -236,6 +241,14 @@ public class JavaConstant {
 
      public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
 
-    
+     public static boolean onlyDigits(String str) {
+          for (int i = 0; i < str.length(); i++) {
+               if( str.charAt(i) == '.' ) continue;
+               if (str.charAt(i) < '0' || str.charAt(i) > '9') {
+                    return false;
+               }
+          }
+          return true;
+     }
 
 }

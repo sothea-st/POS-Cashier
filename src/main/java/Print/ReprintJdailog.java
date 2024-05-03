@@ -1,6 +1,6 @@
 package Print;
 
-import Button.Button;
+ 
 import Color.WindowColor;
 import Components.DialonInputName;
 import Components.HistoryHoldOrder;
@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
-
+import Button.Button;
 public class ReprintJdailog extends javax.swing.JDialog {
 
      private String title;
@@ -79,24 +79,24 @@ public class ReprintJdailog extends javax.swing.JDialog {
           panelReprintLayout.setHorizontalGroup(
                panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelReprintLayout.createSequentialGroup()
-                    .addGap(9, 9, 9)
+                    .addGap(15, 15, 15)
                     .addComponent(btnPrintByLast, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(btnPrintByInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(13, Short.MAX_VALUE))
+                    .addContainerGap(15, Short.MAX_VALUE))
                .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           );
           panelReprintLayout.setVerticalGroup(
                panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelReprintLayout.createSequentialGroup()
                     .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(28, 28, 28)
+                    .addGap(30, 30, 30)
                     .addGroup(panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(panelReprintLayout.createSequentialGroup()
                               .addGap(0, 0, Short.MAX_VALUE)
                               .addComponent(btnPrintByLast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addComponent(btnPrintByInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(26, 26, 26))
+                    .addGap(30, 30, 30))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -348,7 +348,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     }
 
                     if (!receviKhr.isEmpty()) {
-                        
+
                          funKhr(receviKhr);
                     }
                     return;
@@ -494,10 +494,9 @@ public class PaymentOption extends javax.swing.JDialog {
           double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
 
           double result = doubleReceviceKhr - doubleTotalKhr;
-          
-        
+
           if (result < 0) {
-            
+
                setValueLabelKhr(result, 0);
           } else if (result > 0) {
                setValueLabelKhr(0, result);
@@ -1960,9 +1959,9 @@ public class PaymentOption extends javax.swing.JDialog {
           convertDoubleToStr = convertDoubleToStr.replace("-", "");
           double _d = Double.parseDouble(convertDoubleToStr);
           double _remainingUsd = _d / JavaConstant.exchangeRate;
-        
+
           if (remaining < 0) {
-             
+
                convertDoubleToStr = JavaRoundUpKhr.setRoundNumber(_d);
                if (txtReceiveKhr.getText().isEmpty()) {
                     lbRemainingKhr.setLabelName(lbTotalKhr.getLabelName());
@@ -1972,9 +1971,9 @@ public class PaymentOption extends javax.swing.JDialog {
                lbRemainingUsd.setLabelName(df.format(_remainingUsd));
                lbChangeKhr.setLabelName(dm.format(0));
                lbChangeUsd.setLabelName(df.format(0));
-             
+
           } else {
-                 System.out.println("ssssssssssssssssssss 22: " + change);
+
                if (sign.equals("khr")) {
                     lbRemainingUsd.setLabelName(df.format(0));
                } else if (sign.equals("usd")) {

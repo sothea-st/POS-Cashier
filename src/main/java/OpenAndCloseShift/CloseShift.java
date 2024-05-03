@@ -35,7 +35,7 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonCashier;
      private Button btnHold;
      private Button btnLogin;
-
+   
      private BackgroundImage bgImage;
      private ButtonCancel btnCancel;
 
@@ -47,7 +47,7 @@ public class CloseShift extends javax.swing.JDialog {
           setResizable(false);
           event();
           this.btnOpenShift = btnOpenShift;
-          redexpress.requestFocus();
+          redexpress.setFocus();
 
           redexpress.setComma("comma");
           qrMnk.setComma("comma"); // when user type 4length it will insert , at 3 length 
@@ -55,6 +55,10 @@ public class CloseShift extends javax.swing.JDialog {
           abaCreditCard.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashUs.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashKh.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          cashCount.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          
+          
+           
      }
 
      void event() {
@@ -381,7 +385,7 @@ public class CloseShift extends javax.swing.JDialog {
                    JOptionPane.showMessageDialog(this, "CASH (KHR) can not be empty!");
                    return;
               }
-              
+
               if (countCash == null || countCash.isEmpty()) {
                    JOptionPane.showMessageDialog(this, "CASHIER COUNT can not be empty!");
                    return;
@@ -395,7 +399,50 @@ public class CloseShift extends javax.swing.JDialog {
                    return;
               }
 
+              boolean isExpress = JavaConstant.onlyDigits(express);
+              if (!isExpress) {
+                   JOptionPane.showMessageDialog(this, "Invalid value Express !");
+                   return;
+              }
+
+              boolean isKhqrMnk = JavaConstant.onlyDigits(khqrMnk);
+              if (!isKhqrMnk) {
+                   JOptionPane.showMessageDialog(this, "Invalid value KHQR-MNK !");
+                   return;
+              }
+
+              boolean isKhqrAba = JavaConstant.onlyDigits(khqrAba);
+              if (!isKhqrAba) {
+                   JOptionPane.showMessageDialog(this, "Invalid value KHQR-ABA !");
+                   return;
+              }
+
+              boolean isAbaCreditCart = JavaConstant.onlyDigits(creditCard);
+              if (!isAbaCreditCart) {
+                   JOptionPane.showMessageDialog(this, "Invalid value ABA Credit Cart !");
+                   return;
+              }
+
+              boolean isCashUsd = JavaConstant.onlyDigits(cashUsd);
+              if (!isCashUsd) {
+                   JOptionPane.showMessageDialog(this, "Invalid value Cash(USD) !");
+                   return;
+              }
+
+              boolean isCashKhr = JavaConstant.onlyDigits(cashKhr);
+              if (!isCashKhr) {
+                   JOptionPane.showMessageDialog(this, "Invalid value Cash(KHR) !");
+                   return;
+              }
+
+              boolean isCashCount = JavaConstant.onlyDigits(countCash);
+              if (!isCashCount) {
+                   JOptionPane.showMessageDialog(this, "Invalid value Cash Count !");
+                   return;
+              }
+
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
+            
 
               if (response.isSuccessful()) {
 
@@ -436,6 +483,7 @@ public class CloseShift extends javax.swing.JDialog {
 //                   panelProduct.repaint();
 //                          == == == == == == == == == == == == == == == == == == == == == == =
 //                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
+                  
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
 
@@ -445,6 +493,8 @@ public class CloseShift extends javax.swing.JDialog {
               System.err.println("errr -- " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
+
+ 
 
      public BackgroundImage getBgImage() {
           return bgImage;

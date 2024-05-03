@@ -78,7 +78,7 @@ public class ReturnDialog extends javax.swing.JDialog {
           setResizable(false);
           event();
           addComboReason();
-          txtinvoice.requestFocus();
+          txtinvoice.setFocus();
           eventSelectReason();
 
           ButtonEvent event = new ButtonEvent() {

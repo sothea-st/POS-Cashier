@@ -407,6 +407,7 @@ Model\Sale\ProductSaleModel.class
 ButtonPackage\ButtonCancel.class
 Return\ReturnDialog$2.class
 Constant\JavaConstant$1.class
+View\MainPage\MainFrame.class
 ButtonPackage\ButtonLogin.class
 Components\LabelFontGreen$1.class
 DefaultPrice\DataModelDefaultPrice.class

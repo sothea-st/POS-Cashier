@@ -77,5 +77,6 @@ public class ActionCloseShift {
           close.setButtonCashier(buttonCashier);
           close.setBtnLogin(btnLogin);
           close.setVisible(true);
+ 
      }
 }
