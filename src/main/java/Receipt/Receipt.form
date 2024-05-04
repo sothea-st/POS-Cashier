@@ -147,7 +147,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="generateBarcode" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="generateBarcode" min="-2" pref="65" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="invoiceCode" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
@@ -744,7 +744,7 @@
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <EmptySpace pref="124" max="32767" attributes="0"/>
+                                                  <EmptySpace pref="125" max="32767" attributes="0"/>
                                                   <Component id="totalKhr" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
