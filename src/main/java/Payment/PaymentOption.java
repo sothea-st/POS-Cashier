@@ -315,6 +315,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     double doubleReceviceUsd = JavaConstant.getReplace(receviUsd);
                     double result = doubleReceviceUsd - doubleTotalUsd;
 
+                    System.err.println("result usd : " + result);
                     if (result < 0) {
                          setValueLabelUsd(result, 0);
                     } else if (result > 0) {
@@ -350,7 +351,6 @@ public class PaymentOption extends javax.swing.JDialog {
                     }
 
                     if (!receviKhr.isEmpty()) {
-
                          funKhr(receviKhr);
                     }
                     return;
@@ -1624,8 +1624,8 @@ public class PaymentOption extends javax.swing.JDialog {
          dataPay.put("sourceId", sourceId);
          dataPay.put("customerTypeId", cusTypeId);
          dataPay.put("paymentType", paymentType);
-         dataPay.put("receiveKhr",_khr);
-         dataPay.put("receiveUsd",_usd);
+         dataPay.put("receiveKhr", _khr);
+         dataPay.put("receiveUsd", _usd);
          dataPay.put("remainingUsd", remainningUsd);
          dataPay.put("remainingKhr", remainningKhr);
          dataPay.put("changeUsd", changeUsd);
@@ -1964,6 +1964,15 @@ public class PaymentOption extends javax.swing.JDialog {
      private void setValueLabelUsd(double remaining, double change) {
           String receviUsd = txtReceiveUsd.getText();
           String receviKhr = txtReceiveKhr.getText();
+
+          if (remaining == 0 && change == 0) {
+               lbRemainingUsd.setLabelName(df.format(0));
+               lbRemainingKhr.setLabelName(dm.format(0));
+               lbChangeKhr.setLabelName(dm.format(change));
+               lbChangeUsd.setLabelName(df.format(change));
+               return;
+          }
+
           if (remaining < 0) {
                String convertDoubleToStr = "" + remaining;
                convertDoubleToStr = convertDoubleToStr.replace("-", "");
@@ -1979,6 +1988,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
                if (change < 5) {
                     change = change * JavaConstant.exchangeRate4050;
+                    System.err.println("change usd : " + change);
                     lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(change));
 
                     lbRemainingKhr.setLabelName(dm.format(0));
@@ -2019,6 +2029,14 @@ public class PaymentOption extends javax.swing.JDialog {
           convertDoubleToStr = convertDoubleToStr.replace("-", "");
           double _d = Double.parseDouble(convertDoubleToStr);
           double _remainingUsd = _d / JavaConstant.exchangeRate;
+
+          if (remaining == 0 && change == 0) {
+               lbRemainingKhr.setLabelName(dm.format(0));
+               lbRemainingUsd.setLabelName(df.format(0));
+               lbChangeKhr.setLabelName(dm.format(0));
+               lbChangeUsd.setLabelName(df.format(0));
+               return;
+          }
 
           if (remaining < 0) {
 

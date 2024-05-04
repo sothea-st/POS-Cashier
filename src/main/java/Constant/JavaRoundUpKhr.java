@@ -170,6 +170,17 @@ public class JavaRoundUpKhr {
           String khValue = dd.format(change);
           String data = "";
           int l = khValue.length();
+          
+          if( l == 2 ) {
+               int _value = Integer.parseInt(khValue);
+               if( _value > 50 ) {
+                    data = "100";
+               } else {
+                    data = "0";
+               }
+             return data;
+          }
+          
           if (l >= 3) {
                int begin = l - 2;
                String last2Number = khValue.substring(begin, l);
