@@ -168,7 +168,6 @@ public class ReprintJdailog extends javax.swing.JDialog {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage("Invoice is empty!");
                j.setVisible(true);
-               return;
           }
      }
 
