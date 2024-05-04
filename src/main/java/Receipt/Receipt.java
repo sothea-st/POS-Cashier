@@ -10,6 +10,7 @@ import Model.Reprint.ReprintModel;
 import Model.Reprint.SaleDetailModel;
 import PanelToImageConverter.FrameReceiptForPrint;
 import PanelToImageConverter.TestPanel;
+import Print.EpsonPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.awt.Color;
@@ -74,7 +75,6 @@ public class Receipt extends javax.swing.JDialog {
           setBackground(Color.WHITE);
           getContentPane().setBackground(Color.WHITE);
 //          invoiceNo.setFont(new Font("Time New Roman", Font.BOLD, 9));
-    
 
      }
 
@@ -908,9 +908,25 @@ public class Receipt extends javax.swing.JDialog {
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
 //         printComponenet();
-         printReceipt();
+
+         if (listSale.length > 1) {
+              printReceipt();
+         } else {
+              EpsonPrinter.printReceipt(print);
+         }
+
          dispose();
     }//GEN-LAST:event_btnPrintMouseClicked
+
+//    ======================== new test =====================
+     private double calculatePanelHeight() {
+          // Calculate the total height needed to accommodate all items in the JPanel
+          double totalHeight = 0;
+          for (Component component : print.getComponents()) {
+               totalHeight += component.getHeight();
+          }
+          return totalHeight;
+     }
 
      public void printReceipt() {
           // ============= print with device
@@ -928,7 +944,10 @@ public class Receipt extends javax.swing.JDialog {
 //                 PrinterJob printerJob = PrinterJob.getPrinterJob();
                     PageFormat pageFormat = printerJob.defaultPage();
                     Paper paper = new Paper();
-                    paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
+
+                    paper.setSize(4.13 * 72, calculatePanelHeight()); // A6 size in points (1 inch = 72 points)
+
+//                    paper.setSize(print.getPreferredSize().getWidth(), print.getPreferredSize().getHeight());
                     paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
                     pageFormat.setPaper(paper);
 
@@ -1000,25 +1019,23 @@ public class Receipt extends javax.swing.JDialog {
                vattin.setText(data.getVattin());
 //               cusName.setText(data.getCustomerType());
                invoiceNo.setText(data.getPaymentNo());
-               
+
                //Set Discount
-               if(data.getDiscount() > 0){
-                   discountVal.setText(dm.format(data.getDiscount()));
-               }else{
-                   discountVal.setVisible(false);
-                   lbDiscountUs.setVisible(false);
-                   lbDiscountKh.setVisible(false);
+               if (data.getDiscount() > 0) {
+                    discountVal.setText(dm.format(data.getDiscount()));
+               } else {
+                    discountVal.setVisible(false);
+                    lbDiscountUs.setVisible(false);
+                    lbDiscountKh.setVisible(false);
                }
-               
 
                if (data.getCompanyContact() != null || !data.getCompanyContact().isEmpty()) {
                     contact.setText(formatString(data.getCompanyContact()));
                }
 
-               
                saleDate.setText(data.getSaleDate());
-               cashierName.setText( data.getEmpName());
-               
+               cashierName.setText(data.getEmpName());
+
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(kh.format(totalkh));
@@ -1050,7 +1067,7 @@ public class Receipt extends javax.swing.JDialog {
 
                byte[] barcode = generateCode.body().bytes();
                generateBarcode.setIcon(new ImageIcon(barcode));
-               
+
                invoiceCode.setText(data.getPaymentNo());
 
                jLabel35.setVisible(false);
@@ -1058,21 +1075,21 @@ public class Receipt extends javax.swing.JDialog {
                jLabel36.setVisible(false);
                exchangeDollar.setVisible(false);
                jLabel7.setVisible(false);
-               
+
                //Set Delivery
                deliveryVal.setVisible(false);
                lbDeliveryUs.setVisible(false);
                lbDeliveryKh.setVisible(false);
-               
 
           } catch (Exception e) {
                System.err.println("getting error at " + e);
           }
 
      }
+     SaleDetailModel[] listSale = null;
 
      private void displayProduct(ReprintModel data) {
-          SaleDetailModel[] listSale = data.getSaleDetails();
+          listSale = data.getSaleDetails();
 
           for (int i = 0; i < listSale.length; i++) {
                var list = listSale[i];
