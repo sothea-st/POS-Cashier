@@ -1007,12 +1007,12 @@ public class BoxItem extends javax.swing.JPanel {
                    for (int i = 0; i < listCom1.length; i++) {
                         var obj = ((BoxItem) listCom1[i]);
 
-                        if (obj.getOldDiscount() > 0) {
+//                        if (obj.getOldDiscount() > 0) {
                              this.setBorder(null);
                              this.revalidate();
                              this.repaint();
                              return;
-                        }
+//                        }
                    }
               }
          }

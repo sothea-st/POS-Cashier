@@ -65,6 +65,7 @@ D:\POSCASHIERMASTER\tt_pos_window\src\main\java\View\MainPage\MainPage.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Model\CashierReport\SummerySale.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Model\ReturnModel\ReturnProductModel.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\PanelToImageConverter\FrameReceiptForPrint.java
+D:\POSCASHIERMASTER\tt_pos_window\src\main\java\View\MainPage\MainFrame.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Components\DialonInputName.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Components\TextField.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Components\PasswordField.java
@@ -75,7 +76,6 @@ D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Return\ReturnBox.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\com\mycompany\kingmart\KingMart.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\HoldOrder\HoldeModel.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Model\ReturnModel\ModelReturnData.java
-D:\POSCASHIERMASTER\tt_pos_window\src\main\java\View\MainPage\CircleLoadingCursorExample.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Controller\ActionRequestBrand\ActionRequestBrand.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Model\CustomerType\SourceModel.java
 D:\POSCASHIERMASTER\tt_pos_window\src\main\java\Model\HoldOrder\NewHoldOrderModel.java

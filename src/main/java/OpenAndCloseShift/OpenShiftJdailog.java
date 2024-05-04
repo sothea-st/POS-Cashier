@@ -324,6 +324,18 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     return;
                }
 
+               boolean isReserveUsd = JavaConstant.onlyDigits(reserveUsd);
+               if (!isReserveUsd) {
+                    JOptionPane.showMessageDialog(this, "Invalid value Total Cash(USD) !");
+                    return;
+               }
+
+               boolean isReserveKhr = JavaConstant.onlyDigits(reserveKhr);
+               if (!isReserveKhr) {
+                    JOptionPane.showMessageDialog(this, "Invalid value Total Cash(KHR) !");
+                    return;
+               }
+
                Response response = JavaConnection.post(JavaRoute.openShift, json);
 
                JavaConstant.setCircleLoadingCursor(mainFrame);

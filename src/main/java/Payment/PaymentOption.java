@@ -348,8 +348,10 @@ public class PaymentOption extends javax.swing.JDialog {
                     }
 
                     if (!receviKhr.isEmpty()) {
+
                          funKhr(receviKhr);
                     }
+                    return;
 
                }
 
@@ -476,9 +478,8 @@ public class PaymentOption extends javax.swing.JDialog {
 
           }
 
-
           if (types.equals("khr") && txtReceiveUsd.getText().isEmpty()) {
-         
+
                lbChangeUsd.setLabelName(df.format(0));
                lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_remainingUsd));
           }
@@ -495,6 +496,7 @@ public class PaymentOption extends javax.swing.JDialog {
           double result = doubleReceviceKhr - doubleTotalKhr;
 
           if (result < 0) {
+
                setValueLabelKhr(result, 0);
           } else if (result > 0) {
                setValueLabelKhr(0, result);
@@ -1350,13 +1352,10 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbZeroMouseClicked
 
     private void lbDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseClicked
-
          if (JavaConstant.isReturn != null) {
               return;
          }
          keyDelete();
-
-
     }//GEN-LAST:event_lbDeleteMouseClicked
 
      void keyDelete() {
@@ -1367,7 +1366,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     usd(txtReceiveUsd.getText());
                }
                return;
-          } 
+          }
 
           if (!txtReceiveUsd.getText().isEmpty()) {
                usd(txtReceiveUsd.getText());
@@ -1415,9 +1414,6 @@ public class PaymentOption extends javax.swing.JDialog {
 
     private void txtReceiveKhrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReceiveKhrMouseClicked
          sign = "khr";
-//         String khrValue = txtReceiveKhr.getText();
-//         System.err.println("jjjjjjjjj = " + khrValue);
-//         inputAmount("");
     }//GEN-LAST:event_txtReceiveKhrMouseClicked
 
     private void txtReceiveUsdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyReleased
@@ -1743,9 +1739,9 @@ public class PaymentOption extends javax.swing.JDialog {
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
           if (responseReturn.isSuccessful()) {
- 
+
                JavaConstant.setBackQty(detailItem, panelProduct);
- 
+
                JavaConstant.isReturn = null;
                JavaConstant.returnByBarcode = null;
                JavaConstant.qtyReturn = null;
@@ -1973,10 +1969,11 @@ public class PaymentOption extends javax.swing.JDialog {
                     lbRemainingKhr.setLabelName(convertDoubleToStr);
                }
                lbRemainingUsd.setLabelName(df.format(_remainingUsd));
-               lbChangeKhr.setLabelName(dm.format(change));
+               lbChangeKhr.setLabelName(dm.format(0));
                lbChangeUsd.setLabelName(df.format(0));
 
           } else {
+
                if (sign.equals("khr")) {
                     lbRemainingUsd.setLabelName(df.format(0));
                } else if (sign.equals("usd")) {
@@ -2104,15 +2101,13 @@ public class PaymentOption extends javax.swing.JDialog {
           this.btnReturn = btnReturn;
      }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
-     
-     
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
