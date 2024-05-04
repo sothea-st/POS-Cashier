@@ -62,7 +62,7 @@ public class BarcodeGenerator {
     public BufferedImage generateEAN128BarCodeImage(final String barcodeText) throws Exception {
         final Barcode barcode = BarcodeFactory.createEAN128(barcodeText);
         barcode.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
-        barcode.setBarHeight(40);
+        barcode.setBarHeight(65);
         barcode.setBarWidth(3);
         return BarcodeImageHandler.getImage(barcode);
     }
