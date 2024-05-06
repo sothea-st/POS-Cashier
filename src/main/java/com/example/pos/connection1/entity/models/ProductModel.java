@@ -10,7 +10,7 @@ public class ProductModel {
     private String proNameEn;
     private int id;
     private String flag;
-    private int discount;
+    private Double discount;
     private double cost;
     private double price;
     private String weight;
@@ -32,7 +32,7 @@ public class ProductModel {
             String proNameEn,
             int id,
             String flag,
-            int discount,
+            Double discount,
             double cost,
             double price,
             String weight,
@@ -67,7 +67,7 @@ public class ProductModel {
             String proNameEn,
             int id,
             String flag,
-            int discount,
+            Double discount,
             double cost,
             double price,
             String weight,
@@ -162,11 +162,11 @@ public class ProductModel {
         this.flag = flag;
     }
 
-    public int getDiscount() {
+    public Double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(Double discount) {
         this.discount = discount;
     }
 

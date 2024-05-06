@@ -13,7 +13,7 @@ public interface ProductQty {
      double getCost();
      double getPrice();
      String getProduct_status();
-     int getDiscount();
+     Double getDiscount();
      String getCode_out_stock();
      String getCode_expired();
      int getQty();
