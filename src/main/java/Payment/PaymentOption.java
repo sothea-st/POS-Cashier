@@ -1782,26 +1782,30 @@ public class PaymentOption extends javax.swing.JDialog {
                double price = JavaConstant.getReplace(obj.getLabelPrice());
                double amount = JavaConstant.getReplace(obj.getLabelAmountUsd());
                double discountDigit = obj.getDiscountDigit();
+               double discountValue = obj.getDiscountValue();
+               
+        
+               double disAmt = JavaConstant.getReplace(obj.getDiscountAmount());
 
                ReturnProductModel pro = new ReturnProductModel(
                     obj.getProductId(),
                     obj.getQty(),
                     price,
                     amount,
-                    discountDigit,
+                    discountValue,
                     obj.getLabelProductName(),
-                    obj.getLabelBarcode()
+                    obj.getLabelBarcode(),
+                    disAmt
                );
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
-
+ 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
           if (responseReturn.isSuccessful()) {
 
                JavaConstant.setBackQty(detailItem, panelProduct);
-
                JavaConstant.isReturn = null;
                JavaConstant.returnByBarcode = null;
                JavaConstant.qtyReturn = null;
@@ -2097,8 +2101,8 @@ public class PaymentOption extends javax.swing.JDialog {
           if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
                txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
                txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
-               lbChangeKhr.setLabelName("" + ModelReturnData.change_khr);
-               lbChangeUsd.setLabelName("" + ModelReturnData.change_usd);
+               lbChangeKhr.setLabelName(dm.format(Double.parseDouble(ModelReturnData.change_khr)));
+               lbChangeUsd.setLabelName(df.format(ModelReturnData.change_usd));
 
                txtReceiveKhr.setFocusable(false);
                txtReceiveUsd.setFocusable(false);

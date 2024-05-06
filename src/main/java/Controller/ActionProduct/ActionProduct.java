@@ -358,7 +358,7 @@ public class ActionProduct {
 
           double price = listData.getPrice();
           
-          System.err.println("jjjjjjjjjjjjjjj = " + JavaConstant.isReturn);
+          System.err.println("jjjjjjjjjjjjjjj = " + listData.getDiscount());
           
           
           double discount = (listData.getDiscount() * price) / 100;
@@ -452,6 +452,10 @@ public class ActionProduct {
                box.setDiscountAmount(dm.format(discount));
                box.setDiscountAmt(dm.format(discount));
                box.setQty(1);
+          }
+          
+          if( listData.getDiscount() > 0 ) {
+               box.setDiscountValue(listData.getDiscount());
           }
 
  

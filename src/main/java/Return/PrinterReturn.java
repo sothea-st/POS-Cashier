@@ -162,6 +162,7 @@ public class PrinterReturn extends javax.swing.JDialog {
 //               }
 
                if (data.getDiscount() != 0) {
+                    System.err.println("ata.getDiscount() : " + data.getDiscount());
                     discount.setText(dm.format(data.getDiscount()));
                } else {
                     discount.setVisible(false);
