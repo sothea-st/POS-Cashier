@@ -80,6 +80,7 @@ public class ReturnProductService {
         for (int i = 0; i < listDetail.size(); i++) {
             int proId = listDetail.get(i).getProId();
             var val = listDetail.get(i);
+
             sumTotalReturn += val.getQty() * val.getPrice().doubleValue();
 
             int qtyReturn = listDetail.get(i).getQty();

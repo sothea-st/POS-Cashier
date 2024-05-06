@@ -121,45 +121,49 @@ public class ReprintService {
         }
 
         map.put("total", paymentData.getTotal());
+        map.put("receiveKhr", paymentData.getReceive_khr());
+        map.put("changeKhr", paymentData.getChange_khr());
+        map.put("receiveUsd", paymentData.getReceive_usd());
+        map.put("changeUsd", paymentData.getChange_usd());
 
-        if (paymentData.getReceive_khr() != null) {
-            map.put("receiveKhr", paymentData.getReceive_khr());
-            map.put("changeKhr", paymentData.getChange_khr());
-        } else {
-            map.put("receiveKhr", 0);
-            map.put("changeKhr", 0);
-        }
+        // if (paymentData.getReceive_khr() != null) {
+        //     map.put("receiveKhr", paymentData.getReceive_khr());
+        //     map.put("changeKhr", paymentData.getChange_khr());
+        // } else {
+        //     map.put("receiveKhr", 0);
+        //     map.put("changeKhr", 0);
+        // }
 
-        if (paymentData.getReceive_usd() != null) {
-            map.put("receiveUsd", paymentData.getReceive_usd());
-            map.put("changeUsd", paymentData.getChange_usd());
-        } else {
-            map.put("receiveUsd", 0);
-            map.put("changeUsd", 0);
-        }
+        // if (paymentData.getReceive_usd() != null) {
+        //     map.put("receiveUsd", paymentData.getReceive_usd());
+        //     map.put("changeUsd", paymentData.getChange_usd());
+        // } else {
+        //     map.put("receiveUsd", 0);
+        //     map.put("changeUsd", 0);
+        // }
 
-        if (paymentData.getReceive_khr() != null && paymentData.getReceive_usd() != null) {
-            double totalUSD = paymentData.getTotal().doubleValue();
-            double _receivUsd = paymentData.getReceive_usd().doubleValue();
-            double _receiveKhr = Double.parseDouble(paymentData.getReceive_khr()) / JavaConstant.exchangeRate;
-            _receiveKhr = JavaConstant.getTwoPrecision(_receiveKhr);
-            double _change = (_receivUsd + _receiveKhr) - totalUSD;
-            _change = JavaConstant.getTwoPrecision(_change);
-            if (_change >= 5) {
-                map.put("changeUsd", _change);
-                map.put("changeKhr", 0);
-            } else {
-                map.put("changeUsd", 0);
-                map.put("changeKhr", _change * JavaConstant.exchangeRate);
-            }
-        }
+        // if (paymentData.getReceive_khr() != null && paymentData.getReceive_usd() != null) {
+        //     double totalUSD = paymentData.getTotal().doubleValue();
+        //     double _receivUsd = paymentData.getReceive_usd().doubleValue();
+        //     double _receiveKhr = Double.parseDouble(paymentData.getReceive_khr()) / JavaConstant.exchangeRate;
+        //     _receiveKhr = JavaConstant.getTwoPrecision(_receiveKhr);
+        //     double _change = (_receivUsd + _receiveKhr) - totalUSD;
+        //     _change = JavaConstant.getTwoPrecision(_change);
+        //     if (_change >= 5) {
+        //         map.put("changeUsd", _change);
+        //         map.put("changeKhr", 0);
+        //     } else {
+        //         map.put("changeUsd", 0);
+        //         map.put("changeKhr", _change * JavaConstant.exchangeRate);
+        //     }
+        // }
 
         map.put("paymentNo", paymentData.getPayment_no());
         map.put("paymentBarcode", paymentData.getPayment_barcode());
         map.put("saleDate", paymentData.getSale_date());
         map.put("customerType", paymentData.getCustomer_type());
         map.put("returned", paymentData.getIs_return());
-        map.put("discount", paymentData.getDiscount().doubleValue());
+        double sumDiscontAmt = 0;
         List<ReturnDetailsProduct> dataSaleDetails = new ArrayList<>();
 
         for (int i = 0; i < re.getDataDetails().size(); i++) {
@@ -168,9 +172,10 @@ public class ReprintService {
             // SaleDetailProjection sale = saleDetailRepo.getDataDetailReturn(paymentData.getUser_id(),
             //         paymentData.getSale_id(), proId);
             ReturnDetailsProduct sale = new ReturnDetailsProduct(data.getQty(), data.getPrice(), data.getProName(), data.getBarcode());
+            sumDiscontAmt += data.getDiscountAmt();
             dataSaleDetails.add(sale);
         }
-
+        map.put("discount", sumDiscontAmt);
         map.put("saleDetails", dataSaleDetails);
         String empName = userRepo.getNameEmp(paymentData.getUser_id());
         map.put("empName", empName);
