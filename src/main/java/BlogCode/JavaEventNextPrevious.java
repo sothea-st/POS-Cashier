@@ -19,7 +19,7 @@ import okhttp3.Response;
  * @author MOBILE-APP.02
  */
 public class JavaEventNextPrevious {
-
+     
      public static void eventNext(LabelFontGreen next, int limit, LoginFormJdailog jdFormLogin) {
           ButtonEvent event = new ButtonEvent() {
                @Override

@@ -275,10 +275,12 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(menuBarLayout.createSequentialGroup()
                     .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                              .addComponent(textField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(panelCart, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addGroup(menuBarLayout.createSequentialGroup()
+                              .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                   .addComponent(textField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(panelCart, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addGap(17, 17, 17)))
+                    .addContainerGap())
           );
 
           lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -332,7 +334,7 @@ public class MainPage extends javax.swing.JFrame {
                     btnOpenShiftMouseClicked(evt);
                }
                public void mouseEntered(java.awt.event.MouseEvent evt) {
-               
+                    // btnOpenShiftMouseEntered(evt);
                }
           });
 

@@ -135,7 +135,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setPanelProduct(panelProduct);
           pro.setBtnReturn(btnReturn);
           pro.setTitleOrder(titleOrder);
-        
+
           if (listData != null) {
                pro.assignProduct(listData, panelProduct);
           }
@@ -380,7 +380,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          json.put("userCode", userId);
          json.put("password", password);
          json.put("deviceName", deviceName);
-         
+
          JavaConstant.setCircleLoadingCursor(mainFrame);
 
          try {
@@ -458,8 +458,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    boxUserName.setVisible(false);
                    getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
                    boxUserName.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
-                   lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode +  "               POS ID : " + JavaConstant.posId);
-   lbPOSId.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
+                   lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "               POS ID : " + JavaConstant.posId);
+                   lbPOSId.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    category();
                    getjScrollPaneCategory().setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
@@ -473,8 +473,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    }
 
                    JavaConstant.isOpenShift = null;
-                   
-                    JavaConstant.restoreDefaultCursor(mainFrame);
+
+                   JavaConstant.restoreDefaultCursor(mainFrame);
 
               } else {
                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
@@ -906,18 +906,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setMainFrame(JFrame mainFrame) {
           this.mainFrame = mainFrame;
      }
-     
-     
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
-     
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
