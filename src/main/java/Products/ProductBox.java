@@ -27,7 +27,7 @@ import javax.swing.ImageIcon;
 public class ProductBox extends javax.swing.JPanel {
 
      private String qty;
-     private int discountPercent;
+     private double discountPercent;
      private int orgQty;
 
      public int getOrgQty() {
@@ -42,11 +42,11 @@ public class ProductBox extends javax.swing.JPanel {
      
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
 
-     public int getDiscountPercent() {
+     public double getDiscountPercent() {
           return discountPercent;
      }
 
-     public void setDiscountPercent(int discountPercent) {
+     public void setDiscountPercent(double discountPercent) {
           this.discountPercent = discountPercent;
           if (discountPercent > 0) {
                percent.setDiscountPercent("<html>" + discountPercent + "%" + "<br>" + "Off" + "</html>");
@@ -129,7 +129,7 @@ public class ProductBox extends javax.swing.JPanel {
           lbName.setText(ProductName);
      }
 
-     public void setDiscountPercentag(int discountPercentag, Double wasPrice) {
+     public void setDiscountPercentag(double discountPercentag, Double wasPrice) {
           this.discountPercentag = discountPercentag;
           if (discountPercentag > 0) {
                discount.setDiscountPrice("Was " + dm.format(wasPrice));
@@ -278,7 +278,7 @@ public class ProductBox extends javax.swing.JPanel {
      private String price;
      private String barcode;
      private Icon flagImage;
-     private int discountPercentag;
+     private double discountPercentag;
      private String productStatus;
 
      @SuppressWarnings("unchecked")

@@ -12,7 +12,7 @@ public class GetProduct extends javax.swing.JPanel {
      private String productName;
      private String productBarcode;
      private String productPrice;
-     private int productDiscount;
+     private double productDiscount;
      private int productId;
      private JPanel panelProduct;
 
@@ -204,11 +204,11 @@ public class GetProduct extends javax.swing.JPanel {
           lbPrice.setText(productPrice);
      }
 
-     public int getProductDiscount() {
+     public double getProductDiscount() {
           return productDiscount;
      }
 
-     public void setProductDiscount(int productDiscount) {
+     public void setProductDiscount(double productDiscount) {
           this.productDiscount = productDiscount;
           discount.setText(productDiscount + " " + "%");
      }

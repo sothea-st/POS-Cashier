@@ -20,6 +20,7 @@ import Model.HoldOrder.HoldProductModel;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+import Model.ReturnModel.ModelReturnData;
 import Products.ProductBox;
 import UpdateQty.UpdateQtyModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -328,7 +329,7 @@ public class ActionProduct {
                     if (listData.getProImageName() != null) {
 
 //                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
-                         product.setProductImage(JavaConstant.urlImage  + listData.getProImageName());
+                         product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
                     }
 
                } catch (Exception e) {
@@ -356,6 +357,10 @@ public class ActionProduct {
           }
 
           double price = listData.getPrice();
+          
+          System.err.println("jjjjjjjjjjjjjjj = " + JavaConstant.isReturn);
+          
+          
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
@@ -419,6 +424,7 @@ public class ActionProduct {
                }
           }
 
+
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProductNameEn());
           box.setLabelWeight(listData.getWeight());
@@ -448,9 +454,14 @@ public class ActionProduct {
                box.setQty(1);
           }
 
+ 
+//          if( JavaConstant.isReturn != null ) {
+//               box.setDiscountAmount(dm.format(listData.getDiscount()));
+//          }
+
           try {
 //               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
-               box.setIconImage(JavaConstant.urlImage  + listData.getProImageName());
+               box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
 
           } catch (Exception e) {
           }
@@ -484,7 +495,7 @@ public class ActionProduct {
                titleOrder.setVisible(true);
                titleOrder.setText("CURRENT ORDER");
           }
-          
+
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
           btnCancel.setBackground(WindowColor.darkred);
@@ -609,15 +620,12 @@ public class ActionProduct {
      // public void setBtnReturn(Button btnReturn) {
      //      this.btnReturn = btnReturn;
      // }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
-
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
-     
-     
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
 }

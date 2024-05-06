@@ -110,7 +110,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               jdFormLogin.scanbarCodeAddProduct(product);
                          }
                          detailItem.setBackground(WindowColor.slightGreen);
-       
+
                          btnReturn.setBackground(WindowColor.lightGray);
                     }
                } catch (Exception e) {
@@ -151,7 +151,10 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ProductModel product = null;
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
-
+                         btnPayment.setButtonName("Return");
+                         JavaConstant.isReturn = "return";
+                         btnReturn.setBackground(WindowColor.lightGray);
+                         detailItem.setBackground(WindowColor.slightGreen);
                          product = new ProductModel(
                               obj.getID(),
                               obj.getCatID(),
@@ -169,10 +172,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          );
                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
-                    btnPayment.setButtonName("Return");
-                    JavaConstant.isReturn = "return";
-                    btnReturn.setBackground(WindowColor.lightGray);
-                    detailItem.setBackground(WindowColor.slightGreen);
+
                }
           } catch (Exception e) {
 

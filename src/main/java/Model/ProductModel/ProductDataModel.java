@@ -13,7 +13,7 @@ public class ProductDataModel  {
      private String proNameEn;
      private int id;
      private String flag;
-     private int discount;
+     private double discount;
      private double cost;
      private double price;
      private String weight;
@@ -104,12 +104,12 @@ public class ProductDataModel  {
      }
 
      @JsonProperty("discount")
-     public int getDiscount() {
+     public double getDiscount() {
           return discount;
      }
 
      @JsonProperty("discount")
-     public void setDiscount(int value) {
+     public void setDiscount(double value) {
           this.discount = value;
      }
 

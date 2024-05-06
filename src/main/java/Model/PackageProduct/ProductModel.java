@@ -13,7 +13,7 @@ public class ProductModel {
      private String productNameKh;
      private String productNameEn;
      private String productStatus;
-     private int discount;
+     private double discount;
 //     private double discountTypeDouble;
      private int qty;
 
@@ -33,7 +33,7 @@ public class ProductModel {
           String productNameKh,
           String productNameEn,
           String productStatus,
-          int discount,
+          double discount,
           int qty
      ) {
           this.id = id;
@@ -188,11 +188,11 @@ public class ProductModel {
           this.productStatus = productStatus;
      }
 
-     public int getDiscount() {
+     public double getDiscount() {
           return discount;
      }
 
-     public void setDiscount(int discount) {
+     public void setDiscount(double discount) {
           this.discount = discount;
      }
 

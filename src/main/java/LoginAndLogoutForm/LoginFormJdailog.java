@@ -135,6 +135,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setPanelProduct(panelProduct);
           pro.setBtnReturn(btnReturn);
           pro.setTitleOrder(titleOrder);
+        
           if (listData != null) {
                pro.assignProduct(listData, panelProduct);
           }
@@ -244,6 +245,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           }
 
           if (JavaConstant.returnByBarcode == null) {
+               System.out.println("proModel.getQty() : " + proModel.getQty());
                pro.eventBtnBuy(proModel, proModel.getQty(), new ProductBox());
           } else {
                pro.eventBtnBuy(proModel, 1, new ProductBox()); // this working when cashier use function return
