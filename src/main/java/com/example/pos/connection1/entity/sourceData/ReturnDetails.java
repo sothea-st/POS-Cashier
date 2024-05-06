@@ -47,5 +47,8 @@ public class ReturnDetails {
     @Column(name = "return_discount")
     private BigDecimal discount;
 
+    @Column(name = "discount_amt")
+    private double discountAmt;
+
    
 }
