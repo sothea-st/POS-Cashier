@@ -1017,12 +1017,9 @@ public class Receipt extends javax.swing.JDialog {
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(kh.format(totalkh));
-               
-               System.out.println("data.getChangeKhr() :" + data.getChangeKhr());
 
                if (data.getReceiveUsd() != 0 || data.getReceiveKhr() != 0) {
                    
-                   System.out.println("data.getChangeKhr()2 :" + data.getChangeKhr());
                     if (data.getChangeKhr() != 0) {
                          changeKhr.setText(kh.format(data.getChangeKhr()));
                     }
