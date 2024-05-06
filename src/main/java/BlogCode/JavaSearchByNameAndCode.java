@@ -16,13 +16,13 @@ import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProduct;
 import Event.ButtonEvent;
 import LoginAndLogoutForm.LoginFormJdailog;
- 
+
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class JavaSearchByNameAndCode {
-     
+
      private static ButtonCancel btnCancel;
      private static Button btnPayment;
      private static Button btnReturn;
@@ -44,6 +44,7 @@ public class JavaSearchByNameAndCode {
                          }
 
                          if (JavaConstant.checkOpenShift) {
+                          
                               ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct);
                               panelPagination.setVisible(false);
 
@@ -53,7 +54,6 @@ public class JavaSearchByNameAndCode {
                                    int index = Integer.parseInt(jdFormLogin.getCatName());
                                    listCom[index].setBackground(WindowColor.darkGreen);
                               }
-
                          } else {
                               j.setMessage(JavaConstant.openShiftFirst);
                               j.setVisible(true);
@@ -136,7 +136,5 @@ public class JavaSearchByNameAndCode {
      public static void setBtnReturn(Button btnReturn) {
           JavaSearchByNameAndCode.btnReturn = btnReturn;
      }
-     
-     
-     
+
 }

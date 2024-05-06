@@ -566,6 +566,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
+
                                    if (JavaConstant.checkOpenShift) {
 
                                         setCatId(catId);
@@ -599,7 +600,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              listCom[0].setBackground(WindowColor.black);
                                              setCatId(0);
                                         } else {
-                                             pro.product(catId, limit, panelProduct);
+                                 
+                                             if (catNameData.equals("NEW ITEMS")) {
+                                                  panelPagination.setVisible(false);
+                                                  pro.newProduct(catId, limit, panelProduct);
+                                             } else {
+                                                  pro.product(catId, limit, panelProduct);
+                                             }
                                         }
                                         pro.setBtnPayment(btnPayment);
                                         pro.setButtonHoldOrder(buttonHoldOrder);
