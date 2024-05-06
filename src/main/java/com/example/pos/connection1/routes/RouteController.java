@@ -190,6 +190,11 @@ public class RouteController {
                Product datas = service.updateDiscount(data.getId(), data.getDiscount());
                return JavaResponse.success(datas);
           }
+
+          @GetMapping("/getNewPrdduct")
+          public ResponseEntity<?> getNewProduct(){
+               return JavaResponse.success(service.getNewProduct());
+          }
      }
 
      @RequestMapping("/api/supplier")
