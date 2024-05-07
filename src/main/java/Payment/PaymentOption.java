@@ -1805,10 +1805,14 @@ public class PaymentOption extends javax.swing.JDialog {
 
           if (responseReturn.isSuccessful()) {
 
+//               ============ after return reset value ==================
                JavaConstant.setBackQty(detailItem, panelProduct);
                JavaConstant.isReturn = null;
                JavaConstant.returnByBarcode = null;
                JavaConstant.qtyReturn = null;
+               JavaConstant.tmpInvoice = null;
+               
+               
 
                String _data = responseReturn.body().string();
                dispose();

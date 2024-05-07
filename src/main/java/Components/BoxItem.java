@@ -444,24 +444,13 @@ public class BoxItem extends javax.swing.JPanel {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void btnPlus() {
-                    if (JavaConstant.isReturn != null) {  // protect when cashier processing return 
-                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         j.setMessage(JavaAlertMessage.returnMsg);
-                         j.setVisible(true);
-                         return;
-                    }
 
                     sumTotal("+");
                }
 
                @Override
                public void btnMinus() {
-                    if (JavaConstant.isReturn != null) { // protect when cashier processing return 
-                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         j.setMessage(JavaAlertMessage.returnMsg);
-                         j.setVisible(true);
-                         return;
-                    }
+
                     sumTotal("-");
                }
           };
@@ -496,7 +485,17 @@ public class BoxItem extends javax.swing.JPanel {
 
                // add qty 
                getQty++;
-
+               if (JavaConstant.isReturn != null) {  // protect when cashier processing return 
+//                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//                    j.setMessage(JavaAlertMessage.returnMsg);
+//                    j.setVisible(true);
+//                    return;
+                    int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
+                    qtyTmp++;
+                    if (qtyTmp > getMaxQty()) {
+                         return;
+                    }
+               }
                if (JavaConstant.returnByBarcode != null) {   /// ====== when cashier return by barcode
 
                     int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
@@ -506,12 +505,6 @@ public class BoxItem extends javax.swing.JPanel {
                          return;
                     }
 
-//                    if (JavaConstant.qtyReturn != null) {
-//                         if (getQty > JavaConstant.qtyReturn) {
-//                              return;
-//                         }
-//                    }
-//                       calculateQtyReturn("+");
                } else {
                     Component[] listCome1 = panelProduct.getComponents();
                     for (Component c : listCome1) {
@@ -564,6 +557,14 @@ public class BoxItem extends javax.swing.JPanel {
                getHold();
                // remove qty 
                getQty--;
+
+               if (JavaConstant.isReturn != null) { // protect when cashier processing return 
+//                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//                    j.setMessage(JavaAlertMessage.returnMsg);
+//                    j.setVisible(true);
+//                    return;
+               }
+
                if (JavaConstant.returnByBarcode != null) { /// ====== when cashier return by barcode
 //                    if (getQty == 1) {
 //                         return;
@@ -1008,10 +1009,10 @@ public class BoxItem extends javax.swing.JPanel {
                         var obj = ((BoxItem) listCom1[i]);
 
 //                        if (obj.getOldDiscount() > 0) {
-                             this.setBorder(null);
-                             this.revalidate();
-                             this.repaint();
-                             return;
+                        this.setBorder(null);
+                        this.revalidate();
+                        this.repaint();
+                        return;
 //                        }
                    }
               }

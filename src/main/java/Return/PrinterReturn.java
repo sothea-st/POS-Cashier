@@ -29,6 +29,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -52,6 +53,10 @@ public class PrinterReturn extends javax.swing.JDialog {
           jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
           setFontSizeForLabels(print, 11);
           jLabel46.setFont(WindowFonts.timeNewRomanBold14);
+
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
      }
 
      public void chartAndPrint() {
@@ -146,21 +151,20 @@ public class PrinterReturn extends javax.swing.JDialog {
 
 //               if (JavaConstant.returnByBarcode != null) {
 //                    System.err.println("3333333333333333333");
-                    double sum = 0;
-                    for (SaleDetailModel s : data.getSaleDetails()) {
-                         sum += s.getPrice() * s.getQty();
-                    }
+               double sum = 0;
+               for (SaleDetailModel s : data.getSaleDetails()) {
+                    sum += s.getPrice() * s.getQty();
+               }
 
-                    totalprice.setText(dm.format(sum));
-                    double totalkh = JavaRoundDown.roundDown("" + sum * JavaConstant.exchangeRate);
-                    totalKhr.setText(kh.format(totalkh));
+               totalprice.setText(dm.format(sum));
+               double totalkh = JavaRoundDown.roundDown("" + sum * JavaConstant.exchangeRate);
+               totalKhr.setText(kh.format(totalkh));
 
 //               } else {
 //                    totalprice.setText(dm.format(data.getTotal()));
 //                    double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
 //                    totalKhr.setText(kh.format(totalkh));
 //               }
-
                if (data.getDiscount() != 0) {
                     System.err.println("ata.getDiscount() : " + data.getDiscount());
                     discount.setText(dm.format(data.getDiscount()));

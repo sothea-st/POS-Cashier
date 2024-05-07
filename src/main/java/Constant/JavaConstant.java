@@ -91,8 +91,20 @@ public class JavaConstant {
 //     public static Component[] listHoldData;
      public static String roleName;
      public static String isReturn;
+     public static String tmpInvoice;
+
      public static String returnByBarcode;
      public static Integer qtyReturn;
+
+     public static int limit = 20;
+     public static int page = 1;
+     public static int brandId = 0;
+
+     public static void resetValuePagination() {
+          limit = 20;
+          page = 1;
+          brandId=0;
+     }
 
      public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
      public static String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
@@ -243,7 +255,9 @@ public class JavaConstant {
 
      public static boolean onlyDigits(String str) {
           for (int i = 0; i < str.length(); i++) {
-               if( str.charAt(i) == '.' ) continue;
+               if (str.charAt(i) == '.') {
+                    continue;
+               }
                if (str.charAt(i) < '0' || str.charAt(i) > '9') {
                     return false;
                }

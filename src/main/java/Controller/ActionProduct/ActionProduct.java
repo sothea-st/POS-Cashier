@@ -23,6 +23,7 @@ import Model.ProductModel.ProductSuccessData;
 import Model.ReturnModel.ModelReturnData;
 import Products.ProductBox;
 import UpdateQty.UpdateQtyModel;
+import View.MainPage.MainFrame;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -70,7 +71,8 @@ public class ActionProduct {
 
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "");
+               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page="+JavaConstant.page);
+             
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -182,10 +184,10 @@ public class ActionProduct {
 
           int x = 0;
           int y = 0;
-
+    
 //          ========== get hole qty =================
           getHold();
-
+          
           for (int i = 0; i < listProduct.size(); i++) {
 
                GridBagConstraints gbc = new GridBagConstraints();
@@ -373,11 +375,12 @@ public class ActionProduct {
           if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
                box.setMaxQty(listData.getQty());
           }
+          
+           if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
+               box.setMaxQty(listData.getQty());
+          }
 
           double price = listData.getPrice();
-          
-          System.err.println("jjjjjjjjjjjjjjj = " + listData.getDiscount());
-          
           
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
@@ -406,6 +409,12 @@ public class ActionProduct {
                          qty++;
 
                          if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
+                              if (qty > listData.getQty()) {
+                                   return;
+                              }
+                         }
+                         
+                          if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
                               if (qty > listData.getQty()) {
                                    return;
                               }

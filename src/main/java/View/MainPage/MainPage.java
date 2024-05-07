@@ -49,7 +49,7 @@ public class MainPage extends javax.swing.JFrame {
 
      private Color activeColor = new Color(56, 56, 56);
      private JPanel detailProduct;
-     private int limit = 10;
+     private int limit = JavaConstant.limit;
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
 
      public static boolean isFullScreen = false;
@@ -145,8 +145,8 @@ public class MainPage extends javax.swing.JFrame {
      }
 
      private void groupEvent() {
-          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin);  // pagination next
-          JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin);  // pagination previous
+          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin,this);  // pagination next
+          JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin,this);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
           
           JavaSearchByNameAndCode j = new JavaSearchByNameAndCode();

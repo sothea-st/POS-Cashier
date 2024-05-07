@@ -44,7 +44,7 @@ public class JavaSearchByNameAndCode {
                          }
 
                          if (JavaConstant.checkOpenShift) {
-                          
+
                               ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct);
                               panelPagination.setVisible(false);
 
@@ -72,13 +72,13 @@ public class JavaSearchByNameAndCode {
           ButtonEvent eventData = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    if (JavaConstant.isReturn != null) { // protect when cashier processing return
-                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         j.setMessage(JavaAlertMessage.returnMsg);
-                         j.setVisible(true);
-                         textField.setValueTextField("");
-                         return;
-                    }
+//                    if (JavaConstant.isReturn != null) { // protect when cashier processing return
+//                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+//                         j.setMessage(JavaAlertMessage.returnMsg);
+//                         j.setVisible(true);
+//                         textField.setValueTextField("");
+//                         return;
+//                    }
 
                     String barcode = textField.getValueTextField();
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
@@ -92,10 +92,14 @@ public class JavaSearchByNameAndCode {
                                    a.setBtnPayment(btnPayment);
                                    a.setBtnReturn(btnReturn);
 
-                                   if (JavaConstant.returnByBarcode == null) {
-                                        a.scanBarcode(barcode, jdFormLogin);
+                                   if (JavaConstant.isReturn != null) {
+                                        a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.tmpInvoice); // JavaConstant.returnByBarcode is store value invoice number
                                    } else {
-                                        a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.returnByBarcode); // JavaConstant.returnByBarcode is store value invoice number
+                                        if (JavaConstant.returnByBarcode == null) {
+                                             a.scanBarcode(barcode, jdFormLogin);
+                                        } else {
+                                             a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.returnByBarcode); // JavaConstant.returnByBarcode is store value invoice number
+                                        }
                                    }
 
                                    textField.setValueTextField("");

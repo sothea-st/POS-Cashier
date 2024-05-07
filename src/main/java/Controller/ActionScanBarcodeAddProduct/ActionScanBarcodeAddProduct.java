@@ -125,8 +125,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           func(response, jdFormLogin);
      }
 
-     public void scanWithoutReturn(String barcode, LoginFormJdailog jdFormLogin) {
-          Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + barcode);
+     public void scanWithoutReturn(String invoice, LoginFormJdailog jdFormLogin) {
+          Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice);
 
           try {
                if (response.isSuccessful()) {
@@ -153,6 +153,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          var obj = listProduct[i];
                          btnPayment.setButtonName("Return");
                          JavaConstant.isReturn = "return";
+                         JavaConstant.tmpInvoice = invoice;
+
                          btnReturn.setBackground(WindowColor.lightGray);
                          detailItem.setBackground(WindowColor.slightGreen);
                          product = new ProductModel(
