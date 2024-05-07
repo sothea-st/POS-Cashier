@@ -36,7 +36,6 @@ public class ReturnDialog extends javax.swing.JDialog {
      private Button btnHold;
      private Button btnReturn;
      private Button btnDiscount;
-     private JLabel titleOrder;
 
      private JPanel detailItem;
      private JPanel boxOne;
@@ -318,6 +317,7 @@ public class ReturnDialog extends javax.swing.JDialog {
          obj.setPanelProduct(panelProduct);
          obj.setDetailItem(detailItem);
          obj.setBoxOne(boxOne);
+        
          if (barcode != null) {
               obj.returnWithBarcode(barcode, jdFormLogin, invoiceNo);
          } else {
@@ -326,8 +326,6 @@ public class ReturnDialog extends javax.swing.JDialog {
 
          btnCancel.setBackground(WindowColor.lightGray);
          btnHold.setBackground(WindowColor.lightGray);
-         titleOrder.setVisible(true);
-         titleOrder.setText("SALE RETURN");
 
 //         btnDiscount.setBackground(WindowColor.lightGray);
          JavaConstant.reasonId = reasonId;
@@ -423,14 +421,6 @@ public class ReturnDialog extends javax.swing.JDialog {
 
      public void setBtnHold(Button btnHold) {
           this.btnHold = btnHold;
-     }
-
-     public JLabel getTitleOrder() {
-          return titleOrder;
-     }
-
-     public void setTitleOrder(JLabel titleOrder) {
-          this.titleOrder = titleOrder;
      }
 
 

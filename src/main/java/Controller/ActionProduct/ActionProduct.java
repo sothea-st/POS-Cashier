@@ -547,6 +547,11 @@ public class ActionProduct {
           btnReturn.setBackground(WindowColor.lightGray);
           titleOrder.setVisible(true);
           titleOrder.setText("CURRENT ORDER");
+          
+          if(JavaConstant.isReturn != null){
+               titleOrder.setVisible(true);
+               titleOrder.setText("SALE RETURN");
+          }
 
      }
 

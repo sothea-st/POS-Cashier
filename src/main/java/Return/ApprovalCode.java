@@ -230,7 +230,6 @@ public class ApprovalCode extends javax.swing.JDialog {
                              returnD.setBtnDiscount(btnDiscount);
                              returnD.setDetailItem(detailItem);
                              returnD.setPanelProduct(panelProduct);
-                             returnD.setTitleOrder(titleOrder);
                              returnD.setBoxOne(boxOne);
                              returnD.setVisible(true);
                              JavaConstant.returnerId = model.getID();
