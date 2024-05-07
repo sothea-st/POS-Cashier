@@ -193,7 +193,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listProduct = model.getData();
-
+                   
                     if (listProduct.length == 0) {
                          msgAlertErr();
                          return;
