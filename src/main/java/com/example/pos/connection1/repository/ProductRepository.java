@@ -72,13 +72,22 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select * from pos_product where status=true and is_deleted=false and id=?")
         Optional<Product> getProductByOptionalId(int id);
 
+        // @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
+        //                 + //
+        //                 "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
+        //                 "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
+        //                 "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
+        //                 "and pc.cat_id = ? order by id desc limit ?")
+        // List<ProductProjection> getProductByCatId(int catId, int limit);
+
+        
         @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
                         + //
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
                         "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
                         "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
-                        "and pc.cat_id = ? order by id desc limit ?")
-        List<ProductProjection> getProductByCatId(int catId, int limit);
+                        "and pc.cat_id = ? order by id desc limit ? offset ?")
+        List<ProductProjection> getProductByCatId(int catId, int limit ,int page);
 
         @Query(nativeQuery = true, value = " select count(*) from pos_product pp where status = true and is_deleted = false and cat_id = ?")
         int countProduct(int catId);
@@ -91,8 +100,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
                         "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
                         "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
-                        "and pc.brand_id = ? order by id desc limit ?")
-        List<ProductProjection> getProductByBrandId(int brandId, int limit);
+                        "and pc.brand_id = ? order by id desc limit ? OFFSET  ?")
+        List<ProductProjection> getProductByBrandId(int brandId, int limit ,int page);
 
         @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
                         + //
