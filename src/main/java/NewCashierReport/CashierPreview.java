@@ -59,7 +59,7 @@ public class CashierPreview extends javax.swing.JDialog {
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
 
-        setFontSizeForLabels(reportPanel, 11);
+        setFontSizeForLabels(reportPanel, 12);
         getContentPane().setBackground(Color.white);
     }
     

@@ -875,7 +875,7 @@ public class MainPage extends javax.swing.JFrame {
                try {
                     CashierPreview cashier = new CashierPreview(new JFrame(), true);
                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=01");
+//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=05");
 
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();
