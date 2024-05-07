@@ -37,7 +37,7 @@ public class EpsonPrinter {
 //                 PrinterJob printerJob = PrinterJob.getPrinterJob();
                     PageFormat pageFormat = printerJob.defaultPage();
                     Paper paper = new Paper();
-                    paper.setSize(4.13 * 72, 5.83 * 72); // A6 size in points (1 inch = 72 points)
+                    paper.setSize(4 * 72, 9 * 72); // A6 size in points (1 inch = 72 points)
                     paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
                     pageFormat.setPaper(paper);
 
