@@ -79,7 +79,8 @@ public class ListProduct extends javax.swing.JDialog {
                     obj.getProNameEn(),
                     obj.getProductStatus(),
                     obj.getDiscount(),
-                    obj.getQty()
+                    obj.getQty(),
+                    obj.getDiscountType()
                );
                listProduct.add(product);
           }

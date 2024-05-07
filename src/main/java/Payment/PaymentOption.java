@@ -1800,6 +1800,7 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
+          System.out.println("jsonReturnData : " + jsonReturnData);
  
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 

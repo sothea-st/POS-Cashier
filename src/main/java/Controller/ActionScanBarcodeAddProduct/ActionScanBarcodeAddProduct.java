@@ -105,7 +105,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                                    obj.getProNameEn(),
                                    obj.getProductStatus(),
                                    obj.getDiscount(),
-                                   obj.getQty()
+                                   obj.getQty(),
+                                   obj.getDiscountType()
                               );
                               jdFormLogin.scanbarCodeAddProduct(product);
                          }
@@ -149,12 +150,14 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     }
 
                     ProductModel product = null;
+                    System.out.println("listProduct.length : " + listProduct.length);
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
                          btnPayment.setButtonName("Return");
                          JavaConstant.isReturn = "return";
                          JavaConstant.tmpInvoice = invoice;
 
+             
                          btnReturn.setBackground(WindowColor.lightGray);
                          detailItem.setBackground(WindowColor.slightGreen);
                          product = new ProductModel(
@@ -170,7 +173,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getProNameEn(),
                               obj.getProductStatus(),
                               obj.getDiscount(),
-                              obj.getQty()
+                              obj.getQty(),
+                              obj.getDiscountType()
                          );
                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
@@ -211,7 +215,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getProNameEn(),
                               obj.getProductStatus(),
                               obj.getDiscount(),
-                              obj.getQty()
+                              obj.getQty(),
+                              obj.getDiscountType()
                          );
                          jdFormLogin.scanbarCodeAddProduct(product, "scan");
                     }
@@ -255,7 +260,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                                    obj.getProNameEn(),
                                    obj.getProductStatus(),
                                    obj.getDiscount(),
-                                   obj.getQty()
+                                   obj.getQty(),
+                                   obj.getDiscountType()
                               );
                          }
                          jdFormLogin.scanbarCodeAddProduct(product);

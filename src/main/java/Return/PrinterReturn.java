@@ -121,6 +121,9 @@ public class PrinterReturn extends javax.swing.JDialog {
                for (SaleDetailModel s : data.getSaleDetails()) {
                     sum += s.getPrice() * s.getQty();
                }
+               if( data.getDiscount() != 0 ) {
+                    sum = sum - data.getDiscount();
+               }
 
                totalprice.setText(dm.format(sum));
                double totalkh = JavaRoundDown.roundDown("" + sum * JavaConstant.exchangeRate);
@@ -132,7 +135,6 @@ public class PrinterReturn extends javax.swing.JDialog {
 //                    totalKhr.setText(kh.format(totalkh));
 //               }
                if (data.getDiscount() != 0) {
-                    System.err.println("ata.getDiscount() : " + data.getDiscount());
                     discount.setText(dm.format(data.getDiscount()));
                } else {
                     discount.setVisible(false);

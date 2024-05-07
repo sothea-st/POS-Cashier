@@ -28,6 +28,7 @@ public class JavaEventNextPrevious {
                @Override
                public void onMouseClick() {
                     
+                    
                     int count = jdFormLogin.getCount();
 
                     count = count - JavaConstant.limit;

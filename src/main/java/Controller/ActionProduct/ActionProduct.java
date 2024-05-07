@@ -71,8 +71,8 @@ public class ActionProduct {
 
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page="+JavaConstant.page);
-             
+               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -87,8 +87,8 @@ public class ActionProduct {
                System.err.println("error getting product " + e);
           }
      }
-     
-       public void newProduct(int catId, int limit, JPanel panelProduct) {
+
+     public void newProduct(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getNewPrdduct);
                if (response.isSuccessful()) {
@@ -143,7 +143,8 @@ public class ActionProduct {
                     obj.getProNameEn(),
                     obj.getProductStatus(),
                     obj.getDiscount(),
-                    obj.getQty()
+                    obj.getQty(),
+                    obj.getDiscountType()
                );
                listProduct.add(product);
 
@@ -184,10 +185,10 @@ public class ActionProduct {
 
           int x = 0;
           int y = 0;
-    
+
 //          ========== get hole qty =================
           getHold();
-          
+
           for (int i = 0; i < listProduct.size(); i++) {
 
                GridBagConstraints gbc = new GridBagConstraints();
@@ -375,13 +376,13 @@ public class ActionProduct {
           if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
                box.setMaxQty(listData.getQty());
           }
-          
-           if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
+
+          if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
                box.setMaxQty(listData.getQty());
           }
 
           double price = listData.getPrice();
-          
+
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
@@ -413,8 +414,8 @@ public class ActionProduct {
                                    return;
                               }
                          }
-                         
-                          if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
+
+                         if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
                               if (qty > listData.getQty()) {
                                    return;
                               }
@@ -451,7 +452,6 @@ public class ActionProduct {
                }
           }
 
-
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProductNameEn());
           box.setLabelWeight(listData.getWeight());
@@ -480,15 +480,23 @@ public class ActionProduct {
                box.setDiscountAmt(dm.format(discount));
                box.setQty(1);
           }
-          
-          if( listData.getDiscount() > 0 ) {
-               box.setDiscountValue(listData.getDiscount());
-          }
 
- 
-//          if( JavaConstant.isReturn != null ) {
-//               box.setDiscountAmount(dm.format(listData.getDiscount()));
-//          }
+          if (listData.getDiscount() > 0) {
+
+               if (listData.getQty() > 1) {
+                    box.setDiscountValue(listData.getQty() * listData.getDiscount());
+               } else {
+                    box.setDiscountValue(listData.getDiscount());
+               }
+
+               if (listData.getDiscountType() != null) {
+                    if (listData.getDiscountType().equals("dollar")) {
+                         box.setDiscountAmount(dm.format(listData.getQty() * listData.getDiscount()));
+                         box.setDiscountAmt(dm.format(listData.getQty() * listData.getDiscount()));
+                    }
+               }
+
+          }
 
           try {
 //               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
@@ -510,6 +518,12 @@ public class ActionProduct {
                subtotalPanel.total(price * qtyData, listCom, discount * qtyData, subtotalPanel);
           } else {
                subtotalPanel.total(price, listCom, discount, subtotalPanel);
+          }
+
+          if (listData.getDiscountType() != null) {
+               if (listData.getDiscountType().equals("dollar")) {
+                    subtotalPanel.total(price * qtyData, listCom, listData.getQty() * listData.getDiscount(), subtotalPanel);
+               }
           }
 
           // add list has one box to BoxItem (note: must be add)

@@ -528,7 +528,8 @@ public class CancelDialog extends javax.swing.JDialog {
                                              obj.getProNameEn(),
                                              obj.getProductStatus(),
                                              obj.getDiscount(),
-                                             obj.getQty()
+                                             obj.getQty(),
+                                             null
                                         );
 
                                         addItemToCart(product);
