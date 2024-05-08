@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +33,9 @@ public class PrintPanelToPDF {
 
      public PrintPanelToPDF() {
      }
+     
+    public static String downloadFolderPath = System.getProperty("user.home");
+    public static String folderPath = downloadFolderPath + "\\Downloads\\PDF_Downloads";
 
      public PrintPanelToPDF(JPanel panel) {
           this.panel = panel;
@@ -51,11 +57,21 @@ public class PrintPanelToPDF {
           float x = (a4Width - panelWidth) / 2;
 
           float y = -10;
- 
 
-          // Create a PDF document
-          String outputFilePath = "C:\\Users\\mobile-app.02\\Pictures\\" + pdfName + ".pdf";
-          FileOutputStream fos = new FileOutputStream(outputFilePath);
+          // Create folder
+          try {
+               Files.createDirectories(Paths.get(folderPath));
+               System.out.println("Folder created: " + folderPath);
+          } catch (IOException e) {
+               System.err.println("Failed to create folder: " + e.getMessage());
+               return;
+          }
+
+          // Specify PDF file path
+          String sourcePDFPath = downloadFolderPath + "/Downloads/PDF_Downloads/" + pdfName + ".pdf";
+
+          FileOutputStream fos = new FileOutputStream(sourcePDFPath);
+
           PdfWriter writer = new PdfWriter(fos);
           PdfDocument pdfDoc = new PdfDocument(writer);
           Document document = new Document(pdfDoc);
@@ -97,7 +113,6 @@ public class PrintPanelToPDF {
                // Add a new page
 //               pdfDoc.addNewPage();
 //               currentPageHeight = 0;
-
                // Adjust the remaining content height
                contentHeight -= remainingSpace;
 

@@ -1,8 +1,10 @@
 package Receipt;
 
+import Components.JavaAlertMessage;
 import Components.ReceiptBox;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Model.Reprint.DataSuccessModel;
@@ -36,6 +38,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -966,6 +969,9 @@ public class Receipt extends javax.swing.JDialog {
           try {
                new PrintPanelToPDF(print).printPdf(pfdNameInvoice,numberOfItem);
                dispose();
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame() , true);
+               j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
+               j.setVisible(true);
           } catch (IOException ex) {
                Logger.getLogger(Receipt.class.getName()).log(Level.SEVERE, null, ex);
           }
