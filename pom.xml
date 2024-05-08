@@ -37,8 +37,19 @@
                <type>jar</type>
           </dependency>
           
+          <dependency>
+               <groupId>org.apache.pdfbox</groupId>
+               <artifactId>pdfbox</artifactId>
+               <version>2.0.24</version>
+          </dependency>
           
           
+          
+          <dependency>
+               <groupId>com.itextpdf</groupId>
+               <artifactId>itextpdf</artifactId>
+               <version>5.5.13.2</version> <!-- or the version you are using -->
+          </dependency>
           
           <!--============ printer ===================-->
           <!--          <dependency>
@@ -68,12 +79,18 @@
                <version>4.12</version>
           </dependency>-->
           <!--============ end printer ===================-->
-<!--          <dependency>
+          <!--          <dependency>
                <groupId>org.vesalainen.comm</groupId>
                <artifactId>javaxcomm</artifactId>
                <version>1.0.1</version>
                <type>jar</type>
           </dependency>-->
+          <dependency>
+               <groupId>com.itextpdf</groupId>
+               <artifactId>layout</artifactId>
+               <version>7.1.19</version>
+               <type>jar</type>
+          </dependency>
      </dependencies>
      
      

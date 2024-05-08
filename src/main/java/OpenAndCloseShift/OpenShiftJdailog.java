@@ -302,15 +302,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           String posId = txtPosId.getUneditText();
           String userCode = txtUserId.getUneditText();
           String openTime = txtDateTime.getUneditText();
-          reserveUsd = reserveUsd.replace(",", "");
-          reserveKhr = reserveKhr.replace(",", "");
-          JSONObject json = new JSONObject();
-          json.put("reserveUsd", reserveUsd);
-          json.put("reserveKhr", reserveKhr);
-          json.put("posId", posId);
-          json.put("userCode", userCode);
-          json.put("openTime", openTime);
-          json.put("createBy", JavaConstant.cashierId);
 
           try {
 
@@ -323,6 +314,17 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(null, " Total Cash (KHR) can not be empty!");
                     return;
                }
+
+               reserveUsd = reserveUsd.replace(",", "");
+               reserveKhr = reserveKhr.replace(",", "");
+
+               JSONObject json = new JSONObject();
+               json.put("reserveUsd", reserveUsd);
+               json.put("reserveKhr", reserveKhr);
+               json.put("posId", posId);
+               json.put("userCode", userCode);
+               json.put("openTime", openTime);
+               json.put("createBy", JavaConstant.cashierId);
 
                boolean isReserveUsd = JavaConstant.onlyDigits(reserveUsd);
                if (!isReserveUsd) {
