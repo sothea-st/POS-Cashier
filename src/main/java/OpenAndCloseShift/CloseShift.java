@@ -35,7 +35,7 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonCashier;
      private Button btnHold;
      private Button btnLogin;
-   
+
      private BackgroundImage bgImage;
      private ButtonCancel btnCancel;
 
@@ -56,9 +56,7 @@ public class CloseShift extends javax.swing.JDialog {
           cashUs.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashKh.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashCount.setComma("comma"); // when user type 4length it will insert , at 3 length 
-          
-          
-           
+
      }
 
      void event() {
@@ -339,26 +337,6 @@ public class CloseShift extends javax.swing.JDialog {
          String cashUsd = cashUs.getValueTextField();
          String countCash = cashCount.getValueTextField();
 
-         express = express.replace(",", "");
-         khqrMnk = khqrMnk.replace(",", "");
-         khqrAba = khqrAba.replace(",", "");
-         creditCard = creditCard.replace(",", "");
-         cashKhr = cashKhr.replace(",", "");
-         cashUsd = cashUsd.replace(",", "");
-         countCash = countCash.replace(",", "");
-
-         JSONObject json = new JSONObject();
-         json.put("express", express);
-         json.put("khqrMnk", khqrMnk);
-         json.put("khqrAba", khqrAba);
-         json.put("creditCard", creditCard);
-         json.put("cashKhr", cashKhr);
-         json.put("cashUsd", cashUsd);
-         json.put("cashCount", countCash);
-         json.put("userCode", JavaConstant.userCode);
-         json.put("userId", JavaConstant.cashierId);
-         json.put("posId", JavaConstant.posId);
-
          try {
 
               if (express == null || express.isEmpty()) {
@@ -398,6 +376,28 @@ public class CloseShift extends javax.swing.JDialog {
                    j.setVisible(true);
                    return;
               }
+
+              express = express.replace(",", "");
+              khqrMnk = khqrMnk.replace(",", "");
+              khqrAba = khqrAba.replace(",", "");
+              creditCard = creditCard.replace(",", "");
+              cashKhr = cashKhr.replace(",", "");
+              cashUsd = cashUsd.replace(",", "");
+              countCash = countCash.replace(",", "");
+
+              JSONObject json = new JSONObject();
+              json.put("express", express);
+              json.put("khqrMnk", khqrMnk);
+              json.put("khqrAba", khqrAba);
+              json.put("creditCard", creditCard);
+              json.put("cashKhr", cashKhr);
+              json.put("cashUsd", cashUsd);
+              json.put("cashCount", countCash);
+              json.put("userCode", JavaConstant.userCode);
+              json.put("userId", JavaConstant.cashierId);
+              json.put("posId", JavaConstant.posId);
+
+              System.out.println("cashKhr : " + cashKhr);
 
               boolean isExpress = JavaConstant.onlyDigits(express);
               if (!isExpress) {
@@ -442,8 +442,7 @@ public class CloseShift extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
-            
-
+              System.err.println("jjjjjjjjjjjjjjjj = " + json);
               if (response.isSuccessful()) {
 
                    searchBox.disabledTextField(false);
@@ -483,7 +482,6 @@ public class CloseShift extends javax.swing.JDialog {
 //                   panelProduct.repaint();
 //                          == == == == == == == == == == == == == == == == == == == == == == =
 //                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
-                  
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
 
@@ -493,8 +491,6 @@ public class CloseShift extends javax.swing.JDialog {
               System.err.println("errr -- " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
-
- 
 
      public BackgroundImage getBgImage() {
           return bgImage;

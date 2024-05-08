@@ -1225,6 +1225,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="btnPrint1" min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnBack" min="-2" pref="78" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnPrint" min="-2" pref="78" max="-2" attributes="0"/>
@@ -1239,6 +1241,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnPrint" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnBack" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPrint1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1263,6 +1266,17 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPrintMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="Button.Button" name="btnPrint1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="46" green="9b" red="2f" type="rgb"/>
+            </Property>
+            <Property name="buttonName" type="java.lang.String" value="PDF"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPrint1MouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

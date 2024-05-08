@@ -4,23 +4,24 @@
  */
 package pdf;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import javax.swing.JPanel;
 
 public class MyPrinter implements Printable {
 
      private JPanel panel;
-  
 
      public MyPrinter(JPanel panel) {
           this.panel = panel;
      }
 
-
+   
 
      @Override
      public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
