@@ -14,6 +14,9 @@ import java.util.*;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+        @Query(nativeQuery = true , value = "select * from pos_product pp where barcode = ?")
+        String getBarcode(String barcode);
+
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\tpc.id,\r\n" + //
                         "\tpc.barcode,\r\n" + //
