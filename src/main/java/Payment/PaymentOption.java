@@ -1669,7 +1669,7 @@ public class PaymentOption extends javax.swing.JDialog {
               double p = JavaConstant.getReplace(df.format(unitPrice));
               discountType = obj.getDiscountType();
               double discountVale = obj.getDiscountValue();
-              System.out.println("discountVale : " + discountVale);
+              
 
               double amount = obj.getQty() * p;
               double a = JavaConstant.getReplace(df.format(amount));

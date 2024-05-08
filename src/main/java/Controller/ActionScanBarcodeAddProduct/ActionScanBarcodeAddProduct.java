@@ -64,7 +64,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      public void returnWithBarcode(String barcode, LoginFormJdailog jdFormLogin, String invoice) {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice + "&barcode=" + barcode);
-           
+
                try {
                     if (response.isSuccessful()) {
                          String responseData = response.body().string();
@@ -133,7 +133,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanWithoutReturn(String invoice, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice);
-          System.out.println("respieon return : " + response);
+
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -149,13 +149,13 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     if (listProduct.length == 0) {
                          JavaConstant.isReturn = null;
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         j.setMessage("The invoie already returned !");
+                         j.setMessage(JavaMessage.check);
                          j.setVisible(true);
                          return;
                     }
 
                     ProductModel product = null;
-                    System.out.println("listProduct.length : " + listProduct.length);
+
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
                          btnPayment.setButtonName("Return");
@@ -184,7 +184,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     }
                } else {
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                    j.setMessage(JavaMessage.somethingWrong);
+                    j.setMessage(JavaMessage.check);
                     j.setVisible(true);
                }
           } catch (Exception e) {
