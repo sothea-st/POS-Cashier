@@ -168,10 +168,7 @@ public class RouteControllerSecond {
           public ResponseEntity<?> getProductByBarcodeInInvoice(@RequestParam("barcode") String barcode , @RequestParam("invoiceNumber") String invoiceNumber) {
                return JavaResponse.success(service.getProductByBarcodeInInvoice(barcode,invoiceNumber));
           }
-
-
-          
-
+   
      }
 
      @RestController

@@ -54,8 +54,8 @@ public class SearchByBarcodeOrNameService {
 
     public Map<String, Object> searchWithInvoiceNo(String invoiceNo, String barcode) {
         HashMap<String, Object> _map = new HashMap<>();
-        String barcodeExits = repo.getBarcode(barcode);
-        if( barcodeExits == null ) return _map;
+        // String barcodeExits = repo.getBarcode(barcode);
+        // if( barcodeExits == null ) return _map;
 
        
         List<ProductQty> data = null;
