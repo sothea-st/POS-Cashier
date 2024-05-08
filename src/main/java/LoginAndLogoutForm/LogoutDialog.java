@@ -214,7 +214,11 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    btnLogin.setButtonName("Login");
                    panelPagination.setVisible(false);
-                   lbPOSId.setVisible(false);
+                   lbPOSId.setVisible(true);
+                   lbPOSId.setIcon(null);
+                   lbPOSId.removeAll();
+                   lbPOSId.repaint();
+                   lbPOSId.revalidate();
 
                    //Session
                    JavaConstant.token = null;

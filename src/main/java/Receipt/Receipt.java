@@ -25,7 +25,10 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -958,10 +961,14 @@ public class Receipt extends javax.swing.JDialog {
     private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
          this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
-
+    
      private void btnPrint1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrint1MouseClicked
-          new PrintPanelToPDF(print).printPdf();
-//          PrintPanelToPDF.printComponent(print);
+          try {
+               new PrintPanelToPDF(print).printPdf(pfdNameInvoice,numberOfItem);
+               dispose();
+          } catch (IOException ex) {
+               Logger.getLogger(Receipt.class.getName()).log(Level.SEVERE, null, ex);
+          }
      }//GEN-LAST:event_btnPrint1MouseClicked
 
      public static void main(String args[]) {
@@ -1002,6 +1009,8 @@ public class Receipt extends javax.swing.JDialog {
           assignValue(dataSuccess);
      }
 
+     String pfdNameInvoice;
+     int numberOfItem=0;
      private void assignValue(DataSuccessModel dataSuccess) {
           var data = dataSuccess.getData();
           try {
@@ -1015,7 +1024,7 @@ public class Receipt extends javax.swing.JDialog {
                vattin.setText(data.getVattin());
 //               cusName.setText(data.getCustomerType());
                invoiceNo.setText(data.getPaymentNo());
-
+               pfdNameInvoice = data.getPaymentNo();
                //Set Discount
                if (data.getDiscount() > 0) {
                     discountVal.setText(dm.format(data.getDiscount()));
@@ -1087,6 +1096,7 @@ public class Receipt extends javax.swing.JDialog {
 
      private void displayProduct(ReprintModel data) {
           listSale = data.getSaleDetails();
+          numberOfItem = listSale.length;
 
           for (int i = 0; i < listSale.length; i++) {
                var list = listSale[i];
