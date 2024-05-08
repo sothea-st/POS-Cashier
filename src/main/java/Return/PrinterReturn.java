@@ -1,5 +1,6 @@
 package Return;
 
+import Components.JavaAlertMessage;
 import Components.ReceiptBox;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -10,6 +11,7 @@ import Model.Reprint.DataSuccessModel;
 import Model.Reprint.ReprintModel;
 import Model.Reprint.SaleDetailModel;
 import Print.EpsonPrinter;
+import Receipt.Receipt;
 import static Receipt.Receipt.formatString;
 import static Receipt.Receipt.setFontSizeForLabels;
 import java.awt.Component;
@@ -20,8 +22,11 @@ import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Year;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -29,6 +34,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -37,6 +43,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import pdf.MyPrinter;
+import pdf.PrintPanelToPDF;
 
 public class PrinterReturn extends javax.swing.JDialog {
 
@@ -85,6 +92,9 @@ public class PrinterReturn extends javax.swing.JDialog {
           assignValue(dataSuccess);
      }
 
+     String pfdNameInvoice;
+     int numberOfItem=0;
+     
      private void assignValue(DataSuccessModel dataSuccess) {
           var data = dataSuccess.getData();
           try {
@@ -95,6 +105,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                address.setText("<html>អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>");
                vattin.setText(data.getVattin());
                invoiceNo.setText(data.getPaymentNo());
+               pfdNameInvoice = data.getPaymentNo();
 
                int currentYear = Year.now().getValue();
                String _year = "" + currentYear;
@@ -151,7 +162,9 @@ public class PrinterReturn extends javax.swing.JDialog {
      
      private void displayProduct(ReprintModel data) {
           listSale = data.getSaleDetails();
-
+          numberOfItem = listSale.length;
+          
+          
           for (int i = 0; i < listSale.length; i++) {
                var list = listSale[i];
                ReturnBox re = new ReturnBox();
@@ -223,6 +236,7 @@ public class PrinterReturn extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         btnPrint = new Button.Button();
         btnBack = new Button.Button();
+        btnPdf = new Button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -637,7 +651,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                     .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 24, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -672,7 +686,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(print);
@@ -694,6 +708,14 @@ public class PrinterReturn extends javax.swing.JDialog {
             }
         });
 
+        btnPdf.setBackground(new java.awt.Color(153, 102, 0));
+        btnPdf.setButtonName("PDF");
+        btnPdf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPdfMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -701,6 +723,8 @@ public class PrinterReturn extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
@@ -710,8 +734,9 @@ public class PrinterReturn extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -719,14 +744,14 @@ public class PrinterReturn extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -796,6 +821,18 @@ public class PrinterReturn extends javax.swing.JDialog {
          this.dispose();
     }//GEN-LAST:event_btnBackMouseClicked
 
+    private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
+        try {
+            new PrintPanelToPDF(print).printPdf(pfdNameInvoice,numberOfItem);
+            dispose();
+            JavaAlertMessage j = new JavaAlertMessage(new JFrame() , true);
+            j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
+            j.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(PrinterReturn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPdfMouseClicked
+
      /**
       * @param args the command line
       * arguments
@@ -843,6 +880,7 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JLabel address;
     private javax.swing.JLabel branch;
     private Button.Button btnBack;
+    private Button.Button btnPdf;
     private Button.Button btnPrint;
     private javax.swing.JLabel cashier;
     private javax.swing.JLabel companyname;

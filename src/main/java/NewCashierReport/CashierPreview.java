@@ -1,5 +1,6 @@
 package NewCashierReport;
 
+import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -21,7 +22,10 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.attribute.HashPrintRequestAttributeSet;
@@ -29,6 +33,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -37,6 +42,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import pdf.MyPrinter;
+import pdf.PrintPanelToPDF;
 
 public class CashierPreview extends javax.swing.JDialog {
 
@@ -95,6 +101,9 @@ public class CashierPreview extends javax.swing.JDialog {
     }
     
     
+    String pfdNameInvoice;
+    int numberOfItem=0;
+     
     private void assignValue(DataSuccessCashierReport getData) {
         
           var data = getData.getData();
@@ -104,6 +113,7 @@ public class CashierPreview extends javax.swing.JDialog {
                lbLogo.setIcon(new ImageIcon(images));
                companyname.setText(data.getCompanyName());
                posID.setLabelName("POS № : " + data.getPosID());
+               pfdNameInvoice = "Pos_ID_" + data.getPosID();
                openDate.setLabelName("Open Date : " + data.getOpenDate());
                closeDate.setLabelName("Close Date : " + data.getCloseDate());
                cashier.setText("Cashier : " + data.getUserName());
@@ -302,6 +312,8 @@ public class CashierPreview extends javax.swing.JDialog {
         jLabel38 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnPrint = new Button.Button();
+        btnPdf = new Button.Button();
+        btnBack = new Button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -780,20 +792,42 @@ public class CashierPreview extends javax.swing.JDialog {
             }
         });
 
+        btnPdf.setBackground(new java.awt.Color(153, 102, 0));
+        btnPdf.setButtonName("PDF");
+        btnPdf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPdfMouseClicked(evt);
+            }
+        });
+
+        btnBack.setButtonName("Back");
+        btnBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBackMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(11, 11, 11))
         );
 
@@ -844,6 +878,22 @@ public class CashierPreview extends javax.swing.JDialog {
               System.out.println("No printer found.");
          }
     }//GEN-LAST:event_btnPrintMouseClicked
+
+    private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
+        try {
+            new PrintPanelToPDF(reportPanel).printPdf(pfdNameInvoice,numberOfItem);
+            dispose();
+            JavaAlertMessage j = new JavaAlertMessage(new JFrame() , true);
+            j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
+            j.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(CashierPreview.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnPdfMouseClicked
+
+    private void btnBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBackMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_btnBackMouseClicked
                             
 
      public void printComponenet(Component component) {
@@ -917,6 +967,8 @@ public class CashierPreview extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel branch;
+    private Button.Button btnBack;
+    private Button.Button btnPdf;
     private Button.Button btnPrint;
     private javax.swing.JLabel cashier;
     private javax.swing.JLabel cashierCount;
