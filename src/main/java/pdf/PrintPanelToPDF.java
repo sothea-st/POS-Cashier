@@ -4,33 +4,26 @@
  */
 package pdf;
 
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfDocument;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.text.Document;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import com.itextpdf.io.image.ImageDataFactory;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.property.UnitValue;
-import javax.imageio.ImageIO;
-
+import com.itextpdf.text.PageSize;
+import java.awt.BorderLayout;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-/**
- *
- * @author MOBILE-APP.02
- */
 public class PrintPanelToPDF {
 
      private JPanel panel;
@@ -42,40 +35,107 @@ public class PrintPanelToPDF {
           this.panel = panel;
      }
 
-     public void printPdf() {
-          // Render the JPanel to an image
-          BufferedImage image = new BufferedImage(panel.getPreferredSize().width, panel.getPreferredSize().height, BufferedImage.TYPE_INT_RGB);
-          Graphics2D g2d = image.createGraphics();
-          panel.paint(g2d);
-          g2d.dispose();
+     public void printPdf(String pdfName, int numberOfItem) throws FileNotFoundException, IOException {
+          panel.setLayout(new BorderLayout());
+          // Render JPanel to BufferedImage
+          BufferedImage bi = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
+          Graphics2D g = bi.createGraphics();
+          panel.print(g);
+          g.dispose();
+
+          // Calculate the position to center the JPanel content on A4 paper
+          float panelWidth = bi.getWidth();
+          float panelHeight = bi.getHeight();
+          float a4Width = PageSize.A4.getWidth();
+          float a4Height = PageSize.A4.getHeight();
+          float x = (a4Width - panelWidth) / 2;
+
+          float y = -10;
+ 
 
           // Create a PDF document
-          try (PDDocument document = new PDDocument()) {
-               PDPage page = new PDPage(PDRectangle.A4); // Create an A4 page
-               document.addPage(page);
+          String outputFilePath = "C:\\Users\\mobile-app.02\\Pictures\\" + pdfName + ".pdf";
+          FileOutputStream fos = new FileOutputStream(outputFilePath);
+          PdfWriter writer = new PdfWriter(fos);
+          PdfDocument pdfDoc = new PdfDocument(writer);
+          Document document = new Document(pdfDoc);
 
-               // Scale the image to fit the A4 page
-               float imageWidth = image.getWidth();
-               float imageHeight = image.getHeight() * 2;
-               float pageWidth = page.getMediaBox().getWidth();
-               float pageHeight = page.getMediaBox().getHeight();
+          // Convert BufferedImage to byte array
+          ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+          ImageIO.write(bi, "png", byteArrayOutputStream);
+          byte[] imageBytes = byteArrayOutputStream.toByteArray();
 
-               float scale = Math.min(pageWidth / imageWidth, pageHeight / imageHeight);
-               float x = (pageWidth - imageWidth * scale) / 2;
-               float y = (pageHeight - imageHeight * scale) / 2;
-               // Create a PDImageXObject from the rendered image
-               PDImageXObject pdImage = PDImageXObject.createFromByteArray(document, toByteArray(image), "image");
-               // Add the scaled image to the PDF document
-               try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                    contentStream.drawImage(pdImage, 0, 0, image.getWidth(), image.getHeight());
+          // Create an Image instance from the byte array
+          Image image = new Image(ImageDataFactory.create(imageBytes));
+
+          // Add the image to the document
+          float pageHeight = PageSize.A4.getHeight();
+          float currentPageHeight = 0;
+          float contentHeight = image.getImageScaledHeight();
+
+          while (contentHeight > 0) {
+               UnitValue width = UnitValue.createPointValue(panelWidth);
+               UnitValue height = UnitValue.createPointValue(contentHeight);
+
+               // Check if there's enough space on the current page
+               float remainingSpace = pageHeight - currentPageHeight;
+//               if (contentHeight <= remainingSpace) {
+//                    // Add the entire content to the current page
+//                    image.setWidth(width);
+//                    image.setHeight(height);
+//                    document.add(image);
+//                    currentPageHeight += contentHeight;
+//                    contentHeight = 0; // No more content to add
+//               } else {
+               // Add the part of the content that fits on the current page
+               float partHeight = remainingSpace;
+               image.setWidth(width);
+               image.setHeight(UnitValue.createPointValue(partHeight));
+               image.setFixedPosition(x, y);
+               document.add(image);
+
+               // Add a new page
+//               pdfDoc.addNewPage();
+//               currentPageHeight = 0;
+
+               // Adjust the remaining content height
+               contentHeight -= remainingSpace;
+
+               // If the remaining content height is above a specific threshold,
+               // add it to the new page as well
+               if (contentHeight > 400) {
+                    // Add the remaining content to the new page
+                    image.setHeight(UnitValue.createPointValue(contentHeight));
+                    document.add(image);
+
+                    // Reset content height and mark as processed
+                    contentHeight = 0;
                }
-
-               // Save the PDF document to a file
-               document.save("panels.pdf");
-               System.out.println("PDF created successfully!");
-          } catch (IOException e) {
-               e.printStackTrace();
+//               }
           }
+
+          // Add the image to the document
+//          while (currentPageHeight < panelHeight) {
+//               // Set the size and position of the image to center it on the page
+//               UnitValue width = UnitValue.createPointValue(panelWidth);
+//               UnitValue height = UnitValue.createPointValue(panelHeight);
+//               image.setWidth(width);
+//               image.setHeight(height);
+//               image.setFixedPosition(x, y);
+//
+//               // Add the image to the document
+//               document.add(image);
+//
+//               currentPageHeight += pageHeight;
+//
+//               // If there's content remaining, add a new page
+//               if (currentPageHeight < panelHeight) {
+//                    pdfDoc.addNewPage();
+//               }
+//          }
+          // Close the document
+          document.close();
+          System.out.println("success");
      }
 
      private static byte[] toByteArray(BufferedImage image) throws IOException {
@@ -84,53 +144,54 @@ public class PrintPanelToPDF {
           return java.nio.file.Files.readAllBytes(new File("temp.png").toPath());
      }
 
-//     public static void main(String[] args) throws IOException {
-//          // Create a JPanel and add components to it
-//          JPanel panel = new JPanel();
-//          JLabel label = new JLabel("Hello, World!");
-//          panel.add(label);
-//
-//          // Render JPanel to BufferedImage
-//          BufferedImage bi = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
-//          Graphics2D g = bi.createGraphics();
-//          panel.print(g);
-//          g.dispose();
-//
-//          // Calculate the position to center the JPanel content on A4 paper
-//          float panelWidth = bi.getWidth();
-//          float panelHeight = bi.getHeight();
-//          float a4Width = PageSize.A4.getWidth();
-//          float a4Height = PageSize.A4.getHeight();
-//          float x = (a4Width - panelWidth) / 2;
-//          float y = (a4Height - panelHeight) / 2;
-//
-//          // Create a PDF document
-//          String outputFilePath = "panel.pdf";
-//          FileOutputStream fos = new FileOutputStream(outputFilePath);
-//          PdfWriter writer = new PdfWriter(fos);
-//          PdfDocument pdfDoc = new PdfDocument(writer);
-//          Document document = new Document(pdfDoc);
-//
-//          // Convert BufferedImage to byte array
-//          ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//          ImageIO.write(bi, "png", byteArrayOutputStream);
-//          byte[] imageBytes = byteArrayOutputStream.toByteArray();
-//
-//          // Create an Image instance from the byte array
-//          Image image = new Image(ImageDataFactory.create(imageBytes));
-//
-//          // Set the size and position of the image to center it on the page
-//          UnitValue width = UnitValue.createPointValue(panelWidth);
-//          UnitValue height = UnitValue.createPointValue(panelHeight);
-//          image.setWidth(width);
-//          image.setHeight(height);
-//          image.setFixedPosition(x, y);
-//
-//          // Add the image to the document
-//          document.add(image);
-//
-//          // Close the document
-//          document.close();
-//     }
+     public static void main(String[] args) throws IOException {
+          // Create a JPanel and add components to it
+          JPanel panel = new JPanel();
+          JLabel label = new JLabel("Hello, World!");
+          panel.add(label);
+
+          // Render JPanel to BufferedImage
+          BufferedImage bi = new BufferedImage(panel.getWidth(), panel.getHeight(), BufferedImage.TYPE_INT_RGB);
+          Graphics2D g = bi.createGraphics();
+          panel.print(g);
+          g.dispose();
+
+          // Calculate the position to center the JPanel content on A4 paper
+          float panelWidth = bi.getWidth();
+          float panelHeight = bi.getHeight();
+          float a4Width = PageSize.A4.getWidth();
+          float a4Height = PageSize.A4.getHeight();
+          float x = (a4Width - panelWidth) / 2;
+          float y = (a4Height - panelHeight) / 2;
+
+          // Create a PDF document
+          String outputFilePath = "panel.pdf";
+          FileOutputStream fos = new FileOutputStream(outputFilePath);
+          PdfWriter writer = new PdfWriter(fos);
+          PdfDocument pdfDoc = new PdfDocument(writer);
+          Document document = new Document(pdfDoc);
+
+          // Convert BufferedImage to byte array
+          ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+          ImageIO.write(bi, "png", byteArrayOutputStream);
+          byte[] imageBytes = byteArrayOutputStream.toByteArray();
+
+          // Create an Image instance from the byte array
+          Image image = new Image(ImageDataFactory.create(imageBytes));
+
+          // Set the size and position of the image to center it on the page
+          UnitValue width = UnitValue.createPointValue(panelWidth);
+          UnitValue height = UnitValue.createPointValue(panelHeight);
+          image.setWidth(width);
+          image.setHeight(height);
+          image.setFixedPosition(x, y);
+
+          // Add the image to the document
+          document.add(image);
+
+          // Close the document
+          document.close();
+          System.out.println("success");
+     }
 
 }
