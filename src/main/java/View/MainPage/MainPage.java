@@ -128,6 +128,7 @@ public class MainPage extends javax.swing.JFrame {
           setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
           lbLogo.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "logoKingMart.png")));
           imageShopping.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "shopping-cart.png")));
+         
           // set background color 
           mainPanel.setBackground(WindowColor.slightGreen);
           panelCategory.setBackground(WindowColor.darkGreen);

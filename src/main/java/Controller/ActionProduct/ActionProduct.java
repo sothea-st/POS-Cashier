@@ -385,6 +385,8 @@ public class ActionProduct {
 
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
+          
+         
 
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
@@ -483,10 +485,10 @@ public class ActionProduct {
 
           if (listData.getDiscount() > 0) {
 
-               if (listData.getQty() > 1) {
-                    box.setDiscountValue(listData.getQty() * listData.getDiscount());
-               } else {
+               if ( JavaConstant.isReturn == null) {
                     box.setDiscountValue(listData.getDiscount());
+               } else {
+                    box.setDiscountValue(listData.getDiscount() * listData.getQty());
                }
 
                if (listData.getDiscountType() != null) {

@@ -315,7 +315,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     double doubleReceviceUsd = JavaConstant.getReplace(receviUsd);
                     double result = doubleReceviceUsd - doubleTotalUsd;
 
-                    System.err.println("result usd : " + result);
+                  
                     if (result < 0) {
                          setValueLabelUsd(result, 0);
                     } else if (result > 0) {
@@ -1669,6 +1669,7 @@ public class PaymentOption extends javax.swing.JDialog {
               double p = JavaConstant.getReplace(df.format(unitPrice));
               discountType = obj.getDiscountType();
               double discountVale = obj.getDiscountValue();
+              System.out.println("discountVale : " + discountVale);
 
               double amount = obj.getQty() * p;
               double a = JavaConstant.getReplace(df.format(amount));
@@ -1997,7 +1998,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
                if (change < 5) {
                     change = change * JavaConstant.exchangeRate4050;
-                    System.err.println("change usd : " + change);
+                  
                     lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(change));
 
                     lbRemainingKhr.setLabelName(dm.format(0));
