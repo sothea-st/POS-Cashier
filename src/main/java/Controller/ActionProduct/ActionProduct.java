@@ -497,7 +497,6 @@ public class ActionProduct {
                          box.setDiscountAmt(dm.format(listData.getQty() * listData.getDiscount()));
                     }
                }
-
           }
 
           try {
