@@ -135,8 +135,8 @@ public class RouteController {
 
           @GetMapping("/getProductByCatId")
           public ResponseEntity<?> getProductByCatId(@RequestParam("catId") int catId,
-                    @RequestParam("limit") int limit) {
-               List<ProductModel> data = service.getProductByCatId(catId, limit);
+                    @RequestParam("limit") int limit, @RequestParam("page") int page) {
+               List<ProductModel> data = service.getProductByCatId(catId, limit ,page);
                int count = service.count(catId);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
@@ -179,8 +179,10 @@ public class RouteController {
 
           @GetMapping("/getProductByBrandId")
           public ResponseEntity<?> getProductByBrandId(@RequestParam("brandId") int brandId,
-                    @RequestParam("limit") int limit) {
-               List<ProductModel> data = service.getListProductByBrandId(brandId, limit);
+                    @RequestParam("limit") int limit ,
+                    @RequestParam("page") int page
+                    ) {
+               List<ProductModel> data = service.getListProductByBrandId(brandId, limit ,page);
                int count = service.countProductByBrandId(brandId);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
@@ -189,6 +191,11 @@ public class RouteController {
           public ResponseEntity<?> updateDis(@RequestBody UpdateProductDiscount data) {
                Product datas = service.updateDiscount(data.getId(), data.getDiscount());
                return JavaResponse.success(datas);
+          }
+
+          @GetMapping("/getNewPrdduct")
+          public ResponseEntity<?> getNewProduct(){
+               return JavaResponse.success(service.getNewProduct());
           }
      }
 

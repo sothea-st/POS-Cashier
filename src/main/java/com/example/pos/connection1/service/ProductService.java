@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-
 @Service
 public class ProductService {
     @Autowired
@@ -107,10 +106,10 @@ public class ProductService {
     }
 
     public List<ProductModel> getProduct(int limit) {
-        
+
         List<ProductModel> list = new ArrayList<>();
 
-        if( limit == 0 ) {
+        if (limit == 0) {
             List<ProductProjection> allPro = repo.getAllProduct();
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
@@ -123,7 +122,6 @@ public class ProductService {
             return list;
         }
 
-
         List<ProductProjection> lPro = repo.getProduct(limit);
         for (int i = 0; i < lPro.size(); i++) {
             var data = lPro.get(i);
@@ -134,9 +132,6 @@ public class ProductService {
             list.add(p);
         }
 
-        // map.put("count", repo.countRow());
-        // map.put("result", repo.getProduct());
-        // map.put("result", list);
         return list;
     }
 
@@ -144,7 +139,6 @@ public class ProductService {
         Product previousPro = repo.findById(id).get();
         String fileName = previousPro.getProImageName();
         String flagName = previousPro.getFlag();
-
 
         if (!Objects.equals(previousPro.getProNameKh(), editProduct.getProNameKh())) {
             boolean isExist = repo.existsByProNameKh(editProduct.getProNameKh());
@@ -168,7 +162,6 @@ public class ProductService {
             fileStore.save(f1);
             previousPro.setProImageName(imgName);
         }
-     
 
         if (Objects.equals(flagName, JavaConstant.defaultFlagNameImage))
             flagName = "";
@@ -193,7 +186,6 @@ public class ProductService {
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
         previousPro.setBrandId(editProduct.getBrandId());
- 
 
         previousPro.setProductStatus(editProduct.getProductStatus()); // for detail product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
@@ -218,34 +210,33 @@ public class ProductService {
         return fileDB.get().getData();
     }
 
-    public List<ProductModel> getProductByCatId(int catId, int limit) {
-        List<ProductProjection> listData = repo.getProductByCatId(catId, limit);
+    public List<ProductModel> getProductByCatId(int catId, int limit ,int page) {
+        List<ProductProjection> listData = repo.getProductByCatId(catId, limit ,page);
 
         List<ProductModel> list = new ArrayList<>();
-        if (limit == 10) {
-            for (int i = 0; i < listData.size(); i++) {
-                var data = listData.get(i);
-                Integer qty = repoImp.getQty(data.getId());
-                if (qty == null)
-                    qty = 0;
-                ProductModel p = proModel(data, qty);
-                list.add(p);
-            }
-            return list;
-        }
-
+      
         for (int i = 0; i < listData.size(); i++) {
-
-            if (i >= limit - 10) {
-                var data = listData.get(i);
-                Integer qty = repoImp.getQty(data.getId());
-                if (qty == null)
-                    qty = 0;
-                ProductModel p = proModel(data, qty);
-                list.add(p);
-            }
+            var data = listData.get(i);
+            Integer qty = repoImp.getQty(data.getId());
+            if (qty == null)
+                qty = 0;
+            ProductModel p = proModel(data, qty);
+            list.add(p);
         }
         return list;
+
+        // for (int i = 0; i < listData.size(); i++) {
+
+        // if (i >= limit - 20) {
+        // var data = listData.get(i);
+        // Integer qty = repoImp.getQty(data.getId());
+        // if (qty == null)
+        // qty = 0;
+        // ProductModel p = proModel(data, qty);
+        // list.add(p);
+        // }
+        // }
+        // return list;
     }
 
     public int count(int catId) {
@@ -256,13 +247,11 @@ public class ProductService {
         return repo.countProductByBrandId(brandId);
     }
 
-    public List<ProductModel> getListProductByBrandId(int brandId, int limit) {
-    
-        List<ProductProjection> listD = repo.getProductByBrandId(brandId, limit);
+    public List<ProductModel> getListProductByBrandId(int brandId, int limit , int page) {
+
+        List<ProductProjection> listD = repo.getProductByBrandId(brandId, limit ,page);
 
         List<ProductModel> listModel = new ArrayList<>();
-
-        if (limit == 10) {
             for (int i = 0; i < listD.size(); i++) {
                 var data = listD.get(i);
                 Integer qty = repoImp.getQty(data.getId());
@@ -272,19 +261,6 @@ public class ProductService {
                 listModel.add(p);
             }
             return listModel;
-        }
-
-        for (int i = 0; i < listD.size(); i++) {
-            if (i >= limit - 10) {
-                var data = listD.get(i);
-                Integer qty = repoImp.getQty(data.getId());
-                if (qty == null)
-                    qty = 0;
-                ProductModel p = proModel(data, qty);
-                listModel.add(p);
-            }
-        }
-        return listModel;
     }
 
     public ProductModel proModel(ProductProjection data, int qty) {
@@ -308,12 +284,30 @@ public class ProductService {
         return p;
     }
 
-
-    public Product updateDiscount(int id,BigDecimal discount){
+    public Product updateDiscount(int id, BigDecimal discount) {
         Optional<Product> p = repo.getProductByOptionalId(id);
         Product data = p.get();
         data.setDiscount(discount);
         repo.save(data);
         return data;
     }
+
+    public List<ProductModel> getNewProduct() {
+        Integer countRow = repo.countRow();
+        Integer number = (countRow * 20) / 100;
+
+        List<ProductProjection> listData = repo.getNewProduct(number);
+        List<ProductModel> list = new ArrayList<>();
+
+        for (int i = 0; i < listData.size(); i++) {
+            var data = listData.get(i);
+            Integer qty = repoImp.getQty(data.getId());
+            if (qty == null)
+                qty = 0;
+            ProductModel p = proModel(data, qty);
+            list.add(p);
+        }
+        return list;
+    }
+
 }
