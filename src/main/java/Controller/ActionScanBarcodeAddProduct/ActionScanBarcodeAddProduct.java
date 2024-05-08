@@ -64,7 +64,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
      public void returnWithBarcode(String barcode, LoginFormJdailog jdFormLogin, String invoice) {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice + "&barcode=" + barcode);
-
+           
                try {
                     if (response.isSuccessful()) {
                          String responseData = response.body().string();
@@ -113,6 +113,11 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          detailItem.setBackground(WindowColor.slightGreen);
 
                          btnReturn.setBackground(WindowColor.lightGray);
+                    } else {
+
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage(JavaMessage.somethingWrong);
+                         j.setVisible(true);
                     }
                } catch (Exception e) {
                     System.err.println("erro " + e);
@@ -128,7 +133,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanWithoutReturn(String invoice, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice);
-
+          System.out.println("respieon return : " + response);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -157,7 +162,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          JavaConstant.isReturn = "return";
                          JavaConstant.tmpInvoice = invoice;
 
-             
                          btnReturn.setBackground(WindowColor.lightGray);
                          detailItem.setBackground(WindowColor.slightGreen);
                          product = new ProductModel(
@@ -178,7 +182,10 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          );
                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
-
+               } else {
+                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                    j.setMessage(JavaMessage.somethingWrong);
+                    j.setVisible(true);
                }
           } catch (Exception e) {
 
@@ -193,7 +200,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listProduct = model.getData();
-                   
+
                     if (listProduct.length == 0) {
                          msgAlertErr();
                          return;

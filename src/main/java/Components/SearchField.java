@@ -1,9 +1,11 @@
 package Components;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -16,6 +18,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 
 /**
@@ -91,6 +94,7 @@ public class SearchField extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           textSearch.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(textSearch);
+          jLabel1.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Search Icon.png")));
      }
 
      public void disabledTextField(boolean value) {
