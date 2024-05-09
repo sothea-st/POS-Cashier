@@ -14,6 +14,7 @@ import DefaultPrice.DataModelDefaultPrice;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import LoginAndLogoutForm.LoginFormJdailog;
+import Print.EpsonPrinter;
 import View.MainPage.MainPage;
 import java.awt.Color;
 import java.awt.Component;
@@ -381,7 +382,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                          loginFormJdailog.callDataInFullScreen();
                     }
 
-//                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
+                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
                } else {
                     UIManager UI = new UIManager();
                     UI.put("OptionPane.background", WindowColor.mediumGreen);

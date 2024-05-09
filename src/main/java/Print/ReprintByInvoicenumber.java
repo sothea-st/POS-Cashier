@@ -37,8 +37,8 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                @Override
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
-//                    String barcodeValue = value.substring(2); // this working with device scanner 
-                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + value);
+                    String barcodeValue = value.substring(2); // this working with device scanner 
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
 
                     try {
                          String _data = responseData.body().string();

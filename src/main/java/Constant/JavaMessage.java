@@ -12,5 +12,6 @@ public class JavaMessage {
      public static int qtyScanning = 0;
      public static int qtyAddMore = 0;
      public static String somethingWrong = "Something wrong !";
+     public static String check = "Please check invoice number / barcode again !";
     
 }

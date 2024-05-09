@@ -1669,7 +1669,7 @@ public class PaymentOption extends javax.swing.JDialog {
               double p = JavaConstant.getReplace(df.format(unitPrice));
               discountType = obj.getDiscountType();
               double discountVale = obj.getDiscountValue();
-              System.out.println("discountVale : " + discountVale);
+              
 
               double amount = obj.getQty() * p;
               double a = JavaConstant.getReplace(df.format(amount));
@@ -1735,8 +1735,8 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-//                             re.printReceipt(); // for print with device
-                             re.setVisible(true);
+                             re.printReceipt(); // for print with device
+//                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
@@ -1838,8 +1838,8 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setDataSuccess(d);
                print.revalidate();
                print.repaint();
-//               print.printReceipt();
-               print.setVisible(true);
+               print.printReceipt(); // print paper with device
+//               print.setVisible(true);
 
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                ReturnDialog r = new ReturnDialog(new JFrame(), true);
