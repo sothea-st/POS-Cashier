@@ -33,6 +33,7 @@ import Return.ApprovalCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
@@ -76,7 +77,7 @@ public class MainPage extends javax.swing.JFrame {
            setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setFont(WindowFonts.timeNewRomanBold14);
           lbPOSId.setFont(WindowFonts.timeNewRomanBold14);
-          boxUserName.setFont(WindowFonts.timeNewRomanBold14);
+          // boxUserName.setFont(WindowFonts.timeNewRomanBold14);
 
           searchBox.disabledTextField(false);
           textField.disabledTextField(false);
@@ -100,8 +101,9 @@ public class MainPage extends javax.swing.JFrame {
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin,btnReturn,titleOrder).resizeEvent(this);
           
           currentDateTime();
-          boxUserName.setVisible(false);
+          // boxUserName.setVisible(false);
           titleOrder.setVisible(false);
+          menuBar.setPreferredSize(new Dimension(300, 41));
 
      }
 
@@ -142,7 +144,7 @@ public class MainPage extends javax.swing.JFrame {
           boxOne.setBackground(WindowColor.slightGreen);
           detailItem.setBackground(WindowColor.slightGreen);
           panelCart.setBackground(WindowColor.darkGreen);
-          boxUserName.setVisible(false);
+          // boxUserName.setVisible(false);
      }
 
      private void groupEvent() {
@@ -193,6 +195,7 @@ public class MainPage extends javax.swing.JFrame {
           buttonCashier = new Button.Button();
           buttonCustomer = new Button.Button();
           btnCancel = new ButtonPackage.ButtonCancel();
+          stock = new Button.Button();
           searchBox = new Components.SearchField();
           currentDate = new javax.swing.JLabel();
           jScrollPane2 = new javax.swing.JScrollPane();
@@ -201,13 +204,12 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneDetail = new javax.swing.JScrollPane();
           boxOne = new javax.swing.JPanel();
           detailItem = new javax.swing.JPanel();
-          boxUserName = new javax.swing.JLabel();
           panelPagination = new javax.swing.JPanel();
           cmboxBrand = new Components.ComboBox();
-          next = new Components.LabelFontGreen();
           previous = new Components.LabelFontGreen();
           homeMenu = new Components.LabelTitle();
           breadcrumb = new Components.LabelTitle();
+          next = new Components.LabelFontGreen();
           titleOrder = new javax.swing.JLabel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -240,7 +242,7 @@ public class MainPage extends javax.swing.JFrame {
           );
           panelCategoryLayout.setVerticalGroup(
                panelCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGap(0, 46, Short.MAX_VALUE)
+               .addGap(0, 0, Short.MAX_VALUE)
                .addGroup(panelCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPaneCategory, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE))
           );
@@ -275,12 +277,13 @@ public class MainPage extends javax.swing.JFrame {
                menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(menuBarLayout.createSequentialGroup()
                     .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(panelCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addGroup(menuBarLayout.createSequentialGroup()
-                              .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                   .addComponent(textField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(panelCart, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addGap(17, 17, 17)))
+                              .addComponent(panelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addGap(17, 17, 17))
+                         .addGroup(menuBarLayout.createSequentialGroup()
+                              .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap())
           );
 
@@ -334,9 +337,6 @@ public class MainPage extends javax.swing.JFrame {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     btnOpenShiftMouseClicked(evt);
                }
-               public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    // btnOpenShiftMouseEntered(evt);
-               }
           });
 
           btnReprint.setBackground(new java.awt.Color(204, 204, 204));
@@ -383,6 +383,10 @@ public class MainPage extends javax.swing.JFrame {
                }
           });
 
+          stock.setBackground(new java.awt.Color(204, 204, 204));
+          stock.setForeground(new java.awt.Color(255, 255, 255));
+          stock.setButtonName("Stock");
+
           javax.swing.GroupLayout panelprocessingLayout = new javax.swing.GroupLayout(panelprocessing);
           panelprocessing.setLayout(panelprocessingLayout);
           panelprocessingLayout.setHorizontalGroup(
@@ -390,18 +394,17 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(panelprocessingLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(totalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                         .addComponent(totalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                          .addGroup(panelprocessingLayout.createSequentialGroup()
                               .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                   .addGroup(panelprocessingLayout.createSequentialGroup()
-                                        .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                             .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                             .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                             .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                             .addComponent(btnOpenShift, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                                   .addComponent(btnLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                    .addComponent(buttonCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                   .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                   .addComponent(btnOpenShift, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(stock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(panelprocessingLayout.createSequentialGroup()
@@ -435,7 +438,8 @@ public class MainPage extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(buttonCashier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(buttonCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(buttonCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(27, Short.MAX_VALUE))
           );
 
@@ -471,12 +475,6 @@ public class MainPage extends javax.swing.JFrame {
 
           jScrollPaneDetail.setViewportView(boxOne);
 
-          boxUserName.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-          boxUserName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          boxUserName.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-
-          next.setLabelName(">");
-
           previous.setLabelName("<");
 
           homeMenu.setBackground(new java.awt.Color(47, 155, 70));
@@ -484,6 +482,8 @@ public class MainPage extends javax.swing.JFrame {
 
           breadcrumb.setBackground(new java.awt.Color(47, 155, 70));
           breadcrumb.setLabelTitle("NEW ITEMS");
+
+          next.setLabelName(">");
 
           javax.swing.GroupLayout panelPaginationLayout = new javax.swing.GroupLayout(panelPagination);
           panelPagination.setLayout(panelPaginationLayout);
@@ -494,11 +494,11 @@ public class MainPage extends javax.swing.JFrame {
                     .addComponent(homeMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(breadcrumb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 757, Short.MAX_VALUE)
                     .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPaginationLayout.createSequentialGroup()
                               .addComponent(previous, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 0, 0)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addComponent(cmboxBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap())
@@ -508,9 +508,9 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(panelPaginationLayout.createSequentialGroup()
                     .addComponent(cmboxBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(previous, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(previous, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(next, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                .addGroup(panelPaginationLayout.createSequentialGroup()
                     .addGap(12, 12, 12)
                     .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -535,9 +535,7 @@ public class MainPage extends javax.swing.JFrame {
                               .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addGap(38, 38, 38)
                               .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(81, 81, 81)
-                              .addComponent(boxUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addGap(413, 413, 413)
                               .addComponent(lbPOSId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                               .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -561,18 +559,16 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(mainPanelLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(mainPanelLayout.createSequentialGroup()
                               .addGap(10, 10, 10)
                               .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lbPOSId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(boxUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                                        .addComponent(searchBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                              .addGap(11, 11, 11)))
-                    .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                   .addComponent(lbPOSId, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                         .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(7, 7, 7)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(mainPanelLayout.createSequentialGroup()
                               .addComponent(titleOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -607,7 +603,7 @@ public class MainPage extends javax.swing.JFrame {
      }// </editor-fold>//GEN-END:initComponents
 
      private void loginFunc() {
-          // jdFormLogin.setBoxUserName(boxUserName);
+       
           jdFormLogin.setBtnLogin(btnLogin);
           jdFormLogin.setCategory(category);
           jdFormLogin.setPanelProduct(panelProduct);
@@ -644,7 +640,7 @@ public class MainPage extends javax.swing.JFrame {
          } else if (buttonName.equals("logout")) {
               if (JavaConstant.checkOpenShift == false) {
                    LogoutDialog logout = new LogoutDialog(new JFrame(), true);
-               //     logout.setBoxUserName(boxUserName);
+                
                    logout.setBtnLogin(btnLogin);
                    logout.setCategory(category);
                    logout.setPanelProduct(panelProduct);
@@ -1029,7 +1025,6 @@ public class MainPage extends javax.swing.JFrame {
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JPanel boxOne;
-     private javax.swing.JLabel boxUserName;
      private Components.LabelTitle breadcrumb;
      private ButtonPackage.ButtonCancel btnCancel;
      private Button.Button btnLogin;
@@ -1063,6 +1058,7 @@ public class MainPage extends javax.swing.JFrame {
      private javax.swing.JPanel panelprocessing;
      private Components.LabelFontGreen previous;
      private Components.SearchField searchBox;
+     private Button.Button stock;
      private Components.TextField textField;
      private javax.swing.JLabel titleOrder;
      private Components.SubtotalPanel totalPanel;
