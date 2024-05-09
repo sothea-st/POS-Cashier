@@ -93,6 +93,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private LabelTitle breadcrumb;
      private JFrame mainFrame;
      private JLabel titleOrder;
+     private Button stock;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -352,13 +353,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
-         String userId = txtUserId.getValueTextField();
-         String password = txtPassword.getValuePassword();
+//         String userId = txtUserId.getValueTextField();
+//         String password = txtPassword.getValuePassword();
          
          
          
-//         String userId = "0005";
-//         String password = "TT@126$kh#";
+         String userId = "0002";
+         String password = "TT@126$kh#";
 
 
          String deviceName = JavaConstant.getDeviceName();
@@ -430,6 +431,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              buttonCustomer.setBackground(WindowColor.green);
                              buttonDiscount.setBackground(WindowColor.green);
                              btnReprint.setBackground(WindowColor.green);
+                             stock.setBackground(WindowColor.green);
                              pro.setBtnReturn(btnReturn);
 
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
@@ -912,6 +914,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setTitleOrder(JLabel titleOrder) {
           this.titleOrder = titleOrder;
      }
+
+    public Button getStock() {
+        return stock;
+    }
+
+    public void setStock(Button stock) {
+        this.stock = stock;
+    }
+     
+     
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {

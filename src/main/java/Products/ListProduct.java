@@ -4,6 +4,7 @@ import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Controller.ActionSearchProductController.ActionSearchProd;
+import CustomeUI.CustomScrollBarUI;
 import Discount.DiscountByItem;
 import Event.ButtonEvent;
 import Model.PackageProduct.ProductModel;
@@ -16,6 +17,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
@@ -38,6 +40,13 @@ public class ListProduct extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         searchField.setFocus();
+        // custome scrollbar ui
+        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
     }
     
     void setBackground(){
@@ -46,7 +55,7 @@ public class ListProduct extends javax.swing.JDialog {
     
     public void getProduct(JPanel jpanelData) {
           try {
-               Response response = JavaConnection.get(JavaRoute.product + "?limit=10");
+               Response response = JavaConnection.get(JavaRoute.product + "?limit=0");
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -115,31 +124,15 @@ public class ListProduct extends javax.swing.JDialog {
                }
 
                var listData = listProduct.get(i);
-               Discount.GetProduct prod = new Discount.GetProduct();
+               Products.GetProduct prod = new Products.GetProduct();
 
                prod.setProductName(listData.getProductNameEn());
                prod.setProductBarcode(listData.getBarcode());
                prod.setProductPrice(dm.format(listData.getPrice()));
-               prod.setProductDiscount(listData.getDiscount());
+               prod.setQty(listData.getQty());
                prod.setProductId(listData.getId());
                prod.setListGetProduct(listGetProduct);
-
-//               ButtonEvent event = new ButtonEvent() {
-//                    @Override
-//                    public void onClick() {
-//                         System.err.println("button was clicked 333 == " + jdFormLogin);
-//                         DiscountByItem dis = new DiscountByItem(new JFrame(), true);
-//                         dis.setId(listData.getId());
-//                         dis.setListGetProduct(listGetProduct);
-//                         dis.setPanelProduct(panelProduct);
-//                         dis.setJdFormLogin(jdFormLogin);
-//                         dis.setCategory(category);
-//                         dis.setPanelPagination(panelPagination);
-//                         dis.setVisible(true);
-//                    }
-//               };
-//               prod.initEvent(event);
-               
+               prod.setNumberNo(i+1);
                listGetProduct.add(prod, gbc);
 
           }
@@ -192,7 +185,7 @@ public class ListProduct extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Action");
+        jLabel1.setText("№ ");
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,9 +212,9 @@ public class ListProduct extends javax.swing.JDialog {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,7 +252,7 @@ public class ListProduct extends javax.swing.JDialog {
         );
         listGetProductLayout.setVerticalGroup(
             listGetProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(listGetProduct);
@@ -275,7 +268,7 @@ public class ListProduct extends javax.swing.JDialog {
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         panelListProductLayout.setVerticalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,8 +278,8 @@ public class ListProduct extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

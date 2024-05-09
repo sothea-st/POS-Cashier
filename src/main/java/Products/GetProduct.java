@@ -10,6 +10,7 @@ public class GetProduct extends javax.swing.JPanel {
 
     public GetProduct() {
         initComponents();
+        id.setVisible(false);
     }
 
     private String productName;
@@ -17,6 +18,7 @@ public class GetProduct extends javax.swing.JPanel {
     private String productPrice;
     private int quantity;
     private int productId;
+    private int numberNo;
     private JPanel panelProduct;
 
     private JPanel listGetProduct;
@@ -27,33 +29,6 @@ public class GetProduct extends javax.swing.JPanel {
 
     public void setPanelProduct(JPanel panelProduct) {
          this.panelProduct = panelProduct;
-    }
-
-
-
-    public void initEvent(ButtonEvent event) {
-         buttonEdit.addMouseListener(new MouseListener() {
-              @Override
-              public void mouseClicked(MouseEvent e) {
-                   event.onClick();
-              }
-
-              @Override
-              public void mousePressed(MouseEvent e) {
-              }
-
-              @Override
-              public void mouseReleased(MouseEvent e) {
-              }
-
-              @Override
-              public void mouseEntered(MouseEvent e) {
-              }
-
-              @Override
-              public void mouseExited(MouseEvent e) {
-              }
-         });
     }
 
     @SuppressWarnings("unchecked")
@@ -110,6 +85,17 @@ public class GetProduct extends javax.swing.JPanel {
           this.quantity = quantity;
           qty.setText(""+quantity);
      }
+
+    public int getNumberNo() {
+        return numberNo;
+    }
+
+    public void setNumberNo(int numberNo) {
+        this.numberNo = numberNo;
+        number.setText(""+numberNo);
+    }
+     
+     
      
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -120,7 +106,7 @@ public class GetProduct extends javax.swing.JPanel {
         lbName = new javax.swing.JLabel();
         qty = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
-        buttonEdit = new Button.ButtonInstock();
+        number = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -147,24 +133,22 @@ public class GetProduct extends javax.swing.JPanel {
 
         id.setText("jLabel1");
 
-        buttonEdit.setButtonName("Add Discount");
-        buttonEdit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonEditMouseClicked(evt);
-            }
-        });
+        number.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        number.setForeground(new java.awt.Color(0, 0, 0));
+        number.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        number.setText("Number");
 
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);
         getProductLayout.setHorizontalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(buttonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addContainerGap()
+                .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,14 +161,13 @@ public class GetProduct extends javax.swing.JPanel {
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbBarcode)
-                        .addComponent(lbPrice)
-                        .addComponent(qty)
-                        .addComponent(lbName)
-                        .addComponent(id)))
+                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbBarcode)
+                    .addComponent(lbPrice)
+                    .addComponent(qty)
+                    .addComponent(lbName)
+                    .addComponent(id)
+                    .addComponent(number))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -202,22 +185,14 @@ public class GetProduct extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonEditMouseClicked
-        //         DiscountByItem dis = new DiscountByItem(new JFrame(), true);
-        //         dis.setId(productId);
-        //         dis.setListGetProduct(listGetProduct);
-        //
-        //         dis.setVisible(true);
-    }//GEN-LAST:event_buttonEditMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.ButtonInstock buttonEdit;
     private javax.swing.JPanel getProduct;
     private javax.swing.JLabel id;
     private javax.swing.JLabel lbBarcode;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;
+    private javax.swing.JLabel number;
     private javax.swing.JLabel qty;
     // End of variables declaration//GEN-END:variables
 }

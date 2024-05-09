@@ -5,7 +5,7 @@ import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Discount.ListProduct;
+import Products.ListProduct;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;

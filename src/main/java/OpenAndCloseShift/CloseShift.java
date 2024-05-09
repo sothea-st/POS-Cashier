@@ -38,6 +38,7 @@ public class CloseShift extends javax.swing.JDialog {
 
      private BackgroundImage bgImage;
      private ButtonCancel btnCancel;
+     private Button stock;
 
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -465,6 +466,7 @@ public class CloseShift extends javax.swing.JDialog {
                    btnReprint.setBackground(WindowColor.lightGray);
                    btnHold.setBackground(WindowColor.lightGray);
                    buttonCashier.setBackground(WindowColor.green);
+                   stock.setBackground(WindowColor.lightGray);
                    dispose();
                    btnOpenShift.setButtonName("Open Shift");
                    btnOpenShift.setBackground(WindowColor.lightGray);
@@ -604,6 +606,15 @@ public class CloseShift extends javax.swing.JDialog {
           this.btnLogin = btnLogin;
      }
 
+    public Button getStock() {
+        return stock;
+    }
+
+    public void setStock(Button stock) {
+        this.stock = stock;
+    }
+
+     
      /**
       * @param args the command line
       * arguments

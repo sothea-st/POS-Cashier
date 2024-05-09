@@ -139,7 +139,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelCategory" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="panelCart" max="32767" attributes="0"/>
+                              <Component id="panelCart" pref="26" max="32767" attributes="0"/>
                               <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -467,6 +467,9 @@
                 </Property>
                 <Property name="buttonName" type="java.lang.String" value="Stock"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="stockMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -578,7 +581,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="breadcrumb" pref="35" max="32767" attributes="0"/>
+                          <Component id="breadcrumb" max="32767" attributes="0"/>
                           <Component id="homeMenu" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
