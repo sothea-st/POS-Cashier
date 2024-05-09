@@ -149,7 +149,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     if (listProduct.length == 0) {
                          JavaConstant.isReturn = null;
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         j.setMessage(JavaMessage.check);
+                         j.setMessage("The Invoice Number Is Already Returned !");
                          j.setVisible(true);
                          return;
                     }

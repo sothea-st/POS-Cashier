@@ -100,7 +100,7 @@ public class MainPage extends javax.swing.JFrame {
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin,btnReturn,titleOrder).resizeEvent(this);
           
           currentDateTime();
-//          boxUserName.setVisible(false);
+          boxUserName.setVisible(false);
           titleOrder.setVisible(false);
 
      }

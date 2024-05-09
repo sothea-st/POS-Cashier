@@ -442,7 +442,7 @@ public class CloseShift extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
-              System.err.println("jjjjjjjjjjjjjjjj = " + json);
+          
               if (response.isSuccessful()) {
 
                    searchBox.disabledTextField(false);
@@ -481,7 +481,7 @@ public class CloseShift extends javax.swing.JDialog {
 //                   panelProduct.revalidate();
 //                   panelProduct.repaint();
 //                          == == == == == == == == == == == == == == == == == == == == == == =
-//                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
+                   EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
 

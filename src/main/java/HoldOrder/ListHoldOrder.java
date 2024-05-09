@@ -51,8 +51,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
      private Button buttonHoldOrder;
      private ButtonCancel btnCancel;
      private JPanel panelProduct;
-      private JLabel titleOrder;
-     
+     private JLabel titleOrder;
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -156,7 +155,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                                         obj.getProImageName(),
                                         obj.getProductStatus()
                                    );
-                                   addItemToCart(product);
+                                   addItemToCart(product,obj.getQty(),new ProductBox());
                               }
 
                               btnPayment.setBackground(WindowColor.lightBlue);
@@ -248,15 +247,22 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
      }
 
-     public void addItemToCart(HoldProductModel listData) {
+     public void addItemToCart(HoldProductModel listData, int qtyData, ProductBox product) {
+          BoxItem box = new BoxItem();
+          if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
+               box.setMaxQty(listData.getQty());
+          }
+
+          if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
+               box.setMaxQty(listData.getQty());
+          }
 
           double price = listData.getPrice();
-          double discount = (listData.getDiscount() * price) / 100;
 
-//          discount = JavaConstant.get4Length("" + discount); // get 2 precision
-          int qtyData = listData.getQty();
-          BoxItem box = new BoxItem();
-//          box.setProductBox(product);
+          double discount = (listData.getDiscount() * price) / 100;
+          discount = JavaConstant.get4Length("" + discount); // get 2 precision
+
+          box.setProductBox(product);
           box.setPanelProduct(panelProduct);
 
           box.setWasPrice("" + price);
@@ -264,8 +270,10 @@ public class ListHoldOrder extends javax.swing.JDialog {
           box.setButtonHoldOrder(buttonHoldOrder);
           box.setBtnCancel(btnCancel);
           box.setBtnReturn(btnReturn);
+          box.setTitleOrder(titleOrder);
           box.setLbQty(listData.getQty());
           Component[] listCom = detailItem.getComponents();
+
           if (listCom.length != 0) {
 
                for (int i = 0; i < listCom.length; i++) {
@@ -273,7 +281,22 @@ public class ListHoldOrder extends javax.swing.JDialog {
                     int proId = obj.getProductId();
                     int qty = obj.getQty();
                     if (proId == listData.getId()) {
+
+                         double _discountUnit = JavaConstant.getReplace(obj.getDiscountAmount());
                          qty++;
+
+                         if (JavaConstant.returnByBarcode != null) { // this for protect return item by barcode and limited with qty
+                              if (qty > listData.getQty()) {
+                                   return;
+                              }
+                         }
+
+                         if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
+                              if (qty > listData.getQty()) {
+                                   return;
+                              }
+                         }
+
                          obj.setQty(qty);
                          double newAmountUsd = qty * price;
                          if (listData.getDiscount() > 0) {
@@ -283,7 +306,20 @@ public class ListHoldOrder extends javax.swing.JDialog {
                          double valueRoundDown1 = JavaRoundDown.roundDown("" + newAmountUsd * JavaConstant.exchangeRate);
                          obj.setLabelAmountKh(kh.format(valueRoundDown1));
                          box.setSubtotalPanel(subtotalPanel);
-                         obj.setDiscountAmount(dm.format(qty * discount));
+
+                         if (_discountUnit > 0) {
+                              double _disUniteItem = ((qty * price) / 100) * obj.getDiscountDigit();
+                              obj.setDiscountAmount(dm.format(_disUniteItem));
+                         } else {
+                              obj.setDiscountAmount(dm.format(qty * discount));
+                         }
+
+                         if (obj.getDiscountType() != null) {
+                              if (obj.getDiscountType().equals("dollar")) {
+                                   obj.setDiscountAmount(dm.format(qty * obj.getDiscountValue()));
+                              }
+                         }
+
                          box.setListCom(listCom);
                          box.setDetailItem(detailItem);
                          subtotalPanel.total(0, listCom, 0, subtotalPanel);
@@ -292,9 +328,11 @@ public class ListHoldOrder extends javax.swing.JDialog {
                }
           }
 
+          box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProNameEn());
           box.setLabelWeight(listData.getWeight());
           box.setLabelBarcode(listData.getBarcode());
+          box.setOldDiscount(listData.getDiscount());
 
           if (qtyData > 1) {
                box.setLabelPrice(dm.format(price));
@@ -303,18 +341,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
                box.setLabelAmountKh(kh.format(valueRoundDown));
 
-               double _cal = discount * qtyData;
-               String _d = "" + _cal;
-               if (_d.length() <= 5) {
-                    box.setDiscountAmount("$ " + _d);
-                    box.setDiscountAmt("$ " + _d);
-               } else {
-                    box.setDiscountAmount(dm.format(_cal));
-                    box.setDiscountAmt(dm.format(_cal));
-               }
-
-//               box.setDiscountAmount(dm.format(discount * qtyData));
-//               box.setDiscountAmt(dm.format(discount));
+               box.setDiscountAmount(dm.format(discount * qtyData));
+               box.setDiscountAmt(dm.format(discount));
                box.setQty(qtyData);
 
           } else {
@@ -324,35 +352,30 @@ public class ListHoldOrder extends javax.swing.JDialog {
                double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
                box.setLabelAmountKh(kh.format(valueRoundDown));
 
-               String _d = "" + discount;
-               if (_d.length() <= 5) {
-                    box.setDiscountAmount("$ " + discount);
-                    box.setDiscountAmt("$ " + discount);
-               } else {
-                    box.setDiscountAmount(dm.format(discount));
-                    box.setDiscountAmt(dm.format(discount));
-               }
-
+               box.setDiscountAmount(dm.format(discount));
+               box.setDiscountAmt(dm.format(discount));
                box.setQty(1);
           }
 
-          if (listData.getDiscountType() == null) {
-               box.setDiscountDigit(0);
-          } else if (listData.getDiscountType().equals("percent")) {
-               box.setDiscountDigit(listData.getDiscount());
-          } else if (listData.getDiscountType().equals("dollar")) {
-               double _dollar = listData.getQty() * listData.getDiscount();
-               box.setDiscountAmount(dm.format(_dollar));
-               box.setDiscountValue(listData.getDiscount());
+          if (listData.getDiscount() > 0) {
+
+               if (JavaConstant.isReturn == null) {
+                    box.setDiscountValue(listData.getDiscount());
+               } else {
+                    box.setDiscountValue(listData.getDiscount() * listData.getQty());
+               }
+
+               if (listData.getDiscountType() != null) {
+                    if (listData.getDiscountType().equals("dollar")) {
+                         box.setDiscountAmount(dm.format(listData.getQty() * listData.getDiscount()));
+                         box.setDiscountAmt(dm.format(listData.getQty() * listData.getDiscount()));
+                    }
+               }
           }
 
-          box.setDiscountType(listData.getDiscountType());
-
           try {
-//               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
-//               byte[] images = responseProductImage.body().bytes();
-//               box.setIconImage(new ImageIcon(images));
-                box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+//               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
+               box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
 
           } catch (Exception e) {
           }
@@ -366,14 +389,32 @@ public class ListHoldOrder extends javax.swing.JDialog {
           detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
           detailItem.setBackground(WindowColor.white);
 
-          subtotalPanel.total(0, detailItem, 0, subtotalPanel);
+          if (qtyData > 1) {
+               subtotalPanel.total(price * qtyData, listCom, discount * qtyData, subtotalPanel);
+          } else {
+               subtotalPanel.total(price, listCom, discount, subtotalPanel);
+          }
+
+          if (listData.getDiscountType() != null) {
+               if (listData.getDiscountType().equals("dollar")) {
+                    subtotalPanel.total(price * qtyData, listCom, listData.getQty() * listData.getDiscount(), subtotalPanel);
+               }
+          }
 
           // add list has one box to BoxItem (note: must be add)
           Component[] listCom1 = detailItem.getComponents();
-
           box.setDetailItem(detailItem);
           box.setSubtotalPanel(subtotalPanel);
           box.setListCom(listCom1);
+
+          if (JavaConstant.returnByBarcode == null) {
+               btnPayment.setBackground(WindowColor.lightBlue);
+               buttonHoldOrder.setBackground(WindowColor.yellow);
+               btnCancel.setBackground(WindowColor.darkred);
+               btnReturn.setBackground(WindowColor.lightGray);
+               titleOrder.setVisible(true);
+               titleOrder.setText("CURRENT ORDER");
+          }
 
           btnPayment.setBackground(WindowColor.lightBlue);
           buttonHoldOrder.setBackground(WindowColor.yellow);
@@ -382,8 +423,149 @@ public class ListHoldOrder extends javax.swing.JDialog {
           titleOrder.setVisible(true);
           titleOrder.setText("CURRENT ORDER");
 
-//          detailItem.setBackground(WindowColor.slightGreen);
-//          detailItem.setBorder(null);
+          if (JavaConstant.isReturn != null) {
+               titleOrder.setVisible(true);
+               titleOrder.setText("SALE RETURN");
+          }
+
+     }
+
+     public void addItemToCart(HoldProductModel listData) {
+
+//          double price = listData.getPrice();
+//          double discount = (listData.getDiscount() * price) / 100;
+//
+////          discount = JavaConstant.get4Length("" + discount); // get 2 precision
+//          int qtyData = listData.getQty();
+//          BoxItem box = new BoxItem();
+////          box.setProductBox(product);
+//          box.setPanelProduct(panelProduct);
+//
+//          box.setWasPrice("" + price);
+//          box.setBtnPayment(btnPayment);
+//          box.setButtonHoldOrder(buttonHoldOrder);
+//          box.setBtnCancel(btnCancel);
+//          box.setBtnReturn(btnReturn);
+//          box.setLbQty(listData.getQty());
+//          Component[] listCom = detailItem.getComponents();
+//          if (listCom.length != 0) {
+//
+//               for (int i = 0; i < listCom.length; i++) {
+//                    var obj = ((BoxItem) listCom[i]);
+//                    int proId = obj.getProductId();
+//                    int qty = obj.getQty();
+//                    if (proId == listData.getId()) {
+//                         qty++;
+//                         obj.setQty(qty);
+//                         double newAmountUsd = qty * price;
+//                         if (listData.getDiscount() > 0) {
+//                              newAmountUsd = price * qty;
+//                         }
+//                         obj.setLabelAmountUsd(dm.format(newAmountUsd));
+//                         double valueRoundDown1 = JavaRoundDown.roundDown("" + newAmountUsd * JavaConstant.exchangeRate);
+//                         obj.setLabelAmountKh(kh.format(valueRoundDown1));
+//                         box.setSubtotalPanel(subtotalPanel);
+//                         obj.setDiscountAmount(dm.format(qty * discount));
+//                         box.setListCom(listCom);
+//                         box.setDetailItem(detailItem);
+//                         subtotalPanel.total(0, listCom, 0, subtotalPanel);
+//                         return;
+//                    }
+//               }
+//          }
+//
+//          box.setLabelProductName(listData.getProNameEn());
+//          box.setLabelWeight(listData.getWeight());
+//          box.setLabelBarcode(listData.getBarcode());
+//
+//          if (qtyData > 1) {
+//               box.setLabelPrice(dm.format(price));
+//               box.setLabelAmountUsd(dm.format(price * qtyData));
+//
+//               double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
+//               box.setLabelAmountKh(kh.format(valueRoundDown));
+//
+//               double _cal = discount * qtyData;
+//               String _d = "" + _cal;
+//               if (_d.length() <= 5) {
+//                    box.setDiscountAmount("$ " + _d);
+//                    box.setDiscountAmt("$ " + _d);
+//               } else {
+//                    box.setDiscountAmount(dm.format(_cal));
+//                    box.setDiscountAmt(dm.format(_cal));
+//               }
+//
+////               box.setDiscountAmount(dm.format(discount * qtyData));
+////               box.setDiscountAmt(dm.format(discount));
+//               box.setQty(qtyData);
+//
+//          } else {
+//               box.setLabelPrice(dm.format(price));
+//               box.setLabelAmountUsd(dm.format(price));
+//
+//               double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
+//               box.setLabelAmountKh(kh.format(valueRoundDown));
+//
+//               String _d = "" + discount;
+//               if (_d.length() <= 5) {
+//                    box.setDiscountAmount("$ " + discount);
+//                    box.setDiscountAmt("$ " + discount);
+//               } else {
+//                    box.setDiscountAmount(dm.format(discount));
+//                    box.setDiscountAmt(dm.format(discount));
+//               }
+//
+//               box.setQty(1);
+//          }
+//
+//          if (listData.getDiscountType() == null) {
+//               box.setDiscountDigit(0);
+//          } else if (listData.getDiscountType().equals("percent")) {
+//               box.setDiscountDigit(listData.getDiscount());
+//          } else if (listData.getDiscountType().equals("dollar")) {
+//               double _dollar = listData.getQty() * listData.getDiscount();
+//               box.setDiscountAmount(dm.format(_dollar));
+//               box.setDiscountValue(listData.getDiscount());
+//          }
+//
+//          box.setDiscountType(listData.getDiscountType());
+//
+//          try {
+////               Response responseProductImage = JavaConnection.get(JavaRoute.readImage + listData.getProImageName());
+////               byte[] images = responseProductImage.body().bytes();
+////               box.setIconImage(new ImageIcon(images));
+//                box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+//
+//          } catch (Exception e) {
+//          }
+//          box.setProductId(listData.getId());
+//
+//          detailItem.add(box);
+//          // detailItem.add(Box.createRigidArea(new Dimension(2, 2)));
+//          detailItem.revalidate();
+//          detailItem.repaint();
+//          detailItem.setBorder(new BevelBorder(BevelBorder.RAISED));
+//          detailItem.setLayout(new BoxLayout(detailItem, BoxLayout.PAGE_AXIS));
+//          detailItem.setBackground(WindowColor.white);
+//
+//          subtotalPanel.total(0, detailItem, 0, subtotalPanel);
+//
+//          // add list has one box to BoxItem (note: must be add)
+//          Component[] listCom1 = detailItem.getComponents();
+//
+//          box.setDetailItem(detailItem);
+//          box.setSubtotalPanel(subtotalPanel);
+//          box.setListCom(listCom1);
+//
+//          btnPayment.setBackground(WindowColor.lightBlue);
+//          buttonHoldOrder.setBackground(WindowColor.yellow);
+//          btnCancel.setBackground(WindowColor.darkred);
+//          btnReturn.setBackground(WindowColor.lightGray);
+//          titleOrder.setVisible(true);
+//          titleOrder.setText("CURRENT ORDER");
+//
+////          detailItem.setBackground(WindowColor.slightGreen);
+////          detailItem.setBorder(null);
      }
 
      @SuppressWarnings("unchecked")
@@ -655,23 +837,21 @@ public class ListHoldOrder extends javax.swing.JDialog {
           this.btnCancel = btnCancel;
      }
 
-    public Button getBtnReturn() {
-        return btnReturn;
-    }
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
 
-    public void setBtnReturn(Button btnReturn) {
-        this.btnReturn = btnReturn;
-    }
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
-     
-    
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
      /**
       * @param args the command line

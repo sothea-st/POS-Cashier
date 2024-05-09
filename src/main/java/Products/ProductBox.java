@@ -183,6 +183,7 @@ public class ProductBox extends javax.swing.JPanel {
           txtBarcode.setFont(WindowFonts.timeNewRomanBold10);
           txtBarcode.setForeground(WindowColor.gray);
           lbQty.setFont(WindowFonts.timeNewRomanBold12);
+          jLabel2.setFont(WindowFonts.timeNewRomanBold12);
 //          lbQty.setVisible(false);
      }
 
@@ -298,6 +299,7 @@ public class ProductBox extends javax.swing.JPanel {
           lbQty = new javax.swing.JLabel();
           percent = new Components.CircleShape();
           productImg = new javax.swing.JLabel();
+          jLabel2 = new javax.swing.JLabel();
 
           productBox.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -322,11 +324,15 @@ public class ProductBox extends javax.swing.JPanel {
 
           lbQty.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
           lbQty.setText("lbQty");
-          productBox.add(lbQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 50, -1));
+          lbQty.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+          productBox.add(lbQty, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 40, -1));
           productBox.add(percent, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, 50));
 
           productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           productBox.add(productImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 105));
+
+          jLabel2.setText("Qty :");
+          productBox.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 176, -1, 20));
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
           this.setLayout(layout);
@@ -353,6 +359,7 @@ public class ProductBox extends javax.swing.JPanel {
      private Button.ButtonDiscount discount;
      private javax.swing.JLabel flagImg;
      private javax.swing.JLabel jLabel1;
+     private javax.swing.JLabel jLabel2;
      private javax.swing.JLabel lbName;
      private javax.swing.JLabel lbPrice;
      private javax.swing.JLabel lbQty;
