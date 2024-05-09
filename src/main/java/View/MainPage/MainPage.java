@@ -43,6 +43,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -104,7 +105,7 @@ public class MainPage extends javax.swing.JFrame {
           // boxUserName.setVisible(false);
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
-
+    
      }
 
      // Set Timer

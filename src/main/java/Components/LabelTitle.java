@@ -4,11 +4,11 @@ import Color.WindowColor;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -83,6 +83,9 @@ public class LabelTitle extends javax.swing.JPanel {
           lbTitle.setForeground(WindowColor.white);
 //          lbTitle.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
           JavaConstant.setPointer(lbTitle);
+          setSize(new Dimension(115, 41));
+          lbTitle.setSize((new Dimension(115, 41)));
+          lbTitle.setBorder(new EmptyBorder(5, 0, 0, 0)); // Top margin of 10 pixels
      }
 
      public void textCenter() {

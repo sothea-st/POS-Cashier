@@ -304,6 +304,7 @@ public class ProductBox extends javax.swing.JPanel {
           productBox.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
           lbName.setText("Name");
+          lbName.setVerticalAlignment(javax.swing.SwingConstants.TOP);
           productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 160, 40));
 
           lbWeight.setText("Weight");
