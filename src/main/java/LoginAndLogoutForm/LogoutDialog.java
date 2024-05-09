@@ -193,8 +193,8 @@ public class LogoutDialog extends javax.swing.JDialog {
                    buttonCashier.setBackground(WindowColor.lightGray);
 
                    lbPOSId.setText("");
-                   boxUserName.setText("");
-                   boxUserName.setVisible(false);
+               //     boxUserName.setText("");
+               //     boxUserName.setVisible(false);
                    category.removeAll();
                    category.revalidate();
                    category.repaint();
@@ -264,7 +264,7 @@ public class LogoutDialog extends javax.swing.JDialog {
 
      private JLabel lbPOSId;
      private Button btnLogin;
-     private JLabel boxUserName;
+     // private JLabel boxUserName;
      private JPanel category;
      private JPanel panelProduct;
      private JScrollPane jScrollPaneCategory;
@@ -316,13 +316,13 @@ public class LogoutDialog extends javax.swing.JDialog {
           this.btnLogin = btnLogin;
      }
 
-     public JLabel getBoxUserName() {
-          return boxUserName;
-     }
+     // public JLabel getBoxUserName() {
+     //      return boxUserName;
+     // }
 
-     public void setBoxUserName(JLabel boxUserName) {
-          this.boxUserName = boxUserName;
-     }
+     // public void setBoxUserName(JLabel boxUserName) {
+     //      this.boxUserName = boxUserName;
+     // }
 
      public JPanel getCategory() {
           return category;

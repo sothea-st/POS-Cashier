@@ -62,7 +62,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      private JLabel lbPOSId;
      private Button btnLogin;
-     private JLabel boxUserName;
+     // private JLabel boxUserName;
      private JLabel imgUser;
      private JPanel category;
      private JPanel panelProduct;
@@ -131,7 +131,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setPanelPagination(panelPagination);
           pro.setSubtotalPanel(subtotalPanel);
           pro.setjScrollPaneCategory(jScrollPaneCategory);
-          pro.setBoxUserName(boxUserName);
+          // pro.setBoxUserName(boxUserName);
           pro.setPanelProduct(panelProduct);
           pro.setBtnReturn(btnReturn);
           pro.setTitleOrder(titleOrder);
@@ -442,8 +442,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    dispose();
                    getBtnLogin().setButtonName("Logout");
 
-                   boxUserName.setVisible(false);
-                   getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
+               //     boxUserName.setVisible(false);
+               //     getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
 //                   boxUserName.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "               POS ID : " + JavaConstant.posId);
                    lbPOSId.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
@@ -761,13 +761,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //     public void setCheckOpenShift(boolean checkOpenShift) {
 //          this.checkOpenShift = checkOpenShift;
 //     }
-     public JLabel getBoxUserName() {
-          return boxUserName;
-     }
+     // public JLabel getBoxUserName() {
+     //      return boxUserName;
+     // }
 
-     public void setBoxUserName(JLabel boxUserName) {
-          this.boxUserName = boxUserName;
-     }
+     // public void setBoxUserName(JLabel boxUserName) {
+     //      this.boxUserName = boxUserName;
+     // }
 
      public Button getBtnLogin() {
           return btnLogin;

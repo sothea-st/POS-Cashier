@@ -544,16 +544,16 @@
                       <Component id="homeMenu" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="breadcrumb" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="757" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="previous" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                              <Component id="next" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnNextRequest" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="cmboxBrand" alignment="0" min="-2" pref="281" max="-2" attributes="0"/>
+                          <Component id="cmboxBrand" min="-2" pref="281" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -562,9 +562,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cmboxBrand" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="previous" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="next" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnNextRequest" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -580,14 +580,6 @@
           </Layout>
           <SubComponents>
             <Component class="Components.ComboBox" name="cmboxBrand">
-            </Component>
-            <Component class="Components.LabelFontGreen" name="next">
-              <Properties>
-                <Property name="labelName" type="java.lang.String" value="&gt;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nextMouseClicked"/>
-              </Events>
             </Component>
             <Component class="Components.LabelFontGreen" name="previous">
               <Properties>
@@ -608,6 +600,11 @@
                   <Color blue="46" green="9b" red="2f" type="rgb"/>
                 </Property>
                 <Property name="labelTitle" type="java.lang.String" value="NEW ITEMS"/>
+              </Properties>
+            </Component>
+            <Component class="Components.LabelFontGreen" name="btnNextRequest">
+              <Properties>
+                <Property name="labelName" type="java.lang.String" value="&gt;"/>
               </Properties>
             </Component>
           </SubComponents>
