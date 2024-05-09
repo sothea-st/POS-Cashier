@@ -76,7 +76,7 @@ public class MainPage extends javax.swing.JFrame {
            setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setFont(WindowFonts.timeNewRomanBold14);
           lbPOSId.setFont(WindowFonts.timeNewRomanBold14);
-          boxUserName.setFont(WindowFonts.timeNewRomanBold14);
+          // boxUserName.setFont(WindowFonts.timeNewRomanBold14);
 
           searchBox.disabledTextField(false);
           textField.disabledTextField(false);
@@ -100,7 +100,7 @@ public class MainPage extends javax.swing.JFrame {
           new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin,btnReturn,titleOrder).resizeEvent(this);
           
           currentDateTime();
-//          boxUserName.setVisible(false);
+          // boxUserName.setVisible(false);
           titleOrder.setVisible(false);
 
      }
@@ -142,7 +142,7 @@ public class MainPage extends javax.swing.JFrame {
           boxOne.setBackground(WindowColor.slightGreen);
           detailItem.setBackground(WindowColor.slightGreen);
           panelCart.setBackground(WindowColor.darkGreen);
-          boxUserName.setVisible(false);
+          // boxUserName.setVisible(false);
      }
 
      private void groupEvent() {
@@ -201,7 +201,7 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneDetail = new javax.swing.JScrollPane();
           boxOne = new javax.swing.JPanel();
           detailItem = new javax.swing.JPanel();
-          boxUserName = new javax.swing.JLabel();
+          // boxUserName = new javax.swing.JLabel();
           panelPagination = new javax.swing.JPanel();
           cmboxBrand = new Components.ComboBox();
           next = new Components.LabelFontGreen();
@@ -471,9 +471,9 @@ public class MainPage extends javax.swing.JFrame {
 
           jScrollPaneDetail.setViewportView(boxOne);
 
-          boxUserName.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-          boxUserName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-          boxUserName.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+          // boxUserName.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+          // boxUserName.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+          // boxUserName.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
           next.setLabelName(">");
 
@@ -536,7 +536,7 @@ public class MainPage extends javax.swing.JFrame {
                               .addGap(38, 38, 38)
                               .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addGap(81, 81, 81)
-                              .addComponent(boxUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              // .addComponent(boxUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                               .addComponent(lbPOSId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -568,7 +568,7 @@ public class MainPage extends javax.swing.JFrame {
                                    .addComponent(currentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(lbPOSId, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(boxUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                                        // .addComponent(boxUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
                                         .addComponent(searchBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                               .addGap(11, 11, 11)))
                     .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -607,7 +607,7 @@ public class MainPage extends javax.swing.JFrame {
      }// </editor-fold>//GEN-END:initComponents
 
      private void loginFunc() {
-          jdFormLogin.setBoxUserName(boxUserName);
+          // jdFormLogin.setBoxUserName(boxUserName);
           jdFormLogin.setBtnLogin(btnLogin);
           jdFormLogin.setCategory(category);
           jdFormLogin.setPanelProduct(panelProduct);
@@ -644,7 +644,7 @@ public class MainPage extends javax.swing.JFrame {
          } else if (buttonName.equals("logout")) {
               if (JavaConstant.checkOpenShift == false) {
                    LogoutDialog logout = new LogoutDialog(new JFrame(), true);
-                   logout.setBoxUserName(boxUserName);
+               //     logout.setBoxUserName(boxUserName);
                    logout.setBtnLogin(btnLogin);
                    logout.setCategory(category);
                    logout.setPanelProduct(panelProduct);
@@ -1029,7 +1029,7 @@ public class MainPage extends javax.swing.JFrame {
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JPanel boxOne;
-     private javax.swing.JLabel boxUserName;
+     // private javax.swing.JLabel boxUserName;
      private Components.LabelTitle breadcrumb;
      private ButtonPackage.ButtonCancel btnCancel;
      private Button.Button btnLogin;
