@@ -252,21 +252,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="totalPanel" pref="424" max="32767" attributes="0"/>
+                          <Component id="totalPanel" pref="434" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnLogin" max="32767" attributes="0"/>
-                                          <Component id="btnCancel" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnReturn" pref="0" max="32767" attributes="0"/>
-                                          <Component id="btnOpenShift" pref="100" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="btnLogin" max="32767" attributes="0"/>
+                                  <Component id="btnCancel" max="32767" attributes="0"/>
                                   <Component id="buttonCashier" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="btnReturn" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnOpenShift" max="32767" attributes="0"/>
+                                  <Component id="buttonCashier1" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -312,6 +309,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="buttonCashier" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonCustomer" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonCashier1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
@@ -388,7 +386,6 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnOpenShiftMouseClicked"/>
-                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnOpenShiftMouseEntered"/>
               </Events>
             </Component>
             <Component class="Button.Button" name="btnReprint">
@@ -458,6 +455,20 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="Button.Button" name="buttonCashier1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="cc" red="cc" type="rgb"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="buttonName" type="java.lang.String" value="Cashier Report"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCashier1MouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
@@ -549,7 +560,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="previous" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnNextRequest" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="next" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
                           <Component id="cmboxBrand" min="-2" pref="281" max="-2" attributes="0"/>
                       </Group>
@@ -564,7 +575,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="previous" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnNextRequest" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="next" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -602,7 +613,7 @@
                 <Property name="labelTitle" type="java.lang.String" value="NEW ITEMS"/>
               </Properties>
             </Component>
-            <Component class="Components.LabelFontGreen" name="btnNextRequest">
+            <Component class="Components.LabelFontGreen" name="next">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="&gt;"/>
               </Properties>
