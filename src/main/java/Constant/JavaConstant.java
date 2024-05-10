@@ -35,6 +35,13 @@ import org.w3c.dom.events.DocumentEvent;
 
 public class JavaConstant {
 
+     public static void resetValueReturn() {
+          JavaConstant.isReturn = null;
+          JavaConstant.returnByBarcode = null;
+          JavaConstant.qtyReturn = null;
+          JavaConstant.tmpInvoice = null;
+     }
+
      public static String insertComma(String str) {
           StringBuilder sb = new StringBuilder(str);
           int length = sb.length();
@@ -103,7 +110,7 @@ public class JavaConstant {
      public static void resetValuePagination() {
           limit = 20;
           page = 1;
-          brandId=0;
+          brandId = 0;
      }
 
      public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");

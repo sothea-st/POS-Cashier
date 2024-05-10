@@ -174,7 +174,7 @@ public class ProductBox extends javax.swing.JPanel {
           discount.setVisible(false);
           productBox.setBackground(WindowColor.white);
           setBackground(WindowColor.white);
-          lbName.setFont(WindowFonts.timeNewRomanBold12);
+          lbName.setFont(WindowFonts.timeNewRomanBold11);
           lbName.setForeground(WindowColor.black);
           lbWeight.setFont(WindowFonts.timeNewRomanBold11);
           lbWeight.setForeground(WindowColor.gray);
@@ -304,6 +304,7 @@ public class ProductBox extends javax.swing.JPanel {
           productBox.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
           lbName.setText("Name");
+          lbName.setVerticalAlignment(javax.swing.SwingConstants.TOP);
           productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 160, 40));
 
           lbWeight.setText("Weight");

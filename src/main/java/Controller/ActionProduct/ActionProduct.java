@@ -385,8 +385,6 @@ public class ActionProduct {
 
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
-          
-         
 
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
@@ -460,6 +458,24 @@ public class ActionProduct {
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 
+
+          
+          if (JavaConstant.tmpInvoice == null ) {
+               //          ==== cut qty in panel product =====
+               Component[] listPanel = panelProduct.getComponents();
+               for (Component c : listPanel) {
+                    var _cPro = ((ProductBox) c);
+                    if (_cPro.getBarcode().equals(listData.getBarcode())) {
+                         int _qtyData = Integer.parseInt("" + _cPro.getQty());
+                         _qtyData--;
+                         _cPro.setQty(_qtyData + "");
+                         break;
+                    }
+               }
+          }
+
+
+
           if (qtyData > 1) {
                box.setLabelPrice(dm.format(price));
                box.setLabelAmountUsd(dm.format(price * qtyData));
@@ -485,7 +501,7 @@ public class ActionProduct {
 
           if (listData.getDiscount() > 0) {
 
-               if ( JavaConstant.isReturn == null) {
+               if (JavaConstant.isReturn == null) {
                     box.setDiscountValue(listData.getDiscount());
                } else {
                     box.setDiscountValue(listData.getDiscount() * listData.getQty());
@@ -500,9 +516,7 @@ public class ActionProduct {
           }
 
           try {
-//               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
                box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
-
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
@@ -533,7 +547,7 @@ public class ActionProduct {
           box.setSubtotalPanel(subtotalPanel);
           box.setListCom(listCom1);
 
-          if (JavaConstant.returnByBarcode == null) {
+          if (JavaConstant.tmpInvoice == null) {
                btnPayment.setBackground(WindowColor.lightBlue);
                buttonHoldOrder.setBackground(WindowColor.yellow);
                btnCancel.setBackground(WindowColor.darkred);
@@ -548,8 +562,8 @@ public class ActionProduct {
           btnReturn.setBackground(WindowColor.lightGray);
           titleOrder.setVisible(true);
           titleOrder.setText("CURRENT ORDER");
-          
-          if(JavaConstant.isReturn != null){
+
+          if (JavaConstant.tmpInvoice != null) {
                titleOrder.setVisible(true);
                titleOrder.setText("SALE RETURN");
           }

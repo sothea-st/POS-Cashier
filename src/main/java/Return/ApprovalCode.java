@@ -30,7 +30,7 @@ public class ApprovalCode extends javax.swing.JDialog {
      private Button btnDiscount;
      private JLabel titleOrder;
      private JPanel boxOne;
-     
+
      private JPanel detailItem;
      private JPanel panelProduct;
 
@@ -57,9 +57,6 @@ public class ApprovalCode extends javax.swing.JDialog {
      public void setBoxOne(JPanel boxOne) {
           this.boxOne = boxOne;
      }
-     
-     
-     
 
      public ApprovalCode(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -119,9 +116,6 @@ public class ApprovalCode extends javax.swing.JDialog {
           buttonLogin.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     buttonLoginMouseClicked(evt);
-               }
-               public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    buttonLoginMouseEntered(evt);
                }
           });
 
@@ -265,10 +259,6 @@ public class ApprovalCode extends javax.swing.JDialog {
      }
 
 
-     private void buttonLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoginMouseEntered
-          // TODO add your handling code here:
-     }//GEN-LAST:event_buttonLoginMouseEntered
-
      /**
       * @param args the command line
       * arguments
@@ -319,8 +309,7 @@ public class ApprovalCode extends javax.swing.JDialog {
      public void setBtnDiscount(Button btnDiscount) {
           this.btnDiscount = btnDiscount;
      }
-  
-     
+
      public Button getBtnReturn() {
           return btnReturn;
      }
@@ -361,15 +350,14 @@ public class ApprovalCode extends javax.swing.JDialog {
           this.btnHold = btnHold;
      }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
-     
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private ButtonPackage.ButtonCancel buttonCancel;

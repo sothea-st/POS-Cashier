@@ -485,7 +485,7 @@ public class BoxItem extends javax.swing.JPanel {
 
                // add qty 
                getQty++;
-               if (JavaConstant.isReturn != null) {  // protect when cashier processing return 
+               if (JavaConstant.tmpInvoice != null) {  // protect when cashier processing return 
 //                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 //                    j.setMessage(JavaAlertMessage.returnMsg);
 //                    j.setVisible(true);
@@ -496,7 +496,7 @@ public class BoxItem extends javax.swing.JPanel {
                          return;
                     }
                }
-               if (JavaConstant.returnByBarcode != null) {   /// ====== when cashier return by barcode
+               if (JavaConstant.tmpInvoice != null) {   /// ====== when cashier return by barcode
 
                     int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
                     qtyTmp++;
@@ -558,14 +558,14 @@ public class BoxItem extends javax.swing.JPanel {
                // remove qty 
                getQty--;
 
-               if (JavaConstant.isReturn != null) { // protect when cashier processing return 
+               if (JavaConstant.tmpInvoice != null) { // protect when cashier processing return 
 //                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 //                    j.setMessage(JavaAlertMessage.returnMsg);
 //                    j.setVisible(true);
 //                    return;
                }
 
-               if (JavaConstant.returnByBarcode != null) { /// ====== when cashier return by barcode
+               if (JavaConstant.tmpInvoice != null) { /// ====== when cashier return by barcode
 //                    if (getQty == 1) {
 //                         return;
 //                    }
@@ -973,10 +973,7 @@ public class BoxItem extends javax.swing.JPanel {
 
 //               ============= success delete reset value to default =============
                JavaConstant.setBackQty(detailItem, panelProduct);
-               JavaConstant.isReturn = null;
-               JavaConstant.returnByBarcode = null;
-               JavaConstant.qtyReturn = null;
-               JavaConstant.returnByBarcode = null;
+               JavaConstant.resetValueReturn();
           }
      }
 

@@ -30,7 +30,18 @@ public class ActionSearchProduct {
           } else {
                code = "productNameEn";
           }
-          Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=" + code + "&valueSearch=" + valueSearch + "");
+          Response response = null;
+
+          if (code.equals("barcode")) {
+               if (valueSearch.length() == 13) {
+                    response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=" + code + "&valueSearch=" + valueSearch + "");
+               }
+          } else {
+               if (valueSearch.length() >= 3) {
+                    response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=" + code + "&valueSearch=" + valueSearch + "");
+               }
+          }
+
           if (response.isSuccessful()) {
                try {
                     String responseData = response.body().string();
