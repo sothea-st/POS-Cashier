@@ -59,7 +59,7 @@ public class PrinterReturn extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
-          setFontSizeForLabels(print, 12);
+          setFontSizeForLabels(printerReturn, 11);
           jLabel46.setFont(WindowFonts.timeNewRomanBold14);
 
           JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
@@ -186,7 +186,7 @@ public class PrinterReturn extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        print = new javax.swing.JPanel();
+        printerReturn = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         companyname = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -243,9 +243,9 @@ public class PrinterReturn extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(null);
 
-        print.setBackground(new java.awt.Color(255, 255, 255));
-        print.setForeground(new java.awt.Color(255, 255, 255));
-        print.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        printerReturn.setBackground(new java.awt.Color(255, 255, 255));
+        printerReturn.setForeground(new java.awt.Color(255, 255, 255));
+        printerReturn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -635,13 +635,13 @@ public class PrinterReturn extends javax.swing.JDialog {
         jLabel43.setForeground(new java.awt.Color(0, 0, 0));
         jLabel43.setText("..............................................................................................................................................");
 
-        javax.swing.GroupLayout printLayout = new javax.swing.GroupLayout(print);
-        print.setLayout(printLayout);
-        printLayout.setHorizontalGroup(
-            printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(printLayout.createSequentialGroup()
+        javax.swing.GroupLayout printerReturnLayout = new javax.swing.GroupLayout(printerReturn);
+        printerReturn.setLayout(printerReturnLayout);
+        printerReturnLayout.setHorizontalGroup(
+            printerReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(printerReturnLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(printerReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(countProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -652,18 +652,18 @@ public class PrinterReturn extends javax.swing.JDialog {
                     .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 30, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printerReturnLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(companyname, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(printLayout.createSequentialGroup()
+            .addGroup(printerReturnLayout.createSequentialGroup()
                 .addGap(172, 172, 172)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        printLayout.setVerticalGroup(
-            printLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printLayout.createSequentialGroup()
+        printerReturnLayout.setVerticalGroup(
+            printerReturnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, printerReturnLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -679,17 +679,17 @@ public class PrinterReturn extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(countProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(countProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addGap(165, 165, 165))
         );
 
-        jScrollPane1.setViewportView(print);
+        jScrollPane1.setViewportView(printerReturn);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -744,7 +744,7 @@ public class PrinterReturn extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -764,7 +764,7 @@ public class PrinterReturn extends javax.swing.JDialog {
          if (listSale.length > 1) {
               printReceipt();
          } else {
-              EpsonPrinter.printReceipt(print);
+              EpsonPrinter.printReceipt(printerReturn);
          }
 
          dispose();
@@ -776,7 +776,7 @@ public class PrinterReturn extends javax.swing.JDialog {
      private double calculatePanelHeight() {
           // Calculate the total height needed to accommodate all items in the JPanel
           double totalHeight = 0;
-          for (Component component : print.getComponents()) {
+          for (Component component : printerReturn.getComponents()) {
                totalHeight += component.getHeight();
           }
           return totalHeight;
@@ -784,8 +784,8 @@ public class PrinterReturn extends javax.swing.JDialog {
 
      public void printReceipt() {
           // ============= print with device
-          print.revalidate();
-          print.repaint();
+          printerReturn.revalidate();
+          printerReturn.repaint();
           PrintRequestAttributeSet printAttributes = new HashPrintRequestAttributeSet();
 
           PrintService[] printServices = PrintServiceLookup.lookupPrintServices(null, printAttributes);
@@ -805,7 +805,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                     paper.setImageableArea(0, 0, paper.getWidth(), paper.getHeight());
                     pageFormat.setPaper(paper);
 
-                    printerJob.setPrintable(new MyPrinter(print), pageFormat);
+                    printerJob.setPrintable(new MyPrinter(printerReturn), pageFormat);
                     // Print without showing the print dialog
                     printerJob.print();
 
@@ -823,7 +823,7 @@ public class PrinterReturn extends javax.swing.JDialog {
 
     private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
         try {
-            new PrintPanelToPDF(print).printPdf(pfdNameInvoice,numberOfItem);
+            new PrintPanelToPDF(printerReturn).printPdf(pfdNameInvoice,numberOfItem);
             dispose();
             JavaAlertMessage j = new JavaAlertMessage(new JFrame() , true);
             j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
@@ -924,7 +924,7 @@ public class PrinterReturn extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel logo;
-    private javax.swing.JPanel print;
+    private javax.swing.JPanel printerReturn;
     private javax.swing.JLabel saleDate;
     private javax.swing.JLabel totalKhr;
     private javax.swing.JLabel totalprice;

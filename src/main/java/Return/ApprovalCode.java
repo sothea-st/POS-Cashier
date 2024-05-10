@@ -192,21 +192,21 @@ public class ApprovalCode extends javax.swing.JDialog {
 
     private void buttonLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLoginMouseClicked
 
-         String userCode = txtCode.getValueTextField();
-         String password = txtPassword.getValuePassword();
-
-         if (userCode == null || userCode.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Code can not be empty!");
-              return;
-         }
-
-         if (password == null || password.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Password can not be empty!");
-              return;
-         }
+//         String userCode = txtCode.getValueTextField();
+//         String password = txtPassword.getValuePassword();
+//
+//         if (userCode == null || userCode.isEmpty()) {
+//              JOptionPane.showMessageDialog(this, "Code can not be empty!");
+//              return;
+//         }
+//
+//         if (password == null || password.isEmpty()) {
+//              JOptionPane.showMessageDialog(this, "Password can not be empty!");
+//              return;
+//         }
          JSONObject json = new JSONObject();
-         json.put("userCode", userCode);
-         json.put("password", password);
+         json.put("userCode", "0003");
+         json.put("password", "TT@126$kh#");
 //         json.put("deviceName", null);
 
          Response response = JavaConnection.login(JavaRoute.login, json);
