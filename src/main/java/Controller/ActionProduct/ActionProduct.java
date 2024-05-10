@@ -25,6 +25,7 @@ import Products.ProductBox;
 import UpdateQty.UpdateQtyModel;
 import View.MainPage.MainFrame;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -176,10 +177,10 @@ public class ActionProduct {
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
 
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 1}; // 1 align item to top
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 1}; // 1 align item to left 
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0 ,0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0,1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0 , 0 };
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0,0,1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
@@ -198,7 +199,7 @@ public class ActionProduct {
 //               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
 
-               gbc.insets = new Insets(5, 0, 5, 1);
+               gbc.insets = new Insets(0, 0, 5, 4);
                x++;
                if (x == JavaConstant.rowNum) {
                     x = 0;
@@ -303,6 +304,7 @@ public class ActionProduct {
                product.initEvent(event);
 
                product.setOrgQty(listData.getQty());
+            
 
 //================================Product Status============================
                if (listData.getQty() > 0) {

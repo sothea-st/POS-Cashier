@@ -11,6 +11,9 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Fonts.WindowFonts;
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -193,8 +196,8 @@ public class LogoutDialog extends javax.swing.JDialog {
                    buttonCashier.setBackground(WindowColor.lightGray);
 
                    lbPOSId.setText("");
-               //     boxUserName.setText("");
-               //     boxUserName.setVisible(false);
+                   //     boxUserName.setText("");
+                   //     boxUserName.setVisible(false);
                    category.removeAll();
                    category.revalidate();
                    category.repaint();
@@ -206,10 +209,21 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    //==============Add Background===============
                    BackgroundImage bgimg = new BackgroundImage();
+                   panelProduct.setLayout(new GridBagLayout());
+//                   JLabel lbImg = new JLabel();
+//                   JavaConnection.getImage(lbImg, "King Mart Background.png");
                    panelProduct.removeAll();
                    panelProduct.add(bgimg);
                    panelProduct.revalidate();
                    panelProduct.repaint();
+                   // Set the label to be centered within the panel
+                   GridBagConstraints constraints = new GridBagConstraints();
+                   constraints.gridx = 0;
+                   constraints.gridy = 0;
+                   constraints.weightx = 1.0;
+                   constraints.weighty = 1.0;
+                   constraints.anchor = GridBagConstraints.CENTER;
+                   panelProduct.add(bgimg, constraints);
                    //===========================================
 
                    btnLogin.setButtonName("Login");
@@ -230,8 +244,6 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
-
-            
 
                    dispose();
               }
@@ -319,11 +331,9 @@ public class LogoutDialog extends javax.swing.JDialog {
      // public JLabel getBoxUserName() {
      //      return boxUserName;
      // }
-
      // public void setBoxUserName(JLabel boxUserName) {
      //      this.boxUserName = boxUserName;
      // }
-
      public JPanel getCategory() {
           return category;
      }
@@ -396,7 +406,6 @@ public class LogoutDialog extends javax.swing.JDialog {
           this.buttonCashier = buttonCashier;
      }
 
-     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
