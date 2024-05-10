@@ -66,16 +66,16 @@ public class TextField extends javax.swing.JPanel {
           txtText.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-                    String text = txtText.getText();
-                    setValueTextField(text);
-                    event.onKeyType();
+//                    String text = txtText.getText();
+//                    setValueTextField(text);
+//                    event.onKeyType();
                }
 
                @Override
                public void keyPressed(KeyEvent e) {
-                    String text = txtText.getText();
-                    setValueTextField(text);
-                    event.onKeyType();
+//                    String text = txtText.getText();
+//                    setValueTextField(text);
+//                    event.onKeyType();
                }
 
                @Override
@@ -151,45 +151,36 @@ public class TextField extends javax.swing.JPanel {
      }
 
      @SuppressWarnings("unchecked")
-     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-          txtText = new javax.swing.JTextField();
+        txtText = new javax.swing.JTextField();
 
-          txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-          txtText.setBorder(null);
-          txtText.addFocusListener(new java.awt.event.FocusAdapter() {
-               public void focusGained(java.awt.event.FocusEvent evt) {
-                    txtTextFocusGained(evt);
-               }
-          });
-          txtText.addKeyListener(new java.awt.event.KeyAdapter() {
-               public void keyReleased(java.awt.event.KeyEvent evt) {
-                    txtTextKeyReleased(evt);
-               }
-          });
+        txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtText.setBorder(null);
+        txtText.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTextKeyReleased(evt);
+            }
+        });
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-          this.setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(txtText, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                    .addContainerGap())
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(txtText)
-                    .addContainerGap())
-          );
-     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtTextFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTextFocusGained
-         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTextFocusGained
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtText, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtText)
+                .addContainerGap())
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
      public String getLabelTextField() {
           return labelTextField;
@@ -251,8 +242,8 @@ public class TextField extends javax.swing.JPanel {
      }
 
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JTextField txtText;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField txtText;
+    // End of variables declaration//GEN-END:variables
 
 }
