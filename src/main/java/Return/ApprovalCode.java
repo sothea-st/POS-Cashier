@@ -188,10 +188,7 @@ public class ApprovalCode extends javax.swing.JDialog {
 
 //         String userCode = txtCode.getValueTextField();
 //         String password = txtPassword.getValuePassword();
-
-         String userCode = "0003";
-         String password = "TT@126$kh#";
-
+//
 //         if (userCode == null || userCode.isEmpty()) {
 //              JOptionPane.showMessageDialog(this, "Code can not be empty!");
 //              return;
@@ -202,8 +199,8 @@ public class ApprovalCode extends javax.swing.JDialog {
 //              return;
 //         }
          JSONObject json = new JSONObject();
-         json.put("userCode", userCode);
-         json.put("password", password);
+         json.put("userCode", "0003");
+         json.put("password", "TT@126$kh#");
 //         json.put("deviceName", null);
 
          Response response = JavaConnection.login(JavaRoute.login, json);

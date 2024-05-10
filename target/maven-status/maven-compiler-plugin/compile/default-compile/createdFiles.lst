@@ -41,13 +41,13 @@ Payment\PaymentOption$15.class
 DeleteAndCancel\DeleteDialog$4$1.class
 Print\ReprintJdailog$1.class
 ButtonPackage\ButtonYes.class
-HoldOrder\HoldItems$4.class
 Discount\ListProduct.class
 BlogCode\JavaSearchByNameAndCode$1.class
 Products\ProductBox.class
 NewDiscounts\Discounting$21.class
 Discount\OverallDiscount$2.class
 Payment\PaymentOption$6.class
+Button\ButtonDel.class
 LoginAndLogoutForm\LoginFormJdailog.class
 Payment\PaymentOption$23.class
 Components\PasswordField.class
@@ -281,7 +281,6 @@ Model\Report\SummeryVat.class
 Receipt\Receipt$5$1.class
 Controller\ActionRequestBrand\ActionRequestBrand.class
 Return\ReturnDialog$3.class
-HoldOrder\HoldItems$3.class
 Receipt\Receipt$3.class
 DeleteAndCancel\CancelDialog$3.class
 Constant\JavaMessage.class
