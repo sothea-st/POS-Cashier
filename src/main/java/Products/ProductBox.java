@@ -174,7 +174,7 @@ public class ProductBox extends javax.swing.JPanel {
           discount.setVisible(false);
           productBox.setBackground(WindowColor.white);
           setBackground(WindowColor.white);
-          lbName.setFont(WindowFonts.timeNewRomanBold12);
+          lbName.setFont(WindowFonts.timeNewRomanBold11);
           lbName.setForeground(WindowColor.black);
           lbWeight.setFont(WindowFonts.timeNewRomanBold11);
           lbWeight.setForeground(WindowColor.gray);

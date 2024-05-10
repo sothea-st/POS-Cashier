@@ -1735,8 +1735,8 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-                             re.printReceipt(); // for print with device
-//                             re.setVisible(true);
+//                             re.printReceipt(); // for print with device
+                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
@@ -1809,11 +1809,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
 //               ============ after return reset value ==================
                JavaConstant.setBackQty(detailItem, panelProduct);
-               JavaConstant.isReturn = null;
-               JavaConstant.returnByBarcode = null;
-               JavaConstant.qtyReturn = null;
-               JavaConstant.tmpInvoice = null;
-               
+               JavaConstant.resetValueReturn();
                
 
                String _data = responseReturn.body().string();
@@ -1838,8 +1834,8 @@ public class PaymentOption extends javax.swing.JDialog {
                print.setDataSuccess(d);
                print.revalidate();
                print.repaint();
-               print.printReceipt(); // print paper with device
-//               print.setVisible(true);
+//               print.printReceipt(); // print paper with device
+               print.setVisible(true);
 
                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                ReturnDialog r = new ReturnDialog(new JFrame(), true);

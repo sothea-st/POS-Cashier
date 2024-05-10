@@ -29,6 +29,7 @@ import NewCashierReport.CashierPreview;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Print.ReprintJdailog;
+import Products.ListProduct;
 import Return.ApprovalCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
@@ -40,6 +41,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -63,6 +65,7 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 
+//          JLabel lb = new JLabel();
           panelProduct.removeAll();
           panelProduct.add(bgimg);
           panelProduct.revalidate();
@@ -280,7 +283,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(panelCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addGroup(menuBarLayout.createSequentialGroup()
-                              .addComponent(panelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(panelCart, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                               .addGap(17, 17, 17))
                          .addGroup(menuBarLayout.createSequentialGroup()
                               .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,9 +328,6 @@ public class MainPage extends javax.swing.JFrame {
           btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     btnLoginMouseClicked(evt);
-               }
-               public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    btnLoginMouseEntered(evt);
                }
           });
 
@@ -387,6 +387,11 @@ public class MainPage extends javax.swing.JFrame {
           stock.setBackground(new java.awt.Color(204, 204, 204));
           stock.setForeground(new java.awt.Color(255, 255, 255));
           stock.setButtonName("Stock");
+          stock.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    stockMouseClicked(evt);
+               }
+          });
 
           javax.swing.GroupLayout panelprocessingLayout = new javax.swing.GroupLayout(panelprocessing);
           panelprocessing.setLayout(panelprocessingLayout);
@@ -515,7 +520,7 @@ public class MainPage extends javax.swing.JFrame {
                .addGroup(panelPaginationLayout.createSequentialGroup()
                     .addGap(12, 12, 12)
                     .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                         .addComponent(breadcrumb, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                         .addComponent(breadcrumb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(homeMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
@@ -629,6 +634,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBtnReturn(btnReturn);
           jdFormLogin.setBreadcrumb(breadcrumb);
           jdFormLogin.setTitleOrder(titleOrder);
+          jdFormLogin.setStock(stock);
           jdFormLogin.setMainFrame(this);
      }
 
@@ -699,6 +705,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setBtnCancel(btnCancel);
                              jdOpenShift.setBtnLogin(btnLogin);
                              jdOpenShift.setTitleOrder(titleOrder);
+                             jdOpenShift.setStock(stock);
                              jdOpenShift.setMainFrame(this);
                              jdOpenShift.setDataSuccess(d);
                         }
@@ -716,7 +723,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg, btnLogin
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg, btnLogin,stock
                    );
               }
          }
@@ -917,10 +924,6 @@ public class MainPage extends javax.swing.JFrame {
           }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
-     private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
-
-     }//GEN-LAST:event_btnLoginMouseEntered
-
      //Action Discount
      private void buttonDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscountMouseClicked
 
@@ -998,6 +1001,15 @@ public class MainPage extends javax.swing.JFrame {
               }
          }
     }//GEN-LAST:event_buttonCustomerMouseClicked
+
+    private void stockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockMouseClicked
+        if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   ListProduct list = new ListProduct(new JFrame(), true);
+                   list.setVisible(true);
+              }
+         }
+    }//GEN-LAST:event_stockMouseClicked
 
      public JPanel getDetailProduct() {
           return detailProduct;

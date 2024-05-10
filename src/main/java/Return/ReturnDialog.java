@@ -50,9 +50,6 @@ public class ReturnDialog extends javax.swing.JDialog {
           this.boxOne = boxOne;
      }
 
-     
-     
-     
      public JPanel getDetailItem() {
           return detailItem;
      }
@@ -317,7 +314,7 @@ public class ReturnDialog extends javax.swing.JDialog {
          obj.setPanelProduct(panelProduct);
          obj.setDetailItem(detailItem);
          obj.setBoxOne(boxOne);
-        
+
          if (barcode != null) {
               obj.returnWithBarcode(barcode, jdFormLogin, invoiceNo);
          } else {
@@ -330,7 +327,13 @@ public class ReturnDialog extends javax.swing.JDialog {
 //         btnDiscount.setBackground(WindowColor.lightGray);
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
-         dispose();
+        
+         if (JavaConstant.tmpInvoice != null) {
+              dispose();
+         } else {
+               
+         }
+
     }//GEN-LAST:event_button1MouseClicked
 
      public void setResetReturn() {

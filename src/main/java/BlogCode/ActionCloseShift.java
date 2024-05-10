@@ -37,7 +37,8 @@ public class ActionCloseShift {
           ButtonCancel btnCancel,
           Button btnHold,
           BackgroundImage bgImage,
-          Button btnLogin
+          Button btnLogin,
+          Button stock
      ) {
           Component[] listCom1 = detailItem.getComponents();
           j = new JavaAlertMessage(new JFrame(), true);
@@ -76,6 +77,7 @@ public class ActionCloseShift {
           close.setBgImage(bgImage);
           close.setButtonCashier(buttonCashier);
           close.setBtnLogin(btnLogin);
+          close.setStock(stock);
           close.setVisible(true);
  
      }

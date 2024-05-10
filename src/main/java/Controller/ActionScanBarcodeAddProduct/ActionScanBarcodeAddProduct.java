@@ -31,6 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ActionScanBarcodeAddProduct extends ActionProduct {
 
@@ -61,6 +62,28 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           }
      }
 
+     private int msgProductDoesNotExist(String msg) {
+          if (msg.equals("PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER")) {
+               JavaConstant.isReturn = null;
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage(JavaMessage.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER);
+               j.setVisible(true);
+               return 1;
+          }
+          return 0;
+     }
+
+     private int msgInvoiceNumberDoesNotExist(String msg) {
+          if (msg.equals("INVOICE_NUMBER_DOES_NOT_EXIST")) {
+               JavaConstant.isReturn = null;
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage(JavaMessage.INVOICE_NUMBER_DOES_NOT_EXIST);
+               j.setVisible(true);
+               return 1;
+          }
+          return 0;
+     }
+
      public void returnWithBarcode(String barcode, LoginFormJdailog jdFormLogin, String invoice) {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice + "&barcode=" + barcode);
@@ -68,6 +91,16 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                try {
                     if (response.isSuccessful()) {
                          String responseData = response.body().string();
+                         JSONObject json = new JSONObject(responseData);
+                         String msg = json.getString("msg");
+
+                         if (msgProductDoesNotExist(msg) == 1) {
+                              return;
+                         }
+                         if (msgInvoiceNumberDoesNotExist(msg) == 1) {
+                              return;
+                         }
+
                          ObjectMapper objMap = new ObjectMapper();
                          ModelReturnData model = objMap.readValue(responseData, ModelReturnData.class);
                          ProductDataModel[] listProduct = model.getData();
@@ -80,7 +113,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                          if (listProduct.length == 0) {
                               JavaConstant.isReturn = null;
                               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                              j.setMessage("The invoie already returned !");
+                              j.setMessage(JavaMessage.INVOCE_ALREADY_RETURNED);
                               j.setVisible(true);
                               return;
                          }
@@ -90,6 +123,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               var obj = listProduct[i];
                               JavaConstant.qtyReturn = obj.getQty();
                               JavaConstant.returnByBarcode = invoice;
+                              JavaConstant.tmpInvoice = invoice;
                               btnPayment.setButtonName("Return");
                               btnPayment.setBackground(WindowColor.lightBlue);
                               product = new ProductModel(
@@ -111,7 +145,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               jdFormLogin.scanbarCodeAddProduct(product);
                          }
                          detailItem.setBackground(WindowColor.slightGreen);
-
                          btnReturn.setBackground(WindowColor.lightGray);
                     } else {
 
@@ -137,6 +170,15 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
+                    JSONObject json = new JSONObject(responseData);
+                    String msg = json.getString("msg");
+                    if (msgProductDoesNotExist(msg) == 1) {
+                         return;
+                    }
+                    if (msgInvoiceNumberDoesNotExist(msg) == 1) {
+                         return;
+                    }
+
                     ObjectMapper objMap = new ObjectMapper();
                     ModelReturnData model = objMap.readValue(responseData, ModelReturnData.class);
                     ProductDataModel[] listProduct = model.getData();
@@ -149,7 +191,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     if (listProduct.length == 0) {
                          JavaConstant.isReturn = null;
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                         j.setMessage("The Invoice Number Is Already Returned !");
+                         j.setMessage(JavaMessage.INVOCE_ALREADY_RETURNED);
                          j.setVisible(true);
                          return;
                     }
@@ -236,7 +278,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      void msgAlertErr() {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-          j.setMessage("The product does not exist in system!");
+          j.setMessage(JavaMessage.PRODUCT_DOES_NOT_EXIST_IN_SYSTEM);
           j.setVisible(true);
      }
 

@@ -57,6 +57,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private ButtonCancel btnCancel;
      private Button btnLogin;
      private JLabel titleOrder;
+     private Button stock;
 
      private JFrame mainFrame;
      private LoginFormJdailog loginFormJdailog;
@@ -349,7 +350,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     btnReprint.setBackground(WindowColor.green);
                     buttonDiscount.setBackground(WindowColor.green);
                     buttonCustomer.setBackground(WindowColor.green);
-//                    btnLogin.setBackground(WindowColor.lightGray);
+                    stock.setBackground(WindowColor.green);
 
                     btnOpenShift.setButtonName(JavaConstant.closeShift);
                     // jdLoginForm.setCheckOpenShift(true);
@@ -626,6 +627,16 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      public void setJdLoginForm(LoginFormJdailog jdLoginForm) {
           this.jdLoginForm = jdLoginForm;
      }
+
+    public Button getStock() {
+        return stock;
+    }
+
+    public void setStock(Button stock) {
+        this.stock = stock;
+    }
+     
+     
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Components.Label IbUserId;

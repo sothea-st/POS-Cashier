@@ -13,6 +13,7 @@ import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
+import CustomeUI.CustomScrollBarUI;
 import DeleteAndCancel.CancelDialog;
 import Event.ButtonEvent;
 import HoldOrder.HoldModelDir.DataListHold;
@@ -33,6 +34,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
@@ -72,6 +74,13 @@ public class ListHoldOrder extends javax.swing.JDialog {
           setResizable(false);
           cancel.setButtonName("Close");
           getHoldItem(panelHold);
+          // custome scrollbar ui
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
      }
 
      DataListHold[] listData;
