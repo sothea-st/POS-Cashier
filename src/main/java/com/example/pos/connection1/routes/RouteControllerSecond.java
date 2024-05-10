@@ -148,8 +148,17 @@ public class RouteControllerSecond {
           }
 
           @GetMapping("/searchWithInvoice")
-          public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo , @RequestParam(value = "barcode" , required = false)  String barcode) {
+          public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo ,
+           @RequestParam(value = "barcode" , required = false)  String barcode) {
                Map<String, Object> data = service.searchWithInvoiceNo(invoiceNo,barcode); 
+              
+               if( data.get("msg").equals(JavaConstant.INVOICE_NUMBER_DOES_NOT_EXIST) ) {
+                    return ResponseEntity.ok().body(data);
+               }
+
+               if( data.get("msg").equals(JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER) ) {
+                    return ResponseEntity.ok().body(data);
+               }
 
                return ResponseEntity.ok().body(data);
           }

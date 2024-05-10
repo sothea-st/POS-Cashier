@@ -16,6 +16,10 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
+
+        @Query(nativeQuery = true , value = "select count(*) from pos_payment pp2 where payment_no = ?")
+        int isExistInvoice(String invoiceNo);
+
         Payment  findByPaymentNo(String paymentNo);
 
         @Query(nativeQuery = true, value = " select pp.payment_no  from pos_payment pp where payment_barcode = ?")

@@ -44,6 +44,9 @@ public class SaleDetail {
     @Column(name = "is_returned")
     private String isReturned;
 
+    @Column(name="qty_returned")
+    private int qtyReturned;
+
     @Column(name = "create_by")
     private int createBy;
 

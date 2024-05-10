@@ -19,6 +19,8 @@ public class JavaConstant {
     public static String msgCloseShift = "You have to close shift first to get report cashier!";
     public static String closeOpenShfitFirst = "You have to open shift first to close shift!";
     public static double exchangeRate = 4150;
+    public static String INVOICE_NUMBER_DOES_NOT_EXIST = "INVOICE_NUMBER_DOES_NOT_EXIST";
+    public static String PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER = "PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER";
 
     public String getDefaultPassword() {
         return defaultPassword;

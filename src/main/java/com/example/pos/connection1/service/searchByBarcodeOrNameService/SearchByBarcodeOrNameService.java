@@ -56,13 +56,11 @@ public class SearchByBarcodeOrNameService {
     public Map<String, Object> searchWithInvoiceNo(String invoiceNo, String barcode) {
         HashMap<String, Object> _map = new HashMap<>();
 
-        // if (barcode != null) {
-        //     Product barcodeExits = repo.getBarcode(barcode);
-        //     if (barcodeExits == null) {
-        //         _map.put("note", "BARCODE_DOES_NOT_EXIST");
-        //         return _map;
-        //     }
-        // }
+        int countRecord = repoPayment.isExistInvoice(invoiceNo);
+        if (countRecord == 0) {
+            _map.put("msg", JavaConstant.INVOICE_NUMBER_DOES_NOT_EXIST);
+            return _map;
+        }
 
         List<ProductQty> data = null;
         List<ProductModel> list = new ArrayList<>();
@@ -78,6 +76,13 @@ public class SearchByBarcodeOrNameService {
                 list.add(p);
             }
         } else {
+            int countProductExistInInvoice = repo.countProductExistInIvoice(invoiceNo, barcode);
+            System.out.println("countProductExistInInvoice : " + countProductExistInInvoice);
+            if (countProductExistInInvoice == 0) {
+                _map.put("msg", JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER);
+                return _map;
+            }
+
             data = repo.searchProductWithInvoiceNoAndBarcode(invoiceNo, barcode);
             for (int i = 0; i < data.size(); i++) {
                 var val = data.get(i);
@@ -101,11 +106,7 @@ public class SearchByBarcodeOrNameService {
 
         _map.put("msg", "success");
         _map.put("invoiceNo", invoiceNo);
-        // if (list.isEmpty()) {
-        //     _map.put("note", "The invoice already return!");
-        // } else {
-        //     _map.put("note", null);
-        // }
+
         _map.put("data", list);
 
         return _map;
