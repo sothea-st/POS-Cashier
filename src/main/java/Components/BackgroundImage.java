@@ -23,6 +23,7 @@ public class BackgroundImage extends javax.swing.JPanel {
           jPanel1 = new javax.swing.JPanel();
 
           jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\mobile-app.02\\Desktop\\project\\fronent java\\king mart\\kingMart_original\\tt_pos_window\\src\\main\\resources\\image\\King Mart bg.png")); // NOI18N
           jLabel1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

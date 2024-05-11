@@ -92,7 +92,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-          setExtendedState(JFrame.MAXIMIZED_BOTH);
+//          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setFont(WindowFonts.timeNewRomanBold14);
           lbPOSId.setFont(WindowFonts.timeNewRomanBold14);
           // boxUserName.setFont(WindowFonts.timeNewRomanBold14);
@@ -124,8 +124,8 @@ public class MainPage extends javax.swing.JFrame {
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
           
-          panelProduct.setSize(750,750);
-
+//       jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+          
      }
 
      // Set Timer
