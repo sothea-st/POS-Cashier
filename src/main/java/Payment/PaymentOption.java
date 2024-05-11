@@ -443,18 +443,18 @@ public class PaymentOption extends javax.swing.JDialog {
 //               txtReceiveKhr.setText(newValue);
 //               return;
 //          }
-          if (receviKhr.contains(".")) {
-               return;
-          }
+//          if (receviKhr.contains(".")) {
+//               return;
+//          }
           // ================ 3 length insert comma =========
 
-          if (receviKhr.length() > 3) {
-               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
-               for (int i = builder.length() - 3; i > 0; i -= 3) {
-                    builder.insert(i, ",");
-               }
-               setValueTextField(builder.toString());
-          }
+//          if (receviKhr.length() > 3) {
+//               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
+//               for (int i = builder.length() - 3; i > 0; i -= 3) {
+//                    builder.insert(i, ",");
+//               }
+//               setValueTextField(builder.toString());
+//          }
      }
 
      void addCommaUsd(String receviUsd) {
@@ -465,19 +465,19 @@ public class PaymentOption extends javax.swing.JDialog {
 //               txtReceiveKhr.setText(newValue);
 //               return;
 //          }
-          if (receviUsd.contains(".")) {
-               return;
-          }
+//          if (receviUsd.contains(".")) {
+//               return;
+//          }
           // ================ 3 length insert comma =========
 
-          if (receviUsd.length() > 3) {
-               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
-               for (int i = builder.length() - 3; i > 0; i -= 3) {
-                    builder.insert(i, ",");
-               }
-               txtReceiveUsd.setText(builder.toString());
-               txtReceiveUsd.setForeground(Color.BLACK);
-          }
+//          if (receviUsd.length() > 3) {
+//               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
+//               for (int i = builder.length() - 3; i > 0; i -= 3) {
+//                    builder.insert(i, ",");
+//               }
+//               txtReceiveUsd.setText(builder.toString());
+//               txtReceiveUsd.setForeground(Color.BLACK);
+//          }
      }
 
      private void paidBothValue(double value, String types) {
