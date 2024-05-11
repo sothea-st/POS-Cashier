@@ -28,7 +28,7 @@ import jakarta.servlet.http.HttpSession;
 public class ReturnProductService {
     @Autowired
     private ReturnProductRepository repo;
-    
+
     @Autowired
     private HttpSession session;
 
@@ -41,7 +41,7 @@ public class ReturnProductService {
     @Autowired
     private ImportDetailRepository repoImport;
 
-    @Autowired 
+    @Autowired
     private SaleRepository repoSale;
 
     @Autowired
@@ -73,9 +73,8 @@ public class ReturnProductService {
         List<ReturnDetails> listDetail = re.getDataDetails();
         Payment pays = repoPayment.findByPaymentNo(re.getPaymentNo());
         int posSaleID = pays.getSaleId();
-        
-        double sumTotalReturn = 0;
 
+        double sumTotalReturn = 0;
 
         for (int i = 0; i < listDetail.size(); i++) {
             int proId = listDetail.get(i).getProId();
@@ -99,30 +98,38 @@ public class ReturnProductService {
             int restockQty = qtyReturn + impDetail.getQtyOld();
             impDetail.setQtyOld(restockQty);
             repoImport.save(impDetail);
-       
+
             // ============ update column is_returned in table pos_sale_details to returned
-            Optional<SaleDetail> listSaleDetails = saleDetailsRepository.findBySaleIdAndProductId(posSaleID,listDetail.get(i).getProId());
+            Optional<SaleDetail> listSaleDetails = saleDetailsRepository.findBySaleIdAndProductId(posSaleID,
+                    listDetail.get(i).getProId());
             SaleDetail valueDetail = listSaleDetails.get();
-            valueDetail.setIsReturned("returned");
-            saleDetailsRepository.save(valueDetail);
+            int qtyForReturned = valueDetail.getQtyReturned() + val.getQty();
+            int checkQty = valueDetail.getQty() - qtyForReturned;
+            if (checkQty != 0) {
+                valueDetail.setQtyReturned(qtyForReturned);
+                saleDetailsRepository.save(valueDetail);
+            } else {
+                valueDetail.setIsReturned("returned");
+                valueDetail.setQtyReturned(valueDetail.getQty());
+                saleDetailsRepository.save(valueDetail);
+            }
+
         }
 
-
-        int saleId = repoDetail.getSaleId(re.getPaymentNo(),JavaConstant.currentDate);
+        int saleId = repoDetail.getSaleId(re.getPaymentNo(), JavaConstant.currentDate);
         Optional<Sale> dataSale = repoSale.findById(saleId);
         Sale result = dataSale.get();
-      
+
         double valueReturn = result.getTotal().doubleValue() - sumTotalReturn;
         result.setSaleIsReturn("returned");
         result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn));
         result.setTotalMinusTotalReturn(BigDecimal.valueOf(valueReturn));
         repoSale.save(result);
 
-
         return reprintService.readData(re.getPaymentNo(), re);
     }
 
-    public ProductProjection searchProdcutByBarcode(String barcode){
+    public ProductProjection searchProdcutByBarcode(String barcode) {
         ProductProjection data = repo.getProductByBarcode(barcode);
         return data;
     }

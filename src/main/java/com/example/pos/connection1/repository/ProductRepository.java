@@ -15,7 +15,7 @@ import java.util.*;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
         @Query(nativeQuery = true , value = "select * from pos_product pp where barcode = ?")
-        String getBarcode(String barcode);
+        Product getBarcode(String barcode);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\tpc.id,\r\n" + //
@@ -122,21 +122,18 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         " and pc.barcode like  %?%")
         List<ProductProjection> searchProductByBarcode(String barcode);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,   \r\n"
-                        + //
-                        "\t  pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,psd.qty,     \r\n" + //
-                        "\t  pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired   \r\n"
-                        + //
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,   \r\n"+ //
+                        "\t  pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,( psd.qty - psd.qty_returned ) as qty ,     \r\n" + //
+                        "\t  pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired   \r\n"+ //
                         "\t from pos_payment pp inner join pos_sale_details psd on psd.sale_id = pp.sale_id \r\n" + //
-                        "\t inner join pos_product pc on pc.id = psd.pro_id  inner join pos_sale ps on ps.id = pp.sale_id \r\n"
-                        + //
-                        "\t where pp.payment_no = ?  and pp.is_return is null and ps.sale_date = ?")
+                        "\t inner join pos_product pc on pc.id = psd.pro_id  inner join pos_sale ps on ps.id = pp.sale_id \r\n"+ //
+                        "\t where pp.payment_no = ?  and   psd.is_returned  is null and ps.sale_date = ?")
         List<ProductQty> searchProductWithInvoiceNo(String invoiceNO, String currentDate);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                         " pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,  \r\n" + //
                         " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,psd.qty,     \r\n" + //
-                        " pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired ,  psd.qty    \r\n"
+                        " pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired , ( psd.qty - psd.qty_returned ) as qty    \r\n"
                         + //
                         "from\r\n" + //
                         "\tpos_payment pp\r\n" + //
@@ -151,4 +148,19 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "\tand pc.barcode = ? and psd.is_returned is null")
         List<ProductQty> searchProductWithInvoiceNoAndBarcode(String invoiceNO, String barcode);
 
+        @Query(nativeQuery = true , value = "select\r\n" + //
+                                "\tcount(psd.*)\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_payment pp\r\n" + //
+                                "inner join pos_sale ps on\r\n" + //
+                                "\tps.id = pp.sale_id\r\n" + //
+                                "inner join pos_sale_details psd on\r\n" + //
+                                "\tpsd.sale_id = ps.id\r\n" + //
+                                "inner join pos_product pc on\r\n" + //
+                                "\tpc.id = psd.pro_id\r\n" + //
+                                "where\r\n" + //
+                                "\tpp.payment_no = ?\r\n" + //
+                                "\tand pc.barcode = ?\r\n" 
+                                )
+        int countProductExistInIvoice(String invoiceNO , String barcode);
 }

@@ -1,6 +1,7 @@
 package com.example.pos.connection1.service.searchByBarcodeOrNameService;
 
 import com.example.pos.connection1.constant.JavaConstant;
+import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.PaymentModel;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.repository.ImportDetailRepository;
@@ -54,10 +55,13 @@ public class SearchByBarcodeOrNameService {
 
     public Map<String, Object> searchWithInvoiceNo(String invoiceNo, String barcode) {
         HashMap<String, Object> _map = new HashMap<>();
-        // String barcodeExits = repo.getBarcode(barcode);
-        // if( barcodeExits == null ) return _map;
 
-       
+        int countRecord = repoPayment.isExistInvoice(invoiceNo);
+        if (countRecord == 0) {
+            _map.put("msg", JavaConstant.INVOICE_NUMBER_DOES_NOT_EXIST);
+            return _map;
+        }
+
         List<ProductQty> data = null;
         List<ProductModel> list = new ArrayList<>();
         PaymentModel _model = null;
@@ -72,6 +76,13 @@ public class SearchByBarcodeOrNameService {
                 list.add(p);
             }
         } else {
+            int countProductExistInInvoice = repo.countProductExistInIvoice(invoiceNo, barcode);
+            System.out.println("countProductExistInInvoice : " + countProductExistInInvoice);
+            if (countProductExistInInvoice == 0) {
+                _map.put("msg", JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER);
+                return _map;
+            }
+
             data = repo.searchProductWithInvoiceNoAndBarcode(invoiceNo, barcode);
             for (int i = 0; i < data.size(); i++) {
                 var val = data.get(i);
@@ -79,9 +90,6 @@ public class SearchByBarcodeOrNameService {
                 list.add(p);
             }
         }
-
-        Double _receive_khr;
-        Double _receive_usd;
 
         Double _getUsd = _model.getReceive_usd() != null ? _model.getReceive_usd().doubleValue() : 0;
         Double _getKhr = _model.getReceive_khr() != null ? _model.getReceive_khr().doubleValue() : 0;
@@ -98,6 +106,7 @@ public class SearchByBarcodeOrNameService {
 
         _map.put("msg", "success");
         _map.put("invoiceNo", invoiceNo);
+
         _map.put("data", list);
 
         return _map;
