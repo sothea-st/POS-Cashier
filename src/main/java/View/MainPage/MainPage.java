@@ -92,7 +92,7 @@ public class MainPage extends javax.swing.JFrame {
           getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
-//          setExtendedState(JFrame.MAXIMIZED_BOTH);
+          setExtendedState(JFrame.MAXIMIZED_BOTH);
           currentDate.setFont(WindowFonts.timeNewRomanBold14);
           lbPOSId.setFont(WindowFonts.timeNewRomanBold14);
           // boxUserName.setFont(WindowFonts.timeNewRomanBold14);

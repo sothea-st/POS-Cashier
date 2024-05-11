@@ -48,7 +48,7 @@ public class ResponsiveSize {
           Button btnReturn,
           JLabel titleOrder
      ) {
-     
+
           this.detailItem = detailItem;
           this.panelProduct = panelProduct;
           this.totalPanel = totalPanel;
@@ -71,6 +71,7 @@ public class ResponsiveSize {
                     if (width > 1900) {
                          if ((mainPage.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
                               isFullScreen = true;
+
                          }
                          ActionProduct.marginRight = 15;
                          if (jdFormLogin.getCatId() != 0) {
@@ -122,11 +123,13 @@ public class ResponsiveSize {
           a.setBtnReturn(btnReturn);
           a.setTitleOrder(titleOrder);
           JavaConstant.rowNum = num;
+          System.out.println("JavaConstant : " + JavaConstant.rowNum);
           panelProduct.removeAll();
           if (jdFormLogin.getCatId() == 0) {
                a.getAllProduct(panelProduct);
           } else {
                a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+            
           }
           panelProduct.revalidate();
           panelProduct.repaint();

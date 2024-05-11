@@ -73,7 +73,7 @@ public class ActionProduct {
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-
+             
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -175,7 +175,7 @@ public class ActionProduct {
      }
 
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
-
+ 
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0 ,0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0,1}; // 1 align item to top
