@@ -342,6 +342,8 @@ public class PaymentOption extends javax.swing.JDialog {
 
           String receviUsd = txtReceiveUsd.getText();
           String receviKhr = txtReceiveKhr.getText();
+          receviKhr = receviKhr.replace(",", "");
+          receviUsd = receviUsd.replace(",", "");
 
           if ("usd".equals(sign)) {
 
@@ -477,8 +479,8 @@ public class PaymentOption extends javax.swing.JDialog {
           }
 
           //         =============== validation ==========
-//          addCommaKhr(receviKhr);
-//          addCommaUsd(receviUsd);
+          addCommaKhr(receviKhr);
+          addCommaUsd(receviUsd);
      }
 
      void addCommaKhr(String receviKhr) {
@@ -493,13 +495,13 @@ public class PaymentOption extends javax.swing.JDialog {
 //               return;
 //          }
           // ================ 3 length insert comma =========
-//          if (receviKhr.length() > 3) {
-//               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
-//               for (int i = builder.length() - 3; i > 0; i -= 3) {
-//                    builder.insert(i, ",");
-//               }
-//               setValueTextField(builder.toString());
-//          }
+          if (receviKhr.length() > 3) {
+               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
+               for (int i = builder.length() - 3; i > 0; i -= 3) {
+                    builder.insert(i, ",");
+               }
+               setValueTextField(builder.toString());
+          }
      }
 
      void addCommaUsd(String receviUsd) {
@@ -514,14 +516,14 @@ public class PaymentOption extends javax.swing.JDialog {
 //               return;
 //          }
           // ================ 3 length insert comma =========
-//          if (receviUsd.length() > 3) {
-//               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
-//               for (int i = builder.length() - 3; i > 0; i -= 3) {
-//                    builder.insert(i, ",");
-//               }
-//               txtReceiveUsd.setText(builder.toString());
-//               txtReceiveUsd.setForeground(Color.BLACK);
-//          }
+          if (receviUsd.length() > 3) {
+               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
+               for (int i = builder.length() - 3; i > 0; i -= 3) {
+                    builder.insert(i, ",");
+               }
+               txtReceiveUsd.setText(builder.toString());
+               txtReceiveUsd.setForeground(Color.BLACK);
+          }
      }
 
      private void paidBothValue(double value, String types) {
@@ -1456,9 +1458,11 @@ public class PaymentOption extends javax.swing.JDialog {
      void keyDelete() {
           if (!txtReceiveUsd.getText().isEmpty() && !txtReceiveKhr.getText().isEmpty()) {
                if (sign.equals("khr")) {
-                    khr(txtReceiveKhr.getText());
+                    String _khr = txtReceiveKhr.getText().replace(",", "");
+                    khr(_khr);
                } else if (sign.equals("usd")) {
-                    usd(txtReceiveUsd.getText());
+                    String _usd = txtReceiveUsd.getText().replace(",", "");
+                    usd(_usd);
                }
                return;
           }

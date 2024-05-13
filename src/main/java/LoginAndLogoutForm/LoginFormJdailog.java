@@ -356,7 +356,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
 
-         String userId = "0005";
+         String userId = "0004";
          String password = "TT@126$kh#";
 
          String deviceName = JavaConstant.getDeviceName();
@@ -596,7 +596,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                                   panelPagination.setVisible(false);
                                                   pro.newProduct(catId, limit, panelProduct);
                                              } else if (catId == 1) {  // catId = 1 Promotion
-                                                  
+                                                  panelPagination.setVisible(false);
+                                                  pro.newProduct(catId, limit, panelProduct);
                                              } else {
                                                   pro.product(catId, limit, panelProduct);
                                              }
