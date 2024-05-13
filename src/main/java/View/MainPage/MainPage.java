@@ -336,7 +336,7 @@ public class MainPage extends javax.swing.JFrame {
                 btnPaymentMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPaymentMouseEntered(evt);
+               //  btnPaymentMouseEntered(evt);
             }
         });
 
@@ -1006,10 +1006,6 @@ public class MainPage extends javax.swing.JFrame {
               }
          }
     }//GEN-LAST:event_panelCartMouseClicked
-
-     private void btnPaymentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseEntered
-          // TODO add your handling code here:
-     }//GEN-LAST:event_btnPaymentMouseEntered
 
      private void panelCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseEntered
           // TODO add your handling code here:
