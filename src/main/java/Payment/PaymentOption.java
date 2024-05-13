@@ -134,22 +134,68 @@ public class PaymentOption extends javax.swing.JDialog {
      }
 
      void evenGroup() {
-          txtReceiveUsd.addKeyListener(new KeyListener() {
+//          txtReceiveUsd.addKeyListener(new KeyListener() {
+//               @Override
+//               public void keyTyped(KeyEvent e) {
+////                    if (JavaConstant.isReturn != null) {
+////                         return;
+////                    }
+////                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+////                         System.out.println("key delete active");
+////                         if (txtReceiveUsd.getText().isEmpty()) {
+////
+////                              keyDelete();
+////                         }
+////                    }
+//               }
+//
+//               @Override
+//               public void keyPressed(KeyEvent e) {
+//                    if (JavaConstant.isReturn != null) {
+//                         return;
+//                    }
+//                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+//                         System.out.println("key delete active");
+//                         if (txtReceiveUsd.getText().isEmpty()) {
+//
+//                              keyDelete();
+//                         }
+//                    }
+//               }
+//
+//               @Override
+//               public void keyReleased(KeyEvent e) {
+//
+//               }
+//
+//          });
+
+          txtReceiveKhr.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-                    if (JavaConstant.isReturn != null) {
-                         return;
-                    }
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                         if (txtReceiveUsd.getText().isEmpty()) {
-                              keyDelete();
-                         }
-                    }
+//                    if (JavaConstant.isReturn != null) {
+//                         return;
+//                    }
+//                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+//                         System.out.println("key delete active");
+//                         if (txtReceiveUsd.getText().isEmpty()) {
+//
+//                              keyDelete();
+//                         }
+//                    }
                }
 
                @Override
                public void keyPressed(KeyEvent e) {
-
+                    if (JavaConstant.isReturn != null) {
+                         return;
+                    }
+                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                         System.out.println("key delete active");
+//                         if (txtReceiveUsd.getText().isEmpty()) {                        
+//                              keyDelete();
+//                         }
+                    }
                }
 
                @Override
@@ -158,6 +204,7 @@ public class PaymentOption extends javax.swing.JDialog {
                }
 
           });
+
      }
 
      private void getCusomerId() {
@@ -315,7 +362,6 @@ public class PaymentOption extends javax.swing.JDialog {
                     double doubleReceviceUsd = JavaConstant.getReplace(receviUsd);
                     double result = doubleReceviceUsd - doubleTotalUsd;
 
-                  
                     if (result < 0) {
                          setValueLabelUsd(result, 0);
                     } else if (result > 0) {
@@ -447,7 +493,6 @@ public class PaymentOption extends javax.swing.JDialog {
 //               return;
 //          }
           // ================ 3 length insert comma =========
-
 //          if (receviKhr.length() > 3) {
 //               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
 //               for (int i = builder.length() - 3; i > 0; i -= 3) {
@@ -469,7 +514,6 @@ public class PaymentOption extends javax.swing.JDialog {
 //               return;
 //          }
           // ================ 3 length insert comma =========
-
 //          if (receviUsd.length() > 3) {
 //               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
 //               for (int i = builder.length() - 3; i > 0; i -= 3) {
@@ -1669,7 +1713,6 @@ public class PaymentOption extends javax.swing.JDialog {
               double p = JavaConstant.getReplace(df.format(unitPrice));
               discountType = obj.getDiscountType();
               double discountVale = obj.getDiscountValue();
-              
 
               double amount = obj.getQty() * p;
               double a = JavaConstant.getReplace(df.format(amount));
@@ -1735,8 +1778,8 @@ public class PaymentOption extends javax.swing.JDialog {
                              re.setDataSuccess(d);
                              re.revalidate();
                              re.repaint();
-                             re.printReceipt(); // for print with device
-//                             re.setVisible(true);
+//                             re.printReceipt(); // for print with device
+                             re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
@@ -1784,8 +1827,7 @@ public class PaymentOption extends javax.swing.JDialog {
                double amount = JavaConstant.getReplace(obj.getLabelAmountUsd());
                double discountDigit = obj.getDiscountDigit();
                double discountValue = obj.getDiscountValue();
-               
-        
+
                double disAmt = JavaConstant.getReplace(obj.getDiscountAmount());
 
                ReturnProductModel pro = new ReturnProductModel(
@@ -1802,7 +1844,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
           jsonReturnData.put("dataDetails", dataDetails);
           System.out.println("jsonReturnData : " + jsonReturnData);
- 
+
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
           if (responseReturn.isSuccessful()) {
@@ -1810,7 +1852,6 @@ public class PaymentOption extends javax.swing.JDialog {
 //               ============ after return reset value ==================
                JavaConstant.setBackQty(detailItem, panelProduct);
                JavaConstant.resetValueReturn();
-               
 
                String _data = responseReturn.body().string();
                dispose();
@@ -1994,7 +2035,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
                if (change < 5) {
                     change = change * JavaConstant.exchangeRate4050;
-                  
+
                     lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(change));
 
                     lbRemainingKhr.setLabelName(dm.format(0));

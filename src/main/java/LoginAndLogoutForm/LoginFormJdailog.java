@@ -353,13 +353,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
-         String userId = txtUserId.getValueTextField();
-         String password = txtPassword.getValuePassword();
-         
-         
-         
-//         String userId = "0002";
-//         String password = "TT@126$kh#";
+//         String userId = txtUserId.getValueTextField();
+//         String password = txtPassword.getValuePassword();
+
+         String userId = "0005";
+         String password = "TT@126$kh#";
 
          String deviceName = JavaConstant.getDeviceName();
 
@@ -443,8 +441,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    dispose();
                    getBtnLogin().setButtonName("Logout");
 
-               //     boxUserName.setVisible(false);
-               //     getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
+                   //     boxUserName.setVisible(false);
+                   //     getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
 //                   boxUserName.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "               POS ID : " + JavaConstant.posId);
                    lbPOSId.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
@@ -492,8 +490,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void getProductByBrandID(String key, int limits) {
-          Response response = JavaConnection.get(JavaRoute.getProductByBrandId + "?brandId=" + key + "&limit=" + limits + "&page="+JavaConstant.page);
-         
+          Response response = JavaConnection.get(JavaRoute.getProductByBrandId + "?brandId=" + key + "&limit=" + limits + "&page=" + JavaConstant.page);
+
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -593,9 +591,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              listCom[0].setBackground(WindowColor.black);
                                              setCatId(0);
                                         } else {
-                                             if (catNameData.equals("NEW ITEMS")) {
+                                             System.out.println("catId : " + catId);
+                                             if (catId == 2) {  // catId = 2 NEW ITEMS
                                                   panelPagination.setVisible(false);
                                                   pro.newProduct(catId, limit, panelProduct);
+                                             } else if (catId == 1) {  // catId = 1 Promotion
+                                                  
                                              } else {
                                                   pro.product(catId, limit, panelProduct);
                                              }
@@ -765,11 +766,9 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      // public JLabel getBoxUserName() {
      //      return boxUserName;
      // }
-
      // public void setBoxUserName(JLabel boxUserName) {
      //      this.boxUserName = boxUserName;
      // }
-
      public Button getBtnLogin() {
           return btnLogin;
      }
@@ -914,15 +913,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.titleOrder = titleOrder;
      }
 
-    public Button getStock() {
-        return stock;
-    }
+     public Button getStock() {
+          return stock;
+     }
 
-    public void setStock(Button stock) {
-        this.stock = stock;
-    }
-     
-     
+     public void setStock(Button stock) {
+          this.stock = stock;
+     }
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {

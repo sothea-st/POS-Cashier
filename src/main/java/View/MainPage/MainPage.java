@@ -335,9 +335,6 @@ public class MainPage extends javax.swing.JFrame {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     btnPaymentMouseClicked(evt);
                }
-               public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    btnPaymentMouseEntered(evt);
-               }
           });
 
           btnLogin.setBackground(new java.awt.Color(47, 155, 70));
@@ -1007,10 +1004,6 @@ public class MainPage extends javax.swing.JFrame {
               }
          }
     }//GEN-LAST:event_panelCartMouseClicked
-
-     private void btnPaymentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseEntered
-          // TODO add your handling code here:
-     }//GEN-LAST:event_btnPaymentMouseEntered
 
      private void panelCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseEntered
           // TODO add your handling code here:
