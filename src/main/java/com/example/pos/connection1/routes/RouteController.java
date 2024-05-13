@@ -197,6 +197,13 @@ public class RouteController {
           public ResponseEntity<?> getNewProduct(){
                return JavaResponse.success(service.getNewProduct());
           }
+
+
+          @GetMapping("/getProductPromotion")
+          public ResponseEntity<?> getProductPromotion(){
+               return JavaResponse.success(service.getProductPromotion());
+          }
+
      }
 
      @RequestMapping("/api/supplier")
