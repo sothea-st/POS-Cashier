@@ -596,7 +596,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                                   panelPagination.setVisible(false);
                                                   pro.newProduct(catId, limit, panelProduct);
                                              } else if (catId == 1) {  // catId = 1 Promotion
-                                                  
+                                                  panelPagination.setVisible(false);
+                                                  pro.getPromotion(catId, limit, panelProduct);
                                              } else {
                                                   pro.product(catId, limit, panelProduct);
                                              }
