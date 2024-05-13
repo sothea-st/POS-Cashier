@@ -7,114 +7,124 @@ import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import SwitchButton.EventSwitchSelected;
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 public class Discounting extends javax.swing.JDialog {
 
-    private JPanel detailItem;
-    private BoxItem box;
-    private SubtotalPanel totalPanel;
+     private JPanel detailItem;
+     private BoxItem box;
+     private SubtotalPanel totalPanel;
 
-    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
-    DecimalFormat kh = new DecimalFormat("#,##0");
+     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+     DecimalFormat kh = new DecimalFormat("#,##0");
 
-    public Discounting(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setBackGroud();
-        switchButton();
-        inputDis.setLabelTextCenter("0%");
-        inputDis.requestFocus();
-        type = "percent";
-        event();
+     public Discounting(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          setBackGroud();
+          switchButton();
+          inputDis.setLabelTextCenter("0%");
+          inputDis.requestFocus();
+          type = "percent";
+          event();
 //        removeBorder(this);
-    }
+     }
 
-    String type;
-    String percentType;
+     String type;
+     String percentType;
 
-    private void switchButton() {
-        switchButton1.addEventSelected(new EventSwitchSelected() {
-            @Override
-            public void onSelected(boolean selected) {
+     private void switchButton() {
+          switchButton1.addEventSelected(new EventSwitchSelected() {
+               @Override
+               public void onSelected(boolean selected) {
 
-                if (selected == true) {
-                    inputDis.setValueTextFieldCenter("");
-                    inputDis.setLabelTextCenter("$ 0.00");
-                    inputDis.requestFocus();
-                    type = "dollar";
-                } else {
-                    inputDis.setValueTextFieldCenter("");
-                    inputDis.setLabelTextCenter("0%");
-                    inputDis.requestFocus();
-                    type = "percent";
-                }
+                    if (selected == true) {
+                         inputDis.setValueTextFieldCenter("");
+                         inputDis.setLabelTextCenter("$ 0.00");
+                         inputDis.requestFocus();
+                         type = "dollar";
+                    } else {
+                         inputDis.setValueTextFieldCenter("");
+                         inputDis.setLabelTextCenter("0%");
+                         inputDis.requestFocus();
+                         type = "percent";
+                    }
 
-            }
-        });
-    }
+               }
+          });
+     }
 
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
 
-            }
-        };
-        inputDis.initEvent(btnevent);
-    }
+               }
+          };
+          inputDis.initEvent(btnevent);
+     }
 
-    private void setBackGroud() {
-        discountPanel.setBackground(WindowColor.mediumGreen);
-        calculatePanel.setBackground(WindowColor.green);
-    }
+     private void setBackGroud() {
+          discountPanel.setBackground(WindowColor.mediumGreen);
+          calculatePanel.setBackground(WindowColor.green);
+     }
 
-    private void inputDiscount(String value) {
-        String discountValue = inputDis.getValueTextFieldCenter();
-        if (discountValue == null) {
-            discountValue = "";
-        }
+     private void inputDiscount(String value) {
+          String discountValue = inputDis.getValueTextFieldCenter();
 
-        discountValue += value;
+      
 
-        if (type == "dollar") {
-            inputDis.setValueTextFieldCenter(discountValue);
-            AppValidation.checkValidation(discountValue, inputDis);
-        } else {
+          if (discountValue == null || discountValue.contains("%")) {
+               discountValue = "";
+          }
 
-            if (percentType == "hasPercent") {
-                inputDis.setValueTextFieldCenter(value);
-            } else {
+          discountValue += value;
+    
+          if ("dollar".equals(type)) {
+               inputDis.setValueTextFieldCenter(discountValue);
+               AppValidation.checkValidation(discountValue, inputDis);
+          } else {
 
-                if (inputDis.getValueTextFieldCenter() != null && inputDis.getValueTextFieldCenter().contains("%")) {
+               if (!discountValue.isEmpty()) {
+
+                    if (discountValue != null) {
+                         Double _dDiscount = Double.valueOf(discountValue);
+                         if (_dDiscount >= 100) {
+                              return;
+                         }
+                    }
+
+               }
+
+               if ("hasPercent".equals(percentType)) {
                     inputDis.setValueTextFieldCenter(value);
-                } else {
-                    inputDis.setValueTextFieldCenter(discountValue);
-                    AppValidation.checkValidation(discountValue, inputDis);
-                }
-            }
-        }
-    }
+               } else {
 
-    ////Addd Validation for each button
-    private void validations(String value) {
-        String discountValue = inputDis.getValueTextFieldCenter();
-        AppValidation.checkValidation(discountValue, inputDis);
-    }
+                    if (inputDis.getValueTextFieldCenter() != null && inputDis.getValueTextFieldCenter().contains("%")) {
+                         inputDis.setValueTextFieldCenter(value);
+                    } else {
+                         inputDis.setValueTextFieldCenter(discountValue);
+                         AppValidation.checkValidation(discountValue, inputDis);
+                    }
 
-    @SuppressWarnings("unchecked")
+               }
+          }
+     }
+
+     ////Addd Validation for each button
+     private void validations(String value) {
+          String discountValue = inputDis.getValueTextFieldCenter();
+          AppValidation.checkValidation(discountValue, inputDis);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -506,233 +516,235 @@ public class Discounting extends javax.swing.JDialog {
 
     private void tenPercentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenPercentsMouseClicked
 
-        if (type == "percent") {
-            String tenPercent = tenPercents.getLabelDiscount();
-            percentType = "hasPercent";
-            inputDiscount(tenPercent);
-        }
+         if (type == "percent") {
+              String tenPercent = tenPercents.getLabelDiscount();
+              percentType = "hasPercent";
+              inputDiscount(tenPercent);
+         }
 
     }//GEN-LAST:event_tenPercentsMouseClicked
 
     private void twentyPercentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twentyPercentMouseClicked
 
-        if (type == "percent") {
-            String twentyPercents = twentyPercent.getLabelDiscount();
-            percentType = "hasPercent";
-            inputDiscount(twentyPercents);
-        }
+         if (type == "percent") {
+              String twentyPercents = twentyPercent.getLabelDiscount();
+              percentType = "hasPercent";
+              inputDiscount(twentyPercents);
+         }
 
     }//GEN-LAST:event_twentyPercentMouseClicked
 
     private void thirtyPercentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirtyPercentMouseClicked
 
-        if (type == "percent") {
-            String thirtyPercents = thirtyPercent.getLabelDiscount();
-            percentType = "hasPercent";
-            inputDiscount(thirtyPercents);
-        }
+         if (type == "percent") {
+              String thirtyPercents = thirtyPercent.getLabelDiscount();
+              percentType = "hasPercent";
+              inputDiscount(thirtyPercents);
+         }
 
     }//GEN-LAST:event_thirtyPercentMouseClicked
 
     private void fiftyPercentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseClicked
 
-        if (type == "percent") {
-            String fiftyPercents = fiftyPercent.getLabelDiscount();
-            percentType = "hasPercent";
-            inputDiscount(fiftyPercents);
-        }
+         if (type == "percent") {
+              String fiftyPercents = fiftyPercent.getLabelDiscount();
+              percentType = "hasPercent";
+              inputDiscount(fiftyPercents);
+         }
 
     }//GEN-LAST:event_fiftyPercentMouseClicked
 
     private void oneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseClicked
-        String lbOne = one.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbOne);
+         String lbOne = one.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbOne);
     }//GEN-LAST:event_oneMouseClicked
 
     private void twoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseClicked
-        String lbTwo = two.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbTwo);
+         String lbTwo = two.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbTwo);
     }//GEN-LAST:event_twoMouseClicked
 
     private void threeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseClicked
-        String lbThree = three.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbThree);
+         String lbThree = three.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbThree);
 
     }//GEN-LAST:event_threeMouseClicked
 
     private void fourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseClicked
-        String lbFour = four.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbFour);
+         String lbFour = four.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbFour);
     }//GEN-LAST:event_fourMouseClicked
 
     private void fiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseClicked
-        String lbFive = five.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbFive);
+         String lbFive = five.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbFive);
     }//GEN-LAST:event_fiveMouseClicked
 
     private void sixMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseClicked
-        String lbSix = six.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbSix);
+         String lbSix = six.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbSix);
     }//GEN-LAST:event_sixMouseClicked
 
     private void sevenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseClicked
-        String lbSeven = seven.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbSeven);
+         String lbSeven = seven.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbSeven);
     }//GEN-LAST:event_sevenMouseClicked
 
     private void eightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseClicked
-        String lbEight = eight.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbEight);
+         String lbEight = eight.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbEight);
     }//GEN-LAST:event_eightMouseClicked
 
     private void nineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseClicked
-        String lbNine = nine.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbNine);
+         String lbNine = nine.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbNine);
     }//GEN-LAST:event_nineMouseClicked
 
     private void zeroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseClicked
-        String lbZero = zero.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbZero);
+         String lbZero = zero.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbZero);
     }//GEN-LAST:event_zeroMouseClicked
 
     private void dotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseClicked
-        String lbDot = dot.getLabelDiscount();
-        percentType = "noPercent";
-        inputDiscount(lbDot);
+         String lbDot = dot.getLabelDiscount();
+         percentType = "noPercent";
+         inputDiscount(lbDot);
     }//GEN-LAST:event_dotMouseClicked
 
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
-        if (!inputDis.getValueTextFieldCenter().isEmpty()) {
-            String valueReceive = inputDis.getValueTextFieldCenter();
-            valueReceive = valueReceive.substring(0, valueReceive.length() - 1);
-            inputDis.setValueTextFieldCenter("");
-            inputDiscount(valueReceive);
-        }
+         if (!inputDis.getValueTextFieldCenter().isEmpty()) {
+              String valueReceive = inputDis.getValueTextFieldCenter();
+
+              valueReceive = valueReceive.substring(0, valueReceive.length() - 1);
+
+ 
+
+              inputDis.setValueTextFieldCenter("");
+              inputDiscount(valueReceive);
+         }
     }//GEN-LAST:event_delMouseClicked
 
     private void btnDoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoneMouseClicked
 
-        Component[] listDetailItem = detailItem.getComponents();
-        if (listDetailItem.length > 0) {
-            for (Component c : listDetailItem) {
-                var data = ((BoxItem) c);
+         Component[] listDetailItem = detailItem.getComponents();
+         if (listDetailItem.length > 0) {
+              for (Component c : listDetailItem) {
+                   var data = ((BoxItem) c);
 
-                if (data.getDiscountType() != null) {
-                    String localType = data.getDiscountType();
-                 
-                    if (!localType.equals(type)) {
-                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                        j.setMessage("A single order only accept one of discount type !");
-                        j.setVisible(true);
-                        return;
-                    }
-                }
-            }
-        }
+                   if (data.getDiscountType() != null) {
+                        String localType = data.getDiscountType();
 
-        String discountValue = inputDis.getValueTextFieldCenter();
+                        if (!localType.equals(type)) {
+                             JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                             j.setMessage("A single order only accept one of discount type !");
+                             j.setVisible(true);
+                             return;
+                        }
+                   }
+              }
+         }
 
-        if (discountValue != null) {
-            if (discountValue.contains("$")) {
-                discountValue = discountValue.replace("$", "");
-            }
+         String discountValue = inputDis.getValueTextFieldCenter();
 
-            if (discountValue.contains("%")) {
-                discountValue = discountValue.replace("%", "");
-            }
-        }
+         if (discountValue != null) {
+              if (discountValue.contains("$")) {
+                   discountValue = discountValue.replace("$", "");
+              }
 
-        if (discountValue == null || discountValue.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please input discount value!");
-            return;
-        }
+              if (discountValue.contains("%")) {
+                   discountValue = discountValue.replace("%", "");
+              }
+         }
 
-        Component[] listHold = detailItem.getComponents();
-        double sumDiscount = 0;
-        double sumSubTotalUsd = 0;
-        double sumTotalUsd = 0;
+         if (discountValue == null || discountValue.isEmpty()) {
+              JOptionPane.showMessageDialog(null, "Please input discount value!");
+              return;
+         }
 
-        for (int i = 0; i < listHold.length; i++) {
-            var box = ((BoxItem) listHold[i]);
+         Component[] listHold = detailItem.getComponents();
+         double sumDiscount = 0;
+         double sumSubTotalUsd = 0;
+         double sumTotalUsd = 0;
 
-            if (type == "dollar") {
-                double _dollar = box.getQty() * Double.parseDouble(discountValue);
-                if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
+         for (int i = 0; i < listHold.length; i++) {
+              var box = ((BoxItem) listHold[i]);
 
-                    box.setDiscountAmount(dm.format(_dollar));
-                    box.setDiscountValue(Double.valueOf(discountValue));
-                    box.setDiscountType(type);
+              if (type == "dollar") {
+                   double _dollar = box.getQty() * Double.parseDouble(discountValue);
+                   if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
 
-                    //===================Remove border and prevent in button discount after input discount value=============
-                    JavaConstant.discountAmount = 1;
-                    box.setBorder(null);
-
-                }
-
-                if (JavaConstant.productId == 0) {
-                    // if you want to go to previous condition just remove box.getoldDiscount
-                    if(box.getOldDiscount() <= 0)
-                    {
                         box.setDiscountAmount(dm.format(_dollar));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
-                    }
-                }
 
-            } else {
-                double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));
-                double disvalue = Double.valueOf(discountValue);
-                double discountAmount = (amount * disvalue) / 100;
+                        //===================Remove border and prevent in button discount after input discount value=============
+                        JavaConstant.discountAmount = 1;
+                        box.setBorder(null);
 
-                if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
-                    box.setDiscountAmount(dm.format(discountAmount));
-                    box.setDiscountValue(Double.valueOf(discountValue));
-                    box.setDiscountType(type);
-                    box.setDiscountDigit(Double.parseDouble(discountValue));
+                   }
 
-                    //===================Remove border and prevent in button discount after input discount value=============
-                    JavaConstant.discountAmount = 1;
-                    box.setBorder(null);
-                }
+                   if (JavaConstant.productId == 0) {
+                        // if you want to go to previous condition just remove box.getoldDiscount
+                        if (box.getOldDiscount() <= 0) {
+                             box.setDiscountAmount(dm.format(_dollar));
+                             box.setDiscountValue(Double.valueOf(discountValue));
+                             box.setDiscountType(type);
+                        }
+                   }
 
-                if (JavaConstant.productId == 0) {
-                    
-                    // if you want to go to previous condition just remove box.getoldDiscount
-                    if(box.getOldDiscount() <= 0)
-                    {
+              } else {
+                   double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));
+                   double disvalue = Double.valueOf(discountValue);
+                   double discountAmount = (amount * disvalue) / 100;
+
+                   if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
                         box.setDiscountAmount(dm.format(discountAmount));
                         box.setDiscountValue(Double.valueOf(discountValue));
                         box.setDiscountType(type);
                         box.setDiscountDigit(Double.parseDouble(discountValue));
-                    }
-                }
 
-            }
+                        //===================Remove border and prevent in button discount after input discount value=============
+                        JavaConstant.discountAmount = 1;
+                        box.setBorder(null);
+                   }
 
-            sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
-            sumSubTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1));
-            sumTotalUsd = sumSubTotalUsd - sumDiscount;
+                   if (JavaConstant.productId == 0) {
 
-            totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-            totalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+                        // if you want to go to previous condition just remove box.getoldDiscount
+                        if (box.getOldDiscount() <= 0) {
+                             box.setDiscountAmount(dm.format(discountAmount));
+                             box.setDiscountValue(Double.valueOf(discountValue));
+                             box.setDiscountType(type);
+                             box.setDiscountDigit(Double.parseDouble(discountValue));
+                        }
+                   }
 
-            totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
-            totalPanel.setLableTotalKhr(kh.format(sumTotalUsd * JavaConstant.exchangeRate));
-        }
+              }
 
-        detailItem.revalidate();
-        detailItem.repaint();
-        dispose();
+              sumDiscount += Double.valueOf(box.getDiscountAmount().substring(1));
+              sumSubTotalUsd += Double.valueOf(box.getLabelAmountUsd().substring(1));
+              sumTotalUsd = sumSubTotalUsd - sumDiscount;
+
+              totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
+              totalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+
+              totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
+              totalPanel.setLableTotalKhr(kh.format(sumTotalUsd * JavaConstant.exchangeRate));
+         }
+
+         detailItem.revalidate();
+         detailItem.repaint();
+         dispose();
     }//GEN-LAST:event_btnDoneMouseClicked
 
 //    private void removeBorder(JDialog Discounting) {
@@ -748,205 +760,205 @@ public class Discounting extends javax.swing.JDialog {
 //               }
 //          });
 //    }
-    
+
     private void inputDisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputDisKeyTyped
 
     }//GEN-LAST:event_inputDisKeyTyped
 
-    //======================================== HOVER =================================
+     //======================================== HOVER =================================
 
     private void oneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseEntered
-        one.setBackground(WindowColor.lightGray);
+         one.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_oneMouseEntered
 
     private void oneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_oneMouseExited
-        one.setBackground(WindowColor.white);
+         one.setBackground(WindowColor.white);
     }//GEN-LAST:event_oneMouseExited
 
     private void twoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseEntered
-        two.setBackground(WindowColor.lightGray);
+         two.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_twoMouseEntered
 
     private void twoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoMouseExited
-        two.setBackground(WindowColor.white);
+         two.setBackground(WindowColor.white);
     }//GEN-LAST:event_twoMouseExited
 
     private void threeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseEntered
-        three.setBackground(WindowColor.lightGray);
+         three.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_threeMouseEntered
 
     private void threeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeMouseExited
-        three.setBackground(WindowColor.white);
+         three.setBackground(WindowColor.white);
     }//GEN-LAST:event_threeMouseExited
 
     private void delMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseEntered
-        del.setBackground(WindowColor.lightGray);
+         del.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_delMouseEntered
 
     private void delMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseExited
-        del.setBackground(WindowColor.white);
+         del.setBackground(WindowColor.white);
     }//GEN-LAST:event_delMouseExited
 
     private void fiveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseEntered
-        five.setBackground(WindowColor.lightGray);
+         five.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_fiveMouseEntered
 
     private void fiveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveMouseExited
-        five.setBackground(WindowColor.white);
+         five.setBackground(WindowColor.white);
     }//GEN-LAST:event_fiveMouseExited
 
     private void sixMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseEntered
-        six.setBackground(WindowColor.lightGray);
+         six.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_sixMouseEntered
 
     private void sixMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sixMouseExited
-        six.setBackground(WindowColor.white);
+         six.setBackground(WindowColor.white);
     }//GEN-LAST:event_sixMouseExited
 
     private void dotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseEntered
-        dot.setBackground(WindowColor.lightGray);
+         dot.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_dotMouseEntered
 
     private void dotMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dotMouseExited
-        dot.setBackground(WindowColor.white);
+         dot.setBackground(WindowColor.white);
     }//GEN-LAST:event_dotMouseExited
 
     private void sevenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseEntered
-        seven.setBackground(WindowColor.lightGray);
+         seven.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_sevenMouseEntered
 
     private void sevenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sevenMouseExited
-        seven.setBackground(WindowColor.white);
+         seven.setBackground(WindowColor.white);
     }//GEN-LAST:event_sevenMouseExited
 
     private void fourMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseEntered
-        four.setBackground(WindowColor.lightGray);
+         four.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_fourMouseEntered
 
     private void fourMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourMouseExited
-        four.setBackground(WindowColor.white);
+         four.setBackground(WindowColor.white);
     }//GEN-LAST:event_fourMouseExited
 
     private void eightMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseEntered
-        eight.setBackground(WindowColor.lightGray);
+         eight.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_eightMouseEntered
 
     private void eightMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eightMouseExited
-        eight.setBackground(WindowColor.white);
+         eight.setBackground(WindowColor.white);
     }//GEN-LAST:event_eightMouseExited
 
     private void nineMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseEntered
-        nine.setBackground(WindowColor.lightGray);
+         nine.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_nineMouseEntered
 
     private void nineMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nineMouseExited
-        nine.setBackground(WindowColor.white);
+         nine.setBackground(WindowColor.white);
     }//GEN-LAST:event_nineMouseExited
 
     private void zeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseEntered
-        zero.setBackground(WindowColor.lightGray);
+         zero.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_zeroMouseEntered
 
     private void zeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_zeroMouseExited
-        zero.setBackground(WindowColor.white);
+         zero.setBackground(WindowColor.white);
     }//GEN-LAST:event_zeroMouseExited
 
     private void tenPercentsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenPercentsMouseEntered
-        tenPercents.setBackground(WindowColor.lightGray);
+         tenPercents.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_tenPercentsMouseEntered
 
     private void tenPercentsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tenPercentsMouseExited
-        tenPercents.setBackground(WindowColor.slightBlue);
+         tenPercents.setBackground(WindowColor.slightBlue);
     }//GEN-LAST:event_tenPercentsMouseExited
 
     private void twentyPercentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twentyPercentMouseEntered
-        twentyPercent.setBackground(WindowColor.lightGray);
+         twentyPercent.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_twentyPercentMouseEntered
 
     private void twentyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twentyPercentMouseExited
-        twentyPercent.setBackground(WindowColor.slightBlue);
+         twentyPercent.setBackground(WindowColor.slightBlue);
     }//GEN-LAST:event_twentyPercentMouseExited
 
     private void thirtyPercentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirtyPercentMouseEntered
-        thirtyPercent.setBackground(WindowColor.lightGray);
+         thirtyPercent.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_thirtyPercentMouseEntered
 
     private void thirtyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thirtyPercentMouseExited
-        thirtyPercent.setBackground(WindowColor.slightBlue);
+         thirtyPercent.setBackground(WindowColor.slightBlue);
     }//GEN-LAST:event_thirtyPercentMouseExited
 
     private void fiftyPercentMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseEntered
-        fiftyPercent.setBackground(WindowColor.lightGray);
+         fiftyPercent.setBackground(WindowColor.lightGray);
     }//GEN-LAST:event_fiftyPercentMouseEntered
 
     private void fiftyPercentMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiftyPercentMouseExited
-        fiftyPercent.setBackground(WindowColor.slightBlue);
+         fiftyPercent.setBackground(WindowColor.slightBlue);
     }//GEN-LAST:event_fiftyPercentMouseExited
 
-    //========================================================================
-    public JPanel getDetailItem() {
-        return detailItem;
-    }
+     //========================================================================
+     public JPanel getDetailItem() {
+          return detailItem;
+     }
 
-    public void setDetailItem(JPanel detailItem) {
-        this.detailItem = detailItem;
-    }
+     public void setDetailItem(JPanel detailItem) {
+          this.detailItem = detailItem;
+     }
 
-    public BoxItem getBox() {
-        return box;
-    }
+     public BoxItem getBox() {
+          return box;
+     }
 
-    public void setBox(BoxItem box) {
-        this.box = box;
-    }
+     public void setBox(BoxItem box) {
+          this.box = box;
+     }
 
-    public SubtotalPanel getTotalPanel() {
-        return totalPanel;
-    }
+     public SubtotalPanel getTotalPanel() {
+          return totalPanel;
+     }
 
-    public void setTotalPanel(SubtotalPanel totalPanel) {
-        this.totalPanel = totalPanel;
-    }
+     public void setTotalPanel(SubtotalPanel totalPanel) {
+          this.totalPanel = totalPanel;
+     }
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Discounting dialog = new Discounting(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(Discounting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    Discounting dialog = new Discounting(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnDone;
