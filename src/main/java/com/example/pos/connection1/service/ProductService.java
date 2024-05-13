@@ -247,6 +247,22 @@ public class ProductService {
         return repo.countProductByBrandId(brandId);
     }
 
+
+    public List<ProductModel> getProductPromotion(){
+        List<ProductProjection> listD = repo.getProductPromotion();
+        List<ProductModel> listModel = new ArrayList<>();
+        for (int i = 0; i < listD.size(); i++) {
+            var data = listD.get(i);
+            Integer qty = repoImp.getQty(data.getId());
+            if (qty == null)
+                qty = 0;
+            ProductModel p = proModel(data, qty);
+            listModel.add(p);
+        }
+        return listModel;
+    }
+
+
     public List<ProductModel> getListProductByBrandId(int brandId, int limit , int page) {
 
         List<ProductProjection> listD = repo.getProductByBrandId(brandId, limit ,page);
