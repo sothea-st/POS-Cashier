@@ -51,6 +51,7 @@ public class ComboBox extends javax.swing.JPanel {
               public void actionPerformed(ActionEvent e) {
                    String itemName = combo.getSelectedItem().toString();
                    events.onSelect(map.get(itemName));
+                   events.onSelectBreadcrumb(map.get(itemName),itemName);
               }
          });
      }

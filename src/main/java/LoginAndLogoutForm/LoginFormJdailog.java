@@ -478,11 +478,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void eventSelectBrand() {
           ButtonEvent events = new ButtonEvent() {
                @Override
-               public void onSelect(String key) {
+               public void onSelectBreadcrumb(String key, String value) {
                     if (key != null) {
                          JavaConstant.brandId = Integer.parseInt(key);
+                         breadcrumb.setLabelTitle(value);
                     }
-
                     getProductByBrandID(key, limit);
                }
           };

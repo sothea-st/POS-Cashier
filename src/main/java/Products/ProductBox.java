@@ -48,9 +48,19 @@ public class ProductBox extends javax.swing.JPanel {
 
      public void setDiscountPercent(double discountPercent) {
           this.discountPercent = discountPercent;
+          int disc = (int) discountPercent;
+          String dis = ""+discountPercent;
+          
           if (discountPercent > 0) {
-               percent.setDiscountPercent("<html>" + discountPercent + "%" + "<br>" + "Off" + "</html>");
-               percent.setVisible(true);
+              
+              if(dis.contains(".0")){
+                  percent.setDiscountPercent("<html>" + disc + "%" + "<br>" + "Off" + "</html>");
+                  percent.setVisible(true);
+              }else{
+                  percent.setDiscountPercent("<html>" + discountPercent + "%" + "<br>" + "Off" + "</html>");
+                  percent.setVisible(true);
+              }
+               
           } else {
                percent.setVisible(false);
           }
@@ -184,7 +194,8 @@ public class ProductBox extends javax.swing.JPanel {
           txtBarcode.setForeground(WindowColor.gray);
           lbQty.setFont(WindowFonts.timeNewRomanBold12);
           jLabel2.setFont(WindowFonts.timeNewRomanBold12);
-//          lbQty.setVisible(false);
+          lbQty.setVisible(false);
+          jLabel2.setVisible(false);
      }
 
      //=================================================
