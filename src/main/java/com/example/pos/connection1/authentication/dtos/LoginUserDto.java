@@ -4,6 +4,16 @@ public class LoginUserDto {
     private String userCode;
     private String password;
     private String deviceName;
+    private String ipAddress;
+
+
+    // public void setIpAddress(String ipAdrress){
+    //     this.ipAddress = ipAdrress;
+    // }
+    
+    public String getIpAddress(){
+        return ipAddress;
+    }
 
     public String getDeviceName() {
         return deviceName;

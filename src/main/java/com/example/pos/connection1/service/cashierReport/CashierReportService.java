@@ -53,6 +53,7 @@ public class CashierReportService {
     private HashMap<String, Object> map = new HashMap<>();
 
     public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
+        System.out.println("dddddddddddd : " + userId);
         int id = userId;
         // get company info
         Company company = repoCompany.getInfoCompany();
@@ -82,9 +83,9 @@ public class CashierReportService {
         CloseShift closeShift = closeShiftRepo.getCloseShift(userCode, JavaConstant.currentDate, posId);
         map.put("closeCash", 1);
         map.put("closeDate", closeShift.getCloseTime());
-        double cashCount = closeShift.getCashCount() == null ? 0 : closeShift.getCashCount().doubleValue();
+        // double cashCount = closeShift.getCashCount() == null ? 0 : closeShift.getCashCount().doubleValue();
         // cashCount = JavaConstant.getTwoPrecision(cashCount);
-        map.put("cashierCount", cashCount);
+        // map.put("cashierCount", cashCount);
 
         // Sale summery
         SalesSummery(id, posId, userCode);
