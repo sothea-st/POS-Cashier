@@ -36,10 +36,13 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
  
@@ -62,8 +65,6 @@ public class MainPage extends javax.swing.JFrame {
      public void setBgImage() {
           BackgroundImage bgimg = new BackgroundImage();
           panelProduct.setLayout(new GridBagLayout());
-//                   JLabel lbImg = new JLabel();
-//                   JavaConnection.getImage(lbImg, "King Mart Background.png");
           panelProduct.removeAll();
           panelProduct.add(bgimg);
           panelProduct.revalidate();
@@ -768,6 +769,10 @@ public class MainPage extends javax.swing.JFrame {
     private void btnPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseClicked
 
          if (JavaConstant.token != null) {
+              
+              System.out.println("get button name : " + btnPayment.getButtonName());
+              
+              
 
 //              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
               Component[] listCom = detailItem.getComponents();
@@ -786,6 +791,18 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setButtonHoldOrder(buttonHoldOrder);
                    pay.setjScrollPaneDetail(jScrollPaneDetail);
                    pay.setTitleOrder(titleOrder);
+                   
+                   
+                   if( btnPayment.getButtonName().equals("Return") ) {
+                        try {
+                             pay.returnProduct();
+                        } catch (IOException ex) {
+                             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        return;
+                   }
+                   
+                   
                    pay.setVisible(true);
               }
 //              } else { // there is transaction retrun 

@@ -121,7 +121,7 @@ public class CashierPreview extends javax.swing.JDialog {
                openCashUsd.setText("USD " + dm.format(data.getOpenCashUsd()));
                openCashKhr.setText("KHR " + kh.format(data.getOpenCashKhr()));
                openTill.setText("Open Till : " + dm.format(data.getOpenCashKhr() / JavaConstant.exchangeRate + data.getOpenCashUsd()));
-               cashierCount.setText(dm.format(data.getCashierCount()));
+//               cashierCount.setText(dm.format(data.getCashierCount()));
                displaySaleSummary(data);
                displaySummeryAllProVat(data);
                displayPaymentSummary(data);
@@ -225,7 +225,7 @@ public class CashierPreview extends javax.swing.JDialog {
           double openTill = (data.getOpenCashKhr() / JavaConstant.exchangeRate) + data.getOpenCashUsd();
           
           closedAmount.setText("Close Amount : " + dm.format(openTill + sumTotalPayment));
-          countedDifferent.setText("Counted Differen : " + dm.format(data.getCashierCount() - (openTill + sumTotalPayment)));
+//          countedDifferent.setText("Counted Differen : " + dm.format(data.getCashierCount() - (openTill + sumTotalPayment)));
           
           sumTotal.setText(dm.format(sumTotalPayment));
           paymentPanel.setLayout(new BoxLayout(paymentPanel, BoxLayout.Y_AXIS));

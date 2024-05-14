@@ -2,16 +2,21 @@ package Constant;
 
 import Components.BoxItem;
 import Components.countCircleShape;
+import Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import Products.ProductBox;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -34,6 +40,24 @@ import okhttp3.MediaType;
 import org.w3c.dom.events.DocumentEvent;
 
 public class JavaConstant {
+
+     public static void setResultNotFound(JPanel panelProduct, JPanel panelPagination) {
+          panelPagination.setVisible(false);
+          JLabel lb = new JLabel("No Results");
+          lb.setFont(WindowFonts.timeNewRomanBold16);
+          panelProduct.setLayout(new GridBagLayout());
+          panelProduct.removeAll();
+          panelProduct.revalidate();
+          panelProduct.repaint();
+          panelProduct.setBorder(new EmptyBorder(10, 0, 0, 0));
+          // Set the label to be centered within the panel
+          GridBagConstraints constraints = new GridBagConstraints();
+          constraints.gridx = 0;
+          constraints.gridy = 0;
+          constraints.weighty = 1.0; // Expand horizontally
+          constraints.anchor = GridBagConstraints.NORTH; // Align to the top
+          panelProduct.add(lb, constraints);
+     }
 
      public static void resetValueReturn() {
           JavaConstant.isReturn = null;
@@ -168,6 +192,14 @@ public class JavaConstant {
           } else {
                return "Unknown";
           }
+     }
+
+     public static String getIpAddressPC() throws UnknownHostException {
+          InetAddress localHost = InetAddress.getLocalHost();
+
+          // Get the IP address as a string
+          String ipAddress = localHost.getHostAddress();
+          return ipAddress;
      }
 
      public static countCircleShape circleShape;
