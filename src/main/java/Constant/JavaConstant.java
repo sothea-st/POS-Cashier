@@ -13,8 +13,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,7 +41,7 @@ import org.w3c.dom.events.DocumentEvent;
 
 public class JavaConstant {
 
-     public static void setResultNotFound(JPanel panelProduct , JPanel panelPagination ) {
+     public static void setResultNotFound(JPanel panelProduct, JPanel panelPagination) {
           panelPagination.setVisible(false);
           JLabel lb = new JLabel("No Results");
           lb.setFont(WindowFonts.timeNewRomanBold16);
@@ -47,7 +49,7 @@ public class JavaConstant {
           panelProduct.removeAll();
           panelProduct.revalidate();
           panelProduct.repaint();
-          panelProduct.setBorder(new EmptyBorder(10,0,0,0));
+          panelProduct.setBorder(new EmptyBorder(10, 0, 0, 0));
           // Set the label to be centered within the panel
           GridBagConstraints constraints = new GridBagConstraints();
           constraints.gridx = 0;
@@ -190,6 +192,14 @@ public class JavaConstant {
           } else {
                return "Unknown";
           }
+     }
+
+     public static String getIpAddressPC() throws UnknownHostException {
+          InetAddress localHost = InetAddress.getLocalHost();
+
+          // Get the IP address as a string
+          String ipAddress = localHost.getHostAddress();
+          return ipAddress;
      }
 
      public static countCircleShape circleShape;

@@ -95,6 +95,7 @@ public class Discounting extends javax.swing.JDialog {
                if (!discountValue.isEmpty()) {
 
                     if (discountValue != null) {
+                         discountValue = discountValue.replace("%", "");
                          Double _dDiscount = Double.valueOf(discountValue);
                          if (_dDiscount >= 100) {
                               return;

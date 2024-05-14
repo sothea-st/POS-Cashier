@@ -43,6 +43,9 @@ import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 public class LoginFormJdailog extends javax.swing.JDialog {
@@ -356,15 +359,21 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
 
-         String userId = "0005";
+         String userId = "0004";
          String password = "TT@126$kh#";
-
-         String deviceName = JavaConstant.getDeviceName();
-
          JSONObject json = new JSONObject();
-         json.put("userCode", userId);
-         json.put("password", password);
-         json.put("deviceName", deviceName);
+         String deviceName = JavaConstant.getDeviceName();
+         String ipAddress;
+         try {
+              ipAddress = JavaConstant.getIpAddressPC();
+
+              json.put("userCode", userId);
+              json.put("password", password);
+              json.put("deviceName", deviceName);
+              json.put("ipAddress", ipAddress);
+         } catch (Exception ex) {
+              System.err.println("erro getIpAddress : " + ex);
+         }
 
          JavaConstant.setCircleLoadingCursor(mainFrame);
 
@@ -591,7 +600,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              listCom[0].setBackground(WindowColor.black);
                                              setCatId(0);
                                         } else {
-                                         
+
                                              if (catId == 2) {  // catId = 2 NEW ITEMS
                                                   panelPagination.setVisible(false);
                                                   pro.newProduct(catId, limit, panelProduct);
