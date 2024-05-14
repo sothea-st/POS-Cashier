@@ -679,28 +679,37 @@ public class Discounting extends javax.swing.JDialog {
          for (int i = 0; i < listHold.length; i++) {
               var box = ((BoxItem) listHold[i]);
 
-              if (type == "dollar") {
-                   double _dollar = box.getQty() * Double.parseDouble(discountValue);
-                   if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
+               if (type == "dollar") {
+                    double _dollar = box.getQty() * Double.parseDouble(discountValue);
+                    double amount = Double.parseDouble(box.getLabelAmountUsd().replace("$", ""));
+                    if (JavaConstant.productId != 0 && box.getProductId() == JavaConstant.productId) {
+                        if( amount > _dollar){
+                            box.setDiscountAmount(dm.format(_dollar));
+                            box.setDiscountValue(Double.valueOf(discountValue));
+                            box.setDiscountType(type);
 
-                        box.setDiscountAmount(dm.format(_dollar));
-                        box.setDiscountValue(Double.valueOf(discountValue));
-                        box.setDiscountType(type);
-
-                        //===================Remove border and prevent in button discount after input discount value=============
-                        JavaConstant.discountAmount = 1;
-                        box.setBorder(null);
-
-                   }
-
-                   if (JavaConstant.productId == 0) {
-                        // if you want to go to previous condition just remove box.getoldDiscount
-                        if (box.getOldDiscount() <= 0) {
-                             box.setDiscountAmount(dm.format(_dollar));
-                             box.setDiscountValue(Double.valueOf(discountValue));
-                             box.setDiscountType(type);
+                            //===================Remove border and prevent in button discount after input discount value=============
+                            JavaConstant.discountAmount = 1;
+                            box.setBorder(null);
+                        }else{
+                            JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                            j.setMessage("Discount price is greater than original price!");
+                            j.setVisible(true);
+                            return;
                         }
-                   }
+                    }
+
+                    if (JavaConstant.productId == 0) {
+                        // if you want to go to previous condition just remove box.getoldDiscount
+                        if(box.getOldDiscount() <= 0)
+                        {
+                            if( amount > _dollar){
+                                box.setDiscountAmount(dm.format(_dollar));
+                                box.setDiscountValue(Double.valueOf(discountValue));
+                                box.setDiscountType(type);
+                            }
+                        }
+                    }
 
               } else {
                    double amount = Double.valueOf(box.getLabelAmountUsd().substring(1));

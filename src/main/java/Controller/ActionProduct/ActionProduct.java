@@ -134,6 +134,25 @@ public class ActionProduct {
                System.err.println("error getting product " + e);
           }
      }
+     
+     
+      public void getPromotion(int catId, int limit, JPanel panelProduct) {
+           try {
+               Response response = JavaConnection.get(JavaRoute.getPromotion);
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
+                    ProductDataModel[] listData = data.getData();
+                    setCount(data.getCount());
+                    assignProduct(listData, panelProduct);
+               } else {
+                    System.err.println("fail loading product 333");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
 
      public void assignProduct(ProductDataModel[] listData, JPanel panelProduct) {
           ArrayList<ProductModel> listProduct = new ArrayList<>();
