@@ -10,10 +10,12 @@ import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.repository.DeviceRepository;
 import com.example.pos.connection1.repository.EmployeeRepository;
+import com.example.pos.connection1.repository.IPAddressRepository;
 import com.example.pos.connection1.repository.UserRepository;
 import com.example.pos.connection1.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
 import com.example.pos.connection1.entity.Device;
+import com.example.pos.connection1.entity.IPAddressPOSID;
 import com.example.pos.connection1.entity.User;
 
 import jakarta.servlet.http.HttpSession;
@@ -51,9 +53,13 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepo;
 
-    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
+    private final IPAddressRepository ipAddressRepository;
+
+    public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService,
+            IPAddressRepository ipAddressRepository) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
+        this.ipAddressRepository = ipAddressRepository;
     }
 
     @PostMapping("/register")
@@ -109,20 +115,58 @@ public class AuthenticationController {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = new LoginResponse().setToken(jwtToken)
-                .setExpiresIn(jwtService.getExpirationTime());
-        // authenticatedUser.setToken(jwtToken);
-        // authenticatedUser.setPosId(posId);
-        // authenticatedUser.setExpiredToken(String.valueOf(loginResponse.getExpiresIn()));
+        int getCountIP = ipAddressRepository.getCountIP();
+
+        String posId = "";
+
+      
+
+        if( loginUserDto.getIpAddress() == null && loginUserDto.getDeviceName() == null ) {
+
+        } else {
+            if (getCountIP > 0) {
+                Optional<IPAddressPOSID> checkIPaddress = ipAddressRepository.getIpAdrress(loginUserDto.getIpAddress());
+            
+                // checkIPaddress = null => the device does not exist yet
+                if (checkIPaddress.isEmpty()) {
+                    getCountIP++;
+                    if (getCountIP < 10) {
+                        posId = "0" + getCountIP;
+                    } else {
+                        posId = "" + getCountIP;
+                    }
+                    IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+                            .ipAddress(loginUserDto.getIpAddress())
+                            .deviceName(loginUserDto.getDeviceName())
+                            .posId(posId)
+                            .build();
+                    ipAddressRepository.save(ipAddressPOSID);
+                } else {
+                    posId = checkIPaddress.get().getPosId();
+                }
+                // checkIPaddress != null => the device already exist
+            } else {
+                posId = "01";
+                IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+                        .ipAddress(loginUserDto.getIpAddress())
+                        .deviceName(loginUserDto.getDeviceName())
+                        .posId(posId)
+                        .build();
+                ipAddressRepository.save(ipAddressPOSID);
+            }
+        }
+
+        // LoginResponse loginResponse = new LoginResponse().setToken(jwtToken)
+        // .setExpiresIn(jwtService.getExpirationTime());
 
         int countPosId = repoOpen.countPosId(JavaConstant.currentDate);
-        countPosId++;
-        String posId = "";
-        if (countPosId < 10) {
-            posId = "0" + countPosId;
-        } else {
-            posId = "" + countPosId;
-        }
+        // countPosId++;
+        // String posId = "";
+        // if (countPosId < 10) {
+        // posId = "0" + countPosId;
+        // } else {
+        // posId = "" + countPosId;
+        // }
         // user name
         String userName = null;
         if (authenticatedUser.getEmpId() != null) {
@@ -134,8 +178,6 @@ public class AuthenticationController {
         if (authenticatedUser.getRole() != null) {
             roleName = repoRole.findById(authenticatedUser.getRole()).get().getRoleName();
         }
-
- 
 
         if (loginUserDto.getDeviceName() != null) {
             if (authenticatedUser.getDevice() == null) {
@@ -164,8 +206,6 @@ public class AuthenticationController {
         httpSession.setAttribute(JavaConstant.userId, authenticatedUser.getId());
         httpSession.setAttribute(JavaConstant.userCode, authenticatedUser.getUserCode());
 
-
-        
         map.put("id", authenticatedUser.getId());
         map.put("empId", authenticatedUser.getEmpId());
         map.put("userCode", authenticatedUser.getUserCode());

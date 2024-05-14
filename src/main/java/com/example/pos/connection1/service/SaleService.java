@@ -18,11 +18,9 @@ import com.example.pos.connection1.repository.paymentRepository.PaymentRepositor
 import com.example.pos.connection1.repository.peopleRepository.CustomerRepository;
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
 import com.example.pos.connection1.service.paymentService.ReprintService;
-
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.awt.image.BufferedImage;
 import java.time.Year;
 import java.util.*;

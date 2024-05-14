@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.example.pos.connection1.service.shiftService.CloseShiftService;
 import com.example.pos.connection1.service.shiftService.OpenShiftService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,6 @@ import com.example.pos.connection1.service.sourceDataService.CustomerTypeService
 import com.example.pos.connection1.service.sourceDataService.ReasonService;
 import com.example.pos.connection1.service.sourceDataService.ReturnProductService;
 import com.example.pos.connection1.service.sourceDataService.SourceService;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
