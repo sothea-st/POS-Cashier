@@ -115,46 +115,43 @@ public class AuthenticationController {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        int getCountIP = ipAddressRepository.getCountIP();
+        System.out.println("userID : " + authenticatedUser.getId());
 
-        String posId = "";
 
-      
+        // int getCountIP = ipAddressRepository.getCountIP();
 
-        if( loginUserDto.getIpAddress() == null && loginUserDto.getDeviceName() == null ) {
+        String posId = "01";
 
-        } else {
-            if (getCountIP > 0) {
-                Optional<IPAddressPOSID> checkIPaddress = ipAddressRepository.getIpAdrress(loginUserDto.getIpAddress());
-            
-                // checkIPaddress = null => the device does not exist yet
-                if (checkIPaddress.isEmpty()) {
-                    getCountIP++;
-                    if (getCountIP < 10) {
-                        posId = "0" + getCountIP;
-                    } else {
-                        posId = "" + getCountIP;
-                    }
-                    IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
-                            .ipAddress(loginUserDto.getIpAddress())
-                            .deviceName(loginUserDto.getDeviceName())
-                            .posId(posId)
-                            .build();
-                    ipAddressRepository.save(ipAddressPOSID);
-                } else {
-                    posId = checkIPaddress.get().getPosId();
-                }
-                // checkIPaddress != null => the device already exist
-            } else {
-                posId = "01";
-                IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
-                        .ipAddress(loginUserDto.getIpAddress())
-                        .deviceName(loginUserDto.getDeviceName())
-                        .posId(posId)
-                        .build();
-                ipAddressRepository.save(ipAddressPOSID);
-            }
-        }
+        // if (loginUserDto.getIpAddress() == null && loginUserDto.getDeviceName() == null) {
+
+        // } else {
+        //     if (getCountIP > 0) {
+        //         Optional<IPAddressPOSID> checkIPaddress = ipAddressRepository.getIpAdrress(loginUserDto.getIpAddress());
+        //         getCountIP++;
+        //         if (getCountIP < 10) {
+        //             posId = "0" + getCountIP;
+        //         } else {
+        //             posId = "" + getCountIP;
+        //         }
+        //         IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+        //                 .ipAddress(loginUserDto.getIpAddress())
+        //                 .deviceName(loginUserDto.getDeviceName())
+        //                 .posId(posId)
+        //                 .userId(""+authenticatedUser.getId())
+        //                 .build();
+        //         ipAddressRepository.save(ipAddressPOSID);
+
+        //     } else {
+        //         posId = "01";
+        //         IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+        //                 .ipAddress(loginUserDto.getIpAddress())
+        //                 .deviceName(loginUserDto.getDeviceName())
+        //                 .posId(posId)
+        //                 .userId(""+authenticatedUser.getId())
+        //                 .build();
+        //         ipAddressRepository.save(ipAddressPOSID);
+        //     }
+        // }
 
         // LoginResponse loginResponse = new LoginResponse().setToken(jwtToken)
         // .setExpiresIn(jwtService.getExpirationTime());

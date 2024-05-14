@@ -33,11 +33,7 @@ public class IPAddressPOSID {
 
      @Column(name = "pos_id")
      private String posId;
-    
-     @Column(name = "status")
-     private boolean status =true;
 
-     @Column(name = "is_deleted")
-     private boolean isDeleted = false;
-
+     @Column(name = "user_id")
+     private String userId;
 }
