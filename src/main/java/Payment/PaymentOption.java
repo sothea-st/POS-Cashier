@@ -1847,7 +1847,7 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
-          System.out.println("jsonReturnData : " + jsonReturnData);
+        
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
@@ -1886,7 +1886,7 @@ public class PaymentOption extends javax.swing.JDialog {
                ReturnDialog r = new ReturnDialog(new JFrame(), true);
                r.setResetReturn();
 
-               ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
+//               ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
 
           } else {
                System.err.println("err = 4444");

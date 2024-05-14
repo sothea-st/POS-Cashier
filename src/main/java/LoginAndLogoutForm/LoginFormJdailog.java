@@ -591,7 +591,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                              listCom[0].setBackground(WindowColor.black);
                                              setCatId(0);
                                         } else {
-                                             System.out.println("catId : " + catId);
+                                         
                                              if (catId == 2) {  // catId = 2 NEW ITEMS
                                                   panelPagination.setVisible(false);
                                                   pro.newProduct(catId, limit, panelProduct);

@@ -4,8 +4,10 @@ import BlogCode.ActionUpdateQty;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
+import Components.BackgroundImage;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
+
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -13,6 +15,7 @@ import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
@@ -31,10 +34,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.net.URL;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
+
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -73,12 +76,18 @@ public class ActionProduct {
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-             
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
+
+                    if (listData.length == 0) {
+                        JavaConstant.setResultNotFound(panelProduct,panelPagination );
+                         return;
+                    }
+
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -175,12 +184,12 @@ public class ActionProduct {
      }
 
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel panelProduct) {
- 
+
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0 ,0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0,1}; // 1 align item to top
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0 , 0 };
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0,0,1}; // 1 align item to left 
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 1}; // 1 align item to top
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 1}; // 1 align item to left 
 
           panelProduct.setLayout(gridBagLayout);
 
@@ -304,7 +313,6 @@ public class ActionProduct {
                product.initEvent(event);
 
                product.setOrgQty(listData.getQty());
-            
 
 //================================Product Status============================
                if (listData.getQty() > 0) {
@@ -460,9 +468,7 @@ public class ActionProduct {
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 
-
-          
-          if (JavaConstant.tmpInvoice == null ) {
+          if (JavaConstant.tmpInvoice == null) {
                //          ==== cut qty in panel product =====
                Component[] listPanel = panelProduct.getComponents();
                for (Component c : listPanel) {
@@ -475,8 +481,6 @@ public class ActionProduct {
                     }
                }
           }
-
-
 
           if (qtyData > 1) {
                box.setLabelPrice(dm.format(price));

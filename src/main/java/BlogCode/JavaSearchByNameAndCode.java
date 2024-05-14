@@ -44,8 +44,7 @@ public class JavaSearchByNameAndCode {
                          }
 
                          if (JavaConstant.checkOpenShift) {
-
-                              ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct);
+                              ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct ,panelPagination);
                               panelPagination.setVisible(false);
 
                               // each time search product by barcode or name category will remove bg color 

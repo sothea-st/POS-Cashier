@@ -22,7 +22,7 @@ public class ActionSearchProduct {
           return true;
      }
 
-     public static void searchProduct(String valueSearch, LoginFormJdailog jdFormLogin, JPanel panelProduct) {
+     public static void searchProduct(String valueSearch, LoginFormJdailog jdFormLogin, JPanel panelProduct , JPanel panelPagination) {
           String code = "";
           boolean isCheck = ActionSearchProduct.checkOnlyDigits(valueSearch);
           if (isCheck) {
@@ -51,10 +51,11 @@ public class ActionSearchProduct {
                     if (listProduct.length > 0) {
                          jdFormLogin.assignProduct(listProduct);
                     } else {
-                         panelProduct.removeAll();
-                         panelProduct.add(new JLabel(JavaConstant.noResult));
-                         panelProduct.revalidate();
-                         panelProduct.repaint();
+//                         panelProduct.removeAll();
+//                         panelProduct.add(new JLabel(JavaConstant.noResult));
+//                         panelProduct.revalidate();
+//                         panelProduct.repaint();
+                         JavaConstant.setResultNotFound(panelProduct,panelPagination );
                     }
 
                } catch (Exception e) {
