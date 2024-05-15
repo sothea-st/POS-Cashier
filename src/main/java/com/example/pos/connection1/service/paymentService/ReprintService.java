@@ -88,6 +88,7 @@ public class ReprintService {
         //     }
         // }
 
+        System.out.println("jjjjj = " +  paymentData.getPayment_no());
         map.put("paymentNo", paymentData.getPayment_no());
         map.put("paymentBarcode", paymentData.getPayment_barcode());
         map.put("saleDate", paymentData.getSale_date());

@@ -46,6 +46,9 @@ public class Payment {
      @Column(name = "remaining_usd",precision = 10 , scale = 2)
      private BigDecimal remainingUsd;
 
+     @Column(name = "pos_id")
+     private String posId;
+
      @Column(name = "remaining_khr")
      @NotNull(message = JavaMessage.required)
      @NotBlank(message = JavaMessage.required)

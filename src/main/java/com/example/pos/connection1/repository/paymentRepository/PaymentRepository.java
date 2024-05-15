@@ -25,8 +25,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
         @Query(nativeQuery = true, value = " select pp.payment_no  from pos_payment pp where payment_barcode = ?")
         String getInvoice(String paymentBarcode);
 
-        @Query(nativeQuery = true, value = "select count(*) from pos_payment pp")
-        int countRecord();
+        @Query(nativeQuery = true, value = "select count(*) from pos_payment pp where pos_id = ?")
+        int countRecord(String posId);
 
         @Query(nativeQuery = true, value = "select count(*) from pos_sale where sale_date = ?")
         int countSale(String currentData);

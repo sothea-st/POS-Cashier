@@ -70,7 +70,8 @@ public class SaleService {
         int userId = s.getUserId();
         // System.out.println("user id = " + userId);
         HashMap<String, Object> map = new HashMap<>();
-        String posId = repoOpen.getPosId(s.getUserCode(), JavaConstant.currentDate);
+        // String posId = repoOpen.getPosId(s.getUserCode(), JavaConstant.currentDate);
+        String posId = s.getPosId();
         Sale sale = new Sale();
         sale.setUserId(userId);
         sale.setPosId(posId);
@@ -128,11 +129,18 @@ public class SaleService {
 
         // save payment
         Payment p = s.getDataPay();
-        int count = payRepo.countRecord();
+
+ 
+        int count = payRepo.countRecord(posId);
+     
         count++;
-        String paymentNo = paymentNo(count, s.getPosId());
+        String paymentNo = paymentNo(count, posId);
+
+   
+
         String paymentBarcode = paymentBarcode(count);
-        addPayment(paymentNo, saleId, p, userId, paymentBarcode);
+   
+        addPayment(paymentNo, saleId, p, userId, paymentBarcode,posId);
          
         return reprintService.readData("");
 
@@ -165,7 +173,7 @@ public class SaleService {
         return cusId;
     }
 
-    public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode)
+    public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode , String posId)
             throws Exception {
         Payment data = new Payment();
         data.setPaymentBarcode(paymentBarcode);
@@ -182,6 +190,7 @@ public class SaleService {
         data.setSourceId(p.getSourceId());
         data.setDiscountType(p.getDiscountType());
         data.setDiscountValue(p.getDiscountValue());
+        data.setPosId(posId);
         data.setCreateBy(createBy);
         payRepo.save(data);
 
@@ -197,19 +206,21 @@ public class SaleService {
         int currentYear = Year.now().getValue();
         String _year = "" + currentYear;
         _year = _year.substring(2, _year.length());
-        // System.out.println("Current Year: " + _year.substring(2, _year.length()));
+  
         String paymentNo = "101-" + posId + "-"+_year+"-";
         if (count < 10) {
-            paymentNo += "00000" + count;
+            paymentNo += "000000" + count;
         } else if (count < 100) {
-            paymentNo += "0000" + count;
+            paymentNo += "00000" + count;
         } else if (count < 1000) {
-            paymentNo += "000" + count;
+            paymentNo += "0000" + count;
         } else if (count < 10000) {
-            paymentNo += "00" + count;
+            paymentNo += "000" + count;
         } else if (count < 100000) {
-            paymentNo += "0" + count;
+            paymentNo += "00" + count;
         } else if (count < 1000000) {
+            paymentNo += "0" + count;
+        } else {
             paymentNo += "" + count;
         }
         return paymentNo;
@@ -217,17 +228,20 @@ public class SaleService {
 
     String paymentBarcode(int count) {
         String paymentNo = "";
+     
         if (count < 10) {
-            paymentNo += "00000" + count;
+            paymentNo += "000000" + count;
         } else if (count < 100) {
-            paymentNo += "0000" + count;
+            paymentNo += "00000" + count;
         } else if (count < 1000) {
-            paymentNo += "000" + count;
+            paymentNo += "0000" + count;
         } else if (count < 10000) {
-            paymentNo += "00" + count;
+            paymentNo += "000" + count;
         } else if (count < 100000) {
-            paymentNo += "0" + count;
+            paymentNo += "00" + count;
         } else if (count < 1000000) {
+            paymentNo += "0" + count;
+        } else {
             paymentNo += "" + count;
         }
         return paymentNo;
