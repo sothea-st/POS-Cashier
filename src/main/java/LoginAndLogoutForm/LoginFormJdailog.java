@@ -359,7 +359,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
 
-         String userId = "0004";
+         String userId = "0005";
          String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
@@ -390,7 +390,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.login(JavaRoute.login, json);
-
+             
+              
               if (response.isSuccessful()) {
 
                    String responseData = response.body().string();
@@ -472,6 +473,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.restoreDefaultCursor(mainFrame);
 
               } else {
+                   
                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
               }
 

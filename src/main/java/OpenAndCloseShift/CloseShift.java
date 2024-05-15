@@ -11,7 +11,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Print.EpsonPrinter;
+ 
 import View.MainPage.MainPage;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -376,7 +376,7 @@ public class CloseShift extends javax.swing.JDialog {
               json.put("userId", JavaConstant.cashierId);
               json.put("posId", JavaConstant.posId);
 
-              System.out.println("cashKhr : " + cashKhr);
+           
 
               boolean isExpress = JavaConstant.onlyDigits(express);
               if (!isExpress) {

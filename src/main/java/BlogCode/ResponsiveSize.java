@@ -68,6 +68,9 @@ public class ResponsiveSize {
                     Dimension size = mainPage.getSize();
                     int width = size.width;
 
+                    
+                    System.out.println("width : " + width);
+                    
                     if (width > 1900) {
                          if ((mainPage.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
                               isFullScreen = true;
@@ -99,6 +102,8 @@ public class ResponsiveSize {
                                    resizeWithData(5);
                               }
                          }
+                         
+                         System.out.println("isFullScreen : " + isFullScreen);
                          isFullScreen = false;
                     }
                }

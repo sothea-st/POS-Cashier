@@ -236,7 +236,7 @@ public class JavaConstant {
           ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
                @Override
                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                    System.out.println("insertString working");
+                   
                     StringBuilder builder = new StringBuilder(string.replaceAll(",", ""));
                     for (int i = builder.length() - 3; i > 0; i -= 3) {
                          builder.insert(i, ",");
@@ -246,8 +246,7 @@ public class JavaConstant {
 
                @Override
                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                    System.out.println("replace working");
-
+                   
                     if (text == null) {
                          super.replace(fb, offset, length, text, attrs);
                          return;
