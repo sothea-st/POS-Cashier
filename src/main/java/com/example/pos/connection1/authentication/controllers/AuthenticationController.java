@@ -2,7 +2,6 @@ package com.example.pos.connection1.authentication.controllers;
 
 import com.example.pos.connection1.authentication.dtos.LoginUserDto;
 import com.example.pos.connection1.authentication.dtos.RegisterUserDto;
-import com.example.pos.connection1.authentication.responses.LoginResponse;
 import com.example.pos.connection1.authentication.services.AuthenticationService;
 import com.example.pos.connection1.authentication.services.JwtService;
 import com.example.pos.connection1.components.JavaResponse;
@@ -17,7 +16,6 @@ import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepositor
 import com.example.pos.connection1.entity.Device;
 import com.example.pos.connection1.entity.IPAddressPOSID;
 import com.example.pos.connection1.entity.User;
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.util.Optional;
@@ -123,9 +121,7 @@ public class AuthenticationController {
           
             if (getCountIP > 0) {
                 Optional<IPAddressPOSID> data = ipAddressRepository.getIpAdrress();
-                // if (!data.isPresent()) {
-
-                // } else {
+        
                     IPAddressPOSID val = data.get();
                     if (val.getUserId() == authenticatedUser.getId()) {
                         posId = val.getPosId();
@@ -145,7 +141,7 @@ public class AuthenticationController {
                                 .build();
                         ipAddressRepository.save(ipAddressPOSID);
                     }
-                // }
+       
             } else {
                 posId = "01";
                 IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
