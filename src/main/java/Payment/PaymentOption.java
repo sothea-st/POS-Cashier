@@ -1641,14 +1641,14 @@ public class PaymentOption extends javax.swing.JDialog {
          }
 
          // data is return 
-         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
-              try {
-                   returnProduct();
-              } catch (IOException ex) {
-                   Logger.getLogger(PaymentOption.class.getName()).log(Level.SEVERE, null, ex);
-              }
-              return;
-         }
+//         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
+//              try {
+//                   returnProduct();
+//              } catch (IOException ex) {
+//                   Logger.getLogger(PaymentOption.class.getName()).log(Level.SEVERE, null, ex);
+//              }
+//              return;
+//         }
 
          double discount = JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd());
          // double deliveryFee = JavaConstant.getReplace(subtotalPanel.getLableDeliveryUsd());
@@ -1740,6 +1740,9 @@ public class PaymentOption extends javax.swing.JDialog {
          dataPay.put("discountValue", discount);
          jsonData.put("dataPay", dataPay);
          jsonData.put("discountCase", discountType);
+         
+         
+         System.out.println("discount data : " + jsonData);
 
          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 

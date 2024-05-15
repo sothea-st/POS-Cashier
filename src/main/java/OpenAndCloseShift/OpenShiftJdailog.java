@@ -290,6 +290,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
 
      public void setMainFrame(JFrame mainFrame) {
           this.mainFrame = mainFrame;
+          mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+          JavaConstant.rowNum = 7;
      }
 
      private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonCancelMouseClicked

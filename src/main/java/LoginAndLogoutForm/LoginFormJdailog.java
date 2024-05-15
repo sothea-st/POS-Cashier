@@ -371,6 +371,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               json.put("password", password);
               json.put("deviceName", deviceName);
               json.put("ipAddress", ipAddress);
+//              json.put("deviceName", "TT-MOB-APP-02");
+//              json.put("ipAddress", "172.20.10.48");
          } catch (Exception ex) {
               System.err.println("erro getIpAddress : " + ex);
          }
@@ -390,8 +392,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.login(JavaRoute.login, json);
-             
-              
+
               if (response.isSuccessful()) {
 
                    String responseData = response.body().string();
@@ -473,7 +474,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.restoreDefaultCursor(mainFrame);
 
               } else {
-                   
+
                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
               }
 

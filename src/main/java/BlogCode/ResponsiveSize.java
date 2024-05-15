@@ -69,7 +69,7 @@ public class ResponsiveSize {
                     int width = size.width;
 
                     
-                    System.out.println("width : " + width);
+//                    System.out.println("width : " + width);
                     
                     if (width > 1900) {
                          if ((mainPage.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
@@ -103,7 +103,7 @@ public class ResponsiveSize {
                               }
                          }
                          
-                         System.out.println("isFullScreen : " + isFullScreen);
+                      
                          isFullScreen = false;
                     }
                }
@@ -128,7 +128,7 @@ public class ResponsiveSize {
           a.setBtnReturn(btnReturn);
           a.setTitleOrder(titleOrder);
           JavaConstant.rowNum = num;
-          System.out.println("JavaConstant : " + JavaConstant.rowNum);
+       
           panelProduct.removeAll();
           if (jdFormLogin.getCatId() == 0) {
                a.getAllProduct(panelProduct);
