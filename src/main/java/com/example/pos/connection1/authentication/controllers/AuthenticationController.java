@@ -115,43 +115,43 @@ public class AuthenticationController {
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
-        System.out.println("userID : " + authenticatedUser.getId());
+        int getCountIP = ipAddressRepository.getCountIP();
 
+        String posId = "";
 
-        // int getCountIP = ipAddressRepository.getCountIP();
+        if (loginUserDto.getIpAddress() != null && loginUserDto.getDeviceName() != null) {
+            if (getCountIP > 0) {
+                Optional<IPAddressPOSID> data = ipAddressRepository.getIpAdrress(loginUserDto.getIpAddress());
+                IPAddressPOSID val = data.get();
+          
+                if ( val.getUserId() == authenticatedUser.getId()) {
+                    posId = val.getPosId();
+                } else {
+                    if (val.getPosId().equals("01")) {
+                        posId = "02";
+                    } else if (val.getPosId().equals("02")) {
+                        posId = "01";
+                    }
 
-        String posId = "01";
-
-        // if (loginUserDto.getIpAddress() == null && loginUserDto.getDeviceName() == null) {
-
-        // } else {
-        //     if (getCountIP > 0) {
-        //         Optional<IPAddressPOSID> checkIPaddress = ipAddressRepository.getIpAdrress(loginUserDto.getIpAddress());
-        //         getCountIP++;
-        //         if (getCountIP < 10) {
-        //             posId = "0" + getCountIP;
-        //         } else {
-        //             posId = "" + getCountIP;
-        //         }
-        //         IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
-        //                 .ipAddress(loginUserDto.getIpAddress())
-        //                 .deviceName(loginUserDto.getDeviceName())
-        //                 .posId(posId)
-        //                 .userId(""+authenticatedUser.getId())
-        //                 .build();
-        //         ipAddressRepository.save(ipAddressPOSID);
-
-        //     } else {
-        //         posId = "01";
-        //         IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
-        //                 .ipAddress(loginUserDto.getIpAddress())
-        //                 .deviceName(loginUserDto.getDeviceName())
-        //                 .posId(posId)
-        //                 .userId(""+authenticatedUser.getId())
-        //                 .build();
-        //         ipAddressRepository.save(ipAddressPOSID);
-        //     }
-        // }
+                    IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+                            .ipAddress(loginUserDto.getIpAddress())
+                            .deviceName(loginUserDto.getDeviceName())
+                            .posId(posId)
+                            .userId( authenticatedUser.getId())
+                            .build();
+                    ipAddressRepository.save(ipAddressPOSID);
+                }
+            } else {
+                posId = "01";
+                IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+                        .ipAddress(loginUserDto.getIpAddress())
+                        .deviceName(loginUserDto.getDeviceName())
+                        .posId(posId)
+                        .userId( authenticatedUser.getId())
+                        .build();
+                ipAddressRepository.save(ipAddressPOSID);
+            }
+        }
 
         // LoginResponse loginResponse = new LoginResponse().setToken(jwtToken)
         // .setExpiresIn(jwtService.getExpirationTime());
