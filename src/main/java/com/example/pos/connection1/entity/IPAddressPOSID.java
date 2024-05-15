@@ -35,5 +35,5 @@ public class IPAddressPOSID {
      private String posId;
 
      @Column(name = "user_id")
-     private String userId;
+     private int userId;
 }
