@@ -115,7 +115,7 @@ public class Customer extends javax.swing.JDialog {
      private void nationalityGroupButton() {
           HashMap<String, String> mapGender = new HashMap<>();
           mapGender.put("Male", "Male");
-          mapGender.put("Fe male", "Fe male");
+          mapGender.put("Female", "Female");
           cmdGender.setMap(mapGender);
 
           HashMap<String, String> mapNationality = new HashMap<>();
