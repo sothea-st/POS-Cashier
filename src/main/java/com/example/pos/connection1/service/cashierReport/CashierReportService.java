@@ -231,7 +231,7 @@ public class CashierReportService {
 
         ArrayList<SummeryCashierReport> payment = new ArrayList<>();
  
-        payment.add(new SummeryCashierReport("Cash- Riels (" + JavaRoundUp.setRoundNumber(_cashKhr *JavaConstant.exchangeRate) + "រ)", qtyKhr,
+        payment.add(new SummeryCashierReport("Cash-Riels " + JavaRoundUp.setRoundNumber(_cashKhr *JavaConstant.exchangeRate) + "រ", qtyKhr,
                 BigDecimal.valueOf( Double.valueOf(df.format(_cashKhr)))));
         payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd, BigDecimal.valueOf(Double.valueOf(df.format(_cashUsd)))));
         payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk, BigDecimal.valueOf(Double.valueOf(df.format(_cashMnk)))));

@@ -58,8 +58,8 @@ public class Customer {
     @Column(name = "customer_type_id")
     private Integer customerTypeId;
 
-    @Column(name = "source_id")
-    private Integer sourceId;
+    // @Column(name = "source_id")
+    // private Integer sourceId;
 
     @Column(name = "status")
     private boolean status = true;
