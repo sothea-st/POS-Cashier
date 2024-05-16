@@ -45,20 +45,30 @@ public class Customer {
     @Column(name = "nationality")
     private String nationality;
 
+
+    @Column(name = "coupon")
+    private String coupon;
+
     @Column(name = "total_amount_earned")
     private BigDecimal totalAmountEarned;
 
     @Column(name = "point_earned")
-    private int pointEarned = 0;
+    private Double pointEarned;
 
     @Column(name = "customer_type_id")
     private Integer customerTypeId;
+
+    @Column(name = "source_id")
+    private Integer sourceId;
 
     @Column(name = "status")
     private boolean status = true;
 
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
+
+    @Column(name = "email")
+    private String email;
 
     @CreationTimestamp
     @Column(updatable = false, name = "create_date")

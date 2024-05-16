@@ -1,6 +1,7 @@
 package com.example.pos.connection1.service.cashierReport;
 
 import com.example.pos.connection1.constant.JavaConstant;
+import com.example.pos.connection1.constant.JavaRoundUp;
 import com.example.pos.connection1.entity.models.SummeryCashierReport;
 import com.example.pos.connection1.entity.models.VatProductModel;
 import com.example.pos.connection1.repository.EmployeeRepository;
@@ -19,7 +20,7 @@ import com.example.pos.connection1.entity.Company;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.OpenShift;
 import com.example.pos.connection1.entity.User;
-
+import java.text.DecimalFormat;
 import java.util.*;
 import java.math.*;
 
@@ -53,7 +54,7 @@ public class CashierReportService {
     private HashMap<String, Object> map = new HashMap<>();
 
     public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
-        System.out.println("dddddddddddd : " + userId);
+
         int id = userId;
         // get company info
         Company company = repoCompany.getInfoCompany();
@@ -81,11 +82,18 @@ public class CashierReportService {
 
         // get closeCash, closeDate from CloseShift
         CloseShift closeShift = closeShiftRepo.getCloseShift(userCode, JavaConstant.currentDate, posId);
+
+        Double cashierCount = closeShift.getExpress().doubleValue() +  
+                    closeShift.getKhqrMnk().doubleValue() + 
+                    closeShift.getKhqrAba().doubleValue() + 
+                    closeShift.getCreditCard().doubleValue() + 
+                    closeShift.getCashUsd().doubleValue()  + 
+                    closeShift.getCashKhr().doubleValue()/JavaConstant.exchangeRate ;
+
         map.put("closeCash", 1);
+        map.put("cashierCount", BigDecimal.valueOf(Double.valueOf(df.format(cashierCount))) );
         map.put("closeDate", closeShift.getCloseTime());
-        // double cashCount = closeShift.getCashCount() == null ? 0 : closeShift.getCashCount().doubleValue();
-        // cashCount = JavaConstant.getTwoPrecision(cashCount);
-        // map.put("cashierCount", cashCount);
+ 
 
         // Sale summery
         SalesSummery(id, posId, userCode);
@@ -114,10 +122,10 @@ public class CashierReportService {
 
         Double plt = repoSaleDetail.plt(JavaConstant.currentDate, posId, userCode);
         plt = plt == null ? 0 : plt;
-        data.add(new VatProductModel("VAT Taxable Value", BigDecimal.valueOf(vat)));
-        data.add(new VatProductModel("Non-VAT Taxable Value", BigDecimal.valueOf(noneVat)));
-        data.add(new VatProductModel("VAT State Charge Value", BigDecimal.valueOf(vatStateChrge)));
-        data.add(new VatProductModel("Public Lighting Tax Base", BigDecimal.valueOf(plt)));
+        data.add(new VatProductModel("VAT Taxable Value", BigDecimal.valueOf(Double.valueOf(df.format(vat)))));
+        data.add(new VatProductModel("Non-VAT Taxable Value", BigDecimal.valueOf(Double.valueOf(df.format(noneVat)))));
+        data.add(new VatProductModel("VAT State Charge Value", BigDecimal.valueOf(Double.valueOf(df.format(vatStateChrge)))));
+        data.add(new VatProductModel("Public Lighting Tax Base", BigDecimal.valueOf(Double.valueOf(df.format(plt)))));
         map.put("SummeryAllProVat", data);
     }
 
@@ -135,6 +143,9 @@ public class CashierReportService {
         map.put("SummeryVat", data);
     }
 
+    DecimalFormat df = new DecimalFormat("#.##");
+    DecimalFormat dfKh = new DecimalFormat("#");
+
     public void discountSummery(int userId, String posId, String userCode) {
         List<Integer> listDiscount = new ArrayList<>();
         listDiscount.add(10);
@@ -151,31 +162,32 @@ public class CashierReportService {
                 disQty = disStr.size();
 
             double disAmount = 0;
-            String disAmountStr = repoSaleDetail.totalAmount(userId, JavaConstant.currentDate, listDiscount.get(i),
-                    posId, JavaConstant.currentDate, userCode);
+            String disAmountStr = repoSaleDetail.totalAmount(userId, listDiscount.get(i), JavaConstant.currentDate,
+                    posId);
             if (disAmountStr != null)
                 disAmount = Double.valueOf(disAmountStr);
 
-            disAmount = JavaConstant.getTwoPrecision(disAmount);
-            discount.add(new SummeryCashierReport(listDiscount.get(i) + "%", disQty, BigDecimal.valueOf(disAmount)));
+            if (disQty > 0) {
+                discount.add(new SummeryCashierReport(listDiscount.get(i) + "%", disQty,
+                        BigDecimal.valueOf(Double.valueOf(df.format(disAmount)))));
+            }
+
         }
 
         int _disQtyDollar = 0;
-        String _qtyDollar = repoSaleDetail.totalQtyDollar(userId, JavaConstant.currentDate, posId,
-                JavaConstant.currentDate, userCode);
+        String _qtyDollar = repoSaleDetail.totalQtyDollar(userId, JavaConstant.currentDate, posId);
         if (_qtyDollar != null)
             _disQtyDollar = Integer.valueOf(_qtyDollar);
 
         double _saledDollar = 0;
-        String _amSaledDollar = repoSaleDetail.totalSaledDollar(userId, JavaConstant.currentDate, posId,
-                JavaConstant.currentDate, userCode);
+        String _amSaledDollar = repoSaleDetail.totalSaledDollar(userId, JavaConstant.currentDate, posId);
 
         if (_amSaledDollar != null)
             _saledDollar = Double.valueOf(_amSaledDollar);
 
         HashMap<String, Object> discountDollar = new HashMap<>();
         discountDollar.put("qtySaledDollar", _disQtyDollar);
-        discountDollar.put("amountSaledDollar", BigDecimal.valueOf(_saledDollar));
+        discountDollar.put("amountSaledDollar", BigDecimal.valueOf(Double.valueOf(df.format(_saledDollar))));
 
         HashMap<String, Object> _map = new HashMap<>();
         _map.put("percentag", discount);
@@ -184,51 +196,47 @@ public class CashierReportService {
     }
 
     public void paymentSummery(int userId, String posId, String userCode) {
-        CloseShift dCloseShift = closeShiftRepo.getCloseShift(userCode, JavaConstant.currentDate, posId);
+      
         int qtyUsd = repoSale.countSaledNumUsd(userId, JavaConstant.currentDate, posId);
-
-        double amountPayUsd = dCloseShift.getCashUsd().doubleValue();
-
+        Double _cashUsd = repoSale.countSaledUsd(userId, JavaConstant.currentDate, posId);
+        _cashUsd = _cashUsd == null ? 0 : _cashUsd;
+ 
         int qtyKhr = repoSale.countSaledNumKhr(userId, JavaConstant.currentDate, posId);
+        Double _cashKhr = repoSale.countSaledCashKhr(userId, JavaConstant.currentDate, posId);
+        _cashKhr = _cashKhr == null ? 0 : _cashKhr;
 
-        double amountPayKhr = dCloseShift.getCashKhr().doubleValue() / JavaConstant.exchangeRate;
-
+       
         int qtyAba = repoSale.countSaledNumAba(userId, JavaConstant.currentDate, posId);
-
-        double amountAba = dCloseShift.getKhqrAba().doubleValue();
+        Double _cashAba = repoSale.countSaledAba(userId, JavaConstant.currentDate, posId);
+        _cashAba = _cashAba == null ? 0 : _cashAba;
+ 
 
         int qtyMnk = repoSale.countSaledNumMnk(userId, JavaConstant.currentDate, posId);
+        Double _cashMnk = repoSale.countSaledMnk(userId, JavaConstant.currentDate, posId);
+        _cashMnk = _cashMnk == null ? 0 : _cashMnk;
 
-        double amountMnk = dCloseShift.getKhqrMnk().doubleValue();
 
+    
         int qtyExpress = 0;
         String qtyExpressStr = repoSale.totalCountQtyExpress(userId, JavaConstant.currentDate, posId,
                 JavaConstant.currentDate, userCode);
         if (qtyExpressStr != null)
             qtyExpress = Integer.valueOf(qtyExpressStr);
 
-        double amountExpress = dCloseShift.getExpress().doubleValue();
+     
 
         int qtyCredit = repoSale.countSaledNumCredit(userId, JavaConstant.currentDate, posId);
-
-        double amountCredit = dCloseShift.getCreditCard().doubleValue();
-
-        amountPayUsd = JavaConstant.getTwoPrecision(amountPayUsd);
-        amountPayKhr = JavaConstant.getTwoPrecision(amountPayKhr);
-        amountMnk = JavaConstant.getTwoPrecision(amountMnk);
-        amountAba = JavaConstant.getTwoPrecision(amountAba);
-        amountExpress = JavaConstant.getTwoPrecision(amountExpress);
-        amountCredit = JavaConstant.getTwoPrecision(amountCredit);
+        Double _cashCredit = repoSale.countSaledCredit(userId, JavaConstant.currentDate, posId);
+        _cashCredit = _cashCredit == null ? 0 : _cashCredit;
 
         ArrayList<SummeryCashierReport> payment = new ArrayList<>();
-        // payment.add(new SummeryCashierReport("RED ANT EXPRESS", qtyExpress,
-        // BigDecimal.valueOf(amountExpress)));
-        payment.add(new SummeryCashierReport("Cash- Riels (" + addCommas(dCloseShift.getCashKhr() + "") + ")", qtyKhr,
-                BigDecimal.valueOf(amountPayKhr)));
-        payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd, BigDecimal.valueOf(amountPayUsd)));
-        payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk, BigDecimal.valueOf(amountMnk)));
-        payment.add(new SummeryCashierReport("ABA QR Pay", qtyAba, BigDecimal.valueOf(amountAba)));
-        payment.add(new SummeryCashierReport("ABA-Card Payment", qtyCredit, BigDecimal.valueOf(amountCredit)));
+ 
+        payment.add(new SummeryCashierReport("Cash- Riels (" + JavaRoundUp.setRoundNumber(_cashKhr *JavaConstant.exchangeRate) + "រ)", qtyKhr,
+                BigDecimal.valueOf( Double.valueOf(df.format(_cashKhr)))));
+        payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd, BigDecimal.valueOf(Double.valueOf(df.format(_cashUsd)))));
+        payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk, BigDecimal.valueOf(Double.valueOf(df.format(_cashMnk)))));
+        payment.add(new SummeryCashierReport("ABA QR Pay", qtyAba, BigDecimal.valueOf(Double.valueOf(df.format(_cashAba)))));
+        payment.add(new SummeryCashierReport("ABA-Card Payment", qtyCredit, BigDecimal.valueOf(Double.valueOf(df.format(_cashCredit)))));
 
         map.put("summeryPayemnt", payment);
     }
@@ -265,7 +273,7 @@ public class CashierReportService {
         summery.add(
                 new SummeryCashierReport("Total Refund/Return", returnQty, BigDecimal.valueOf(returnAmountDiscount)));
         summery.add(new SummeryCashierReport("Total Voids", 0, BigDecimal.valueOf(0)));
-        summery.add(new SummeryCashierReport("Disounts", qtyDiscount, BigDecimal.valueOf(amountDiscount)));
+        summery.add(new SummeryCashierReport("Disounts", qtyDiscount, BigDecimal.valueOf(Double.valueOf(df.format(amountDiscount)))));
         map.put("SummerySale", summery);
     }
 

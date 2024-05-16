@@ -115,31 +115,61 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
         @Query(nativeQuery = true, value = "select count(pp.*) from pos_sale ps \r\n" + //
                         " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
                         " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'cash' \r\n" + //
-                        " and ps.pos_id = ? and pp.receive_khr != '0'")
+                        " and ps.pos_id = ? and pp.receive_khr != '0' and ps.active = 'Active' and ps.sale_is_return is null")
         int countSaledNumKhr(int userId, String saleDate, String posId);
+
+        @Query(nativeQuery = true, value = "select sum( ps.total  )  as results from pos_sale ps \r\n" + //
+                        " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
+                        " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'cash' \r\n" + //
+                        " and ps.pos_id = ? and pp.receive_khr != '0' and ps.active = 'Active' and ps.sale_is_return is null")
+        Double countSaledCashKhr(int userId, String saleDate, String posId);
 
         @Query(nativeQuery = true, value = "select count(pp.*) from pos_sale ps \r\n" + //
                         " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
                         " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'cash' \r\n" + //
-                        " and ps.pos_id = ? and pp.receive_usd > 0")
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
         int countSaledNumUsd(int userId, String saleDate, String posId);
+
+        @Query(nativeQuery = true, value = "select  sum(ps.total) from pos_sale ps \r\n" + //
+                        " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
+                        " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'cash' \r\n" + //
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
+        Double countSaledUsd(int userId, String saleDate, String posId);
 
         @Query(nativeQuery = true, value = "select count(pp.*) from pos_sale ps \r\n" + //
                         " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
                         " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'mnk' \r\n" + //
-                        " and ps.pos_id = ? and pp.receive_usd > 0")
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
         int countSaledNumMnk(int userId, String saleDate, String posId);
+
+        @Query(nativeQuery = true, value = "select sum(ps.total) from pos_sale ps \r\n" + //
+                        " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
+                        " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'mnk' \r\n" + //
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
+        Double countSaledMnk(int userId, String saleDate, String posId);
 
         @Query(nativeQuery = true, value = "select count(pp.*) from pos_sale ps \r\n" + //
                         " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
                         " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'aba' \r\n" + //
-                        " and ps.pos_id = ? and pp.receive_usd > 0")
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
         int countSaledNumAba(int userId, String saleDate, String posId);
+
+        @Query(nativeQuery = true, value = "select  sum(ps.total) from pos_sale ps \r\n" + //
+                        " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
+                        " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'aba' \r\n" + //
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
+        Double countSaledAba(int userId, String saleDate, String posId);
 
         @Query(nativeQuery = true, value = "select count(pp.*) from pos_sale ps \r\n" + //
                         " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
                         " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'credit' \r\n" + //
-                        " and ps.pos_id = ? and pp.receive_usd > 0")
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
         int countSaledNumCredit(int userId, String saleDate, String posId);
+
+        @Query(nativeQuery = true, value = "select sum(ps.total) from pos_sale ps \r\n" + //
+                        " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
+                        " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'credit' \r\n" + //
+                        " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
+        Double countSaledCredit(int userId, String saleDate, String posId);
 
 }

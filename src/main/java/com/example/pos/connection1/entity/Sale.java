@@ -55,7 +55,8 @@ public class Sale {
     @Column(name = "total_minus_total_return" , precision = 10 , scale = 2)
     private BigDecimal totalMinusTotalReturn;
 
-
+    @Column(name = "active")
+    private String active;
 
 
     @Column(name = "sub_total" , precision = 10 , scale = 2)

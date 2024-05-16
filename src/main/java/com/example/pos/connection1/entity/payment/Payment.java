@@ -48,6 +48,7 @@ public class Payment {
 
      @Column(name = "pos_id")
      private String posId;
+ 
 
      @Column(name = "remaining_khr")
      @NotNull(message = JavaMessage.required)

@@ -112,9 +112,7 @@ public class AuthenticationController {
         HashMap<String, Object> map = new HashMap<>();
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
-     
         int getCountIP = ipAddressRepository.getCountIP();
-       
         String posId = "";
 
         if (loginUserDto.getIpAddress() != null && loginUserDto.getDeviceName() != null) {

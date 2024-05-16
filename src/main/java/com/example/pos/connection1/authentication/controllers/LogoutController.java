@@ -1,7 +1,9 @@
 package com.example.pos.connection1.authentication.controllers;
 
+import com.example.pos.connection1.authentication.dtos.UserLogoutDTO;
 import com.example.pos.connection1.components.JavaResponse;
 import com.example.pos.connection1.repository.IPAddressRepository;
+import com.example.pos.connection1.repository.SaleRepository;
 import com.example.pos.connection1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,14 +28,23 @@ public class LogoutController {
      @Autowired
      private JdbcTemplate jdbcTemplate;
 
-     @PostMapping
-     public ResponseEntity<?> logout(@RequestBody User user) {
-          Optional<User> users = repo.findById(user.getId());
 
-          jdbcTemplate.update("delete from pos_id where user_id = "+user.getId()+"");
-          
+     @Autowired
+     private SaleRepository saleRepository;
+
+     @PostMapping
+     public ResponseEntity<?> logout(@RequestBody UserLogoutDTO user) {
+        
+          Optional<User> users = repo.findById(user.id());
+          jdbcTemplate.update("delete from pos_id where user_id = "+user.id()+"");
+           jdbcTemplate.update("update pos_sale set active = null where pos_id = "+user.posId()+" and user_code = "+user.userCode()+" and user_id = "+user.id()+"");
+          // jdbcTemplate.update("update pos_payment p\r\n" + //
+          //                     "inner join pos_sale ps on ps.id = p.sale_id \r\n" + //
+          //                     "set active is null where pos_id = "+user.posId()+" and ps.user_id = "+user.id()+" and ps.user_code = "+user.userCode()+"");
+
+
+
           User data = users.get();
-         
           data.setDevice(null);
           repo.save(data);
           return JavaResponse.success("Log out success");

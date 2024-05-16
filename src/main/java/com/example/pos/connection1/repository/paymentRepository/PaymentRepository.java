@@ -102,7 +102,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
         @Query(nativeQuery = true, value = "select pp.payment_no  from pos_sale ps\r\n" + //
                         "inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? order by pp.id asc limit 1")
+                        "where ps.user_id = ? and ps.sale_date = ? and ps.active = 'Active'  order by pp.id asc limit 1")
         String getFirstPaymentNumber(int userId, String date);
 
         @Query(nativeQuery = true, value = "select pp.payment_no  from pos_sale ps\r\n" + //

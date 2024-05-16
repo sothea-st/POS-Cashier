@@ -80,6 +80,7 @@ public class SaleService {
         sale.setDiscount(s.getDiscount());
         sale.setSubTotal(s.getSubTotal());
         sale.setDeliveryFee(s.getDeliveryFee());
+        sale.setActive("Active");
         // sale.setTotal(s.getTotal());
         sale.setTotal(s.getTotal());
         sale.setDiscountCase(s.getDiscountCase());
@@ -150,12 +151,14 @@ public class SaleService {
         Customer cusData = new Customer();
         cusData.setCusName(cus.getCusName());
         cusData.setContact(cus.getContact());
-        // cusData.setEarning(cus.getEarning());
-        // cusData.setEmail(cus.getEmail());
-        // cusData.setCoupon(cus.getCoupon());
         cusData.setGender(cus.getGender());
         cusData.setNationality(cus.getNationality());
-        cusData.setCustomerId(cusId);
+        cusData.setCustomerId(cus.getCustomerId());
+        cusData.setCustomerTypeId(cus.getCustomerTypeId());
+        cusData.setSourceId(cus.getSourceId());
+        cusData.setPointEarned(cus.getPointEarned());
+        cusData.setEmail(cus.getEmail());
+        cusData.setCoupon(cus.getCoupon());
         cusRepo.save(cusData);
     }
 
@@ -192,6 +195,7 @@ public class SaleService {
         data.setDiscountValue(p.getDiscountValue());
         data.setPosId(posId);
         data.setCreateBy(createBy);
+      
         payRepo.save(data);
 
         BufferedImage barcode = barcodeGenerator.generateUSPSBarcodeImage(paymentBarcode);
