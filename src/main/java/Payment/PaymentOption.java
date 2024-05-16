@@ -7,13 +7,11 @@ import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
-import static Components.TextField.onlyDigits;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
-import DeleteAndCancel.CancelDialog;
 import Event.ButtonEvent;
 import HoldOrder.HoldeModel;
 import Model.CustomerType.CustomerTypeModel;
@@ -34,8 +32,6 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -123,7 +119,7 @@ public class PaymentOption extends javax.swing.JDialog {
           txtCustomerId.requestFocus();
           radioButtonKhmer.setSelected(true);
           radioButtonMale.setSelected(true);
-          getCusomerId();
+//          getCusomerId();
           txtReceiveKhr.requestFocus();
 
           txtReceiveUsd.setBorder(null);
@@ -1620,27 +1616,30 @@ public class PaymentOption extends javax.swing.JDialog {
      }
 
     private void buttonChargeAndPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChargeAndPrintMouseClicked
+         charge();
+    }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
 
-         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+     private void charge() {
+          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
-         if (JavaConstant.isReturn == null) {
-              if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
-                   j.setMessage("Box Receive must be have one value!");
-                   j.setVisible(true);
-                   return;
-              }
+          if (JavaConstant.isReturn == null) {
+               if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
+                    j.setMessage("Box Receive must be have one value!");
+                    j.setVisible(true);
+                    return;
+               }
 
-              double valueRemainingUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
-              double valueRemainingKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
-              if (valueRemainingUsd > 0 || valueRemainingKhr > 0) {
-                   j.setMessage(" remainningUsd : " + lbRemainingUsd.getLabelName() + " <br> remainningUsd : " + lbRemainingKhr.getLabelName());
-                   j.setVisible(true);
-                   return;
-              }
+               double valueRemainingUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
+               double valueRemainingKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
+               if (valueRemainingUsd > 0 || valueRemainingKhr > 0) {
+                    j.setMessage(" remainningUsd : " + lbRemainingUsd.getLabelName() + " <br> remainningUsd : " + lbRemainingKhr.getLabelName());
+                    j.setVisible(true);
+                    return;
+               }
 
-         }
+          }
 
-         // data is return 
+          // data is return 
 //         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
 //              try {
 //                   returnProduct();
@@ -1649,169 +1648,170 @@ public class PaymentOption extends javax.swing.JDialog {
 //              }
 //              return;
 //         }
+          double discount = JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd());
+          // double deliveryFee = JavaConstant.getReplace(subtotalPanel.getLableDeliveryUsd());
+          double subTotal = JavaConstant.getReplace(subtotalPanel.getLabelSubtotalUsd());
+          double total = JavaConstant.getReplace(subtotalPanel.getLableTotalUsd());
+          double remainningUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
+          double remainningKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
+          double changeUsd = JavaConstant.getReplace(lbChangeUsd.getLabelName());
+          double changeKhr = JavaConstant.getReplace(lbChangeKhr.getLabelName());
 
-         double discount = JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd());
-         // double deliveryFee = JavaConstant.getReplace(subtotalPanel.getLableDeliveryUsd());
-         double subTotal = JavaConstant.getReplace(subtotalPanel.getLabelSubtotalUsd());
-         double total = JavaConstant.getReplace(subtotalPanel.getLableTotalUsd());
-         double remainningUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
-         double remainningKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
-         double changeUsd = JavaConstant.getReplace(lbChangeUsd.getLabelName());
-         double changeKhr = JavaConstant.getReplace(lbChangeKhr.getLabelName());
+          JSONObject jsonData = new JSONObject();
+          jsonData.put("userId", JavaConstant.cashierId);
+          jsonData.put("userCode", JavaConstant.userCode);
+          jsonData.put("saleDate", JavaConstant.currentDate);
+          jsonData.put("discount", discount);
+          jsonData.put("subTotal", subTotal);
+          jsonData.put("deliveryFee", "0");
+          jsonData.put("posId", JavaConstant.posId);
+          jsonData.put("total", total);
 
-         JSONObject jsonData = new JSONObject();
-         jsonData.put("userId", JavaConstant.cashierId);
-         jsonData.put("userCode", JavaConstant.userCode);
-         jsonData.put("saleDate", JavaConstant.currentDate);
-         jsonData.put("discount", discount);
-         jsonData.put("subTotal", subTotal);
-         jsonData.put("deliveryFee", "0");
-         jsonData.put("posId", JavaConstant.posId);
-         jsonData.put("total", total);
+          String _khr = txtReceiveKhr.getText().replace(",", "");
+          String _usd = txtReceiveUsd.getText().replace(",", "");
 
-         String _khr = txtReceiveKhr.getText().replace(",", "");
-         String _usd = txtReceiveUsd.getText().replace(",", "");
+          //get dataPay
+          HashMap<String, Object> dataPay = new HashMap<>();
+          dataPay.put("sourceId", sourceId);
+          dataPay.put("customerTypeId", cusTypeId);
+          dataPay.put("paymentType", paymentType);
+          dataPay.put("receiveKhr", _khr);
+          dataPay.put("receiveUsd", _usd);
+          dataPay.put("remainingUsd", remainningUsd);
+          dataPay.put("remainingKhr", remainningKhr);
+          dataPay.put("changeUsd", changeUsd);
+          dataPay.put("changeKhr", changeKhr);
 
-         //get dataPay
-         HashMap<String, Object> dataPay = new HashMap<>();
-         dataPay.put("sourceId", sourceId);
-         dataPay.put("customerTypeId", cusTypeId);
-         dataPay.put("paymentType", paymentType);
-         dataPay.put("receiveKhr", _khr);
-         dataPay.put("receiveUsd", _usd);
-         dataPay.put("remainingUsd", remainningUsd);
-         dataPay.put("remainingKhr", remainningKhr);
-         dataPay.put("changeUsd", changeUsd);
-         dataPay.put("changeKhr", changeKhr);
+          //get customer 
+          HashMap<String, Object> customer = new HashMap<>();
+          customer.put("cusName", txtCustomerName.getValueTextFieldCenter());
+          customer.put("customerId", txtCustomerId.getValueTextFieldCenter());
+          customer.put("contact", txtCustomerPhone.getValueTextFieldCenter());
+          customer.put("email", txtCustomerEmail.getValueTextFieldCenter());
+          customer.put("earning", txtEarning.getValueTextFieldCenter());
 
-         //get customer 
-         HashMap<String, Object> customer = new HashMap<>();
-         customer.put("cusName", txtCustomerName.getValueTextFieldCenter());
-         customer.put("contact", txtCustomerPhone.getValueTextFieldCenter());
-         customer.put("email", txtCustomerEmail.getValueTextFieldCenter());
-         customer.put("earning", txtEarning.getValueTextFieldCenter());
-         if (radioButtonKhmer.isSelected()) {
-              customer.put("nationality", radioButtonKhmer.getText());
-         } else if (radioButtonAsian.isSelected()) {
-              customer.put("nationality", radioButtonAsian.getText());
-         } else if (radioButtonChinese.isSelected()) {
-              customer.put("nationality", radioButtonChinese.getText());
-         } else if (radioButtonWhite.isSelected()) {
-              customer.put("nationality", radioButtonWhite.getText());
-         } else if (radioButtonBlack.isSelected()) {
-              customer.put("nationality", radioButtonBlack.getText());
-         }
-         if (radioButtonMale.isSelected()) {
-              customer.put("gender", radioButtonMale.getText());
-         } else if (radioButtonFemale.isSelected()) {
-              customer.put("gender", radioButtonFemale.getText());
-         }
+          customer.put("sourceId", sourceId);
+          customer.put("customerTypeId", txtEarning.getValueTextFieldCenter());
 
-         if (txtCustomerName.getValueTextFieldCenter() != null) {
-              jsonData.put("customer", customer);
-         }
-         String discountType = "";
-         //get dataSale 
-         ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
-         for (int i = 0; i < listCom.length; i++) {
-              var obj = ((BoxItem) listCom[i]);
-              double price = JavaConstant.getReplace(obj.getLabelPrice());
+          if (radioButtonKhmer.isSelected()) {
+               customer.put("nationality", radioButtonKhmer.getText());
+          } else if (radioButtonAsian.isSelected()) {
+               customer.put("nationality", radioButtonAsian.getText());
+          } else if (radioButtonChinese.isSelected()) {
+               customer.put("nationality", radioButtonChinese.getText());
+          } else if (radioButtonWhite.isSelected()) {
+               customer.put("nationality", radioButtonWhite.getText());
+          } else if (radioButtonBlack.isSelected()) {
+               customer.put("nationality", radioButtonBlack.getText());
+          }
+          if (radioButtonMale.isSelected()) {
+               customer.put("gender", radioButtonMale.getText());
+          } else if (radioButtonFemale.isSelected()) {
+               customer.put("gender", radioButtonFemale.getText());
+          }
 
-              double discountDigit = obj.getDiscountDigit();
-              double unitPrice = price - (price * discountDigit) / 100;
-              double p = JavaConstant.getReplace(df.format(unitPrice));
-              discountType = obj.getDiscountType();
-              double discountVale = obj.getDiscountValue();
+          if (txtCustomerName.getValueTextFieldCenter() != null) {
+               jsonData.put("customer", customer);
+          }
+          String discountType = "";
+          //get dataSale 
+          ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
+          for (int i = 0; i < listCom.length; i++) {
+               var obj = ((BoxItem) listCom[i]);
+               double price = JavaConstant.getReplace(obj.getLabelPrice());
 
-              double amount = obj.getQty() * p;
-              double a = JavaConstant.getReplace(df.format(amount));
-              ProductSaleModel pro = new ProductSaleModel(
-                   obj.getProductId(),
-                   obj.getQty(),
-                   price,
-                   a,
-                   discountVale,
-                   discountType
-              );
-              dataSale.add(pro);
-         }
-         jsonData.put("dataSale", dataSale);
-         dataPay.put("discountType", discountType);
-         dataPay.put("discountValue", discount);
-         jsonData.put("dataPay", dataPay);
-         jsonData.put("discountCase", discountType);
-         
-         
-         System.out.println("discount data : " + jsonData);
+               double discountDigit = obj.getDiscountDigit();
+               double unitPrice = price - (price * discountDigit) / 100;
+               double p = JavaConstant.getReplace(df.format(unitPrice));
+               discountType = obj.getDiscountType();
+               double discountVale = obj.getDiscountValue();
 
-         Response response = JavaConnection.post(JavaRoute.sale, jsonData);
+               double amount = obj.getQty() * p;
+               double a = JavaConstant.getReplace(df.format(amount));
+               ProductSaleModel pro = new ProductSaleModel(
+                    obj.getProductId(),
+                    obj.getQty(),
+                    price,
+                    a,
+                    discountVale,
+                    discountType
+               );
+               dataSale.add(pro);
+          }
+          jsonData.put("dataSale", dataSale);
+          dataPay.put("discountType", discountType);
+          dataPay.put("discountValue", discount);
+          jsonData.put("dataPay", dataPay);
+          jsonData.put("discountCase", discountType);
 
-         try {
-              if (response.isSuccessful()) {
-                   detailItem.removeAll();
-                   detailItem.revalidate();
-                   detailItem.repaint();
-                   dispose();
-                   btnCancel.setBackground(WindowColor.lightGray);
-                   buttonHoldOrder.setBackground(WindowColor.lightGray);
-                   detailItem.setBackground(WindowColor.slightGreen);
-                   subtotalPanel.setLabelSubTitleToZero();
-                   btnReturn.setBackground(WindowColor.brown);
-                   btnPayment.setBackground(WindowColor.lightGray);
-                   detailItem.setBackground(WindowColor.slightGreen);
-                   titleOrder.setVisible(false);
-                   detailItem.setBorder(null);
+          System.out.println("discount data : " + jsonData);
 
-                   JavaConstant.productId = 0;
+          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
-                   // remove hole order
-                   if (JavaConstant.holdId != 0) {
-                        ArrayList<HoldeModel> holdId = new ArrayList<>();
-                        holdId.add(new HoldeModel(JavaConstant.holdId));
-                        JSONObject json = new JSONObject();
-                        json.put("reasonId", 0); // 0 meaning product was paid
-                        json.put("listHoldDetail", holdId);
+          try {
+               if (response.isSuccessful()) {
+                    detailItem.removeAll();
+                    detailItem.revalidate();
+                    detailItem.repaint();
+                    dispose();
+                    btnCancel.setBackground(WindowColor.lightGray);
+                    buttonHoldOrder.setBackground(WindowColor.lightGray);
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    subtotalPanel.setLabelSubTitleToZero();
+                    btnReturn.setBackground(WindowColor.brown);
+                    btnPayment.setBackground(WindowColor.lightGray);
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    titleOrder.setVisible(false);
+                    detailItem.setBorder(null);
 
-                        Response responseHold = JavaConnection.delete(JavaRoute.holdOrder, json);
+                    JavaConstant.productId = 0;
 
-                        if (responseHold.isSuccessful()) {
-                             JavaConstant.holdId = 0;
-                        }
-                   }
+                    // remove hole order
+                    if (JavaConstant.holdId != 0) {
+                         ArrayList<HoldeModel> holdId = new ArrayList<>();
+                         holdId.add(new HoldeModel(JavaConstant.holdId));
+                         JSONObject json = new JSONObject();
+                         json.put("reasonId", 0); // 0 meaning product was paid
+                         json.put("listHoldDetail", holdId);
 
-                   // ===== print receipt
-                   Response responsePrint = JavaConnection.get(JavaRoute.reprintByLast);
-                   if (response.isSuccessful()) {
-                        try {
-                             String myObject = responsePrint.body().string();
-                             ObjectMapper objMap = new ObjectMapper();
-                             DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
-                             Receipt re = new Receipt(new JFrame(), true);
-                             re.setDataSuccess(d);
-                             re.revalidate();
-                             re.repaint();
+                         Response responseHold = JavaConnection.delete(JavaRoute.holdOrder, json);
+
+                         if (responseHold.isSuccessful()) {
+                              JavaConstant.holdId = 0;
+                         }
+                    }
+
+                    // ===== print receipt
+                    Response responsePrint = JavaConnection.get(JavaRoute.reprintByLast);
+                    if (response.isSuccessful()) {
+                         try {
+                              String myObject = responsePrint.body().string();
+                              ObjectMapper objMap = new ObjectMapper();
+                              DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
+                              Receipt re = new Receipt(new JFrame(), true);
+                              re.setDataSuccess(d);
+                              re.revalidate();
+                              re.repaint();
 //                             re.printReceipt(); // for print with device
-                             re.setVisible(true);
+                              re.setVisible(true);
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
 //                             te.revalidate();
 //                             te.repaint();
 //                             te.printPanel(d);
-                        } catch (Exception e) {
-                             System.err.println("err while loding = " + e);
-                        }
-                   }
+                         } catch (Exception e) {
+                              System.err.println("err while loding = " + e);
+                         }
+                    }
 
-              } else {
-                   JOptionPane.showMessageDialog(this, "Charge Failed!");
-              }
-         } catch (Exception e) {
-              System.err.println("errir = " + e);
-         }
-
-
-    }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
+               } else {
+                    JOptionPane.showMessageDialog(this, "Charge Failed!");
+               }
+          } catch (Exception e) {
+               System.err.println("errir = " + e);
+          }
+     }
 
      public void returnProduct() throws IOException {
           DecimalFormat df = new DecimalFormat("#.##");
@@ -1855,7 +1855,6 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
-        
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
@@ -1895,7 +1894,6 @@ public class PaymentOption extends javax.swing.JDialog {
                r.setResetReturn();
 
 //               ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
-
           } else {
                System.err.println("err = 4444");
           }
@@ -2020,11 +2018,10 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbZeroMouseExited
 
     private void btnEinvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEinvoiceMouseClicked
-        
+         charge();
     }//GEN-LAST:event_btnEinvoiceMouseClicked
-     
-    
-    DecimalFormat kh = new DecimalFormat("#");
+
+     DecimalFormat kh = new DecimalFormat("#");
 
      private void setValueLabelUsd(double remaining, double change) {
           String receviUsd = txtReceiveUsd.getText();

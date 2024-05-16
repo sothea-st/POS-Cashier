@@ -770,10 +770,6 @@ public class MainPage extends javax.swing.JFrame {
 
          if (JavaConstant.token != null) {
               
-              System.out.println("get button name : " + btnPayment.getButtonName());
-              
-              
-
 //              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
               Component[] listCom = detailItem.getComponents();
               if (listCom.length != 0) {
