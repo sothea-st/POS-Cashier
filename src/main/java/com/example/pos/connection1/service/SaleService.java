@@ -154,8 +154,8 @@ public class SaleService {
         cusData.setGender(cus.getGender());
         cusData.setNationality(cus.getNationality());
         cusData.setCustomerId(cus.getCustomerId());
-        cusData.setCustomerTypeId(cus.getCustomerTypeId());
-        cusData.setSourceId(cus.getSourceId());
+        // cusData.setCustomerTypeId(cus.getCustomerTypeId());
+        // cusData.setSourceId(cus.getSourceId());
         cusData.setPointEarned(cus.getPointEarned());
         cusData.setEmail(cus.getEmail());
         cusData.setCoupon(cus.getCoupon());
