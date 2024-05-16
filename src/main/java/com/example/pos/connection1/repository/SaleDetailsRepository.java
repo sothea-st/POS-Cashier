@@ -26,45 +26,55 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         " where ps.user_id = ? and psd.sale_id = ?  ")
         List<SaleDetailProjection> getDataDetail(int userId, int saleId);
 
-        @Query(nativeQuery = true, value = "select sum( ( ( pp.price * psd.discount  )/100 )*psd.qty  )   from pos_sale ps\r\n"
-                        + //
-                        "inner join pos_sale_details psd on psd.sale_id = ps.id \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id \r\n" + //
-                        "inner join pos_product pp on pp.id = psd.pro_id \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? and psd.discount = ?\r\n" + //
-                        "and  pos.pos_id = ? and pos.open_date = ? and pos.user_code = ?")
-        String totalAmount(int userId, String date, int discount, String posId, String openDate, String userCode);
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\tsum( ( ( psd.price * psd.discount )/ 100 )* psd.qty )\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "inner join pos_sale_details psd on\r\n" + //
+                                "\tpsd.sale_id = ps.id\r\n" + //
+                                "where\r\n" + //
+                                " \t ps.active = 'Active'\r\n" + //
+                                " \tand ps.user_id = ?\r\n" + //
+                                " \tand psd.discount = ?\r\n" + //
+                                "\tand ps.sale_date = ? and ps.pos_id = ?\r\n" + //
+                                "")
+        String totalAmount(int userId, int discount,String date, String posId);
 
         @Query(nativeQuery = true, value = "select count(ps.*)  from pos_sale ps " +
                         " inner join pos_sale_details psd on psd.sale_id  = ps.id  " +
                         " where ps.sale_date = ? and ps.pos_id = ? " +
-                        " and psd.discount_type = 'percent' and psd.discount = ? group by ps.id")
+                        " and psd.discount_type = 'percent' and psd.discount = ? and ps.active = 'Active' group by ps.id ")
         List<Integer> totalQty(String date, String posId, Double discount);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
-                        "\tcount( pp.*)\r\n" + //
-                        "from\r\n" + //
-                        "\tpos_sale ps\r\n" + //
-                        "inner join pos_open_shift pos on\r\n" + //
-                        "\tpos.pos_id = ps.pos_id\r\n" + //
-                        "inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
-                        "where\r\n" + //
-                        "\tps.user_id = ?\r\n" + //
-                        "\tand ps.sale_date = ?\r\n" + //
-                        "\tand pos.pos_id = ?\r\n" + //
-                        "\tand pos.open_date = ?\r\n" + //
-                        "\tand pos.user_code = ?\r\n" + //
-                        " \tand pp.discount_type = 'dollar'\r\n" + //
-                        "\t\t ")
-        String totalQtyDollar(int userId, String date, String posId, String openDate, String userCode);
+                                "\tcount(pp.*)\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "inner join pos_payment pp on\r\n" + //
+                                "\tpp.sale_id = ps.id\r\n" + //
+                                "where\r\n" + //
+                                "\tps.active = 'Active'\r\n" + //
+                                "\tand ps.user_id = ?\r\n" + //
+                                "\tand ps.sale_date = ?\r\n" + //
+                                "\tand pp.discount_type = 'dollar' and ps.pos_id = ?\r\n" + //
+                                "\t")
+        String totalQtyDollar(int userId, String date, String posId);
 
-        @Query(nativeQuery = true, value = "select sum(psd.discount) from pos_sale ps \r\n" + //
-                        "inner join pos_sale_details psd on psd.sale_id = ps.id \r\n" + //
-                        "inner join pos_open_shift pos on pos.pos_id = ps.pos_id  \r\n" + //
-                        "where ps.user_id = ? and ps.sale_date = ? \r\n" + //
-                        "and  pos.pos_id = ? and pos.open_date = ? \r\n" + //
-                        "and pos.user_code = ? and psd.discount_type = 'dollar'")
-        String totalSaledDollar(int userId, String date, String posId, String openDate, String userCode);
+        @Query(nativeQuery = true, value = "\t\r\n" + //
+                                "select\r\n" + //
+                                "\tsum(psd.discount)\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "inner join pos_sale_details psd on\r\n" + //
+                                "\tpsd.sale_id = ps.id\r\n" + //
+                                "where\r\n" + //
+                                "\tps.active = 'Active'\r\n" + //
+                                "\tand ps.user_id = ?\r\n" + //
+                                "\tand ps.sale_date = ?\r\n" + //
+                                "\tand psd.discount_type = 'dollar'\r\n" + //
+                                "\tand ps.pos_id = ?\r\n" + //
+                                "\t")
+        String totalSaledDollar(int userId, String date, String posId);
 
         @Query(nativeQuery = true, value = "select sum(psd2.qty) from pos_sale ps2  \r\n" + //
                         "    inner join pos_sale_details psd2 on ps2.id = psd2.sale_id\r\n" + //
@@ -84,7 +94,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ? \r\n" + //
-                        "\tand ps.discount > 0\r\n" + //
+                        "\tand ps.discount > 0 and ps.active = 'Active' and ps.sale_is_return is null \r\n" + //
                         "\t\r\n")
         int totalQtyDiscount(String date, String posId, String userCode);
 
@@ -93,7 +103,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ? \r\n" + //
-                        "\tand ps.discount > 0\r\n" + //
+                        "\tand ps.discount > 0 and ps.active = 'Active' and ps.sale_is_return is null\r\n" + //
                         "\t\r\n")
         String totalAmountDiscount(String date, String posId, String userCode);
 
@@ -111,7 +121,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ? \r\n" + //
-                        "\tand ps.sale_is_return = 'returned'")
+                        "\tand ps.sale_is_return = 'returned' and ps.active = 'Active' and ps.discount = 0 ")
         Double totalReturnAmountDiscount(String date, String posId, String userCode);
 
         // ============================================ new
@@ -122,14 +132,14 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ? \r\n" + //
-                        "\tand ps.sale_is_return = 'returned'")
+                        "\tand ps.sale_is_return = 'returned' and ps.active = 'Active' ")
         int numRetured(String saleDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "\tselect count(ps.*) from pos_sale ps \r\n" + //
                         "\twhere\r\n" + //
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
-                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.user_code = ? and ps.active = 'Active' \r\n" + //
                         "\t")
         int numOfSale(String currentDate, String posId, String userCode);
 
@@ -137,7 +147,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\twhere\r\n" + //
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
-                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.user_code = ? and ps.active = 'Active'\r\n" + //
                         "\t")
         Double totalSaledAmount(String currentDate, String posId, String userCode);
 
@@ -146,7 +156,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
                         "INNER JOIN pos_product_tax ppt ON ppt.id = pp.tax_id\r\n" + //
-                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? AND ppt.rate_tax > 0\r\n" + //
+                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? AND ppt.rate_tax > 0 and ps.active = 'Active'\r\n" + //
                         "")
         Double vat10(String currentDate, String posId, String userCode);
 
@@ -156,7 +166,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
                         "INNER JOIN pos_product_tax ppt ON ppt.id = pp.tax_id\r\n" + //
-                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? AND ppt.rate_tax = 3\r\n" + //
+                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? AND ppt.rate_tax = 3 and ps.active = 'Active'\r\n" + //
                         "")
         Double vat3(String currentDate, String posId, String userCode);
 
@@ -178,7 +188,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ?\r\n" + //
-                        "\tand ppt.rate_tax > 0")
+                        "\tand ppt.rate_tax > 0 and ps.active = 'Active'")
         Double vat(String currentDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
@@ -199,7 +209,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ?\r\n" + //
-                        "\tand ppt.rate_tax = 0 ") // for
+                        "\tand ppt.rate_tax = 0 and ps.active = 'Active'") // for
                                                    // Non-Vat
         Double noneVat(String currentDate, String posId, String userCode);
 
@@ -209,7 +219,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
                         "INNER JOIN pos_product_tax ppt ON ppt.id = pp.tax_id\r\n" + //
-                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? and  pp.tax_id  = 1 ") // for VAT
+                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? and  pp.tax_id  = 1 and ps.active = 'Active' ") // for VAT
                                                                                                               // state
                                                                                                               // charge
         Double vatStateCharge(String currentDate, String posId, String userCode);
@@ -219,7 +229,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "INNER JOIN pos_sale_details psd ON ps.id = psd.sale_id\r\n" + //
                         "INNER JOIN pos_product pp ON psd.pro_id = pp.id\r\n" + //
                         "INNER JOIN pos_product_tax ppt ON ppt.id = pp.tax_id\r\n" + //
-                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? and  pp.tax_id  = 4 ") // for plt
+                        "WHERE ps.sale_date = ? AND ps.pos_id = ? AND ps.user_code = ? and  pp.tax_id  = 4  and ps.active = 'Active'") // for plt
         Double plt(String currentDate, String posId, String userCode);
 
 }

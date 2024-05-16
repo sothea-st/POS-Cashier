@@ -55,4 +55,13 @@ public class JavaConstant {
         return true;
     }
 
+    public static String insertComma(String str) {
+        StringBuilder sb = new StringBuilder(str);
+        int length = sb.length();
+        // Start from the end of the string and insert comma every 3 characters
+        for (int i = length - 3; i > 0; i -= 3) {
+            sb.insert(i, ",");
+        }
+        return sb.toString();
+    }
 }

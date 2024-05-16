@@ -15,4 +15,6 @@ public interface CloseShiftRepository extends JpaRepository<CloseShift,Integer> 
     int countCloseShift(int userId , String date);
 
 
+    
+
 }
