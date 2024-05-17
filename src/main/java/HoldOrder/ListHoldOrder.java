@@ -39,6 +39,7 @@ import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
 import okhttp3.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ListHoldOrder extends javax.swing.JDialog {
@@ -339,7 +340,35 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProNameEn());
-          box.setLabelWeight(listData.getWeight());
+          
+          //        ====================== get weight ====================
+          String _weight = "";
+          // Your JSON string
+          String jsonString = listData.getWeight();
+
+          // Convert the string to a JSONArray
+          JSONArray jsonArray = new JSONArray(jsonString);
+
+          // Iterate over each JSONObject in the JSONArray
+          for (int m = 0; m < jsonArray.length(); m++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(m);
+
+                // Get values from each JSONObject
+                String name = jsonObject.getString("name");
+                String title = jsonObject.getString("title");
+
+                // Extract options JSONArray
+                JSONArray optionsArray = jsonObject.getJSONArray("options");
+
+                // Get the first option
+                JSONObject optionsObject = optionsArray.getJSONObject(0);
+                String option = optionsObject.getString("option");
+
+
+                _weight = option;
+          }
+          
+          box.setLabelWeight(_weight);
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 
