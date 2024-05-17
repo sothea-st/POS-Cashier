@@ -1,13 +1,11 @@
 package Controller.ActionProduct;
 
-import BlogCode.ActionUpdateQty;
+
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
-import Components.BackgroundImage;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
-
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -15,29 +13,20 @@ import Constant.JavaMessage;
 import Constant.JavaRoundDown;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
-import Model.HoldOrder.HoldProductModel;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
-import Model.ReturnModel.ModelReturnData;
 import Products.ProductBox;
-import UpdateQty.UpdateQtyModel;
-import View.MainPage.MainFrame;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -119,7 +108,7 @@ public class ActionProduct {
 
      public void getAllProduct(JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getAllProduct);
+               Response response = JavaConnection.get(JavaRoute.getAllProduct + "&perPage=20&page=2");
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -336,6 +325,7 @@ public class ActionProduct {
 //================================Product Status============================
                if (listData.getQty() > 0) {
                     product.setProductStatus(listData.getProductStatus());
+                    
                } else {
                     if (listData.getProductStatus().isEmpty()) {
                          product.setProductStatus("Unavailable");
@@ -509,7 +499,36 @@ public class ActionProduct {
 
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProductNameEn());
-          box.setLabelWeight(listData.getWeight());
+          
+//        ====================== get weight ====================
+          String _weight = "";
+          // Your JSON string
+          String jsonString = listData.getWeight();
+
+          // Convert the string to a JSONArray
+          JSONArray jsonArray = new JSONArray(jsonString);
+
+          // Iterate over each JSONObject in the JSONArray
+          for (int m = 0; m < jsonArray.length(); m++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(m);
+
+                // Get values from each JSONObject
+                String name = jsonObject.getString("name");
+                String title = jsonObject.getString("title");
+
+                // Extract options JSONArray
+                JSONArray optionsArray = jsonObject.getJSONArray("options");
+
+                // Get the first option
+                JSONObject optionsObject = optionsArray.getJSONObject(0);
+                String option = optionsObject.getString("option");
+
+
+                _weight = option;
+          }
+          
+          box.setLabelWeight(_weight);
+          
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 

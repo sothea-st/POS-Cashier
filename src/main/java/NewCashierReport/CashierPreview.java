@@ -225,12 +225,15 @@ public class CashierPreview extends javax.swing.JDialog {
           }
 
           double openTill = (data.getOpenCashKhr() / JavaConstant.exchangeRate) + data.getOpenCashUsd();
+        
 
-          closedAmount.setText("Close Amount : " + dm.format(openTill + sumTotalPayment));
-
-          double closeDifferent = openTill + sumTotalPayment - openTill - sumSubTotal;
+          closedAmount.setText("Close Amount : " + dm.format(data.getCashierCount()));
           
-          String _close = ""+closeDifferent;
+          double _a = data.getCashierCount() - sumTotalPayment - openTill;
+
+//          double closeDifferent = openTill + sumTotalPayment - openTill - sumSubTotal;
+          
+          String _close = ""+_a;
           _close = _close.replace("-", "");
           
           countedDifferent.setText("Counted Differen : " + dm.format(Double.valueOf(_close)));
