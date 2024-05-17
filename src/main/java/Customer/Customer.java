@@ -60,6 +60,13 @@ public class Customer extends javax.swing.JDialog {
                && nationality != null) {
                buttonSave1.setBackground(WindowColor.primary);
           }
+          
+          if (cus.isEmpty()
+               || ph.isEmpty()
+               || gender == null
+               || nationality == null) {
+               buttonSave1.setBackground(WindowColor.lightGray);
+          }
      }
 
      void customerFun() {
