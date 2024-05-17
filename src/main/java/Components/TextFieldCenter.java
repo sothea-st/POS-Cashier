@@ -11,6 +11,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 /**
@@ -43,6 +45,26 @@ public class TextFieldCenter extends javax.swing.JPanel {
                     if (txtTextCenter.getText().trim().equals(labelTextCenter)) {
                          txtTextCenter.setForeground(Color.LIGHT_GRAY);
                     }
+               }
+          });
+          
+          
+          txtTextCenter.addKeyListener(new KeyListener() {
+               @Override
+               public void keyTyped(KeyEvent e) {
+
+               }
+
+               @Override
+               public void keyPressed(KeyEvent e) {
+
+               }
+
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    String text = txtTextCenter.getText();
+                    setValueTextFieldCenter(text);
+                    event.onKeyRelease();
                }
           });
      }

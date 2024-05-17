@@ -126,9 +126,43 @@ public class PaymentOption extends javax.swing.JDialog {
           txtReceiveKhr.setBorder(null);
 
           evenGroup();
+          customerFun();
 
      }
+     
+     void customerFun() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    changeBackGroundBtn();
+               }
+          };
 
+          txtCustomerId.initEvent(event);
+          txtCustomerName.initEvent(event);
+          txtCustomerPhone.initEvent(event);
+     }
+
+     void changeBackGroundBtn() {
+
+          String custId = txtCustomerId.getValueTextFieldCenter();
+          String cusName = txtCustomerName.getValueTextFieldCenter();
+          String phone = txtCustomerPhone.getValueTextFieldCenter();
+
+          if (custId != null
+               && cusName != null
+               && phone != null) {
+               btnEinvoice.setBackground(WindowColor.green);
+          }
+          
+          if (custId.isEmpty()
+               || cusName.isEmpty()
+               || phone.isEmpty()) {
+               btnEinvoice.setBackground(WindowColor.lightGray);
+          }
+     }
+     
+     
      void evenGroup() {
 //          txtReceiveUsd.addKeyListener(new KeyListener() {
 //               @Override
@@ -253,7 +287,6 @@ public class PaymentOption extends javax.swing.JDialog {
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
                public void onFocusGain() {
-
                }
           };
           txtCustomerId.initEvent(btnevent);
@@ -284,7 +317,7 @@ public class PaymentOption extends javax.swing.JDialog {
                          String type = typeCustomer.get(i).getCustomerTypeName();
                          map.put(type, "" + idType);
                          if (i == 0) {
-                              cusTypeId = "" + idType;
+                              cusTypeId = "" + 1;
                          }
                     }
                     cmbCustomerType.setMap(map);
@@ -317,7 +350,7 @@ public class PaymentOption extends javax.swing.JDialog {
                          String sourceName = modelSource.get(i).getSourceName();
                          source.put(sourceName, "" + idSource);
                          if (i == 0) {
-                              sourceId = "" + idSource;
+                              sourceId = ""+ 2;
                          }
                     }
                     cmbSource.setMap(source);
@@ -1106,7 +1139,7 @@ public class PaymentOption extends javax.swing.JDialog {
             }
         });
 
-        btnEinvoice.setBackground(new java.awt.Color(47, 152, 70));
+        btnEinvoice.setBackground(new java.awt.Color(204, 204, 204));
         btnEinvoice.setFontColor(java.awt.Color.white);
         btnEinvoice.setLabelName("Charge&eInvoice");
         btnEinvoice.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1615,6 +1648,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
      }
 
+     
     private void buttonChargeAndPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChargeAndPrintMouseClicked
          charge();
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
@@ -1689,9 +1723,8 @@ public class PaymentOption extends javax.swing.JDialog {
           customer.put("contact", txtCustomerPhone.getValueTextFieldCenter());
           customer.put("email", txtCustomerEmail.getValueTextFieldCenter());
           customer.put("earning", txtEarning.getValueTextFieldCenter());
-
-          customer.put("sourceId", sourceId);
-          customer.put("customerTypeId", txtEarning.getValueTextFieldCenter());
+//          customer.put("sourceId", sourceId);
+//          customer.put("customerTypeId", cusTypeId);
 
           if (radioButtonKhmer.isSelected()) {
                customer.put("nationality", radioButtonKhmer.getText());
@@ -1710,9 +1743,25 @@ public class PaymentOption extends javax.swing.JDialog {
                customer.put("gender", radioButtonFemale.getText());
           }
 
-          if (txtCustomerName.getValueTextFieldCenter() != null) {
-               jsonData.put("customer", customer);
+          if ((txtCustomerName.getValueTextFieldCenter() == null || txtCustomerName.getValueTextFieldCenter().isEmpty()) &&
+              (txtCustomerId.getValueTextFieldCenter() == null || txtCustomerId.getValueTextFieldCenter().isEmpty()) &&
+              (txtCustomerPhone.getValueTextFieldCenter() == null || txtCustomerPhone.getValueTextFieldCenter().isEmpty()) ) {
+              customer = null;
+              jsonData.put("customer", customer);
+              System.out.println("Helllloooo" +txtCustomerName.getValueTextFieldCenter());
+          }else{
+              jsonData.put("customer", customer);
           }
+          
+//          if(txtCustomerName.getValueTextFieldCenter().isEmpty() && 
+//              txtCustomerId.getValueTextFieldCenter().isEmpty() && 
+//              txtCustomerPhone.getValueTextFieldCenter().isEmpty()){
+//              jsonData.put("customer", "");
+//              System.out.println("Helllloooo Hiiiii" +txtCustomerName.getValueTextFieldCenter());
+//          }else{
+//              jsonData.put("customer", "");
+//          }
+          
           String discountType = "";
           //get dataSale 
           ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
@@ -2018,7 +2067,18 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbZeroMouseExited
 
     private void btnEinvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEinvoiceMouseClicked
-         charge();
+         
+        String custId = txtCustomerId.getValueTextFieldCenter();
+        String cusName = txtCustomerName.getValueTextFieldCenter();
+        String phone = txtCustomerPhone.getValueTextFieldCenter();
+
+        if ((custId == null || custId.isEmpty())
+            && (cusName == null || cusName.isEmpty())
+            && (phone == null || phone.isEmpty())) {
+            return;
+        }else{
+            charge();
+        }
     }//GEN-LAST:event_btnEinvoiceMouseClicked
 
      DecimalFormat kh = new DecimalFormat("#");

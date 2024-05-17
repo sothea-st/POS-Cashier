@@ -891,7 +891,7 @@
         <Component class="Components.LabelFontBlack" name="btnEinvoice">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="46" green="98" red="2f" type="rgb"/>
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="fontColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
