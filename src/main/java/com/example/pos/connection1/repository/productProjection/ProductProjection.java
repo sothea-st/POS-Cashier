@@ -12,8 +12,8 @@ public interface ProductProjection {
      String getBarcode();
      String getPro_name_kh();
      String getPro_name_en();
-     double getCost();
-     double getPrice();
+     Double getCost();
+     Double getPrice();
      String getProduct_status();
      Double getDiscount();
      String getCode_out_stock();

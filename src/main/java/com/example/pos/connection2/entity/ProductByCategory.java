@@ -54,5 +54,8 @@ public class ProductByCategory {
 
      @Column(name = "brand")
      private String brand;
+
+     @Column(name = "choice_options")
+     private String choiceOptions;
  
 }

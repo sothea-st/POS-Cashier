@@ -35,11 +35,11 @@ public class ProductService {
 
     public Product addProduct(Product p, MultipartFile file, MultipartFile flagFile) throws IOException {
 
-        boolean proNameKh = repo.existsByProNameKh(p.getProNameKh());
-        JavaValidation.checkDataAlreadyExists(proNameKh);
+        // boolean proNameKh = repo.existsByProNameKh(p.getProNameKh());
+        // JavaValidation.checkDataAlreadyExists(proNameKh);
 
-        boolean proNameEn = repo.existsByProNameEn(p.getProNameEn());
-        JavaValidation.checkDataAlreadyExists(proNameEn);
+        // boolean proNameEn = repo.existsByProNameEn(p.getProNameEn());
+        // JavaValidation.checkDataAlreadyExists(proNameEn);
 
         // Object idUser = session.getAttribute(JavaConstant.userId);
 
@@ -113,6 +113,7 @@ public class ProductService {
             List<ProductProjection> allPro = repo.getAllProduct();
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
+              
                 Integer qty = repoImp.getQty(data.getId());
                 if (qty == null)
                     qty = 0;
@@ -140,15 +141,15 @@ public class ProductService {
         String fileName = previousPro.getProImageName();
         String flagName = previousPro.getFlag();
 
-        if (!Objects.equals(previousPro.getProNameKh(), editProduct.getProNameKh())) {
-            boolean isExist = repo.existsByProNameKh(editProduct.getProNameKh());
-            JavaValidation.checkDataAlreadyExists(isExist);
-        }
+        // if (!Objects.equals(previousPro.getProNameKh(), editProduct.getProNameKh())) {
+        //     boolean isExist = repo.existsByProNameKh(editProduct.getProNameKh());
+        //     JavaValidation.checkDataAlreadyExists(isExist);
+        // }
 
-        if (!Objects.equals(previousPro.getProNameEn(), editProduct.getProNameEn())) {
-            boolean isExist = repo.existsByProNameEn(editProduct.getProNameEn());
-            JavaValidation.checkDataAlreadyExists(isExist);
-        }
+        // if (!Objects.equals(previousPro.getProNameEn(), editProduct.getProNameEn())) {
+        //     boolean isExist = repo.existsByProNameEn(editProduct.getProNameEn());
+        //     JavaValidation.checkDataAlreadyExists(isExist);
+        // }
 
         Object idUser = session.getAttribute(JavaConstant.userId);
 
