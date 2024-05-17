@@ -44,7 +44,7 @@ public class ServiceManagement {
                // pro.setNote(p.getNote());
                pro.setTaxId(3);
                pro.setCreateBy(1);
-               // pro.setWeight(p.getWeight());
+               pro.setWeight(p.getChoiceOptions());
                pro.setBarcode(p.getBarcode());
                pro.setDiscount(p.getDiscount());
                pro.setBrandId(0);

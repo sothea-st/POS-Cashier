@@ -19,7 +19,7 @@ public interface ProdcutByCategoryRepository  extends JpaRepository<ProductByCat
 
      @Query(nativeQuery = true , value = "SELECT  *"+
                     "FROM \r\n" + //
-                    "    product_by_categories pbc")
+                    "    product_by_categories pbc where pbc.price > 0 and pbc.cost > 0")
      List<ProductByCategory> getProduct();
 
 }

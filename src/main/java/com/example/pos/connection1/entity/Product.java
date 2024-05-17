@@ -26,40 +26,44 @@ public class Product {
     @Column(name = "brand_id")
     private int brandId;
 
-    @Column(name = "flag" , length = 150)
+    @Column(name = "flag" )
     private String flag;
 
-    @Column(name = "weight" , length = 50)
+    @Column(name = "weight")
     private String weight;
 
-    @Column(name = "pro_image_name" , length = 255)
+    @Column(name = "pro_image_name")
     private String proImageName;
 
-    @Column(name = "node" , length = 500)
+    @Column(name = "node")
     private String note;
 
-    @Column(name = "code_expired" , length = 30)
+    @Column(name = "code_expired")
     private String codeExpired;
 
-    @Column(name = "code_out_stock" , length = 30)
+    @Column(name = "code_out_stock" )
     private String codeOutStock;
 
-    @Column(name = "barcode",length = 100)
+    @Column(name = "barcode",unique = true)
     private String barcode;
 
-    @Column(name = "tax_id",length = 100)
+    @Column(name = "tax_id")
     @Min(1)
     private int taxId;
 
-    // @Column(name = "unit_type_id",length = 30)
+
+    // @Column(name = "choice_options")
+    // private String choiceOption;
+
+    // @Column(name = "unit_type_id",)
     // private int unitTypeId;
 
-    @Column(name = "pro_name_kh",length = 150 ,unique = true)
-    @NotBlank(message = JavaMessage.required)
+    @Column(name = "pro_name_kh")
+    // @NotBlank(message = JavaMessage.required)
     private String proNameKh;
 
-    @Column(name = "pro_name_en",length = 150 , unique = true)
-    @NotBlank(message = JavaMessage.required)
+    @Column(name = "pro_name_en")
+    // @NotBlank(message = JavaMessage.required)
     private String proNameEn;
 
     @Column(precision = 10, scale = 2,name = "cost")
@@ -68,10 +72,10 @@ public class Product {
     @Column(precision = 10, scale = 2,name = "price")
     private BigDecimal price = new BigDecimal(0);
 
-    @Column(name = "product_status",length = 30)
+    @Column(name = "product_status")
     private String productStatus;
 
-    @Column(name = "discount",length = 30, precision = 10, scale = 2)
+    @Column(name = "discount",precision = 10, scale = 2)
     private BigDecimal discount;
 
     @Column(name = "status")
