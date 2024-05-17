@@ -630,7 +630,6 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
      private void loginFunc() {
-
           jdFormLogin.setBtnLogin(btnLogin);
           jdFormLogin.setCategory(category);
           jdFormLogin.setPanelProduct(panelProduct);
@@ -668,7 +667,6 @@ public class MainPage extends javax.swing.JFrame {
          } else if (buttonName.equals("logout")) {
               if (JavaConstant.checkOpenShift == false) {
                    LogoutDialog logout = new LogoutDialog(new JFrame(), true);
-
                    logout.setBtnLogin(btnLogin);
                    logout.setCategory(category);
                    logout.setPanelProduct(panelProduct);
@@ -683,6 +681,7 @@ public class MainPage extends javax.swing.JFrame {
                    logout.setSubtotalPanel(totalPanel);
                    logout.setButtonCashier(buttonCashier);
                    logout.setBtnOpenShift(btnOpenShift);
+                   logout.setComboBox(cmboxBrand);
                    logout.setVisible(true);
               } else {
                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
@@ -914,7 +913,7 @@ public class MainPage extends javax.swing.JFrame {
                try {
                     CashierPreview cashier = new CashierPreview(new JFrame(), true);
                     Response response = JavaConnection.get(JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0002&userId=5&posId=02");
+//                    Response response = JavaConnection.get(JavaRoute.cashierReport + "0005&userId=8&posId=01");
 
                     if (response.isSuccessful()) {
                          String myObject = response.body().string();

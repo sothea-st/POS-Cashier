@@ -20,6 +20,10 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 public class ComboBox extends javax.swing.JPanel {
 
      private HashMap<String, String> map;
+     
+     public int getItemCount(){
+          return combo.getItemCount();
+     }
 
      public HashMap<String, String> getMap() {
           return map;
@@ -28,12 +32,14 @@ public class ComboBox extends javax.swing.JPanel {
      public void setMap(HashMap<String, String> map) {
           this.map = map;
           
+          
+          
           for (String key : map.keySet()) {
                ComboItem cm = new ComboItem(key, map.get(key));
                combo.addItem(cm.getKey());
                combo.setFont(WindowFonts.timeNewRoman14);
           }
-          
+
      }
 
      public ComboBox() {
@@ -45,29 +51,33 @@ public class ComboBox extends javax.swing.JPanel {
           JavaConstant.setPointer(combo);
      }
 
-     public void initEvent( ButtonEvent events ) {
-         combo.addActionListener(new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e) {
-                   String itemName = combo.getSelectedItem().toString();
-                   events.onSelect(map.get(itemName));
-                   events.onSelectBreadcrumb(map.get(itemName),itemName);
-              }
-         });
+     public void initEvent(ButtonEvent events) {
+          combo.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                    String itemName = combo.getSelectedItem().toString();
+                    events.onSelect(map.get(itemName));
+                    events.onSelectBreadcrumb(map.get(itemName), itemName);
+               }
+          });
      }
-     
-     public void setToFirstItem(){
+
+     public void setToFirstItem() {
           combo.setSelectedIndex(0);
      }
-     
-     public void removeAllItem(){
-          combo.removeAllItems();
+
+     public void removeAllItem() {
+          
+              
+ 
+              
+         
      }
-     
-     public int countItem(){
+
+     public int countItem() {
           return combo.getItemCount();
      }
-     
+
      //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 1;
@@ -124,45 +134,54 @@ public class ComboBox extends javax.swing.JPanel {
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        combo = new javax.swing.JComboBox<>();
+          combo = new javax.swing.JComboBox<>();
 
-        combo.setBackground(new java.awt.Color(255, 255, 255));
-        combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--" }));
-        combo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        combo.setFocusable(false);
-        combo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboActionPerformed(evt);
-            }
-        });
+          combo.setBackground(new java.awt.Color(255, 255, 255));
+          combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Select--" }));
+          combo.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+          combo.setFocusable(false);
+          combo.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    comboMouseClicked(evt);
+               }
+          });
+          combo.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    comboActionPerformed(evt);
+               }
+          });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(combo, 0, 202, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(combo, 0, 202, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(combo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
     private void comboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboActionPerformed
 
     }//GEN-LAST:event_comboActionPerformed
 
+     private void comboMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboMouseClicked
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> combo;
-    // End of variables declaration//GEN-END:variables
+     }//GEN-LAST:event_comboMouseClicked
+
+
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JComboBox<String> combo;
+     // End of variables declaration//GEN-END:variables
 }

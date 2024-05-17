@@ -13,15 +13,22 @@ import okhttp3.Response;
 public class ActionRequestBrand {
 
      public static void requestBrand(ComboBox cmBox) {
+      
           Response response = JavaConnection.get(JavaRoute.brand);
           HashMap<String, String> map = new HashMap<>();
           try {
+              
+               if( cmBox.getItemCount() > 1 ) {
+                    return;
+               }
+               
                if (response.isSuccessful()) {   
+                   
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     BrandSuccessModel data = objMap.readValue(responseData, BrandSuccessModel.class);
                     BrandModel[] listBrand = data.getData();
-                   
+                    
                     for (int i = 0; i < listBrand.length; i++) {
                          map.put(listBrand[i].getBrandNameEn(), "" + listBrand[i].getID());
                     }

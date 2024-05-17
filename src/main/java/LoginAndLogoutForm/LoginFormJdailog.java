@@ -43,9 +43,7 @@ import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+ 
 import javax.swing.ImageIcon;
 
 public class LoginFormJdailog extends javax.swing.JDialog {
@@ -106,7 +104,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtUserId.setFocus();
-
      }
 
      //Function call Placeholder
@@ -394,7 +391,9 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               Response response = JavaConnection.login(JavaRoute.login, json);
 
               if (response.isSuccessful()) {
-
+                   
+                    
+                   
                    String responseData = response.body().string();
 
                    ObjectMapper objMap = new ObjectMapper();
@@ -570,6 +569,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               public void onMouseClick() {
 
                                    if (JavaConstant.checkOpenShift) {
+                                        
                                         JavaConstant.resetValuePagination(); // for pagination
 
                                         setCatId(catId);

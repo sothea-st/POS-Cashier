@@ -453,6 +453,11 @@ public class CloseShift extends javax.swing.JDialog {
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
                    JavaConstant.isOpenShift = "Can not openshift";
+                   
+                   
+                    category.removeAll();
+                    category.revalidate();
+                    category.repaint();
 
                    //      == == == == == == == Add Background == == == == == == ==
 //                   BackgroundImage bgimg = new BackgroundImage();

@@ -46,6 +46,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import okhttp3.Response;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ActionProduct {
@@ -84,7 +85,7 @@ public class ActionProduct {
                     ProductDataModel[] listData = data.getData();
 
                     if (listData.length == 0) {
-                        JavaConstant.setResultNotFound(panelProduct,panelPagination );
+                         JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
 
@@ -134,10 +135,9 @@ public class ActionProduct {
                System.err.println("error getting product " + e);
           }
      }
-     
-     
-      public void getPromotion(int catId, int limit, JPanel panelProduct) {
-           try {
+
+     public void getPromotion(int catId, int limit, JPanel panelProduct) {
+          try {
                Response response = JavaConnection.get(JavaRoute.getPromotion);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -360,8 +360,35 @@ public class ActionProduct {
 //                    productName = listData.getProductNameEn();
 //               }
                product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
-               product.setWeight(listData.getWeight());
 
+//               ====================== get weight ====================
+               String _weight = "";
+               // Your JSON string
+               String jsonString = listData.getWeight();
+
+               // Convert the string to a JSONArray
+               JSONArray jsonArray = new JSONArray(jsonString);
+
+               // Iterate over each JSONObject in the JSONArray
+               for (int m = 0; m < jsonArray.length(); m++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(m);
+
+                    // Get values from each JSONObject
+                    String name = jsonObject.getString("name");
+                    String title = jsonObject.getString("title");
+
+                    // Extract options JSONArray
+                    JSONArray optionsArray = jsonObject.getJSONArray("options");
+
+                    // Get the first option
+                    JSONObject optionsObject = optionsArray.getJSONObject(0);
+                    String option = optionsObject.getString("option");
+
+           
+                    _weight = option;
+               }
+
+               product.setWeight(_weight);
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
                     double dis4Length = JavaConstant.get4Length("" + discountPrice);
@@ -377,7 +404,6 @@ public class ActionProduct {
                try {
 
                     if (listData.getProImageName() != null) {
-
 //                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
                          product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
                     }

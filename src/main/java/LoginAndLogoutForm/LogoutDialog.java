@@ -3,6 +3,7 @@ package LoginAndLogoutForm;
 import Button.Button;
 import Color.WindowColor;
 import Components.BackgroundImage;
+import Components.ComboBox;
 import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.SubtotalPanel;
@@ -11,7 +12,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Fonts.WindowFonts;
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JFrame;
@@ -25,6 +26,20 @@ public class LogoutDialog extends javax.swing.JDialog {
 
      private SearchField searchBox;
      private TextField textField;
+     private ComboBox comboBox;
+
+     public ComboBox getComboBox() {
+          return comboBox;
+     }
+
+     public void setComboBox(ComboBox comboBox) {
+          this.comboBox = comboBox;
+     }
+     
+     
+     
+     
+     
 
      public LogoutDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -201,6 +216,7 @@ public class LogoutDialog extends javax.swing.JDialog {
                    category.removeAll();
                    category.revalidate();
                    category.repaint();
+                
 
                    subtotalPanel.setLabelSubTitleToZero();
                    detailItem.removeAll();
@@ -244,7 +260,7 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
-
+           
                    dispose();
               }
          } catch (Exception e) {
