@@ -129,7 +129,7 @@ public class PaymentOption extends javax.swing.JDialog {
           customerFun();
 
      }
-     
+
      void customerFun() {
           ButtonEvent event = new ButtonEvent() {
                @Override
@@ -154,15 +154,14 @@ public class PaymentOption extends javax.swing.JDialog {
                && phone != null) {
                btnEinvoice.setBackground(WindowColor.green);
           }
-          
+
           if (custId.isEmpty()
                || cusName.isEmpty()
                || phone.isEmpty()) {
                btnEinvoice.setBackground(WindowColor.lightGray);
           }
      }
-     
-     
+
      void evenGroup() {
 //          txtReceiveUsd.addKeyListener(new KeyListener() {
 //               @Override
@@ -350,7 +349,7 @@ public class PaymentOption extends javax.swing.JDialog {
                          String sourceName = modelSource.get(i).getSourceName();
                          source.put(sourceName, "" + idSource);
                          if (i == 0) {
-                              sourceId = ""+ 2;
+                              sourceId = "" + 2;
                          }
                     }
                     cmbSource.setMap(source);
@@ -1648,7 +1647,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
      }
 
-     
+
     private void buttonChargeAndPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChargeAndPrintMouseClicked
          charge();
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
@@ -1716,43 +1715,41 @@ public class PaymentOption extends javax.swing.JDialog {
           dataPay.put("changeUsd", changeUsd);
           dataPay.put("changeKhr", changeKhr);
 
-          //get customer 
-          HashMap<String, Object> customer = new HashMap<>();
-          customer.put("cusName", txtCustomerName.getValueTextFieldCenter());
-          customer.put("customerId", txtCustomerId.getValueTextFieldCenter());
-          customer.put("contact", txtCustomerPhone.getValueTextFieldCenter());
-          customer.put("email", txtCustomerEmail.getValueTextFieldCenter());
-          customer.put("earning", txtEarning.getValueTextFieldCenter());
+          if ((txtCustomerName.getValueTextFieldCenter() == null || txtCustomerName.getValueTextFieldCenter().isEmpty())
+               && (txtCustomerId.getValueTextFieldCenter() == null || txtCustomerId.getValueTextFieldCenter().isEmpty())
+               && (txtCustomerPhone.getValueTextFieldCenter() == null || txtCustomerPhone.getValueTextFieldCenter().isEmpty())) {
+ 
+
+          } else {
+               //get customer 
+               HashMap<String, Object> customer = new HashMap<>();
+               customer.put("cusName", txtCustomerName.getValueTextFieldCenter());
+               customer.put("customerId", txtCustomerId.getValueTextFieldCenter());
+               customer.put("contact", txtCustomerPhone.getValueTextFieldCenter());
+               customer.put("email", txtCustomerEmail.getValueTextFieldCenter());
+               customer.put("earning", txtEarning.getValueTextFieldCenter());
 //          customer.put("sourceId", sourceId);
 //          customer.put("customerTypeId", cusTypeId);
 
-          if (radioButtonKhmer.isSelected()) {
-               customer.put("nationality", radioButtonKhmer.getText());
-          } else if (radioButtonAsian.isSelected()) {
-               customer.put("nationality", radioButtonAsian.getText());
-          } else if (radioButtonChinese.isSelected()) {
-               customer.put("nationality", radioButtonChinese.getText());
-          } else if (radioButtonWhite.isSelected()) {
-               customer.put("nationality", radioButtonWhite.getText());
-          } else if (radioButtonBlack.isSelected()) {
-               customer.put("nationality", radioButtonBlack.getText());
-          }
-          if (radioButtonMale.isSelected()) {
-               customer.put("gender", radioButtonMale.getText());
-          } else if (radioButtonFemale.isSelected()) {
-               customer.put("gender", radioButtonFemale.getText());
+               if (radioButtonKhmer.isSelected()) {
+                    customer.put("nationality", radioButtonKhmer.getText());
+               } else if (radioButtonAsian.isSelected()) {
+                    customer.put("nationality", radioButtonAsian.getText());
+               } else if (radioButtonChinese.isSelected()) {
+                    customer.put("nationality", radioButtonChinese.getText());
+               } else if (radioButtonWhite.isSelected()) {
+                    customer.put("nationality", radioButtonWhite.getText());
+               } else if (radioButtonBlack.isSelected()) {
+                    customer.put("nationality", radioButtonBlack.getText());
+               }
+               if (radioButtonMale.isSelected()) {
+                    customer.put("gender", radioButtonMale.getText());
+               } else if (radioButtonFemale.isSelected()) {
+                    customer.put("gender", radioButtonFemale.getText());
+               }
+               jsonData.put("customer", customer);
           }
 
-          if ((txtCustomerName.getValueTextFieldCenter() == null || txtCustomerName.getValueTextFieldCenter().isEmpty()) &&
-              (txtCustomerId.getValueTextFieldCenter() == null || txtCustomerId.getValueTextFieldCenter().isEmpty()) &&
-              (txtCustomerPhone.getValueTextFieldCenter() == null || txtCustomerPhone.getValueTextFieldCenter().isEmpty()) ) {
-              customer = null;
-              jsonData.put("customer", customer);
-              System.out.println("Helllloooo" +txtCustomerName.getValueTextFieldCenter());
-          }else{
-              jsonData.put("customer", customer);
-          }
-          
 //          if(txtCustomerName.getValueTextFieldCenter().isEmpty() && 
 //              txtCustomerId.getValueTextFieldCenter().isEmpty() && 
 //              txtCustomerPhone.getValueTextFieldCenter().isEmpty()){
@@ -1761,7 +1758,6 @@ public class PaymentOption extends javax.swing.JDialog {
 //          }else{
 //              jsonData.put("customer", "");
 //          }
-          
           String discountType = "";
           //get dataSale 
           ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
@@ -2067,18 +2063,18 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_lbZeroMouseExited
 
     private void btnEinvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEinvoiceMouseClicked
-         
-        String custId = txtCustomerId.getValueTextFieldCenter();
-        String cusName = txtCustomerName.getValueTextFieldCenter();
-        String phone = txtCustomerPhone.getValueTextFieldCenter();
 
-        if ((custId == null || custId.isEmpty())
-            && (cusName == null || cusName.isEmpty())
-            && (phone == null || phone.isEmpty())) {
-            return;
-        }else{
-            charge();
-        }
+         String custId = txtCustomerId.getValueTextFieldCenter();
+         String cusName = txtCustomerName.getValueTextFieldCenter();
+         String phone = txtCustomerPhone.getValueTextFieldCenter();
+
+         if ((custId == null || custId.isEmpty())
+              && (cusName == null || cusName.isEmpty())
+              && (phone == null || phone.isEmpty())) {
+              return;
+         } else {
+              charge();
+         }
     }//GEN-LAST:event_btnEinvoiceMouseClicked
 
      DecimalFormat kh = new DecimalFormat("#");
