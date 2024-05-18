@@ -89,6 +89,7 @@ public class SaleService {
         sale.setCreateBy(userId);
 
         Customer cus = s.getCustomer();
+  
         String cusId = null;
         int countId = cusRepo.countRecord();
         countId++;

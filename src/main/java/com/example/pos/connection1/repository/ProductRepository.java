@@ -63,8 +63,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
                         "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
                         "from pos_product pc\r\n" + //
-                        "where pc.status=true and pc.is_deleted=false order by pc.id asc")
-        List<ProductProjection> getAllProduct();
+                        "where pc.status=true and pc.is_deleted=false order by pc.id asc LIMIT ? OFFSET ?")
+        List<ProductProjection> getAllProduct(int perPage , int page);
 
         @Query(nativeQuery = true, value = "select count(*) from pos_product where status=true and is_deleted=false")
         int countRow();
