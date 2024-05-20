@@ -121,8 +121,9 @@ public class ReturnProductService {
         Sale result = dataSale.get();
 
         double valueReturn = result.getTotal().doubleValue() - sumTotalReturn;
+      
         result.setSaleIsReturn("returned");
-        result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn));
+        result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn - result.getDiscount().doubleValue()));
         result.setTotalMinusTotalReturn(BigDecimal.valueOf(valueReturn));
         repoSale.save(result);
 
