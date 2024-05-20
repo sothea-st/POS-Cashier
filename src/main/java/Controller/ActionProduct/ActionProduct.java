@@ -1,6 +1,5 @@
 package Controller.ActionProduct;
 
-
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
@@ -96,6 +95,12 @@ public class ActionProduct {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
+                    
+                    if (listData.length == 0) {
+                         JavaConstant.setResultNotFound(panelProduct, panelPagination);
+                         return;
+                    }
+
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -108,13 +113,19 @@ public class ActionProduct {
 
      public void getAllProduct(JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getAllProduct + "&perPage=20&page=2");
+               Response response = JavaConnection.get(JavaRoute.getAllProduct + "&perPage=200&page=1");
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
+                    
+                    if (listData.length == 0) {
+                         JavaConstant.setResultNotFound(panelProduct, panelPagination);
+                         return;
+                    }
+
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -133,6 +144,12 @@ public class ActionProduct {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
+
+                    if (listData.length == 0) {
+                         JavaConstant.setResultNotFound(panelProduct, panelPagination);
+                         return;
+                    }
+
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -165,7 +182,6 @@ public class ActionProduct {
                     obj.getDiscountType()
                );
                listProduct.add(product);
-
           }
           appendProduct(listProduct, panelProduct);
      }
@@ -325,7 +341,7 @@ public class ActionProduct {
 //================================Product Status============================
                if (listData.getQty() > 0) {
                     product.setProductStatus(listData.getProductStatus());
-                    
+
                } else {
                     if (listData.getProductStatus().isEmpty()) {
                          product.setProductStatus("Unavailable");
@@ -374,7 +390,6 @@ public class ActionProduct {
                     JSONObject optionsObject = optionsArray.getJSONObject(0);
                     String option = optionsObject.getString("option");
 
-           
                     _weight = option;
                }
 
@@ -499,7 +514,7 @@ public class ActionProduct {
 
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProductNameEn());
-          
+
 //        ====================== get weight ====================
           String _weight = "";
           // Your JSON string
@@ -510,25 +525,24 @@ public class ActionProduct {
 
           // Iterate over each JSONObject in the JSONArray
           for (int m = 0; m < jsonArray.length(); m++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(m);
+               JSONObject jsonObject = jsonArray.getJSONObject(m);
 
-                // Get values from each JSONObject
-                String name = jsonObject.getString("name");
-                String title = jsonObject.getString("title");
+               // Get values from each JSONObject
+               String name = jsonObject.getString("name");
+               String title = jsonObject.getString("title");
 
-                // Extract options JSONArray
-                JSONArray optionsArray = jsonObject.getJSONArray("options");
+               // Extract options JSONArray
+               JSONArray optionsArray = jsonObject.getJSONArray("options");
 
-                // Get the first option
-                JSONObject optionsObject = optionsArray.getJSONObject(0);
-                String option = optionsObject.getString("option");
+               // Get the first option
+               JSONObject optionsObject = optionsArray.getJSONObject(0);
+               String option = optionsObject.getString("option");
 
-
-                _weight = option;
+               _weight = option;
           }
-          
+
           box.setLabelWeight(_weight);
-          
+
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 

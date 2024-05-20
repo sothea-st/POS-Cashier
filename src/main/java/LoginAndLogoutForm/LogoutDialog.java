@@ -35,11 +35,6 @@ public class LogoutDialog extends javax.swing.JDialog {
      public void setComboBox(ComboBox comboBox) {
           this.comboBox = comboBox;
      }
-     
-     
-     
-     
-     
 
      public LogoutDialog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -203,6 +198,9 @@ public class LogoutDialog extends javax.swing.JDialog {
 
          JSONObject json = new JSONObject();
          json.put("id", JavaConstant.cashierId);
+         json.put("posId", JavaConstant.posId);
+         json.put("userCode", JavaConstant.userCode);
+
          Response response = JavaConnection.post(JavaRoute.logout, json);
 
          try {
@@ -216,7 +214,6 @@ public class LogoutDialog extends javax.swing.JDialog {
                    category.removeAll();
                    category.revalidate();
                    category.repaint();
-                
 
                    subtotalPanel.setLabelSubTitleToZero();
                    detailItem.removeAll();
@@ -260,7 +257,7 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
-           
+
                    dispose();
               }
          } catch (Exception e) {
