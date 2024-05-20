@@ -36,6 +36,7 @@ public class ResponsiveSize {
      private LoginFormJdailog jdFormLogin;
      private Button btnReturn;
      private JLabel titleOrder;
+     private JPanel panelPagination;
 
      public ResponsiveSize(
           JPanel detailItem,
@@ -46,7 +47,8 @@ public class ResponsiveSize {
           Button buttonHoldOrder,
           LoginFormJdailog jdFormLogin,
           Button btnReturn,
-          JLabel titleOrder
+          JLabel titleOrder,
+          JPanel panelPagination
      ) {
 
           this.detailItem = detailItem;
@@ -58,6 +60,7 @@ public class ResponsiveSize {
           this.jdFormLogin = jdFormLogin;
           this.btnReturn = btnReturn;
           this.titleOrder = titleOrder;
+          this.panelPagination = panelPagination;
      }
 
      public void resizeEvent(MainPage mainPage) {
@@ -68,9 +71,7 @@ public class ResponsiveSize {
                     Dimension size = mainPage.getSize();
                     int width = size.width;
 
-                    
 //                    System.out.println("width : " + width);
-                    
                     if (width > 1900) {
                          if ((mainPage.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
                               isFullScreen = true;
@@ -102,8 +103,7 @@ public class ResponsiveSize {
                                    resizeWithData(5);
                               }
                          }
-                         
-                      
+
                          isFullScreen = false;
                     }
                }
@@ -128,13 +128,25 @@ public class ResponsiveSize {
           a.setBtnReturn(btnReturn);
           a.setTitleOrder(titleOrder);
           JavaConstant.rowNum = num;
-       
+
           panelProduct.removeAll();
+
+          System.out.println("catId ============:" + jdFormLogin.getCatId());
           if (jdFormLogin.getCatId() == 0) {
                a.getAllProduct(panelProduct);
           } else {
-               a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
-            
+
+               if (jdFormLogin.getCatId() == 2) {  // catId = 2 NEW ITEMS
+                    panelPagination.setVisible(false);
+                    a.newProduct(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+               } else if (jdFormLogin.getCatId() == 1) {  // catId = 1 Promotion
+                    panelPagination.setVisible(false);
+                    a.getPromotion(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+               } else {
+                    a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+               }
+
+//               a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
           }
           panelProduct.revalidate();
           panelProduct.repaint();

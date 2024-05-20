@@ -47,7 +47,7 @@ public class ListProduct extends javax.swing.JDialog {
         JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
-         setTitle("Stock");
+     setTitle("Stock");  
     }
     
     void setBackground(){
@@ -56,7 +56,7 @@ public class ListProduct extends javax.swing.JDialog {
     
     public void getProduct(JPanel jpanelData) {
           try {
-               Response response = JavaConnection.get(JavaRoute.product + "?limit=0");
+               Response response = JavaConnection.get(JavaRoute.product + "?limit=0&perPage=200&page=2");
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

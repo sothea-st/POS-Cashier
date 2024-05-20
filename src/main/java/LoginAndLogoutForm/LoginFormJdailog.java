@@ -390,10 +390,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
               Response response = JavaConnection.login(JavaRoute.login, json);
 
-              if (response.isSuccessful()) {
-                   
-                    
-                   
+              if (response.isSuccessful()) { 
                    String responseData = response.body().string();
 
                    ObjectMapper objMap = new ObjectMapper();
