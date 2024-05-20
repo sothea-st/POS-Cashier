@@ -273,7 +273,7 @@ public class CashierReportService {
         summery.add(
                 new SummeryCashierReport("Total Refund/Return", returnQty, BigDecimal.valueOf(returnAmountDiscount)));
         summery.add(new SummeryCashierReport("Total Voids", 0, BigDecimal.valueOf(0)));
-        summery.add(new SummeryCashierReport("Disounts", qtyDiscount, BigDecimal.valueOf(Double.valueOf(df.format(amountDiscount)))));
+        summery.add(new SummeryCashierReport("Discounts", qtyDiscount, BigDecimal.valueOf(Double.valueOf(df.format(amountDiscount)))));
         map.put("SummerySale", summery);
     }
 

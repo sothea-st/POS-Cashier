@@ -93,7 +93,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\twhere\r\n" + //
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
-                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.user_code = ? and ps.discount_case is not null\r\n" + //
                         "\tand ps.discount > 0 and ps.active = 'Active' and ps.sale_is_return is null \r\n" + //
                         "\t\r\n")
         int totalQtyDiscount(String date, String posId, String userCode);
@@ -102,7 +102,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\twhere\r\n" + //
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
-                        "\tand ps.user_code = ? \r\n" + //
+                        "\tand ps.user_code = ? and ps.discount_case is not null\r\n" + //
                         "\tand ps.discount > 0 and ps.active = 'Active' and ps.sale_is_return is null\r\n" + //
                         "\t\r\n")
         String totalAmountDiscount(String date, String posId, String userCode);
@@ -132,7 +132,7 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ? \r\n" + //
-                        "\tand ps.sale_is_return = 'returned' and ps.active = 'Active' ")
+                        "\tand ps.sale_is_return = 'returned' and ps.active = 'Active' and ps.discount = 0 ")
         int numRetured(String saleDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "\tselect count(ps.*) from pos_sale ps \r\n" + //
