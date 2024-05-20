@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.User;
 
 import java.util.*;
@@ -31,18 +32,24 @@ public class LogoutController {
 
      @Autowired
      private SaleRepository saleRepository;
+ 
 
      @PostMapping
      public ResponseEntity<?> logout(@RequestBody UserLogoutDTO user) {
         
           Optional<User> users = repo.findById(user.id());
           jdbcTemplate.update("delete from pos_id where user_id = "+user.id()+"");
-           jdbcTemplate.update("update pos_sale set active = null where pos_id = "+user.posId()+" and user_code = "+user.userCode()+" and user_id = "+user.id()+"");
-          // jdbcTemplate.update("update pos_payment p\r\n" + //
-          //                     "inner join pos_sale ps on ps.id = p.sale_id \r\n" + //
-          //                     "set active is null where pos_id = "+user.posId()+" and ps.user_id = "+user.id()+" and ps.user_code = "+user.userCode()+"");
 
 
+          String updateQuery = "update pos_sale set active = ? where pos_id = ? and user_code = ? and user_id = ?";
+        
+          // Define values for parameters in the update query
+          Object[] params = {null, user.posId(), user.userCode() , user.id()}; // Example values
+          
+          // Execute the update query
+          jdbcTemplate.update(updateQuery, params);
+
+ 
 
           User data = users.get();
           data.setDevice(null);

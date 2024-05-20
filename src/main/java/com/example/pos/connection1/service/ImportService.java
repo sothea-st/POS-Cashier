@@ -58,6 +58,8 @@ public class ImportService {
 
         List<ImportDetail> listDetail = imp.getDetails();
 
+
+        
         for (int i = 0; i < listDetail.size(); i++) {
             var value = listDetail.get(i);
             int productId = value.getProductId();

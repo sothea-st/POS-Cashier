@@ -105,12 +105,12 @@ public class ProductService {
         return Base64.getDecoder().decode(base64); // decode string base64
     }
 
-    public List<ProductModel> getProduct(int limit) {
+    public List<ProductModel> getProduct(int limit , int perPage , int page) {
 
         List<ProductModel> list = new ArrayList<>();
 
         if (limit == 0) {
-            List<ProductProjection> allPro = repo.getAllProduct();
+            List<ProductProjection> allPro = repo.getAllProduct(perPage , page);
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
               
@@ -311,7 +311,7 @@ public class ProductService {
 
     public List<ProductModel> getNewProduct() {
         Integer countRow = repo.countRow();
-        Integer number = (countRow * 20) / 100;
+        Integer number = (countRow * 30) / 100;
 
         List<ProductProjection> listData = repo.getNewProduct(number);
         List<ProductModel> list = new ArrayList<>();

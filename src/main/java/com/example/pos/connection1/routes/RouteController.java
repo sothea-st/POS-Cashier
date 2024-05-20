@@ -140,10 +140,10 @@ public class RouteController {
           }
 
           @GetMapping
-          public ResponseEntity<?> getProduct(@RequestParam("limit") int limit) {
+          public ResponseEntity<?> getProduct(@RequestParam("limit") int limit , @RequestParam int perPage , @RequestParam int page ) {
                HashMap<String, Object> map = new HashMap<>();
                int count = repo.countRow();
-               List<ProductModel> data = service.getProduct(limit);
+               List<ProductModel> data = service.getProduct(limit,perPage,page);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
 
