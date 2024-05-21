@@ -421,7 +421,7 @@ public class CloseShift extends javax.swing.JDialog {
 //              }
 
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
-          
+              System.out.println("respoeng : " + response);
               if (response.isSuccessful()) {
 
                    searchBox.disabledTextField(false);
