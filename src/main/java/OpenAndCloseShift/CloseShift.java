@@ -48,7 +48,7 @@ public class CloseShift extends javax.swing.JDialog {
           setResizable(false);
           event();
           this.btnOpenShift = btnOpenShift;
-          redexpress.setFocus();
+//          redexpress.setFocus();
 
           redexpress.setComma("comma");
           qrMnk.setComma("comma"); // when user type 4length it will insert , at 3 length 
