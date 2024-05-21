@@ -1,7 +1,9 @@
 package com.example.pos.connection1.repository;
 
+import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.entity.projection.SaleDetailProjection;
+import com.example.pos.connection1.projections.SaleSomeFieldProject;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -143,13 +145,13 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "\t")
         int numOfSale(String currentDate, String posId, String userCode);
 
-        @Query(nativeQuery = true, value = "\tselect sum(ps.sub_total)  from pos_sale ps \r\n" + //
+        @Query(nativeQuery = true, value = "\tselect ps.discount , ps.sub_total ,ps.discount_case  from pos_sale ps \r\n" + //
                         "\twhere\r\n" + //
                         "\tps.sale_date = ?\r\n" + //
                         "\tand ps.pos_id = ?\r\n" + //
                         "\tand ps.user_code = ? and ps.active = 'Active'  \r\n" + //
                         "\t")
-        Double totalSaledAmount(String currentDate, String posId, String userCode);
+        List<SaleSomeFieldProject> totalSaledAmount(String currentDate, String posId, String userCode);
 
         @Query(nativeQuery = true, value = "SELECT trunc( sum(((psd.price*psd.qty)/1.1)*0.1), 2) as vat\r\n" + //
                         "FROM pos_sale ps\r\n" + //
