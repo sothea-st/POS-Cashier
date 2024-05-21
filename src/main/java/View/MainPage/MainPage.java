@@ -917,6 +917,11 @@ public class MainPage extends javax.swing.JFrame {
                          ObjectMapper objMap = new ObjectMapper();
                          DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class);
                          cashier.setGetData(d);
+                         
+                         if(d.getMsg().equals("NO_RESULT")){
+                             return;
+                         }
+                         
                          cashier.setVisible(true);
                     }
                } catch (Exception e) {
