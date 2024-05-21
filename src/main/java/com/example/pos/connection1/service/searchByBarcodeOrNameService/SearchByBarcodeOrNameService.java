@@ -77,7 +77,7 @@ public class SearchByBarcodeOrNameService {
             }
         } else {
             int countProductExistInInvoice = repo.countProductExistInIvoice(invoiceNo, barcode);
-            System.out.println("countProductExistInInvoice : " + countProductExistInInvoice);
+         
             if (countProductExistInInvoice == 0) {
                 _map.put("msg", JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER);
                 return _map;
