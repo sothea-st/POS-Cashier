@@ -583,7 +583,11 @@ public class RouteController {
                     map.put(JavaConstant.message, JavaConstant.msgCloseShift);
                     return JavaResponse.error(map);
                }
-               return JavaResponse.success(service.cashierReport(userCode, userId, posId));
+               Map<String,Object> res = service.cashierReport(userCode, userId, posId);
+               if( res.get("paymentNoFirst") == null ) {
+                    return ResponseEntity.ok().body(Map.of("msg","NO_RESULT"));
+               }
+               return JavaResponse.success(res);
           }
      }
 

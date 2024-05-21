@@ -263,14 +263,13 @@ public class CashierReportService {
         returnAmountDiscount = returnAmountDiscount == null ? 0 : returnAmountDiscount;
 
         int numOfSale = repoSaleDetail.numOfSale(JavaConstant.currentDate, posId, userCode);
-
+        
         List<SaleSomeFieldProject> totalAmount = repoSaleDetail.totalSaledAmount(JavaConstant.currentDate, posId,
                 userCode);
 
         double _sumTotal = 0;
         for (SaleSomeFieldProject s : totalAmount) {
-            System.out.println("discount : " + s.getDiscount() + " subTotal : " + s.getSub_total() + " discountCase : "
-                    + s.getDiscount_case());
+           
             if (s.getDiscount_case() == null && s.getDiscount() > 0) { // this case means items have discount from backend 
                 double _val = s.getSub_total() - s.getDiscount();
                 _sumTotal += _val;
