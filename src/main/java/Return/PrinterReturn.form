@@ -905,9 +905,9 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnBack" min="-2" pref="78" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnPdf" min="-2" pref="78" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnPrint" min="-2" pref="78" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnPdf" min="-2" pref="78" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -949,9 +949,9 @@
         <Component class="Button.Button" name="btnPdf">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="66" red="99" type="rgb"/>
+              <Color blue="46" green="9b" red="2f" type="rgb"/>
             </Property>
-            <Property name="buttonName" type="java.lang.String" value="PDF"/>
+            <Property name="buttonName" type="java.lang.String" value="Preview"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPdfMouseClicked"/>
