@@ -17,6 +17,19 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
 
+        @Query(nativeQuery = true , value = "\r\n" + //
+                                "select\r\n" + //
+                                "\tps.id\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "inner join pos_payment pp on\r\n" + //
+                                "\tpp.sale_id = ps.id\r\n" + //
+                                "where\r\n" + //
+                                "\tps.active = 'Active'\r\n" + //
+                                "\tand pp.payment_no = ?")
+        Integer getSaleId(String paymentNumber);
+
+
         @Query(nativeQuery = true , value = "select count(*) from pos_payment pp2 where payment_no = ?")
         int isExistInvoice(String invoiceNo);
 

@@ -34,7 +34,6 @@ public class ReturnDetails {
     @Column(name = "pro_name_en")
     private String proName;
 
-    
     @Column(name = "barcode")
     private String barcode;
 

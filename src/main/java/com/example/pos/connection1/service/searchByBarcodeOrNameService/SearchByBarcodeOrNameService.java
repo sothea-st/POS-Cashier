@@ -57,6 +57,7 @@ public class SearchByBarcodeOrNameService {
         HashMap<String, Object> _map = new HashMap<>();
 
         int countRecord = repoPayment.isExistInvoice(invoiceNo);
+        Integer saleId = repoPayment.getSaleId(invoiceNo);
         if (countRecord == 0) {
             _map.put("msg", JavaConstant.INVOICE_NUMBER_DOES_NOT_EXIST);
             return _map;
@@ -106,6 +107,7 @@ public class SearchByBarcodeOrNameService {
 
         _map.put("msg", "success");
         _map.put("invoiceNo", invoiceNo);
+        _map.put("saleId", saleId);
 
         _map.put("data", list);
 
