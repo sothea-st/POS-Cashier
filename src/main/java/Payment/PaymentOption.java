@@ -1859,6 +1859,7 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonReturnData.put("reasonId", Integer.valueOf(JavaConstant.reasonId));
           jsonReturnData.put("createBy", JavaConstant.returnerId);
           jsonReturnData.put("returnAmount", df.format(totalReturn));
+          jsonReturnData.put("saleId", JavaConstant.saleId);
 
           //get dataSale 
           ArrayList<ReturnProductModel> dataDetails = new ArrayList<>();
