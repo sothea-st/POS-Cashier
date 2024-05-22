@@ -44,9 +44,11 @@ public class ReturnProduct {
     @Column(name = "reason_id")
     private int reasonId;
 
+    @Column(name = "sale_id")
+    private Integer saleId;
+
     @Column(name = "return_amount",precision = 10,scale = 2)
     private BigDecimal returnAmount;
-
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ReturnDetails> dataDetails;

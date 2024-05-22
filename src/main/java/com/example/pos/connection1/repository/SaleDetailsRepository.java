@@ -118,12 +118,20 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
                         "        pos.pos_id = ? and pos.open_date = ?")
         String totalReturnQty(int userId, String date, String posId, String openDate);
 
-        @Query(nativeQuery = true, value = "\tselect sum(ps.total_return)  from pos_sale ps \r\n" + //
-                        "\twhere\r\n" + //
-                        "\tps.sale_date = ?\r\n" + //
-                        "\tand ps.pos_id = ?\r\n" + //
-                        "\tand ps.user_code = ? \r\n" + //
-                        "\tand ps.sale_is_return = 'returned' and ps.active = 'Active' ")
+        @Query(nativeQuery = true, value = "\tselect\r\n" + //
+                                "\t(sum(rd.return_amount) - sum(rd.discount_amt))\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "inner join pos_return_product prp on\r\n" + //
+                                "\tprp.sale_id = ps.id\r\n" + //
+                                "inner join pos_return_details rd on\r\n" + //
+                                "\tprp.id = rd.return_id\r\n" + //
+                                "where\r\n" + //
+                                "\tps.active = 'Active'\r\n" + //
+                                "\tand ps.sale_date = ?\r\n" + //
+                                "\tand ps.pos_id = ?\r\n" + //
+                                "\tand ps.user_code = ?\r\n" + //
+                                "\tand ps.sale_is_return = 'returned'")
         Double totalReturnAmountDiscount(String date, String posId, String userCode);
 
         // ============================================ new

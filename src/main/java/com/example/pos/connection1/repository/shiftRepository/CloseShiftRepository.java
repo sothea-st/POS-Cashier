@@ -13,8 +13,5 @@ public interface CloseShiftRepository extends JpaRepository<CloseShift,Integer> 
 
     @Query(nativeQuery = true ,value = "select count(*) from pos_close_shift where user_id = ? and close_date=?")
     int countCloseShift(int userId , String date);
-
-
     
-
 }

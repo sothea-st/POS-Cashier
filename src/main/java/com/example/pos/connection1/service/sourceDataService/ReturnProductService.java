@@ -55,6 +55,9 @@ public class ReturnProductService {
         // int id = (Integer) createBy;
         String time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(Calendar.getInstance().getTime());
 
+
+        System.out.println("sale ID : " + re.getSaleId());
+
         ReturnProduct r = new ReturnProduct();
         r.setCreateBy(re.getCreateBy());
         r.setPaymentNo(re.getPaymentNo());
@@ -62,6 +65,7 @@ public class ReturnProductService {
         r.setReturnDate(JavaConstant.currentDate);
         r.setReasonId(re.getReasonId());
         r.setReturnAmount(re.getReturnAmount());
+        r.setSaleId(re.getSaleId());
         repo.save(r);
 
         // update payment is_return by payment no
@@ -90,6 +94,8 @@ public class ReturnProductService {
             obj.setPrice(listDetail.get(i).getPrice());
             obj.setAmount(listDetail.get(i).getAmount());
             obj.setDiscount(listDetail.get(i).getDiscount());
+            obj.setDiscountAmt(listDetail.get(i).getDiscountAmt());
+            
             repoDetail.save(obj);
 
             // restock qty back
@@ -119,7 +125,6 @@ public class ReturnProductService {
         int saleId = repoDetail.getSaleId(re.getPaymentNo(), JavaConstant.currentDate);
         Optional<Sale> dataSale = repoSale.findById(saleId);
         Sale result = dataSale.get();
-
         double valueReturn = result.getTotal().doubleValue() - sumTotalReturn;
       
         result.setSaleIsReturn("returned");
@@ -128,6 +133,7 @@ public class ReturnProductService {
         repoSale.save(result);
 
         return reprintService.readData(re.getPaymentNo(), re);
+
     }
 
     public ProductProjection searchProdcutByBarcode(String barcode) {
