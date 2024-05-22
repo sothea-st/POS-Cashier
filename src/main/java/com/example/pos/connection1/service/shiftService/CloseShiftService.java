@@ -41,6 +41,7 @@ public class CloseShiftService {
         data.setCreditCard(c.getCreditCard());
         data.setCreateBy(c.getUserId());
         data.setPosId(c.getPosId());
+        data.setActive("closed");
      
         repo.save(data);
 

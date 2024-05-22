@@ -75,4 +75,7 @@ public class CloseShift {
      @Column(name = "is_deleted")
      private boolean isDeleted = false;
 
+     @Column(name = "active")
+     private String active;
+
 }

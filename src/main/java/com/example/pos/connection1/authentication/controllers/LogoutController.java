@@ -49,6 +49,10 @@ public class LogoutController {
           // Execute the update query
           jdbcTemplate.update(updateQuery, params);
 
+          String updateCloseSift = "update pos_close_shift set active = ? where pos_id = ? and user_code = ?";
+          Object[] obj = {null, user.posId(), user.userCode() }; // Example values
+          jdbcTemplate.update(updateCloseSift, obj);
+
  
 
           User data = users.get();
