@@ -118,6 +118,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               return;
                          }
 
+                         JavaConstant.saleId = model.getSaleId();
                          ProductModel product = null;
                          for (int i = 0; i < listProduct.length; i++) {
                               var obj = listProduct[i];
@@ -197,7 +198,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     }
 
                     ProductModel product = null;
-
+                    JavaConstant.saleId = model.getSaleId();
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
                          btnPayment.setButtonName("Return");

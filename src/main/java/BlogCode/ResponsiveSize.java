@@ -128,10 +128,9 @@ public class ResponsiveSize {
           a.setBtnReturn(btnReturn);
           a.setTitleOrder(titleOrder);
           JavaConstant.rowNum = num;
-
           panelProduct.removeAll();
 
-          System.out.println("catId ============:" + jdFormLogin.getCatId());
+       
           if (jdFormLogin.getCatId() == 0) {
                a.getAllProduct(panelProduct);
           } else {

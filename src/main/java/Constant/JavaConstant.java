@@ -64,6 +64,7 @@ public class JavaConstant {
           JavaConstant.returnByBarcode = null;
           JavaConstant.qtyReturn = null;
           JavaConstant.tmpInvoice = null;
+          JavaConstant.saleId = null;
      }
 
      public static String insertComma(String str) {
@@ -123,6 +124,7 @@ public class JavaConstant {
      public static String roleName;
      public static String isReturn;
      public static String tmpInvoice;
+     public static Integer saleId;
 
      public static String returnByBarcode;
      public static Integer qtyReturn;

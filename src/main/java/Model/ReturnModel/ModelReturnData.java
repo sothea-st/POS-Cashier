@@ -24,6 +24,17 @@ public class ModelReturnData {
      private String receiveKhr;
      private String changeKhr;
      private Double changeUsd;
+     private Integer saleId;
+
+     @JsonProperty("saleId")
+     public Integer getSaleId() {
+          return saleId;
+     }
+
+     @JsonProperty("saleId")
+     public void setSaleId(Integer saleId) {
+          this.saleId = saleId;
+     }
 
      @JsonProperty("changeKhr")
      public String getChangeKhr() {
