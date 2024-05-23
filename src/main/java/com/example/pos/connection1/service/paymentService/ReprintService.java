@@ -106,7 +106,7 @@ public class ReprintService {
     }
 
     public Map<String, Object> readData(String paymentNo, ReturnProduct re) {
-
+        System.out.println("payment number qqqq : " + paymentNo);
         HashMap<String, Object> map = new HashMap<>();
         Company c = companyRepo.getInfoCompany();
         map.put("companyName", c.getCompanyName());
@@ -120,6 +120,8 @@ public class ReprintService {
         } else {
             paymentData = repo.getPaymentDataWithPaymentNo(paymentNo);
         }
+
+        System.out.println("payment Data : " + paymentData);
 
         map.put("total", paymentData.getTotal());
         map.put("receiveKhr", paymentData.getReceive_khr());

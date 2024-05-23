@@ -51,12 +51,8 @@ public class ReturnProductService {
     private SaleDetailsRepository saleDetailsRepository;
 
     public Map<String, Object> returnProduct(ReturnProduct re) {
-        // var createBy = session.getAttribute(JavaConstant.userId);
-        // int id = (Integer) createBy;
+
         String time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(Calendar.getInstance().getTime());
-
-
-        System.out.println("sale ID : " + re.getSaleId());
 
         ReturnProduct r = new ReturnProduct();
         r.setCreateBy(re.getCreateBy());
@@ -131,6 +127,8 @@ public class ReturnProductService {
         result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn - result.getDiscount().doubleValue()));
         result.setTotalMinusTotalReturn(BigDecimal.valueOf(valueReturn));
         repoSale.save(result);
+
+        System.out.println("payment number : " + re.getPaymentNo());
 
         return reprintService.readData(re.getPaymentNo(), re);
 
