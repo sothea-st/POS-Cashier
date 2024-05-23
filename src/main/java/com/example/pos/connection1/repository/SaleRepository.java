@@ -1,6 +1,10 @@
 package com.example.pos.connection1.repository;
 
 import com.example.pos.connection1.entity.Sale;
+import com.example.pos.connection1.entity.SaleDetail;
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -112,23 +116,25 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                         "and  pos.pos_id = ? and pos.open_date = ?")
         String totalAmountCredit(int userId, String date, String posId, String openDate);
 
-        @Query(nativeQuery = true, value = "select\r\n" + //
-                                "\tcount(psd.*)\r\n" + //
-                                "from\r\n" + //
-                                "\tpos_sale ps\r\n" + //
-                                "inner join pos_sale_details psd on\r\n" + //
-                                "\tpsd.sale_id = ps.id\r\n" + //
-                                "inner join pos_payment pp on\r\n" + //
-                                "\tpp.sale_id = ps.id\r\n" + //
-                                "where\r\n" + //
-                                "\tps.active = 'Active'\r\n" + //
-                                "\tand pp.receive_khr != '0'\r\n" + //
-                                "\tand psd.is_returned is null\r\n" + //
-                                "\tand ps.user_id = ?\r\n" + //
-                                "\tand ps.sale_date = ?\r\n" + //
-                                "\tand ps.pos_id = ? and pp.payment_type = 'cash'\r\n" + //
-                                "\t")
-        int countSaledNumKhr(int userId, String saleDate, String posId);
+        @Query(nativeQuery = true, value = "SELECT\r\n" + //
+                                "    psd.sale_id\r\n" + //
+                                "FROM\r\n" + //
+                                "    pos_sale ps\r\n" + //
+                                "INNER JOIN\r\n" + //
+                                "    pos_sale_details psd ON psd.sale_id = ps.id\r\n" + //
+                                "INNER JOIN\r\n" + //
+                                "    pos_payment pp ON pp.sale_id = ps.id\r\n" + //
+                                "WHERE\r\n" + //
+                                "    ps.active = 'Active'\r\n" + //
+                                "    AND pp.receive_khr != '0'\r\n" + //
+                                "    AND psd.is_returned IS NULL\r\n" + //
+                                "    AND ps.user_id = ?\r\n" + //
+                                "    AND ps.sale_date = ?\r\n" + //
+                                "    AND ps.pos_id = ?\r\n" + //
+                                "    AND pp.payment_type = 'cash'\r\n" + //
+                                "GROUP BY\r\n" + //
+                                "    psd.sale_id;")
+        List<Integer> countSaledNumKhr(int userId, String saleDate, String posId);
         // ======= old ========
         // @Query(nativeQuery = true, value = "select sum( ps.total  )  as results from pos_sale ps \r\n" + //
         //                 " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
@@ -158,24 +164,25 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
         //                 " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
         //                 " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'cash' \r\n" + //
         //                 " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
-        @Query(nativeQuery = true , value = "select\r\n" + //
-                                "\tcount(psd.*)\r\n" + //
-                                "from\r\n" + //
-                                "\tpos_sale ps\r\n" + //
-                                "inner join pos_sale_details psd on\r\n" + //
-                                "\tpsd.sale_id = ps.id\r\n" + //
-                                "inner join pos_payment pp on\r\n" + //
-                                "\tpp.sale_id = ps.id\r\n" + //
-                                "where\r\n" + //
-                                "\tps.active = 'Active'\r\n" + //
-                                "\tand pp.receive_usd > 0\r\n" + //
-                                "\tand psd.is_returned is null\r\n" + //
-                                "\tand ps.user_id = ?\r\n" + //
-                                "\tand ps.sale_date = ?\r\n" + //
-                                "\tand ps.pos_id = ?\r\n" + //
-                                "\tand pp.payment_type = 'cash'\r\n" + //
-                                "\t")
-        int countSaledNumUsd(int userId, String saleDate, String posId);
+        @Query(nativeQuery = true , value = "SELECT\r\n" + //
+                                "    psd.sale_id\r\n" + //
+                                "FROM\r\n" + //
+                                "    pos_sale ps\r\n" + //
+                                "INNER JOIN\r\n" + //
+                                "    pos_sale_details psd ON psd.sale_id = ps.id\r\n" + //
+                                "INNER JOIN\r\n" + //
+                                "    pos_payment pp ON pp.sale_id = ps.id\r\n" + //
+                                "WHERE\r\n" + //
+                                "    ps.active = 'Active'\r\n" + //
+                                "    AND pp.receive_usd > 0\r\n" + //
+                                "    AND psd.is_returned IS NULL\r\n" + //
+                                "    AND ps.user_id = ?\r\n" + //
+                                "    AND ps.sale_date = ?\r\n" + //
+                                "    AND ps.pos_id = ?\r\n" + //
+                                "    AND pp.payment_type = 'cash'\r\n" + //
+                                "GROUP BY\r\n" + //
+                                "    psd.sale_id;")
+        List<Integer> countSaledNumUsd(int userId, String saleDate, String posId);
 
 
         // ============== old =======================

@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import java.awt.image.BufferedImage;
 import java.time.Year;
 import java.util.*;
+import java.time.*;
 
 @Service
 public class SaleService {
@@ -85,11 +86,13 @@ public class SaleService {
         sale.setTotal(s.getTotal());
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
-        // sale.setDataPay(new Payment(userId, posId, posId, userId, null, null, null, posId, null, null, posId, userId, userId, posId, posId, posId, userId, null, false, false));
+        // sale.setDataPay(new Payment(userId, posId, posId, userId, null, null, null,
+        // posId, null, null, posId, userId, userId, posId, posId, posId, userId, null,
+        // false, false));
         sale.setCreateBy(userId);
 
         Customer cus = s.getCustomer();
-  
+
         String cusId = null;
         int countId = cusRepo.countRecord();
         countId++;
@@ -132,18 +135,15 @@ public class SaleService {
         // save payment
         Payment p = s.getDataPay();
 
- 
         int count = payRepo.countRecord(posId);
-     
+
         count++;
         String paymentNo = paymentNo(count, posId);
 
-   
-
         String paymentBarcode = paymentBarcode(count);
-   
-        addPayment(paymentNo, saleId, p, userId, paymentBarcode,posId);
-         
+
+        addPayment(paymentNo, saleId, p, userId, paymentBarcode, posId);
+
         return reprintService.readData("");
 
     }
@@ -177,8 +177,9 @@ public class SaleService {
         return cusId;
     }
 
-    public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode , String posId)
+    public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode, String posId)
             throws Exception {
+
         Payment data = new Payment();
         data.setPaymentBarcode(paymentBarcode);
         data.setPaymentNo(paymentNo);
@@ -196,7 +197,7 @@ public class SaleService {
         data.setDiscountValue(p.getDiscountValue());
         data.setPosId(posId);
         data.setCreateBy(createBy);
-      
+
         payRepo.save(data);
 
         BufferedImage barcode = barcodeGenerator.generateUSPSBarcodeImage(paymentBarcode);
@@ -204,51 +205,89 @@ public class SaleService {
         // save information image to table pos_file
         FileStore f = new FileStore(paymentBarcode, paymentBarcode, "image/jpeg", bytes);
         fileStore.save(f);
-        
+
     }
 
     String paymentNo(int count, String posId) {
-        int currentYear = Year.now().getValue();
-        String _year = "" + currentYear;
-        _year = _year.substring(2, _year.length());
-  
-        String paymentNo = "101-" + posId + "-"+_year+"-";
-        if (count < 10) {
-            paymentNo += "000000" + count;
-        } else if (count < 100) {
-            paymentNo += "00000" + count;
-        } else if (count < 1000) {
-            paymentNo += "0000" + count;
-        } else if (count < 10000) {
-            paymentNo += "000" + count;
-        } else if (count < 100000) {
-            paymentNo += "00" + count;
-        } else if (count < 1000000) {
-            paymentNo += "0" + count;
-        } else {
-            paymentNo += "" + count;
-        }
+        // int currentYear = Year.now().getValue();
+        // String _year = "" + currentYear;
+        // _year = _year.substring(2, _year.length());
+        String _value = invoiceId(count);
+        String paymentNo = "RIV101-" + posId + "-" + _value;
+
+        // if (count < 10) {
+        // paymentNo += "000000" + count;
+        // } else if (count < 100) {
+        // paymentNo += "00000" + count;
+        // } else if (count < 1000) {
+        // paymentNo += "0000" + count;
+        // } else if (count < 10000) {
+        // paymentNo += "000" + count;
+        // } else if (count < 100000) {
+        // paymentNo += "00" + count;
+        // } else if (count < 1000000) {
+        // paymentNo += "0" + count;
+        // } else {
+        // paymentNo += "" + count;
+        // }
         return paymentNo;
     }
 
-    String paymentBarcode(int count) {
-        String paymentNo = "";
-     
-        if (count < 10) {
-            paymentNo += "000000" + count;
-        } else if (count < 100) {
-            paymentNo += "00000" + count;
-        } else if (count < 1000) {
-            paymentNo += "0000" + count;
-        } else if (count < 10000) {
-            paymentNo += "000" + count;
-        } else if (count < 100000) {
-            paymentNo += "00" + count;
-        } else if (count < 1000000) {
-            paymentNo += "0" + count;
+    String invoiceId(int count) {
+        LocalDate currentDate = LocalDate.now();
+
+        int currentYear = currentDate.getYear();
+        String _year = "" + currentYear;
+        _year = _year.substring(2, _year.length());
+
+        int month = currentDate.getMonthValue();
+        String _m = "";
+        if (month > 9) {
+            _m = "" + month;
         } else {
-            paymentNo += "" + count;
+            _m = "0" + month;
         }
+
+        int day = currentDate.getDayOfMonth();
+        String _d = "";
+        if (day > 9) {
+            _d = "" + day;
+        } else {
+            _d = "0" + day;
+        }
+
+        String invoice = "";
+
+        if (count < 10) {
+            invoice += "00" + count;
+        } else if (count < 100) {
+            invoice += "0" + count;
+        } else {
+            invoice += "" + count;
+        }
+
+        String _value = "" + _year + "" + _m + "" + _d + "" + invoice;
+        return _value;
+    }
+
+    String paymentBarcode(int count) {
+       
+        String paymentNo = invoiceId(count);
+        // if (count < 10) {
+        // paymentNo += "000000" + count;
+        // } else if (count < 100) {
+        // paymentNo += "00000" + count;
+        // } else if (count < 1000) {
+        // paymentNo += "0000" + count;
+        // } else if (count < 10000) {
+        // paymentNo += "000" + count;
+        // } else if (count < 100000) {
+        // paymentNo += "00" + count;
+        // } else if (count < 1000000) {
+        // paymentNo += "0" + count;
+        // } else {
+        // paymentNo += "" + count;
+        // }
         return paymentNo;
     }
 

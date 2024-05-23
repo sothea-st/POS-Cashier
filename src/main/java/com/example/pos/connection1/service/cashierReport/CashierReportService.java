@@ -21,6 +21,7 @@ import com.example.pos.connection1.entity.Company;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.OpenShift;
 import com.example.pos.connection1.entity.Sale;
+import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.entity.User;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -199,11 +200,11 @@ public class CashierReportService {
 
     public void paymentSummery(int userId, String posId, String userCode) {
 
-        int qtyUsd = repoSale.countSaledNumUsd(userId, JavaConstant.currentDate, posId);
+        List<Integer> qtyUsd = repoSale.countSaledNumUsd(userId, JavaConstant.currentDate, posId);
         Double _cashUsd = repoSale.countSaledUsd(userId, JavaConstant.currentDate, posId);
         _cashUsd = _cashUsd == null ? 0 : _cashUsd;
 
-        int qtyKhr = repoSale.countSaledNumKhr(userId, JavaConstant.currentDate, posId);
+        List<Integer> qtyKhr = repoSale.countSaledNumKhr(userId, JavaConstant.currentDate, posId);
         Double _cashKhr = repoSale.countSaledCashKhr(userId, JavaConstant.currentDate, posId);
         _cashKhr = _cashKhr == null ? 0 : _cashKhr;
 
@@ -228,9 +229,9 @@ public class CashierReportService {
         ArrayList<SummeryCashierReport> payment = new ArrayList<>();
 
         payment.add(new SummeryCashierReport(
-                "Cash-Riels " + JavaRoundUp.setRoundNumber(_cashKhr * JavaConstant.exchangeRate) + "", qtyKhr,
+                "Cash-Riels " + JavaRoundUp.setRoundNumber(_cashKhr * JavaConstant.exchangeRate) + "", qtyKhr.size(),
                 BigDecimal.valueOf(Double.valueOf(df.format(_cashKhr)))));
-        payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd,
+        payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd.size(),
                 BigDecimal.valueOf(Double.valueOf(df.format(_cashUsd)))));
         payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk,
                 BigDecimal.valueOf(Double.valueOf(df.format(_cashMnk)))));
