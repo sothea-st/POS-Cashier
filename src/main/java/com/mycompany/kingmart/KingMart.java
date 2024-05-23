@@ -1,9 +1,11 @@
 package com.mycompany.kingmart;
 
 import View.MainPage.MainPage;
+import java.awt.Desktop;
+import java.io.File;
 
 import java.io.FileNotFoundException;
-
+import java.io.IOException;
 
 /**
  *
@@ -14,6 +16,7 @@ public class KingMart {
      public static void main(String[] args) throws FileNotFoundException {
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
+
      }
 
 }

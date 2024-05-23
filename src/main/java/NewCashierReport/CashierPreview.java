@@ -13,6 +13,7 @@ import static NewCashierReport.CashierReporting.setFontSizeForLabels;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -22,6 +23,7 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
@@ -225,17 +227,15 @@ public class CashierPreview extends javax.swing.JDialog {
           }
 
           double openTill = (data.getOpenCashKhr() / JavaConstant.exchangeRate) + data.getOpenCashUsd();
-        
 
           closedAmount.setText("Close Amount : " + dm.format(data.getCashierCount()));
-          
+
           double _a = data.getCashierCount() - sumTotalPayment - openTill;
 
 //          double closeDifferent = openTill + sumTotalPayment - openTill - sumSubTotal;
-          
-          String _close = ""+_a;
+          String _close = "" + _a;
           _close = _close.replace("-", "");
-          
+
           countedDifferent.setText("Counted Differen : " + dm.format(Double.valueOf(_close)));
 
           sumTotal.setText(dm.format(sumTotalPayment));
@@ -897,6 +897,7 @@ public class CashierPreview extends javax.swing.JDialog {
               new PrintPanelToPDF(reportPanel).printPdf(pfdNameInvoice, numberOfItem);
               dispose();
               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+
               j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
               j.setVisible(true);
          } catch (IOException ex) {
