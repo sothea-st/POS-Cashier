@@ -161,4 +161,15 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                                 "                        ")
         List<ProductProjection> getProductByBarcodeInInvoice(String invoice, String barcode);
 
+
+        @Query(nativeQuery =  true , value = "select count(*) from pos_sale ps \r\n" + //
+                                "where ps.user_id = ?\r\n" + //
+                                "and ps.pos_id = ?\r\n" + //
+                                "and ps.sale_date = ?\r\n" + //
+                                "and ps.active = 'Active'\r\n" + //
+                                "and ps.sale_is_return = 'returned'")
+        int countSaledReturn(int userId , String posId , String saleDate );
+
+        @Query(nativeQuery = true , value = "select ps.user_id from pos_sale ps where ps.id = ?")
+        int getUserId(int saleId);
 }

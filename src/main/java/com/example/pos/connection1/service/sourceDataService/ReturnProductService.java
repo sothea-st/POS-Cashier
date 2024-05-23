@@ -127,8 +127,7 @@ public class ReturnProductService {
         result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn - result.getDiscount().doubleValue()));
         result.setTotalMinusTotalReturn(BigDecimal.valueOf(valueReturn));
         repoSale.save(result);
-
-        System.out.println("payment number : " + re.getPaymentNo());
+ 
 
         return reprintService.readData(re.getPaymentNo(), re);
 
