@@ -166,31 +166,25 @@ public class PaymentOption extends javax.swing.JDialog {
           txtReceiveUsd.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-//                    if (JavaConstant.isReturn != null) {
-//                         return;
-//                    }
-//                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-//                         System.out.println("key delete active");
-//                         if (txtReceiveUsd.getText().isEmpty()) {
-//
-//                              keyDelete();
-//                         }
-//                    }
+
                }
 
                @Override
                public void keyPressed(KeyEvent e) {
-                    if (JavaConstant.isReturn != null) {
-                         return;
-                    }
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                         System.out.println("key delete active USD : " + txtReceiveUsd.getText());
-                    }
+
                }
 
                @Override
                public void keyReleased(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 
+                         if (txtReceiveUsd.getText().isEmpty()) {
+                              lbRemainingKhr.setLabelName(dm.format(0));
+                              lbRemainingUsd.setLabelName(df.format(0));
+                              lbChangeKhr.setLabelName(dm.format(0));
+                              lbChangeUsd.setLabelName(df.format(0));
+                         }
+                    }
                }
 
           });
@@ -198,32 +192,25 @@ public class PaymentOption extends javax.swing.JDialog {
           txtReceiveKhr.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-//                    if (JavaConstant.isReturn != null) {
-//                         return;
-//                    }
-//                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-//                         System.out.println("key delete active");
-//                         if (txtReceiveUsd.getText().isEmpty()) {
-//
-//                              keyDelete();
-//                         }
-//                    }
+
                }
 
                @Override
                public void keyPressed(KeyEvent e) {
-                    if (JavaConstant.isReturn != null) {
-                         return;
-                    }
-                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                         System.out.println("key delete active = " + txtReceiveUsd.getText());
+                   
 
-                    }
                }
 
                @Override
                public void keyReleased(KeyEvent e) {
-
+                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                         if (txtReceiveKhr.getText().isEmpty()) {
+                              lbRemainingKhr.setLabelName(dm.format(0));
+                              lbRemainingUsd.setLabelName(df.format(0));
+                              lbChangeKhr.setLabelName(dm.format(0));
+                              lbChangeUsd.setLabelName(df.format(0));
+                         }
+                    }
                }
 
           });
@@ -1498,7 +1485,6 @@ public class PaymentOption extends javax.swing.JDialog {
                          khr("0");
                     }
                }
-               
 
           }
 
@@ -1885,6 +1871,8 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
+          
+          System.out.println("jsonReturnData : " + jsonReturnData);
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 

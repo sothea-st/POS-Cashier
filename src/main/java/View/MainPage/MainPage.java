@@ -503,7 +503,7 @@ public class MainPage extends javax.swing.JFrame {
           previous.setLabelName("<");
 
           homeMenu.setBackground(new java.awt.Color(47, 155, 70));
-          homeMenu.setLabelTitle("Home");
+          homeMenu.setLabelTitle("HOME");
 
           breadcrumb.setBackground(new java.awt.Color(47, 155, 70));
           breadcrumb.setLabelTitle("NEW ITEMS");
@@ -518,7 +518,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGap(2, 2, 2)
                     .addComponent(homeMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(breadcrumb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(breadcrumb, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPaginationLayout.createSequentialGroup()
