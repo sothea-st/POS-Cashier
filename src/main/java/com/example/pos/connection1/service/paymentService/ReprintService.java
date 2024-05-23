@@ -13,7 +13,7 @@ import com.example.pos.connection1.repository.companyRepository.CompanyRepositor
 import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.*;
 import java.util.*;
 
 @Service
@@ -106,7 +106,7 @@ public class ReprintService {
     }
 
     public Map<String, Object> readData(String paymentNo, ReturnProduct re) {
-        System.out.println("payment number qqqq : " + paymentNo);
+      
         HashMap<String, Object> map = new HashMap<>();
         Company c = companyRepo.getInfoCompany();
         map.put("companyName", c.getCompanyName());
@@ -121,7 +121,7 @@ public class ReprintService {
             paymentData = repo.getPaymentDataWithPaymentNo(paymentNo);
         }
 
-        System.out.println("payment Data : " + paymentData);
+       
 
         map.put("total", paymentData.getTotal());
         map.put("receiveKhr", paymentData.getReceive_khr());
@@ -161,7 +161,21 @@ public class ReprintService {
         //     }
         // }
 
-        map.put("paymentNo", paymentData.getPayment_no());
+
+        String[] listPosId = paymentData.getPayment_no().split("-");
+        String posID = listPosId[1];
+
+        int userId = repo.getUserId(re.getSaleId());
+        int countReturn = repo.countSaledReturn(userId, posID , JavaConstant.currentDate);
+        countReturn++;
+        System.out.println("dddddddddddddddd = " + countReturn + " ffff " + re.getSaleId() + " posId :  " + posID  );
+        String _returnInvoiceNumber = returnInvoiceNumber(countReturn,posID);
+     
+
+        String _newInvoice = paymentData.getPayment_no() + " = " + _returnInvoiceNumber;
+
+
+        map.put("paymentNo", _newInvoice);
         map.put("paymentBarcode", paymentData.getPayment_barcode());
         map.put("saleDate", paymentData.getSale_date());
         map.put("customerType", paymentData.getCustomer_type());
@@ -183,6 +197,40 @@ public class ReprintService {
         String empName = userRepo.getNameEmp(paymentData.getUser_id());
         map.put("empName", empName);
         return map;
+    }
+
+    String returnInvoiceNumber(int count,String posId){
+        LocalDate currentDate = LocalDate.now();
+        int currentYear = currentDate.getYear();
+        String _year = "" + currentYear;
+        _year = _year.substring(2, _year.length());
+
+        int month = currentDate.getMonthValue();
+        String _m = "";
+        if (month > 9) {
+            _m = "" + month;
+        } else {
+            _m = "0" + month;
+        }
+
+        int day = currentDate.getDayOfMonth();
+        String _d = "";
+        if (day > 9) {
+            _d = "" + day;
+        } else {
+            _d = "0" + day;
+        }
+        String invoice = "";
+      
+        if (count < 10) {
+            invoice += "00" + count;
+        } else if (count < 100) {
+            invoice += "0" + count;
+        } else {
+            invoice += "" + count;
+        }
+        String _value = "SCN101-"+ posId + "-" + _year + "" + _m + "" + _d + "" + invoice;
+        return _value;
     }
 
 }

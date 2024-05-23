@@ -235,7 +235,6 @@ public class SaleService {
 
     String invoiceId(int count) {
         LocalDate currentDate = LocalDate.now();
-
         int currentYear = currentDate.getYear();
         String _year = "" + currentYear;
         _year = _year.substring(2, _year.length());
@@ -257,7 +256,7 @@ public class SaleService {
         }
 
         String invoice = "";
-
+        
         if (count < 10) {
             invoice += "00" + count;
         } else if (count < 100) {
