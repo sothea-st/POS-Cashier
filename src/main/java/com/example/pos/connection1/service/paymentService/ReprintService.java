@@ -120,58 +120,20 @@ public class ReprintService {
         } else {
             paymentData = repo.getPaymentDataWithPaymentNo(paymentNo);
         }
-
        
-
         map.put("total", paymentData.getTotal());
         map.put("receiveKhr", paymentData.getReceive_khr());
         map.put("changeKhr", paymentData.getChange_khr());
         map.put("receiveUsd", paymentData.getReceive_usd());
         map.put("changeUsd", paymentData.getChange_usd());
 
-        // if (paymentData.getReceive_khr() != null) {
-        //     map.put("receiveKhr", paymentData.getReceive_khr());
-        //     map.put("changeKhr", paymentData.getChange_khr());
-        // } else {
-        //     map.put("receiveKhr", 0);
-        //     map.put("changeKhr", 0);
-        // }
-
-        // if (paymentData.getReceive_usd() != null) {
-        //     map.put("receiveUsd", paymentData.getReceive_usd());
-        //     map.put("changeUsd", paymentData.getChange_usd());
-        // } else {
-        //     map.put("receiveUsd", 0);
-        //     map.put("changeUsd", 0);
-        // }
-
-        // if (paymentData.getReceive_khr() != null && paymentData.getReceive_usd() != null) {
-        //     double totalUSD = paymentData.getTotal().doubleValue();
-        //     double _receivUsd = paymentData.getReceive_usd().doubleValue();
-        //     double _receiveKhr = Double.parseDouble(paymentData.getReceive_khr()) / JavaConstant.exchangeRate;
-        //     _receiveKhr = JavaConstant.getTwoPrecision(_receiveKhr);
-        //     double _change = (_receivUsd + _receiveKhr) - totalUSD;
-        //     _change = JavaConstant.getTwoPrecision(_change);
-        //     if (_change >= 5) {
-        //         map.put("changeUsd", _change);
-        //         map.put("changeKhr", 0);
-        //     } else {
-        //         map.put("changeUsd", 0);
-        //         map.put("changeKhr", _change * JavaConstant.exchangeRate);
-        //     }
-        // }
-
-
         String[] listPosId = paymentData.getPayment_no().split("-");
         String posID = listPosId[1];
-
-        int userId = repo.getUserId(re.getSaleId());
-        int countReturn = repo.countSaledReturn(userId, posID , JavaConstant.currentDate);
+ 
+        int countReturn = repo.countSaledReturn(JavaConstant.currentDate);
         countReturn++;
-        System.out.println("dddddddddddddddd = " + countReturn + " ffff " + re.getSaleId() + " posId :  " + posID  );
+    
         String _returnInvoiceNumber = returnInvoiceNumber(countReturn,posID);
-     
-
         String _newInvoice = paymentData.getPayment_no() + " = " + _returnInvoiceNumber;
 
 
@@ -185,9 +147,7 @@ public class ReprintService {
 
         for (int i = 0; i < re.getDataDetails().size(); i++) {
             var data = re.getDataDetails().get(i);
-            // var proId = re.getDataDetails().get(i).getProId();
-            // SaleDetailProjection sale = saleDetailRepo.getDataDetailReturn(paymentData.getUser_id(),
-            //         paymentData.getSale_id(), proId);
+        
             ReturnDetailsProduct sale = new ReturnDetailsProduct(data.getQty(), data.getPrice(), data.getProName(), data.getBarcode());
             sumDiscontAmt += data.getDiscountAmt();
             dataSaleDetails.add(sale);

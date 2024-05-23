@@ -22,7 +22,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.awt.image.BufferedImage;
-import java.time.Year;
 import java.util.*;
 import java.time.*;
 
@@ -67,7 +66,7 @@ public class SaleService {
     // this function will return invoice
     public Map<String, Object> saleProduct(Sale s) throws Exception {
         var createBy = session.getAttribute(JavaConstant.userId);
-
+        System.out.println("hhhhhhhhhhhhhhh = " + s.getDiscountCase());
         int userId = s.getUserId();
         // System.out.println("user id = " + userId);
         HashMap<String, Object> map = new HashMap<>();
@@ -135,9 +134,10 @@ public class SaleService {
         // save payment
         Payment p = s.getDataPay();
 
-        int count = payRepo.countRecord(posId);
+        int count = payRepo.countSale(JavaConstant.currentDate);
 
         count++;
+
         String paymentNo = paymentNo(count, posId);
 
         String paymentBarcode = paymentBarcode(count);

@@ -2,6 +2,7 @@ package com.example.pos.connection1.repository;
 
 import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.SaleDetail;
+import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
 
 import java.util.List;
 
@@ -192,7 +193,7 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
         //                 " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
         @Query(nativeQuery = true , value = "\t\r\n" + //
                                 "select\r\n" + //
-                                "\t sum((psd.price * (psd.qty - psd.qty_returned) ) - ( (psd.price * (psd.qty - psd.qty_returned) * psd.discount)/100 )) \r\n" + //
+                                "\t psd.discount , psd.price , psd.qty , psd.qty_returned , psd.discount_type  \r\n" + //
                                 "from\r\n" + //
                                 "\tpos_sale ps\r\n" + //
                                 "inner join pos_sale_details psd on\r\n" + //
@@ -208,7 +209,7 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                                 "\tand ps.pos_id = ?\r\n" + //
                                 "\tand pp.payment_type = 'cash'\r\n" + //
                                 "\t")
-        Double countSaledUsd(int userId, String saleDate, String posId);
+        List<DiscountProjection> countSaledUsd(int userId, String saleDate, String posId);
 
         @Query(nativeQuery = true, value = "select count(pp.*) from pos_sale ps \r\n" + //
                         " inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //

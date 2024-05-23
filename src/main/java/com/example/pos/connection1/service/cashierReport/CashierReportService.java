@@ -5,6 +5,7 @@ import com.example.pos.connection1.constant.JavaRoundUp;
 import com.example.pos.connection1.entity.models.SummeryCashierReport;
 import com.example.pos.connection1.entity.models.VatProductModel;
 import com.example.pos.connection1.projections.SaleSomeFieldProject;
+import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
 import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.SaleDetailsRepository;
 import com.example.pos.connection1.repository.SaleRepository;
@@ -201,8 +202,28 @@ public class CashierReportService {
     public void paymentSummery(int userId, String posId, String userCode) {
 
         List<Integer> qtyUsd = repoSale.countSaledNumUsd(userId, JavaConstant.currentDate, posId);
-        Double _cashUsd = repoSale.countSaledUsd(userId, JavaConstant.currentDate, posId);
-        _cashUsd = _cashUsd == null ? 0 : _cashUsd;
+        List<DiscountProjection> _cashUsd = repoSale.countSaledUsd(userId, JavaConstant.currentDate, posId);
+        double _calculateCashUsd=0;
+        for( DiscountProjection d : _cashUsd ) {
+            Integer _qty = d.getQty() - d.getQty_returned();
+            Double _price = d.getPrice() * _qty;
+            if( d.getDiscount_type() != null )  {
+                if( d.getDiscount_type().equals("dollar") ) {
+                    _calculateCashUsd += (_price * _qty) - d.getDiscount(); 
+                    System.out.println("dddddddddd : " + _price + " ffffffff : " + " fffff :  " +  d.getDiscount() + "=========== " + ((_price * _qty) - d.getDiscount() ));
+                } else {
+                    Double _val = _price  - (_price *  d.getDiscount())/100;
+                    System.out.println("rrrrrrrrrrrrr  = " + _val);
+                    _calculateCashUsd += _val; 
+                }
+            } else {
+                Double _val = _price  - (_price *  d.getDiscount())/100;
+                _calculateCashUsd += _val;
+            }
+        }
+
+
+
 
         List<Integer> qtyKhr = repoSale.countSaledNumKhr(userId, JavaConstant.currentDate, posId);
         Double _cashKhr = repoSale.countSaledCashKhr(userId, JavaConstant.currentDate, posId);
@@ -232,7 +253,7 @@ public class CashierReportService {
                 "Cash-Riels " + JavaRoundUp.setRoundNumber(_cashKhr * JavaConstant.exchangeRate) + "", qtyKhr.size(),
                 BigDecimal.valueOf(Double.valueOf(df.format(_cashKhr)))));
         payment.add(new SummeryCashierReport("Cash- Dollars", qtyUsd.size(),
-                BigDecimal.valueOf(Double.valueOf(df.format(_cashUsd)))));
+                BigDecimal.valueOf(Double.valueOf(df.format(_calculateCashUsd)))));
         payment.add(new SummeryCashierReport("MNK QR Pay", qtyMnk,
                 BigDecimal.valueOf(Double.valueOf(df.format(_cashMnk)))));
         payment.add(new SummeryCashierReport("ABA QR Pay", qtyAba,
@@ -264,16 +285,20 @@ public class CashierReportService {
         returnAmountDiscount = returnAmountDiscount == null ? 0 : returnAmountDiscount;
 
         int numOfSale = repoSaleDetail.numOfSale(JavaConstant.currentDate, posId, userCode);
-        
+
         List<SaleSomeFieldProject> totalAmount = repoSaleDetail.totalSaledAmount(JavaConstant.currentDate, posId,
                 userCode);
 
         double _sumTotal = 0;
         for (SaleSomeFieldProject s : totalAmount) {
-           
-            if (s.getDiscount_case() == null && s.getDiscount() > 0) { // this case means items have discount from backend 
-                double _val = s.getSub_total() - s.getDiscount();
-                _sumTotal += _val;
+
+            if (s.getDiscount_case() != null) {
+                if (s.getDiscount_case().equals("promotion")) { // this case means items have discount from backend
+                    double _val = s.getSub_total() - s.getDiscount();
+                    _sumTotal += _val;
+                } else {
+                    _sumTotal += s.getSub_total();
+                }
             } else {
                 _sumTotal += s.getSub_total();
             }
