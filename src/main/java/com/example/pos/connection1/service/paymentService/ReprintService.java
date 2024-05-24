@@ -147,7 +147,6 @@ public class ReprintService {
 
         for (int i = 0; i < re.getDataDetails().size(); i++) {
             var data = re.getDataDetails().get(i);
-        
             ReturnDetailsProduct sale = new ReturnDetailsProduct(data.getQty(), data.getPrice(), data.getProName(), data.getBarcode());
             sumDiscontAmt += data.getDiscountAmt();
             dataSaleDetails.add(sale);
