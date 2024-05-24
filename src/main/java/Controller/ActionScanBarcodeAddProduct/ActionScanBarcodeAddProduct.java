@@ -223,6 +223,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getQty(),
                               obj.getDiscountType()
                          );
+                         
                          jdFormLogin.scanbarCodeAddProduct(product);
                     }
                } else {
