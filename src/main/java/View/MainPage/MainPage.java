@@ -886,25 +886,6 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Report Cashier
      public void reportCashier() {
-//          if (JavaConstant.token != null) {
-//
-//               try {
-//                    CashierReport cashier = new CashierReport(new JFrame(), true);
-//                    Response response = JavaConnection.get(
-//                         JavaRoute.cashierReport + JavaConstant.userCode + "&userId=" + JavaConstant.cashierId + "&posId=" + JavaConstant.posId);
-//                    if (response.isSuccessful()) {
-//                         String myObject = response.body().string();
-//                         ObjectMapper objMap = new ObjectMapper();
-//                         DataSuccessModelReport d = objMap.readValue(myObject, DataSuccessModelReport.class
-//                         );
-//                         cashier.setDataSuccessReport(d);
-//                         cashier.setVisible(true);
-//                    }
-//               } catch (Exception e) {
-//                    System.err.println("error = " + e);
-//               }
-//          }
-
           if (JavaConstant.token != null) {
 
                try {

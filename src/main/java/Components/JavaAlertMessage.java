@@ -13,6 +13,17 @@ public class JavaAlertMessage extends javax.swing.JDialog {
      public static String returnMsg = "You are in processing return !";
      public static int countTimeQty = 0;
      private String message;
+     private boolean isShow=false;
+
+     public boolean isIsShow() {
+          return isShow;
+     }
+
+     public void setIsShow(boolean isShow) {
+          this.isShow = isShow;
+          btnBrowse.setVisible(isShow);
+     }
+     
 
      public JavaAlertMessage(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -20,6 +31,7 @@ public class JavaAlertMessage extends javax.swing.JDialog {
           btnClose.setButtonName(JavaConstant.titleClose);
           setResizable(false);
           panelMessage.setBackground(WindowColor.mediumGreen);
+          btnBrowse.setVisible(false);
      }
 
      @SuppressWarnings("unchecked")
@@ -79,10 +91,10 @@ public class JavaAlertMessage extends javax.swing.JDialog {
                .addGroup(panelMessageLayout.createSequentialGroup()
                     .addGroup(panelMessageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(panelMessageLayout.createSequentialGroup()
-                              .addContainerGap(164, Short.MAX_VALUE)
-                              .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(18, 18, 18)
-                              .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addContainerGap(170, Short.MAX_VALUE)
+                              .addComponent(btnBrowse, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(panelMessageLayout.createSequentialGroup()
                               .addGap(20, 20, 20)
                               .addComponent(panelOutSide, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))

@@ -440,7 +440,10 @@ public class ActionProduct {
           if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
                box.setMaxQty(listData.getQty());
           }
-
+          
+ 
+          box.setDiscountCase(listData.getDiscountType());
+          
           double price = listData.getPrice();
 
           double discount = (listData.getDiscount() * price) / 100;
