@@ -50,6 +50,9 @@ public class Payment {
      private String posId;
  
 
+     @Column(name = "return_number")
+     private String returnNumber;
+
      @Column(name = "remaining_khr")
      @NotNull(message = JavaMessage.required)
      @NotBlank(message = JavaMessage.required)

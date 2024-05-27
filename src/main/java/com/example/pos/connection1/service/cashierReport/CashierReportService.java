@@ -4,6 +4,7 @@ import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaRoundUp;
 import com.example.pos.connection1.entity.models.SummeryCashierReport;
 import com.example.pos.connection1.entity.models.VatProductModel;
+import com.example.pos.connection1.projections.LastInvoiceProjection;
 import com.example.pos.connection1.projections.SaleSomeFieldProject;
 import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
 import com.example.pos.connection1.repository.EmployeeRepository;
@@ -282,9 +283,20 @@ public class CashierReportService {
 
     public void SalesSummery(int userId, String posId, String userCode) {
         String paymentNoFirst = repoPay.getFirstPaymentNumber(userId, JavaConstant.currentDate);
-        String paymentNoLast = repoPay.getLastPaymentNumber(userId, JavaConstant.currentDate);
+        List<LastInvoiceProjection> paymentNoLast = repoPay.getLastPaymentNumber(userId, JavaConstant.currentDate);
+
+        String _lastPay="";
+        for(  LastInvoiceProjection l : paymentNoLast ) {
+            if( l.getIs_return() == null ) {
+                _lastPay = l.getPayment_no();
+            } else {
+                _lastPay = l.getReturn_number();
+            }
+         }
+
+
         map.put("paymentNoFirst", paymentNoFirst);
-        map.put("paymentNoLast", paymentNoLast);
+        map.put("paymentNoLast", _lastPay);
 
         List<Integer> qtyDiscount = repoSaleDetail.totalQtyDiscount(userId , JavaConstant.currentDate , posId);
 
@@ -321,19 +333,13 @@ public class CashierReportService {
 
         double _sumTotal = 0;
         for (SaleSomeFieldProject s : totalAmount) {
-
-
-
             if (s.getDiscount_type() != null) {
                 if (s.getDiscount_type().equals("promotion")) { // this case means items have discount from backend
-                    System.out.println("value : " + s.getAmount());
                     _sumTotal += s.getAmount();
                 } else {
-                    System.out.println("value : " + s.getResults());
                     _sumTotal += s.getResults();
                 }
             } else {
-                System.out.println("value : " + s.getResults());
                 _sumTotal += s.getResults();
             }
 

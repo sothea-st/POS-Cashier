@@ -9,8 +9,8 @@ import com.example.pos.connection1.entity.models.PaymentModel;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.projection.PaymentProjection;
+import com.example.pos.connection1.projections.LastInvoiceProjection;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
-import java.util.List;
 
 
 @Repository
@@ -34,6 +34,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
         int isExistInvoice(String invoiceNo);
 
         Payment  findByPaymentNo(String paymentNo);
+
+        @Query(nativeQuery = true , value = "select * from pos_payment pp2 where payment_no = ?")
+        Optional<Payment>  findByPaymentNos(String paymentNo);
 
         @Query(nativeQuery = true, value = " select pp.payment_no  from pos_payment pp where payment_barcode = ?")
         String getInvoice(String paymentBarcode);
@@ -118,10 +121,10 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                         "where ps.user_id = ? and ps.sale_date = ? and ps.active = 'Active'  order by pp.id asc limit 1")
         String getFirstPaymentNumber(int userId, String date);
 
-        @Query(nativeQuery = true, value = "select pp.payment_no  from pos_sale ps\r\n" + //
+        @Query(nativeQuery = true, value = "select pp.payment_no , pp.is_return ,pp.return_number  from pos_sale ps\r\n" + //
                         "inner join pos_payment pp on pp.sale_id = ps.id \r\n" + //
                         "where ps.user_id = ? and ps.sale_date = ? order by pp.id desc limit 1")
-        String getLastPaymentNumber(int userId, String date);
+        List<LastInvoiceProjection> getLastPaymentNumber(int userId, String date);
 
         @Query(nativeQuery = true, value = "select pp.* from pos_sale ps inner join  \r\n" + //
                         "pos_payment pp on pp.sale_id = ps.id \r\n" + //
