@@ -10,6 +10,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoundDown;
+import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import HoldOrder.HoldModelDir.DataListHold;
@@ -65,7 +66,7 @@ public class ActionProduct {
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-
+               System.out.println("response : " + response);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -87,9 +88,9 @@ public class ActionProduct {
           }
      }
 
-     public void newProduct(int catId, int limit, JPanel panelProduct) {
+     public void newProduct(int limit, JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getNewPrdduct);
+               Response response = JavaConnection.get(JavaRoute.getNewPrdduct+"?limit="+limit+"&page=" +JavaConstant.page);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -100,7 +101,7 @@ public class ActionProduct {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
-
+                    
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -396,11 +397,13 @@ public class ActionProduct {
                product.setWeight(_weight);
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
-                    double dis4Length = JavaConstant.get4Length("" + discountPrice);
-                    product.setPrice(dm.format(dis4Length));
+//                    double dis4Length = JavaConstant.get4Length("" + discountPrice);
+//                    System.out.println("jjjjjjjjjjjjjjjjjjjjj = dis4Length " + dm.format(discountPrice));
+                    product.setPrice(dm.format(discountPrice));
                } else {
-                    double _price = JavaConstant.get4Length("" + price);
-                    product.setPrice(dm.format(_price));
+//                    double _price = JavaConstant.get4Length("" + price);
+
+                    product.setPrice(dm.format(price));
                }
 
                product.setBarcode(listData.getBarcode());
@@ -448,6 +451,11 @@ public class ActionProduct {
 
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
+          
+          
+//          if( listData.getDiscount() > 0 ) {
+//               System.out.println("listData: " + (listData.getPrice() -discount));
+//          }
 
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
@@ -491,7 +499,7 @@ public class ActionProduct {
                          }
                          obj.setLabelAmountUsd(dm.format(newAmountUsd));
                          double valueRoundDown1 = JavaRoundDown.roundDown("" + newAmountUsd * JavaConstant.exchangeRate);
-                         obj.setLabelAmountKh(kh.format(valueRoundDown1));
+                         obj.setLabelAmountKh(JavaRoundUpKhr.setRoundNumber(valueRoundDown1));
                          box.setSubtotalPanel(subtotalPanel);
 
                          if (_discountUnit > 0) {
@@ -568,7 +576,10 @@ public class ActionProduct {
                box.setLabelAmountUsd(dm.format(price * qtyData));
 
                double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
-               box.setLabelAmountKh(kh.format(valueRoundDown));
+               
+               
+               
+               box.setLabelAmountKh(JavaRoundUpKhr.setRoundNumber(valueRoundDown));
 
                box.setDiscountAmount(dm.format(discount * qtyData));
                box.setDiscountAmt(dm.format(discount));
@@ -579,7 +590,8 @@ public class ActionProduct {
                box.setLabelAmountUsd(dm.format(price));
 
                double valueRoundDown = JavaRoundDown.roundDown("" + price * JavaConstant.exchangeRate);
-               box.setLabelAmountKh(kh.format(valueRoundDown));
+//               box.setLabelAmountKh(kh.format(valueRoundDown));
+               box.setLabelAmountKh(JavaRoundUpKhr.setRoundNumber(valueRoundDown));
 
                box.setDiscountAmount(dm.format(discount));
                box.setDiscountAmt(dm.format(discount));

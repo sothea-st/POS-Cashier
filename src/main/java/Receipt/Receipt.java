@@ -6,6 +6,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoundDown;
+import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
 import Model.Reprint.DataSuccessModel;
 import Model.Reprint.ReprintModel;
@@ -1050,7 +1051,7 @@ public class Receipt extends javax.swing.JDialog {
 
                totalprice.setText(dm.format(data.getTotal()));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
-               totalKhr.setText(kh.format(totalkh));
+               totalKhr.setText(JavaRoundUpKhr.setRoundNumber(totalkh));
 
                if (data.getReceiveUsd() != 0 || data.getReceiveKhr() != 0) {
                    

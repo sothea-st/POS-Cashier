@@ -43,7 +43,7 @@ import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
- 
+
 import javax.swing.ImageIcon;
 
 public class LoginFormJdailog extends javax.swing.JDialog {
@@ -390,7 +390,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
               Response response = JavaConnection.login(JavaRoute.login, json);
 
-              if (response.isSuccessful()) { 
+              if (response.isSuccessful()) {
                    String responseData = response.body().string();
 
                    ObjectMapper objMap = new ObjectMapper();
@@ -448,9 +448,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    dispose();
                    getBtnLogin().setButtonName("Logout");
 
-                   //     boxUserName.setVisible(false);
-                   //     getBoxUserName().setText(JavaConstant.fullName.toUpperCase() + " " + " USER ID : " + JavaConstant.userCode);
-//                   boxUserName.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "               POS ID : " + JavaConstant.posId);
                    lbPOSId.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
                    category();
@@ -555,18 +552,19 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          LabelTitle categoryTitle = new LabelTitle();
                          categoryTitle.setLbCatId("" + catId);
                          categoryTitle.textCenter();
-                         category.add(categoryTitle);
-                         String catNameData = listCategory.get(i).getCatNameEn();
 
-                         categoryTitle.setLabelTitle(catNameData);
-                         int ind = i;
+                         String catNameData = listCategory.get(i).getCatNameEn();
+                         if (!catNameData.equals("ALL")) {
+                              category.add(categoryTitle);
+                              categoryTitle.setLabelTitle(catNameData);
+                         }
 
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
 
                                    if (JavaConstant.checkOpenShift) {
-                                        
+
                                         JavaConstant.resetValuePagination(); // for pagination
 
                                         setCatId(catId);
@@ -602,10 +600,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         } else {
 
                                              if (catId == 2) {  // catId = 2 NEW ITEMS
-                                                  panelPagination.setVisible(false);
-                                                  pro.newProduct(catId, limit, panelProduct);
+//                                                  panelPagination.setVisible(false);
+                                                  pro.newProduct(limit, panelProduct);
                                              } else if (catId == 1) {  // catId = 1 Promotion
-                                                  panelPagination.setVisible(false);
+//                                                  panelPagination.setVisible(false);
                                                   pro.getPromotion(catId, limit, panelProduct);
                                              } else {
                                                   pro.product(catId, limit, panelProduct);
@@ -638,14 +636,17 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     assignProduct(null);
 
                     if (btnOpenShift.getButtonName().equals("Close Shift")) {
-                         category.getComponents()[0].setBackground(WindowColor.black);
+                         category.getComponents()[1].setBackground(WindowColor.black);
+                         panelPagination.setVisible(true);
+                         catId= 2;
                          setCatId(catId);
                          setCatName("" + 0);
                          setBrandId(0); // each time user click on category brandId will be 0
                          cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
                          searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
                          panelProduct.removeAll();
-                         pro.getAllProduct(panelProduct);
+//                         pro.getAllProduct(panelProduct);
+                         pro.newProduct(limit, panelProduct);
                          pro.setBtnPayment(btnPayment);
                          panelProduct.revalidate();
                          panelProduct.repaint();
@@ -683,7 +684,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           panelProduct.repaint();
           ActionProduct.marginRight = 15;
           JavaConstant.rowNum = 7;
-          pro.getAllProduct(panelProduct);
+//          pro.getAllProduct(panelProduct); get all product
+          pro.newProduct(limit, panelProduct);
      }
 
      public TextField getTextField() {

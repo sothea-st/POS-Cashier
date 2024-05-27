@@ -5,6 +5,7 @@ import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
+import Constant.JavaRoundUpKhr;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Component;
@@ -212,11 +213,11 @@ public class SubtotalPanel extends javax.swing.JPanel {
 
           subtotalPanel.setLabelSubtotalUsd(dm.format(sumAmountUsd));
           double subTotalValueKh = JavaRoundDown.roundDown("" + sumAmountUsd * JavaConstant.exchangeRate);
-          subtotalPanel.setLabelSubtotalKhr(kh.format(subTotalValueKh));
+          subtotalPanel.setLabelSubtotalKhr(JavaRoundUpKhr.setRoundNumber(subTotalValueKh));
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
           double disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          subtotalPanel.setLableDiscountKhr(kh.format(disKh));
+          subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
 
           subtotalPanel.setLableDeliveryUsd(dm.format(0));
           subtotalPanel.setLableDeliveryKhr(kh.format(0));
@@ -224,38 +225,8 @@ public class SubtotalPanel extends javax.swing.JPanel {
           double total = sumAmountUsd - sumDiscount;
           subtotalPanel.setLableTotalUsd(dm.format(total));
           double valueKh = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
-          subtotalPanel.setLableTotalKhr(kh.format(valueKh));
+          subtotalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(valueKh));
 
-//                    String khValue = kh.format(total * JavaConstant.exchangeRate);
-//                    khValue = khValue.replaceAll(",", "");
-//                    //          khValue = "9999967";
-//                    int l = khValue.length();
-//                    int begin = l - 2;
-//                    String last2Number = khValue.substring(begin, l);
-//                    String value = "";
-//                    if (!last2Number.equals("00")) {
-//                         String[] listStr = khValue.split("");
-//                         int lengthChar = listStr.length;
-//          
-//                         switch (lengthChar) {
-//                              case 3:
-//                                   value = JavaRoundUpKhr.roundUp3length(listStr);
-//                                   break;
-//                              case 4:
-//                                   value = JavaRoundUpKhr.roundUpKhr4length(listStr);
-//                                   break;
-//                              case 5:
-//                                   value = JavaRoundUpKhr.roundUpKhr5length(listStr);
-//                                   break;
-//                              case 6:
-//                                   value = JavaRoundUpKhr.roundUpKhr6length(listStr);
-//                                   break;
-//                              case 7:
-//                                   value = JavaRoundUpKhr.roundUpKhr7length(listStr);
-//                                   break;
-//                         }
-//                    }
-//                    System.err.println("data value = " + value);
      }
 
      
@@ -283,11 +254,11 @@ public class SubtotalPanel extends javax.swing.JPanel {
 
           subtotalPanel.setLabelSubtotalUsd(dm.format(sumAmountUsd));
           double subTotalValueKh = JavaRoundDown.roundDown("" + sumAmountUsd * JavaConstant.exchangeRate);
-          subtotalPanel.setLabelSubtotalKhr(kh.format(subTotalValueKh));
+          subtotalPanel.setLabelSubtotalKhr(JavaRoundUpKhr.setRoundNumber(subTotalValueKh));
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
           double disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          subtotalPanel.setLableDiscountKhr(kh.format(disKh));
+          subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
 
           subtotalPanel.setLableDeliveryUsd(dm.format(0));
           subtotalPanel.setLableDeliveryKhr(kh.format(0));
@@ -295,38 +266,7 @@ public class SubtotalPanel extends javax.swing.JPanel {
           double total = sumAmountUsd - sumDiscount;
           subtotalPanel.setLableTotalUsd(dm.format(total));
           double valueKh = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
-          subtotalPanel.setLableTotalKhr(kh.format(valueKh));
-
-          //          String khValue = kh.format(total * JavaConstant.exchangeRate);
-          //          khValue = khValue.replaceAll(",", "");
-          //          //          khValue = "9999967";
-          //          int l = khValue.length();
-          //          int begin = l - 2;
-          //          String last2Number = khValue.substring(begin, l);
-          //          String value = "";
-          //          if (!last2Number.equals("00")) {
-          //               String[] listStr = khValue.split("");
-          //               int lengthChar = listStr.length;
-          //
-          //               switch (lengthChar) {
-          //                    case 3:
-          //                         value = JavaRoundUpKhr.roundUp3length(listStr);
-          //                         break;
-          //                    case 4:
-          //                         value = JavaRoundUpKhr.roundUpKhr4length(listStr);
-          //                         break;
-          //                    case 5:
-          //                         value = JavaRoundUpKhr.roundUpKhr5length(listStr);
-          //                         break;
-          //                    case 6:
-          //                         value = JavaRoundUpKhr.roundUpKhr6length(listStr);
-          //                         break;
-          //                    case 7:
-          //                         value = JavaRoundUpKhr.roundUpKhr7length(listStr);
-          //                         break;
-          //               }
-          //          }
-          //          System.err.println("data value = " + value);
+          subtotalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(valueKh));
      }
      
      @SuppressWarnings("unchecked")

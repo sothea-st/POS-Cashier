@@ -15,6 +15,7 @@ import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Cursor;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import okhttp3.Response;
 
 /**
@@ -23,12 +24,10 @@ import okhttp3.Response;
  */
 public class JavaEventNextPrevious {
 
-     public static void eventNext(LabelFontGreen next, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame) {
+     public static void eventNext(LabelFontGreen next, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame, JPanel panelProduct) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
-                    
-                    
                     int count = jdFormLogin.getCount();
 
                     count = count - JavaConstant.limit;
@@ -45,19 +44,26 @@ public class JavaEventNextPrevious {
                     } else {
                          _limit = count;
                     }
-
+ 
                     if (JavaConstant.brandId == 0) {
                          try {
-                              Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + _limit + "&page=" + JavaConstant.page);
-                           
+                              Response response = null;
+                              if (jdFormLogin.getCatId() == 2) {
+                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + _limit + "&page=" + JavaConstant.page);
+                              } else {
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + _limit + "&page=" + JavaConstant.page);
+                              }
+
+                              System.out.println("respone next : " + response);
                               if (response.isSuccessful()) {
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
-                                   ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class
-                                   );
+                                   ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                                    ProductDataModel[] listData = data.getData();
+                                   panelProduct.removeAll();
+                                   panelProduct.revalidate();
+                                   panelProduct.repaint();
                                    jdFormLogin.assignProduct(listData);
-                                
                               } else {
                                    System.err.println("fail loading product");
                               }
@@ -84,17 +90,21 @@ public class JavaEventNextPrevious {
                     JavaConstant.limit = JavaConstant.limit - 20;
                     if (JavaConstant.brandId == 0) {
                          if (limit != 0) {
-                              Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=20&page=" + JavaConstant.page);
-                             
+                              Response response = null;
+                              if (jdFormLogin.getCatId() == 2) {
+                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=20&page=" + JavaConstant.page);
+                              } else {
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=20&page=" + JavaConstant.page);
+                              }
+
                               try {
                                    if (response.isSuccessful()) {
                                         String responseData = response.body().string();
                                         ObjectMapper objMap = new ObjectMapper();
-                                        ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class
-                                        );
+                                        ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                                         ProductDataModel[] listData = data.getData();
                                         jdFormLogin.assignProduct(listData);
-                                     
+
                                    } else {
                                         System.err.println("fail loading product");
                                    }

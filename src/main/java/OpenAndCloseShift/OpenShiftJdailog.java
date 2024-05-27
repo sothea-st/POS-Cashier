@@ -361,10 +361,11 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
 
                     // after open shift will show all product at category ALL
                     Component[] listCom = category.getComponents();
-                    listCom[0].setBackground(WindowColor.black);
+                    listCom[1].setBackground(WindowColor.black);
                     panelProduct.removeAll();
                     pro.setDetailItem(detailItem);
-                    pro.getAllProduct(panelProduct);
+//                    pro.getAllProduct(panelProduct);
+                    pro.newProduct(limit, panelProduct);
                     pro.setSubtotalPanel(subtotalPanel);
                     pro.setPanelProduct(panelProduct);
                     pro.setBtnPayment(btnPayment);
@@ -374,6 +375,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     pro.setTitleOrder(titleOrder);
                     panelProduct.revalidate();
                     panelProduct.repaint();
+                    panelPagination.setVisible(true);
 
                     searchBox.disabledTextField(true);
                     textField.disabledTextField(true);
@@ -630,15 +632,14 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.jdLoginForm = jdLoginForm;
      }
 
-    public Button getStock() {
-        return stock;
-    }
+     public Button getStock() {
+          return stock;
+     }
 
-    public void setStock(Button stock) {
-        this.stock = stock;
-    }
-     
-     
+     public void setStock(Button stock) {
+          this.stock = stock;
+     }
+
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Components.Label IbUserId;

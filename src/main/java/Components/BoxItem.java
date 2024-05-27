@@ -9,6 +9,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoundDown;
+import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
 
 import DeleteAndCancel.DeleteDialog;
@@ -21,7 +22,7 @@ import Products.ProductBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Frame;
+ 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -495,10 +496,7 @@ public class BoxItem extends javax.swing.JPanel {
                // add qty 
                getQty++;
                if (JavaConstant.tmpInvoice != null) {  // protect when cashier processing return 
-//                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-//                    j.setMessage(JavaAlertMessage.returnMsg);
-//                    j.setVisible(true);
-//                    return;
+ 
                     int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
                     qtyTmp++;
                     if (qtyTmp > getMaxQty()) {
@@ -622,7 +620,7 @@ public class BoxItem extends javax.swing.JPanel {
                double subAmountUsd = priceUsd * getQty;
                setLabelAmountUsd(dm.format(subAmountUsd));
                double _amountKh = JavaRoundDown.roundDown(JavaRoundDown.exchangeKh(subAmountUsd));
-               setLabelAmountKh(kh.format(_amountKh));
+               setLabelAmountKh(JavaRoundUpKhr.setRoundNumber(_amountKh));
 
                if (getDiscountDigit() > 0) {  // for percent
                     double _disUniteItem = ((qty * priceUsd * getDiscountDigit()) / 100);

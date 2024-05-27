@@ -5,7 +5,7 @@ public class JavaRoute {
      public static String login = "/auth/login";
      public static String product = "/product";
      public static String getProductByCatId = "/product/getProductByCatId";
-     public static String getNewPrdduct = "/product/getNewPrdduct";
+     public static String getNewPrdduct = "/product/getNewProduct";
      public static String getAllProduct = "/product?limit=50";
      public static String category = "/category/parentId/0";
      public static String readImage = "/imageData/readFileById/";

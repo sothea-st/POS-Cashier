@@ -55,6 +55,16 @@ public class LabelFontBlack extends javax.swing.JPanel {
     private int shadowSize = 1;
     private float shadowOpacity = 0.1f;
     private Color shadowColor = Color.GRAY;
+    private int roundRadious=10;
+
+     public int getRoundRadious() {
+          return roundRadious;
+     }
+
+     public void setRoundRadious(int roundRadious) {
+          this.roundRadious = roundRadious;
+     }
+    
     
     @Override
     protected void paintComponent(Graphics grphcs) {
@@ -97,7 +107,7 @@ public class LabelFontBlack extends javax.swing.JPanel {
         Graphics2D g = img.createGraphics();
         g.setColor(getBackground());
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.fillRoundRect(0, 0, width, height, 10, 10);
+        g.fillRoundRect(0, 0, width, height, roundRadious, roundRadious);
 
         //  Create Shadow
         ShadowRenderer render = new ShadowRenderer(shadowSize, shadowOpacity, shadowColor);
