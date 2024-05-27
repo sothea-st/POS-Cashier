@@ -66,12 +66,18 @@ public class SaleService {
     // this function will return invoice
     public Map<String, Object> saleProduct(Sale s) throws Exception {
         var createBy = session.getAttribute(JavaConstant.userId);
-        System.out.println("hhhhhhhhhhhhhhh = " + s.getDiscountCase());
+
         int userId = s.getUserId();
-        // System.out.println("user id = " + userId);
-        HashMap<String, Object> map = new HashMap<>();
-        // String posId = repoOpen.getPosId(s.getUserCode(), JavaConstant.currentDate);
         String posId = s.getPosId();
+        int count = payRepo.countSale(JavaConstant.currentDate);
+      
+        count++;
+       
+        String paymentNo = paymentNo(count, posId);
+       
+
+        String paymentBarcode = paymentBarcode(count);
+
         Sale sale = new Sale();
         sale.setUserId(userId);
         sale.setPosId(posId);
@@ -81,13 +87,9 @@ public class SaleService {
         sale.setSubTotal(s.getSubTotal());
         sale.setDeliveryFee(s.getDeliveryFee());
         sale.setActive("Active");
-        // sale.setTotal(s.getTotal());
         sale.setTotal(s.getTotal());
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
-        // sale.setDataPay(new Payment(userId, posId, posId, userId, null, null, null,
-        // posId, null, null, posId, userId, userId, posId, posId, posId, userId, null,
-        // false, false));
         sale.setCreateBy(userId);
 
         Customer cus = s.getCustomer();
@@ -134,14 +136,6 @@ public class SaleService {
         // save payment
         Payment p = s.getDataPay();
 
-        int count = payRepo.countSale(JavaConstant.currentDate);
-
-        count++;
-
-        String paymentNo = paymentNo(count, posId);
-
-        String paymentBarcode = paymentBarcode(count);
-
         addPayment(paymentNo, saleId, p, userId, paymentBarcode, posId);
 
         return reprintService.readData("");
@@ -155,8 +149,6 @@ public class SaleService {
         cusData.setGender(cus.getGender());
         cusData.setNationality(cus.getNationality());
         cusData.setCustomerId(cus.getCustomerId());
-        // cusData.setCustomerTypeId(cus.getCustomerTypeId());
-        // cusData.setSourceId(cus.getSourceId());
         cusData.setPointEarned(cus.getPointEarned());
         cusData.setEmail(cus.getEmail());
         cusData.setCoupon(cus.getCoupon());
@@ -197,7 +189,6 @@ public class SaleService {
         data.setDiscountValue(p.getDiscountValue());
         data.setPosId(posId);
         data.setCreateBy(createBy);
-
         payRepo.save(data);
 
         BufferedImage barcode = barcodeGenerator.generateUSPSBarcodeImage(paymentBarcode);
@@ -209,27 +200,8 @@ public class SaleService {
     }
 
     String paymentNo(int count, String posId) {
-        // int currentYear = Year.now().getValue();
-        // String _year = "" + currentYear;
-        // _year = _year.substring(2, _year.length());
         String _value = invoiceId(count);
         String paymentNo = "RIV101-" + posId + "-" + _value;
-
-        // if (count < 10) {
-        // paymentNo += "000000" + count;
-        // } else if (count < 100) {
-        // paymentNo += "00000" + count;
-        // } else if (count < 1000) {
-        // paymentNo += "0000" + count;
-        // } else if (count < 10000) {
-        // paymentNo += "000" + count;
-        // } else if (count < 100000) {
-        // paymentNo += "00" + count;
-        // } else if (count < 1000000) {
-        // paymentNo += "0" + count;
-        // } else {
-        // paymentNo += "" + count;
-        // }
         return paymentNo;
     }
 
@@ -256,7 +228,7 @@ public class SaleService {
         }
 
         String invoice = "";
-        
+
         if (count < 10) {
             invoice += "00" + count;
         } else if (count < 100) {
@@ -270,7 +242,7 @@ public class SaleService {
     }
 
     String paymentBarcode(int count) {
-       
+
         String paymentNo = invoiceId(count);
         // if (count < 10) {
         // paymentNo += "000000" + count;
