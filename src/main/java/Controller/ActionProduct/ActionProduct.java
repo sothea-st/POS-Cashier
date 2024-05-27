@@ -441,7 +441,7 @@ public class ActionProduct {
                box.setMaxQty(listData.getQty());
           }
           
-          System.out.println("listData.getDiscountType() ===== " + listData.getDiscountType());
+ 
           box.setDiscountCase(listData.getDiscountType());
           
           double price = listData.getPrice();

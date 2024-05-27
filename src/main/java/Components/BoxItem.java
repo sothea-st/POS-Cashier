@@ -490,7 +490,6 @@ public class BoxItem extends javax.swing.JPanel {
 
           if (sign == "+") {
 
-               System.out.println("discountType + : " + getDiscountCase());
                getHold();
 
                // add qty 
@@ -564,7 +563,7 @@ public class BoxItem extends javax.swing.JPanel {
                }
 
           } else if (sign == "-") {
-               System.out.println("discountType - : " + getDiscountCase());
+                
                getHold();
                // remove qty 
                getQty--;
@@ -626,7 +625,7 @@ public class BoxItem extends javax.swing.JPanel {
                setLabelAmountKh(kh.format(_amountKh));
 
                if (getDiscountDigit() > 0) {  // for percent
-                    double _disUniteItem = ((qty * priceUsd * getDiscountDigit()) / 100) ;
+                    double _disUniteItem = ((qty * priceUsd * getDiscountDigit()) / 100);
                     txtDiscount.setText("Discount : " + dm.format(Double.valueOf(_disUniteItem)));
                     setDiscountAmount(dm.format(_disUniteItem)); // subtotal discount will be count
                } else { // for dollar
@@ -643,10 +642,12 @@ public class BoxItem extends javax.swing.JPanel {
                     }
                }
 
-               if (getDiscountCase().equals("dollar")) {
-                    double _calValue = getQty * discountDigit;
-                    txtDiscount.setText("Discount : " + dm.format(_calValue));
-                    setDiscountAmount(dm.format(_calValue)); // subtotal discount will be count
+               if (getDiscountCase() != null) {
+                    if (getDiscountCase().equals("dollar")) {
+                         double _calValue = getQty * discountDigit;
+                         txtDiscount.setText("Discount : " + dm.format(_calValue));
+                         setDiscountAmount(dm.format(_calValue)); // subtotal discount will be count
+                    }
                }
 
           }

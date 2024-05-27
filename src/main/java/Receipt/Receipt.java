@@ -971,6 +971,7 @@ public class Receipt extends javax.swing.JDialog {
                dispose();
                JavaAlertMessage j = new JavaAlertMessage(new JFrame() , true);
                j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
+               j.setIsShow(true);
                j.setVisible(true);
           } catch (IOException ex) {
                Logger.getLogger(Receipt.class.getName()).log(Level.SEVERE, null, ex);

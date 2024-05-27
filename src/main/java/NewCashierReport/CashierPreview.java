@@ -897,7 +897,7 @@ public class CashierPreview extends javax.swing.JDialog {
               new PrintPanelToPDF(reportPanel).printPdf(pfdNameInvoice, numberOfItem);
               dispose();
               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-
+              j.setIsShow(true);
               j.setMessage("PDF was saved to path " + PrintPanelToPDF.folderPath);
               j.setVisible(true);
          } catch (IOException ex) {
