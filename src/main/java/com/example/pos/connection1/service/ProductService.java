@@ -309,11 +309,9 @@ public class ProductService {
         return data;
     }
 
-    public List<ProductModel> getNewProduct() {
-        Integer countRow = repo.countRow();
-        Integer number = (countRow * 30) / 100;
+    public List<ProductModel> getNewProduct(int limit  , int page) {
 
-        List<ProductProjection> listData = repo.getNewProduct(number);
+        List<ProductProjection> listData = repo.getNewProduct(limit,page);
         List<ProductModel> list = new ArrayList<>();
 
         for (int i = 0; i < listData.size(); i++) {
