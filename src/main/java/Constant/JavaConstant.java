@@ -129,13 +129,14 @@ public class JavaConstant {
      public static String returnByBarcode;
      public static Integer qtyReturn;
 
-     public static int limit = 20;
+     public static int limit = 21;
+     public static int limitPagination=21;
      public static int page = 0;
      public static int brandId = 0;
 
      public static void resetValuePagination() {
-          limit = 20;
-          page = 1;
+          limit = 21;
+          page = 0;
           brandId = 0;
      }
 
