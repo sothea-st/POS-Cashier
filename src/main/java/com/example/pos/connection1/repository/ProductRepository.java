@@ -40,8 +40,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "\tpc.status = true\r\n" + //
                         "\tand pc.is_deleted = false\r\n" + //
                         "order by\r\n" + //
-                        "\tpc.create_date desc limit ?")
-        List<ProductProjection> getNewProduct(int limit);
+                        "\tpc.create_date desc limit ? offset ?")
+        List<ProductProjection> getNewProduct(int limit,int page);
 
         @Query(nativeQuery = true, value = "select id,pro_name_en from product_header")
         List<HeadProductProjection> getHead();
@@ -90,7 +90,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
                         "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
                         "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
-                        "and pc.cat_id = ? order by id desc limit ? offset ?")
+                        "and pc.cat_id = ? order by pc.id desc limit ? offset ?")
         List<ProductProjection> getProductByCatId(int catId, int limit, int page);
 
         @Query(nativeQuery = true, value = " select count(*) from pos_product pp where status = true and is_deleted = false and cat_id = ?")
@@ -129,12 +129,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                                 "where\r\n" + //
                                 "\tpc.status = true\r\n" + //
                                 "\tand pc.is_deleted = false\r\n" + //
-                                "\tand pc.discount > 0\r\n" + //
+                                "\tand pc.discount > 0 order by pc.id desc\r\n" + //
                                 " ")
         List<ProductProjection> getProductPromotion();
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
-                        + //
+        @Query(nativeQuery = true , value = "select count(*) from pos_product pp where pp.status = true and pp.is_deleted = false and pp.discount > 0")
+        int countProductDiscount();
+
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"+ //
                         " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,  \r\n" + //
                         " pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired    \r\n" + //
                         " from pos_product pc where pc.status=true and pc.is_deleted=false  \r\n" + //

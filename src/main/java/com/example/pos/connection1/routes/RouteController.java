@@ -191,9 +191,12 @@ public class RouteController {
                return JavaResponse.success(datas);
           }
 
-          @GetMapping("/getNewPrdduct")
-          public ResponseEntity<?> getNewProduct(){
-               return JavaResponse.success(service.getNewProduct());
+          @GetMapping("/getNewProduct")
+          public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit , @RequestParam int page){
+               // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
+               Integer countRow = repo.countRow();
+               Integer number = (countRow * 30) / 100;
+               return ResponseEntity.ok().body(Map.of("count",number,"msg","success","data",service.getNewProduct(limit, page)));
           }
 
 
