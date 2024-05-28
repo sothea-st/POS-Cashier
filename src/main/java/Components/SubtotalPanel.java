@@ -217,8 +217,12 @@ public class SubtotalPanel extends javax.swing.JPanel {
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
           double disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
-
+          if(disKh > 0){
+              subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
+          }else{
+              subtotalPanel.setLableDiscountKhr(kh.format(0));
+          }
+          
           subtotalPanel.setLableDeliveryUsd(dm.format(0));
           subtotalPanel.setLableDeliveryKhr(kh.format(0));
           // total

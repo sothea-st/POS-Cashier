@@ -11,6 +11,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoundDown;
+import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
@@ -151,17 +152,21 @@ public class DeleteDialog extends javax.swing.JDialog {
 
           subtotalPanel.setLabelSubtotalUsd(dm.format(sumSubTotalUsd));
           double _subTotalKh = JavaRoundDown.roundDown("" + sumSubTotalUsd * JavaConstant.exchangeRate);
-          subtotalPanel.setLabelSubtotalKhr(kh.format(_subTotalKh));
+          subtotalPanel.setLabelSubtotalKhr(JavaRoundUpKhr.setRoundNumber(_subTotalKh));
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
           double _disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          subtotalPanel.setLableDiscountKhr(kh.format(_disKh));
+          if( _disKh > 0){
+              subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(_disKh));
+          }else{
+              subtotalPanel.setLableDiscountKhr(kh.format(0));
+          }
 
           // total
           double total = sumSubTotalUsd - sumDiscount;
           subtotalPanel.setLableTotalUsd(dm.format(total));
           double _total = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
-          subtotalPanel.setLableTotalKhr(kh.format(_total));
+          subtotalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(_total));
 
           this.dispose();
      }
