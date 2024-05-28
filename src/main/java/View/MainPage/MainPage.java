@@ -170,7 +170,7 @@ public class MainPage extends javax.swing.JFrame {
      }
 
      private void groupEvent() {
-          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this);  // pagination next
+          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this,panelProduct);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
 
@@ -766,7 +766,7 @@ public class MainPage extends javax.swing.JFrame {
 
          if (JavaConstant.token != null) {
               
-//              if (JavaConstant.isReturn == null) { // there is not transaction retrun 
+ 
               Component[] listCom = detailItem.getComponents();
               if (listCom.length != 0) {
                    PaymentOption pay = new PaymentOption(new JFrame(), true);
@@ -797,15 +797,7 @@ public class MainPage extends javax.swing.JFrame {
                    
                    pay.setVisible(true);
               }
-//              } else { // there is transaction retrun 
-//                   JdialogConfirmReturn j = new JdialogConfirmReturn(new JFrame(), true);
-//                   j.setBoxOne(boxOne);
-//                   j.setBtnPayment(btnPayment);
-//                   j.setBtnCancel(btnCancel);
-//                   j.setSubtotalPanel(totalPanel);
-//                   j.setDetailItem(detailItem);
-//                   j.setVisible(true);
-//              }
+ 
 
          } else {
               System.err.println("System cannot open payment option");
@@ -945,18 +937,6 @@ public class MainPage extends javax.swing.JFrame {
      //Action Discount
      private void buttonDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscountMouseClicked
 
-//        if (JavaConstant.token != null) {
-//             if (JavaConstant.checkOpenShift) {
-//                  DiscountType dis = new DiscountType(new JFrame(), true);
-//                  dis.setSubtotalPanel(totalPanel);
-//                  dis.setDetailItem(detailItem);
-//                  dis.setPanelProduct(panelProduct);
-//                  dis.setJdFormLogin(jdFormLogin);
-//                  dis.setCategory(category);
-//                  dis.setPanelPagination(panelPagination);
-//                  dis.setVisible(true);
-//             }
-//        }
           if (JavaConstant.token != null) {
                if (JavaConstant.checkOpenShift) {
                     if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {

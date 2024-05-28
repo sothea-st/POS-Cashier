@@ -73,9 +73,9 @@ public class ResponsiveSize {
 
 //                    System.out.println("width : " + width);
                     if (width > 1900) {
+                         
                          if ((mainPage.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
                               isFullScreen = true;
-
                          }
                          ActionProduct.marginRight = 15;
                          if (jdFormLogin.getCatId() != 0) {
@@ -85,7 +85,6 @@ public class ResponsiveSize {
                                    resizeWithData(7);
                               }
                          }
-
                     } else if (width > 1680) {
                          ActionProduct.marginRight = 15;
                          resizeWithData(6);
@@ -130,22 +129,29 @@ public class ResponsiveSize {
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
 
-       
           if (jdFormLogin.getCatId() == 0) {
-               a.getAllProduct(panelProduct);
+//               a.getAllProduct(panelProduct); old
+               a.newProduct(jdFormLogin.getLimit(), panelProduct);
           } else {
 
-               if (jdFormLogin.getCatId() == 2) {  // catId = 2 NEW ITEMS
-                    panelPagination.setVisible(false);
-                    a.newProduct(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
-               } else if (jdFormLogin.getCatId() == 1) {  // catId = 1 Promotion
-                    panelPagination.setVisible(false);
-                    a.getPromotion(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
-               } else {
-                    a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+               if (JavaConstant.checkOpenShift) {
+                    switch (jdFormLogin.getCatId()) {
+                         case 2 -> {
+                              // catId = 2 NEW ITEMS
+                              panelPagination.setVisible(true);
+                              a.newProduct(jdFormLogin.getLimit(), panelProduct);
+                         }
+
+                         case 1 -> {
+                              // catId = 1 Promotion
+                              panelPagination.setVisible(true);
+                              a.getPromotion(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+                         }
+                         default ->
+                              a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+                    }
                }
 
-//               a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
           }
           panelProduct.revalidate();
           panelProduct.repaint();

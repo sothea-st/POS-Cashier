@@ -39,6 +39,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -128,6 +129,35 @@ public class PaymentOption extends javax.swing.JDialog {
           evenGroup();
           customerFun();
 
+          setRoundRadius(2, 3,2);
+     }
+
+     void setRoundRadius(int radius, int padding,int left) {
+          lbOne.setRoundRadious(radius);
+          lbTwo.setRoundRadious(radius);
+          lbThree.setRoundRadious(radius);
+          lbFour.setRoundRadious(radius);
+          lbFive.setRoundRadious(radius);
+          lbSix.setRoundRadious(radius);
+          lbSeven.setRoundRadious(radius);
+          lbEight.setRoundRadious(radius);
+          lbNine.setRoundRadious(radius);
+          lbZero.setRoundRadious(radius);
+          lbDelete.setRoundRadious(radius);
+          lbDot.setRoundRadious(radius);
+
+          lbOne.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbTwo.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbThree.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbFour.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbFive.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbSix.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbSeven.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbEight.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbNine.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbZero.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbDelete.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbDot.setBorder(new EmptyBorder(padding, left, padding, left));
      }
 
      void customerFun() {
@@ -197,7 +227,6 @@ public class PaymentOption extends javax.swing.JDialog {
 
                @Override
                public void keyPressed(KeyEvent e) {
-                   
 
                }
 
@@ -469,6 +498,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
 
           if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
+
                if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
                     lbRemainingKhr.setLabelName(dm.format(0));
                     lbRemainingUsd.setLabelName(df.format(0));
@@ -1289,7 +1319,7 @@ public class PaymentOption extends javax.swing.JDialog {
                                         .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(0, 9, Short.MAX_VALUE)))
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addComponent(lbCustomerType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1298,7 +1328,7 @@ public class PaymentOption extends javax.swing.JDialog {
                                         .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addComponent(cmbCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(txtCustomerPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGap(0, 10, Short.MAX_VALUE)))
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(panelPaymentLayout.createSequentialGroup()
@@ -1308,7 +1338,7 @@ public class PaymentOption extends javax.swing.JDialog {
                                              .addComponent(lbSource, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                    .addGroup(panelPaymentLayout.createSequentialGroup()
-                                        .addComponent(txtCustomerEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtCustomerEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                                         .addGap(7, 7, 7)))
                               .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(panelPaymentLayout.createSequentialGroup()
@@ -1316,7 +1346,7 @@ public class PaymentOption extends javax.swing.JDialog {
                                         .addGap(46, 46, 46))
                                    .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(panelPaymentLayout.createSequentialGroup()
-                                             .addComponent(lbEarning, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                             .addComponent(lbEarning, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
                                              .addGap(49, 49, 49))
                                         .addGroup(panelPaymentLayout.createSequentialGroup()
                                              .addGroup(panelPaymentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1386,8 +1416,8 @@ public class PaymentOption extends javax.swing.JDialog {
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panelPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelPayment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0))
           );
 
           pack();
@@ -1645,15 +1675,6 @@ public class PaymentOption extends javax.swing.JDialog {
 
           }
 
-          // data is return 
-//         if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
-//              try {
-//                   returnProduct();
-//              } catch (IOException ex) {
-//                   Logger.getLogger(PaymentOption.class.getName()).log(Level.SEVERE, null, ex);
-//              }
-//              return;
-//         }
           double discount = JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd());
           // double deliveryFee = JavaConstant.getReplace(subtotalPanel.getLableDeliveryUsd());
           double subTotal = JavaConstant.getReplace(subtotalPanel.getLabelSubtotalUsd());
@@ -1740,18 +1761,17 @@ public class PaymentOption extends javax.swing.JDialog {
                double discountDigit = obj.getDiscountDigit();
                double unitPrice = price - (price * discountDigit) / 100;
                double p = JavaConstant.getReplace(df.format(unitPrice));
-           
+
                double discountVale = obj.getDiscountValue();
                double amount = obj.getQty() * p;
                double a = JavaConstant.getReplace(df.format(amount));
-              
-               
-               if( obj.getOldDiscount() > 0 ) {
-                    discountType="promotion";
+
+               if (obj.getOldDiscount() > 0) {
+                    discountType = "promotion";
                } else {
-                   discountType = obj.getDiscountType();
+                    discountType = obj.getDiscountType();
                }
-               
+
                ProductSaleModel pro = new ProductSaleModel(
                     obj.getProductId(),
                     obj.getQty(),
@@ -1768,8 +1788,6 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonData.put("dataPay", dataPay);
           jsonData.put("discountCase", discountType);
 
-     
-          
           Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
           try {
@@ -1880,8 +1898,6 @@ public class PaymentOption extends javax.swing.JDialog {
                dataDetails.add(pro);
           }
           jsonReturnData.put("dataDetails", dataDetails);
-          
-          System.out.println("jsonReturnData : " + jsonReturnData);
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
@@ -2192,7 +2208,7 @@ public class PaymentOption extends javax.swing.JDialog {
           moneyUsd = moneyUsd.replace(",", "");
           double totalKhr = Double.valueOf(moneyUsd);
           double _totalKh = JavaRoundDown.roundDown("" + totalKhr * JavaConstant.exchangeRate);
-          lbTotalKhr.setLabelName(dm.format(_totalKh));
+          lbTotalKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_totalKh));
 
           if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
                txtReceiveKhr.setText("" + ModelReturnData.receive_khr);

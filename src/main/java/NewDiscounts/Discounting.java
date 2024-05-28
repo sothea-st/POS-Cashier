@@ -6,6 +6,7 @@ import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
+import Constant.JavaRoundUpKhr;
 import Event.ButtonEvent;
 import SwitchButton.EventSwitchSelected;
 import java.awt.Component;
@@ -746,10 +747,12 @@ public class Discounting extends javax.swing.JDialog {
               sumTotalUsd = sumSubTotalUsd - sumDiscount;
 
               totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
-              totalPanel.setLableDiscountKhr(kh.format(sumDiscount * JavaConstant.exchangeRate));
+              double _dKhr = sumDiscount * JavaConstant.exchangeRate;
+              totalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(_dKhr));
 
               totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
-              totalPanel.setLableTotalKhr(kh.format(sumTotalUsd * JavaConstant.exchangeRate));
+              double _tKhr = sumTotalUsd * JavaConstant.exchangeRate;
+              totalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(_tKhr));
          }
 
          detailItem.revalidate();

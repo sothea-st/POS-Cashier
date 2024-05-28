@@ -4,6 +4,7 @@ import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
+import Constant.JavaRoundUpKhr;
 import Constant.JavaRoute;
 import Fonts.WindowFonts;
 import Model.Reprint.DataSuccessModel;
@@ -134,7 +135,7 @@ public class PrinterReturn extends javax.swing.JDialog {
 
                totalprice.setText(dm.format(sum));
                double totalkh = JavaRoundDown.roundDown("" + sum * JavaConstant.exchangeRate);
-               totalKhr.setText(kh.format(totalkh));
+               totalKhr.setText(JavaRoundUpKhr.setRoundNumber(totalkh));
 
 //               } else {
 //                    totalprice.setText(dm.format(data.getTotal()));
