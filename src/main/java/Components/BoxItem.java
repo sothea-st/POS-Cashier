@@ -677,23 +677,7 @@ public class BoxItem extends javax.swing.JPanel {
                     }
                }
           }
-
-//          Component[] listPanelProduct = panelProduct.getComponents();
-//          Component[] listDetails = detailItem.getComponents();
-//
-//          for (Component c : listDetails) {
-//               var _data = ((BoxItem) c);
-//               int _qty = _data.getQty();
-//               for (Component cc : listPanelProduct) {
-//                    var pp = ((ProductBox) cc);
-//                    int _qtyPanel = Integer.parseInt(pp.getQty());
-//                    if (pp.getBarcode().equals(_data.getLabelBarcode())) {
-//                         _qtyPanel++;
-//                         pp.setQty("" + _qtyPanel);
-//                         break;
-//                    }
-//               }
-//          }
+ 
      }
 
      //=================================================Create Shadow Box

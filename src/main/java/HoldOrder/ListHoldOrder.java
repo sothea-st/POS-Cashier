@@ -1,5 +1,6 @@
 package HoldOrder;
 
+import BlogCode.JavaCountHold;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
@@ -187,7 +188,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                               try {
                                    if (response.isSuccessful()) {
                                         dispose();
-                                        int count = new MainPage().countHold();
+                                        int count = JavaCountHold.countHold();
                                         countCircleShape.setCountTimes("" + count);
                                    }
                               } catch (Exception e) {
@@ -811,7 +812,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
                try {
                     if (response.isSuccessful()) {
                          dispose();
-                         int count = new MainPage().countHold();
+                         int count = JavaCountHold.countHold();
                          countCircleShape.setCountTimes("" + count);
 //                         btnCancel.setBackground(WindowColor.lightGray);
                     }

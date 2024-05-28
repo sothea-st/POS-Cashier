@@ -83,7 +83,7 @@ public class JavaActionAddHold {
 
                if (response.isSuccessful()) {
 
-                    countCircleShape.setCountTimes("" + new MainPage().countHold());
+                    countCircleShape.setCountTimes("" + JavaCountHold.countHold());
                     detailItem.removeAll();
                     detailItem.revalidate();
                     detailItem.repaint();

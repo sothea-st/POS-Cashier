@@ -130,7 +130,7 @@ public class JavaConstant {
      public static Integer qtyReturn;
 
      public static int limit = 20;
-     public static int page = 1;
+     public static int page = 0;
      public static int brandId = 0;
 
      public static void resetValuePagination() {

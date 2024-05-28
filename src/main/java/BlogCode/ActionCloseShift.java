@@ -10,16 +10,22 @@ import Components.BackgroundImage;
 import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.TextField;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import OpenAndCloseShift.CloseShift;
 import View.MainPage.MainPage;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ActionCloseShift {
 
      public static JavaAlertMessage j;
+
+     
 
      public static void closeShift(
           JPanel detailItem,
@@ -40,9 +46,10 @@ public class ActionCloseShift {
           Button btnLogin,
           Button stock
      ) {
+
           Component[] listCom1 = detailItem.getComponents();
           j = new JavaAlertMessage(new JFrame(), true);
-          
+
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
           if (JavaConstant.isReturn != null) {
                j.setMessage(JavaAlertMessage.returnMsg);
@@ -54,9 +61,10 @@ public class ActionCloseShift {
                j.setMessage("Please Clear Items in Current Order First!");
                j.setVisible(true);
                return;
-          }
+          }    
+          
 
-          if (new MainPage().countHold() > 0) {
+          if (JavaCountHold.countHold() > 0) {
                j.setMessage("There are any trancsactions not yet completed in Hold function!");
                j.setVisible(true);
                return;
@@ -79,6 +87,6 @@ public class ActionCloseShift {
           close.setBtnLogin(btnLogin);
           close.setStock(stock);
           close.setVisible(true);
- 
+
      }
 }

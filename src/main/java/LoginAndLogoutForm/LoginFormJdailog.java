@@ -564,7 +564,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               public void onMouseClick() {
 
                                    if (JavaConstant.checkOpenShift) {
-
+                                       
                                         JavaConstant.resetValuePagination(); // for pagination
 
                                         setCatId(catId);
@@ -606,6 +606,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //                                                  panelPagination.setVisible(false);
                                                   pro.getPromotion(catId, limit, panelProduct);
                                              } else {
+                                                  JavaConstant.page = 0;
                                                   pro.product(catId, limit, panelProduct);
                                              }
                                         }

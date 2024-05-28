@@ -45,7 +45,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
- 
+
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -118,15 +118,14 @@ public class MainPage extends javax.swing.JFrame {
           verticalScrollBars.setBlockIncrement(35);
 
           // for resize screen
-          new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin, btnReturn, titleOrder,panelPagination).resizeEvent(this);
+          new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin, btnReturn, titleOrder, panelPagination).resizeEvent(this);
 
           currentDateTime();
           // boxUserName.setVisible(false);
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
-          
+
 //       jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          
      }
 
      // Set Timer
@@ -170,7 +169,7 @@ public class MainPage extends javax.swing.JFrame {
      }
 
      private void groupEvent() {
-          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this,panelProduct);  // pagination next
+          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this, panelProduct);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
 
@@ -691,8 +690,9 @@ public class MainPage extends javax.swing.JFrame {
 
      //Action Button Open And Close Shift
     private void btnOpenShiftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOpenShiftMouseClicked
-         String buttonName = btnOpenShift.getButtonName().toLowerCase();
+
          if (JavaConstant.token != null) {
+              String buttonName = btnOpenShift.getButtonName().toLowerCase();
               if (buttonName.equals("open shift")) {
                    if (JavaConstant.isOpenShift != null) {
                         return;
@@ -739,7 +739,7 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg, btnLogin, stock
+                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg, btnLogin, stock 
                    );
               }
          }
@@ -765,8 +765,7 @@ public class MainPage extends javax.swing.JFrame {
     private void btnPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseClicked
 
          if (JavaConstant.token != null) {
-              
- 
+
               Component[] listCom = detailItem.getComponents();
               if (listCom.length != 0) {
                    PaymentOption pay = new PaymentOption(new JFrame(), true);
@@ -783,9 +782,8 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setButtonHoldOrder(buttonHoldOrder);
                    pay.setjScrollPaneDetail(jScrollPaneDetail);
                    pay.setTitleOrder(titleOrder);
-                   
-                   
-                   if( btnPayment.getButtonName().equals("Return") ) {
+
+                   if (btnPayment.getButtonName().equals("Return")) {
                         try {
                              pay.returnProduct();
                         } catch (IOException ex) {
@@ -793,11 +791,9 @@ public class MainPage extends javax.swing.JFrame {
                         }
                         return;
                    }
-                   
-                   
+
                    pay.setVisible(true);
               }
- 
 
          } else {
               System.err.println("System cannot open payment option");
@@ -890,11 +886,11 @@ public class MainPage extends javax.swing.JFrame {
                          ObjectMapper objMap = new ObjectMapper();
                          DataSuccessCashierReport d = objMap.readValue(myObject, DataSuccessCashierReport.class);
                          cashier.setGetData(d);
-                         
-                         if(d.getMsg().equals("NO_RESULT")){
-                             return;
+
+                         if (d.getMsg().equals("NO_RESULT")) {
+                              return;
                          }
-                         
+
                          cashier.setVisible(true);
                     }
                } catch (Exception e) {
@@ -902,7 +898,7 @@ public class MainPage extends javax.swing.JFrame {
                }
           }
      }
-
+           
      public int countHold() {
           int countH = 0;
           Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
@@ -913,7 +909,7 @@ public class MainPage extends javax.swing.JFrame {
 
           } catch (Exception e) {
           }
-
+         
           return countH;
      }
 

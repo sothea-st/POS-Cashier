@@ -65,7 +65,8 @@ public class ActionProduct {
 
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
+               System.out.println("page response : " + JavaConstant.page);
+               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
                System.out.println("response : " + response);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -90,7 +91,8 @@ public class ActionProduct {
 
      public void newProduct(int limit, JPanel panelProduct) {
           try {
-               Response response = JavaConnection.get(JavaRoute.getNewPrdduct+"?limit="+limit+"&page=" +JavaConstant.page);
+              
+               Response response = JavaConnection.get(JavaRoute.getNewPrdduct+"?limit=20&page=" +JavaConstant.page);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

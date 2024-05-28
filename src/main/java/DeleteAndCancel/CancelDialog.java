@@ -1,5 +1,6 @@
 package DeleteAndCancel;
 
+import BlogCode.JavaCountHold;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
@@ -391,7 +392,7 @@ public class CancelDialog extends javax.swing.JDialog {
                     panelHold.revalidate();
                     panelHold.repaint();
 //                    getHoldItem(panelHold);
-                    int count = new MainPage().countHold();
+                    int count = JavaCountHold.countHold();
                     countCircleShape.setCountTimes("" + count);
                     detailItem.removeAll();
                     detailItem.revalidate();
@@ -501,7 +502,7 @@ public class CancelDialog extends javax.swing.JDialog {
                          panelHold.revalidate();
                          panelHold.repaint();
                          Response responseData = JavaConnection.get(JavaRoute.holdOrder + "/" + obj.getID());
-                         int count = new MainPage().countHold();
+                         int count = JavaCountHold.countHold();
                          count--;
                          countCircleShape.setCountTimes("" + count);
                          JavaConstant.holdId = obj.getID();

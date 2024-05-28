@@ -13,7 +13,7 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Cursor;
+ 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import okhttp3.Response;
@@ -29,32 +29,28 @@ public class JavaEventNextPrevious {
                @Override
                public void onMouseClick() {
                     int count = jdFormLogin.getCount();
-
-                    count = count - JavaConstant.limit;
-                    if (count <= 0) {
+                
+                    
+                    if( JavaConstant.limit > count ) {
                          return;
                     }
 
                     JavaConstant.limit = JavaConstant.limit + 20;
-                    JavaConstant.page++;
-
-                    int _limit = 0;
-                    if (count > 20) {
-                         _limit = 20;
-                    } else {
-                         _limit = count;
-                    }
+                    JavaConstant.page += 20;
+                    
  
+
                     if (JavaConstant.brandId == 0) {
                          try {
                               Response response = null;
                               if (jdFormLogin.getCatId() == 2) {
-                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + _limit + "&page=" + JavaConstant.page);
+                                   
+                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
+                                   
                               } else {
-                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + _limit + "&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=20&page=" + JavaConstant.page);
                               }
 
-                              System.out.println("respone next : " + response);
                               if (response.isSuccessful()) {
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
@@ -71,7 +67,7 @@ public class JavaEventNextPrevious {
                               System.err.println("error getting product " + e);
                          }
                     } else {
-                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, _limit);
+                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, 20);
                     }
                }
           };
@@ -82,12 +78,12 @@ public class JavaEventNextPrevious {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
-                    JavaConstant.page--;
-                    if (JavaConstant.page <= 0) {
-                         JavaConstant.page = 1;
-                         return;
-                    }
+                 
+                    if( JavaConstant.page == 0 ) return;
+                    
+                    JavaConstant.page = JavaConstant.page - 20;
                     JavaConstant.limit = JavaConstant.limit - 20;
+                    
                     if (JavaConstant.brandId == 0) {
                          if (limit != 0) {
                               Response response = null;
@@ -113,7 +109,7 @@ public class JavaEventNextPrevious {
                               }
                          }
                     } else {
-                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limit);
+                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, 20);
                     }
 
                }
