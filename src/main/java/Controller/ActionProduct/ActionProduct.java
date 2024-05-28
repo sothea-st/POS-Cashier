@@ -397,10 +397,10 @@ public class ActionProduct {
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
                     double dis4Length = JavaConstant.get4Length("" + discountPrice);
-                    product.setPrice(dm.format(dis4Length));
+                    product.setPrice(dm.format(discountPrice));
                } else {
                     double _price = JavaConstant.get4Length("" + price);
-                    product.setPrice(dm.format(_price));
+                    product.setPrice(dm.format(price));
                }
 
                product.setBarcode(listData.getBarcode());
