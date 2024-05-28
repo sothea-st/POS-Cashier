@@ -40,8 +40,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "\tpc.status = true\r\n" + //
                         "\tand pc.is_deleted = false\r\n" + //
                         "order by\r\n" + //
-                        "\tpc.create_date desc limit ? offset ?")
-        List<ProductProjection> getNewProduct(int limit,int page);
+                        "\tpc.create_date desc limit ?")
+        List<ProductProjection> getNewProduct(int limit);
 
         @Query(nativeQuery = true, value = "select id,pro_name_en from product_header")
         List<HeadProductProjection> getHead();

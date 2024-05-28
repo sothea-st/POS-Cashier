@@ -196,7 +196,7 @@ public class RouteController {
                // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
                Integer countRow = repo.countRow();
                Integer number = (countRow * 30) / 100;
-               return ResponseEntity.ok().body(Map.of("count",number,"msg","success","data",service.getNewProduct(limit, page)));
+               return ResponseEntity.ok().body(Map.of("count",number,"msg","success","data",service.getNewProduct(limit, page,number)));
           }
 
 
