@@ -56,7 +56,7 @@ public class MainPage extends javax.swing.JFrame {
 
      private Color activeColor = new Color(56, 56, 56);
      private JPanel detailProduct;
-     private int limit = JavaConstant.limit;
+     private int limit = JavaConstant.limitPagination;
      LoginFormJdailog jdFormLogin = new LoginFormJdailog(new JFrame(), true);
 
      public static boolean isFullScreen = false;

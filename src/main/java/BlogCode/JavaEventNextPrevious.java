@@ -30,25 +30,28 @@ public class JavaEventNextPrevious {
                public void onMouseClick() {
                     int count = jdFormLogin.getCount();
                 
-                    
                     if( JavaConstant.limit > count ) {
                          return;
                     }
-
-                    JavaConstant.limit = JavaConstant.limit + 20;
-                    JavaConstant.page += 20;
                     
- 
+                    System.out.println("befor limit : " + JavaConstant.limit);
+                    
+                    JavaConstant.limit = JavaConstant.limit + JavaConstant.limitPagination;
+                    JavaConstant.page += JavaConstant.limitPagination;
+                    
+                      System.out.println("limi pagination : " + JavaConstant.limit);
 
                     if (JavaConstant.brandId == 0) {
                          try {
+                              
+                              String _titleCate=jdFormLogin.getTitleCategory().toLowerCase();
                               Response response = null;
-                              if (jdFormLogin.getCatId() == 2) {
-                                   
+                              if (_titleCate.equals("new items")) {
+                                     System.out.println("limi pagination fffffffffffffffff : " + JavaConstant.limit);
                                    response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
-                                   
+                                
                               } else {
-                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=20&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit="+JavaConstant.limitPagination+"&page=" + JavaConstant.page);
                               }
 
                               if (response.isSuccessful()) {
@@ -67,7 +70,7 @@ public class JavaEventNextPrevious {
                               System.err.println("error getting product " + e);
                          }
                     } else {
-                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, 20);
+                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limitPagination);
                     }
                }
           };
@@ -81,16 +84,18 @@ public class JavaEventNextPrevious {
                  
                     if( JavaConstant.page == 0 ) return;
                     
-                    JavaConstant.page = JavaConstant.page - 20;
-                    JavaConstant.limit = JavaConstant.limit - 20;
-                    
+                    JavaConstant.page = JavaConstant.page - JavaConstant.limitPagination;
+                    JavaConstant.limit = JavaConstant.limit - JavaConstant.limitPagination;
+                    System.out.println("jjjjjjjjjjjjjjjj = " + JavaConstant.limit);
                     if (JavaConstant.brandId == 0) {
                          if (limit != 0) {
                               Response response = null;
-                              if (jdFormLogin.getCatId() == 2) {
-                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=20&page=" + JavaConstant.page);
+                               String _titleCate=jdFormLogin.getTitleCategory().toLowerCase();
+                              if (_titleCate.equals("new items")) {
+                                    
+                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
                               } else {
-                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=20&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit="+JavaConstant.limitPagination+"&page=" + JavaConstant.page);
                               }
 
                               try {
@@ -109,7 +114,7 @@ public class JavaEventNextPrevious {
                               }
                          }
                     } else {
-                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, 20);
+                         jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limitPagination);
                     }
 
                }

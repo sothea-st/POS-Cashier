@@ -131,7 +131,7 @@ public class ResponsiveSize {
 
           if (jdFormLogin.getCatId() == 0) {
 //               a.getAllProduct(panelProduct); old
-               a.newProduct(jdFormLogin.getLimit(), panelProduct);
+               a.newProduct(JavaConstant.limitPagination, panelProduct);
           } else {
 
                if (JavaConstant.checkOpenShift) {
@@ -139,16 +139,16 @@ public class ResponsiveSize {
                          case 2 -> {
                               // catId = 2 NEW ITEMS
                               panelPagination.setVisible(true);
-                              a.newProduct(jdFormLogin.getLimit(), panelProduct);
+                              a.newProduct(JavaConstant.limitPagination, panelProduct);
                          }
 
                          case 1 -> {
                               // catId = 1 Promotion
                               panelPagination.setVisible(true);
-                              a.getPromotion(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+                              a.getPromotion(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
                          }
                          default ->
-                              a.product(jdFormLogin.getCatId(), jdFormLogin.getLimit(), panelProduct);
+                              a.product(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
                     }
                }
 
