@@ -4,6 +4,7 @@
  */
 package BlogCode;
 
+import Color.WindowColor;
 import Components.LabelFontGreen;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -23,16 +24,22 @@ import okhttp3.Response;
  */
 public class JavaEventNextPrevious {
 
-     public static void eventNext(LabelFontGreen next, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame, JPanel panelProduct) {
+     public static void eventNext(LabelFontGreen next, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame, JPanel panelProduct, LabelFontGreen previous) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
                     int count = jdFormLogin.getCount();
                 
                     if( JavaConstant.limit > count ) {
+                         next.setBackground(WindowColor.lightGray);
                          return;
                     }
                  
+                    
+                    previous.setBackground(WindowColor.white);
+                    next.setBackground(WindowColor.white);
+                    
+                
                     
                     JavaConstant.limit = JavaConstant.limit + JavaConstant.limitPagination;
                     JavaConstant.page += JavaConstant.limitPagination;
@@ -73,12 +80,18 @@ public class JavaEventNextPrevious {
           next.initEvent(event);
      }
 
-     public static void eventPrevious(LabelFontGreen previous, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame) {
+     public static void eventPrevious(LabelFontGreen previous, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame,LabelFontGreen next) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
                  
-                    if( JavaConstant.page == 0 ) return;
+                    if( JavaConstant.page == 0 ){
+                        previous.setBackground(WindowColor.lightGray);
+                        return;
+                    }
+                    
+                    previous.setBackground(WindowColor.white);
+                    next.setBackground(WindowColor.white);
                     
                     JavaConstant.page = JavaConstant.page - JavaConstant.limitPagination;
                     JavaConstant.limit = JavaConstant.limit - JavaConstant.limitPagination;

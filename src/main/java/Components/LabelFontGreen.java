@@ -133,37 +133,31 @@ public class LabelFontGreen extends javax.swing.JPanel {
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated
-     // Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-          lbLabel = new javax.swing.JLabel();
+        lbLabel = new javax.swing.JLabel();
 
-          lbLabel.setForeground(new java.awt.Color(255, 255, 255));
-          lbLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbLabel.setText("jLabel1");
-          lbLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    lbLabelMouseClicked(evt);
-               }
-          });
+        lbLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lbLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbLabel.setText("jLabel1");
+        lbLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbLabelMouseClicked(evt);
+            }
+        });
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-          this.setLayout(layout);
-          layout.setHorizontalGroup(
-                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                              .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(lbLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-                                                  Short.MAX_VALUE)
-                                        .addContainerGap()));
-          layout.setVerticalGroup(
-                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                              .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(lbLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 10,
-                                                  Short.MAX_VALUE)
-                                        .addContainerGap()));
-     }// </editor-fold>//GEN-END:initComponents
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lbLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
      private void lbLabelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lbLabelMouseClicked
           // TODO add your handling code here:
@@ -171,7 +165,7 @@ public class LabelFontGreen extends javax.swing.JPanel {
 
      private String labelName;
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JLabel lbLabel;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lbLabel;
+    // End of variables declaration//GEN-END:variables
 }

@@ -558,14 +558,14 @@
                       <Component id="homeMenu" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="breadcrumb" min="-2" pref="142" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="previous" min="-2" pref="35" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="next" min="-2" pref="35" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace pref="472" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="cmboxBrand" min="-2" pref="281" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="previous" min="-2" pref="141" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="next" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -576,9 +576,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="cmboxBrand" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="previous" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="next" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="previous" pref="33" max="32767" attributes="0"/>
+                          <Component id="next" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -587,7 +587,7 @@
                           <Component id="breadcrumb" max="32767" attributes="0"/>
                           <Component id="homeMenu" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="15" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -597,7 +597,7 @@
             </Component>
             <Component class="Components.LabelFontGreen" name="previous">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="&lt;"/>
+                <Property name="labelName" type="java.lang.String" value="&lt; Previous Page"/>
               </Properties>
             </Component>
             <Component class="Components.LabelTitle" name="homeMenu">
@@ -618,7 +618,7 @@
             </Component>
             <Component class="Components.LabelFontGreen" name="next">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="&gt;"/>
+                <Property name="labelName" type="java.lang.String" value="Next Page &gt;"/>
               </Properties>
             </Component>
           </SubComponents>
