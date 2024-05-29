@@ -256,21 +256,7 @@ public class ActionProduct {
                          //Show message When no item or unavailable item
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
-//                         //=================================
-//                         int qty = Integer.valueOf(product.getQty());
-//
-//                         if (qty == 1) {
-//                              product.setProductStatus("Out Stock");
-//                         }
-//
-//                         if (!listData.getProductStatus().isEmpty() && qty == 0) {
-//                              j.setMessage(JavaMessage.productOutStock);
-//                              j.setVisible(true);
-//                              return;
-//                         }
-//                         qty--;
-//                         product.setQty("" + qty);
-//                         JavaConstant.productQTyLeft = qty;
+ 
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
 
@@ -362,13 +348,7 @@ public class ActionProduct {
                product.setDiscountPercentag(listData.getDiscount(), price);
 
                product.setDiscountPercent(listData.getDiscount());
-
-//               String productName;
-//               if (listData.getProductNameEn().length() > 22) {
-//                    productName = listData.getProductNameEn().substring(0, 21) + "...";
-//               } else {
-//                    productName = listData.getProductNameEn();
-//               }
+ 
                product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
 
 //               ====================== get weight ====================

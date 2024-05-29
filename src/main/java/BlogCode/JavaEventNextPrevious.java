@@ -13,7 +13,6 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
- 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import okhttp3.Response;
@@ -33,13 +32,12 @@ public class JavaEventNextPrevious {
                     if( JavaConstant.limit > count ) {
                          return;
                     }
-                    
-                    System.out.println("befor limit : " + JavaConstant.limit);
+                 
                     
                     JavaConstant.limit = JavaConstant.limit + JavaConstant.limitPagination;
                     JavaConstant.page += JavaConstant.limitPagination;
                     
-                      System.out.println("limi pagination : " + JavaConstant.limit);
+              
 
                     if (JavaConstant.brandId == 0) {
                          try {
@@ -47,9 +45,7 @@ public class JavaEventNextPrevious {
                               String _titleCate=jdFormLogin.getTitleCategory().toLowerCase();
                               Response response = null;
                               if (_titleCate.equals("new items")) {
-                                     System.out.println("limi pagination fffffffffffffffff : " + JavaConstant.limit);
                                    response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
-                                
                               } else {
                                    response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit="+JavaConstant.limitPagination+"&page=" + JavaConstant.page);
                               }
@@ -86,13 +82,12 @@ public class JavaEventNextPrevious {
                     
                     JavaConstant.page = JavaConstant.page - JavaConstant.limitPagination;
                     JavaConstant.limit = JavaConstant.limit - JavaConstant.limitPagination;
-                    System.out.println("jjjjjjjjjjjjjjjj = " + JavaConstant.limit);
+                 
                     if (JavaConstant.brandId == 0) {
                          if (limit != 0) {
                               Response response = null;
                                String _titleCate=jdFormLogin.getTitleCategory().toLowerCase();
                               if (_titleCate.equals("new items")) {
-                                    
                                    response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
                               } else {
                                    response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit="+JavaConstant.limitPagination+"&page=" + JavaConstant.page);
@@ -116,7 +111,6 @@ public class JavaEventNextPrevious {
                     } else {
                          jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limitPagination);
                     }
-
                }
           };
           previous.initEvent(event);
