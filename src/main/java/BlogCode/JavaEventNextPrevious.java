@@ -48,6 +48,7 @@ public class JavaEventNextPrevious {
                               Response response = null;
                               if (_titleCate.equals("new items")) {
                                    response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
+                                   System.out.println("33333333333333 = " + response);
                               } else {
                                    response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
                               }

@@ -13,6 +13,7 @@ import Components.TextField;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
+import LoginAndLogoutForm.LoginFormJdailog;
 import OpenAndCloseShift.CloseShift;
 import View.MainPage.MainPage;
 import java.awt.Component;
@@ -44,7 +45,8 @@ public class ActionCloseShift {
           Button btnHold,
           BackgroundImage bgImage,
           Button btnLogin,
-          Button stock
+          Button stock,
+          LoginFormJdailog jdFormLogin
      ) {
 
           Component[] listCom1 = detailItem.getComponents();
@@ -69,6 +71,7 @@ public class ActionCloseShift {
                j.setVisible(true);
                return;
           }
+
 
           CloseShift close = new CloseShift(new JFrame(), true, btnOpenShift);
           close.setPanelProduct(panelProduct);

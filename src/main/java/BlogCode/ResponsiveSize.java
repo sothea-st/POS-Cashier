@@ -66,6 +66,8 @@ public class ResponsiveSize {
           this.btnReturn = btnReturn;
           this.titleOrder = titleOrder;
           this.panelPagination = panelPagination;
+          this.next = next;
+          this.previous = previous;
      }
 
      public void resizeEvent(MainPage mainPage) {
@@ -149,17 +151,17 @@ public class ResponsiveSize {
 
                          switch (catNameLowerCase) {
                               case "new items" -> { // new items 
-                                   System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhh");
+                                  
                                    a.newProduct(JavaConstant.limitPagination, panelProduct);
                               }
 
                               case "promotion" -> {    // promotion
-                                   System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+                                    
                                    a.getPromotion(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
                               }
 
                               default -> {
-                                   System.out.println("22222222222222222222222222222 ");
+                                  
                                    a.product(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
                               }
 

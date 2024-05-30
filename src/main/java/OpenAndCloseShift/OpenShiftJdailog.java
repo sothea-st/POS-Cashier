@@ -3,6 +3,9 @@ package OpenAndCloseShift;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
+import Components.ComboBox;
+import Components.LabelFontGreen;
+import Components.LabelTitle;
 import Components.SearchField;
 import Components.SubtotalPanel;
 import Components.TextField;
@@ -58,9 +61,46 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      private Button btnLogin;
      private JLabel titleOrder;
      private Button stock;
-
+     private LabelFontGreen previous;
+     private LabelFontGreen next;
      private JFrame mainFrame;
      private LoginFormJdailog loginFormJdailog;
+     private LabelTitle labelTitle;
+     private ComboBox cmboxBrand;
+
+     public LabelFontGreen getPrevious() {
+          return previous;
+     }
+
+     public void setPrevious(LabelFontGreen previous) {
+          this.previous = previous;
+     }
+
+     public LabelFontGreen getNext() {
+          return next;
+     }
+
+     public void setNext(LabelFontGreen next) {
+          this.next = next;
+     }
+
+     public LabelTitle getLabelTitle() {
+          return labelTitle;
+     }
+
+     public void setLabelTitle(LabelTitle labelTitle) {
+          this.labelTitle = labelTitle;
+     }
+
+     public ComboBox getCmboxBrand() {
+          return cmboxBrand;
+     }
+
+     public void setCmboxBrand(ComboBox cmboxBrand) {
+          this.cmboxBrand = cmboxBrand;
+     }
+     
+     
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -76,6 +116,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
 
           txtTotalUsd.setComma("comma");
           txtTotalKhr.setComma("comma"); // when user type 4length it will insert , at 3 length 
+
      }
 
      private void currenDateTime() {
@@ -358,6 +399,8 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     // jdLoginForm.setCheckOpenShift(true);
                     JavaConstant.checkOpenShift = true;
                     JavaConstant.checkCloseShift = 1l;
+                    
+ 
 
                     // after open shift will show all product at category ALL
                     Component[] listCom = category.getComponents();
@@ -365,6 +408,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     panelProduct.removeAll();
                     pro.setDetailItem(detailItem);
 //                    pro.getAllProduct(panelProduct);
+                    pro.setNext(next);
                     pro.newProduct(limit, panelProduct);
                     pro.setSubtotalPanel(subtotalPanel);
                     pro.setPanelProduct(panelProduct);
@@ -380,13 +424,18 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     searchBox.disabledTextField(true);
                     textField.disabledTextField(true);
                     textField.setFocus();
-
-                    JavaConstant.restoreDefaultCursor(mainFrame);
-
+            
+       
+                    next.setBackground(WindowColor.white);
+                                   
+                    labelTitle.setLabelTitle("NEW ITEMS");
+                    
                     if (MainPage.isFullScreen) {
                          loginFormJdailog.callDataInFullScreen();
                     }
-
+                    JavaConstant.restoreDefaultCursor(mainFrame);
+                    previous.setBackground(WindowColor.lightGray);
+                    cmboxBrand.setToFirstItem();
 //                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
                } else {
                     UIManager UI = new UIManager();

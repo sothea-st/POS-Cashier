@@ -738,6 +738,10 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setBtnLogin(btnLogin);
                              jdOpenShift.setTitleOrder(titleOrder);
                              jdOpenShift.setStock(stock);
+                             jdOpenShift.setPrevious(previous);
+                             jdOpenShift.setNext(next);
+                             jdOpenShift.setLabelTitle(breadcrumb);
+                             jdOpenShift.setCmboxBrand(cmboxBrand);
                              jdOpenShift.setMainFrame(this); // set size applicaion full of window size
                              jdOpenShift.setDataSuccess(d);
                         }
@@ -754,7 +758,9 @@ public class MainPage extends javax.swing.JFrame {
                         searchBox, textField,
                         btnOpenShift, buttonCustomer,
                         buttonDiscount, btnReprint,
-                        btnReturn, buttonCashier, btnCancel, buttonHoldOrder, bgimg, btnLogin, stock 
+                        btnReturn, buttonCashier, btnCancel,
+                        buttonHoldOrder, bgimg, btnLogin,
+                        stock ,jdFormLogin
                    );
               }
          }

@@ -257,7 +257,9 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
-
+                   
+                    JavaConstant.resetValuePagination(); // set variable relative with pagination to deafult value
+                   
                    dispose();
               }
          } catch (Exception e) {

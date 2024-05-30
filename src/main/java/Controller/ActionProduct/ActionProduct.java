@@ -85,7 +85,7 @@ public class ActionProduct {
 
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
-                
+
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
 
                if (response.isSuccessful()) {
@@ -98,10 +98,11 @@ public class ActionProduct {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
-                    
-//                    if (data.getCount() <= JavaConstant.limitPagination) {
-//                         next.setBackground(WindowColor.lightGray);
-//                    }
+
+                    if (data.getCount() <= JavaConstant.limitPagination) {
+                         next.setBackground(WindowColor.lightGray);
+                    }
+
                     panelProduct.setBorder(new EmptyBorder(0, 0, 0, 0));
 
                     setCount(data.getCount());
@@ -130,13 +131,15 @@ public class ActionProduct {
                          return;
                     }
 
-//                    if (data.getCount() <= JavaConstant.limitPagination) {
-//                         next.setBackground(WindowColor.lightGray);
-//                    }
+                  
 
-                    
+                    if (listData.length <  JavaConstant.limitPagination) {
+                     
+                         next.setBackground(WindowColor.lightGray);
+                    }
+
                     panelProduct.setBorder(new EmptyBorder(0, 0, 0, 0));
-                    
+
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -185,9 +188,10 @@ public class ActionProduct {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
-//                    if (data.getCount() <= JavaConstant.limitPagination) {
-//                         next.setBackground(WindowColor.lightGray);
-//                    }
+
+                    if (data.getCount() <= JavaConstant.limitPagination) {
+                         next.setBackground(WindowColor.lightGray);
+                    }
 
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);

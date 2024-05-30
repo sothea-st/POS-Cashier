@@ -630,13 +630,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         } else {
                                              JavaConstant.page = 0;
                                              String lowerCase = catNameData.toLowerCase();
-
+                                             pro.setNext(next);
                                              switch (lowerCase) {
                                                   case "new items" -> //   NEW ITEMS
                                                        pro.newProduct(JavaConstant.limitPagination, panelProduct);
                                                   case "promotion" -> //  Promotion
                                                        pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
                                                   default -> {
+                                                       
                                                        pro.product(catId, JavaConstant.limitPagination, panelProduct);
                                                   }
                                              }
@@ -720,19 +721,17 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void callDataInFullScreen() {
-       
+          pro.setNext(next);
           panelProduct.removeAll();
           pro.setBtnPayment(btnPayment);
           pro.setButtonHoldOrder(buttonHoldOrder);
           pro.setBtnCancel(btnCancel);
           pro.setBtnReturn(btnReturn);
           pro.setBtnReturn(btnReturn);
-        
           panelProduct.revalidate();
           panelProduct.repaint();
           ActionProduct.marginRight = 15;
           JavaConstant.rowNum = 7;
- 
           pro.newProduct(JavaConstant.limitPagination, panelProduct);
      }
 
