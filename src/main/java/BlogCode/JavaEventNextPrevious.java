@@ -29,32 +29,27 @@ public class JavaEventNextPrevious {
                @Override
                public void onMouseClick() {
                     int count = jdFormLogin.getCount();
-                
-                    if( JavaConstant.limit > count ) {
+
+                    if (JavaConstant.limit > count) {
                          next.setBackground(WindowColor.lightGray);
                          return;
                     }
-                 
-                    
+
                     previous.setBackground(WindowColor.white);
                     next.setBackground(WindowColor.white);
-                    
-                
-                    
+
                     JavaConstant.limit = JavaConstant.limit + JavaConstant.limitPagination;
                     JavaConstant.page += JavaConstant.limitPagination;
-                    
-              
 
                     if (JavaConstant.brandId == 0) {
                          try {
-                              
-                              String _titleCate=jdFormLogin.getTitleCategory().toLowerCase();
+
+                              String _titleCate = jdFormLogin.getTitleCategory().toLowerCase();
                               Response response = null;
                               if (_titleCate.equals("new items")) {
-                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
                               } else {
-                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit="+JavaConstant.limitPagination+"&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
                               }
 
                               if (response.isSuccessful()) {
@@ -62,6 +57,10 @@ public class JavaEventNextPrevious {
                                    ObjectMapper objMap = new ObjectMapper();
                                    ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                                    ProductDataModel[] listData = data.getData();
+                                    
+                                   if (listData.length < JavaConstant.limitPagination) {
+                                        next.setBackground(WindowColor.lightGray);
+                                   }
                                    panelProduct.removeAll();
                                    panelProduct.revalidate();
                                    panelProduct.repaint();
@@ -73,6 +72,7 @@ public class JavaEventNextPrevious {
                               System.err.println("error getting product " + e);
                          }
                     } else {
+                         jdFormLogin.setNext(next);
                          jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limitPagination);
                     }
                }
@@ -80,30 +80,34 @@ public class JavaEventNextPrevious {
           next.initEvent(event);
      }
 
-     public static void eventPrevious(LabelFontGreen previous, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame,LabelFontGreen next) {
+     public static void eventPrevious(LabelFontGreen previous, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame, LabelFontGreen next) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
-                 
-                    if( JavaConstant.page == 0 ){
-                        previous.setBackground(WindowColor.lightGray);
-                        return;
+
+                    if (JavaConstant.page == 0) {
+                         previous.setBackground(WindowColor.lightGray);
+                         return;
                     }
-                    
+
                     previous.setBackground(WindowColor.white);
                     next.setBackground(WindowColor.white);
-                    
+
                     JavaConstant.page = JavaConstant.page - JavaConstant.limitPagination;
                     JavaConstant.limit = JavaConstant.limit - JavaConstant.limitPagination;
-                 
+
+                    if (JavaConstant.page == 0) {
+                         previous.setBackground(WindowColor.lightGray);
+                    }
+
                     if (JavaConstant.brandId == 0) {
                          if (limit != 0) {
                               Response response = null;
-                               String _titleCate=jdFormLogin.getTitleCategory().toLowerCase();
+                              String _titleCate = jdFormLogin.getTitleCategory().toLowerCase();
                               if (_titleCate.equals("new items")) {
-                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit="+JavaConstant.limit+"&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
                               } else {
-                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit="+JavaConstant.limitPagination+"&page=" + JavaConstant.page);
+                                   response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
                               }
 
                               try {
@@ -112,6 +116,9 @@ public class JavaEventNextPrevious {
                                         ObjectMapper objMap = new ObjectMapper();
                                         ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                                         ProductDataModel[] listData = data.getData();
+                                        if (listData.length < JavaConstant.limitPagination) {
+                                             next.setBackground(WindowColor.lightGray);
+                                        }
                                         jdFormLogin.assignProduct(listData);
 
                                    } else {
@@ -122,6 +129,7 @@ public class JavaEventNextPrevious {
                               }
                          }
                     } else {
+                        
                          jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limitPagination);
                     }
                }

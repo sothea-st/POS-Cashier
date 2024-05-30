@@ -5,6 +5,7 @@ import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
+import Components.LabelFontGreen;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -59,15 +60,33 @@ public class ActionProduct {
      private ButtonCancel btnCancel;
      public static int marginRight = 15;
      private JLabel titleOrder;
+     private LabelFontGreen previous;
+     private LabelFontGreen next;
 
      public ActionProduct() {
      }
 
+     public LabelFontGreen getPrevious() {
+          return previous;
+     }
+
+     public void setPrevious(LabelFontGreen previous) {
+          this.previous = previous;
+     }
+
+     public LabelFontGreen getNext() {
+          return next;
+     }
+
+     public void setNext(LabelFontGreen next) {
+          this.next = next;
+     }
+
      public void product(int catId, int limit, JPanel panelProduct) {
           try {
-               
-               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
-               
+                
+               Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -78,6 +97,10 @@ public class ActionProduct {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
+                    
+//                    if (data.getCount() <= JavaConstant.limitPagination) {
+//                         next.setBackground(WindowColor.lightGray);
+//                    }
 
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
@@ -91,20 +114,24 @@ public class ActionProduct {
 
      public void newProduct(int limit, JPanel panelProduct) {
           try {
-              
-               Response response = JavaConnection.get(JavaRoute.getNewPrdduct+"?limit="+JavaConstant.limitPagination+"&page=" +JavaConstant.page);
-              
+
+               Response response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
-                    
+
                     if (listData.length == 0) {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
-                    
+
+//                    if (data.getCount() <= JavaConstant.limitPagination) {
+//                         next.setBackground(WindowColor.lightGray);
+//                    }
+
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
@@ -124,7 +151,7 @@ public class ActionProduct {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listData = data.getData();
-                    
+
                     if (listData.length == 0) {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
@@ -153,6 +180,9 @@ public class ActionProduct {
                          JavaConstant.setResultNotFound(panelProduct, panelPagination);
                          return;
                     }
+//                    if (data.getCount() <= JavaConstant.limitPagination) {
+//                         next.setBackground(WindowColor.lightGray);
+//                    }
 
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
@@ -256,7 +286,6 @@ public class ActionProduct {
                          //Show message When no item or unavailable item
                          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
- 
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
 
@@ -348,7 +377,7 @@ public class ActionProduct {
                product.setDiscountPercentag(listData.getDiscount(), price);
 
                product.setDiscountPercent(listData.getDiscount());
- 
+
                product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
 
 //               ====================== get weight ====================
@@ -426,20 +455,17 @@ public class ActionProduct {
           if (JavaConstant.isReturn != null) { // this for protect return item by barcode and limited with qty
                box.setMaxQty(listData.getQty());
           }
-          
- 
+
           box.setDiscountCase(listData.getDiscountType());
-          
+
           double price = listData.getPrice();
 
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
-          
-          
+
 //          if( listData.getDiscount() > 0 ) {
 //               System.out.println("listData: " + (listData.getPrice() -discount));
 //          }
-
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
 
@@ -559,9 +585,7 @@ public class ActionProduct {
                box.setLabelAmountUsd(dm.format(price * qtyData));
 
                double valueRoundDown = JavaRoundDown.roundDown("" + price * qtyData * JavaConstant.exchangeRate);
-               
-               
-               
+
                box.setLabelAmountKh(JavaRoundUpKhr.setRoundNumber(valueRoundDown));
 
                box.setDiscountAmount(dm.format(discount * qtyData));

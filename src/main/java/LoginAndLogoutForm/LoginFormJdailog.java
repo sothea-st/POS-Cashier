@@ -38,6 +38,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Components.BoxItem;
+import Components.LabelFontGreen;
 import Constant.JavaMessage;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
@@ -95,8 +96,27 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private JFrame mainFrame;
      private JLabel titleOrder;
      private Button stock;
+     private LabelFontGreen previous;
+     private LabelFontGreen next;
 
      private String titleCategory;
+
+     public LabelFontGreen getPrevious() {
+          return previous;
+     }
+
+     public void setPrevious(LabelFontGreen previous) {
+          this.previous = previous;
+     }
+
+     public LabelFontGreen getNext() {
+          return next;
+     }
+
+     public void setNext(LabelFontGreen next) {
+          this.next = next;
+     }
+
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -137,7 +157,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           pro.setPanelProduct(panelProduct);
           pro.setBtnReturn(btnReturn);
           pro.setTitleOrder(titleOrder);
-
+          pro.setNext(next);
           if (listData != null) {
                pro.assignProduct(listData, panelProduct);
           }
@@ -354,11 +374,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
-         String userId = txtUserId.getValueTextField();
-         String password = txtPassword.getValuePassword();
+//         String userId = txtUserId.getValueTextField();
+//         String password = txtPassword.getValuePassword();
 
-//         String userId = "0005";
-         //String password = "TT@126$kh#";
+         String userId = "0005";
+         String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
          String ipAddress;
@@ -489,6 +509,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          JavaConstant.brandId = Integer.parseInt(key);
                          breadcrumb.setLabelTitle(value);
                     }
+                    JavaConstant.limitPagination = 21;
+                    JavaConstant.limit = 21;
+                    JavaConstant.page = 0;
+                    next.setBackground(WindowColor.white);
+                    previous.setBackground(WindowColor.lightGray);
                     getProductByBrandID(key, limit);
                }
           };
@@ -496,7 +521,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void getProductByBrandID(String key, int limits) {
-          Response response = JavaConnection.get(JavaRoute.getProductByBrandId + "?brandId=" + key + "&limit=" + limits + "&page=" + JavaConstant.page);
+
+          Response response = JavaConnection.get(JavaRoute.getProductByBrandId + "?brandId=" + key + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
 
           try {
                if (response.isSuccessful()) {
@@ -512,6 +538,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          panelProduct.revalidate();
                          panelProduct.repaint();
                     }
+                    
+            
+                    
+                    if( listProduct.length < JavaConstant.limitPagination ) {
+                         next.setBackground(WindowColor.lightGray);
+                    }
+                    
                     setBrandId(Integer.parseInt(key));
                     setCount(model.getCount());
                     // each time select brand category will remove bg color 
@@ -565,11 +598,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                                    if (JavaConstant.checkOpenShift) {
 
+                                        previous.setBackground(WindowColor.lightGray);
+                                        next.setBackground(WindowColor.white);
                                         JavaConstant.resetValuePagination(); // for pagination
-                                        
+
                                         setTitleCategory(catNameData);
-                                        
+
                                         setCatId(catId);
+
                                         getPanelPagination().setVisible(true);
 
                                         // click on category actice background color
@@ -603,13 +639,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         } else {
                                              JavaConstant.page = 0;
                                              String lowerCase = catNameData.toLowerCase();
+
                                              switch (lowerCase) {
-                                                  case "new items" -> // catId = 2 NEW ITEMS
+                                                  case "new items" -> //   NEW ITEMS
                                                        pro.newProduct(JavaConstant.limitPagination, panelProduct);
-                                                  case "promotion" -> // catId = 1 Promotion
-                                                       pro.getPromotion(catId, limit, panelProduct);
-                                                  default ->
-                                                       pro.product(catId, limit, panelProduct);
+                                                  case "promotion" -> //  Promotion
+                                                       pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
+                                                  default -> {
+                                                       pro.product(catId, JavaConstant.limitPagination, panelProduct);
+                                                  }
                                              }
                                         }
                                         pro.setBtnPayment(btnPayment);
@@ -632,7 +670,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               }
                          };
                          categoryTitle.initEvent(event);
-
                     }
 
                     // setter of actionProduct
@@ -645,7 +682,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               var titleCategory = ((LabelTitle) _listCom[i]).getLabelTitle();
                               var _catId = ((LabelTitle) _listCom[i]).getLbCatId();
 
-                             String _tCategory = titleCategory.toLowerCase();
+                              String _tCategory = titleCategory.toLowerCase();
                               if (_tCategory.equals("new items")) {
                                    catId = Integer.parseInt(_catId);
                                    setCatId(catId);
@@ -654,6 +691,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                    break;
                               }
                          }
+
+                         previous.setBackground(WindowColor.lightGray);
 
                          panelPagination.setVisible(true);
 
@@ -690,18 +729,20 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void callDataInFullScreen() {
+       
           panelProduct.removeAll();
           pro.setBtnPayment(btnPayment);
           pro.setButtonHoldOrder(buttonHoldOrder);
           pro.setBtnCancel(btnCancel);
           pro.setBtnReturn(btnReturn);
           pro.setBtnReturn(btnReturn);
+        
           panelProduct.revalidate();
           panelProduct.repaint();
           ActionProduct.marginRight = 15;
           JavaConstant.rowNum = 7;
-//          pro.getAllProduct(panelProduct); get all product
-          pro.newProduct(limit, panelProduct);
+ 
+          pro.newProduct(JavaConstant.limitPagination, panelProduct);
      }
 
      public String getTitleCategory() {
@@ -712,9 +753,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.titleCategory = titleCategory;
      }
 
-     
-     
-     
      public TextField getTextField() {
           return textField;
      }
@@ -795,7 +833,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.btnOpenShift = btnOpenShift;
      }
 
- 
      public Button getBtnLogin() {
           return btnLogin;
      }

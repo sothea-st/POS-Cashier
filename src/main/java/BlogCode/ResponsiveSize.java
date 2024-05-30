@@ -6,6 +6,7 @@ package BlogCode;
 
 import Button.Button;
 import ButtonPackage.ButtonCancel;
+import Components.LabelFontGreen;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
@@ -37,6 +38,8 @@ public class ResponsiveSize {
      private Button btnReturn;
      private JLabel titleOrder;
      private JPanel panelPagination;
+     private LabelFontGreen previous;
+     private LabelFontGreen next;
 
      public ResponsiveSize(
           JPanel detailItem,
@@ -48,7 +51,9 @@ public class ResponsiveSize {
           LoginFormJdailog jdFormLogin,
           Button btnReturn,
           JLabel titleOrder,
-          JPanel panelPagination
+          JPanel panelPagination,
+          LabelFontGreen previous,
+          LabelFontGreen next
      ) {
 
           this.detailItem = detailItem;
@@ -73,7 +78,6 @@ public class ResponsiveSize {
 
 //                    System.out.println("width : " + width);
                     if (width > 1900) {
-                         
                          if ((mainPage.getExtendedState() & JFrame.MAXIMIZED_BOTH) == JFrame.MAXIMIZED_BOTH) {
                               isFullScreen = true;
                          }
@@ -126,33 +130,43 @@ public class ResponsiveSize {
           a.setPanelProduct(panelProduct);
           a.setBtnReturn(btnReturn);
           a.setTitleOrder(titleOrder);
+          a.setPrevious(previous);
+          a.setNext(next);
           JavaConstant.rowNum = num;
+          a.setPanelPagination(panelPagination);
           panelProduct.removeAll();
 
-          if (jdFormLogin.getCatId() == 0) {
-//               a.getAllProduct(panelProduct); old
-               a.newProduct(JavaConstant.limitPagination, panelProduct);
+          if (JavaConstant.brandId != 0) {
+               jdFormLogin.getProductByBrandID("" + JavaConstant.brandId, JavaConstant.limitPagination);
           } else {
+               if (jdFormLogin.getCatId() == 0) {
+                    a.newProduct(JavaConstant.limitPagination, panelProduct);
+               } else {
 
-               if (JavaConstant.checkOpenShift) {
-                    switch (jdFormLogin.getCatId()) {
-                         case 2 -> {
-                              // catId = 2 NEW ITEMS
-                              panelPagination.setVisible(true);
-                              a.newProduct(JavaConstant.limitPagination, panelProduct);
-                         }
+                    if (JavaConstant.checkOpenShift) {
+                         String catNameLowerCase = jdFormLogin.getTitleCategory().toLowerCase();
 
-                         case 1 -> {
-                              // catId = 1 Promotion
-                              panelPagination.setVisible(true);
-                              a.getPromotion(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
+                         switch (catNameLowerCase) {
+                              case "new items" -> { // new items 
+                                   System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhh");
+                                   a.newProduct(JavaConstant.limitPagination, panelProduct);
+                              }
+
+                              case "promotion" -> {    // promotion
+                                   System.out.println("aaaaaaaaaaaaaaaaaaaaaaa");
+                                   a.getPromotion(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
+                              }
+
+                              default -> {
+                                   System.out.println("22222222222222222222222222222 ");
+                                   a.product(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
+                              }
+
                          }
-                         default ->
-                              a.product(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
                     }
                }
-
           }
+
           panelProduct.revalidate();
           panelProduct.repaint();
      }

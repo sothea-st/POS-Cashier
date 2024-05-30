@@ -118,7 +118,20 @@ public class MainPage extends javax.swing.JFrame {
           verticalScrollBars.setBlockIncrement(35);
 
           // for resize screen
-          new ResponsiveSize(detailItem, panelProduct, totalPanel, btnPayment, btnCancel, buttonHoldOrder, jdFormLogin, btnReturn, titleOrder, panelPagination).resizeEvent(this);
+          new ResponsiveSize(
+               detailItem,
+               panelProduct,
+               totalPanel,
+               btnPayment,
+               btnCancel,
+               buttonHoldOrder,
+               jdFormLogin,
+               btnReturn,
+               titleOrder,
+               panelPagination,
+               previous,
+               next
+          ).resizeEvent(this);
 
           currentDateTime();
           // boxUserName.setVisible(false);
@@ -651,6 +664,8 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBreadcrumb(breadcrumb);
           jdFormLogin.setTitleOrder(titleOrder);
           jdFormLogin.setStock(stock);
+          jdFormLogin.setPrevious(previous);
+          jdFormLogin.setNext(next);
           jdFormLogin.setMainFrame(this);
      }
 

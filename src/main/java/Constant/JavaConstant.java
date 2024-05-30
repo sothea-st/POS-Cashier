@@ -1,6 +1,7 @@
 package Constant;
 
 import Components.BoxItem;
+import Components.LabelFontGreen;
 import Components.countCircleShape;
 import Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
@@ -305,5 +306,13 @@ public class JavaConstant {
           }
           return true;
      }
+     
+     
+     
+     
+     public static String categoryName = "new items";
+     
+
+     
 
 }
