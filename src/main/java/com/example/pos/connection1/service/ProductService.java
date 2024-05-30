@@ -214,7 +214,7 @@ public class ProductService {
     }
 
     public List<ProductModel> getProductByCatId(int catId, int limit, int page) {
-        System.out.println("fhhhhhhhhhhhhhhhhhhhhh = " + limit);
+      
         List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
 
         List<ProductModel> list = new ArrayList<>();
@@ -313,8 +313,7 @@ public class ProductService {
     public List<ProductModel> getNewProduct(int limit, int page, int number) {
         List<ProductModel> list = new ArrayList<>();
         List<ProductProjection> listData = repo.getNewProduct(number);
-        System.out.println("limit = " + limit + " size : " + listData.size()  + " page : " + page );
-
+     
         for (int i = page; i < listData.size(); i++) {
             if( i == limit ) break;
             var data = listData.get(i);

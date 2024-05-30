@@ -17,13 +17,10 @@ import com.example.pos.connection1.repository.shiftRepository.CloseShiftReposito
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.pos.connection1.entity.CloseShift;
 import com.example.pos.connection1.entity.Company;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.OpenShift;
-import com.example.pos.connection1.entity.Sale;
-import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.entity.User;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -57,7 +54,6 @@ public class CashierReportService {
     private SaleDetailsRepository repoSaleDetail;
 
     private HashMap<String, Object> map = new HashMap<>();
-
     public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
 
         int id = userId;
