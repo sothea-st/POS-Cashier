@@ -96,26 +96,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private JFrame mainFrame;
      private JLabel titleOrder;
      private Button stock;
-     private LabelFontGreen previous;
      private LabelFontGreen next;
+     private LabelFontGreen previous;
 
      private String titleCategory;
 
-     public LabelFontGreen getPrevious() {
-          return previous;
-     }
-
-     public void setPrevious(LabelFontGreen previous) {
-          this.previous = previous;
-     }
-
-     public LabelFontGreen getNext() {
-          return next;
-     }
-
-     public void setNext(LabelFontGreen next) {
-          this.next = next;
-     }
+  
+ 
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -604,6 +591,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                                         setTitleCategory(catNameData);
 
+                                        
+                                        previous.setBackground(WindowColor.white);
+                                        next.setBackground(WindowColor.white);
+                                        
                                         setCatId(catId);
 
                                         getPanelPagination().setVisible(true);
@@ -984,6 +975,24 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setStock(Button stock) {
           this.stock = stock;
      }
+
+    public LabelFontGreen getNext() {
+        return next;
+    }
+
+    public void setNext(LabelFontGreen next) {
+        this.next = next;
+    }
+
+    public LabelFontGreen getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(LabelFontGreen previous) {
+        this.previous = previous;
+    }
+     
+     
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {

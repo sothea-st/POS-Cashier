@@ -664,8 +664,8 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBreadcrumb(breadcrumb);
           jdFormLogin.setTitleOrder(titleOrder);
           jdFormLogin.setStock(stock);
-          jdFormLogin.setPrevious(previous);
           jdFormLogin.setNext(next);
+          jdFormLogin.setPrevious(previous);
           jdFormLogin.setMainFrame(this);
      }
 

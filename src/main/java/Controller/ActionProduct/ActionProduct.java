@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -101,6 +102,7 @@ public class ActionProduct {
 //                    if (data.getCount() <= JavaConstant.limitPagination) {
 //                         next.setBackground(WindowColor.lightGray);
 //                    }
+                    panelProduct.setBorder(new EmptyBorder(0, 0, 0, 0));
 
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
@@ -132,6 +134,9 @@ public class ActionProduct {
 //                         next.setBackground(WindowColor.lightGray);
 //                    }
 
+                    
+                    panelProduct.setBorder(new EmptyBorder(0, 0, 0, 0));
+                    
                     setCount(data.getCount());
                     assignProduct(listData, panelProduct);
                } else {
