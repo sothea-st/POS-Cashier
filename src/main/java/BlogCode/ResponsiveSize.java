@@ -126,6 +126,7 @@ public class ResponsiveSize {
           a.setPanelProduct(panelProduct);
           a.setBtnReturn(btnReturn);
           a.setTitleOrder(titleOrder);
+          a.setPanelPagination(panelPagination);
           JavaConstant.rowNum = num;
           panelProduct.removeAll();
 

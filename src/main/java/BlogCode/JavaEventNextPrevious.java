@@ -30,15 +30,13 @@ public class JavaEventNextPrevious {
                public void onMouseClick() {
                     int count = jdFormLogin.getCount();
                 
+                    previous.setBackground(WindowColor.white);
+                    next.setBackground(WindowColor.white);
+                    
                     if( JavaConstant.limit > count ) {
                          next.setBackground(WindowColor.lightGray);
                          return;
                     }
-                 
-                    
-                    previous.setBackground(WindowColor.white);
-                    next.setBackground(WindowColor.white);
-                    
                 
                     
                     JavaConstant.limit = JavaConstant.limit + JavaConstant.limitPagination;
@@ -84,14 +82,14 @@ public class JavaEventNextPrevious {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
-                 
+                    
+                    previous.setBackground(WindowColor.white);
+                    next.setBackground(WindowColor.white);
+                   
                     if( JavaConstant.page == 0 ){
                         previous.setBackground(WindowColor.lightGray);
                         return;
                     }
-                    
-                    previous.setBackground(WindowColor.white);
-                    next.setBackground(WindowColor.white);
                     
                     JavaConstant.page = JavaConstant.page - JavaConstant.limitPagination;
                     JavaConstant.limit = JavaConstant.limit - JavaConstant.limitPagination;
