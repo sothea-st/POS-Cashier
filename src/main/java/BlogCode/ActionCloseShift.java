@@ -10,17 +10,12 @@ import Components.BackgroundImage;
 import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.TextField;
-import Constant.JavaConnection;
 import Constant.JavaConstant;
-import Constant.JavaRoute;
 import LoginAndLogoutForm.LoginFormJdailog;
 import OpenAndCloseShift.CloseShift;
-import View.MainPage.MainPage;
 import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import okhttp3.Response;
-import org.json.JSONObject;
 
 public class ActionCloseShift {
 

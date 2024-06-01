@@ -141,6 +141,7 @@ public class ActionProduct {
                     panelProduct.setBorder(new EmptyBorder(0, 0, 0, 0));
 
                     setCount(data.getCount());
+                    
                     assignProduct(listData, panelProduct);
                } else {
                     System.err.println("fail loading product 333");
@@ -418,8 +419,7 @@ public class ActionProduct {
                product.setWeight(_weight);
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
-//                    double dis4Length = JavaConstant.get4Length("" + discountPrice);
-//                    System.out.println("jjjjjjjjjjjjjjjjjjjjj = dis4Length " + dm.format(discountPrice));
+ 
                     product.setPrice(dm.format(discountPrice));
                } else {
 //                    double _price = JavaConstant.get4Length("" + price);

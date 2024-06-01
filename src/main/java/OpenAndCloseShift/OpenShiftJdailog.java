@@ -420,22 +420,25 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     panelProduct.revalidate();
                     panelProduct.repaint();
                     panelPagination.setVisible(true);
-
                     searchBox.disabledTextField(true);
                     textField.disabledTextField(true);
                     textField.setFocus();
             
-       
-                    next.setBackground(WindowColor.white);
                                    
                     labelTitle.setLabelTitle("NEW ITEMS");
                     
                     if (MainPage.isFullScreen) {
                          loginFormJdailog.callDataInFullScreen();
                     }
+                    
+                    loginFormJdailog.runData();
+                    
                     JavaConstant.restoreDefaultCursor(mainFrame);
+                    
+                    next.setBackground(WindowColor.white);
                     previous.setBackground(WindowColor.lightGray);
                     cmboxBrand.setToFirstItem();
+                    
 //                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
                } else {
                     UIManager UI = new UIManager();

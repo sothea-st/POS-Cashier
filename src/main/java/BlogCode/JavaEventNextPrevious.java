@@ -29,18 +29,18 @@ public class JavaEventNextPrevious {
                @Override
                public void onMouseClick() {
                     int count = jdFormLogin.getCount();
-
+                  
                     if (JavaConstant.limit > count) {
                          next.setBackground(WindowColor.lightGray);
                          return;
                     }
-
+                     
                     previous.setBackground(WindowColor.white);
                     next.setBackground(WindowColor.white);
 
                     JavaConstant.limit = JavaConstant.limit + JavaConstant.limitPagination;
                     JavaConstant.page += JavaConstant.limitPagination;
-
+                     
                     if (JavaConstant.brandId == 0) {
                          try {
 
@@ -48,7 +48,7 @@ public class JavaEventNextPrevious {
                               Response response = null;
                               if (_titleCate.equals("new items")) {
                                    response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
-                                   System.out.println("33333333333333 = " + response);
+                                  
                               } else {
                                    response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + jdFormLogin.getCatId() + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
                               }

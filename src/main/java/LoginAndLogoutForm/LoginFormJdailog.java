@@ -101,9 +101,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      private String titleCategory;
 
-  
- 
-
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -525,13 +522,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          panelProduct.revalidate();
                          panelProduct.repaint();
                     }
-                    
-            
-                    
-                    if( listProduct.length < JavaConstant.limitPagination ) {
+
+                    if (listProduct.length < JavaConstant.limitPagination) {
                          next.setBackground(WindowColor.lightGray);
                     }
-                    
+
                     setBrandId(Integer.parseInt(key));
                     setCount(model.getCount());
                     // each time select brand category will remove bg color 
@@ -544,6 +539,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                System.err.println("error get produt by brand = " + e);
           }
      }
+     private String categoryName;
 
      private void category() {
           try {
@@ -591,10 +587,9 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                                         setTitleCategory(catNameData);
 
-                                        
                                         previous.setBackground(WindowColor.white);
                                         next.setBackground(WindowColor.white);
-                                        
+
                                         setCatId(catId);
 
                                         getPanelPagination().setVisible(true);
@@ -637,7 +632,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                                   case "promotion" -> //  Promotion
                                                        pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
                                                   default -> {
-                                                       
                                                        pro.product(catId, JavaConstant.limitPagination, panelProduct);
                                                   }
                                              }
@@ -666,48 +660,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                     // setter of actionProduct
                     assignProduct(null);
-
-                    if (btnOpenShift.getButtonName().equals("Close Shift")) {
-                         category.getComponents()[1].setBackground(WindowColor.black);
-                         Component[] _listCom = category.getComponents();
-                         for (int i = 0; i < _listCom.length; i++) {
-                              var titleCategory = ((LabelTitle) _listCom[i]).getLabelTitle();
-                              var _catId = ((LabelTitle) _listCom[i]).getLbCatId();
-
-                              String _tCategory = titleCategory.toLowerCase();
-                              if (_tCategory.equals("new items")) {
-                                   catId = Integer.parseInt(_catId);
-                                   setCatId(catId);
-                                   setTitleCategory(titleCategory);
-                                   setCatName("" + i); // setCatName is index for change back ground when user try to pick other category and select brand
-                                   break;
-                              }
-                         }
-
-                         previous.setBackground(WindowColor.lightGray);
-
-                         panelPagination.setVisible(true);
-
-                         setBrandId(0); // each time user click on category brandId will be 0
-                         cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
-                         searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
-                         panelProduct.removeAll();
-//                         pro.getAllProduct(panelProduct);
-                         pro.newProduct(limit, panelProduct);
-                         pro.setBtnPayment(btnPayment);
-                         panelProduct.revalidate();
-                         panelProduct.repaint();
-                         setCount(pro.getCount());
-                    } else {
-//                          == == == == == == == Add Background == == == == == == ==
-                         BackgroundImage bgimg = new BackgroundImage();
-                         panelProduct.removeAll();
-                         panelProduct.add(bgimg);
-                         panelProduct.revalidate();
-                         panelProduct.repaint();
-//                          == == == == == == == == == == == == == == == == == == == == == == =
-                    }
-
+                    runData();
                     if (MainPage.isFullScreen && btnOpenShift.getButtonName().equals("Close Shift")) {
                          callDataInFullScreen();
                     }
@@ -718,6 +671,50 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                System.err.println("error " + e);
           }
 
+     }
+
+     public void runData() {
+          if (btnOpenShift.getButtonName().equals("Close Shift")) {
+               category.getComponents()[1].setBackground(WindowColor.black);
+               Component[] _listCom = category.getComponents();
+               for (int i = 0; i < _listCom.length; i++) {
+                    var titleCategory = ((LabelTitle) _listCom[i]).getLabelTitle();
+                    var _catId = ((LabelTitle) _listCom[i]).getLbCatId();
+
+                    String _tCategory = titleCategory.toLowerCase();
+                    if (_tCategory.equals("new items")) {
+                         categoryName = titleCategory.toLowerCase();
+                         catId = Integer.parseInt(_catId);
+                         setCatId(catId);
+                         setTitleCategory(titleCategory);
+                         setCatName("" + i); // setCatName is index for change back ground when user try to pick other category and select brand
+                         break;
+                    }
+               }
+
+               previous.setBackground(WindowColor.lightGray);
+
+               panelPagination.setVisible(true);
+
+               setBrandId(0); // each time user click on category brandId will be 0
+               cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
+               searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
+               panelProduct.removeAll();
+//                         pro.getAllProduct(panelProduct);
+               pro.newProduct(limit, panelProduct);
+               pro.setBtnPayment(btnPayment);
+               panelProduct.revalidate();
+               panelProduct.repaint();
+               setCount(pro.getCount());
+          } else {
+//                          == == == == == == == Add Background == == == == == == ==
+               BackgroundImage bgimg = new BackgroundImage();
+               panelProduct.removeAll();
+               panelProduct.add(bgimg);
+               panelProduct.revalidate();
+               panelProduct.repaint();
+//                          == == == == == == == == == == == == == == == == == == == == == == =
+          }
      }
 
      public void callDataInFullScreen() {
@@ -733,6 +730,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           ActionProduct.marginRight = 15;
           JavaConstant.rowNum = 7;
           pro.newProduct(JavaConstant.limitPagination, panelProduct);
+          setCount(pro.getCount());
      }
 
      public String getTitleCategory() {
@@ -975,23 +973,21 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.stock = stock;
      }
 
-    public LabelFontGreen getNext() {
-        return next;
-    }
+     public LabelFontGreen getNext() {
+          return next;
+     }
 
-    public void setNext(LabelFontGreen next) {
-        this.next = next;
-    }
+     public void setNext(LabelFontGreen next) {
+          this.next = next;
+     }
 
-    public LabelFontGreen getPrevious() {
-        return previous;
-    }
+     public LabelFontGreen getPrevious() {
+          return previous;
+     }
 
-    public void setPrevious(LabelFontGreen previous) {
-        this.previous = previous;
-    }
-     
-     
+     public void setPrevious(LabelFontGreen previous) {
+          this.previous = previous;
+     }
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
