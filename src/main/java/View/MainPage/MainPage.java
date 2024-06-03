@@ -695,7 +695,7 @@ public class MainPage extends javax.swing.JFrame {
                    logout.setVisible(true);
               } else {
                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                   j.setMessage("Please Close Shift Before Log Out!");
+                   j.setMessage("Please close shift before log out!");
                    j.setVisible(true);
                    return;
               }

@@ -55,7 +55,7 @@ public class ActionCloseShift {
           }
 
           if (listCom1.length != 0) {
-               j.setMessage("Please Clear Items in Current Order First!");
+               j.setMessage(MessageAlert.Message.clearItemMsg);
                j.setVisible(true);
                return;
           }    
