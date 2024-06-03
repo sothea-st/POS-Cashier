@@ -50,6 +50,8 @@ public class PaymentOption extends javax.swing.JDialog {
      private String totalUsd;
      DecimalFormat dm = new DecimalFormat("#,##0");
      DecimalFormat df = new DecimalFormat("$ #,##0.00");
+     DecimalFormat dd = new DecimalFormat("#,##0.00");
+
      private String sign = "khr";
      private Component[] listCom;
 
@@ -129,10 +131,10 @@ public class PaymentOption extends javax.swing.JDialog {
           evenGroup();
           customerFun();
 
-          setRoundRadius(2, 3,2);
+          setRoundRadius(2, 3, 2);
      }
 
-     void setRoundRadius(int radius, int padding,int left) {
+     void setRoundRadius(int radius, int padding, int left) {
           lbOne.setRoundRadious(radius);
           lbTwo.setRoundRadious(radius);
           lbThree.setRoundRadious(radius);
@@ -207,13 +209,10 @@ public class PaymentOption extends javax.swing.JDialog {
                @Override
                public void keyReleased(KeyEvent e) {
                     if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-
-                         if (txtReceiveUsd.getText().isEmpty()) {
-                              lbRemainingKhr.setLabelName(dm.format(0));
-                              lbRemainingUsd.setLabelName(df.format(0));
-                              lbChangeKhr.setLabelName(dm.format(0));
-                              lbChangeUsd.setLabelName(df.format(0));
-                         }
+                         keyDelete("keyboard");
+                    } else {
+                         String _val = txtReceiveUsd.getText().replace(",", "");
+                         addCommaUsd(_val);
                     }
                }
 
@@ -233,12 +232,12 @@ public class PaymentOption extends javax.swing.JDialog {
                @Override
                public void keyReleased(KeyEvent e) {
                     if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                         if (txtReceiveKhr.getText().isEmpty()) {
-                              lbRemainingKhr.setLabelName(dm.format(0));
-                              lbRemainingUsd.setLabelName(df.format(0));
-                              lbChangeKhr.setLabelName(dm.format(0));
-                              lbChangeUsd.setLabelName(df.format(0));
-                         }
+
+                         keyDelete("keyboard");
+
+                    } else {
+                         String _val = txtReceiveKhr.getText().replace(",", "");
+                         addCommaKhr(_val);
                     }
                }
 
@@ -497,6 +496,13 @@ public class PaymentOption extends javax.swing.JDialog {
 
           }
 
+          checkBothValueTextField(receviKhr, receviUsd);
+          //         =============== validation ==========
+          addCommaKhr(receviKhr);
+          addCommaUsd(receviUsd);
+     }
+
+     void checkBothValueTextField(String receviKhr, String receviUsd) {
           if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
 
                if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
@@ -516,23 +522,10 @@ public class PaymentOption extends javax.swing.JDialog {
                     paidBothValue(result, "khr"); // khr > usd
                }
           }
-
-          //         =============== validation ==========
-          addCommaKhr(receviKhr);
-          addCommaUsd(receviUsd);
      }
 
      void addCommaKhr(String receviKhr) {
 
-          //          boolean isCheck = onlyDigits(receviKhr);
-//          if (!isCheck) {
-//               String newValue = receviKhr.substring(0, receviKhr.length() - 1) + "";
-//               txtReceiveKhr.setText(newValue);
-//               return;
-//          }
-//          if (receviKhr.contains(".")) {
-//               return;
-//          }
           // ================ 3 length insert comma =========
           if (receviKhr.length() > 3) {
                StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
@@ -1487,42 +1480,66 @@ public class PaymentOption extends javax.swing.JDialog {
          if (JavaConstant.isReturn != null) {
               return;
          }
-         keyDelete();
+         keyDelete("");
     }//GEN-LAST:event_lbDeleteMouseClicked
 
-     void keyDelete() {
+     void keyDelete(String valueCheck) {
           if (!txtReceiveUsd.getText().isEmpty() && !txtReceiveKhr.getText().isEmpty()) {
                if (sign.equals("khr")) {
                     String _khr = txtReceiveKhr.getText().replace(",", "");
-                    khr(_khr);
+                    if (valueCheck.isEmpty()) {
+                         khr(_khr);
+                    } else {
+                         khrKey(_khr);
+                    }
+
                } else if (sign.equals("usd")) {
                     String _usd = txtReceiveUsd.getText().replace(",", "");
-                    usd(_usd);
+                    if (valueCheck.isEmpty()) {
+                         usd(_usd);
+                    } else {
+                         usdKey(_usd);
+                    }
                }
           } else {
-
-               System.out.println("sign type : " + sign);
                if (sign.equals("usd")) {
                     if (!txtReceiveUsd.getText().isEmpty()) {
-                         usd(txtReceiveUsd.getText());
+                         if (valueCheck.isEmpty()) {
+                              usd(txtReceiveUsd.getText());
+                         } else {
+                              usdKey(txtReceiveUsd.getText());
+                         }
                     } else {
                          usd("0");
                     }
                } else if (sign.equals("khr")) {
                     if (!txtReceiveKhr.getText().isEmpty()) {
-                         khr(txtReceiveKhr.getText());
+                         if (valueCheck.isEmpty()) {
+                              khr(txtReceiveKhr.getText());
+                         } else {
+                              khrKey(txtReceiveKhr.getText());
+                         }
                     } else {
                          khr("0");
                     }
                }
-
           }
-
      }
 
      void khr(String value) {
-//          String valueReceive = txtReceiveKhr.getText();
+
           value = value.substring(0, value.length() - 1);
+
+          txtReceiveKhr.setText("");
+          if (value.isEmpty()) {
+               setValueLabelKhr(0, 0);
+          }
+          inputAmount(value);
+     }
+
+     void khrKey(String value) {
+//          value = value.substring(0, value.length() - 1);
+
           txtReceiveKhr.setText("");
           if (value.isEmpty()) {
                setValueLabelKhr(0, 0);
@@ -1532,12 +1549,22 @@ public class PaymentOption extends javax.swing.JDialog {
 
      void usd(String value) {
 
-//          String valueReceive = txtReceiveUsd.getText();
           value = value.substring(0, value.length() - 1);
+
           txtReceiveUsd.setText("");
           if (value.isEmpty()) {
                setValueLabelUsd(0, 0);
+          }
+          inputAmount(value);
 
+     }
+
+     void usdKey(String value) {
+
+//          value = value.substring(0, value.length() - 1);
+          txtReceiveUsd.setText("");
+          if (value.isEmpty()) {
+               setValueLabelUsd(0, 0);
           }
           inputAmount(value);
 
@@ -1555,9 +1582,11 @@ public class PaymentOption extends javax.swing.JDialog {
 
          String khr = txtReceiveKhr.getText();
          String usd = txtReceiveUsd.getText();
-
+         khr = khr.replace(",", "");
+         usd = usd.replace(",", "");
          if (usd.length() > 0 && khr.length() > 0) {
-              twoReceiveBox(khr, usd);
+//              twoReceiveBox(khr, usd);
+              checkBothValueTextField(khr, usd);
               return;
          }
 
@@ -1580,7 +1609,8 @@ public class PaymentOption extends javax.swing.JDialog {
           double _khr = JavaConstant.getReplace(lbTotalKhr.getLabelName());
 
           double _t = k + u;
-          _t = JavaConstant.get4Length("" + _t);
+
+          _t = Double.parseDouble(dd.format(_t));
 
           double _r = _t - _usd;
 
@@ -1612,9 +1642,11 @@ public class PaymentOption extends javax.swing.JDialog {
 
          String khr = txtReceiveKhr.getText();
          String usd = txtReceiveUsd.getText();
-
+         khr = khr.replace(",", "");
+         usd = usd.replace(",", "");
          if (usd.length() > 0 && khr.length() > 0) {
-              twoReceiveBox(khr, usd);
+//              twoReceiveBox(khr, usd);
+              checkBothValueTextField(khr, usd);
               return;
          }
 
@@ -2155,7 +2187,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
 
           if (remaining < 0) {
-
+     
                convertDoubleToStr = JavaRoundUpKhr.setRoundNumber(_d);
                if (txtReceiveKhr.getText().isEmpty()) {
                     lbRemainingKhr.setLabelName(lbTotalKhr.getLabelName());

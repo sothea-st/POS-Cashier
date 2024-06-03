@@ -4,6 +4,7 @@ import Color.WindowColor;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -53,12 +54,12 @@ public class LabelTitle extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
-
+                    event.onMousePress();
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
-
+                    event.onMouseRelease();
                }
 
                @Override
@@ -71,6 +72,7 @@ public class LabelTitle extends javax.swing.JPanel {
 
                }
           });
+
      }
 
      /**

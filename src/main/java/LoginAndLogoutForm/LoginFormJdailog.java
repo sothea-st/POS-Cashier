@@ -654,6 +654,17 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                                         j.setVisible(true);
                                    }
                               }
+
+                              @Override
+                              public void onMousePress() {
+                                   categoryTitle.setBackground(WindowColor.gray);
+                              }
+
+                              @Override
+                              public void onMouseRelease() {
+                                   categoryTitle.setBackground(WindowColor.darkGreen);
+                              }
+
                          };
                          categoryTitle.initEvent(event);
                     }

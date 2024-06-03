@@ -40,9 +40,18 @@ public interface ButtonEvent {
      default public void onSelect(String key) {
      }
 
-     default public void onSelectBreadcrumb(String key,String value) {
+     default public void onSelectBreadcrumb(String key, String value) {
      }
-     
+
      default public void onRemove(String key) {
      }
+
+     default public void onMousePress() {
+     }
+
+     ;
+          default public void onMouseRelease() {
+     }
+;
+
 }
