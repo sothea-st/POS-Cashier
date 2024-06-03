@@ -695,9 +695,8 @@ public class Discounting extends javax.swing.JDialog {
                             box.setBorder(null);
                         }else{
                             JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                            j.setMessage("Discount price is greater than original price!");
+                            j.setMessage("Discount amount must be smaller than price of item!");
                             j.setVisible(true);
-                            return;
                         }
                     }
 
@@ -748,7 +747,9 @@ public class Discounting extends javax.swing.JDialog {
 
               totalPanel.setLableDiscountUsd(dm.format(sumDiscount));
               double _dKhr = sumDiscount * JavaConstant.exchangeRate;
-              totalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(_dKhr));
+              if(_dKhr > 0 ){
+                  totalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(_dKhr));
+              }
 
               totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
               double _tKhr = sumTotalUsd * JavaConstant.exchangeRate;
