@@ -137,8 +137,6 @@ public class MainPage extends javax.swing.JFrame {
           // boxUserName.setVisible(false);
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
-
-//       jScrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
      }
 
      // Set Timer
@@ -182,6 +180,7 @@ public class MainPage extends javax.swing.JFrame {
      }
 
      private void groupEvent() {
+         
           JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this, panelProduct,previous);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this,next);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode

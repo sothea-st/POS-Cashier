@@ -26,8 +26,13 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -131,17 +136,14 @@ public class ActionProduct {
                          return;
                     }
 
-                  
-
-                    if (listData.length <  JavaConstant.limitPagination) {
-                     
+                    if (listData.length < JavaConstant.limitPagination) {
                          next.setBackground(WindowColor.lightGray);
                     }
 
                     panelProduct.setBorder(new EmptyBorder(0, 0, 0, 0));
 
                     setCount(data.getCount());
-                    
+
                     assignProduct(listData, panelProduct);
                } else {
                     System.err.println("fail loading product 333");
@@ -419,7 +421,7 @@ public class ActionProduct {
                product.setWeight(_weight);
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
- 
+
                     product.setPrice(dm.format(discountPrice));
                } else {
 //                    double _price = JavaConstant.get4Length("" + price);
@@ -433,8 +435,23 @@ public class ActionProduct {
                try {
 
                     if (listData.getProImageName() != null) {
+                         TimerTask task = new TimerTask() {
+                              @Override
+                              public void run() {
+                                   try {
+                                        // Task to be executed
+                                        product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                                   } catch (IOException ex) {
+                                        Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                                   }
+                              }
+                         };
+
+                         Timer timer = new Timer();
+                         timer.schedule(task, 500); // Delays task execution by 1 second
+
 //                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
-                         product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                    
                     }
 
                } catch (Exception e) {

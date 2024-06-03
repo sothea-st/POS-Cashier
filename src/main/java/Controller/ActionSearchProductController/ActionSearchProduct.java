@@ -7,7 +7,7 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.swing.JLabel;
+ 
 import javax.swing.JPanel;
 import okhttp3.Response;
 
@@ -22,6 +22,7 @@ public class ActionSearchProduct {
           return true;
      }
 
+     
      public static void searchProduct(String valueSearch, LoginFormJdailog jdFormLogin, JPanel panelProduct , JPanel panelPagination) {
           String code = "";
           boolean isCheck = ActionSearchProduct.checkOnlyDigits(valueSearch);
@@ -41,7 +42,10 @@ public class ActionSearchProduct {
                     response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=" + code + "&valueSearch=" + valueSearch + "");
                }
           }
-
+          
+          if( response == null ) return;
+       
+          
           if (response.isSuccessful()) {
                try {
                     String responseData = response.body().string();
@@ -51,10 +55,6 @@ public class ActionSearchProduct {
                     if (listProduct.length > 0) {
                          jdFormLogin.assignProduct(listProduct);
                     } else {
-//                         panelProduct.removeAll();
-//                         panelProduct.add(new JLabel(JavaConstant.noResult));
-//                         panelProduct.revalidate();
-//                         panelProduct.repaint();
                          JavaConstant.setResultNotFound(panelProduct,panelPagination );
                     }
 

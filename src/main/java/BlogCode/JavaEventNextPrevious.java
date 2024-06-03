@@ -16,13 +16,14 @@ import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 
-/**
- *
- * @author MOBILE-APP.02
- */
+@Setter
+@Getter
 public class JavaEventNextPrevious {
+     private Integer dataA;
 
      public static void eventNext(LabelFontGreen next, int limit, LoginFormJdailog jdFormLogin, JFrame mainFrame, JPanel panelProduct, LabelFontGreen previous) {
           ButtonEvent event = new ButtonEvent() {

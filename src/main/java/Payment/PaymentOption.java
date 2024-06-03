@@ -1660,7 +1660,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
           if (JavaConstant.isReturn == null) {
                if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
-                    j.setMessage("Box Receive must be have one value!");
+                    j.setMessage("Please pay to charge !");
                     j.setVisible(true);
                     return;
                }
@@ -1668,7 +1668,7 @@ public class PaymentOption extends javax.swing.JDialog {
                double valueRemainingUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
                double valueRemainingKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
                if (valueRemainingUsd > 0 || valueRemainingKhr > 0) {
-                    j.setMessage(" remainningUsd : " + lbRemainingUsd.getLabelName() + " <br> remainningUsd : " + lbRemainingKhr.getLabelName());
+                    j.setMessage(" remainning Usd : " + lbRemainingUsd.getLabelName() + " <br><br> remainning KHR : " + lbRemainingKhr.getLabelName());
                     j.setVisible(true);
                     return;
                }

@@ -32,19 +32,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import okhttp3.MediaType;
-import org.w3c.dom.events.DocumentEvent;
+ 
 
 public class JavaConstant {
 
      public static void setResultNotFound(JPanel panelProduct, JPanel panelPagination) {
           panelPagination.setVisible(false);
-          JLabel lb = new JLabel("No Results");
+          JLabel lb = new JLabel("No Product Available!");
           lb.setFont(WindowFonts.timeNewRomanBold16);
           panelProduct.setLayout(new GridBagLayout());
           panelProduct.removeAll();
