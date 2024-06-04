@@ -6,7 +6,7 @@ package Constant;
 
 public class JavaMessage {
 
-     public static String productOutStock = "Products are out Of stock!";
+     public static String productOutStock = "Products are out of stock!";
      public static String inStock = "In Stock";
      public static String outStock = "Out Stock";
      public static int qtyScanning = 0;

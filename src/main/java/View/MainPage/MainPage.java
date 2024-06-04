@@ -977,7 +977,7 @@ public class MainPage extends javax.swing.JFrame {
 
                    Component[] listCom = detailItem.getComponents();
                    if (listCom.length != 0) {
-                        j.setMessage("Please Clear Items in Current Order First!");
+                        j.setMessage("Please clear items in current order first!");
                         j.setVisible(true);
                         return;
                    }
