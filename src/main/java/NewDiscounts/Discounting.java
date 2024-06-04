@@ -752,8 +752,17 @@ public class Discounting extends javax.swing.JDialog {
               }
 
               totalPanel.setLableTotalUsd(dm.format(sumTotalUsd));
-              double _tKhr = sumTotalUsd * JavaConstant.exchangeRate;
+              String totalKh = JavaRoundUpKhr.setRoundNumber(sumSubTotalUsd * JavaConstant.exchangeRate).replace(",", "");
+              String discountKh = "0";
+              if(_dKhr > 0){
+                 discountKh = JavaRoundUpKhr.setRoundNumber(_dKhr).replace(",", "");
+              }
+              double _tKhr = Double.valueOf(totalKh) -  Double.valueOf ( discountKh ) ;  
               totalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(_tKhr));
+
+              
+//              double _tKhr = sumTotalUsd * JavaConstant.exchangeRate;
+//              totalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(_tKhr));
          }
 
          detailItem.revalidate();
