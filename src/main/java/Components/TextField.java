@@ -151,36 +151,42 @@ public class TextField extends javax.swing.JPanel {
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        txtText = new javax.swing.JTextField();
+          txtText = new javax.swing.JTextField();
 
-        txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtText.setBorder(null);
-        txtText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTextKeyReleased(evt);
-            }
-        });
+          txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+          txtText.setBorder(null);
+          txtText.addKeyListener(new java.awt.event.KeyAdapter() {
+               public void keyPressed(java.awt.event.KeyEvent evt) {
+                    txtTextKeyPressed(evt);
+               }
+               public void keyReleased(java.awt.event.KeyEvent evt) {
+                    txtTextKeyReleased(evt);
+               }
+               public void keyTyped(java.awt.event.KeyEvent evt) {
+                    txtTextKeyTyped(evt);
+               }
+          });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtText, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtText)
-                .addContainerGap())
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtText, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                    .addContainerGap())
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtText)
+                    .addContainerGap())
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
      public String getLabelTextField() {
           return labelTextField;
@@ -204,10 +210,7 @@ public class TextField extends javax.swing.JPanel {
           return true;
      }
 
-     private void txtTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyReleased
-
-          String txt = txtText.getText();
-
+     void _checkText(String txt) {
           if (comma != null) {
                boolean isCheck = onlyDigits(txt);
                if (!isCheck) {
@@ -228,8 +231,26 @@ public class TextField extends javax.swing.JPanel {
                     setValueTextField(builder.toString());
                }
           }
+     }
+
+     private void txtTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyReleased
+
+          String txt = txtText.getText();
+          _checkText(txt);
 
      }//GEN-LAST:event_txtTextKeyReleased
+
+     private void txtTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyPressed
+          String txt = txtText.getText();
+          _checkText(txt);
+
+     }//GEN-LAST:event_txtTextKeyPressed
+
+     private void txtTextKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyTyped
+          String txt = txtText.getText();
+          _checkText(txt);
+
+     }//GEN-LAST:event_txtTextKeyTyped
 
      public String getValueTextField() {
           return valueTextField;
@@ -242,8 +263,8 @@ public class TextField extends javax.swing.JPanel {
      }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField txtText;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JTextField txtText;
+     // End of variables declaration//GEN-END:variables
 
 }

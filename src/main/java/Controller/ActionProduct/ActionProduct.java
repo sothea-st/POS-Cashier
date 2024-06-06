@@ -433,7 +433,6 @@ public class ActionProduct {
                // read image from api 
 
                try {
-
                     if (listData.getProImageName() != null) {
                          TimerTask task = new TimerTask() {
                               @Override
@@ -449,9 +448,6 @@ public class ActionProduct {
 
                          Timer timer = new Timer();
                          timer.schedule(task, 500); // Delays task execution by 1 second
-
-//                         product.setProductImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
-                    
                     }
 
                } catch (Exception e) {

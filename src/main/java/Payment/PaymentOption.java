@@ -7,6 +7,8 @@ import Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
+import Components.TextField;
+import static Components.TextField.onlyDigits;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
@@ -821,8 +823,14 @@ public class PaymentOption extends javax.swing.JDialog {
                }
           });
           txtReceiveUsd.addKeyListener(new java.awt.event.KeyAdapter() {
+               public void keyPressed(java.awt.event.KeyEvent evt) {
+                    txtReceiveUsdKeyPressed(evt);
+               }
                public void keyReleased(java.awt.event.KeyEvent evt) {
                     txtReceiveUsdKeyReleased(evt);
+               }
+               public void keyTyped(java.awt.event.KeyEvent evt) {
+                    txtReceiveUsdKeyTyped(evt);
                }
           });
 
@@ -838,8 +846,14 @@ public class PaymentOption extends javax.swing.JDialog {
                }
           });
           txtReceiveKhr.addKeyListener(new java.awt.event.KeyAdapter() {
+               public void keyPressed(java.awt.event.KeyEvent evt) {
+                    txtReceiveKhrKeyPressed(evt);
+               }
                public void keyReleased(java.awt.event.KeyEvent evt) {
                     txtReceiveKhrKeyReleased(evt);
+               }
+               public void keyTyped(java.awt.event.KeyEvent evt) {
+                    txtReceiveKhrKeyTyped(evt);
                }
           });
 
@@ -1578,14 +1592,26 @@ public class PaymentOption extends javax.swing.JDialog {
          sign = "khr";
     }//GEN-LAST:event_txtReceiveKhrMouseClicked
 
+     void _checkUsd(String usd) {
+          for (int i = 0; i < usd.length(); i++) {
+               if (usd.charAt(i) == '.' || usd.charAt(i) == ',') {
+                    continue;
+               }
+               if (usd.charAt(i) < '0' || usd.charAt(i) > '9') {
+                    String newValue = usd.substring(0, usd.length() - 1) + "";
+                    txtReceiveUsd.setText(newValue);
+                    return;
+               }
+          }
+     }
     private void txtReceiveUsdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyReleased
 
          String khr = txtReceiveKhr.getText();
          String usd = txtReceiveUsd.getText();
+         _checkUsd(usd);
          khr = khr.replace(",", "");
          usd = usd.replace(",", "");
          if (usd.length() > 0 && khr.length() > 0) {
-//              twoReceiveBox(khr, usd);
               checkBothValueTextField(khr, usd);
               return;
          }
@@ -1638,9 +1664,22 @@ public class PaymentOption extends javax.swing.JDialog {
           }
      }
 
+     void _checkKhr(String khr) {
+          for (int i = 0; i < khr.length(); i++) {
+               if (khr.charAt(i) == '.' || khr.charAt(i) == ',') {
+                    continue;
+               }
+               if (khr.charAt(i) < '0' || khr.charAt(i) > '9') {
+                    String newValue = khr.substring(0, khr.length() - 1) + "";
+                    txtReceiveKhr.setText(newValue);
+                    return;
+               }
+          }
+     }
     private void txtReceiveKhrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveKhrKeyReleased
 
          String khr = txtReceiveKhr.getText();
+         _checkKhr(khr);
          String usd = txtReceiveUsd.getText();
          khr = khr.replace(",", "");
          usd = usd.replace(",", "");
@@ -1691,6 +1730,23 @@ public class PaymentOption extends javax.swing.JDialog {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
           if (JavaConstant.isReturn == null) {
+
+               boolean isCheckKhr = TextField.onlyDigits(txtReceiveKhr.getText());
+
+               if (!isCheckKhr) {
+                    j.setMessage("Invaid receive khr !");
+                    j.setVisible(true);
+                    return;
+               }
+
+               boolean isCheckUsd = TextField.onlyDigits(txtReceiveUsd.getText());
+
+               if (!isCheckUsd) {
+                    j.setMessage("Invaid receive usd !");
+                    j.setVisible(true);
+                    return;
+               }
+
                if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
                     j.setMessage("Please pay to charge !");
                     j.setVisible(true);
@@ -2107,6 +2163,22 @@ public class PaymentOption extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_btnEinvoiceMouseClicked
 
+     private void txtReceiveUsdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyPressed
+          _checkUsd(txtReceiveUsd.getText());
+     }//GEN-LAST:event_txtReceiveUsdKeyPressed
+
+     private void txtReceiveUsdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyTyped
+          _checkUsd(txtReceiveUsd.getText());
+     }//GEN-LAST:event_txtReceiveUsdKeyTyped
+
+     private void txtReceiveKhrKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveKhrKeyPressed
+          _checkKhr(txtReceiveKhr.getText());
+     }//GEN-LAST:event_txtReceiveKhrKeyPressed
+
+     private void txtReceiveKhrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveKhrKeyTyped
+          _checkKhr(txtReceiveKhr.getText());
+     }//GEN-LAST:event_txtReceiveKhrKeyTyped
+
      DecimalFormat kh = new DecimalFormat("#");
 
      private void setValueLabelUsd(double remaining, double change) {
@@ -2187,7 +2259,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
 
           if (remaining < 0) {
-     
+
                convertDoubleToStr = JavaRoundUpKhr.setRoundNumber(_d);
                if (txtReceiveKhr.getText().isEmpty()) {
                     lbRemainingKhr.setLabelName(lbTotalKhr.getLabelName());
