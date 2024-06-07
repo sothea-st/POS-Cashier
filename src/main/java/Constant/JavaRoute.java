@@ -36,5 +36,7 @@ public class JavaRoute {
      public static String getInvoice = "/searchProductByBarcodeOrName/getInvoice/";
      public static String getProductByBarcodeInInvoice = "/searchProductByBarcodeOrName/getProductByBarcodeInInvoice";
      public static String getPromotion = "/product/getProductPromotion";
+     public static String tax = "/taxProduct";
+     public static String addProduct = "/product";
 
 }
