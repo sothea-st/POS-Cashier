@@ -6,6 +6,8 @@
      <version>1.0-SNAPSHOT</version>
      <packaging>jar</packaging>
      
+ 
+     
      <dependencies>
           <dependency>
                <groupId>com.squareup.okhttp3</groupId>
@@ -100,7 +102,11 @@
                <version>1.18.32</version>
                <scope>provided</scope>
           </dependency>
-          
+         
+         
+         
+         
+    
      </dependencies>
      
      
@@ -133,7 +139,6 @@
           
      </build>
     
-     
      
      <properties>
           <jackson.version>2.4.4</jackson.version>

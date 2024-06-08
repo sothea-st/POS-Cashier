@@ -1593,6 +1593,24 @@ public class PaymentOption extends javax.swing.JDialog {
     }//GEN-LAST:event_txtReceiveKhrMouseClicked
 
      void _checkUsd(String usd) {
+          if (usd.length() == 1 && usd.equals(".")) {
+               String newValue = usd.substring(0, usd.length() - 1) + "";
+               txtReceiveUsd.setText(newValue);
+               return;
+          }
+
+          int count = 0;
+          for (int i = 0; i < usd.length(); i++) {
+               if (usd.charAt(i) == '.') {
+                    count++;
+               }
+               if (count > 1) {
+                    String newValue = usd.substring(0, usd.length() - 1);
+                    txtReceiveUsd.setText(newValue);
+                    return;
+               }
+          }
+
           for (int i = 0; i < usd.length(); i++) {
                if (usd.charAt(i) == '.' || usd.charAt(i) == ',') {
                     continue;
@@ -1665,6 +1683,24 @@ public class PaymentOption extends javax.swing.JDialog {
      }
 
      void _checkKhr(String khr) {
+          if (khr.length() == 1 && khr.equals(".")) {
+               String newValue = khr.substring(0, khr.length() - 1) + "";
+               txtReceiveKhr.setText(newValue);
+               return;
+          }
+
+          int count = 0;
+          for (int i = 0; i < khr.length(); i++) {
+               if (khr.charAt(i) == '.') {
+                    count++;
+               }
+               if (count > 1) {
+                    String newValue = khr.substring(0, khr.length() - 1);
+                    txtReceiveKhr.setText(newValue);
+                    return;
+               }
+          }
+
           for (int i = 0; i < khr.length(); i++) {
                if (khr.charAt(i) == '.' || khr.charAt(i) == ',') {
                     continue;

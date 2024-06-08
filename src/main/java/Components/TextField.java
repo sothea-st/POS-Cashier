@@ -35,7 +35,6 @@ public class TextField extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           txtText.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(txtText);
-
      }
 
      //Create Placeholder
@@ -212,6 +211,31 @@ public class TextField extends javax.swing.JPanel {
 
      void _checkText(String txt) {
           if (comma != null) {
+               if (txt.length() == 1 && txt.equals(".")) {
+                    txtText.setText(null);
+                    return;
+               }
+               if (txt.length() == 1 && txt.equals(",")) {
+                    txtText.setText(null);
+                    return;
+               }
+
+               int count = 0;
+
+               for (int i = 0; i < txt.length(); i++) {
+                  
+                    if (txt.charAt(i) == '.') {
+                         count++;
+                    }
+
+                    if (count > 1) {
+                         String newValue = txt.substring(0, txt.length() - 1) + "";
+                         txtText.setText(newValue);
+                         return;
+                    }
+
+               }
+
                boolean isCheck = onlyDigits(txt);
                if (!isCheck) {
                     String newValue = txt.substring(0, txt.length() - 1) + "";
@@ -234,7 +258,6 @@ public class TextField extends javax.swing.JPanel {
      }
 
      private void txtTextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyReleased
-
           String txt = txtText.getText();
           _checkText(txt);
 

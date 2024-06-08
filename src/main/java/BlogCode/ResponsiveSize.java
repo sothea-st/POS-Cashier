@@ -150,20 +150,18 @@ public class ResponsiveSize {
                          String catNameLowerCase = jdFormLogin.getTitleCategory().toLowerCase();
 
                          switch (catNameLowerCase) {
-                              case "new items" -> { // new items 
-                                  
+                              case "new items":   // new items 
                                    a.newProduct(JavaConstant.limitPagination, panelProduct);
-                              }
+                                   break;
 
-                              case "promotion" -> {    // promotion
-                                    
+                              case "promotion":         // promotion
+
                                    a.getPromotion(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
-                              }
+                                   break;
 
-                              default -> {
-                                  
+                              default:
+
                                    a.product(jdFormLogin.getCatId(), JavaConstant.limitPagination, panelProduct);
-                              }
 
                          }
                     }
