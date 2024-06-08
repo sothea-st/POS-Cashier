@@ -46,7 +46,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="number" min="-2" pref="71" max="-2" attributes="0"/>
+                  <Component id="img" min="-2" pref="71" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="id" min="-2" pref="6" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -57,6 +57,8 @@
                   <Component id="lbPrice" min="-2" pref="118" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="qty" min="-2" pref="118" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="qty1" min="-2" pref="118" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -71,9 +73,10 @@
                       <Component id="qty" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbName" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="id" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="number" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="img" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="qty1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -132,7 +135,7 @@
             <Property name="text" type="java.lang.String" value="jLabel1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="number">
+        <Component class="javax.swing.JLabel" name="img">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
@@ -141,7 +144,24 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Number"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="2" name="D:\POSCASHIERMASTER\tt_pos_window\src\main\resources\image\Edit.png"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="imgMouseClicked"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="qty1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Status"/>
           </Properties>
         </Component>
       </SubComponents>
