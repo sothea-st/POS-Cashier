@@ -1,6 +1,7 @@
 package Products;
 
 import Color.WindowColor;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -13,6 +14,8 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -20,6 +23,11 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -247,10 +255,8 @@ public class AddProduct extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
         lbCustomerId11 = new Components.Label();
         status = new Components.ComboBox();
         jLabel16 = new javax.swing.JLabel();
@@ -259,6 +265,7 @@ public class AddProduct extends javax.swing.JDialog {
         buttonSave = new ButtonPackage.ButtonSave();
         lbPicture = new javax.swing.JLabel();
         button1 = new Button.Button();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -316,10 +323,6 @@ public class AddProduct extends javax.swing.JDialog {
         jLabel11.setForeground(new java.awt.Color(204, 0, 0));
         jLabel11.setText("*");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 0, 0));
         jLabel13.setText("*");
@@ -327,10 +330,6 @@ public class AddProduct extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(204, 0, 0));
         jLabel14.setText("*");
-
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel15.setText("*");
 
         lbCustomerId11.setLabelName("Tax");
 
@@ -364,6 +363,10 @@ public class AddProduct extends javax.swing.JDialog {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel18.setText("*");
+
         javax.swing.GroupLayout panelAddProductLayout = new javax.swing.GroupLayout(panelAddProduct);
         panelAddProduct.setLayout(panelAddProductLayout);
         panelAddProductLayout.setHorizontalGroup(
@@ -385,10 +388,7 @@ public class AddProduct extends javax.swing.JDialog {
                                 .addComponent(lbCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelAddProductLayout.createSequentialGroup()
-                                .addComponent(lbCustomerId5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbCustomerId5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelAddProductLayout.createSequentialGroup()
                                 .addComponent(lbCustomerId3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(2, 2, 2)
@@ -401,13 +401,10 @@ public class AddProduct extends javax.swing.JDialog {
                                 .addComponent(lbCustomerId2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelAddProductLayout.createSequentialGroup()
-                                .addComponent(lbCustomerId1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lbCustomerId1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbCustomerId12, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(productNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -429,10 +426,13 @@ public class AddProduct extends javax.swing.JDialog {
                                 .addComponent(lbCustomerId11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, 0)
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lbCustomerId10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelAddProductLayout.createSequentialGroup()
+                                .addComponent(lbCustomerId10, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lbCustomerId7, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbCustomerId6, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -441,7 +441,7 @@ public class AddProduct extends javax.swing.JDialog {
                                 .addComponent(brand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(note, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 20, Short.MAX_VALUE))))
+                        .addGap(0, 23, Short.MAX_VALUE))))
         );
         panelAddProductLayout.setVerticalGroup(
             panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -459,7 +459,6 @@ public class AddProduct extends javax.swing.JDialog {
                 .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(productNameKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbCustomerId9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lbCustomerId1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -474,12 +473,14 @@ public class AddProduct extends javax.swing.JDialog {
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbCustomerId11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbCustomerId4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbCustomerId10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lbCustomerId4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbCustomerId10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbCustomerId3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -490,7 +491,6 @@ public class AddProduct extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbCustomerId5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(weight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbCustomerId6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -533,38 +533,114 @@ public class AddProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-         String proName = productName.getValueTextField();
-         String proNameKh = productNameKh.getValueTextField();
-         String proBarcode = barcode.getValueTextField();
-         String proPrice = price.getValueTextField();
-         String proCost = cost.getValueTextField();
-         String proWeight = weight.getValueTextField();
-         String proNote = note.getValueTextField();
-         String proDiscount = discount.getValueTextField();
-         
-         
-        proPrice = proPrice.replace(",", "");
-        proCost = proCost.replace(",", "");
-
-        JSONObject json = new JSONObject();
-        json.put("proNameEn", proName);
-        json.put("proNameKh", proNameKh);
-        json.put("barcode", proBarcode);
-        json.put("price", proPrice);
-        json.put("cost", proCost);
-        json.put("weight", proWeight);
-        json.put("note", proNote);
-        json.put("discount", proDiscount);
-        json.put("brandId", brandId);
-        json.put("catId", categoryId);
-        json.put("productStatus", statusProduct);
-        json.put("taxId", taxId);
-        json.put("createBy", JavaConstant.cashierId);
+        String proName = productName.getValueTextField();
+        String proNameKh = productNameKh.getValueTextField();
+        String proBarcode = barcode.getValueTextField();
+        String proPrice = price.getValueTextField();
+        String proCost = cost.getValueTextField();
+        String proWeight = weight.getValueTextField();
+        String proNote = note.getValueTextField();
+        String proDiscount = discount.getValueTextField();
         
-        Response response = JavaConnection.post(JavaRoute.addProduct, json);
+        try{
+            
+             if (proName == null || proName.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Product Name can not be empty!");
+                   return;
+              }
+              if (proBarcode == null || proBarcode.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
+                   return;
+              }
+              if (proPrice == null || proPrice.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Price can not be empty!");
+                   return;
+              }
+              if (proCost == null || proCost.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Cost can not be empty!");
+                   return;
+              }
+              if (categoryId == null) {
+                   JOptionPane.showMessageDialog(this, "Please select a category!");
+                   return;
+              }
+              if (categoryId == null) {
+                   JOptionPane.showMessageDialog(this, "Please select a category!");
+                   return;
+              }
+              if (brandId == null) {
+                   JOptionPane.showMessageDialog(this, "Please select a brand!");
+                   return;
+              }
+              if (brandId == null) {
+                   JOptionPane.showMessageDialog(this, "Please select a brand!");
+                   return;
+              }
+              if (taxId == null) {
+                   JOptionPane.showMessageDialog(this, "Please select a tax!");
+                   return;
+              }
+              if (statusProduct == null) {
+                   JOptionPane.showMessageDialog(this, "Please select a product status!");
+                   return;
+              }
+              
+            String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
+            System.out.println("url ; " + url);
+            proPrice = proPrice.replace(",", "");
+            proCost = proCost.replace(",", "");
+            
+            OkHttpClient client = new OkHttpClient();
 
-        if (response.isSuccessful()) {
-            dispose();
+//            System.out.println("categoryId :" + categoryId);
+//            System.out.println("proNameKh :" + proNameKh);
+//            System.out.println("proName :" + proName);
+//            System.out.println("proCost :" + proCost);
+//            System.out.println("proPrice :" + proPrice);
+//            System.out.println("proWeight :" + proWeight);
+//            System.out.println("proBarcode :" + proBarcode);
+//            System.out.println("discount :" + proDiscount);
+//            System.out.println("statusProduct :" + statusProduct);
+//            System.out.println("proNote :" + proNote);
+//            System.out.println("brandId :" + brandId);
+//            System.out.println("taxId :" + taxId);
+//            System.out.println("JavaConstant.cashierId :" + JavaConstant.cashierId);
+            
+            RequestBody formBody = new FormBody.Builder()
+                    .add("catId", categoryId)
+                    .add("proNameKh", proNameKh)
+                    .add("proNameEn", proName)
+                    .add("cost", proCost)
+                    .add("price", proPrice)
+                    .add("weight", proWeight)
+                    .add("barcode", proBarcode)
+                    .add("discount", proDiscount)
+                    .add("productStatus", statusProduct)
+                    .add("note", proNote)
+                    .add("brandId", brandId)
+                    .add("createBy", ""+JavaConstant.cashierId)
+                    .add("taxId", taxId)
+                    .build();
+            
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(formBody)
+                    .header("Authorization", "Bearer " + JavaConstant.token)
+                    .build();
+            
+            try {
+                Response response = client.newCall(request).execute();
+                
+                System.out.println("response : " + response);
+                if(response.isSuccessful()){
+                    dispose();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
@@ -637,12 +713,11 @@ public class AddProduct extends javax.swing.JDialog {
     private Components.TextField discount;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel7;
     private Components.LabelPopUpTitle labelPopUpTitle1;
     private Components.Label lbCustomerId;
