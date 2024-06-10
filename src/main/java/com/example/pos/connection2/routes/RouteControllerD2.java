@@ -10,7 +10,7 @@ import com.example.pos.connection1.components.JavaResponse;
 import com.example.pos.connection2.service.ServiceManagement;
 
 @RestController
-@RequestMapping("/api/d2")
+@RequestMapping("/api/d2") // for syn data from another db
 public class RouteControllerD2 {
      @Autowired
      private ServiceManagement serviceManagement;
