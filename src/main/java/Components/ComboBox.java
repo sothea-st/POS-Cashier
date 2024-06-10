@@ -20,8 +20,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 public class ComboBox extends javax.swing.JPanel {
 
      private HashMap<String, String> map;
-     
-     public int getItemCount(){
+
+     public int getItemCount() {
           return combo.getItemCount();
      }
 
@@ -31,9 +31,7 @@ public class ComboBox extends javax.swing.JPanel {
 
      public void setMap(HashMap<String, String> map) {
           this.map = map;
-          
-          
-          
+
           for (String key : map.keySet()) {
                ComboItem cm = new ComboItem(key, map.get(key));
                combo.addItem(cm.getKey());
@@ -66,12 +64,19 @@ public class ComboBox extends javax.swing.JPanel {
           combo.setSelectedIndex(0);
      }
 
+     public void setToLastItem() {
+//          combo.setSelectedIndex(2);
+          for (String key : map.keySet()) {
+               ComboItem cm = new ComboItem(key, map.get(key));
+               combo.addItem(cm.getKey());
+               combo.setFont(WindowFonts.timeNewRoman14);
+               
+               System.out.println("fffffffffffff " + cm.getKey() );
+          }
+     }
+
      public void removeAllItem() {
-          
-              
- 
-              
-         
+
      }
 
      public int countItem() {

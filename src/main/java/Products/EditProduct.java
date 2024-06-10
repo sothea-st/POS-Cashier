@@ -6,6 +6,7 @@ import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.combobox.BrandModel;
+import Model.combobox.TaxModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import okhttp3.Response;
@@ -14,8 +15,6 @@ import org.json.JSONObject;
 
 public class EditProduct extends javax.swing.JDialog {
 
-
-    private HashMap<String, String> map = new HashMap<>();
     private int productId;
     private String productNameEn;
     private String productNameKh;
@@ -116,6 +115,7 @@ public class EditProduct extends javax.swing.JDialog {
 
     public void setBrandId(int brandId) {
         this.brandId = brandId;
+        brand.setToLastItem();
     }
 
     public int getCategoryId() {
@@ -158,6 +158,7 @@ public class EditProduct extends javax.swing.JDialog {
         };
         brand.initEvent(event);
         addComboBrand();
+        addComboTax();
     }
     
     //Place Holder
@@ -179,12 +180,46 @@ public class EditProduct extends javax.swing.JDialog {
      }
     
     
+    
+     private void addComboTax() {
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               ArrayList<TaxModel> taxModel = new ArrayList<>();
+               Response response = JavaConnection.get(JavaRoute.tax);
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                         JSONObject obj = data.getJSONObject(i);
+                         TaxModel tax = new TaxModel(
+                              obj.getInt("id"),
+                              obj.getString("tax_name")
+                         );
+                         taxModel.add(tax);
+
+                         int idTax = taxModel.get(i).getTaxId();
+                         String taxName = taxModel.get(i).getTaxName();
+
+                         map.put(taxName, "" + idTax);
+                    }
+                    tax.setMap(map);
+               } else {
+                    System.err.println("fail loading data");
+               }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
+    
     //Set Combo box brand
     private void addComboBrand() {
           try {
+               HashMap<String, String> mapBrand = new HashMap<>();
                ArrayList<BrandModel> brandModel = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.brand);
-
+               
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     JSONObject jsonObject = new JSONObject(responseData);
@@ -200,10 +235,10 @@ public class EditProduct extends javax.swing.JDialog {
                          int idBrand = brandModel.get(i).getBrandId();
                          String brandName = brandModel.get(i).getBrandName();
                          
-                         map.put(brandName, "" + idBrand);
+                         mapBrand.put(brandName, "" + idBrand);
                          
                     }
-                    brand.setMap(map);
+                    brand.setMap(mapBrand);
                } else {
                     System.err.println("fail loading data");
                }
