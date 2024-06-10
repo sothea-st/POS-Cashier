@@ -394,31 +394,36 @@ public class ActionProduct {
 
 //               ====================== get weight ====================
                String _weight = "";
-               // Your JSON string
-               String jsonString = listData.getWeight();
 
-               // Convert the string to a JSONArray
-               JSONArray jsonArray = new JSONArray(jsonString);
+               if (listData.getWeight() != null) {
+                    // Your JSON string
+                    String jsonString = listData.getWeight();
 
-               // Iterate over each JSONObject in the JSONArray
-               for (int m = 0; m < jsonArray.length(); m++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(m);
+                    // Convert the string to a JSONArray
+                    JSONArray jsonArray = new JSONArray(jsonString);
 
-                    // Get values from each JSONObject
-                    String name = jsonObject.getString("name");
-                    String title = jsonObject.getString("title");
+                    // Iterate over each JSONObject in the JSONArray
+                    for (int m = 0; m < jsonArray.length(); m++) {
+                         JSONObject jsonObject = jsonArray.getJSONObject(m);
 
-                    // Extract options JSONArray
-                    JSONArray optionsArray = jsonObject.getJSONArray("options");
+                         // Get values from each JSONObject
+                         String name = jsonObject.getString("name");
+                         String title = jsonObject.getString("title");
 
-                    // Get the first option
-                    JSONObject optionsObject = optionsArray.getJSONObject(0);
-                    String option = optionsObject.getString("option");
+                         // Extract options JSONArray
+                         JSONArray optionsArray = jsonObject.getJSONArray("options");
 
-                    _weight = option;
+                         // Get the first option
+                         JSONObject optionsObject = optionsArray.getJSONObject(0);
+                         String option = optionsObject.getString("option");
+
+                         _weight = option;
+                    }
+
                }
 
                product.setWeight(_weight);
+               
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
 

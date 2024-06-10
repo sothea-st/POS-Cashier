@@ -83,6 +83,7 @@ public class JavaConnection {
                response = client.newCall(request).execute();
 
           } catch (Exception e) {
+               
                System.err.println("getting error during call request " + e);
           }
           closeConnection(client);

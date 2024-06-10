@@ -26,65 +26,64 @@ import org.json.JSONObject;
 
 public class AddProduct extends javax.swing.JDialog {
 
-    private HashMap<String, String> map = new HashMap<>();
-    private String brandId;
-    private String categoryId;
-    private String statusProduct;
-    private String taxId;
     
-    public AddProduct(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        panelAddProduct.setBackground(WindowColor.mediumGreen);
-        event();
-        
-        // action get select brand
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                brandId = key;
-            }
-        };
-        brand.initEvent(event);
-        addComboBrand();
-        
-        // action get select category
-        ButtonEvent events = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                categoryId = key;
-            }
-        };
-        category.initEvent(events);
-        addComboCategory();
-        
-        // action get select status
-        ButtonEvent eventtt = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                statusProduct = key;
-            }
-        };
-        status.initEvent(eventtt);
-        addComboStatus();
-        
-        // action get select tax
-        ButtonEvent eventtss = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                taxId = key;
-            }
-        };
-        tax.initEvent(eventtss);
-        addComboTax();
-        
-        
-        price.setComma("comma");
-        cost.setComma("comma");
-    }
-    
-    //Place Holder
-    void event() {
+     private String brandId;
+     private String categoryId;
+     private String statusProduct;
+     private String taxId;
+
+     public AddProduct(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          panelAddProduct.setBackground(WindowColor.mediumGreen);
+          event();
+
+          // action get select brand
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    brandId = key;
+               }
+          };
+          brand.initEvent(event);
+          addComboBrand();
+
+          // action get select category
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    categoryId = key;
+               }
+          };
+          category.initEvent(events);
+          addComboCategory();
+
+          // action get select status
+          ButtonEvent eventtt = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    statusProduct = key;
+               }
+          };
+          status.initEvent(eventtt);
+          addComboStatus();
+
+          // action get select tax
+          ButtonEvent eventtss = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    taxId = key;
+               }
+          };
+          tax.initEvent(eventtss);
+          addComboTax();
+
+          price.setComma("comma");
+          cost.setComma("comma");
+     }
+
+     //Place Holder
+     void event() {
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
                public void onFocusGain() {
@@ -100,11 +99,11 @@ public class AddProduct extends javax.swing.JDialog {
           note.initEvent(btnevent);
           discount.initEvent(btnevent);
      }
-    
-    
-    //Set Combo box brand
-    private void addComboBrand() {
+
+     //Set Combo box brand
+     private void addComboBrand() {
           try {
+               HashMap<String, String> map = new HashMap<>();
                ArrayList<BrandModel> brandModel = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.brand);
 
@@ -119,10 +118,10 @@ public class AddProduct extends javax.swing.JDialog {
                               obj.getString("brandNameEn")
                          );
                          brandModel.add(brand);
-                         
+
                          int idBrand = brandModel.get(i).getBrandId();
                          String brandName = brandModel.get(i).getBrandName();
-                         
+
                          map.put(brandName, "" + idBrand);
                     }
                     brand.setMap(map);
@@ -133,10 +132,11 @@ public class AddProduct extends javax.swing.JDialog {
                System.err.println("error = " + e);
           }
      }
-     
-    //Set Combo box category
-    private void addComboCategory() {
+
+     //Set Combo box category
+     private void addComboCategory() {
           try {
+                HashMap<String, String> map = new HashMap<>();
                ArrayList<CategoryModel> categoryModel = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.category);
 
@@ -151,10 +151,10 @@ public class AddProduct extends javax.swing.JDialog {
                               obj.getString("catNameEn")
                          );
                          categoryModel.add(categ);
-                         
+
                          int idCategory = categoryModel.get(i).getCategoryId();
                          String categoryName = categoryModel.get(i).getCategoryName();
-                         
+
                          map.put(categoryName, "" + idCategory);
                     }
                     category.setMap(map);
@@ -165,25 +165,24 @@ public class AddProduct extends javax.swing.JDialog {
                System.err.println("error = " + e);
           }
      }
-    
-    
-    //Set Combo box status
-    private void addComboStatus() {
+
+     //Set Combo box status
+     private void addComboStatus() {
           try {
-              map.put("In Stock", "In Stock");
-              map.put("Out Stock", "Out Stock");
-              status.setMap(map);
-              
+                HashMap<String, String> map = new HashMap<>();
+               map.put("In Stock", "In Stock");
+               map.put("Out Stock", "Out Stock");
+               status.setMap(map);
+
           } catch (Exception e) {
                System.err.println("error = " + e);
           }
      }
-     
-    
-    
-    //Set Combo box tax
-    private void addComboTax() {
+
+     //Set Combo box tax
+     private void addComboTax() {
           try {
+                HashMap<String, String> map = new HashMap<>();
                ArrayList<TaxModel> taxModel = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.tax);
 
@@ -198,10 +197,10 @@ public class AddProduct extends javax.swing.JDialog {
                               obj.getString("tax_name")
                          );
                          taxModel.add(tax);
-                         
+
                          int idTax = taxModel.get(i).getTaxId();
                          String taxName = taxModel.get(i).getTaxName();
-                         
+
                          map.put(taxName, "" + idTax);
                     }
                     tax.setMap(map);
@@ -212,10 +211,8 @@ public class AddProduct extends javax.swing.JDialog {
                System.err.println("error = " + e);
           }
      }
-    
-    
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -529,7 +526,7 @@ public class AddProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
@@ -541,90 +538,90 @@ public class AddProduct extends javax.swing.JDialog {
          String proWeight = weight.getValueTextField();
          String proNote = note.getValueTextField();
          String proDiscount = discount.getValueTextField();
-         
-         
-        proPrice = proPrice.replace(",", "");
-        proCost = proCost.replace(",", "");
 
-        JSONObject json = new JSONObject();
-        json.put("proNameEn", proName);
-        json.put("proNameKh", proNameKh);
-        json.put("barcode", proBarcode);
-        json.put("price", proPrice);
-        json.put("cost", proCost);
-        json.put("weight", proWeight);
-        json.put("note", proNote);
-        json.put("discount", proDiscount);
-        json.put("brandId", brandId);
-        json.put("catId", categoryId);
-        json.put("productStatus", statusProduct);
-        json.put("taxId", taxId);
-        json.put("createBy", JavaConstant.cashierId);
-        
-        Response response = JavaConnection.post(JavaRoute.addProduct, json);
+         proPrice = proPrice.replace(",", "");
+         proCost = proCost.replace(",", "");
 
-        if (response.isSuccessful()) {
-            dispose();
-        }
+         JSONObject json = new JSONObject();
+         json.put("proNameEn", proName);
+         json.put("proNameKh", proNameKh);
+         json.put("barcode", proBarcode);
+         json.put("price", proPrice);
+         json.put("cost", proCost);
+         json.put("weight", proWeight);
+         json.put("note", proNote);
+         json.put("discount", proDiscount);
+         json.put("brandId", brandId);
+         json.put("catId", categoryId);
+         json.put("productStatus", statusProduct);
+         json.put("taxId", taxId);
+         json.put("createBy", JavaConstant.cashierId);
+
+         Response response = JavaConnection.post(JavaRoute.addProduct, json);
+
+         if (response.isSuccessful()) {
+              dispose();
+         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-        JFileChooser jf = new JFileChooser();
-        jf.showOpenDialog(null);
-        File f = jf.getSelectedFile();
-        String path = f.getAbsolutePath();
-        
-        try {
-            BufferedImage bi  = ImageIO.read(new File(path) );
-            Image img = bi.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
-            ImageIcon li = new ImageIcon(img);
-            lbPicture.setIcon(li);
-        } catch (IOException ex) {
-            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         JFileChooser jf = new JFileChooser();
+         jf.showOpenDialog(null);
+         File f = jf.getSelectedFile();
+         String path = f.getAbsolutePath();
+
+         try {
+              BufferedImage bi = ImageIO.read(new File(path));
+              Image img = bi.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+              ImageIcon li = new ImageIcon(img);
+              lbPicture.setIcon(li);
+         } catch (IOException ex) {
+              Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_button1MouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddProduct dialog = new AddProduct(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    AddProduct dialog = new AddProduct(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.TextField barcode;
