@@ -95,7 +95,7 @@ public class GetProduct extends javax.swing.JPanel {
 
     public void setImage(Icon image) {
         this.image = image;
-        img.setIcon(image);
+        imgEdit.setIcon(image);
     }
 
     public String getProductStatus() {
@@ -107,6 +107,31 @@ public class GetProduct extends javax.swing.JPanel {
         status.setText(productStatus);
     }
      
+    public void initEvent(ButtonEvent event) {
+          imgEdit.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onSelect(""+productId);
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+          
+     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -116,7 +141,7 @@ public class GetProduct extends javax.swing.JPanel {
         lbName = new javax.swing.JLabel();
         qty = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
-        img = new javax.swing.JLabel();
+        imgEdit = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
@@ -144,15 +169,10 @@ public class GetProduct extends javax.swing.JPanel {
 
         id.setText("jLabel1");
 
-        img.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        img.setForeground(new java.awt.Color(0, 0, 0));
-        img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        img.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
-        img.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                imgMouseClicked(evt);
-            }
-        });
+        imgEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        imgEdit.setForeground(new java.awt.Color(0, 0, 0));
+        imgEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imgEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
 
         status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         status.setForeground(new java.awt.Color(0, 0, 0));
@@ -165,7 +185,7 @@ public class GetProduct extends javax.swing.JPanel {
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(img, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -190,7 +210,7 @@ public class GetProduct extends javax.swing.JPanel {
                     .addComponent(qty)
                     .addComponent(lbName)
                     .addComponent(id)
-                    .addComponent(img)
+                    .addComponent(imgEdit)
                     .addComponent(status))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -209,16 +229,11 @@ public class GetProduct extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void imgMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imgMouseClicked
-        EditProduct edit = new EditProduct(new JFrame(), true);
-        edit.setVisible(true);
-    }//GEN-LAST:event_imgMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel getProduct;
     private javax.swing.JLabel id;
-    private javax.swing.JLabel img;
+    private javax.swing.JLabel imgEdit;
     private javax.swing.JLabel lbBarcode;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;

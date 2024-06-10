@@ -8,8 +8,11 @@ import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
 import Controller.ActionSearchProductController.ActionSearchProd;
 import CustomeUI.CustomScrollBarUI;
+import DeleteAndCancel.CancelDialog;
 import Discount.DiscountByItem;
 import Event.ButtonEvent;
+import HoldOrder.HoldeModel;
+import Model.HoldOrder.HoldProductModel;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
@@ -107,7 +110,7 @@ public class ListProduct extends javax.swing.JDialog {
           }
           appendProduct(listProduct, listGetProduct);
      }
-
+     
      //Append Product into list
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel listGetProduct) {
           GridBagLayout gridBagLayout = new GridBagLayout();
@@ -127,8 +130,6 @@ public class ListProduct extends javax.swing.JDialog {
                gbc.gridy = y;
                gbc.gridwidth = 1;
                gbc.anchor = gbc.NORTH;
-
-//               gbc.insets = new Insets(5, 0, 5, 10);
                x++;
                if (x == 1) {
                     x = 0;
@@ -137,7 +138,47 @@ public class ListProduct extends javax.swing.JDialog {
 
                var listData = listProduct.get(i);
                Products.GetProduct prod = new Products.GetProduct();
+               
+               ButtonEvent events = new ButtonEvent() {
+                   
+                    @Override
+                    public void onSelect(String Key) {
+                        EditProduct edit = new EditProduct(new JFrame(), true);
+                        try{
+                            Response response = JavaConnection.get(JavaRoute.product +"/"+ listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
+                            ListDetailProduct listproduct = data.getData();
+                            
+                            edit.setProductId(listproduct.getID());
+                            edit.setProductNameEn(listproduct.getProNameEn());
+                            edit.setProductNameKh(listproduct.getProNameKh());
+                            edit.setProductBarcode(listproduct.getBarcode());
+                            edit.setProductPrice(""+listproduct.getPrice());
+                            edit.setProductCost(""+listproduct.getCost());
+                            edit.setProductDiscount(""+listproduct.getDiscount());
+                            if(listproduct.getWeight() != null){
+                                edit.setProductWeight(listproduct.getWeight());
+                            }
+                            
+                            if(listproduct.getNote() != null){
+                                edit.setProductNote(listproduct.getNote());
+                            }
+                            
+                            edit.setBrandId(listproduct.getBrandID());
+                           
+                            edit.setVisible(true);
+                            
+                            
+                        } catch (Exception e) {
+                            System.err.println("error getting product " + e);
+                        }
+                    }
+                };
+               
 
+               prod.initEvent(events);
                prod.setProductName(listData.getProductNameEn());
                prod.setProductBarcode(listData.getBarcode());
                prod.setProductPrice(dm.format(listData.getPrice()));
