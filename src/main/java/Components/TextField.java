@@ -106,6 +106,7 @@ public class TextField extends javax.swing.JPanel {
           createShadow(grphcs);
           super.paintComponent(grphcs);
      }
+     
 
      private void createShadow(Graphics grphcs) {
           Graphics2D g2 = (Graphics2D) grphcs;

@@ -22,6 +22,7 @@ public class GetProduct extends javax.swing.JPanel {
     private int productId;
     private Icon image;
     private JPanel panelProduct;
+    private String productStatus;
 
     private JPanel listGetProduct;
 
@@ -96,8 +97,15 @@ public class GetProduct extends javax.swing.JPanel {
         this.image = image;
         img.setIcon(image);
     }
-     
-     
+
+    public String getProductStatus() {
+        return productStatus;
+    }
+
+    public void setProductStatus(String productStatus) {
+        this.productStatus = productStatus;
+        status.setText(productStatus);
+    }
      
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -109,7 +117,7 @@ public class GetProduct extends javax.swing.JPanel {
         qty = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
         img = new javax.swing.JLabel();
-        qty1 = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -146,10 +154,10 @@ public class GetProduct extends javax.swing.JPanel {
             }
         });
 
-        qty1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        qty1.setForeground(new java.awt.Color(0, 0, 0));
-        qty1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        qty1.setText("Status");
+        status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        status.setForeground(new java.awt.Color(0, 0, 0));
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status.setText("Status");
 
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);
@@ -169,7 +177,7 @@ public class GetProduct extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(qty1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         getProductLayout.setVerticalGroup(
@@ -183,7 +191,7 @@ public class GetProduct extends javax.swing.JPanel {
                     .addComponent(lbName)
                     .addComponent(id)
                     .addComponent(img)
-                    .addComponent(qty1))
+                    .addComponent(status))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -215,6 +223,6 @@ public class GetProduct extends javax.swing.JPanel {
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;
     private javax.swing.JLabel qty;
-    private javax.swing.JLabel qty1;
+    private javax.swing.JLabel status;
     // End of variables declaration//GEN-END:variables
 }
