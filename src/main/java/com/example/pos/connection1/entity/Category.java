@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 public class Category  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id; 
 
     @Column(nullable = false,unique = true,name = "cat_name_kh")
     @NotBlank(message = JavaMessage.required)
-    private String catNameKh;
+    private String catNameKh; 
 
     @Column(nullable = false,unique = true,name = "cat_name_en")
     @NotBlank(message = JavaMessage.required)

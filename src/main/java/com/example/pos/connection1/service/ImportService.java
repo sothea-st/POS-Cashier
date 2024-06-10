@@ -24,9 +24,7 @@ public class ImportService {
     @Autowired
     private ProductRepository repoProduct;
 
-    @Autowired
-    private HttpSession session;
-
+ 
     public void addImport(Import imp) {
 
         Import data = new Import();
@@ -58,8 +56,6 @@ public class ImportService {
 
         List<ImportDetail> listDetail = imp.getDetails();
 
-
-        
         for (int i = 0; i < listDetail.size(); i++) {
             var value = listDetail.get(i);
             int productId = value.getProductId();
@@ -89,7 +85,7 @@ public class ImportService {
             pp.setProductStatus("In Stock");
             pp.setCost(value.getCost());
             repoProduct.save(pp);
-
+    
         }
     }
 

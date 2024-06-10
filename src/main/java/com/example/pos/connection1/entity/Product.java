@@ -52,6 +52,10 @@ public class Product {
     private int taxId;
 
 
+    @Column(name = "pro_qty")
+    private Integer proQty;
+
+
     // @Column(name = "choice_options")
     // private String choiceOption;
 

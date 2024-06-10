@@ -3,6 +3,8 @@ package com.example.pos.connection1.service;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.entity.FileStore;
+import com.example.pos.connection1.entity.Import;
+import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.repository.FileStoreRepository;
@@ -33,6 +35,9 @@ public class ProductService {
     @Autowired
     private ImportDetailRepository repoImp;
 
+    @Autowired
+    private ImportService service;
+
     public Product addProduct(Product p, MultipartFile file, MultipartFile flagFile) throws IOException {
 
         // boolean proNameKh = repo.existsByProNameKh(p.getProNameKh());
@@ -57,8 +62,23 @@ public class ProductService {
         pro.setCreateBy(p.getCreateBy());
         pro.setWeight(p.getWeight());
         pro.setBarcode(p.getBarcode());
-        pro.setDiscount(p.getDiscount());
+        if( p.getDiscount() == null ) {
+            pro.setDiscount(BigDecimal.valueOf(0));
+        } else {
+            pro.setDiscount(p.getDiscount());
+        }
+    
         pro.setBrandId(p.getBrandId());
+
+        /*
+         * proQty just use to check codition with import 
+         * case user add qty import will be working
+         * case user not add qty import not working 
+         * column name pro_qty in table pos_product will have value 0 fixes
+         */
+
+        pro.setProQty(0);
+    
         // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" :
         // p.getDiscountPercentag());
         pro.setProductStatus(p.getProductStatus()); // for detail product in or out stock
@@ -89,6 +109,32 @@ public class ProductService {
         }
 
         repo.save(pro);
+
+        /*
+         * when user add new product it will auto import
+         */
+
+         if (p.getProQty() != null) {
+            Import import1 = new Import();
+            import1.setCreateBy(0);
+            import1.setEmpId(0);
+            import1.setSubId(0);
+            import1.setImpDate(JavaConstant.currentDate);
+            import1.setDiscount(BigDecimal.valueOf(0));
+            import1.setTotal(BigDecimal.valueOf(p.getProQty() * p.getCost().doubleValue()));
+
+            List<ImportDetail> listDetail = new ArrayList<>();
+            ImportDetail importDetail = new ImportDetail();
+            importDetail.setProductId(pro.getId());
+            importDetail.setQtyNew(p.getProQty());
+            importDetail.setCost(p.getCost());
+            importDetail.setAmount(BigDecimal.valueOf(p.getCost().doubleValue() * p.getProQty()));
+            importDetail.setExpireDate("");
+            listDetail.add(importDetail);
+            import1.setDetails(listDetail);
+            service.addImport(import1);
+        }
+
         return pro;
     }
 
@@ -197,6 +243,34 @@ public class ProductService {
         // previousPro.setDiscountPercentag(editProduct.getDiscountPercentag());
         // previousPro.setCreateBy((Integer) idUser);
         repo.save(previousPro);
+
+          /*
+         * when user add new product it will auto import
+         */
+
+         if (editProduct.getProQty() != null) {
+            Import import1 = new Import();
+            import1.setCreateBy(0);
+            import1.setEmpId(0);
+            import1.setSubId(0);
+            import1.setImpDate(JavaConstant.currentDate);
+            import1.setDiscount(BigDecimal.valueOf(0));
+            import1.setTotal(BigDecimal.valueOf(editProduct.getProQty() * editProduct.getCost().doubleValue()));
+
+            List<ImportDetail> listDetail = new ArrayList<>();
+            ImportDetail importDetail = new ImportDetail();
+            importDetail.setProductId(id);
+            importDetail.setQtyNew(editProduct.getProQty());
+            importDetail.setCost(editProduct.getCost());
+            importDetail.setAmount(BigDecimal.valueOf(editProduct.getCost().doubleValue() * editProduct.getProQty()));
+            importDetail.setExpireDate("");
+            listDetail.add(importDetail);
+            import1.setDetails(listDetail);
+            service.addImport(import1);
+        }
+
+
+
         return previousPro;
     }
 
@@ -214,7 +288,7 @@ public class ProductService {
     }
 
     public List<ProductModel> getProductByCatId(int catId, int limit, int page) {
-      
+
         List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
 
         List<ProductModel> list = new ArrayList<>();
@@ -313,9 +387,10 @@ public class ProductService {
     public List<ProductModel> getNewProduct(int limit, int page, int number) {
         List<ProductModel> list = new ArrayList<>();
         List<ProductProjection> listData = repo.getNewProduct(number);
-     
+
         for (int i = page; i < listData.size(); i++) {
-            if( i == limit ) break;
+            if (i == limit)
+                break;
             var data = listData.get(i);
             Integer qty = repoImp.getQty(data.getId());
             if (qty == null)

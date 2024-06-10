@@ -1,5 +1,7 @@
 package com.example.pos.connection2.service;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +17,7 @@ import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection2.entity.ProductByCategory;
 import com.example.pos.connection2.models.ProductModelD2;
 import com.example.pos.connection2.repository.ProdcutByCategoryRepository;
-
+ 
 import jakarta.servlet.http.HttpSession;
 
 import java.util.*;
@@ -44,7 +46,38 @@ public class ServiceManagement {
                // pro.setNote(p.getNote());
                pro.setTaxId(3);
                pro.setCreateBy(1);
-               pro.setWeight(p.getChoiceOptions());
+
+               String _weight=null;
+
+               if (p.getChoiceOptions()  != null) {
+                    // Your JSON string
+                    String jsonString = p.getChoiceOptions();
+
+                    // Convert the string to a JSONArray
+                    JSONArray jsonArray = new JSONArray(jsonString);
+
+                    // Iterate over each JSONObject in the JSONArray
+                    for (int m = 0; m < jsonArray.length(); m++) {
+                         JSONObject jsonObject = jsonArray.getJSONObject(m);
+
+                         // Get values from each JSONObject
+                         String name = jsonObject.getString("name");
+                         String title = jsonObject.getString("title");
+
+                         // Extract options JSONArray
+                         JSONArray optionsArray = jsonObject.getJSONArray("options");
+
+                         // Get the first option
+                         JSONObject optionsObject = optionsArray.getJSONObject(0);
+                         String option = optionsObject.getString("option");
+
+                         _weight = option;
+                    }
+
+               }
+
+
+               pro.setWeight(_weight);
                pro.setBarcode(p.getBarcode());
                pro.setDiscount(p.getDiscount());
                pro.setBrandId(0);
