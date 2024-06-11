@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import javax.swing.JComboBox;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class ComboBox extends javax.swing.JPanel {
@@ -64,15 +65,36 @@ public class ComboBox extends javax.swing.JPanel {
           combo.setSelectedIndex(0);
      }
 
-     public void setToLastItem() {
-//          combo.setSelectedIndex(2);
-          for (String key : map.keySet()) {
-               ComboItem cm = new ComboItem(key, map.get(key));
-               combo.addItem(cm.getKey());
-               combo.setFont(WindowFonts.timeNewRoman14);
-               
-               System.out.println("fffffffffffff " + cm.getKey() );
+     public void setToLastItem(int id) {
+          int index = 0;
+          if (!map.isEmpty()) {
+               for (String key : map.keySet()) {
+                    if (map.get(key).equals(String.valueOf(id))) {
+                         index++;
+                         break;
+                    }
+                    index++;
+                   
+               }
           }
+          combo.setSelectedIndex(index);
+
+     }
+
+     public void setToLastItem(String id) {
+          int index = 0;
+          for (String key : map.keySet()) {
+               if (map.get(key).equals(String.valueOf(id))) {
+                    index++;
+                    break;
+               }
+               index++;
+            
+          }
+
+//          System.out.println("count = " + count);
+          combo.setSelectedIndex(index);
+
      }
 
      public void removeAllItem() {

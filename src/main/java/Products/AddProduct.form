@@ -467,7 +467,7 @@
         </Component>
         <Component class="Components.TextField" name="qty">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Weight"/>
+            <Property name="labelTextField" type="java.lang.String" value="Quantity"/>
           </Properties>
         </Component>
       </SubComponents>

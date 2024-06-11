@@ -36,39 +36,39 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 
 public class ListProduct extends javax.swing.JDialog {
-    
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      private String searchValue;
      private int id;
-    
-    public ListProduct(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setBackground();
-        panelListProduct.setBackground(WindowColor.mediumGreen);
-        header.setBackground(WindowColor.darkGreen);
-        getProduct(listGetProduct);
-        eventSearchProduct();
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+     public ListProduct(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setBackground();
+          panelListProduct.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
+          getProduct(listGetProduct);
+          eventSearchProduct();
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 //        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        searchField.setFocus();
-        // custome scrollbar ui
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          searchField.setFocus();
+          // custome scrollbar ui
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 //        setTitle("Stock");  
-    }
-    
-    void setBackground(){
-        header.setBackground(WindowColor.darkGreen);
-    }
-    
-    public void getProduct(JPanel jpanelData) {
+     }
+
+     void setBackground() {
+          header.setBackground(WindowColor.darkGreen);
+     }
+
+     public void getProduct(JPanel jpanelData) {
           try {
                Response response = JavaConnection.get(JavaRoute.product + "?limit=0&perPage=200&page=2");
                if (response.isSuccessful()) {
@@ -110,7 +110,7 @@ public class ListProduct extends javax.swing.JDialog {
           }
           appendProduct(listProduct, listGetProduct);
      }
-     
+
      //Append Product into list
      void appendProduct(ArrayList<ProductModel> listProduct, JPanel listGetProduct) {
           GridBagLayout gridBagLayout = new GridBagLayout();
@@ -138,45 +138,52 @@ public class ListProduct extends javax.swing.JDialog {
 
                var listData = listProduct.get(i);
                Products.GetProduct prod = new Products.GetProduct();
-               
+
                ButtonEvent events = new ButtonEvent() {
-                   
+
                     @Override
-                    public void onSelect(String Key) {
-                        EditProduct edit = new EditProduct(new JFrame(), true);
-                        try{
-                            Response response = JavaConnection.get(JavaRoute.product +"/"+ listData.getId());
-                            String responseData = response.body().string();
-                            ObjectMapper objMap = new ObjectMapper();
-                            DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
-                            ListDetailProduct listproduct = data.getData();
-                            
-                            edit.setProductId(listproduct.getID());
-                            edit.setProductNameEn(listproduct.getProNameEn());
-                            edit.setProductNameKh(listproduct.getProNameKh());
-                            edit.setProductBarcode(listproduct.getBarcode());
-                            edit.setProductPrice(""+listproduct.getPrice());
-                            edit.setProductCost(""+listproduct.getCost());
-                            edit.setProductDiscount(""+listproduct.getDiscount());
-                            if(listproduct.getWeight() != null){
-                                edit.setProductWeight(listproduct.getWeight());
-                            }
-                            
-                            if(listproduct.getNote() != null){
-                                edit.setProductNote(listproduct.getNote());
-                            }
-                            
-                            edit.setBrandId(listproduct.getBrandID());
-                           
-                            edit.setVisible(true);
-                            
-                            
-                        } catch (Exception e) {
-                            System.err.println("error getting product " + e);
-                        }
+                    public void onSelect(String Key) {  // event edit
+                         EditProduct edit = new EditProduct(new JFrame(), true);
+                         try {
+                              Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
+                              String responseData = response.body().string();
+                              ObjectMapper objMap = new ObjectMapper();
+                              DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
+                              ListDetailProduct listproduct = data.getData();
+
+                              edit.setProductId(listproduct.getID());
+                              edit.setProductNameEn(listproduct.getProNameEn());
+                              edit.setProductNameKh(listproduct.getProNameKh());
+                              edit.setProductBarcode(listproduct.getBarcode());
+                              edit.setProductPrice("" + listproduct.getPrice());
+                              edit.setProductCost("" + listproduct.getCost());
+                              edit.setProductDiscount("" + listproduct.getDiscount());
+                              if (listproduct.getWeight() != null) {
+                                   edit.setProductWeight(listproduct.getWeight());
+                              }
+
+                              if (listproduct.getNote() != null) {
+                                   edit.setProductNote(listproduct.getNote());
+                              }
+
+                              edit.setIndexToBrand(listproduct.getBrandID());
+                              edit.setIndexToCategory(listproduct.getCatID());
+                              edit.setIndexToTax(listproduct.getTaxID());
+
+                              edit.setIndexToStatus(listproduct.getProductStatus());
+
+                              edit.setProductStatus(listproduct.getProductStatus());
+                              edit.setBrandId(listproduct.getBrandID());
+                              edit.setTaxId(listproduct.getTaxID());
+                              edit.setCategoryId(listproduct.getCatID());
+                              edit.setProQty("" + listData.getQty());
+                              edit.setVisible(true);
+
+                         } catch (Exception e) {
+                              System.err.println("error getting product " + e);
+                         }
                     }
-                };
-               
+               };
 
                prod.initEvent(events);
                prod.setProductName(listData.getProductNameEn());
@@ -186,10 +193,9 @@ public class ListProduct extends javax.swing.JDialog {
                prod.setProductId(listData.getId());
                prod.setListGetProduct(listGetProduct);
                prod.setProductStatus(listData.getProductStatus());
-              
-               
+
                try {
-                
+
                     TimerTask task = new TimerTask() {
                          @Override
                          public void run() {
@@ -200,13 +206,11 @@ public class ListProduct extends javax.swing.JDialog {
 
                     Timer timer = new Timer();
                     timer.schedule(task, 500); // Delays task execution by 1 second
-                   
 
                } catch (Exception e) {
                     System.err.println("error read image = " + e);
                }
-               
-               
+
                listGetProduct.add(prod, gbc);
 
           }
@@ -236,8 +240,7 @@ public class ListProduct extends javax.swing.JDialog {
           searchField.initEvent(event);
      }
 
-     
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -394,49 +397,49 @@ public class ListProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-        dispose();
-        AddProduct add = new AddProduct(new JFrame(), true);
-        add.setVisible(true);
+         dispose();
+         AddProduct add = new AddProduct(new JFrame(), true);
+         add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ListProduct dialog = new ListProduct(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ListProduct dialog = new ListProduct(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button button1;

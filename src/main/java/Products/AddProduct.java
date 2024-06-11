@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -39,6 +40,7 @@ public class AddProduct extends javax.swing.JDialog {
      private String categoryId;
      private String statusProduct;
      private String taxId;
+     String path;
 
      public AddProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -369,7 +371,7 @@ public class AddProduct extends javax.swing.JDialog {
 
           lbCustomerId13.setLabelName("Quantity");
 
-          qty.setLabelTextField("Weight");
+          qty.setLabelTextField("Quantity");
 
           javax.swing.GroupLayout panelAddProductLayout = new javax.swing.GroupLayout(panelAddProduct);
           panelAddProduct.setLayout(panelAddProductLayout);
@@ -601,41 +603,51 @@ public class AddProduct extends javax.swing.JDialog {
          proCost = proCost.replace(",", "");
 
          OkHttpClient client = new OkHttpClient();
+         // File to upload
 
-         FormBody.Builder formBody = new FormBody.Builder()
-              .add("catId", categoryId)
-              .add("proNameEn", proName)
-              .add("cost", proCost)
-              .add("price", proPrice)
-              .add("barcode", proBarcode)
-              .add("brandId", brandId)
-              .add("createBy", JavaConstant.cashierId + "")
-              .add("taxId", taxId)
-              .add("productStatus", statusProduct);
+         // Request body
+         MultipartBody.Builder requestBody = new MultipartBody.Builder()
+              .setType(MultipartBody.FORM)
+              .addFormDataPart("catId", categoryId)
+              .addFormDataPart("proNameEn", proName)
+              .addFormDataPart("cost", proCost)
+              .addFormDataPart("price", proPrice)
+              .addFormDataPart("barcode", proBarcode)
+              .addFormDataPart("brandId", brandId)
+              .addFormDataPart("createBy", JavaConstant.cashierId + "")
+              .addFormDataPart("taxId", taxId)
+              .addFormDataPart("productStatus", statusProduct);
+
+         if (path != null) {
+              File fileToUpload = new File(path);
+              requestBody.addFormDataPart("file", fileToUpload.getName(),
+                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+         }
 
          if (proWeight != null) {
-              formBody.add("weight", proWeight);
+              requestBody.addFormDataPart("weight", proWeight);
          }
 
          if (proDiscount != null) {
-              formBody.add("discount", proDiscount);
+              requestBody.addFormDataPart("discount", proDiscount);
          }
 
          if (proNote != null) {
-              formBody.add("note", proNote);
+              requestBody.addFormDataPart("note", proNote);
          }
 
          if (proNameKh != null) {
-              formBody.add("proNameKh", proNameKh);
+              requestBody.addFormDataPart("proNameKh", proNameKh);
          }
 
          if (proQty != null) {
-              formBody.add("proQty", proQty);
+              requestBody.addFormDataPart("proQty", proQty);
          }
 
+         // Request
          Request request = new Request.Builder()
               .url(url)
-              .post(formBody.build())
+              .post(requestBody.build())
               .header("Authorization", "Bearer " + JavaConstant.token)
               .build();
 
@@ -654,15 +666,30 @@ public class AddProduct extends javax.swing.JDialog {
                    discount.setValueTextField(null);
                    productName.setFocus();
 
+                   //       ====== set placeholder ======
+                   productNameKh.setLabelTextField("Product Name Kh");
+                   barcode.setLabelTextField("Barcode");
+                   price.setLabelTextField("$ 0.00");
+                   cost.setLabelTextField("$ 0.00");
+                   weight.setLabelTextField("Weight");
+                   qty.setLabelTextField("Quantity");
+                   note.setLabelTextField("Note");
+                   discount.setLabelTextField("0%");
+                   productNameKh.setLabelTextField("Product Name Kh");
+                   productNameKh.setLabelTextField("Product Name Kh");
+
                    categoryId = null;
                    brandId = null;
                    taxId = null;
                    statusProduct = null;
+                   path = null;
 
                    brand.setToFirstItem();
                    category.setToFirstItem();
                    tax.setToFirstItem();
                    status.setToFirstItem();
+
+                   lbPicture.setIcon(null);
 
               }
               // Do something with the response.
@@ -676,13 +703,17 @@ public class AddProduct extends javax.swing.JDialog {
          JFileChooser jf = new JFileChooser();
          jf.showOpenDialog(null);
          File f = jf.getSelectedFile();
-         String path = f.getAbsolutePath();
+         path = f.getAbsolutePath();
 
          try {
+
               BufferedImage bi = ImageIO.read(new File(path));
               Image img = bi.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
               ImageIcon li = new ImageIcon(img);
-              lbPicture.setIcon(li);
+//              lbPicture.setIcon(li);
+
+              JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+
          } catch (IOException ex) {
               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
          }

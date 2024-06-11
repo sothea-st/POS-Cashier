@@ -13,6 +13,8 @@ import java.awt.Cursor;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -37,7 +39,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import okhttp3.MediaType;
- 
 
 public class JavaConstant {
 
@@ -130,7 +131,7 @@ public class JavaConstant {
      public static Integer qtyReturn;
 
      public static int limit = 21;
-     public static int limitPagination=21;
+     public static int limitPagination = 21;
      public static int page = 0;
      public static int brandId = 0;
 
@@ -211,6 +212,28 @@ public class JavaConstant {
 
      public static String isOpenShift;
 
+     public static void coverImagePath(String url, JLabel lable, int labelWidth, int labelHeight) throws MalformedURLException, IOException {
+          Image image = ImageIO.read(new File(url));
+
+          if (image != null) {
+               // Get dimensions of the JLabel
+//               int labelWidth = 160;
+//               int labelHeight = 105;
+
+               // Calculate the scale factor
+               double scaleX = (double) labelWidth / image.getWidth(null);
+               double scaleY = (double) labelHeight / image.getHeight(null);
+               double scale = Math.min(scaleX, scaleY);
+
+               // Scale the image
+               int scaledWidth = (int) (image.getWidth(null) * scale);
+               int scaledHeight = (int) (image.getHeight(null) * scale);
+               Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+               ImageIcon icon = new ImageIcon(scaledImage);
+               lable.setIcon(icon);
+          }
+     }
+
      public static void coverImage(String url, JLabel lable, int labelWidth, int labelHeight) throws MalformedURLException, IOException {
           URL imageUrl = new URL(url);
 
@@ -239,7 +262,7 @@ public class JavaConstant {
           ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
                @Override
                public void insertString(DocumentFilter.FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                   
+
                     StringBuilder builder = new StringBuilder(string.replaceAll(",", ""));
                     for (int i = builder.length() - 3; i > 0; i -= 3) {
                          builder.insert(i, ",");
@@ -249,7 +272,7 @@ public class JavaConstant {
 
                @Override
                public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                   
+
                     if (text == null) {
                          super.replace(fb, offset, length, text, attrs);
                          return;
@@ -305,13 +328,7 @@ public class JavaConstant {
           }
           return true;
      }
-     
-     
-     
-     
-     public static String categoryName = "new items";
-     
 
-     
+     public static String categoryName = "new items";
 
 }
