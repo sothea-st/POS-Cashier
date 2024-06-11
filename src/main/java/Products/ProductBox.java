@@ -194,7 +194,7 @@ public class ProductBox extends javax.swing.JPanel {
           txtBarcode.setForeground(WindowColor.gray);
           lbQty.setFont(WindowFonts.timeNewRomanBold12);
           jLabel2.setFont(WindowFonts.timeNewRomanBold12);
-          lbQty.setVisible(false);
+          lbQty.setVisible(true);
           jLabel2.setVisible(false);
      }
 

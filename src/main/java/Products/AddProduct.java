@@ -6,7 +6,9 @@ import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
+import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
 import Model.CustomerType.CustomerTypeModel;
 import Model.combobox.BrandModel;
 import Model.combobox.CategoryModel;
@@ -24,11 +26,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+ 
+ 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -38,7 +41,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+@Setter
+@Getter
 public class AddProduct extends javax.swing.JDialog {
 
      private String brandId;
@@ -47,6 +51,20 @@ public class AddProduct extends javax.swing.JDialog {
      private String taxId;
      String path;
      String pathFlag;
+     private JPanel panelProduct;
+     ActionProduct pro = new ActionProduct();
+     private LoginFormJdailog jdLogin;
+     private JPanel panelCategory;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+     
+     
 
      public AddProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -708,7 +726,11 @@ public class AddProduct extends javax.swing.JDialog {
 
                    lbPicture.setIcon(null);
                    lbFlag.setIcon(null);
-
+                    
+                   jdLogin.onClickCategory("new items");
+                   panelCategory.getComponents()[1].setBackground(WindowColor.black);
+            
+              
               }
               // Do something with the response.
          } catch (IOException e) {

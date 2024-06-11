@@ -62,18 +62,27 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      DecimalFormat bar = new DecimalFormat("########00000000");
      DecimalFormat kh = new DecimalFormat("#,##0");
 
-     private JLabel lbPOSId;
      private Button btnLogin;
-     // private JLabel boxUserName;
-     private JLabel imgUser;
+     private JPanel boxOne;
+     private Button btnPayment;
+     private Button buttonHoldOrder;
+     private ButtonCancel btnCancel;
      private JPanel category;
+     private JPanel detailItem;
+     private JPanel panelPagination;
+     private SubtotalPanel subtotalPanel;
+     private Button btnReturn;
+     private JLabel titleOrder;
+     private Button btnReprint;
+     private Button buttonDiscount;
+     private Button buttonCustomer;
+     private LabelFontGreen next;
+
+     private JLabel lbPOSId;
+
      private JPanel panelProduct;
      private JScrollPane jScrollPaneCategory;
-     private JPanel detailItem;
-     private JPanel boxOne;
-     private SubtotalPanel subtotalPanel;
-     private Button btnPayment;
-     private JPanel panelPagination;
+
      ActionProduct pro = new ActionProduct();
      private ComboBox cmboxBrand;
 //  checkOpenShift = false;
@@ -86,17 +95,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private String catName;
      private SearchField searchBox;
      private TextField textField;
-     private Button buttonHoldOrder;
-     private ButtonCancel btnCancel;
-     private Button btnReturn;
-     private Button btnReprint;
-     private Button buttonDiscount;
-     private Button buttonCustomer;
+
      private LabelTitle breadcrumb;
      private JFrame mainFrame;
-     private JLabel titleOrder;
+
      private Button stock;
-     private LabelFontGreen next;
+
      private LabelFontGreen previous;
 
      private String titleCategory;
@@ -578,83 +582,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
-
-                                   if (JavaConstant.checkOpenShift) {
-
-                                        previous.setBackground(WindowColor.lightGray);
-                                        next.setBackground(WindowColor.white);
-                                        JavaConstant.resetValuePagination(); // for pagination
-
-                                        setTitleCategory(catNameData);
-
-                                        previous.setBackground(WindowColor.white);
-                                        next.setBackground(WindowColor.white);
-
-                                        setCatId(catId);
-
-                                        getPanelPagination().setVisible(true);
-
-                                        // click on category actice background color
-                                        Component[] listCom = category.getComponents();
-                                        for (int j = 0; j < listCom.length; j++) {
-                                             String title = ((LabelTitle) listCom[j]).getLabelTitle();
-                                             if (catNameData.equals(title)) {
-                                                  listCom[j].setBackground(WindowColor.black);
-                                                  setCatName("" + j); // setCatName is index for change back ground when user try to pick other category  and select brand
-                                                  breadcrumb.setLabelTitle(title); // add breadcrumb
-                                             } else {
-                                                  listCom[j].setBackground(WindowColor.darkGreen);
-                                             }
-                                        }
-
-                                        setBrandId(0); // each time user click on category brandId will be 0
-                                        cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
-                                        searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
-
-                                        // in case when user maximize application to full window 
-                                        if (MainPage.isFullScreen) {
-                                             callDataInFullScreen();
-                                        }
-
-                                        panelProduct.removeAll();
-                                        if (catNameData.equals("ALL")) {
-                                             panelPagination.setVisible(false);
-                                             pro.getAllProduct(panelProduct);
-                                             listCom[0].setBackground(WindowColor.black);
-                                             setCatId(0);
-                                        } else {
-                                             JavaConstant.page = 0;
-                                             String lowerCase = catNameData.toLowerCase();
-                                             pro.setNext(next);
-                                             switch (lowerCase) {
-                                                  case "new items" : //   NEW ITEMS
-                                                       pro.newProduct(JavaConstant.limitPagination, panelProduct);
-                                                       break;
-                                                  case "promotion":   //  Promotion
-                                                       pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
-                                                       break;
-                                                  default  : 
-                                                       pro.product(catId, JavaConstant.limitPagination, panelProduct);
-                                                  
-                                             }
-                                        }
-                                        pro.setBtnPayment(btnPayment);
-                                        pro.setButtonHoldOrder(buttonHoldOrder);
-                                        pro.setBtnCancel(btnCancel);
-                                        pro.setBtnReturn(btnReturn);
-                                        panelProduct.revalidate();
-                                        panelProduct.repaint();
-                                        setCount(pro.getCount()); // set all product count retrive from api for making pagination
-
-                                        if (JavaConstant.checkOpenShift) {
-                                             textField.setFocus();
-                                        }
-
-                                   } else {
-                                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                                        j.setMessage("You have to open shift first!");
-                                        j.setVisible(true);
-                                   }
+                                   onClickCategory(catNameData);
                               }
 
                               @Override
@@ -684,6 +612,85 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                System.err.println("error " + e);
           }
 
+     }
+
+     public void onClickCategory(String catNameData) {
+
+          if (JavaConstant.checkOpenShift) {
+
+               previous.setBackground(WindowColor.lightGray);
+               next.setBackground(WindowColor.white);
+               JavaConstant.resetValuePagination(); // for pagination
+
+               setTitleCategory(catNameData);
+
+               previous.setBackground(WindowColor.white);
+               next.setBackground(WindowColor.white);
+
+               setCatId(catId);
+
+               getPanelPagination().setVisible(true);
+
+               // click on category actice background color
+               Component[] listCom = category.getComponents();
+               for (int j = 0; j < listCom.length; j++) {
+                    String title = ((LabelTitle) listCom[j]).getLabelTitle();
+                    if (catNameData.equals(title)) {
+                         listCom[j].setBackground(WindowColor.black);
+                         setCatName("" + j); // setCatName is index for change back ground when user try to pick other category  and select brand
+                         breadcrumb.setLabelTitle(title); // add breadcrumb
+                    } else {
+                         listCom[j].setBackground(WindowColor.darkGreen);
+                    }
+               }
+
+               setBrandId(0); // each time user click on category brandId will be 0
+               cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
+               searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
+
+               // in case when user maximize application to full window 
+               if (MainPage.isFullScreen) {
+                    callDataInFullScreen();
+               }
+
+               panelProduct.removeAll();
+               if (catNameData.equals("ALL")) {
+                    panelPagination.setVisible(false);
+                    pro.getAllProduct(panelProduct);
+                    listCom[0].setBackground(WindowColor.black);
+                    setCatId(0);
+               } else {
+                    JavaConstant.page = 0;
+                    String lowerCase = catNameData.toLowerCase();
+                    pro.setNext(next);
+                    switch (lowerCase) {
+                         case "new items": //   NEW ITEMS
+                              pro.newProduct(JavaConstant.limitPagination, panelProduct);
+                              break;
+                         case "promotion":   //  Promotion
+                              pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
+                              break;
+                         default:
+                              pro.product(catId, JavaConstant.limitPagination, panelProduct);
+                    }
+               }
+               pro.setBtnPayment(btnPayment);
+               pro.setButtonHoldOrder(buttonHoldOrder);
+               pro.setBtnCancel(btnCancel);
+               pro.setBtnReturn(btnReturn);
+               panelProduct.revalidate();
+               panelProduct.repaint();
+               setCount(pro.getCount()); // set all product count retrive from api for making pagination
+
+               if (JavaConstant.checkOpenShift) {
+                    textField.setFocus();
+               }
+
+          } else {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage("You have to open shift first!");
+               j.setVisible(true);
+          }
      }
 
      public void runData() {

@@ -7,6 +7,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
 import Model.combobox.BrandModel;
 import Model.combobox.CategoryModel;
 import Model.combobox.TaxModel;
@@ -21,6 +22,8 @@ import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -53,41 +56,67 @@ public class EditProduct extends javax.swing.JDialog {
      String pathFlag;
      private JPanel listGetProduct;
 
-    public Icon getFlagImage() {
-        return flagImage;
-    }
+     private JPanel plProduct;
+     private LoginFormJdailog jdLogin;
+     private JPanel pCategory;
 
-    public void setFlagImage(Icon flagImage) {
-        this.flagImage = flagImage;
-        lbFlag.setIcon(flagImage);
-    }
-    
-    public void setFlagImage(String url) throws MalformedURLException, IOException {
+     public JPanel getPlProduct() {
+          return plProduct;
+     }
+
+     public void setPlProduct(JPanel plProduct) {
+          this.plProduct = plProduct;
+     }
+
+     public LoginFormJdailog getJdLogin() {
+          return jdLogin;
+     }
+
+     public void setJdLogin(LoginFormJdailog jdLogin) {
+          this.jdLogin = jdLogin;
+     }
+
+     public JPanel getpCategory() {
+          return pCategory;
+     }
+
+     public void setpCategory(JPanel pCategory) {
+          this.pCategory = pCategory;
+     }
+
+     public Icon getFlagImage() {
+          return flagImage;
+     }
+
+     public void setFlagImage(Icon flagImage) {
+          this.flagImage = flagImage;
+          lbFlag.setIcon(flagImage);
+     }
+
+     public void setFlagImage(String url) throws MalformedURLException, IOException {
           JavaConstant.coverImage(url, lbFlag, 130, 130);
-    }
+     }
 
      public Icon getProductImage() {
-         return productImage;
+          return productImage;
      }
 
      public void setProductImage(Icon productImage) {
-         this.productImage = productImage;
-         lbPicture.setIcon(productImage);
+          this.productImage = productImage;
+          lbPicture.setIcon(productImage);
      }
-     
+
      public void setProductImage(String url) throws MalformedURLException, IOException {
           JavaConstant.coverImage(url, lbPicture, 150, 135);
      }
-    
-    
+
      public JPanel getListGetProduct() {
-         return listGetProduct;
+          return listGetProduct;
      }
 
      public void setListGetProduct(JPanel listGetProduct) {
-         this.listGetProduct = listGetProduct;
+          this.listGetProduct = listGetProduct;
      }
-     
 
      public int getProQty() {
           return proQty;
@@ -95,7 +124,7 @@ public class EditProduct extends javax.swing.JDialog {
 
      public void setProQty(int proQty) {
           this.proQty = proQty;
-          quantity.setValueTextField(""+proQty);
+          quantity.setValueTextField("" + proQty);
      }
 
      public String getProductNameEn() {
@@ -225,7 +254,6 @@ public class EditProduct extends javax.swing.JDialog {
 //     public void setIndexToStatus(String id) {
 //          status.setToLastItem(id);
 //     }
-
      //Set Combo box category
      private void addComboCategory() {
           try {
@@ -271,7 +299,6 @@ public class EditProduct extends javax.swing.JDialog {
 //               System.err.println("error = " + e);
 //          }
 //     }
-
      public EditProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -288,9 +315,8 @@ public class EditProduct extends javax.swing.JDialog {
           };
           brand.initEvent(event);
           addComboBrand();
-          
-          
-            // action get select tax
+
+          // action get select tax
           ButtonEvent eventtss = new ButtonEvent() {
                @Override
                public void onSelect(String key) {
@@ -299,9 +325,8 @@ public class EditProduct extends javax.swing.JDialog {
           };
           tax.initEvent(eventtss);
           addComboTax();
-          
-          
-           // action get select category
+
+          // action get select category
           ButtonEvent events = new ButtonEvent() {
                @Override
                public void onSelect(String key) {
@@ -310,8 +335,7 @@ public class EditProduct extends javax.swing.JDialog {
           };
           category.initEvent(events);
           addComboCategory();
-          
-          
+
 //           // action get select status
 //          ButtonEvent eventtt = new ButtonEvent() {
 //               @Override
@@ -321,7 +345,6 @@ public class EditProduct extends javax.swing.JDialog {
 //          };
 //          status.initEvent(eventtt);
 //          addComboStatus();
-
      }
 
      //Place Holder
@@ -755,7 +778,6 @@ public class EditProduct extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-         
 //         System.out.println("qty : " + quantity.getValueTextField());
 //         System.out.println("proNameEn : " + nameEn.getValueTextField());
 //         System.out.println("nameKh : " + nameKh.getValueTextField());
@@ -769,8 +791,6 @@ public class EditProduct extends javax.swing.JDialog {
 //         System.out.println("product Status : " + productStatus);
 //         System.out.println("Note : " + note.getValueTextField());
 //         System.out.println("Discount : " + discount.getValueTextField());
-         
-         
          String proName = nameEn.getValueTextField();
          String proNameKh = nameKh.getValueTextField();
          String proBarcode = barcode.getValueTextField();
@@ -797,19 +817,19 @@ public class EditProduct extends javax.swing.JDialog {
               JOptionPane.showMessageDialog(this, "Cost can not be empty!");
               return;
          }
-         if (""+categoryId == null) {
+         if ("" + categoryId == null) {
               JOptionPane.showMessageDialog(this, "Please select a category!");
               return;
          }
-         if (""+categoryId == null) {
+         if ("" + categoryId == null) {
               JOptionPane.showMessageDialog(this, "Please select a category!");
               return;
          }
-         if (""+brandId == null) {
+         if ("" + brandId == null) {
               JOptionPane.showMessageDialog(this, "Please select a brand!");
               return;
          }
-         if (""+taxId == null) {
+         if ("" + taxId == null) {
               JOptionPane.showMessageDialog(this, "Please select a tax!");
               return;
          }
@@ -819,32 +839,32 @@ public class EditProduct extends javax.swing.JDialog {
 //         }
 
          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct + "/" + productId;
-         
+
          proPrice = proPrice.replace(",", "");
          proCost = proCost.replace(",", "");
 
          OkHttpClient client = new OkHttpClient();
          // File to upload
-         
+
          // Request body
          MultipartBody.Builder requestBody = new MultipartBody.Builder()
               .setType(MultipartBody.FORM)
-              .addFormDataPart("catId", ""+categoryId)
+              .addFormDataPart("catId", "" + categoryId)
               .addFormDataPart("proNameEn", proName)
               .addFormDataPart("cost", proCost)
               .addFormDataPart("price", proPrice)
               .addFormDataPart("barcode", proBarcode)
-              .addFormDataPart("brandId", ""+brandId)
+              .addFormDataPart("brandId", "" + brandId)
               .addFormDataPart("createBy", JavaConstant.cashierId + "")
-              .addFormDataPart("taxId", ""+taxId)
-              .addFormDataPart("productStatus", ""); 
+              .addFormDataPart("taxId", "" + taxId)
+              .addFormDataPart("productStatus", "");
 
          if (path != null) {
               File fileToUpload = new File(path);
               requestBody.addFormDataPart("file", fileToUpload.getName(),
                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
          }
-         
+
          if (pathFlag != null) {
               File fileToUpload = new File(pathFlag);
               requestBody.addFormDataPart("flagFile", fileToUpload.getName(),
@@ -881,13 +901,15 @@ public class EditProduct extends javax.swing.JDialog {
          try {
               Response response = client.newCall(request).execute();
               if (response.isSuccessful()) {
-                   
+                   jdLogin.onClickCategory("new items");
+                   pCategory.getComponents()[1].setBackground(WindowColor.black);
+
                    ListProduct list = new ListProduct(new JFrame(), true);
                    listGetProduct.removeAll();
                    listGetProduct.revalidate();
                    listGetProduct.repaint();
                    list.getProduct(listGetProduct);
-                   System.out.println("success data add");
+
                    dispose();
               }
               // Do something with the response.
@@ -899,18 +921,18 @@ public class EditProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-        try {
-             path = JNAFileChooser.funChooseFile();
-             JavaConstant.coverImagePath(path, lbPicture, 124, 235);
-        } catch (IOException ex) {
-             Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         try {
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+         } catch (IOException ex) {
+              Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_button1MouseClicked
 
     private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
          try {
-               pathFlag = JNAFileChooser.funChooseFile();
-               JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
+              pathFlag = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
          } catch (IOException ex) {
               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
          }
