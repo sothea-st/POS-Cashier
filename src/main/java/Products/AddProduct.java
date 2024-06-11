@@ -1,6 +1,7 @@
 package Products;
 
 import Color.WindowColor;
+import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -10,6 +11,9 @@ import Model.CustomerType.CustomerTypeModel;
 import Model.combobox.BrandModel;
 import Model.combobox.CategoryModel;
 import Model.combobox.TaxModel;
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,6 +27,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
@@ -700,29 +705,46 @@ public class AddProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-         JFileChooser jf = new JFileChooser();
-         jf.showOpenDialog(null);
-         File f = jf.getSelectedFile();
-         path = f.getAbsolutePath();
-
          try {
-
-              BufferedImage bi = ImageIO.read(new File(path));
-              Image img = bi.getScaledInstance(135, 135, Image.SCALE_SMOOTH);
-              ImageIcon li = new ImageIcon(img);
-//              lbPicture.setIcon(li);
-
-              JavaConstant.coverImagePath(path, lbPicture, 124, 235);
-
+               path = JNAFileChooser.funChooseFile();
+               JavaConstant.coverImagePath(path, lbPicture, 124, 235);
          } catch (IOException ex) {
               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
          }
+
     }//GEN-LAST:event_button1MouseClicked
 
-     /**
-      * @param args the command line
-      * arguments
-      */
+//    ========================== for file chooser JNA ===========================
+//     public interface User32 extends Library {
+//
+//          User32 INSTANCE = Native.load("user32", User32.class);
+//
+//          int MessageBoxW(int hWnd, String lpText, String lpCaption, int uType);
+//     }
+//
+//     void funChooseFile() throws IOException {
+//          JFrame frame = new JFrame("File Chooser Example");
+//          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//          frame.setSize(750, 650);
+//          FileDialog fileDialog = new FileDialog(frame, "Choose File", FileDialog.LOAD);
+//          fileDialog.setVisible(true);
+//
+//          String selectedFile = fileDialog.getFile();
+//          if (selectedFile != null) {
+//               String directory = fileDialog.getDirectory();
+//               String filePath = directory + selectedFile;
+//               // Now you have the absolute path of the selected file, you can further process it if needed
+//               File file = new File(filePath);
+//               path = file.getAbsolutePath();
+//               JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+//
+//          } else {
+//               System.out.println("No file selected.");
+//          }
+//     }
+
+     //    ========================== end file chooser JNA ===========================
+ 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

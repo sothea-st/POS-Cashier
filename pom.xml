@@ -102,6 +102,16 @@
                <version>1.18.32</version>
                <scope>provided</scope>
           </dependency>
+          
+          
+          
+          
+          <!--for fileChooser-->
+          <dependency>
+               <groupId>net.java.dev.jna</groupId>
+               <artifactId>jna</artifactId>
+               <version>5.9.0</version>  
+          </dependency>
          
          
          

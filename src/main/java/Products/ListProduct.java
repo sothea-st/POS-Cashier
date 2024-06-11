@@ -3,35 +3,29 @@ package Products;
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
-import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Controller.ActionProduct.ActionProduct;
 import Controller.ActionSearchProductController.ActionSearchProd;
 import CustomeUI.CustomScrollBarUI;
-import DeleteAndCancel.CancelDialog;
-import Discount.DiscountByItem;
+
 import Event.ButtonEvent;
-import HoldOrder.HoldeModel;
-import Model.HoldOrder.HoldProductModel;
+
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 

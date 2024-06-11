@@ -7,6 +7,7 @@ import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.LabelFontGreen;
 import Components.SubtotalPanel;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
@@ -423,12 +424,8 @@ public class ActionProduct {
 //               }
 //
 //               product.setWeight(_weight);
-               
-               
-               
                product.setWeight(listData.getWeight());
-               
-               
+
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
 
@@ -449,7 +446,12 @@ public class ActionProduct {
                               public void run() {
                                    try {
                                         // Task to be executed
-                                        product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                                        if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
+                                             product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                                        } else {
+                                             product.setProductImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
+                                        }
+
                                    } catch (IOException ex) {
                                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
                                    }
@@ -594,9 +596,7 @@ public class ActionProduct {
 //          }
 //
 //          box.setLabelWeight(_weight);
-          
           box.setLabelWeight(listData.getWeight());
-
 
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
