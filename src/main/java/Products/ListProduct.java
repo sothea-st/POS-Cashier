@@ -1,6 +1,7 @@
 package Products;
 
 import BlogCode.JavaBlogImage;
+import BlogCode.JavaExistScreen;
 import Color.WindowColor;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
@@ -10,6 +11,7 @@ import Controller.ActionSearchProductController.ActionSearchProd;
 import CustomeUI.CustomScrollBarUI;
 
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
 
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
@@ -17,19 +19,25 @@ import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ListProduct extends javax.swing.JDialog {
 
@@ -190,14 +198,36 @@ public class ListProduct extends javax.swing.JDialog {
                     
                     
                     @Override
-                    public void onRemove(String Key) {  // event edit
-                         EditProduct edit = new EditProduct(new JFrame(), true);
+                    public void onRemove(String Key) {  // event delete prooduct
                          try {
-                              Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
-                              String responseData = response.body().string();
-                              ObjectMapper objMap = new ObjectMapper();
-                              DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
-                              ListDetailProduct listproduct = data.getData();
+
+                              UIManager UI = new UIManager();
+                              UI.put("OptionPane.background", WindowColor.mediumGreen);
+                              UI.put("Panel.background", WindowColor.mediumGreen);
+                              UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+                              
+                              int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
+                                          "Delete Product?", JOptionPane.YES_NO_OPTION);
+                              
+                              if (resp == JOptionPane.YES_OPTION) {
+                                  JSONObject json = new JSONObject();
+                                  json.put("status", false);
+                                  json.put("isDeleted", true);
+                                  Response response = JavaConnection.delete(JavaRoute.product + "/" + listData.getId(), json);
+                                  
+                                  if(response.isSuccessful()){
+                                      ListProduct list = new ListProduct(new JFrame(), true);
+                                      listGetProduct.removeAll();
+                                      listGetProduct.revalidate();
+                                      listGetProduct.repaint();
+                                      list.getProduct(listGetProduct);
+                                      dispose();
+                                      System.out.println("Successful deleted ");
+                                  }
+                               } else {
+                                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                               }
+                              
                          } catch (Exception e) {
                               System.err.println("error getting product " + e);
                          }
@@ -211,6 +241,7 @@ public class ListProduct extends javax.swing.JDialog {
                prod.setQty(listData.getQty());
                prod.setProductId(listData.getId());
                prod.setListGetProduct(listGetProduct);
+               
                prod.setProductStatus(listData.getProductStatus());
 
                try {
@@ -235,6 +266,28 @@ public class ListProduct extends javax.swing.JDialog {
 
           }
      }
+     
+     
+//      public static void existFun(JDialog  ListProduct) {
+//          UIManager UI = new UIManager();
+//          UI.put("OptionPane.background", WindowColor.mediumGreen);
+//          UI.put("Panel.background", WindowColor.mediumGreen);
+//          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+//        
+//          
+//          ListProduct.addWindowListener(new WindowAdapter() {
+//               public void windowClosing(WindowEvent evt) {
+//                    int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
+//                         "Exit?", JOptionPane.YES_NO_OPTION);
+//                     
+//                    if (resp == JOptionPane.YES_OPTION) {
+//                         ListProduct.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//                    } else {
+//                         ListProduct.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//                    }
+//               }
+//          });
+//     }
 
      //Action Search
      private void eventSearchProduct() {
@@ -397,8 +450,8 @@ public class ListProduct extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -409,7 +462,7 @@ public class ListProduct extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelListProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelListProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

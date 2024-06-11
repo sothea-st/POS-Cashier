@@ -364,6 +364,7 @@ public class AddProduct extends javax.swing.JDialog {
             }
         });
 
+        lbPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPicture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         button1.setBackground(new java.awt.Color(47, 152, 70));
@@ -384,6 +385,7 @@ public class AddProduct extends javax.swing.JDialog {
 
         lbCustomerId14.setLabelName("Country Image");
 
+        lbFlag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbFlag.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         button2.setBackground(new java.awt.Color(47, 152, 70));
@@ -723,13 +725,15 @@ public class AddProduct extends javax.swing.JDialog {
                    taxId = null;
                    statusProduct = null;
                    path = null;
-
+                   pathFlag = null;
+                   
                    brand.setToFirstItem();
                    category.setToFirstItem();
                    tax.setToFirstItem();
                    status.setToFirstItem();
 
                    lbPicture.setIcon(null);
+                   lbFlag.setIcon(null);
 
               }
               // Do something with the response.
