@@ -197,7 +197,7 @@ public class ProductModel {
      }
 
      public void setProductStatus(String productStatus) {
-          this.productStatus = productStatus;
+          this.productStatus = productStatus == null ? "" : productStatus;
      }
 
      public double getDiscount() {

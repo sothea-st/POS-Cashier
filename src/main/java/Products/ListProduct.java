@@ -163,32 +163,31 @@ public class ListProduct extends javax.swing.JDialog {
                               edit.setIndexToBrand(listproduct.getBrandID());
                               edit.setIndexToCategory(listproduct.getCatID());
                               edit.setIndexToTax(listproduct.getTaxID());
-                              edit.setIndexToStatus(listproduct.getProductStatus());
+//                              edit.setIndexToStatus(listproduct.getProductStatus());
                               edit.setProductStatus(listproduct.getProductStatus());
                               edit.setBrandId(listproduct.getBrandID());
                               edit.setTaxId(listproduct.getTaxID());
                               edit.setCategoryId(listproduct.getCatID());
-                              edit.setProQty(listData.getQty());
+//                              edit.setProQty(listData.getQty());
                               edit.setListGetProduct(listGetProduct);
-                              
-                              if(listData.getProImageName().contains("media/file/crm/uploadfile/")){
+
+                              if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
                                    edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
-                              }else{
-                                  edit.setProductImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
-                              } 
-                              
-                              if(listData.getFlag() != null){
-                                  edit.setFlagImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getFlag());
-                              } 
-                              
+                              } else {
+                                   edit.setProductImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
+                              }
+
+                              if (listData.getFlag() != null) {
+                                   edit.setFlagImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getFlag());
+                              }
+
                               edit.setVisible(true);
 
                          } catch (Exception e) {
                               System.err.println("error getting product " + e);
                          }
                     }
-                    
-                    
+
                     @Override
                     public void onRemove(String Key) {  // event edit
                          EditProduct edit = new EditProduct(new JFrame(), true);
@@ -211,7 +210,15 @@ public class ListProduct extends javax.swing.JDialog {
                prod.setQty(listData.getQty());
                prod.setProductId(listData.getId());
                prod.setListGetProduct(listGetProduct);
-               prod.setProductStatus(listData.getProductStatus());
+               if (listData.getProductStatus() == null) {
+                    prod.setProductStatus("Out Stock");
+               } else {
+                    if (listData.getProductStatus().isEmpty()) {
+                         prod.setProductStatus("Out Stock");
+                    } else {
+                         prod.setProductStatus(listData.getProductStatus());
+                    }
+               }
 
                try {
 

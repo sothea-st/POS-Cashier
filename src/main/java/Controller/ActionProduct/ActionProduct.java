@@ -370,15 +370,21 @@ public class ActionProduct {
 
                product.setOrgQty(listData.getQty());
 
+               
 //================================Product Status============================
                if (listData.getQty() > 0) {
+                  
                     product.setProductStatus(listData.getProductStatus());
-
                } else {
-                    if (listData.getProductStatus().isEmpty()) {
+                   
+                    if (listData.getProductStatus() == null) {
                          product.setProductStatus("Unavailable");
                     } else {
-                         product.setProductStatus("Out Stock");
+                         if (listData.getProductStatus().isEmpty()) {
+                              product.setProductStatus("Unavailable");
+                         } else {
+                              product.setProductStatus("Out Stock");
+                         }
                     }
                }
 
@@ -449,7 +455,7 @@ public class ActionProduct {
                                         if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
                                              product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
                                         } else {
-                                             product.setProductImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
+                                             product.setProductImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
                                         }
 
                                    } catch (IOException ex) {
