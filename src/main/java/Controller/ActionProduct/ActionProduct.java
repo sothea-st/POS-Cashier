@@ -663,7 +663,12 @@ public class ActionProduct {
           }
 
           try {
-               box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+              if(listData.getProImageName().contains("media/file/crm/uploadfile/")){
+                  box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+              }else{
+                  box.setIconImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
+              } 
+               
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());

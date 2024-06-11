@@ -361,13 +361,8 @@ public class AddProduct extends javax.swing.JDialog {
 
           lbPicture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-          button1.setBackground(new java.awt.Color(47, 152, 70));
-          button1.setButtonName("Browse to Upload");
-          button1.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    button1MouseClicked(evt);
-               }
-          });
+        lbPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPicture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
           lbCustomerId13.setLabelName("Quantity");
 
@@ -704,7 +699,8 @@ public class AddProduct extends javax.swing.JDialog {
                    taxId = null;
                    statusProduct = null;
                    path = null;
-
+                   pathFlag = null;
+                   
                    brand.setToFirstItem();
                    category.setToFirstItem();
                    tax.setToFirstItem();

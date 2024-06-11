@@ -9,6 +9,7 @@ import Components.NoData;
 import Components.NotFound;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
@@ -342,34 +343,34 @@ public class ListHoldOrder extends javax.swing.JDialog {
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProNameEn());
           
-          //        ====================== get weight ====================
-          String _weight = "";
-          // Your JSON string
-          String jsonString = listData.getWeight();
-
-          // Convert the string to a JSONArray
-          JSONArray jsonArray = new JSONArray(jsonString);
-
-          // Iterate over each JSONObject in the JSONArray
-          for (int m = 0; m < jsonArray.length(); m++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(m);
-
-                // Get values from each JSONObject
-                String name = jsonObject.getString("name");
-                String title = jsonObject.getString("title");
-
-                // Extract options JSONArray
-                JSONArray optionsArray = jsonObject.getJSONArray("options");
-
-                // Get the first option
-                JSONObject optionsObject = optionsArray.getJSONObject(0);
-                String option = optionsObject.getString("option");
-
-
-                _weight = option;
-          }
+//          //        ====================== get weight ====================
+//          String _weight = "";
+//          // Your JSON string
+//          String jsonString = listData.getWeight();
+//
+//          // Convert the string to a JSONArray
+//          JSONArray jsonArray = new JSONArray(jsonString);
+//
+//          // Iterate over each JSONObject in the JSONArray
+//          for (int m = 0; m < jsonArray.length(); m++) {
+//                JSONObject jsonObject = jsonArray.getJSONObject(m);
+//
+//                // Get values from each JSONObject
+//                String name = jsonObject.getString("name");
+//                String title = jsonObject.getString("title");
+//
+//                // Extract options JSONArray
+//                JSONArray optionsArray = jsonObject.getJSONArray("options");
+//
+//                // Get the first option
+//                JSONObject optionsObject = optionsArray.getJSONObject(0);
+//                String option = optionsObject.getString("option");
+//
+//
+//                _weight = option;
+//          }
           
-          box.setLabelWeight(_weight);
+          box.setLabelWeight(listData.getWeight());
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 
@@ -414,8 +415,11 @@ public class ListHoldOrder extends javax.swing.JDialog {
 
           try {
 //               box.setIconImage("http://localhost:8090/api/public/addImageForBackground/" + listData.getProImageName());
-               box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
-
+              if(listData.getProImageName().contains("media/file/crm/uploadfile/")){
+                  box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+              }else{
+                  box.setIconImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
+              } 
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());
