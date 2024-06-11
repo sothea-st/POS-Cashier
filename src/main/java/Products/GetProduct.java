@@ -21,6 +21,7 @@ public class GetProduct extends javax.swing.JPanel {
     private int quantity;
     private int productId;
     private Icon image;
+    private Icon imageDelete;
     private JPanel panelProduct;
     private String productStatus;
 
@@ -106,6 +107,16 @@ public class GetProduct extends javax.swing.JPanel {
         this.productStatus = productStatus;
         status.setText(productStatus);
     }
+
+    public Icon getImageDelete() {
+        return imageDelete;
+    }
+
+    public void setImageDelete(Icon imageDelete) {
+        this.imageDelete = imageDelete;
+        imgDelete.setIcon(imageDelete);
+    }
+    
      
     public void initEvent(ButtonEvent event) {
           imgEdit.addMouseListener(new MouseListener() {
@@ -143,6 +154,7 @@ public class GetProduct extends javax.swing.JPanel {
         id = new javax.swing.JLabel();
         imgEdit = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
+        imgDelete = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -179,14 +191,21 @@ public class GetProduct extends javax.swing.JPanel {
         status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         status.setText("Status");
 
+        imgDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        imgDelete.setForeground(new java.awt.Color(0, 0, 0));
+        imgDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        imgDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
+
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);
         getProductLayout.setHorizontalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(imgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(imgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(imgDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,14 +223,16 @@ public class GetProduct extends javax.swing.JPanel {
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbBarcode)
-                    .addComponent(lbPrice)
-                    .addComponent(qty)
-                    .addComponent(lbName)
-                    .addComponent(id)
-                    .addComponent(imgEdit)
-                    .addComponent(status))
+                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbBarcode)
+                        .addComponent(lbPrice)
+                        .addComponent(qty)
+                        .addComponent(lbName)
+                        .addComponent(id)
+                        .addComponent(imgEdit)
+                        .addComponent(status))
+                    .addComponent(imgDelete))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -233,6 +254,7 @@ public class GetProduct extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel getProduct;
     private javax.swing.JLabel id;
+    private javax.swing.JLabel imgDelete;
     private javax.swing.JLabel imgEdit;
     private javax.swing.JLabel lbBarcode;
     private javax.swing.JLabel lbName;

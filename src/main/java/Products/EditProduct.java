@@ -264,7 +264,6 @@ public class EditProduct extends javax.swing.JDialog {
           status.initEvent(eventtt);
           addComboStatus();
 
-          qtyData.setComma("comma");
      }
 
      //Place Holder
