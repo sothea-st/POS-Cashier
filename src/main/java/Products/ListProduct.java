@@ -3,6 +3,7 @@ package Products;
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Controller.ActionSearchProductController.ActionSearchProd;
 import CustomeUI.CustomScrollBarUI;
