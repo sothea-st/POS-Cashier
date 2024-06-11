@@ -195,6 +195,7 @@ public class ListProduct extends javax.swing.JDialog {
                          public void run() {
                               // Task to be executed
                               prod.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                              prod.setImageDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
                          }
                     };
 
