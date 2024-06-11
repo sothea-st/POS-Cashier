@@ -96,7 +96,7 @@ public class GetProduct extends javax.swing.JPanel {
 
     public void setImage(Icon image) {
         this.image = image;
-        imgEdit.setIcon(image);
+        btnEdit.setIcon(image);
     }
 
     public String getProductStatus() {
@@ -114,15 +114,38 @@ public class GetProduct extends javax.swing.JPanel {
 
     public void setImageDelete(Icon imageDelete) {
         this.imageDelete = imageDelete;
-        imgDelete.setIcon(imageDelete);
+        btnDelete.setIcon(imageDelete);
     }
     
      
     public void initEvent(ButtonEvent event) {
-          imgEdit.addMouseListener(new MouseListener() {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
                     event.onSelect(""+productId);
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+          
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove(""+productId);
                }
 
                @Override
@@ -152,9 +175,9 @@ public class GetProduct extends javax.swing.JPanel {
         lbName = new javax.swing.JLabel();
         qty = new javax.swing.JLabel();
         id = new javax.swing.JLabel();
-        imgEdit = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JLabel();
         status = new javax.swing.JLabel();
-        imgDelete = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -181,20 +204,20 @@ public class GetProduct extends javax.swing.JPanel {
 
         id.setText("jLabel1");
 
-        imgEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        imgEdit.setForeground(new java.awt.Color(0, 0, 0));
-        imgEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(0, 0, 0));
+        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
 
         status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         status.setForeground(new java.awt.Color(0, 0, 0));
         status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         status.setText("Status");
 
-        imgDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        imgDelete.setForeground(new java.awt.Color(0, 0, 0));
-        imgDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imgDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
 
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);
@@ -202,9 +225,9 @@ public class GetProduct extends javax.swing.JPanel {
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(imgEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(imgDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,9 +253,9 @@ public class GetProduct extends javax.swing.JPanel {
                         .addComponent(qty)
                         .addComponent(lbName)
                         .addComponent(id)
-                        .addComponent(imgEdit)
+                        .addComponent(btnEdit)
                         .addComponent(status))
-                    .addComponent(imgDelete))
+                    .addComponent(btnDelete))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -252,10 +275,10 @@ public class GetProduct extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnDelete;
+    private javax.swing.JLabel btnEdit;
     private javax.swing.JPanel getProduct;
     private javax.swing.JLabel id;
-    private javax.swing.JLabel imgDelete;
-    private javax.swing.JLabel imgEdit;
     private javax.swing.JLabel lbBarcode;
     private javax.swing.JLabel lbName;
     private javax.swing.JLabel lbPrice;

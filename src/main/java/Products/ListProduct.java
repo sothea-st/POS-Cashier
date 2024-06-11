@@ -161,24 +161,37 @@ public class ListProduct extends javax.swing.JDialog {
                               if (listproduct.getWeight() != null) {
                                    edit.setProductWeight(listproduct.getWeight());
                               }
-
                               if (listproduct.getNote() != null) {
                                    edit.setProductNote(listproduct.getNote());
                               }
-
                               edit.setIndexToBrand(listproduct.getBrandID());
                               edit.setIndexToCategory(listproduct.getCatID());
                               edit.setIndexToTax(listproduct.getTaxID());
-
                               edit.setIndexToStatus(listproduct.getProductStatus());
-
                               edit.setProductStatus(listproduct.getProductStatus());
                               edit.setBrandId(listproduct.getBrandID());
                               edit.setTaxId(listproduct.getTaxID());
                               edit.setCategoryId(listproduct.getCatID());
-                              edit.setProQty("" + listData.getQty());
+                              edit.setProQty(listData.getQty());
+                              edit.setListGetProduct(listGetProduct);
+                              edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
                               edit.setVisible(true);
 
+                         } catch (Exception e) {
+                              System.err.println("error getting product " + e);
+                         }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event edit
+                         EditProduct edit = new EditProduct(new JFrame(), true);
+                         try {
+                              Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
+                              String responseData = response.body().string();
+                              ObjectMapper objMap = new ObjectMapper();
+                              DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
+                              ListDetailProduct listproduct = data.getData();
                          } catch (Exception e) {
                               System.err.println("error getting product " + e);
                          }

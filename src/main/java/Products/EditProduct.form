@@ -28,10 +28,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="panelEditProduct" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="panelEditProduct" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -43,99 +40,109 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="labelPopUpTitle1" alignment="1" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lbCustomerId" min="-2" pref="88" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="nameEn" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="nameKh" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="barcode" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="price" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="cost" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="weight" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="qty" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId8" min="-2" pref="38" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId11" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lbCustomerId7" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="lbCustomerId6" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lbCustomerId" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lbCustomerId10" min="-2" pref="39" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="jLabel12" min="-2" pref="13" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="lbCustomerId9" min="-2" pref="58" max="-2" attributes="0"/>
+                                      <Component id="nameEn" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="nameKh" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="barcode" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="price" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cost" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="weight" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="quantity" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lbCustomerId8" min="-2" pref="38" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lbCustomerId11" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="lbCustomerId7" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="lbCustomerId6" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="lbCustomerId10" min="-2" pref="39" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel12" min="-2" pref="13" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lbCustomerId9" min="-2" pref="58" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                          <Component id="tax" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="category" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="status" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="brand" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="discount" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="note" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbCustomerId13" min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lbCustomerId3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                          <Component id="jLabel13" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lbCustomerId4" min="-2" pref="34" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="jLabel7" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="lbCustomerId2" min="-2" pref="50" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="lbCustomerId1" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="lbCustomerId12" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lbCustomerId5" min="-2" pref="48" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                              <Component id="jLabel15" min="-2" pref="13" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Component id="tax" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="category" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="status" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="brand" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="discount" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="note" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="29" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId4" min="-2" pref="34" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId2" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lbCustomerId1" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lbCustomerId12" alignment="0" pref="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="lbCustomerId5" min="-2" pref="48" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                      <Component id="jLabel15" min="-2" pref="13" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="lbPicture" min="-2" pref="124" max="-2" attributes="0"/>
+                              <Component id="button1" min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="608" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -203,14 +210,26 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lbCustomerId12" alignment="0" max="32767" attributes="0"/>
-                      <Component id="qty" alignment="0" max="32767" attributes="0"/>
+                      <Component id="quantity" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="buttonSave" alignment="0" max="32767" attributes="0"/>
-                      <Component id="buttonCancel" alignment="0" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbCustomerId13" min="-2" pref="28" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="lbPicture" min="-2" pref="135" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="button1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="buttonSave" max="32767" attributes="0"/>
+                              <Component id="buttonCancel" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                  <EmptySpace min="18" pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -443,10 +462,35 @@
             <Property name="labelName" type="java.lang.String" value="Quantity"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="qty">
+        <Component class="Components.TextField" name="quantity">
           <Properties>
             <Property name="labelTextField" type="java.lang.String" value="Quantity"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbPicture">
+          <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="lbCustomerId13">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Product Image"/>
+          </Properties>
+        </Component>
+        <Component class="Button.Button" name="button1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="46" green="98" red="2f" type="rgb"/>
+            </Property>
+            <Property name="buttonName" type="java.lang.String" value="Browse to Upload"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
