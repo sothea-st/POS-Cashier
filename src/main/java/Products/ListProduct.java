@@ -2,6 +2,7 @@ package Products;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -169,7 +170,17 @@ public class ListProduct extends javax.swing.JDialog {
                               edit.setCategoryId(listproduct.getCatID());
                               edit.setProQty(listData.getQty());
                               edit.setListGetProduct(listGetProduct);
-                              edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                              
+                              if(listData.getProImageName().contains("media/file/crm/uploadfile/")){
+                                   edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                              }else{
+                                  edit.setProductImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
+                              } 
+                              
+                              if(listData.getFlag() != null){
+                                  edit.setFlagImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getFlag());
+                              } 
+                              
                               edit.setVisible(true);
 
                          } catch (Exception e) {
