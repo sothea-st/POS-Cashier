@@ -4,6 +4,7 @@ package Staff;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
+import Controller.ActionSearchProductController.ActionSearchProd;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.Staff.DetailDataSuccessModel;
@@ -118,8 +119,8 @@ public class StaffInformation extends javax.swing.JDialog {
                               Response response = JavaConnection.get(JavaRoute.employee + "/" + listData.getId());
                               String responseData = response.body().string();
                               ObjectMapper objMap = new ObjectMapper();
-                              DetailDataSuccessModel data = objMap.readValue(responseData, DetailDataSuccessModel.class);
-                              DetailGetDataModel listStafff = data.getData();
+                              DetailDataSuccessModel datas = objMap.readValue(responseData, DetailDataSuccessModel.class);
+                              DetailGetDataModel listStafff = datas.getData();
                               edit.setStaffId(listStafff.getId());
                               edit.setStaffName(listStafff.getNameEn());
                               edit.setStaffNameKh(listStafff.getNameKh());
@@ -199,10 +200,11 @@ public class StaffInformation extends javax.swing.JDialog {
                          listGetStaff.repaint();
                          getStaff(listGetStaff);
                     } else {
-//                         listGetStaff.removeAll();
-//                         ActionSearchProd.searchProduct(searchValue, listGetStaff);
-//                         listGetStaff.revalidate();
-//                         listGetStaff.repaint();
+                         System.out.println("value search = " + searchValue);
+                         listGetStaff.removeAll();
+                         ActionSearchProd.searchProduct(searchValue, listGetStaff);
+                         listGetStaff.revalidate();
+                         listGetStaff.repaint();
                     }
                }
           };

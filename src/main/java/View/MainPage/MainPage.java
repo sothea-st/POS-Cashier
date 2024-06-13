@@ -1025,6 +1025,7 @@ public class MainPage extends javax.swing.JFrame {
                    list.setPanelProduct(panelProduct);
                    list.setJdLogin(jdFormLogin);
                    list.setCategory(category);
+              
                    list.setVisible(true);
               }
          }

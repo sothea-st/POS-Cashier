@@ -54,6 +54,8 @@ public class ListProduct extends javax.swing.JDialog {
      private LoginFormJdailog jdLogin;
      private JPanel category;
      ArrayList<ProductModel> listProduct = new ArrayList<>();
+ 
+     
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -378,9 +380,9 @@ public class ListProduct extends javax.swing.JDialog {
           jScrollPane1 = new javax.swing.JScrollPane();
           listGetProduct = new javax.swing.JPanel();
           button1 = new Button.Button();
-          button2 = new Button.Button();
-          button3 = new Button.Button();
-          button4 = new Button.Button();
+          btnExcel = new Button.Button();
+          btnPdf = new Button.Button();
+          btnCsv = new Button.Button();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -477,27 +479,27 @@ public class ListProduct extends javax.swing.JDialog {
                }
           });
 
-          button2.setBackground(new java.awt.Color(47, 155, 70));
-          button2.setButtonName("Excel");
-          button2.addMouseListener(new java.awt.event.MouseAdapter() {
+          btnExcel.setBackground(new java.awt.Color(47, 155, 70));
+          btnExcel.setButtonName("Excel");
+          btnExcel.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    button2MouseClicked(evt);
+                    btnExcelMouseClicked(evt);
                }
           });
 
-          button3.setBackground(new java.awt.Color(47, 155, 70));
-          button3.setButtonName("PDF");
-          button3.addMouseListener(new java.awt.event.MouseAdapter() {
+          btnPdf.setBackground(new java.awt.Color(47, 155, 70));
+          btnPdf.setButtonName("PDF");
+          btnPdf.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    button3MouseClicked(evt);
+                    btnPdfMouseClicked(evt);
                }
           });
 
-          button4.setBackground(new java.awt.Color(47, 155, 70));
-          button4.setButtonName("CSV");
-          button4.addMouseListener(new java.awt.event.MouseAdapter() {
+          btnCsv.setBackground(new java.awt.Color(47, 155, 70));
+          btnCsv.setButtonName("CSV");
+          btnCsv.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    button4MouseClicked(evt);
+                    btnCsvMouseClicked(evt);
                }
           });
 
@@ -509,11 +511,11 @@ public class ListProduct extends javax.swing.JDialog {
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addGroup(panelListProductLayout.createSequentialGroup()
                               .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(btnCsv, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(panelListProductLayout.createSequentialGroup()
                               .addGap(15, 15, 15)
                               .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,9 +540,9 @@ public class ListProduct extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(btnCsv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(18, Short.MAX_VALUE))
           );
 
@@ -565,24 +567,25 @@ public class ListProduct extends javax.swing.JDialog {
          add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
-     private void button4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button4MouseClicked
+     private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked
           PrintToCSV.exportToCSV(listProduct);
           msgPrint(PrintToCSV.folderPath);
-     }//GEN-LAST:event_button4MouseClicked
+     }//GEN-LAST:event_btnCsvMouseClicked
 
-     private void button3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button3MouseClicked
+     private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
           try {
                PrintListPDF.printListPdf(listProduct);
                msgPrint(PrintListPDF.folderPath);
           } catch (IOException ex) {
                Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
           }
-     }//GEN-LAST:event_button3MouseClicked
+     }//GEN-LAST:event_btnPdfMouseClicked
 
-     private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
+     private void btnExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcelMouseClicked
+
           PrintToExcel.toExcel(listProduct);
           msgPrint(PrintToExcel.folderPath);
-     }//GEN-LAST:event_button2MouseClicked
+     }//GEN-LAST:event_btnExcelMouseClicked
 
      private void msgPrint(String path) {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
@@ -632,10 +635,10 @@ public class ListProduct extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private Button.Button btnCsv;
+     private Button.Button btnExcel;
+     private Button.Button btnPdf;
      private Button.Button button1;
-     private Button.Button button2;
-     private Button.Button button3;
-     private Button.Button button4;
      private javax.swing.JPanel header;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel2;

@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-
 public class DetailDataSuccessModel {
     private String msg;
     private DetailGetDataModel data;
