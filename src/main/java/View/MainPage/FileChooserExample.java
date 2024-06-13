@@ -4,47 +4,45 @@
  */
 package View.MainPage;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import java.awt.FileDialog;
-import java.io.File;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 
 public class FileChooserExample {
+     // create folder in specific path
 
- 
-     public interface User32 extends Library {
+     public static String downloadFolderPath = System.getProperty("user.home");
+     public static String folderPath = downloadFolderPath + "\\Downloads\\EXCEL_Downloads";
 
-          User32 INSTANCE = Native.load("user32", User32.class);
+     public static void exportToCSV(List<String[]> data, String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            for (String[] row : data) {
+                StringBuilder rowString = new StringBuilder();
+                for (int i = 0; i < row.length; i++) {
+                    rowString.append(row[i]);
+                    if (i < row.length - 1) {
+                        rowString.append(",");
+                    }
+                }
+                writer.write(rowString.toString());
+                writer.newLine();
+            }
+            System.out.println("CSV file exported successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-          int MessageBoxW(int hWnd, String lpText, String lpCaption, int uType);
-     }
+    public static void main(String[] args) {
+        // Example data: a 2x2 matrix
+        List<String[]> data = List.of(
+                new String[]{"Name", "Age", "City"},
+                new String[]{"John", "30", "New York"},
+                new String[]{"Alice", "25", "Los Angeles"}
+        );
 
-     public static void main(String[] args) {
-          SwingUtilities.invokeLater(() -> {
-               JFrame frame = new JFrame("File Chooser Example");
-               frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-               FileDialog fileDialog = new FileDialog(frame, "Choose File", FileDialog.LOAD);
-               fileDialog.setVisible(true);
-
-               String selectedFile = fileDialog.getFile();
-               if (selectedFile != null) {
-                    String directory = fileDialog.getDirectory();
-                    String filePath = directory + selectedFile;
-                    System.out.println("Selected file: " + filePath);
-
-                    // Now you have the absolute path of the selected file, you can further process it if needed
-                    File file = new File(filePath);
-                    String absolutePath = file.getAbsolutePath();
-                    System.out.println("Absolute Path: " + absolutePath);
-               } else {
-                    System.out.println("No file selected.");
-               }
-
-               frame.pack();
-               frame.setVisible(true);
-          });
-     }
+        // Export the data to a CSV file
+        exportToCSV(data, "output.csv");
+    }
 }

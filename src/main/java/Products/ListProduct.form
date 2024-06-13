@@ -265,6 +265,9 @@
             </Property>
             <Property name="buttonName" type="java.lang.String" value="Excel"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button2MouseClicked"/>
+          </Events>
         </Component>
         <Component class="Button.Button" name="button3">
           <Properties>
@@ -273,6 +276,9 @@
             </Property>
             <Property name="buttonName" type="java.lang.String" value="PDF"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button3MouseClicked"/>
+          </Events>
         </Component>
         <Component class="Button.Button" name="button4">
           <Properties>
@@ -281,6 +287,9 @@
             </Property>
             <Property name="buttonName" type="java.lang.String" value="CSV"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button4MouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

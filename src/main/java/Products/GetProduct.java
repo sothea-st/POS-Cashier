@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
-
+     
     public GetProduct() {
         initComponents();
         id.setVisible(false);

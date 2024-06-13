@@ -93,7 +93,7 @@ public class ActionProduct {
           try {
 
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-
+               
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

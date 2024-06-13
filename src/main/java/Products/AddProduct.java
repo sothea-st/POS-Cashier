@@ -6,30 +6,28 @@ import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
+import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
-import Model.CustomerType.CustomerTypeModel;
+import LoginAndLogoutForm.LoginFormJdailog;
 import Model.combobox.BrandModel;
 import Model.combobox.CategoryModel;
 import Model.combobox.TaxModel;
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import java.awt.FileDialog;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
+
+import java.awt.Cursor;
+
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpRequest;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+
 import javax.swing.JOptionPane;
-import okhttp3.FormBody;
+import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -39,6 +37,8 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+@Setter
+@Getter
 public class AddProduct extends javax.swing.JDialog {
 
      private String brandId;
@@ -47,6 +47,18 @@ public class AddProduct extends javax.swing.JDialog {
      private String taxId;
      String path;
      String pathFlag;
+     private JPanel panelProduct;
+     ActionProduct pro = new ActionProduct();
+     private LoginFormJdailog jdLogin;
+     private JPanel panelCategory;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
      public AddProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -83,7 +95,6 @@ public class AddProduct extends javax.swing.JDialog {
 //          };
 //          status.initEvent(eventtt);
 //          addComboStatus();
-
           // action get select tax
           ButtonEvent eventtss = new ButtonEvent() {
                @Override
@@ -163,6 +174,8 @@ public class AddProduct extends javax.swing.JDialog {
                     JSONArray data = jsonObject.getJSONArray("data");
                     for (int i = 0; i < data.length(); i++) {
                          JSONObject obj = data.getJSONObject(i);
+
+//                         if (_catName.equals("new items") || _catName.equals("promotion") || _catName.equals("all")) 
                          CategoryModel categ = new CategoryModel(
                               obj.getInt("id"),
                               obj.getString("catNameEn")
@@ -171,8 +184,10 @@ public class AddProduct extends javax.swing.JDialog {
 
                          int idCategory = categoryModel.get(i).getCategoryId();
                          String categoryName = categoryModel.get(i).getCategoryName();
+//                         String _catName = obj.getString("catNameEn").toLowerCase();
 
                          map.put(categoryName, "" + idCategory);
+
                     }
                     category.setMap(map);
                } else {
@@ -195,7 +210,6 @@ public class AddProduct extends javax.swing.JDialog {
 //               System.err.println("error = " + e);
 //          }
 //     }
-
      //Set Combo box tax
      private void addComboTax() {
           try {
@@ -640,7 +654,7 @@ public class AddProduct extends javax.swing.JDialog {
               requestBody.addFormDataPart("file", fileToUpload.getName(),
                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
          }
-         
+
          if (pathFlag != null) {
               File fileToUpload = new File(pathFlag);
               requestBody.addFormDataPart("flagFile", fileToUpload.getName(),
@@ -673,6 +687,8 @@ public class AddProduct extends javax.swing.JDialog {
               .post(requestBody.build())
               .header("Authorization", "Bearer " + JavaConstant.token)
               .build();
+
+         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
          try {
               Response response = client.newCall(request).execute();
@@ -707,7 +723,7 @@ public class AddProduct extends javax.swing.JDialog {
                    statusProduct = null;
                    path = null;
                    pathFlag = null;
-                   
+
                    brand.setToFirstItem();
                    category.setToFirstItem();
                    tax.setToFirstItem();
@@ -715,6 +731,9 @@ public class AddProduct extends javax.swing.JDialog {
 
                    lbPicture.setIcon(null);
                    lbFlag.setIcon(null);
+               
+                   jdLogin.onClickCategory("new items",jdLogin.getCatId());
+                   panelCategory.getComponents()[1].setBackground(WindowColor.black);
 
               }
               // Do something with the response.
@@ -726,8 +745,8 @@ public class AddProduct extends javax.swing.JDialog {
 
     private void buttonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadMouseClicked
          try {
-               path = JNAFileChooser.funChooseFile();
-               JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbPicture, 124, 235);
          } catch (IOException ex) {
               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -735,9 +754,9 @@ public class AddProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonUploadMouseClicked
 
     private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
-        try {
-               pathFlag = JNAFileChooser.funChooseFile();
-               JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
+         try {
+              pathFlag = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
          } catch (IOException ex) {
               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -771,34 +790,9 @@ public class AddProduct extends javax.swing.JDialog {
 //               System.out.println("No file selected.");
 //          }
 //     }
-
      //    ========================== end file chooser JNA ===========================
- 
      public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(AddProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
 
-          /* Create and display the dialog */
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     AddProduct dialog = new AddProduct(new javax.swing.JFrame(), true);

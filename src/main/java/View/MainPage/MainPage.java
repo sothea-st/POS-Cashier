@@ -1022,6 +1022,9 @@ public class MainPage extends javax.swing.JFrame {
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
                    ListProduct list = new ListProduct(new JFrame(), true);
+                   list.setPanelProduct(panelProduct);
+                   list.setJdLogin(jdFormLogin);
+                   list.setCategory(category);
                    list.setVisible(true);
               }
          }
