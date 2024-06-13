@@ -43,7 +43,7 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="button1" min="-2" pref="125" max="-2" attributes="0"/>
+                          <Component id="buttonUpload" min="-2" pref="125" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -53,26 +53,26 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId" min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Component id="label1" min="-2" pref="88" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lbCustomerId5" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="label6" min="-2" pref="48" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="lbCustomerId3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="label5" min="-2" pref="30" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Component id="jLabel13" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="lbCustomerId4" min="-2" pref="34" max="-2" attributes="0"/>
+                                  <Component id="label4" min="-2" pref="34" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="jLabel7" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="lbCustomerId1" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                              <Component id="lbCustomerId12" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Component id="label2" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                              <Component id="label7" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
                               <Component id="lbPicture" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbCustomerId2" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="label3" min="-2" pref="50" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
@@ -91,23 +91,23 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lbCustomerId8" min="-2" pref="38" max="-2" attributes="0"/>
+                                          <Component id="label9" min="-2" pref="38" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jLabel14" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="lbCustomerId9" min="-2" pref="58" max="-2" attributes="0"/>
+                                          <Component id="label10" min="-2" pref="58" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="lbCustomerId11" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="label11" min="-2" pref="25" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="lbCustomerId7" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Component id="lbCustomerId6" min="-2" pref="61" max="-2" attributes="0"/>
-                                      <Component id="lbCustomerId13" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                                      <Component id="label13" min="-2" pref="34" max="-2" attributes="0"/>
+                                      <Component id="label14" min="-2" pref="61" max="-2" attributes="0"/>
+                                      <Component id="label12" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace pref="34" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -127,7 +127,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="button2" min="-2" pref="125" max="-2" attributes="0"/>
                                       <Component id="lbFlag" min="-2" pref="124" max="-2" attributes="0"/>
-                                      <Component id="lbCustomerId14" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Component id="label8" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -149,16 +149,16 @@
                               <Component id="jLabel14" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="productName" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lbCustomerId8" alignment="0" max="32767" attributes="0"/>
-                              <Component id="lbCustomerId" alignment="1" max="32767" attributes="0"/>
+                              <Component id="label9" alignment="0" max="32767" attributes="0"/>
+                              <Component id="label1" alignment="1" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="productNameKh" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbCustomerId9" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbCustomerId1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="label10" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="label2" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="category" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -166,44 +166,44 @@
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lbCustomerId2" max="32767" attributes="0"/>
+                              <Component id="label3" max="32767" attributes="0"/>
                               <Component id="jLabel10" min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="barcode" alignment="0" max="32767" attributes="0"/>
                               <Component id="tax" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel17" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="lbCustomerId11" alignment="0" max="32767" attributes="0"/>
+                              <Component id="label11" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lbCustomerId4" max="32767" attributes="0"/>
+                                  <Component id="label4" max="32767" attributes="0"/>
                                   <Component id="jLabel7" min="-2" pref="25" max="-2" attributes="0"/>
                                   <Component id="price" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="lbCustomerId13" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="label12" alignment="0" max="32767" attributes="0"/>
                                   <Component id="qty" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lbCustomerId3" max="32767" attributes="0"/>
+                              <Component id="label5" max="32767" attributes="0"/>
                               <Component id="cost" max="32767" attributes="0"/>
                               <Component id="jLabel13" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="lbCustomerId7" alignment="0" max="32767" attributes="0"/>
+                              <Component id="label13" alignment="0" max="32767" attributes="0"/>
                               <Component id="note" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="lbCustomerId5" max="32767" attributes="0"/>
+                              <Component id="label6" max="32767" attributes="0"/>
                               <Component id="weight" max="32767" attributes="0"/>
-                              <Component id="lbCustomerId6" alignment="0" max="32767" attributes="0"/>
+                              <Component id="label14" alignment="0" max="32767" attributes="0"/>
                               <Component id="discount" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="lbCustomerId12" min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="label7" min="-2" pref="28" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lbCustomerId14" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="label8" min="-2" pref="28" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -221,7 +221,7 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="button1" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonUpload" min="-2" max="-2" attributes="0"/>
                               <Component id="button2" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -237,7 +237,7 @@
             <Property name="labelTitle" type="java.lang.String" value="Add Product"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId">
+        <Component class="Components.Label" name="label1">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Product Name "/>
           </Properties>
@@ -252,12 +252,12 @@
             <Property name="labelTextField" type="java.lang.String" value="Product Name"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId1">
+        <Component class="Components.Label" name="label2">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Product Name Kh"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId2">
+        <Component class="Components.Label" name="label3">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Barcode"/>
           </Properties>
@@ -267,7 +267,7 @@
             <Property name="labelTextField" type="java.lang.String" value="Barcode"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId3">
+        <Component class="Components.Label" name="label5">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Cost"/>
           </Properties>
@@ -277,7 +277,7 @@
             <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId4">
+        <Component class="Components.Label" name="label4">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Price"/>
           </Properties>
@@ -287,7 +287,7 @@
             <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId5">
+        <Component class="Components.Label" name="label6">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Weight"/>
           </Properties>
@@ -297,7 +297,7 @@
             <Property name="labelTextField" type="java.lang.String" value="Weight"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId6">
+        <Component class="Components.Label" name="label14">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Discount"/>
           </Properties>
@@ -307,21 +307,21 @@
             <Property name="labelTextField" type="java.lang.String" value="0%"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId7">
+        <Component class="Components.Label" name="label13">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Note"/>
           </Properties>
         </Component>
         <Component class="Components.ComboBox" name="tax">
         </Component>
-        <Component class="Components.Label" name="lbCustomerId8">
+        <Component class="Components.Label" name="label9">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Brand"/>
           </Properties>
         </Component>
         <Component class="Components.ComboBox" name="brand">
         </Component>
-        <Component class="Components.Label" name="lbCustomerId9">
+        <Component class="Components.Label" name="label10">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Category"/>
           </Properties>
@@ -333,7 +333,7 @@
             <Property name="labelTextField" type="java.lang.String" value="Note"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId12">
+        <Component class="Components.Label" name="label7">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Product Image"/>
           </Properties>
@@ -393,7 +393,7 @@
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId11">
+        <Component class="Components.Label" name="label11">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Tax"/>
           </Properties>
@@ -440,7 +440,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="Button.Button" name="button1">
+        <Component class="Button.Button" name="buttonUpload">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="98" red="2f" type="rgb"/>
@@ -448,10 +448,10 @@
             <Property name="buttonName" type="java.lang.String" value="Browse to Upload"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonUploadMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId13">
+        <Component class="Components.Label" name="label12">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Quantity"/>
           </Properties>
@@ -461,7 +461,7 @@
             <Property name="labelTextField" type="java.lang.String" value="Quantity"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCustomerId14">
+        <Component class="Components.Label" name="label8">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Country Image"/>
           </Properties>

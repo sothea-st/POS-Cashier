@@ -96,6 +96,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private JFrame mainFrame;
      private JLabel titleOrder;
      private Button stock;
+     private Button buttonStaff;
      private LabelFontGreen next;
      private LabelFontGreen previous;
 
@@ -361,7 +362,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String userId = txtUserId.getValueTextField();
 //         String password = txtPassword.getValuePassword();
 
-         String userId = "0005";
+         String userId = "0004";
          String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
@@ -441,6 +442,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              buttonDiscount.setBackground(WindowColor.green);
                              btnReprint.setBackground(WindowColor.green);
                              stock.setBackground(WindowColor.green);
+                             buttonStaff.setBackground(WindowColor.green);
                              pro.setBtnReturn(btnReturn);
 
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
@@ -1001,6 +1003,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setPrevious(LabelFontGreen previous) {
           this.previous = previous;
      }
+
+    public Button getButtonStaff() {
+        return buttonStaff;
+    }
+
+    public void setButtonStaff(Button buttonStaff) {
+        this.buttonStaff = buttonStaff;
+    }
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
