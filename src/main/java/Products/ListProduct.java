@@ -17,14 +17,18 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 
@@ -39,6 +43,10 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 import okhttp3.Response;
 import org.json.JSONObject;
+import pdf.PrintListPDF;
+import pdf.PrintPanelToPDF;
+import pdf.PrintToCSV;
+import pdf.PrintToExcel;
 
 public class ListProduct extends javax.swing.JDialog {
 
@@ -48,6 +56,7 @@ public class ListProduct extends javax.swing.JDialog {
      private JPanel panelProduct;
      private LoginFormJdailog jdLogin;
      private JPanel category;
+     ArrayList<ProductModel> listProduct = new ArrayList<>();
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -119,7 +128,6 @@ public class ListProduct extends javax.swing.JDialog {
      }
 
      public void assignProduct(ProductDataModel[] listData, JPanel listGetProduct) {
-          ArrayList<ProductModel> listProduct = new ArrayList<>();
 
           for (int i = 0; i < listData.length; i++) {
                var obj = listData[i];
@@ -253,7 +261,8 @@ public class ListProduct extends javax.swing.JDialog {
                                         listGetProduct.revalidate();
                                         listGetProduct.repaint();
                                         list.getProduct(listGetProduct);
-                                        jdLogin.onClickCategory("new items");
+
+                                        jdLogin.onClickCategory("new items", jdLogin.getCatId());
                                         category.getComponents()[1].setBackground(WindowColor.black);
                                         dispose();
                                         System.out.println("Successful deleted ");
@@ -372,6 +381,9 @@ public class ListProduct extends javax.swing.JDialog {
           jScrollPane1 = new javax.swing.JScrollPane();
           listGetProduct = new javax.swing.JPanel();
           button1 = new Button.Button();
+          jLabel7 = new javax.swing.JLabel();
+          pdf = new javax.swing.JLabel();
+          csv = new javax.swing.JLabel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -468,6 +480,27 @@ public class ListProduct extends javax.swing.JDialog {
                }
           });
 
+          jLabel7.setText("Excel");
+          jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    jLabel7MouseClicked(evt);
+               }
+          });
+
+          pdf.setText("pdf");
+          pdf.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    pdfMouseClicked(evt);
+               }
+          });
+
+          csv.setText("scv");
+          csv.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    csvMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout panelListProductLayout = new javax.swing.GroupLayout(panelListProduct);
           panelListProduct.setLayout(panelListProductLayout);
           panelListProductLayout.setHorizontalGroup(
@@ -477,6 +510,12 @@ public class ListProduct extends javax.swing.JDialog {
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(panelListProductLayout.createSequentialGroup()
                               .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(34, 34, 34)
+                              .addComponent(jLabel7)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addComponent(pdf)
+                              .addGap(18, 18, 18)
+                              .addComponent(csv)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addComponent(jScrollPane1)
@@ -488,8 +527,13 @@ public class ListProduct extends javax.swing.JDialog {
                .addGroup(panelListProductLayout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                              .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                   .addComponent(jLabel7)
+                                   .addComponent(pdf)
+                                   .addComponent(csv))
+                              .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
@@ -521,31 +565,23 @@ public class ListProduct extends javax.swing.JDialog {
          add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+          PrintToExcel.toExcel(listProduct);
+     }//GEN-LAST:event_jLabel7MouseClicked
 
-          /* Create and display the dialog */
+     private void pdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfMouseClicked
+          try {
+               PrintListPDF.printListPdf(listProduct);
+          } catch (IOException ex) {
+               Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
+          }
+     }//GEN-LAST:event_pdfMouseClicked
+
+     private void csvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_csvMouseClicked
+         PrintToCSV.exportToCSV(listProduct);
+     }//GEN-LAST:event_csvMouseClicked
+
+     public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     ListProduct dialog = new ListProduct(new javax.swing.JFrame(), true);
@@ -562,6 +598,7 @@ public class ListProduct extends javax.swing.JDialog {
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Button.Button button1;
+     private javax.swing.JLabel csv;
      private javax.swing.JPanel header;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel2;
@@ -569,9 +606,11 @@ public class ListProduct extends javax.swing.JDialog {
      private javax.swing.JLabel jLabel4;
      private javax.swing.JLabel jLabel5;
      private javax.swing.JLabel jLabel6;
+     private javax.swing.JLabel jLabel7;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JPanel listGetProduct;
      private javax.swing.JPanel panelListProduct;
+     private javax.swing.JLabel pdf;
      private Components.SearchField searchField;
      // End of variables declaration//GEN-END:variables
 }

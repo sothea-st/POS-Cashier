@@ -11,6 +11,7 @@ public class JavaBlogImage {
 
      public static byte[] getImage(String route){
        Response response = JavaConnection.getWithoutToken(route);
+      
           byte[] bg = null;
           if (response.isSuccessful()) {
                try {

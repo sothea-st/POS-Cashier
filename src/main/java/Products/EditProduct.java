@@ -901,7 +901,8 @@ public class EditProduct extends javax.swing.JDialog {
          try {
               Response response = client.newCall(request).execute();
               if (response.isSuccessful()) {
-                   jdLogin.onClickCategory("new items");
+                  
+                   jdLogin.onClickCategory("new items",jdLogin.getCatId());
                    pCategory.getComponents()[1].setBackground(WindowColor.black);
 
                    ListProduct list = new ListProduct(new JFrame(), true);

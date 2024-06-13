@@ -582,7 +582,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
-                                   onClickCategory(catNameData);
+                                   onClickCategory(catNameData,catId);
                               }
 
                               @Override
@@ -614,7 +614,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      }
 
-     public void onClickCategory(String catNameData) {
+     public void onClickCategory(String catNameData ,int catId) {
 
           if (JavaConstant.checkOpenShift) {
 
@@ -671,6 +671,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
                               break;
                          default:
+                             
                               pro.product(catId, JavaConstant.limitPagination, panelProduct);
                     }
                }
