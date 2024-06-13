@@ -1,18 +1,115 @@
 package Staff;
 
 import Constant.JNAFileChooser;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
+import Event.ButtonEvent;
+import Model.Role.RoleModel;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class AddStaff extends javax.swing.JDialog {
 
     String path;
+    private String genderId;
+    private String roleId;
+    
     public AddStaff(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         datepicker();
+        event();
+        staffName.requestFocus();
+        
+        // action get select 
+        ButtonEvent eventtss = new ButtonEvent() {
+             @Override
+             public void onSelect(String key) {
+                  genderId = key;
+             }
+        };
+        gender.initEvent(eventtss);
+        addComboGender();
+        
+        
+        // action get select 
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onSelect(String key) {
+                  roleId = key;
+             }
+        };
+        genderId1.initEvent(event);
+        addComboRole();
+    }
+    
+    //Place Holder
+    void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          staffName.initEvent(btnevent);
+          staffNameKh.initEvent(btnevent);
+          startDate.initEvent(btnevent);
+          address.initEvent(btnevent);
+          dob.initEvent(btnevent);
+          contact.initEvent(btnevent);
+    }
+    
+    
+     //Set Combo box role
+     private void addComboRole() {
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               ArrayList<RoleModel> roleModel = new ArrayList<>();
+               Response response = JavaConnection.get(JavaRoute.role);
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                         JSONObject obj = data.getJSONObject(i);
+                         RoleModel role = new RoleModel(
+                              obj.getInt("id"),
+                              obj.getString("role_name")
+                         );
+                         
+                         roleModel.add(role);
+
+                         int idRole = roleModel.get(i).getRoleId();
+                         String roleName = roleModel.get(i).getRoleName();
+                         map.put(roleName, "" + idRole);
+                    }
+                    genderId1.setMap(map);
+               } else {
+                    System.err.println("fail loading data");
+               }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
+    
+    //Set Combo box Gender
+    private void addComboGender() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("Male", "male" );
+            map.put("Female", "female" );
+            gender.setMap(map);
+        } catch (Exception e) {
+             System.err.println("error = " + e);
+        }
     }
     
     private void datepicker(){
@@ -36,7 +133,7 @@ public class AddStaff extends javax.swing.JDialog {
         label3 = new Components.Label();
         startDate = new Components.TextField();
         label5 = new Components.Label();
-        genderId = new Components.ComboBox();
+        gender = new Components.ComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -191,7 +288,7 @@ public class AddStaff extends javax.swing.JDialog {
                                     .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                                 .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(genderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(startDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(genderId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -208,7 +305,7 @@ public class AddStaff extends javax.swing.JDialog {
                 .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(genderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(staffName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,7 +352,7 @@ public class AddStaff extends javax.swing.JDialog {
                         .addComponent(buttonUpload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -337,7 +434,7 @@ public class AddStaff extends javax.swing.JDialog {
     private Button.Button buttonUpload;
     private Components.TextField contact;
     private Components.TextField dob;
-    private Components.ComboBox genderId;
+    private Components.ComboBox gender;
     private Components.ComboBox genderId1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;

@@ -1,7 +1,9 @@
 
 package Staff;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
@@ -15,6 +17,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,12 +33,20 @@ public class StaffInformation extends javax.swing.JDialog {
     
     public StaffInformation(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+//        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         initComponents();
         header.setBackground(WindowColor.darkGreen);
         getStaff(listGetStaff);
         eventSearchProduct();
+//        // custome scrollbar ui
+//        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+//        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+//        // custom scroll speed jscrollPane for vertical
+//        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+//        verticalScrollBar.setUnitIncrement(30);
+//        verticalScrollBar.setBlockIncrement(35);
     }
     
     
@@ -122,11 +135,18 @@ public class StaffInformation extends javax.swing.JDialog {
                               DetailGetDataModel listStafff = data.getData();
                               edit.setStaffId(listStafff.getId());
                               edit.setStaffName(listStafff.getNameEn());
-                              edit.setStaffNameKh(listStafff.getNameKh());
+                              if( !listStafff.getNameKh().isEmpty()){
+                                  edit.setStaffNameKh(listStafff.getNameKh());
+                              }
                               edit.setStartDate(listStafff.getStartDate());
                               edit.setAddress(listStafff.getAddress());
                               edit.setDateOfBirth(listStafff.getDob());
                               edit.setContact(listStafff.getContact());
+                              edit.setIndexToGender(listStafff.getGender());
+                              if (listData.getImageName() != null) {
+                                   edit.setFile(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName());
+                              }
+                              
                               edit.setVisible(true);
 
                          } catch (Exception e) {
@@ -179,6 +199,25 @@ public class StaffInformation extends javax.swing.JDialog {
                prod.setContact(listData.getContact());
                prod.setGender(listData.getGender());
                prod.setAddress(listData.getAddress());
+               
+               try {
+
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              // Task to be executed
+                              prod.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                              prod.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+               } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+               }
+
                
                listGetStaff.add(prod, gbc);
           }

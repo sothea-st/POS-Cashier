@@ -39,5 +39,6 @@ public class JavaRoute {
      public static String tax = "/taxProduct";
      public static String addProduct = "/product";
      public static String employee = "/employee";
+     public static String role = "/role";
 
 }

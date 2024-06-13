@@ -103,7 +103,7 @@
                                   </Group>
                                   <EmptySpace pref="22" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="genderId" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="contact" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="startDate" min="-2" max="-2" attributes="0"/>
                                       <Component id="genderId1" min="-2" max="-2" attributes="0"/>
@@ -129,7 +129,7 @@
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="genderId" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel14" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="staffName" alignment="0" max="32767" attributes="0"/>
@@ -188,7 +188,7 @@
                       <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -254,7 +254,7 @@
             <Property name="labelName" type="java.lang.String" value="Gender"/>
           </Properties>
         </Component>
-        <Component class="Components.ComboBox" name="genderId">
+        <Component class="Components.ComboBox" name="gender">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
