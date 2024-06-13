@@ -3,6 +3,7 @@ package Staff;
 import Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.Icon;
 
 public class GetStaff extends javax.swing.JPanel {
 
@@ -18,6 +19,8 @@ public class GetStaff extends javax.swing.JPanel {
     private String contact;
     private String gender;
     private String address;
+    private Icon iconEdit;
+    private Icon iconDelete;
 
     public int getId() {
         return id;
@@ -72,6 +75,26 @@ public class GetStaff extends javax.swing.JPanel {
         this.address = address;
         lbAddress.setText(address);
     }
+
+    public Icon getIconEdit() {
+        return iconEdit;
+    }
+
+    public void setIconEdit(Icon iconEdit) {
+        this.iconEdit = iconEdit;
+        btnEdit.setIcon(iconEdit);
+    }
+
+    public Icon getIconDelete() {
+        return iconDelete;
+    }
+
+    public void setIconDelete(Icon iconDelete) {
+        this.iconDelete = iconDelete;
+        btnDelete.setIcon(iconDelete);
+    }
+    
+    
     
     public void initEvent(ButtonEvent event) {
           btnEdit.addMouseListener(new MouseListener() {
