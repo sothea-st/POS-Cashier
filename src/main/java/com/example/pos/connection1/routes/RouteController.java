@@ -267,6 +267,11 @@ public class RouteController {
           @Autowired
           private EmployeeService service;
 
+          @GetMapping("/userAccount")
+          public ResponseEntity<?> getUserAccount(){
+               return JavaResponse.success(service.getUserAccount());
+          }
+
           @PostMapping
           public ResponseEntity<?> addEmployee(@Valid @ModelAttribute Employee e,
                     @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {

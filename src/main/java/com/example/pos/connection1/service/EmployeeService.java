@@ -6,6 +6,7 @@ import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.FileStore;
 import com.example.pos.connection1.entity.User;
+import com.example.pos.connection1.projections.AccountUserProjection;
 import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.UserRepository;
@@ -57,6 +58,7 @@ public class EmployeeService {
         emp.setContact(e.getContact());
         emp.setStartDate(e.getStartDate());
         emp.setCreateBy(e.getCreateBy());
+        emp.setRoleId(e.getRoleId());
 
         if (file == null || file.isEmpty()) {
             emp.setImageName(JavaConstant.defaultNameImage);
@@ -96,6 +98,7 @@ public class EmployeeService {
         user.setUserCode(userCountRow);
         user.setEmpId(emp.getId());
         user.setCreateBy(e.getCreateBy());
+        user.setRole(e.getRoleId());
         userRepo.save(user);
         return emp;
     }
@@ -161,5 +164,9 @@ public class EmployeeService {
         return data.get().getData();
     }
 
+
+    public List<AccountUserProjection> getUserAccount(){
+        return repo.getAccountUserProjections();
+    }
 
 }
