@@ -76,7 +76,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button btnReprint;
      private Button buttonDiscount;
      private Button buttonCustomer;
-     private LabelFontGreen next;
+ 
 
      private JLabel lbPOSId;
 
@@ -101,6 +101,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      private Button stock;
 
+     private Button buttonStaff;
+     private LabelFontGreen next;
      private LabelFontGreen previous;
 
      private String titleCategory;
@@ -445,6 +447,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              buttonDiscount.setBackground(WindowColor.green);
                              btnReprint.setBackground(WindowColor.green);
                              stock.setBackground(WindowColor.green);
+                             buttonStaff.setBackground(WindowColor.green);
                              pro.setBtnReturn(btnReturn);
 
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
@@ -1009,6 +1012,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setPrevious(LabelFontGreen previous) {
           this.previous = previous;
      }
+
+    public Button getButtonStaff() {
+        return buttonStaff;
+    }
+
+    public void setButtonStaff(Button buttonStaff) {
+        this.buttonStaff = buttonStaff;
+    }
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {

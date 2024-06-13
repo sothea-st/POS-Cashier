@@ -13,7 +13,16 @@ public class JavaAlertMessage extends javax.swing.JDialog {
      public static String returnMsg = "You are in processing return !";
      public static int countTimeQty = 0;
      private String message;
-     private boolean isShow=false;
+     private boolean isShow = false;
+     private String pathOpen;
+
+     public String getPathOpen() {
+          return pathOpen;
+     }
+
+     public void setPathOpen(String pathOpen) {
+          this.pathOpen = pathOpen;
+     }
 
      public boolean isIsShow() {
           return isShow;
@@ -23,7 +32,6 @@ public class JavaAlertMessage extends javax.swing.JDialog {
           this.isShow = isShow;
           btnBrowse.setVisible(isShow);
      }
-     
 
      public JavaAlertMessage(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -135,10 +143,14 @@ public class JavaAlertMessage extends javax.swing.JDialog {
      private void btnBrowseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBrowseMouseClicked
 
           String filePath = PrintPanelToPDF.folderPath;
+          if (pathOpen != null) {
+               filePath = pathOpen;
+          }
           File file = new File(filePath);
           if (file.exists()) {
                try {
                     Desktop.getDesktop().open(file);
+                    dispose();
                } catch (IOException e) {
                     System.out.println("Error opening file: " + e.getMessage());
                }

@@ -115,7 +115,7 @@
          
          
          
-          <!-- Apache POI core library -->
+          <!-- Apache POI core library excel -->
           <dependency>
                <groupId>org.apache.poi</groupId>
                <artifactId>poi</artifactId>

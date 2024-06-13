@@ -41,6 +41,7 @@ public class ActionCloseShift {
           BackgroundImage bgImage,
           Button btnLogin,
           Button stock,
+          Button buttonStaff,
           LoginFormJdailog jdFormLogin
      ) {
 
@@ -84,6 +85,7 @@ public class ActionCloseShift {
           close.setButtonCashier(buttonCashier);
           close.setBtnLogin(btnLogin);
           close.setStock(stock);
+          close.setButtonStaff(buttonStaff);
           close.setVisible(true);
 
      }

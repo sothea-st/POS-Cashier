@@ -30,6 +30,7 @@ import Payment.PaymentOption;
 import Print.ReprintJdailog;
 import Products.ListProduct;
 import Return.ApprovalCode;
+import Staff.Staff;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
@@ -230,7 +231,7 @@ public class MainPage extends javax.swing.JFrame {
         btnCancel = new ButtonPackage.ButtonCancel();
         stock = new Button.Button();
         buttonCustomer = new Button.Button();
-        buttonCustomer1 = new Button.Button();
+        buttonStaff = new Button.Button();
         searchBox = new Components.SearchField();
         currentDate = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -421,12 +422,12 @@ public class MainPage extends javax.swing.JFrame {
             }
         });
 
-        buttonCustomer1.setBackground(new java.awt.Color(204, 204, 204));
-        buttonCustomer1.setForeground(new java.awt.Color(255, 255, 255));
-        buttonCustomer1.setButtonName("User");
-        buttonCustomer1.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonStaff.setBackground(new java.awt.Color(204, 204, 204));
+        buttonStaff.setForeground(new java.awt.Color(255, 255, 255));
+        buttonStaff.setButtonName("Staff");
+        buttonStaff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCustomer1MouseClicked(evt);
+                buttonStaffMouseClicked(evt);
             }
         });
 
@@ -452,7 +453,7 @@ public class MainPage extends javax.swing.JFrame {
                             .addComponent(stock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonCustomer1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonStaff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(panelprocessingLayout.createSequentialGroup()
                                 .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -488,7 +489,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelprocessingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -678,6 +679,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setStock(stock);
           jdFormLogin.setNext(next);
           jdFormLogin.setPrevious(previous);
+          jdFormLogin.setButtonStaff(buttonStaff);
           jdFormLogin.setMainFrame(this);
      }
 
@@ -750,6 +752,7 @@ public class MainPage extends javax.swing.JFrame {
                              jdOpenShift.setBtnLogin(btnLogin);
                              jdOpenShift.setTitleOrder(titleOrder);
                              jdOpenShift.setStock(stock);
+                             jdOpenShift.setButtonStaff(buttonStaff);
                              jdOpenShift.setPrevious(previous);
                              jdOpenShift.setNext(next);
                              jdOpenShift.setLabelTitle(breadcrumb);
@@ -772,7 +775,7 @@ public class MainPage extends javax.swing.JFrame {
                         buttonDiscount, btnReprint,
                         btnReturn, buttonCashier, btnCancel,
                         buttonHoldOrder, bgimg, btnLogin,
-                        stock ,jdFormLogin
+                        stock , buttonStaff, jdFormLogin
                    );
               }
          }
@@ -1036,9 +1039,14 @@ public class MainPage extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_buttonCustomerMouseClicked
 
-    private void buttonCustomer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCustomer1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonCustomer1MouseClicked
+    private void buttonStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStaffMouseClicked
+        if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   Staff sta = new Staff(new JFrame(), true);
+                   sta.setVisible(true);
+              }
+         }
+    }//GEN-LAST:event_buttonStaffMouseClicked
 
      public JPanel getDetailProduct() {
           return detailProduct;
@@ -1076,9 +1084,9 @@ public class MainPage extends javax.swing.JFrame {
     private Button.Button btnReturn;
     private Button.Button buttonCashier;
     private Button.Button buttonCustomer;
-    private Button.Button buttonCustomer1;
     private Button.Button buttonDiscount;
     private Button.Button buttonHoldOrder;
+    private Button.Button buttonStaff;
     private javax.swing.JPanel category;
     private Components.ComboBox cmboxBrand;
     private Components.countCircleShape countCircleShape;
