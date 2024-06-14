@@ -72,6 +72,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select * from pos_product where status=true and is_deleted=false and id=?")
         Product getProductById(int id);
 
+        @Query(nativeQuery = true , value = "select pid.qty_old  from pos_import_detail pid where pro_id = ? order by id desc limit 1")
+        Integer getOldQty(int id);
+
         @Query(nativeQuery = true, value = "select * from pos_product where status=true and is_deleted=false and id=?")
         Optional<Product> getProductByOptionalId(int id);
 

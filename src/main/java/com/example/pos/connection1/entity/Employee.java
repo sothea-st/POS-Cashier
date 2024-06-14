@@ -22,8 +22,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotBlank(message = JavaMessage.required)
-    @NotNull(message = JavaMessage.required)
+ 
     @Column(name = "name_kh")
     private String nameKh;
 
@@ -52,6 +51,9 @@ public class Employee {
     @NotNull(message = JavaMessage.required)
     @Column(length = 12)
     private String contact;
+
+    @Column(name = "role_id")
+    private Integer roleId;
 
     private String address;
 

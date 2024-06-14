@@ -13,6 +13,8 @@ import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 @Service
+@Slf4j
 public class ProductService {
     @Autowired
     private ProductRepository repo;
@@ -62,23 +65,23 @@ public class ProductService {
         pro.setCreateBy(p.getCreateBy());
         pro.setWeight(p.getWeight());
         pro.setBarcode(p.getBarcode());
-        if( p.getDiscount() == null ) {
+        if (p.getDiscount() == null) {
             pro.setDiscount(BigDecimal.valueOf(0));
         } else {
             pro.setDiscount(p.getDiscount());
         }
-    
+
         pro.setBrandId(p.getBrandId());
 
         /*
-         * proQty just use to check codition with import 
+         * proQty just use to check codition with import
          * case user add qty import will be working
-         * case user not add qty import not working 
+         * case user not add qty import not working
          * column name pro_qty in table pos_product will have value 0 fixes
          */
 
         pro.setProQty(0);
-    
+
         // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" :
         // p.getDiscountPercentag());
         pro.setProductStatus(p.getProductStatus()); // for detail product in or out stock
@@ -114,7 +117,7 @@ public class ProductService {
          * when user add new product it will auto import
          */
 
-         if (p.getProQty() != null) {
+        if (p.getProQty() != null) {
             Import import1 = new Import();
             import1.setCreateBy(0);
             import1.setEmpId(0);
@@ -139,7 +142,10 @@ public class ProductService {
     }
 
     public Product readData(int id) {
+        Integer getOldQty = repo.getOldQty(id);
+
         Product data = repo.getProductById(id);
+        data.setProQty(getOldQty == null ? 0 : getOldQty);
         if (data == null)
             throw new JavaNotFoundByIdGiven();
         return data;
@@ -226,6 +232,7 @@ public class ProductService {
         previousPro.setProNameKh(editProduct.getProNameKh());
         previousPro.setProNameEn(editProduct.getProNameEn());
         previousPro.setTaxId(editProduct.getTaxId());
+        previousPro.setProductStatus(editProduct.getProductStatus());
 
         // previousPro.setCostKhr(editProduct.getCostKhr());
         previousPro.setCost(editProduct.getCost());
@@ -235,8 +242,7 @@ public class ProductService {
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
         previousPro.setBrandId(editProduct.getBrandId());
-
-        previousPro.setProductStatus(editProduct.getProductStatus()); // for detail product in or out stock
+        // previousPro.setProductStatus(editProduct.getProductStatus()); // for detail product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
         previousPro.setCatId(editProduct.getCatId());
         previousPro.setNote(editProduct.getNote());
@@ -244,11 +250,11 @@ public class ProductService {
         // previousPro.setCreateBy((Integer) idUser);
         repo.save(previousPro);
 
-          /*
+        /*
          * when user add new product it will auto import
          */
 
-         if (editProduct.getProQty() != null) {
+        if (editProduct.getProQty() != null) {
             Import import1 = new Import();
             import1.setCreateBy(0);
             import1.setEmpId(0);
@@ -268,8 +274,6 @@ public class ProductService {
             import1.setDetails(listDetail);
             service.addImport(import1);
         }
-
-
 
         return previousPro;
     }
