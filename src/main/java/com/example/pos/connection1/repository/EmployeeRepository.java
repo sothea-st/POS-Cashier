@@ -12,6 +12,10 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     boolean existsByContact(String contact);
+
+    @Query(nativeQuery = true , value = "select * from pos_employee p where p.contact = '015423822' and p.status = true and p.is_deleted = false")
+    Boolean checkPhoneNumber(String contact);
+    
     @Query(nativeQuery = true,value = "select * from pos_employee pe where status = true and is_deleted = false order by id desc")
     List<Employee> getEmployee();
 
@@ -24,4 +28,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     @Query(nativeQuery = true , value = "  select u.user_code ,u.full_name,u.id,u.emp_id  from pos_user u where u.status =true and u.is_deleted =false")
     List<AccountUserProjection> getAccountUserProjections();
+
+    @Query(nativeQuery = true , value = "SELECT * FROM pos_employee p WHERE p.name_en  ILIKE %?% and p.status = true and p.is_deleted = false")
+    List<Employee> findByNameEn(String nameEn);
+
 }

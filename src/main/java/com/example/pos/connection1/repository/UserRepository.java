@@ -29,4 +29,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
  
     Optional<User> findByEmpId(Integer empId);
 
+    @Query(nativeQuery = true , value = "select * from pos_user pu where pu.user_code = ? and pu.status = true and pu.is_deleted = false")
+    Optional<User>  findByUserCodeAndStatusTrue(String userCode);
+
+    
+
 }

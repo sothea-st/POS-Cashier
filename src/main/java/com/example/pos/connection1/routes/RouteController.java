@@ -272,6 +272,11 @@ public class RouteController {
                return JavaResponse.success(service.getUserAccount());
           }
 
+          @GetMapping("/searchEmployee/{nameEn}")
+          public ResponseEntity<?> searchEmp(@PathVariable("nameEn") String nameEn){
+               return JavaResponse.success(service.searchEmp(nameEn));
+          }
+
           @PostMapping
           public ResponseEntity<?> addEmployee(@Valid @ModelAttribute Employee e,
                     @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
@@ -301,14 +306,15 @@ public class RouteController {
           }
 
           @DeleteMapping("/{id}")
-          public ResponseEntity<?> deleteEmployeeById(@PathVariable("id") int id, @RequestBody Employee e) {
-               service.deleteEmployeeById(id, e);
+          public ResponseEntity<?> deleteEmployeeById(@PathVariable("id") int id) {
+               service.deleteEmployeeById(id);
                return JavaResponse.deleteSuccess(id);
           }
 
           @PostMapping("/{id}")
           public ResponseEntity<?> updateEmployee(@Valid @PathVariable("id") int id, @ModelAttribute Employee e,
-                    @RequestParam("image") MultipartFile file) throws IOException {
+                    @RequestParam(name="image" , required = false) MultipartFile file) throws IOException {
+                      
                HashMap<String, String> err = new HashMap<>();
                String key = "contact";
                String contact = JavaValidation.checkPhone(e.getContact());
