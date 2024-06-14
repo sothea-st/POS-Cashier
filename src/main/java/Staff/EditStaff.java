@@ -1,11 +1,13 @@
 package Staff;
 
 import Constant.JNAFileChooser;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.Role.RoleModel;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -13,150 +15,180 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+
+
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
 public class EditStaff extends javax.swing.JDialog {
 
-    String path;
-    private int staffId;
-    private String staffName;
-    private String staffNameKh;
-    private String startDate;
-    private String address;
-    private String dateOfBirth;
-    private String contact;
-    private String genderId;
-    private int roleId;
-    private Icon file; 
+     String path;
+     private int staffId;
+     private String staffName;
+     private String staffNameKh;
+     private String startDate;
+     private String address;
+     private String dateOfBirth;
+     private String contact;
+     private String genderId;
+     private Integer roleId;
+     private Icon file;
+     private Integer id;
 
-    public Icon getFile() {
-        return file;
-    }
+     private JPanel listGetStaff;
 
-    public void setFile(Icon file) {
-        this.file = file;
-        lbFile.setIcon(file);
-    }
-    
+     public JPanel getListGetStaff() {
+          return listGetStaff;
+     }
+
+     public void setListGetStaff(JPanel listGetStaff) {
+          this.listGetStaff = listGetStaff;
+     }
+     
+     
+     
+     public Integer getId() {
+          return id;
+     }
+
+     public void setId(Integer id) {
+          this.id = id;
+     }
+
+     public Icon getFile() {
+          return file;
+     }
+
+     public void setFile(Icon file) {
+          this.file = file;
+          lbFile.setIcon(file);
+     }
+
      public void setFile(String url) throws MalformedURLException, IOException {
           JavaConstant.coverImage(url, lbFile, 130, 130);
      }
 
-    public int getStaffId() {
-        return staffId;
-    }
+     public int getStaffId() {
+          return staffId;
+     }
 
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
-    }
+     public void setStaffId(int staffId) {
+          this.staffId = staffId;
+     }
 
-    public String getStaffName() {
-        return staffName;
-    }
+     public String getStaffName() {
+          return staffName;
+     }
 
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-        txtStaffName.setValueTextField(staffName);
-    }
+     public void setStaffName(String staffName) {
+          this.staffName = staffName;
+          txtStaffName.setValueTextField(staffName);
+     }
 
-    public String getStaffNameKh() {
-        return staffNameKh;
-    }
+     public String getStaffNameKh() {
+          return staffNameKh;
+     }
 
-    public void setStaffNameKh(String staffNameKh) {
-        this.staffNameKh = staffNameKh;
-        txtStaffNameKh.setValueTextField(staffNameKh);
-    }
+     public void setStaffNameKh(String staffNameKh) {
+          this.staffNameKh = staffNameKh;
+          txtStaffNameKh.setValueTextField(staffNameKh);
+     }
 
-    public String getStartDate() {
-        return startDate;
-    }
+     public String getStartDate() {
+          return startDate;
+     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-        txtStartDate.setValueTextField(startDate);
-    }
+     public void setStartDate(String startDate) {
+          this.startDate = startDate;
+          txtStartDate.setValueTextField(startDate);
+     }
 
-    public String getAddress() {
-        return address;
-    }
+     public String getAddress() {
+          return address;
+     }
 
-    public void setAddress(String address) {
-        this.address = address;
-        txtAddress.setValueTextField(address);
-    }
+     public void setAddress(String address) {
+          this.address = address;
+          txtAddress.setValueTextField(address);
+     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
+     public String getDateOfBirth() {
+          return dateOfBirth;
+     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        txtDob.setValueTextField(dateOfBirth);
-    }
+     public void setDateOfBirth(String dateOfBirth) {
+          this.dateOfBirth = dateOfBirth;
+          txtDob.setValueTextField(dateOfBirth);
+     }
 
-    public String getContact() {
-        return contact;
-    }
+     public String getContact() {
+          return contact;
+     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-        txtContact.setValueTextField(contact);
-    }
+     public void setContact(String contact) {
+          this.contact = contact;
+          txtContact.setValueTextField(contact);
+     }
 
-    public String getGenderId() {
-        return genderId;
-    }
+     public String getGenderId() {
+          return genderId;
+     }
 
-    public void setGenderId(String genderId) {
-        this.genderId = genderId;
-    }
-    
-    public void setIndexToGender(String id) {
-        gender.setToLastItem(id);
-    }
+     public void setGenderId(String genderId) {
+          this.genderId = genderId;
+          gender.setToLastItem(genderId);
+     }
 
-    public int getRoleId() {
-        return roleId;
-    }
+     public Integer getRoleId() {
+          return roleId;
+     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
+     public void setRoleId(Integer roleId) {
+          this.roleId = roleId;
+          role.setToLastItem(roleId);
+     }
 
-    
-    public EditStaff(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        event();
-        txtStaffName.requestFocus();
-        
-        // action get select gender
-        ButtonEvent eventtss = new ButtonEvent() {
-             @Override
-             public void onSelect(String key) {
-                  genderId = key;
-             }
-        };
-        gender.initEvent(eventtss);
-        addComboGender();
-        
-        // action get select role
-        ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onSelect(String key) {
-                  roleId = Integer.parseInt(key);
-             }
-        };
-        role.initEvent(event);
-        addComboRole();
-    }
-    
-    //Place Holder
-    void event() {
+     public EditStaff(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          event();
+          txtStaffName.requestFocus();
+
+          // action get select gender
+          ButtonEvent eventtss = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    genderId = key;
+               }
+          };
+          gender.initEvent(eventtss);
+          addComboGender();
+
+          // action get select role
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    roleId = Integer.parseInt(key);
+               }
+          };
+          role.initEvent(event);
+          addComboRole();
+
+     }
+
+     //Place Holder
+     void event() {
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
                public void onFocusGain() {
@@ -169,10 +201,9 @@ public class EditStaff extends javax.swing.JDialog {
           txtAddress.initEvent(btnevent);
           txtDob.initEvent(btnevent);
           txtContact.initEvent(btnevent);
-    }
+     }
 
-    
-    //Set Combo box role
+     //Set Combo box role
      private void addComboRole() {
           try {
                HashMap<String, String> map = new HashMap<>();
@@ -189,7 +220,7 @@ public class EditStaff extends javax.swing.JDialog {
                               obj.getInt("id"),
                               obj.getString("role_name")
                          );
-                         
+
                          roleModel.add(role);
                          int idRole = roleModel.get(i).getRoleId();
                          String roleName = roleModel.get(i).getRoleName();
@@ -203,22 +234,20 @@ public class EditStaff extends javax.swing.JDialog {
                System.err.println("error = " + e);
           }
      }
-     
-     
+
      //Set Combo box Gender
      private void addComboGender() {
           try {
-              HashMap<String, String> map = new HashMap<>();
-              map.put("Male", "male" );
-              map.put("Female", "female" );
-              gender.setMap(map);
+               HashMap<String, String> map = new HashMap<>();
+               map.put("Male", "male");
+               map.put("Female", "female");
+               gender.setMap(map);
           } catch (Exception e) {
                System.err.println("error = " + e);
           }
      }
-    
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -471,63 +500,183 @@ public class EditStaff extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
+//         System.out.println("txtStaffName : " + txtStaffName.getValueTextField());
+//         System.out.println("txtStaffNameKh : " + txtStaffNameKh.getValueTextField());
+//         System.out.println("txtDob : " + txtDob.getValueTextField());
+//         System.out.println("txtAddress : " + txtAddress.getValueTextField());
+//         System.out.println("gender : " + genderId);
+//         System.out.println("role : " + roleId);
+//         System.out.println("txtStartDate : " + txtStartDate.getValueTextField());
+//         System.out.println("txtContact : " + txtContact.getValueTextField());
+         String nameEn = txtStaffName.getValueTextField();
+         String dob = txtDob.getValueTextField();
+         String address = txtAddress.getValueTextField();
+         String genderValue = genderId;
+         Integer roleValue = roleId;
+         String startDate = txtStartDate.getValueTextField();
+         String contact = txtContact.getValueTextField();
+
+         if (nameEn == null || nameEn.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Staff name can not be empty!");
+              return;
+         }
+
+         if (dob == null || dob.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Date of birth can not be empty!");
+              return;
+         }
+
+         if (address == null || address.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Address can not be empty!");
+              return;
+         }
+
+         if (genderId == null) {
+              JOptionPane.showMessageDialog(this, "Gender can not be empty!");
+              return;
+         }
+
+         if (roleId == null) {
+              JOptionPane.showMessageDialog(this, "Rolt can not be empty!");
+              return;
+         }
+
+         if (startDate == null || startDate.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Start date can not be empty!");
+              return;
+         }
+
+//         String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/"+id;
+         String url = new JavaBaseUrl().getBaseUrl() + "/employee/13";
+
+         OkHttpClient client = new OkHttpClient();
+         // Request body
+         MultipartBody.Builder requestBody = new MultipartBody.Builder()
+              .setType(MultipartBody.FORM)
+              .addFormDataPart("nameEn", nameEn)
+              .addFormDataPart("nameKh", nameEn)
+              .addFormDataPart("gender", genderValue)
+              .addFormDataPart("dob", dob)
+              .addFormDataPart("startDate", startDate)
+              .addFormDataPart("address", address)
+              .addFormDataPart("roleId", "" + roleId);
+          
+
+         if (contact != null) {
+              requestBody.addFormDataPart("contact", contact);
+         }
+
+         if (path != null) {
+              File fileToUpload = new File(path);
+              requestBody.addFormDataPart("image", fileToUpload.getName(),
+                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+         }
+
+         // Request
+         Request request = new Request.Builder()
+              .url(url)
+              .post(requestBody.build())
+              .header("Authorization", "Bearer " + JavaConstant.token)
+              .build();
+         
+         
+      
+         
+         try {
+              Response response = client.newCall(request).execute();
+          
+              if (response.isSuccessful()) {
+                   //       ====== set placeholder ======
+//                   txtStaffName.setLabelTextField("Product Name Kh");
+//                   txtStaffName.setFocus();
+//                   txtDob.setLabelTextField("Select Date");
+//                   txtAddress.setLabelTextField("Addres");
+//                   txtStartDate.setLabelTextField("Start Date");
+//                   txtContact.setLabelTextField("Contact");
+//                   
+//
+//                   gender.setToFirstItem();
+//                   role.setToFirstItem();
+//
+//                   genderId = null;
+//                   roleId = null;
+//                   path = null;
+//
+//                   lbFile.setIcon(null);
+
+
+
+                    StaffInformation obj = new StaffInformation(new JFrame() , true);
+                    listGetStaff.removeAll();
+                    listGetStaff.revalidate();
+                    listGetStaff.repaint();
+                    obj.getStaff(listGetStaff);
+                   dispose();
+
+              }
+         } catch (IOException ex) {
+              System.out.println("erro edit staff = " + ex);
+         }
+
+
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void buttonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadMouseClicked
-        try {
-            path = JNAFileChooser.funChooseFile();
-            JavaConstant.coverImagePath(path, lbFile, 124, 235);
-        } catch (IOException ex) {
-            Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         try {
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbFile, 124, 235);
+         } catch (IOException ex) {
+              Logger.getLogger(EditStaff.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_buttonUploadMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EditStaff dialog = new EditStaff(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(EditStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    EditStaff dialog = new EditStaff(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;

@@ -39,13 +39,20 @@ import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Components.BoxItem;
 import Components.LabelFontGreen;
+
 import Constant.JavaMessage;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.Icon;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import password.ChangePasswordForm;
 
 public class LoginFormJdailog extends javax.swing.JDialog {
 
@@ -76,7 +83,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button btnReprint;
      private Button buttonDiscount;
      private Button buttonCustomer;
- 
 
      private JLabel lbPOSId;
 
@@ -106,6 +112,18 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private LabelFontGreen previous;
 
      private String titleCategory;
+     
+     private JLabel boxImg;
+
+     public JLabel getBoxImg() {
+          return boxImg;
+     }
+
+     public void setBoxImg(JLabel boxImg) {
+          this.boxImg = boxImg;
+     }
+     
+     
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -368,7 +386,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String password = txtPassword.getValuePassword();
 
          String userId = "0002";
-         String password = "TT@126$kh#";
+         String password = "TT@126$kh#1";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
          String ipAddress;
@@ -461,7 +479,39 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    getBtnLogin().setButtonName("Logout");
 
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "               POS ID : " + JavaConstant.posId);
-                   lbPOSId.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png")));
+
+                   
+//                   ==== event on profile image ====
+                   Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
+                   JavaConstant.setPointer(boxImg);
+                   boxImg.setIcon(icon);
+                   boxImg.setVisible(true);
+                   boxImg.addMouseListener(new MouseListener(){
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                             ChangePasswordForm obj = new ChangePasswordForm(new JFrame() , true);
+                             obj.setVisible(true);
+                        }
+
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                        }
+
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                        }
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                        }
+                   
+                   });
+                   
+
                    category();
                    getjScrollPaneCategory().setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
@@ -489,6 +539,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonLogin1MouseClicked
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
+         JavaConstant.restoreDefaultCursor(mainFrame);
          this.dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
@@ -585,7 +636,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
-                                   onClickCategory(catNameData,catId);
+                                   onClickCategory(catNameData, catId);
                               }
 
                               @Override
@@ -617,8 +668,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      }
 
-     public void onClickCategory(String catNameData ,int catId) {
-
+     public void onClickCategory(String catNameData, int catId) {
+          System.out.println("jdLogin.getCatId() == " + getCatId());
           if (JavaConstant.checkOpenShift) {
 
                previous.setBackground(WindowColor.lightGray);
@@ -674,7 +725,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
                               break;
                          default:
-                             
+
                               pro.product(catId, JavaConstant.limitPagination, panelProduct);
                     }
                }
@@ -707,9 +758,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                     String _tCategory = titleCategory.toLowerCase();
                     if (_tCategory.equals("new items")) {
+
                          categoryName = titleCategory.toLowerCase();
                          catId = Integer.parseInt(_catId);
                          setCatId(catId);
+
                          setTitleCategory(titleCategory);
                          setCatName("" + i); // setCatName is index for change back ground when user try to pick other category and select brand
                          break;
@@ -1013,13 +1066,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           this.previous = previous;
      }
 
-    public Button getButtonStaff() {
-        return buttonStaff;
-    }
+     public Button getButtonStaff() {
+          return buttonStaff;
+     }
 
-    public void setButtonStaff(Button buttonStaff) {
-        this.buttonStaff = buttonStaff;
-    }
+     public void setButtonStaff(Button buttonStaff) {
+          this.buttonStaff = buttonStaff;
+     }
 
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {

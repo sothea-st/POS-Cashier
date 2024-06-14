@@ -19,9 +19,8 @@ import okhttp3.Response;
 @Setter
 @Getter
 public class ActionSearchProd {
-
+    private LoginFormJdailog jdLogin;
      private JPanel panelProduct;
-     private LoginFormJdailog jdLogin;
      private JPanel category;
 
      public static boolean checkOnlyDigits(String value) {
@@ -83,8 +82,9 @@ public class ActionSearchProd {
                try {
                     ListProduct listProd = new ListProduct(new JFrame(), true);
                     listProd.setPanelProduct(panelProduct);
-                    listProd.setCategory(category);
+                    listProd.setPanelCategory(category);
                     listProd.setJdLogin(jdLogin);
+                    
                     String responseData = response.body().string();
                     ObjectMapper obj = new ObjectMapper();
                     ProductSuccessData model = obj.readValue(responseData, ProductSuccessData.class);

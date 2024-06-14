@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -87,6 +89,11 @@ public class JavaConstant {
      public static void setPointer(JLabel jLabel) {
           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
      }
+     
+      public static void setPointer(JButton icon) {
+          icon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+     }
+
 
      public static void setPointer(JTextField txt) {
           txt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

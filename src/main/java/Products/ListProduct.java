@@ -51,11 +51,10 @@ public class ListProduct extends javax.swing.JDialog {
      private int id;
 
      private JPanel panelProduct;
+     private JPanel panelCategory;
      private LoginFormJdailog jdLogin;
-     private JPanel category;
+
      ArrayList<ProductModel> listProduct = new ArrayList<>();
- 
-     
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -73,12 +72,12 @@ public class ListProduct extends javax.swing.JDialog {
           this.jdLogin = jdLogin;
      }
 
-     public JPanel getCategory() {
-          return category;
+     public JPanel getPanelCategory() {
+          return panelCategory;
      }
 
-     public void setCategory(JPanel category) {
-          this.category = category;
+     public void setPanelCategory(JPanel panelCategory) {
+          this.panelCategory = panelCategory;
      }
 
      public ListProduct(java.awt.Frame parent, boolean modal) {
@@ -186,8 +185,9 @@ public class ListProduct extends javax.swing.JDialog {
                          EditProduct edit = new EditProduct(new JFrame(), true);
 
                          edit.setPlProduct(panelProduct);
-                         edit.setpCategory(category);
+                         edit.setpCategory(panelCategory);
                          edit.setJdLogin(jdLogin);
+
                          try {
                               Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
                               String responseData = response.body().string();
@@ -239,7 +239,6 @@ public class ListProduct extends javax.swing.JDialog {
                     @Override
                     public void onRemove(String Key) {  // event delete prooduct
                          try {
-
                               UIManager UI = new UIManager();
                               UI.put("OptionPane.background", WindowColor.mediumGreen);
                               UI.put("Panel.background", WindowColor.mediumGreen);
@@ -262,7 +261,7 @@ public class ListProduct extends javax.swing.JDialog {
                                         list.getProduct(listGetProduct);
 
                                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                                        category.getComponents()[1].setBackground(WindowColor.black);
+                                        panelCategory.getComponents()[1].setBackground(WindowColor.black);
                                         dispose();
                                         System.out.println("Successful deleted ");
                                    }
@@ -316,26 +315,6 @@ public class ListProduct extends javax.swing.JDialog {
           }
      }
 
-//      public static void existFun(JDialog  ListProduct) {
-//          UIManager UI = new UIManager();
-//          UI.put("OptionPane.background", WindowColor.mediumGreen);
-//          UI.put("Panel.background", WindowColor.mediumGreen);
-//          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-//        
-//          
-//          ListProduct.addWindowListener(new WindowAdapter() {
-//               public void windowClosing(WindowEvent evt) {
-//                    int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
-//                         "Exit?", JOptionPane.YES_NO_OPTION);
-//                     
-//                    if (resp == JOptionPane.YES_OPTION) {
-//                         ListProduct.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//                    } else {
-//                         ListProduct.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//                    }
-//               }
-//          });
-//     }
      //Action Search
      private void eventSearchProduct() {
           // this event was called when user type on searchTextField 
@@ -352,7 +331,7 @@ public class ListProduct extends javax.swing.JDialog {
                     } else {
                          listGetProduct.removeAll();
                          ActionSearchProd a = new ActionSearchProd();
-                         a.setCategory(category);
+                         a.setCategory(panelCategory);
                          a.setPanelProduct(panelProduct);
                          a.setJdLogin(jdLogin);
                          a.searchProducts(searchValue, listGetProduct);
@@ -360,6 +339,12 @@ public class ListProduct extends javax.swing.JDialog {
                          listGetProduct.repaint();
                     }
                }
+
+               @Override
+               public void onKeyRelease() {
+
+               }
+
           };
           searchField.initEvent(event);
      }
@@ -564,33 +549,35 @@ public class ListProduct extends javax.swing.JDialog {
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          dispose();
          AddProduct add = new AddProduct(new JFrame(), true);
+         add.setJdLogin(jdLogin);
+         add.setPanelCategory(panelCategory);
+         add.setPanelProduct(panelProduct);
          add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
      private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked
-          PrintToCSV.exportToCSV(listProduct);
           msgPrint(PrintToCSV.folderPath);
+          PrintToCSV.exportToCSV(listProduct);
      }//GEN-LAST:event_btnCsvMouseClicked
 
      private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
           try {
-               PrintListPDF.printListPdf(listProduct);
                msgPrint(PrintListPDF.folderPath);
+               PrintListPDF.printListPdf(listProduct);
           } catch (IOException ex) {
                Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
           }
      }//GEN-LAST:event_btnPdfMouseClicked
 
      private void btnExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcelMouseClicked
-
-          PrintToExcel.toExcel(listProduct);
           msgPrint(PrintToExcel.folderPath);
+          PrintToExcel.toExcel(listProduct);
      }//GEN-LAST:event_btnExcelMouseClicked
 
      private void msgPrint(String path) {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
           j.setIsShow(true);
-          j.setMessage("PDF was saved to path " + path);
+          j.setMessage("File was saved to path " + path);
           j.setPathOpen(path);
           j.setVisible(true);
      }

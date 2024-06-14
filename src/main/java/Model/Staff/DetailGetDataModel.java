@@ -20,4 +20,5 @@ public class DetailGetDataModel {
     private String createDate;
     private boolean status;
     private boolean deleted;
+    private Integer roleId;
 }

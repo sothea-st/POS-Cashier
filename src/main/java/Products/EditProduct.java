@@ -22,8 +22,7 @@ import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import lombok.Getter;
-import lombok.Setter;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -59,6 +58,54 @@ public class EditProduct extends javax.swing.JDialog {
      private JPanel plProduct;
      private LoginFormJdailog jdLogin;
      private JPanel pCategory;
+
+     public EditProduct(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          panelEditProduct.setBackground(WindowColor.mediumGreen);
+          event();
+
+          // action get select brand
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+//                    idBrand = key;
+                    brandId = Integer.parseInt(key);
+               }
+          };
+          brand.initEvent(event);
+          addComboBrand();
+
+          // action get select tax
+          ButtonEvent eventtss = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    taxId = Integer.parseInt(key);
+               }
+          };
+          tax.initEvent(eventtss);
+          addComboTax();
+
+          // action get select category
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    categoryId = Integer.parseInt(key);
+               }
+          };
+          category.initEvent(events);
+          addComboCategory();
+
+//           // action get select status
+//          ButtonEvent eventtt = new ButtonEvent() {
+//               @Override
+//               public void onSelect(String key) {
+//                    productStatus = key;
+//               }
+//          };
+//          status.initEvent(eventtt);
+//          addComboStatus();
+     }
 
      public JPanel getPlProduct() {
           return plProduct;
@@ -299,54 +346,6 @@ public class EditProduct extends javax.swing.JDialog {
 //               System.err.println("error = " + e);
 //          }
 //     }
-     public EditProduct(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          panelEditProduct.setBackground(WindowColor.mediumGreen);
-          event();
-
-          // action get select brand
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-//                    idBrand = key;
-                    brandId = Integer.parseInt(key);
-               }
-          };
-          brand.initEvent(event);
-          addComboBrand();
-
-          // action get select tax
-          ButtonEvent eventtss = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    taxId = Integer.parseInt(key);
-               }
-          };
-          tax.initEvent(eventtss);
-          addComboTax();
-
-          // action get select category
-          ButtonEvent events = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    categoryId = Integer.parseInt(key);
-               }
-          };
-          category.initEvent(events);
-          addComboCategory();
-
-//           // action get select status
-//          ButtonEvent eventtt = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    productStatus = key;
-//               }
-//          };
-//          status.initEvent(eventtt);
-//          addComboStatus();
-     }
-
      //Place Holder
      void event() {
           ButtonEvent btnevent = new ButtonEvent() {
@@ -892,8 +891,8 @@ public class EditProduct extends javax.swing.JDialog {
          try {
               Response response = client.newCall(request).execute();
               if (response.isSuccessful()) {
-                  
-                   jdLogin.onClickCategory("new items",jdLogin.getCatId());
+
+                   jdLogin.onClickCategory("new items", jdLogin.getCatId());
                    pCategory.getComponents()[1].setBackground(WindowColor.black);
 
                    ListProduct list = new ListProduct(new JFrame(), true);
