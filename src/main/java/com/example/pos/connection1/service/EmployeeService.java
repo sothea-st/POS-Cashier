@@ -5,6 +5,7 @@ import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.FileStore;
+import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.User;
 import com.example.pos.connection1.projections.AccountUserProjection;
 import com.example.pos.connection1.repository.EmployeeRepository;
@@ -39,15 +40,20 @@ public class EmployeeService {
 
     private final PasswordEncoder passwordEncoder;
 
+    public List<Employee> searchEmp(String value) {
+        return repo.findByNameEn(value);
+    }
+
     public EmployeeService(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Employee addEmployee(Employee e , MultipartFile file) throws IOException {
+    public Employee addEmployee(Employee e, MultipartFile file) throws IOException {
         var createdBy = session.getAttribute(JavaConstant.userId);
 
-        boolean isExistContact = repo.existsByContact(e.getContact());
-        JavaValidation.phoneAlreadyExist(isExistContact);
+        Boolean isExistContact = repo.checkPhoneNumber(e.getContact());
+        System.out.println("isEcgg = " + isExistContact);
+        JavaValidation.phoneAlreadyExist(isExistContact == null ? false : true);
 
         Employee emp = new Employee();
         emp.setNameKh(e.getNameKh());
@@ -63,7 +69,8 @@ public class EmployeeService {
         if (file == null || file.isEmpty()) {
             emp.setImageName(JavaConstant.defaultNameImage);
         } else {
-            // JavaStorage.storeImage(file); for save image to path assests/product in project
+            // JavaStorage.storeImage(file); for save image to path assests/product in
+            // project
             String fileName = JavaStorage.setFileName(file.getOriginalFilename());
             emp.setImageName(fileName);
 
@@ -80,14 +87,14 @@ public class EmployeeService {
         String userCountRow = "";
         userCount++;
 
-        if( userCount < 10 ) {
-            userCountRow="000"+userCount;
-        } else if ( userCount < 100 ) {
-            userCountRow="00"+userCount;
-        } else if ( userCount < 1000 ) {
-            userCountRow="0"+userCount;
+        if (userCount < 10) {
+            userCountRow = "000" + userCount;
+        } else if (userCount < 100) {
+            userCountRow = "00" + userCount;
+        } else if (userCount < 1000) {
+            userCountRow = "0" + userCount;
         } else {
-            userCountRow="0"+userCount;
+            userCountRow = "0" + userCount;
         }
 
         User user = new User();
@@ -103,7 +110,7 @@ public class EmployeeService {
         return emp;
     }
 
-    public List<Employee> getEmployee(){
+    public List<Employee> getEmployee() {
         return repo.getEmployee();
     }
 
@@ -111,19 +118,25 @@ public class EmployeeService {
         return repo.getEmployeeById(id);
     }
 
-    public void deleteEmployeeById(int id,Employee e){
+    public void deleteEmployeeById(int id) {
         Optional<Employee> op = repo.findById(id);
         Employee emp = op.get();
-        emp.setDeleted(e.isDeleted());
-        emp.setStatus(e.isStatus());
+        emp.setDeleted(true);
+        emp.setStatus(false);
         repo.save(emp);
+
+        Optional<User> user = userRepo.findByEmpId(id);
+        User userData = user.get();
+        userData.setStatus(false);
+        userData.setDeleted(true);
+        userRepo.save(userData);
     }
 
-    public Employee updateEmployee(int id,Employee e,MultipartFile file) throws IOException {
+    public Employee updateEmployee(int id, Employee e, MultipartFile file) throws IOException {
         Optional<Employee> op = repo.findById(id);
         Employee emp = op.get();
         // var createdBy = session.getAttribute(JavaConstant.userId);
-        if(!e.getContact().equals(emp.getContact())) {
+        if (!e.getContact().equals(emp.getContact())) {
             boolean isExistContact = repo.existsByContact(e.getContact());
             JavaValidation.phoneAlreadyExist(isExistContact);
         }
@@ -136,36 +149,33 @@ public class EmployeeService {
         emp.setContact(e.getContact());
         emp.setStartDate(e.getStartDate());
         emp.setCreateBy(e.getCreateBy());
-
-        if (file == null) {
-            emp.setImageName("default.jpg");
-        } else {
-            if (file.isEmpty()) {
-                emp.setImageName("default.jpg");
-            } else {
-                JavaStorage.storeImage(file);
-                emp.setImageName(JavaStorage.setFileName(Objects.requireNonNull(file.getOriginalFilename())));
-
-                // save information image to table pos_file
-                String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-                FileStore f = new FileStore(JavaStorage.setFileName(file.getOriginalFilename()), fileName, file.getContentType(), file.getBytes());
-                fileStore.save(f);
-                emp.setImageName(JavaStorage.setFileName(file.getOriginalFilename()));
-
-            }
+        emp.setRoleId(e.getRoleId());
+        if (file != null) {
+            // save information image to table pos_file
+            // String imgName = JavaStorage.setFileName(file.getOriginalFilename());
+            String imgName = file.getOriginalFilename();
+            FileStore f1 = new FileStore(imgName, imgName, file.getContentType(), file.getBytes());
+            fileStore.save(f1);
+            emp.setImageName(imgName);
         }
 
         repo.save(emp);
+
+        Optional<User> user = userRepo.findByEmpId(id);
+        User userData = user.get();
+        userData.setFullName(e.getNameEn());
+        userData.setRole(e.getRoleId());
+        userRepo.save(userData);
+
         return emp;
     }
 
-    public byte[] getImageEmployee(String id){
+    public byte[] getImageEmployee(String id) {
         Optional<FileStore> data = fileStore.findById(id);
         return data.get().getData();
     }
 
-
-    public List<AccountUserProjection> getUserAccount(){
+    public List<AccountUserProjection> getUserAccount() {
         return repo.getAccountUserProjections();
     }
 

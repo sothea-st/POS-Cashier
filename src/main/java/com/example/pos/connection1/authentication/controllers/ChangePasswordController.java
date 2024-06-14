@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.connection1.DTO.PasswordChangeByAdmin;
 import com.example.pos.connection1.DTO.PasswordRequest;
 import com.example.pos.connection1.DTO.PasswordResponse;
 import com.example.pos.connection1.authentication.services.ChangePasswordService;
@@ -34,10 +35,7 @@ public class ChangePasswordController {
                return ResponseEntity.ok()
                          .body(Map.of("msg", "The field newPassword does not match with confirmPassword!"));
           }
-          PasswordResponse msg = changePasswordService.changePassword(passwordRequest);
-          if (!msg.msg().equals("success")) {
-               return ResponseEntity.ok().body(Map.of("msg", msg.msg()));
-          }
+
           HashMap<String, Object> error = new HashMap<>();
           String keyNewPassword = "newPassword";
           String newPassword = JavaValidation.checkPassword(passwordRequest.newPassword());
@@ -51,8 +49,40 @@ public class ChangePasswordController {
           if (!error.isEmpty())
                return ResponseEntity.status(500).body(error);
 
+          PasswordResponse msg = changePasswordService.changePassword(passwordRequest);
+          if (!msg.msg().equals("success")) {
+               return ResponseEntity.ok().body(Map.of("msg", msg.msg()));
+          }
           changePasswordService.changePassword(passwordRequest);
           return ResponseEntity.ok().body(Map.of("msg", "success"));
+     }
+
+     @PostMapping("/changePasswordByAdmin")
+     public ResponseEntity<?> postMethodName(@Valid @RequestBody PasswordChangeByAdmin p) {
+         
+          if (p.empId() == null) {
+               return ResponseEntity.ok().body(Map.of("userId", "The field userId is required!"));
+          }
+
+          if (!p.newPassword().equals(p.confirmPassword())) {
+               return ResponseEntity.ok()
+                         .body(Map.of("msg", "The field newPassword does not match with confirmPassword!"));
+          }
+          HashMap<String, Object> error = new HashMap<>();
+          String keyNewPassword = "newPassword";
+          String newPassword = JavaValidation.checkPassword(p.newPassword());
+
+          String keyConfirmPassword = "confirmPassword";
+          String confirmPassword = JavaValidation.checkPassword(p.confirmPassword());
+          if (!newPassword.isEmpty())
+               error.put(keyNewPassword, newPassword);
+          if (!confirmPassword.isEmpty())
+               error.put(keyConfirmPassword, confirmPassword);
+          if (!error.isEmpty())
+               return ResponseEntity.status(500).body(error);
+
+          changePasswordService.changePasswordByAdmin(p);
+          return JavaResponse.success("success");
      }
 
 }

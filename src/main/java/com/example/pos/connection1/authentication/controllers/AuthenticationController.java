@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
+import java.util.Map;
 
 @RequestMapping("/api/auth")
 @RestController
@@ -114,6 +115,12 @@ public class AuthenticationController {
         String jwtToken = jwtService.generateToken(authenticatedUser);
         int getCountIP = ipAddressRepository.getCountIP();
         String posId = "";
+
+        Optional<User> userCheck = userRepo.findByUserCodeAndStatusTrue(loginUserDto.getUserCode());
+     
+        if( userCheck.isEmpty() ) {
+            return ResponseEntity.ok().body(Map.of("msg", "Check your account and password again"));
+        }
 
         if (loginUserDto.getIpAddress() != null && loginUserDto.getDeviceName() != null) {
           
