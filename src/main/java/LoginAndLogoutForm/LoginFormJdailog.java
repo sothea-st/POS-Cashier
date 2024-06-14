@@ -386,7 +386,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //         String password = txtPassword.getValuePassword();
 
          String userId = "0002";
-         String password = "TT@126$kh#1";
+         String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
          String ipAddress;

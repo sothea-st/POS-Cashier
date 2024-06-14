@@ -1049,7 +1049,6 @@ public class MainPage extends javax.swing.JFrame {
     private void buttonStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStaffMouseClicked
         if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
-                   
                    JFrame j = new JFrame();
                    j.setIconImage(null);
                    Staff sta = new Staff(j, true);

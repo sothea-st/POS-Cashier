@@ -427,6 +427,7 @@ public class StaffInformation extends javax.swing.JDialog {
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          AddStaff add = new AddStaff(new JFrame(), true);
+         add.setListGetStaff(listGetStaff);
          add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
