@@ -65,6 +65,8 @@ public class AddProduct extends javax.swing.JDialog {
           initComponents();
           panelAddProduct.setBackground(WindowColor.mediumGreen);
           event();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
           // action get select brand
           ButtonEvent event = new ButtonEvent() {
