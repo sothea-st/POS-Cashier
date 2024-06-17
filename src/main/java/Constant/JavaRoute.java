@@ -43,5 +43,7 @@ public class JavaRoute {
      public static String employee = "/employee";
      public static String role = "/role";
      public static String changePassword = "/changePassword";
+     public static String userAccount = "/employee/userAccount";
+     public static String changePasswordByAdmin = "/changePassword/changePasswordByAdmin";
 
 }

@@ -184,7 +184,6 @@ public class StaffInformation extends javax.swing.JDialog {
                                         listGetStaff.revalidate();
                                         listGetStaff.repaint();
                                         list.getStaff(listGetStaff);
-                                        dispose();
                                         System.out.println("Successful deleted ");
                                    }
                               } else {

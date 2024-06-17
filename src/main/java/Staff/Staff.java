@@ -42,9 +42,6 @@ public class Staff extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPrintByInvoiceMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnPrintByInvoiceMouseEntered(evt);
-            }
         });
 
         lbTitle.setLabelTitle("Staff");
@@ -101,13 +98,11 @@ public class Staff extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPrintByLastMouseClicked
 
     private void btnPrintByInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintByInvoiceMouseClicked
-
+         Userlogin user = new Userlogin(new JFrame(), true);
+         user.setVisible(true);
+         dispose();
 
     }//GEN-LAST:event_btnPrintByInvoiceMouseClicked
-
-    private void btnPrintByInvoiceMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintByInvoiceMouseEntered
-
-    }//GEN-LAST:event_btnPrintByInvoiceMouseEntered
 
     private void panelReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelReprintMouseClicked
 
