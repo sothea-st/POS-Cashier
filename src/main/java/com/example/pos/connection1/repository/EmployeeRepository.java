@@ -26,7 +26,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
     // @Query(nativeQuery = true , value = "select ")
     // String getEmpName(int id);
 
-    @Query(nativeQuery = true , value = "  select u.user_code ,u.full_name,u.id,u.emp_id  from pos_user u where u.status =true and u.is_deleted =false")
+    @Query(nativeQuery = true , value = "  select u.user_code ,u.full_name,u.id,u.emp_id  from pos_user u where u.status =true and u.is_deleted =false order by u.id desc")
     List<AccountUserProjection> getAccountUserProjections();
 
     @Query(nativeQuery = true , value = "SELECT * FROM pos_employee p WHERE p.name_en  ILIKE %?% and p.status = true and p.is_deleted = false")
