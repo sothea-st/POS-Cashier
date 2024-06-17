@@ -51,9 +51,9 @@ public class EmployeeService {
     public Employee addEmployee(Employee e, MultipartFile file) throws IOException {
         var createdBy = session.getAttribute(JavaConstant.userId);
 
-        Boolean isExistContact = repo.checkPhoneNumber(e.getContact());
-        System.out.println("isEcgg = " + isExistContact);
-        JavaValidation.phoneAlreadyExist(isExistContact == null ? false : true);
+        Optional<Employee> isExistContact = repo.checkPhoneNumber(e.getContact());
+
+        JavaValidation.phoneAlreadyExist(isExistContact.isEmpty()  ? false : true);
 
         Employee emp = new Employee();
         emp.setNameKh(e.getNameKh());
@@ -110,7 +110,9 @@ public class EmployeeService {
         return emp;
     }
 
-    public List<Employee> getEmployee() {
+    public List<Employee> getEmployee() { 
+        System.out.println("ssssssssssssssssssssssss");
+
         return repo.getEmployee();
     }
 

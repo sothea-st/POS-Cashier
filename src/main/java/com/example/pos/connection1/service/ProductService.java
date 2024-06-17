@@ -162,6 +162,8 @@ public class ProductService {
         List<ProductModel> list = new ArrayList<>();
 
         if (limit == 0) {
+            System.out.println("perPage = " + perPage + " page = " + page);
+
             List<ProductProjection> allPro = repo.getAllProduct(perPage, page);
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);

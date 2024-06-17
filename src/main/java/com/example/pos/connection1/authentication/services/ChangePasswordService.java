@@ -27,7 +27,7 @@ public class ChangePasswordService {
           }
        
           if (passwordEncoder.matches(passwordRequest.currentPassword(), user.get().getPassword())) {
-               System.out.println("jjjjjjjjjjjjjjj = " );
+          
                user.get().setPassword(passwordEncoder.encode(passwordRequest.newPassword()));
                userRepository.save(user.get());
           } else {

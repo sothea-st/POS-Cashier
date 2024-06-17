@@ -292,9 +292,10 @@ public class RouteController {
 
                return JavaResponse.success(data);
           }
-
+ 
           @GetMapping
           public ResponseEntity<?> getEmployee() {
+               System.out.println("ggggggggggggggggggggg");
                List<Employee> data = service.getEmployee();
                return JavaResponse.success(data);
           }
