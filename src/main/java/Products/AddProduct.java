@@ -186,7 +186,13 @@ public class AddProduct extends javax.swing.JDialog {
 
                          int idCategory = categoryModel.get(i).getCategoryId();
                          String categoryName = categoryModel.get(i).getCategoryName();
-//                         String _catName = obj.getString("catNameEn").toLowerCase();
+//                         String _catName = obj.getString("catNameEn").toLowerCase();    
+
+                         System.out.println("categoryName : " + categoryName);
+                         if( categoryName.toLowerCase().equals("all") ||
+                              categoryName.toLowerCase().equals("new items") ||
+                              categoryName.toLowerCase().equals("promotion")
+                              ) continue;
 
                          map.put(categoryName, "" + idCategory);
 

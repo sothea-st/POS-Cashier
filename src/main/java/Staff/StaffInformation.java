@@ -4,6 +4,7 @@ import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 
@@ -31,9 +32,9 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class StaffInformation extends javax.swing.JDialog {
-     
+
      private String searchValue;
-     
+
      public StaffInformation(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
 //        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -50,19 +51,20 @@ public class StaffInformation extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
-          
+
      }
-     
+
      public void getStaff(JPanel jpanelData) {
           try {
                Response response = JavaConnection.get(JavaRoute.employee);
+            
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     StaffDataSuccessModel data = objMap.readValue(responseData, StaffDataSuccessModel.class);
                     StaffGetDataModel[] listData = data.getData();
                     assignStaff(listData, jpanelData);
-                    
+
                } else {
                     System.err.println("fail loading staff");
                }
@@ -70,10 +72,10 @@ public class StaffInformation extends javax.swing.JDialog {
                System.err.println("error getting staff " + e);
           }
      }
-     
+
      public void assignStaff(StaffGetDataModel[] listData, JPanel listStaff) {
           ArrayList<StaffModel> staffList = new ArrayList<>();
-          
+
           for (int i = 0; i < listData.length; i++) {
                var obj = listData[i];
                StaffModel staff = new StaffModel(
@@ -93,19 +95,19 @@ public class StaffInformation extends javax.swing.JDialog {
                );
                staffList.add(staff);
           }
-          
+
           appendStaff(staffList, listStaff);
      }
-     
+
      void appendStaff(ArrayList<StaffModel> listStaff, JPanel listGetStaff) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          
+
           listGetStaff.setLayout(gridBagLayout);
-          
+
           int x = 0;
           int y = 0;
           for (int i = 0; i < listStaff.size(); i++) {
@@ -119,84 +121,91 @@ public class StaffInformation extends javax.swing.JDialog {
                     x = 0;
                     y++;
                }
-               
+
                var listData = listStaff.get(i);
                GetStaff prod = new GetStaff();
-               
+
                ButtonEvent events = new ButtonEvent() {
-                    
+
                     @Override
                     public void onSelect(String Key) {  // event edit
-                         EditStaff edit = new EditStaff(new JFrame(), true);
+//                         EditStaff edit = new EditStaff(new JFrame(), true);
+
+//                         AddStaff edit = new AddStaff(new JFrame(), true);
+                         InsertStaff edit = new InsertStaff(new JFrame(), true);
+
                          try {
                               Response response = JavaConnection.get(JavaRoute.employee + "/" + listData.getId());
                               String responseData = response.body().string();
                               ObjectMapper objMap = new ObjectMapper();
                               DetailDataSuccessModel datas = objMap.readValue(responseData, DetailDataSuccessModel.class);
                               DetailGetDataModel listStafff = datas.getData();
-                              
+
                               edit.setId(listStafff.getId());
-                              edit.setRoleId(listStafff.getRoleId());
-                              
-                              edit.setStaffId(listStafff.getId());
-                              edit.setStaffName(listStafff.getNameEn());
-                              if (!listStafff.getNameKh().isEmpty()) {
-                                   edit.setStaffNameKh(listStafff.getNameKh());
-                              }
-                              edit.setStartDate(listStafff.getStartDate());
-                              edit.setAddress(listStafff.getAddress());
-                              edit.setDateOfBirth(listStafff.getDob());
-                              edit.setContact(listStafff.getContact());
-                              edit.setGenderId(listStafff.getGender());
-                              if (listData.getImageName() != null) {
-                                   edit.setFile(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName());
-                              }
                               edit.setListGetStaff(listGetStaff);
-                              
+
+                              String _urlImg = "";
+                              if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
+                                   _urlImg = JavaConstant.urlImage + listData.getImageName();
+                              } else {
+                                   _urlImg = new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName();
+                              }
+
+                              edit.setValueEdit(
+                                   listStafff.getNameEn(),
+                                   listStafff.getDob(),
+                                   listStafff.getStartDate(),
+                                   listStafff.getAddress(),
+                                   listStafff.getGender(),
+                                   "" + listStafff.getRoleId(),
+                                   listStafff.getContact(),
+                                   _urlImg
+                              );
+
                               edit.setVisible(true);
-                              
+
                          } catch (Exception e) {
                               System.err.println("error getting product " + e);
                          }
                     }
-                    
+
                     @Override
                     public void onRemove(String Key) {  // event delete staff
                          try {
-                              
+
                               UIManager UI = new UIManager();
                               UI.put("OptionPane.background", WindowColor.mediumGreen);
                               UI.put("Panel.background", WindowColor.mediumGreen);
                               UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-                              
+
                               int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this staff?",
                                    "Delete Staff?", JOptionPane.YES_NO_OPTION);
-                              
+
                               if (resp == JOptionPane.YES_OPTION) {
                                    JSONObject json = new JSONObject();
                                    json.put("status", false);
                                    json.put("is_deleted", true);
                                    Response response = JavaConnection.delete(JavaRoute.employee + "/" + listData.getId(), json);
-                                   
+
                                    if (response.isSuccessful()) {
                                         StaffInformation list = new StaffInformation(new JFrame(), true);
                                         listGetStaff.removeAll();
                                         listGetStaff.revalidate();
                                         listGetStaff.repaint();
                                         list.getStaff(listGetStaff);
-                                        dispose();
+//                                        dispose();
                                         System.out.println("Successful deleted ");
                                    }
                               } else {
                                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                               }
-                              
+
                          } catch (Exception e) {
                               System.err.println("error getting product " + e);
                          }
                     }
                };
-               
+
                prod.initEvent(events);
                prod.setId(listData.getId());
                prod.setStaffName(listData.getNameEn());
@@ -204,9 +213,9 @@ public class StaffInformation extends javax.swing.JDialog {
                prod.setContact(listData.getContact());
                prod.setGender(listData.getGender());
                prod.setAddress(listData.getAddress());
-               
+
                try {
-                    
+
                     TimerTask task = new TimerTask() {
                          @Override
                          public void run() {
@@ -215,14 +224,14 @@ public class StaffInformation extends javax.swing.JDialog {
                               prod.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
                          }
                     };
-                    
+
                     Timer timer = new Timer();
                     timer.schedule(task, 500); // Delays task execution by 1 second
 
                } catch (Exception e) {
                     System.err.println("error read image = " + e);
                }
-               
+
                listGetStaff.add(prod, gbc);
           }
           listGetStaff.revalidate();
@@ -236,17 +245,16 @@ public class StaffInformation extends javax.swing.JDialog {
                @Override
                public void onKeyType() {
                     searchValue = searchField.getValueTextSearch();
-                    
+
                     if (searchValue.isEmpty()) {
                          listGetStaff.removeAll();
                          listGetStaff.revalidate();
                          listGetStaff.repaint();
                          getStaff(listGetStaff);
                     } else {
-//                         ActionSearchEmployee.search(searchValue, listGetStaff);
+
                          Response response = JavaConnection.get(JavaRoute.searchEmployee + searchValue);
-                         System.out.println("response data = " + response);
-                         
+
                          if (response.isSuccessful()) {
                               try {
                                    listGetStaff.removeAll();
@@ -255,10 +263,10 @@ public class StaffInformation extends javax.swing.JDialog {
                                    String responseData = response.body().string();
                                    ObjectMapper obj = new ObjectMapper();
                                    StaffDataSuccessModel data = obj.readValue(responseData, StaffDataSuccessModel.class);
-                                   
+
                                    StaffGetDataModel[] listData = data.getData();
                                    assignStaff(listData, listGetStaff);
-                                   
+
                               } catch (Exception e) {
                                    System.out.println("err from search product = " + e);
                               }
@@ -268,7 +276,7 @@ public class StaffInformation extends javax.swing.JDialog {
           };
           searchField.initEvent(event);
      }
-     
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -284,7 +292,7 @@ public class StaffInformation extends javax.swing.JDialog {
           searchField = new Components.SearchField();
           jScrollPane = new javax.swing.JScrollPane();
           listGetStaff = new javax.swing.JPanel();
-          button1 = new Button.Button();
+          btnAddStaff = new Button.Button();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -373,11 +381,11 @@ public class StaffInformation extends javax.swing.JDialog {
 
           jScrollPane.setViewportView(listGetStaff);
 
-          button1.setBackground(new java.awt.Color(47, 155, 70));
-          button1.setButtonName("+ Add Staff");
-          button1.addMouseListener(new java.awt.event.MouseAdapter() {
+          btnAddStaff.setBackground(new java.awt.Color(47, 155, 70));
+          btnAddStaff.setButtonName("+ Add Staff");
+          btnAddStaff.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    button1MouseClicked(evt);
+                    btnAddStaffMouseClicked(evt);
                }
           });
 
@@ -391,7 +399,7 @@ public class StaffInformation extends javax.swing.JDialog {
                          .addGroup(panelListProductLayout.createSequentialGroup()
                               .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addComponent(btnAddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addComponent(jScrollPane)
                          .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGap(18, 18, 18))
@@ -402,7 +410,7 @@ public class StaffInformation extends javax.swing.JDialog {
                     .addContainerGap()
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(btnAddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
@@ -425,11 +433,13 @@ public class StaffInformation extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
-    private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-         AddStaff add = new AddStaff(new JFrame(), true);
-         add.setListGetStaff(listGetStaff);
-         add.setVisible(true);
-    }//GEN-LAST:event_button1MouseClicked
+    private void btnAddStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStaffMouseClicked
+
+          InsertStaff editStaff = new InsertStaff(new JFrame(), true);
+          editStaff.setListGetStaff(listGetStaff);
+          editStaff.setVisible(true);
+          
+    }//GEN-LAST:event_btnAddStaffMouseClicked
 
      /**
       * @param args the command line
@@ -475,7 +485,7 @@ public class StaffInformation extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
-     private Button.Button button1;
+     private Button.Button btnAddStaff;
      private javax.swing.JPanel header;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel2;

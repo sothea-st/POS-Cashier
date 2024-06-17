@@ -89,9 +89,12 @@
                                               <Group type="102" attributes="0">
                                                   <Component id="jLabel15" min="-2" pref="13" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="dob" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dobDate" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="startDate" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="startDate" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -166,7 +169,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="label9" alignment="0" max="32767" attributes="0"/>
-                              <Component id="dob" alignment="0" max="32767" attributes="0"/>
+                              <Component id="dobDate" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -368,7 +371,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonUploadMouseClicked"/>
           </Events>
         </Component>
-        <Component class="DatePicker.DatePicker" name="dob">
+        <Component class="DatePicker.DatePicker" name="dobDate">
           <Properties>
             <Property name="labelTextField" type="java.lang.String" value="Select Date"/>
           </Properties>

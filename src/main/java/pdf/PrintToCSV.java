@@ -5,6 +5,8 @@
 package pdf;
 
 import Model.PackageProduct.ProductModel;
+import View.MainPage.CSVExporter;
+import com.opencsv.CSVWriter;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +16,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
- 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
 public class PrintToCSV {
      // create folder in specific path
 
@@ -45,50 +49,28 @@ public class PrintToCSV {
 
           // Specify PDF file path
           String filePath = downloadFolderPath + "\\Downloads\\CSV_Downloads\\";
- 
-          try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "\\" + fileName + ".csv"))) {
 
-               ArrayList<Object[]> data = new ArrayList<>();
-               data.add(new Object[]{"Product Name", "Barcode", "Price", "Quantity", "Status"});
+          try (CSVWriter  writer = new CSVWriter(new FileWriter(filePath + "\\" + fileName + ".csv"))) {
+               // Write headers
+               writer.writeNext(new String[]{"Product Name", "Barcode", "Price", "Quantity", "Status"});
+
+               // Write data
                for (ProductModel p : listProduct) {
-                    data.add(new Object[]{
+                    String[] data = new String[]{
                          p.getProductNameEn(),
-                         "" + p.getBarcode(),
-                         p.getPrice(),
-                         p.getQty(),
+                         "\"" + p.getBarcode() + "\"",
+                         String.valueOf(p.getPrice()),
+                         String.valueOf(p.getQty()),
                          p.getProductStatus()
-                    });
+                    };
+                    writer.writeNext(data);
                }
-
-               for (Object[] row : data) {
-                    StringBuilder rowString = new StringBuilder();
-                    for (int i = 0; i < row.length; i++) {
-                         rowString.append(row[i]);
-                         if (i < row.length - 1) {
-                              rowString.append(",");
-                         }
-                    }
-                    writer.write(rowString.toString());
-                    writer.newLine();
-               }
-
- 
-
                System.out.println("CSV file exported successfully to: " + filePath);
           } catch (IOException e) {
                e.printStackTrace();
           }
+
+ 
      }
 
-//     public static void main(String[] arg) {
-//
-//          // Sample data
-//          ArrayList<Object[]> data = new ArrayList<>();
-//          data.add(new Object[]{"Name", "Age", "Image Path"});
-//          data.add(new Object[]{"John Doe", 30, "path/to/john.jpg"});
-//          data.add(new Object[]{"Jane Smith", 25, "path/to/jane.jpg"});
-//          data.add(new Object[]{"Michael Johnson", 35, "path/to/michael.jpg"});
-//
-//          exportToCSV(data);
-//     }
 }

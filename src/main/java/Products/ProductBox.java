@@ -1,28 +1,22 @@
 package Products;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
-import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DecimalFormat;
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 public class ProductBox extends javax.swing.JPanel {
 
@@ -37,9 +31,7 @@ public class ProductBox extends javax.swing.JPanel {
      public void setOrgQty(int orgQty) {
           this.orgQty = orgQty;
      }
-     
-     
-     
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
 
      public double getDiscountPercent() {
@@ -49,18 +41,18 @@ public class ProductBox extends javax.swing.JPanel {
      public void setDiscountPercent(double discountPercent) {
           this.discountPercent = discountPercent;
           int disc = (int) discountPercent;
-          String dis = ""+discountPercent;
-          
+          String dis = "" + discountPercent;
+
           if (discountPercent > 0) {
-              
-              if(dis.contains(".0")){
-                  percent.setDiscountPercent("<html>" + disc + "%" + "<br>" + "Off" + "</html>");
-                  percent.setVisible(true);
-              }else{
-                  percent.setDiscountPercent("<html>" + discountPercent + "%" + "<br>" + "Off" + "</html>");
-                  percent.setVisible(true);
-              }
-               
+
+               if (dis.contains(".0")) {
+                    percent.setDiscountPercent("<html>" + disc + "%" + "<br>" + "Off" + "</html>");
+                    percent.setVisible(true);
+               } else {
+                    percent.setDiscountPercent("<html>" + discountPercent + "%" + "<br>" + "Off" + "</html>");
+                    percent.setVisible(true);
+               }
+
           } else {
                percent.setVisible(false);
           }
@@ -72,7 +64,7 @@ public class ProductBox extends javax.swing.JPanel {
 
      public void setQty(String qty) {
           this.qty = qty;
-         
+
           lbQty.setText(qty);
      }
 
@@ -117,15 +109,15 @@ public class ProductBox extends javax.swing.JPanel {
      }
 
      public void setProductImage(Icon productImage) {
-           
+
           this.productImage = productImage;
           productImg.setIcon(productImage);
      }
-     
-      public void setProductImage(String url) throws IOException {
+
+     public void setProductImage(String url) throws IOException {
           JavaConstant.coverImage(url, productImg, 120, 85);
      }
-     
+
      public void setImage(String url) throws MalformedURLException, IOException {
           JavaConstant.coverImage(url, productImg, 160, 105);
      }
@@ -194,7 +186,7 @@ public class ProductBox extends javax.swing.JPanel {
           txtBarcode.setForeground(WindowColor.gray);
           lbQty.setFont(WindowFonts.timeNewRomanBold12);
           jLabel2.setFont(WindowFonts.timeNewRomanBold12);
-          lbQty.setVisible(true);
+          lbQty.setVisible(false);
           jLabel2.setVisible(false);
      }
 

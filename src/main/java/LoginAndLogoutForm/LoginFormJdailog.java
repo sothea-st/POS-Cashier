@@ -481,7 +481,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "               POS ID : " + JavaConstant.posId);
 
                    
-//                   ==== event on profile image ====
+//                   ==== event on profile image for change password ====
                    Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
                    JavaConstant.setPointer(boxImg);
                    boxImg.setIcon(icon);
@@ -669,7 +669,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void onClickCategory(String catNameData, int catId) {
-          System.out.println("jdLogin.getCatId() == " + getCatId());
+        
           if (JavaConstant.checkOpenShift) {
 
                previous.setBackground(WindowColor.lightGray);
@@ -725,7 +725,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
                               break;
                          default:
-
                               pro.product(catId, JavaConstant.limitPagination, panelProduct);
                     }
                }

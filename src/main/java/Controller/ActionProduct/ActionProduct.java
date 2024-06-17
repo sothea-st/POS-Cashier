@@ -233,7 +233,7 @@ public class ActionProduct {
           appendProduct(listProduct, panelProduct);
      }
      DataListHold[] listHoldData;
-     ListDetailHold[] listHoldDetails;
+ 
 
      void getHold() {
           try {

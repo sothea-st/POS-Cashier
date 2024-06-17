@@ -8,7 +8,7 @@ public class Staff extends javax.swing.JDialog {
           super(parent, modal);
 
           initComponents();
-          setIconImage(null);
+    
      }
 
      @SuppressWarnings("unchecked")
