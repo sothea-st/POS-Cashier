@@ -97,7 +97,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPrintByInvoiceMouseClicked"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPrintByInvoiceMouseEntered"/>
           </Events>
         </Component>
         <Component class="Components.LabelPopUpTitle" name="lbTitle">
