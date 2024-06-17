@@ -181,4 +181,11 @@ public class EmployeeService {
         return repo.getAccountUserProjections();
     }
 
+    public List<AccountUserProjection> seachUserAccount(String valueSeach) {
+        if( !JavaConstant.onlyDigits(valueSeach, valueSeach.length()) ) {
+            return repo.getAccountUserProjectionsByUserName(valueSeach);
+        }
+        return repo.getAccountUserProjectionsByUserCode(valueSeach);
+    }
+
 }

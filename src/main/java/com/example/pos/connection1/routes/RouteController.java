@@ -277,6 +277,11 @@ public class RouteController {
                return JavaResponse.success(service.searchEmp(nameEn));
           }
 
+          @GetMapping("/searchUserAccount/{value}")
+          public ResponseEntity<?> searchUserAccount(@PathVariable("value") String value){
+               return JavaResponse.success(service.seachUserAccount(value));
+          }
+
           @PostMapping
           public ResponseEntity<?> addEmployee(@Valid @ModelAttribute Employee e,
                     @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
