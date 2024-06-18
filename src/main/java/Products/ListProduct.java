@@ -110,7 +110,7 @@ public class ListProduct extends javax.swing.JDialog {
      public void getProduct(JPanel jpanelData) {
           try {
                Response response = JavaConnection.get(JavaRoute.product + "?limit=0&perPage=200&page=0");
-               
+
                System.out.println("respone = " + response);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -185,6 +185,7 @@ public class ListProduct extends javax.swing.JDialog {
                     @Override
                     public void onSelect(String Key) {  // event edit
                          EditProduct edit = new EditProduct(new JFrame(), true);
+                         edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
 
                          edit.setPlProduct(panelProduct);
                          edit.setpCategory(panelCategory);

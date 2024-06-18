@@ -24,6 +24,10 @@ public class PasswordField extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           JavaConstant.setPointer(password);
      }
+     
+     public void setFocus(){
+          password.requestFocus();
+     }
 
      //=================================================Create Shadow Box
      private ShadowType shadowType;
