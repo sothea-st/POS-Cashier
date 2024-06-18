@@ -1,6 +1,5 @@
 package Staff;
 
-import Color.WindowColor;
 import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
@@ -8,7 +7,7 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.Role.RoleModel;
-import java.awt.Cursor;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import lombok.Getter;
-import lombok.Setter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -36,7 +33,6 @@ public class InsertStaff extends javax.swing.JDialog {
      private String genderId;
      private String roleId;
      private JPanel listGetStaff;
-
      private Icon file;
      private Integer id;
 

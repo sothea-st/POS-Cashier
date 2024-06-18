@@ -714,6 +714,7 @@ public class MainPage extends javax.swing.JFrame {
                    logout.setButtonCashier(buttonCashier);
                    logout.setBtnOpenShift(btnOpenShift);
                    logout.setComboBox(cmboxBrand);
+                   logout.setBoxImg(boxImg);
                    logout.setVisible(true);
               } else {
                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);

@@ -27,6 +27,17 @@ public class LogoutDialog extends javax.swing.JDialog {
      private SearchField searchBox;
      private TextField textField;
      private ComboBox comboBox;
+     private JLabel boxImg;
+
+     public JLabel getBoxImg() {
+          return boxImg;
+     }
+
+     public void setBoxImg(JLabel boxImg) {
+          this.boxImg = boxImg;
+     }
+     
+     
 
      public ComboBox getComboBox() {
           return comboBox;
@@ -257,6 +268,9 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
+                   
+                   
+                   boxImg.setVisible(false);
                    
                     JavaConstant.resetValuePagination(); // set variable relative with pagination to deafult value
                    
