@@ -15,7 +15,14 @@ public interface BrandRepository extends JpaRepository<Brand,Integer> {
     @Query(nativeQuery = true , value = "select * from pos_brand where status = true and is_deleted = false order by id desc")
     List<Brand> getListBrand();
 
-    @Query(nativeQuery = true , value = "select * from pos_brand where status = true and is_deleted = false and id = ?")
+    @Query(nativeQuery = true , value = "select\r\n" + //
+                "\t*\r\n" + //
+                "from\r\n" + //
+                "\tpos_brand\r\n" + //
+                "where\r\n" + //
+                "\tstatus = true\r\n" + //
+                "\tand is_deleted = false\r\n" + //
+                "\tand id = ?")
     Brand getBrandById(int id);
 
 

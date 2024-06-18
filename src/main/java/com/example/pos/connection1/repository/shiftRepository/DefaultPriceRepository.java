@@ -12,7 +12,16 @@ public interface DefaultPriceRepository extends JpaRepository<DefaultPrice,Integ
      List<DefaultPrice> getListDefaultPrice();
 
 
-     @Query(nativeQuery = true , value = "select id,default_price_usd ,defautl_price_khr from pos_default_price where status = true and is_deleted = false and id = ? ")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\tid,\r\n" + //
+                    "\tdefault_price_usd ,\r\n" + //
+                    "\tdefautl_price_khr\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_default_price\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand id = ?")
      DefaultPriceProjection getDefaultPriceById(int id);
 
 }

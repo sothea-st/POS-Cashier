@@ -12,7 +12,14 @@ public interface ReasonRepository extends JpaRepository<Reason,Integer> {
      @Query(nativeQuery = true , value = "select * from pos_reason where status = true and is_deleted=false order by id desc")
      List<Reason> getReason();
 
-     @Query(nativeQuery = true , value = "select * from pos_reason where status = true and is_deleted=false and id = ?")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\t*\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_reason\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand id = ?")
      Reason getReasonById(int id);
 
      @Query(nativeQuery = true , value = "select * from pos_reason pr where code = ? order by id desc")

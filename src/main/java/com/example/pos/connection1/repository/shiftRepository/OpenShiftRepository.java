@@ -9,22 +9,79 @@ import com.example.pos.connection1.entity.OpenShift;
 @Repository
 public interface OpenShiftRepository extends JpaRepository<OpenShift,Integer> {
 
-     @Query(nativeQuery = true , value = "select * from pos_open_shift where status = true and is_deleted = false and open_date = ?")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\t*\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_open_shift\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand open_date = ?")
      Optional<List<OpenShift>> getPosIdByCurrentDate(String currentDate);
 
-     @Query(nativeQuery = true , value = "select count(*) from pos_open_shift where status = true and is_deleted = false and open_date = ? and number_open_shift = 0")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\tcount(*)\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_open_shift\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand open_date = ?\r\n" + //
+                    "\tand number_open_shift = 0")
      int countPosId(String currentDate);
 
-     @Query(nativeQuery = true , value = "select * from pos_open_shift pos where status = true and is_deleted = false and user_code = ?  and open_date = ? and pos_id = ?  and number_open_shift = 0 order by id desc limit 1")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\t*\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_open_shift pos\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand user_code = ?\r\n" + //
+                    "\tand open_date = ?\r\n" + //
+                    "\tand pos_id = ?\r\n" + //
+                    "\tand number_open_shift = 0\r\n" + //
+                    "order by\r\n" + //
+                    "\tid desc\r\n" + //
+                    "limit 1")
      OpenShift getDataOpenShift(String userCode , String date,String posId);
 
-     @Query(nativeQuery = true , value = "select * from pos_open_shift pos where status = true and is_deleted = false and user_code = ? and open_date = ? order by id desc limit 1")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\t*\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_open_shift pos\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand user_code = ?\r\n" + //
+                    "\tand open_date = ?\r\n" + //
+                    "order by\r\n" + //
+                    "\tid desc\r\n" + //
+                    "limit 1")
      Optional<OpenShift> getNumberOpenShift(String userCode , String date);
 
-     @Query(nativeQuery = true , value = "select * from pos_open_shift pos where user_code = ? and open_date  = ? order by id desc limit 1")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\t*\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_open_shift pos\r\n" + //
+                    "where\r\n" + //
+                    "\tuser_code = ?\r\n" + //
+                    "\tand open_date = ?\r\n" + //
+                    "order by\r\n" + //
+                    "\tid desc\r\n" + //
+                    "limit 1")
      OpenShift countOpenShift(String userCode, String date);
 
-     @Query(nativeQuery = true , value = "select pos_id from pos_open_shift pos where user_code = ? and open_date  = ? order by id desc limit 1")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\tpos_id\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_open_shift pos\r\n" + //
+                    "where\r\n" + //
+                    "\tuser_code = ?\r\n" + //
+                    "\tand open_date = ?\r\n" + //
+                    "order by\r\n" + //
+                    "\tid desc\r\n" + //
+                    "limit 1")
      String getPosId(String userCode, String date);
  
      

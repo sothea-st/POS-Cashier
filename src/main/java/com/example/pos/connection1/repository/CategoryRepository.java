@@ -15,7 +15,14 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     boolean existsByCatNameKh(String catNameKh);
     boolean existsByCatNameEn(String catNameKh);
 
-    @Query(nativeQuery = true,value = "select * from pos_category where status=true and is_deleted=false and id=?")
+    @Query(nativeQuery = true,value = "select\r\n" + //
+                "\t*\r\n" + //
+                "from\r\n" + //
+                "\tpos_category\r\n" + //
+                "where\r\n" + //
+                "\tstatus = true\r\n" + //
+                "\tand is_deleted = false\r\n" + //
+                "\tand id =?")
     Category getCategoryById(int id);
 
     @Query(nativeQuery = true , value = "select count(*) from pos_category")

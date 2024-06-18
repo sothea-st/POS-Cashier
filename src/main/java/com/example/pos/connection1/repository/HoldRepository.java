@@ -14,7 +14,14 @@ import java.util.*;
 @Repository
 public interface HoldRepository extends JpaRepository<Hold, Integer> {
 
-        @Query(nativeQuery = true , value = "select * from pos_hold where status = true and is_deleted = false and id = ?")
+        @Query(nativeQuery = true , value = "select\r\n" + //
+                                "\t*\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_hold\r\n" + //
+                                "where\r\n" + //
+                                "\tstatus = true\r\n" + //
+                                "\tand is_deleted = false\r\n" + //
+                                "\tand id = ?")
         Optional<Hold> getDataById(int id);
 
      @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n" + //
@@ -37,10 +44,24 @@ public interface HoldRepository extends JpaRepository<Hold, Integer> {
                "where ph.status = true and ph.is_deleted = false and create_by=? and id = ?")
      List<HoldDataProjection> getHoldDataAll(int userId,int id);
 
-     @Query(nativeQuery = true, value = "select count(*) from pos_hold ph where ph.status = true and ph.is_deleted = false and create_by=?")
+     @Query(nativeQuery = true, value = "select\r\n" + //
+                          "\tcount(*)\r\n" + //
+                          "from\r\n" + //
+                          "\tpos_hold ph\r\n" + //
+                          "where\r\n" + //
+                          "\tph.status = true\r\n" + //
+                          "\tand ph.is_deleted = false\r\n" + //
+                          "\tand create_by =?")
      long countResult(int userId);
 
-     @Query(nativeQuery = true, value = "select * from pos_hold where status=true and is_deleted = false and id = ?")
+     @Query(nativeQuery = true, value = "select\r\n" + //
+                          "\t*\r\n" + //
+                          "from\r\n" + //
+                          "\tpos_hold\r\n" + //
+                          "where\r\n" + //
+                          "\tstatus = true\r\n" + //
+                          "\tand is_deleted = false\r\n" + //
+                          "\tand id = ?")
      Hold getById(int id);
 
 
