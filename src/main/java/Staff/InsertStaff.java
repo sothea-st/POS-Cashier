@@ -42,6 +42,7 @@ public class InsertStaff extends javax.swing.JDialog {
 
      public void setId(Integer id) {
           this.id = id;
+          labelPopUpTitle1.setLabelTitle("Edit Staff");
      }
 
      public void setValueEdit(
@@ -71,6 +72,7 @@ public class InsertStaff extends javax.swing.JDialog {
           staffName.requestFocus();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
+          labelPopUpTitle1.setLabelTitle("Add Staff");
 
           // action get select 
           ButtonEvent eventtss = new ButtonEvent() {

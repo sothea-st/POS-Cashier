@@ -6,8 +6,9 @@ public class Staff extends javax.swing.JDialog {
 
      public Staff(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
-
           initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
     
      }
 
@@ -16,8 +17,8 @@ public class Staff extends javax.swing.JDialog {
     private void initComponents() {
 
         panelReprint = new javax.swing.JPanel();
-        btnPrintByLast = new Button.Button();
-        btnPrintByInvoice = new Button.Button();
+        btnStaffInfo = new Button.Button();
+        btnUserlogin = new Button.Button();
         lbTitle = new Components.LabelPopUpTitle();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -29,18 +30,18 @@ public class Staff extends javax.swing.JDialog {
             }
         });
 
-        btnPrintByLast.setButtonName("Staff Information");
-        btnPrintByLast.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnStaffInfo.setButtonName("Staff Information");
+        btnStaffInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrintByLastMouseClicked(evt);
+                btnStaffInfoMouseClicked(evt);
             }
         });
 
-        btnPrintByInvoice.setBackground(new java.awt.Color(47, 155, 70));
-        btnPrintByInvoice.setButtonName("User Login");
-        btnPrintByInvoice.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnUserlogin.setBackground(new java.awt.Color(47, 155, 70));
+        btnUserlogin.setButtonName("User Login");
+        btnUserlogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrintByInvoiceMouseClicked(evt);
+                btnUserloginMouseClicked(evt);
             }
         });
 
@@ -52,9 +53,9 @@ public class Staff extends javax.swing.JDialog {
             panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelReprintLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(btnPrintByLast, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnStaffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPrintByInvoice, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUserlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
             .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -66,8 +67,8 @@ public class Staff extends javax.swing.JDialog {
                 .addGroup(panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelReprintLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnPrintByLast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnPrintByInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnStaffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnUserlogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
 
@@ -90,19 +91,17 @@ public class Staff extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPrintByLastMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintByLastMouseClicked
-
+    private void btnStaffInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStaffInfoMouseClicked
          StaffInformation staffInfo = new StaffInformation(new JFrame(), true);
          staffInfo.setVisible(true);
          dispose();
-    }//GEN-LAST:event_btnPrintByLastMouseClicked
+    }//GEN-LAST:event_btnStaffInfoMouseClicked
 
-    private void btnPrintByInvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintByInvoiceMouseClicked
+    private void btnUserloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserloginMouseClicked
          Userlogin user = new Userlogin(new JFrame(), true);
          user.setVisible(true);
          dispose();
-
-    }//GEN-LAST:event_btnPrintByInvoiceMouseClicked
+    }//GEN-LAST:event_btnUserloginMouseClicked
 
     private void panelReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelReprintMouseClicked
 
@@ -148,8 +147,8 @@ public class Staff extends javax.swing.JDialog {
      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.Button btnPrintByInvoice;
-    private Button.Button btnPrintByLast;
+    private Button.Button btnStaffInfo;
+    private Button.Button btnUserlogin;
     private Components.LabelPopUpTitle lbTitle;
     private javax.swing.JPanel panelReprint;
     // End of variables declaration//GEN-END:variables

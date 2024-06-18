@@ -19,6 +19,7 @@ public class JavaRoute {
      public static String closeShift = "/closeShiftTime";
      public static String searchProductByBarcodeOrName = "/searchProductByBarcodeOrName";
      public static String searchEmployee = "/employee/searchEmployee/";
+     public static String searchUserAccount = "/employee/searchUserAccount/";
 
      public static String searchWithInvoice = "/searchProductByBarcodeOrName/searchWithInvoice";
      public static String brand = "/brand";

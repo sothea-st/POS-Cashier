@@ -265,7 +265,18 @@ public class StaffInformation extends javax.swing.JDialog {
                                    StaffDataSuccessModel data = obj.readValue(responseData, StaffDataSuccessModel.class);
 
                                    StaffGetDataModel[] listData = data.getData();
-                                   assignStaff(listData, listGetStaff);
+                                   
+                                   if(listData.length > 0){
+                                       assignStaff(listData, listGetStaff);
+                                   }else{
+                                       listGetStaff.removeAll();
+                                       StaffNotFound nofound = new StaffNotFound();
+                                       listGetStaff.add(nofound);
+                                       listGetStaff.revalidate();
+                                       listGetStaff.repaint();
+                                   }
+                                   
+                                   
 
                               } catch (Exception e) {
                                    System.out.println("err from search product = " + e);
@@ -435,9 +446,9 @@ public class StaffInformation extends javax.swing.JDialog {
 
     private void btnAddStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStaffMouseClicked
 
-          InsertStaff editStaff = new InsertStaff(new JFrame(), true);
-          editStaff.setListGetStaff(listGetStaff);
-          editStaff.setVisible(true);
+          InsertStaff addStaff = new InsertStaff(new JFrame(), true);
+          addStaff.setListGetStaff(listGetStaff);
+          addStaff.setVisible(true);
           
     }//GEN-LAST:event_btnAddStaffMouseClicked
 
