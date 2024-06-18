@@ -1,6 +1,5 @@
 package Staff;
 
-import Color.WindowColor;
 import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
@@ -8,7 +7,7 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.Role.RoleModel;
-import java.awt.Cursor;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import lombok.Getter;
-import lombok.Setter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -46,6 +43,7 @@ public class InsertStaff extends javax.swing.JDialog {
 
      public void setId(Integer id) {
           this.id = id;
+          labelPopUpTitle1.setLabelTitle("Edit Staff");
      }
 
      public void setValueEdit(
@@ -75,6 +73,7 @@ public class InsertStaff extends javax.swing.JDialog {
           staffName.requestFocus();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
+          labelPopUpTitle1.setLabelTitle("Add Staff");
 
           // action get select 
           ButtonEvent eventtss = new ButtonEvent() {

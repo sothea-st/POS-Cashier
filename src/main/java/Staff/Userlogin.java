@@ -2,12 +2,10 @@ package Staff;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
-import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import Model.Userlogin.UserDataModel;
 import Model.Userlogin.UserModel;
 import Model.Userlogin.UserSuccessModel;
@@ -19,15 +17,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
-import javax.swing.UIManager;
 import okhttp3.Response;
-import org.json.JSONObject;
 
 public class Userlogin extends javax.swing.JDialog {
 
+    private String searchValue;
+    
     public Userlogin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -35,6 +32,14 @@ public class Userlogin extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         header1.setBackground(WindowColor.darkGreen);
+        eventSearchUser();
+        
+        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
     }
     
     public void getUserLogin(JPanel jpanelData) {
@@ -136,6 +141,54 @@ public class Userlogin extends javax.swing.JDialog {
           }
           listGetUserLogin.revalidate();
           listGetUserLogin.repaint();
+     }
+     
+      //Action Search
+     private void eventSearchUser() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+
+                    if (searchValue.isEmpty()) {
+                         listGetUserLogin.removeAll();
+                         listGetUserLogin.revalidate();
+                         listGetUserLogin.repaint();
+                         getUserLogin(listGetUserLogin);
+                    } else {
+
+                         Response response = JavaConnection.get(JavaRoute.searchUserAccount + searchValue);
+
+                         if (response.isSuccessful()) {
+                              try {
+                                  
+                                   listGetUserLogin.removeAll();
+                                   listGetUserLogin.revalidate();
+                                   listGetUserLogin.repaint();
+                                   String responseData = response.body().string();
+                                   ObjectMapper obj = new ObjectMapper();
+                                   UserSuccessModel data = obj.readValue(responseData, UserSuccessModel.class);
+                                   UserDataModel[] listData = data.getData();
+                                   
+                                   if(listData.length > 0){
+                                       assignUser(listData, listGetUserLogin);
+                                   }else{
+                                       listGetUserLogin.removeAll();
+                                       UserNotFound nofound = new UserNotFound();
+                                       listGetUserLogin.add(nofound);
+                                       listGetUserLogin.revalidate();
+                                       listGetUserLogin.repaint();
+                                   }
+
+                              } catch (Exception e) {
+                                   System.out.println("err from search product = " + e);
+                              }
+                         }
+                    }
+               }
+          };
+          searchField.initEvent(event);
      }
     
     @SuppressWarnings("unchecked")
