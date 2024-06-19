@@ -109,6 +109,8 @@ public class AddProduct extends javax.swing.JDialog {
 
           price.setComma("comma");
           cost.setComma("comma");
+
+          qty.setComma("comma");
      }
 
      //Place Holder
@@ -189,10 +191,11 @@ public class AddProduct extends javax.swing.JDialog {
 //                         String _catName = obj.getString("catNameEn").toLowerCase();    
 
                          System.out.println("categoryName : " + categoryName);
-                         if( categoryName.toLowerCase().equals("all") ||
-                              categoryName.toLowerCase().equals("new items") ||
-                              categoryName.toLowerCase().equals("promotion")
-                              ) continue;
+                         if (categoryName.toLowerCase().equals("all")
+                              || categoryName.toLowerCase().equals("new items")
+                              || categoryName.toLowerCase().equals("promotion")) {
+                              continue;
+                         }
 
                          map.put(categoryName, "" + idCategory);
 
@@ -636,6 +639,11 @@ public class AddProduct extends javax.swing.JDialog {
 //              return;
 //         }
 
+         if (proQty.contains(".")) {
+              JOptionPane.showMessageDialog(this, "Invalid qty ");
+              return;
+         }
+
          proPrice = proPrice.replace(",", "");
          proCost = proCost.replace(",", "");
 
@@ -696,7 +704,6 @@ public class AddProduct extends javax.swing.JDialog {
               .build();
 
 //         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
          try {
               Response response = client.newCall(request).execute();
               if (response.isSuccessful()) {
@@ -738,8 +745,7 @@ public class AddProduct extends javax.swing.JDialog {
 
                    lbPicture.setIcon(null);
                    lbFlag.setIcon(null);
-                   
-                   
+
                    System.out.println("jjjjjjjjjjjjjjjjjjjjj = " + jdLogin.getCatId());
                    // for reload items
                    jdLogin.onClickCategory("new items", jdLogin.getCatId());

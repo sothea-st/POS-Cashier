@@ -304,6 +304,7 @@ public class StaffInformation extends javax.swing.JDialog {
           jScrollPane = new javax.swing.JScrollPane();
           listGetStaff = new javax.swing.JPanel();
           btnAddStaff = new Button.Button();
+          buttonCancel1 = new ButtonPackage.ButtonCancel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -400,19 +401,30 @@ public class StaffInformation extends javax.swing.JDialog {
                }
           });
 
+          buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancel1MouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout panelListProductLayout = new javax.swing.GroupLayout(panelListProduct);
           panelListProduct.setLayout(panelListProductLayout);
           panelListProductLayout.setHorizontalGroup(
                panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListProductLayout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addGroup(panelListProductLayout.createSequentialGroup()
-                              .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(btnAddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addComponent(jScrollPane)
-                         .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelListProductLayout.createSequentialGroup()
+                              .addGap(15, 15, 15)
+                              .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                   .addGroup(panelListProductLayout.createSequentialGroup()
+                                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnAddStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addComponent(jScrollPane)
+                                   .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGap(18, 18, 18))
           );
           panelListProductLayout.setVerticalGroup(
@@ -426,7 +438,9 @@ public class StaffInformation extends javax.swing.JDialog {
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(17, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(11, Short.MAX_VALUE))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -451,6 +465,10 @@ public class StaffInformation extends javax.swing.JDialog {
           addStaff.setVisible(true);
           
     }//GEN-LAST:event_btnAddStaffMouseClicked
+
+     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
+         dispose();
+     }//GEN-LAST:event_buttonCancel1MouseClicked
 
      /**
       * @param args the command line
@@ -497,6 +515,7 @@ public class StaffInformation extends javax.swing.JDialog {
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Button.Button btnAddStaff;
+     private ButtonPackage.ButtonCancel buttonCancel1;
      private javax.swing.JPanel header;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel2;

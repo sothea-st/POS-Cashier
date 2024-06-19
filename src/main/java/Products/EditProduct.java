@@ -828,6 +828,11 @@ public class EditProduct extends javax.swing.JDialog {
 //              return;
 //         }
 
+          if (proQty.contains(".")) {
+              JOptionPane.showMessageDialog(this, "Invalid qty ");
+              return;
+         }
+
          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct + "/" + productId;
 
          proPrice = proPrice.replace(",", "");
