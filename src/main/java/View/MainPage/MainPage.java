@@ -565,11 +565,11 @@ public class MainPage extends javax.swing.JFrame {
                          .addComponent(previous, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
                          .addComponent(next, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                .addGroup(panelPaginationLayout.createSequentialGroup()
-                    .addGap(12, 12, 12)
+                    .addGap(0, 0, 0)
                     .addGroup(panelPaginationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                         .addComponent(breadcrumb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(homeMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(15, Short.MAX_VALUE))
+                         .addComponent(homeMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(breadcrumb, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(27, Short.MAX_VALUE))
           );
 
           titleOrder.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N

@@ -66,19 +66,20 @@
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="label2" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
                               <Component id="label6" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
+                              <Component id="label14" min="-2" pref="61" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="nameEn" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="nameKh" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="barcode" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="price" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="cost" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="weight" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="discount" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -93,7 +94,6 @@
                                           <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="label13" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Component id="label14" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="label10" min="-2" pref="58" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -107,7 +107,6 @@
                                           <Component id="tax" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="category" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="brand" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="discount" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="note" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="quantity" min="-2" max="-2" attributes="0"/>
@@ -158,14 +157,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="nameKh" alignment="0" max="32767" attributes="0"/>
-                              <Component id="label10" alignment="0" max="32767" attributes="0"/>
-                              <Component id="label2" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="label10" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="category" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel16" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="label6" min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="weight" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -198,8 +195,6 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="label6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="weight" alignment="0" max="32767" attributes="0"/>
                       <Component id="label14" alignment="0" max="32767" attributes="0"/>
                       <Component id="discount" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -245,19 +240,9 @@
             <Property name="labelName" type="java.lang.String" value="Product Name "/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="nameKh">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Product Name Kh"/>
-          </Properties>
-        </Component>
         <Component class="Components.TextField" name="nameEn">
           <Properties>
             <Property name="labelTextField" type="java.lang.String" value="Product Name"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label2">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Product Name Kh"/>
           </Properties>
         </Component>
         <Component class="Components.Label" name="label3">

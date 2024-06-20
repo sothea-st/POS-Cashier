@@ -122,7 +122,7 @@ public class AddProduct extends javax.swing.JDialog {
                }
           };
           productName.initEvent(btnevent);
-          productNameKh.initEvent(btnevent);
+        
           barcode.initEvent(btnevent);
           price.initEvent(btnevent);
           cost.initEvent(btnevent);
@@ -261,9 +261,7 @@ public class AddProduct extends javax.swing.JDialog {
           panelAddProduct = new javax.swing.JPanel();
           labelPopUpTitle1 = new Components.LabelPopUpTitle();
           label1 = new Components.Label();
-          productNameKh = new Components.TextField();
           productName = new Components.TextField();
-          label2 = new Components.Label();
           label3 = new Components.Label();
           barcode = new Components.TextField();
           label5 = new Components.Label();
@@ -306,11 +304,7 @@ public class AddProduct extends javax.swing.JDialog {
 
           label1.setLabelName("Product Name ");
 
-          productNameKh.setLabelTextField("Product Name Kh");
-
           productName.setLabelTextField("Product Name");
-
-          label2.setLabelName("Product Name Kh");
 
           label3.setLabelName("Barcode");
 
@@ -442,23 +436,23 @@ public class AddProduct extends javax.swing.JDialog {
                                         .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, 0)
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addComponent(lbPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addGroup(panelAddProductLayout.createSequentialGroup()
                                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, 0)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addComponent(label14, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                               .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(panelAddProductLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                              .addComponent(productName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                             .addComponent(productNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(barcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                             .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                             .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                             .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)
                                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addGroup(panelAddProductLayout.createSequentialGroup()
@@ -474,15 +468,13 @@ public class AddProduct extends javax.swing.JDialog {
                                                   .addGap(0, 0, 0)
                                                   .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
                                              .addComponent(label13, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                             .addComponent(label14, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(label12, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                   .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                   .addComponent(category, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addComponent(brand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                  .addComponent(brand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                              .addComponent(note, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                              .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 23, Short.MAX_VALUE))
@@ -497,59 +489,55 @@ public class AddProduct extends javax.swing.JDialog {
           panelAddProductLayout.setVerticalGroup(
                panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelAddProductLayout.createSequentialGroup()
-                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addGroup(panelAddProductLayout.createSequentialGroup()
-                              .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(18, 18, 18)
-                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(productName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(label9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                   .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                             .addComponent(productNameKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                             .addComponent(label10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                             .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(barcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(label11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                   .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                   .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(label12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(cost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(label13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(note, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(label6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(weight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(label14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addGap(20, 20, 20)
-                              .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(productName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(label9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(label1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                              .addComponent(label10, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(barcode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(label11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                              .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                              .addComponent(label12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(cost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(label13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(note, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(6, 6, 6)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(label14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(discount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(label7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(label8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(10, 10, 10)
                     .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(lbPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -565,7 +553,7 @@ public class AddProduct extends javax.swing.JDialog {
                               .addGroup(panelAddProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addComponent(buttonUpload, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                              .addContainerGap(18, Short.MAX_VALUE))))
+                              .addContainerGap(22, Short.MAX_VALUE))))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -576,207 +564,203 @@ public class AddProduct extends javax.swing.JDialog {
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panelAddProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(panelAddProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           );
 
           pack();
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
-    }//GEN-LAST:event_buttonCancelMouseClicked
+     private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
+          try {
+               pathFlag = JNAFileChooser.funChooseFile();
+               JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
+          } catch (IOException ex) {
+               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+          }
+     }//GEN-LAST:event_button2MouseClicked
 
-    private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-         String proName = productName.getValueTextField();
-         String proNameKh = productNameKh.getValueTextField();
-         String proBarcode = barcode.getValueTextField();
-         String proPrice = price.getValueTextField();
-         String proCost = cost.getValueTextField();
-         String proWeight = weight.getValueTextField();
-         String proNote = note.getValueTextField();
-         String proDiscount = discount.getValueTextField();
-         String proQty = qty.getValueTextField();
+     private void buttonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadMouseClicked
+          try {
+               path = JNAFileChooser.funChooseFile();
+               JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+          } catch (IOException ex) {
+               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+          }
+     }//GEN-LAST:event_buttonUploadMouseClicked
 
-         if (proName == null || proName.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Product Name can not be empty!");
-              return;
-         }
-         if (proBarcode == null || proBarcode.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
-              return;
-         }
-         if (proPrice == null || proPrice.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Price can not be empty!");
-              return;
-         }
-         if (proCost == null || proCost.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Cost can not be empty!");
-              return;
-         }
-         if (categoryId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a category!");
-              return;
-         }
-         if (categoryId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a category!");
-              return;
-         }
-         if (brandId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a brand!");
-              return;
-         }
-         if (brandId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a brand!");
-              return;
-         }
-         if (taxId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a tax!");
-              return;
-         }
-//         if (statusProduct == null) {
-//              JOptionPane.showMessageDialog(this, "Please select a product status!");
-//              return;
-//         }
+     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+          String proName = productName.getValueTextField();
+         
+          String proBarcode = barcode.getValueTextField();
+          String proPrice = price.getValueTextField();
+          String proCost = cost.getValueTextField();
+          String proWeight = weight.getValueTextField();
+          String proNote = note.getValueTextField();
+          String proDiscount = discount.getValueTextField();
+          String proQty = qty.getValueTextField();
 
-         if (proQty.contains(".")) {
-              JOptionPane.showMessageDialog(this, "Invalid qty ");
-              return;
-         }
+          if (proName == null || proName.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Product Name can not be empty!");
+               return;
+          }
+          if (proBarcode == null || proBarcode.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
+               return;
+          }
+          if (proPrice == null || proPrice.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Price can not be empty!");
+               return;
+          }
+          if (proCost == null || proCost.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Cost can not be empty!");
+               return;
+          }
+          if (categoryId == null) {
+               JOptionPane.showMessageDialog(this, "Please select a category!");
+               return;
+          }
+          if (categoryId == null) {
+               JOptionPane.showMessageDialog(this, "Please select a category!");
+               return;
+          }
+          if (brandId == null) {
+               JOptionPane.showMessageDialog(this, "Please select a brand!");
+               return;
+          }
+          if (brandId == null) {
+               JOptionPane.showMessageDialog(this, "Please select a brand!");
+               return;
+          }
+          if (taxId == null) {
+               JOptionPane.showMessageDialog(this, "Please select a tax!");
+               return;
+          }
+          //         if (statusProduct == null) {
+               //              JOptionPane.showMessageDialog(this, "Please select a product status!");
+               //              return;
+               //         }
 
-         proPrice = proPrice.replace(",", "");
-         proCost = proCost.replace(",", "");
+          if (proQty != null) {
+               if (proQty.contains(".")) {
+                    JOptionPane.showMessageDialog(this, "Invalid qty ");
+                    return;
+               }
+          }
 
-         String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
-         OkHttpClient client = new OkHttpClient();
-         // File to upload
+          proPrice = proPrice.replace(",", "");
+          proCost = proCost.replace(",", "");
 
-         // Request body
-         MultipartBody.Builder requestBody = new MultipartBody.Builder()
-              .setType(MultipartBody.FORM)
-              .addFormDataPart("catId", categoryId)
-              .addFormDataPart("proNameEn", proName)
-              .addFormDataPart("cost", proCost)
-              .addFormDataPart("price", proPrice)
-              .addFormDataPart("barcode", proBarcode)
-              .addFormDataPart("brandId", brandId)
-              .addFormDataPart("createBy", JavaConstant.cashierId + "")
-              .addFormDataPart("taxId", taxId)
-              .addFormDataPart("productStatus", "");
+          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
+          OkHttpClient client = new OkHttpClient();
+          // File to upload
 
-         if (path != null) {
-              File fileToUpload = new File(path);
-              requestBody.addFormDataPart("file", fileToUpload.getName(),
-                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-         }
+          // Request body
+          MultipartBody.Builder requestBody = new MultipartBody.Builder()
+          .setType(MultipartBody.FORM)
+          .addFormDataPart("catId", categoryId)
+          .addFormDataPart("proNameEn", proName)
+          .addFormDataPart("cost", proCost)
+          .addFormDataPart("price", proPrice)
+          .addFormDataPart("barcode", proBarcode)
+          .addFormDataPart("brandId", brandId)
+          .addFormDataPart("createBy", JavaConstant.cashierId + "")
+          .addFormDataPart("taxId", taxId)
+          .addFormDataPart("productStatus", "");
 
-         if (pathFlag != null) {
-              File fileToUpload = new File(pathFlag);
-              requestBody.addFormDataPart("flagFile", fileToUpload.getName(),
-                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-         }
+          if (path != null) {
+               File fileToUpload = new File(path);
+               requestBody.addFormDataPart("file", fileToUpload.getName(),
+                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+          }
 
-         if (proWeight != null) {
-              requestBody.addFormDataPart("weight", proWeight);
-         }
+          if (pathFlag != null) {
+               File fileToUpload = new File(pathFlag);
+               requestBody.addFormDataPart("flagFile", fileToUpload.getName(),
+                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+          }
 
-         if (proDiscount != null) {
-              requestBody.addFormDataPart("discount", proDiscount);
-         }
+          if (proWeight != null) {
+               requestBody.addFormDataPart("weight", proWeight);
+          }
 
-         if (proNote != null) {
-              requestBody.addFormDataPart("note", proNote);
-         }
+          if (proDiscount != null) {
+               requestBody.addFormDataPart("discount", proDiscount);
+          }
 
-         if (proNameKh != null) {
-              requestBody.addFormDataPart("proNameKh", proNameKh);
-         }
+          if (proNote != null) {
+               requestBody.addFormDataPart("note", proNote);
+          }
 
-         if (proQty != null) {
-              requestBody.addFormDataPart("proQty", proQty);
-         }
+       
+          if (proQty != null) {
+               requestBody.addFormDataPart("proQty", proQty);
+          }
 
-         // Request
-         Request request = new Request.Builder()
-              .url(url)
-              .post(requestBody.build())
-              .header("Authorization", "Bearer " + JavaConstant.token)
-              .build();
+          // Request
+          Request request = new Request.Builder()
+          .url(url)
+          .post(requestBody.build())
+          .header("Authorization", "Bearer " + JavaConstant.token)
+          .build();
 
-//         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-         try {
-              Response response = client.newCall(request).execute();
-              if (response.isSuccessful()) {
-                   System.out.println("success data add");
-                   productName.setValueTextField(null);
-                   productNameKh.setValueTextField(null);
-                   barcode.setValueTextField(null);
-                   price.setValueTextField(null);
-                   cost.setValueTextField(null);
-                   weight.setValueTextField(null);
-                   qty.setValueTextField(null);
-                   note.setValueTextField(null);
-                   discount.setValueTextField(null);
-                   productName.setFocus();
+          //         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+          try {
+               Response response = client.newCall(request).execute();
+               if (response.isSuccessful()) {
+                    System.out.println("success data add");
+                    productName.setValueTextField(null);
+                
+                    barcode.setValueTextField(null);
+                    price.setValueTextField(null);
+                    cost.setValueTextField(null);
+                    weight.setValueTextField(null);
+                    qty.setValueTextField(null);
+                    note.setValueTextField(null);
+                    discount.setValueTextField(null);
+                    productName.setFocus();
 
-                   //       ====== set placeholder ======
-                   productNameKh.setLabelTextField("Product Name Kh");
-                   barcode.setLabelTextField("Barcode");
-                   price.setLabelTextField("$ 0.00");
-                   cost.setLabelTextField("$ 0.00");
-                   weight.setLabelTextField("Weight");
-                   qty.setLabelTextField("Quantity");
-                   note.setLabelTextField("Note");
-                   discount.setLabelTextField("0%");
-                   productNameKh.setLabelTextField("Product Name Kh");
-                   productNameKh.setLabelTextField("Product Name Kh");
+                    //       ====== set placeholder ======
+                   
+                    barcode.setLabelTextField("Barcode");
+                    price.setLabelTextField("$ 0.00");
+                    cost.setLabelTextField("$ 0.00");
+                    weight.setLabelTextField("Weight");
+                    qty.setLabelTextField("Quantity");
+                    note.setLabelTextField("Note");
+                    discount.setLabelTextField("0%");
+                 
 
-                   categoryId = null;
-                   brandId = null;
-                   taxId = null;
-                   statusProduct = null;
-                   path = null;
-                   pathFlag = null;
+                    categoryId = null;
+                    brandId = null;
+                    taxId = null;
+                    statusProduct = null;
+                    path = null;
+                    pathFlag = null;
 
-                   brand.setToFirstItem();
-                   category.setToFirstItem();
-                   tax.setToFirstItem();
-//                   status.setToFirstItem();
+                    brand.setToFirstItem();
+                    category.setToFirstItem();
+                    tax.setToFirstItem();
+                    //                   status.setToFirstItem();
 
-                   lbPicture.setIcon(null);
-                   lbFlag.setIcon(null);
+                    lbPicture.setIcon(null);
+                    lbFlag.setIcon(null);
 
-                   System.out.println("jjjjjjjjjjjjjjjjjjjjj = " + jdLogin.getCatId());
-                   // for reload items
-                   jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                   panelCategory.getComponents()[1].setBackground(WindowColor.black);
+                    System.out.println("jjjjjjjjjjjjjjjjjjjjj = " + jdLogin.getCatId());
+                    // for reload items
+                    jdLogin.onClickCategory("new items", jdLogin.getCatId());
+                    panelCategory.getComponents()[1].setBackground(WindowColor.black);
 
-              }
-              // Do something with the response.
-         } catch (IOException e) {
-              System.out.println("err = " + e);
-         }
+               }
+               // Do something with the response.
+          } catch (IOException e) {
+               System.out.println("err = " + e);
+          }
+     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    }//GEN-LAST:event_buttonSaveMouseClicked
-
-    private void buttonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadMouseClicked
-         try {
-              path = JNAFileChooser.funChooseFile();
-              JavaConstant.coverImagePath(path, lbPicture, 124, 235);
-         } catch (IOException ex) {
-              Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
-         }
-
-    }//GEN-LAST:event_buttonUploadMouseClicked
-
-    private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
-         try {
-              pathFlag = JNAFileChooser.funChooseFile();
-              JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
-         } catch (IOException ex) {
-              Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    }//GEN-LAST:event_button2MouseClicked
+     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+          this.dispose();
+     }//GEN-LAST:event_buttonCancelMouseClicked
 
 //    ========================== for file chooser JNA ===========================
 //     public interface User32 extends Library {
@@ -846,7 +830,6 @@ public class AddProduct extends javax.swing.JDialog {
      private Components.Label label12;
      private Components.Label label13;
      private Components.Label label14;
-     private Components.Label label2;
      private Components.Label label3;
      private Components.Label label4;
      private Components.Label label5;
@@ -861,7 +844,6 @@ public class AddProduct extends javax.swing.JDialog {
      private javax.swing.JPanel panelAddProduct;
      private Components.TextField price;
      private Components.TextField productName;
-     private Components.TextField productNameKh;
      private Components.TextField qty;
      private Components.ComboBox tax;
      private Components.TextField weight;
