@@ -83,6 +83,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button btnReprint;
      private Button buttonDiscount;
      private Button buttonCustomer;
+     private Button stock;
 
      private JLabel lbPOSId;
 
@@ -105,14 +106,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private LabelTitle breadcrumb;
      private JFrame mainFrame;
 
-     private Button stock;
-
      private Button buttonStaff;
      private LabelFontGreen next;
      private LabelFontGreen previous;
 
      private String titleCategory;
-     
+
      private JLabel boxImg;
 
      public JLabel getBoxImg() {
@@ -122,8 +121,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void setBoxImg(JLabel boxImg) {
           this.boxImg = boxImg;
      }
-     
-     
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -382,11 +379,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
-//         String userId = txtUserId.getValueTextField();
-//         String password = txtPassword.getValuePassword();
+         String userId = txtUserId.getValueTextField();
+         String password = txtPassword.getValuePassword();
 
-         String userId = "0005";
-         String password = "TT@126$kh#";
+//         String userId = "0005";
+//         String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
          String ipAddress;
@@ -448,6 +445,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.cashierId = model.getID();
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
 
+                   if (model.getRoleName().equals("Admin")) {
+                        stock.setVisible(true);
+                        buttonStaff.setVisible(true);
+                   }
+
+                   
+                   System.out.println("model.getRoleName() = " + model.getRoleName());
                    if (responseOpenShift.isSuccessful()) {
                         btnOpenShift.setBackground(WindowColor.green);
                         String result = responseOpenShift.body().string();
@@ -455,6 +459,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                         if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
 
+                             if (model.getRoleName().equals("Admin")) {
+                                  stock.setVisible(true);
+                                  buttonStaff.setVisible(true);
+                             }
                              JavaConstant.checkOpenShift = true;
 
                              searchBox.disabledTextField(true);
@@ -480,16 +488,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
 
-                   
 //                   ==== event on profile image for change password ====
                    Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
                    JavaConstant.setPointer(boxImg);
                    boxImg.setIcon(icon);
                    boxImg.setVisible(true);
-                   boxImg.addMouseListener(new MouseListener(){
+                   boxImg.addMouseListener(new MouseListener() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                             ChangePasswordForm obj = new ChangePasswordForm(new JFrame() , true);
+                             ChangePasswordForm obj = new ChangePasswordForm(new JFrame(), true);
                              obj.setVisible(true);
                         }
 
@@ -508,9 +515,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         @Override
                         public void mouseExited(MouseEvent e) {
                         }
-                   
+
                    });
-                   
 
                    category();
                    getjScrollPaneCategory().setVisible(true);
@@ -669,7 +675,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
      public void onClickCategory(String catNameData, int catId) {
-        
+
           if (JavaConstant.checkOpenShift) {
 
                previous.setBackground(WindowColor.lightGray);

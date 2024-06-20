@@ -141,6 +141,10 @@ public class MainPage extends javax.swing.JFrame {
 //          buttonCashier1.setVisible(false);
 
           boxImg.setVisible(false);
+          
+          
+          stock.setVisible(false);
+          buttonStaff.setVisible(false);
      }
 
      // Set Timer
