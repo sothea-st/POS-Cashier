@@ -4,6 +4,7 @@ import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
+import Constant.UtilShadow;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -14,30 +15,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-/**
- *
- * @author FRONT-END.06
- */
 public class LabelFontGreen extends javax.swing.JPanel {
 
-     /**
-      * @return the labelName
-      */
      public String getLabelName() {
           return labelName;
      }
 
-     /**
-      * @param labelName the labelName to set
-      */
      public void setLabelName(String labelName) {
           this.labelName = labelName;
           lbLabel.setText(labelName);
      }
 
-     /**
-      * Creates new form LabelFontGreen
-      */
      public LabelFontGreen() {
           initComponents();
           setBackground(WindowColor.white);
@@ -76,59 +64,12 @@ public class LabelFontGreen extends javax.swing.JPanel {
           });
      }
 
-     // =================================================Create Shadow Box
-     private ShadowType shadowType;
-     private int shadowSize = 3;
-     private float shadowOpacity = 0.8f;
-     private Color shadowColor = Color.GRAY;
-
+     //=====================Create Shadow Box============================
      @Override
      protected void paintComponent(Graphics grphcs) {
           setOpaque(false);
-          createShadow(grphcs);
+          UtilShadow.createShadow(grphcs, getWidth(), getHeight(), getBackground());
           super.paintComponent(grphcs);
-     }
-
-     private void createShadow(Graphics grphcs) {
-          Graphics2D g2 = (Graphics2D) grphcs;
-          int size = shadowSize * 2;
-          int x = 0;
-          int y = 0;
-          int width = getWidth() - size;
-          int height = getHeight() - size;
-          if (shadowType == ShadowType.TOP) {
-               x = shadowSize;
-               y = size;
-          } else if (shadowType == ShadowType.BOT) {
-               x = shadowSize;
-               y = 0;
-          } else if (shadowType == ShadowType.TOP_LEFT) {
-               x = size;
-               y = size;
-          } else if (shadowType == ShadowType.TOP_RIGHT) {
-               x = 0;
-               y = size;
-          } else if (shadowType == ShadowType.BOT_LEFT) {
-               x = size;
-               y = 0;
-          } else if (shadowType == ShadowType.BOT_RIGHT) {
-               x = 0;
-               y = 0;
-          } else {
-               // Center
-               x = shadowSize;
-               y = shadowSize;
-          }
-          BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-          Graphics2D g = img.createGraphics();
-          g.setColor(getBackground());
-          g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-          g.fillRoundRect(0, 0, width, height, 10, 10);
-
-          // Create Shadow
-          ShadowRenderer render = new ShadowRenderer(shadowSize, shadowOpacity, shadowColor);
-          g2.drawImage(render.createShadow(img), 0, 0, null);
-          g2.drawImage(img, x, y, null);
      }
 
      @SuppressWarnings("unchecked")

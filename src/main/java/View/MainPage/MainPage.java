@@ -46,7 +46,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -82,7 +81,7 @@ public class MainPage extends javax.swing.JFrame {
 
      public MainPage() {
           initComponents();
-//          setSize(    1540, 907);
+ 
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -102,7 +101,7 @@ public class MainPage extends javax.swing.JFrame {
           searchBox.disabledTextField(false);
           textField.disabledTextField(false);
           // custome scrollbar ui
-//             jScrollPane2.setPreferredSize(new Dimension(50, 50)); 
+ 
           jScrollPane2.getVerticalScrollBar().setUI(new CustomScrollBarUI());
           jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
           // custom scroll speed jscrollPane for vertical
@@ -135,14 +134,10 @@ public class MainPage extends javax.swing.JFrame {
           ).resizeEvent(this);
 
           currentDateTime();
-          // boxUserName.setVisible(false);
+      
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
-//          buttonCashier1.setVisible(false);
-
           boxImg.setVisible(false);
-          
-          
           stock.setVisible(false);
           buttonStaff.setVisible(false);
      }
@@ -665,7 +660,7 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBtnLogin(btnLogin);
           jdFormLogin.setCategory(category);
           jdFormLogin.setPanelProduct(panelProduct);
-          jdFormLogin.setjScrollPaneCategory(jScrollPaneCategory);
+          jdFormLogin.setJScrollPaneCategory(jScrollPaneCategory);
           jdFormLogin.setPanelPagination(panelPagination);
           jdFormLogin.setDetailItem(detailItem);
           jdFormLogin.setBoxOne(boxOne);

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
 package BlogCode;
 
 import Button.Button;
@@ -20,8 +17,6 @@ import javax.swing.JPanel;
 public class ActionCloseShift {
 
      public static JavaAlertMessage j;
-
-     
 
      public static void closeShift(
           JPanel detailItem,

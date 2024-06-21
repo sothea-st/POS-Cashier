@@ -36,7 +36,6 @@ public class CloseShift extends javax.swing.JDialog {
      private Button buttonCashier;
      private Button btnHold;
      private Button btnLogin;
-
      private BackgroundImage bgImage;
      private ButtonCancel btnCancel;
      private Button stock;
@@ -50,7 +49,7 @@ public class CloseShift extends javax.swing.JDialog {
           setResizable(false);
           event();
           this.btnOpenShift = btnOpenShift;
-//          redexpress.setFocus();
+ 
 
           redexpress.setComma("comma");
           qrMnk.setComma("comma"); // when user type 4length it will insert , at 3 length 
@@ -58,7 +57,7 @@ public class CloseShift extends javax.swing.JDialog {
           abaCreditCard.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashUs.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashKh.setComma("comma"); // when user type 4length it will insert , at 3 length 
-//          cashCount.setComma("comma"); // when user type 4length it will insert , at 3 length 
+ 
 
      }
 

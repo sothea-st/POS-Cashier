@@ -39,6 +39,56 @@ import javax.swing.text.DocumentFilter;
 import okhttp3.MediaType;
 
 public class JavaConstant {
+     public static String invoiceNo;
+     public static String reasonId;
+     public static Integer returnerId;
+     public static String token;
+     public static String fullName;
+     public static String userCode;
+     public static String posId;
+     public static Integer cashierId;
+     public static Long checkCloseShift;
+     public static int numberOpenShift = 0;
+     public static int productId;
+     public static int productQTyLeft;
+     public static double discountAmount = 1;
+     public static String roleName;
+     public static String isReturn;
+     public static String tmpInvoice;
+     public static Integer saleId;
+     public static String returnByBarcode;
+     public static Integer qtyReturn;
+     public static int limit = 21;
+     public static int limitPagination = 21;
+     public static int page = 0;
+     public static int brandId = 0;
+     public static String typeCash = "cash";
+     public static String typeCredit = "credit";
+     public static String typeQRaba = "aba";
+     public static String typeQRmnk = "mnk";
+     public static String typeExpress = "express";
+     public static String titleClose = "Close";
+     public static String success = "success";
+     public static String closeShift = "Close Shift";
+     public static String supervisor = "Supervisor";
+     public static String admin = "Admin";
+     public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
+     public static double exchangeRate = 4150;
+     public static double exchangeRate4050 = 4050;
+     public static String urlImage = "http://103.101.80.108:8082//";
+     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+     public static String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+     public static ArrayList<HoldOrderModel> listHoldData = new ArrayList<>();
+     public static ArrayList<NewHoldOrderModel> listHoldOrder = new ArrayList<>();
+     public static int indexArrayListHold = 0;
+     public static boolean checkOpenShift = false;
+     public static String openShiftFirst = "You have to open shift first!";
+     public static String byBrandId = "Select By BrandID";
+     public static String byCatID = "Select By CatID";
+     public static String noResult = "No Result";
+     public static int rowNum = 5;
+     public static ProductDataModel[] listData;
+     public static boolean isCheckProductAll = false;
 
      public static void setResultNotFound(JPanel panelProduct, JPanel panelPagination) {
           panelPagination.setVisible(false);
@@ -84,16 +134,13 @@ public class JavaConstant {
           component.setCursor(Cursor.getDefaultCursor());
      }
 
-     public static String urlImage = "http://103.101.80.108:8082//";
-
      public static void setPointer(JLabel jLabel) {
           jLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
      }
-     
-      public static void setPointer(JButton icon) {
+
+     public static void setPointer(JButton icon) {
           icon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
      }
-
 
      public static void setPointer(JTextField txt) {
           txt.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -111,55 +158,11 @@ public class JavaConstant {
           jPanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
      }
 
-     public static String invoiceNo;
-     public static String reasonId;
-     public static Integer returnerId;
-     public static String token;
-     public static String fullName;
-     public static String userCode;
-     public static String posId;
-     public static Integer cashierId;
-     public static Long checkCloseShift;
-     public static int numberOpenShift = 0;
-     public static int productId;
-     public static int productQTyLeft;
-     public static double discountAmount = 1;
-//     public static Component[] listHoldData;
-     public static String roleName;
-     public static String isReturn;
-     public static String tmpInvoice;
-     public static Integer saleId;
-
-     public static String returnByBarcode;
-     public static Integer qtyReturn;
-
-     public static int limit = 21;
-     public static int limitPagination = 21;
-     public static int page = 0;
-     public static int brandId = 0;
-
      public static void resetValuePagination() {
           limit = 21;
           page = 0;
           brandId = 0;
      }
-
-     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-     public static String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
-
-     public static String typeCash = "cash";
-     public static String typeCredit = "credit";
-     public static String typeQRaba = "aba";
-     public static String typeQRmnk = "mnk";
-     public static String typeExpress = "express";
-     public static String titleClose = "Close";
-     public static String success = "success";
-     public static String closeShift = "Close Shift";
-     public static String supervisor = "Supervisor";
-     public static String admin = "Admin";
-
-     public static double exchangeRate = 4150;
-     public static double exchangeRate4050 = 4050;
 
      public static double getReplace(String value) {
           String data = value.replace("$", "");
@@ -167,12 +170,6 @@ public class JavaConstant {
           double doubleValue = Double.valueOf(data);
           return doubleValue;
      }
-
-     public static ArrayList<HoldOrderModel> listHoldData = new ArrayList<>();
-     public static ArrayList<NewHoldOrderModel> listHoldOrder = new ArrayList<>();
-     public static int indexArrayListHold = 0;
-     public static boolean checkOpenShift = false;
-     public static String openShiftFirst = "You have to open shift first!";
 
      public static double get4Length(String value) {
           if (value.length() > 4) {
@@ -182,13 +179,6 @@ public class JavaConstant {
           }
           return Double.parseDouble(value);
      }
-
-     public static String byBrandId = "Select By BrandID";
-     public static String byCatID = "Select By CatID";
-     public static String noResult = "No Result";
-     public static int rowNum = 5;
-     public static ProductDataModel[] listData;
-     public static boolean isCheckProductAll = false;
 
      public static String getDeviceName() {
           Map<String, String> env = System.getenv();
@@ -317,8 +307,6 @@ public class JavaConstant {
 
           }
      }
-
-     public static String removeItem = "You have to remove the produt that has been bought or do the payment first!";
 
      public static boolean onlyDigits(String str) {
           for (int i = 0; i < str.length(); i++) {
