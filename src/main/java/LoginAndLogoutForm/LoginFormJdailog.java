@@ -450,8 +450,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         buttonStaff.setVisible(true);
                    }
 
-                   
-                   System.out.println("model.getRoleName() = " + model.getRoleName());
+ 
                    if (responseOpenShift.isSuccessful()) {
                         btnOpenShift.setBackground(WindowColor.green);
                         String result = responseOpenShift.body().string();

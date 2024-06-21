@@ -22,7 +22,6 @@ import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -33,7 +32,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class EditProduct extends javax.swing.JDialog {
-
      private int productId;
      private String productNameEn;
      private String productNameKh;
@@ -924,6 +922,11 @@ public class EditProduct extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_button2MouseClicked
 
+    
+    
+    
+    
+    
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
