@@ -13,7 +13,16 @@ public interface TaxProductRepository extends JpaRepository<TaxProduct,Integer> 
      List<TaxProductProjection> getTax();
 
 
-     @Query(nativeQuery = true , value = "select id,tax_name,rate_tax from pos_product_tax where status = true and is_deleted = false and id = ?")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\tid,\r\n" + //
+                    "\ttax_name,\r\n" + //
+                    "\trate_tax\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_product_tax\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand id = ?")
      Optional<TaxProductProjection> getById(int id);
 
 }

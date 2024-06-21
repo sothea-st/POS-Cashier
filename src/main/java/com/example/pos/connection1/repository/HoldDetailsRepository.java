@@ -8,7 +8,13 @@ import com.example.pos.connection1.entity.HoldeDetails;
 @Repository
 public interface HoldDetailsRepository extends JpaRepository<HoldeDetails,Integer> {
 
-     @Query(nativeQuery = true , value = "select id from pos_hold_details where hold_id = ? and pro_id = ?")
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\tid\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_hold_details\r\n" + //
+                    "where\r\n" + //
+                    "\thold_id = ?\r\n" + //
+                    "\tand pro_id = ?")
      String getId(int holdId, int proId);
 
 }

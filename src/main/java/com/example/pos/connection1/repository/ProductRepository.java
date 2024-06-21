@@ -14,7 +14,12 @@ import java.util.*;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-        @Query(nativeQuery = true, value = "select * from pos_product pp where barcode = ?")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\t*\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_product pp\r\n" + //
+                                "where\r\n" + //
+                                "\tbarcode = ?")
         Product getBarcode(String barcode);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
@@ -67,13 +72,35 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select count(*) from pos_product where status=true and is_deleted=false")
         int countRow();
 
-        @Query(nativeQuery = true, value = "select * from pos_product where status=true and is_deleted=false and id=?")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\t*\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_product\r\n" + //
+                                "where\r\n" + //
+                                "\tstatus = true\r\n" + //
+                                "\tand is_deleted = false\r\n" + //
+                                "\tand id =?")
         Product getProductById(int id);
 
-        @Query(nativeQuery = true , value = "select pid.qty_old  from pos_import_detail pid where pro_id = ? order by id desc limit 1")
+        @Query(nativeQuery = true , value = "select\r\n" + //
+                                "\tpid.qty_old\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_import_detail pid\r\n" + //
+                                "where\r\n" + //
+                                "\tpro_id = ?\r\n" + //
+                                "order by\r\n" + //
+                                "\tid desc\r\n" + //
+                                "limit 1")
         Integer getOldQty(int id);
 
-        @Query(nativeQuery = true, value = "select * from pos_product where status=true and is_deleted=false and id=?")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\t*\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_product\r\n" + //
+                                "where\r\n" + //
+                                "\tstatus = true\r\n" + //
+                                "\tand is_deleted = false\r\n" + //
+                                "\tand id =?")
         Optional<Product> getProductByOptionalId(int id);
 
         // @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id
@@ -94,10 +121,24 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "and pc.cat_id = ? order by pc.id desc limit ? offset ?")
         List<ProductProjection> getProductByCatId(int catId, int limit, int page);
 
-        @Query(nativeQuery = true, value = " select count(*) from pos_product pp where status = true and is_deleted = false and cat_id = ?")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\tcount(*)\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_product pp\r\n" + //
+                                "where\r\n" + //
+                                "\tstatus = true\r\n" + //
+                                "\tand is_deleted = false\r\n" + //
+                                "\tand cat_id = ?")
         int countProduct(int catId);
 
-        @Query(nativeQuery = true, value = " select count(*) from pos_product pp where status = true and is_deleted = false and brand_id = ?")
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                                "\tcount(*)\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_product pp\r\n" + //
+                                "where\r\n" + //
+                                "\tstatus = true\r\n" + //
+                                "\tand is_deleted = false\r\n" + //
+                                "\tand brand_id = ?")
         int countProductByBrandId(int brandId);
 
         @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"

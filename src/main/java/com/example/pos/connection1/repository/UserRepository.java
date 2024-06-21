@@ -18,18 +18,46 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
 //    boolean existsByPhone(String phone);
 
-    @Query(nativeQuery = true,value = "select count(*) from pos_user")
+    @Query(nativeQuery = true,value = "select\r\n" + //
+                "\tcount(*)\r\n" + //
+                "from\r\n" + //
+                "\tpos_user")
     int userCount();
 
-    @Query(nativeQuery = true , value = "select pe.name_en  from pos_user pu inner join pos_employee pe on pu.emp_id = pe.id  where pe.status =true and pe.is_deleted =false and pu.status = true and pu.is_deleted =false and pu.id = ?")
+    @Query(nativeQuery = true , value = "select\r\n" + //
+                "\tpe.name_en\r\n" + //
+                "from\r\n" + //
+                "\tpos_user pu\r\n" + //
+                "inner join pos_employee pe on\r\n" + //
+                "\tpu.emp_id = pe.id\r\n" + //
+                "where\r\n" + //
+                "\tpe.status = true\r\n" + //
+                "\tand pe.is_deleted = false\r\n" + //
+                "\tand pu.status = true\r\n" + //
+                "\tand pu.is_deleted = false\r\n" + //
+                "\tand pu.id = ?")
     String getNameEmp(int id);
 
-    @Query(nativeQuery = true,value = "select * from pos_user where status = true and is_deleted=false and id=?")
+    @Query(nativeQuery = true,value = "select\r\n" + //
+                "\t*\r\n" + //
+                "from\r\n" + //
+                "\tpos_user\r\n" + //
+                "where\r\n" + //
+                "\tstatus = true\r\n" + //
+                "\tand is_deleted = false\r\n" + //
+                "\tand id =?")
     User getUserById(int id);
  
     Optional<User> findByEmpId(Integer empId);
 
-    @Query(nativeQuery = true , value = "select * from pos_user pu where pu.user_code = ? and pu.status = true and pu.is_deleted = false")
+    @Query(nativeQuery = true , value = "select\r\n" + //
+                "\t*\r\n" + //
+                "from\r\n" + //
+                "\tpos_user pu\r\n" + //
+                "where\r\n" + //
+                "\tpu.user_code = ?\r\n" + //
+                "\tand pu.status = true\r\n" + //
+                "\tand pu.is_deleted = false")
     Optional<User>  findByUserCodeAndStatusTrue(String userCode);
 
     

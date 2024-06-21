@@ -19,10 +19,12 @@ import com.example.pos.connection2.models.ProductModelD2;
 import com.example.pos.connection2.repository.ProdcutByCategoryRepository;
  
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
 
 @Service
+@Slf4j
 public class ServiceManagement {
      @Autowired
      private ProdcutByCategoryRepository repo;
@@ -73,9 +75,10 @@ public class ServiceManagement {
 
                          _weight = option;
                     }
-
                }
 
+
+               log.info("weight data : " + _weight);
 
                pro.setWeight(_weight);
                pro.setBarcode(p.getBarcode());

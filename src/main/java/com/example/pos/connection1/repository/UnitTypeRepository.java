@@ -7,15 +7,32 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.pos.connection1.entity.UnitType;
+
 @Repository
-public interface UnitTypeRepository extends JpaRepository<UnitType,Integer>{
+public interface UnitTypeRepository extends JpaRepository<UnitType, Integer> {
     boolean existsByUnitTypeNameKh(String nameKh);
+
     boolean existsByUnitTypeNameEn(String nameEn);
 
-    @Query(nativeQuery = true , value = "select * from pos_unit_type where status=true and is_deleted = false order by id desc")
+    @Query(nativeQuery = true, value = "select\r\n" + //
+            "\t*\r\n" + //
+            "from\r\n" + //
+            "\tpos_unit_type\r\n" + //
+            "where\r\n" + //
+            "\tstatus = true\r\n" + //
+            "\tand is_deleted = false\r\n" + //
+            "order by\r\n" + //
+            "\tid desc")
     ArrayList<UnitType> getUnitType();
 
-    @Query(nativeQuery = true,value = "select * from pos_unit_type where status=true and is_deleted=false and id=?")
+    @Query(nativeQuery = true, value = "select\r\n" + //
+            "\t*\r\n" + //
+            "from\r\n" + //
+            "\tpos_unit_type\r\n" + //
+            "where\r\n" + //
+            "\tstatus = true\r\n" + //
+            "\tand is_deleted = false\r\n" + //
+            "\tand id =?")
     UnitType getUnitTypeById(int id);
 
 }
