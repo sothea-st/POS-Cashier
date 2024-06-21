@@ -52,18 +52,12 @@ import javax.swing.Icon;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import lombok.Getter;
+import lombok.Setter;
 import password.ChangePasswordForm;
-
+@Setter
+@Getter
 public class LoginFormJdailog extends javax.swing.JDialog {
-
-     public JPanel getPanelPagination() {
-          return panelPagination;
-     }
-
-     public void setPanelPagination(JPanel panelPagination) {
-          this.panelPagination = panelPagination;
-     }
-
      DecimalFormat df = new DecimalFormat("#,##0.00 kg");
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat bar = new DecimalFormat("########00000000");
@@ -84,15 +78,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private Button buttonDiscount;
      private Button buttonCustomer;
      private Button stock;
-
      private JLabel lbPOSId;
-
      private JPanel panelProduct;
      private JScrollPane jScrollPaneCategory;
-
      ActionProduct pro = new ActionProduct();
      private ComboBox cmboxBrand;
-//  checkOpenShift = false;
      private Button btnOpenShift;
      private int limit;
      private int catId;
@@ -102,26 +92,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private String catName;
      private SearchField searchBox;
      private TextField textField;
-
      private LabelTitle breadcrumb;
      private JFrame mainFrame;
-
      private Button buttonStaff;
      private LabelFontGreen next;
      private LabelFontGreen previous;
-
      private String titleCategory;
-
      private JLabel boxImg;
-
-     public JLabel getBoxImg() {
-          return boxImg;
-     }
-
-     public void setBoxImg(JLabel boxImg) {
-          this.boxImg = boxImg;
-     }
-
+ 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -487,7 +465,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
 
-//                   ==== event on profile image for change password ====
+                    //         ==== event on profile image for change password ====
                    Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
                    JavaConstant.setPointer(boxImg);
                    boxImg.setIcon(icon);
@@ -518,7 +496,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    });
 
                    category();
-                   getjScrollPaneCategory().setVisible(true);
+                   jScrollPaneCategory.setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
 
                    eventSelectBrand();
@@ -774,27 +752,24 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                }
 
                previous.setBackground(WindowColor.lightGray);
-
                panelPagination.setVisible(true);
-
                setBrandId(0); // each time user click on category brandId will be 0
                cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
                searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
                panelProduct.removeAll();
-//                         pro.getAllProduct(panelProduct);
                pro.newProduct(limit, panelProduct);
                pro.setBtnPayment(btnPayment);
                panelProduct.revalidate();
                panelProduct.repaint();
                setCount(pro.getCount());
           } else {
-//                          == == == == == == == Add Background == == == == == == ==
+               //      == == == == == == == Add Background == == == == == == ==
                BackgroundImage bgimg = new BackgroundImage();
                panelProduct.removeAll();
                panelProduct.add(bgimg);
                panelProduct.revalidate();
                panelProduct.repaint();
-//                          == == == == == == == == == == == == == == == == == == == == == == =
+ 
           }
      }
 
@@ -812,270 +787,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           JavaConstant.rowNum = 7;
           pro.newProduct(JavaConstant.limitPagination, panelProduct);
           setCount(pro.getCount());
-     }
-
-     public String getTitleCategory() {
-          return titleCategory;
-     }
-
-     public void setTitleCategory(String titleCategory) {
-          this.titleCategory = titleCategory;
-     }
-
-     public TextField getTextField() {
-          return textField;
-     }
-
-     public void setTextField(TextField textField) {
-          this.textField = textField;
-     }
-
-     public SearchField getSearchBox() {
-          return searchBox;
-     }
-
-     public void setSearchBox(SearchField searchBox) {
-          this.searchBox = searchBox;
-     }
-
-     public String getCatName() {
-          return catName;
-     }
-
-     public void setCatName(String catName) {
-          this.catName = catName;
-     }
-
-     public String getCatIdIndex0() {
-          return catIdIndex0;
-     }
-
-     public void setCatIdIndex0(String catIdIndex0) {
-          this.catIdIndex0 = catIdIndex0;
-     }
-
-     public int getBrandId() {
-          return brandId;
-     }
-
-     public void setBrandId(int brandId) {
-          this.brandId = brandId;
-     }
-
-     public int getCount() {
-          return count;
-     }
-
-     public void setCount(int count) {
-          this.count = count;
-     }
-
-     public int getLimit() {
-          return limit;
-     }
-
-     public void setLimit(int limit) {
-          this.limit = limit;
-     }
-
-     public int getCatId() {
-          return catId;
-     }
-
-     public void setCatId(int catId) {
-          this.catId = catId;
-     }
-
-     public JLabel getLbPOSId() {
-          return lbPOSId;
-     }
-
-     public void setLbPOSId(JLabel lbPOSId) {
-          this.lbPOSId = lbPOSId;
-     }
-
-     public Button getBtnOpenShift() {
-          return btnOpenShift;
-     }
-
-     public void setBtnOpenShift(Button btnOpenShift) {
-          this.btnOpenShift = btnOpenShift;
-     }
-
-     public Button getBtnLogin() {
-          return btnLogin;
-     }
-
-     public void setBtnLogin(Button btnLogin) {
-          this.btnLogin = btnLogin;
-     }
-
-     public void setCategory(JPanel category) {
-          this.category = category;
-     }
-
-     public JPanel getCategory() {
-          return category;
-     }
-
-     public JScrollPane getjScrollPaneCategory() {
-          return jScrollPaneCategory;
-     }
-
-     public void setjScrollPaneCategory(JScrollPane jScrollPaneCategory) {
-          this.jScrollPaneCategory = jScrollPaneCategory;
-     }
-
-     public JPanel getPanelProduct() {
-          return panelProduct;
-     }
-
-     public void setPanelProduct(JPanel panelProduct) {
-          this.panelProduct = panelProduct;
-     }
-
-     public JPanel getDetailItem() {
-          return detailItem;
-     }
-
-     public void setDetailItem(JPanel detailItem) {
-          this.detailItem = detailItem;
-     }
-
-     public SubtotalPanel getSubtotalPanel() {
-          return subtotalPanel;
-     }
-
-     public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
-          this.subtotalPanel = subtotalPanel;
-     }
-
-     public Button getBtnPayment() {
-          return btnPayment;
-     }
-
-     public void setBtnPayment(Button btnPayment) {
-          this.btnPayment = btnPayment;
-     }
-
-     public JPanel getBoxOne() {
-          return boxOne;
-     }
-
-     public void setBoxOne(JPanel boxOne) {
-          this.boxOne = boxOne;
-     }
-
-     public ComboBox getCmboxBrand() {
-          return cmboxBrand;
-     }
-
-     public void setCmboxBrand(ComboBox cmboxBrand) {
-          this.cmboxBrand = cmboxBrand;
-     }
-
-     public Button getButtonHoldOrder() {
-          return buttonHoldOrder;
-     }
-
-     public void setButtonHoldOrder(Button buttonHoldOrder) {
-          this.buttonHoldOrder = buttonHoldOrder;
-     }
-
-     public ButtonCancel getBtnCancel() {
-          return btnCancel;
-     }
-
-     public void setBtnCancel(ButtonCancel btnCancel) {
-          this.btnCancel = btnCancel;
-     }
-
-     public Button getBtnReturn() {
-          return btnReturn;
-     }
-
-     public void setBtnReturn(Button btnReturn) {
-          this.btnReturn = btnReturn;
-     }
-
-     public Button getBtnReprint() {
-          return btnReprint;
-     }
-
-     public void setBtnReprint(Button btnReprint) {
-          this.btnReprint = btnReprint;
-     }
-
-     public Button getButtonDiscount() {
-          return buttonDiscount;
-     }
-
-     public void setButtonDiscount(Button buttonDiscount) {
-          this.buttonDiscount = buttonDiscount;
-     }
-
-     public Button getButtonCustomer() {
-          return buttonCustomer;
-     }
-
-     public void setButtonCustomer(Button buttonCustomer) {
-          this.buttonCustomer = buttonCustomer;
-     }
-
-     public LabelTitle getBreadcrumb() {
-          return breadcrumb;
-     }
-
-     public void setBreadcrumb(LabelTitle breadcrumb) {
-          this.breadcrumb = breadcrumb;
-     }
-
-     public JFrame getMainFrame() {
-          return mainFrame;
-     }
-
-     public void setMainFrame(JFrame mainFrame) {
-          this.mainFrame = mainFrame;
-     }
-
-     public JLabel getTitleOrder() {
-          return titleOrder;
-     }
-
-     public void setTitleOrder(JLabel titleOrder) {
-          this.titleOrder = titleOrder;
-     }
-
-     public Button getStock() {
-          return stock;
-     }
-
-     public void setStock(Button stock) {
-          this.stock = stock;
-     }
-
-     public LabelFontGreen getNext() {
-          return next;
-     }
-
-     public void setNext(LabelFontGreen next) {
-          this.next = next;
-     }
-
-     public LabelFontGreen getPrevious() {
-          return previous;
-     }
-
-     public void setPrevious(LabelFontGreen previous) {
-          this.previous = previous;
-     }
-
-     public Button getButtonStaff() {
-          return buttonStaff;
-     }
-
-     public void setButtonStaff(Button buttonStaff) {
-          this.buttonStaff = buttonStaff;
      }
 
      public static void main(String args[]) {

@@ -6,6 +6,7 @@ import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoundUpKhr;
+import Constant.UtilShadow;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Component;
@@ -21,9 +22,17 @@ import javax.swing.JPanel;
  * @author FRONT-END.06
  */
 public class SubtotalPanel extends javax.swing.JPanel {
- 
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat kh = new DecimalFormat("#,##0");
+     private String labelSubtotalUsd;
+     private String labelSubtotalKhr;
+     private String lableDiscountUsd;
+     private String lableDiscountKhr;
+     private String lableDeliveryUsd;
+     private String lableDeliveryKhr;
+     private String lableTotalUsd;
+     private String lableTotalKhr;
 
      /**
       * @return the labelSubtotalKhr
@@ -128,78 +137,22 @@ public class SubtotalPanel extends javax.swing.JPanel {
           setFont(WindowFonts.timeNewRomanBold14);
      }
 
-     private String labelSubtotalUsd;
-     private String labelSubtotalKhr;
-     private String lableDiscountUsd;
-     private String lableDiscountKhr;
-     private String lableDeliveryUsd;
-     private String lableDeliveryKhr;
-     private String lableTotalUsd;
-     private String lableTotalKhr;
-
-     //=================================================Create Shadow Box
-     private ShadowType shadowType;
-     private int shadowSize = 1;
-     private float shadowOpacity = 0.1f;
-     private Color shadowColor = Color.GRAY;
-
+     //=====================Create Shadow Box============================
      @Override
      protected void paintComponent(Graphics grphcs) {
           setOpaque(false);
-          createShadow(grphcs);
+          UtilShadow.createShadow(grphcs, getWidth(), getHeight(), getBackground());
           super.paintComponent(grphcs);
-     }
-
-     private void createShadow(Graphics grphcs) {
-          Graphics2D g2 = (Graphics2D) grphcs;
-          int size = shadowSize * 2;
-          int x = 0;
-          int y = 0;
-          int width = getWidth() - size;
-          int height = getHeight() - size;
-          if (shadowType == ShadowType.TOP) {
-               x = shadowSize;
-               y = size;
-          } else if (shadowType == ShadowType.BOT) {
-               x = shadowSize;
-               y = 0;
-          } else if (shadowType == ShadowType.TOP_LEFT) {
-               x = size;
-               y = size;
-          } else if (shadowType == ShadowType.TOP_RIGHT) {
-               x = 0;
-               y = size;
-          } else if (shadowType == ShadowType.BOT_LEFT) {
-               x = size;
-               y = 0;
-          } else if (shadowType == ShadowType.BOT_RIGHT) {
-               x = 0;
-               y = 0;
-          } else {
-               //  Center
-               x = shadowSize;
-               y = shadowSize;
-          }
-          BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-          Graphics2D g = img.createGraphics();
-          g.setColor(getBackground());
-          g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-          g.fillRoundRect(0, 0, width, height, 10, 10);
-
-          //  Create Shadow
-          ShadowRenderer render = new ShadowRenderer(shadowSize, shadowOpacity, shadowColor);
-          g2.drawImage(render.createShadow(img), 0, 0, null);
-          g2.drawImage(img, x, y, null);
      }
 
      public void total(double price, Component[] listCom, double discountProduct, SubtotalPanel subtotalPanel) {
           double sumAmountUsd = price;
           double sumDiscount = discountProduct;
-          
+
           if (listCom.length != 0) {
                for (int i = 0; i < listCom.length; i++) {
                     var data = ((BoxItem) listCom[i]);
-    
+
                     // sub total usd
                     sumAmountUsd += JavaConstant.getReplace(data.getLabelAmountUsd());
 
@@ -217,44 +170,41 @@ public class SubtotalPanel extends javax.swing.JPanel {
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
           double disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          if(disKh > 0){
-              subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
-          }else{
-              subtotalPanel.setLableDiscountKhr(kh.format(0));
+          if (disKh > 0) {
+               subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
+          } else {
+               subtotalPanel.setLableDiscountKhr(kh.format(0));
           }
-          
+
           subtotalPanel.setLableDeliveryUsd(dm.format(0));
           subtotalPanel.setLableDeliveryKhr(kh.format(0));
           // total
           double total = sumAmountUsd - sumDiscount;
           subtotalPanel.setLableTotalUsd(dm.format(total));
-          
+
 //          double valueKh = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
 //          subtotalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(valueKh));
-          
           String totalKh = JavaRoundUpKhr.setRoundNumber(subTotalValueKh).replace(",", "");
           String discountKh = "0";
-          
-          if(disKh > 0){
-              discountKh = JavaRoundUpKhr.setRoundNumber(disKh).replace(",", "");
+
+          if (disKh > 0) {
+               discountKh = JavaRoundUpKhr.setRoundNumber(disKh).replace(",", "");
           }
-          
-          double valueKh = Double.valueOf(totalKh) -  Double.valueOf ( discountKh ) ;     
+
+          double valueKh = Double.valueOf(totalKh) - Double.valueOf(discountKh);
           subtotalPanel.setLableTotalKhr(kh.format(valueKh));
      }
 
-     
-     
-     public void total(double price,JPanel detailItems, double discountProduct, SubtotalPanel subtotalPanel) {
-          
+     public void total(double price, JPanel detailItems, double discountProduct, SubtotalPanel subtotalPanel) {
+
           Component[] listCom = detailItems.getComponents();
           double sumAmountUsd = price;
           double sumDiscount = discountProduct;
-           
+
           if (listCom.length != 0) {
                for (int i = 0; i < listCom.length; i++) {
                     var data = ((BoxItem) listCom[i]);
-                 
+
                     // sub total usd
                     sumAmountUsd += JavaConstant.getReplace(data.getLabelAmountUsd());
 
@@ -272,10 +222,10 @@ public class SubtotalPanel extends javax.swing.JPanel {
 
           subtotalPanel.setLableDiscountUsd(dm.format(sumDiscount));
           double disKh = JavaRoundDown.roundDown("" + sumDiscount * JavaConstant.exchangeRate);
-          if(disKh > 0){
-              subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
-          }else{
-              subtotalPanel.setLableDiscountKhr(kh.format(0));
+          if (disKh > 0) {
+               subtotalPanel.setLableDiscountKhr(JavaRoundUpKhr.setRoundNumber(disKh));
+          } else {
+               subtotalPanel.setLableDiscountKhr(kh.format(0));
           }
 
           subtotalPanel.setLableDeliveryUsd(dm.format(0));
@@ -283,20 +233,18 @@ public class SubtotalPanel extends javax.swing.JPanel {
           // total
           double total = sumAmountUsd - sumDiscount;
           subtotalPanel.setLableTotalUsd(dm.format(total));
-//          double valueKh = JavaRoundDown.roundDown("" + total * JavaConstant.exchangeRate);
-//          subtotalPanel.setLableTotalKhr(JavaRoundUpKhr.setRoundNumber(valueKh));
 
           String totalKh = JavaRoundUpKhr.setRoundNumber(subTotalValueKh).replace(",", "");
           String discountKh = "0";
-          
-          if(disKh > 0){
-              discountKh = JavaRoundUpKhr.setRoundNumber(disKh).replace(",", "");
+
+          if (disKh > 0) {
+               discountKh = JavaRoundUpKhr.setRoundNumber(disKh).replace(",", "");
           }
-          
-          double valueKh = Double.valueOf(totalKh) -  Double.valueOf ( discountKh ) ;     
+
+          double valueKh = Double.valueOf(totalKh) - Double.valueOf(discountKh);
           subtotalPanel.setLableTotalKhr(kh.format(valueKh));
      }
-     
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
