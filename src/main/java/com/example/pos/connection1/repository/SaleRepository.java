@@ -19,12 +19,13 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                                 "\tpp.cost,\r\n" + //
                                 "\tpsd.price,\r\n" + //
                                 "\tpsd.amount,\r\n" + //
-                                "\tpsd.discount,\r\n" + //
+                                "\tpsd.discount as discount_percentage,\r\n" + //
                                 "\tpp.pro_name_en,\r\n" + //
                                 "\tpp.pro_image_name,\r\n" + //
                                 "\tps.sale_date,\r\n" + //
                                 "\tppt.tax_name,\r\n" + //
-                                "\tps.discount_case\r\n" + //
+                                "\tps.discount_case,\r\n" + //
+                                "\tps.discount\r\n" + //
                                 "from\r\n" + //
                                 "\tpos_sale ps\r\n" + //
                                 "right join pos_sale_details psd on\r\n" + //
@@ -33,7 +34,8 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                                 "\tpp.id = psd.pro_id\r\n" + //
                                 "inner join pos_product_tax ppt on ppt.id = pp.tax_id \r\n" + //
                                 "where\r\n" + //
-                                " \t ps.sale_date BETWEEN ? AND ?")
+                                " \t ps.sale_date BETWEEN ? AND ?\r\n" + //
+                                "\t ")
         List<ReportSaledProjection> getReportSaled(String dateFrom , String dateTo);
 
 

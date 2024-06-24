@@ -10,6 +10,7 @@ import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.people.Customer;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
+import com.example.pos.connection1.projections.ReportImport.ReportSaledResponse;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.SaleDetailsRepository;
@@ -21,13 +22,18 @@ import com.example.pos.connection1.repository.peopleRepository.CustomerRepositor
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
 import com.example.pos.connection1.service.paymentService.ReprintService;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.awt.image.BufferedImage;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.time.*;
 
 @Service
+@Slf4j
 public class SaleService {
     @Autowired
     private SaleRepository repo;
@@ -65,12 +71,54 @@ public class SaleService {
     @Autowired
     private ReprintService reprintService;
 
-
-
-    public void reportSaled(ReportRequest reportRequest){
+    public List<ReportSaledResponse> reportSaled(ReportRequest reportRequest) {
         List<ReportSaledProjection> reportSaled = repo.getReportSaled(reportRequest.dateFrom(), reportRequest.dateTo());
+        List<ReportSaledResponse> listResponse = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#0.00");
+        reportSaled.forEach(report -> {
 
-        
+            double totalSaledExcludeVAT = 0;
+            double vatAmt = 0;
+            double plt=0;
+            double netSale=0;
+            double margin=0;
+            double total =report.getAmount().doubleValue();
+
+
+            log.info("vat : " + report.getTax_name());
+            if (report.getDiscount_case() != null) {
+                total = report.getAmount().doubleValue() - report.getDiscount();  // getDiscount is value already calculate
+            }
+            totalSaledExcludeVAT = Double.parseDouble(df.format(total/1.1));
+            vatAmt = Double.parseDouble(df.format((totalSaledExcludeVAT/1.1)*0.1));
+            netSale = Double.parseDouble(df.format(total - vatAmt - plt));
+            margin = Double.parseDouble(df.format(netSale - report.getCost().doubleValue()));
+
+            if( report.getTax_name().equals("PLT") ) {
+                plt = (totalSaledExcludeVAT/1.006)*0.2*0.03;
+            }
+
+            listResponse.add(ReportSaledResponse.builder()
+                    .saleDate(report.getSale_date())
+                    .proNameEn(report.getPro_name_en())
+                    .proImageName(report.getPro_image_name())
+                    .qty(report.getQty())
+                    .discountCase(report.getDiscount_case())
+                    .discountPercentage(report.getdiscount_percentage())
+                    .discount(report.getDiscount())
+                    .price(report.getPrice())
+                    .amountWithTax(report.getAmount())
+                    .taxType(report.getTax_name())
+                    .totalSaledExcludeVAT(BigDecimal.valueOf(totalSaledExcludeVAT))
+                    .vatAmt(BigDecimal.valueOf(vatAmt))
+                    .plt(BigDecimal.valueOf(plt))
+                    .netSale(BigDecimal.valueOf(netSale))
+                    .cost(report.getCost())
+                    .margin(BigDecimal.valueOf(margin))
+                    .build());
+        });
+
+        return listResponse;
 
     }
 
@@ -81,11 +129,10 @@ public class SaleService {
         int userId = s.getUserId();
         String posId = s.getPosId();
         int count = payRepo.countSale(JavaConstant.currentDate);
-      
+
         count++;
-       
+
         String paymentNo = paymentNo(count, posId);
-       
 
         String paymentBarcode = paymentBarcode(count);
 

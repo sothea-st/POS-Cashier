@@ -79,6 +79,12 @@ public class RouteController {
           @Autowired
           private CategoryService service;
 
+          @GetMapping("/code/{code}")
+          public ResponseEntity<?> getCategoryByCode(@Valid @PathVariable("code") String code) {
+               List<CategoryResponse> data = service.getCategoryByCode(code);
+               return JavaResponse.success(data);
+          }
+
           @PostMapping
           public ResponseEntity<?> saveCategory(@Valid @RequestBody CategoryRequest c) {
                Category data = service.saveCategory(c);
@@ -400,8 +406,8 @@ public class RouteController {
           }
 
           @GetMapping("/reportSaled")
-          public void reportSaled(@Valid @RequestBody ReportRequest reportRequest) {
-               service.reportSaled(reportRequest);
+          public ResponseEntity<?> reportSaled(@Valid @RequestBody ReportRequest reportRequest) {
+             return JavaResponse.success(service.reportSaled(reportRequest));
           }
 
      }
