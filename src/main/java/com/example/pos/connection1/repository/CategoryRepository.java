@@ -12,6 +12,10 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.parentId = :parentId ORDER BY c.movePosition ASC")
     List<Category> getCategory(int parentId);
 
+
+    @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
+    List<Category> getCategoryByCode(String code);
+
     Optional<Category> findByParentId(int parentId);
 
 

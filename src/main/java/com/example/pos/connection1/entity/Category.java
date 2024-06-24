@@ -34,6 +34,10 @@ public class Category  {
     @Column(name = "move_position")
     private int movePosition;
 
+
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "status")
     private boolean status = true;
 

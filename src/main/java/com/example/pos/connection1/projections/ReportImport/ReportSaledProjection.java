@@ -7,21 +7,23 @@ public interface ReportSaledProjection {
 	// pp.cost,
 	// psd.price,
 	// psd.amount,
-	// psd.discount,
+	// psd.discount as discount_percentage,
 	// pp.pro_name_en,
 	// pp.pro_image_name,
 	// ps.sale_date,
 	// ppt.tax_name,
-	// ps.discount_case
+	// ps.discount_case,
+	// ps.discount
 
-     int getQty();
-     BigDecimal getCost();
-     BigDecimal getPrice();
-     String getPro_name_en();
-     String getPro_image_name();
      String getSale_date();
+     String getPro_name_en();
+     int getQty();
+     BigDecimal getPrice();
+     BigDecimal getAmount();
      String getTax_name();
+     BigDecimal getCost();
+     String getPro_image_name();
      String getDiscount_case();
-     BigDecimal getDiscount();
-
+     double getDiscount();
+     double getdiscount_percentage();
 }

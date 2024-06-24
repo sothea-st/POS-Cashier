@@ -14,7 +14,9 @@ public record CategoryRequest(
      @NotNull(message = "Field createBy is required .!")
      Integer createBy,
    
-     Integer parentId
+     Integer parentId,
+
+     String code
 ) {
      
 }

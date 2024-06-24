@@ -23,6 +23,20 @@ public class CategoryService {
     @Autowired
     private HttpSession httpSession;
 
+
+    public List<CategoryResponse> getCategoryByCode(String code) {
+        return repo.getCategoryByCode(code).stream()
+                .map(c -> CategoryResponse
+                        .builder()
+                        .catNameEn(c.getCatNameEn())
+                        .catNameKh(c.getCatNameKh())
+                        .movePosition(c.getMovePosition())
+                        .id(c.getId())
+                        .parentId(c.getParentId())
+                        .build())
+                .toList();
+    } 
+
     public Category saveCategory(CategoryRequest c) {
         // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
         boolean catNameEn = repo.existsByCatNameEn(c.catNameEn());
@@ -39,6 +53,7 @@ public class CategoryService {
         obj.setCreateBy(c.createBy());
         obj.setParentId(c.parentId() == null ? 0 : c.parentId());
         obj.setMovePosition(count);
+        obj.setCode(c.code().toLowerCase());
         repo.save(obj);
         return obj;
     }
