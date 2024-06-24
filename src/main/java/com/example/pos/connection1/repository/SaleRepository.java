@@ -2,6 +2,7 @@ package com.example.pos.connection1.repository;
 
 import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.SaleDetail;
+import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
 
 import java.util.List;
@@ -12,6 +13,30 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
+
+        @Query(nativeQuery = true , value = "select\r\n" + //
+                                "\tpsd.qty,\r\n" + //
+                                "\tpp.cost,\r\n" + //
+                                "\tpsd.price,\r\n" + //
+                                "\tpsd.amount,\r\n" + //
+                                "\tpsd.discount,\r\n" + //
+                                "\tpp.pro_name_en,\r\n" + //
+                                "\tpp.pro_image_name,\r\n" + //
+                                "\tps.sale_date,\r\n" + //
+                                "\tppt.tax_name,\r\n" + //
+                                "\tps.discount_case\r\n" + //
+                                "from\r\n" + //
+                                "\tpos_sale ps\r\n" + //
+                                "right join pos_sale_details psd on\r\n" + //
+                                "\tpsd.sale_id = ps.id\r\n" + //
+                                "inner join pos_product pp on\r\n" + //
+                                "\tpp.id = psd.pro_id\r\n" + //
+                                "inner join pos_product_tax ppt on ppt.id = pp.tax_id \r\n" + //
+                                "where\r\n" + //
+                                " \t ps.sale_date BETWEEN ? AND ?")
+        List<ReportSaledProjection> getReportSaled(String dateFrom , String dateTo);
+
+
 
         @Query(nativeQuery = true, value = "  select sum(psd.qty) from pos_sale ps \r\n" + //
                         "        inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //

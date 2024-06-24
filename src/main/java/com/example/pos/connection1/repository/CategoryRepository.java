@@ -1,16 +1,21 @@
 package com.example.pos.connection1.repository;
 
+import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
 import com.example.pos.connection1.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
+import java.util.*;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
-    @Query(nativeQuery = true,value = "select * from pos_category  where  status=true and is_deleted=false and parent_id=? order by move_position asc")
-    ArrayList<Category> getCategory(int parentId);
+    @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.parentId = :parentId ORDER BY c.movePosition ASC")
+    List<Category> getCategory(int parentId);
+
+    Optional<Category> findByParentId(int parentId);
+
+
+
 
     boolean existsByCatNameKh(String catNameKh);
     boolean existsByCatNameEn(String catNameKh);

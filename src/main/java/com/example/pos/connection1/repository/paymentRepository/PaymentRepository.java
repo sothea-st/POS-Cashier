@@ -4,18 +4,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import java.util.*;
-
 import com.example.pos.connection1.entity.models.PaymentModel;
-import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.projection.PaymentProjection;
 import com.example.pos.connection1.projections.LastInvoiceProjection;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 
-
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
-
 
         @Query(nativeQuery = true , value = "\r\n" + //
                                 "select\r\n" + //
@@ -108,7 +104,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
                         "    pp.change_khr,\r\n" + //
                         "    pp.change_usd,\r\n" + //
                         "    ps.total\r\n" + //
-                        "from\r\n" + //
+                        "    from\r\n" + //
                         "    pos_payment pp\r\n" + //
                         "inner join pos_sale ps \r\n" + //
                         "on pp.sale_id = ps.id\r\n" + //
