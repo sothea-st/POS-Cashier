@@ -1,5 +1,6 @@
 package com.example.pos.connection1.service;
 
+import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.connection1.entity.FileStore;
@@ -8,6 +9,7 @@ import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.people.Customer;
+import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.SaleDetailsRepository;
@@ -62,6 +64,15 @@ public class SaleService {
 
     @Autowired
     private ReprintService reprintService;
+
+
+
+    public void reportSaled(ReportRequest reportRequest){
+        List<ReportSaledProjection> reportSaled = repo.getReportSaled(reportRequest.dateFrom(), reportRequest.dateTo());
+
+        
+
+    }
 
     // this function will return invoice
     public Map<String, Object> saleProduct(Sale s) throws Exception {

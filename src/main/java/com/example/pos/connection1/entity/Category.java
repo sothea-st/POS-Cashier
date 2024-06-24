@@ -21,8 +21,7 @@ public class Category  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; 
 
-    @Column(nullable = false,unique = true,name = "cat_name_kh")
-    @NotBlank(message = JavaMessage.required)
+    @Column(unique = true,name = "cat_name_kh")
     private String catNameKh; 
 
     @Column(nullable = false,unique = true,name = "cat_name_en")

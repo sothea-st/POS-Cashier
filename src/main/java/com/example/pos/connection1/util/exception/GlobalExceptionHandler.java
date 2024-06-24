@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -71,12 +72,30 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> requiredField(MethodArgumentNotValidException ex) {
-        HashMap<String, String> map = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(fieldError -> {
-            map.put(fieldError.getField(), fieldError.getDefaultMessage());
-        });
-        return map;
+    public Map<?, ?> requiredField(MethodArgumentNotValidException ex) {
+        List<FieldErrorResponse> fieldErrorResponses = new ArrayList<>();
+        ex.getFieldErrors().forEach(fieldError -> fieldErrorResponses.add(FieldErrorResponse.builder()
+                .field(fieldError.getField())
+                .detail(fieldError.getDefaultMessage())
+                .build()));
+
+        ErrorResponse<?> errorResponse = ErrorResponse
+                .builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .reason(fieldErrorResponses)
+                .build();
+        return Map.of("error", errorResponse);
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<?, ?> handleResponseStatusException(ResponseStatusException e) {
+        ErrorResponse<?> errorResponse = ErrorResponse
+                .builder()
+                .code(HttpStatus.NOT_FOUND.value())
+                .reason(e.getReason())
+                .build();
+        return Map.of("error", errorResponse);
     }
 
     @ExceptionHandler(JavaDataAlreadyExists.class)
@@ -105,7 +124,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ResponseMessage> handleMaxSizeException(MaxUploadSizeExceededException exc) {
-        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("The file must be lower than 2MB"));
+        return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+                .body(new ResponseMessage("The file must be lower than 2MB"));
     }
 
 }

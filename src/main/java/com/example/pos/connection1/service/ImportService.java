@@ -1,9 +1,11 @@
 package com.example.pos.connection1.service;
 
+import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductAddRemoveQty;
+import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.ImportRepository;
 import com.example.pos.connection1.repository.ProductRepository;
@@ -23,6 +25,10 @@ public class ImportService {
 
     @Autowired
     private ProductRepository repoProduct;
+
+    public List<ReportImportProjection> reportImport(ReportRequest reportRequest){
+        return repo.getReport(reportRequest.dateFrom(), reportRequest.dateTo());
+    }
 
  
     public void addImport(Import imp) {

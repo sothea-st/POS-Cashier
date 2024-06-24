@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.pos.connection1.DTO.ReportRequest;
+import com.example.pos.connection1.DTO.categoryDto.CategoryRequest;
+import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
 import com.example.pos.connection1.components.JavaResponse;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaValidation;
@@ -43,6 +47,7 @@ import com.example.pos.connection1.entity.sourceData.CustomerType;
 import com.example.pos.connection1.entity.sourceData.Reason;
 import com.example.pos.connection1.entity.sourceData.ReturnProduct;
 import com.example.pos.connection1.entity.sourceData.Source;
+import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
 import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.shiftRepository.CloseShiftRepository;
@@ -75,13 +80,13 @@ public class RouteController {
           private CategoryService service;
 
           @PostMapping
-          public ResponseEntity<?> saveCategory(@Valid @ModelAttribute Category c) {
+          public ResponseEntity<?> saveCategory(@Valid @RequestBody CategoryRequest c) {
                Category data = service.saveCategory(c);
                return JavaResponse.success(data);
           }
           @GetMapping("/parentId/{parentId}")
-          public ResponseEntity<?> getCategory(@PathVariable("parentId") int parentId) {
-               ArrayList<Category> data = service.getCategory(parentId);
+          public ResponseEntity<?> getCategory(@Valid @PathVariable("parentId") int parentId) {
+               List<CategoryResponse> data = service.getCategory(parentId);
                return JavaResponse.success(data);
           }
 
@@ -98,8 +103,8 @@ public class RouteController {
           }
 
           @DeleteMapping("/{id}")
-          public ResponseEntity<?> deleteCategory(@PathVariable("id") int id, @RequestBody Category c) {
-               service.deleteCategory(id, c);
+          public ResponseEntity<?> deleteCategory(@PathVariable("id") int id) {
+               service.deleteCategory(id);
                return JavaResponse.deleteSuccess(id);
           }
      }
@@ -354,11 +359,17 @@ public class RouteController {
                service.addImport(i);
                return JavaResponse.success("success insert");
           }
-
+          
           @PostMapping("/updateQty")
           public ResponseEntity<?> updateQty(@RequestBody ProductAddRemoveQty p){
                int _qty = service.updateQty(p);
                return ResponseEntity.ok().body(Map.of("qtyUpdate",_qty,"msg","success"));
+          }
+
+          @GetMapping("/reportImport")
+          public ResponseEntity<?> reportImport(@Valid @RequestBody ReportRequest reportRequest){
+               List<ReportImportProjection> data = service.reportImport(reportRequest);
+               return JavaResponse.success(data);
           }
 
      }
@@ -387,6 +398,12 @@ public class RouteController {
                var data = service.saleProduct(s);
                return JavaResponse.success(data);
           }
+
+          @GetMapping("/reportSaled")
+          public void reportSaled(@Valid @RequestBody ReportRequest reportRequest) {
+               service.reportSaled(reportRequest);
+          }
+
      }
 
      @RestController
