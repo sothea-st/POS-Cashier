@@ -71,12 +71,24 @@
       </Events>
     </Component>
     <Component class="Components.SettingBox" name="subCategory">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="subCategoryMouseClicked"/>
+      </Events>
     </Component>
     <Component class="Components.SettingBox" name="department">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="departmentMouseClicked"/>
+      </Events>
     </Component>
     <Component class="Components.SettingBox" name="category">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="categoryMouseClicked"/>
+      </Events>
     </Component>
     <Component class="Components.SettingBox" name="item">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="itemMouseClicked"/>
+      </Events>
     </Component>
     <Component class="Components.SettingBox" name="brand">
     </Component>

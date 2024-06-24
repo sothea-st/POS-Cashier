@@ -1088,8 +1088,14 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonStaffMouseClicked
 
     private void btnSettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSettingsMouseClicked
-        Settings setting = new Settings(new JFrame(),true);
-        setting.setVisible(true);
+        if (JavaConstant.token != null) {
+            if (JavaConstant.checkOpenShift) {
+                Settings setting = new Settings(new JFrame(),true);
+                setting.setPanelProduct(panelProduct);
+                setting.setJdLogin(jdFormLogin);
+                setting.setVisible(true);
+            }
+        }
     }//GEN-LAST:event_btnSettingsMouseClicked
 
     private void btnReportingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportingMouseClicked

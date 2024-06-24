@@ -1,15 +1,25 @@
 package Settings;
 
 import Constant.JavaBaseUrl;
+import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
+import LoginAndLogoutForm.LoginFormJdailog;
+import Products.ListProduct;
+import Setting.Category.Category;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Settings extends javax.swing.JDialog {
 
+    private JPanel panelProduct;
+    
+    private LoginFormJdailog jdLogin;
+    
     public Settings(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -29,8 +39,12 @@ public class Settings extends javax.swing.JDialog {
             public void run() {
                 try {
                     // Task to be executed
-                    division.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "application.png");
-                    subCategory.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "brand.png");
+                    division.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "division.png");
+                    subCategory.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sub_category.png");
+                    brand.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "brand.png");
+                    category.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "Category.png");
+                    department.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "department.png");
+                    item.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "item.png");
 
                 } catch (IOException ex) {
                     Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,6 +73,30 @@ public class Settings extends javax.swing.JDialog {
         division.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 divisionMouseClicked(evt);
+            }
+        });
+
+        subCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                subCategoryMouseClicked(evt);
+            }
+        });
+
+        department.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                departmentMouseClicked(evt);
+            }
+        });
+
+        category.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                categoryMouseClicked(evt);
+            }
+        });
+
+        item.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemMouseClicked(evt);
             }
         });
 
@@ -103,9 +141,54 @@ public class Settings extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void divisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divisionMouseClicked
-        
+        Category cat = new Category(new JFrame(), true, "division");
+        cat.setCode("division");
+        cat.setVisible(true);
     }//GEN-LAST:event_divisionMouseClicked
 
+    private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
+        Category cat = new Category(new JFrame(), true, "category");
+        cat.setCode("category");
+        cat.setVisible(true);
+    }//GEN-LAST:event_categoryMouseClicked
+
+    private void itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemMouseClicked
+        ListProduct list = new ListProduct(new JFrame(), true);
+        list.setPanelProduct(panelProduct);
+        list.setJdLogin(jdLogin);
+        list.setPanelCategory(category);
+        list.setVisible(true);
+    }//GEN-LAST:event_itemMouseClicked
+
+    private void departmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentMouseClicked
+        Category cat = new Category(new JFrame(), true, "department");
+        cat.setCode("department");
+        cat.setVisible(true);
+    }//GEN-LAST:event_departmentMouseClicked
+
+    private void subCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subCategoryMouseClicked
+        Category cat = new Category(new JFrame(), true, "subcategory");
+        cat.setCode("subcategory");
+        cat.setVisible(true);
+    }//GEN-LAST:event_subCategoryMouseClicked
+
+    public JPanel getPanelProduct() {
+        return panelProduct;
+    }
+
+    public void setPanelProduct(JPanel panelProduct) {
+        this.panelProduct = panelProduct;
+    }
+
+    public LoginFormJdailog getJdLogin() {
+        return jdLogin;
+    }
+
+    public void setJdLogin(LoginFormJdailog jdLogin) {
+        this.jdLogin = jdLogin;
+    }
+
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
