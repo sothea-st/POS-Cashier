@@ -48,5 +48,6 @@ public class JavaRoute {
      public static String changePasswordByAdmin = "/changePassword/changePasswordByAdmin";
      public static String getCategoryByCode = "/category/code/";
      public static String addCategory = "/category";
+     public static String getParentById = "/category/parentId/";
 
 }
