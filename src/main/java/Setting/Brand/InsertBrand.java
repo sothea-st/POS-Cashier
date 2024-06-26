@@ -1,55 +1,10 @@
-package Setting.Division;
+package Setting.Brand;
 
-import Components.TextField;
-import Constant.JavaConnection;
-import Constant.JavaConstant;
-import Constant.JavaRoute;
-import Event.ButtonEvent;
-import Setting.Category.Category;
-import java.io.IOException;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import okhttp3.Response;
-import org.json.JSONObject;
+public class InsertBrand extends javax.swing.JDialog {
 
-public class InsertDivision extends javax.swing.JDialog {
-
-    private JPanel listGetCategory;
-    private String code;
-    private Integer id;
-    private Integer movePosition;
-    private Integer parentId;
-    
-    public InsertDivision(java.awt.Frame parent, boolean modal, String codeType) {
+    public InsertBrand(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setCode(codeType);
-        event();
-        divisionEn.requestFocus();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-    }
-    
-    //Value Edit
-    public void setValueEdit(
-        String divisEn,
-        String divisKh
-    ) throws IOException {
-        divisionEn.setValueTextField(divisEn);
-        divisionKh.setValueTextField(divisKh);
-    }
-
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
-
-            }
-        };
-        divisionEn.initEvent(btnevent);
-        divisionKh.initEvent(btnevent);
     }
 
     @SuppressWarnings("unchecked")
@@ -68,9 +23,11 @@ public class InsertDivision extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        titlePopUp.setLabelTitle("Add Division");
+        jPanel1.setPreferredSize(new java.awt.Dimension(422, 201));
 
-        label1.setLabelName("Division Name Kh");
+        titlePopUp.setLabelTitle("Add Brand");
+
+        label1.setLabelName("Brand Name Kh");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -84,15 +41,15 @@ public class InsertDivision extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Division Name");
+        label3.setLabelName("Brand Name");
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(204, 0, 0));
         jLabel12.setText("*");
 
-        divisionKh.setLabelTextField("Division Name Kh");
+        divisionKh.setLabelTextField("Brand Name Kh");
 
-        divisionEn.setLabelTextField("Division Name");
+        divisionEn.setLabelTextField("Brand Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,14 +60,14 @@ public class InsertDivision extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(divisionEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                         .addComponent(divisionKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -144,11 +101,11 @@ public class InsertDivision extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -160,109 +117,68 @@ public class InsertDivision extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        String divisionNameEn = divisionEn.getValueTextField();
-        String divisionNamekh = divisionKh.getValueTextField();
-
-        try {
-            if (divisionNameEn == null || divisionNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Division Name can not be empty!");
-                return;
-            }
-
-            JSONObject json = new JSONObject();
-            json.put("catNameEn", divisionNameEn);
-            json.put("catNameKh", divisionNamekh);
-
-            if (id != null) {
-                json.put("parentId", parentId);
-                json.put("movePosition", movePosition);
-
-                Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
-
-                if (response.isSuccessful()) {
-                    Category list = new Category(new JFrame(), true, code);
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code);
-                    dispose();
-
-                } else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
-
-            } else {
-                json.put("parentId", 0);
-                json.put("createBy", JavaConstant.cashierId);
-                json.put("code", "division");
-
-                Response response = JavaConnection.post(JavaRoute.addCategory, json);
-
-                if (response.isSuccessful()) {
-                    Category list = new Category(new JFrame(), true, code);
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code);
-                    dispose();
-                } else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+//        String divisionNameEn = divisionEn.getValueTextField();
+//        String divisionNamekh = divisionKh.getValueTextField();
+//
+//        try {
+//            if (divisionNameEn == null || divisionNameEn.isEmpty()) {
+//                JOptionPane.showMessageDialog(this, "Division Name can not be empty!");
+//                return;
+//            }
+//
+//            JSONObject json = new JSONObject();
+//            json.put("catNameEn", divisionNameEn);
+//            json.put("catNameKh", divisionNamekh);
+//
+//            if (id != null) {
+//                json.put("parentId", parentId);
+//                json.put("movePosition", movePosition);
+//
+//                Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
+//
+//                if (response.isSuccessful()) {
+//                    Category list = new Category(new JFrame(), true, code);
+//                    listGetCategory.removeAll();
+//                    listGetCategory.revalidate();
+//                    listGetCategory.repaint();
+//                    list.getCategory(listGetCategory, code);
+//                    dispose();
+//
+//                } else if (response.code() == 500) {
+//                    JOptionPane.showMessageDialog(this, "The Name is already used!");
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Save Failed!");
+//                }
+//
+//            } else {
+//                json.put("parentId", 0);
+//                json.put("createBy", JavaConstant.cashierId);
+//                json.put("code", "division");
+//
+//                Response response = JavaConnection.post(JavaRoute.addCategory, json);
+//
+//                if (response.isSuccessful()) {
+//                    Category list = new Category(new JFrame(), true, code);
+//                    listGetCategory.removeAll();
+//                    listGetCategory.revalidate();
+//                    listGetCategory.repaint();
+//                    list.getCategory(listGetCategory, code);
+//                    dispose();
+//                } else if (response.code() == 500) {
+//                    JOptionPane.showMessageDialog(this, "The Name is already used!");
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Save Failed!");
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            System.err.println("errr -- " + e);
+//        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    public JPanel getListGetCategory() {
-        return listGetCategory;
-    }
-
-    public void setListGetCategory(JPanel listGetCategory) {
-        this.listGetCategory = listGetCategory;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-        titlePopUp.setLabelTitle("Edit Division");
-    }
-
-    public Integer getMovePosition() {
-        return movePosition;
-    }
-
-    public void setMovePosition(Integer movePosition) {
-        this.movePosition = movePosition;
-        
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-    
-    
-    
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -277,20 +193,20 @@ public class InsertDivision extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertDivision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertDivision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertDivision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertDivision.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InsertDivision dialog = new InsertDivision(new javax.swing.JFrame(), true, null);
+                InsertBrand dialog = new InsertBrand(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

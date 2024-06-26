@@ -40,13 +40,10 @@ public class InsertCategory extends javax.swing.JDialog {
             public void onSelect(String key) {
                 divisionId = key;
                 addComboDepartment(divisionId);
-                System.out.println("divisionId : " + divisionId);
-                
             }
         };
         comboDivision.initEvent(eventtss);
         addComboDivision();
-        
         
         // action get select 
         ButtonEvent events = new ButtonEvent() {
@@ -62,11 +59,13 @@ public class InsertCategory extends javax.swing.JDialog {
     public void setValueEdit(
         String divisEn,
         String divisKh,
-        String parentId
+        String idDivision,
+        String idDepartment
     ) throws IOException {
         nameEn.setValueTextField(divisEn);
         nameKh.setValueTextField(divisKh);
-        comboDivision.setToLastItem(parentId);
+        comboDivision.setToLastItem(idDivision);
+        comboDepartment.setToLastItem(idDepartment);
     }
     
     //Place Holder
@@ -82,10 +81,8 @@ public class InsertCategory extends javax.swing.JDialog {
     }
     
     
-    //Set Combo box role
+    //Set Combo box division
     private void addComboDivision() {
-        
-        
         try {
             HashMap<String, String> map = new HashMap<>();
             ArrayList<CategoryModel> category = new ArrayList<>();
@@ -117,24 +114,22 @@ public class InsertCategory extends javax.swing.JDialog {
         } catch (Exception e) {
             System.err.println("error = " + e);
         }
-        
-        
     }
     
     
-    //Set Combo box role
+    //Set Combo box department
     private void addComboDepartment(String divisionId) {
-        
+  
         comboDepartment.revalidate();
         comboDepartment.invalidate();
         
         try {
             HashMap<String, String> map = new HashMap<>();
             ArrayList<CategoryModel> category = new ArrayList<>();
-           
             Response response = JavaConnection.get(JavaRoute.getParentById + divisionId );
             
             if (response.isSuccessful()) {
+                
                 String responseData = response.body().string();
                 JSONObject jsonObject = new JSONObject(responseData);
                 JSONArray data = jsonObject.getJSONArray("data");
@@ -146,11 +141,12 @@ public class InsertCategory extends javax.swing.JDialog {
                     );
 
                     category.add(cat);
-
+                    
                     int idCat = category.get(i).getCategoryId();
                     String catName = category.get(i).getCategoryName();
                     map.put(catName, "" + idCat);
                 }
+                
                 comboDepartment.setMap(map);
                 
             } else {
@@ -160,9 +156,6 @@ public class InsertCategory extends javax.swing.JDialog {
             System.err.println("error = " + e);
         }
     }
-    
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -230,7 +223,7 @@ public class InsertCategory extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -245,7 +238,7 @@ public class InsertCategory extends javax.swing.JDialog {
                         .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(2, 2, 2)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nameEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,6 +360,9 @@ public class InsertCategory extends javax.swing.JDialog {
                 json.put("code", code);
                 
                 Response response = JavaConnection.post(JavaRoute.addCategory, json);
+                
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
                 
                 if (response.isSuccessful()) {
                     Category list = new Category(new JFrame(), true, code);

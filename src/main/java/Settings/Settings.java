@@ -181,21 +181,21 @@ public class Settings extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void divisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divisionMouseClicked
-        dispose();
+//        dispose();
         Category cat = new Category(new JFrame(), true, "division");
         cat.setCode("division");
         cat.setVisible(true);
     }//GEN-LAST:event_divisionMouseClicked
 
     private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
-        dispose();
+//        dispose();
         Category cat = new Category(new JFrame(), true, "category");
         cat.setCode("category");
-        cat.setVisible(true);dispose();
+        cat.setVisible(true);
     }//GEN-LAST:event_categoryMouseClicked
 
     private void itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemMouseClicked
-        dispose();
+//        dispose();
         ListProduct list = new ListProduct(new JFrame(), true);
         list.setPanelProduct(panelProduct);
         list.setJdLogin(jdLogin);
@@ -204,14 +204,14 @@ public class Settings extends javax.swing.JDialog {
     }//GEN-LAST:event_itemMouseClicked
 
     private void departmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentMouseClicked
-        dispose();
+//        dispose();
         Category cat = new Category(new JFrame(), true, "department");
         cat.setCode("department");
         cat.setVisible(true);
     }//GEN-LAST:event_departmentMouseClicked
 
     private void subCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subCategoryMouseClicked
-        dispose();
+//        dispose();
         Category cat = new Category(new JFrame(), true, "subcategory");
         cat.setCode("subcategory");
         cat.setVisible(true);

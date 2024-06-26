@@ -7,6 +7,9 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import Model.Brand.Brand;
+import Model.Brand.BrandModel;
+import Model.Brand.BrandSuccessModel;
 import Model.Category.CategoryGetdataModel;
 import Model.Category.CategorySuccessModel;
 import Model.Category.DetailCategoryModel;
@@ -55,13 +58,13 @@ public class ListBrand extends javax.swing.JDialog {
      public void getBrand(JPanel jpanelData) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.getCategoryByCode );
+            Response response = JavaConnection.get(JavaRoute.brand );
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
-                CategorySuccessModel data = objMap.readValue(responseData, CategorySuccessModel.class);
-                CategoryGetdataModel[] listData = data.getData();
-
+                BrandSuccessModel data = objMap.readValue(responseData, BrandSuccessModel.class);
+                BrandModel[] listData = data.getData();
+                assignBrand(listData, jpanelData);
             } else {
                 System.err.println("fail loading category");
             }
@@ -69,6 +72,126 @@ public class ListBrand extends javax.swing.JDialog {
             System.err.println("error getting category " + e);
         }
     }
+     
+    public void assignBrand(BrandModel[] listData, JPanel listGetBrand) {
+        ArrayList<Brand> brand = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            Brand getBrand = new Brand(
+                    obj.getID(),
+                    obj.getBrandNameEn(),
+                    obj.getBrandNameKh()
+            );
+            brand.add(getBrand);
+        }
+
+        appendBrand(brand, listGetBrand);
+    }
+    
+     void appendBrand(ArrayList<Brand> listBrand, JPanel listGetBrand) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetBrand.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if(listBrand.size() > 0){
+            for (int i = 0; i < listBrand.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+
+                var listData = listBrand.get(i);
+                GetCategory b = new GetCategory();
+
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        
+                            
+                    }
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete staff
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
+                                    "Delete Brand?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
+                                
+                                System.out.println(" response " + response);
+                                
+                                if (response.isSuccessful()) {
+                                    ListBrand list = new ListBrand(new JFrame(), true);
+                                    listGetBrand.removeAll();
+                                    listGetBrand.revalidate();
+                                    listGetBrand.repaint();
+                                    list.getBrand(listGetBrand);
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting product " + e);
+                        }
+                    }
+                };
+
+                b.initEvent(events);
+                b.setId(listData.getId());
+                b.setCategoryNameEn(listData.getBrandNameEn());
+                b.setCategoryNameKh(listData.getBrandNameKh());
+
+                try {
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
+
+                listGetBrand.add(b, gbc);
+            }  
+        }else{
+            NoDataAvailable no = new NoDataAvailable();
+            listGetBrand.add(no);
+        }
+        
+        listGetBrand.revalidate();
+        listGetBrand.repaint();
+    }
+    
+     
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -217,7 +340,8 @@ public class ListBrand extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-
+        InsertBrand insert = new InsertBrand(new JFrame(), true);
+        insert.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
     public static void main(String args[]) {

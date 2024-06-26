@@ -98,7 +98,7 @@ public class ComboBox extends javax.swing.JPanel {
      }
 
      public void removeAllItem() {
-
+         combo.removeAllItems();
      }
 
      public int countItem() {
