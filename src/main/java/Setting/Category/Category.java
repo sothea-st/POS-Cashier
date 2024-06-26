@@ -14,6 +14,7 @@ import Model.Category.DetailCategorySuccessModel;
 import Model.Category.ModelCategory;
 import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
+import Setting.Subcategory.InsertSubcategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -194,6 +195,7 @@ public class Category extends javax.swing.JDialog {
                                     edit.setValueEdit(
                                         listCategory.getCatNameEn(),
                                         listCategory.getCatNameKh(),
+                                        ""+listCategory.getParentId(),
                                         ""+listCategory.getParentId()
                                     );
                                     
@@ -459,7 +461,7 @@ public class Category extends javax.swing.JDialog {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -487,14 +489,18 @@ public class Category extends javax.swing.JDialog {
             InsertDivision addDivision = new InsertDivision(new JFrame(), true, code);
             addDivision.setListGetCategory(listGetCategory);
             addDivision.setVisible(true);
-        }if(code.equals("department")){
+        }else if(code.equals("department")){
             InsertDepartment addDepartment = new InsertDepartment(new JFrame(), true, code);
             addDepartment.setListGetCategory(listGetCategory);
             addDepartment.setVisible(true);
-        }else{
+        }else if(code.equals("category")){
             InsertCategory addCategory = new InsertCategory(new JFrame(), true, code);
             addCategory.setListGetCategory(listGetCategory);
             addCategory.setVisible(true);
+        }else{
+            InsertSubcategory addSubCategory = new InsertSubcategory(new JFrame(), true, code);
+            addSubCategory.setListGetCategory(listGetCategory);
+            addSubCategory.setVisible(true);
         }
     }//GEN-LAST:event_btnAddMouseClicked
 

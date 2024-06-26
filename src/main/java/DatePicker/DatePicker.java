@@ -150,7 +150,7 @@ public class DatePicker extends javax.swing.JPanel {
 
           // solution
           // import path DateChooser
-          dateChooser1 =new DateChooser(); 
+          DateChooser dateChooser1 =new DateChooser(); 
 
 
           txtText = new javax.swing.JTextField();

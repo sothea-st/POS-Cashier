@@ -48,7 +48,7 @@
                           <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -64,7 +64,7 @@
                               </Group>
                               <Component id="label1" min="-2" pref="142" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="departmentName" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="comboDivision" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
       <SubComponents>
         <Component class="Components.LabelPopUpTitle" name="titlePopUp">
           <Properties>
-            <Property name="labelTitle" type="java.lang.String" value="Add Deprtment"/>
+            <Property name="labelTitle" type="java.lang.String" value="Add Department"/>
           </Properties>
         </Component>
         <Component class="Components.Label" name="label1">
