@@ -50,7 +50,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="searchField" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnAdd" min="-2" pref="138" max="-2" attributes="0"/>
+                                  <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane" alignment="1" pref="0" max="32767" attributes="0"/>
                               <Component id="header1" alignment="0" max="32767" attributes="0"/>
@@ -66,8 +66,8 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="searchField" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
+                      <Component id="searchField" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAdd" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="header1" min="-2" max="-2" attributes="0"/>
@@ -137,7 +137,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Category Name Kh"/>
+                <Property name="text" type="java.lang.String" value="Brand Name Kh"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -148,7 +148,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Category Name En"/>
+                <Property name="text" type="java.lang.String" value="Brand Name"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -171,7 +171,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="listGetCategory">
+            <Container class="javax.swing.JPanel" name="listGetBrand">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="d7" red="b0" type="rgb"/>
@@ -203,7 +203,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="9b" red="2f" type="rgb"/>
             </Property>
-            <Property name="buttonName" type="java.lang.String" value="+ Add Division"/>
+            <Property name="buttonName" type="java.lang.String" value="+ Add Brand"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddMouseClicked"/>

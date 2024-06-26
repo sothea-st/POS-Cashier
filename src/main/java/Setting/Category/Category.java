@@ -2,9 +2,7 @@ package Setting.Category;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
-import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
-import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
@@ -14,15 +12,8 @@ import Model.Category.CategorySuccessModel;
 import Model.Category.DetailCategoryModel;
 import Model.Category.DetailCategorySuccessModel;
 import Model.Category.ModelCategory;
-import Model.Staff.DetailDataSuccessModel;
-import Model.Staff.DetailGetDataModel;
-import Model.Userlogin.UserDataModel;
-import Model.Userlogin.UserModel;
-import Model.Userlogin.UserSuccessModel;
+import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
-import Staff.ChangeUserPassword;
-import Staff.GetUserLogin;
-import Staff.UserNotFound;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -141,29 +132,100 @@ public class Category extends javax.swing.JDialog {
                     @Override
                     public void onSelect(String Key) {  // event edit
                         
-                        if(codeType.equals("division")){
-                            InsertDivision edit = new InsertDivision(new JFrame(), true, codeType);
-                            try {
-                                Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
-                                String responseData = response.body().string();
-                                ObjectMapper objMap = new ObjectMapper();
-                                DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
-                                DetailCategoryModel listCategory = datas.getData();
+                            if(codeType.equals("division")){
+                                InsertDivision edit = new InsertDivision(new JFrame(), true, codeType);
+                                try {
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
 
-                                edit.setId(listCategory.getId());
-                                edit.setMovePosition(listCategory.getMovePosition());
-                                edit.setParentId(listCategory.getParentId());
-                                edit.setListGetCategory(listGetCategory);
-                                edit.setValueEdit(
-                                     listCategory.getCatNameEn(),
-                                     listCategory.getCatNameKh()
-                                );
-                                edit.setVisible(true);
-                            } catch (Exception e) {
-                                 System.err.println("error getting product " + e);
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setParentId(listCategory.getParentId());
+                                    edit.setListGetCategory(listGetCategory);
+
+                                    edit.setValueEdit(
+                                        listCategory.getCatNameEn(),
+                                        listCategory.getCatNameKh()
+                                    );
+                                    
+                                    edit.setVisible(true);
+                                } catch (Exception e) {
+                                     System.err.println("error getting product " + e);
+                                }
+                            }else if(codeType.equals("department")){
+                                InsertDepartment edit = new InsertDepartment(new JFrame(), true, codeType);
+                                try {
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
+
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setListGetCategory(listGetCategory);
+
+                                    edit.setValueEdit(
+                                        listCategory.getCatNameEn(),
+                                        listCategory.getCatNameKh(),
+                                        ""+listCategory.getParentId()
+                                    );
+                                    
+                                    edit.setVisible(true);
+                                } catch (Exception e) {
+                                     System.err.println("error getting product " + e);
+                                }
+                            }else if(codeType.equals("category")){
+                                InsertCategory edit = new InsertCategory(new JFrame(), true, codeType);
+                                try {
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
+
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setListGetCategory(listGetCategory);
+
+                                    edit.setValueEdit(
+                                        listCategory.getCatNameEn(),
+                                        listCategory.getCatNameKh(),
+                                        ""+listCategory.getParentId()
+                                    );
+                                    
+                                    edit.setVisible(true);
+                                } catch (Exception e) {
+                                     System.err.println("error getting product " + e);
+                                }
                             }
                             
-                        } 
+                        
+//                        }else{
+//                            InsertCategory edit = new InsertCategory(new JFrame(), true, codeType);
+//                            try {
+//                                Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+//                                String responseData = response.body().string();
+//                                ObjectMapper objMap = new ObjectMapper();
+//                                DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+//                                DetailCategoryModel listCategory = datas.getData();
+//
+//                                edit.setId(listCategory.getId());
+//                                edit.setMovePosition(listCategory.getMovePosition());
+//                                edit.setListGetCategory(listGetCategory);
+//                                edit.setValueEdit(
+//                                     listCategory.getCatNameEn(),
+//                                     listCategory.getCatNameKh(),
+//                                     ""+listCategory.getParentId()
+//                                );
+//                                edit.setVisible(true);
+//                            } catch (Exception e) {
+//                                 System.err.println("error getting product " + e);
+//                            }
+//                        }
                     }
                     
                     @Override
@@ -178,15 +240,17 @@ public class Category extends javax.swing.JDialog {
                                     "Delete " + codeType + "?", JOptionPane.YES_NO_OPTION);
 
                             if (resp == JOptionPane.YES_OPTION) {
-                                Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), null);
-
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
+                                
+                                System.out.println(" response " + response);
+                                
                                 if (response.isSuccessful()) {
                                     Category list = new Category(new JFrame(), true, codeType);
                                     listGetCategory.removeAll();
                                     listGetCategory.revalidate();
                                     listGetCategory.repaint();
                                     list.getCategory(listGetCategory, codeType);
-                                    dispose();
                                 }
                             } else {
                                 setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -210,6 +274,7 @@ public class Category extends javax.swing.JDialog {
                         public void run() {
                             // Task to be executed
                             category.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            category.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
                         }
                     };
 
@@ -391,10 +456,10 @@ public class Category extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -422,9 +487,15 @@ public class Category extends javax.swing.JDialog {
             InsertDivision addDivision = new InsertDivision(new JFrame(), true, code);
             addDivision.setListGetCategory(listGetCategory);
             addDivision.setVisible(true);
+        }if(code.equals("department")){
+            InsertDepartment addDepartment = new InsertDepartment(new JFrame(), true, code);
+            addDepartment.setListGetCategory(listGetCategory);
+            addDepartment.setVisible(true);
+        }else{
+            InsertCategory addCategory = new InsertCategory(new JFrame(), true, code);
+            addCategory.setListGetCategory(listGetCategory);
+            addCategory.setVisible(true);
         }
-        
-
     }//GEN-LAST:event_btnAddMouseClicked
 
     public static void main(String args[]) {
@@ -468,8 +539,6 @@ public class Category extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnAdd;
-    private Button.Button btnAddStaff;
-    private Button.Button btnAddStaff1;
     private ButtonPackage.ButtonCancel buttonCancel1;
     private javax.swing.JPanel header1;
     private javax.swing.JLabel jLabel10;

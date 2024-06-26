@@ -43,14 +43,14 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="label3" min="-2" pref="90" max="-2" attributes="0"/>
+                          <Component id="label3" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel12" min="-2" pref="13" max="-2" attributes="0"/>
-                          <EmptySpace pref="40" max="32767" attributes="0"/>
+                          <EmptySpace pref="51" max="32767" attributes="0"/>
                           <Component id="divisionEn" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="label1" min="-2" max="-2" attributes="0"/>
+                          <Component id="label1" min="-2" pref="60" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="divisionKh" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -86,7 +86,7 @@
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -99,7 +99,7 @@
         </Component>
         <Component class="Components.Label" name="label1">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Division Name Kh"/>
+            <Property name="labelName" type="java.lang.String" value="Name Kh"/>
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
@@ -114,7 +114,7 @@
         </Component>
         <Component class="Components.Label" name="label3">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Division Name"/>
+            <Property name="labelName" type="java.lang.String" value="Name"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
@@ -130,12 +130,12 @@
         </Component>
         <Component class="Components.TextField" name="divisionKh">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Division Name Kh"/>
+            <Property name="labelTextField" type="java.lang.String" value="Name Kh"/>
           </Properties>
         </Component>
         <Component class="Components.TextField" name="divisionEn">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Division Name"/>
+            <Property name="labelTextField" type="java.lang.String" value="Name"/>
           </Properties>
         </Component>
       </SubComponents>
