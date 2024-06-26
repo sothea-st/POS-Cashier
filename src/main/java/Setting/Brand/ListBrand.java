@@ -10,6 +10,8 @@ import Fonts.WindowFonts;
 import Model.Brand.Brand;
 import Model.Brand.BrandModel;
 import Model.Brand.BrandSuccessModel;
+import Model.Brand.DetailBrandModel;
+import Model.Brand.DetailBrandSuccess;
 import Model.Category.CategoryGetdataModel;
 import Model.Category.CategorySuccessModel;
 import Model.Category.DetailCategoryModel;
@@ -20,6 +22,7 @@ import Setting.Category.GetCategory;
 import Setting.Category.InsertCategory;
 import Setting.Category.NoDataAvailable;
 import Setting.Division.InsertDivision;
+import Staff.StaffInformation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -119,33 +122,54 @@ public class ListBrand extends javax.swing.JDialog {
                 ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String Key) {  // event edit
-                        
+                        InsertBrand edit = new InsertBrand(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.brand + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailBrandSuccess data = objMap.readValue(responseData, DetailBrandSuccess.class);
+                            DetailBrandModel listData = data.getData();
+
+                            edit.setId(listData.getId());
+                            edit.setListGetBrand(listGetBrand);
+
+                            edit.setValueEdit(
+                                listData.getBrandNameEn(),
+                                listData.getBrandNameKh()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting product " + e);
+                        }
                             
                     }
                     
+                    
                     @Override
-                    public void onRemove(String Key) {  // event delete staff
+                    public void onRemove(String Key) {  // event delete brand
                         try {
                             UIManager UI = new UIManager();
                             UI.put("OptionPane.background", WindowColor.mediumGreen);
                             UI.put("Panel.background", WindowColor.mediumGreen);
                             UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this brand?",
                                     "Delete Brand?", JOptionPane.YES_NO_OPTION);
 
                             if (resp == JOptionPane.YES_OPTION) {
                                 JSONObject json = new JSONObject();
-                                Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
-                                
-                                System.out.println(" response " + response);
-                                
+                                json.put("status", false);
+                                json.put("isDeleted", true);
+                                Response response = JavaConnection.delete(JavaRoute.brand + "/" + listData.getId(), json);
+
                                 if (response.isSuccessful()) {
                                     ListBrand list = new ListBrand(new JFrame(), true);
                                     listGetBrand.removeAll();
                                     listGetBrand.revalidate();
                                     listGetBrand.repaint();
                                     list.getBrand(listGetBrand);
+                                    System.out.println("Successful deleted ");
                                 }
                             } else {
                                 setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -341,6 +365,7 @@ public class ListBrand extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         InsertBrand insert = new InsertBrand(new JFrame(), true);
+        insert.setListGetBrand(listGetBrand);
         insert.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
