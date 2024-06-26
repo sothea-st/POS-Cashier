@@ -13,7 +13,6 @@ import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
-
 import com.raven.datechooser.DateChooser;
 
 public class DatePicker extends javax.swing.JPanel {
