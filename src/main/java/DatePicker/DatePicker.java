@@ -14,34 +14,43 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 
+import com.raven.datechooser.DateChooser;
+
 public class DatePicker extends javax.swing.JPanel {
 
-    private String labelTextField;
-    private String valueTextField;
-    
-    public DatePicker() {
-        initComponents();
-        setBackground(WindowColor.white);
-        txtText.setFont(WindowFonts.timeNewRoman14);
-        JavaConstant.setPointer(txtText);
-    }
-    
-    //Create Placeholder
+     private String labelTextField;
+     private String valueTextField;
+
+     public DatePicker() {
+          initComponents();
+          setBackground(WindowColor.white);
+          txtText.setFont(WindowFonts.timeNewRoman14);
+          JavaConstant.setPointer(txtText);
+     }
+
+     public void unFocus(){
+          txtText.setFocusable(false);
+     }
+     
+     //Create Placeholder
      public void initEvent(ButtonEvent event) {
 
           txtText.addFocusListener(new FocusListener() {
                @Override
                public void focusGained(FocusEvent e) {
+
                     if (txtText.getText().trim().equals(labelTextField)) {
                          txtText.setText("");
-                    }else{
-                        setValueTextField(txtText.getText());
+                    } else {
+                         setValueTextField(txtText.getText());
                     }
                     txtText.setForeground(Color.BLACK);
+
                }
 
                @Override
                public void focusLost(FocusEvent e) {
+
                     if (txtText.getText().trim().equals("")) {
                          txtText.setText(labelTextField);
                          txtText.setForeground(Color.LIGHT_GRAY);
@@ -50,11 +59,13 @@ public class DatePicker extends javax.swing.JPanel {
                     if (txtText.getText().trim().equals(labelTextField)) {
                          txtText.setForeground(Color.LIGHT_GRAY);
                     }
+
                }
           });
+
      }
 
-    //=================================================Create Shadow Box
+     //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 1;
      private float shadowOpacity = 0.1f;
@@ -66,7 +77,7 @@ public class DatePicker extends javax.swing.JPanel {
           createShadow(grphcs);
           super.paintComponent(grphcs);
      }
-    
+
      private void createShadow(Graphics grphcs) {
           Graphics2D g2 = (Graphics2D) grphcs;
           int size = shadowSize * 2;
@@ -109,74 +120,84 @@ public class DatePicker extends javax.swing.JPanel {
           g2.drawImage(img, x, y, null);
      }
 
-    public String getLabelTextField() {
-        return labelTextField;
-    }
+     public String getLabelTextField() {
+          return labelTextField;
+     }
 
-    public void setLabelTextField(String labelTextField) {
-        this.labelTextField = labelTextField;
-        txtText.setText(labelTextField);
-        txtText.setForeground(Color.LIGHT_GRAY);
-    }
+     public void setLabelTextField(String labelTextField) {
+          this.labelTextField = labelTextField;
+          txtText.setText(labelTextField);
+          txtText.setForeground(Color.LIGHT_GRAY);
+     }
 
-    public String getValueTextField() {
-        return valueTextField;
-    }
+     public String getValueTextField() {
+          return valueTextField;
+     }
 
-    public void setValueTextField(String valueTextField) {
-        this.valueTextField = valueTextField;
-        txtText.setText(valueTextField);
-        txtText.setForeground(Color.BLACK);
-    }
+     public void setValueTextField(String valueTextField) {
+          this.valueTextField = valueTextField;
+          txtText.setText(valueTextField);
+          txtText.setForeground(Color.BLACK);
+     }
 
-    
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     @SuppressWarnings("unchecked")
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
+          /*
+           * this one is incorrect 
+           * error show : Cannot invoke "java.net.URL.toExternalForm()" because "location" is null
+           */
+          // dateChooser1 = new com.raven.datechooser.DateChooser(); 
 
-        dateChooser1 = new com.raven.datechooser.DateChooser();
-        txtText = new javax.swing.JTextField();
+          // solution
+          // import path DateChooser
+          dateChooser1 =new DateChooser(); 
 
-        dateChooser1.setForeground(new java.awt.Color(47, 152, 70));
-        dateChooser1.setTextRefernce(txtText);
 
-        txtText.setBackground(new java.awt.Color(255, 255, 255));
-        txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtText.setBorder(null);
-        txtText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTextActionPerformed(evt);
-            }
-        });
-        txtText.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtTextKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTextKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTextKeyTyped(evt);
-            }
-        });
+          txtText = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtText, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          dateChooser1.setForeground(new java.awt.Color(47, 152, 70));
+          dateChooser1.setTextRefernce(txtText);
+
+          txtText.setBackground(new java.awt.Color(255, 255, 255));
+          txtText.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+          txtText.setBorder(null);
+          txtText.addActionListener(new java.awt.event.ActionListener() {
+               public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    txtTextActionPerformed(evt);
+               }
+          });
+          txtText.addKeyListener(new java.awt.event.KeyAdapter() {
+               public void keyPressed(java.awt.event.KeyEvent evt) {
+                    txtTextKeyPressed(evt);
+               }
+               public void keyReleased(java.awt.event.KeyEvent evt) {
+                    txtTextKeyReleased(evt);
+               }
+               public void keyTyped(java.awt.event.KeyEvent evt) {
+                    txtTextKeyTyped(evt);
+               }
+          });
+
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtText, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          );
+
+          txtText.getAccessibleContext().setAccessibleParent(dateChooser1);
+     }// </editor-fold>//GEN-END:initComponents
 
     private void txtTextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTextKeyPressed
 
@@ -191,12 +212,12 @@ public class DatePicker extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTextKeyTyped
 
     private void txtTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTextActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
     }//GEN-LAST:event_txtTextActionPerformed
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.raven.datechooser.DateChooser dateChooser1;
-    private javax.swing.JTextField txtText;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private com.raven.datechooser.DateChooser dateChooser1;
+     private javax.swing.JTextField txtText;
+     // End of variables declaration//GEN-END:variables
 }

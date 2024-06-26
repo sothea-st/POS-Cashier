@@ -29,6 +29,7 @@ import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Print.ReprintJdailog;
 import Products.ListProduct;
+import Reporting.ReportingView;
 import Return.ApprovalCode;
 import Settings.Settings;
 import Staff.Staff;
@@ -82,7 +83,7 @@ public class MainPage extends javax.swing.JFrame {
 
      public MainPage() {
           initComponents();
- 
+
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
@@ -102,7 +103,7 @@ public class MainPage extends javax.swing.JFrame {
           searchBox.disabledTextField(false);
           textField.disabledTextField(false);
           // custome scrollbar ui
- 
+
           jScrollPane2.getVerticalScrollBar().setUI(new CustomScrollBarUI());
           jScrollPane2.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
           // custom scroll speed jscrollPane for vertical
@@ -135,7 +136,7 @@ public class MainPage extends javax.swing.JFrame {
           ).resizeEvent(this);
 
           currentDateTime();
-      
+
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
           boxImg.setVisible(false);
@@ -184,11 +185,11 @@ public class MainPage extends javax.swing.JFrame {
      }
 
      private void groupEvent() {
-         
-          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this, panelProduct,previous);  // pagination next
-          JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this,next);  // pagination previous
+
+          JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this, panelProduct, previous);  // pagination next
+          JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this, next);  // pagination previous
           JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
-          
+
           JavaSearchByNameAndCode j = new JavaSearchByNameAndCode();
           j.setBtnCancel(btnCancel);
           j.setBtnPayment(btnPayment);
@@ -810,7 +811,7 @@ public class MainPage extends javax.swing.JFrame {
                         buttonDiscount, btnReprint,
                         btnReturn, buttonCashier, btnCancel,
                         buttonHoldOrder, bgimg, btnLogin,
-                        stock , buttonStaff, jdFormLogin
+                        stock, buttonStaff, jdFormLogin
                    );
               }
          }
@@ -969,7 +970,7 @@ public class MainPage extends javax.swing.JFrame {
                }
           }
      }
-           
+
      public int countHold() {
           int countH = 0;
           Response responseGet = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
@@ -980,21 +981,21 @@ public class MainPage extends javax.swing.JFrame {
 
           } catch (Exception e) {
           }
-         
+
           return countH;
      }
 
      //Action Button Holder
      private void buttonHoldOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonHoldOrderMouseClicked
-        if (JavaConstant.token != null) {
-            if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
-                 return;
-            }
-            Component[] listCom1 = detailItem.getComponents();
-            if (listCom1.length != 0) {
-                 JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape, btnReturn, titleOrder);
-            }
-        }
+          if (JavaConstant.token != null) {
+               if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
+                    return;
+               }
+               Component[] listCom1 = detailItem.getComponents();
+               if (listCom1.length != 0) {
+                    JavaActionAddHold.addHold(detailItem, btnPayment, buttonHoldOrder, btnCancel, totalPanel, countCircleShape, btnReturn, titleOrder);
+               }
+          }
      }//GEN-LAST:event_buttonHoldOrderMouseClicked
 
      private void btnLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseEntered
@@ -1004,49 +1005,49 @@ public class MainPage extends javax.swing.JFrame {
      //Action Discount
      private void buttonDiscountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonDiscountMouseClicked
 
-        if (JavaConstant.token != null) {
-            if (JavaConstant.checkOpenShift) {
-                if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
-                    return;
-                }
-                JavaActionDiscount.overallDiscount(detailItem, totalPanel);
-            }
-        }
+          if (JavaConstant.token != null) {
+               if (JavaConstant.checkOpenShift) {
+                    if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
+                         return;
+                    }
+                    JavaActionDiscount.overallDiscount(detailItem, totalPanel);
+               }
+          }
      }//GEN-LAST:event_buttonDiscountMouseClicked
 
      //Action show hold order
     private void panelCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseClicked
-        if (JavaConstant.token != null) {
-            if (JavaConstant.checkOpenShift) {
+         if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
 
-                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                if (JavaConstant.isReturn != null) {
-                    j.setMessage(JavaAlertMessage.returnMsg);
-                    j.setVisible(true);
-                    return;
-                }
+                   JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                   if (JavaConstant.isReturn != null) {
+                        j.setMessage(JavaAlertMessage.returnMsg);
+                        j.setVisible(true);
+                        return;
+                   }
 
-                Component[] listCom = detailItem.getComponents();
-                if (listCom.length != 0) {
-                    j.setMessage("Please clear items in current order first!");
-                    j.setVisible(true);
-                    return;
-                }
+                   Component[] listCom = detailItem.getComponents();
+                   if (listCom.length != 0) {
+                        j.setMessage("Please clear items in current order first!");
+                        j.setVisible(true);
+                        return;
+                   }
 
-                ListHoldOrder hold = new ListHoldOrder(new JFrame(), true);
-                hold.setDetailItem(detailItem);
-                hold.setSubtotalPanel(totalPanel);
-                hold.setPanelProduct(panelProduct);
-                hold.setBtnPayment(btnPayment);
-                hold.setPanelProduct(panelProduct);
-                hold.setButtonHoldOrder(buttonHoldOrder);
-                hold.setCountCircleShape(countCircleShape);
-                hold.setBtnCancel(btnCancel);
-                hold.setBtnReturn(btnReturn);
-                hold.setTitleOrder(titleOrder);
-                hold.setVisible(true);
-            }
-        }
+                   ListHoldOrder hold = new ListHoldOrder(new JFrame(), true);
+                   hold.setDetailItem(detailItem);
+                   hold.setSubtotalPanel(totalPanel);
+                   hold.setPanelProduct(panelProduct);
+                   hold.setBtnPayment(btnPayment);
+                   hold.setPanelProduct(panelProduct);
+                   hold.setButtonHoldOrder(buttonHoldOrder);
+                   hold.setCountCircleShape(countCircleShape);
+                   hold.setBtnCancel(btnCancel);
+                   hold.setBtnReturn(btnReturn);
+                   hold.setTitleOrder(titleOrder);
+                   hold.setVisible(true);
+              }
+         }
     }//GEN-LAST:event_panelCartMouseClicked
 
      private void panelCartMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCartMouseEntered
@@ -1054,44 +1055,51 @@ public class MainPage extends javax.swing.JFrame {
      }//GEN-LAST:event_panelCartMouseEntered
 
     private void stockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockMouseClicked
-        if (JavaConstant.token != null) {
-            if (JavaConstant.checkOpenShift) {
-                ListProduct list = new ListProduct(new JFrame(), true);
-                list.setPanelProduct(panelProduct);
-                list.setJdLogin(jdFormLogin);
-                list.setPanelCategory(category);
-                list.setVisible(true);
-            }
-        }
+         if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   ListProduct list = new ListProduct(new JFrame(), true);
+                   list.setPanelProduct(panelProduct);
+                   list.setJdLogin(jdFormLogin);
+                   list.setPanelCategory(category);
+                   list.setVisible(true);
+              }
+         }
     }//GEN-LAST:event_stockMouseClicked
 
     private void buttonCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCustomerMouseClicked
-        if (JavaConstant.token != null) {
-            if (JavaConstant.checkOpenShift) {
-                JdailogCustomer cus = new JdailogCustomer(new JFrame(), true);
-                cus.setVisible(true);
-            }
-        }
+         if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   JdailogCustomer cus = new JdailogCustomer(new JFrame(), true);
+                   cus.setVisible(true);
+              }
+         }
     }//GEN-LAST:event_buttonCustomerMouseClicked
 
     private void buttonStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStaffMouseClicked
-        if (JavaConstant.token != null) {
-            if (JavaConstant.checkOpenShift) {
-                JFrame j = new JFrame();
-                j.setIconImage(null);
-                Staff sta = new Staff(j, true);
-                sta.setVisible(true);
-            }
-        }
+         if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   JFrame j = new JFrame();
+                   j.setIconImage(null);
+                   Staff sta = new Staff(j, true);
+                   sta.setVisible(true);
+              }
+         }
     }//GEN-LAST:event_buttonStaffMouseClicked
 
     private void btnSettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSettingsMouseClicked
-        Settings setting = new Settings(new JFrame(),true);
-        setting.setVisible(true);
+         if (JavaConstant.token != null) {
+              if (JavaConstant.checkOpenShift) {
+                   Settings setting = new Settings(new JFrame(), true);
+                   setting.setPanelProduct(panelProduct);
+                   setting.setJdLogin(jdFormLogin);
+                   setting.setVisible(true);
+              }
+         }
     }//GEN-LAST:event_btnSettingsMouseClicked
 
     private void btnReportingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportingMouseClicked
-        
+         ReportingView re = new ReportingView(new JFrame(), true);
+         re.setVisible(true);
     }//GEN-LAST:event_btnReportingMouseClicked
 
      public JPanel getDetailProduct() {

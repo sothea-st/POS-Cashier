@@ -52,6 +52,10 @@ public interface ButtonEvent {
      ;
           default public void onMouseRelease() {
      }
-;
+     ;
+          
+    
+               default public void onFocusLost(){};
+
 
 }
