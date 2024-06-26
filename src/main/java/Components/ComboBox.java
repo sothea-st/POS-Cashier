@@ -79,7 +79,6 @@ public class ComboBox extends javax.swing.JPanel {
                }
           }
           combo.setSelectedIndex(index);
-
      }
 
      public void setToLastItem(String id) {
