@@ -166,123 +166,121 @@ public class GetProduct extends javax.swing.JPanel {
           });
           
      }
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        getProduct = new javax.swing.JPanel();
-        lbBarcode = new javax.swing.JLabel();
-        lbPrice = new javax.swing.JLabel();
-        lbName = new javax.swing.JLabel();
-        qty = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
-        btnEdit = new javax.swing.JLabel();
-        status = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JLabel();
+          getProduct = new javax.swing.JPanel();
+          lbBarcode = new javax.swing.JLabel();
+          lbPrice = new javax.swing.JLabel();
+          lbName = new javax.swing.JLabel();
+          qty = new javax.swing.JLabel();
+          id = new javax.swing.JLabel();
+          btnEdit = new javax.swing.JLabel();
+          status = new javax.swing.JLabel();
+          btnDelete = new javax.swing.JLabel();
 
-        getProduct.setBackground(new java.awt.Color(255, 255, 255));
-        getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+          getProduct.setBackground(new java.awt.Color(255, 255, 255));
+          getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lbBarcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbBarcode.setForeground(new java.awt.Color(0, 0, 0));
-        lbBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbBarcode.setText("Product Barcode");
+          lbBarcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbBarcode.setForeground(new java.awt.Color(0, 0, 0));
+          lbBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbBarcode.setText("Product Barcode");
 
-        lbPrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbPrice.setForeground(new java.awt.Color(0, 0, 0));
-        lbPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbPrice.setText("Product Price");
+          lbPrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbPrice.setForeground(new java.awt.Color(0, 0, 0));
+          lbPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbPrice.setText("Product Price");
 
-        lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbName.setForeground(new java.awt.Color(0, 0, 0));
-        lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbName.setText("Product Name");
+          lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbName.setForeground(new java.awt.Color(0, 0, 0));
+          lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          lbName.setText("Product Name");
 
-        qty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        qty.setForeground(new java.awt.Color(0, 0, 0));
-        qty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        qty.setText("Quantity");
+          qty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          qty.setForeground(new java.awt.Color(0, 0, 0));
+          qty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          qty.setText("Quantity");
 
-        id.setText("jLabel1");
+          id.setText("jLabel1");
 
-        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(0, 0, 0));
-        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
+          btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnEdit.setForeground(new java.awt.Color(0, 0, 0));
+          btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        status.setForeground(new java.awt.Color(0, 0, 0));
-        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        status.setText("Status");
+          status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          status.setForeground(new java.awt.Color(0, 0, 0));
+          status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          status.setText("Status");
 
-        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
-        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
+          btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+          btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
-        getProduct.setLayout(getProductLayout);
-        getProductLayout.setHorizontalGroup(
-            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(getProductLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        getProductLayout.setVerticalGroup(
-            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(getProductLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbBarcode)
-                        .addComponent(lbPrice)
-                        .addComponent(qty)
-                        .addComponent(lbName)
-                        .addComponent(id)
-                        .addComponent(btnEdit)
-                        .addComponent(status))
-                    .addComponent(btnDelete))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
+          javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
+          getProduct.setLayout(getProductLayout);
+          getProductLayout.setHorizontalGroup(
+               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(getProductLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          );
+          getProductLayout.setVerticalGroup(
+               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(getProductLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                              .addComponent(lbBarcode)
+                              .addComponent(lbPrice)
+                              .addComponent(qty)
+                              .addComponent(lbName)
+                              .addComponent(id)
+                              .addComponent(btnEdit)
+                              .addComponent(status))
+                         .addComponent(btnDelete))
+                    .addContainerGap(16, Short.MAX_VALUE))
+          );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(getProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(getProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(getProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(getProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnDelete;
-    private javax.swing.JLabel btnEdit;
-    private javax.swing.JPanel getProduct;
-    private javax.swing.JLabel id;
-    private javax.swing.JLabel lbBarcode;
-    private javax.swing.JLabel lbName;
-    private javax.swing.JLabel lbPrice;
-    private javax.swing.JLabel qty;
-    private javax.swing.JLabel status;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel btnDelete;
+     private javax.swing.JLabel btnEdit;
+     private javax.swing.JPanel getProduct;
+     private javax.swing.JLabel id;
+     private javax.swing.JLabel lbBarcode;
+     private javax.swing.JLabel lbName;
+     private javax.swing.JLabel lbPrice;
+     private javax.swing.JLabel qty;
+     private javax.swing.JLabel status;
+     // End of variables declaration//GEN-END:variables
 }

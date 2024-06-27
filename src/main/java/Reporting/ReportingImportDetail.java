@@ -1,6 +1,40 @@
 package Reporting;
 
+import BlogCode.JavaBlogImage;
+import Color.WindowColor;
+import Constant.JavaBaseUrl;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
+import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
+import Model.PackageProduct.ProductModel;
+import Model.ProductModel.ProductDataModel;
+import Model.ProductModel.ProductSuccessData;
+import Model.Report.ReportImportDetail;
+import Model.Report.ReportResponse;
+import Products.DataSuccessDetail;
+import Products.EditProduct;
+import Products.ListDetailProduct;
+import Products.ListProduct;
+import Reporting.ReportingItem.ReportOfImport;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.UIManager;
+import okhttp3.Response;
+import org.json.JSONObject;
+import pdf.PrintToExcel;
 
 public class ReportingImportDetail extends javax.swing.JDialog {
 
@@ -15,6 +49,14 @@ public class ReportingImportDetail extends javax.swing.JDialog {
 //          dateTo.unFocus();
           searchField.setFocus();
           groupEvent();
+
+          // custome scrollbar ui
+          jScrollPaneProduct.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPaneProduct.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPaneProduct.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
      }
 
      //     =============== event ================
@@ -29,6 +71,15 @@ public class ReportingImportDetail extends javax.swing.JDialog {
           dateFrom.initEvent(btnevent);
           dateTo.initEvent(btnevent);
           searchField.initEvent(btnevent);
+
+          ButtonEvent btnEvent = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+//                    msgPrint(PrintToExcel.folderPath);
+//                    PrintToExcel.toExcel(panelItem);
+               }
+          };
+          groupButtonExport1.initEvent(btnEvent);
      }
 
      @SuppressWarnings("unchecked")
@@ -76,16 +127,18 @@ public class ReportingImportDetail extends javax.swing.JDialog {
                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(jPanel1Layout.createSequentialGroup()
                               .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                               .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(26, 26, 26)
-                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(groupButtonExport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(19, 19, 19))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                              .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(groupButtonExport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(25, 25, 25))))
           );
           jPanel1Layout.setVerticalGroup(
                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -222,11 +275,10 @@ public class ReportingImportDetail extends javax.swing.JDialog {
                .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .addGroup(layout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                          .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                              .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(jScrollPaneProduct)))
+                         .addComponent(jScrollPaneProduct)
+                         .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap(22, Short.MAX_VALUE))
                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           );
@@ -257,8 +309,92 @@ public class ReportingImportDetail extends javax.swing.JDialog {
           String dateFromValue = dateFrom.getValueTextField();
           String dateToValue = dateTo.getValueTextField();
 
-          System.out.println("dateFrom : " + dateFromValue + " dateTo : " + dateToValue);
+          if (dateFromValue == null || dateFromValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date From can not be empty!");
+               return;
+          }
+
+          if (dateToValue == null || dateToValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date To can not be empty!");
+               return;
+          }
+
+          String[] arrDateFrom = dateFromValue.split("-");
+          dateFromValue = arrDateFrom[2] + "-" + arrDateFrom[1] + "-" + arrDateFrom[0];
+
+          String[] arrDateTo = dateToValue.split("-");
+          dateToValue = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
+
+          JSONObject json = new JSONObject();
+          json.put("dateFrom", dateFromValue);
+          json.put("dateTo", dateToValue);
+
+          Response response = JavaConnection.post(JavaRoute.reportImport, json);
+
+          try {
+               if (response.isSuccessful()) {
+                    panelItem.removeAll();
+                    panelItem.revalidate();
+                    panelItem.repaint();
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ReportResponse data = objMap.readValue(responseData, ReportResponse.class);
+                    ReportImportDetail[] importDetails = data.getData();
+                    appendProduct(importDetails);
+               }
+
+          } catch (Exception e) {
+               System.out.println("error = " + e);
+          }
+
      }//GEN-LAST:event_buttonSaveMouseClicked
+
+     //Append Product into list
+     void appendProduct(ReportImportDetail[] listData) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+          panelItem.setLayout(gridBagLayout);
+
+          int x = 0;
+          int y = 0;
+
+          int index = 0;
+          for (ReportImportDetail detail : listData) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
+                    x = 0;
+                    y++;
+               }
+               index++;
+               ReportOfImport report = new ReportOfImport();
+               report.setValue(
+                    index + "",
+                    detail.getProNameEn(),
+                    "8850369014277",
+                    String.valueOf(detail.getCost()),
+                    String.valueOf(detail.getQtyOld()),
+                    String.valueOf(detail.getAmount()),
+                    String.valueOf(detail.getTotal()),
+                    String.valueOf(detail.getDiscount()),
+                    String.valueOf(detail.getImpDate())
+               );
+
+               panelItem.add(report, gbc);
+
+          }
+
+          panelItem.revalidate();
+          panelItem.repaint();
+     }
 
      public static void main(String args[]) {
 

@@ -31,8 +31,9 @@ public class JavaConnection {
           }
           closeConnection(client);
           return response;
-
      }
+
+  
 
      public static Response getWithoutToken(String route) {
           Response response = null;
@@ -83,14 +84,14 @@ public class JavaConnection {
                response = client.newCall(request).execute();
 
           } catch (Exception e) {
-               
+
                System.err.println("getting error during call request " + e);
           }
           closeConnection(client);
           return response;
      }
-     
-       public static Response put(String route, JSONObject json) {
+
+     public static Response put(String route, JSONObject json) {
           Response response = null;
           String url = new JavaBaseUrl().getBaseUrl() + route;
           OkHttpClient client = new OkHttpClient();
@@ -105,13 +106,12 @@ public class JavaConnection {
                response = client.newCall(request).execute();
 
           } catch (Exception e) {
-               
+
                System.err.println("getting error during call request " + e);
           }
           closeConnection(client);
           return response;
      }
-
 
      public static Response delete(String route, JSONObject json) {
           Response response = null;
