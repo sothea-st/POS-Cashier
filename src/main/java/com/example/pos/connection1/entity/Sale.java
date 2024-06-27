@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -46,8 +47,6 @@ public class Sale {
 
     @Column(name = "total" , precision = 10 , scale = 2)
     private BigDecimal total;
-
-    
 
     @Column(name = "total_return" , precision = 10 , scale = 2)
     private BigDecimal totalReturn;
@@ -97,5 +96,8 @@ public class Sale {
 
     @Column(name = "is_delete")
     private boolean isDelete=false;
+
+    @Column(name = "date_local")
+    private LocalDate dateLocal;
 
 }

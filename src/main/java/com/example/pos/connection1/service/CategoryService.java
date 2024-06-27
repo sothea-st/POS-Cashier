@@ -1,6 +1,7 @@
 package com.example.pos.connection1.service;
 
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
+import com.example.pos.connection1.DTO.categoryDto.CategoryEditResponse;
 import com.example.pos.connection1.DTO.categoryDto.CategoryRequest;
 import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
 import com.example.pos.connection1.constant.JavaValidation;
@@ -23,7 +24,6 @@ public class CategoryService {
     @Autowired
     private HttpSession httpSession;
 
-
     public List<CategoryResponse> getCategoryByCode(String code) {
         return repo.getCategoryByCode(code).stream()
                 .map(c -> CategoryResponse
@@ -35,11 +35,18 @@ public class CategoryService {
                         .parentId(c.getParentId())
                         .build())
                 .toList();
-    } 
+    }
 
     public Category saveCategory(CategoryRequest c) {
+
+        repo.findById(c.parentId())
+                .orElseThrow(
+                        () -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Parent Id has not been found."));
+
         // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
-        boolean catNameEn = repo.existsByCatNameEn(c.catNameEn());
+        boolean catNameEn = repo.existsByCatNameEnAndStatusTrueAndIsDeletedFalse(c.catNameEn());
         // JavaValidation.checkDataAlreadyExists(catNameKh); // check catName already
         // exists or not
         JavaValidation.checkDataAlreadyExists(catNameEn); // check catName already exists or not
@@ -81,7 +88,7 @@ public class CategoryService {
         }
 
         if (!Objects.equals(obj.getCatNameEn(), c.getCatNameEn())) {
-            boolean isExist = repo.existsByCatNameEn(c.getCatNameEn());
+            boolean isExist = repo.existsByCatNameEnAndStatusTrueAndIsDeletedFalse(c.getCatNameEn());
             JavaValidation.checkDataAlreadyExists(isExist);
         }
 
@@ -93,19 +100,37 @@ public class CategoryService {
         return obj;
     }
 
-    public Category getCategoryById(int id) {
+    public CategoryResponse  getCategoryById(int id) {
         Category c = repo.getCategoryById(id);
         if (c == null)
             throw new JavaNotFoundByIdGiven();
-        return c;
+
+        return CategoryResponse.builder()
+                .catNameEn(c.getCatNameEn())
+                .catNameKh(c.getCatNameKh())
+                .id(c.getId())
+                .parentId(c.getParentId())
+                .movePosition(c.getMovePosition())
+                .build();
+
     }
 
     public void deleteCategory(int id) {
-        Optional<Category> data = repo.findById(id);
-        Category obj = data.get();
-        obj.setDeleted(true);
-        obj.setStatus(false);
-        repo.save(obj);
+        Category data = repo.findById(id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Category id has not been found."));
+
+        Optional<Category> c = repo.findByParentIdAndStatusTrueAndIsDeletedFalse(id);
+
+        if (!c.isEmpty())
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Can not delete category has sub category.");
+
+        data.setDeleted(true);
+        data.setStatus(false);
+        repo.save(data);
     }
 
 }

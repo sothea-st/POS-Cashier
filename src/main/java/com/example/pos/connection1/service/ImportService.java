@@ -9,10 +9,13 @@ import com.example.pos.connection1.projections.ReportImport.ReportImportProjecti
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.ImportRepository;
 import com.example.pos.connection1.repository.ProductRepository;
-
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -27,11 +30,20 @@ public class ImportService {
     private ProductRepository repoProduct;
 
     public List<ReportImportProjection> reportImport(ReportRequest reportRequest){
-        return repo.getReport(reportRequest.dateFrom(), reportRequest.dateTo());
+        LocalDate dateFrom = LocalDate.parse(reportRequest.dateFrom());
+        LocalDate dateTo = LocalDate.parse(reportRequest.dateTo());
+
+        if( dateFrom.isAfter(dateTo) ) throw new ResponseStatusException(
+            HttpStatus.BAD_REQUEST,
+            "The feild dateFrom must be smaller than field dateTo ."
+        );
+        return repo.getReport(dateFrom, dateTo);
     }
 
  
     public void addImport(Import imp) {
+
+        LocalDate localDate = LocalDate.now();
 
         Import data = new Import();
 
@@ -58,6 +70,7 @@ public class ImportService {
         data.setDiscount(imp.getDiscount());
         data.setTotal(imp.getTotal());
         data.setCreateBy(imp.getCreateBy());
+        data.setDateLocal(localDate);
         repo.save(data);
 
         List<ImportDetail> listDetail = imp.getDetails();
@@ -65,6 +78,15 @@ public class ImportService {
         for (int i = 0; i < listDetail.size(); i++) {
             var value = listDetail.get(i);
             int productId = value.getProductId();
+
+            repoProduct.findById(productId).orElseThrow(
+                ()->new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "product id has not been found ."
+                )
+            );
+
+
             int qtyNew = value.getQtyNew();
             ImportDetail details = new ImportDetail();
             ImportDetail getImpDetails = repoDetail.getDataImportDetail(productId);

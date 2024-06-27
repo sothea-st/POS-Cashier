@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -60,5 +61,7 @@ public class Import {
     @Column(name = "is_deleted")
     private boolean isDeleted=false;
 
+    @Column(name = "date_local")
+    private LocalDate dateLocal;
 
 }

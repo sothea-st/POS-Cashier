@@ -21,10 +21,10 @@ public class Category  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; 
 
-    @Column(unique = true,name = "cat_name_kh")
+    @Column(name = "cat_name_kh")
     private String catNameKh; 
 
-    @Column(nullable = false,unique = true,name = "cat_name_en")
+    @Column(nullable = false,name = "cat_name_en")
     @NotBlank(message = JavaMessage.required)
     private String catNameEn;
 
@@ -33,7 +33,6 @@ public class Category  {
 
     @Column(name = "move_position")
     private int movePosition;
-
 
     @Column(name = "code")
     private String code;

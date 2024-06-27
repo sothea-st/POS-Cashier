@@ -9,6 +9,7 @@ import java.util.*;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
+
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.parentId = :parentId ORDER BY c.movePosition ASC")
     List<Category> getCategory(int parentId);
 
@@ -16,13 +17,19 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
     List<Category> getCategoryByCode(String code);
 
-    Optional<Category> findByParentId(int parentId);
+    Optional<Category> findByParentIdAndStatusTrueAndIsDeletedFalse(int parentId);
+
+    Optional<Category> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+
+ 
+
+
 
 
 
 
     boolean existsByCatNameKh(String catNameKh);
-    boolean existsByCatNameEn(String catNameKh);
+    boolean existsByCatNameEnAndStatusTrueAndIsDeletedFalse(String catNameKh);
 
     @Query(nativeQuery = true,value = "select\r\n" + //
                 "\t*\r\n" + //

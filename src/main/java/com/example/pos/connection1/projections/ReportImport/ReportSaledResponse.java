@@ -20,7 +20,9 @@ public record ReportSaledResponse(
      BigDecimal plt,
      BigDecimal netSale,
      BigDecimal cost,
-     BigDecimal margin
+     BigDecimal margin,
+     String userName,
+     String barcode
 ) {
      
 }
