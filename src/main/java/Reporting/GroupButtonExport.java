@@ -4,18 +4,46 @@
  */
 package Reporting;
 
+import Event.ButtonEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 /**
  *
  * @author MOBILE-APP.02
  */
 public class GroupButtonExport extends javax.swing.JPanel {
 
-     /**
-      * Creates new form
-      * GroupButtonExport
-      */
+    
      public GroupButtonExport() {
           initComponents();
+     }
+     
+     
+     public void initEvent(ButtonEvent event) {
+          btnExcel.addMouseListener(new MouseListener(){
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onMouseClick();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          
+          });
      }
 
      /**
