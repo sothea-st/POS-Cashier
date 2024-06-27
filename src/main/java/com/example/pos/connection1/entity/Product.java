@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "weight")
     private String weight;
 
-    @Column(name = "pro_image_name")
+    @Column(name = "pro_image_name",length = 1000)
     private String proImageName;
 
     @Column(name = "node")

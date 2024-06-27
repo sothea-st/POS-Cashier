@@ -25,12 +25,17 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @Slf4j
@@ -72,30 +77,49 @@ public class SaleService {
     private ReprintService reprintService;
 
     public List<ReportSaledResponse> reportSaled(ReportRequest reportRequest) {
-        List<ReportSaledProjection> reportSaled = repo.getReportSaled(reportRequest.dateFrom(), reportRequest.dateTo());
+        LocalDate dateFrom = LocalDate.parse(reportRequest.dateFrom());
+        LocalDate dateTo   = LocalDate.parse(reportRequest.dateTo());
+
+        if( dateFrom.isAfter(dateTo) ) {
+            throw new ResponseStatusException(
+                HttpStatus.TOO_MANY_REQUESTS,
+                "The field dateFrom must be smaller than field dateTo ."
+            );
+        }
+       
+
+        List<ReportSaledProjection> reportSaled = new ArrayList<>();
+        if (reportRequest.userId() != null) {
+            reportSaled = repo.getReportSaleds(dateFrom, dateTo, reportRequest.userId());
+        } else {
+            reportSaled = repo.getReportSaled(dateFrom, dateTo);
+        }
+        return reportResponse(reportSaled);
+    }
+
+    private List<ReportSaledResponse> reportResponse(List<ReportSaledProjection> reportSaled) {
         List<ReportSaledResponse> listResponse = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("#0.00");
         reportSaled.forEach(report -> {
 
             double totalSaledExcludeVAT = 0;
             double vatAmt = 0;
-            double plt=0;
-            double netSale=0;
-            double margin=0;
-            double total =report.getAmount().doubleValue();
+            double plt = 0;
+            double netSale = 0;
+            double margin = 0;
+            double total = report.getAmount().doubleValue();
 
-
-            log.info("vat : " + report.getTax_name());
             if (report.getDiscount_case() != null) {
-                total = report.getAmount().doubleValue() - report.getDiscount();  // getDiscount is value already calculate
+                total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
+                                                                                 // calculate
             }
-            totalSaledExcludeVAT = Double.parseDouble(df.format(total/1.1));
-            vatAmt = Double.parseDouble(df.format((totalSaledExcludeVAT/1.1)*0.1));
+            totalSaledExcludeVAT = Double.parseDouble(df.format(total / 1.1));
+            vatAmt = Double.parseDouble(df.format((totalSaledExcludeVAT / 1.1) * 0.1));
             netSale = Double.parseDouble(df.format(total - vatAmt - plt));
             margin = Double.parseDouble(df.format(netSale - report.getCost().doubleValue()));
 
-            if( report.getTax_name().equals("PLT") ) {
-                plt = (totalSaledExcludeVAT/1.006)*0.2*0.03;
+            if (report.getTax_name().equals("PLT")) {
+                plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
             }
 
             listResponse.add(ReportSaledResponse.builder()
@@ -115,11 +139,12 @@ public class SaleService {
                     .netSale(BigDecimal.valueOf(netSale))
                     .cost(report.getCost())
                     .margin(BigDecimal.valueOf(margin))
+                    .barcode(report.getBarcode())
+                    .userName(report.getfull_name() == null ? null : report.getfull_name())
                     .build());
         });
 
         return listResponse;
-
     }
 
     // this function will return invoice
@@ -135,7 +160,11 @@ public class SaleService {
         String paymentNo = paymentNo(count, posId);
 
         String paymentBarcode = paymentBarcode(count);
-
+        LocalDate currentDate = LocalDate.now();
+        // Define a custom date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+ 
+ 
         Sale sale = new Sale();
         sale.setUserId(userId);
         sale.setPosId(posId);
@@ -149,7 +178,7 @@ public class SaleService {
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
         sale.setCreateBy(userId);
-
+        sale.setDateLocal(currentDate);
         Customer cus = s.getCustomer();
 
         String cusId = null;

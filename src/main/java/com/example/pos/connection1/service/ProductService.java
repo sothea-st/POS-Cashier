@@ -7,6 +7,7 @@ import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductModel;
+import com.example.pos.connection1.entity.models.testexcel.TestFileImportExcel;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.ProductRepository;
@@ -15,11 +16,19 @@ import com.example.pos.connection1.util.exception.customeException.JavaNotFoundB
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellValue;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -40,6 +49,79 @@ public class ProductService {
 
     @Autowired
     private ImportService service;
+
+    public void importFileExcel(MultipartFile multipartFile) throws IOException {
+        // Load Excel file
+        InputStream inputStream = multipartFile.getInputStream();
+        Workbook workbook = new XSSFWorkbook(inputStream);
+
+        // Get the first sheet
+        Sheet sheet = workbook.getSheetAt(0);
+
+        // Iterate through each row
+        Iterator<Row> iterator = sheet.iterator();
+        List<TestFileImportExcel> entities = new ArrayList<>();
+
+        while (iterator.hasNext()) {
+            Row currentRow = iterator.next();
+
+            // Skip header row
+            if (currentRow.getRowNum() == 0) {
+            continue;
+            }
+
+            // Read data from each column
+            Iterator<Cell> cellIterator = currentRow.iterator();
+            TestFileImportExcel t = new TestFileImportExcel();
+
+            int cellIndex = 0;
+            while (cellIterator.hasNext()) {
+                Cell currentCell = cellIterator.next();
+             
+                switch (currentCell.getCellType()) {
+                    case STRING:
+                        if (cellIndex == 0) {
+                            System.out.println("Column 0 : " + currentCell.getStringCellValue());
+                            t.setItemName(currentCell.getStringCellValue());
+                        } else if (cellIndex == 1) {
+                            System.out.println("Column 1 : " + currentCell.getStringCellValue());
+                            t.setUnit(currentCell.getStringCellValue());
+                        }  
+                        break;
+                    case NUMERIC:
+
+                        double numericValue = currentCell.getNumericCellValue();
+                        String cformattedValue = String.format("%.2f", numericValue); // Format as needed
+
+                        if (cellIndex == 2) {
+                            t.setQty(numericValue);
+                        } else if (cellIndex == 3) {
+                            t.setRate(BigDecimal.valueOf(Double.parseDouble(cformattedValue)));
+                        }  
+
+                        t.setValue(null);
+
+                    
+                        break;
+                    // Handle other cell types if necessary
+                    default:
+                        break;
+                }
+
+                cellIndex++;
+            }
+
+            entities.add(t);
+        }
+
+
+        entities.forEach(e->{
+            double value = e.getQty() * e.getRate().doubleValue();
+            System.out.println(e.getItemName() +" "+ e.getUnit() +" "+ e.getQty() +" " + e.getRate() +" " +value);
+        });
+
+        workbook.close();
+    }
 
     public Product addProduct(Product p, MultipartFile file, MultipartFile flagFile) throws IOException {
 
@@ -162,8 +244,6 @@ public class ProductService {
         List<ProductModel> list = new ArrayList<>();
 
         if (limit == 0) {
-            System.out.println("perPage = " + perPage + " page = " + page);
-
             List<ProductProjection> allPro = repo.getAllProduct(perPage, page);
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
@@ -244,7 +324,8 @@ public class ProductService {
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
         previousPro.setBrandId(editProduct.getBrandId());
-        // previousPro.setProductStatus(editProduct.getProductStatus()); // for detail product in or out stock
+        // previousPro.setProductStatus(editProduct.getProductStatus()); // for detail
+        // product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
         previousPro.setCatId(editProduct.getCatId());
         previousPro.setNote(editProduct.getNote());

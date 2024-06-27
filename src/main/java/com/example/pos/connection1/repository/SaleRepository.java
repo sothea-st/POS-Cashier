@@ -5,6 +5,7 @@ import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,32 +14,39 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
-
-        @Query(nativeQuery = true , value = "select\r\n" + //
+        
+        @Query(nativeQuery = true, value = "select\r\n" + //
                                 "\tpsd.qty,\r\n" + //
                                 "\tpp.cost,\r\n" + //
                                 "\tpsd.price,\r\n" + //
                                 "\tpsd.amount,\r\n" + //
                                 "\tpsd.discount as discount_percentage,\r\n" + //
                                 "\tpp.pro_name_en,\r\n" + //
+                                "\tpp.barcode,\r\n" + //
                                 "\tpp.pro_image_name,\r\n" + //
-                                "\tps.sale_date,\r\n" + //
+                                "\tps.date_local as sale_date,\r\n" + //
                                 "\tppt.tax_name,\r\n" + //
                                 "\tps.discount_case,\r\n" + //
-                                "\tps.discount\r\n" + //
+                                "\tps.discount,\r\n" + //
+                                "\tpu.full_name\r\n" + //
                                 "from\r\n" + //
                                 "\tpos_sale ps\r\n" + //
                                 "right join pos_sale_details psd on\r\n" + //
                                 "\tpsd.sale_id = ps.id\r\n" + //
                                 "inner join pos_product pp on\r\n" + //
                                 "\tpp.id = psd.pro_id\r\n" + //
-                                "inner join pos_product_tax ppt on ppt.id = pp.tax_id \r\n" + //
+                                "inner join pos_product_tax ppt on\r\n" + //
+                                "\tppt.id = pp.tax_id\r\n" + //
+                                "inner join pos_user pu on\r\n" + //
+                                "\tpu.id = ps.user_id\r\n" + //
                                 "where\r\n" + //
-                                " \t ps.sale_date BETWEEN ? AND ?\r\n" + //
-                                "\t ")
-        List<ReportSaledProjection> getReportSaled(String dateFrom , String dateTo);
+                                "\tps.date_local between ? and ?\r\n" + //
+                                "order by\r\n" + //
+                                "\tps.date_local desc")
+        List<ReportSaledProjection> getReportSaled(LocalDate dateFrom, LocalDate dateTo);
 
-
+        @Query(nativeQuery = true, value = "SELECT * FROM get_sales_details_by_date_and_user(?,?,?)")
+        List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId);
 
         @Query(nativeQuery = true, value = "  select sum(psd.qty) from pos_sale ps \r\n" + //
                         "        inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //
@@ -210,8 +218,6 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                         "    psd.sale_id")
         List<Integer> countSaledNumUsd(int userId, String saleDate, String posId);
 
- 
- 
         @Query(nativeQuery = true, value = "\t\r\n" + //
                         "select\r\n" + //
                         "\t psd.discount , psd.price , psd.qty , psd.qty_returned , psd.discount_type  \r\n" + //

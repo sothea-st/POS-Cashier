@@ -1,13 +1,11 @@
 package com.example.pos.connection1.routes;
-import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
+import java.util.*;
 import com.example.pos.connection1.service.shiftService.CloseShiftService;
 import com.example.pos.connection1.service.shiftService.OpenShiftService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.DTO.categoryDto.CategoryRequest;
 import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
@@ -90,6 +86,7 @@ public class RouteController {
                Category data = service.saveCategory(c);
                return JavaResponse.success(data);
           }
+
           @GetMapping("/parentId/{parentId}")
           public ResponseEntity<?> getCategory(@Valid @PathVariable("parentId") int parentId) {
                List<CategoryResponse> data = service.getCategory(parentId);
@@ -104,7 +101,7 @@ public class RouteController {
 
           @GetMapping("/{id}")
           public ResponseEntity<?> getCategoryById(@PathVariable("id") int id) {
-               Category data = service.getCategoryById(id);
+               CategoryResponse data = service.getCategoryById(id);
                return JavaResponse.success(data);
           }
 
@@ -124,8 +121,13 @@ public class RouteController {
           private ProductRepository repo;
 
           @GetMapping(value = "/getHead")
-          public ResponseEntity<?> geth(){
+          public ResponseEntity<?> geth() {
                return ResponseEntity.ok().body(repo.getHead());
+          }
+
+          @PostMapping("/excel")
+          public void importFileExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+               service.importFileExcel(multipartFile);
           }
 
           @PostMapping
@@ -145,16 +147,17 @@ public class RouteController {
           @GetMapping("/getProductByCatId")
           public ResponseEntity<?> getProductByCatId(@RequestParam("catId") int catId,
                     @RequestParam("limit") int limit, @RequestParam("page") int page) {
-               List<ProductModel> data = service.getProductByCatId(catId, limit ,page);
+               List<ProductModel> data = service.getProductByCatId(catId, limit, page);
                int count = service.count(catId);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
 
           @GetMapping
-          public ResponseEntity<?> getProduct(@RequestParam("limit") int limit , @RequestParam int perPage , @RequestParam int page ) {
+          public ResponseEntity<?> getProduct(@RequestParam("limit") int limit, @RequestParam int perPage,
+                    @RequestParam int page) {
                HashMap<String, Object> map = new HashMap<>();
                int count = repo.countRow();
-               List<ProductModel> data = service.getProduct(limit,perPage,page);
+               List<ProductModel> data = service.getProduct(limit, perPage, page);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
 
@@ -188,10 +191,9 @@ public class RouteController {
 
           @GetMapping("/getProductByBrandId")
           public ResponseEntity<?> getProductByBrandId(@RequestParam("brandId") int brandId,
-                    @RequestParam("limit") int limit ,
-                    @RequestParam("page") int page
-                    ) {
-               List<ProductModel> data = service.getListProductByBrandId(brandId, limit ,page);
+                    @RequestParam("limit") int limit,
+                    @RequestParam("page") int page) {
+               List<ProductModel> data = service.getListProductByBrandId(brandId, limit, page);
                int count = service.countProductByBrandId(brandId);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
@@ -203,16 +205,16 @@ public class RouteController {
           }
 
           @GetMapping("/getNewProduct")
-          public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit , @RequestParam int page){
+          public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit, @RequestParam int page) {
                // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
                Integer countRow = repo.countRow();
                Integer number = (countRow * 30) / 100;
-               return ResponseEntity.ok().body(Map.of("count",number,"msg","success","data",service.getNewProduct(limit, page,number)));
+               return ResponseEntity.ok().body(
+                         Map.of("count", number, "msg", "success", "data", service.getNewProduct(limit, page, number)));
           }
 
-
           @GetMapping("/getProductPromotion")
-          public ResponseEntity<?> getProductPromotion(){
+          public ResponseEntity<?> getProductPromotion() {
                return JavaResponse.success(service.getProductPromotion());
           }
 
@@ -279,17 +281,17 @@ public class RouteController {
           private EmployeeService service;
 
           @GetMapping("/userAccount")
-          public ResponseEntity<?> getUserAccount(){
+          public ResponseEntity<?> getUserAccount() {
                return JavaResponse.success(service.getUserAccount());
           }
 
           @GetMapping("/searchEmployee/{nameEn}")
-          public ResponseEntity<?> searchEmp(@PathVariable("nameEn") String nameEn){
+          public ResponseEntity<?> searchEmp(@PathVariable("nameEn") String nameEn) {
                return JavaResponse.success(service.searchEmp(nameEn));
           }
 
           @GetMapping("/searchUserAccount/{value}")
-          public ResponseEntity<?> searchUserAccount(@PathVariable("value") String value){
+          public ResponseEntity<?> searchUserAccount(@PathVariable("value") String value) {
                return JavaResponse.success(service.seachUserAccount(value));
           }
 
@@ -308,10 +310,9 @@ public class RouteController {
 
                return JavaResponse.success(data);
           }
- 
+
           @GetMapping
           public ResponseEntity<?> getEmployee() {
-               System.out.println("ggggggggggggggggggggg");
                List<Employee> data = service.getEmployee();
                return JavaResponse.success(data);
           }
@@ -330,8 +331,8 @@ public class RouteController {
 
           @PostMapping("/{id}")
           public ResponseEntity<?> updateEmployee(@Valid @PathVariable("id") int id, @ModelAttribute Employee e,
-                    @RequestParam(name="image" , required = false) MultipartFile file) throws IOException {
-                      
+                    @RequestParam(name = "image", required = false) MultipartFile file) throws IOException {
+
                HashMap<String, String> err = new HashMap<>();
                String key = "contact";
                String contact = JavaValidation.checkPhone(e.getContact());
@@ -365,15 +366,15 @@ public class RouteController {
                service.addImport(i);
                return JavaResponse.success("success insert");
           }
-          
+
           @PostMapping("/updateQty")
-          public ResponseEntity<?> updateQty(@RequestBody ProductAddRemoveQty p){
+          public ResponseEntity<?> updateQty(@RequestBody ProductAddRemoveQty p) {
                int _qty = service.updateQty(p);
-               return ResponseEntity.ok().body(Map.of("qtyUpdate",_qty,"msg","success"));
+               return ResponseEntity.ok().body(Map.of("qtyUpdate", _qty, "msg", "success"));
           }
 
-          @GetMapping("/reportImport")
-          public ResponseEntity<?> reportImport(@Valid @RequestBody ReportRequest reportRequest){
+          @PostMapping("/reportImport")
+          public ResponseEntity<?> reportImport(@Valid @RequestBody ReportRequest reportRequest) {
                List<ReportImportProjection> data = service.reportImport(reportRequest);
                return JavaResponse.success(data);
           }
@@ -405,9 +406,9 @@ public class RouteController {
                return JavaResponse.success(data);
           }
 
-          @GetMapping("/reportSaled")
+          @PostMapping("/reportSaled")
           public ResponseEntity<?> reportSaled(@Valid @RequestBody ReportRequest reportRequest) {
-             return JavaResponse.success(service.reportSaled(reportRequest));
+               return JavaResponse.success(service.reportSaled(reportRequest));
           }
 
      }
@@ -424,7 +425,7 @@ public class RouteController {
                return JavaResponse.success(data);
           }
 
-          @GetMapping 
+          @GetMapping
           public ResponseEntity<?> getData() {
                var data = service.readData("");
                return JavaResponse.success(data);
@@ -626,9 +627,9 @@ public class RouteController {
                     map.put(JavaConstant.message, JavaConstant.msgCloseShift);
                     return JavaResponse.error(map);
                }
-               Map<String,Object> res = service.cashierReport(userCode, userId, posId);
-               if( res.get("paymentNoFirst") == null ) {
-                    return ResponseEntity.ok().body(Map.of("msg","NO_RESULT"));
+               Map<String, Object> res = service.cashierReport(userCode, userId, posId);
+               if (res.get("paymentNoFirst") == null) {
+                    return ResponseEntity.ok().body(Map.of("msg", "NO_RESULT"));
                }
                return JavaResponse.success(res);
           }
@@ -685,7 +686,7 @@ public class RouteController {
 
           @PostMapping
           public ResponseEntity<?> returnProduct(@Valid @RequestBody ReturnProduct r) {
-              Map<String,Object>  map = service.returnProduct(r);
+               Map<String, Object> map = service.returnProduct(r);
                return JavaResponse.success(map);
           }
 

@@ -9,12 +9,9 @@ public interface ReportImportProjection {
      int getPro_id();
      String getImp_date();
      String getPro_name_en();
+     String getBarcode();
      String getFull_name();
      String getpro_image_name();
-
-     // pp.pro_id ,
-	// p.imp_date ,
-	// pp2.pro_name_en,
-	// pu.full_name
-
+     BigDecimal getTotal();
+     BigDecimal getDiscount();
 }
