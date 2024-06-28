@@ -101,6 +101,9 @@ public class ListProduct extends javax.swing.JDialog {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
 //        setTitle("Stock");  
+
+          JavaConstant.addTitleAndLogo(this, "Product");
+               
      }
 
      void setBackground() {

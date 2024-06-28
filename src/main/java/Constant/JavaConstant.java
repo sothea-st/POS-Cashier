@@ -1,5 +1,6 @@
 package Constant;
 
+import BlogCode.JavaBlogImage;
 import Components.BoxItem;
 import Components.countCircleShape;
 import Fonts.WindowFonts;
@@ -29,6 +30,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -326,10 +328,15 @@ public class JavaConstant {
 
      public static String categoryName = "new items";
 
-     public  void errorResponse(String responseData) throws JsonProcessingException {
+     public void errorResponse(String responseData) throws JsonProcessingException {
           ObjectMapper objMap = new ObjectMapper();
           ErrorResponse data = objMap.readValue(responseData, ErrorResponse.class);
           JOptionPane.showMessageDialog(null, data.getError().getReason());
+     }
+
+     public static void addTitleAndLogo(JDialog jDialog,String title) {
+          jDialog.setTitle(title);
+          jDialog.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
      }
 
 }
