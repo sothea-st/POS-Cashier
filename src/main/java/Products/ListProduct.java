@@ -110,8 +110,7 @@ public class ListProduct extends javax.swing.JDialog {
      public void getProduct(JPanel jpanelData) {
           try {
                Response response = JavaConnection.get(JavaRoute.product + "?limit=0&perPage=200&page=0");
-
-               System.out.println("respone = " + response);
+              
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -592,7 +591,7 @@ public class ListProduct extends javax.swing.JDialog {
          this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
 
-     private void msgPrint(String path) {
+     public static void msgPrint(String path) {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
           j.setIsShow(true);
           j.setMessage("File was saved to path " + path);

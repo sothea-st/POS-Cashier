@@ -106,10 +106,8 @@ public class AddProduct extends javax.swing.JDialog {
           };
           tax.initEvent(eventtss);
           addComboTax();
-
           price.setComma("comma");
           cost.setComma("comma");
-
           qty.setComma("comma");
      }
 

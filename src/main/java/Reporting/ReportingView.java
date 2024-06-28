@@ -82,7 +82,8 @@ public class ReportingView extends javax.swing.JDialog {
      }//GEN-LAST:event_reportImportMouseClicked
 
      private void reportSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportSaleMouseClicked
-         
+          ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
+          reportingSaled.setVisible(true);
      }//GEN-LAST:event_reportSaleMouseClicked
 
      /**

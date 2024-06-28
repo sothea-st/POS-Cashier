@@ -7,6 +7,8 @@ import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import Products.ProductBox;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
@@ -28,6 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -39,6 +42,7 @@ import javax.swing.text.DocumentFilter;
 import okhttp3.MediaType;
 
 public class JavaConstant {
+
      public static String invoiceNo;
      public static String reasonId;
      public static Integer returnerId;
@@ -321,5 +325,11 @@ public class JavaConstant {
      }
 
      public static String categoryName = "new items";
+
+     public  void errorResponse(String responseData) throws JsonProcessingException {
+          ObjectMapper objMap = new ObjectMapper();
+          ErrorResponse data = objMap.readValue(responseData, ErrorResponse.class);
+          JOptionPane.showMessageDialog(null, data.getError().getReason());
+     }
 
 }

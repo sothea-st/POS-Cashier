@@ -1,7 +1,7 @@
-package pdf;
+package GroupExport.ReportImportToExcel;
 
-import Constant.JavaConstant;
 import Model.PackageProduct.ProductModel;
+import Model.Report.ReportImportDetail;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,21 +11,27 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import org.apache.commons.io.IOUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ClientAnchor;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Drawing;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Picture;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
+import static pdf.PrintToExcel.downloadFolderPath;
+import static pdf.PrintToExcel.folderPath;
 
- 
-public class PrintToExcel {
+public class ExportReportImportToExcel {
 
-   
-     // create folder in specific path
-     public static String downloadFolderPath = System.getProperty("user.home");
-     public static String folderPath = downloadFolderPath + "\\Downloads\\EXCEL_Downloads";
-
-     public static void toExcel(ArrayList<ProductModel> listProduct) {
+     public static void toExcel(ReportImportDetail[] list) {
 
           LocalDate currentDate = LocalDate.now();
           // Define a custom date format
@@ -43,25 +49,28 @@ public class PrintToExcel {
 
                // Create an ArrayList to hold the rows
                ArrayList<Object[]> dataList = new ArrayList<>();
-               dataList.add(new Object[]{"Product Name", "Barcode", "Price", "Quantity", "Status", "Picture"});
+               dataList.add(new Object[]{"#", "Product Name", "Product Barcode", "Cost", "Quantity", "Amount", "Total", "Discount", "Import Date"});
 
                // Add data rows to the ArrayList
-               for (int i = 0; i < listProduct.size(); i++) {
-                    var data = listProduct.get(i);
-                    String url = null;
-                    if( data.getProImageName().contains("media/file/crm/uploadfile/") ) {
-                         url = "http://103.101.80.108:8082//" + data.getProImageName();
-                    } else {
-                         url = "http://localhost:8090/api/public/addImageForBackground/"+data.getProImageName();
-                    }
-                    
+               for (int i = 0; i < list.length; i++) {
+                    var data = list[i];
+//                    String url = null;
+//                    if (data.getProImageName().contains("media/file/crm/uploadfile/")) {
+//                         url = "http://103.101.80.108:8082//" + data.getProImageName();
+//                    } else {
+//                         url = "http://localhost:8090/api/public/addImageForBackground/" + data.getProImageName();
+//                    }
+
                     dataList.add(new Object[]{
-                         data.getProductNameEn(),
-                         data.getBarcode(),
-                         data.getPrice(),
-                         data.getQty(),
-                         data.getProductStatus(),
-                         getImageBytes(url)
+                         String.valueOf(i + 1),
+                         String.valueOf(data.getProNameEn()),
+                         String.valueOf(data.getBarcode()),
+                         String.valueOf(data.getCost()),
+                         String.valueOf(data.getQtyOld()),
+                         String.valueOf(data.getAmount()),
+                         String.valueOf(data.getTotal()),
+                         String.valueOf(data.getDiscount()),
+                         String.valueOf(data.getImpDate())
                     });
                }
 
@@ -84,17 +93,20 @@ public class PrintToExcel {
 
                for (int i = 0; i < dataList.size(); i++) {
                     Row row = sheet.createRow(i);
-                    row.setHeightInPoints(50); // Adjust the height as needed
+                    row.setHeightInPoints(25); // Adjust the height as needed
 
                     for (int j = 0; j < dataList.get(i).length; j++) {
                          Cell cell = row.createCell(j);
                          if (dataList.get(i)[j] instanceof String) {
-                              if (String.valueOf(dataList.get(i)[j]).equals("Product Name")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Barcode")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Price")
+                              if (String.valueOf(dataList.get(i)[j]).equals("#")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Product Name")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Product Barcode")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Cost")
                                    || String.valueOf(dataList.get(i)[j]).equals("Quantity")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Status")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Picture")) {
+                                   || String.valueOf(dataList.get(i)[j]).equals("Amount")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Total")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Discount")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Import Date")) {
                                    cell.setCellStyle(style);
                                    cell.setCellValue((String) dataList.get(i)[j]);
                               } else {
@@ -118,8 +130,6 @@ public class PrintToExcel {
                                    anchor.setCol2(j + 1); // Set the end column
                                    anchor.setRow2(i + 1); // Set the end row
 
-
-
                                    Picture pict = drawing.createPicture(anchor, pictureIdx);
 //                                   pict.resize(); // Automatically resize the image to fit in the cellcell
 
@@ -131,11 +141,15 @@ public class PrintToExcel {
                     }
                }
 
-               sheet.setColumnWidth(0, 20000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(1, 5000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(2, 3000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(3, 3000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(4, 3000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(0, 3000); // Set the width of the first column to 3000 units
+               sheet.setColumnWidth(1, 20000); // Set the width of the first column to 20000 units
+               sheet.setColumnWidth(2, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(3, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(4, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(5, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(6, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(7, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(8, 5000); // Set the width of the first column to 5000 units
 
                // Create folder
                try {
@@ -168,5 +182,4 @@ public class PrintToExcel {
           inputStream.close();
           return imageBytes;
      }
- 
 }

@@ -1,42 +1,38 @@
 package Reporting;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
-import Constant.JavaBaseUrl;
+import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
-import Model.PackageProduct.ProductModel;
-import Model.ProductModel.ProductDataModel;
-import Model.ProductModel.ProductSuccessData;
+import GroupExport.ReportImportToExcel.ExportReportImportToCSV;
+import GroupExport.ReportImportToExcel.ExportReportImportToExcel;
+import GroupExport.ReportImportToExcel.ExportReportImportToPDF;
 import Model.Report.ReportImportDetail;
 import Model.Report.ReportResponse;
-import Products.DataSuccessDetail;
-import Products.EditProduct;
-import Products.ListDetailProduct;
 import Products.ListProduct;
+import static Products.ListProduct.msgPrint;
 import Reporting.ReportingItem.ReportOfImport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
-import javax.swing.UIManager;
 import okhttp3.Response;
 import org.json.JSONObject;
+import pdf.PrintListPDF;
+import pdf.PrintToCSV;
 import pdf.PrintToExcel;
 
 public class ReportingImportDetail extends javax.swing.JDialog {
+
+     ReportImportDetail[] importDetails;
 
      public ReportingImportDetail(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -45,8 +41,6 @@ public class ReportingImportDetail extends javax.swing.JDialog {
           initComponents();
           dateFrom.setLabelTextField("Date From");
           dateTo.setLabelTextField("Date to");
-//          dateFrom.unFocus();
-//          dateTo.unFocus();
           searchField.setFocus();
           groupEvent();
 
@@ -57,6 +51,10 @@ public class ReportingImportDetail extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPaneProduct.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
+
+          // set background color
+          panelItem.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
      }
 
      //     =============== event ================
@@ -72,14 +70,40 @@ public class ReportingImportDetail extends javax.swing.JDialog {
           dateTo.initEvent(btnevent);
           searchField.initEvent(btnevent);
 
-          ButtonEvent btnEvent = new ButtonEvent() {
+          //          event export excel
+          ButtonEvent btnEventExcel = new ButtonEvent() {
                @Override
                public void onMouseClick() {
-//                    msgPrint(PrintToExcel.folderPath);
-//                    PrintToExcel.toExcel(panelItem);
+                    ListProduct.msgPrint(PrintToExcel.folderPath);
+                    ExportReportImportToExcel.toExcel(importDetails);
                }
           };
-          groupButtonExport1.initEvent(btnEvent);
+          groupButtonExport.excelEvent(btnEventExcel);
+
+          //          event export csv
+          ButtonEvent btnEventCsv = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+
+                    ListProduct.msgPrint(PrintToCSV.folderPath);
+                    ExportReportImportToCSV.toCSV(importDetails);
+               }
+          };
+          groupButtonExport.csvEvent(btnEventCsv);
+
+          //          event export csv
+          ButtonEvent btnEventPdf = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    ListProduct.msgPrint(PrintListPDF.folderPath);
+                    try {
+                         ExportReportImportToPDF.printListPdf(importDetails);
+                    } catch (IOException ex) {
+                         Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+          };
+          groupButtonExport.pdfEvent(btnEventPdf);
      }
 
      @SuppressWarnings("unchecked")
@@ -89,7 +113,7 @@ public class ReportingImportDetail extends javax.swing.JDialog {
           titlePopUp = new Components.LabelPopUpTitle();
           jPanel1 = new javax.swing.JPanel();
           searchField = new Components.SearchField();
-          groupButtonExport1 = new Reporting.GroupButtonExport();
+          groupButtonExport = new Reporting.GroupButtonExport();
           buttonSave = new ButtonPackage.ButtonSave();
           dateFrom = new DatePicker.DatePicker();
           dateTo = new DatePicker.DatePicker();
@@ -137,7 +161,7 @@ public class ReportingImportDetail extends javax.swing.JDialog {
                          .addGroup(jPanel1Layout.createSequentialGroup()
                               .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(groupButtonExport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addGap(25, 25, 25))))
           );
           jPanel1Layout.setVerticalGroup(
@@ -154,7 +178,7 @@ public class ReportingImportDetail extends javax.swing.JDialog {
                               .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(groupButtonExport1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
           );
 
@@ -339,8 +363,11 @@ public class ReportingImportDetail extends javax.swing.JDialog {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ReportResponse data = objMap.readValue(responseData, ReportResponse.class);
-                    ReportImportDetail[] importDetails = data.getData();
-                    appendProduct(importDetails);
+                    importDetails = data.getData();
+                    appendItem(importDetails);
+               } else {
+                    String responseData = response.body().string();
+                    new JavaConstant().errorResponse(responseData);
                }
 
           } catch (Exception e) {
@@ -349,16 +376,22 @@ public class ReportingImportDetail extends javax.swing.JDialog {
 
      }//GEN-LAST:event_buttonSaveMouseClicked
 
-     //Append Product into list
-     void appendProduct(ReportImportDetail[] listData) {
+     void appendItem(ReportImportDetail[] listData) {
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
           panelItem.setLayout(gridBagLayout);
-
+          if (listData.length == 0) {
+               panelItem.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               panelItem.add(nofound, BorderLayout.CENTER);
+               panelItem.add(nofound);
+               panelItem.revalidate();
+               panelItem.repaint();
+          }
           int x = 0;
           int y = 0;
 
@@ -379,7 +412,7 @@ public class ReportingImportDetail extends javax.swing.JDialog {
                report.setValue(
                     index + "",
                     detail.getProNameEn(),
-                    "8850369014277",
+                    detail.getBarcode(),
                     String.valueOf(detail.getCost()),
                     String.valueOf(detail.getQtyOld()),
                     String.valueOf(detail.getAmount()),
@@ -417,7 +450,7 @@ public class ReportingImportDetail extends javax.swing.JDialog {
      private ButtonPackage.ButtonSave buttonSave;
      private DatePicker.DatePicker dateFrom;
      private DatePicker.DatePicker dateTo;
-     private Reporting.GroupButtonExport groupButtonExport1;
+     private Reporting.GroupButtonExport groupButtonExport;
      private javax.swing.JPanel header;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel10;

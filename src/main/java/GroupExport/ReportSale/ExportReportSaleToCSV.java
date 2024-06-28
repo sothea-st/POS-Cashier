@@ -1,0 +1,102 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package GroupExport.ReportSale;
+
+import Model.Report.ReportImportDetail;
+import Model.Report.ReportSaleDetail;
+import com.opencsv.CSVWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import static pdf.PrintToCSV.downloadFolderPath;
+import static pdf.PrintToCSV.folderPath;
+
+/**
+ *
+ * @author MOBILE-APP.02
+ */
+public class ExportReportSaleToCSV {
+
+     public static void toCSV(ReportSaleDetail[] list) {
+
+          LocalDate currentDate = LocalDate.now();
+          // Define a custom date format
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+          // Format the current date using the defined format
+          String formattedDate = currentDate.format(formatter);
+          String fileName = formattedDate;
+
+          // Create the directory if it doesn't exist
+          Path directoryPath = Paths.get(folderPath);
+
+          if (!Files.exists(directoryPath)) {
+               try {
+                    Files.createDirectories(directoryPath);
+                    System.out.println("Directory created: ");
+               } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+               }
+          }
+
+          // Specify PDF file path
+          String filePath = downloadFolderPath + "\\Downloads\\CSV_Downloads\\";
+
+          try (CSVWriter writer = new CSVWriter(new FileWriter(filePath + "\\" + fileName + ".csv"))) {
+
+               // Write headers
+               writer.writeNext(new String[]{
+                    "#",
+                    "Transaction",
+                    "Date",
+                    "Product Name",
+                    "Qty",
+                    "Price",
+                    "Discount",
+                    "Amount (Include Tax)",
+                    "Tax Type",
+                    "Total Sale Exclude VAT",
+                    "VAT Amt",
+                    "PLT",
+                    "Net Sale",
+                    "Cost",
+                    "Margin",
+                    "Staff"});
+
+               int index = 0;
+               // Write data
+               for (ReportSaleDetail detail : list) {
+                    index++;
+                    String[] data = new String[]{
+                         String.valueOf(index),
+                         String.valueOf("RIV101-02-240525001"),
+                         String.valueOf(detail.getSaleDate()),
+                         String.valueOf(detail.getProNameEn()),
+                         String.valueOf(detail.getQty()),
+                         String.valueOf(detail.getPrice()),
+                         String.valueOf(detail.getDiscount()),
+                         String.valueOf(detail.getAmountWithTax()),
+                         String.valueOf(detail.getTaxType()),
+                         String.valueOf(detail.getTotalSaledExcludeVAT()),
+                         String.valueOf(detail.getVatAmt()),
+                         String.valueOf(detail.getPLT()),
+                         String.valueOf(detail.getNetSale()),
+                         String.valueOf(detail.getCost()),
+                         String.valueOf(detail.getMargin()),
+                         String.valueOf(detail.getUserName())};
+                    writer.writeNext(data);
+               }
+
+               System.out.println("CSV file exported successfully to: " + filePath);
+          } catch (IOException e) {
+               e.printStackTrace();
+          }
+
+     }
+}
