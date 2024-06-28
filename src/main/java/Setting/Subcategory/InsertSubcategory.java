@@ -1,23 +1,30 @@
 package Setting.Subcategory;
 
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.combobox.CategoryModel;
+import Setting.Category.Category;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import javax.swing.JOptionPane;
 
 public class InsertSubcategory extends javax.swing.JDialog {
 
     private String departmentId;
     private String divisionId;
+    private String categoryId;
     private Integer id;
     private String code;
     private JPanel listGetCategory;
+    private Integer movePosition;
     
     public InsertSubcategory(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -29,7 +36,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
         setResizable(false);
         
         // action get select 
-        ButtonEvent eventtss = new ButtonEvent() {
+        ButtonEvent eventOne = new ButtonEvent() {
             @Override
             public void onSelect(String key) {
                 divisionId = key;
@@ -37,19 +44,28 @@ public class InsertSubcategory extends javax.swing.JDialog {
                 
             }
         };
-        comboDivision.initEvent(eventtss);
+        comboDivision.initEvent(eventOne);
         addComboDivision();
         
         
         // action get select 
-        ButtonEvent events = new ButtonEvent() {
+        ButtonEvent eventTwo = new ButtonEvent() {
             @Override
             public void onSelect(String key) {
                 departmentId = key;
                 addComboCategory(departmentId);
             }
         };
-        comboDepartment.initEvent(events);
+        comboDepartment.initEvent(eventTwo);
+        
+        // action get select 
+        ButtonEvent eventThree = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                categoryId = key;
+            }
+        };
+        comboCategory.initEvent(eventThree);
     }
     
     //Place Holder
@@ -64,6 +80,21 @@ public class InsertSubcategory extends javax.swing.JDialog {
         nameKh.initEvent(btnevent);
     }
     
+    //Value Edit
+    public void setValueEdit(
+        String divisEn,
+        String divisKh,
+        String idDivision,
+        String idDepartment,
+        String idCategory
+    ) throws IOException {
+        nameEn.setValueTextField(divisEn);
+        nameKh.setValueTextField(divisKh);
+        comboDivision.setToLastItem(idDivision);
+        comboDepartment.setToLastItem(idDepartment);
+        comboCategory.setToLastItem(idCategory);
+    }
+    
     
     //Set Combobox division
     private void addComboDivision() {
@@ -72,6 +103,8 @@ public class InsertSubcategory extends javax.swing.JDialog {
             ArrayList<CategoryModel> category = new ArrayList<>();
            
             Response response = JavaConnection.get(JavaRoute.category );
+            
+            System.out.println("response division: " + response);
             
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
@@ -107,11 +140,18 @@ public class InsertSubcategory extends javax.swing.JDialog {
         comboDepartment.revalidate();
         comboDepartment.invalidate();
         
+        // remove item by index
+        if( comboDepartment.countItem() > 1 ) {
+             comboDepartment.removeAllItem();
+        }
+        
         try {
             HashMap<String, String> map = new HashMap<>();
             ArrayList<CategoryModel> category = new ArrayList<>();
            
             Response response = JavaConnection.get(JavaRoute.getParentById + divisionId );
+            
+            System.out.println("response department: " + response);
             
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
@@ -141,17 +181,25 @@ public class InsertSubcategory extends javax.swing.JDialog {
     }
     
     
-    //Set Combobox department
+    //Set Combobox category
     private void addComboCategory(String departmentId) {
         
         comboCategory.revalidate();
         comboCategory.invalidate();
+        
+        
+        // remove item by index
+        if( comboCategory.countItem() > 1 ) {
+             comboCategory.removeAllItem();
+        }
         
         try {
             HashMap<String, String> map = new HashMap<>();
             ArrayList<CategoryModel> category = new ArrayList<>();
            
             Response response = JavaConnection.get(JavaRoute.getParentById + departmentId );
+            System.out.println("response category: " + response);
+            
             
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
@@ -257,9 +305,9 @@ public class InsertSubcategory extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,9 +326,8 @@ public class InsertSubcategory extends javax.swing.JDialog {
                                         .addGap(2, 2, 2)
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(30, 30, 30))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -358,79 +405,84 @@ public class InsertSubcategory extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-//        String categoryName = nameEn.getValueTextField();
-//        String categoryNameKh = nameKh.getValueTextField();
-//
-//        try {
-//            if (divisionId == null || divisionId.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Please select a division!");
-//                return;
-//            }
-//
-//            if (departmentId == null || departmentId.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Please select a department!");
-//                return;
-//            }
-//
-//            if (categoryName == null || categoryName.isEmpty()) {
-//                JOptionPane.showMessageDialog(this, "Category Name can not be empty!");
-//                return;
-//            }
-//
-//            JSONObject json = new JSONObject();
-//            json.put("catNameEn", categoryName);
-//            json.put("catNameKh", categoryNameKh);
-//            json.put("parentId", departmentId);
-//
-//            if (id != null) {
-//
-//                json.put("movePosition", movePosition);
-//
-//                Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
-//                System.out.println("response : " + response);
-//                System.out.println("json : " + json);
-//
-//                if (response.isSuccessful()) {
-//                    Category list = new Category(new JFrame(), true, code);
-//                    listGetCategory.removeAll();
-//                    listGetCategory.revalidate();
-//                    listGetCategory.repaint();
-//                    list.getCategory(listGetCategory, code);
-//                    dispose();
-//
-//                } else if (response.code() == 500) {
-//                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Save Failed!");
-//                }
-//
-//            } else {
-//
-//                json.put("createBy", JavaConstant.cashierId);
-//                json.put("code", code);
-//
-//                Response response = JavaConnection.post(JavaRoute.addCategory, json);
-//
-//                System.out.println("response : " + response);
-//                System.out.println("json : " + json);
-//
-//                if (response.isSuccessful()) {
-//                    Category list = new Category(new JFrame(), true, code);
-//                    listGetCategory.removeAll();
-//                    listGetCategory.revalidate();
-//                    listGetCategory.repaint();
-//                    list.getCategory(listGetCategory, code);
-//                    dispose();
-//                } else if (response.code() == 500) {
-//                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Save Failed!");
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            System.err.println("errr -- " + e);
-//        }
+        String categoryName = nameEn.getValueTextField();
+        String categoryNameKh = nameKh.getValueTextField();
+
+        try {
+            if (divisionId == null || divisionId.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please select a division!");
+                return;
+            }
+
+            if (departmentId == null || departmentId.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please select a department!");
+                return;
+            }
+            
+            if (departmentId == null || departmentId.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please select a department!");
+                return;
+            }
+
+            if (categoryName == null || categoryName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Category Name can not be empty!");
+                return;
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("catNameEn", categoryName);
+            json.put("catNameKh", categoryNameKh);
+            json.put("parentId", categoryId);
+
+            if (id != null) {
+
+                json.put("movePosition", movePosition);
+
+                Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    Category list = new Category(new JFrame(), true, code);
+                    listGetCategory.removeAll();
+                    listGetCategory.revalidate();
+                    listGetCategory.repaint();
+                    list.getCategory(listGetCategory, code);
+                    dispose();
+
+                } else if (response.code() == 500) {
+                    JOptionPane.showMessageDialog(this, "The Name is already used!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
+
+            } else {
+
+                json.put("createBy", JavaConstant.cashierId);
+                json.put("code", code);
+
+                Response response = JavaConnection.post(JavaRoute.addCategory, json);
+
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    Category list = new Category(new JFrame(), true, code);
+                    listGetCategory.removeAll();
+                    listGetCategory.revalidate();
+                    listGetCategory.repaint();
+                    list.getCategory(listGetCategory, code);
+                    dispose();
+                } else if (response.code() == 500) {
+                    JOptionPane.showMessageDialog(this, "The Name is already used!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     public String getCode() {
@@ -447,6 +499,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
 
     public void setId(Integer id) {
         this.id = id;
+        titlePopUp.setLabelTitle("Edit Sub Category");
     }
 
     public JPanel getListGetCategory() {
@@ -457,7 +510,14 @@ public class InsertSubcategory extends javax.swing.JDialog {
         this.listGetCategory = listGetCategory;
     }
 
-    
+    public Integer getMovePosition() {
+        return movePosition;
+    }
+
+    public void setMovePosition(Integer movePosition) {
+        this.movePosition = movePosition;
+    }
+
     
     
     public static void main(String args[]) {
