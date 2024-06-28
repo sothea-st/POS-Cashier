@@ -216,7 +216,7 @@ public class DatePicker extends javax.swing.JPanel {
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
-     private com.raven.datechooser.DateChooser dateChooser1;
+     // private com.raven.datechooser.DateChooser dateChooser1;
      private javax.swing.JTextField txtText;
      // End of variables declaration//GEN-END:variables
 }

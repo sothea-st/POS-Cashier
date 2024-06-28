@@ -79,7 +79,7 @@ public class ExportReportSaleToExcel {
 
                     dataList.add(new Object[]{
                          String.valueOf(i + 1),
-                         String.valueOf("RIV101-02-240525001"),
+                         String.valueOf(detail.getInvoiceNumber()),
                          String.valueOf(detail.getSaleDate()),
                          String.valueOf(detail.getProNameEn()),
                          String.valueOf(detail.getQty()),

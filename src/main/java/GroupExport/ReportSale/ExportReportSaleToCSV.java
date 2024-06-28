@@ -75,7 +75,7 @@ public class ExportReportSaleToCSV {
                     index++;
                     String[] data = new String[]{
                          String.valueOf(index),
-                         String.valueOf("RIV101-02-240525001"),
+                         String.valueOf(detail.getInvoiceNumber()),
                          String.valueOf(detail.getSaleDate()),
                          String.valueOf(detail.getProNameEn()),
                          String.valueOf(detail.getQty()),

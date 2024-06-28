@@ -22,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
@@ -95,6 +97,7 @@ public class JavaConstant {
      public static int rowNum = 5;
      public static ProductDataModel[] listData;
      public static boolean isCheckProductAll = false;
+     public static String categoryName = "new items";
 
      public static void setResultNotFound(JPanel panelProduct, JPanel panelPagination) {
           panelPagination.setVisible(false);
@@ -326,17 +329,22 @@ public class JavaConstant {
           return true;
      }
 
-     public static String categoryName = "new items";
-
      public void errorResponse(String responseData) throws JsonProcessingException {
           ObjectMapper objMap = new ObjectMapper();
           ErrorResponse data = objMap.readValue(responseData, ErrorResponse.class);
           JOptionPane.showMessageDialog(null, data.getError().getReason());
      }
 
-     public static void addTitleAndLogo(JDialog jDialog,String title) {
+     public static void addTitleAndLogo(JDialog jDialog, String title) {
           jDialog.setTitle(title);
           jDialog.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
+     }
+
+     public static String getCurrentLocalTime() {
+          LocalDateTime currentDateTime = LocalDateTime.now();
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+          String formattedDateTime = currentDateTime.format(formatter);
+          return  formattedDateTime;
      }
 
 }
