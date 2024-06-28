@@ -28,6 +28,8 @@ public class Settings extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         getImageAndTitle();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());

@@ -51,7 +51,6 @@ public class Category extends javax.swing.JDialog {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
           getCategory(listGetCategory, codeType);
-          eventSearch();
      }
 
      public void getCategory(JPanel jpanelData, String codeType) {
@@ -93,7 +92,9 @@ public class Category extends javax.swing.JDialog {
                ModelCategory category = new ModelCategory(
                     obj.getId(),
                     obj.getCatNameEn(),
-                    obj.getCatNameKh()
+                    obj.getCatNameKh(),
+                    obj.getMovePosition(),
+                    obj.getParentId()
                );
                cat.add(category);
           }
@@ -130,136 +131,160 @@ public class Category extends javax.swing.JDialog {
 
                     ButtonEvent events = new ButtonEvent() {
                          @Override
-                         public void onSelect(String Key) {  // event edit
+                        public void onSelect(String Key) {  // event edit
 
-                              if (codeType.equals("division")) {
-                                   InsertDivision edit = new InsertDivision(new JFrame(), true, codeType);
-                                   try {
-                                        Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
-                                        String responseData = response.body().string();
-                                        ObjectMapper objMap = new ObjectMapper();
-                                        DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
-                                        DetailCategoryModel listCategory = datas.getData();
+                            if (codeType.equals("division")) {
+                                InsertDivision edit = new InsertDivision(new JFrame(), true, codeType);
+                                try {
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
 
-                                        edit.setId(listCategory.getId());
-                                        edit.setMovePosition(listCategory.getMovePosition());
-                                        edit.setParentId(listCategory.getParentId());
-                                        edit.setListGetCategory(listGetCategory);
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setParentId(listCategory.getParentId());
+                                    edit.setListGetCategory(listGetCategory);
 
-                                        edit.setValueEdit(
-                                             listCategory.getCatNameEn(),
-                                             listCategory.getCatNameKh()
-                                        );
+                                    edit.setValueEdit(
+                                            listCategory.getCatNameEn(),
+                                            listCategory.getCatNameKh()
+                                    );
 
-                                        edit.setVisible(true);
-                                   } catch (Exception e) {
-                                        System.err.println("error getting product " + e);
-                                   }
-                              } else if (codeType.equals("department")) {
-                                   InsertDepartment edit = new InsertDepartment(new JFrame(), true, codeType);
-                                   try {
-                                        Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
-                                        String responseData = response.body().string();
-                                        ObjectMapper objMap = new ObjectMapper();
-                                        DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
-                                        DetailCategoryModel listCategory = datas.getData();
+                                    edit.setVisible(true);
+                                } catch (Exception e) {
+                                    System.err.println("error getting product " + e);
+                                }
+                            } else if (codeType.equals("department")) {
+                                InsertDepartment edit = new InsertDepartment(new JFrame(), true, codeType);
+                                try {
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
 
-                                        edit.setId(listCategory.getId());
-                                        edit.setMovePosition(listCategory.getMovePosition());
-                                        edit.setListGetCategory(listGetCategory);
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setListGetCategory(listGetCategory);
 
-                                        edit.setValueEdit(
-                                             listCategory.getCatNameEn(),
-                                             listCategory.getCatNameKh(),
-                                             "" + listCategory.getParentId()
-                                        );
+                                    edit.setValueEdit(
+                                            listCategory.getCatNameEn(),
+                                            listCategory.getCatNameKh(),
+                                            "" + listCategory.getParentId()
+                                    );
 
-                                        edit.setVisible(true);
-                                   } catch (Exception e) {
-                                        System.err.println("error getting product " + e);
-                                   }
-                              } else if (codeType.equals("category")) {
-                                   InsertCategory edit = new InsertCategory(new JFrame(), true, codeType);
-                                   try {
-                                        Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
-                                        String responseData = response.body().string();
-                                        ObjectMapper objMap = new ObjectMapper();
-                                        DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
-                                        DetailCategoryModel listCategory = datas.getData();
+                                    edit.setVisible(true);
+                                } catch (Exception e) {
+                                    System.err.println("error getting product " + e);
+                                }
+                            } else if (codeType.equals("category")) {
+                                InsertCategory edit = new InsertCategory(new JFrame(), true, codeType);
+                                try {
+                                    
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
+                                    
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setListGetCategory(listGetCategory);
+                                    
+                                    Response responses = JavaConnection.get(JavaRoute.addCategory + "/" + listCategory.getParentId());
+                                    String responseDatas = responses.body().string();
+                                    ObjectMapper objMaps = new ObjectMapper();
+                                    DetailCategorySuccessModel data = objMaps.readValue(responseDatas, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel list = data.getData();
 
-                                        edit.setId(listCategory.getId());
-                                        edit.setMovePosition(listCategory.getMovePosition());
-                                        edit.setListGetCategory(listGetCategory);
+                                    edit.setValueEdit(
+                                            listCategory.getCatNameEn(),
+                                            listCategory.getCatNameKh(),
+                                            "" + list.getParentId(),
+                                            "" + listCategory.getParentId()
+                                    );
 
-                                        edit.setValueEdit(
-                                             listCategory.getCatNameEn(),
-                                             listCategory.getCatNameKh(),
-                                             "" + listCategory.getParentId(),
-                                             "" + listCategory.getParentId()
-                                        );
+                                    edit.setVisible(true);
+                                    
+                                } catch (Exception e) {
+                                    System.err.println("error getting product " + e);
+                                }
 
-                                        edit.setVisible(true);
-                                   } catch (Exception e) {
-                                        System.err.println("error getting product " + e);
-                                   }
-                              }
+                            } else {
+                                InsertSubcategory edit = new InsertSubcategory(new JFrame(), true, codeType);
+                                try {
+                                    Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
+                                    String responseData = response.body().string();
+                                    ObjectMapper objMap = new ObjectMapper();
+                                    DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listCategory = datas.getData();
 
-//                        }else{
-//                            InsertCategory edit = new InsertCategory(new JFrame(), true, codeType);
-//                            try {
-//                                Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
-//                                String responseData = response.body().string();
-//                                ObjectMapper objMap = new ObjectMapper();
-//                                DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
-//                                DetailCategoryModel listCategory = datas.getData();
-//
-//                                edit.setId(listCategory.getId());
-//                                edit.setMovePosition(listCategory.getMovePosition());
-//                                edit.setListGetCategory(listGetCategory);
-//                                edit.setValueEdit(
-//                                     listCategory.getCatNameEn(),
-//                                     listCategory.getCatNameKh(),
-//                                     ""+listCategory.getParentId()
-//                                );
-//                                edit.setVisible(true);
-//                            } catch (Exception e) {
-//                                 System.err.println("error getting product " + e);
-//                            }
-//                        }
-                         }
+                                    edit.setId(listCategory.getId());
+                                    edit.setMovePosition(listCategory.getMovePosition());
+                                    edit.setListGetCategory(listGetCategory);
+                                    
+                                    Response responseOne = JavaConnection.get(JavaRoute.addCategory + "/" + listCategory.getParentId());
+                                    String responseDataOne = responseOne.body().string();
+                                    ObjectMapper objMapOne = new ObjectMapper();
+                                    DetailCategorySuccessModel dataOne = objMapOne.readValue(responseDataOne, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listOne = dataOne.getData();
+                                    
+                                    Response responseTwo = JavaConnection.get(JavaRoute.addCategory + "/" + listOne.getParentId());
+                                    String responseDataTwo = responseTwo.body().string();
+                                    ObjectMapper objMapTwo = new ObjectMapper();
+                                    DetailCategorySuccessModel dataTwo = objMapTwo.readValue(responseDataTwo, DetailCategorySuccessModel.class);
+                                    DetailCategoryModel listTwo = dataTwo.getData();
 
-                         @Override
-                         public void onRemove(String Key) {  // event delete staff
-                              try {
-                                   UIManager UI = new UIManager();
-                                   UI.put("OptionPane.background", WindowColor.mediumGreen);
-                                   UI.put("Panel.background", WindowColor.mediumGreen);
-                                   UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+                                    edit.setValueEdit(
+                                            listCategory.getCatNameEn(),
+                                            listCategory.getCatNameKh(),
+                                            "" + listTwo.getParentId(),
+                                            "" + listOne.getParentId(),
+                                            "" + listCategory.getParentId()
+                                    );
+                                    edit.setVisible(true);
+                                } catch (Exception e) {
+                                    System.err.println("error getting product " + e);
+                                }
+                            }
+                        }
 
-                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
+                        @Override
+                        public void onRemove(String Key) {  // event delete staff
+                            try {
+                                UIManager UI = new UIManager();
+                                UI.put("OptionPane.background", WindowColor.mediumGreen);
+                                UI.put("Panel.background", WindowColor.mediumGreen);
+                                UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                                int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
                                         "Delete " + codeType + "?", JOptionPane.YES_NO_OPTION);
 
-                                   if (resp == JOptionPane.YES_OPTION) {
-                                        JSONObject json = new JSONObject();
-                                        Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
+                                if (resp == JOptionPane.YES_OPTION) {
+                                    JSONObject json = new JSONObject();
+                                    Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
 
-                                        System.out.println(" response " + response);
+                                    System.out.println(" response " + response.code());
 
-                                        if (response.isSuccessful()) {
-                                             Category list = new Category(new JFrame(), true, codeType);
-                                             listGetCategory.removeAll();
-                                             listGetCategory.revalidate();
-                                             listGetCategory.repaint();
-                                             list.getCategory(listGetCategory, codeType);
-                                        }
-                                   } else {
-                                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                                   }
+                                    if (response.isSuccessful()) {
+                                        Category list = new Category(new JFrame(), true, codeType);
+                                        listGetCategory.removeAll();
+                                        listGetCategory.revalidate();
+                                        listGetCategory.repaint();
+                                        list.getCategory(listGetCategory, codeType);
+                                    }else if(response.code() == 404){
+                                        JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
+                                    }
+                                } else {
+                                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                                }
 
-                              } catch (Exception e) {
-                                   System.err.println("error getting product " + e);
-                              }
-                         }
+                            } catch (Exception e) {
+                                System.err.println("error getting product " + e);
+                            }
+                        }
                     };
 
                     category.initEvent(events);
@@ -294,18 +319,6 @@ public class Category extends javax.swing.JDialog {
 
           listGetCategory.revalidate();
           listGetCategory.repaint();
-     }
-
-     //Action Search
-     private void eventSearch() {
-          // this event was called when user type on searchTextField 
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
-               }
-          };
-          searchField.initEvent(event);
      }
 
      public String getCode() {

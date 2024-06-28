@@ -88,17 +88,12 @@
                                       <Component id="weight" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="discount" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="label9" min="-2" pref="38" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jLabel14" min="-2" pref="13" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="label10" min="-2" pref="58" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="label11" min="-2" pref="25" max="-2" attributes="0"/>
@@ -107,8 +102,13 @@
                                       </Group>
                                       <Component id="label13" min="-2" pref="34" max="-2" attributes="0"/>
                                       <Component id="label12" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="label10" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="tax" min="-2" max="-2" attributes="0"/>
@@ -118,7 +118,7 @@
                                       <Component id="note" min="-2" max="-2" attributes="0"/>
                                       <Component id="qty" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -149,14 +149,15 @@
                       <Component id="label1" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="label10" min="-2" pref="29" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                           <Component id="category" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jLabel16" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="label6" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="weight" min="-2" max="-2" attributes="0"/>
+                      <Component id="label6" max="32767" attributes="0"/>
+                      <Component id="weight" max="32767" attributes="0"/>
+                      <Component id="jLabel16" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="label10" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -188,9 +189,9 @@
                       <Component id="note" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label14" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="discount" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="discount" max="32767" attributes="0"/>
+                      <Component id="label14" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -305,7 +306,7 @@
         </Component>
         <Component class="Components.Label" name="label10">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Category"/>
+            <Property name="labelName" type="java.lang.String" value="Sub Category"/>
           </Properties>
         </Component>
         <Component class="Components.ComboBox" name="category">
