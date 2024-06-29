@@ -16,4 +16,5 @@ public interface ReportSaledProjection {
      double getdiscount_percentage();
      String getfull_name();
      String getBarcode();
+     String getinvoice_number();
 }
