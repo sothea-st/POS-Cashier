@@ -1,8 +1,9 @@
 package com.example.pos.connection1.feature.vendor;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-
-import org.apache.el.stream.Stream;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,16 +11,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
 import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
 import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VendorServiceImp implements VendorService {
      private final VendorRepository vendorRepository;
      private String uuidNotFound = "Uuid has not been found .";
@@ -34,17 +36,29 @@ public class VendorServiceImp implements VendorService {
                     .orElseThrow(() -> new ResponseStatusException(
                               HttpStatus.NOT_FOUND, uuidNotFound));
 
+          if (!vendorUpdateRequest.contact().equals(vendor.getContact())) {
+               // validate contact already exist
+               if (vendorRepository.existsByContact(vendorUpdateRequest.contact())) {
+                    throw new ResponseStatusException(
+                              HttpStatus.CONFLICT,
+                              "The contact already exist.");
+               }
+          }
+
+          if (!vendorUpdateRequest.email().equals(vendor.getEmail())) {
+               // validate email already exist
+               if (vendorRepository.existsByEmail(vendorUpdateRequest.email())) {
+                    throw new ResponseStatusException(
+                              HttpStatus.CONFLICT,
+                              "The email already exist.");
+               }
+          }
+
           vendor.setVendorName(vendorUpdateRequest.vendorName());
           vendor.setAddress(vendorUpdateRequest.address());
-          vendor.setContact(vendorUpdateRequest.contact());
           vendor.setEmail(vendorUpdateRequest.email());
           vendor.setWebsite(vendorUpdateRequest.website());
-          try {
-               vendorRepository.save(vendor);
-          } catch (DataIntegrityViolationException e) {
-               // for ignore when data has duplicate value but for only operation update
-          }
-      
+          vendorRepository.save(vendor);
           return mapToVendorResponse(vendor);
      }
 
@@ -142,11 +156,16 @@ public class VendorServiceImp implements VendorService {
       * value was given from controller
       */
      @Override
-     public Page<VendorResponse> read(int pageSize, int pageNumber) {
+     public Map<?, ?> read(int pageSize, int pageNumber) {
           Sort sortById = Sort.by(Sort.Direction.DESC, "id");
           PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
           Page<Vendor> pages = vendorRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
-          return pages.map(this::mapToVendorResponse);
+
+          List<VendorResponse> content = new ArrayList<>();
+          pages.forEach(c -> content.add(mapToVendorResponse(c)));
+          long count = pages.getTotalElements();
+
+          return Map.of("count", count, "content", content);
      }
 
      /*

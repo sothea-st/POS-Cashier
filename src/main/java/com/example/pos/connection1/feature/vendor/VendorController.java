@@ -1,5 +1,7 @@
 package com.example.pos.connection1.feature.vendor;
 
+import java.util.Map;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,11 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
 import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
 import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +32,7 @@ public class VendorController {
      }
 
      @GetMapping
-     Page<VendorResponse> read(
+     Map<?,?> read(
                @RequestParam(defaultValue = "10", required = false) int pageSize,
                @RequestParam(defaultValue = "0", required = false) int pageNumber) {
           return vendorService.read(pageSize, pageNumber);

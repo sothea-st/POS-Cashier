@@ -1,6 +1,6 @@
 package com.example.pos.connection1.feature.vendor;
 
-import org.springframework.data.domain.Page;
+import java.util.Map;
 import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
 import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
 import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
@@ -16,7 +16,7 @@ public interface VendorService {
       * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
       * value was given from controller
       */
-     Page<VendorResponse> read(int pageSize,int pageNumber);
+     Map<?,?> read(int pageSize,int pageNumber);
      /*
       * read vendor by uuid
       * required paramater uuid

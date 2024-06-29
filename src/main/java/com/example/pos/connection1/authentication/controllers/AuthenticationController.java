@@ -19,7 +19,6 @@ import com.example.pos.connection1.entity.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -117,7 +116,13 @@ public class AuthenticationController {
         String posId = "";
 
         Optional<User> userCheck = userRepo.findByUserCodeAndStatusTrue(loginUserDto.getUserCode());
-     
+        if( !userCheck.isEmpty() ) {
+            map.put("token", jwtToken);
+            return ResponseEntity.ok().body(map);
+    
+        }
+      
+        
         if( userCheck.isEmpty() ) {
             return ResponseEntity.ok().body(Map.of("msg", "Check your account and password again"));
         }
