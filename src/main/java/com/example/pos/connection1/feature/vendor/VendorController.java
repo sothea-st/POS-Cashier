@@ -1,8 +1,5 @@
 package com.example.pos.connection1.feature.vendor;
 
-import java.util.Map;
-
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
 import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
 import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
+import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/vendor")
 @RequiredArgsConstructor
 public class VendorController {
+
      private final VendorService vendorService;
 
      @PostMapping
@@ -32,7 +31,7 @@ public class VendorController {
      }
 
      @GetMapping
-     Map<?,?> read(
+     JavaCollectionResponse<?> read(
                @RequestParam(defaultValue = "10", required = false) int pageSize,
                @RequestParam(defaultValue = "0", required = false) int pageNumber) {
           return vendorService.read(pageSize, pageNumber);
@@ -51,7 +50,7 @@ public class VendorController {
 
      @PutMapping("/{uuid}")
      VendorResponse updateByUuid(@PathVariable("uuid") String uuid,
-               @RequestBody VendorUpdateRequest vendorUpdateRequest) {
+               @Valid @RequestBody VendorUpdateRequest vendorUpdateRequest) {
           return vendorService.updateByUuid(uuid, vendorUpdateRequest);
      }
 }

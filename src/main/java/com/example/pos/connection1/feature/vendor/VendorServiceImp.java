@@ -1,10 +1,7 @@
 package com.example.pos.connection1.feature.vendor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,6 +12,7 @@ import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
 import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
 import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
+import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class VendorServiceImp implements VendorService {
-     private final VendorRepository vendorRepository;
+     private final VendorRepository vendorRepository; // inject bean VendorRespository
      private String uuidNotFound = "Uuid has not been found .";
-
+     private String contactAlreadyExist = "The contact already exist.";
+     private String emailAlreadyExist = "The email already exist.";
      /*
       * update vendor by uuid
       * required paramater uuid , VendorUpdateRequest
       */
      @Override
      public VendorResponse updateByUuid(String uuid, VendorUpdateRequest vendorUpdateRequest) {
+          // find vendor by uuid and it will validate if uuid wrong
           Vendor vendor = vendorRepository.findByUuidAndStatusTrueAndIsDeletedFalse(uuid)
                     .orElseThrow(() -> new ResponseStatusException(
                               HttpStatus.NOT_FOUND, uuidNotFound));
@@ -39,18 +39,14 @@ public class VendorServiceImp implements VendorService {
           if (!vendorUpdateRequest.contact().equals(vendor.getContact())) {
                // validate contact already exist
                if (vendorRepository.existsByContact(vendorUpdateRequest.contact())) {
-                    throw new ResponseStatusException(
-                              HttpStatus.CONFLICT,
-                              "The contact already exist.");
+                    throw new ResponseStatusException(HttpStatus.CONFLICT,contactAlreadyExist);
                }
           }
 
           if (!vendorUpdateRequest.email().equals(vendor.getEmail())) {
                // validate email already exist
                if (vendorRepository.existsByEmail(vendorUpdateRequest.email())) {
-                    throw new ResponseStatusException(
-                              HttpStatus.CONFLICT,
-                              "The email already exist.");
+                    throw new ResponseStatusException(HttpStatus.CONFLICT,emailAlreadyExist);
                }
           }
 
@@ -99,21 +95,19 @@ public class VendorServiceImp implements VendorService {
           // validate contact already exist
           if (vendorRepository.existsByContact(vendorRequest.contact())) {
                throw new ResponseStatusException(
-                         HttpStatus.CONFLICT,
-                         "The contact already exist.");
+                         HttpStatus.CONFLICT,contactAlreadyExist);
           }
 
           // validate email already exist
           if (vendorRepository.existsByEmail(vendorRequest.email())) {
                throw new ResponseStatusException(
-                         HttpStatus.CONFLICT,
-                         "The email already exist.");
+                         HttpStatus.CONFLICT,emailAlreadyExist);
           }
 
           long count = vendorRepository.count();
           Vendor vendor = new Vendor();
           vendor.setVendorName(vendorRequest.vendorName());
-          vendor.setUuid(UUID.randomUUID().toString());
+          vendor.setUuid(UUID.randomUUID().toString()); // uuid random value
           vendor.setAddress(vendorRequest.address());
           vendor.setContact(vendorRequest.contact());
           vendor.setEmail(vendorRequest.email());
@@ -156,16 +150,20 @@ public class VendorServiceImp implements VendorService {
       * value was given from controller
       */
      @Override
-     public Map<?, ?> read(int pageSize, int pageNumber) {
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-          Page<Vendor> pages = vendorRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+     public JavaCollectionResponse<?> read(int pageSize, int pageNumber) {
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
+          Page<Vendor> pages = vendorRepository.findByStatusTrueAndIsDeletedFalse(pageRequest); 
 
-          List<VendorResponse> content = new ArrayList<>();
-          pages.forEach(c -> content.add(mapToVendorResponse(c)));
-          long count = pages.getTotalElements();
+          List<VendorResponse> content = pages.getContent()
+                    .stream()
+                    .map(c -> mapToVendorResponse(c))
+                    .toList();
 
-          return Map.of("count", count, "content", content);
+          return JavaCollectionResponse.builder()
+                    .count(pages.getTotalElements())
+                    .content(content)
+                    .build();
      }
 
      /*

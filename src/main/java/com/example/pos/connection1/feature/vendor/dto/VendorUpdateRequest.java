@@ -17,7 +17,7 @@ public record VendorUpdateRequest(
      @Pattern(regexp = "^[0-9]+$", message = "Phone number must contain only digits")
      String contact,
 
-     @Pattern(regexp = "^[a-zA-Z0-9._-]+@gmail\\.com$", message = "Gmail must be contain @gmail.com")
+     @Pattern(regexp = "^[a-zA-Z0-9._-]+@gmail\\.com$", message = "Email must be contain @gmail.com")
      String email,
 
      String website
