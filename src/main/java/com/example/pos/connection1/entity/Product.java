@@ -36,7 +36,7 @@ public class Product {
     @Column(name = "pro_image_name",length = 1000)
     private String proImageName;
 
-    @Column(name = "node")
+    @Column(name = "note")
     private String note;
 
     @Column(name = "code_expired")
@@ -55,14 +55,34 @@ public class Product {
     @Column(name = "pro_qty")
     private Integer proQty;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Vendor> vendors;
+    @Column(name = "product_active")
+    @NotBlank(message = JavaMessage.required)
+    private String productActive;
 
-    // @Column(name = "choice_options")
-    // private String choiceOption;
+    
+    @Column(name = "vendor_uuid")
+    @NotBlank(message = "the field vendorUuid is required.")
+    private String vendorUuid; // uuid is secondary primary key 
 
-    // @Column(name = "unit_type_id",)
-    // private int unitTypeId;
+    @Column(name = "country_uuid")
+    // @NotBlank(message = "the field countryUuid is required.")
+    private String countryUuid;
+
+    @Column(name = "uom_uuid")
+    // @NotBlank(message = "the field uomUuid is required.")
+    private String uomUuid;
+
+    @Column(name = "attribute_uuid")
+    // @NotBlank(message = "the field attributeUuid is required.")
+    private String attributeUuid;
+
+    @Column(name = "choices")
+    // @NotBlank(message = "the field attributeUuid is required.")
+    private String choices;
+
+    @Column(name = "margin")
+    private BigDecimal margin;
+ 
 
     @Column(name = "pro_name_kh")
     // @NotBlank(message = JavaMessage.required)

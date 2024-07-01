@@ -53,4 +53,5 @@ public class VendorController {
                @Valid @RequestBody VendorUpdateRequest vendorUpdateRequest) {
           return vendorService.updateByUuid(uuid, vendorUpdateRequest);
      }
+
 }
