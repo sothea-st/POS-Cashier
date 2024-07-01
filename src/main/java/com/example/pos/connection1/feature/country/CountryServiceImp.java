@@ -6,7 +6,10 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.feature.country.dto.CountryRequest;
 import com.example.pos.connection1.feature.country.dto.CountryResponse;
@@ -17,6 +20,40 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CountryServiceImp implements CountryService {
      private final CountryRepository countryRepository;
+     private String uuidNotFound = "Uuid has not been found .";
+
+     @Override
+     public void deleteByUuid(String uuid) {
+          Country country = countryRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, uuidNotFound));
+          countryRepository.delete(country);
+     }
+
+     @Override
+     public CountryResponse updateByUuid(String uuid, CountryRequest countryRequest) {
+          Country country = countryRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, uuidNotFound));
+
+          country.setCountryName(countryRequest.countryName());
+          country.setUuid(countryRequest.uuid());
+          countryRepository.save(country);
+          return CountryResponse
+                    .builder()
+                    .countryName(country.getCountryName())
+                    .uuid(country.getUuid())
+                    .build();
+     }
+
+     @Override
+     public CountryResponse readByUuid(String uuid) {
+          Country country = countryRepository.findByUuid(uuid)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, uuidNotFound));
+          return CountryResponse
+                    .builder()
+                    .countryName(country.getCountryName())
+                    .uuid(country.getUuid())
+                    .build();
+     }
 
      @Override
      public JavaCollectionResponse<?> read(int pageNumber, int pageSize) {

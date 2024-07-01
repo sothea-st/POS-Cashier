@@ -7,14 +7,32 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 public interface CountryService {
      /*
       * create new country
-      * retuqired paramater CountryRequest
+      * required paramater CountryRequest
       */
      CountryResponse create(CountryRequest countryRequest);
 
      /*
       * read all country
-      * retuqired paramater CountryRequest
+      * required paramater CountryRequest
       */
      JavaCollectionResponse<?> read(int pageNumber, int pageSize);
+
+     /*
+      * read  country
+      * required paramater uuid
+      */
+     CountryResponse readByUuid(String uuid);
+
+     /*
+      * update country updateByUuid
+      * required paramater uuid and CountryRequest
+      */
+     CountryResponse updateByUuid(String uuid,CountryRequest countryRequest);
+
+     /*
+      * delete country by uuid
+      * required paramater uuid  
+      */
+     void deleteByUuid(String uuid);
 
 }
