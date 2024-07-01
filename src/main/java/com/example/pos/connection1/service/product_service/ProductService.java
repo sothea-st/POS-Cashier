@@ -1,4 +1,4 @@
-package com.example.pos.connection1.service;
+package com.example.pos.connection1.service.product_service;
 
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaValidation;
@@ -6,14 +6,18 @@ import com.example.pos.connection1.entity.FileStore;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
+import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.models.testexcel.TestFileImportExcel;
+import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
+import com.example.pos.connection1.service.ImportService;
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -23,7 +27,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
+ 
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -36,19 +40,18 @@ import java.util.*;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ProductService {
-    @Autowired
-    private ProductRepository repo;
-    @Autowired
-    private FileStoreRepository fileStore;
-    @Autowired
-    private HttpSession session;
+     
+    private final ProductRepository repo;
+ 
+    private final FileStoreRepository fileStore;
+ 
+    private final ImportDetailRepository repoImp;
 
-    @Autowired
-    private ImportDetailRepository repoImp;
+    private final ImportService service;
 
-    @Autowired
-    private ImportService service;
+    private final VendorRepository vendorRepository;
 
     public void importFileExcel(MultipartFile multipartFile) throws IOException {
         // Load Excel file
@@ -133,7 +136,12 @@ public class ProductService {
 
         // Object idUser = session.getAttribute(JavaConstant.userId);
 
+        // Vendor vendor = vendorRepository.findByUuid();
+
+        // List<Vendor> vendors = 
+
         Product pro = new Product();
+        // pro.setVendors(null);
         pro.setCatId(p.getCatId());
         // pro.setUnitTypeId(p.getUnitTypeId());
         pro.setProNameKh(p.getProNameKh());
@@ -142,6 +150,7 @@ public class ProductService {
         pro.setPrice(p.getPrice());
         // pro.setCostKhr(p.getCostKhr());
         // pro.setPriceKhr(p.getPriceKhr());
+    
         pro.setNote(p.getNote());
         pro.setTaxId(p.getTaxId());
         pro.setCreateBy(p.getCreateBy());
@@ -287,7 +296,7 @@ public class ProductService {
         // JavaValidation.checkDataAlreadyExists(isExist);
         // }
 
-        Object idUser = session.getAttribute(JavaConstant.userId);
+        // Object idUser = session.getAttribute(JavaConstant.userId);
 
         if (Objects.equals(fileName, JavaConstant.defaultNameImage))
             fileName = "";

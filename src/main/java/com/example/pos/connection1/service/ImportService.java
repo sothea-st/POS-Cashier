@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -29,18 +30,27 @@ public class ImportService {
     @Autowired
     private ProductRepository repoProduct;
 
-    public List<ReportImportProjection> reportImport(ReportRequest reportRequest){
+    public List<ReportImportProjection> reportImport(ReportRequest reportRequest) {
         LocalDate dateFrom = LocalDate.parse(reportRequest.dateFrom());
         LocalDate dateTo = LocalDate.parse(reportRequest.dateTo());
 
-        if( dateFrom.isAfter(dateTo) ) throw new ResponseStatusException(
-            HttpStatus.BAD_REQUEST,
-            "The feild dateFrom must be smaller than field dateTo ."
-        );
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+
+        if (dateTo.isAfter(currentDate)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "The field dateTo can not greater than current date : "+formattedDate+".");
+        }
+
+        if (dateFrom.isAfter(dateTo))
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "The feild dateFrom must be smaller than field dateTo .");
         return repo.getReport(dateFrom, dateTo);
     }
 
- 
     public void addImport(Import imp) {
 
         LocalDate localDate = LocalDate.now();
@@ -80,12 +90,9 @@ public class ImportService {
             int productId = value.getProductId();
 
             repoProduct.findById(productId).orElseThrow(
-                ()->new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "product id has not been found ."
-                )
-            );
-
+                    () -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND,
+                            "product id has not been found ."));
 
             int qtyNew = value.getQtyNew();
             ImportDetail details = new ImportDetail();
@@ -113,7 +120,7 @@ public class ImportService {
             pp.setProductStatus("In Stock");
             pp.setCost(value.getCost());
             repoProduct.save(pp);
-    
+
         }
     }
 
@@ -147,13 +154,14 @@ public class ImportService {
                 String _sign = listProId.getListProId().get(i).getSign();
                 if (_sign.equals("add")) {
                     qty = qty + listProId.getListProId().get(i).getQty();
-                }  
+                }
                 Optional<ImportDetail> data = repoDetail.findById(id);
                 ImportDetail imp = data.get();
                 imp.setQtyOld(qty);
                 repoDetail.save(imp);
                 // get product with qty updated
-                // int _oldQty = repoDetail.getOldQty(listProId.getListProId().get(i).getProId());
+                // int _oldQty =
+                // repoDetail.getOldQty(listProId.getListProId().get(i).getProId());
                 // return _oldQty;
             }
         }

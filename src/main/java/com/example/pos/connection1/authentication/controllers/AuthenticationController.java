@@ -18,8 +18,9 @@ import com.example.pos.connection1.entity.IPAddressPOSID;
 import com.example.pos.connection1.entity.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,6 +34,7 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 @RestController
 @Validated
+@Slf4j
 public class AuthenticationController {
     private final JwtService jwtService;
 
@@ -117,7 +119,17 @@ public class AuthenticationController {
         String posId = "";
 
         Optional<User> userCheck = userRepo.findByUserCodeAndStatusTrue(loginUserDto.getUserCode());
-     
+
+        // log.info("data username : " + loginUserDto.getUserCode() + " password : " + loginUserDto.getPassword());
+
+        // for do at home
+        // if( !userCheck.isEmpty() ) {
+        //     map.put("token", jwtToken);
+        //     return ResponseEntity.ok().body(map);
+    
+        // }
+      
+        
         if( userCheck.isEmpty() ) {
             return ResponseEntity.ok().body(Map.of("msg", "Check your account and password again"));
         }

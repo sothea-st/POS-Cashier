@@ -15,16 +15,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
         
-        @Query(nativeQuery = true, value = "select\r\n" + //
+       
+
+        @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data(?,?,?)")
+        List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId);
+
+        @Query(nativeQuery = true , value = "select\r\n" + //
                                 "\tpsd.qty,\r\n" + //
                                 "\tpp.cost,\r\n" + //
                                 "\tpsd.price,\r\n" + //
                                 "\tpsd.amount,\r\n" + //
                                 "\tpsd.discount as discount_percentage,\r\n" + //
                                 "\tpp.pro_name_en,\r\n" + //
-                                "\tpp.barcode,\r\n" + //
                                 "\tpp.pro_image_name,\r\n" + //
-                                "\tps.date_local as sale_date,\r\n" + //
+                                "\tps.sale_date,\r\n" + //
                                 "\tppt.tax_name,\r\n" + //
                                 "\tps.discount_case,\r\n" + //
                                 "\tps.discount,\r\n" + //
@@ -40,13 +44,11 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                                 "inner join pos_user pu on\r\n" + //
                                 "\tpu.id = ps.user_id\r\n" + //
                                 "where\r\n" + //
-                                "\tps.date_local between ? and ?\r\n" + //
-                                "order by\r\n" + //
-                                "\tps.date_local desc")
-        List<ReportSaledProjection> getReportSaled(LocalDate dateFrom, LocalDate dateTo);
-
-        @Query(nativeQuery = true, value = "SELECT * FROM get_sales_details_by_date_and_user(?,?,?)")
-        List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId);
+                                "\tps.sale_date = ?\r\n" + //
+                                "\tand \r\n" + //
+                                "       ps.user_id = ?\r\n" + //
+                                "        ")
+        List<ReportSaledProjection> getReportSaleInToday(String date,int uesrId);
 
         @Query(nativeQuery = true, value = "  select sum(psd.qty) from pos_sale ps \r\n" + //
                         "        inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //

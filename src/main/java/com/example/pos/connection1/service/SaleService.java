@@ -77,23 +77,38 @@ public class SaleService {
     private ReprintService reprintService;
 
     public List<ReportSaledResponse> reportSaled(ReportRequest reportRequest) {
+     
         LocalDate dateFrom = LocalDate.parse(reportRequest.dateFrom());
-        LocalDate dateTo   = LocalDate.parse(reportRequest.dateTo());
+        LocalDate dateTo = LocalDate.parse(reportRequest.dateTo());
 
-        if( dateFrom.isAfter(dateTo) ) {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+
+        if (dateFrom.isAfter(dateTo)) {
             throw new ResponseStatusException(
-                HttpStatus.TOO_MANY_REQUESTS,
-                "The field dateFrom must be smaller than field dateTo ."
-            );
+                    HttpStatus.BAD_REQUEST,
+                    "The field dateFrom must be smaller than field dateTo .");
         }
-       
+
+        if (dateTo.isAfter(currentDate)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "The field dateTo can not greater than current date : "+formattedDate+".");
+        }
 
         List<ReportSaledProjection> reportSaled = new ArrayList<>();
-        if (reportRequest.userId() != null) {
-            reportSaled = repo.getReportSaleds(dateFrom, dateTo, reportRequest.userId());
-        } else {
-            reportSaled = repo.getReportSaled(dateFrom, dateTo);
+
+        if (reportRequest.dateFrom().equals(reportRequest.dateTo()) && reportRequest.userId() != null) {
+            String[] arrDateTo = reportRequest.dateFrom().split("-");
+            String dateToValue = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
+
+            System.out.println("dateToValue : " + dateToValue);
+            reportSaled = repo.getReportSaleInToday(dateToValue, reportRequest.userId());
+            return reportResponse(reportSaled);
         }
+
+        reportSaled = repo.getReportSaleds(dateFrom, dateTo, reportRequest.userId());
         return reportResponse(reportSaled);
     }
 
@@ -140,6 +155,7 @@ public class SaleService {
                     .cost(report.getCost())
                     .margin(BigDecimal.valueOf(margin))
                     .barcode(report.getBarcode())
+                    .invoiceNumber(report.getinvoice_number())
                     .userName(report.getfull_name() == null ? null : report.getfull_name())
                     .build());
         });
@@ -163,8 +179,7 @@ public class SaleService {
         LocalDate currentDate = LocalDate.now();
         // Define a custom date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
- 
- 
+
         Sale sale = new Sale();
         sale.setUserId(userId);
         sale.setPosId(posId);

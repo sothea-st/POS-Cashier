@@ -22,7 +22,8 @@ public record ReportSaledResponse(
      BigDecimal cost,
      BigDecimal margin,
      String userName,
-     String barcode
+     String barcode,
+     String invoiceNumber
 ) {
      
 }

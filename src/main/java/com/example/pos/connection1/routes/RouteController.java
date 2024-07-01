@@ -51,12 +51,12 @@ import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepositor
 import com.example.pos.connection1.service.CategoryService;
 import com.example.pos.connection1.service.EmployeeService;
 import com.example.pos.connection1.service.ImportService;
-import com.example.pos.connection1.service.ProductService;
 import com.example.pos.connection1.service.SaleService;
 import com.example.pos.connection1.service.SupplierService;
 import com.example.pos.connection1.service.cashierReport.CashierReportService;
 import com.example.pos.connection1.service.companyService.CompanyService;
 import com.example.pos.connection1.service.paymentService.ReprintService;
+import com.example.pos.connection1.service.product_service.ProductService;
 import com.example.pos.connection1.service.sourceDataService.CancelItemService;
 import com.example.pos.connection1.service.sourceDataService.CurrencyValueService;
 import com.example.pos.connection1.service.sourceDataService.CustomerTypeService;
