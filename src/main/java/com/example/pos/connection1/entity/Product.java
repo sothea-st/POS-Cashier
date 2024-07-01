@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+import java.util.*;
 @Entity
 @Table(name = "pos_product")
 @Data
@@ -51,10 +52,11 @@ public class Product {
     @Min(1)
     private int taxId;
 
-
     @Column(name = "pro_qty")
     private Integer proQty;
 
+    @ManyToMany(mappedBy = "products")
+    private List<Vendor> vendors;
 
     // @Column(name = "choice_options")
     // private String choiceOption;
