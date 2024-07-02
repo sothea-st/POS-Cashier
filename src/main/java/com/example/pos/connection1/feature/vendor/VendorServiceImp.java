@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class VendorServiceImp implements VendorService {
      private final VendorRepository vendorRepository; // inject bean VendorRespository
-     private String uuidNotFound = "Uuid has not been found .";
+     private String idNotFound = "Id has not been found .";
      private String contactAlreadyExist = "The contact already exist.";
      private String emailAlreadyExist = "The email already exist.";
      /*
@@ -29,11 +29,11 @@ public class VendorServiceImp implements VendorService {
       * required paramater uuid , VendorUpdateRequest
       */
      @Override
-     public VendorResponse updateByUuid(String uuid, VendorUpdateRequest vendorUpdateRequest) {
+     public VendorResponse updateByUuid(int id, VendorUpdateRequest vendorUpdateRequest) {
           // find vendor by uuid and it will validate if uuid wrong
-          Vendor vendor = vendorRepository.findByUuidAndStatusTrueAndIsDeletedFalse(uuid)
+          Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, uuidNotFound));
+                              HttpStatus.NOT_FOUND, idNotFound));
 
           if (!vendorUpdateRequest.contact().equals(vendor.getContact())) {
                // validate contact already exist
@@ -61,10 +61,10 @@ public class VendorServiceImp implements VendorService {
       * delete vendor by uuid paramater
       */
      @Override
-     public void delete(String uuid) {
-          Vendor vendor = vendorRepository.findByUuidAndStatusTrueAndIsDeletedFalse(uuid)
+     public void delete(int id) {
+          Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, uuidNotFound));
+                              HttpStatus.NOT_FOUND, idNotFound));
 
           vendor.setDeleted(true);
           vendor.setStatus(false);
@@ -76,11 +76,11 @@ public class VendorServiceImp implements VendorService {
       * required paramater uuid
       */
      @Override
-     public VendorResponse readByUuid(String uuid) {
+     public VendorResponse readByUuid(int id) {
           // validation uuid
-          Vendor vendor = vendorRepository.findByUuidAndStatusTrueAndIsDeletedFalse(uuid)
+          Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, uuidNotFound));
+                              HttpStatus.NOT_FOUND, idNotFound));
           return mapToVendorResponse(vendor);
      }
 
@@ -156,7 +156,7 @@ public class VendorServiceImp implements VendorService {
 
           List<VendorResponse> content = pages.getContent()
                     .stream()
-                    .map(c -> mapToVendorResponse(c))
+                    .map(this::mapToVendorResponse)
                     .toList();
 
           return JavaCollectionResponse.builder()
@@ -170,13 +170,14 @@ public class VendorServiceImp implements VendorService {
       */
      private VendorResponse mapToVendorResponse(Vendor vendor) {
           return VendorResponse.builder()
-                    .vendorName(vendor.getVendorName())
                     .address(vendor.getAddress())
                     .contact(vendor.getContact())
                     .email(vendor.getEmail())
                     .website(vendor.getWebsite())
                     .uuid(vendor.getUuid())
                     .vdCode(vendor.getVendorCode())
+                    .id(vendor.getId())
+                    .vendorName(vendor.getVendorName())
                     .build();
      }
 }

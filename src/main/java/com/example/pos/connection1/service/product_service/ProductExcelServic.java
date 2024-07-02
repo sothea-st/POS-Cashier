@@ -2,46 +2,91 @@ package com.example.pos.connection1.service.product_service;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import org.apache.poi.util.IOUtils;
-
-import java.io.*;
 import java.util.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-
+import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.poi.ss.formula.WorkbookEvaluator;
+import java.nio.file.Paths;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.example.pos.connection1.constant.JavaConstant;
+import com.example.pos.connection1.entity.FileStore;
 import com.example.pos.connection1.entity.Product;
-import com.example.pos.connection1.entity.models.testexcel.ProductExcel;
+import com.example.pos.connection1.repository.FileStoreRepository;
+import com.example.pos.connection1.repository.ProductRepository;
+import com.example.pos.connection1.service.product_service.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class ProductExcelServic {
-
+     private final FileStoreRepository fileStore;
+     private final ProductRepository productRepository;
 
      public void importFileExcel(MultipartFile multipartFile) throws IOException {
-          List<Product> products =  readExcelFile(multipartFile);
-          products.forEach(p->System.out.println(p));
+          List<ProductResponse> products = readExcelFile(multipartFile);
+          products.forEach(p -> {
+               Product product = new Product();
+               if (p.getBarcode() != null &&
+                         p.getVendorId() != null &&
+                         p.getCatId() != null &&
+                         p.getProductName() != null) {
+
+                    String uuid = JavaConstant.defaultNameImage;
+                    if (p.getPath() != null) {
+                         uuid = UUID.randomUUID().toString();
+                         try {
+                              String contentType = getContentType(
+                                        p.getPath());
+                              byte[] byteImage = getImageBytes(
+                                        p.getPath());
+
+                              FileStore f = new FileStore(uuid, uuid, contentType, byteImage);
+                              fileStore.save(f);
+                         } catch (IOException e) {
+                              e.printStackTrace();
+                         }
+                    }
+
+                    product.setBarcode(p.getBarcode());
+
+                    product.setVendorId(p.getVendorId());
+                    product.setBrandId(p.getBrandId());
+                    product.setCatId(p.getCatId());
+                    product.setProNameEn(p.getProductName());
+                    product.setProNameKh(p.getProductNameKh());
+
+                    product.setCost(p.getCost());
+                    product.setPrice(p.getPrice());
+                    product.setMargin(p.getMargin());
+                    product.setAttributeId(p.getAttributeId());
+                    product.setChoices(p.getChoiceValue());
+
+                    product.setUomId(p.getUomId());
+                    product.setProductActive(p.getStatus());
+                    product.setCountryId(p.getCountryId());
+                    product.setTaxId(p.getTaxId());
+                    product.setCreateBy(0);
+
+                    product.setProductStatus(null);
+                    product.setDiscount(BigDecimal.valueOf(0));
+                    product.setNote(null);
+                    product.setProImageName(uuid);
+
+                    productRepository.save(product);
+               }
+          });
+
      }
 
-     public List<Product> readExcelFile(MultipartFile multipartFile) {
-          List<Product> products = new ArrayList<>();
+     public List<ProductResponse> readExcelFile(MultipartFile multipartFile) {
+          List<ProductResponse> products = new ArrayList<>();
 
           try (InputStream inputStream = multipartFile.getInputStream();
                     Workbook workbook = new XSSFWorkbook(inputStream)) {
@@ -56,9 +101,8 @@ public class ProductExcelServic {
                     if (currentRow.getRowNum() == 0) {
                          continue;
                     }
-
                     Iterator<Cell> cellIterator = currentRow.iterator();
-                    Product pro = new Product();
+                    ProductResponse pro = new ProductResponse();
 
                     int cellIndex = 0;
                     while (cellIterator.hasNext()) {
@@ -69,50 +113,41 @@ public class ProductExcelServic {
                                    String value = currentCell.getStringCellValue();
 
                                    switch (cellIndex) {
-                                        case 0:
-                                             if (value.equals("One")) {
-                                                  pro.setCatId(11);
-                                             } else if (value.equals("Two")) {
-                                                  pro.setCatId(4444);
-                                             } else if (value.equals("Three")) {
-                                                  pro.setCatId(5666);
-                                             }
-                                             break;
                                         case 1:
-                                             pro.setProNameKh(value);
+                                             pro.setVendorId(returnId(value));
                                              break;
                                         case 2:
-                                             pro.setProNameEn(value);
+                                             pro.setBrandId(returnId(value));
+                                             break;
+                                        case 3:
+                                             pro.setCatId(returnId(value));
+                                             break;
+                                        case 4:
+                                             pro.setProductName(value);
                                              break;
                                         case 5:
-                                             pro.setWeight(value);
-                                             break;
-                                        case 6:
-                                             pro.setBarcode(value.replace("\"", ""));
-                                             break;
-                                        case 8:
-                                             pro.setProductStatus(value);
+                                             pro.setProductNameKh(value);
                                              break;
                                         case 9:
-                                             pro.setNote(value);
+                                             pro.setAttributeId(returnId(value));
+                                             break;
+                                        case 10:
+                                             pro.setChoiceValue(value);
+                                             break;
+                                        case 11:
+                                             pro.setUomId(returnId(value));
+                                             break;
+                                        case 12:
+                                             pro.setStatus(value);
+                                             break;
+                                        case 13:
+                                             pro.setCountryId(returnId(value));
                                              break;
                                         case 14:
-                                             pro.setVendorUuid(value);
+                                             pro.setTaxId(returnId(value));
                                              break;
                                         case 15:
-                                             pro.setCountryUuid(value);
-                                             break;
-                                        case 16:
-                                             pro.setProductActive(value);
-                                             break;
-                                        case 17:
-                                             pro.setUomUuid(value);
-                                             break;
-                                        case 18:
-                                             pro.setAttributeUuid(value);
-                                             break;
-                                        case 19:
-                                             pro.setChoices(value);
+                                             pro.setPath(value);
                                              break;
                                         default:
                                              break;
@@ -120,48 +155,36 @@ public class ProductExcelServic {
                                    break;
 
                               case NUMERIC:
-                                   if (DateUtil.isCellDateFormatted(currentCell)) {
-                                        // Handle date cell if needed
-                                        break;
-                                   }
+
                                    double numericValue = currentCell.getNumericCellValue();
-                                   int intValue = (int) numericValue;
+                                   long intValue = (int) numericValue;
                                    BigDecimal decimalValue = BigDecimal.valueOf(numericValue);
 
                                    switch (cellIndex) {
-                                        case 3:
+                                        case 0:
+                                             BigDecimal bigDecimalValue = new BigDecimal(
+                                                       currentCell.getNumericCellValue());
+                                             String stringValue = bigDecimalValue.toPlainString().trim();
+                                             pro.setBarcode(String.valueOf(stringValue));
+                                             break;
+                                        case 6:
                                              pro.setCost(decimalValue);
                                              break;
-                                        case 4:
+                                        case 7:
                                              pro.setPrice(decimalValue);
                                              break;
-                                        case 10:
-                                             pro.setBrandId(intValue);
-                                             break;
-                                        case 11:
-                                             pro.setCreateBy(intValue);
-                                             break;
-                                        case 12:
-                                             pro.setTaxId(intValue);
-                                             break;
-                                        case 13:
-                                             pro.setProQty(intValue);
-                                             break;
-                                        case 20:
+                                        case 8:
                                              pro.setMargin(decimalValue);
                                              break;
                                         default:
                                              break;
                                    }
                                    break;
-
                               default:
                                    break;
                          }
-
                          cellIndex++;
                     }
-
                     products.add(pro);
                }
 
@@ -172,4 +195,32 @@ public class ProductExcelServic {
           return products;
      }
 
+     private Integer returnId(String value) {
+          String[] str = value.split("=>");
+          int id = Integer.parseInt(str[0].trim());
+          return id;
+     }
+
+     public byte[] getImageBytes(String imagePath) throws IOException {
+          File imageFile = new File(imagePath);
+
+          // Check if file exists and is readable
+          if (!imageFile.exists() || !imageFile.isFile() || !imageFile.canRead()) {
+               throw new IOException("File cannot be read or does not exist: " + imagePath);
+          }
+
+          // Read file into byte array
+          byte[] imageBytes;
+          try (FileInputStream fis = new FileInputStream(imageFile)) {
+               imageBytes = new byte[(int) imageFile.length()];
+               fis.read(imageBytes);
+          }
+
+          return imageBytes;
+     }
+
+     public String getContentType(String imagePath) throws IOException {
+          Path path = Paths.get(imagePath);
+          return Files.probeContentType(path);
+     }
 }

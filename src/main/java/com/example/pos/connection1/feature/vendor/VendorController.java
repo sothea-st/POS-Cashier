@@ -37,21 +37,21 @@ public class VendorController {
           return vendorService.read(pageSize, pageNumber);
      }
 
-     @GetMapping("/{uuid}")
-     VendorResponse readByUuid(@PathVariable("uuid") String uuid) {
-          return vendorService.readByUuid(uuid);
+     @GetMapping("/{id}")
+     VendorResponse readByUuid(@PathVariable("id") int id) {
+          return vendorService.readByUuid(id);
      }
 
      @ResponseStatus(HttpStatus.NO_CONTENT)
-     @DeleteMapping("/{uuid}")
-     void delete(@PathVariable("uuid") String uuid) {
-          vendorService.delete(uuid);
+     @DeleteMapping("/{id}")
+     void delete(@PathVariable("id") int id) {
+          vendorService.delete(id);
      }
 
-     @PutMapping("/{uuid}")
-     VendorResponse updateByUuid(@PathVariable("uuid") String uuid,
+     @PutMapping("/{id}")
+     VendorResponse updateByUuid(@PathVariable("id") int id,
                @Valid @RequestBody VendorUpdateRequest vendorUpdateRequest) {
-          return vendorService.updateByUuid(uuid, vendorUpdateRequest);
+          return vendorService.updateByUuid(id, vendorUpdateRequest);
      }
 
 }

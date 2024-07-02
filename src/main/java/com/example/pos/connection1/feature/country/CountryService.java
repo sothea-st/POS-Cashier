@@ -2,6 +2,7 @@ package com.example.pos.connection1.feature.country;
 
 import com.example.pos.connection1.feature.country.dto.CountryRequest;
 import com.example.pos.connection1.feature.country.dto.CountryResponse;
+import com.example.pos.connection1.feature.country.dto.CountryUpdateRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 public interface CountryService {
@@ -18,21 +19,21 @@ public interface CountryService {
      JavaCollectionResponse<?> read(int pageNumber, int pageSize);
 
      /*
-      * read  country
-      * required paramater uuid
+      * read country
+      * required paramater id
       */
-     CountryResponse readByUuid(String uuid);
+     CountryResponse readById(int id);
 
      /*
-      * update country updateByUuid
-      * required paramater uuid and CountryRequest
+      * update country  
+      * required paramater id and CountryRequest
       */
-     CountryResponse updateByUuid(String uuid,CountryRequest countryRequest);
+     CountryResponse updateById(int id,CountryUpdateRequest countryUpdateRequest);
 
      /*
-      * delete country by uuid
-      * required paramater uuid  
+      * delete country by id
+      * required paramater id  
       */
-     void deleteByUuid(String uuid);
+     void deleteById(int id);
 
 }

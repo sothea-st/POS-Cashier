@@ -5,8 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 
 @Builder
-@JsonIgnoreProperties(value = {"sort", "pageable", "offset", "unpaged"})
+ 
 public record VendorResponse(
+     int id,
      String vendorName,
      String address,
      String contact,

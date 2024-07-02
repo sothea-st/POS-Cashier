@@ -13,4 +13,7 @@ public interface CountryRepository extends JpaRepository<Country,Integer> {
 
     Optional<Country> findByUuid(String uuid);
 
+    Optional<Country> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+
+
 }

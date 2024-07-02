@@ -46,20 +46,19 @@ public class ProductService {
         // JavaValidation.checkDataAlreadyExists(proNameEn);
 
         // validate vendorUuid
-        if (!vendorRepository.existsByUuid(p.getVendorUuid())) {
+        if (!vendorRepository.existsById(p.getVendorId())) {
             throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "Uuid has not been found .");
+                    HttpStatus.CONFLICT, "vendorId has not been found .");
         }
 
         Product pro = new Product();
         pro.setProductActive(p.getProductActive());
-        pro.setVendorUuid(p.getVendorUuid());
-        pro.setCountryUuid(p.getCountryUuid());
-        pro.setAttributeUuid(p.getAttributeUuid());
+        pro.setVendorId(p.getVendorId());
+        pro.setCountryId(p.getCountryId());
+        pro.setAttributeId(p.getAttributeId());
         pro.setChoices(p.getChoices());
-        pro.setUomUuid(p.getUomUuid());
+        pro.setUomId(p.getUomId());
         pro.setMargin(p.getMargin());
-
         pro.setCatId(p.getCatId());
         pro.setProNameKh(p.getProNameKh());
         pro.setProNameEn(p.getProNameEn());
@@ -68,7 +67,7 @@ public class ProductService {
         pro.setNote(p.getNote());
         pro.setTaxId(p.getTaxId());
         pro.setCreateBy(p.getCreateBy());
-        // pro.setWeight(p.getWeight());
+      
         pro.setBarcode(p.getBarcode());
         if (p.getDiscount() == null) {
             pro.setDiscount(BigDecimal.valueOf(0));
@@ -213,11 +212,11 @@ public class ProductService {
             previousPro.setProImageName(imgName);
         }
         previousPro.setProductActive(editProduct.getProductActive());
-        previousPro.setVendorUuid(editProduct.getVendorUuid());
-        previousPro.setCountryUuid(editProduct.getCountryUuid());
-        previousPro.setAttributeUuid(editProduct.getAttributeUuid());
+        previousPro.setVendorId(editProduct.getVendorId());
+        previousPro.setCountryId(editProduct.getCountryId());
+        previousPro.setAttributeId(editProduct.getAttributeId());
         previousPro.setChoices(editProduct.getChoices());
-        previousPro.setUomUuid(editProduct.getUomUuid());
+        previousPro.setUomId(editProduct.getUomId());
         previousPro.setMargin(editProduct.getMargin());
 
         previousPro.setProNameKh(editProduct.getProNameKh());

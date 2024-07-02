@@ -20,18 +20,18 @@ public interface VendorService {
       */
      JavaCollectionResponse<?> read(int pageSize,int pageNumber);
      /*
-      * read vendor by uuid
-      * required paramater uuid
+      * read vendor by id
+      * required paramater id
       */
-     VendorResponse readByUuid(String uuid);
+     VendorResponse readByUuid(int id);
 
      /*
-      * delete vendor by uuid paramater
+      * delete vendor by id paramater
       */
-     void delete(String uuid);
+     void delete(int id);
       /*
-      * update vendor by uuid
-      * required paramater uuid , VendorUpdateRequest
+      * update vendor by id
+      * required paramater id , VendorUpdateRequest
       */
-      VendorResponse updateByUuid(String uuid,VendorUpdateRequest vendorUpdateRequest);
+      VendorResponse updateByUuid(int id,VendorUpdateRequest vendorUpdateRequest);
 }

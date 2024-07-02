@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.feature.country.dto.CountryRequest;
 import com.example.pos.connection1.feature.country.dto.CountryResponse;
+import com.example.pos.connection1.feature.country.dto.CountryUpdateRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import lombok.RequiredArgsConstructor;
 
@@ -20,39 +21,31 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CountryServiceImp implements CountryService {
      private final CountryRepository countryRepository;
-     private String uuidNotFound = "Uuid has not been found .";
+     private String idNotFound = "Id has not been found .";
 
      @Override
-     public void deleteByUuid(String uuid) {
-          Country country = countryRepository.findByUuid(uuid)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, uuidNotFound));
+     public void deleteById(int id) {
+          Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
           countryRepository.delete(country);
      }
 
      @Override
-     public CountryResponse updateByUuid(String uuid, CountryRequest countryRequest) {
-          Country country = countryRepository.findByUuid(uuid)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, uuidNotFound));
+     public CountryResponse updateById(int id, CountryUpdateRequest countryUpdateRequest) {
+          Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
 
-          country.setCountryName(countryRequest.countryName());
-          country.setUuid(countryRequest.uuid());
+          country.setCountryName(countryUpdateRequest.countryName());
+          country.setUuid(countryUpdateRequest.uuid());
           countryRepository.save(country);
-          return CountryResponse
-                    .builder()
-                    .countryName(country.getCountryName())
-                    .uuid(country.getUuid())
-                    .build();
+          return  mapToCountryResponse(country);
      }
 
      @Override
-     public CountryResponse readByUuid(String uuid) {
-          Country country = countryRepository.findByUuid(uuid)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, uuidNotFound));
-          return CountryResponse
-                    .builder()
-                    .countryName(country.getCountryName())
-                    .uuid(country.getUuid())
-                    .build();
+     public CountryResponse readById(int id) {
+          Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+          return mapToCountryResponse(country);
      }
 
      @Override
@@ -66,7 +59,7 @@ public class CountryServiceImp implements CountryService {
           Page<Country> pages = countryRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
           List<CountryResponse> content = pages.getContent().stream()
-                    .map(c -> mapToCountryResponse(c))
+                    .map(this::mapToCountryResponse)
                     .toList();
 
           return JavaCollectionResponse.builder()
@@ -87,16 +80,15 @@ public class CountryServiceImp implements CountryService {
                     .build();
           countryRepository.save(country);
 
-          return CountryResponse.builder()
-                    .uuid(country.getUuid())
-                    .countryName(country.getCountryName())
-                    .build();
+          return mapToCountryResponse(country);
      }
 
      private CountryResponse mapToCountryResponse(Country c) {
           return CountryResponse.builder()
                     .countryName(c.getCountryName())
+                    .id(c.getId())
                     .uuid(c.getUuid())
                     .build();
      }
+
 }

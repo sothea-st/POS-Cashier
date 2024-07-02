@@ -128,8 +128,9 @@ public class RouteController {
           }
 
           @PostMapping("/excel")
-          public void importFileExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+          public  ResponseEntity<?> importFileExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
                productExcelServic.importFileExcel(multipartFile);
+               return JavaResponse.success("Import Success");
           }
 
           @PostMapping

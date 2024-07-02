@@ -60,21 +60,21 @@ public class Product {
     private String productActive;
 
     
-    @Column(name = "vendor_uuid")
-    @NotBlank(message = "the field vendorUuid is required.")
-    private String vendorUuid; // uuid is secondary primary key 
+    @Column(name = "vendor_id")
+    @NotNull(message = "the field vendorId is required.")
+    private Integer vendorId; // uuid is secondary primary key 
 
-    @Column(name = "country_uuid")
+    @Column(name = "country_id")
     // @NotBlank(message = "the field countryUuid is required.")
-    private String countryUuid;
+    private Integer countryId;
 
-    @Column(name = "uom_uuid")
+    @Column(name = "uom_id")
     // @NotBlank(message = "the field uomUuid is required.")
-    private String uomUuid;
+    private Integer uomId;
 
-    @Column(name = "attribute_uuid")
+    @Column(name = "attribute_id")
     // @NotBlank(message = "the field attributeUuid is required.")
-    private String attributeUuid;
+    private Integer attributeId;
 
     @Column(name = "choices")
     // @NotBlank(message = "the field attributeUuid is required.")
