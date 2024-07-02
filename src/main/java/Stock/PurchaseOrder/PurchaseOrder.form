@@ -42,7 +42,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="buttonCancel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -50,9 +50,9 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="searchField" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnAddStaff" min="-2" pref="92" max="-2" attributes="0"/>
+                                  <Component id="button1" min="-2" pref="157" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                               <Component id="header" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -67,14 +67,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="searchField" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnAddStaff" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="button1" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="header" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jScrollPane" min="-2" pref="472" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="472" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="buttonCancel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="18" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -93,17 +93,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="72" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" pref="242" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" pref="117" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="160" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" pref="193" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" pref="170" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="118" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" pref="87" max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" pref="118" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel6" min="-2" pref="149" max="-2" attributes="0"/>
+                      <Component id="jLabel6" min="-2" pref="118" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -147,7 +147,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Date of Birth"/>
+                <Property name="text" type="java.lang.String" value="Reference &#x2116;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -159,7 +159,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Contact"/>
+                <Property name="text" type="java.lang.String" value="Transaction Date"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
@@ -170,7 +170,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Staff Name"/>
+                <Property name="text" type="java.lang.String" value="Vendor Name"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
@@ -182,7 +182,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Gender"/>
+                <Property name="text" type="java.lang.String" value="Total Qty"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
@@ -194,18 +194,18 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Address"/>
+                <Property name="text" type="java.lang.String" value="Total Cost"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
         <Component class="Components.SearchField" name="searchField">
           <Properties>
-            <Property name="placeholder" type="java.lang.String" value="Search by staff name"/>
+            <Property name="placeholder" type="java.lang.String" value="Search"/>
             <Property name="valueTextSearch" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane">
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b5" green="d7" red="b0" type="rgb"/>
@@ -217,7 +217,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="listGetStaff">
+            <Container class="javax.swing.JPanel" name="listGetProduct">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="d7" red="b0" type="rgb"/>
@@ -239,20 +239,23 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="Button.Button" name="btnAddStaff">
+        <Component class="Button.Button" name="button1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="9b" red="2f" type="rgb"/>
             </Property>
-            <Property name="buttonName" type="java.lang.String" value="+ Add Staff"/>
+            <Property name="buttonName" type="java.lang.String" value="+ Add Purchase Order"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddStaffMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
           </Events>
         </Component>
-        <Component class="ButtonPackage.ButtonCancel" name="buttonCancel1">
+        <Component class="Button.Button" name="btnCancel">
+          <Properties>
+            <Property name="buttonName" type="java.lang.String" value="Cancel"/>
+          </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCancel1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

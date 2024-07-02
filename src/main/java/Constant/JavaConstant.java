@@ -235,6 +235,16 @@ public class JavaConstant {
                lable.setIcon(icon);
           }
      }
+     
+     public static void filePath(String url, JLabel lable) throws MalformedURLException, IOException {
+          
+         File file = new File(url);
+
+          if (file != null) {
+                lable.setText(file.getName());
+          }
+     }
+     
 
      public static void coverImage(String url, JLabel lable, int labelWidth, int labelHeight) throws MalformedURLException, IOException {
           URL imageUrl = new URL(url);

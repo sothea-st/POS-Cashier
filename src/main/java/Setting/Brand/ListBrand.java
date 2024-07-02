@@ -3,6 +3,7 @@ package Setting.Brand;
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
@@ -12,17 +13,8 @@ import Model.Brand.BrandModel;
 import Model.Brand.BrandSuccessModel;
 import Model.Brand.DetailBrandModel;
 import Model.Brand.DetailBrandSuccess;
-import Model.Category.CategoryGetdataModel;
-import Model.Category.CategorySuccessModel;
-import Model.Category.DetailCategoryModel;
-import Model.Category.DetailCategorySuccessModel;
-import Model.Category.ModelCategory;
-import Setting.Category.Category;
 import Setting.Category.GetCategory;
-import Setting.Category.InsertCategory;
 import Setting.Category.NoDataAvailable;
-import Setting.Division.InsertDivision;
-import Staff.StaffInformation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -56,9 +48,11 @@ public class ListBrand extends javax.swing.JDialog {
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
         getBrand(listGetBrand);
+        
+        JavaConstant.addTitleAndLogo(this, "Brand");
     }
     
-     public void getBrand(JPanel jpanelData) {
+    public void getBrand(JPanel jpanelData) {
         try {
 
             Response response = JavaConnection.get(JavaRoute.brand );
@@ -92,7 +86,7 @@ public class ListBrand extends javax.swing.JDialog {
         appendBrand(brand, listGetBrand);
     }
     
-     void appendBrand(ArrayList<Brand> listBrand, JPanel listGetBrand) {
+    void appendBrand(ArrayList<Brand> listBrand, JPanel listGetBrand) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -285,7 +279,7 @@ public class ListBrand extends javax.swing.JDialog {
         listGetBrand.setLayout(listGetBrandLayout);
         listGetBrandLayout.setHorizontalGroup(
             listGetBrandLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 634, Short.MAX_VALUE)
+            .addGap(0, 654, Short.MAX_VALUE)
         );
         listGetBrandLayout.setVerticalGroup(
             listGetBrandLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +318,7 @@ public class ListBrand extends javax.swing.JDialog {
                                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
                             .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(15, 15, 15))
         );
@@ -341,7 +335,7 @@ public class ListBrand extends javax.swing.JDialog {
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21)
                 .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -13,8 +13,6 @@ import Model.combobox.BrandModel;
 import Model.combobox.CategoryModel;
 import Model.combobox.TaxModel;
 
-import java.awt.Cursor;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -41,218 +39,198 @@ import org.json.JSONObject;
 @Getter
 public class AddProduct extends javax.swing.JDialog {
 
-     private String brandId;
-     private String categoryId;
-     private String statusProduct;
-     private String taxId;
-     String path;
-     String pathFlag;
-     private JPanel panelProduct;
-     ActionProduct pro = new ActionProduct();
-     private LoginFormJdailog jdLogin;
-     private JPanel panelCategory;
+    private String brandId;
+    private String categoryId;
+    private String statusProduct;
+    private String taxId;
+    String path;
+    String pathFlag;
+    private JPanel panelProduct;
+    ActionProduct pro = new ActionProduct();
+    private LoginFormJdailog jdLogin;
+    private JPanel panelCategory;
 
-     public JPanel getPanelProduct() {
-          return panelProduct;
-     }
+    public JPanel getPanelProduct() {
+        return panelProduct;
+    }
 
-     public void setPanelProduct(JPanel panelProduct) {
-          this.panelProduct = panelProduct;
-     }
+    public void setPanelProduct(JPanel panelProduct) {
+        this.panelProduct = panelProduct;
+    }
 
-     public AddProduct(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          panelAddProduct.setBackground(WindowColor.mediumGreen);
-          event();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+    public AddProduct(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        panelAddProduct.setBackground(WindowColor.mediumGreen);
+        event();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-          // action get select brand
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    brandId = key;
-               }
-          };
-          brand.initEvent(event);
-          addComboBrand();
+        // action get select brand
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                brandId = key;
+            }
+        };
+        brand.initEvent(event);
+        addComboBrand();
 
-          // action get select category
-          ButtonEvent events = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    categoryId = key;
-               }
-          };
-          category.initEvent(events);
-          addComboCategory();
+        // action get select category
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                categoryId = key;
+            }
+        };
+        category.initEvent(events);
+        addComboCategory();
+           
 
-          // action get select status
-//          ButtonEvent eventtt = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    statusProduct = key;
-//               }
-//          };
-//          status.initEvent(eventtt);
-//          addComboStatus();
-          // action get select tax
-          ButtonEvent eventtss = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    taxId = key;
-               }
-          };
-          tax.initEvent(eventtss);
-          addComboTax();
-          price.setComma("comma");
-          cost.setComma("comma");
-          qty.setComma("comma");
-     }
+        // action get select tax
+        ButtonEvent eventtss = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                taxId = key;
+            }
+        };
+        tax.initEvent(eventtss);
+        addComboTax();
+        price.setComma("comma");
+        cost.setComma("comma");
+        qty.setComma("comma");
+    }
 
-     //Place Holder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
+    //Place Holder
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
 
-               }
-          };
-          productName.initEvent(btnevent);
-        
-          barcode.initEvent(btnevent);
-          price.initEvent(btnevent);
-          cost.initEvent(btnevent);
-          weight.initEvent(btnevent);
-          qty.initEvent(btnevent);
-          note.initEvent(btnevent);
-          discount.initEvent(btnevent);
-     }
+            }
+        };
+        productName.initEvent(btnevent);
 
-     //Set Combo box brand
-     private void addComboBrand() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<BrandModel> brandModel = new ArrayList<>();
-               Response response = JavaConnection.get(JavaRoute.brand);
+        barcode.initEvent(btnevent);
+        price.initEvent(btnevent);
+        cost.initEvent(btnevent);
+        weight.initEvent(btnevent);
+        qty.initEvent(btnevent);
+        note.initEvent(btnevent);
+        discount.initEvent(btnevent);
+    }
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         BrandModel brand = new BrandModel(
-                              obj.getInt("id"),
-                              obj.getString("brandNameEn")
-                         );
-                         brandModel.add(brand);
+    //Set Combo box brand
+    private void addComboBrand() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            ArrayList<BrandModel> brandModel = new ArrayList<>();
+            Response response = JavaConnection.get(JavaRoute.brand);
 
-                         int idBrand = brandModel.get(i).getBrandId();
-                         String brandName = brandModel.get(i).getBrandName();
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseData);
+                JSONArray data = jsonObject.getJSONArray("data");
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject obj = data.getJSONObject(i);
+                    BrandModel brand = new BrandModel(
+                            obj.getInt("id"),
+                            obj.getString("brandNameEn")
+                    );
+                    brandModel.add(brand);
 
-                         map.put(brandName, "" + idBrand);
-                    }
-                    brand.setMap(map);
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+                    int idBrand = brandModel.get(i).getBrandId();
+                    String brandName = brandModel.get(i).getBrandName();
 
-     //Set Combo box category
-     private void addComboCategory() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<CategoryModel> categoryModel = new ArrayList<>();
-               Response response = JavaConnection.get(JavaRoute.getCategoryByCode + "subcategory");
+                    map.put(brandName, "" + idBrand);
+                }
+                brand.setMap(map);
+            } else {
+                System.err.println("fail loading data");
+            }
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
+    //Set Combo box category
+    private void addComboCategory() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            ArrayList<CategoryModel> categoryModel = new ArrayList<>();
+            Response response = JavaConnection.get(JavaRoute.getCategoryByCode + "subcategory");
+
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseData);
+                JSONArray data = jsonObject.getJSONArray("data");
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject obj = data.getJSONObject(i);
 
 //                         if (_catName.equals("new items") || _catName.equals("promotion") || _catName.equals("all")) 
-                         CategoryModel categ = new CategoryModel(
-                              obj.getInt("id"),
-                              obj.getString("catNameEn")
-                         );
-                         categoryModel.add(categ);
+                    CategoryModel categ = new CategoryModel(
+                            obj.getInt("id"),
+                            obj.getString("catNameEn")
+                    );
+                    categoryModel.add(categ);
 
-                         int idCategory = categoryModel.get(i).getCategoryId();
-                         String categoryName = categoryModel.get(i).getCategoryName();
+                    int idCategory = categoryModel.get(i).getCategoryId();
+                    String categoryName = categoryModel.get(i).getCategoryName();
 //                         String _catName = obj.getString("catNameEn").toLowerCase();    
 
-                         System.out.println("categoryName : " + categoryName);
-                         if (categoryName.toLowerCase().equals("all")
-                              || categoryName.toLowerCase().equals("new items")
-                              || categoryName.toLowerCase().equals("promotion")) {
-                              continue;
-                         }
-
-                         map.put(categoryName, "" + idCategory);
-
+                    System.out.println("categoryName : " + categoryName);
+                    if (categoryName.toLowerCase().equals("all")
+                            || categoryName.toLowerCase().equals("new items")
+                            || categoryName.toLowerCase().equals("promotion")) {
+                        continue;
                     }
-                    category.setMap(map);
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
 
-     //Set Combo box status
-//     private void addComboStatus() {
-//          try {
-//               HashMap<String, String> map = new HashMap<>();
-//               map.put("In Stock", "In Stock");
-//               map.put("Out Stock", "Out Stock");
-//               status.setMap(map);
-//
-//          } catch (Exception e) {
-//               System.err.println("error = " + e);
-//          }
-//     }
-     //Set Combo box tax
-     private void addComboTax() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<TaxModel> taxModel = new ArrayList<>();
-               Response response = JavaConnection.get(JavaRoute.tax);
+                    map.put(categoryName, "" + idCategory);
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         TaxModel tax = new TaxModel(
-                              obj.getInt("id"),
-                              obj.getString("tax_name")
-                         );
-                         taxModel.add(tax);
+                }
+                category.setMap(map);
+            } else {
+                System.err.println("fail loading data");
+            }
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
 
-                         int idTax = taxModel.get(i).getTaxId();
-                         String taxName = taxModel.get(i).getTaxName();
+    //Set Combo box tax
+    private void addComboTax() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            ArrayList<TaxModel> taxModel = new ArrayList<>();
+            Response response = JavaConnection.get(JavaRoute.tax);
 
-                         map.put(taxName, "" + idTax);
-                    }
-                    tax.setMap(map);
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseData);
+                JSONArray data = jsonObject.getJSONArray("data");
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject obj = data.getJSONObject(i);
+                    TaxModel tax = new TaxModel(
+                            obj.getInt("id"),
+                            obj.getString("tax_name")
+                    );
+                    taxModel.add(tax);
 
-     @SuppressWarnings("unchecked")
+                    int idTax = taxModel.get(i).getTaxId();
+                    String taxName = taxModel.get(i).getTaxName();
+
+                    map.put(taxName, "" + idTax);
+                }
+                tax.setMap(map);
+            } else {
+                System.err.println("fail loading data");
+            }
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -571,190 +549,187 @@ public class AddProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      private void button2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button2MouseClicked
-          try {
-               pathFlag = JNAFileChooser.funChooseFile();
-               JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
-          } catch (IOException ex) {
-               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
-          }
+         try {
+             pathFlag = JNAFileChooser.funChooseFile();
+             JavaConstant.coverImagePath(pathFlag, lbFlag, 124, 235);
+         } catch (IOException ex) {
+             Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+         }
      }//GEN-LAST:event_button2MouseClicked
 
      private void buttonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadMouseClicked
-          try {
-               path = JNAFileChooser.funChooseFile();
-               JavaConstant.coverImagePath(path, lbPicture, 124, 235);
-          } catch (IOException ex) {
-               Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
-          }
+         try {
+             path = JNAFileChooser.funChooseFile();
+             JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+         } catch (IOException ex) {
+             Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+         }
      }//GEN-LAST:event_buttonUploadMouseClicked
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-          String proName = productName.getValueTextField();
-         
-          String proBarcode = barcode.getValueTextField();
-          String proPrice = price.getValueTextField();
-          String proCost = cost.getValueTextField();
-          String proWeight = weight.getValueTextField();
-          String proNote = note.getValueTextField();
-          String proDiscount = discount.getValueTextField();
-          String proQty = qty.getValueTextField();
+         String proName = productName.getValueTextField();
 
-          if (proName == null || proName.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Product Name can not be empty!");
-               return;
-          }
-          if (proBarcode == null || proBarcode.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
-               return;
-          }
-          if (proPrice == null || proPrice.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Price can not be empty!");
-               return;
-          }
-          if (proCost == null || proCost.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Cost can not be empty!");
-               return;
-          }
-          if (categoryId == null) {
-               JOptionPane.showMessageDialog(this, "Please select a category!");
-               return;
-          }
-          if (categoryId == null) {
-               JOptionPane.showMessageDialog(this, "Please select a category!");
-               return;
-          }
-          if (brandId == null) {
-               JOptionPane.showMessageDialog(this, "Please select a brand!");
-               return;
-          }
-          if (brandId == null) {
-               JOptionPane.showMessageDialog(this, "Please select a brand!");
-               return;
-          }
-          if (taxId == null) {
-               JOptionPane.showMessageDialog(this, "Please select a tax!");
-               return;
-          }
-          //         if (statusProduct == null) {
-               //              JOptionPane.showMessageDialog(this, "Please select a product status!");
-               //              return;
-               //         }
+         String proBarcode = barcode.getValueTextField();
+         String proPrice = price.getValueTextField();
+         String proCost = cost.getValueTextField();
+         String proWeight = weight.getValueTextField();
+         String proNote = note.getValueTextField();
+         String proDiscount = discount.getValueTextField();
+         String proQty = qty.getValueTextField();
 
-          if (proQty != null) {
-               if (proQty.contains(".")) {
-                    JOptionPane.showMessageDialog(this, "Invalid qty ");
-                    return;
-               }
-          }
+         if (proName == null || proName.isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Product Name can not be empty!");
+             return;
+         }
+         if (proBarcode == null || proBarcode.isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
+             return;
+         }
+         if (proPrice == null || proPrice.isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Price can not be empty!");
+             return;
+         }
+         if (proCost == null || proCost.isEmpty()) {
+             JOptionPane.showMessageDialog(this, "Cost can not be empty!");
+             return;
+         }
+         if (categoryId == null) {
+             JOptionPane.showMessageDialog(this, "Please select a category!");
+             return;
+         }
+         if (categoryId == null) {
+             JOptionPane.showMessageDialog(this, "Please select a category!");
+             return;
+         }
+         if (brandId == null) {
+             JOptionPane.showMessageDialog(this, "Please select a brand!");
+             return;
+         }
+         if (brandId == null) {
+             JOptionPane.showMessageDialog(this, "Please select a brand!");
+             return;
+         }
+         if (taxId == null) {
+             JOptionPane.showMessageDialog(this, "Please select a tax!");
+             return;
+         }
+         //         if (statusProduct == null) {
+         //              JOptionPane.showMessageDialog(this, "Please select a product status!");
+         //              return;
+         //         }
 
-          proPrice = proPrice.replace(",", "");
-          proCost = proCost.replace(",", "");
+         if (proQty != null) {
+             if (proQty.contains(".")) {
+                 JOptionPane.showMessageDialog(this, "Invalid qty ");
+                 return;
+             }
+         }
 
-          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
-          OkHttpClient client = new OkHttpClient();
-          // File to upload
+         proPrice = proPrice.replace(",", "");
+         proCost = proCost.replace(",", "");
 
-          // Request body
-          MultipartBody.Builder requestBody = new MultipartBody.Builder()
-          .setType(MultipartBody.FORM)
-          .addFormDataPart("catId", categoryId)
-          .addFormDataPart("proNameEn", proName)
-          .addFormDataPart("cost", proCost)
-          .addFormDataPart("price", proPrice)
-          .addFormDataPart("barcode", proBarcode)
-          .addFormDataPart("brandId", brandId)
-          .addFormDataPart("createBy", JavaConstant.cashierId + "")
-          .addFormDataPart("taxId", taxId)
-          .addFormDataPart("productStatus", "");
+         String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
+         OkHttpClient client = new OkHttpClient();
+         // File to upload
 
-          if (path != null) {
-               File fileToUpload = new File(path);
-               requestBody.addFormDataPart("file", fileToUpload.getName(),
-                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-          }
+         // Request body
+         MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                 .setType(MultipartBody.FORM)
+                 .addFormDataPart("catId", categoryId)
+                 .addFormDataPart("proNameEn", proName)
+                 .addFormDataPart("cost", proCost)
+                 .addFormDataPart("price", proPrice)
+                 .addFormDataPart("barcode", proBarcode)
+                 .addFormDataPart("brandId", brandId)
+                 .addFormDataPart("createBy", JavaConstant.cashierId + "")
+                 .addFormDataPart("taxId", taxId)
+                 .addFormDataPart("productStatus", "");
 
-          if (pathFlag != null) {
-               File fileToUpload = new File(pathFlag);
-               requestBody.addFormDataPart("flagFile", fileToUpload.getName(),
-                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-          }
+         if (path != null) {
+             File fileToUpload = new File(path);
+             requestBody.addFormDataPart("file", fileToUpload.getName(),
+                     RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+         }
 
-          if (proWeight != null) {
-               requestBody.addFormDataPart("weight", proWeight);
-          }
+         if (pathFlag != null) {
+             File fileToUpload = new File(pathFlag);
+             requestBody.addFormDataPart("flagFile", fileToUpload.getName(),
+                     RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+         }
 
-          if (proDiscount != null) {
-               requestBody.addFormDataPart("discount", proDiscount);
-          }
+         if (proWeight != null) {
+             requestBody.addFormDataPart("weight", proWeight);
+         }
 
-          if (proNote != null) {
-               requestBody.addFormDataPart("note", proNote);
-          }
+         if (proDiscount != null) {
+             requestBody.addFormDataPart("discount", proDiscount);
+         }
 
-       
-          if (proQty != null) {
-               requestBody.addFormDataPart("proQty", proQty);
-          }
+         if (proNote != null) {
+             requestBody.addFormDataPart("note", proNote);
+         }
 
-          // Request
-          Request request = new Request.Builder()
-          .url(url)
-          .post(requestBody.build())
-          .header("Authorization", "Bearer " + JavaConstant.token)
-          .build();
+         if (proQty != null) {
+             requestBody.addFormDataPart("proQty", proQty);
+         }
 
-          //         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-          try {
-               Response response = client.newCall(request).execute();
-               if (response.isSuccessful()) {
-                    System.out.println("success data add");
-                    productName.setValueTextField(null);
-                
-                    barcode.setValueTextField(null);
-                    price.setValueTextField(null);
-                    cost.setValueTextField(null);
-                    weight.setValueTextField(null);
-                    qty.setValueTextField(null);
-                    note.setValueTextField(null);
-                    discount.setValueTextField(null);
-                    productName.setFocus();
+         // Request
+         Request request = new Request.Builder()
+                 .url(url)
+                 .post(requestBody.build())
+                 .header("Authorization", "Bearer " + JavaConstant.token)
+                 .build();
 
-                    //       ====== set placeholder ======
-                   
-                    barcode.setLabelTextField("Barcode");
-                    price.setLabelTextField("$ 0.00");
-                    cost.setLabelTextField("$ 0.00");
-                    weight.setLabelTextField("Weight");
-                    qty.setLabelTextField("Quantity");
-                    note.setLabelTextField("Note");
-                    discount.setLabelTextField("0%");
-                 
+         //         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+         try {
+             Response response = client.newCall(request).execute();
+             if (response.isSuccessful()) {
+                 System.out.println("success data add");
+                 productName.setValueTextField(null);
 
-                    categoryId = null;
-                    brandId = null;
-                    taxId = null;
-                    statusProduct = null;
-                    path = null;
-                    pathFlag = null;
+                 barcode.setValueTextField(null);
+                 price.setValueTextField(null);
+                 cost.setValueTextField(null);
+                 weight.setValueTextField(null);
+                 qty.setValueTextField(null);
+                 note.setValueTextField(null);
+                 discount.setValueTextField(null);
+                 productName.setFocus();
 
-                    brand.setToFirstItem();
-                    category.setToFirstItem();
-                    tax.setToFirstItem();
-                    //                   status.setToFirstItem();
+                 //       ====== set placeholder ======
+                 barcode.setLabelTextField("Barcode");
+                 price.setLabelTextField("$ 0.00");
+                 cost.setLabelTextField("$ 0.00");
+                 weight.setLabelTextField("Weight");
+                 qty.setLabelTextField("Quantity");
+                 note.setLabelTextField("Note");
+                 discount.setLabelTextField("0%");
 
-                    lbPicture.setIcon(null);
-                    lbFlag.setIcon(null);
+                 categoryId = null;
+                 brandId = null;
+                 taxId = null;
+                 statusProduct = null;
+                 path = null;
+                 pathFlag = null;
 
-                    System.out.println("jjjjjjjjjjjjjjjjjjjjj = " + jdLogin.getCatId());
-                    // for reload items
-                    jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                    panelCategory.getComponents()[1].setBackground(WindowColor.black);
+                 brand.setToFirstItem();
+                 category.setToFirstItem();
+                 tax.setToFirstItem();
+                 //                   status.setToFirstItem();
 
-               }
-               // Do something with the response.
-          } catch (IOException e) {
-               System.out.println("err = " + e);
-          }
+                 lbPicture.setIcon(null);
+                 lbFlag.setIcon(null);
+
+                 System.out.println("jjjjjjjjjjjjjjjjjjjjj = " + jdLogin.getCatId());
+                 // for reload items
+                 jdLogin.onClickCategory("new items", jdLogin.getCatId());
+                 panelCategory.getComponents()[1].setBackground(WindowColor.black);
+
+             }
+             // Do something with the response.
+         } catch (IOException e) {
+             System.out.println("err = " + e);
+         }
      }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
@@ -789,22 +764,23 @@ public class AddProduct extends javax.swing.JDialog {
 //               System.out.println("No file selected.");
 //          }
 //     }
-     //    ========================== end file chooser JNA ===========================
-     public static void main(String args[]) {
+     
+    //    ========================== end file chooser JNA ===========================
+    public static void main(String args[]) {
 
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    AddProduct dialog = new AddProduct(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                AddProduct dialog = new AddProduct(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.TextField barcode;
