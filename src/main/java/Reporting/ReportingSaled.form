@@ -71,7 +71,7 @@
       <SubComponents>
         <Component class="Components.LabelPopUpTitle" name="titlePopUp">
           <Properties>
-            <Property name="labelTitle" type="java.lang.String" value="Reporting Saled"/>
+            <Property name="labelTitle" type="java.lang.String" value="Reporting Sale"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel1">

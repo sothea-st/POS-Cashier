@@ -1,22 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Reporting;
 
+import Constant.JavaBaseUrl;
+import Constant.JavaConstant;
+import Controller.ActionProduct.ActionProduct;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class ReportingView extends javax.swing.JDialog {
 
 
-     public ReportingView(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          reportImport.setTitle("Reporting Import");
-          reportSale.setTitle("Reporting Sale");
-     }
+    public ReportingView(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        JavaConstant.addTitleAndLogo(this, "Reporting");
+        getImageAndTitle();
+    }
+
+    private void getImageAndTitle() {
+        reportImport.setTitle("Reporting Import");
+        reportSale.setTitle("Reporting Sale");
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    // Task to be executed
+                    reportSale.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sale.png");
+                    reportImport.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(task, 500); // Delays task execution by 1 second
+    }
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

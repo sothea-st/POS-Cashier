@@ -33,6 +33,7 @@ import Reporting.ReportingView;
 import Return.ApprovalCode;
 import Settings.Settings;
 import Staff.Staff;
+import StockManagement.StockManagement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
@@ -140,7 +141,7 @@ public class MainPage extends javax.swing.JFrame {
           titleOrder.setVisible(false);
           menuBar.setPreferredSize(new Dimension(300, 41));
           boxImg.setVisible(false);
-          stock.setVisible(false);
+//          stock.setVisible(false);
           buttonStaff.setVisible(false);
      }
 
@@ -1057,11 +1058,11 @@ public class MainPage extends javax.swing.JFrame {
     private void stockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockMouseClicked
          if (JavaConstant.token != null) {
               if (JavaConstant.checkOpenShift) {
-                   ListProduct list = new ListProduct(new JFrame(), true);
-                   list.setPanelProduct(panelProduct);
-                   list.setJdLogin(jdFormLogin);
-                   list.setPanelCategory(category);
-                   list.setVisible(true);
+                    StockManagement stock = new StockManagement(new JFrame(), true);
+                    stock.setPanelProduct(panelProduct);
+                    stock.setJdLogin(jdFormLogin);
+                    stock.setPanelCategory(category);
+                    stock.setVisible(true);
               }
          }
     }//GEN-LAST:event_stockMouseClicked

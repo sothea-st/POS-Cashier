@@ -23,89 +23,82 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="421" max="32767" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" pref="223" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
-      <Properties>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[422, 201]"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="titlePopUp" alignment="0" max="32767" attributes="0"/>
+              <Component id="labelPopUpTitle1" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="label1" min="-2" pref="77" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="label3" min="-2" pref="78" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" min="-2" pref="13" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="brandEn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="115" max="32767" attributes="0"/>
+                          <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="label1" min="-2" pref="125" max="-2" attributes="0"/>
-                          <EmptySpace pref="42" max="32767" attributes="0"/>
-                          <Component id="brandKh" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="fileName" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="browse" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="titlePopUp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="brandEn" alignment="0" max="32767" attributes="0"/>
-                      <Component id="label3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="browse" min="-2" pref="27" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="label1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="brandKh" alignment="0" max="32767" attributes="0"/>
+                      <Component id="label1" pref="29" max="32767" attributes="0"/>
+                      <Component id="fileName" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace pref="67" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Components.LabelPopUpTitle" name="titlePopUp">
+        <Component class="javax.swing.JLabel" name="browse">
           <Properties>
-            <Property name="labelTitle" type="java.lang.String" value="Add Brand"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="33" red="0" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Browse here to Upload"/>
           </Properties>
-        </Component>
-        <Component class="Components.Label" name="label1">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Brand Name Kh"/>
-          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseExited"/>
+          </Events>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
           <Events>
@@ -117,30 +110,16 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Components.Label" name="label3">
+        <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle1">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Brand Name"/>
+            <Property name="labelTitle" type="java.lang.String" value="Select File to Import"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
+        <Component class="javax.swing.JLabel" name="fileName">
         </Component>
-        <Component class="Components.TextField" name="brandKh">
+        <Component class="Components.Label" name="label1">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Brand Name Kh"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="brandEn">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Brand Name"/>
+            <Property name="labelName" type="java.lang.String" value="File Name :"/>
           </Properties>
         </Component>
       </SubComponents>

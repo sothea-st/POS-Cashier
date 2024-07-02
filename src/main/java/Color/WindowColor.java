@@ -35,4 +35,7 @@ public class WindowColor {
      public static Color brown = new Color(153, 102, 0);
      public static Color yellow = new Color(255, 204, 0);
      public static boolean isCheck = true;
+     
+     public static Color darkBlue = new Color(0,51,102);
+     public static Color light_Blue = new Color(	0 , 0 ,255);
 }
