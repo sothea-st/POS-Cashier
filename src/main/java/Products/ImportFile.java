@@ -184,6 +184,7 @@ public class ImportFile extends javax.swing.JDialog {
 
          List<ProductResponse> list = new JavaGetDataFromExcel().readExcelFile(path);
          ImportDetail importDetail = new ImportDetail(new JFrame(), true);
+         importDetail.setListProductResponse(list);
          importDetail.setCustomTable(list);
          importDetail.setVisible(true);
     }//GEN-LAST:event_buttonSaveMouseClicked

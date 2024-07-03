@@ -93,7 +93,7 @@ public class MainPage extends javax.swing.JFrame {
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();
           groupEvent();
-          getImage();
+//          getImage();
           JavaExistScreen.existFun(this); // when user try to close applicatio dialog will ask " Are you sure ? "
           setTitle("King Mart");
           setExtendedState(JFrame.MAXIMIZED_BOTH);
