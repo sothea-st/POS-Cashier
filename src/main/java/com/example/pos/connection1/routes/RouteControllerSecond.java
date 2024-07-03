@@ -4,15 +4,11 @@ import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
-
 import com.example.pos.connection1.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.connection1.service.HoldService;
 import com.example.pos.connection1.service.shiftService.DefaultPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,53 +21,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.example.pos.connection1.components.JavaResponse;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaMessage;
 import com.example.pos.connection1.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.connection1.entity.Hold;
 import com.example.pos.connection1.entity.branch.Branch;
-import com.example.pos.connection1.entity.models.PaymentModel;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.people.Customer;
-import com.example.pos.connection1.entity.projection.PaymentProjection;
 import com.example.pos.connection1.entity.role.Role;
 import com.example.pos.connection1.entity.role.roleProjection.RoleProjection;
 import com.example.pos.connection1.entity.sourceData.AssignRole;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.DefaultPrice;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
-import com.example.pos.connection1.feature.vendor.VendorService;
-import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
-import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
-import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
 import com.example.pos.connection1.projections.CustomerPointProjection.CustomerPointProjection;
 import com.example.pos.connection1.projections.TaxProductProjection.TaxProductProjection;
 import com.example.pos.connection1.projections.defaultPriceProjection.DefaultPriceProjection;
 import com.example.pos.connection1.repository.HoldRepository;
 import com.example.pos.connection1.repository.UserRepository;
-import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import com.example.pos.connection1.repository.peopleRepository.CustomerRepository;
 import com.example.pos.connection1.service.RoleAndPermissionService.RoleService;
 import com.example.pos.connection1.service.addImageService.AddImageService;
+import com.example.pos.connection1.service.addImageService.ImageResponse;
 import com.example.pos.connection1.service.branchService.BranchService;
 import com.example.pos.connection1.service.searchByBarcodeOrNameService.SearchByBarcodeOrNameService;
 import com.example.pos.connection1.service.sourceDataService.BrandService;
 import com.example.pos.connection1.service.sourceDataService.CustomerService;
 import com.example.pos.connection1.service.sourceDataService.TaxProductService;
 import com.example.pos.connection1.util.ImageUtils;
-
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -399,9 +384,8 @@ public class RouteControllerSecond {
           }
 
           @PostMapping("/addMultiple")
-          public void addMultipleImage(@RequestParam("files") List<MultipartFile> files) throws IOException {
-               service.addMultiple(files);
-               // return ResponseEntity.ok().body(Map.of("msg","success","fileName",fileName));
+          public ResponseEntity<?>  addMultipleImage(@RequestParam("files") List<MultipartFile> files) throws IOException {
+             return  JavaResponse.success(service.addMultiple(files));
           }
 
           @GetMapping("/{id}")
@@ -415,7 +399,7 @@ public class RouteControllerSecond {
           @GetMapping("/readImage")
           @ResponseBody
           public ResponseEntity<byte[]> getImage() {
-               System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb ");
+         
                try {
                     // Load image from classpath resources
                     Resource resource = resourceLoader.getResource("classpath:assets/product/default.jpg");

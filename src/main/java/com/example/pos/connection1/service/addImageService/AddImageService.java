@@ -32,16 +32,21 @@ public class AddImageService {
     }
 
     // this one is use
-    public void addMultiple(List<MultipartFile> files) throws IOException {
-        for( MultipartFile file : files ) {
+    public  List<ImageResponse> addMultiple(List<MultipartFile> files) throws IOException {
+        List<ImageResponse> imageResponses = new ArrayList<>();
+        for (MultipartFile file : files) {
             System.out.println("fileName : " + file.getOriginalFilename());
-            // String fName = UUID.randomUUID().toString();
+            String uuid = UUID.randomUUID().toString();
             String fName = file.getOriginalFilename();
-            FileStore f = new FileStore(fName, fName, file.getContentType(), file.getBytes());
+            FileStore f = new FileStore(uuid, uuid, file.getContentType(), file.getBytes());
             repo.save(f);
+            imageResponses.add(ImageResponse.builder()
+                    .fileName(fName)
+                    .uuid(uuid)
+                    .build());
         }
-      
-        // return fName;
+
+        return imageResponses;
     }
 
     public byte[] getFile(String id) throws IOException {

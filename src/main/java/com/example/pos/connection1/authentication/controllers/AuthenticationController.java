@@ -120,45 +120,55 @@ public class AuthenticationController {
 
         Optional<User> userCheck = userRepo.findByUserCodeAndStatusTrue(loginUserDto.getUserCode());
 
-        // log.info("data username : " + loginUserDto.getUserCode() + " password : " + loginUserDto.getPassword());
-
+ 
         // for do at home
-        // if( !userCheck.isEmpty() ) {
-        //     map.put("token", jwtToken);
-        //     return ResponseEntity.ok().body(map);
-    
-        // }
-      
-        
-        if( userCheck.isEmpty() ) {
+        if (!userCheck.isEmpty()) {
+            map.put("token", jwtToken);
+            map.put("id", authenticatedUser.getId());
+            map.put("empId", authenticatedUser.getEmpId());
+            map.put("userCode", authenticatedUser.getUserCode());
+            map.put("roleId", authenticatedUser.getRole());
+            map.put("roleName", "Admin");
+            map.put("token", jwtToken);
+            map.put("posId", posId);
+            map.put("userName", "SOTHEA");
+            map.put("msg", JavaConstant.success);
+            return ResponseEntity.ok().body(map);
+        }
+        // ============ end ==========
+
+
+
+
+        if (userCheck.isEmpty()) {
             return ResponseEntity.ok().body(Map.of("msg", "Check your account and password again"));
         }
 
         if (loginUserDto.getIpAddress() != null && loginUserDto.getDeviceName() != null) {
-          
+
             if (getCountIP > 0) {
                 Optional<IPAddressPOSID> data = ipAddressRepository.getIpAdrress();
-        
-                    IPAddressPOSID val = data.get();
-                    if (val.getUserId() == authenticatedUser.getId()) {
-                        posId = val.getPosId();
-                    } else {
 
-                        if (val.getPosId().equals("01")) {
-                            posId = "02";
-                        } else if (val.getPosId().equals("02")) {
-                            posId = "01";
-                        }
-                     
-                        IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
-                                .ipAddress(loginUserDto.getIpAddress())
-                                .deviceName(loginUserDto.getDeviceName())
-                                .posId(posId)
-                                .userId(authenticatedUser.getId())
-                                .build();
-                        ipAddressRepository.save(ipAddressPOSID);
+                IPAddressPOSID val = data.get();
+                if (val.getUserId() == authenticatedUser.getId()) {
+                    posId = val.getPosId();
+                } else {
+
+                    if (val.getPosId().equals("01")) {
+                        posId = "02";
+                    } else if (val.getPosId().equals("02")) {
+                        posId = "01";
                     }
-       
+
+                    IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
+                            .ipAddress(loginUserDto.getIpAddress())
+                            .deviceName(loginUserDto.getDeviceName())
+                            .posId(posId)
+                            .userId(authenticatedUser.getId())
+                            .build();
+                    ipAddressRepository.save(ipAddressPOSID);
+                }
+
             } else {
                 posId = "01";
                 IPAddressPOSID ipAddressPOSID = IPAddressPOSID.builder()
