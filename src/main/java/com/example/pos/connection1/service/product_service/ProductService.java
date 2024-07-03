@@ -1,14 +1,11 @@
 package com.example.pos.connection1.service.product_service;
 
 import com.example.pos.connection1.constant.JavaConstant;
-import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.entity.FileStore;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
-import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.models.ProductModel;
-import com.example.pos.connection1.entity.models.testexcel.TestFileImportExcel;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
@@ -16,23 +13,13 @@ import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.service.ImportService;
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellValue;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
- 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -42,91 +29,15 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 public class ProductService {
-     
     private final ProductRepository repo;
- 
     private final FileStoreRepository fileStore;
- 
     private final ImportDetailRepository repoImp;
-
     private final ImportService service;
-
     private final VendorRepository vendorRepository;
 
-    public void importFileExcel(MultipartFile multipartFile) throws IOException {
-        // Load Excel file
-        InputStream inputStream = multipartFile.getInputStream();
-        Workbook workbook = new XSSFWorkbook(inputStream);
+   
 
-        // Get the first sheet
-        Sheet sheet = workbook.getSheetAt(0);
-
-        // Iterate through each row
-        Iterator<Row> iterator = sheet.iterator();
-        List<TestFileImportExcel> entities = new ArrayList<>();
-
-        while (iterator.hasNext()) {
-            Row currentRow = iterator.next();
-
-            // Skip header row
-            if (currentRow.getRowNum() == 0) {
-            continue;
-            }
-
-            // Read data from each column
-            Iterator<Cell> cellIterator = currentRow.iterator();
-            TestFileImportExcel t = new TestFileImportExcel();
-
-            int cellIndex = 0;
-            while (cellIterator.hasNext()) {
-                Cell currentCell = cellIterator.next();
-             
-                switch (currentCell.getCellType()) {
-                    case STRING:
-                        if (cellIndex == 0) {
-                            System.out.println("Column 0 : " + currentCell.getStringCellValue());
-                            t.setItemName(currentCell.getStringCellValue());
-                        } else if (cellIndex == 1) {
-                            System.out.println("Column 1 : " + currentCell.getStringCellValue());
-                            t.setUnit(currentCell.getStringCellValue());
-                        }  
-                        break;
-                    case NUMERIC:
-
-                        double numericValue = currentCell.getNumericCellValue();
-                        String cformattedValue = String.format("%.2f", numericValue); // Format as needed
-
-                        if (cellIndex == 2) {
-                            t.setQty(numericValue);
-                        } else if (cellIndex == 3) {
-                            t.setRate(BigDecimal.valueOf(Double.parseDouble(cformattedValue)));
-                        }  
-
-                        t.setValue(null);
-
-                    
-                        break;
-                    // Handle other cell types if necessary
-                    default:
-                        break;
-                }
-
-                cellIndex++;
-            }
-
-            entities.add(t);
-        }
-
-
-        entities.forEach(e->{
-            double value = e.getQty() * e.getRate().doubleValue();
-            System.out.println(e.getItemName() +" "+ e.getUnit() +" "+ e.getQty() +" " + e.getRate() +" " +value);
-        });
-
-        workbook.close();
-    }
-
-    public Product addProduct(Product p, MultipartFile file, MultipartFile flagFile) throws IOException {
+    public Product addProduct(Product p, MultipartFile file) throws IOException {
 
         // boolean proNameKh = repo.existsByProNameKh(p.getProNameKh());
         // JavaValidation.checkDataAlreadyExists(proNameKh);
@@ -134,27 +45,29 @@ public class ProductService {
         // boolean proNameEn = repo.existsByProNameEn(p.getProNameEn());
         // JavaValidation.checkDataAlreadyExists(proNameEn);
 
-        // Object idUser = session.getAttribute(JavaConstant.userId);
-
-        // Vendor vendor = vendorRepository.findByUuid();
-
-        // List<Vendor> vendors = 
+        // validate vendorUuid
+        if (!vendorRepository.existsById(p.getVendorId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "vendorId has not been found .");
+        }
 
         Product pro = new Product();
-        // pro.setVendors(null);
+        pro.setProductActive(p.getProductActive());
+        pro.setVendorId(p.getVendorId());
+        pro.setCountryId(p.getCountryId());
+        pro.setAttributeId(p.getAttributeId());
+        pro.setChoices(p.getChoices());
+        pro.setUomId(p.getUomId());
+        pro.setMargin(p.getMargin());
         pro.setCatId(p.getCatId());
-        // pro.setUnitTypeId(p.getUnitTypeId());
         pro.setProNameKh(p.getProNameKh());
         pro.setProNameEn(p.getProNameEn());
         pro.setCost(p.getCost());
         pro.setPrice(p.getPrice());
-        // pro.setCostKhr(p.getCostKhr());
-        // pro.setPriceKhr(p.getPriceKhr());
-    
         pro.setNote(p.getNote());
         pro.setTaxId(p.getTaxId());
         pro.setCreateBy(p.getCreateBy());
-        pro.setWeight(p.getWeight());
+      
         pro.setBarcode(p.getBarcode());
         if (p.getDiscount() == null) {
             pro.setDiscount(BigDecimal.valueOf(0));
@@ -190,17 +103,7 @@ public class ProductService {
             fileStore.save(f);
             pro.setProImageName(fileName);
         }
-
-        if (flagFile == null || flagFile.isEmpty()) {
-            pro.setFlag(JavaConstant.defaultFlagNameImage);
-        } else {
-            // String flagName = JavaStorage.setFileName(flagFile.getOriginalFilename());
-            String flagName = flagFile.getOriginalFilename();
-            flagName = flagName.replace(" ", "-");
-            pro.setFlag(flagName);
-            FileStore f = new FileStore(flagName, flagName, flagFile.getContentType(), flagFile.getBytes());
-            fileStore.save(f);
-        }
+ 
 
         repo.save(pro);
 
@@ -279,10 +182,10 @@ public class ProductService {
         return list;
     }
 
-    public Product editProduct(int id, Product editProduct, MultipartFile file, MultipartFile flag) throws IOException {
+    public Product editProduct(int id, Product editProduct, MultipartFile file) throws IOException {
         Product previousPro = repo.findById(id).get();
         String fileName = previousPro.getProImageName();
-        String flagName = previousPro.getFlag();
+ 
 
         // if (!Objects.equals(previousPro.getProNameKh(), editProduct.getProNameKh()))
         // {
@@ -296,7 +199,7 @@ public class ProductService {
         // JavaValidation.checkDataAlreadyExists(isExist);
         // }
 
-        // Object idUser = session.getAttribute(JavaConstant.userId);
+
 
         if (Objects.equals(fileName, JavaConstant.defaultNameImage))
             fileName = "";
@@ -308,17 +211,13 @@ public class ProductService {
             fileStore.save(f1);
             previousPro.setProImageName(imgName);
         }
-
-        if (Objects.equals(flagName, JavaConstant.defaultFlagNameImage))
-            flagName = "";
-
-        if (flag != null && !flag.isEmpty()) {
-            // String fName = JavaStorage.setFileName(flag.getOriginalFilename());
-            String fName = flag.getOriginalFilename();
-            FileStore f2 = new FileStore(fName, fName, flag.getContentType(), flag.getBytes());
-            fileStore.save(f2);
-            previousPro.setFlag(fName);
-        }
+        previousPro.setProductActive(editProduct.getProductActive());
+        previousPro.setVendorId(editProduct.getVendorId());
+        previousPro.setCountryId(editProduct.getCountryId());
+        previousPro.setAttributeId(editProduct.getAttributeId());
+        previousPro.setChoices(editProduct.getChoices());
+        previousPro.setUomId(editProduct.getUomId());
+        previousPro.setMargin(editProduct.getMargin());
 
         previousPro.setProNameKh(editProduct.getProNameKh());
         previousPro.setProNameEn(editProduct.getProNameEn());
@@ -329,7 +228,7 @@ public class ProductService {
         previousPro.setCost(editProduct.getCost());
         // previousPro.setPriceKhr(editProduct.getPriceKhr());
         previousPro.setPrice(editProduct.getPrice());
-        previousPro.setWeight(editProduct.getWeight());
+        // previousPro.setWeight(editProduct.getWeight());
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
         previousPro.setBrandId(editProduct.getBrandId());

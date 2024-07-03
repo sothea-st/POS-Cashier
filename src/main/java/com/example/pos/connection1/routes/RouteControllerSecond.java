@@ -383,9 +383,11 @@ public class RouteControllerSecond {
 
           @PostMapping
           public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) throws IOException {
-               service.addImage(file);
-               return JavaResponse.success(file.getOriginalFilename());
+              String fileName = service.addImage(file);
+               return ResponseEntity.ok().body(Map.of("msg","success","fileName",fileName));
           }
+
+ 
 
           @GetMapping("/{id}")
           public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {

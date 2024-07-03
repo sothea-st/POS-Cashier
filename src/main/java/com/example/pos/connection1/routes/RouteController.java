@@ -56,6 +56,7 @@ import com.example.pos.connection1.service.SupplierService;
 import com.example.pos.connection1.service.cashierReport.CashierReportService;
 import com.example.pos.connection1.service.companyService.CompanyService;
 import com.example.pos.connection1.service.paymentService.ReprintService;
+import com.example.pos.connection1.service.product_service.ProductExcelServic;
 import com.example.pos.connection1.service.product_service.ProductService;
 import com.example.pos.connection1.service.sourceDataService.CancelItemService;
 import com.example.pos.connection1.service.sourceDataService.CurrencyValueService;
@@ -65,6 +66,7 @@ import com.example.pos.connection1.service.sourceDataService.ReturnProductServic
 import com.example.pos.connection1.service.sourceDataService.SourceService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 public class RouteController {
@@ -114,11 +116,11 @@ public class RouteController {
 
      @RequestMapping("/api/product")
      @RestController
+     @RequiredArgsConstructor
      public static class RouteProduct {
-          @Autowired
-          private ProductService service;
-          @Autowired
-          private ProductRepository repo;
+          private final ProductService service;
+          private final ProductRepository repo;
+          private final ProductExcelServic productExcelServic;
 
           @GetMapping(value = "/getHead")
           public ResponseEntity<?> geth() {
@@ -126,15 +128,15 @@ public class RouteController {
           }
 
           @PostMapping("/excel")
-          public void importFileExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
-               service.importFileExcel(multipartFile);
+          public  ResponseEntity<?> importFileExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+               productExcelServic.importFileExcel(multipartFile);
+               return JavaResponse.success("Import Success");
           }
 
           @PostMapping
           public ResponseEntity<?> addProduct(@Valid @ModelAttribute Product product,
-                    @RequestParam(value = "flagFile", required = false) MultipartFile flagFile,
                     @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-               Product data = service.addProduct(product, file, flagFile);
+               Product data = service.addProduct(product, file);
                return JavaResponse.success(data);
           }
 
@@ -163,9 +165,9 @@ public class RouteController {
 
           @PostMapping("/{id}")
           public ResponseEntity<?> editProduct(@PathVariable("id") int id, @ModelAttribute Product p,
-                    @RequestParam(value = "file", required = false) MultipartFile file,
-                    @RequestParam(value = "flagFile", required = false) MultipartFile flagFile) throws IOException {
-               Product pro = service.editProduct(id, p, file, flagFile);
+                    @RequestParam(value = "file", required = false) MultipartFile file
+                    ) throws IOException {
+               Product pro = service.editProduct(id, p, file);
                return JavaResponse.success(pro);
           }
 

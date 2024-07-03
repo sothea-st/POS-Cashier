@@ -11,11 +11,19 @@ public interface VendorRepository extends JpaRepository<Vendor,Integer> {
      boolean existsByContact(String contact);
 
      boolean existsByEmail(String email);
+
+     boolean existsByUuid(String uuid);
+
+     boolean existsById(int id);
+
    
      Optional<Vendor> findByUuidAndStatusTrueAndIsDeletedFalse(String uuid);
 
      Page<Vendor> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);
 
      Optional<Vendor> findByUuid(String uuid);
+
+     Optional<Vendor> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+
  
 }
