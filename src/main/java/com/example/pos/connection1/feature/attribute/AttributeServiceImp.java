@@ -1,5 +1,122 @@
 package com.example.pos.connection1.feature.attribute;
 
-public class AttributeServiceImp {
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import org.springframework.http.HttpStatus;
+
+import com.example.pos.connection1.entity.Attribute;
+import com.example.pos.connection1.feature.attribute.dto.AttributeRequest;
+import com.example.pos.connection1.feature.attribute.dto.AttributeResponse;
+import com.example.pos.connection1.feature.attribute.dto.AttributeUpdateRequest;
+import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+
+public class AttributeServiceImp implements AttributeService{
+
+    private final AttributeRepository attributeRepository;
+    private String idNotFound = "Id has not been found .";
+
+    /*
+      * read attribute by id
+      * required paramater id
+    */
+    @Override
+    public AttributeResponse readById (Integer id){
+        Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+        return mAttributeResponse(attribute);
+    }
+
+    /*
+      * read all attribute
+      * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0
+      * value was given from controller
+    */
+    @Override
+    public JavaCollectionResponse<?> read (int pageSize, int pageNumber){
+
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);  // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
+        Page<Attribute> pages = attributeRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+        
+        List<AttributeResponse> content = pages.getContent()
+                        .stream()
+                        .map(c->mAttributeResponse(c))
+                        .toList();
+                    
+        return JavaCollectionResponse.builder()
+                        .count(pages.getTotalElements())
+                        .content(content)
+                        .build();
+    }
+    
+    /*
+      * create new attribute 
+      * required paramater attributeRequest
+    */
+    @Override
+    public AttributeResponse create(AttributeRequest attributeRequest){
+        Attribute attribute = new Attribute();
+        attribute.setAttrNameEn(attributeRequest.attrNameEn());
+        attribute.setAttrNameKh(attributeRequest.attrNameKh());
+        attribute.setStatus(true);
+        attribute.setIsDeleted(false);
+        attributeRepository.save(attribute);
+        return mAttributeResponse(attribute);
+    }
+
+    /*
+      * update attribute by id
+      * required paramater id , attributeUpdateRequest
+    */
+    @Override
+    public AttributeResponse updateById(Integer id, AttributeUpdateRequest attributeUpdateRequest){
+        Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+        attribute.setAttrNameEn(attributeUpdateRequest.attrNameEn());
+        attribute.setAttrNameKh(attributeUpdateRequest.attrNameKh());
+        attribute.setStatus(true);
+        attribute.setIsDeleted(false);
+        attributeRepository.save(attribute);
+        return mAttributeResponse(attribute);
+    }
+
+    /*
+      * delete attribute by id
+    */
+    @Override
+    public void deleteById(Integer id){
+        Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+        attribute.setStatus(false);
+        attribute.setIsDeleted(true);
+        attributeRepository.save(attribute);
+    }
+
+    /*
+      * helper method mAttributeResponse
+    */
+    private AttributeResponse mAttributeResponse(Attribute attribute){
+        return AttributeResponse.builder()
+                .id(attribute.getId())
+                .attrNameEn(attribute.getAttrNameEn())
+                .attrNameKh(attribute.getAttrNameKh())
+                .status(attribute.getStatus())
+                .isDeleted(attribute.getIsDeleted())
+                .build();
+    }
 }

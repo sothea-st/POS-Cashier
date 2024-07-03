@@ -50,12 +50,7 @@ public class UomServiceImp implements UomService{
         uom.setIsDeleted(false);
         uomRepository.save(uom);
 
-        return UomResponse.builder()
-                .nameEn(uom.getNameEn())
-                .nameKh(uom.getNameKh())
-                .status(uom.getStatus())
-                .isDeleted(uom.getIsDeleted())
-                .build();
+        return mapTUomResponse(uom);
     }
 
     /*
@@ -115,6 +110,7 @@ public class UomServiceImp implements UomService{
     */
     private UomResponse mapTUomResponse(Uom uom){
         return UomResponse.builder()
+            .id(uom.getId())
             .nameEn(uom.getNameEn())
             .nameKh(uom.getNameKh())
             .status(uom.getStatus())
