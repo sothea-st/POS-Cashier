@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record UomResponse(
+    Integer id,
     String nameEn,
     String nameKh,
     Boolean status,

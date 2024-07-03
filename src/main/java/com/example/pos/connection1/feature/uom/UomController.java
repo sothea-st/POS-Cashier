@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UomController {
     private final UomService uomService;
 
+    /*
+      * get all uom
+    */
     @GetMapping
     JavaCollectionResponse<?> read (
             @RequestParam(defaultValue = "10", required = false) int pageSize,
@@ -35,22 +38,34 @@ public class UomController {
         return uomService.read(pageSize, pageNumber);
     }
     
+    /*
+      * create uom
+    */
     @PostMapping 
     UomResponse create(@Valid @RequestBody UomRequest uomRequest){
         return uomService.create(uomRequest);
     }
 
+    /*
+      * get uom by id
+    */
     @GetMapping("/{id}")
     UomResponse readById(@PathVariable("id") Integer id){
         return uomService.readById(id);
     }
 
+    /*
+      * delete uom
+    */
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable("id") Integer id){
         uomService.deleteById(id);
     }
 
+    /*
+      * update uom
+    */
     @PutMapping("/{id}")
     UomResponse updateById(@PathVariable("id") Integer id, @Valid @RequestBody UomUpdateRequest uomUpdateRequest){
         return uomService.updateById(id, uomUpdateRequest);
