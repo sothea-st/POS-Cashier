@@ -1,5 +1,6 @@
 package com.example.pos.connection1.util;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,8 +9,16 @@ import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
+import javax.imageio.ImageIO;
+
 public class ImageUtils {
     public static final int BITE_SIZE = 4 * 1024;
+
+    public static byte[] bufferedImageToByteArray(BufferedImage image) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", baos);
+        return baos.toByteArray();
+    }
 
     public static byte[] compressImage(byte[] data) throws IOException {
         Deflater deflater = new Deflater();
@@ -20,9 +29,9 @@ public class ImageUtils {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
         byte[] tmp = new byte[BITE_SIZE];
 
-        while(!deflater.finished()) {
+        while (!deflater.finished()) {
             int size = deflater.deflate(tmp);
-            outputStream.write(tmp,0, size);
+            outputStream.write(tmp, 0, size);
         }
 
         outputStream.close();
@@ -31,9 +40,9 @@ public class ImageUtils {
 
     public static byte[] decompressImage(byte[] data) throws DataFormatException, IOException {
 
-
-//        byte[] array = Files.readAllBytes(Paths.get("C:\\Users\\mobile-app.02\\Pictures\\image test\\iloveimg-resized_3\\sting.jpg"));
-
+        // byte[] array =
+        // Files.readAllBytes(Paths.get("C:\\Users\\mobile-app.02\\Pictures\\image
+        // test\\iloveimg-resized_3\\sting.jpg"));
 
         Inflater inflater = new Inflater();
         inflater.setInput(data);

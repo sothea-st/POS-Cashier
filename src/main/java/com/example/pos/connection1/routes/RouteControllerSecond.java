@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
 import com.example.pos.connection1.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.connection1.service.HoldService;
 import com.example.pos.connection1.service.shiftService.DefaultPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,9 +63,15 @@ import com.example.pos.connection1.service.searchByBarcodeOrNameService.SearchBy
 import com.example.pos.connection1.service.sourceDataService.BrandService;
 import com.example.pos.connection1.service.sourceDataService.CustomerService;
 import com.example.pos.connection1.service.sourceDataService.TaxProductService;
+import com.example.pos.connection1.util.ImageUtils;
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -155,15 +165,15 @@ public class RouteControllerSecond {
           }
 
           @GetMapping("/searchWithInvoice")
-          public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo ,
-           @RequestParam(value = "barcode" , required = false)  String barcode) {
-               Map<String, Object> data = service.searchWithInvoiceNo(invoiceNo,barcode); 
-              
-               if( data.get("msg").equals(JavaConstant.INVOICE_NUMBER_DOES_NOT_EXIST) ) {
+          public ResponseEntity<?> searchInvoice(@RequestParam("invoiceNo") String invoiceNo,
+                    @RequestParam(value = "barcode", required = false) String barcode) {
+               Map<String, Object> data = service.searchWithInvoiceNo(invoiceNo, barcode);
+
+               if (data.get("msg").equals(JavaConstant.INVOICE_NUMBER_DOES_NOT_EXIST)) {
                     return ResponseEntity.ok().body(data);
                }
 
-               if( data.get("msg").equals(JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER) ) {
+               if (data.get("msg").equals(JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER)) {
                     return ResponseEntity.ok().body(data);
                }
 
@@ -175,12 +185,12 @@ public class RouteControllerSecond {
                return JavaResponse.success(service.getIncoive(paymentBarcode));
           }
 
-
           @GetMapping("/getProductByBarcodeInInvoice")
-          public ResponseEntity<?> getProductByBarcodeInInvoice(@RequestParam("barcode") String barcode , @RequestParam("invoiceNumber") String invoiceNumber) {
-               return JavaResponse.success(service.getProductByBarcodeInInvoice(barcode,invoiceNumber));
+          public ResponseEntity<?> getProductByBarcodeInInvoice(@RequestParam("barcode") String barcode,
+                    @RequestParam("invoiceNumber") String invoiceNumber) {
+               return JavaResponse.success(service.getProductByBarcodeInInvoice(barcode, invoiceNumber));
           }
-   
+
      }
 
      @RestController
@@ -377,17 +387,22 @@ public class RouteControllerSecond {
 
      @RestController
      @RequestMapping("/api/public/addImageForBackground")
+     @RequiredArgsConstructor
      public static class RouteAddImage {
-          @Autowired
-          private AddImageService service;
-
+ 
+          private final AddImageService service;
+          private final ResourceLoader resourceLoader;
           @PostMapping
           public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file) throws IOException {
-              String fileName = service.addImage(file);
-               return ResponseEntity.ok().body(Map.of("msg","success","fileName",fileName));
+               String fileName = service.addImage(file);
+               return ResponseEntity.ok().body(Map.of("msg", "success", "fileName", fileName));
           }
 
- 
+          @PostMapping("/addMultiple")
+          public void addMultipleImage(@RequestParam("files") List<MultipartFile> files) throws IOException {
+               service.addMultiple(files);
+               // return ResponseEntity.ok().body(Map.of("msg","success","fileName",fileName));
+          }
 
           @GetMapping("/{id}")
           public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
@@ -395,6 +410,30 @@ public class RouteControllerSecond {
                return ResponseEntity.status(HttpStatus.OK)
                          .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
                          .body(imageData);
+          } 
+
+          @GetMapping("/readImage")
+          @ResponseBody
+          public ResponseEntity<byte[]> getImage() {
+               System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbb ");
+               try {
+                    // Load image from classpath resources
+                    Resource resource = resourceLoader.getResource("classpath:assets/product/default.jpg");
+                    InputStream inputStream = resource.getInputStream();
+                    BufferedImage bufferedImage = ImageIO.read(inputStream);
+        
+                    // Convert BufferedImage to byte array
+                    byte[] imageBytes = ImageUtils.bufferedImageToByteArray(bufferedImage);
+        
+                    // Set content type as per image format
+                    MediaType mediaType = MediaType.IMAGE_JPEG; // Example: JPEG image
+        
+                    return ResponseEntity.ok().contentType(mediaType).body(imageBytes);
+                } catch (IOException e) {
+                    System.out.println("eeeeeeeeeeeeeeeeeeeeeee " + e);
+                    e.printStackTrace();
+                    return ResponseEntity.notFound().build();
+                }
           }
      }
 
@@ -414,10 +453,10 @@ public class RouteControllerSecond {
           }
 
           @GetMapping
-          public ResponseEntity<?> getHold(@RequestParam("userId") int userID ,
-           @RequestParam(value = "id" , required = false) Integer id) {
+          public ResponseEntity<?> getHold(@RequestParam("userId") int userID,
+                    @RequestParam(value = "id", required = false) Integer id) {
 
-               HashMap<String, Object> data = service.getHold(userID,id);
+               HashMap<String, Object> data = service.getHold(userID, id);
                long count = repo.countResult(userID);
                data.put("count", count);
                data.put("msg", "success");
@@ -479,7 +518,5 @@ public class RouteControllerSecond {
                return JavaResponse.deleteSuccess(id);
           }
      }
-
- 
 
 }
