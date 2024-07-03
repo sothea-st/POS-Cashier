@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class ProductResponse {
-
+     
      private String barcode;
      private Integer vendorId;
      private Integer brandId;
@@ -29,6 +29,8 @@ public class ProductResponse {
      private String status;
      private Integer countryId;
      private Integer taxId;
-//     private String path;
+     private String link="Browse";
+     private String photo="";
+     private String number;
      
 }

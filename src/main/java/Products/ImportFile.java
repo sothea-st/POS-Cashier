@@ -2,17 +2,28 @@ package Products;
 
 import Color.WindowColor;
 import Constant.JNAFileChooser;
+import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
 import Constant.JavaGetDataFromExcel;
+import Constant.JavaRoute;
 import Fonts.WindowFonts;
 import Model.PackageProduct.ProductResponse;
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ImportFile extends javax.swing.JDialog {
 
@@ -134,26 +145,47 @@ public class ImportFile extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+//         if (path == null) {
+//              JOptionPane.showMessageDialog(this, "Please select file!");
+//              return;
+//         }
+//         String url = new JavaBaseUrl().getBaseUrl() + "/product/excel";
+//         OkHttpClient client = new OkHttpClient();
+//         // File to upload
+//
+//         // Request body
+//         MultipartBody.Builder requestBody = new MultipartBody.Builder()
+//              .setType(MultipartBody.FORM);
+//
+//         if (path != null) {
+//              File fileToUpload = new File(path);
+//              requestBody.addFormDataPart("file", fileToUpload.getName(),
+//                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+//         }
+//
+//         // Request
+//         Request request = new Request.Builder()
+//              .url(url)
+//              .post(requestBody.build())
+//              .header("Authorization", "Bearer " + JavaConstant.token)
+//              .build();
+//
+//         try {
+//              Response response = client.newCall(request).execute();
+//              if (response.isSuccessful()) {
+//                   dispose();
+//              }
+//              // Do something with the response.
+//         } catch (IOException e) {
+//              System.out.println("err = " + e);
+//         }
+
+
+
          List<ProductResponse> list = new JavaGetDataFromExcel().readExcelFile(path);
-         for (ProductResponse p : list) {
-              System.out.println(
-                   p.getBarcode() + " -- "
-                   + p.getVendorId()+ " -- "
-                   + p.getBrandId()+ " -- "
-                   + p.getCatId()+ " -- "
-                   + p.getProductName()+ " -- "
-                   + p.getProductNameKh()+ " -- "
-                   + p.getCost()+ " -- "
-                   + p.getPrice()+ " -- "
-                   + p.getMargin()+ " -- "
-                   + p.getAttributeId()+ " -- "
-                   + p.getChoiceValue()+ " -- "
-                   + p.getUomId()+ " -- "
-                   + p.getStatus()+ " -- "
-                   + p.getCountryId()+ " -- "
-                   + p.getTaxId() 
-              );
-         }
+         ImportDetail importDetail = new ImportDetail(new JFrame(), true);
+         importDetail.setCustomTable(list);
+         importDetail.setVisible(true);
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
