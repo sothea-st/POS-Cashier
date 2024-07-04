@@ -6,7 +6,7 @@ package Model.Report;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
- 
+
 /**
  *
  * @author MOBILE-APP.02
@@ -31,6 +31,17 @@ public class ReportSaleDetail {
      private BigDecimal margin;
      private String userName;
      private String barcode;
+     private String invoiceNumber;
+
+     @JsonProperty("invoiceNumber")
+     public String getInvoiceNumber() {
+          return invoiceNumber;
+     }
+
+     @JsonProperty("invoiceNumber")
+     public void setInvoiceNumber(String invoiceNumber) {
+          this.invoiceNumber = invoiceNumber;
+     }
 
      @JsonProperty("saleDate")
      public String getSaleDate() {

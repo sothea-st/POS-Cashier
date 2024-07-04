@@ -8,6 +8,8 @@ public interface ButtonEvent {
 
      default public void onClick() {
      }
+     default public void onClick(int row) {
+     }
 
      default public void onDelete() {
      }

@@ -1,6 +1,7 @@
 package GroupExport.ReportSale;
 
 
+import Constant.JavaConstant;
 import Model.Report.ReportImportDetail;
 import Model.Report.ReportSaleDetail;
 import com.itextpdf.io.image.ImageData;
@@ -46,13 +47,7 @@ import static pdf.PrintListPDF.folderPath;
 public class ExportReportSaleToPDF {
       public static void printListPdf(ReportSaleDetail[] list) throws IOException {
           try {
-
-               LocalDate currentDate = LocalDate.now();
-               // Define a custom date format
-               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-               // Format the current date using the defined format
-               String formattedDate = currentDate.format(formatter);
-               String fileName = formattedDate;
+               String fileName = JavaConstant.getCurrentLocalTime();
                // Output PDF file path
 
                // Specify PDF file path
@@ -80,7 +75,7 @@ public class ExportReportSaleToPDF {
 //                    }
                     dataList.add(new Object[]{
                          String.valueOf(i + 1),
-                         String.valueOf("RIV101-02-240525001"),
+                         String.valueOf(detail.getInvoiceNumber()),
                          String.valueOf(detail.getSaleDate()),
                          String.valueOf(detail.getProNameEn()),
                          String.valueOf(detail.getQty()),

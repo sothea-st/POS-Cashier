@@ -1,11 +1,13 @@
 package com.mycompany.kingmart;
 
+import Products.ImportFile;
 import View.MainPage.MainPage;
 import java.awt.Desktop;
 import java.io.File;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import javax.swing.JFrame;
 
 /**
  *
@@ -17,6 +19,9 @@ public class KingMart {
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
 
+//            ImportFile i = new ImportFile(new JFrame(), true);
+//            i.setVisible(true);
      }
 
 }
+

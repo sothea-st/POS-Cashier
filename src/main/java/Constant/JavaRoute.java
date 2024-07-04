@@ -54,5 +54,9 @@ public class JavaRoute {
      public static String attribute = "/attribute";
      public static String uom = "/uom";
      public static String vendor = "/vendor";
+     public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
+     public static String importMultiple = "/product/importMultiple";
+
+     
 
 }
