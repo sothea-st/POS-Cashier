@@ -397,7 +397,6 @@ public class RouteControllerSecond {
           } 
 
           @GetMapping("/readImage")
-          @ResponseBody
           public ResponseEntity<byte[]> getImage() {
          
                try {
@@ -414,7 +413,7 @@ public class RouteControllerSecond {
         
                     return ResponseEntity.ok().contentType(mediaType).body(imageBytes);
                 } catch (IOException e) {
-                    System.out.println("eeeeeeeeeeeeeeeeeeeeeee " + e);
+                 
                     e.printStackTrace();
                     return ResponseEntity.notFound().build();
                 }

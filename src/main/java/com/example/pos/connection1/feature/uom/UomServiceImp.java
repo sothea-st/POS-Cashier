@@ -89,7 +89,7 @@ public class UomServiceImp implements UomService{
                     
         return JavaCollectionResponse.builder()
                         .count(pages.getTotalElements())
-                        .content(content)
+                        .data(content)
                         .build();
     }
 

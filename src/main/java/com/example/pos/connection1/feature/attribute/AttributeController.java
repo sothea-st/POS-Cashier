@@ -26,50 +26,50 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @RequiredArgsConstructor
 
 public class AttributeController {
-    private final AttributeService attributeService;
-    
-    /*
-      * get all attribute
-    */
-    @GetMapping
-    JavaCollectionResponse<?> read (
-        @RequestParam(defaultValue = "10", required = false ) int pageSize,
-        @RequestParam(defaultValue = "0", required = false) int pageNumber
-    ){
-        return attributeService.read(pageSize, pageNumber);
-    }
+	private final AttributeService attributeService;
 
-    /*
-      * get attribute by id
-    */
-    @GetMapping("/{id}")
-    AttributeResponse readById (@PathVariable("id") Integer id){
-        return attributeService.readById(id);
-    }
+	/*
+	 * get all attribute
+	 */
+	@GetMapping
+	JavaCollectionResponse<?> read(
+			@RequestParam(defaultValue = "10", required = false) int pageSize,
+			@RequestParam(defaultValue = "0", required = false) int pageNumber) {
+		return attributeService.read(pageSize, pageNumber);
+	}
 
-    /*
-      * create attribute
-    */
-    @PostMapping
-    AttributeResponse create(@Valid @RequestBody AttributeRequest attributeRequest){
-        return attributeService.create(attributeRequest);
-    }
-    
-    /*
-      * update attribute
-    */
-    @PutMapping("/{id}")
-    AttributeResponse updateById(@PathVariable("id") Integer id, @Valid @RequestBody AttributeUpdateRequest attributeUpdateRequest){
-        return attributeService.updateById(id, attributeUpdateRequest);
-    }
+	/*
+	 * get attribute by id
+	 */
+	@GetMapping("/{id}")
+	AttributeResponse readById(@PathVariable("id") Integer id) {
+		return attributeService.readById(id);
+	}
 
-    /*
-      * delete attribute
-    */
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/{id}")
-    void deleteById(@PathVariable("id") Integer id){
-        attributeService.deleteById(id);
-    }
+	/*
+	 * create attribute
+	 */
+	@PostMapping
+	AttributeResponse create(@Valid @RequestBody AttributeRequest attributeRequest) {
+		return attributeService.create(attributeRequest);
+	}
+
+	/*
+	 * update attribute
+	 */
+	@PutMapping("/{id}")
+	AttributeResponse updateById(@PathVariable("id") Integer id,
+			@Valid @RequestBody AttributeUpdateRequest attributeUpdateRequest) {
+		return attributeService.updateById(id, attributeUpdateRequest);
+	}
+
+	/*
+	 * delete attribute
+	 */
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{id}")
+	void deleteById(@PathVariable("id") Integer id) {
+		attributeService.deleteById(id);
+	}
 
 }

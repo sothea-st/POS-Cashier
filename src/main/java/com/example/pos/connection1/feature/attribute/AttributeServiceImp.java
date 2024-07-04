@@ -33,7 +33,7 @@ public class AttributeServiceImp implements AttributeService{
       * required paramater id
     */
     @Override
-    public AttributeResponse readById (Integer id){
+    public AttributeResponse readById(Integer id){
         Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
         return mAttributeResponse(attribute);
@@ -45,7 +45,7 @@ public class AttributeServiceImp implements AttributeService{
       * value was given from controller
     */
     @Override
-    public JavaCollectionResponse<?> read (int pageSize, int pageNumber){
+    public JavaCollectionResponse<?> read(int pageSize, int pageNumber){
 
         Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);  // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
@@ -58,7 +58,7 @@ public class AttributeServiceImp implements AttributeService{
                     
         return JavaCollectionResponse.builder()
                         .count(pages.getTotalElements())
-                        .content(content)
+                        .data(content)
                         .build();
     }
     

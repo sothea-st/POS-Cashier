@@ -63,7 +63,7 @@ public class CountryServiceImp implements CountryService {
                     .toList();
 
           return JavaCollectionResponse.builder()
-                    .content(content)
+                    .data(content)
                     .count(pages.getTotalElements())
                     .build();
      }

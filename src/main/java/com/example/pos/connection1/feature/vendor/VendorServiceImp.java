@@ -161,7 +161,7 @@ public class VendorServiceImp implements VendorService {
 
           return JavaCollectionResponse.builder()
                     .count(pages.getTotalElements())
-                    .content(content)
+                    .data(content)
                     .build();
      }
 

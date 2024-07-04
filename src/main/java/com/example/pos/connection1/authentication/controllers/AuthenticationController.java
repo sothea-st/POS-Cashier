@@ -122,19 +122,19 @@ public class AuthenticationController {
 
  
         // for do at home
-        if (!userCheck.isEmpty()) {
-            map.put("token", jwtToken);
-            map.put("id", authenticatedUser.getId());
-            map.put("empId", authenticatedUser.getEmpId());
-            map.put("userCode", authenticatedUser.getUserCode());
-            map.put("roleId", authenticatedUser.getRole());
-            map.put("roleName", "Admin");
-            map.put("token", jwtToken);
-            map.put("posId", posId);
-            map.put("userName", "SOTHEA");
-            map.put("msg", JavaConstant.success);
-            return ResponseEntity.ok().body(map);
-        }
+        // if (!userCheck.isEmpty()) {
+        //     map.put("token", jwtToken);
+        //     map.put("id", authenticatedUser.getId());
+        //     map.put("empId", authenticatedUser.getEmpId());
+        //     map.put("userCode", authenticatedUser.getUserCode());
+        //     map.put("roleId", authenticatedUser.getRole());
+        //     map.put("roleName", "Admin");
+        //     map.put("token", jwtToken);
+        //     map.put("posId", posId);
+        //     map.put("userName", "SOTHEA");
+        //     map.put("msg", JavaConstant.success);
+        //     return ResponseEntity.ok().body(map);
+        // }
         // ============ end ==========
 
 

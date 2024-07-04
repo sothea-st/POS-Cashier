@@ -88,11 +88,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    // @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<?, ?> handleResponseStatusException(ResponseStatusException e) {
         ErrorResponse<?> errorResponse = ErrorResponse
                 .builder()
-                .code(HttpStatus.NOT_FOUND.value())
+                .code(e.getStatusCode().value())
                 .reason(e.getReason())
                 .build();
         return Map.of("error", errorResponse);

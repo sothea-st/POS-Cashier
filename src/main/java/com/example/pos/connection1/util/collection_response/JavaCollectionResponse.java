@@ -5,7 +5,7 @@ import lombok.Builder;
 @Builder
 public record JavaCollectionResponse<T>(
     long count,
-    T content
+    T data
 ) {
     
 }

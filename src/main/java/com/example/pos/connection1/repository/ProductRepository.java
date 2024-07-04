@@ -14,6 +14,9 @@ import java.util.*;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+
+        boolean existsByBarcode(String barcode);
+
         @Query(nativeQuery = true, value = "select\r\n" + //
                                 "\t*\r\n" + //
                                 "from\r\n" + //

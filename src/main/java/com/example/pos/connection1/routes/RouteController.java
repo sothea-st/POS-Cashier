@@ -1,6 +1,9 @@
 package com.example.pos.connection1.routes;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.io.IOException;
 import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
 import java.util.*;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.DTO.categoryDto.CategoryRequest;
@@ -57,7 +61,10 @@ import com.example.pos.connection1.service.cashierReport.CashierReportService;
 import com.example.pos.connection1.service.companyService.CompanyService;
 import com.example.pos.connection1.service.paymentService.ReprintService;
 import com.example.pos.connection1.service.product_service.ProductExcelServic;
+import com.example.pos.connection1.service.product_service.ProductMultipleService;
 import com.example.pos.connection1.service.product_service.ProductService;
+import com.example.pos.connection1.service.product_service.dto.ProductMultiple;
+import com.example.pos.connection1.service.product_service.dto.ProductMultipleRequest;
 import com.example.pos.connection1.service.sourceDataService.CancelItemService;
 import com.example.pos.connection1.service.sourceDataService.CurrencyValueService;
 import com.example.pos.connection1.service.sourceDataService.CustomerTypeService;
@@ -121,14 +128,38 @@ public class RouteController {
           private final ProductService service;
           private final ProductRepository repo;
           private final ProductExcelServic productExcelServic;
+          private final ProductMultipleService productMultipleService;
 
           @GetMapping(value = "/getHead")
           public ResponseEntity<?> geth() {
                return ResponseEntity.ok().body(repo.getHead());
           }
 
+          @PostMapping("/importMultiple")
+
+          public ResponseEntity<?> addMultipleProduct(@RequestBody ProductMultiple lists) {
+
+               Map<String, Object> response = productMultipleService.addMultipleProduct(lists);
+
+               int code = (int) response.get("code"); // Assuming 'code' is returned as an integer
+
+               if (code == 409) {
+                    // Conflict: Barcode already exists
+                    return ResponseEntity.ok().body(Map.of("msg", "conflict", "data", "Barcode : "
+                              + response.get("barcode") + " already exists for one or more products in the list."));
+               } else if (code == 200) {
+                    // Success: All products imported successfully
+                    return JavaResponse.success("Import Success");
+               } else {
+                    // Handle other status codes as needed
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                              "Unexpected status returned from service.");
+               }
+          }
+
           @PostMapping("/excel")
-          public  ResponseEntity<?> importFileExcel(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+          public ResponseEntity<?> importFileExcel(@RequestParam("file") MultipartFile multipartFile)
+                    throws IOException {
                productExcelServic.importFileExcel(multipartFile);
                return JavaResponse.success("Import Success");
           }
@@ -165,8 +196,7 @@ public class RouteController {
 
           @PostMapping("/{id}")
           public ResponseEntity<?> editProduct(@PathVariable("id") int id, @ModelAttribute Product p,
-                    @RequestParam(value = "file", required = false) MultipartFile file
-                    ) throws IOException {
+                    @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
                Product pro = service.editProduct(id, p, file);
                return JavaResponse.success(pro);
           }
