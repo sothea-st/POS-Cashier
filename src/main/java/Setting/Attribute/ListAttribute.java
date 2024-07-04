@@ -1,12 +1,35 @@
 package Setting.Attribute;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
+import Model.Attribute.Attribute;
+import Model.Attribute.DataAttributeModel;
+import Model.Attribute.DetailAttributeModel;
+import Model.Attribute.ListAttributeModel;
+import Setting.Category.GetCategory;
+import Setting.Category.NoDataAvailable;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ListAttribute extends javax.swing.JDialog {
 
@@ -28,8 +51,169 @@ public class ListAttribute extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Attribute");
         
+        getAttribute(listGetAttribute);
     }
 
+    public void getAttribute(JPanel jpanelData) {
+        try {
+
+            Response response = JavaConnection.get(JavaRoute.attribute );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListAttributeModel data = objMap.readValue(responseData, ListAttributeModel.class);
+                DataAttributeModel[] listData = data.getContent();
+                assignAttribute(listData, jpanelData);
+            } else {
+                System.err.println("fail loading attribute");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting attribute " + e);
+        }
+    }
+     
+    public void assignAttribute(DataAttributeModel[] listData, JPanel listGetAttribute) {
+        ArrayList<Attribute> attr = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            Attribute getAttr = new Attribute(
+                    obj.getId(),
+                    obj.getAttrNameEn(),
+                    obj.getAttrNameKh()
+            );
+            attr.add(getAttr);
+        }
+
+        appenAttribute(attr, listGetAttribute);
+    }
+    
+    void appenAttribute(ArrayList<Attribute> listAttribute, JPanel listGetAttribute) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetAttribute.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if(listAttribute.size() > 0){
+            for (int i = 0; i < listAttribute.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+
+                var listData = listAttribute.get(i);
+                
+                GetCategory b = new GetCategory();
+
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        AddAttribute edit = new AddAttribute(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.attribute + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailAttributeModel data = objMap.readValue(responseData, DetailAttributeModel.class);
+                            
+                            System.out.println("data : " + data);
+
+                            edit.setId(data.getId());
+                            edit.setListGetAttribute(listGetAttribute);
+
+                            edit.setValueEdit(
+                                data.getAttrNameEn(),
+                                data.getAttrNameKh()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting attribute " + e);
+                        }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete brand
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Attribute?",
+                                    "Delete Attribute?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                json.put("status", false);
+                                json.put("isDeleted", true);
+                                Response response = JavaConnection.delete(JavaRoute.attribute + "/" + listData.getId(), json);
+
+                                if (response.isSuccessful()) {
+                                    ListAttribute list = new ListAttribute(new JFrame(), true);
+                                    listGetAttribute.removeAll();
+                                    listGetAttribute.revalidate();
+                                    listGetAttribute.repaint();
+                                    list.getAttribute(listGetAttribute);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting attribute " + e);
+                        }
+                    }
+                };
+
+                b.initEvent(events);
+                b.setId(listData.getId());
+                
+                b.setCategoryNameEn(listData.getAttributeNameEn());
+                b.setCategoryNameKh(listData.getAttributeNameKh());
+
+                try {
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
+
+                listGetAttribute.add(b, gbc);
+            }  
+        }else{
+            NoDataAvailable no = new NoDataAvailable();
+            listGetAttribute.add(no);
+        }
+        
+        listGetAttribute.revalidate();
+        listGetAttribute.repaint();
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,7 +225,7 @@ public class ListAttribute extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetCategory = new javax.swing.JPanel();
+        listGetAttribute = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
 
@@ -92,20 +276,20 @@ public class ListAttribute extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetCategory.setBackground(new java.awt.Color(176, 215, 181));
+        listGetAttribute.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetCategoryLayout = new javax.swing.GroupLayout(listGetCategory);
-        listGetCategory.setLayout(listGetCategoryLayout);
-        listGetCategoryLayout.setHorizontalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetAttributeLayout = new javax.swing.GroupLayout(listGetAttribute);
+        listGetAttribute.setLayout(listGetAttributeLayout);
+        listGetAttributeLayout.setHorizontalGroup(
+            listGetAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 654, Short.MAX_VALUE)
         );
-        listGetCategoryLayout.setVerticalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetAttributeLayout.setVerticalGroup(
+            listGetAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetCategory);
+        jScrollPane.setViewportView(listGetAttribute);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,6 +364,7 @@ public class ListAttribute extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddAttribute add = new AddAttribute(new JFrame(), true);
+        add.setListGetAttribute(listGetAttribute);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -231,7 +416,7 @@ public class ListAttribute extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetCategory;
+    private javax.swing.JPanel listGetAttribute;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

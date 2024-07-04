@@ -51,5 +51,8 @@ public class JavaRoute {
      public static String getParentById = "/category/parentId/";
      public static String reportImport = "/import/reportImport";
      public static String reportSaled = "/sale/reportSaled";
+     public static String attribute = "/attribute";
+     public static String uom = "/uom";
+     public static String vendor = "/vendor";
 
 }
