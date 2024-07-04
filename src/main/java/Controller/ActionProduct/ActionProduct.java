@@ -93,7 +93,7 @@ public class ActionProduct {
           try {
 
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-               
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -233,7 +233,6 @@ public class ActionProduct {
           appendProduct(listProduct, panelProduct);
      }
      DataListHold[] listHoldData;
- 
 
      void getHold() {
           try {
@@ -301,6 +300,13 @@ public class ActionProduct {
 
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
+
+                         System.out.println("product status : " + listData.getProductStatus());
+                         if (listData.getProductStatus() == null) {
+                              j.setMessage("Products are not avalible for sale!");
+                              j.setVisible(true);
+                              return;
+                         }
 
                          if (!listData.getProductStatus().isEmpty()) {
                               if (JavaConstant.checkOpenShift) {
@@ -370,13 +376,12 @@ public class ActionProduct {
 
                product.setOrgQty(listData.getQty());
 
-               
 //================================Product Status============================
                if (listData.getQty() > 0) {
-                  
+
                     product.setProductStatus(listData.getProductStatus());
                } else {
-                   
+
                     if (listData.getProductStatus() == null) {
                          product.setProductStatus("Unavailable");
                     } else {
@@ -399,46 +404,12 @@ public class ActionProduct {
 
                product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
 
-//               ====================== get weight old  ====================
-//               String _weight = "";
-//
-//               if (listData.getWeight() != null) {
-//                    // Your JSON string
-//                    String jsonString = listData.getWeight();
-//
-//                    // Convert the string to a JSONArray
-//                    JSONArray jsonArray = new JSONArray(jsonString);
-//
-//                    // Iterate over each JSONObject in the JSONArray
-//                    for (int m = 0; m < jsonArray.length(); m++) {
-//                         JSONObject jsonObject = jsonArray.getJSONObject(m);
-//
-//                         // Get values from each JSONObject
-//                         String name = jsonObject.getString("name");
-//                         String title = jsonObject.getString("title");
-//
-//                         // Extract options JSONArray
-//                         JSONArray optionsArray = jsonObject.getJSONArray("options");
-//
-//                         // Get the first option
-//                         JSONObject optionsObject = optionsArray.getJSONObject(0);
-//                         String option = optionsObject.getString("option");
-//
-//                         _weight = option;
-//                    }
-//
-//               }
-//
-//               product.setWeight(_weight);
                product.setWeight(listData.getWeight());
 
                if (listData.getDiscount() > 0) {
                     double discountPrice = price - (listData.getDiscount() * price) / 100;
-
                     product.setPrice(dm.format(discountPrice));
                } else {
-//                    double _price = JavaConstant.get4Length("" + price);
-
                     product.setPrice(dm.format(price));
                }
 
@@ -503,9 +474,6 @@ public class ActionProduct {
           double discount = (listData.getDiscount() * price) / 100;
           discount = JavaConstant.get4Length("" + discount); // get 2 precision
 
-//          if( listData.getDiscount() > 0 ) {
-//               System.out.println("listData: " + (listData.getPrice() -discount));
-//          }
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
 
@@ -575,35 +543,7 @@ public class ActionProduct {
           box.setDiscountDigit(listData.getDiscount());
           box.setLabelProductName(listData.getProductNameEn());
 
-//        ====================== get weight ====================
-//          String _weight = "";
-//          // Your JSON string
-//          String jsonString = listData.getWeight();
-//
-//          // Convert the string to a JSONArray
-//          JSONArray jsonArray = new JSONArray(jsonString);
-//
-//          // Iterate over each JSONObject in the JSONArray
-//          for (int m = 0; m < jsonArray.length(); m++) {
-//               JSONObject jsonObject = jsonArray.getJSONObject(m);
-//
-//               // Get values from each JSONObject
-//               String name = jsonObject.getString("name");
-//               String title = jsonObject.getString("title");
-//
-//               // Extract options JSONArray
-//               JSONArray optionsArray = jsonObject.getJSONArray("options");
-//
-//               // Get the first option
-//               JSONObject optionsObject = optionsArray.getJSONObject(0);
-//               String option = optionsObject.getString("option");
-//
-//               _weight = option;
-//          }
-//
-//          box.setLabelWeight(_weight);
           box.setLabelWeight(listData.getWeight());
-
           box.setLabelBarcode(listData.getBarcode());
           box.setOldDiscount(listData.getDiscount());
 
@@ -663,12 +603,12 @@ public class ActionProduct {
           }
 
           try {
-              if(listData.getProImageName().contains("media/file/crm/uploadfile/")){
-                  box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
-              }else{
-                  box.setIconImage(new JavaBaseUrl().getBaseUrl()+"/public/addImageForBackground/"+listData.getProImageName());
-              } 
-               
+               if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
+                    box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
+               } else {
+                    box.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
+               }
+
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());

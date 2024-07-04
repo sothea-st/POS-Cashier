@@ -4,7 +4,10 @@
  */
 package Model.PackageProduct;
 
+import Constant.JavaConstant;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +15,8 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class ProductResponse {
      
      private String barcode;
@@ -29,8 +34,9 @@ public class ProductResponse {
      private String status;
      private Integer countryId;
      private Integer taxId;
-     private String link="Browse";
-     private String photo="";
+     private String link;
+     private String photo;
      private String number;
+     private Integer createBy;
      
 }

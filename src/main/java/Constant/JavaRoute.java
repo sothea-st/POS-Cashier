@@ -51,5 +51,9 @@ public class JavaRoute {
      public static String getParentById = "/category/parentId/";
      public static String reportImport = "/import/reportImport";
      public static String reportSaled = "/sale/reportSaled";
+     public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
+     public static String importMultiple = "/product/importMultiple";
+
+     
 
 }

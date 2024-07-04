@@ -16,11 +16,11 @@ import javax.swing.JFrame;
 public class KingMart {
 
      public static void main(String[] args) throws FileNotFoundException {
-//          MainPage mainPage = new MainPage();
-//          mainPage.setVisible(true);
+          MainPage mainPage = new MainPage();
+          mainPage.setVisible(true);
 
-            ImportFile i = new ImportFile(new JFrame(), true);
-            i.setVisible(true);
+//            ImportFile i = new ImportFile(new JFrame(), true);
+//            i.setVisible(true);
      }
 
 }

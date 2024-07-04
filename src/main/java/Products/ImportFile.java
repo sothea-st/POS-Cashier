@@ -2,28 +2,17 @@ package Products;
 
 import Color.WindowColor;
 import Constant.JNAFileChooser;
-import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
 import Constant.JavaGetDataFromExcel;
-import Constant.JavaRoute;
 import Fonts.WindowFonts;
 import Model.PackageProduct.ProductResponse;
-import java.awt.Color;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class ImportFile extends javax.swing.JDialog {
 
@@ -35,9 +24,7 @@ public class ImportFile extends javax.swing.JDialog {
           fileName.setFont(WindowFonts.timeNewRoman14);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
-
           browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
-
      }
 
      @SuppressWarnings("unchecked")
@@ -145,54 +132,23 @@ public class ImportFile extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-//         if (path == null) {
-//              JOptionPane.showMessageDialog(this, "Please select file!");
-//              return;
-//         }
-//         String url = new JavaBaseUrl().getBaseUrl() + "/product/excel";
-//         OkHttpClient client = new OkHttpClient();
-//         // File to upload
-//
-//         // Request body
-//         MultipartBody.Builder requestBody = new MultipartBody.Builder()
-//              .setType(MultipartBody.FORM);
-//
-//         if (path != null) {
-//              File fileToUpload = new File(path);
-//              requestBody.addFormDataPart("file", fileToUpload.getName(),
-//                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-//         }
-//
-//         // Request
-//         Request request = new Request.Builder()
-//              .url(url)
-//              .post(requestBody.build())
-//              .header("Authorization", "Bearer " + JavaConstant.token)
-//              .build();
-//
-//         try {
-//              Response response = client.newCall(request).execute();
-//              if (response.isSuccessful()) {
-//                   dispose();
-//              }
-//              // Do something with the response.
-//         } catch (IOException e) {
-//              System.out.println("err = " + e);
-//         }
-
-
+ 
+         if (fileName.getText().isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Please select file!");
+              return;
+         }
 
          List<ProductResponse> list = new JavaGetDataFromExcel().readExcelFile(path);
          ImportDetail importDetail = new ImportDetail(new JFrame(), true);
          importDetail.setListProductResponse(list);
          importDetail.setCustomTable(list);
          importDetail.setVisible(true);
+         
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
          try {
               path = JNAFileChooser.funChooseFile();
-              System.out.println("path file : " + path);
               JavaConstant.filePath(path, fileName);
          } catch (IOException ex) {
               Logger.getLogger(ImportFile.class.getName()).log(Level.SEVERE, null, ex);

@@ -353,7 +353,6 @@ public class EditProduct extends javax.swing.JDialog {
                }
           };
           nameEn.initEvent(btnevent);
-       
           barcode.initEvent(btnevent);
           price.initEvent(btnevent);
           cost.initEvent(btnevent);

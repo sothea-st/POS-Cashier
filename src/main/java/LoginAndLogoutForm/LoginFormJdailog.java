@@ -701,14 +701,11 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     String lowerCase = catNameData.toLowerCase();
                     pro.setNext(next);
                     switch (lowerCase) {
-                         case "new items": //   NEW ITEMS
+                         case "new items" -> //   NEW ITEMS
                               pro.newProduct(JavaConstant.limitPagination, panelProduct);
-                              break;
-                         case "promotion":   //  Promotion
+                         case "promotion" -> //  Promotion
                               pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
-                              break;
-                         default:
-                              pro.product(catId, JavaConstant.limitPagination, panelProduct);
+                         default -> pro.product(catId, JavaConstant.limitPagination, panelProduct);
                     }
                }
                pro.setBtnPayment(btnPayment);
