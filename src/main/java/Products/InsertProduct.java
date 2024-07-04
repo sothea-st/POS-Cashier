@@ -1,40 +1,158 @@
 package Products;
 
 import Color.WindowColor;
+import Constant.JavaConnection;
+import Constant.JavaRoute;
 import Event.ButtonEvent;
+import Model.combobox.BrandModel;
+import Model.combobox.ComboBoxSelection;
+import Model.combobox.TaxModel;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class InsertProduct extends javax.swing.JDialog {
 
-    public InsertProduct(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        event();
-        txtBarcode.requestFocus();
-        browse.setBorder( BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue) );
-    }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+     private String brandId;
+     private String taxId;
+     private String uomId;
+     private String attributeId;
+     private String subCatId;
+     private String vendorId;
+     private String countryId;
 
-            }
-        };
-        txtBarcode.initEvent(btnevent);
+     public InsertProduct(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          event();
+          txtBarcode.requestFocus();
+          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
 
-        txtProductName.initEvent(btnevent);
-        txtProductNameKh.initEvent(btnevent);
-        txtCost.initEvent(btnevent);
-        txtPrice.initEvent(btnevent);
-        txtChoiceValue.initEvent(btnevent);
-    }
+          groupEventCmd();
+     }
 
-    @SuppressWarnings("unchecked")
+     private void groupEventCmd() {
+          //  ============== combobox brand ================
+          ButtonEvent brandEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    brandId = key;
+               }
+          };
+          cmbBrand.initEvent(brandEvent);
+          // brandNameEn is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbBrand, JavaRoute.brand, "brandNameEn");
+          //  ============== end ================
+
+          //  ============== combobox tax ================
+          ButtonEvent taxEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    taxId = key;
+               }
+          };
+          cmbTax.initEvent(taxEvent);
+          // tax_name is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbTax, JavaRoute.tax, "tax_name");
+          //  ============== end ================
+
+          //  ============== combobox cmbUom ================
+          ButtonEvent uomEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    uomId = key;
+               }
+          };
+          cmbUom.initEvent(uomEvent);
+          // nameEn is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbUom, JavaRoute.uom, "nameEn");
+          //  ============== end ================
+
+          //  ============== combobox cmbAttribute ================
+          ButtonEvent attributeEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    attributeId = key;
+               }
+          };
+          cmbAttribute.initEvent(attributeEvent);
+          // attrNameEn is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbAttribute, JavaRoute.attribute, "attrNameEn");
+          //  ============== end ================
+
+          //  ============== combobox cmbSubCategory ================
+          ButtonEvent subCatEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    subCatId = key;
+               }
+          };
+          cmbSubCategory.initEvent(subCatEvent);
+          // catNameEn is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbSubCategory, JavaRoute.subcategory, "catNameEn");
+          //  ============== end ================
+
+          //  ============== combobox cmbVendorName ================
+          ButtonEvent vendorEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    vendorId = key;
+               }
+          };
+          cmbVendorName.initEvent(vendorEvent);
+          // vendorName is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbVendorName, JavaRoute.vendor, "vendorName");
+          //  ============== end ================
+
+          //  ============== combobox cmbCountry ================
+          ButtonEvent countryEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    countryId = key;
+               }
+          };
+          cmbCountry.initEvent(countryEvent);
+          // countryName is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbCountry, JavaRoute.country, "countryName");
+          //  ============== end ================
+
+          //  ============== combobox status ================
+//          ButtonEvent statusEvent = new ButtonEvent() {
+//               @Override
+//               public void onSelect(String key) {
+//                    countryId = key;
+//               }
+//          };
+//          cmbStatus.initEvent(statusEvent);
+//          // countryName is field from response that we want data add in combo
+//          ComboBoxSelection.addComboBox(cmbStatus, JavaRoute.country, "countryName");
+          //  ============== end ================
+     }
+
+     //Place Holder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          txtBarcode.initEvent(btnevent);
+
+          txtProductName.initEvent(btnevent);
+          txtProductNameKh.initEvent(btnevent);
+          txtCost.initEvent(btnevent);
+          txtPrice.initEvent(btnevent);
+          txtChoiceValue.initEvent(btnevent);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -430,70 +548,79 @@ public class InsertProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-       
+
+         System.out.println("brandId : " + brandId);
+         System.out.println("taxId : " + taxId);
+         System.out.println("uomId : " + uomId);
+         System.out.println("attributeId : " + attributeId);
+         System.out.println("subCatId : " + subCatId);
+         System.out.println("vendorId : " + vendorId);
+         System.out.println("countryId : " + countryId);
+
+
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-        ImportFile importF = new ImportFile(new JFrame(), true);
-        importF.setVisible(true);
+         ImportFile importF = new ImportFile(new JFrame(), true);
+         importF.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-       
+
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-        browse.setForeground(WindowColor.light_Blue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+         browse.setForeground(WindowColor.light_Blue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-        browse.setForeground(WindowColor.darkBlue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+         browse.setForeground(WindowColor.darkBlue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel browse;

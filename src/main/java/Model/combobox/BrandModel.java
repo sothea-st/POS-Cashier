@@ -1,6 +1,8 @@
 package Model.combobox;
 
+import lombok.Builder;
 
+//@Builder
 public class BrandModel {
     public BrandModel(){}
     

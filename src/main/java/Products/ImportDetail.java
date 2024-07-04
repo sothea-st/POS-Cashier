@@ -6,9 +6,11 @@ import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
+import MessageAlert.JavaMessageDialog;
 import Model.PackageProduct.ProductResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
@@ -337,7 +339,7 @@ public class ImportDetail extends javax.swing.JDialog {
           panelImpLayout.setHorizontalGroup(
                panelImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelImpLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
+                    .addGap(20, 20, 20)
                     .addGroup(panelImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1707, Short.MAX_VALUE)
                          .addGroup(panelImpLayout.createSequentialGroup()
@@ -356,7 +358,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSave)
-                    .addContainerGap())
+                    .addGap(20, 20, 20))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -365,7 +367,7 @@ public class ImportDetail extends javax.swing.JDialog {
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
                     .addComponent(panelImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(10, Short.MAX_VALUE))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,18 +378,18 @@ public class ImportDetail extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
-     private void showLoadingDialog(String msg) {
-          JDialog loadingDialog = new JDialog(new JFrame(), "Conflict", true); // true for modal
-          JLabel label = new JLabel(msg);
-          loadingDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          loadingDialog.setResizable(false);
-          label.setHorizontalAlignment(SwingConstants.CENTER);
-          loadingDialog.add(label);
-          loadingDialog.setSize(500, 200);
-          loadingDialog.setLocationRelativeTo(this); // Center dialog on the JFrame
-          loadingDialog.getContentPane().setBackground(Color.WHITE);
-          loadingDialog.setVisible(true);
-     }
+//     private void showLoadingDialog(String msg) {
+//          JDialog loadingDialog = new JDialog(new JFrame(), "Conflict", true); // true for modal
+//          JLabel label = new JLabel(msg);
+//          loadingDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//          loadingDialog.setResizable(false);
+//          label.setHorizontalAlignment(SwingConstants.CENTER);
+//          loadingDialog.add(label);
+//          loadingDialog.setSize(500, 200);
+//          loadingDialog.setLocationRelativeTo(this); // Center dialog on the JFrame
+//          loadingDialog.getContentPane().setBackground(Color.WHITE);
+//          loadingDialog.setVisible(true);
+//     }
      private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
           String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addMultipleDataFromExcel; // this one for insert image 
@@ -505,8 +507,11 @@ public class ImportDetail extends javax.swing.JDialog {
                               if (msg.equals("success")) {
                                    dispose();
                               } else if (msg.equals("conflict")) {
-//                                   JOptionPane.showMessageDialog(this, datas);
-                                   showLoadingDialog(datas);
+ 
+                                   JavaMessageDialog j =new  JavaMessageDialog(new JFrame() , true);
+                                   j.setTitleLabel(datas);
+                                   j.setTitle("Message");
+                                   j.setVisible(true);
                               }
 
                               JavaConstant.restoreDefaultCursor(this);

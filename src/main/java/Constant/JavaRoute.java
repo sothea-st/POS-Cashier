@@ -23,6 +23,13 @@ public class JavaRoute {
 
      public static String searchWithInvoice = "/searchProductByBarcodeOrName/searchWithInvoice";
      public static String brand = "/brand";
+     public static String uom = "/uom";
+     public static String attribute = "/attribute";
+     public static String vendor = "/vendor";
+     public static String country = "/country";
+
+     public static String subcategory = "/category/code/subcategory";
+
      public static String getProductByBrandId = "/product/getProductByBrandId";
      public static String cashierReport = "/cashierReport?userCode=";
      public static String returnProduct = "/returnProduct";
@@ -53,7 +60,5 @@ public class JavaRoute {
      public static String reportSaled = "/sale/reportSaled";
      public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
      public static String importMultiple = "/product/importMultiple";
-
-     
 
 }
