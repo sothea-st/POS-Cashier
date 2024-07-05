@@ -569,6 +569,9 @@ public class ListProduct extends javax.swing.JDialog {
 //        add.setPanelCategory(panelCategory);
 //        add.setPanelProduct(panelProduct);
         add.setVisible(true);
+        
+        
+       
     }//GEN-LAST:event_button1MouseClicked
 
      private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked

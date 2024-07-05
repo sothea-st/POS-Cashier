@@ -33,8 +33,6 @@ public class JavaConnection {
           return response;
      }
 
-  
-
      public static Response getWithoutToken(String route) {
           Response response = null;
           OkHttpClient client = new OkHttpClient();
@@ -84,7 +82,6 @@ public class JavaConnection {
                response = client.newCall(request).execute();
 
           } catch (Exception e) {
-
                System.err.println("getting error during call request " + e);
           }
           closeConnection(client);
@@ -159,5 +156,7 @@ public class JavaConnection {
           }
           return bg;
      }
+
+     
 
 }

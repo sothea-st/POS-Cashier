@@ -20,53 +20,52 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class StockManagement extends javax.swing.JDialog {
 
-    private JPanel panelProduct;
-    private JPanel panelCategory;
-    
-    private LoginFormJdailog jdLogin;
-    
-    public StockManagement(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        
-        JavaConstant.addTitleAndLogo(this, "Stock");
-        getImageAndTitle();
-    }
-    
-    private void getImageAndTitle(){
+     private JPanel panelProduct;
+     private JPanel panelCategory;
 
-        product.setTitle("Product");
-        purchaseOrder.setTitle("Purchase Order");
-        
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    // Task to be executed
-                    product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "item.png");
-                    purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
+     private LoginFormJdailog jdLogin;
 
-                } catch (IOException ex) {
-                    Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
+     public StockManagement(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-        Timer timer = new Timer();
-        timer.schedule(task, 500); // Delays task execution by 1 second
-    }
+          JavaConstant.addTitleAndLogo(this, "Stock");
+          getImageAndTitle();
+     }
 
-    @SuppressWarnings("unchecked")
+     private void getImageAndTitle() {
+
+          product.setTitle("Product");
+          purchaseOrder.setTitle("Purchase Order");
+
+          TimerTask task = new TimerTask() {
+               @Override
+               public void run() {
+                    try {
+                         // Task to be executed
+                         product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "item.png");
+                         purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
+                    } catch (IOException ex) {
+                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+          };
+
+          Timer timer = new Timer();
+          timer.schedule(task, 500); // Delays task execution by 1 second
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -132,81 +131,81 @@ public class StockManagement extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
-        ListProduct list = new ListProduct(new JFrame(), true);
-        list.setPanelProduct(panelProduct);
-        list.setJdLogin(jdLogin);
-        list.setPanelCategory(panelCategory);
-        list.setVisible(true);
+         ListProduct list = new ListProduct(new JFrame(), true);
+         list.setPanelProduct(panelProduct);
+         list.setJdLogin(jdLogin);
+         list.setPanelCategory(panelCategory);
+         list.setVisible(true);
     }//GEN-LAST:event_productMouseClicked
 
     private void purchaseOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderMouseClicked
-        PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
-        purchase.setVisible(true);
+         PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
+         purchase.setVisible(true);
     }//GEN-LAST:event_purchaseOrderMouseClicked
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    public JPanel getPanelCategory() {
-        return panelCategory;
-    }
+     public JPanel getPanelCategory() {
+          return panelCategory;
+     }
 
-    public void setPanelCategory(JPanel panelCategory) {
-        this.panelCategory = panelCategory;
-    }
+     public void setPanelCategory(JPanel panelCategory) {
+          this.panelCategory = panelCategory;
+     }
 
-    public LoginFormJdailog getJdLogin() {
-        return jdLogin;
-    }
+     public LoginFormJdailog getJdLogin() {
+          return jdLogin;
+     }
 
-    public void setJdLogin(LoginFormJdailog jdLogin) {
-        this.jdLogin = jdLogin;
-    }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public void setJdLogin(LoginFormJdailog jdLogin) {
+          this.jdLogin = jdLogin;
+     }
+
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                StockManagement dialog = new StockManagement(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(StockManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    StockManagement dialog = new StockManagement(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel2;
