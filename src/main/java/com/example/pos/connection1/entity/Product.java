@@ -46,6 +46,7 @@ public class Product {
     private String codeOutStock;
 
     @Column(name = "barcode",unique = true)
+    @Size(max = 13,min=13,message = "barcode must be 13 length")
     private String barcode;
 
     @Column(name = "tax_id")
@@ -81,7 +82,7 @@ public class Product {
     private String choices;
 
     @Column(name = "margin")
-    private BigDecimal margin;
+    private String margin;
  
 
     @Column(name = "pro_name_kh")

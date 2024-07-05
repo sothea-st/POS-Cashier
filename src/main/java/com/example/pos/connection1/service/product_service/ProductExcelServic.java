@@ -128,6 +128,9 @@ public class ProductExcelServic {
                                         case 5:
                                              pro.setProductNameKh(value);
                                              break;
+                                        case 8:
+                                             pro.setMargin(value);
+                                             break;
                                         case 9:
                                              pro.setAttributeId(returnId(value));
                                              break;
@@ -172,9 +175,6 @@ public class ProductExcelServic {
                                              break;
                                         case 7:
                                              pro.setPrice(decimalValue);
-                                             break;
-                                        case 8:
-                                             pro.setMargin(decimalValue);
                                              break;
                                         default:
                                              break;

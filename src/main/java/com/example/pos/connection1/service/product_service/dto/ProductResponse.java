@@ -17,7 +17,7 @@ public class ProductResponse {
      private String productNameKh;
      private BigDecimal cost;
      private BigDecimal price;
-     private BigDecimal margin;
+     private String margin;
      private Integer attributeId;
      private String choiceValue;
      private Integer uomId;

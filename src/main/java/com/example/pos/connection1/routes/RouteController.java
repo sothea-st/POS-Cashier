@@ -71,6 +71,8 @@ import com.example.pos.connection1.service.sourceDataService.CustomerTypeService
 import com.example.pos.connection1.service.sourceDataService.ReasonService;
 import com.example.pos.connection1.service.sourceDataService.ReturnProductService;
 import com.example.pos.connection1.service.sourceDataService.SourceService;
+import com.example.pos.connection1.util.exception.ErrorResponse;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -167,6 +169,7 @@ public class RouteController {
           @PostMapping
           public ResponseEntity<?> addProduct(@Valid @ModelAttribute Product product,
                     @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
+ 
                Product data = service.addProduct(product, file);
                return JavaResponse.success(data);
           }

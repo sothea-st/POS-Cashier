@@ -45,10 +45,16 @@ public class ProductService {
         // boolean proNameEn = repo.existsByProNameEn(p.getProNameEn());
         // JavaValidation.checkDataAlreadyExists(proNameEn);
 
+
+        if( repo.existsByBarcode(p.getBarcode()) ) {
+            throw new ResponseStatusException(
+                HttpStatus.CONFLICT, "Barcode already exist in system .");
+        }
+
         // validate vendorUuid
         if (!vendorRepository.existsById(p.getVendorId())) {
             throw new ResponseStatusException(
-                    HttpStatus.CONFLICT, "vendorId has not been found .");
+                    HttpStatus.NOT_FOUND, "vendorId has not been found .");
         }
 
         Product pro = new Product();
@@ -67,16 +73,18 @@ public class ProductService {
         pro.setNote(p.getNote());
         pro.setTaxId(p.getTaxId());
         pro.setCreateBy(p.getCreateBy());
-      
         pro.setBarcode(p.getBarcode());
-        if (p.getDiscount() == null) {
-            pro.setDiscount(BigDecimal.valueOf(0));
-        } else {
-            pro.setDiscount(p.getDiscount());
-        }
+
+        // if (p.getDiscount() == null) {
+        //     pro.setDiscount(BigDecimal.valueOf(0));
+        // } else {
+        //     pro.setDiscount(p.getDiscount());
+        // }
 
         pro.setBrandId(p.getBrandId());
 
+
+        pro.setDiscount(BigDecimal.valueOf(0));
         /*
          * proQty just use to check codition with import
          * case user add qty import will be working
@@ -84,7 +92,7 @@ public class ProductService {
          * column name pro_qty in table pos_product will have value 0 fixes
          */
 
-        pro.setProQty(0);
+        // pro.setProQty(0);
 
         // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" :
         // p.getDiscountPercentag());
@@ -92,13 +100,7 @@ public class ProductService {
         if (file == null || file.isEmpty()) {
             pro.setProImageName(JavaConstant.defaultNameImage);
         } else {
-            // JavaStorage.storeImage(file); for save image to path assests/product in
-            // project
-            // String fileName = JavaStorage.setFileName(file.getOriginalFilename());
-            String fileName = file.getOriginalFilename();
-            fileName = fileName.replace(" ", "-");
-
-            // save information image to table pos_file
+            String fileName = UUID.randomUUID().toString();
             FileStore f = new FileStore(fileName, fileName, file.getContentType(), file.getBytes());
             fileStore.save(f);
             pro.setProImageName(fileName);
@@ -111,26 +113,26 @@ public class ProductService {
          * when user add new product it will auto import
          */
 
-        if (p.getProQty() != null) {
-            Import import1 = new Import();
-            import1.setCreateBy(0);
-            import1.setEmpId(0);
-            import1.setSubId(0);
-            import1.setImpDate(JavaConstant.currentDate);
-            import1.setDiscount(BigDecimal.valueOf(0));
-            import1.setTotal(BigDecimal.valueOf(p.getProQty() * p.getCost().doubleValue()));
+        // if (p.getProQty() != null) {
+        //     Import import1 = new Import();
+        //     import1.setCreateBy(0);
+        //     import1.setEmpId(0);
+        //     import1.setSubId(0);
+        //     import1.setImpDate(JavaConstant.currentDate);
+        //     import1.setDiscount(BigDecimal.valueOf(0));
+        //     import1.setTotal(BigDecimal.valueOf(p.getProQty() * p.getCost().doubleValue()));
 
-            List<ImportDetail> listDetail = new ArrayList<>();
-            ImportDetail importDetail = new ImportDetail();
-            importDetail.setProductId(pro.getId());
-            importDetail.setQtyNew(p.getProQty());
-            importDetail.setCost(p.getCost());
-            importDetail.setAmount(BigDecimal.valueOf(p.getCost().doubleValue() * p.getProQty()));
-            importDetail.setExpireDate("");
-            listDetail.add(importDetail);
-            import1.setDetails(listDetail);
-            service.addImport(import1);
-        }
+        //     List<ImportDetail> listDetail = new ArrayList<>();
+        //     ImportDetail importDetail = new ImportDetail();
+        //     importDetail.setProductId(pro.getId());
+        //     importDetail.setQtyNew(p.getProQty());
+        //     importDetail.setCost(p.getCost());
+        //     importDetail.setAmount(BigDecimal.valueOf(p.getCost().doubleValue() * p.getProQty()));
+        //     importDetail.setExpireDate("");
+        //     listDetail.add(importDetail);
+        //     import1.setDetails(listDetail);
+        //     service.addImport(import1);
+        // }
 
         return pro;
     }
