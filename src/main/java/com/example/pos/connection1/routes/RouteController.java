@@ -138,7 +138,6 @@ public class RouteController {
           }
 
           @PostMapping("/importMultiple")
-
           public ResponseEntity<?> addMultipleProduct(@RequestBody ProductMultiple lists) {
 
                Map<String, Object> response = productMultipleService.addMultipleProduct(lists);
