@@ -2,7 +2,6 @@ package com.example.pos.connection1.routes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.DTO.categoryDto.CategoryRequest;
@@ -35,12 +33,9 @@ import com.example.pos.connection1.entity.Company;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.OpenShift;
-import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.Supplier;
 import com.example.pos.connection1.entity.models.ProductAddRemoveQty;
-import com.example.pos.connection1.entity.models.ProductModel;
-import com.example.pos.connection1.entity.models.UpdateProductDiscount;
 import com.example.pos.connection1.entity.sourceData.CancelItem;
 import com.example.pos.connection1.entity.sourceData.CurrencyValue;
 import com.example.pos.connection1.entity.sourceData.CustomerType;
@@ -48,7 +43,6 @@ import com.example.pos.connection1.entity.sourceData.Reason;
 import com.example.pos.connection1.entity.sourceData.ReturnProduct;
 import com.example.pos.connection1.entity.sourceData.Source;
 import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
-import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.shiftRepository.CloseShiftRepository;
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
@@ -60,22 +54,15 @@ import com.example.pos.connection1.service.SupplierService;
 import com.example.pos.connection1.service.cashierReport.CashierReportService;
 import com.example.pos.connection1.service.companyService.CompanyService;
 import com.example.pos.connection1.service.paymentService.ReprintService;
-import com.example.pos.connection1.service.product_service.ProductExcelServic;
-import com.example.pos.connection1.service.product_service.ProductMultipleService;
-import com.example.pos.connection1.service.product_service.ProductService;
-import com.example.pos.connection1.service.product_service.dto.ProductMultiple;
-import com.example.pos.connection1.service.product_service.dto.ProductMultipleRequest;
 import com.example.pos.connection1.service.sourceDataService.CancelItemService;
 import com.example.pos.connection1.service.sourceDataService.CurrencyValueService;
 import com.example.pos.connection1.service.sourceDataService.CustomerTypeService;
 import com.example.pos.connection1.service.sourceDataService.ReasonService;
 import com.example.pos.connection1.service.sourceDataService.ReturnProductService;
 import com.example.pos.connection1.service.sourceDataService.SourceService;
-import com.example.pos.connection1.util.exception.ErrorResponse;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 public class RouteController {
@@ -123,137 +110,7 @@ public class RouteController {
           }
      }
 
-     @RequestMapping("/api/product")
-     @RestController
-     @RequiredArgsConstructor
-     public static class RouteProduct {
-          private final ProductService service;
-          private final ProductRepository repo;
-          private final ProductExcelServic productExcelServic;
-          private final ProductMultipleService productMultipleService;
 
-          @GetMapping(value = "/getHead")
-          public ResponseEntity<?> geth() {
-               return ResponseEntity.ok().body(repo.getHead());
-          }
-
-          @PostMapping("/importMultiple")
-          public ResponseEntity<?> addMultipleProduct(@RequestBody ProductMultiple lists) {
-
-               Map<String, Object> response = productMultipleService.addMultipleProduct(lists);
-
-               int code = (int) response.get("code"); // Assuming 'code' is returned as an integer
-
-               if (code == 409) {
-                    // Conflict: Barcode already exists
-                    return ResponseEntity.ok().body(Map.of("msg", "conflict", "data", "Barcode : "
-                              + response.get("barcode") + " already exists for one or more products in the list."));
-               } else if (code == 200) {
-                    // Success: All products imported successfully
-                    return JavaResponse.success("Import Success");
-               } else {
-                    // Handle other status codes as needed
-                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                              "Unexpected status returned from service.");
-               }
-          }
-
-          @PostMapping("/excel")
-          public ResponseEntity<?> importFileExcel(@RequestParam("file") MultipartFile multipartFile)
-                    throws IOException {
-               productExcelServic.importFileExcel(multipartFile);
-               return JavaResponse.success("Import Success");
-          }
-
-          @PostMapping
-          public ResponseEntity<?> addProduct(@Valid @ModelAttribute Product product,
-                    @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
- 
-               Product data = service.addProduct(product, file);
-               return JavaResponse.success(data);
-          }
-
-          // get image from path assets\\product\\imageName
-          @GetMapping(value = "/image/{imageName}", produces = MediaType.IMAGE_PNG_VALUE)
-          public byte[] getImage(@PathVariable("imageName") String imageName) throws IOException {
-               return service.getImage(imageName);
-          }
-
-          @GetMapping("/getProductByCatId")
-          public ResponseEntity<?> getProductByCatId(@RequestParam("catId") int catId,
-                    @RequestParam("limit") int limit, @RequestParam("page") int page) {
-               List<ProductModel> data = service.getProductByCatId(catId, limit, page);
-               int count = service.count(catId);
-               return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
-          }
-
-          @GetMapping
-          public ResponseEntity<?> getProduct(
-                    @RequestParam("limit") int limit,
-                    @RequestParam int perPage,
-                    @RequestParam int page) {
-               int count = repo.countRow();
-               List<ProductProjection> data = service.getProduct(limit, perPage, page);
-               return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
-          }
-
-          @PostMapping("/{id}")
-          public ResponseEntity<?> editProduct(@PathVariable("id") int id, @ModelAttribute Product p,
-                    @RequestParam(value = "file", required = false) MultipartFile file) throws IOException {
-               Product pro = service.editProduct(id, p, file);
-               return JavaResponse.success(pro);
-          }
-
-          @GetMapping("/{id}")
-          public ResponseEntity<?> getDataById(@PathVariable("id") int id) {
-               Product data = service.readData(id);
-               return JavaResponse.success(data);
-          }
-
-          @DeleteMapping("/{id}")
-          public ResponseEntity<?> deleteProduct(@PathVariable("id") int id, @RequestBody Product p) {
-               service.deleteProduct(id, p);
-               return JavaResponse.deleteSuccess(id);
-          }
-
-          @GetMapping("/readFileById/{id}")
-          public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
-               byte[] imageData = service.getFile(id);
-               return ResponseEntity.status(HttpStatus.OK)
-                         .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
-                         .body(imageData);
-          }
-
-          @GetMapping("/getProductByBrandId")
-          public ResponseEntity<?> getProductByBrandId(@RequestParam("brandId") int brandId,
-                    @RequestParam("limit") int limit,
-                    @RequestParam("page") int page) {
-               List<ProductModel> data = service.getListProductByBrandId(brandId, limit, page);
-               int count = service.countProductByBrandId(brandId);
-               return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
-          }
-
-          @PostMapping("/discount")
-          public ResponseEntity<?> updateDis(@RequestBody UpdateProductDiscount data) {
-               Product datas = service.updateDiscount(data.getId(), data.getDiscount());
-               return JavaResponse.success(datas);
-          }
-
-          @GetMapping("/getNewProduct")
-          public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit, @RequestParam int page) {
-               // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
-               int countRow = repo.countRow();
-               int number = (countRow * 30) / 100;
-               return ResponseEntity.ok().body(
-                         Map.of("count", number, "msg", "success", "data", service.getNewProduct(limit, page, number)));
-          }
-
-          @GetMapping("/getProductPromotion")
-          public ResponseEntity<?> getProductPromotion() {
-               return JavaResponse.success(service.getProductPromotion());
-          }
-
-     }
 
      @RequestMapping("/api/supplier")
      @RestController

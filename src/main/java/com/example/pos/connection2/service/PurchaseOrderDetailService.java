@@ -3,7 +3,7 @@
 // import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.stereotype.Service;
 
-// import com.example.pos.connection1.repository.ProductRepository;
+// import com.example.pos.connection1.feature.product.ProductRepository;
 // import com.example.pos.connection2.entity.PurchaseOrderDetail;
 // import com.example.pos.connection2.projections.CategoryProjection;
 // import com.example.pos.connection2.repository.ProductCategoryRepo;

@@ -46,7 +46,6 @@ public class Product {
     private String codeOutStock;
 
     @Column(name = "barcode",unique = true)
-    @Size(max = 13,min=13,message = "barcode must be 13 length")
     private String barcode;
 
     @Column(name = "tax_id")
@@ -56,41 +55,31 @@ public class Product {
     @Column(name = "pro_qty")
     private Integer proQty;
 
-    @Column(name = "product_active")
-    @NotBlank(message = JavaMessage.required)
-    private String productActive;
-
+    @Column(name = "product_active_id")
+    private Integer productActiveId;
     
     @Column(name = "vendor_id")
-    @NotNull(message = "the field vendorId is required.")
-    private Integer vendorId; // uuid is secondary primary key 
+    private Integer vendorId;
 
     @Column(name = "country_id")
-    // @NotBlank(message = "the field countryUuid is required.")
     private Integer countryId;
 
     @Column(name = "uom_id")
-    // @NotBlank(message = "the field uomUuid is required.")
     private Integer uomId;
 
     @Column(name = "attribute_id")
-    // @NotBlank(message = "the field attributeUuid is required.")
     private Integer attributeId;
 
     @Column(name = "choices")
-    // @NotBlank(message = "the field attributeUuid is required.")
     private String choices;
 
     @Column(name = "margin")
     private String margin;
- 
 
     @Column(name = "pro_name_kh")
-    // @NotBlank(message = JavaMessage.required)
     private String proNameKh;
 
     @Column(name = "pro_name_en")
-    // @NotBlank(message = JavaMessage.required)
     private String proNameEn;
 
     @Column(precision = 10, scale = 2,name = "cost")

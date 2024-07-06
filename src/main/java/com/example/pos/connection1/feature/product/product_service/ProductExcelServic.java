@@ -1,4 +1,4 @@
-package com.example.pos.connection1.service.product_service;
+package com.example.pos.connection1.feature.product.product_service;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,8 +14,8 @@ import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.FileStore;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.repository.FileStoreRepository;
-import com.example.pos.connection1.repository.ProductRepository;
-import com.example.pos.connection1.service.product_service.dto.ProductResponse;
+import com.example.pos.connection1.feature.product.ProductRepository;
+import com.example.pos.connection1.feature.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.io.File;
@@ -69,7 +69,7 @@ public class ProductExcelServic {
                     product.setChoices(p.getChoiceValue());
 
                     product.setUomId(p.getUomId());
-                    product.setProductActive(p.getStatus());
+                    product.setProductActiveId(p.getStatus());
                     product.setCountryId(p.getCountryId());
                     product.setTaxId(p.getTaxId());
                     product.setCreateBy(0);
@@ -140,9 +140,6 @@ public class ProductExcelServic {
                                         case 11:
                                              pro.setUomId(returnId(value));
                                              break;
-                                        case 12:
-                                             pro.setStatus(value);
-                                             break;
                                         case 13:
                                              pro.setCountryId(returnId(value));
                                              break;
@@ -175,6 +172,9 @@ public class ProductExcelServic {
                                              break;
                                         case 7:
                                              pro.setPrice(decimalValue);
+                                             break;
+                                        case 12:
+                                             pro.setStatus((int)currentCell.getNumericCellValue());
                                              break;
                                         default:
                                              break;

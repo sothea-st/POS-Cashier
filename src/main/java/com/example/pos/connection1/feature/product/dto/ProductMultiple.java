@@ -1,4 +1,4 @@
-package com.example.pos.connection1.service.product_service.dto;
+package com.example.pos.connection1.feature.product.dto;
 
 import lombok.Getter;
 import lombok.Setter;

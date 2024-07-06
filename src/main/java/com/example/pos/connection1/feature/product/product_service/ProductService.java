@@ -1,4 +1,4 @@
-package com.example.pos.connection1.service.product_service;
+package com.example.pos.connection1.feature.product.product_service;
 
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.FileStore;
@@ -8,11 +8,12 @@ import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.feature.attribute.AttributeRepository;
 import com.example.pos.connection1.feature.country.CountryRepository;
+import com.example.pos.connection1.feature.product.dto.ProductDataRequest;
 import com.example.pos.connection1.feature.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
-import com.example.pos.connection1.repository.ProductRepository;
+import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import com.example.pos.connection1.service.ImportService;
@@ -44,79 +45,59 @@ public class ProductService {
     private final AttributeRepository attributeRepository;
 
 
+    public Product addProduct(ProductDataRequest p, MultipartFile file) throws IOException {
 
-
-//    public
-
-    
-
-
-    public Product addProduct(Product p, MultipartFile file) throws IOException {
-
-        // boolean proNameKh = repo.existsByProNameKh(p.getProNameKh());
-        // JavaValidation.checkDataAlreadyExists(proNameKh);
-
-        // boolean proNameEn = repo.existsByProNameEn(p.getProNameEn());
-        // JavaValidation.checkDataAlreadyExists(proNameEn);
-
-        attributeRepository.findById(p.getAttributeId())
+        attributeRepository.findById(p.attributeId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Attribute Id has not been found ."));
 
-        uomRepository.findById(p.getUomId())
+        uomRepository.findById(p.uomId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Uom Id has not been found ."));
 
-        countryRepository.findById(p.getCountryId())
+        countryRepository.findById(p.countryId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Country Id has not been found ."));
 
-        taxProductRepository.findById(p.getTaxId())
+        taxProductRepository.findById(p.taxId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Tax Id has not been found ."));
 
-        if (repo.existsByBarcode(p.getBarcode())) {
+        if (repo.existsByBarcode(p.barcode())) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Barcode already exist in system .");
         }
 
         // validate vendorUuid
-        if (!vendorRepository.existsById(p.getVendorId())) {
+        if (!vendorRepository.existsById(p.vendorId())) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "vendorId has not been found .");
         }
 
         Product pro = new Product();
-        pro.setProductActive(p.getProductActive());
-        pro.setVendorId(p.getVendorId());
-        pro.setCountryId(p.getCountryId());
-        pro.setAttributeId(p.getAttributeId());
-        pro.setChoices(p.getChoices());
-        pro.setUomId(p.getUomId());
-        pro.setMargin(p.getMargin());
-        pro.setCatId(p.getCatId());
-        pro.setProNameKh(p.getProNameKh());
-        pro.setProNameEn(p.getProNameEn());
-        pro.setCost(p.getCost());
-        pro.setPrice(p.getPrice());
-        pro.setNote(p.getNote());
-        pro.setTaxId(p.getTaxId());
-        pro.setCreateBy(p.getCreateBy());
-        pro.setBarcode(p.getBarcode());
 
-        // if (p.getDiscount() == null) {
-        // pro.setDiscount(BigDecimal.valueOf(0));
-        // } else {
-        // pro.setDiscount(p.getDiscount());
-        // }
-
-        pro.setBrandId(p.getBrandId());
-
+        pro.setProductActiveId(p.productActiveId());
+        pro.setVendorId(p.vendorId());
+        pro.setCountryId(p.countryId());
+        pro.setAttributeId(p.attributeId());
+        pro.setChoices(p.choice());
+        pro.setUomId(p.uomId());
+        pro.setMargin(p.margin());
+        pro.setCatId(p.catId());
+        pro.setProNameKh(p.proNameKh());
+        pro.setProNameEn(p.proNameEn());
+        pro.setCost(p.cost());
+        pro.setPrice(p.price());
+        pro.setTaxId(p.taxId());
+        pro.setCreateBy(p.createBy());
+        pro.setBarcode(p.barcode());
+        pro.setBrandId(p.brandId());
         pro.setDiscount(BigDecimal.valueOf(0));
+
         /*
          * proQty just use to check codition with import
          * case user add qty import will be working
@@ -128,7 +109,7 @@ public class ProductService {
 
         // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" :
         // p.getDiscountPercentag());
-        pro.setProductStatus(p.getProductStatus()); // for detail product in or out stock
+//        pro.setProductStatus(p.getProductStatus()); // for detail product in or out stock
         if (file == null || file.isEmpty()) {
             pro.setProImageName(JavaConstant.defaultNameImage);
         } else {
@@ -139,33 +120,6 @@ public class ProductService {
         }
 
         repo.save(pro);
-
-        /*
-         * when user add new product it will auto import
-         */
-
-        // if (p.getProQty() != null) {
-        // Import import1 = new Import();
-        // import1.setCreateBy(0);
-        // import1.setEmpId(0);
-        // import1.setSubId(0);
-        // import1.setImpDate(JavaConstant.currentDate);
-        // import1.setDiscount(BigDecimal.valueOf(0));
-        // import1.setTotal(BigDecimal.valueOf(p.getProQty() *
-        // p.getCost().doubleValue()));
-
-        // List<ImportDetail> listDetail = new ArrayList<>();
-        // ImportDetail importDetail = new ImportDetail();
-        // importDetail.setProductId(pro.getId());
-        // importDetail.setQtyNew(p.getProQty());
-        // importDetail.setCost(p.getCost());
-        // importDetail.setAmount(BigDecimal.valueOf(p.getCost().doubleValue() *
-        // p.getProQty()));
-        // importDetail.setExpireDate("");
-        // listDetail.add(importDetail);
-        // import1.setDetails(listDetail);
-        // service.addImport(import1);
-        // }
 
         return pro;
     }
@@ -186,35 +140,35 @@ public class ProductService {
         return Base64.getDecoder().decode(base64); // decode string base64
     }
 
-    public List<ProductProjection> getProduct(int limit, int perPage, int page) {
-            return  repo.getAllProduct(perPage, page);
-//        List<ProductModel> list = new ArrayList<>();
-//
-//        if (limit == 0) {
-//            List<ProductProjection> allPro = repo.getAllProduct(perPage, page);
-//            for (int i = 0; i < allPro.size(); i++) {
-//                var data = allPro.get(i);
-//
-//                Integer qty = repoImp.getQty(data.getId());
-//                if (qty == null)
-//                    qty = 0;
-//                ProductModel p = proModel(data, qty);
-//                list.add(p);
-//            }
-//            return list;
-//        }
-//
-//        List<ProductProjection> lPro = repo.getProduct(limit);
-//        for (int i = 0; i < lPro.size(); i++) {
-//            var data = lPro.get(i);
-//            Integer qty = repoImp.getQty(data.getId());
-//            if (qty == null)
-//                qty = 0;
-//            ProductModel p = proModel(data, qty);
-//            list.add(p);
-//        }
-//
-//        return list;
+    public List<ProductModel> getProduct(int limit, int perPage, int page) {
+
+        List<ProductModel> list = new ArrayList<>();
+
+        if (limit == 0) {
+            List<ProductProjection> allPro = repo.getAllProduct(perPage, page);
+            for (int i = 0; i < allPro.size(); i++) {
+                var data = allPro.get(i);
+
+                Integer qty = repoImp.getQty(data.getId());
+                if (qty == null)
+                    qty = 0;
+                ProductModel p = proModel(data, qty);
+                list.add(p);
+            }
+            return list;
+        }
+
+        List<ProductProjection> lPro = repo.getProduct(limit);
+        for (int i = 0; i < lPro.size(); i++) {
+            var data = lPro.get(i);
+            Integer qty = repoImp.getQty(data.getId());
+            if (qty == null)
+                qty = 0;
+            ProductModel p = proModel(data, qty);
+            list.add(p);
+        }
+
+        return list;
     }
 
     public Product editProduct(int id, Product editProduct, MultipartFile file) throws IOException {
@@ -231,7 +185,7 @@ public class ProductService {
             fileStore.save(f1);
             previousPro.setProImageName(imgName);
         }
-        previousPro.setProductActive(editProduct.getProductActive());
+//        previousPro.setProductActive(editProduct.getProductActive());
         previousPro.setVendorId(editProduct.getVendorId());
         previousPro.setCountryId(editProduct.getCountryId());
         previousPro.setAttributeId(editProduct.getAttributeId());

@@ -1,20 +1,18 @@
 package com.example.pos.connection1.service.searchByBarcodeOrNameService;
 
 import com.example.pos.connection1.constant.JavaConstant;
-import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.PaymentModel;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.repository.ImportDetailRepository;
-import com.example.pos.connection1.repository.ProductRepository;
+import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
-import com.example.pos.connection1.service.product_service.ProductService;
+import com.example.pos.connection1.feature.product.product_service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import java.text.DecimalFormat;
 
 @Service
 public class SearchByBarcodeOrNameService {

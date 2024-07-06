@@ -3,22 +3,14 @@ package com.example.pos.connection2.service;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.example.pos.connection1.constant.JavaConstant;
-import com.example.pos.connection1.entity.FileStore;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.repository.FileStoreRepository;
-import com.example.pos.connection1.repository.ImportDetailRepository;
-import com.example.pos.connection1.repository.ProductRepository;
+import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection2.entity.ProductByCategory;
-import com.example.pos.connection2.models.ProductModelD2;
 import com.example.pos.connection2.repository.ProdcutByCategoryRepository;
- 
-import jakarta.servlet.http.HttpSession;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;

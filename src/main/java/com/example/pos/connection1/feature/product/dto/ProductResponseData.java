@@ -1,4 +1,4 @@
-package com.example.pos.connection1.service.product_service.dto;
+package com.example.pos.connection1.feature.product.dto;
 
 public interface ProductResponseData {
     int getId();
@@ -16,5 +16,4 @@ public interface ProductResponseData {
     Double getDiscount();
     String getCode_out_stock();
     String getCode_expired();
-
 }

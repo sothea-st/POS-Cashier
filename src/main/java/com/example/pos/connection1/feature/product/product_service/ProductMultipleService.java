@@ -1,14 +1,12 @@
-package com.example.pos.connection1.service.product_service;
+package com.example.pos.connection1.feature.product.product_service;
 
 import org.apache.commons.collections4.map.HashedMap;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.pos.connection1.entity.Product;
-import com.example.pos.connection1.repository.ProductRepository;
-import com.example.pos.connection1.service.product_service.dto.ProductMultiple;
-import com.example.pos.connection1.service.product_service.dto.ProductMultipleRequest;
+import com.example.pos.connection1.feature.product.ProductRepository;
+import com.example.pos.connection1.feature.product.dto.ProductMultiple;
+import com.example.pos.connection1.feature.product.dto.ProductMultipleRequest;
 
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +49,7 @@ public class ProductMultipleService {
                     product.setAttributeId(p.getAttributeId());
                     product.setChoices(p.getChoiceValue());
                     product.setUomId(p.getUomId());
-                    product.setProductActive(p.getStatus());
+                    product.setProductActiveId(p.getStatus());
                     product.setCountryId(p.getCountryId());
                     product.setTaxId(p.getTaxId());
                     product.setProImageName(p.getPhoto());

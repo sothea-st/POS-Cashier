@@ -6,7 +6,7 @@
 // import org.springframework.stereotype.Service;
 
 // import com.example.pos.connection1.entity.Product;
-// import com.example.pos.connection1.repository.ProductRepository;
+// import com.example.pos.connection1.feature.product.ProductRepository;
 // import com.example.pos.connection2.projections.ProductSourceProjection;
 // import com.example.pos.connection2.repository.ProductSourceRepository;
 

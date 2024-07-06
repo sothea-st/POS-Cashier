@@ -1,4 +1,4 @@
-package com.example.pos.connection1.service.product_service.dto;
+package com.example.pos.connection1.feature.product.dto;
 
 import java.math.*;
 
@@ -20,7 +20,7 @@ public class ProductMultipleRequest {
     private  Integer attributeId;
     private  String choiceValue;
     private  Integer uomId;
-    private String status;
+    private Integer status;
     private  Integer countryId;
     private  Integer taxId;
     private String link;

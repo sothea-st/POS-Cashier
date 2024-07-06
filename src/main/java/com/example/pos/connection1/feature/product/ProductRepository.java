@@ -1,4 +1,4 @@
-package com.example.pos.connection1.repository;
+package com.example.pos.connection1.feature.product;
 
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
