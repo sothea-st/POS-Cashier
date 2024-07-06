@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -43,6 +44,8 @@ public class InsertProduct extends javax.swing.JDialog {
      private String margin;
      private String choiceValue;
      private String path;
+     private ListProduct listProduct;
+     private JPanel listGetProduct;
 
      public InsertProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -59,6 +62,7 @@ public class InsertProduct extends javax.swing.JDialog {
           groupCalculation();
           txtCost.setComma("comma");
           txtPrice.setComma("comma");
+          JavaConstant.setPointer(browse);
 
      }
      double costVal = 0;
@@ -647,121 +651,15 @@ public class InsertProduct extends javax.swing.JDialog {
 //         System.out.println("subCatId : " + subCatId);
 //         System.out.println("createBy : " + JavaConstant.cashierId);
 //         System.out.println("proNameKh : " + productNameKh);
-         checkValidationForm(); // check validation
-         save(); // save
+         saveFunction(); // save
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-     private void save() {
-
-          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
-          OkHttpClient client = new OkHttpClient();
-
-          MultipartBody.Builder requestBody = new MultipartBody.Builder()
-               .setType(MultipartBody.FORM)
-               .addFormDataPart("brandId", brandId)
-               .addFormDataPart("taxId", taxId)
-               .addFormDataPart("uomId", uomId)
-               .addFormDataPart("attributeId", attributeId)
-               .addFormDataPart("vendorId", vendorId)
-               .addFormDataPart("catId", subCatId)
-               .addFormDataPart("countryId", countryId)
-               .addFormDataPart("productActive", "1")
-               .addFormDataPart("barcode", barcode)
-               .addFormDataPart("proNameEn", productName)
-               .addFormDataPart("cost", cost)
-               .addFormDataPart("price", price)
-               .addFormDataPart("margin", margin)
-               .addFormDataPart("choices", choiceValue)
-               .addFormDataPart("createBy", JavaConstant.cashierId + "");
-
-          if (productNameKh != null) {
-               requestBody.addFormDataPart("proNameKh", productNameKh);
-          }
-
-          if (path != null) {
-               File fileToUpload = new File(path);
-               requestBody.addFormDataPart("file", fileToUpload.getName(),
-                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-          }
-
-          Request request = new Request.Builder()
-               .url(url)
-               .post(requestBody.build())
-               .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDA1IiwiaWF0IjoxNzIwMTQ5NTk4LCJleHAiOjE3MjAyMzU5OTh9.38to6PlHLINGWO9qfCi36IPq70EXZXVmzXL3FkN-v6o")
-               .build();
-//          JavaConstant.setCircleLoadingCursor(this);
-          try {
-               Response response = client.newCall(request).execute();
-
-               String responseData = response.body().string();
-               if (response.isSuccessful()) {
-                    JSONObject json = new JSONObject(responseData);
-//                    JavaConstant.restoreDefaultCursor(this);
-                    if (json.has("error")) {
-
-                         JSONObject errorObject = json.getJSONObject("error");
-                         int code = errorObject.getInt("code");
-                         String reason = errorObject.getString("reason");
-                       
-
-                         if (code == 409) {
-                              JOptionPane.showMessageDialog(this, reason);
-                         }
-                    } else {
-                         afterSuccess();
-                    }
-               }
-          } catch (IOException ex) {
-               System.out.println("error : " + ex);
-          }
-     }
-
-     private void afterSuccess() {
-          JavaConstant.restoreDefaultCursor(this);
-
-          txtBarcode.setValueTextField(null);
-          txtProductName.setValueTextField(null);
-          txtProductNameKh.setValueTextField(null);
-          txtCost.setValueTextField(null);
-          txtPrice.setValueTextField(null);
-          txtMargin.setLabelTextField(null);
-          txtChoiceValue.setValueTextField(null);
-
-          cmbVendorName.setToFirstItem();
-          cmbBrand.setToFirstItem();
-          cmbSubCategory.setToFirstItem();
-          cmbAttribute.setToFirstItem();
-          cmbUom.setToFirstItem();
-          cmbStatus.setToFirstItem();
-          cmbCountry.setToFirstItem();
-          cmbTax.setToFirstItem();
-
-          lbPicture.setIcon(null);
-
-          brandId = null;
-          taxId = null;
-          uomId = null;
-          attributeId = null;
-          subCatId = null;
-          vendorId = null;
-          countryId = null;
-
- 
-          txtPrice.setLabelTextField("Price");
-          txtCost.setLabelTextField("Cost");
-          txtProductNameKh.setLabelTextField("Product Name Kh");
-          txtChoiceValue.setLabelTextField("Choice Value");
-          txtProductName.setLabelTextField("Product Name");
-
-          txtBarcode.setFocus();
-     }
-
-     private void checkValidationForm() {
-
+     private void saveFunction() {
           if (barcode == null || barcode.isEmpty()) {
                JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
                return;
           }
+
           if (barcode.length() != 13) {
                JOptionPane.showMessageDialog(this, "barcode must be 13 length!");
                return;
@@ -821,8 +719,130 @@ public class InsertProduct extends javax.swing.JDialog {
                JOptionPane.showMessageDialog(this, "Please Select Country!");
                return;
           }
+        
 
+          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
+          OkHttpClient client = new OkHttpClient();
+
+          MultipartBody.Builder requestBody = new MultipartBody.Builder()
+               .setType(MultipartBody.FORM)
+               .addFormDataPart("brandId", brandId)
+               .addFormDataPart("taxId", taxId)
+               .addFormDataPart("uomId", uomId)
+               .addFormDataPart("attributeId", attributeId)
+               .addFormDataPart("vendorId", vendorId)
+               .addFormDataPart("catId", subCatId)
+               .addFormDataPart("countryId", countryId)
+               .addFormDataPart("productActive", "1")
+               .addFormDataPart("barcode", barcode)
+               .addFormDataPart("proNameEn", productName)
+               .addFormDataPart("cost", cost)
+               .addFormDataPart("price", price)
+               .addFormDataPart("margin", margin)
+               .addFormDataPart("choices", choiceValue)
+               .addFormDataPart("createBy", JavaConstant.cashierId + "");
+
+          if (productNameKh != null) {
+               requestBody.addFormDataPart("proNameKh", productNameKh);
+          }
+
+          if (path != null) {
+               File fileToUpload = new File(path);
+               requestBody.addFormDataPart("file", fileToUpload.getName(),
+                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+          }
+
+          Request request = new Request.Builder()
+               .url(url)
+               .post(requestBody.build())
+               .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDA1IiwiaWF0IjoxNzIwMTQ5NTk4LCJleHAiOjE3MjAyMzU5OTh9.38to6PlHLINGWO9qfCi36IPq70EXZXVmzXL3FkN-v6o")
+               .build();
+          JavaConstant.setCircleLoadingCursor(this);
+          try {
+               Response response = client.newCall(request).execute();
+
+               String responseData = response.body().string();
+               if (response.isSuccessful()) {
+                    JSONObject json = new JSONObject(responseData);
+                    if (json.has("error")) {
+                         JSONObject errorObject = json.getJSONObject("error");
+                         int code = errorObject.getInt("code");
+                         String reason = errorObject.getString("reason");
+
+                         if (code == 409) {
+                              JOptionPane.showMessageDialog(this, reason);
+                         }
+                    } else {
+                         afterSuccess();
+                    }
+               }
+               JavaConstant.restoreDefaultCursor(this);
+          } catch (IOException ex) {
+               System.out.println("error : " + ex);
+          }
      }
+
+     private void afterSuccess() {
+          JavaConstant.restoreDefaultCursor(this);
+
+          txtBarcode.setValueTextField(null);
+          txtProductName.setValueTextField(null);
+          txtProductNameKh.setValueTextField(null);
+          txtCost.setValueTextField(null);
+          txtPrice.setValueTextField(null);
+          txtMargin.setLabelTextField(null);
+          txtChoiceValue.setValueTextField(null);
+
+          cmbVendorName.setToFirstItem();
+          cmbBrand.setToFirstItem();
+          cmbSubCategory.setToFirstItem();
+          cmbAttribute.setToFirstItem();
+          cmbUom.setToFirstItem();
+          cmbStatus.setToFirstItem();
+          cmbCountry.setToFirstItem();
+          cmbTax.setToFirstItem();
+
+          lbPicture.setIcon(null);
+
+          brandId = null;
+          taxId = null;
+          uomId = null;
+          attributeId = null;
+          subCatId = null;
+          vendorId = null;
+          countryId = null;
+
+          txtPrice.setLabelTextField("Price");
+          txtCost.setLabelTextField("Cost");
+          txtProductNameKh.setLabelTextField("Product Name Kh");
+          txtChoiceValue.setLabelTextField("Choice Value");
+          txtProductName.setLabelTextField("Product Name");
+
+          txtBarcode.setFocus();
+
+          // refresh list product
+          listGetProduct.removeAll();
+          listGetProduct.repaint();
+          listGetProduct.revalidate();
+          listProduct.getProduct(listGetProduct);
+     }
+
+     public ListProduct getListProduct() {
+          return listProduct;
+     }
+
+     public void setListProduct(ListProduct listProduct) {
+          this.listProduct = listProduct;
+     }
+
+     public JPanel getListGetProduct() {
+          return listGetProduct;
+     }
+
+     public void setListGetProduct(JPanel listGetProduct) {
+          this.listGetProduct = listGetProduct;
+     }
+
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          ImportFile importF = new ImportFile(new JFrame(), true);

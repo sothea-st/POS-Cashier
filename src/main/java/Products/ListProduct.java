@@ -46,94 +46,93 @@ import pdf.PrintToExcel;
 
 public class ListProduct extends javax.swing.JDialog {
 
-    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
-    private String searchValue;
-    private int id;
+     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+     private String searchValue;
+     private int id;
 
-    private JPanel panelProduct;
-    private JPanel panelCategory;
-    private LoginFormJdailog jdLogin;
+     private JPanel panelProduct;
+     private JPanel panelCategory;
+     private LoginFormJdailog jdLogin;
 
-    ArrayList<ProductModel> listProduct = new ArrayList<>();
+     ArrayList<ProductModel> listProduct = new ArrayList<>();
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    public LoginFormJdailog getJdLogin() {
-        return jdLogin;
-    }
+     public LoginFormJdailog getJdLogin() {
+          return jdLogin;
+     }
 
-    public void setJdLogin(LoginFormJdailog jdLogin) {
-        this.jdLogin = jdLogin;
-    }
+     public void setJdLogin(LoginFormJdailog jdLogin) {
+          this.jdLogin = jdLogin;
+     }
 
-    public JPanel getPanelCategory() {
-        return panelCategory;
-    }
+     public JPanel getPanelCategory() {
+          return panelCategory;
+     }
 
-    public void setPanelCategory(JPanel panelCategory) {
-        this.panelCategory = panelCategory;
-    }
+     public void setPanelCategory(JPanel panelCategory) {
+          this.panelCategory = panelCategory;
+     }
 
-    public ListProduct(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setBackground();
-        panelListProduct.setBackground(WindowColor.mediumGreen);
-        header.setBackground(WindowColor.darkGreen);
-        getProduct(listGetProduct);
-        eventSearchProduct();
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+     public ListProduct(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setBackground();
+          panelListProduct.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
+          getProduct(listGetProduct);
+          eventSearchProduct();
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 //        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        searchField.setFocus();
-        // custome scrollbar ui
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-//        setTitle("Stock");  
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          searchField.setFocus();
+          // custome scrollbar ui
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-        JavaConstant.addTitleAndLogo(this, "Product");
+          JavaConstant.addTitleAndLogo(this, "Product");
 
-    }
+     }
 
-    void setBackground() {
-        header.setBackground(WindowColor.darkGreen);
-    }
+     void setBackground() {
+          header.setBackground(WindowColor.darkGreen);
+     }
 
-    public void getProduct(JPanel jpanelData) {
-        try {
-            Response response = JavaConnection.get(JavaRoute.product + "?limit=0&perPage=200&page=0");
+     public void getProduct(JPanel jpanelData) {
+          try {
+               Response response = JavaConnection.get(JavaRoute.product + "?limit=0&perPage=200&page=0");
+             
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
+                    ProductDataModel[] listData = data.getData();
+                    assignProduct(listData, jpanelData);
+               } else {
+                    System.err.println("fail loading product");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
 
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                ProductSuccessData data = objMap.readValue(responseData, ProductSuccessData.class);
-                ProductDataModel[] listData = data.getData();
-                assignProduct(listData, jpanelData);
-            } else {
-                System.err.println("fail loading product");
-            }
-        } catch (Exception e) {
-            System.err.println("error getting product " + e);
-        }
-    }
+     public void assignProduct(ProductDataModel[] listData, JPanel listGetProduct) {
+          listProduct = new ArrayList<>();
 
-    public void assignProduct(ProductDataModel[] listData, JPanel listGetProduct) {
-        listProduct = new ArrayList<>();
-
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            ProductModel product = new ProductModel(
+          for (int i = 0; i < listData.length; i++) {
+               var obj = listData[i];
+               ProductModel product = new ProductModel(
                     obj.getID(),
                     obj.getCatID(),
                     obj.getFlag(),
@@ -148,211 +147,211 @@ public class ListProduct extends javax.swing.JDialog {
                     obj.getDiscount(),
                     obj.getQty(),
                     obj.getDiscountType()
-            );
-            listProduct.add(product);
-        }
-        appendProduct(listProduct, listGetProduct);
-    }
+               );
+               listProduct.add(product);
+          }
+          appendProduct(listProduct, listGetProduct);
+     }
 
-    //Append Product into list
-    void appendProduct(ArrayList<ProductModel> listProduct, JPanel listGetProduct) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+     //Append Product into list
+     void appendProduct(ArrayList<ProductModel> listProduct, JPanel listGetProduct) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        listGetProduct.setLayout(gridBagLayout);
+          listGetProduct.setLayout(gridBagLayout);
 
-        int x = 0;
-        int y = 0;
+          int x = 0;
+          int y = 0;
 
-        for (int i = 0; i < listProduct.size(); i++) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = x;
-            gbc.gridy = y;
-            gbc.gridwidth = 1;
-            gbc.anchor = gbc.NORTH;
-            x++;
-            if (x == 1) {
-                x = 0;
-                y++;
-            }
+          for (int i = 0; i < listProduct.size(); i++) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
+                    x = 0;
+                    y++;
+               }
 
-            var listData = listProduct.get(i);
-            Products.GetProduct prod = new Products.GetProduct();
+               var listData = listProduct.get(i);
+               Products.GetProduct prod = new Products.GetProduct();
 
-            ButtonEvent events = new ButtonEvent() {
+               ButtonEvent events = new ButtonEvent() {
 
-                @Override
-                public void onSelect(String Key) {  // event edit
-                    EditProduct edit = new EditProduct(new JFrame(), true);
-                    edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
-
-                    edit.setPlProduct(panelProduct);
-                    edit.setpCategory(panelCategory);
-                    edit.setJdLogin(jdLogin);
-
-                    try {
-                        Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
-                        String responseData = response.body().string();
-                        ObjectMapper objMap = new ObjectMapper();
-                        DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
-                        ListDetailProduct listproduct = data.getData();
-
-                        edit.setProductId(listproduct.getID());
-                        edit.setProductNameEn(listproduct.getProNameEn());
-                        edit.setProductNameKh(listproduct.getProNameKh());
-                        edit.setProductBarcode(listproduct.getBarcode());
-                        edit.setProductPrice("" + listproduct.getPrice());
-                        edit.setProductCost("" + listproduct.getCost());
-                        edit.setProductDiscount("" + listproduct.getDiscount());
-                        if (listproduct.getWeight() != null) {
-                            edit.setProductWeight(listproduct.getWeight());
-                        }
-                        if (listproduct.getNote() != null) {
-                            edit.setProductNote(listproduct.getNote());
-                        }
-                        edit.setIndexToBrand(listproduct.getBrandID());
-                        edit.setIndexToCategory(listproduct.getCatID());
-                        edit.setIndexToTax(listproduct.getTaxID());
-//                              edit.setIndexToStatus(listproduct.getProductStatus());
-                        edit.setProductStatus(listproduct.getProductStatus());
-                        edit.setBrandId(listproduct.getBrandID());
-                        edit.setTaxId(listproduct.getTaxID());
-                        edit.setCategoryId(listproduct.getCatID());
-//                              edit.setProQty(listData.getQty());
-                        edit.setListGetProduct(listGetProduct);
-
-                        if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
-                            edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
-                        } else {
-                            edit.setProductImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
-                        }
-
-                        if (listData.getFlag() != null) {
-                            edit.setFlagImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getFlag());
-                        }
-
-                        edit.setVisible(true);
-
-                    } catch (Exception e) {
-                        System.err.println("error getting product " + e);
-                    }
-                }
-
-                @Override
-                public void onRemove(String Key) {  // event delete prooduct
-                    try {
-                        UIManager UI = new UIManager();
-                        UI.put("OptionPane.background", WindowColor.mediumGreen);
-                        UI.put("Panel.background", WindowColor.mediumGreen);
-                        UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
-                        int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
-                                "Delete Product?", JOptionPane.YES_NO_OPTION);
-
-                        if (resp == JOptionPane.YES_OPTION) {
-                            JSONObject json = new JSONObject();
-                            json.put("status", false);
-                            json.put("isDeleted", true);
-                            Response response = JavaConnection.delete(JavaRoute.product + "/" + listData.getId(), json);
-
-                            if (response.isSuccessful()) {
-                                ListProduct list = new ListProduct(new JFrame(), true);
-                                listGetProduct.removeAll();
-                                listGetProduct.revalidate();
-                                listGetProduct.repaint();
-                                list.getProduct(listGetProduct);
-
-                                jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                                panelCategory.getComponents()[1].setBackground(WindowColor.black);
-                                dispose();
-                                System.out.println("Successful deleted ");
-                            }
-                        } else {
-                            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                        }
-
-                    } catch (Exception e) {
-                        System.err.println("error getting product " + e);
-                    }
-                }
-            };
-
-            prod.initEvent(events);
-            prod.setProductName(listData.getProductNameEn());
-            prod.setProductBarcode(listData.getBarcode());
-            prod.setProductPrice(dm.format(listData.getPrice()));
-            prod.setQty(listData.getQty());
-            prod.setProductId(listData.getId());
-            prod.setListGetProduct(listGetProduct);
-            if (listData.getProductStatus() == null) {
-                prod.setProductStatus("Out Stock");
-            } else {
-                if (listData.getProductStatus().isEmpty()) {
-                    prod.setProductStatus("Out Stock");
-                } else {
-                    prod.setProductStatus(listData.getProductStatus());
-                }
-            }
-
-            try {
-
-                TimerTask task = new TimerTask() {
                     @Override
-                    public void run() {
-                        // Task to be executed
-                        prod.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                        prod.setImageDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                    public void onSelect(String Key) {  // event edit
+                         EditProduct edit = new EditProduct(new JFrame(), true);
+                         edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
+
+                         edit.setPlProduct(panelProduct);
+                         edit.setpCategory(panelCategory);
+                         edit.setJdLogin(jdLogin);
+
+                         try {
+                              Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
+                              String responseData = response.body().string();
+                              ObjectMapper objMap = new ObjectMapper();
+                              DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
+                              ListDetailProduct listproduct = data.getData();
+
+                              edit.setProductId(listproduct.getID());
+                              edit.setProductNameEn(listproduct.getProNameEn());
+                              edit.setProductNameKh(listproduct.getProNameKh());
+                              edit.setProductBarcode(listproduct.getBarcode());
+                              edit.setProductPrice("" + listproduct.getPrice());
+                              edit.setProductCost("" + listproduct.getCost());
+                              edit.setProductDiscount("" + listproduct.getDiscount());
+                              if (listproduct.getWeight() != null) {
+                                   edit.setProductWeight(listproduct.getWeight());
+                              }
+                              if (listproduct.getNote() != null) {
+                                   edit.setProductNote(listproduct.getNote());
+                              }
+                              edit.setIndexToBrand(listproduct.getBrandID());
+                              edit.setIndexToCategory(listproduct.getCatID());
+                              edit.setIndexToTax(listproduct.getTaxID());
+//                              edit.setIndexToStatus(listproduct.getProductStatus());
+                              edit.setProductStatus(listproduct.getProductStatus());
+                              edit.setBrandId(listproduct.getBrandID());
+                              edit.setTaxId(listproduct.getTaxID());
+                              edit.setCategoryId(listproduct.getCatID());
+//                              edit.setProQty(listData.getQty());
+                              edit.setListGetProduct(listGetProduct);
+
+                              if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
+                                   edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                              } else {
+                                   edit.setProductImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
+                              }
+
+                              if (listData.getFlag() != null) {
+                                   edit.setFlagImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getFlag());
+                              }
+
+                              edit.setVisible(true);
+
+                         } catch (Exception e) {
+                              System.err.println("error getting product " + e);
+                         }
                     }
-                };
 
-                Timer timer = new Timer();
-                timer.schedule(task, 500); // Delays task execution by 1 second
+                    @Override
+                    public void onRemove(String Key) {  // event delete prooduct
+                         try {
+                              UIManager UI = new UIManager();
+                              UI.put("OptionPane.background", WindowColor.mediumGreen);
+                              UI.put("Panel.background", WindowColor.mediumGreen);
+                              UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-            } catch (Exception e) {
-                System.err.println("error read image = " + e);
-            }
+                              int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
+                                   "Delete Product?", JOptionPane.YES_NO_OPTION);
 
-            listGetProduct.add(prod, gbc);
+                              if (resp == JOptionPane.YES_OPTION) {
+                                   JSONObject json = new JSONObject();
+                                   json.put("status", false);
+                                   json.put("isDeleted", true);
+                                   Response response = JavaConnection.delete(JavaRoute.product + "/" + listData.getId(), json);
 
-        }
-    }
+                                   if (response.isSuccessful()) {
+                                        ListProduct list = new ListProduct(new JFrame(), true);
+                                        listGetProduct.removeAll();
+                                        listGetProduct.revalidate();
+                                        listGetProduct.repaint();
+                                        list.getProduct(listGetProduct);
 
-    //Action Search
-    private void eventSearchProduct() {
-        // this event was called when user type on searchTextField 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                searchValue = searchField.getValueTextSearch();
+                                        jdLogin.onClickCategory("new items", jdLogin.getCatId());
+                                        panelCategory.getComponents()[1].setBackground(WindowColor.black);
+                                        dispose();
+                                        System.out.println("Successful deleted ");
+                                   }
+                              } else {
+                                   setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                              }
 
-                if (searchValue.isEmpty()) {
-                    listGetProduct.removeAll();
-                    listGetProduct.revalidate();
-                    listGetProduct.repaint();
-                    getProduct(listGetProduct);
-                } else {
-                    listGetProduct.removeAll();
-                    ActionSearchProd a = new ActionSearchProd();
-                    a.setCategory(panelCategory);
-                    a.setPanelProduct(panelProduct);
-                    a.setJdLogin(jdLogin);
-                    a.searchProducts(searchValue, listGetProduct);
-                    listGetProduct.revalidate();
-                    listGetProduct.repaint();
-                }
-            }
+                         } catch (Exception e) {
+                              System.err.println("error getting product " + e);
+                         }
+                    }
+               };
 
-            @Override
-            public void onKeyRelease() {
+               prod.initEvent(events);
+               prod.setProductName(listData.getProductNameEn());
+               prod.setProductBarcode(listData.getBarcode());
+               prod.setProductPrice(dm.format(listData.getPrice()));
+               prod.setQty(listData.getQty());
+               prod.setProductId(listData.getId());
+               prod.setListGetProduct(listGetProduct);
+               if (listData.getProductStatus() == null) {
+                    prod.setProductStatus("Out Stock");
+               } else {
+                    if (listData.getProductStatus().isEmpty()) {
+                         prod.setProductStatus("Out Stock");
+                    } else {
+                         prod.setProductStatus(listData.getProductStatus());
+                    }
+               }
 
-            }
+               try {
 
-        };
-        searchField.initEvent(event);
-    }
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              // Task to be executed
+                              prod.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                              prod.setImageDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+               } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+               }
+
+               listGetProduct.add(prod, gbc);
+
+          }
+     }
+
+     //Action Search
+     private void eventSearchProduct() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+
+                    if (searchValue.isEmpty()) {
+                         listGetProduct.removeAll();
+                         listGetProduct.revalidate();
+                         listGetProduct.repaint();
+                         getProduct(listGetProduct);
+                    } else {
+                         listGetProduct.removeAll();
+                         ActionSearchProd a = new ActionSearchProd();
+                         a.setCategory(panelCategory);
+                         a.setPanelProduct(panelProduct);
+                         a.setJdLogin(jdLogin);
+                         a.searchProducts(searchValue, listGetProduct);
+                         listGetProduct.revalidate();
+                         listGetProduct.repaint();
+                    }
+               }
+
+               @Override
+               public void onKeyRelease() {
+
+               }
+
+          };
+          searchField.initEvent(event);
+     }
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -564,19 +563,19 @@ public class ListProduct extends javax.swing.JDialog {
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
 //         dispose();
-        InsertProduct add = new InsertProduct(new JFrame(), true);
+         InsertProduct add = new InsertProduct(new JFrame(), true);
 //        add.setJdLogin(jdLogin);
 //        add.setPanelCategory(panelCategory);
-//        add.setPanelProduct(panelProduct);
-        add.setVisible(true);
-        
-        
-       
+         add.setListProduct(this);
+         add.setListGetProduct(listGetProduct);
+         add.setVisible(true);
+
+
     }//GEN-LAST:event_button1MouseClicked
 
      private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked
-         msgPrint(PrintToCSV.folderPath);
-         PrintToCSV.exportToCSV(listProduct);
+          msgPrint(PrintToCSV.folderPath);
+          PrintToCSV.exportToCSV(listProduct);
      }//GEN-LAST:event_btnCsvMouseClicked
 
      private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
@@ -594,7 +593,7 @@ public class ListProduct extends javax.swing.JDialog {
      }//GEN-LAST:event_btnExcelMouseClicked
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-         this.dispose();
+          this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
 
      public static void msgPrint(String path) {
