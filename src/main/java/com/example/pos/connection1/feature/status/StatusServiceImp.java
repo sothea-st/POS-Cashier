@@ -55,7 +55,7 @@ public class StatusServiceImp implements StatusService {
 
         return JavaCollectionResponse.builder()
                 .count(pages.getTotalElements())
-                .content(content)
+                .data(content)
                 .build();
     }
 

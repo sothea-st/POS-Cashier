@@ -65,57 +65,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "where pc.status=true and pc.is_deleted=false order by pc.id desc limit ?")
         List<ProductProjection> getProduct(int limit);
 
-//        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n"+ //
-//                        "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
-//                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
-//                        "from pos_product pc\r\n" + //
-//                        "where pc.status=true and pc.is_deleted=false order by pc.id desc LIMIT ? OFFSET ?")
-
-        @Query(nativeQuery = true , value = "SELECT\n" +
-                "    pc.id,\n" +
-                "    pc.barcode,\n" +
-                "    pc.cat_id,\n" +
-                "    pc.brand_id,\n" +
-                "    pc.flag,\n" +
-                "    pc.weight,\n" +
-                "    pc.pro_image_name,\n" +
-                "    pc.brand_id,\n" +
-                "    pc.pro_name_en,\n" +
-                "    pc.pro_name_kh,\n" +
-                "    pc.cost,\n" +
-                "    pc.price,\n" +
-                "    pc.product_status,\n" +
-                "    pc.discount,\n" +
-                "    pc.code_out_stock,\n" +
-                "    pc.code_expired,\n" +
-                "    pid.qty_old\n" +
-                "FROM\n" +
-                "    pos_product pc\n" +
-                "INNER JOIN\n" +
-                "    pos_import_detail pid ON pc.id = pid.pro_id\n" +
-                "WHERE\n" +
-                "    pc.status = true\n" +
-                "    AND pc.is_deleted = false\n" +
-                "GROUP BY\n" +
-                "    pc.id,  -- Include all non-aggregated columns in the GROUP BY clause\n" +
-                "    pc.barcode,\n" +
-                "    pc.cat_id,\n" +
-                "    pc.brand_id,\n" +
-                "    pc.flag,\n" +
-                "    pc.weight,\n" +
-                "    pc.pro_image_name,\n" +
-                "    pc.pro_name_en,\n" +
-                "    pc.pro_name_kh,\n" +
-                "    pc.cost,\n" +
-                "    pc.price,\n" +
-                "    pc.product_status,\n" +
-                "    pc.discount,\n" +
-                "    pc.code_out_stock,\n" +
-                "    pc.code_expired,\n" +
-                "    pid.qty_old\n" +
-                "ORDER BY\n" +
-                "    pc.id DESC\n" +
-                "LIMIT ? OFFSET ?")
+        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n"+ //
+                        "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
+                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
+                        "from pos_product pc\r\n" + //
+                        "where pc.status=true and pc.is_deleted=false order by pc.id desc LIMIT ? OFFSET ?")
         List<ProductProjection> getAllProduct(int perPage , int page);
 
         @Query(nativeQuery = true, value = "select count(*) from pos_product where status=true and is_deleted=false")
