@@ -6,11 +6,15 @@ import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductModel;
+import com.example.pos.connection1.feature.attribute.AttributeRepository;
+import com.example.pos.connection1.feature.country.CountryRepository;
+import com.example.pos.connection1.feature.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
+import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import com.example.pos.connection1.service.ImportService;
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +38,18 @@ public class ProductService {
     private final ImportDetailRepository repoImp;
     private final ImportService service;
     private final VendorRepository vendorRepository;
+    private final TaxProductRepository taxProductRepository;
+    private final CountryRepository countryRepository;
+    private final UomRepository uomRepository;
+    private final AttributeRepository attributeRepository;
 
-   
+
+
+
+//    public
+
+    
+
 
     public Product addProduct(Product p, MultipartFile file) throws IOException {
 
@@ -45,10 +59,29 @@ public class ProductService {
         // boolean proNameEn = repo.existsByProNameEn(p.getProNameEn());
         // JavaValidation.checkDataAlreadyExists(proNameEn);
 
+        attributeRepository.findById(p.getAttributeId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Attribute Id has not been found ."));
 
-        if( repo.existsByBarcode(p.getBarcode()) ) {
+        uomRepository.findById(p.getUomId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Uom Id has not been found ."));
+
+        countryRepository.findById(p.getCountryId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Country Id has not been found ."));
+
+        taxProductRepository.findById(p.getTaxId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Tax Id has not been found ."));
+
+        if (repo.existsByBarcode(p.getBarcode())) {
             throw new ResponseStatusException(
-                HttpStatus.CONFLICT, "Barcode already exist in system .");
+                    HttpStatus.CONFLICT, "Barcode already exist in system .");
         }
 
         // validate vendorUuid
@@ -76,13 +109,12 @@ public class ProductService {
         pro.setBarcode(p.getBarcode());
 
         // if (p.getDiscount() == null) {
-        //     pro.setDiscount(BigDecimal.valueOf(0));
+        // pro.setDiscount(BigDecimal.valueOf(0));
         // } else {
-        //     pro.setDiscount(p.getDiscount());
+        // pro.setDiscount(p.getDiscount());
         // }
 
         pro.setBrandId(p.getBrandId());
-
 
         pro.setDiscount(BigDecimal.valueOf(0));
         /*
@@ -105,7 +137,6 @@ public class ProductService {
             fileStore.save(f);
             pro.setProImageName(fileName);
         }
- 
 
         repo.save(pro);
 
@@ -114,24 +145,26 @@ public class ProductService {
          */
 
         // if (p.getProQty() != null) {
-        //     Import import1 = new Import();
-        //     import1.setCreateBy(0);
-        //     import1.setEmpId(0);
-        //     import1.setSubId(0);
-        //     import1.setImpDate(JavaConstant.currentDate);
-        //     import1.setDiscount(BigDecimal.valueOf(0));
-        //     import1.setTotal(BigDecimal.valueOf(p.getProQty() * p.getCost().doubleValue()));
+        // Import import1 = new Import();
+        // import1.setCreateBy(0);
+        // import1.setEmpId(0);
+        // import1.setSubId(0);
+        // import1.setImpDate(JavaConstant.currentDate);
+        // import1.setDiscount(BigDecimal.valueOf(0));
+        // import1.setTotal(BigDecimal.valueOf(p.getProQty() *
+        // p.getCost().doubleValue()));
 
-        //     List<ImportDetail> listDetail = new ArrayList<>();
-        //     ImportDetail importDetail = new ImportDetail();
-        //     importDetail.setProductId(pro.getId());
-        //     importDetail.setQtyNew(p.getProQty());
-        //     importDetail.setCost(p.getCost());
-        //     importDetail.setAmount(BigDecimal.valueOf(p.getCost().doubleValue() * p.getProQty()));
-        //     importDetail.setExpireDate("");
-        //     listDetail.add(importDetail);
-        //     import1.setDetails(listDetail);
-        //     service.addImport(import1);
+        // List<ImportDetail> listDetail = new ArrayList<>();
+        // ImportDetail importDetail = new ImportDetail();
+        // importDetail.setProductId(pro.getId());
+        // importDetail.setQtyNew(p.getProQty());
+        // importDetail.setCost(p.getCost());
+        // importDetail.setAmount(BigDecimal.valueOf(p.getCost().doubleValue() *
+        // p.getProQty()));
+        // importDetail.setExpireDate("");
+        // listDetail.add(importDetail);
+        // import1.setDetails(listDetail);
+        // service.addImport(import1);
         // }
 
         return pro;
@@ -153,55 +186,40 @@ public class ProductService {
         return Base64.getDecoder().decode(base64); // decode string base64
     }
 
-    public List<ProductModel> getProduct(int limit, int perPage, int page) {
-
-        List<ProductModel> list = new ArrayList<>();
-
-        if (limit == 0) {
-            List<ProductProjection> allPro = repo.getAllProduct(perPage, page);
-            for (int i = 0; i < allPro.size(); i++) {
-                var data = allPro.get(i);
-
-                Integer qty = repoImp.getQty(data.getId());
-                if (qty == null)
-                    qty = 0;
-                ProductModel p = proModel(data, qty);
-                list.add(p);
-            }
-            return list;
-        }
-
-        List<ProductProjection> lPro = repo.getProduct(limit);
-        for (int i = 0; i < lPro.size(); i++) {
-            var data = lPro.get(i);
-            Integer qty = repoImp.getQty(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
-        }
-
-        return list;
+    public List<ProductProjection> getProduct(int limit, int perPage, int page) {
+            return  repo.getAllProduct(perPage, page);
+//        List<ProductModel> list = new ArrayList<>();
+//
+//        if (limit == 0) {
+//            List<ProductProjection> allPro = repo.getAllProduct(perPage, page);
+//            for (int i = 0; i < allPro.size(); i++) {
+//                var data = allPro.get(i);
+//
+//                Integer qty = repoImp.getQty(data.getId());
+//                if (qty == null)
+//                    qty = 0;
+//                ProductModel p = proModel(data, qty);
+//                list.add(p);
+//            }
+//            return list;
+//        }
+//
+//        List<ProductProjection> lPro = repo.getProduct(limit);
+//        for (int i = 0; i < lPro.size(); i++) {
+//            var data = lPro.get(i);
+//            Integer qty = repoImp.getQty(data.getId());
+//            if (qty == null)
+//                qty = 0;
+//            ProductModel p = proModel(data, qty);
+//            list.add(p);
+//        }
+//
+//        return list;
     }
 
     public Product editProduct(int id, Product editProduct, MultipartFile file) throws IOException {
         Product previousPro = repo.findById(id).get();
         String fileName = previousPro.getProImageName();
- 
-
-        // if (!Objects.equals(previousPro.getProNameKh(), editProduct.getProNameKh()))
-        // {
-        // boolean isExist = repo.existsByProNameKh(editProduct.getProNameKh());
-        // JavaValidation.checkDataAlreadyExists(isExist);
-        // }
-
-        // if (!Objects.equals(previousPro.getProNameEn(), editProduct.getProNameEn()))
-        // {
-        // boolean isExist = repo.existsByProNameEn(editProduct.getProNameEn());
-        // JavaValidation.checkDataAlreadyExists(isExist);
-        // }
-
-
 
         if (Objects.equals(fileName, JavaConstant.defaultNameImage))
             fileName = "";

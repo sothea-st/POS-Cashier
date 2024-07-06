@@ -188,11 +188,12 @@ public class RouteController {
           }
 
           @GetMapping
-          public ResponseEntity<?> getProduct(@RequestParam("limit") int limit, @RequestParam int perPage,
+          public ResponseEntity<?> getProduct(
+                    @RequestParam("limit") int limit,
+                    @RequestParam int perPage,
                     @RequestParam int page) {
-               HashMap<String, Object> map = new HashMap<>();
                int count = repo.countRow();
-               List<ProductModel> data = service.getProduct(limit, perPage, page);
+               List<ProductProjection> data = service.getProduct(limit, perPage, page);
                return ResponseEntity.ok().body(Map.of("msg", JavaConstant.success, "data", data, "count", count));
           }
 
@@ -241,8 +242,8 @@ public class RouteController {
           @GetMapping("/getNewProduct")
           public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit, @RequestParam int page) {
                // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
-               Integer countRow = repo.countRow();
-               Integer number = (countRow * 30) / 100;
+               int countRow = repo.countRow();
+               int number = (countRow * 30) / 100;
                return ResponseEntity.ok().body(
                          Map.of("count", number, "msg", "success", "data", service.getNewProduct(limit, page, number)));
           }

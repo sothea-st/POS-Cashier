@@ -52,7 +52,7 @@ public class ImportService {
     }
 
     public void addImport(Import imp) {
-
+        System.out.println("ggggggggggggggggggggg");
         LocalDate localDate = LocalDate.now();
 
         Import data = new Import();
@@ -82,6 +82,9 @@ public class ImportService {
         data.setCreateBy(imp.getCreateBy());
         data.setDateLocal(localDate);
         repo.save(data);
+        System.out.println("nnnnnnnnnnnnnnnnnnnn");
+
+
 
         List<ImportDetail> listDetail = imp.getDetails();
 
