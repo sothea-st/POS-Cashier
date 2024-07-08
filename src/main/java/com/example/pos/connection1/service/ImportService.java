@@ -51,7 +51,7 @@ public class ImportService {
     }
 
     public void addImport(Import imp) {
-        System.out.println("ggggggggggggggggggggg");
+     
         LocalDate localDate = LocalDate.now();
 
         Import data = new Import();
@@ -120,7 +120,8 @@ public class ImportService {
             Optional<Product> p = repoProduct.findById(productId);
             Product pp = p.get();
             pp.setProductStatus("In Stock");
-            pp.setCost(value.getCost());
+            // pp.setCost(value.getCost());
+            pp.setImportDetail(details);
             repoProduct.save(pp);
 
         }

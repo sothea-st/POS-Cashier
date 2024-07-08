@@ -1,0 +1,41 @@
+package com.example.pos.connection1.mapper;
+
+import com.example.pos.connection1.entity.Product;
+
+import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+
+@Mapper(componentModel = "spring")
+public interface ProductMapper {
+    // Maps fields from ProductRequest to Product
+    Product mapToProduct(ProductRequest productRequest);
+
+    // Maps fields from Product to ProductResponse
+    @Mapping(source = "product.vendor.vendorName", target = "vendorName")
+    @Mapping(source = "product.brand.brandNameEn", target = "brandNameEn")
+    @Mapping(source = "product.attribute.attrNameEn", target = "attrNameEn")
+    @Mapping(source = "product.uom.nameEn", target = "uomNameEn")
+    @Mapping(source = "product.productActive.statusName", target = "statusName")
+    @Mapping(source = "product.country.uuid", target = "countryImageName")
+    @Mapping(source = "product.taxProduct.taxName", target = "taxName")
+    @Mapping(source = "product.subCategory.catNameEn", target = "subCatNameEn")
+    @Mapping(source = "product.importDetail.qtyOld", target = "qty")
+    ProductResponse mapToProductResponse(Product product);
+
+    // Maps fields from Product to ProductResponseReadById for read operations
+    @Mapping(source = "product.vendor.id", target = "vendorId")
+    @Mapping(source = "product.brand.id", target = "brandId")
+    @Mapping(source = "product.attribute.id", target = "attributeId")
+    @Mapping(source = "product.uom.id", target = "uomId")
+    @Mapping(source = "product.productActive.id", target = "productActiveId")
+    @Mapping(source = "product.country.id", target = "countryId")
+    @Mapping(source = "product.taxProduct.id", target = "taxId")
+    @Mapping(source = "product.subCategory.id", target = "subCatId")
+    @Mapping(source = "product.importDetail.qtyOld", target = "qty")
+    ProductResponseReadById mapToProductResponseReadById(Product product);
+
+}

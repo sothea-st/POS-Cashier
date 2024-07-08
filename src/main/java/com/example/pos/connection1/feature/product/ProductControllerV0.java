@@ -6,9 +6,8 @@ import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.entity.models.UpdateProductDiscount;
 import com.example.pos.connection1.feature.product.dto.ProductDataRequest;
-import com.example.pos.connection1.feature.product.product_service.ProductExcelServic;
-import com.example.pos.connection1.feature.product.product_service.ProductMultipleService;
-import com.example.pos.connection1.feature.product.product_service.ProductService;
+import com.example.pos.connection1.feature.product.productService.ProductExcelServic;
+import com.example.pos.connection1.feature.product.productService.ProductService;
 import com.example.pos.connection1.feature.product.dto.ProductMultiple;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +26,11 @@ import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
 @RequestMapping("/api/product")
 @RestController
 @RequiredArgsConstructor
-public class ProductController {
+public class ProductControllerV0 {
         private final ProductService service;
         private final ProductRepository repo;
         private final ProductExcelServic productExcelServic;
-        private final ProductMultipleService productMultipleService;
+ 
 
         @GetMapping(value = "/getHead")
         public ResponseEntity<?> geth() {
@@ -39,24 +38,24 @@ public class ProductController {
         }
 
         @PostMapping("/importMultiple")
-        public ResponseEntity<?> addMultipleProduct(@RequestBody ProductMultiple lists) {
+        public void addMultipleProduct(@RequestBody ProductMultiple lists) {
 
-            Map<String, Object> response = productMultipleService.addMultipleProduct(lists);
+            // Map<String, Object> response = productMultipleService.addMultipleProduct(lists);
 
-            int code = (int) response.get("code"); // Assuming 'code' is returned as an integer
+            // int code = (int) response.get("code"); // Assuming 'code' is returned as an integer
 
-            if (code == 409) {
-                // Conflict: Barcode already exists
-                return ResponseEntity.ok().body(Map.of("msg", "conflict", "data", "Barcode : "
-                        + response.get("barcode") + " already exists for one or more products in the list."));
-            } else if (code == 200) {
-                // Success: All products imported successfully
-                return JavaResponse.success("Import Success");
-            } else {
-                // Handle other status codes as needed
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-                        "Unexpected status returned from service.");
-            }
+            // if (code == 409) {
+            //     // Conflict: Barcode already exists
+            //     return ResponseEntity.ok().body(Map.of("msg", "conflict", "data", "Barcode : "
+            //             + response.get("barcode") + " already exists for one or more products in the list."));
+            // } else if (code == 200) {
+            //     // Success: All products imported successfully
+            //     return JavaResponse.success("Import Success");
+            // } else {
+            //     // Handle other status codes as needed
+            //     throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+            //             "Unexpected status returned from service.");
+            // }
         }
 
         @PostMapping("/excel")

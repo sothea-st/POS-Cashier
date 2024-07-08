@@ -8,7 +8,7 @@ import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
-import com.example.pos.connection1.feature.product.product_service.ProductService;
+import com.example.pos.connection1.feature.product.productService.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

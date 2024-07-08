@@ -6,6 +6,8 @@ import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.projections.HeadProductProjection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,10 @@ import java.util.*;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+
+       Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
+
+        Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
 
         boolean existsByBarcode(String barcode);
 

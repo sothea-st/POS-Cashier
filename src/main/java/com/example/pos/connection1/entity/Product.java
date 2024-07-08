@@ -3,14 +3,18 @@ package com.example.pos.connection1.entity;
 import java.util.Date;
 
 import com.example.pos.connection1.constant.JavaMessage;
+import com.example.pos.connection1.entity.sourceData.Brand;
+import com.example.pos.connection1.entity.sourceData.TaxProduct;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.*;
+
 @Entity
 @Table(name = "pos_product")
 @Data
@@ -22,18 +26,15 @@ public class Product {
     private int id;
 
     @Column(name = "cat_id")
-    private int catId;
-    
-    @Column(name = "brand_id")
-    private int brandId;
+    private Integer catId;
 
-    @Column(name = "flag" )
+    @Column(name = "flag")
     private String flag;
 
     @Column(name = "weight")
     private String weight;
 
-    @Column(name = "pro_image_name",length = 1000)
+    @Column(name = "pro_image_name", length = 1000)
     private String proImageName;
 
     @Column(name = "note")
@@ -42,33 +43,55 @@ public class Product {
     @Column(name = "code_expired")
     private String codeExpired;
 
-    @Column(name = "code_out_stock" )
+    @Column(name = "code_out_stock")
     private String codeOutStock;
 
-    @Column(name = "barcode",unique = true)
+    @Column(name = "barcode", unique = true)
     private String barcode;
-
-    @Column(name = "tax_id")
-    @Min(1)
-    private int taxId;
 
     @Column(name = "pro_qty")
     private Integer proQty;
 
-    @Column(name = "product_active_id")
-    private Integer productActiveId;
-    
-    @Column(name = "vendor_id")
-    private Integer vendorId;
+    //    ******************  add new ********************
+    @ManyToOne
+    @JoinColumn(name = "import_id")
+    private ImportDetail importDetail;
 
-    @Column(name = "country_id")
-    private Integer countryId;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
-    @Column(name = "uom_id")
-    private Integer uomId;
+    @ManyToOne
+    @JoinColumn(name = "tax_id")
+    private TaxProduct taxProduct;
 
-    @Column(name = "attribute_id")
-    private Integer attributeId;
+    @ManyToOne
+    @JoinColumn(name = "product_active_id")
+    private Status productActive;
+
+    @ManyToOne
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+    @ManyToOne
+    @JoinColumn(name = "uom_id")
+    private Uom uom;
+
+    @ManyToOne
+    @JoinColumn(name = "attribute_id")
+    private Attribute attribute;
+
+    @ManyToOne
+    @JoinColumn(name = "sub_category_id")
+    private Category subCategory;
+
+
+//    ******************  add new ********************
+
 
     @Column(name = "choices")
     private String choices;
@@ -82,29 +105,29 @@ public class Product {
     @Column(name = "pro_name_en")
     private String proNameEn;
 
-    @Column(precision = 10, scale = 2,name = "cost")
+    @Column(precision = 10, scale = 2, name = "cost")
     private BigDecimal cost = new BigDecimal(0);
 
-    @Column(precision = 10, scale = 2,name = "price")
+    @Column(precision = 10, scale = 2, name = "price")
     private BigDecimal price = new BigDecimal(0);
 
     @Column(name = "product_status")
     private String productStatus;
 
-    @Column(name = "discount",precision = 10, scale = 2)
+    @Column(name = "discount", precision = 10, scale = 2)
     private BigDecimal discount;
 
     @Column(name = "status")
-    private boolean status = true;
+    private Boolean status = true;
 
     @Column(name = "is_deleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
     @CreationTimestamp
-    @Column(updatable = false,name = "create_date")
+    @Column(updatable = false, name = "create_date")
     private Date createDate;
 
     @Column(name = "create_by")
-    private int createBy;
+    private Integer createBy;
 
 }

@@ -13,6 +13,8 @@ public interface UomRepository extends JpaRepository<Uom,Integer>{
     Optional<Uom> findById (Integer id); 
 
     Optional<Uom> findByIdAndStatusTrueAndIsDeletedFalse (Integer id);
+ 
+
 
     Page<Uom> findByStatusTrueAndIsDeletedFalse (PageRequest pageable);
 

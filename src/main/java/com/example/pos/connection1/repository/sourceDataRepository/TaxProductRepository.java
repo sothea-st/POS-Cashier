@@ -9,6 +9,9 @@ import com.example.pos.connection1.projections.TaxProductProjection.TaxProductPr
 
 @Repository
 public interface TaxProductRepository extends JpaRepository<TaxProduct,Integer> {
+
+
+     Optional<TaxProduct> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      @Query(nativeQuery = true , value = "select id,tax_name,rate_tax from pos_product_tax where status = true and is_deleted = false")
      List<TaxProductProjection> getTax();
 

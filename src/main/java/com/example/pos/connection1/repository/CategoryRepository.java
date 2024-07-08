@@ -10,6 +10,10 @@ import java.util.*;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
+
+
+
+
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.parentId = :parentId ORDER BY c.movePosition ASC")
     List<Category> getCategory(int parentId);
 
@@ -20,6 +24,8 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     Optional<Category> findByParentIdAndStatusTrueAndIsDeletedFalse(int parentId);
 
     Optional<Category> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+
+    Optional<Category> findByIdAndStatusTrueAndIsDeletedFalseAndCode(int id,String code);
 
  
 

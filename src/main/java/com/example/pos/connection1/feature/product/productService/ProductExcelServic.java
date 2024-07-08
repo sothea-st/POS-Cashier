@@ -1,4 +1,4 @@
-package com.example.pos.connection1.feature.product.product_service;
+package com.example.pos.connection1.feature.product.productService;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -56,8 +56,8 @@ public class ProductExcelServic {
 
                     product.setBarcode(p.getBarcode());
 
-                    product.setVendorId(p.getVendorId());
-                    product.setBrandId(p.getBrandId());
+                    // product.setVendorId(p.getVendorId());
+                    // product.setBrandId(p.getBrandId());
                     product.setCatId(p.getCatId());
                     product.setProNameEn(p.getProductName());
                     product.setProNameKh(p.getProductNameKh());
@@ -65,13 +65,13 @@ public class ProductExcelServic {
                     product.setCost(p.getCost());
                     product.setPrice(p.getPrice());
                     product.setMargin(p.getMargin());
-                    product.setAttributeId(p.getAttributeId());
+                    // product.setAttributeId(p.getAttributeId());
                     product.setChoices(p.getChoiceValue());
 
-                    product.setUomId(p.getUomId());
-                    product.setProductActiveId(p.getStatus());
-                    product.setCountryId(p.getCountryId());
-                    product.setTaxId(p.getTaxId());
+                    // product.setUomId(p.getUomId());
+                    // product.setProductActiveId(p.getStatus());
+                    // product.setCountryId(p.getCountryId());
+                    // product.setTaxId(p.getTaxId());
                     product.setCreateBy(0);
 
                     product.setProductStatus(null);

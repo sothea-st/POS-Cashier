@@ -39,11 +39,13 @@ public class CategoryService {
 
     public Category saveCategory(CategoryRequest c) {
 
-        repo.findById(c.parentId())
-                .orElseThrow(
-                        () -> new ResponseStatusException(
-                                HttpStatus.NOT_FOUND,
-                                "Parent Id has not been found."));
+        if (c.parentId() != 0) {
+            repo.findById(c.parentId())
+                    .orElseThrow(
+                            () -> new ResponseStatusException(
+                                    HttpStatus.NOT_FOUND,
+                                    "Parent Id has not been found."));
+        }
 
         // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
         boolean catNameEn = repo.existsByCatNameEnAndStatusTrueAndIsDeletedFalse(c.catNameEn());
@@ -100,7 +102,7 @@ public class CategoryService {
         return obj;
     }
 
-    public CategoryResponse  getCategoryById(int id) {
+    public CategoryResponse getCategoryById(int id) {
         Category c = repo.getCategoryById(id);
         if (c == null)
             throw new JavaNotFoundByIdGiven();

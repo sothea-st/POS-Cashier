@@ -11,6 +11,8 @@ public interface StatusRepository extends JpaRepository<Status,Integer>{
     Optional<Status> findById(Integer id);
 
     Optional<Status> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
+ 
+
 
     Page<Status> findByStatusTrueAndIsDeletedFalse (PageRequest pageable);
 }

@@ -38,7 +38,7 @@ public class ServiceManagement {
                // pro.setCostKhr(p.getCostKhr());
                // pro.setPriceKhr(p.getPriceKhr());
                // pro.setNote(p.getNote());
-               pro.setTaxId(3);
+               // pro.setTaxId(3);
                pro.setCreateBy(1);
 
                String _weight=null;
@@ -75,7 +75,7 @@ public class ServiceManagement {
                pro.setWeight(_weight);
                pro.setBarcode(p.getBarcode());
                pro.setDiscount(p.getDiscount());
-               pro.setBrandId(0);
+               // pro.setBrandId(0);
                // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" :
                // p.getDiscountPercentag());
                pro.setProImageName(p.getImage());

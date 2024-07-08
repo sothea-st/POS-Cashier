@@ -24,6 +24,8 @@ public interface VendorRepository extends JpaRepository<Vendor,Integer> {
      Optional<Vendor> findByUuid(String uuid);
 
      Optional<Vendor> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+ 
+
 
  
 }

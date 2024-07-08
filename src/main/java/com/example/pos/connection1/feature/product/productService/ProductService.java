@@ -1,4 +1,4 @@
-package com.example.pos.connection1.feature.product.product_service;
+package com.example.pos.connection1.feature.product.productService;
 
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.FileStore;
@@ -80,22 +80,22 @@ public class ProductService {
 
         Product pro = new Product();
 
-        pro.setProductActiveId(p.productActiveId());
-        pro.setVendorId(p.vendorId());
-        pro.setCountryId(p.countryId());
-        pro.setAttributeId(p.attributeId());
+        // pro.setProductActiveId(p.productActiveId());
+        // pro.setVendorId(p.vendorId());
+        // pro.setCountryId(p.countryId());
+        // pro.setAttributeId(p.attributeId());
         pro.setChoices(p.choice());
-        pro.setUomId(p.uomId());
+        // pro.setUomId(p.uomId());
         pro.setMargin(p.margin());
         pro.setCatId(p.catId());
         pro.setProNameKh(p.proNameKh());
         pro.setProNameEn(p.proNameEn());
         pro.setCost(p.cost());
         pro.setPrice(p.price());
-        pro.setTaxId(p.taxId());
+        // pro.setTaxId(p.taxId());
         pro.setCreateBy(p.createBy());
         pro.setBarcode(p.barcode());
-        pro.setBrandId(p.brandId());
+        // pro.setBrandId(p.brandId());
         pro.setDiscount(BigDecimal.valueOf(0));
 
         /*
@@ -186,16 +186,16 @@ public class ProductService {
             previousPro.setProImageName(imgName);
         }
 //        previousPro.setProductActive(editProduct.getProductActive());
-        previousPro.setVendorId(editProduct.getVendorId());
-        previousPro.setCountryId(editProduct.getCountryId());
-        previousPro.setAttributeId(editProduct.getAttributeId());
+        // previousPro.setVendorId(editProduct.getVendorId());
+        // previousPro.setCountryId(editProduct.getCountryId());
+        // previousPro.setAttributeId(editProduct.getAttributeId());
         previousPro.setChoices(editProduct.getChoices());
-        previousPro.setUomId(editProduct.getUomId());
+        // previousPro.setUomId(editProduct.getUomId());
         previousPro.setMargin(editProduct.getMargin());
 
         previousPro.setProNameKh(editProduct.getProNameKh());
         previousPro.setProNameEn(editProduct.getProNameEn());
-        previousPro.setTaxId(editProduct.getTaxId());
+        // previousPro.setTaxId(editProduct.getTaxId());
         previousPro.setProductStatus(editProduct.getProductStatus());
 
         // previousPro.setCostKhr(editProduct.getCostKhr());
@@ -205,7 +205,7 @@ public class ProductService {
         // previousPro.setWeight(editProduct.getWeight());
         previousPro.setBarcode(editProduct.getBarcode());
         previousPro.setDiscount(editProduct.getDiscount());
-        previousPro.setBrandId(editProduct.getBrandId());
+        // previousPro.setBrandId(editProduct.getBrandId());
         // previousPro.setProductStatus(editProduct.getProductStatus()); // for detail
         // product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
@@ -246,8 +246,8 @@ public class ProductService {
     public void deleteProduct(int id, Product p) {
         Optional<Product> data = repo.findById(id);
         Product obj = data.get();
-        obj.setStatus(p.isStatus());
-        obj.setDeleted(p.isDeleted());
+        obj.setStatus(false);
+        obj.setIsDeleted(true);
         repo.save(obj);
     }
 
