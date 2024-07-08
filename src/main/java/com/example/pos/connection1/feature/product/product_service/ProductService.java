@@ -367,7 +367,6 @@ public class ProductService {
             ProductModel p = proModel(data, qty);
             list.add(p);
         }
-
         return list;
     }
 
