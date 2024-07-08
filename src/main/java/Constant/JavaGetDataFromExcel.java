@@ -58,7 +58,7 @@ public class JavaGetDataFromExcel {
                                         case 2 ->
                                              pro.setBrandId(returnId(value));
                                         case 3 ->
-                                             pro.setCatId(returnId(value));
+                                             pro.setSubCatId(returnId(value));
                                         case 4 ->
                                              pro.setProductName(value);
                                         case 5 ->
@@ -70,7 +70,7 @@ public class JavaGetDataFromExcel {
                                         case 11 ->
                                              pro.setUomId(returnId(value));
                                         case 12 ->
-                                             pro.setStatus(value);
+                                             pro.setStatusId(returnId(value));
                                         case 13 ->
                                              pro.setCountryId(returnId(value));
                                         case 14 ->
@@ -83,7 +83,7 @@ public class JavaGetDataFromExcel {
                               case NUMERIC -> {
                                    double numericValue = currentCell.getNumericCellValue();
                                    BigDecimal decimalValue = BigDecimal.valueOf(numericValue);
-
+                                   Double percenTag = numericValue*100;
                                    switch (cellIndex) {
                                         case 0 -> {
                                              BigDecimal bigDecimalValue = new BigDecimal(
@@ -95,8 +95,7 @@ public class JavaGetDataFromExcel {
                                              pro.setCost(decimalValue);
                                         case 7 ->
                                              pro.setPrice(decimalValue);
-                                        case 8 ->
-                                             pro.setMargin(decimalValue);
+                                        case 8 ->  pro.setMargin(percenTag + "%");
                                         default -> {
                                         }
                                    }

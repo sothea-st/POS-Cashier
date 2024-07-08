@@ -1,12 +1,35 @@
 package Setting.Uom;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
+import Model.Uom.DataUomModel;
+import Model.Uom.DetailUomModel;
+import Model.Uom.ListUomModel;
+import Model.Uom.UomModel;
+import Setting.Category.GetCategory;
+import Setting.Category.NoDataAvailable;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class listUom extends javax.swing.JDialog {
 
@@ -28,6 +51,168 @@ public class listUom extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "UOM");
+        
+        getUom(listGetUom);
+    }
+    
+    
+    public void getUom(JPanel jpanelData) {
+        try {
+
+            Response response = JavaConnection.get(JavaRoute.uom );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListUomModel data = objMap.readValue(responseData, ListUomModel.class);
+                DataUomModel[] listData = data.getContent();
+                assignUom(listData, jpanelData);
+            } else {
+                System.err.println("fail loading uom");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting uom " + e);
+        }
+    }
+     
+    public void assignUom(DataUomModel[] listData, JPanel listGetUom) {
+        ArrayList<UomModel> uom = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            UomModel getUom = new UomModel(
+                    obj.getId(),
+                    obj.getNameEn(),
+                    obj.getNameKh()
+            );
+            uom.add(getUom);
+        }
+
+        appendUom(uom, listGetUom);
+    }
+    
+    void appendUom(ArrayList<UomModel> listUom, JPanel listGetUom) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetUom.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if(listUom.size() > 0){
+            for (int i = 0; i < listUom.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+
+                var listData = listUom.get(i);
+                
+                GetCategory b = new GetCategory();
+
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        AddUom edit = new AddUom(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.uom + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailUomModel data = objMap.readValue(responseData, DetailUomModel.class);
+                            
+                            System.out.println("data : " + data);
+
+                            edit.setId(data.getId());
+                            edit.setListGetUom(listGetUom);
+
+                            edit.setValueEdit(
+                                data.getNameEn(),
+                                data.getNameKh()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting uom " + e);
+                        }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete brand
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this UOM?",
+                                    "Delete UOM?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                json.put("status", false);
+                                json.put("isDeleted", true);
+                                Response response = JavaConnection.delete(JavaRoute.uom + "/" + listData.getId(), json);
+
+                                if (response.isSuccessful()) {
+                                    listUom list = new listUom(new JFrame(), true);
+                                    listGetUom.removeAll();
+                                    listGetUom.revalidate();
+                                    listGetUom.repaint();
+                                    list.getUom(listGetUom);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting uom " + e);
+                        }
+                    }
+                };
+
+                b.initEvent(events);
+                b.setId(listData.getId());
+                
+                b.setCategoryNameEn(listData.getNameEn());
+                b.setCategoryNameKh(listData.getNameKh());
+
+                try {
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
+
+                listGetUom.add(b, gbc);
+            }  
+        }else{
+            NoDataAvailable no = new NoDataAvailable();
+            listGetUom.add(no);
+        }
+        
+        listGetUom.revalidate();
+        listGetUom.repaint();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,7 +226,7 @@ public class listUom extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetCategory = new javax.swing.JPanel();
+        listGetUom = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
 
@@ -92,20 +277,20 @@ public class listUom extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetCategory.setBackground(new java.awt.Color(176, 215, 181));
+        listGetUom.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetCategoryLayout = new javax.swing.GroupLayout(listGetCategory);
-        listGetCategory.setLayout(listGetCategoryLayout);
-        listGetCategoryLayout.setHorizontalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetUomLayout = new javax.swing.GroupLayout(listGetUom);
+        listGetUom.setLayout(listGetUomLayout);
+        listGetUomLayout.setHorizontalGroup(
+            listGetUomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 654, Short.MAX_VALUE)
         );
-        listGetCategoryLayout.setVerticalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetUomLayout.setVerticalGroup(
+            listGetUomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetCategory);
+        jScrollPane.setViewportView(listGetUom);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,6 +365,7 @@ public class listUom extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddUom add = new AddUom(new JFrame(), true);
+        add.setListGetUom(listGetUom);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -230,7 +416,7 @@ public class listUom extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetCategory;
+    private javax.swing.JPanel listGetUom;
     private javax.swing.JPanel panelListUom;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

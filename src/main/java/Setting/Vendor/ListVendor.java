@@ -1,11 +1,27 @@
 package Setting.Vendor;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Model.Vendor.DataVendorModel;
+import Model.Vendor.ListVendorModel;
+import Model.Vendor.VendorModel;
+import Setting.Category.NoDataAvailable;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import okhttp3.Response;
 
 public class ListVendor extends javax.swing.JDialog {
 
@@ -26,9 +42,114 @@ public class ListVendor extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Vendor");
+        
+        getVendor(listGetVendor);
     }
 
+    
+    public void getVendor(JPanel jpanelData) {
+        try {
 
+            Response response = JavaConnection.get(JavaRoute.vendor );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
+                DataVendorModel[] listData = data.getContent();
+                asignVendor(listData, jpanelData);
+            } else {
+                System.err.println("fail loading vendor");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting vendor " + e);
+        }
+    }
+     
+    public void asignVendor(DataVendorModel[] listData, JPanel listGetVendor) {
+        ArrayList<VendorModel> vendor = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            VendorModel getVendor = new VendorModel(
+                    obj.getId(),
+                    obj.getVendorName(),
+                    obj.getAddress(),
+                    obj.getContact(),
+                    obj.getEmail(),
+                    obj.getWebsite(),
+                    obj.getUuid(),
+                    obj.getVdCode()
+            );
+            vendor.add(getVendor);
+        }
+
+        appendVendor(vendor, listGetVendor);
+    }
+    
+    void appendVendor(ArrayList<VendorModel> list, JPanel listGetVendor) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetVendor.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if(list.size() > 0){
+            for (int i = 0; i < list.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+
+                var listData = list.get(i);
+                System.out.println("listData : " + listData.getVendorName());
+                GetVendor b = new GetVendor();
+                b.setId(listData.getId());
+                b.setVendorName(listData.getVendorName());
+                b.setVendorCode(listData.getVdCode());
+                b.setPhoneNumber(listData.getContact());
+                b.setEmail(listData.getEmail());
+                b.setAddress(listData.getAddress());
+
+                try {
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
+
+                listGetVendor.add(b, gbc);
+            }  
+        }else{
+            NoDataAvailable no = new NoDataAvailable();
+            listGetVendor.add(no);
+        }
+        
+        listGetVendor.revalidate();
+        listGetVendor.repaint();
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -40,9 +161,10 @@ public class ListVendor extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listGetVedor = new javax.swing.JPanel();
+        listGetVendor = new javax.swing.JPanel();
         button1 = new Button.Button();
         btnCancel = new Button.Button();
 
@@ -74,6 +196,11 @@ public class ListVendor extends javax.swing.JDialog {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Email");
 
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Address");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -82,14 +209,16 @@ public class ListVendor extends javax.swing.JDialog {
                 .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +229,8 @@ public class ListVendor extends javax.swing.JDialog {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -110,20 +240,20 @@ public class ListVendor extends javax.swing.JDialog {
         jScrollPane1.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane1.setBorder(null);
 
-        listGetVedor.setBackground(new java.awt.Color(176, 215, 181));
+        listGetVendor.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetVedorLayout = new javax.swing.GroupLayout(listGetVedor);
-        listGetVedor.setLayout(listGetVedorLayout);
-        listGetVedorLayout.setHorizontalGroup(
-            listGetVedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetVendorLayout = new javax.swing.GroupLayout(listGetVendor);
+        listGetVendor.setLayout(listGetVendorLayout);
+        listGetVendorLayout.setHorizontalGroup(
+            listGetVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        listGetVedorLayout.setVerticalGroup(
-            listGetVedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetVendorLayout.setVerticalGroup(
+            listGetVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 495, Short.MAX_VALUE)
         );
 
-        jScrollPane1.setViewportView(listGetVedor);
+        jScrollPane1.setViewportView(listGetVendor);
 
         button1.setBackground(new java.awt.Color(47, 155, 70));
         button1.setButtonName("+ Add Vendor");
@@ -193,6 +323,7 @@ public class ListVendor extends javax.swing.JDialog {
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
         AddVendor add = new AddVendor(new JFrame(), true);
+        add.setListGetVendor(listGetVendor);
         add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
@@ -251,8 +382,9 @@ public class ListVendor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel listGetVedor;
+    private javax.swing.JPanel listGetVendor;
     private javax.swing.JPanel panelListVendor;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

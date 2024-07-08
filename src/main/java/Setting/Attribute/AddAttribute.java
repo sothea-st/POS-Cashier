@@ -1,15 +1,50 @@
 package Setting.Attribute;
 
+import Constant.JavaConnection;
+import Constant.JavaRoute;
+import Event.ButtonEvent;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import okhttp3.Response;
+import org.json.JSONObject;
+
 public class AddAttribute extends javax.swing.JDialog {
 
+    private Integer id;
+    private JPanel listGetAttribute;
+    
     public AddAttribute(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtAttributeEn.requestFocus();
+        event();
+    }
+    
+    //Place Holder
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
+
+            }
+        };
+        txtAttributeEn.initEvent(btnevent);
+        txtAttributeKh.initEvent(btnevent);
     }
 
+    //Value Edit
+    public void setValueEdit(
+        String attrEn,
+        String attrKh
+    ) throws IOException {
+        txtAttributeEn.setValueTextField(attrEn);
+        txtAttributeKh.setValueTextField(attrKh);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -119,9 +154,74 @@ public class AddAttribute extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        
+        String attrNameEn = txtAttributeEn.getValueTextField();
+        String attrNameKh = txtAttributeKh.getValueTextField();
+
+        try {
+            if (attrNameEn == null || attrNameEn.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Attribute Name can not be empty!");
+                return;
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("attrNameEn", attrNameEn);
+            json.put("attrNameKh", attrNameKh);
+
+            if (id != null) {
+                Response response = JavaConnection.put(JavaRoute.attribute + '/' + id, json);
+                
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    ListAttribute list = new ListAttribute(new JFrame(), true);
+                    listGetAttribute.removeAll();
+                    listGetAttribute.revalidate();
+                    listGetAttribute.repaint();
+                    list.getAttribute(listGetAttribute);
+                    dispose();
+                } 
+
+            } else {
+                Response response = JavaConnection.post(JavaRoute.attribute, json);
+
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+                
+                if (response.isSuccessful()) {
+                    ListAttribute list = new ListAttribute(new JFrame(), true);
+                    listGetAttribute.removeAll();
+                    listGetAttribute.revalidate();
+                    listGetAttribute.repaint();
+                    list.getAttribute(listGetAttribute);
+                    dispose();
+                } 
+            }
+
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+        titlePopUp.setLabelTitle("Edit Attribute");
+    }
+
+    public JPanel getListGetAttribute() {
+        return listGetAttribute;
+    }
+
+    public void setListGetAttribute(JPanel listGetAttribute) {
+        this.listGetAttribute = listGetAttribute;
+    }
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

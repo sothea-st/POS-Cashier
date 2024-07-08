@@ -1,13 +1,49 @@
 package Setting.Uom;
 
+import Constant.JavaConnection;
+import Constant.JavaRoute;
+import Event.ButtonEvent;
+import Setting.Attribute.ListAttribute;
+import java.io.IOException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import okhttp3.Response;
+import org.json.JSONObject;
+
 public class AddUom extends javax.swing.JDialog {
 
+    private Integer id;
+    private JPanel listGetUom;
+    
     public AddUom(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtUom.requestFocus();
+        event();
+    }
+    
+    //Place Holder
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
+
+            }
+        };
+        txtUom.initEvent(btnevent);
+        txtUomKh.initEvent(btnevent);
+    }
+    
+    //Value Edit
+    public void setValueEdit(
+        String uomName,
+        String uomNameKh
+    ) throws IOException {
+        txtUom.setValueTextField(uomName);
+        txtUomKh.setValueTextField(uomNameKh);
     }
 
     @SuppressWarnings("unchecked")
@@ -119,9 +155,73 @@ public class AddUom extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+        String uomNameEn = txtUom.getValueTextField();
+        String uomNameKh = txtUomKh.getValueTextField();
 
+        try {
+            if (uomNameEn == null || uomNameEn.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "UOM Name can not be empty!");
+                return;
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("nameEn", uomNameEn);
+            json.put("nameKh", uomNameKh);
+
+            if (id != null) {
+                Response response = JavaConnection.put(JavaRoute.uom + '/' + id, json);
+                
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    listUom list = new listUom(new JFrame(), true);
+                    listGetUom.removeAll();
+                    listGetUom.revalidate();
+                    listGetUom.repaint();
+                    list.getUom(listGetUom);
+                    dispose();
+                } 
+
+            } else {
+                Response response = JavaConnection.post(JavaRoute.uom, json);
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    listUom list = new listUom(new JFrame(), true);
+                    listGetUom.removeAll();
+                    listGetUom.revalidate();
+                    listGetUom.repaint();
+                    list.getUom(listGetUom);
+                    dispose();
+                } 
+            }
+
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+        titlePopUp.setLabelTitle("Edit UOM");
+    }
+
+    public JPanel getListGetUom() {
+        return listGetUom;
+    }
+
+    public void setListGetUom(JPanel listGetUom) {
+        this.listGetUom = listGetUom;
+    }
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

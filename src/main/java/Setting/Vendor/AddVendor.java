@@ -1,14 +1,46 @@
 package Setting.Vendor;
 
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
+import Event.ButtonEvent;
+import Setting.Uom.listUom;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import okhttp3.Response;
+import org.json.JSONObject;
+
 public class AddVendor extends javax.swing.JDialog {
 
+    private Integer id;
+    private JPanel listGetVendor;
+    
     public AddVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtVendorName.requestFocus();
+        event();
     }
+    
+    
+    //Place Holder
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
+
+            }
+        };
+        txtVendorName.initEvent(btnevent);
+        txtPhoneNumber.initEvent(btnevent);
+        txtEmail.initEvent(btnevent);
+        txtWebsite.initEvent(btnevent);
+        txtAddress.initEvent(btnevent);
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -24,8 +56,6 @@ public class AddVendor extends javax.swing.JDialog {
         txtEmail = new Components.TextField();
         label5 = new Components.Label();
         txtWebsite = new Components.TextField();
-        label3 = new Components.Label();
-        txtHotline = new Components.TextField();
         label6 = new Components.Label();
         txtAddress = new Components.TextField();
         buttonCancel = new ButtonPackage.ButtonCancel();
@@ -56,10 +86,6 @@ public class AddVendor extends javax.swing.JDialog {
         label5.setLabelName("Website");
 
         txtWebsite.setLabelTextField("Website");
-
-        label3.setLabelName("Hotline");
-
-        txtHotline.setLabelTextField("000 000 0000");
 
         label6.setLabelName("Address");
 
@@ -94,38 +120,33 @@ public class AddVendor extends javax.swing.JDialog {
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtHotline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, 0)
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, 0)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -153,10 +174,8 @@ public class AddVendor extends javax.swing.JDialog {
                     .addComponent(txtWebsite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtHotline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(label6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,9 +192,86 @@ public class AddVendor extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+        String vendorName = txtVendorName.getValueTextField();
+        String phoneNumber = txtPhoneNumber.getValueTextField();
+        String email = txtEmail.getValueTextField();
+        String website = txtWebsite.getValueTextField();
+        String address = txtAddress.getValueTextField();
 
+        try {
+            if (vendorName == null || vendorName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vendor Name can not be empty!");
+                return;
+            }
+            
+             if (phoneNumber == null || phoneNumber.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Phone Number can not be empty!");
+                return;
+            }
+
+            JSONObject json = new JSONObject();
+            json.put("vendorName", vendorName);
+            json.put("contact", phoneNumber);
+            json.put("email", email);
+            json.put("website", website);
+            json.put("address", address);
+            json.put("createBy", JavaConstant.cashierId + "");
+
+
+            if (id != null) {
+                Response response = JavaConnection.put(JavaRoute.vendor + '/' + id, json);
+                
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    ListVendor list = new ListVendor(new JFrame(), true);
+                    listGetVendor.removeAll();
+                    listGetVendor.revalidate();
+                    listGetVendor.repaint();
+                    list.getVendor(listGetVendor);
+                    dispose();
+                } 
+
+            } else {
+                Response response = JavaConnection.post(JavaRoute.vendor, json);
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                if (response.isSuccessful()) {
+                    ListVendor list = new ListVendor(new JFrame(), true);
+                    listGetVendor.removeAll();
+                    listGetVendor.revalidate();
+                    listGetVendor.repaint();
+                    list.getVendor(listGetVendor);
+                    dispose();
+                } 
+            }
+
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+        titlePopUp.setLabelTitle("Edit Vendor");
+    }
+
+    public JPanel getListGetVendor() {
+        return listGetVendor;
+    }
+
+    public void setListGetVendor(JPanel listGetVendor) {
+        this.listGetVendor = listGetVendor;
+    }
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -223,14 +319,12 @@ public class AddVendor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel14;
     private Components.Label label1;
     private Components.Label label2;
-    private Components.Label label3;
     private Components.Label label4;
     private Components.Label label5;
     private Components.Label label6;
     private Components.LabelPopUpTitle titlePopUp;
     private Components.TextField txtAddress;
     private Components.TextField txtEmail;
-    private Components.TextField txtHotline;
     private Components.TextField txtPhoneNumber;
     private Components.TextField txtVendorName;
     private Components.TextField txtWebsite;
