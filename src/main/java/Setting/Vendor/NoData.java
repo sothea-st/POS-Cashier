@@ -1,14 +1,13 @@
+package Setting.Vendor;
 
-package Setting.Category;
+public class NoData extends javax.swing.JPanel {
 
-public class NoDataAvailable extends javax.swing.JPanel {
-
-    public NoDataAvailable() {
+    public NoData() {
         initComponents();
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         user = new javax.swing.JPanel();
@@ -26,7 +25,9 @@ public class NoDataAvailable extends javax.swing.JPanel {
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addGroup(userLayout.createSequentialGroup()
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 1055, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -47,11 +48,11 @@ public class NoDataAvailable extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-    }// </editor-fold>                        
+    }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lbName;
     private javax.swing.JPanel user;
-    // End of variables declaration                   
+    // End of variables declaration//GEN-END:variables
 }

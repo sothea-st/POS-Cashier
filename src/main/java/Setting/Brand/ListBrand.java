@@ -14,7 +14,7 @@ import Model.Brand.BrandSuccessModel;
 import Model.Brand.DetailBrandModel;
 import Model.Brand.DetailBrandSuccess;
 import Setting.Category.GetCategory;
-import Setting.Category.NoDataAvailable;
+import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -134,7 +134,7 @@ public class ListBrand extends javax.swing.JDialog {
 
                             edit.setVisible(true);
                         } catch (Exception e) {
-                             System.err.println("error getting product " + e);
+                             System.err.println("error getting brand " + e);
                         }
                             
                     }
@@ -170,7 +170,7 @@ public class ListBrand extends javax.swing.JDialog {
                             }
 
                         } catch (Exception e) {
-                            System.err.println("error getting product " + e);
+                            System.err.println("error getting brand " + e);
                         }
                     }
                 };
@@ -201,7 +201,7 @@ public class ListBrand extends javax.swing.JDialog {
                 listGetBrand.add(b, gbc);
             }  
         }else{
-            NoDataAvailable no = new NoDataAvailable();
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetBrand.add(no);
         }
         

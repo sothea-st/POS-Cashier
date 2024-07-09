@@ -165,7 +165,7 @@ public class Category extends javax.swing.JDialog {
 
                                 edit.setVisible(true);
                             } catch (Exception e) {
-                                System.err.println("error getting product " + e);
+                                System.err.println("error getting division " + e);
                             }
                         } else if (codeType.equals("department")) {
                             InsertDepartment edit = new InsertDepartment(new JFrame(), true, codeType);
@@ -188,7 +188,7 @@ public class Category extends javax.swing.JDialog {
 
                                 edit.setVisible(true);
                             } catch (Exception e) {
-                                System.err.println("error getting product " + e);
+                                System.err.println("error getting department " + e);
                             }
                         } else if (codeType.equals("category")) {
                             InsertCategory edit = new InsertCategory(new JFrame(), true, codeType);
@@ -220,7 +220,7 @@ public class Category extends javax.swing.JDialog {
                                 edit.setVisible(true);
 
                             } catch (Exception e) {
-                                System.err.println("error getting product " + e);
+                                System.err.println("error getting category " + e);
                             }
 
                         } else {
@@ -257,7 +257,7 @@ public class Category extends javax.swing.JDialog {
                                 );
                                 edit.setVisible(true);
                             } catch (Exception e) {
-                                System.err.println("error getting product " + e);
+                                System.err.println("error getting sub category " + e);
                             }
                         }
                     }
@@ -293,7 +293,7 @@ public class Category extends javax.swing.JDialog {
                             }
 
                         } catch (Exception e) {
-                            System.err.println("error getting product " + e);
+                            System.err.println("error " + e);
                         }
                     }
                 };

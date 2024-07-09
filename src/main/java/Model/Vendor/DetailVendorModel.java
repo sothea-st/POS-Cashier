@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model.Vendor;
 
-/**
- *
- * @author FRONT-END.06
- */
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+
 public class DetailVendorModel {
-    
+    private Integer id;
+    private String vendorName;
+    private String address;
+    private String contact;
+    private String email;
+    private String website;
+    private String uuid;
+    private String vdCode;
 }

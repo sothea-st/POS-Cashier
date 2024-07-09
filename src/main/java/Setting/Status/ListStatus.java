@@ -1,4 +1,4 @@
-package Setting.Attribute;
+package Setting.Status;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
@@ -8,11 +8,10 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import Model.Attribute.Attribute;
-import Model.Attribute.DataAttributeModel;
-import Model.Attribute.DetailAttributeModel;
-import Model.Attribute.ListAttributeModel;
-import Setting.Category.GetCategory;
+import Model.Status.DetailStatusModel;
+import Model.Status.GetStatusModel;
+import Model.Status.ListStatusModel;
+import Model.Status.StatusModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -31,11 +30,12 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class ListAttribute extends javax.swing.JDialog {
+public class ListStatus extends javax.swing.JDialog {
 
-    public ListAttribute(java.awt.Frame parent, boolean modal) {
+    public ListStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         
@@ -49,58 +49,59 @@ public class ListAttribute extends javax.swing.JDialog {
         verticalScrollBar.setBlockIncrement(35);
         
         header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "Attribute");
+        JavaConstant.addTitleAndLogo(this, "Status");
         
-        getAttribute(listGetAttribute);
+         getStatus(listGetStatus);
     }
-
-    public void getAttribute(JPanel jpanelData) {
+    
+     public void getStatus(JPanel jpanelData) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.attribute );
+            Response response = JavaConnection.get(JavaRoute.status );
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
-                ListAttributeModel data = objMap.readValue(responseData, ListAttributeModel.class);
-                DataAttributeModel[] listData = data.getData();
-                assignAttribute(listData, jpanelData);
+                ListStatusModel data = objMap.readValue(responseData, ListStatusModel.class);
+                GetStatusModel[] listData = data.getData();
+                assignStatus(listData, jpanelData);
             } else {
-                System.err.println("fail loading attribute");
+                System.err.println("fail loading status");
             }
         } catch (Exception e) {
-            System.err.println("error getting attribute " + e);
+            System.err.println("error getting status " + e);
         }
     }
      
-    public void assignAttribute(DataAttributeModel[] listData, JPanel listGetAttribute) {
-        ArrayList<Attribute> attr = new ArrayList<>();
+
+    public void assignStatus(GetStatusModel[] listData, JPanel listGetStatus) {
+        ArrayList<StatusModel> status = new ArrayList<>();
           
         for (int i = 0; i < listData.length; i++) {
             var obj = listData[i];
-            Attribute getAttr = new Attribute(
+            StatusModel getStat = new StatusModel(
                     obj.getId(),
-                    obj.getAttrNameEn(),
-                    obj.getAttrNameKh()
+                    obj.getStatusName()
             );
-            attr.add(getAttr);
+            status.add(getStat);
         }
 
-        appenAttribute(attr, listGetAttribute);
+        appendStatus(status, listGetStatus);
     }
     
-    void appenAttribute(ArrayList<Attribute> listAttribute, JPanel listGetAttribute) {
+    
+    void appendStatus(ArrayList<StatusModel> listStatus, JPanel listGetStatus) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        listGetAttribute.setLayout(gridBagLayout);
+        listGetStatus.setLayout(gridBagLayout);
 
         int x = 0;
         int y = 0;
-        if(listAttribute.size() > 0){
-            for (int i = 0; i < listAttribute.size(); i++) {
+        if(listStatus.size() > 0){
+            for (int i = 0; i < listStatus.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = x;
                 gbc.gridy = y;
@@ -112,33 +113,31 @@ public class ListAttribute extends javax.swing.JDialog {
                     y++;
                 }
 
-                var listData = listAttribute.get(i);
+                var listData = listStatus.get(i);
                 
-                GetCategory b = new GetCategory();
-
+                GetStatus b = new GetStatus();
                 ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String Key) {  // event edit
-                        AddAttribute edit = new AddAttribute(new JFrame(), true);
+                        AddStatus edit = new AddStatus(new JFrame(), true);
                         try {
-                            Response response = JavaConnection.get(JavaRoute.attribute + "/" + listData.getId());
+                            Response response = JavaConnection.get(JavaRoute.status + "/" + listData.getId());
                             String responseData = response.body().string();
                             ObjectMapper objMap = new ObjectMapper();
-                            DetailAttributeModel data = objMap.readValue(responseData, DetailAttributeModel.class);
+                            DetailStatusModel data = objMap.readValue(responseData, DetailStatusModel.class);
                             
                             System.out.println("data : " + data);
 
                             edit.setId(data.getId());
-                            edit.setListGetAttribute(listGetAttribute);
+                            edit.setListGetStatus(listGetStatus);
 
                             edit.setValueEdit(
-                                data.getAttrNameEn(),
-                                data.getAttrNameKh()
+                                data.getStatusName()
                             );
 
                             edit.setVisible(true);
                         } catch (Exception e) {
-                             System.err.println("error getting attribute " + e);
+                             System.err.println("error getting status " + e);
                         }
                     }
                     
@@ -151,21 +150,21 @@ public class ListAttribute extends javax.swing.JDialog {
                             UI.put("Panel.background", WindowColor.mediumGreen);
                             UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this attribute?",
-                                    "Delete Attribute?", JOptionPane.YES_NO_OPTION);
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this status?",
+                                    "Delete Status?", JOptionPane.YES_NO_OPTION);
 
                             if (resp == JOptionPane.YES_OPTION) {
                                 JSONObject json = new JSONObject();
                                 json.put("status", false);
                                 json.put("isDeleted", true);
-                                Response response = JavaConnection.delete(JavaRoute.attribute + "/" + listData.getId(), json);
+                                Response response = JavaConnection.delete(JavaRoute.status + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
-                                    ListAttribute list = new ListAttribute(new JFrame(), true);
-                                    listGetAttribute.removeAll();
-                                    listGetAttribute.revalidate();
-                                    listGetAttribute.repaint();
-                                    list.getAttribute(listGetAttribute);
+                                    ListStatus list = new ListStatus(new JFrame(), true);
+                                    listGetStatus.removeAll();
+                                    listGetStatus.revalidate();
+                                    listGetStatus.repaint();
+                                    list.getStatus(listGetStatus);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -173,16 +172,16 @@ public class ListAttribute extends javax.swing.JDialog {
                             }
 
                         } catch (Exception e) {
-                            System.err.println("error getting attribute " + e);
+                            System.err.println("error getting status " + e);
                         }
                     }
                 };
 
                 b.initEvent(events);
-                b.setId(listData.getId());
                 
-                b.setCategoryNameEn(listData.getAttributeNameEn());
-                b.setCategoryNameKh(listData.getAttributeNameKh());
+                b.setId(listData.getId());
+                b.setStatusName(listData.getStatusName());
+                
 
                 try {
 
@@ -202,15 +201,15 @@ public class ListAttribute extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
-                listGetAttribute.add(b, gbc);
+                listGetStatus.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetAttribute.add(no);
+            listGetStatus.add(no);
         }
         
-        listGetAttribute.revalidate();
-        listGetAttribute.repaint();
+        listGetStatus.revalidate();
+        listGetStatus.repaint();
     }
     
     
@@ -221,11 +220,10 @@ public class ListAttribute extends javax.swing.JDialog {
         panelListAttribute = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetAttribute = new javax.swing.JPanel();
+        listGetStatus = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
 
@@ -238,13 +236,9 @@ public class ListAttribute extends javax.swing.JDialog {
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Actions");
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Attribute Name Kh");
-
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Attribute Name");
+        jLabel10.setText("Status Name");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -255,8 +249,6 @@ public class ListAttribute extends javax.swing.JDialog {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         headerLayout.setVerticalGroup(
@@ -265,7 +257,6 @@ public class ListAttribute extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8)
                     .addComponent(jLabel10))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -276,20 +267,20 @@ public class ListAttribute extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetAttribute.setBackground(new java.awt.Color(176, 215, 181));
+        listGetStatus.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetAttributeLayout = new javax.swing.GroupLayout(listGetAttribute);
-        listGetAttribute.setLayout(listGetAttributeLayout);
-        listGetAttributeLayout.setHorizontalGroup(
-            listGetAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetStatusLayout = new javax.swing.GroupLayout(listGetStatus);
+        listGetStatus.setLayout(listGetStatusLayout);
+        listGetStatusLayout.setHorizontalGroup(
+            listGetStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 654, Short.MAX_VALUE)
         );
-        listGetAttributeLayout.setVerticalGroup(
-            listGetAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetStatusLayout.setVerticalGroup(
+            listGetStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetAttribute);
+        jScrollPane.setViewportView(listGetStatus);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -298,7 +289,7 @@ public class ListAttribute extends javax.swing.JDialog {
         });
 
         btnAdd.setBackground(new java.awt.Color(47, 155, 70));
-        btnAdd.setButtonName("+ Add Attribute");
+        btnAdd.setButtonName("+ Add Status");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMouseClicked(evt);
@@ -320,7 +311,7 @@ public class ListAttribute extends javax.swing.JDialog {
                             .addGroup(panelListAttributeLayout.createSequentialGroup()
                                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
                             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(15, 15, 15))
@@ -363,9 +354,9 @@ public class ListAttribute extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AddAttribute add = new AddAttribute(new JFrame(), true);
-        add.setListGetAttribute(listGetAttribute);
-        add.setVisible(true);
+       AddStatus add = new AddStatus(new JFrame(),true);
+       add.setListGetStatus(listGetStatus);
+       add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
     public static void main(String args[]) {
@@ -382,21 +373,20 @@ public class ListAttribute extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListAttribute.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListAttribute.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListAttribute.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListAttribute.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListAttribute dialog = new ListAttribute(new javax.swing.JFrame(), true);
+                ListStatus dialog = new ListStatus(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -414,9 +404,8 @@ public class ListAttribute extends javax.swing.JDialog {
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetAttribute;
+    private javax.swing.JPanel listGetStatus;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

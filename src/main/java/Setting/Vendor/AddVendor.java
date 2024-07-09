@@ -5,6 +5,7 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Setting.Uom.listUom;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -41,6 +42,20 @@ public class AddVendor extends javax.swing.JDialog {
         txtAddress.initEvent(btnevent);
     }
     
+    //Value Edit
+    public void setValueEdit(
+        String vendorName,
+        String phone,
+        String email,
+        String Web,
+        String address
+    ) throws IOException {
+        txtVendorName.setValueTextField(vendorName);
+        txtPhoneNumber.setValueTextField(phone);
+        txtEmail.setValueTextField(email);
+        txtWebsite.setValueTextField(Web);
+        txtAddress.setValueTextField(address);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -215,7 +230,6 @@ public class AddVendor extends javax.swing.JDialog {
             json.put("email", email);
             json.put("website", website);
             json.put("address", address);
-            json.put("createBy", JavaConstant.cashierId + "");
 
 
             if (id != null) {
@@ -234,6 +248,8 @@ public class AddVendor extends javax.swing.JDialog {
                 } 
 
             } else {
+                json.put("createBy", JavaConstant.cashierId + "");
+                
                 Response response = JavaConnection.post(JavaRoute.vendor, json);
                 System.out.println("response : " + response);
                 System.out.println("json : " + json);

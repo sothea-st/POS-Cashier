@@ -53,7 +53,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="searchField" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnAdd" min="-2" pref="81" max="-2" attributes="0"/>
+                                  <Component id="btnAdd" min="-2" pref="92" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jScrollPane" alignment="1" pref="664" max="32767" attributes="0"/>
                               <Component id="header" alignment="0" max="32767" attributes="0"/>
@@ -140,7 +140,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Status"/>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Rate"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
@@ -174,7 +175,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="listGetCategory">
+            <Container class="javax.swing.JPanel" name="listGetTax">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="b5" green="d7" red="b0" type="rgb"/>

@@ -1,19 +1,21 @@
-package Setting.Category;
+package Setting.Country;
 
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import javax.swing.Icon;
 
-public class GetCategory extends javax.swing.JPanel {
+public class GetCountry extends javax.swing.JPanel {
 
     private Integer id;
-    private String categoryNameKh;
-    private String categoryNameEn;
+    private String country;
+    private Icon flag;
     private Icon iconEdit;
     private Icon iconDelete;
-    
-    public GetCategory() {
+
+    public GetCountry() {
         initComponents();
         lbId.setVisible(false);
     }
@@ -27,23 +29,26 @@ public class GetCategory extends javax.swing.JPanel {
         lbId.setText(""+id);
     }
 
-    public String getCategoryNameKh() {
-        return categoryNameKh;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCategoryNameKh(String categoryNameKh) {
-        this.categoryNameKh = categoryNameKh;
-        lbCategoryKh.setText(categoryNameKh);
-        
+    public void setCountry(String country) {
+        this.country = country;
+        lbCountry.setText(country);
     }
 
-    public String getCategoryNameEn() {
-        return categoryNameEn;
+    public Icon getFlag() {
+        return flag;
     }
 
-    public void setCategoryNameEn(String categoryNameEn) {
-        this.categoryNameEn = categoryNameEn;
-        lbCategoryEn.setText(categoryNameEn);
+    public void setFlag(Icon flag) {
+        this.flag = flag;
+        imgFlag.setIcon(flag);
+    }
+    
+    public void setFlag(String url) throws IOException {
+        JavaConstant.coverImage(url, imgFlag, 30, 15);
     }
 
     public Icon getIconEdit() {
@@ -63,8 +68,6 @@ public class GetCategory extends javax.swing.JPanel {
         this.iconDelete = iconDelete;
         btnDelete.setIcon(iconDelete);
     }
-    
-    
     
     public void initEvent(ButtonEvent event) {
         btnEdit.addMouseListener(new MouseListener() {
@@ -121,8 +124,8 @@ public class GetCategory extends javax.swing.JPanel {
     private void initComponents() {
 
         panel = new javax.swing.JPanel();
-        lbCategoryKh = new javax.swing.JLabel();
-        lbCategoryEn = new javax.swing.JLabel();
+        imgFlag = new javax.swing.JLabel();
+        lbCountry = new javax.swing.JLabel();
         lbId = new javax.swing.JLabel();
         btnEdit = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
@@ -131,14 +134,14 @@ public class GetCategory extends javax.swing.JPanel {
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panel.setPreferredSize(new java.awt.Dimension(615, 35));
 
-        lbCategoryKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbCategoryKh.setForeground(new java.awt.Color(0, 0, 0));
-        lbCategoryKh.setText("Category Name Kh");
+        imgFlag.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        imgFlag.setForeground(new java.awt.Color(0, 0, 0));
+        imgFlag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        lbCategoryEn.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbCategoryEn.setForeground(new java.awt.Color(0, 0, 0));
-        lbCategoryEn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbCategoryEn.setText("Category Name En");
+        lbCountry.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbCountry.setForeground(new java.awt.Color(0, 0, 0));
+        lbCountry.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbCountry.setText("Country");
 
         lbId.setText("jLabel1");
 
@@ -164,9 +167,9 @@ public class GetCategory extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbCategoryEn, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(lbCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbCategoryKh, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imgFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
@@ -176,8 +179,8 @@ public class GetCategory extends javax.swing.JPanel {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnDelete)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbCategoryKh)
-                        .addComponent(lbCategoryEn)
+                        .addComponent(imgFlag, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbCountry)
                         .addComponent(lbId)
                         .addComponent(btnEdit)))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -187,7 +190,9 @@ public class GetCategory extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,8 +206,8 @@ public class GetCategory extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnDelete;
     private javax.swing.JLabel btnEdit;
-    private javax.swing.JLabel lbCategoryEn;
-    private javax.swing.JLabel lbCategoryKh;
+    private javax.swing.JLabel imgFlag;
+    private javax.swing.JLabel lbCountry;
     private javax.swing.JLabel lbId;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables

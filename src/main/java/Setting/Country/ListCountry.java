@@ -1,12 +1,37 @@
 package Setting.Country;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaBaseUrl;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
+import Model.Country.CountryModel;
+import Model.Country.DataCountryModel;
+import Model.Country.ListCountryModel;
+import Setting.Category.NoDataAvaibalePanel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ListCountry extends javax.swing.JDialog {
 
@@ -28,7 +53,172 @@ public class ListCountry extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Country");
+        
+        getListCountry(listGetCountry);
     }
+    
+    public void getListCountry(JPanel jpanelData) {
+        try {
+
+            Response response = JavaConnection.get(JavaRoute.country );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListCountryModel data = objMap.readValue(responseData, ListCountryModel.class);
+                DataCountryModel[] listData = data.getData();
+                assignCountry(listData, jpanelData);
+            } else {
+                System.err.println("fail loading country");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting country " + e);
+        }
+    }
+    
+    
+     public void assignCountry(DataCountryModel[] listData, JPanel listGetCountry) {
+        ArrayList<CountryModel> country = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            CountryModel countries = new CountryModel(
+                    obj.getId(),
+                    obj.getCountryName(),
+                    obj.getUuid()
+                    
+            );
+            country.add(countries);
+        }
+
+        appenCountry(country, listGetCountry);
+    }
+    
+    void appenCountry(ArrayList<CountryModel> list, JPanel listGetCountry) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetCountry.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if(list.size() > 0){
+            for (int i = 0; i < list.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+
+                var listData = list.get(i);
+                
+                GetCountry b = new GetCountry();
+                
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        AddCountry edit = new AddCountry(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.country + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DataCountryModel data = objMap.readValue(responseData, DataCountryModel.class);
+
+                            edit.setId(data.getId());
+                            edit.setListGetCountry(listGetCountry);
+
+                            edit.setValueEdit(
+                                data.getCountryName(),
+                                new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid(),
+                                data.getUuid()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting country " + e);
+                        }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete brand
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this country?",
+                                    "Delete Country?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.country + "/" + listData.getId(), json);
+
+                                if (response.isSuccessful()) {
+                                    ListCountry list = new ListCountry(new JFrame(), true);
+                                    listGetCountry.removeAll();
+                                    listGetCountry.revalidate();
+                                    listGetCountry.repaint();
+                                    list.getListCountry(listGetCountry);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting country " + e);
+                        }
+                    }
+                };
+
+                b.initEvent(events);
+                b.setId(listData.getId());
+                b.setCountry(listData.getCountryName());
+
+                try {
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                            
+                            try {
+                                b.setFlag(new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid());
+                            } catch (IOException ex) {
+                                Logger.getLogger(ListCountry.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
+
+                listGetCountry.add(b, gbc);
+            }  
+        }else{
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+            listGetCountry.add(no);
+        }
+        
+        listGetCountry.revalidate();
+        listGetCountry.repaint();
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,7 +231,7 @@ public class ListCountry extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetCategory = new javax.swing.JPanel();
+        listGetCountry = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
 
@@ -56,7 +246,8 @@ public class ListCountry extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Flag");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Image");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,20 +283,20 @@ public class ListCountry extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetCategory.setBackground(new java.awt.Color(176, 215, 181));
+        listGetCountry.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetCategoryLayout = new javax.swing.GroupLayout(listGetCategory);
-        listGetCategory.setLayout(listGetCategoryLayout);
-        listGetCategoryLayout.setHorizontalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetCountryLayout = new javax.swing.GroupLayout(listGetCountry);
+        listGetCountry.setLayout(listGetCountryLayout);
+        listGetCountryLayout.setHorizontalGroup(
+            listGetCountryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 654, Short.MAX_VALUE)
         );
-        listGetCategoryLayout.setVerticalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetCountryLayout.setVerticalGroup(
+            listGetCountryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetCategory);
+        jScrollPane.setViewportView(listGetCountry);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,6 +371,7 @@ public class ListCountry extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddCountry add = new AddCountry(new JFrame(), true);
+        add.setListGetCountry(listGetCountry);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -230,7 +422,7 @@ public class ListCountry extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetCategory;
+    private javax.swing.JPanel listGetCountry;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

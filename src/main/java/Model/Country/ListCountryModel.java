@@ -1,4 +1,4 @@
-package Model.Uom;
+package Model.Country;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 
-public class ListUomModel {
+public class ListCountryModel {
     private Integer count;
-    private DataUomModel[] data;
+    private DataCountryModel[] data;
 }

@@ -60,7 +60,7 @@
                               <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="lbPicture" min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="lbFile" min="-2" pref="124" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
@@ -83,7 +83,7 @@
                           <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="lbPicture" min="-2" pref="135" max="-2" attributes="0"/>
+                          <Component id="lbFile" min="-2" pref="135" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -108,6 +108,23 @@
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Image"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="browse">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="14" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="66" green="33" red="0" type="rgb"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Browse here to Upload"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseExited"/>
+          </Events>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
           <Events>
@@ -140,7 +157,7 @@
             <Property name="labelTextField" type="java.lang.String" value="Country Name"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbPicture">
+        <Component class="javax.swing.JLabel" name="lbFile">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -149,23 +166,6 @@
               </Border>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="browse">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="33" red="0" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Browse here to Upload"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseClicked"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseExited"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

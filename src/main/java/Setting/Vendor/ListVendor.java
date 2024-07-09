@@ -6,10 +6,12 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
 import Model.Vendor.DataVendorModel;
+import Model.Vendor.DetailVendorModel;
 import Model.Vendor.ListVendorModel;
 import Model.Vendor.VendorModel;
-import Setting.Category.NoDataAvailable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,10 +20,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ListVendor extends javax.swing.JDialog {
 
@@ -55,7 +60,7 @@ public class ListVendor extends javax.swing.JDialog {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
-                DataVendorModel[] listData = data.getContent();
+                DataVendorModel[] listData = data.getData();
                 asignVendor(listData, jpanelData);
             } else {
                 System.err.println("fail loading vendor");
@@ -111,14 +116,77 @@ public class ListVendor extends javax.swing.JDialog {
                 }
 
                 var listData = list.get(i);
-                System.out.println("listData : " + listData.getVendorName());
                 GetVendor b = new GetVendor();
+                
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        AddVendor edit = new AddVendor(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.vendor + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailVendorModel data = objMap.readValue(responseData, DetailVendorModel.class);
+
+                            edit.setId(data.getId());
+                            edit.setListGetVendor(listGetVendor);
+
+                            edit.setValueEdit(
+                                data.getVendorName(),
+                                data.getContact(),
+                                data.getEmail(),
+                                data.getWebsite(),
+                                data.getAddress()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting vendor " + e);
+                        }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete brand
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this vendor?",
+                                    "Delete Vendor?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.vendor + "/" + listData.getId(), json);
+
+                                if (response.isSuccessful()) {
+                                    ListVendor list = new ListVendor(new JFrame(), true);
+                                    listGetVendor.removeAll();
+                                    listGetVendor.revalidate();
+                                    listGetVendor.repaint();
+                                    list.getVendor(listGetVendor);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting vendor " + e);
+                        }
+                    }
+                };
+                
+                b.initEvent(events);
                 b.setId(listData.getId());
                 b.setVendorName(listData.getVendorName());
                 b.setVendorCode(listData.getVdCode());
                 b.setPhoneNumber(listData.getContact());
                 b.setEmail(listData.getEmail());
                 b.setAddress(listData.getAddress());
+                b.setWebsite(listData.getWebsite());
 
                 try {
 
@@ -141,7 +209,7 @@ public class ListVendor extends javax.swing.JDialog {
                 listGetVendor.add(b, gbc);
             }  
         }else{
-            NoDataAvailable no = new NoDataAvailable();
+            NoData no = new NoData();
             listGetVendor.add(no);
         }
         
@@ -162,6 +230,7 @@ public class ListVendor extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listGetVendor = new javax.swing.JPanel();
@@ -201,6 +270,11 @@ public class ListVendor extends javax.swing.JDialog {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Address");
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Website");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -218,7 +292,9 @@ public class ListVendor extends javax.swing.JDialog {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +306,8 @@ public class ListVendor extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -279,14 +356,14 @@ public class ListVendor extends javax.swing.JDialog {
                     .addGroup(panelListVendorLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListVendorLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListVendorLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(panelListVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelListVendorLayout.createSequentialGroup()
                                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1)
                             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18))
         );
@@ -301,7 +378,7 @@ public class ListVendor extends javax.swing.JDialog {
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -383,6 +460,7 @@ public class ListVendor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel listGetVendor;
     private javax.swing.JPanel panelListVendor;

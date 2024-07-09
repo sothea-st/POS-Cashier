@@ -1,12 +1,35 @@
 package Setting.Tax;
 
+import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
+import Model.Tax.DataTaxModel;
+import Model.Tax.DetailTaxModel;
+import Model.Tax.DetailTaxSuccessModel;
+import Model.Tax.ListTaxModel;
+import Model.Tax.TaxModel;
+import Setting.Category.NoDataAvaibalePanel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ListTax extends javax.swing.JDialog {
 
@@ -28,7 +51,167 @@ public class ListTax extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Tax");
+        getTax(listGetTax);
     }
+    
+    public void getTax(JPanel jpanelData) {
+        try {
+
+            Response response = JavaConnection.get(JavaRoute.tax );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListTaxModel data = objMap.readValue(responseData, ListTaxModel.class);
+                DataTaxModel[] listData = data.getData();
+                assignTax(listData, jpanelData);
+            } else {
+                System.err.println("fail loading tax");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting tax " + e);
+        }
+    }
+    
+    public void assignTax(DataTaxModel[] listData, JPanel listGetTax) {
+        ArrayList<TaxModel> tax = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            TaxModel getTax = new TaxModel(
+                    obj.getId(),
+                    obj.getTax_name(),
+                    obj.getRate_tax()
+                    
+            );
+            tax.add(getTax);
+        }
+
+        appendTax(tax, listGetTax);
+    }
+    
+    void appendTax(ArrayList<TaxModel> list, JPanel listGetTax) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetTax.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if(list.size() > 0){
+            for (int i = 0; i < list.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+
+                var listData = list.get(i);
+                
+                GetTax b = new GetTax();
+
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        AddTax edit = new AddTax(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.tax + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailTaxSuccessModel data = objMap.readValue(responseData, DetailTaxSuccessModel.class);
+                            DetailTaxModel listData = data.getData();
+
+                            edit.setId(listData.getId());
+                            edit.setListGetTax(listGetTax);
+
+                            edit.setValueEdit(
+                                listData.getTax_name(),
+                                listData.getRate_tax()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting tax " + e);
+                        }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete brand
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this tax?",
+                                    "Delete Tax?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                json.put("status", false);
+                                json.put("isDeleted", true);
+                                Response response = JavaConnection.delete(JavaRoute.tax + "/" + listData.getId(), json);
+
+                                if (response.isSuccessful()) {
+                                    ListTax list = new ListTax(new JFrame(), true);
+                                    listGetTax.removeAll();
+                                    listGetTax.revalidate();
+                                    listGetTax.repaint();
+                                    list.getTax(listGetTax);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting tax " + e);
+                        }
+                    }
+                };
+                
+                b.initEvent(events);
+                b.setId(listData.getId());
+                b.setTaxName(listData.getTaxName());
+                b.setTaxRate(listData.getRateTax() + "%");
+
+                try {
+
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
+
+                listGetTax.add(b, gbc);
+            }  
+        }else{
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+            listGetTax.add(no);
+        }
+        
+        listGetTax.revalidate();
+        listGetTax.repaint();
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,7 +224,7 @@ public class ListTax extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetCategory = new javax.swing.JPanel();
+        listGetTax = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
 
@@ -56,7 +239,8 @@ public class ListTax extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Status");
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Rate");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -92,20 +276,20 @@ public class ListTax extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetCategory.setBackground(new java.awt.Color(176, 215, 181));
+        listGetTax.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetCategoryLayout = new javax.swing.GroupLayout(listGetCategory);
-        listGetCategory.setLayout(listGetCategoryLayout);
-        listGetCategoryLayout.setHorizontalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetTaxLayout = new javax.swing.GroupLayout(listGetTax);
+        listGetTax.setLayout(listGetTaxLayout);
+        listGetTaxLayout.setHorizontalGroup(
+            listGetTaxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 654, Short.MAX_VALUE)
         );
-        listGetCategoryLayout.setVerticalGroup(
-            listGetCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetTaxLayout.setVerticalGroup(
+            listGetTaxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 472, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetCategory);
+        jScrollPane.setViewportView(listGetTax);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -136,7 +320,7 @@ public class ListTax extends javax.swing.JDialog {
                             .addGroup(panelListAttributeLayout.createSequentialGroup()
                                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
                             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(15, 15, 15))
@@ -180,6 +364,7 @@ public class ListTax extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddTax add = new AddTax(new JFrame(), true);
+        add.setListGetTax(listGetTax);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
@@ -233,7 +418,7 @@ public class ListTax extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetCategory;
+    private javax.swing.JPanel listGetTax;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

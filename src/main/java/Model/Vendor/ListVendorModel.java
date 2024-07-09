@@ -8,5 +8,5 @@ import lombok.Setter;
 
 public class ListVendorModel {
     private Integer count;
-    private DataVendorModel[] content;
+    private DataVendorModel[] data;
 }

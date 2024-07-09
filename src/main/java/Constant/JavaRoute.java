@@ -56,6 +56,9 @@ public class JavaRoute {
      public static String vendor = "/vendor";
      public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
      public static String importMultiple = "/product/importMultiple";
+     public static String country = "/country";
+     public static String addBackground = "/public/addImageForBackground";
+     public static String status = "/status";
 
      
 

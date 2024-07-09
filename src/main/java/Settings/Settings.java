@@ -2,7 +2,6 @@ package Settings;
 
 import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
-import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
@@ -11,6 +10,7 @@ import Setting.Attribute.ListAttribute;
 import Setting.Brand.ListBrand;
 import Setting.Category.Category;
 import Setting.Country.ListCountry;
+import Setting.Status.ListStatus;
 import Setting.Tax.ListTax;
 import Setting.Uom.listUom;
 import Setting.Vendor.ListVendor;
@@ -60,6 +60,7 @@ public class Settings extends javax.swing.JDialog {
         uom.setTitle("UOM");
         country.setTitle("Country");
         tax.setTitle("Tax");
+        status.setTitle("Status");
         
         TimerTask task = new TimerTask() {
             @Override
@@ -106,6 +107,7 @@ public class Settings extends javax.swing.JDialog {
         uom = new Components.SettingBox();
         country = new Components.SettingBox();
         tax = new Components.SettingBox();
+        status = new Components.SettingBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -177,6 +179,12 @@ public class Settings extends javax.swing.JDialog {
             }
         });
 
+        status.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                statusMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,7 +197,9 @@ public class Settings extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -227,8 +237,9 @@ public class Settings extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(uom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -243,7 +254,9 @@ public class Settings extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -318,6 +331,11 @@ public class Settings extends javax.swing.JDialog {
         list.setVisible(true);
     }//GEN-LAST:event_taxMouseClicked
 
+    private void statusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusMouseClicked
+        ListStatus list = new ListStatus(new JFrame(), true);
+        list.setVisible(true);
+    }//GEN-LAST:event_statusMouseClicked
+
     public JPanel getPanelProduct() {
         return panelProduct;
     }
@@ -384,6 +402,7 @@ public class Settings extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private Components.SettingBox product;
+    private Components.SettingBox status;
     private Components.SettingBox subCategory;
     private Components.SettingBox tax;
     private Components.SettingBox uom;
