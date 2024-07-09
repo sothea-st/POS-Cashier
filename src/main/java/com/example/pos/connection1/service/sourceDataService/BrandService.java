@@ -4,6 +4,8 @@ import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
+
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,6 +67,10 @@ public class BrandService {
     
         repo.save(brand);
         return brand;
+    }
+
+    public List<Brand> search(String valueSearch){
+        return repo.searchBrand(valueSearch);
     }
 
 }

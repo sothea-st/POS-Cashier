@@ -69,4 +69,15 @@ public class StatusController {
         statusService.delete(id);
     }
 
+    /*
+      * Search status by name
+    */
+    @GetMapping("/searchStatus/{statusName}")
+    JavaCollectionResponse<?> search(
+        @RequestParam(defaultValue = "10", required = false) int pageSize, 
+        @RequestParam(defaultValue = "0", required = false ) int pageNumber, 
+        @PathVariable("statusName") String searchValue){
+          return statusService.search(pageSize,pageNumber,searchValue);
+        }
+
 }

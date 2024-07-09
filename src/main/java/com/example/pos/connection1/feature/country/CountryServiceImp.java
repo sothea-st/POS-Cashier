@@ -91,4 +91,22 @@ public class CountryServiceImp implements CountryService {
                     .build();
      }
 
+     @Override
+     public JavaCollectionResponse<?> search(int pageNumber, int pageSize, String searchValue) {
+
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+          Page<Country> pages = countryRepository.findByCountryName(pageRequest,searchValue);
+
+          List<CountryResponse> content = pages.getContent()
+                              .stream()
+                              .map(c->mapToCountryResponse(c))
+                              .toList();
+
+          return JavaCollectionResponse.builder()
+                              .count(pages.getTotalElements())
+                              .data(content)
+                              .build();
+     }
+
 }

@@ -51,6 +51,12 @@ public class CountryController {
         countryService.deleteById(id);
     }
 
-  
+    @GetMapping("/searchCountry/{countryName}")
+    public JavaCollectionResponse<?> search (
+            @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @PathVariable("countryName") String searchValue) {
+        return countryService.search(pageNumber, pageSize, searchValue);
+    }
 
 }

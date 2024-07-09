@@ -36,4 +36,12 @@ public interface CountryService {
       */
      void deleteById(int id);
 
+
+     /*
+      * read search country
+      * required paramater searchValue
+      */
+     JavaCollectionResponse<?> search (int pageNumber, int pageSize, String searchValue);
+
+
 }

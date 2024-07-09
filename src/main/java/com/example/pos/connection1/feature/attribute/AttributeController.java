@@ -1,7 +1,6 @@
 package com.example.pos.connection1.feature.attribute;
 
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.pos.connection1.feature.attribute.dto.AttributeRequest;
 import com.example.pos.connection1.feature.attribute.dto.AttributeResponse;
 import com.example.pos.connection1.feature.attribute.dto.AttributeUpdateRequest;
@@ -70,6 +69,17 @@ public class AttributeController {
 	@DeleteMapping("/{id}")
 	void deleteById(@PathVariable("id") Integer id) {
 		attributeService.deleteById(id);
+	}
+
+	/*
+      * Search attribute
+    */
+	@GetMapping("/searchAttribute/{attrNameEn}")
+	public JavaCollectionResponse<?> search (
+		@RequestParam(defaultValue = "10", required = false) int pageSize,
+		@RequestParam(defaultValue = "0", required = false) int pageNumber, 
+		@PathVariable("attrNameEn") String valueSearch) {
+		return attributeService.search(pageSize, pageNumber, valueSearch);
 	}
 
 }

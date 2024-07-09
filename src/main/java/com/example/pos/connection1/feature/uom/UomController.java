@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
@@ -70,4 +71,15 @@ public class UomController {
     UomResponse updateById(@PathVariable("id") Integer id, @Valid @RequestBody UomUpdateRequest uomUpdateRequest){
         return uomService.updateById(id, uomUpdateRequest);
     }
+
+    /*
+      * search uom
+    */
+    @GetMapping("/searchUom/{nameEn}")
+    JavaCollectionResponse<?> search(
+        @RequestParam(defaultValue = "10", required = false) int pageSize,
+        @RequestParam(defaultValue = "0", required = false) int pageNumber, 
+        @PathVariable("nameEn") String searchValue){
+          return uomService.search(pageSize,pageNumber,searchValue);
+        }
 }
