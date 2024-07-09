@@ -13,7 +13,7 @@ import Model.Uom.DetailUomModel;
 import Model.Uom.ListUomModel;
 import Model.Uom.UomModel;
 import Setting.Category.GetCategory;
-import Setting.Category.NoDataAvailable;
+import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -64,7 +64,7 @@ public class listUom extends javax.swing.JDialog {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListUomModel data = objMap.readValue(responseData, ListUomModel.class);
-                DataUomModel[] listData = data.getContent();
+                DataUomModel[] listData = data.getData();
                 assignUom(listData, jpanelData);
             } else {
                 System.err.println("fail loading uom");
@@ -207,7 +207,7 @@ public class listUom extends javax.swing.JDialog {
                 listGetUom.add(b, gbc);
             }  
         }else{
-            NoDataAvailable no = new NoDataAvailable();
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetUom.add(no);
         }
         

@@ -3,31 +3,33 @@ package Products;
 import Color.WindowColor;
 import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-
+import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
 import Model.combobox.ComboBoxSelection;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Font;
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+@Setter
+@Getter
 public class InsertProduct extends javax.swing.JDialog {
+
+     private Integer id;
 
      private String brandId;
      private String taxId;
@@ -36,6 +38,8 @@ public class InsertProduct extends javax.swing.JDialog {
      private String subCatId;
      private String vendorId;
      private String countryId;
+     private String statusId;
+
      private String barcode;
      private String productName;
      private String productNameKh;
@@ -46,6 +50,9 @@ public class InsertProduct extends javax.swing.JDialog {
      private String path;
      private ListProduct listProduct;
      private JPanel listGetProduct;
+     private JPanel panelProduct;
+     private JPanel panelCategory;
+     private LoginFormJdailog jdLogin;
 
      public InsertProduct(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -63,10 +70,72 @@ public class InsertProduct extends javax.swing.JDialog {
           txtCost.setComma("comma");
           txtPrice.setComma("comma");
           JavaConstant.setPointer(browse);
-
      }
      double costVal = 0;
      double priceVal = 0;
+
+     public void setEdit(
+          String _barcode,
+          String _vendorId,
+          String _brandId,
+          String _subCatId,
+          String _proName,
+          String _proNameKh,
+          String _cost,
+          String _price,
+          String _margin,
+          String _attributeId,
+          String _choice,
+          String _uomId,
+          String _statusId,
+          String _countryId,
+          String _taxId,
+          String _proImageName
+     ) {
+          txtBarcode.setValueTextField(_barcode);
+          cmbVendorName.setToLastItem(_vendorId);
+          cmbBrand.setToLastItem(_brandId);
+          cmbSubCategory.setToLastItem(_subCatId);
+          txtProductName.setValueTextField(_proName);
+          txtProductNameKh.setValueTextField(_proNameKh);
+          txtCost.setValueTextField(_cost);
+          txtPrice.setValueTextField(_price);
+          txtMargin.setLabelTextField(_margin);
+          cmbAttribute.setToLastItem(_attributeId);
+          txtChoiceValue.setValueTextField(_choice);
+          cmbUom.setToLastItem(_uomId);
+          cmbStatus.setToLastItem(_statusId);
+          cmbCountry.setToLastItem(_countryId);
+          cmbTax.setToLastItem(_taxId);
+
+          try {
+               if (_proImageName != null) {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              try {
+                                   // Task to be executed
+                                   if (_proImageName.contains("media/file/crm/uploadfile/")) {
+                                        JavaConstant.coverImage(JavaConstant.urlImage + _proImageName, lbPicture, 125, 135);
+                                   } else {
+                                        JavaConstant.coverImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + _proImageName, lbPicture, 125, 135);
+                                        lbPicture.repaint();
+                                        lbPicture.revalidate();
+                                   }
+                              } catch (IOException ex) {
+                                   Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                              }
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+               }
+
+          } catch (Exception e) {
+               System.err.println("error read image = " + e);
+          }
+     }
 
      private void groupCalculation() {
 
@@ -199,15 +268,15 @@ public class InsertProduct extends javax.swing.JDialog {
           //  ============== end ================
 
           //  ============== combobox status ================
-//          ButtonEvent statusEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    countryId = key;
-//               }
-//          };
-//          cmbStatus.initEvent(statusEvent);
-//          // countryName is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbStatus, JavaRoute.country, "countryName");
+          ButtonEvent statusEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    statusId = key;
+               }
+          };
+          cmbStatus.initEvent(statusEvent);
+          // countryName is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmbStatus, JavaRoute.status, "statusName");
           //  ============== end ================
      }
 
@@ -627,7 +696,6 @@ public class InsertProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-
          barcode = txtBarcode.getValueTextField();
          productName = txtProductName.getValueTextField();
          productNameKh = txtProductNameKh.getValueTextField();
@@ -635,22 +703,6 @@ public class InsertProduct extends javax.swing.JDialog {
          price = txtPrice.getValueTextField();
          margin = txtMargin.getLabelTextField();
          choiceValue = txtChoiceValue.getValueTextField();
-
-//         System.out.println("brandId : " + brandId);
-//         System.out.println("taxId : " + taxId);
-//         System.out.println("uomId : " + uomId);
-//         System.out.println("attributeId : " + attributeId);
-//         System.out.println("catId : " + subCatId);
-//         System.out.println("countryId : " + countryId);
-//         System.out.println("barcode : " + barcode);
-//         System.out.println("proNameEn : " + productName);
-//         System.out.println("cost : " + cost);
-//         System.out.println("price : " + price);
-//         System.out.println("margin : " + margin);
-//         System.out.println("choices : " + choiceValue);
-//         System.out.println("subCatId : " + subCatId);
-//         System.out.println("createBy : " + JavaConstant.cashierId);
-//         System.out.println("proNameKh : " + productNameKh);
          saveFunction(); // save
     }//GEN-LAST:event_buttonSaveMouseClicked
 
@@ -719,66 +771,101 @@ public class InsertProduct extends javax.swing.JDialog {
                JOptionPane.showMessageDialog(this, "Please Select Country!");
                return;
           }
-        
 
-          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addProduct;
-          OkHttpClient client = new OkHttpClient();
+          JSONObject json = new JSONObject();
+          json.put("subCatId", subCatId);
+          json.put("proNameKh", productNameKh);
+          json.put("proNameEn", productName);
+          json.put("cost", cost);
+          json.put("price", price);
+          json.put("margin", margin);
+          json.put("brandId", brandId);
+          json.put("barcode", barcode);
+          json.put("createBy", JavaConstant.cashierId);
+          json.put("taxId", taxId);
+          json.put("vendorId", vendorId);
+          json.put("uomId", uomId);
+          json.put("attributeId", attributeId);
+          json.put("productActiveId", statusId);
+          json.put("countryId", countryId);
+          json.put("choices", choiceValue);
 
-          MultipartBody.Builder requestBody = new MultipartBody.Builder()
-               .setType(MultipartBody.FORM)
-               .addFormDataPart("brandId", brandId)
-               .addFormDataPart("taxId", taxId)
-               .addFormDataPart("uomId", uomId)
-               .addFormDataPart("attributeId", attributeId)
-               .addFormDataPart("vendorId", vendorId)
-               .addFormDataPart("catId", subCatId)
-               .addFormDataPart("countryId", countryId)
-               .addFormDataPart("productActive", "1")
-               .addFormDataPart("barcode", barcode)
-               .addFormDataPart("proNameEn", productName)
-               .addFormDataPart("cost", cost)
-               .addFormDataPart("price", price)
-               .addFormDataPart("margin", margin)
-               .addFormDataPart("choices", choiceValue)
-               .addFormDataPart("createBy", JavaConstant.cashierId + "");
-
-          if (productNameKh != null) {
-               requestBody.addFormDataPart("proNameKh", productNameKh);
-          }
-
-          if (path != null) {
-               File fileToUpload = new File(path);
-               requestBody.addFormDataPart("file", fileToUpload.getName(),
-                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-          }
-
-          Request request = new Request.Builder()
-               .url(url)
-               .post(requestBody.build())
-               .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMDA1IiwiaWF0IjoxNzIwMTQ5NTk4LCJleHAiOjE3MjAyMzU5OTh9.38to6PlHLINGWO9qfCi36IPq70EXZXVmzXL3FkN-v6o")
-               .build();
-          JavaConstant.setCircleLoadingCursor(this);
-          try {
-               Response response = client.newCall(request).execute();
-
-               String responseData = response.body().string();
-               if (response.isSuccessful()) {
-                    JSONObject json = new JSONObject(responseData);
-                    if (json.has("error")) {
-                         JSONObject errorObject = json.getJSONObject("error");
-                         int code = errorObject.getInt("code");
-                         String reason = errorObject.getString("reason");
-
-                         if (code == 409) {
-                              JOptionPane.showMessageDialog(this, reason);
+          if (id == null) { // add new
+               if (path != null) {
+                    Response responseImg = JavaConnection.postFile(path);
+                    try {
+                         if (responseImg.isSuccessful()) {
+                              String fileName = responseImg.body().string();
+                              JSONObject obj = new JSONObject(fileName);
+                              fileName = obj.getString("fileName");
+                              json.put("proImageName", fileName);
+                              responseAddProduct(json);
                          }
+                    } catch (Exception e) {
+                         System.out.println("erro : " + e);
+                    }
+               } else {
+                    responseAddProduct(json);
+               }
+          } else { // update
+               if (path != null) {
+                    Response responseImg = JavaConnection.postFile(path);
+                    try {
+                         if (responseImg.isSuccessful()) {
+                              String fileName = responseImg.body().string();
+                              JSONObject obj = new JSONObject(fileName);
+                              fileName = obj.getString("fileName");
+                              json.put("proImageName", fileName);
+                              responseUpdateProduct(json);
+                         }
+                    } catch (Exception e) {
+                         System.out.println("erro : " + e);
+                    }
+               } else {
+                    responseUpdateProduct(json);
+               }
+          }
+
+     }
+
+     private void responseUpdateProduct(JSONObject json) {
+          Response response = JavaConnection.put(JavaRoute.productV1 + "/" + id, json);
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jSONObject = new JSONObject(responseData);
+                    if (jSONObject.has("error")) {
+                         JSONObject error = jSONObject.getJSONObject("error");
+                         String reason = error.getString("reason");
+                         JOptionPane.showMessageDialog(this, reason);
+                    } else {
+                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
+                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
+                         dispose();
+                         listProduct.getProduct(listGetProduct);
+                    }
+               }
+          } catch (Exception e) {
+               System.out.println("erro : " + e);
+          }
+     }
+
+     private void responseAddProduct(JSONObject json) {
+          Response response = JavaConnection.post(JavaRoute.productV1, json);
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jSONObject = new JSONObject(responseData);
+                    if (jSONObject.has("error")) {
+                         JSONObject error = jSONObject.getJSONObject("error");
+                         String reason = error.getString("reason");
+                         JOptionPane.showMessageDialog(this, reason);
                     } else {
                          afterSuccess();
                     }
                }
-               JavaConstant.restoreDefaultCursor(this);
-          } catch (IOException ex) {
-               System.out.println("error : " + ex);
+          } catch (Exception e) {
+               System.out.println("erro : " + e);
           }
      }
 
@@ -825,6 +912,13 @@ public class InsertProduct extends javax.swing.JDialog {
           listGetProduct.repaint();
           listGetProduct.revalidate();
           listProduct.getProduct(listGetProduct);
+
+          System.out.println(" add category id : " + jdLogin.getCatId());
+          jdLogin.onClickCategory("new items", jdLogin.getCatId());
+          panelCategory.getComponents()[1].setBackground(WindowColor.black);
+          panelCategory.revalidate();
+          panelCategory.repaint();
+
      }
 
      public ListProduct getListProduct() {
@@ -843,6 +937,14 @@ public class InsertProduct extends javax.swing.JDialog {
           this.listGetProduct = listGetProduct;
      }
 
+     public Integer getId() {
+          return id;
+     }
+
+     public void setId(Integer id) {
+          this.id = id;
+     }
+
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          ImportFile importF = new ImportFile(new JFrame(), true);
@@ -853,7 +955,6 @@ public class InsertProduct extends javax.swing.JDialog {
          try {
               path = JNAFileChooser.funChooseFile();
               JavaConstant.coverImagePath(path, lbPicture, 124, 235);
-
          } catch (IOException ex) {
               Logger.getLogger(AddProduct.class
                    .getName()).log(Level.SEVERE, null, ex);

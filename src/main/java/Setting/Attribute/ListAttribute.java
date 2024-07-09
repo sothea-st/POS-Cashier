@@ -13,7 +13,7 @@ import Model.Attribute.DataAttributeModel;
 import Model.Attribute.DetailAttributeModel;
 import Model.Attribute.ListAttributeModel;
 import Setting.Category.GetCategory;
-import Setting.Category.NoDataAvailable;
+import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -62,7 +62,7 @@ public class ListAttribute extends javax.swing.JDialog {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListAttributeModel data = objMap.readValue(responseData, ListAttributeModel.class);
-                DataAttributeModel[] listData = data.getContent();
+                DataAttributeModel[] listData = data.getData();
                 assignAttribute(listData, jpanelData);
             } else {
                 System.err.println("fail loading attribute");
@@ -151,7 +151,7 @@ public class ListAttribute extends javax.swing.JDialog {
                             UI.put("Panel.background", WindowColor.mediumGreen);
                             UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Attribute?",
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this attribute?",
                                     "Delete Attribute?", JOptionPane.YES_NO_OPTION);
 
                             if (resp == JOptionPane.YES_OPTION) {
@@ -205,7 +205,7 @@ public class ListAttribute extends javax.swing.JDialog {
                 listGetAttribute.add(b, gbc);
             }  
         }else{
-            NoDataAvailable no = new NoDataAvailable();
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetAttribute.add(no);
         }
         

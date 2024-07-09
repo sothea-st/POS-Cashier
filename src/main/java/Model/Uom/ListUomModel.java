@@ -8,5 +8,5 @@ import lombok.Setter;
 
 public class ListUomModel {
     private Integer count;
-    private DataUomModel[] content;
+    private DataUomModel[] data;
 }

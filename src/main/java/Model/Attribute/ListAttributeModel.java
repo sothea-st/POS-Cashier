@@ -8,5 +8,5 @@ import lombok.Setter;
 
 public class ListAttributeModel {
     private Integer count;
-    private DataAttributeModel[] content;
+    private DataAttributeModel[] data;
 }

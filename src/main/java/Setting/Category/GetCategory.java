@@ -8,8 +8,8 @@ import javax.swing.Icon;
 public class GetCategory extends javax.swing.JPanel {
 
     private Integer id;
-    private String CategoryNameKh;
-    private String CategoryNameEn;
+    private String categoryNameKh;
+    private String categoryNameEn;
     private Icon iconEdit;
     private Icon iconDelete;
     
@@ -28,22 +28,22 @@ public class GetCategory extends javax.swing.JPanel {
     }
 
     public String getCategoryNameKh() {
-        return CategoryNameKh;
+        return categoryNameKh;
     }
 
-    public void setCategoryNameKh(String CategoryNameKh) {
-        this.CategoryNameKh = CategoryNameKh;
-        lbCategoryKh.setText(CategoryNameKh);
+    public void setCategoryNameKh(String categoryNameKh) {
+        this.categoryNameKh = categoryNameKh;
+        lbCategoryKh.setText(categoryNameKh);
         
     }
 
     public String getCategoryNameEn() {
-        return CategoryNameEn;
+        return categoryNameEn;
     }
 
-    public void setCategoryNameEn(String CategoryNameEn) {
-        this.CategoryNameEn = CategoryNameEn;
-        lbCategoryEn.setText(CategoryNameEn);
+    public void setCategoryNameEn(String categoryNameEn) {
+        this.categoryNameEn = categoryNameEn;
+        lbCategoryEn.setText(categoryNameEn);
     }
 
     public Icon getIconEdit() {

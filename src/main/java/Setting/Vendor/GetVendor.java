@@ -15,6 +15,7 @@ public class GetVendor extends javax.swing.JPanel {
     private String address;
     private Icon iconEdit;
     private Icon iconDelete;
+    private String website;
     
     public GetVendor() {
         initComponents();
@@ -92,6 +93,15 @@ public class GetVendor extends javax.swing.JPanel {
         this.address = address;
         lbAddress.setText(address);
     }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+        lbWebsite.setText(website);
+    }
     
     public void initEvent(ButtonEvent event) {
         btnEdit.addMouseListener(new MouseListener() {
@@ -155,6 +165,7 @@ public class GetVendor extends javax.swing.JPanel {
         lbPhoneNumber = new javax.swing.JLabel();
         lbEmail = new javax.swing.JLabel();
         lbAddress = new javax.swing.JLabel();
+        lbWebsite = new javax.swing.JLabel();
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -197,6 +208,11 @@ public class GetVendor extends javax.swing.JPanel {
         lbAddress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbAddress.setText("Address");
 
+        lbWebsite.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbWebsite.setForeground(new java.awt.Color(0, 0, 0));
+        lbWebsite.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbWebsite.setText("Website");
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -216,9 +232,11 @@ public class GetVendor extends javax.swing.JPanel {
                 .addComponent(lbPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +251,8 @@ public class GetVendor extends javax.swing.JPanel {
                         .addComponent(btnEdit)
                         .addComponent(lbPhoneNumber)
                         .addComponent(lbEmail)
-                        .addComponent(lbAddress)))
+                        .addComponent(lbAddress)
+                        .addComponent(lbWebsite)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -241,7 +260,7 @@ public class GetVendor extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 888, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 1055, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +278,7 @@ public class GetVendor extends javax.swing.JPanel {
     private javax.swing.JLabel lbPhoneNumber;
     private javax.swing.JLabel lbVendorCode;
     private javax.swing.JLabel lbVendorName;
+    private javax.swing.JLabel lbWebsite;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }

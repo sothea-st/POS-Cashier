@@ -4,6 +4,8 @@ public class JavaRoute {
 
      public static String login = "/auth/login";
      public static String product = "/product";
+     public static String productV1 = "/product/v1";
+
      public static String getProductByCatId = "/product/getProductByCatId";
      public static String getNewPrdduct = "/product/getNewProduct";
      public static String getAllProduct = "/product?limit=50";
@@ -56,13 +58,16 @@ public class JavaRoute {
      public static String getParentById = "/category/parentId/";
      public static String reportImport = "/import/reportImport";
      public static String reportSaled = "/sale/reportSaled";
-     public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
-     public static String importMultiple = "/product/importMultiple";
+
+     public static String productExcel = "/productExcel";
+
      public static String attribute = "/attribute";
      public static String uom = "/uom";
      public static String vendor = "/vendor";
-     public static String productExcel = "/productExcel";
- 
+     public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
+     public static String importMultiple = "/product/importMultiple";
 
-   
+     public static String addBackground = "/public/addImageForBackground";
+     public static String status = "/status";
+
 }

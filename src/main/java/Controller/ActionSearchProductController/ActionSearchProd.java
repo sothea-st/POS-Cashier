@@ -8,7 +8,10 @@ import Products.ListProduct;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
+import Model.ProductModelV1.ProductResponseDetailV1;
+import Model.ProductModelV1.ProductResponseV1;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +22,8 @@ import okhttp3.Response;
 @Setter
 @Getter
 public class ActionSearchProd {
-    private LoginFormJdailog jdLogin;
+
+     private LoginFormJdailog jdLogin;
      private JPanel panelProduct;
      private JPanel category;
 
@@ -68,7 +72,7 @@ public class ActionSearchProd {
           }
      }
 
-     public void searchProducts(String searchValue, JPanel listGetProduct) {
+     public void searchProducts(String searchValue, JPanel listGetProduct, ListProduct listProd) {
           String code = "";
           boolean isCheck = ActionSearchProduct.checkOnlyDigits(searchValue);
           if (isCheck) {
@@ -76,31 +80,36 @@ public class ActionSearchProd {
           } else {
                code = "productNameEn";
           }
-          Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=" + code + "&valueSearch=" + searchValue + "");
+          Response response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue);
 
           if (response.isSuccessful()) {
                try {
-                    ListProduct listProd = new ListProduct(new JFrame(), true);
+
                     listProd.setPanelProduct(panelProduct);
                     listProd.setPanelCategory(category);
                     listProd.setJdLogin(jdLogin);
-                    
+
                     String responseData = response.body().string();
                     ObjectMapper obj = new ObjectMapper();
-                    ProductSuccessData model = obj.readValue(responseData, ProductSuccessData.class);
-                    ProductDataModel[] listProduct = model.getData();
 
-                    if (listProduct.length > 0) {
-                         listProd.assignProduct(listProduct, listGetProduct);
-                         listGetProduct.revalidate();
-                         listGetProduct.repaint();
-                    } else {
+                    ProductResponseV1 data = obj.readValue(responseData, ProductResponseV1.class);
+                    ProductResponseDetailV1[] listProduct = data.getData();
+
+//                    if (listProduct.length > 0) {
                          listGetProduct.removeAll();
-                         NotFound nofound = new NotFound();
-                         listGetProduct.add(nofound);
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
-                    }
+                         listProd.setProduct(listProduct);
+
+//                    } else {
+//                         listGetProduct.removeAll();
+//                         NotFound nofound = new NotFound();
+//                         listGetProduct.add(nofound, BorderLayout.CENTER);
+//                         listGetProduct.add(nofound);
+//                         listGetProduct.add(nofound);
+//                         listGetProduct.revalidate();
+//                         listGetProduct.repaint();
+//                    }
 
                } catch (Exception e) {
                     System.out.println("err from search product = " + e);
