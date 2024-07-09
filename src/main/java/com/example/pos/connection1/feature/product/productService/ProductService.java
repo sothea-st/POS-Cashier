@@ -210,7 +210,7 @@ public class ProductService {
         // product in or out stock
         // previousPro.setUnitTypeId(editProduct.getUnitTypeId());
         previousPro.setCatId(editProduct.getCatId());
-        previousPro.setNote(editProduct.getNote());
+        // previousPro.setNote(editProduct.getNote());
         // previousPro.setDiscountPercentag(editProduct.getDiscountPercentag());
         // previousPro.setCreateBy((Integer) idUser);
         repo.save(previousPro);

@@ -48,6 +48,14 @@ public class ProductController {
           return productService.read(pageNumber, pageSize);
      }
 
+     @GetMapping("/search/{value}")
+     public JavaCollectionResponse<?> search(
+               @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+               @RequestParam(name = "pageSize", defaultValue = "100", required = false) int pageSize,
+               @PathVariable("value") String value) {
+          return productService.search(pageNumber, pageSize,value);
+     }
+
      @DeleteMapping("/{id}")
      public JavaMessageResponse<?> deleteById(@PathVariable("id") int id) {
           productService.deleteById(id);
@@ -59,7 +67,8 @@ public class ProductController {
      }
 
      @PutMapping("/{id}")
-     public JavaMessageResponse<?> updateById(@PathVariable("id") int id , @Valid @RequestBody ProductRequest productRequest) {
+     public JavaMessageResponse<?> updateById(@PathVariable("id") int id,
+               @Valid @RequestBody ProductRequest productRequest) {
           return JavaMessageResponse.builder()
                     .status(HttpStatus.OK.value())
                     .msg(JavaMessageResponse.success)

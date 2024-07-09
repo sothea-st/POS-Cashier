@@ -76,7 +76,7 @@ public class ProductExcelServic {
 
                     product.setProductStatus(null);
                     product.setDiscount(BigDecimal.valueOf(0));
-                    product.setNote(null);
+                    // product.setNote(null);
                     product.setProImageName(uuid);
 
                     productRepository.save(product);

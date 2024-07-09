@@ -7,14 +7,12 @@ import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Status;
 import com.example.pos.connection1.entity.Uom;
-import com.example.pos.connection1.entity.User;
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
 import com.example.pos.connection1.feature.attribute.AttributeRepository;
 import com.example.pos.connection1.feature.country.CountryRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
-// import com.example.pos.connection1.feature.product.dto.ProductResponse;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
@@ -70,6 +68,28 @@ public class ProductServiceImp implements ProductService {
      private String productIdNotFound = "Product not found with id: ";
 
      // **************************** end *******************************
+
+     @Override
+     public JavaCollectionResponse<?> search(int pageNumber, int pageSize, String value) {
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+          Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+          List<ProductResponse> data = pages.getContent().stream()
+                    .filter(p -> {
+                         boolean matchesProNameEn = p.getProNameEn() != null
+                                   && p.getProNameEn().toLowerCase().contains(value.toLowerCase());
+                         boolean matchesBarcode = p.getBarcode() != null
+                                   && p.getBarcode().toLowerCase().contains(value.toLowerCase());
+                         return matchesProNameEn || matchesBarcode;  // search both proNameEn or barcode
+                    })
+                    .map(productMapper::mapToProductResponse)
+                    .toList();
+
+          return JavaCollectionResponse.builder()
+                    .count(pages.getTotalElements())
+                    .data(data)
+                    .build();
+     }
 
      @Override
      public ProductResponse updateProductById(int id, ProductRequest productRequest) {
@@ -209,6 +229,7 @@ public class ProductServiceImp implements ProductService {
       */
      @Override
      public ProductResponse create(ProductRequest productRequest) {
+
           // validate subCategory
           Category subCategory = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(
                     productRequest.subCatId(), "subcategory")
@@ -273,7 +294,14 @@ public class ProductServiceImp implements ProductService {
           product.setDiscount(BigDecimal.valueOf(0));
           product.setProImageName(fileName);
           product.setCatId(productRequest.subCatId());
+          product.setItemCode(generateItemCode(productRepository.count()));
           productRepository.save(product);
           return productMapper.mapToProductResponse(product);
      }
+
+     private String generateItemCode(long count) {
+          count++;
+          return String.format("%07d", count);
+     }
+
 }

@@ -2,8 +2,6 @@ package com.example.pos.connection1.feature.product.productV1.dto;
 
 import java.math.*;
 
-import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
-
 public record ProductResponse(
           Integer id,
           String subCatNameEn,
@@ -23,7 +21,8 @@ public record ProductResponse(
           String countryImageName,
           String choices,
           String proImageName,
-          Integer qty
+          Integer qty,
+          String itemCode,
+          String vendorCode
           ) {
-
 }

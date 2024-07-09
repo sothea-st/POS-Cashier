@@ -52,7 +52,7 @@ public class Product {
     @Column(name = "pro_qty")
     private Integer proQty;
 
-    //    ******************  add new ********************
+    // ****************** add new ********************
     @ManyToOne
     @JoinColumn(name = "import_id")
     private ImportDetail importDetail;
@@ -89,9 +89,10 @@ public class Product {
     @JoinColumn(name = "sub_category_id")
     private Category subCategory;
 
+    // ****************** add new ********************
 
-//    ******************  add new ********************
-
+    @Column(name = "item_code")
+    private String itemCode;
 
     @Column(name = "choices")
     private String choices;

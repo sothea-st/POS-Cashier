@@ -31,6 +31,16 @@ public interface ProductService {
      */
     JavaCollectionResponse<?> read(int pageNumber, int pageSize);
 
+
+     /**
+     * search a collection of products based on pagination parameters.
+     * 
+     * @param pageNumber The page number of the results to retrieve.
+     * @param pageSize   The number of products per page.
+     * @return A collection response containing products for the specified page.
+     */
+    JavaCollectionResponse<?> search(int pageNumber, int pageSize,String value);
+
     /**
      * Deletes a product identified by its unique identifier.
      * 
