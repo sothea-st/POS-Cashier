@@ -4,7 +4,6 @@ import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Components.JavaAlertMessage;
 import Components.NotFound;
-import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -16,16 +15,17 @@ import Fonts.WindowFonts;
 import LoginAndLogoutForm.LoginFormJdailog;
 
 import Model.PackageProduct.ProductModel;
-import Model.ProductModel.ProductDataModel;
-import Model.ProductModel.ProductSuccessData;
 import Model.ProductModelV1.ProductResponseByIdV1;
 import Model.ProductModelV1.ProductResponseDetailV1;
 import Model.ProductModelV1.ProductResponseV1;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -43,10 +44,11 @@ import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 import okhttp3.Response;
-import org.json.JSONObject;
 import pdf.PrintListPDF;
-import pdf.PrintPanelToPDF;
 import pdf.PrintToCSV;
 import pdf.PrintToExcel;
 
@@ -59,6 +61,8 @@ public class ListProduct extends javax.swing.JDialog {
      private JPanel panelProduct;
      private JPanel panelCategory;
      private LoginFormJdailog jdLogin;
+     private String status = "allProduct";
+     ProductResponseDetailV1[] listData;
 
      ArrayList<ProductModel> listProduct = new ArrayList<>();
 
@@ -107,6 +111,12 @@ public class ListProduct extends javax.swing.JDialog {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
           JavaConstant.addTitleAndLogo(this, "Product");
+
+          allProduct.setBorder(new UnderlineBorder());
+          JavaConstant.setPointer(allProduct);
+          JavaConstant.setPointer(active);
+          JavaConstant.setPointer(inActive);
+
      }
 
      void setBackground() {
@@ -120,7 +130,7 @@ public class ListProduct extends javax.swing.JDialog {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
-                    ProductResponseDetailV1[] listData = data.getData();
+                    listData = data.getData();
                     listGetProduct.removeAll();
                     listGetProduct.revalidate();
                     listGetProduct.repaint();
@@ -208,7 +218,12 @@ public class ListProduct extends javax.swing.JDialog {
 
                };
                prod.initEvent(events);
-               listGetProduct.add(prod, gbc);
+
+               if (status.equals("allProduct")) {
+                    listGetProduct.add(prod, gbc);
+               } else if (status.toLowerCase().equals(p.getStatusName().toLowerCase())) {
+                    listGetProduct.add(prod, gbc);
+               }
           }
 
      }
@@ -285,198 +300,6 @@ public class ListProduct extends javax.swing.JDialog {
           }
      }
 
-     public void assignProduct(ProductDataModel[] listData, JPanel listGetProduct) {
-          listProduct = new ArrayList<>();
-
-          for (int i = 0; i < listData.length; i++) {
-               var obj = listData[i];
-               ProductModel product = new ProductModel(
-                    obj.getID(),
-                    obj.getCatID(),
-                    obj.getFlag(),
-                    obj.getWeight(),
-                    obj.getCost(),
-                    obj.getProImageName(),
-                    obj.getPrice(),
-                    obj.getBarcode(),
-                    obj.getProNameKh(),
-                    obj.getProNameEn(),
-                    obj.getProductStatus(),
-                    obj.getDiscount(),
-                    obj.getQty(),
-                    obj.getDiscountType()
-               );
-               listProduct.add(product);
-          }
-          appendProduct(listProduct, listGetProduct);
-     }
-
-     //Append Product into list
-     void appendProduct(ArrayList<ProductModel> listProduct, JPanel listGetProduct) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-          listGetProduct.setLayout(gridBagLayout);
-
-          int x = 0;
-          int y = 0;
-
-          for (int i = 0; i < listProduct.size(); i++) {
-               GridBagConstraints gbc = new GridBagConstraints();
-               gbc.gridx = x;
-               gbc.gridy = y;
-               gbc.gridwidth = 1;
-               gbc.anchor = gbc.NORTH;
-               x++;
-               if (x == 1) {
-                    x = 0;
-                    y++;
-               }
-
-               var listData = listProduct.get(i);
-               Products.GetProduct prod = new Products.GetProduct();
-
-               ButtonEvent events = new ButtonEvent() {
-
-                    @Override
-                    public void onSelect(String Key) {  // event edit
-                         EditProduct edit = new EditProduct(new JFrame(), true);
-                         edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
-
-                         edit.setPlProduct(panelProduct);
-                         edit.setpCategory(panelCategory);
-                         edit.setJdLogin(jdLogin);
-
-                         try {
-                              Response response = JavaConnection.get(JavaRoute.product + "/" + listData.getId());
-                              String responseData = response.body().string();
-                              ObjectMapper objMap = new ObjectMapper();
-                              DataSuccessDetail data = objMap.readValue(responseData, DataSuccessDetail.class);
-                              ListDetailProduct listproduct = data.getData();
-
-                              edit.setProductId(listproduct.getID());
-                              edit.setProductNameEn(listproduct.getProNameEn());
-                              edit.setProductNameKh(listproduct.getProNameKh());
-                              edit.setProductBarcode(listproduct.getBarcode());
-                              edit.setProductPrice("" + listproduct.getPrice());
-                              edit.setProductCost("" + listproduct.getCost());
-                              edit.setProductDiscount("" + listproduct.getDiscount());
-                              if (listproduct.getWeight() != null) {
-                                   edit.setProductWeight(listproduct.getWeight());
-                              }
-                              if (listproduct.getNote() != null) {
-                                   edit.setProductNote(listproduct.getNote());
-                              }
-                              edit.setIndexToBrand(listproduct.getBrandID());
-                              edit.setIndexToCategory(listproduct.getCatID());
-                              edit.setIndexToTax(listproduct.getTaxID());
-//                              edit.setIndexToStatus(listproduct.getProductStatus());
-                              edit.setProductStatus(listproduct.getProductStatus());
-                              edit.setBrandId(listproduct.getBrandID());
-                              edit.setTaxId(listproduct.getTaxID());
-                              edit.setCategoryId(listproduct.getCatID());
-//                              edit.setProQty(listData.getQty());
-                              edit.setListGetProduct(listGetProduct);
-
-                              if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
-                                   edit.setProductImage(JavaConstant.urlImage + listData.getProImageName());
-                              } else {
-                                   edit.setProductImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
-                              }
-
-                              if (listData.getFlag() != null) {
-                                   edit.setFlagImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getFlag());
-                              }
-
-                              edit.setVisible(true);
-
-                         } catch (Exception e) {
-                              System.err.println("error getting product " + e);
-                         }
-                    }
-
-                    @Override
-                    public void onRemove(String Key) {  // event delete prooduct
-                         try {
-                              UIManager UI = new UIManager();
-                              UI.put("OptionPane.background", WindowColor.mediumGreen);
-                              UI.put("Panel.background", WindowColor.mediumGreen);
-                              UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
-                              int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
-                                   "Delete Product?", JOptionPane.YES_NO_OPTION);
-
-                              if (resp == JOptionPane.YES_OPTION) {
-                                   JSONObject json = new JSONObject();
-                                   json.put("status", false);
-                                   json.put("isDeleted", true);
-                                   Response response = JavaConnection.delete(JavaRoute.product + "/" + listData.getId(), json);
-
-                                   if (response.isSuccessful()) {
-                                        ListProduct list = new ListProduct(new JFrame(), true);
-                                        listGetProduct.removeAll();
-                                        listGetProduct.revalidate();
-                                        listGetProduct.repaint();
-                                        list.getProduct(listGetProduct);
-
-                                        jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                                        panelCategory.getComponents()[1].setBackground(WindowColor.black);
-                                        dispose();
-                                        System.out.println("Successful deleted ");
-                                   }
-                              } else {
-                                   setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                              }
-
-                         } catch (Exception e) {
-                              System.err.println("error getting product " + e);
-                         }
-                    }
-               };
-
-               prod.initEvent(events);
-               prod.setProductName(listData.getProductNameEn());
-               prod.setProductBarcode(listData.getBarcode());
-               prod.setProductPrice(dm.format(listData.getPrice()));
-               prod.setQty(listData.getQty());
-               prod.setProductId(listData.getId());
-               prod.setListGetProduct(listGetProduct);
-               if (listData.getProductStatus() == null) {
-                    prod.setProductStatus("Out Stock");
-               } else {
-                    if (listData.getProductStatus().isEmpty()) {
-                         prod.setProductStatus("Out Stock");
-                    } else {
-                         prod.setProductStatus(listData.getProductStatus());
-                    }
-               }
-
-               try {
-
-                    TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              // Task to be executed
-                              prod.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                              prod.setImageDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                         }
-                    };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500); // Delays task execution by 1 second
-
-               } catch (Exception e) {
-                    System.err.println("error read image = " + e);
-               }
-
-               listGetProduct.add(prod, gbc);
-
-          }
-     }
-
      //Action Search
      private void eventSearchProduct(ListProduct listP) {
           // this event was called when user type on searchTextField 
@@ -484,7 +307,6 @@ public class ListProduct extends javax.swing.JDialog {
                @Override
                public void onKeyType() {
                     searchValue = searchField.getValueTextSearch();
-
                     if (searchValue.isEmpty()) {
                          listGetProduct.removeAll();
                          listGetProduct.revalidate();
@@ -501,12 +323,6 @@ public class ListProduct extends javax.swing.JDialog {
                          listGetProduct.repaint();
                     }
                }
-
-               @Override
-               public void onKeyRelease() {
-
-               }
-
           };
           searchField.initEvent(event);
      }
@@ -536,6 +352,9 @@ public class ListProduct extends javax.swing.JDialog {
           btnPdf = new Button.Button();
           btnCsv = new Button.Button();
           btnCancel = new Button.Button();
+          inActive = new javax.swing.JLabel();
+          allProduct = new javax.swing.JLabel();
+          active = new javax.swing.JLabel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -697,6 +516,36 @@ public class ListProduct extends javax.swing.JDialog {
                }
           });
 
+          inActive.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          inActive.setForeground(new java.awt.Color(0, 0, 0));
+          inActive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          inActive.setText("Inactive");
+          inActive.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    inActiveMouseClicked(evt);
+               }
+          });
+
+          allProduct.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          allProduct.setForeground(new java.awt.Color(0, 0, 0));
+          allProduct.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          allProduct.setText("All Product");
+          allProduct.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    allProductMouseClicked(evt);
+               }
+          });
+
+          active.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          active.setForeground(new java.awt.Color(0, 0, 0));
+          active.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          active.setText("Active");
+          active.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    activeMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout panelListProductLayout = new javax.swing.GroupLayout(panelListProduct);
           panelListProduct.setLayout(panelListProductLayout);
           panelListProductLayout.setHorizontalGroup(
@@ -715,6 +564,12 @@ public class ListProduct extends javax.swing.JDialog {
                          .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                               .addGroup(panelListProductLayout.createSequentialGroup()
                                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addGap(18, 18, 18)
+                                   .addComponent(allProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addGap(25, 25, 25)
+                                   .addComponent(active, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addGap(25, 25, 25)
+                                   .addComponent(inActive, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                               .addComponent(jScrollPane1)
@@ -725,13 +580,18 @@ public class ListProduct extends javax.swing.JDialog {
                panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelListProductLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                              .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                              .addComponent(inActive, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(active, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(allProduct, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGap(10, 10, 10)
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -758,8 +618,32 @@ public class ListProduct extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
+     static class UnderlineBorder implements Border {
+
+          private final MatteBorder matteBorder;
+
+          public UnderlineBorder() {
+               matteBorder = new MatteBorder(0, 0, 1, 0, Color.BLACK);
+          }
+
+          @Override
+          public void paintBorder(java.awt.Component c, Graphics g, int x, int y, int width, int height) {
+               Insets insets = matteBorder.getBorderInsets(c);
+               matteBorder.paintBorder(c, g, x, y + height - insets.bottom, width, insets.bottom);
+          }
+
+          @Override
+          public Insets getBorderInsets(java.awt.Component c) {
+               return matteBorder.getBorderInsets(c);
+          }
+
+          @Override
+          public boolean isBorderOpaque() {
+               return matteBorder.isBorderOpaque();
+          }
+     }
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-//         dispose();
+
          InsertProduct add = new InsertProduct(new JFrame(), true);
          add.setJdLogin(jdLogin);
          add.setPanelCategory(panelCategory);
@@ -767,19 +651,17 @@ public class ListProduct extends javax.swing.JDialog {
          add.setListProduct(this);
          add.setListGetProduct(listGetProduct);
          add.setVisible(true);
-
-
     }//GEN-LAST:event_button1MouseClicked
 
      private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked
           msgPrint(PrintToCSV.folderPath);
-          PrintToCSV.exportToCSV(listProduct);
+          PrintToCSV.exportToCSV(listData);
      }//GEN-LAST:event_btnCsvMouseClicked
 
      private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
           try {
                msgPrint(PrintListPDF.folderPath);
-               PrintListPDF.printListPdf(listProduct);
+               PrintListPDF.printListPdf(listData);
           } catch (IOException ex) {
                Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
           }
@@ -787,12 +669,42 @@ public class ListProduct extends javax.swing.JDialog {
 
      private void btnExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcelMouseClicked
           msgPrint(PrintToExcel.folderPath);
-          PrintToExcel.toExcel(listProduct);
+          PrintToExcel.toExcel(listData);
      }//GEN-LAST:event_btnExcelMouseClicked
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
+
+     private void allProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allProductMouseClicked
+          removeBorder(active);
+          removeBorder(inActive);
+          allProduct.setBorder(new UnderlineBorder());
+          status = "allProduct";
+          getProduct(listGetProduct);
+     }//GEN-LAST:event_allProductMouseClicked
+
+     private void activeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activeMouseClicked
+          removeBorder(allProduct);
+          removeBorder(inActive);
+          active.setBorder(new UnderlineBorder());
+          status = "active";
+          getProduct(listGetProduct);
+
+     }//GEN-LAST:event_activeMouseClicked
+
+     private void inActiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inActiveMouseClicked
+          removeBorder(active);
+          removeBorder(allProduct);
+          inActive.setBorder(new UnderlineBorder());
+          status = "inActive";
+          getProduct(listGetProduct);
+
+     }//GEN-LAST:event_inActiveMouseClicked
+
+     private void removeBorder(JLabel label) {
+          label.setBorder(new EmptyBorder(0, 0, 0, 0));
+     }
 
      public static void msgPrint(String path) {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
@@ -845,12 +757,15 @@ public class ListProduct extends javax.swing.JDialog {
      private javax.swing.JLabel Division;
      private javax.swing.JLabel Division1;
      private javax.swing.JLabel Division2;
+     private javax.swing.JLabel active;
+     private javax.swing.JLabel allProduct;
      private Button.Button btnCancel;
      private Button.Button btnCsv;
      private Button.Button btnExcel;
      private Button.Button btnPdf;
      private Button.Button button1;
      private javax.swing.JPanel header;
+     private javax.swing.JLabel inActive;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel10;
      private javax.swing.JLabel jLabel3;

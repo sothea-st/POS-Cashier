@@ -77,7 +77,7 @@ public class ImportDetail extends javax.swing.JDialog {
           super(parent, modal);
           initComponents();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//          setResizable(false);
+          setResizable(false);
 //          setCustomTable();
           getContentPane().setBackground(WindowColor.white);
           panelImp.setBackground(WindowColor.white);

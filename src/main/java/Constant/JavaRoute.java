@@ -69,5 +69,8 @@ public class JavaRoute {
 
      public static String addBackground = "/public/addImageForBackground";
      public static String status = "/status";
+     
+     public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
+
 
 }

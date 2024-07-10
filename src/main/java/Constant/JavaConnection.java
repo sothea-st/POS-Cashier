@@ -39,6 +39,7 @@ public class JavaConnection {
           return response;
      }
 
+
      public static Response getWithoutToken(String route) {
           Response response = null;
           OkHttpClient client = new OkHttpClient();

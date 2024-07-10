@@ -947,8 +947,10 @@ public class InsertProduct extends javax.swing.JDialog {
 
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
+         dispose();
          ImportFile importF = new ImportFile(new JFrame(), true);
          importF.setVisible(true);
+
     }//GEN-LAST:event_button1MouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked

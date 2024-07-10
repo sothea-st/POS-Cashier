@@ -55,7 +55,7 @@ public class ActionSearchProd {
                     ProductDataModel[] listProduct = model.getData();
 
                     if (listProduct.length > 0) {
-                         listProd.assignProduct(listProduct, listGetProduct);
+//                         listProd.assignProduct(listProduct, listGetProduct);
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
                     } else {
@@ -95,21 +95,10 @@ public class ActionSearchProd {
                     ProductResponseV1 data = obj.readValue(responseData, ProductResponseV1.class);
                     ProductResponseDetailV1[] listProduct = data.getData();
 
-//                    if (listProduct.length > 0) {
-                         listGetProduct.removeAll();
-                         listGetProduct.revalidate();
-                         listGetProduct.repaint();
-                         listProd.setProduct(listProduct);
-
-//                    } else {
-//                         listGetProduct.removeAll();
-//                         NotFound nofound = new NotFound();
-//                         listGetProduct.add(nofound, BorderLayout.CENTER);
-//                         listGetProduct.add(nofound);
-//                         listGetProduct.add(nofound);
-//                         listGetProduct.revalidate();
-//                         listGetProduct.repaint();
-//                    }
+                    listGetProduct.removeAll();
+                    listGetProduct.revalidate();
+                    listGetProduct.repaint();
+                    listProd.setProduct(listProduct);
 
                } catch (Exception e) {
                     System.out.println("err from search product = " + e);
