@@ -81,10 +81,7 @@ public class ImportService {
         data.setCreateBy(imp.getCreateBy());
         data.setDateLocal(localDate);
         repo.save(data);
-        System.out.println("nnnnnnnnnnnnnnnnnnnn");
-
-
-
+      
         List<ImportDetail> listDetail = imp.getDetails();
 
         for (int i = 0; i < listDetail.size(); i++) {
@@ -121,7 +118,7 @@ public class ImportService {
             Product pp = p.get();
             pp.setProductStatus("In Stock");
             // pp.setCost(value.getCost());
-            pp.setImportDetail(details);
+            pp.setImportDetail(details);   // update last importDetailsId 
             repoProduct.save(pp);
 
         }

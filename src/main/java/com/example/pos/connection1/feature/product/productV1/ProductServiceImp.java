@@ -14,7 +14,9 @@ import com.example.pos.connection1.feature.attribute.AttributeRepository;
 import com.example.pos.connection1.feature.country.CountryRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseByFilter;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
 import com.example.pos.connection1.feature.status.StatusRepository;
 import com.example.pos.connection1.feature.uom.UomRepository;
@@ -32,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -68,7 +71,53 @@ public class ProductServiceImp implements ProductService {
      private String productIdNotFound = "Product not found with id: ";
 
      // **************************** end *******************************
+     /**
+      * Retrieves products based on the vendor ID and optionally a subcategory ID.
+      * If subcategory ID is provided, filters products by both vendor ID and
+      * subcategory ID.
+      * If subcategory ID is null, filters products only by vendor ID.
+      * 
+      * @param p ProductRequestVendorOrSubCateId object containing vendor ID and
+      *          optional subcategory ID.
+      * @return A JavaCollectionResponse containing filtered products and count.
+      */
+     @Override
+     public JavaCollectionResponse<?> findByVendorIdOrSubCategoryId(ProductRequestVendorOrSubCateId p) {
+          List<Product> products = new ArrayList<>();
+          if (p.subCatId() != null) {
+               products = productRepository.findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(
+                         p.vendorId(), p.subCatId());
+          } else {
+               products = productRepository
+                         .findByVendorIdAndStatusTrueAndIsDeletedFalse(p.vendorId());
+          }
 
+          List<ProductResponseByFilter> data = products.stream()
+                    .map(product -> ProductResponseByFilter.builder()
+                              .id(product.getId())
+                              .barcode(product.getBarcode())
+                              .proNameEn(product.getProNameEn())
+                              .division(product.getSubCategory().getCatNameEn())
+                              .availableQty(product.getImportDetail().getQtyOld())
+                              .qty(1)
+                              .cost(product.getCost())
+                              .amount(product.getCost())
+                              .build())
+                    .toList(); // Collect stream into a list
+
+          return JavaCollectionResponse.builder()
+                    .count(products.size())
+                    .data(data)
+                    .build();
+     }
+
+     /**
+      * search a collection of products based on pagination parameters.
+      * 
+      * @param pageNumber The page number of the results to retrieve.
+      * @param pageSize   The number of products per page.
+      * @return A collection response containing products for the specified page.
+      */
      @Override
      public JavaCollectionResponse<?> search(int pageNumber, int pageSize, String value) {
           Sort sortById = Sort.by(Sort.Direction.DESC, "id");
@@ -80,7 +129,7 @@ public class ProductServiceImp implements ProductService {
                                    && p.getProNameEn().toLowerCase().contains(value.toLowerCase());
                          boolean matchesBarcode = p.getBarcode() != null
                                    && p.getBarcode().toLowerCase().contains(value.toLowerCase());
-                         return matchesProNameEn || matchesBarcode;  // search both proNameEn or barcode
+                         return matchesProNameEn || matchesBarcode; // search both proNameEn or barcode
                     })
                     .map(productMapper::mapToProductResponse)
                     .toList();
@@ -91,58 +140,45 @@ public class ProductServiceImp implements ProductService {
                     .build();
      }
 
+     /**
+      * Updates an existing product identified by its unique identifier.
+      * 
+      * @param id             The unique identifier of the product to update.
+      * @param productRequest The updated details of the product.
+      * @return The response containing details of the updated product.
+      */
      @Override
      public ProductResponse updateProductById(int id, ProductRequest productRequest) {
           Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
 
           // validate subCategory
-          Category subCategory = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(
-                    productRequest.subCatId(), "subcategory")
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              subCategoryIdNotFound + productRequest.subCatId()));
+          Category subCategory = subCategory(productRequest.subCatId());
 
           // validate brand
-          Brand brand = brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.brandId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              brandIdNotFound + productRequest.brandId()));
+          Brand brand = brand(productRequest.brandId());
 
           // validate tax
-          TaxProduct tax = taxProductRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.taxId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              taxIdNotFound + productRequest.taxId()));
+          TaxProduct tax = taxProduct(productRequest.taxId());
 
           // validate vendor
-          Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.vendorId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              vendorIdNotFound + productRequest.vendorId()));
+          Vendor vendor = vendor(productRequest.vendorId());
 
           // validate uom
-          Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.attributeId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              attributeIdNotFound + productRequest.attributeId()));
+          Attribute attribute = attribute(productRequest.attributeId());
 
           // validate uom
-          Uom uom = uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.uomId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              uomIdNotFound + productRequest.uomId()));
+          Uom uom = uom(productRequest.uomId());
 
           // validate satatus
-          Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.productActiveId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              statusIdNotFound + productRequest.productActiveId()));
+          Status status = status(productRequest.productActiveId());
 
           // validate country
-          Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.countryId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              countryIdNotFound + productRequest.countryId()));
+          Country country = country(productRequest.countryId());
 
           // validate barcode
           if (!product.getBarcode().equals(productRequest.barcode())) {
-               if (productRepository.existsByBarcode(productRequest.barcode())) {
-                    throw new ResponseStatusException(
-                              HttpStatus.CONFLICT, barcodeAlreadyExist + productRequest.barcode());
-               }
+               checkBarcodeExists(productRequest.barcode());
           }
 
           String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
@@ -176,10 +212,10 @@ public class ProductServiceImp implements ProductService {
           return productMapper.mapToProductResponse(product);
      }
 
-     /*
-      * delete product by id
+     /**
+      * Deletes a product identified by its unique identifier.
       * 
-      * @param id
+      * @param id The unique identifier of the product to delete.
       */
      @Override
      public void deleteById(int id) {
@@ -190,12 +226,13 @@ public class ProductServiceImp implements ProductService {
           productRepository.save(product);
      }
 
-     /*
-      * read product by id
+     /**
+      * Retrieves a collection of products based on pagination parameters.
       * 
-      * @param pageNumber , pageSize
+      * @param pageNumber The page number of the results to retrieve.
+      * @param pageSize   The number of products per page.
+      * @return A collection response containing products for the specified page.
       */
-
      @Override
      public JavaCollectionResponse<?> read(int pageNumber, int pageSize) {
           Sort sortById = Sort.by(Sort.Direction.DESC, "id");
@@ -210,10 +247,11 @@ public class ProductServiceImp implements ProductService {
                     .build();
      }
 
-     /*
-      * read product by id
+     /**
+      * Retrieves product details by its unique identifier.
       * 
-      * @param id
+      * @param id The unique identifier of the product.
+      * @return The response containing details of the product found by ID.
       */
      @Override
      public ProductResponseReadById readProductById(int id) {
@@ -222,60 +260,41 @@ public class ProductServiceImp implements ProductService {
           return productMapper.mapToProductResponseReadById(product);
      }
 
-     /*
-      * create product
+     /**
+      * Creates a new product based on the provided product request.
       * 
-      * @param productRequest
+      * @param productRequest The details of the product to create.
+      * @return The response containing details of the created product.
       */
      @Override
      public ProductResponse create(ProductRequest productRequest) {
 
           // validate subCategory
-          Category subCategory = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(
-                    productRequest.subCatId(), "subcategory")
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              subCategoryIdNotFound + productRequest.subCatId()));
+          Category subCategory = subCategory(productRequest.subCatId());
 
           // validate brand
-          Brand brand = brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.brandId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              brandIdNotFound + productRequest.brandId()));
+          Brand brand = brand(productRequest.brandId());
 
           // validate tax
-          TaxProduct tax = taxProductRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.taxId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              taxIdNotFound + productRequest.taxId()));
+          TaxProduct tax = taxProduct(productRequest.taxId());
 
           // validate vendor
-          Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.vendorId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              vendorIdNotFound + productRequest.vendorId()));
+          Vendor vendor = vendor(productRequest.vendorId());
 
           // validate uom
-          Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.attributeId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              attributeIdNotFound + productRequest.attributeId()));
+          Attribute attribute = attribute(productRequest.attributeId());
 
           // validate uom
-          Uom uom = uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.uomId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              uomIdNotFound + productRequest.uomId()));
+          Uom uom = uom(productRequest.uomId());
 
           // validate satatus
-          Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.productActiveId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              statusIdNotFound + productRequest.productActiveId()));
+          Status status = status(productRequest.productActiveId());
 
           // validate country
-          Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.countryId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                              countryIdNotFound + productRequest.countryId()));
+          Country country = country(productRequest.countryId());
 
           // validate barcode
-          if (productRepository.existsByBarcode(productRequest.barcode())) {
-               throw new ResponseStatusException(
-                         HttpStatus.CONFLICT, barcodeAlreadyExist + productRequest.barcode());
-          }
+          checkBarcodeExists(productRequest.barcode());
 
           String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
                     : productRequest.proImageName();
@@ -302,6 +321,61 @@ public class ProductServiceImp implements ProductService {
      private String generateItemCode(long count) {
           count++;
           return String.format("%07d", count);
+     }
+
+     private Category subCategory(Integer subCatId) {
+          return categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(subCatId, "subcategory")
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, subCategoryIdNotFound + subCatId));
+     }
+
+     private Brand brand(Integer brandId) {
+          return brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(brandId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, brandIdNotFound + brandId));
+     }
+
+     private TaxProduct taxProduct(Integer taxId) {
+          return taxProductRepository.findByIdAndStatusTrueAndIsDeletedFalse(taxId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, taxIdNotFound + taxId));
+     }
+
+     private Vendor vendor(Integer vendorId) {
+          return vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(vendorId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, vendorIdNotFound + vendorId));
+     }
+
+     private Attribute attribute(Integer attributeId) {
+          return attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(attributeId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, attributeIdNotFound + attributeId));
+     }
+
+     private Uom uom(Integer uomId) {
+          return uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(uomId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, uomIdNotFound + uomId));
+     }
+
+     private Status status(Integer statusId) {
+          return statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(statusId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, statusIdNotFound + statusId));
+     }
+
+     private Country country(Integer countryId) {
+          return countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(countryId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                              HttpStatus.NOT_FOUND, countryIdNotFound + countryId));
+     }
+
+     private void checkBarcodeExists(String barcode) {
+          if (productRepository.existsByBarcode(barcode)) {
+               throw new ResponseStatusException(
+                         HttpStatus.CONFLICT, barcodeAlreadyExist + barcode);
+          }
      }
 
 }

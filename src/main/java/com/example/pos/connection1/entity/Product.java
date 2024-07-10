@@ -54,7 +54,7 @@ public class Product {
 
     // ****************** add new ********************
     @ManyToOne
-    @JoinColumn(name = "import_id")
+    @JoinColumn(name = "import_detail_id")
     private ImportDetail importDetail;
 
     @ManyToOne

@@ -4,8 +4,9 @@ import com.example.pos.connection1.entity.Product;
 
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseByFilter;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
-
+import java.util.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -41,5 +42,6 @@ public interface ProductMapper {
     @Mapping(source = "product.subCategory.id", target = "subCatId")
     @Mapping(source = "product.importDetail.qtyOld", target = "qty")
     ProductResponseReadById mapToProductResponseReadById(Product product);
+ 
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import com.example.pos.connection1.util.response.JavaMessageResponse;
 import jakarta.validation.Valid;
@@ -53,7 +54,13 @@ public class ProductController {
                @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
                @RequestParam(name = "pageSize", defaultValue = "100", required = false) int pageSize,
                @PathVariable("value") String value) {
-          return productService.search(pageNumber, pageSize,value);
+          return productService.search(pageNumber, pageSize, value);
+     }
+
+     @PostMapping("/vendor/subCategory")
+     public JavaCollectionResponse<?> searchByVendorIdOrSubCategoryId(
+               @Valid @RequestBody ProductRequestVendorOrSubCateId productRequestVendorOrSubCateId) {
+          return productService.findByVendorIdOrSubCategoryId(productRequestVendorOrSubCateId);
      }
 
      @DeleteMapping("/{id}")
