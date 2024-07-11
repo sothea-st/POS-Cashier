@@ -93,16 +93,19 @@ public class ProductServiceImp implements ProductService {
           }
 
           List<ProductResponseByFilter> data = products.stream()
-                    .map(product -> ProductResponseByFilter.builder()
-                              .id(product.getId())
-                              .barcode(product.getBarcode())
-                              .proNameEn(product.getProNameEn())
-                              .division(product.getSubCategory().getCatNameEn())
-                              .availableQty(product.getImportDetail().getQtyOld())
-                              .qty(1)
-                              .cost(product.getCost())
-                              .amount(product.getCost())
-                              .build())
+                    .map(product -> {
+                         Integer availableQty = product.getImportDetail() == null ? 0 : product.getImportDetail().getQtyOld();
+                         return ProductResponseByFilter.builder()
+                                   .id(product.getId())
+                                   .barcode(product.getBarcode())
+                                   .proNameEn(product.getProNameEn())
+                                   .division(product.getSubCategory().getCatNameEn())
+                                   .availableQty(availableQty)
+                                   .qty(1)
+                                   .cost(product.getCost())
+                                   .amount(product.getCost())
+                                   .build();
+                    })
                     .toList(); // Collect stream into a list
 
           return JavaCollectionResponse.builder()

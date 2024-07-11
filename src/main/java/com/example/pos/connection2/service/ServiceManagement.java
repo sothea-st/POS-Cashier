@@ -5,18 +5,33 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.pos.connection1.constant.JavaConstant;
+import com.example.pos.connection1.entity.Attribute;
+import com.example.pos.connection1.entity.Category;
+import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.entity.Product;
+import com.example.pos.connection1.entity.Status;
+import com.example.pos.connection1.entity.Uom;
+import com.example.pos.connection1.entity.Vendor;
+import com.example.pos.connection1.entity.sourceData.Brand;
+import com.example.pos.connection1.entity.sourceData.TaxProduct;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
+import com.example.pos.connection1.feature.product.productV1.ProductService;
+import com.example.pos.connection1.feature.product.productV1.ProductServiceImp;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection2.entity.ProductByCategory;
 import com.example.pos.connection2.repository.ProdcutByCategoryRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ServiceManagement {
      @Autowired
      private ProdcutByCategoryRepository repo;
@@ -25,62 +40,63 @@ public class ServiceManagement {
      @Autowired
      private FileStoreRepository fileStore;
 
+     private final ProductService productService;
+
      public List<ProductByCategory> getProduct() {
 
           for (ProductByCategory p : repo.getProduct()) {
-               Product pro = new Product();
-               pro.setCatId(1);
-               // pro.setUnitTypeId(p.getUnitTypeId());
-               pro.setProNameKh(p.getNameKh());
-               pro.setProNameEn(p.getName());
-               pro.setCost(p.getCost());
-               pro.setPrice(p.getPrice());
-               // pro.setCostKhr(p.getCostKhr());
-               // pro.setPriceKhr(p.getPriceKhr());
-               // pro.setNote(p.getNote());
-               // pro.setTaxId(3);
-               pro.setCreateBy(1);
 
-               String _weight=null;
+               if (p.getStatus().equals("ENABLE") && p.getBarcode().length() == 13) {
+                    String _weight = null;
 
-               if (p.getChoiceOptions()  != null) {
-                    // Your JSON string
-                    String jsonString = p.getChoiceOptions();
+                    if (p.getChoiceOptions() != null) {
+                         // Your JSON string
+                         String jsonString = p.getChoiceOptions();
 
-                    // Convert the string to a JSONArray
-                    JSONArray jsonArray = new JSONArray(jsonString);
+                         // Convert the string to a JSONArray
+                         JSONArray jsonArray = new JSONArray(jsonString);
 
-                    // Iterate over each JSONObject in the JSONArray
-                    for (int m = 0; m < jsonArray.length(); m++) {
-                         JSONObject jsonObject = jsonArray.getJSONObject(m);
+                         // Iterate over each JSONObject in the JSONArray
+                         for (int m = 0; m < jsonArray.length(); m++) {
+                              JSONObject jsonObject = jsonArray.getJSONObject(m);
 
-                         // Get values from each JSONObject
-                         String name = jsonObject.getString("name");
-                         String title = jsonObject.getString("title");
+                              // Get values from each JSONObject
+                              String name = jsonObject.getString("name");
+                              String title = jsonObject.getString("title");
 
-                         // Extract options JSONArray
-                         JSONArray optionsArray = jsonObject.getJSONArray("options");
+                              // Extract options JSONArray
+                              JSONArray optionsArray = jsonObject.getJSONArray("options");
 
-                         // Get the first option
-                         JSONObject optionsObject = optionsArray.getJSONObject(0);
-                         String option = optionsObject.getString("option");
+                              // Get the first option
+                              JSONObject optionsObject = optionsArray.getJSONObject(0);
+                              String option = optionsObject.getString("option");
 
-                         _weight = option;
+                              _weight = option;
+                         }
                     }
+
+                    ProductRequest productRequest = ProductRequest.builder()
+                              .subCatId(44)
+                              .proNameEn(p.getName())
+                              .proNameKh(p.getNameKh())
+                              .cost(p.getCost())
+                              .price(p.getPrice())
+                              .margin("10%")
+                              .brandId(7)
+                              .barcode(p.getBarcode())
+                              .createBy(1)
+                              .taxId(3)
+                              .vendorId(7)
+                              .uomId(8)
+                              .attributeId(7)
+                              .productActiveId(1)
+                              .countryId(11)
+                              .choices(_weight)
+                              .proImageName(p.getImage())
+                              .build();
+
+                    productService.create(productRequest);
                }
-
-
-               log.info("weight data : " + _weight);
-
-               pro.setWeight(_weight);
-               pro.setBarcode(p.getBarcode());
-               pro.setDiscount(p.getDiscount());
-               // pro.setBrandId(0);
-               // pro.setDiscountPercentag(p.getDiscountPercentag().isEmpty() ? "0" :
-               // p.getDiscountPercentag());
-               pro.setProImageName(p.getImage());
-               pro.setProductStatus(p.getStatus()); // for detail product in or out stock
-               repoD1.save(pro);
           }
 
           return repo.getProduct();

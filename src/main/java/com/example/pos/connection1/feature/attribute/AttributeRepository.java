@@ -14,10 +14,6 @@ public interface AttributeRepository extends JpaRepository<Attribute, Integer>{
     Optional<Attribute> findById(Integer id);
 
     Optional<Attribute> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
-
- 
-
-
     Page<Attribute> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);
 
 }

@@ -32,7 +32,7 @@ public class ImportDetail {
     private int qtyNew=0;
 
     @Column(name = "qty_old",length = 30)
-    private int qtyOld=0;
+    private Integer qtyOld=0;
 
     @Column(name = "cost",precision = 10,scale = 2)
     private BigDecimal cost;

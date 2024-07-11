@@ -40,7 +40,7 @@ public class ImportService {
         if (dateTo.isAfter(currentDate)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "The field dateTo can not greater than current date : "+formattedDate+".");
+                    "The field dateTo can not greater than current date : " + formattedDate + ".");
         }
 
         if (dateFrom.isAfter(dateTo))
@@ -51,7 +51,7 @@ public class ImportService {
     }
 
     public void addImport(Import imp) {
-     
+
         LocalDate localDate = LocalDate.now();
 
         Import data = new Import();
@@ -81,8 +81,60 @@ public class ImportService {
         data.setCreateBy(imp.getCreateBy());
         data.setDateLocal(localDate);
         repo.save(data);
-      
+
         List<ImportDetail> listDetail = imp.getDetails();
+
+        // int[] listProId = {
+        // 672,
+        // 673,
+        // 674,
+        // 675,
+        // 676,
+        // 677,
+        // 678,
+        // 679,
+        // 680,
+        // 681,
+        // 587
+        // };
+
+        // for (int i = 0; i < listProId.length; i++) {
+        // var value = listDetail.get(i);
+        // int productId = listProId[i];
+
+        // repoProduct.findById(productId).orElseThrow(
+        // () -> new ResponseStatusException(
+        // HttpStatus.NOT_FOUND,
+        // "product id has not been found ."));
+
+        // int qtyNew = 122;
+        // ImportDetail details = new ImportDetail();
+        // ImportDetail getImpDetails = repoDetail.getDataImportDetail(productId);
+
+        // if (getImpDetails == null) {
+        // details.setQtyOld(qtyNew);
+        // } else {
+        // int qtyOld = getImpDetails.getQtyOld();
+        // int qty = qtyOld + qtyNew;
+        // details.setQtyOld(qty);
+        // }
+
+        // details.setImpId(data.getId());
+        // details.setProductId(productId);
+        // details.setQtyNew(qtyNew);
+        // details.setCost(value.getCost());
+        // details.setAmount(value.getAmount());
+        // details.setExpireDate(value.getExpireDate());
+        // details.setCreateBy(imp.getCreateBy());
+        // repoDetail.save(details);
+
+        // Optional<Product> p = repoProduct.findById(productId);
+        // Product pp = p.get();
+        // pp.setProductStatus("In Stock");
+        // // pp.setCost(value.getCost());
+        // pp.setImportDetail(details); // update last importDetailsId
+        // repoProduct.save(pp);
+        // }
 
         for (int i = 0; i < listDetail.size(); i++) {
             var value = listDetail.get(i);
@@ -118,9 +170,8 @@ public class ImportService {
             Product pp = p.get();
             pp.setProductStatus("In Stock");
             // pp.setCost(value.getCost());
-            pp.setImportDetail(details);   // update last importDetailsId 
+            pp.setImportDetail(details); // update last importDetailsId
             repoProduct.save(pp);
-
         }
     }
 

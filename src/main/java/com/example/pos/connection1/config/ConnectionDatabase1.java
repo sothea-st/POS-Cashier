@@ -20,8 +20,12 @@
 // @Configuration
 // @EnableTransactionManagement
 // @EnableJpaRepositories(entityManagerFactoryRef = "DataStor1EntityManagerFactory", 
-// transactionManagerRef = "Database1TransactionManager", basePackages = {
-//           "com.example.pos.connection1.repository" })
+// transactionManagerRef = "Database1TransactionManager",
+//  basePackages = {
+//           "com.example.pos.connection1.repository" ,
+//           "com.example.pos.connection1.feature" ,
+//      })
+          
 // public class ConnectionDatabase1 {
 
 //      @Primary

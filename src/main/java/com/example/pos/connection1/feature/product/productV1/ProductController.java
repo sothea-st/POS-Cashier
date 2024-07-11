@@ -1,7 +1,6 @@
 package com.example.pos.connection1.feature.product.productV1;
 
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +22,7 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 public class ProductController {
      private final ProductService productService;
+     
 
      @PostMapping
      public JavaMessageResponse<?> create(@Valid @RequestBody ProductRequest productRequest) {
