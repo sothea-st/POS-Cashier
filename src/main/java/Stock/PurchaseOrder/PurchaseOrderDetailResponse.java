@@ -1,17 +1,22 @@
 package Stock.PurchaseOrder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.math.BigDecimal;
+import lombok.Builder;
+ 
 public class PurchaseOrderDetailResponse {
+
      private Integer id;
      private String barcode;
      private String proNameEn;
      private String division;
      private Integer availableQty;
      private Integer qty;
-     private double cost;
-     private double amount;
-
+     private BigDecimal cost;
+     private BigDecimal amount;
+ 
+     
+     
      @JsonProperty("id")
      public Integer getID() {
           return id;
@@ -73,22 +78,22 @@ public class PurchaseOrderDetailResponse {
      }
 
      @JsonProperty("cost")
-     public double getCost() {
+     public BigDecimal getCost() {
           return cost;
      }
 
      @JsonProperty("cost")
-     public void setCost(double value) {
+     public void setCost(BigDecimal value) {
           this.cost = value;
      }
 
      @JsonProperty("amount")
-     public double getAmount() {
+     public BigDecimal getAmount() {
           return amount;
      }
 
      @JsonProperty("amount")
-     public void setAmount(double value) {
+     public void setAmount(BigDecimal value) {
           this.amount = value;
      }
 }

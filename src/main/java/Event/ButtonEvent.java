@@ -8,6 +8,7 @@ public interface ButtonEvent {
 
      default public void onClick() {
      }
+
      default public void onClick(int row) {
      }
 
@@ -27,6 +28,9 @@ public interface ButtonEvent {
      }
 
      default public void onKeyPress() {
+     }
+
+     default public void onKeyPress(String value , String index) {
      }
 
      default public void onFocusGain() {
@@ -52,12 +56,14 @@ public interface ButtonEvent {
      }
 
      ;
-          default public void onMouseRelease() {
+     default public void onMouseRelease() {
      }
+
      ;
           
     
-               default public void onFocusLost(){};
-
+     default public void onFocusLost() {
+     }
+;
 
 }
