@@ -30,6 +30,8 @@ import org.json.JSONObject;
 
 public class ListVendor extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public ListVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -49,6 +51,7 @@ public class ListVendor extends javax.swing.JDialog {
         JavaConstant.addTitleAndLogo(this, "Vendor");
         
         getVendor(listGetVendor);
+        eventSearchVendor();
     }
 
     
@@ -61,7 +64,7 @@ public class ListVendor extends javax.swing.JDialog {
                 ObjectMapper objMap = new ObjectMapper();
                 ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
                 DataVendorModel[] listData = data.getData();
-                asignVendor(listData, jpanelData);
+                assignVendor(listData, jpanelData);
             } else {
                 System.err.println("fail loading vendor");
             }
@@ -70,7 +73,7 @@ public class ListVendor extends javax.swing.JDialog {
         }
     }
      
-    public void asignVendor(DataVendorModel[] listData, JPanel listGetVendor) {
+    public void assignVendor(DataVendorModel[] listData, JPanel listGetVendor) {
         ArrayList<VendorModel> vendor = new ArrayList<>();
           
         for (int i = 0; i < listData.length; i++) {
@@ -217,6 +220,52 @@ public class ListVendor extends javax.swing.JDialog {
         listGetVendor.repaint();
     }
     
+    //Action Search
+    private void eventSearchVendor() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetVendor.removeAll();
+                    listGetVendor.revalidate();
+                    listGetVendor.repaint();
+                    getVendor(listGetVendor);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchVendor + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetVendor.removeAll();
+                            listGetVendor.revalidate();
+                            listGetVendor.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            ListVendorModel data = obj.readValue(responseData, ListVendorModel.class);
+                            DataVendorModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignVendor(listData, listGetVendor);
+                            } else {
+                                listGetVendor.removeAll();
+                                NoData notfound = new NoData();
+                                notfound.setLabelName("Not Found!");
+                                listGetVendor.add(notfound);
+                                listGetVendor.revalidate();
+                                listGetVendor.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search vendor = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

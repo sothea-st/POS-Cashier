@@ -158,7 +158,7 @@
         </Container>
         <Component class="Components.SearchField" name="searchField">
           <Properties>
-            <Property name="placeholder" type="java.lang.String" value="Search "/>
+            <Property name="placeholder" type="java.lang.String" value="Search"/>
             <Property name="valueTextSearch" type="java.lang.String" value=""/>
           </Properties>
         </Component>

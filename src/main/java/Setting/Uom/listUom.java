@@ -33,6 +33,8 @@ import org.json.JSONObject;
 
 public class listUom extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public listUom(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -53,6 +55,7 @@ public class listUom extends javax.swing.JDialog {
         JavaConstant.addTitleAndLogo(this, "UOM");
         
         getUom(listGetUom);
+        eventSearchUom();
     }
     
     
@@ -214,6 +217,53 @@ public class listUom extends javax.swing.JDialog {
         listGetUom.revalidate();
         listGetUom.repaint();
     }
+    
+    //Action Search
+    private void eventSearchUom() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetUom.removeAll();
+                    listGetUom.revalidate();
+                    listGetUom.repaint();
+                    getUom(listGetUom);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchUom + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetUom.removeAll();
+                            listGetUom.revalidate();
+                            listGetUom.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            ListUomModel data = obj.readValue(responseData, ListUomModel.class);
+                            DataUomModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignUom(listData, listGetUom);
+                            } else {
+                                listGetUom.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetUom.add(notfound);
+                                listGetUom.revalidate();
+                                listGetUom.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search uom = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -271,7 +321,7 @@ public class listUom extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));

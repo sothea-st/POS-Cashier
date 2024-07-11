@@ -78,6 +78,7 @@ public class Settings extends javax.swing.JDialog {
                     uom.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "measure.png");
                     country.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "countries.png");
                     tax.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "taxes.png");
+                    status.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "db5e86b7-6cb4-4b3b-a148-da227bd048de");
 
                 } catch (IOException ex) {
                     Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);

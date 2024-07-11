@@ -3,8 +3,17 @@ package Setting.Category;
 
 public class NoDataAvaibalePanel extends javax.swing.JPanel {
 
+    private String labelName;
 
- 
+    public String getLabelName() {
+        return labelName;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
+        lbName.setText(labelName);
+    }
+    
     public NoDataAvaibalePanel() {
         initComponents();
     }
@@ -28,7 +37,7 @@ public class NoDataAvaibalePanel extends javax.swing.JPanel {
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
+            .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

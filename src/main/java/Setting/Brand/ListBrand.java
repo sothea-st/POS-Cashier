@@ -34,6 +34,8 @@ import org.json.JSONObject;
 
 public class ListBrand extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public ListBrand(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -50,6 +52,8 @@ public class ListBrand extends javax.swing.JDialog {
         getBrand(listGetBrand);
         
         JavaConstant.addTitleAndLogo(this, "Brand");
+        
+        eventSearchBrand();
     }
     
     public void getBrand(JPanel jpanelData) {
@@ -209,7 +213,52 @@ public class ListBrand extends javax.swing.JDialog {
         listGetBrand.repaint();
     }
     
-     
+    //Action Search
+    private void eventSearchBrand() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetBrand.removeAll();
+                    listGetBrand.revalidate();
+                    listGetBrand.repaint();
+                    getBrand(listGetBrand);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchBrand + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetBrand.removeAll();
+                            listGetBrand.revalidate();
+                            listGetBrand.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            BrandSuccessModel data = obj.readValue(responseData, BrandSuccessModel.class);
+                            BrandModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignBrand(listData, listGetBrand);
+                            } else {
+                                listGetBrand.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetBrand.add(notfound);
+                                listGetBrand.revalidate();
+                                listGetBrand.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search brand = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -267,7 +316,7 @@ public class ListBrand extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));

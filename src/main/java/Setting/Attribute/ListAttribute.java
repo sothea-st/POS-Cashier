@@ -33,6 +33,8 @@ import org.json.JSONObject;
 
 public class ListAttribute extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public ListAttribute(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -52,6 +54,7 @@ public class ListAttribute extends javax.swing.JDialog {
         JavaConstant.addTitleAndLogo(this, "Attribute");
         
         getAttribute(listGetAttribute);
+        eventSearchAttribute();
     }
 
     public void getAttribute(JPanel jpanelData) {
@@ -270,7 +273,7 @@ public class ListAttribute extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
@@ -368,6 +371,53 @@ public class ListAttribute extends javax.swing.JDialog {
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
+    //Action Search
+    private void eventSearchAttribute() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetAttribute.removeAll();
+                    listGetAttribute.revalidate();
+                    listGetAttribute.repaint();
+                    getAttribute(listGetAttribute);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchAttribute + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetAttribute.removeAll();
+                            listGetAttribute.revalidate();
+                            listGetAttribute.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            ListAttributeModel data = obj.readValue(responseData, ListAttributeModel.class);
+                            DataAttributeModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignAttribute(listData, listGetAttribute);
+                            } else {
+                                listGetAttribute.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetAttribute.add(notfound);
+                                listGetAttribute.revalidate();
+                                listGetAttribute.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search attribute = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
