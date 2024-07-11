@@ -47,6 +47,7 @@ import com.example.pos.connection1.entity.sourceData.CustomerType;
 import com.example.pos.connection1.entity.sourceData.Reason;
 import com.example.pos.connection1.entity.sourceData.ReturnProduct;
 import com.example.pos.connection1.entity.sourceData.Source;
+import com.example.pos.connection1.projections.GetCategoryByCode;
 import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
 import com.example.pos.connection1.repository.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
@@ -120,6 +121,12 @@ public class RouteController {
           public ResponseEntity<?> deleteCategory(@PathVariable("id") int id) {
                service.deleteCategory(id);
                return JavaResponse.deleteSuccess(id);
+          }
+
+          @GetMapping("/code/{code}/search/{catNameEn}")
+          public ResponseEntity<?> search (@Valid @PathVariable("code") String code, @PathVariable("catNameEn") String searchValue) {
+               List<CategoryResponse> data = service.search(code, searchValue);
+               return JavaResponse.success(data);
           }
      }
 

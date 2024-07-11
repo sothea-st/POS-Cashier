@@ -6,6 +6,7 @@ import com.example.pos.connection1.DTO.categoryDto.CategoryRequest;
 import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
 import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.entity.Category;
+import com.example.pos.connection1.projections.GetCategoryByCode;
 import com.example.pos.connection1.repository.CategoryRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -131,6 +132,21 @@ public class CategoryService {
         data.setDeleted(true);
         data.setStatus(false);
         repo.save(data);
+    }
+
+
+    public List<CategoryResponse> search(String code, String searchValue) {
+
+        List<CategoryResponse> search = repo.search(code,searchValue).stream()
+                                        .map(c->CategoryResponse.builder()
+                                        .id(c.getId())
+                                        .catNameEn(c.getCat_name_en())
+                                        .catNameKh(c.getCat_name_kh())
+                                        .parentId(c.getParent_id())
+                                        .movePosition(c.getMove_position())
+                                        .build()).toList();
+
+        return search;
     }
 
 }

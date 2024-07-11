@@ -2,6 +2,8 @@ package com.example.pos.connection1.repository;
 
 import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
 import com.example.pos.connection1.entity.Category;
+import com.example.pos.connection1.projections.GetCategoryByCode;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -43,6 +45,11 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
     @Query(nativeQuery = true , value = "select count(*) from pos_category")
     int countLengthRow();
+
+
+    @Query(nativeQuery = true, value ="SELECT * FROM get_categories_by_code(?, ?)")
+    List<GetCategoryByCode> search (String code, String searchValue);
+
 
 
 }
