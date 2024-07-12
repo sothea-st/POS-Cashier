@@ -119,4 +119,26 @@ public class AttributeServiceImp implements AttributeService{
                 .isDeleted(attribute.getIsDeleted())
                 .build();
     }
+
+    /*
+      * read search attribute
+      * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0
+      * value was given from controller
+    */
+    @Override
+    public JavaCollectionResponse<?> search(int pageSize, int pageNumber, String valueSearch) {
+      Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);  // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
+        Page<Attribute> pages = attributeRepository.findByAttrNameEn (pageRequest, valueSearch);
+        
+        List<AttributeResponse> content = pages.getContent()
+                        .stream()
+                        .map(c->mAttributeResponse(c))
+                        .toList();
+                    
+        return JavaCollectionResponse.builder()
+                        .count(pages.getTotalElements())
+                        .data(content)
+                        .build();
+    }
 }

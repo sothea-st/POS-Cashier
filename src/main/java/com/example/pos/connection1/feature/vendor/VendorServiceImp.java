@@ -180,4 +180,21 @@ public class VendorServiceImp implements VendorService {
                     .vendorName(vendor.getVendorName())
                     .build();
      }
+
+     @Override
+     public JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue) {
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+          Page<Vendor> pages = vendorRepository.findByVendorName(pageRequest,searchValue);
+
+          List<VendorResponse> content = pages.getContent()
+                              .stream()
+                              .map(c->mapToVendorResponse(c))
+                              .toList();
+          
+          return JavaCollectionResponse.builder()
+                              .count(pages.getTotalElements())
+                              .data(content)
+                              .build();
+     }
 }

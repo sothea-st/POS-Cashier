@@ -7,6 +7,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.pos.connection1.entity.Uom;
 import com.example.pos.connection1.feature.uom.dto.UomRequest;
@@ -116,5 +118,28 @@ public class UomServiceImp implements UomService{
             .status(uom.getStatus())
             .isDeleted(uom.getIsDeleted())
             .build();
+    }
+
+    /*
+      * read search uom
+      * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0
+      * value was given from controller
+    */
+    @Override
+    public JavaCollectionResponse<?> search(int pageSize,int pageNumber, String serchValue) {
+
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
+        Page<Uom> pages = uomRepository.findByNameEn(pageRequest,serchValue);
+
+        List<UomResponse> content = pages.getContent()
+                  .stream()
+                  .map(c->mapTUomResponse(c))
+                  .toList();
+
+       return JavaCollectionResponse.builder()
+                  .count(pages.getTotalElements())
+                  .data(content)
+                  .build();
     }
 }

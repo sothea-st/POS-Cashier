@@ -134,9 +134,15 @@ public class RouteControllerSecond {
                Brand data = service.updateBrand(id, b);
                return JavaResponse.success(data);
           }
+
+          @GetMapping("/searchBrand/{brandNameEn}")
+          public ResponseEntity<?> search(@PathVariable("brandNameEn") String searchValue) {
+               List<Brand> data = service.search(searchValue);
+               return JavaResponse.success(data);
+          }
      }
 
-     @RestController
+      @RestController
      @RequestMapping("/api/searchProductByBarcodeOrName")
      public static class RouteSearchProduct {
           @Autowired

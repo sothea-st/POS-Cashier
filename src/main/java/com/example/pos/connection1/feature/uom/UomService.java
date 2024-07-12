@@ -37,5 +37,11 @@ public interface UomService {
     */
     void deleteById(Integer id);
 
+    /*
+      * read search uom 
+      * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
+      * value was given from controller
+    */
+    JavaCollectionResponse<?> search(int pageSize, int pageNumber, String Value);
 
 }

@@ -34,4 +34,11 @@ public interface VendorService {
       * required paramater id , VendorUpdateRequest
       */
       VendorResponse updateByUuid(int id,VendorUpdateRequest vendorUpdateRequest);
+
+      /*
+      * read Search vendor 
+      * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
+      * value was given from controller
+      */
+      JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue);
 }

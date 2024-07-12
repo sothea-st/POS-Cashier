@@ -37,4 +37,9 @@ public interface AttributeService {
     */
     void deleteById(Integer id);
 
+    /*
+      * Search attribute
+    */
+    JavaCollectionResponse<?> search (int pageSize, int pageNumber, String valueSearch);
+
 }

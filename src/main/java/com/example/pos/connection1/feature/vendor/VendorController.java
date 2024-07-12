@@ -54,4 +54,12 @@ public class VendorController {
           return vendorService.updateByUuid(id, vendorUpdateRequest);
      }
 
+     @GetMapping("/searchVendor/{vendorName}")
+     JavaCollectionResponse<?> search (
+          @RequestParam(defaultValue = "10", required = false) int pageSize, 
+          @RequestParam(defaultValue = "0", required = false) int pageNumber, 
+          @PathVariable("vendorName") String searchValue){
+               return vendorService.search(pageSize, pageNumber, searchValue);
+     }
+
 }

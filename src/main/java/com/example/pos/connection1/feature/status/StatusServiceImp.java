@@ -108,4 +108,26 @@ public class StatusServiceImp implements StatusService {
         statusRepository.save(status);
     }
 
+    /*
+      * read search status
+      * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0
+      * value was given from controller
+    */
+    @Override
+    public JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue) {
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+        Page<Status> pages = statusRepository.findByStatusName(pageRequest, searchValue);
+
+        List<StatusResponse> content = pages.getContent()
+                            .stream()
+                            .map(c->mStatusResponse(c))
+                            .toList();
+
+        return JavaCollectionResponse.builder()
+                  .count(pages.getTotalElements())
+                  .data(content)
+                  .build();                    
+    }
+
 }
