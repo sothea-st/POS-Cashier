@@ -12,6 +12,8 @@ import Fonts.WindowFonts;
 import Model.Country.CountryModel;
 import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
+import Model.Uom.DataUomModel;
+import Model.Uom.ListUomModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -35,6 +37,8 @@ import org.json.JSONObject;
 
 public class ListCountry extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public ListCountry(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -55,6 +59,8 @@ public class ListCountry extends javax.swing.JDialog {
         JavaConstant.addTitleAndLogo(this, "Country");
         
         getListCountry(listGetCountry);
+        eventSearchCountry();
+        
     }
     
     public void getListCountry(JPanel jpanelData) {
@@ -90,10 +96,10 @@ public class ListCountry extends javax.swing.JDialog {
             country.add(countries);
         }
 
-        appenCountry(country, listGetCountry);
+        appendCountry(country, listGetCountry);
     }
     
-    void appenCountry(ArrayList<CountryModel> list, JPanel listGetCountry) {
+    void appendCountry(ArrayList<CountryModel> list, JPanel listGetCountry) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -219,6 +225,53 @@ public class ListCountry extends javax.swing.JDialog {
         listGetCountry.repaint();
     }
     
+    
+    //Action Search
+    private void eventSearchCountry() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetCountry.removeAll();
+                    listGetCountry.revalidate();
+                    listGetCountry.repaint();
+                    getListCountry(listGetCountry);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchCountry + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetCountry.removeAll();
+                            listGetCountry.revalidate();
+                            listGetCountry.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            ListCountryModel data = obj.readValue(responseData, ListCountryModel.class);
+                            DataCountryModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignCountry(listData, listGetCountry);
+                            } else {
+                                listGetCountry.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetCountry.add(notfound);
+                                listGetCountry.revalidate();
+                                listGetCountry.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search country = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -277,7 +330,7 @@ public class ListCountry extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));

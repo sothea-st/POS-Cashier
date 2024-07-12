@@ -13,6 +13,8 @@ import Model.Category.CategorySuccessModel;
 import Model.Category.DetailCategoryModel;
 import Model.Category.DetailCategorySuccessModel;
 import Model.Category.ModelCategory;
+import Model.Status.GetStatusModel;
+import Model.Status.ListStatusModel;
 import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
 import Setting.Subcategory.InsertSubcategory;
@@ -62,6 +64,8 @@ public class Category extends javax.swing.JDialog {
         } else if (codeType.equals("subcategory")) {
             JavaConstant.addTitleAndLogo(this, "Sub Category");
         }
+        
+        eventSearchStatus(codeType);
     }
 
     public void getCategory(JPanel jpanelData, String codeType) {
@@ -331,6 +335,53 @@ public class Category extends javax.swing.JDialog {
         listGetCategory.revalidate();
         listGetCategory.repaint();
     }
+    
+    //Action Search
+    private void eventSearchStatus(String codeType) {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetCategory.removeAll();
+                    listGetCategory.revalidate();
+                    listGetCategory.repaint();
+                    getCategory(listGetCategory,codeType);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchCategory + codeType + "/search/" + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetCategory.removeAll();
+                            listGetCategory.revalidate();
+                            listGetCategory.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            CategorySuccessModel data = obj.readValue(responseData, CategorySuccessModel.class);
+                            CategoryGetdataModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignCategory(listData, listGetCategory, codeType);
+                            } else {
+                                listGetCategory.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetCategory.add(notfound);
+                                listGetCategory.revalidate();
+                                listGetCategory.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search category = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
 
     public String getCode() {
         return code;
@@ -413,7 +464,7 @@ public class Category extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));

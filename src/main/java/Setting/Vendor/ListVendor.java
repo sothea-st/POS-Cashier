@@ -30,51 +30,55 @@ import org.json.JSONObject;
 
 public class ListVendor extends javax.swing.JDialog {
 
-     public ListVendor(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+    String searchValue;
+    
+    public ListVendor(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
+        
+        header.setBackground(WindowColor.darkGreen);
+        JavaConstant.addTitleAndLogo(this, "Vendor");
+        
+        getVendor(listGetVendor);
+        eventSearchVendor();
+    }
 
-          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-          jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          // custom scroll speed jscrollPane for vertical
-          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
+    
+    public void getVendor(JPanel jpanelData) {
+        try {
 
-          header.setBackground(WindowColor.darkGreen);
-          JavaConstant.addTitleAndLogo(this, "Vendor");
-
-          getVendor(listGetVendor);
-     }
-
-     public void getVendor(JPanel jpanelData) {
-          try {
-
-               Response response = JavaConnection.get(JavaRoute.vendor);
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
-                    DataVendorModel[] listData = data.getData();
-                    asignVendor(listData, jpanelData);
-               } else {
-                    System.err.println("fail loading vendor");
-               }
-          } catch (Exception e) {
-               System.err.println("error getting vendor " + e);
-          }
-     }
-
-     public void asignVendor(DataVendorModel[] listData, JPanel listGetVendor) {
-          ArrayList<VendorModel> vendor = new ArrayList<>();
-
-          for (int i = 0; i < listData.length; i++) {
-               var obj = listData[i];
-               VendorModel getVendor = new VendorModel(
+            Response response = JavaConnection.get(JavaRoute.vendor );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
+                DataVendorModel[] listData = data.getData();
+                assignVendor(listData, jpanelData);
+            } else {
+                System.err.println("fail loading vendor");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting vendor " + e);
+        }
+    }
+     
+    public void assignVendor(DataVendorModel[] listData, JPanel listGetVendor) {
+        ArrayList<VendorModel> vendor = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            VendorModel getVendor = new VendorModel(
                     obj.getId(),
                     obj.getVendorName(),
                     obj.getAddress(),
@@ -83,139 +87,187 @@ public class ListVendor extends javax.swing.JDialog {
                     obj.getWebsite(),
                     obj.getUuid(),
                     obj.getVdCode()
-               );
-               vendor.add(getVendor);
-          }
+            );
+            vendor.add(getVendor);
+        }
 
-          appendVendor(vendor, listGetVendor);
-     }
+        appendVendor(vendor, listGetVendor);
+    }
+    
+    void appendVendor(ArrayList<VendorModel> list, JPanel listGetVendor) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-     void appendVendor(ArrayList<VendorModel> list, JPanel listGetVendor) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        listGetVendor.setLayout(gridBagLayout);
 
-          listGetVendor.setLayout(gridBagLayout);
+        int x = 0;
+        int y = 0;
+        if(list.size() > 0){
+            for (int i = 0; i < list.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
 
-          int x = 0;
-          int y = 0;
-          if (list.size() > 0) {
-               for (int i = 0; i < list.size(); i++) {
-                    GridBagConstraints gbc = new GridBagConstraints();
-                    gbc.gridx = x;
-                    gbc.gridy = y;
-                    gbc.gridwidth = 1;
-                    gbc.anchor = gbc.NORTH;
-                    x++;
-                    if (x == 1) {
-                         x = 0;
-                         y++;
+                var listData = list.get(i);
+                GetVendor b = new GetVendor();
+                
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        AddVendor edit = new AddVendor(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.vendor + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailVendorModel data = objMap.readValue(responseData, DetailVendorModel.class);
+
+                            edit.setId(data.getId());
+                            edit.setListGetVendor(listGetVendor);
+
+                            edit.setValueEdit(
+                                data.getVendorName(),
+                                data.getContact(),
+                                data.getEmail(),
+                                data.getWebsite(),
+                                data.getAddress()
+                            );
+
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting vendor " + e);
+                        }
                     }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete brand
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                    var listData = list.get(i);
-                    GetVendor b = new GetVendor();
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this vendor?",
+                                    "Delete Vendor?", JOptionPane.YES_NO_OPTION);
 
-                    ButtonEvent events = new ButtonEvent() {
-                         @Override
-                         public void onSelect(String Key) {  // event edit
-                              AddVendor edit = new AddVendor(new JFrame(), true);
-                              try {
-                                   Response response = JavaConnection.get(JavaRoute.vendor + "/" + listData.getId());
-                                   String responseData = response.body().string();
-                                   ObjectMapper objMap = new ObjectMapper();
-                                   DetailVendorModel data = objMap.readValue(responseData, DetailVendorModel.class);
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.vendor + "/" + listData.getId(), json);
 
-                                   edit.setId(data.getId());
-                                   edit.setListGetVendor(listGetVendor);
+                                if (response.isSuccessful()) {
+                                    ListVendor list = new ListVendor(new JFrame(), true);
+                                    listGetVendor.removeAll();
+                                    listGetVendor.revalidate();
+                                    listGetVendor.repaint();
+                                    list.getVendor(listGetVendor);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
 
-                                   edit.setValueEdit(
-                                        data.getVendorName(),
-                                        data.getContact(),
-                                        data.getEmail(),
-                                        data.getWebsite(),
-                                        data.getAddress()
-                                   );
+                        } catch (Exception e) {
+                            System.err.println("error getting vendor " + e);
+                        }
+                    }
+                };
+                
+                b.initEvent(events);
+                b.setId(listData.getId());
+                b.setVendorName(listData.getVendorName());
+                b.setVendorCode(listData.getVdCode());
+                b.setPhoneNumber(listData.getContact());
+                b.setEmail(listData.getEmail());
+                b.setAddress(listData.getAddress());
+                b.setWebsite(listData.getWebsite());
 
-                                   edit.setVisible(true);
-                              } catch (Exception e) {
-                                   System.err.println("error getting vendor " + e);
-                              }
-                         }
+                try {
 
-                         @Override
-                         public void onRemove(String Key) {  // event delete brand
-                              try {
-                                   UIManager UI = new UIManager();
-                                   UI.put("OptionPane.background", WindowColor.mediumGreen);
-                                   UI.put("Panel.background", WindowColor.mediumGreen);
-                                   UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
-                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this vendor?",
-                                        "Delete Vendor?", JOptionPane.YES_NO_OPTION);
-
-                                   if (resp == JOptionPane.YES_OPTION) {
-                                        JSONObject json = new JSONObject();
-                                        Response response = JavaConnection.delete(JavaRoute.vendor + "/" + listData.getId(), json);
-
-                                        if (response.isSuccessful()) {
-                                             ListVendor list = new ListVendor(new JFrame(), true);
-                                             listGetVendor.removeAll();
-                                             listGetVendor.revalidate();
-                                             listGetVendor.repaint();
-                                             list.getVendor(listGetVendor);
-                                             System.out.println("Successful deleted ");
-                                        }
-                                   } else {
-                                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                                   }
-
-                              } catch (Exception e) {
-                                   System.err.println("error getting vendor " + e);
-                              }
-                         }
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        }
                     };
 
-                    b.initEvent(events);
-                    b.setId(listData.getId());
-                    b.setVendorName(listData.getVendorName());
-                    b.setVendorCode(listData.getVdCode());
-                    b.setPhoneNumber(listData.getContact());
-                    b.setEmail(listData.getEmail());
-                    b.setAddress(listData.getAddress());
-                    b.setWebsite(listData.getWebsite());
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
 
-                    try {
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
 
-                         TimerTask task = new TimerTask() {
-                              @Override
-                              public void run() {
-                                   // Task to be executed
-                                   b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                                   b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                              }
-                         };
+                listGetVendor.add(b, gbc);
+            }  
+        }else{
+            NoData no = new NoData();
+            listGetVendor.add(no);
+        }
+        
+        listGetVendor.revalidate();
+        listGetVendor.repaint();
+    }
+    
+    //Action Search
+    private void eventSearchVendor() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetVendor.removeAll();
+                    listGetVendor.revalidate();
+                    listGetVendor.repaint();
+                    getVendor(listGetVendor);
+                } else {
 
-                         Timer timer = new Timer();
-                         timer.schedule(task, 500); // Delays task execution by 1 second
+                    Response response = JavaConnection.get(JavaRoute.searchVendor + searchValue);
 
-                    } catch (Exception e) {
-                         System.err.println("error read image = " + e);
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetVendor.removeAll();
+                            listGetVendor.revalidate();
+                            listGetVendor.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            ListVendorModel data = obj.readValue(responseData, ListVendorModel.class);
+                            DataVendorModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignVendor(listData, listGetVendor);
+                            } else {
+                                listGetVendor.removeAll();
+                                NoData notfound = new NoData();
+                                notfound.setLabelName("Not Found!");
+                                listGetVendor.add(notfound);
+                                listGetVendor.revalidate();
+                                listGetVendor.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search vendor = " + e);
+                        }
                     }
-
-                    listGetVendor.add(b, gbc);
-               }
-          } else {
-               NoData no = new NoData();
-               listGetVendor.add(no);
-          }
-
-          listGetVendor.revalidate();
-          listGetVendor.repaint();
-     }
-
-     @SuppressWarnings("unchecked")
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
+    
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -396,57 +448,56 @@ public class ListVendor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-         AddVendor add = new AddVendor(new JFrame(), true);
-         add.setListGetVendor(listGetVendor);
-         add.setVisible(true);
+        AddVendor add = new AddVendor(new JFrame(), true);
+        add.setListGetVendor(listGetVendor);
+        add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
-     /**
-      * @param args the command line
-      * arguments
-      */
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ListVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    ListVendor dialog = new ListVendor(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ListVendor dialog = new ListVendor(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;

@@ -32,6 +32,8 @@ import org.json.JSONObject;
 
 public class ListStatus extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public ListStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -50,8 +52,9 @@ public class ListStatus extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Status");
-        
-         getStatus(listGetStatus);
+
+        getStatus(listGetStatus);
+        eventSearchStatus();
     }
     
      public void getStatus(JPanel jpanelData) {
@@ -212,6 +215,52 @@ public class ListStatus extends javax.swing.JDialog {
         listGetStatus.repaint();
     }
     
+    //Action Search
+    private void eventSearchStatus() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetStatus.removeAll();
+                    listGetStatus.revalidate();
+                    listGetStatus.repaint();
+                    getStatus(listGetStatus);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchStatus + searchValue);
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetStatus.removeAll();
+                            listGetStatus.revalidate();
+                            listGetStatus.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper obj = new ObjectMapper();
+                            ListStatusModel data = obj.readValue(responseData, ListStatusModel.class);
+                            GetStatusModel[] listData = data.getData();
+                            if (listData.length > 0) {
+                                assignStatus(listData, listGetStatus);
+                            } else {
+                                listGetStatus.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetStatus.add(notfound);
+                                listGetStatus.revalidate();
+                                listGetStatus.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search status = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -261,7 +310,7 @@ public class ListStatus extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));

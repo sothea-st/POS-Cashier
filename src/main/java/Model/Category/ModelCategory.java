@@ -22,8 +22,8 @@ public class ModelCategory {
             Integer parentId
     ){
             this.id = id;
-            this.categoryNameEn = categoryNameEn;
-            this.categoryNameKh = categoryNameKh;
+            this.categoryNameEn = categoryNameKh;
+            this.categoryNameKh =categoryNameEn;
             this.movePosition = movePosition;
             this.parentId = parentId;
         

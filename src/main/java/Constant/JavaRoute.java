@@ -69,6 +69,13 @@ public class JavaRoute {
 
      public static String addBackground = "/public/addImageForBackground";
      public static String status = "/status";
+     public static String searchAttribute = "/attribute/searchAttribute/";
+     public static String searchUom = "/uom/searchUom/";
+     public static String searchCountry = "/country/searchCountry/";
+     public static String searchVendor = "/vendor/searchVendor/";
+     public static String searchBrand = "/brand/searchBrand/";
+     public static String searchStatus = "/status/searchStatus/";
+     public static String searchCategory = "/category/code/";
      
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
 
