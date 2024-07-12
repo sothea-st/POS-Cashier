@@ -279,12 +279,13 @@ public class Settings extends javax.swing.JDialog {
     }//GEN-LAST:event_categoryMouseClicked
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
-
+        dispose();
         ListProduct list = new ListProduct(new JFrame(), true);
         list.setPanelProduct(panelProduct);
         list.setJdLogin(jdLogin);
         list.setPanelCategory(category);
         list.setVisible(true);
+        
     }//GEN-LAST:event_productMouseClicked
 
     private void departmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentMouseClicked

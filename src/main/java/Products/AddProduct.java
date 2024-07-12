@@ -720,7 +720,7 @@ public class AddProduct extends javax.swing.JDialog {
                  lbPicture.setIcon(null);
                  lbFlag.setIcon(null);
 
-                 System.out.println("jjjjjjjjjjjjjjjjjjjjj = " + jdLogin.getCatId());
+                  
                  // for reload items
                  jdLogin.onClickCategory("new items", jdLogin.getCatId());
                  panelCategory.getComponents()[1].setBackground(WindowColor.black);

@@ -28,46 +28,46 @@ import org.json.JSONObject;
 
 public class AddCountry extends javax.swing.JDialog {
 
-    private Integer id;
-    String path;
-    String fileName;
-    
-    private JPanel listGetCountry;
-    
-    public AddCountry(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        txtCountry.requestFocus();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        
-        browse.setBorder( BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue) );
-        event();
-    }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+     private Integer id;
+     String path;
+     String fileName;
 
-            }
-        };
-        txtCountry.initEvent(btnevent);
-    }
-    
-    //Value Edit
-    public void setValueEdit(
-        String country,
-        String urlImg,
-        String uuid
-    ) throws IOException {
-        txtCountry.setValueTextField(country);
-        JavaConstant.coverImage(urlImg, lbFile, 150, 135);
-        fileName = uuid;
-    }
+     private JPanel listGetCountry;
 
-    @SuppressWarnings("unchecked")
+     public AddCountry(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          txtCountry.requestFocus();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+
+          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+          event();
+     }
+
+     //Place Holder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          txtCountry.initEvent(btnevent);
+     }
+
+     //Value Edit
+     public void setValueEdit(
+          String country,
+          String urlImg,
+          String uuid
+     ) throws IOException {
+          txtCountry.setValueTextField(country);
+          JavaConstant.coverImage(urlImg, lbFile, 150, 135);
+          fileName = uuid;
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -193,176 +193,173 @@ public class AddCountry extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-        String countryName = txtCountry.getValueTextField();
-        
-        if (countryName == null || countryName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Country Name can not be empty!");
-            return;
-        }
-        
-        if (path != null){
-                
-            String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
-            OkHttpClient client = new OkHttpClient();
+         String countryName = txtCountry.getValueTextField();
 
-            MultipartBody.Builder requestBody = new MultipartBody.Builder()
-                 .setType(MultipartBody.FORM);
+         if (countryName == null || countryName.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Country Name can not be empty!");
+              return;
+         }
 
-            File fileToUpload = new File(path);
-                requestBody.addFormDataPart("file", fileToUpload.getName(),
-                        RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+         if (path != null) {
 
-            // Request
-            Request request = new Request.Builder()
-                 .url(url)
-                 .post(requestBody.build())
-                 .header("Authorization", "Bearer " + JavaConstant.token)
-                 .build();
+              String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
+              OkHttpClient client = new OkHttpClient();
 
-            try {
-                Response response = client.newCall(request).execute();
+              MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                   .setType(MultipartBody.FORM);
 
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                GetFlagModel data = objMap.readValue(responseData, GetFlagModel.class);
+              File fileToUpload = new File(path);
+              requestBody.addFormDataPart("file", fileToUpload.getName(),
+                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
 
-                if (response.isSuccessful()) {
-                    fileName = data.getFileName();
-                }
-                // Do something with the response.
-            } catch (IOException e) {
-                System.out.println("err = " + e);
-            }
-        }
-        
-        try {
-            
-            JSONObject json = new JSONObject();
-            json.put("countryName", countryName);
-            json.put("uuid", fileName);
-            
-            System.out.println("fileName : " + fileName);
-            
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.country + "/" + id, json);
+              // Request
+              Request request = new Request.Builder()
+                   .url(url)
+                   .post(requestBody.build())
+                   .header("Authorization", "Bearer " + JavaConstant.token)
+                   .build();
 
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+              try {
+                   Response response = client.newCall(request).execute();
 
-                if (response.isSuccessful()) {
-                    ListCountry list = new ListCountry(new JFrame(), true);
-                    listGetCountry.removeAll();
-                    listGetCountry.revalidate();
-                    listGetCountry.repaint();
-                    list.getListCountry(listGetCountry);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
-            }else{
-                json.put("createBy", JavaConstant.cashierId);
-                Response response = JavaConnection.post(JavaRoute.country, json);
+                   String responseData = response.body().string();
+                   ObjectMapper objMap = new ObjectMapper();
+                   GetFlagModel data = objMap.readValue(responseData, GetFlagModel.class);
 
-                if (response.isSuccessful()) {
-                    ListCountry list = new ListCountry(new JFrame(), true);
-                    listGetCountry.removeAll();
-                    listGetCountry.revalidate();
-                    listGetCountry.repaint();
-                    list.getListCountry(listGetCountry);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
-            }
-            
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
-        
+                   if (response.isSuccessful()) {
+                        fileName = data.getFileName();
+                   }
+                   // Do something with the response.
+              } catch (IOException e) {
+                   System.out.println("err = " + e);
+              }
+         }
+
+         try {
+
+              JSONObject json = new JSONObject();
+              json.put("countryName", countryName);
+              json.put("uuid", fileName);
+
+              System.out.println("fileName : " + fileName);
+
+              if (id != null) {
+                   Response response = JavaConnection.put(JavaRoute.country + "/" + id, json);
+
+                   System.out.println("response : " + response);
+                   System.out.println("json : " + json);
+
+                   if (response.isSuccessful()) {
+                        ListCountry list = new ListCountry(new JFrame(), true);
+                        listGetCountry.removeAll();
+                        listGetCountry.revalidate();
+                        listGetCountry.repaint();
+                        list.getListCountry(listGetCountry);
+                        dispose();
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                   }
+              } else {
+                   json.put("createBy", JavaConstant.cashierId);
+                   Response response = JavaConnection.post(JavaRoute.country, json);
+
+                   if (response.isSuccessful()) {
+                        ListCountry list = new ListCountry(new JFrame(), true);
+                        listGetCountry.removeAll();
+                        listGetCountry.revalidate();
+                        listGetCountry.repaint();
+                        list.getListCountry(listGetCountry);
+                        dispose();
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                   }
+              }
+
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
+
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-        try {
-            path = JNAFileChooser.funChooseFile();
-            JavaConstant.coverImagePath(path, lbFile, 124, 235);
-        } catch (IOException ex) {
-            Logger.getLogger(AddCountry.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         try {
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbFile, 124, 235);
+         } catch (IOException ex) {
+              Logger.getLogger(AddCountry.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-        browse.setForeground(WindowColor.light_Blue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+         browse.setForeground(WindowColor.light_Blue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-        browse.setForeground(WindowColor.darkBlue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+         browse.setForeground(WindowColor.darkBlue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-    public JPanel getListGetCountry() {
-        return listGetCountry;
-    }
+     public JPanel getListGetCountry() {
+          return listGetCountry;
+     }
 
-    public void setListGetCountry(JPanel listGetCountry) {
-        this.listGetCountry = listGetCountry;
-    }
+     public void setListGetCountry(JPanel listGetCountry) {
+          this.listGetCountry = listGetCountry;
+     }
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        titlePopUp.setLabelTitle("Edit Country");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          titlePopUp.setLabelTitle("Edit Country");
+     }
 
-    
-    
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddCountry dialog = new AddCountry(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    AddCountry dialog = new AddCountry(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel browse;

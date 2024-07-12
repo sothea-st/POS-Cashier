@@ -275,8 +275,6 @@ public class StaffInformation extends javax.swing.JDialog {
                                        listGetStaff.revalidate();
                                        listGetStaff.repaint();
                                    }
-                                   
-                                   
 
                               } catch (Exception e) {
                                    System.out.println("err from search product = " + e);

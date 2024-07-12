@@ -6,9 +6,11 @@ import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaMessage;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
+import MessageAlert.JavaMessageDialog;
 import Model.PackageProduct.ProductResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
@@ -75,7 +77,7 @@ public class ImportDetail extends javax.swing.JDialog {
           super(parent, modal);
           initComponents();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//          setResizable(false);
+          setResizable(false);
 //          setCustomTable();
           getContentPane().setBackground(WindowColor.white);
           panelImp.setBackground(WindowColor.white);
@@ -116,7 +118,7 @@ public class ImportDetail extends javax.swing.JDialog {
                ProductResponse p = list.get(i);
                if (p.getBarcode() != null
                     && p.getVendorId() != null
-                    && p.getCatId() != null
+                    && p.getSubCatId() != null
                     && p.getProductName() != null) {
 
                     rows[i][0] = String.valueOf(i + 1); // Index
@@ -125,7 +127,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     rows[i][3] = p.getBarcode(); // Barcode
                     rows[i][4] = p.getVendorId(); // Vendor Name
                     rows[i][5] = p.getBrandId(); // Brand
-                    rows[i][6] = p.getCatId(); // Sub Category
+                    rows[i][6] = p.getSubCatId(); // Sub Category
                     rows[i][7] = p.getProductName(); // Product Name
                     rows[i][8] = p.getProductNameKh(); // Product Name Kh
                     rows[i][9] = p.getCost(); // Cost
@@ -134,7 +136,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     rows[i][12] = p.getAttributeId(); // Attribute
                     rows[i][13] = p.getChoiceValue(); // Choice Value
                     rows[i][14] = p.getUomId(); // UOM
-                    rows[i][15] = p.getStatus(); // Status
+                    rows[i][15] = p.getStatusId(); // Status
                     rows[i][16] = p.getCountryId(); // Country
                     rows[i][17] = p.getTaxId(); // Tax
                     rows[i][18] = ""; // Tax
@@ -152,7 +154,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     ProductResponse p = list.get(i);
                     if (p.getBarcode() != null
                          && p.getVendorId() != null
-                         && p.getCatId() != null
+                         && p.getSubCatId() != null
                          && p.getProductName() != null) {
 
                          rowsData[i][0] = String.valueOf(i + 1); // Index
@@ -161,7 +163,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          rowsData[i][3] = p.getBarcode(); // Barcode
                          rowsData[i][4] = p.getVendorId(); // Vendor Name
                          rowsData[i][5] = p.getBrandId(); // Brand
-                         rowsData[i][6] = p.getCatId(); // Sub Category
+                         rowsData[i][6] = p.getSubCatId(); // Sub Category
                          rowsData[i][7] = p.getProductName(); // Product Name
                          rowsData[i][8] = p.getProductNameKh(); // Product Name Kh
                          rowsData[i][9] = p.getCost(); // Cost
@@ -170,7 +172,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          rowsData[i][12] = p.getAttributeId(); // Attribute
                          rowsData[i][13] = p.getChoiceValue(); // Choice Value
                          rowsData[i][14] = p.getUomId(); // UOM
-                         rowsData[i][15] = p.getStatus(); // Status
+                         rowsData[i][15] = p.getStatusId(); // Status
                          rowsData[i][16] = p.getCountryId(); // Country
                          rowsData[i][17] = p.getTaxId(); // Tax
                          rows[i][18] = ""; // Tax
@@ -337,7 +339,7 @@ public class ImportDetail extends javax.swing.JDialog {
           panelImpLayout.setHorizontalGroup(
                panelImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelImpLayout.createSequentialGroup()
-                    .addGap(10, 10, 10)
+                    .addGap(20, 20, 20)
                     .addGroup(panelImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1707, Short.MAX_VALUE)
                          .addGroup(panelImpLayout.createSequentialGroup()
@@ -356,7 +358,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSave)
-                    .addContainerGap())
+                    .addGap(20, 20, 20))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -365,7 +367,7 @@ public class ImportDetail extends javax.swing.JDialog {
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
                     .addComponent(panelImp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(10, Short.MAX_VALUE))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,18 +378,18 @@ public class ImportDetail extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
-     private void showLoadingDialog(String msg) {
-          JDialog loadingDialog = new JDialog(new JFrame(), "Conflict", true); // true for modal
-          JLabel label = new JLabel(msg);
-          loadingDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          loadingDialog.setResizable(false);
-          label.setHorizontalAlignment(SwingConstants.CENTER);
-          loadingDialog.add(label);
-          loadingDialog.setSize(500, 200);
-          loadingDialog.setLocationRelativeTo(this); // Center dialog on the JFrame
-          loadingDialog.getContentPane().setBackground(Color.WHITE);
-          loadingDialog.setVisible(true);
-     }
+//     private void showLoadingDialog(String msg) {
+//          JDialog loadingDialog = new JDialog(new JFrame(), "Conflict", true); // true for modal
+//          JLabel label = new JLabel(msg);
+//          loadingDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//          loadingDialog.setResizable(false);
+//          label.setHorizontalAlignment(SwingConstants.CENTER);
+//          loadingDialog.add(label);
+//          loadingDialog.setSize(500, 200);
+//          loadingDialog.setLocationRelativeTo(this); // Center dialog on the JFrame
+//          loadingDialog.getContentPane().setBackground(Color.WHITE);
+//          loadingDialog.setVisible(true);
+//     }
      private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
           String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addMultipleDataFromExcel; // this one for insert image 
@@ -438,7 +440,6 @@ public class ImportDetail extends javax.swing.JDialog {
                .post(requestBody)
                .build();
 
-
           try {
                Response response = client.newCall(request).execute();
 
@@ -452,7 +453,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          var p = listProductResponse.get(i);
                          if (p.getBarcode() != null
                               && p.getVendorId() != null
-                              && p.getCatId() != null
+                              && p.getSubCatId() != null
                               && p.getProductName() != null) {
                               p.setPhoto(listData[i].getUUID());
                               p.setCreateBy(JavaConstant.cashierId);
@@ -493,23 +494,31 @@ public class ImportDetail extends javax.swing.JDialog {
                     try {
                          JSONObject json = new JSONObject();
                          json.put("lists", listProductResponse);
-                         Response responseImp = JavaConnection.post(JavaRoute.importMultiple, json);
+                         System.out.println("json : " + json);
+                         Response responseImp = JavaConnection.post(JavaRoute.productExcel, json);
                          JavaConstant.setCircleLoadingCursor(this);
                          if (responseImp.isSuccessful()) {
-                              System.out.println("succes import data");
+
                               String responseImgData = responseImp.body().string();
                               JSONObject jsonObject = new JSONObject(responseImgData);
-                              String msg = jsonObject.getString("msg");
-                              String datas = jsonObject.getString("data");
 
-                              if (msg.equals("success")) {
+                              if (jsonObject.has("error")) {
+                                   // Retrieve values
+                                   JSONObject errorObject = jsonObject.getJSONObject("error");
+                                   int errorCode = errorObject.getInt("code");
+                                   String reason = errorObject.getString("reason");
+
+//                                   int code = jsonObject.getInt("code");
+                                   JavaMessageDialog j = new JavaMessageDialog(new JFrame(), true);
+                                   j.setTitleLabel(reason);
+                                   j.setTitle("Message");
+                                   j.setVisible(true);
+                                   JavaConstant.restoreDefaultCursor(this);
+                              } else {
                                    dispose();
-                              } else if (msg.equals("conflict")) {
-//                                   JOptionPane.showMessageDialog(this, datas);
-                                   showLoadingDialog(datas);
+                                   JavaConstant.restoreDefaultCursor(this);
                               }
 
-                              JavaConstant.restoreDefaultCursor(this);
                          }
 
                     } catch (Exception e) {

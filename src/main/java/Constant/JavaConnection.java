@@ -1,7 +1,13 @@
 package Constant;
 
+import Model.Country.GetFlagModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -33,7 +39,6 @@ public class JavaConnection {
           return response;
      }
 
-  
 
      public static Response getWithoutToken(String route) {
           Response response = null;
@@ -84,11 +89,39 @@ public class JavaConnection {
                response = client.newCall(request).execute();
 
           } catch (Exception e) {
-
                System.err.println("getting error during call request " + e);
           }
           closeConnection(client);
           return response;
+     }
+
+     public static Response postFile(String path) {
+          Response response = null;
+          String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
+          OkHttpClient client = new OkHttpClient();
+
+          MultipartBody.Builder requestBody = new MultipartBody.Builder()
+               .setType(MultipartBody.FORM);
+
+          File fileToUpload = new File(path);
+          requestBody.addFormDataPart("file", fileToUpload.getName(),
+               RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+
+          // Request
+          Request request = new Request.Builder()
+               .url(url)
+               .post(requestBody.build())
+               .header("Authorization", "Bearer " + JavaConstant.token)
+               .build();
+
+          try {
+               response = client.newCall(request).execute();
+          } catch (IOException e) {
+               System.err.println("getting error during call request " + e);
+          }
+
+          return response;
+
      }
 
      public static Response put(String route, JSONObject json) {
@@ -132,6 +165,28 @@ public class JavaConnection {
                System.err.println("getting error during call request " + e);
           }
           closeConnection(client);
+          return response;
+     }
+
+     public static Response delete(String route) {
+          Response response = null;
+          String url = new JavaBaseUrl().getBaseUrl() + route;
+          OkHttpClient client = new OkHttpClient();
+
+          Request deleteRequest = new Request.Builder()
+               .url(url)
+               .delete() // This sets the request method to DELETE
+               .addHeader("Authorization", "Bearer " + JavaConstant.token)
+               .build();
+
+          try {
+               response = client.newCall(deleteRequest).execute();
+          } catch (Exception e) {
+               System.err.println("Error during DELETE request: " + e);
+          } finally {
+               closeConnection(client); // Close connection should be handled in a separate method.
+          }
+
           return response;
      }
 

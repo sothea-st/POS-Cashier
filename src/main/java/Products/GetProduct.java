@@ -1,5 +1,6 @@
 package Products;
 
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,35 +10,63 @@ import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
+     public GetProduct() {
+          initComponents();
+//          id.setVisible(false);
+          JavaConstant.setPointer(btnDelete);
+          JavaConstant.setPointer(btnEdit);
+     }
+
+     private String productName;
+     private String productBarcode;
+     private String productPrice;
+     private int quantity;
+     private int productId;
+     private Icon image;
+     private Icon imageDelete;
+     private JPanel panelProduct;
+     private String productStatus;
+
+     private JPanel listGetProduct;
+
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
      
-    public GetProduct() {
-        initComponents();
-        id.setVisible(false);
-    }
+     public void setData(
+          String _barcode,
+          String _itemCode,
+          String _division,
+          String _vendorCode,
+          String _vendorName,
+          String _productName,
+          String _productNameKh,
+          String _qty,
+          String _price,
+          String _cost,
+          String _productId
+     ){
+          barcode.setText(_barcode);
+          itemCode.setText(_itemCode);
+          division.setText(_division);
+          vendorCode.setText(_vendorCode);
+          vendorName.setText(_vendorName);
+          proName.setText(_productName);
+          proNameKh.setText(_productNameKh);
+          qty.setText(_qty);
+          price.setText(_price);
+          cost.setText(_cost);
+          productId = Integer.parseInt(_productId);
+     }
+     
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    private String productName;
-    private String productBarcode;
-    private String productPrice;
-    private int quantity;
-    private int productId;
-    private Icon image;
-    private Icon imageDelete;
-    private JPanel panelProduct;
-    private String productStatus;
+     @SuppressWarnings("unchecked")
 
-    private JPanel listGetProduct;
-
-    public JPanel getPanelProduct() {
-         return panelProduct;
-    }
-
-    public void setPanelProduct(JPanel panelProduct) {
-         this.panelProduct = panelProduct;
-    }
-
-    @SuppressWarnings("unchecked")
-    
-    public JPanel getListGetProduct() {
+     public JPanel getListGetProduct() {
           return listGetProduct;
      }
 
@@ -51,7 +80,7 @@ public class GetProduct extends javax.swing.JPanel {
 
      public void setProductId(int productId) {
           this.productId = productId;
-          id.setText("" + productId);
+//          id.setText("" + productId);
      }
 
      public String getProductName() {
@@ -60,7 +89,7 @@ public class GetProduct extends javax.swing.JPanel {
 
      public void setProductName(String productName) {
           this.productName = productName;
-          lbName.setText(productName);
+          proName.setText(productName);
      }
 
      public String getProductBarcode() {
@@ -69,7 +98,7 @@ public class GetProduct extends javax.swing.JPanel {
 
      public void setProductBarcode(String productBarcode) {
           this.productBarcode = productBarcode;
-          lbBarcode.setText(productBarcode);
+//          lbBarcode.setText(productBarcode);
      }
 
      public String getProductPrice() {
@@ -78,7 +107,7 @@ public class GetProduct extends javax.swing.JPanel {
 
      public void setProductPrice(String productPrice) {
           this.productPrice = productPrice;
-          lbPrice.setText(productPrice);
+          price.setText(productPrice);
      }
 
      public int getQty() {
@@ -87,42 +116,41 @@ public class GetProduct extends javax.swing.JPanel {
 
      public void setQty(int quantity) {
           this.quantity = quantity;
-          qty.setText(""+quantity);
+          qty.setText("" + quantity);
      }
 
-    public Icon getImage() {
-        return image;
-    }
+     public Icon getImage() {
+          return image;
+     }
 
-    public void setImage(Icon image) {
-        this.image = image;
-        btnEdit.setIcon(image);
-    }
+     public void setImage(Icon image) {
+          this.image = image;
+          btnEdit.setIcon(image);
+     }
 
-    public String getProductStatus() {
-        return productStatus;
-    }
+     public String getProductStatus() {
+          return productStatus;
+     }
 
-    public void setProductStatus(String productStatus) {
-        this.productStatus = productStatus;
-        status.setText(productStatus);
-    }
+     public void setProductStatus(String productStatus) {
+          this.productStatus = productStatus;
+          price.setText(productStatus);
+     }
 
-    public Icon getImageDelete() {
-        return imageDelete;
-    }
+     public Icon getImageDelete() {
+          return imageDelete;
+     }
 
-    public void setImageDelete(Icon imageDelete) {
-        this.imageDelete = imageDelete;
-        btnDelete.setIcon(imageDelete);
-    }
-    
-     
-    public void initEvent(ButtonEvent event) {
+     public void setImageDelete(Icon imageDelete) {
+          this.imageDelete = imageDelete;
+          btnDelete.setIcon(imageDelete);
+     }
+
+     public void initEvent(ButtonEvent event) {
           btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onSelect(""+productId);
+                    event.onSelect("" + productId);
                }
 
                @Override
@@ -141,11 +169,11 @@ public class GetProduct extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
+
           btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+productId);
+                    event.onRemove("" + productId);
                }
 
                @Override
@@ -164,58 +192,85 @@ public class GetProduct extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
+
      }
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
           getProduct = new javax.swing.JPanel();
-          lbBarcode = new javax.swing.JLabel();
-          lbPrice = new javax.swing.JLabel();
-          lbName = new javax.swing.JLabel();
+          proName = new javax.swing.JLabel();
           qty = new javax.swing.JLabel();
-          id = new javax.swing.JLabel();
           btnEdit = new javax.swing.JLabel();
-          status = new javax.swing.JLabel();
+          price = new javax.swing.JLabel();
           btnDelete = new javax.swing.JLabel();
+          barcode = new javax.swing.JLabel();
+          itemCode = new javax.swing.JLabel();
+          division = new javax.swing.JLabel();
+          vendorCode = new javax.swing.JLabel();
+          vendorName = new javax.swing.JLabel();
+          proNameKh = new javax.swing.JLabel();
+          cost = new javax.swing.JLabel();
 
           getProduct.setBackground(new java.awt.Color(255, 255, 255));
           getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-          lbBarcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbBarcode.setForeground(new java.awt.Color(0, 0, 0));
-          lbBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbBarcode.setText("Product Barcode");
-
-          lbPrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbPrice.setForeground(new java.awt.Color(0, 0, 0));
-          lbPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbPrice.setText("Product Price");
-
-          lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbName.setForeground(new java.awt.Color(0, 0, 0));
-          lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-          lbName.setText("Product Name");
+          proName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          proName.setForeground(new java.awt.Color(0, 0, 0));
+          proName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          proName.setText("Product Name");
 
           qty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           qty.setForeground(new java.awt.Color(0, 0, 0));
           qty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           qty.setText("Quantity");
 
-          id.setText("jLabel1");
-
           btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           btnEdit.setForeground(new java.awt.Color(0, 0, 0));
           btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-          status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          status.setForeground(new java.awt.Color(0, 0, 0));
-          status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          status.setText("Status");
+          price.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          price.setForeground(new java.awt.Color(0, 0, 0));
+          price.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          price.setText("Price");
 
           btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           btnDelete.setForeground(new java.awt.Color(0, 0, 0));
           btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+          barcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          barcode.setForeground(new java.awt.Color(0, 0, 0));
+          barcode.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          barcode.setText("barcode");
+
+          itemCode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          itemCode.setForeground(new java.awt.Color(0, 0, 0));
+          itemCode.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          itemCode.setText("item code");
+
+          division.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          division.setForeground(new java.awt.Color(0, 0, 0));
+          division.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          division.setText("Divisoon");
+
+          vendorCode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          vendorCode.setForeground(new java.awt.Color(0, 0, 0));
+          vendorCode.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          vendorCode.setText("Vendor Code");
+
+          vendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          vendorName.setForeground(new java.awt.Color(0, 0, 0));
+          vendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          vendorName.setText("Vendor Name");
+
+          proNameKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          proNameKh.setForeground(new java.awt.Color(0, 0, 0));
+          proNameKh.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          proNameKh.setText("Product Name Khmer");
+
+          cost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          cost.setForeground(new java.awt.Color(0, 0, 0));
+          cost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          cost.setText("Cost");
 
           javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
           getProduct.setLayout(getProductLayout);
@@ -226,19 +281,27 @@ public class GetProduct extends javax.swing.JPanel {
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(24, 24, 24)
+                    .addComponent(barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                    .addComponent(itemCode, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(27, 27, 27)
+                    .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(56, 56, 56)
+                    .addComponent(vendorCode, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(29, 29, 29)
+                    .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(26, 26, 26)
+                    .addComponent(proName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(24, 24, 24)
+                    .addComponent(proNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(29, 29, 29)
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(52, 52, 52)
+                    .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
           );
           getProductLayout.setVerticalGroup(
                getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,13 +309,17 @@ public class GetProduct extends javax.swing.JPanel {
                     .addContainerGap()
                     .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                              .addComponent(lbBarcode)
-                              .addComponent(lbPrice)
                               .addComponent(qty)
-                              .addComponent(lbName)
-                              .addComponent(id)
+                              .addComponent(proName)
                               .addComponent(btnEdit)
-                              .addComponent(status))
+                              .addComponent(price)
+                              .addComponent(barcode)
+                              .addComponent(itemCode)
+                              .addComponent(division)
+                              .addComponent(vendorCode)
+                              .addComponent(vendorName)
+                              .addComponent(proNameKh)
+                              .addComponent(cost))
                          .addComponent(btnDelete))
                     .addContainerGap(16, Short.MAX_VALUE))
           );
@@ -261,7 +328,7 @@ public class GetProduct extends javax.swing.JPanel {
           this.setLayout(layout);
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(getProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(getProduct, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,14 +340,18 @@ public class GetProduct extends javax.swing.JPanel {
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel barcode;
      private javax.swing.JLabel btnDelete;
      private javax.swing.JLabel btnEdit;
+     private javax.swing.JLabel cost;
+     private javax.swing.JLabel division;
      private javax.swing.JPanel getProduct;
-     private javax.swing.JLabel id;
-     private javax.swing.JLabel lbBarcode;
-     private javax.swing.JLabel lbName;
-     private javax.swing.JLabel lbPrice;
+     private javax.swing.JLabel itemCode;
+     private javax.swing.JLabel price;
+     private javax.swing.JLabel proName;
+     private javax.swing.JLabel proNameKh;
      private javax.swing.JLabel qty;
-     private javax.swing.JLabel status;
+     private javax.swing.JLabel vendorCode;
+     private javax.swing.JLabel vendorName;
      // End of variables declaration//GEN-END:variables
 }

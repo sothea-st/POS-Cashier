@@ -98,8 +98,8 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="cmbSubCategory" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCost" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="cmbStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCost" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">

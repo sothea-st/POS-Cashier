@@ -360,7 +360,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      //     String userId = txtUserId.getValueTextField();
      //     String password = txtPassword.getValuePassword();
 
-         String userId = "0004";
+         String userId = "0005";
          String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
@@ -654,7 +654,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void onClickCategory(String catNameData, int catId) {
 
           if (JavaConstant.checkOpenShift) {
-
                previous.setBackground(WindowColor.lightGray);
                next.setBackground(WindowColor.white);
                JavaConstant.resetValuePagination(); // for pagination
@@ -720,6 +719,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     textField.setFocus();
                }
 
+             
           } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage("You have to open shift first!");
@@ -766,7 +766,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                panelProduct.add(bgimg);
                panelProduct.revalidate();
                panelProduct.repaint();
- 
+
           }
      }
 

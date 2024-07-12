@@ -200,7 +200,7 @@ public class InsertDivision extends javax.swing.JDialog {
                 json.put("code", "division");
 
                 Response response = JavaConnection.post(JavaRoute.addCategory, json);
-
+                 System.out.println("response : " + response);
                 if (response.isSuccessful()) {
                     Category list = new Category(new JFrame(), true, code);
                     listGetCategory.removeAll();

@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package pdf;
-
-import Model.PackageProduct.ProductModel;
+import Model.ProductModelV1.ProductResponseDetailV1;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -14,18 +14,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import java.awt.Color;
+import com.itextpdf.layout.property.HorizontalAlignment;
+import com.itextpdf.layout.property.TextAlignment;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,29 +34,16 @@ import javax.imageio.ImageIO;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.IOUtils;
 
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class PrintListPDF {
 
      public static String downloadFolderPath = System.getProperty("user.home");
      public static String folderPath = downloadFolderPath + "\\Downloads\\PDF_Downloads";
 
-//     public static void main(String[] args) {
-//
-//          printListPdf(null);
-//     }
-     public static void printListPdf(ArrayList<ProductModel> listProduct) throws IOException {
+     public static void printListPdf(ProductResponseDetailV1[] listProduct) throws IOException {
           try {
 
-               LocalDate currentDate = LocalDate.now();
-               // Define a custom date format
-               DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-               // Format the current date using the defined format
-               String formattedDate = currentDate.format(formatter);
-               String fileName = formattedDate;
-               // Output PDF file path
+               String fileName = PrintToExcel.getFileName();;
 
                // Specify PDF file path
                String sourcePDFPath = downloadFolderPath + "/Downloads/PDF_Downloads/" + fileName + ".pdf";
@@ -70,38 +55,46 @@ public class PrintListPDF {
                PdfDocument pdfDocument = new PdfDocument(writer);
 
                // Create a Document instance with A4 page size
-               Document document = new Document(pdfDocument);
+               // Document document = new Document(pdfDocument);
+               Document document = new Document(pdfDocument, PageSize.A4.rotate());
 
                // Sample data
                List<Object[]> dataList = new ArrayList<>();
 
-               for (int i = 0; i < listProduct.size(); i++) {
-                    var data = listProduct.get(i);
+               for (ProductResponseDetailV1 p : listProduct) {
                     String url = null;
-                    if (data.getProImageName().contains("media/file/crm/uploadfile/")) {
-                         url = "http://103.101.80.108:8082//" + data.getProImageName();
+                    if (p.getProImageName().contains("media/file/crm/uploadfile/")) {
+                         url = "http://103.101.80.108:8082//" + p.getProImageName();
                     } else {
-                         url = "http://localhost:8090/api/public/addImageForBackground/" + data.getProImageName();
+                         url = "http://localhost:8090/api/public/addImageForBackground/" + p.getProImageName();
                     }
+
                     dataList.add(new Object[]{
-                         data.getProductNameEn(),
-                         data.getBarcode(),
-                         "" + data.getPrice(),
-                         "" + data.getQty(),
-                         data.getProductStatus(),
-                         resizeImage(url, 60, 60)
+                         String.valueOf(p.getBarcode()),
+                         String.valueOf(p.getItemCode()),
+                         String.valueOf(p.getSubCatNameEn()),
+                         String.valueOf(p.getVendorCode()),
+                         String.valueOf(p.getVendorName()),
+                         String.valueOf(p.getProNameEn()),
+                         String.valueOf(p.getProNameEn()),
+                         String.valueOf(p.getQty()),
+                         "$".concat(String.valueOf(p.getPrice())),
+                         "$".concat(String.valueOf(p.getCost())),
+                         resizeImage(url, 30, 30)
                     });
                }
+
                // Convert ArrayList to Object[][]
                Object[][] data = dataList.toArray(new Object[dataList.size()][]);
 
-               Object[] columnHead = {"Prduct Name", "Barcode", "Price", "Quantity", "Status", "Photo"};
+               Object[] columnHead = {"Barcode", "ItemCode", "Division", "Vendor Code", "Vendor Name",
+                    "Product Name", "Product Name Kh", "Qty", "Price", "Cost", "Image"};
                // Create a table model
                DefaultTableModel model = new DefaultTableModel(data, columnHead);
 
                // Create a JTable with the model
                JTable table = new JTable(model);
-            
+
                addJTableToPDF(document, table);
 
                // Close the document
@@ -125,9 +118,14 @@ public class PrintListPDF {
      private static void addJTableToPDF(Document document, JTable table) throws IOException {
           // Create a PDF Table
           Table pdfTable = new Table(table.getColumnCount());
+          // Set table properties
+          pdfTable.setWidth(100);
+          pdfTable.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
+          // Add headers with bold font weight
           for (int i = 0; i < table.getColumnCount(); i++) {
-               pdfTable.addCell(table.getColumnName(i));
+               pdfTable.addCell(new Cell().add(new Paragraph(table.getColumnName(i)).setFontSize(10)
+                    .setTextAlignment(TextAlignment.CENTER).setBold()));
           }
 
           // Add data rows
@@ -144,10 +142,11 @@ public class PrintListPDF {
                          baos.close();
                          ImageData imageData = ImageDataFactory.create(imageBytes);
                          Image pdfImage = new Image(imageData);
-                         pdfTable.addCell(new Cell().add(pdfImage));
+                         pdfTable.addCell(new Cell().add(pdfImage).setTextAlignment(TextAlignment.CENTER));
                     } else {
                          // If the cell contains text, add the text to the PDF
-                         pdfTable.addCell(new Cell().add(new Paragraph(value != null ? value.toString() : "")));
+                         pdfTable.addCell(new Cell().add(new Paragraph(value != null ? value.toString() : "")
+                              .setFontSize(10).setTextAlignment(TextAlignment.CENTER)));
                     }
                }
           }
@@ -155,7 +154,7 @@ public class PrintListPDF {
           // Add the table to the PDF document
           document.add(pdfTable);
      }
-  
+
      public static BufferedImage resizeImage(String url, int targetWidth, int targetHeight) throws IOException {
           InputStream inputStream = new URL(url).openStream();
           byte[] imageBytes = IOUtils.toByteArray(inputStream);

@@ -132,12 +132,12 @@ public class ImportFile extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
- 
+         
          if (fileName.getText().isEmpty()) {
               JOptionPane.showMessageDialog(this, "Please select file!");
               return;
          }
-
+         dispose();
          List<ProductResponse> list = new JavaGetDataFromExcel().readExcelFile(path);
          ImportDetail importDetail = new ImportDetail(new JFrame(), true);
          importDetail.setListProductResponse(list);
