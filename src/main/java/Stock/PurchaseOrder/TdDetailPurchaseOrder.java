@@ -27,8 +27,11 @@ public class TdDetailPurchaseOrder extends javax.swing.JPanel {
      private String id;
      private Icon image;
      private String index;
-
      private String amountValue;
+     
+     
+ 
+ 
 
      public TdDetailPurchaseOrder() {
           initComponents();
@@ -56,6 +59,23 @@ public class TdDetailPurchaseOrder extends javax.swing.JPanel {
           amount.setText(_amount);
           id = _id;
           index = _number;
+ 
+     }
+     
+     public Integer getProductId(){
+          return Integer.valueOf(id);
+     }
+     
+     public String getCost(){
+          String costValue = cost.getText().replace("$","");
+          costValue = costValue.replace(",", "");
+          return costValue;
+     }
+     
+     public String getAmount(){
+          String amountValue = amount.getText().replace("$","");
+          amountValue = amountValue.replace(",", "");
+          return amountValue;
      }
 
      public String getAmountValue() {

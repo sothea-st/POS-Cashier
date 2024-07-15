@@ -94,12 +94,12 @@ public class ComboBox extends javax.swing.JPanel {
           }
      }
      
-      public void removeAllItemAndSetOption() {
+      public void removeAllItemAndSetOption(String selectOption) {
           int length = countItem();
           for (int i = 0; i < length; i++) {
                combo.removeItemAt(i);
           }
-          combo.addItem("---Select User---");
+          combo.addItem(selectOption);
      }
      
      public int countItem() {

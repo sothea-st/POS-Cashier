@@ -3,7 +3,8 @@ package Stock.PurchaseOrder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import lombok.Builder;
- 
+
+
 public class PurchaseOrderDetailResponse {
 
      private Integer id;

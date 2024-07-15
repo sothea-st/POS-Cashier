@@ -80,7 +80,7 @@ public class ReportingSaled extends javax.swing.JDialog {
           try {
                HashMap<String, String> map = new HashMap<>();
                Response response = JavaConnection.get(JavaRoute.userAccount);
-               userCombobox.removeAllItemAndSetOption();
+               userCombobox.removeAllItemAndSetOption("-- Select User --");
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
