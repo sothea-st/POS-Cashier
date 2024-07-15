@@ -4,6 +4,7 @@ import org.apache.xmlbeans.impl.soap.Detail;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.*;
+import lombok.Builder;
 
 public class ImportRequest {
      private Integer createBy;
@@ -84,7 +85,7 @@ public class ImportRequest {
           this.details = value;
      }
 
-     private Integer productID;
+     private Integer productId;
      private Integer qtyNew;
      private double cost;
      private Integer amount;
@@ -92,12 +93,12 @@ public class ImportRequest {
 
      @JsonProperty("productId")
      public Integer getProductID() {
-          return productID;
+          return productId;
      }
 
      @JsonProperty("productId")
      public void setProductID(Integer value) {
-          this.productID = value;
+          this.productId = value;
      }
 
      @JsonProperty("qtyNew")
@@ -140,21 +141,36 @@ public class ImportRequest {
           this.expireDate = value;
      }
 
+  
      public class ImportDetailRequest {
-          private Integer productID;
+          private Integer productId;
           private Integer qtyNew;
           private BigDecimal cost;
           private BigDecimal amount;
           private String expireDate;
 
+          public ImportDetailRequest(
+               Integer productId,
+               Integer qtyNew,
+               BigDecimal cost,
+               BigDecimal amount,
+               String expireDate
+          ) {
+               this.productId = productId;
+               this.qtyNew = qtyNew;
+               this.cost = cost;
+               this.amount = amount;
+               this.expireDate = expireDate;
+          }   
+
           @JsonProperty("productId")
-          public Integer getProductID() {
-               return productID;
+          public Integer getProductId() {
+               return productId;
           }
 
           @JsonProperty("productId")
-          public void setProductID(Integer value) {
-               this.productID = value;
+          public void setProductId(Integer value) {
+               this.productId = value;
           }
 
           @JsonProperty("qtyNew")

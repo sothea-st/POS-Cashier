@@ -55,9 +55,11 @@ import javax.swing.JButton;
 import lombok.Getter;
 import lombok.Setter;
 import password.ChangePasswordForm;
+
 @Setter
 @Getter
 public class LoginFormJdailog extends javax.swing.JDialog {
+
      DecimalFormat df = new DecimalFormat("#,##0.00 kg");
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      DecimalFormat bar = new DecimalFormat("########00000000");
@@ -99,7 +101,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private LabelFontGreen previous;
      private String titleCategory;
      private JLabel boxImg;
- 
+
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -357,8 +359,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
-     //     String userId = txtUserId.getValueTextField();
-     //     String password = txtPassword.getValuePassword();
+         //     String userId = txtUserId.getValueTextField();
+         //     String password = txtPassword.getValuePassword();
 
          String userId = "0005";
          String password = "TT@126$kh#";
@@ -421,6 +423,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.userCode = model.getUserCode();
                    JavaConstant.posId = model.getPosID();
                    JavaConstant.cashierId = model.getID();
+                   JavaConstant.empId = model.getEmpID();
+
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
 
                    if (model.getRoleName().equals("Admin")) {
@@ -428,7 +432,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         buttonStaff.setVisible(true);
                    }
 
- 
                    if (responseOpenShift.isSuccessful()) {
                         btnOpenShift.setBackground(WindowColor.green);
                         String result = responseOpenShift.body().string();
@@ -465,7 +468,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
 
-                    //         ==== event on profile image for change password ====
+                   //         ==== event on profile image for change password ====
                    Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
                    JavaConstant.setPointer(boxImg);
                    boxImg.setIcon(icon);
@@ -704,7 +707,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                               pro.newProduct(JavaConstant.limitPagination, panelProduct);
                          case "promotion" -> //  Promotion
                               pro.getPromotion(catId, JavaConstant.limitPagination, panelProduct);
-                         default -> pro.product(catId, JavaConstant.limitPagination, panelProduct);
+                         default ->
+                              pro.product(catId, JavaConstant.limitPagination, panelProduct);
                     }
                }
                pro.setBtnPayment(btnPayment);
@@ -719,7 +723,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     textField.setFocus();
                }
 
-             
           } else {
                JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                j.setMessage("You have to open shift first!");

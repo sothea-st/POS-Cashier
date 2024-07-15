@@ -25,6 +25,7 @@ public class DatePicker extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           txtText.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(txtText);
+          valueTextField = txtText.getText();
      }
 
      public void unFocus(){
@@ -45,6 +46,8 @@ public class DatePicker extends javax.swing.JPanel {
                     }
                     txtText.setForeground(Color.BLACK);
 
+                    
+                 
                }
 
                @Override
@@ -58,6 +61,10 @@ public class DatePicker extends javax.swing.JPanel {
                     if (txtText.getText().trim().equals(labelTextField)) {
                          txtText.setForeground(Color.LIGHT_GRAY);
                     }
+
+                    
+                    
+                                     
 
                }
           });

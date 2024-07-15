@@ -4,25 +4,31 @@ import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.combobox.ComboBoxSelection;
+import Stock.PurchaseOrder.ImportRequest.ImportDetailRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -30,10 +36,11 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
      private String vendorId;
      private String subCatId;
-     private PurchaseOrderDetailResponse[] listPurchase;
+
      private ArrayList<ImportDetailOrder> listImport = new ArrayList<>();
      private int totalQty = 0;
      private double totalCost = 0;
+     ArrayList<ImportDetailRequest> details = new ArrayList<>();
 
      public AddPurchaseOrder(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -51,6 +58,24 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
+
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          orderDate.initEvent(btnevent);
+// 
+//          orderDate.setLabelTextField("Order date");
+//          transactionDate.setLabelTextField("Transaction Date");
+
+          lbTotalCost.setText("$0.00");
+          lbTotalQty.setText("0");
+          buttonSave.setVisible(false);
+          Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
+          borderUnderLine.setBorder(topBorder);
+
      }
 
      private void groupCmb() {
@@ -105,11 +130,11 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
           jLabel8 = new javax.swing.JLabel();
           jLabel9 = new javax.swing.JLabel();
           label8 = new Components.Label();
-          datePicker1 = new DatePicker.DatePicker();
+          orderDate = new DatePicker.DatePicker();
           txtReference = new Components.TextField();
           label21 = new Components.Label();
           label22 = new Components.Label();
-          datePicker2 = new DatePicker.DatePicker();
+          transactionDate = new DatePicker.DatePicker();
           button1 = new Button.Button();
           jScrollPane = new javax.swing.JScrollPane();
           jLabel10 = new javax.swing.JLabel();
@@ -118,6 +143,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
           lbTotalCost = new javax.swing.JLabel();
           jScrollPane1 = new javax.swing.JScrollPane();
           panel = new javax.swing.JPanel();
+          borderUnderLine = new javax.swing.JLabel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -288,24 +314,10 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addGroup(jPanel2Layout.createSequentialGroup()
-                              .addContainerGap()
-                              .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                   .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                        .addGap(36, 36, 36)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                  .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addGap(18, 18, 18)
-                                                  .addComponent(lbTotalCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                                  .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                  .addGap(18, 18, 18)
-                                                  .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                   .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                               .addGap(20, 20, 20)
                               .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,7 +333,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                                              .addGroup(jPanel2Layout.createSequentialGroup()
                                                   .addComponent(label21, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                  .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                  .addComponent(orderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(35, 35, 35)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                              .addGroup(jPanel2Layout.createSequentialGroup()
@@ -333,7 +345,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                                              .addGroup(jPanel2Layout.createSequentialGroup()
                                                   .addComponent(label22, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                  .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                  .addComponent(transactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(35, 35, 35)
                                         .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(2, 2, 2)
@@ -345,8 +357,21 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addComponent(jScrollPane1))))
+                                   .addComponent(jScrollPane1)
+                                   .addComponent(borderUnderLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGap(20, 20, 20))
+               .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(29, 29, 29)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addGroup(jPanel2Layout.createSequentialGroup()
+                              .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(18, 18, 18)
+                              .addComponent(lbTotalCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addGroup(jPanel2Layout.createSequentialGroup()
+                              .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(18, 18, 18)
+                              .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           jPanel2Layout.setVerticalGroup(
                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,10 +394,10 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                              .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(orderDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addComponent(label21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(datePicker2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addComponent(transactionDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                          .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,6 +406,8 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     .addGap(0, 0, 0)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(borderUnderLine)
+                    .addGap(18, 18, 18)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                          .addComponent(jLabel10)
                          .addComponent(lbTotalQty))
@@ -388,7 +415,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                          .addComponent(jLabel15)
                          .addComponent(lbTotalCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(8, 8, 8)
+                    .addGap(12, 12, 12)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -416,6 +443,71 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
+         String orderDateValue = orderDate.getValueTextField();
+         String referenceNo = txtReference.getValueTextField();
+         String transactionDateValue = transactionDate.getValueTextField();
+
+         if (orderDateValue == null || orderDateValue.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Order date can not be empty!");
+              return;
+         }
+
+         if (vendorId == null || vendorId.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Vendor Id can not be empty!");
+              return;
+         }
+
+         JSONObject json = new JSONObject();
+         json.put("createBy", JavaConstant.cashierId);
+         json.put("empId", JavaConstant.empId);
+         json.put("vendorId", vendorId);
+         json.put("impDate", orderDateValue);
+         json.put("discount", "0");
+         json.put("referenceNo", referenceNo);
+         json.put("transactionDate", transactionDateValue);
+         String _totalCost = lbTotalCost.getText().replace("$", "");
+         _totalCost = _totalCost.replace(",", "");
+         json.put("total", _totalCost);
+         json.put("totalQty", lbTotalQty.getText());
+
+         Component[] listCom = panel.getComponents();
+
+         for (Component p : listCom) {
+              var data = ((TdDetailPurchaseOrder) p);
+              ImportRequest importRequest = new ImportRequest();
+              ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
+                   data.getProductId(),
+                   Integer.valueOf(data.getQtyUnit()),
+                   BigDecimal.valueOf(Double.parseDouble(data.getCost())),
+                   BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
+                   "");
+
+              details.add(imps);
+         }
+         json.put("details", details);
+
+         Response response = JavaConnection.post(JavaRoute.imports, json);
+         JavaConstant.setCircleLoadingCursor(this);
+
+         try {
+              if (response.isSuccessful()) {
+                   JavaConstant.restoreDefaultCursor(this);
+                   String dataString = response.body().string();
+                   System.out.println("succes import : " + dataString);
+                   buttonSave.setVisible(false);
+                   reloadPanel();
+                   cmbVendorName.setToFirstItem();
+                   cmbSubCategory.setToFirstItem();
+                   orderDate.setLabelTextField("Order Date");
+                   transactionDate.setLabelTextField("Transaction Date");
+                   lbTotalCost.setText("$0.00");
+                   lbTotalQty.setText("0");
+              }
+         } catch (Exception e) {
+              System.out.println("import request fails : " + e);
+         }
+
+
     }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
@@ -437,17 +529,19 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     String responseData = response.body().string();
                     ObjectMapper obj = new ObjectMapper();
                     PurchaseOrderResponse data = obj.readValue(responseData, PurchaseOrderResponse.class);
-                    listPurchase = data.getData();
-                    appendData();
+
+                    PurchaseOrderDetailResponse[] listPurchase = data.getData();
+                    listImport.clear();
+                    appendData(listPurchase);
+                    buttonSave.setVisible(true);
                }
           } catch (Exception e) {
                System.out.println("error : " + e);
           }
      }//GEN-LAST:event_button1MouseClicked
 
-     private void appendData() {
+     private void appendData(PurchaseOrderDetailResponse[] listPurchase) {
           reloadPanel();
-
           for (PurchaseOrderDetailResponse p : listPurchase) {
                ImportDetailOrder pp = new ImportDetailOrder(
                     p.getID(),
@@ -461,7 +555,6 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                );
                listImport.add(pp);
           }
-
           setDetail(listImport);
      }
 
@@ -538,7 +631,6 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     public void onKeyPress() {
                          calculate();
                     }
-
                };
 
                detail.initEvent(event);
@@ -647,13 +739,12 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel borderUnderLine;
      private Button.Button button1;
      private ButtonPackage.ButtonCancel buttonCancel;
      private ButtonPackage.ButtonSave buttonSave;
      private Components.ComboBox cmbSubCategory;
      private Components.ComboBox cmbVendorName;
-     private DatePicker.DatePicker datePicker1;
-     private DatePicker.DatePicker datePicker2;
      private javax.swing.JPanel header;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JLabel jLabel10;
@@ -680,7 +771,9 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
      private Components.LabelPopUpTitle labelPopUpTitle2;
      private javax.swing.JLabel lbTotalCost;
      private javax.swing.JLabel lbTotalQty;
+     private DatePicker.DatePicker orderDate;
      private javax.swing.JPanel panel;
+     private DatePicker.DatePicker transactionDate;
      private Components.TextField txtReference;
      // End of variables declaration//GEN-END:variables
 }

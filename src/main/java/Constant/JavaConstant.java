@@ -55,6 +55,8 @@ public class JavaConstant {
      public static String userCode;
      public static String posId;
      public static Integer cashierId;
+     public static Integer empId;
+
      public static Long checkCloseShift;
      public static int numberOpenShift = 0;
      public static int productId;
