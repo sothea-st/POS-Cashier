@@ -22,8 +22,12 @@ public class ImportDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "pro_id",length = 30)
-    private int productId;
+    // @Column(name = "pro_id",length = 30)
+    // private int productId;
+
+    @JoinColumn(name = "pro_id")
+    @ManyToOne
+    private Product product;
 
     @Column(name = "imp_id",length = 30)
     private int impId;

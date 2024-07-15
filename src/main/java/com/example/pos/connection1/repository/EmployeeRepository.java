@@ -13,6 +13,8 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     boolean existsByContact(String contact);
 
+    Optional<Employee> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+
     @Query(nativeQuery = true, value = "select\r\n" + //
                         "\t*\r\n" + //
                         "from\r\n" + //

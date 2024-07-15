@@ -1,6 +1,4 @@
 package com.example.pos.connection1.feature.product.productExcel;
-
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,21 +19,18 @@ import com.example.pos.connection1.feature.product.productExcel.dto.ProductMulti
 import com.example.pos.connection1.feature.status.StatusRepository;
 import com.example.pos.connection1.feature.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
-import com.example.pos.connection1.mapper.ProductMapper;
 import com.example.pos.connection1.repository.CategoryRepository;
 import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
 import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import java.math.*;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
-
 @Service
 @RequiredArgsConstructor
 public class ProductExcelServicImp implements ProductExcelService {
      // **************************** group bean ************************
      private final ProductRepository productRepository;
      private final CategoryRepository categoryRepository;
-     private final ProductMapper productMapper;
      private final BrandRepository brandRepository;
      private final TaxProductRepository taxProductRepository;
      private final VendorRepository vendorRepository;
@@ -55,7 +50,6 @@ public class ProductExcelServicImp implements ProductExcelService {
      private String statusIdNotFound = "Status not found with id: ";
      private String countryIdNotFound = "Country not found with id: ";
      private String barcodeAlreadyExist = "Barcode already exist with: ";
-     private String productIdNotFound = "Product not found with id: ";
      // **************************** end *******************************
 
      @Override
@@ -63,7 +57,7 @@ public class ProductExcelServicImp implements ProductExcelService {
           List<ProductExcelDetail> lists = productMultipleInsert.getLists();
           List<Product> products = new ArrayList<>();
           for (ProductExcelDetail productExcelDetail : lists) {
-               
+
                if (productExcelDetail.getBarcode() != null &&
                          productExcelDetail.getVendorId() != null &&
                          productExcelDetail.getSubCatId() != null &&
@@ -137,12 +131,12 @@ public class ProductExcelServicImp implements ProductExcelService {
                     product.setCatId(productExcelDetail.getSubCatId());
                     product.setProNameEn(productExcelDetail.getProductName());
                     product.setProNameKh(productExcelDetail.getProductNameKh());
-                    product.setCost(productExcelDetail.getCost()); 
+                    product.setCost(productExcelDetail.getCost());
                     product.setPrice(productExcelDetail.getPrice());
-                    product.setMargin(productExcelDetail.getMargin()); 
+                    product.setMargin(productExcelDetail.getMargin());
                     product.setChoices(productExcelDetail.getChoiceValue());
-                    product.setCreateBy(productExcelDetail.getCreateBy()); 
-                    product.setBarcode(productExcelDetail.getBarcode()); 
+                    product.setCreateBy(productExcelDetail.getCreateBy());
+                    product.setBarcode(productExcelDetail.getBarcode());
                     products.add(product);
                } else {
                     break;
@@ -150,5 +144,4 @@ public class ProductExcelServicImp implements ProductExcelService {
           }
           productRepository.saveAll(products);
      }
-
 }

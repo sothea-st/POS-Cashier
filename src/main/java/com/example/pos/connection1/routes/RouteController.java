@@ -254,7 +254,7 @@ public class RouteController {
      }
 
      @RestController
-     @RequestMapping("/api/import")
+     @RequestMapping("/api/imports")
      public static class RouteImport {
           @Autowired
           private ImportService service;

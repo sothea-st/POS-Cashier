@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.*;
 @Repository
-public interface ImportRepository extends JpaRepository<Import,Integer> {
+public interface ImportRepositoryOld extends JpaRepository<Import,Integer> {
 
     @Query(nativeQuery = true , value = "select count(*) from pos_import")
     int countRecord();

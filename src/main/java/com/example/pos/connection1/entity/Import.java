@@ -12,7 +12,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "pos_import")
@@ -27,11 +27,19 @@ public class Import {
     @Column(name = "imp_no",length = 50)
     private String impNo;
 
-    @Column(name = "emp_id",length = 20)
-    private int empId;
+    @JoinColumn(name = "emp_id")
+    @ManyToOne
+    private Employee employee;
 
-    @Column(name = "sub_id",length = 20)
-    private int subId;
+    @JoinColumn(name = "vendor_id")
+    @ManyToOne
+    private Vendor vendor;
+
+    @Column(name = "transaction_date")
+    private String transactionDate;
+
+    @Column(name = "reference_no")
+    private String referenceNo;
 
     @Column(name = "imp_date",length = 50)
     @NotNull(message = JavaMessage.required)
@@ -45,8 +53,12 @@ public class Import {
     @NotNull(message = JavaMessage.required)
     private BigDecimal total;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @Column(name = "total_qty")
+    private Integer totalQty;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<ImportDetail> details;
+  
 
     @Column(name = "create_by")
     private int createBy;

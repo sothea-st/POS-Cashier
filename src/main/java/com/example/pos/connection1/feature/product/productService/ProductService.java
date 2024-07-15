@@ -222,15 +222,17 @@ public class ProductService {
         if (editProduct.getProQty() != null) {
             Import import1 = new Import();
             import1.setCreateBy(0);
-            import1.setEmpId(0);
-            import1.setSubId(0);
+            // import1.setEmpId(0);
+            // import1.setSubId(0);
             import1.setImpDate(JavaConstant.currentDate);
             import1.setDiscount(BigDecimal.valueOf(0));
             import1.setTotal(BigDecimal.valueOf(editProduct.getProQty() * editProduct.getCost().doubleValue()));
 
+            
+
             List<ImportDetail> listDetail = new ArrayList<>();
             ImportDetail importDetail = new ImportDetail();
-            importDetail.setProductId(id);
+            // importDetail.setProduct(id);
             importDetail.setQtyNew(editProduct.getProQty());
             importDetail.setCost(editProduct.getCost());
             importDetail.setAmount(BigDecimal.valueOf(editProduct.getCost().doubleValue() * editProduct.getProQty()));

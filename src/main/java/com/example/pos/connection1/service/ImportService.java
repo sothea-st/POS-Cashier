@@ -4,11 +4,18 @@ import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.Product;
+import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.models.ProductAddRemoveQty;
 import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
+import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
-import com.example.pos.connection1.repository.ImportRepository;
+ 
+
+import lombok.RequiredArgsConstructor;
+
 import com.example.pos.connection1.feature.product.ProductRepository;
+import com.example.pos.connection1.feature.vendor.VendorRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,15 +26,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class ImportService {
-    @Autowired
-    private ImportRepository repo;
 
-    @Autowired
-    private ImportDetailRepository repoDetail;
+    // ********************* Group Beand ************************
+    // private final ImportRepository repo;
+    private final ImportDetailRepository repoDetail;
+    private final ProductRepository repoProduct;
+    private final VendorRepository vendorRepository;
+    private final EmployeeRepository employeeRepository;
+    // ********************* end ********************************
 
-    @Autowired
-    private ProductRepository repoProduct;
+    // ********************* Group variable *********************
+
+
+
+    // ********************* end ********************************
+
+
 
     public List<ReportImportProjection> reportImport(ReportRequest reportRequest) {
         LocalDate dateFrom = LocalDate.parse(reportRequest.dateFrom());
@@ -47,16 +63,19 @@ public class ImportService {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
                     "The feild dateFrom must be smaller than field dateTo .");
-        return repo.getReport(dateFrom, dateTo);
+        // return repo.getReport(dateFrom, dateTo);
+        return null;
     }
 
     public void addImport(Import imp) {
 
         LocalDate localDate = LocalDate.now();
-
         Import data = new Import();
 
-        int count = repo.countRecord();
+   
+
+
+        int count =0;
         count++;
         String impNo = "";
         if (count < 10) {
@@ -73,14 +92,14 @@ public class ImportService {
 
         data.setImpNo(impNo);
 
-        data.setEmpId(imp.getEmpId());
-        data.setSubId(imp.getSubId());
+        // data.setEmpId(imp.getEmpId());
+        // data.setVendor(imp.getSubId());
         data.setImpDate(imp.getImpDate());
         data.setDiscount(imp.getDiscount());
         data.setTotal(imp.getTotal());
         data.setCreateBy(imp.getCreateBy());
         data.setDateLocal(localDate);
-        repo.save(data);
+        // repo.save(data);
 
         List<ImportDetail> listDetail = imp.getDetails();
 
@@ -137,41 +156,41 @@ public class ImportService {
         // }
 
         for (int i = 0; i < listDetail.size(); i++) {
-            var value = listDetail.get(i);
-            int productId = value.getProductId();
+            // var value = listDetail.get(i);
+            // int productId = value.getProductId();
 
-            repoProduct.findById(productId).orElseThrow(
-                    () -> new ResponseStatusException(
-                            HttpStatus.NOT_FOUND,
-                            "product id has not been found ."));
+            // repoProduct.findById(productId).orElseThrow(
+            //         () -> new ResponseStatusException(
+            //                 HttpStatus.NOT_FOUND,
+            //                 "product id has not been found ."));
 
-            int qtyNew = value.getQtyNew();
-            ImportDetail details = new ImportDetail();
-            ImportDetail getImpDetails = repoDetail.getDataImportDetail(productId);
+            // int qtyNew = value.getQtyNew();
+            // ImportDetail details = new ImportDetail();
+            // ImportDetail getImpDetails = repoDetail.getDataImportDetail(productId);
 
-            if (getImpDetails == null) {
-                details.setQtyOld(qtyNew);
-            } else {
-                int qtyOld = getImpDetails.getQtyOld();
-                int qty = qtyOld + qtyNew;
-                details.setQtyOld(qty);
-            }
+            // if (getImpDetails == null) {
+            //     details.setQtyOld(qtyNew);
+            // } else {
+            //     int qtyOld = getImpDetails.getQtyOld();
+            //     int qty = qtyOld + qtyNew;
+            //     details.setQtyOld(qty);
+            // }
 
-            details.setImpId(data.getId());
-            details.setProductId(productId);
-            details.setQtyNew(qtyNew);
-            details.setCost(value.getCost());
-            details.setAmount(value.getAmount());
-            details.setExpireDate(value.getExpireDate());
-            details.setCreateBy(imp.getCreateBy());
-            repoDetail.save(details);
+            // details.setImpId(data.getId());
+            // details.setProductId(productId);
+            // details.setQtyNew(qtyNew);
+            // details.setCost(value.getCost());
+            // details.setAmount(value.getAmount());
+            // details.setExpireDate(value.getExpireDate());
+            // details.setCreateBy(imp.getCreateBy());
+            // repoDetail.save(details);
 
-            Optional<Product> p = repoProduct.findById(productId);
-            Product pp = p.get();
-            pp.setProductStatus("In Stock");
-            // pp.setCost(value.getCost());
-            pp.setImportDetail(details); // update last importDetailsId
-            repoProduct.save(pp);
+            // Optional<Product> p = repoProduct.findById(productId);
+            // Product pp = p.get();
+            // pp.setProductStatus("In Stock");
+            // // pp.setCost(value.getCost());
+            // pp.setImportDetail(details); // update last importDetailsId
+            // repoProduct.save(pp);
         }
     }
 
