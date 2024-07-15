@@ -270,7 +270,7 @@ public class ListTax extends javax.swing.JDialog {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        searchField.setPlaceholder("Search ");
+        searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));

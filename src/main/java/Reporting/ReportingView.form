@@ -52,18 +52,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="reportSale4" min="-2" max="-2" attributes="0"/>
-                          <Component id="reportSale3" min="-2" max="-2" attributes="0"/>
-                          <Component id="reportImport" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="reportImport" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="reportSale" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportSale1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportSale2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <Component id="reportPurhaseOrder" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="176" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -72,16 +66,11 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="reportSale2" min="-2" max="-2" attributes="0"/>
-                          <Component id="reportSale1" min="-2" max="-2" attributes="0"/>
+                          <Component id="reportPurhaseOrder" min="-2" max="-2" attributes="0"/>
                           <Component id="reportSale" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="reportImport" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportSale3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportSale4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="42" max="32767" attributes="0"/>
+                      <EmptySpace pref="388" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -97,24 +86,9 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSaleMouseClicked"/>
               </Events>
             </Component>
-            <Component class="Components.SettingBox" name="reportSale1">
+            <Component class="Components.SettingBox" name="reportPurhaseOrder">
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSale1MouseClicked"/>
-              </Events>
-            </Component>
-            <Component class="Components.SettingBox" name="reportSale2">
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSale2MouseClicked"/>
-              </Events>
-            </Component>
-            <Component class="Components.SettingBox" name="reportSale3">
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSale3MouseClicked"/>
-              </Events>
-            </Component>
-            <Component class="Components.SettingBox" name="reportSale4">
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSale4MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseOrderMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
