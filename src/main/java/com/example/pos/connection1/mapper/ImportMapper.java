@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.feature.imports.dto.ImportResponse;
+import com.example.pos.connection1.feature.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
 
 @Mapper(componentModel = "spring")
 public interface ImportMapper {
@@ -19,4 +20,12 @@ public interface ImportMapper {
      @Mapping(source = "impNo", target = "transactionNo") // Maps 'impNo' field in Import to 'transactionNo' in ImportResponse
      @Mapping(source = "imports.vendor.vendorName", target = "vendorName") // Maps 'vendorName' from nested 'vendor' in Import to 'vendorName' in ImportResponse
      ImportResponse mapToImportResponse(Import imports);
+
+
+     @Mapping(source = "impNo" , target = "purchaseOrderNo")
+     @Mapping(source = "id" , target = "transactionNo" )
+     @Mapping(source = "impDate" , target = "orderDate")
+     @Mapping(source = "imports.vendor.vendorName" , target = "vendorName")
+     @Mapping(source = "total" , target = "totalCost")
+     ReportPurchaseOrderResponse mapToReportPurchaseOrder(Import imports);
 }

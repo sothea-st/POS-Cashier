@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.ap.shaded.freemarker.core.ReturnInstruction.Return;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,29 +36,46 @@ public class ImportController {
                     .build();
      }
 
+     @PutMapping("/{id}")
+     public JavaMessageResponse<?> update(@PathVariable("id") int id, @Valid @RequestBody ImportRequest importRequest) {
+          importService.update(importRequest, id);
+          return JavaMessageResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .msg(JavaMessageResponse.success)
+                    .data(JavaMessageResponse.success)
+                    .build();
+     }
+
      @GetMapping
      public JavaCollectionResponse<?> retrieve(
                @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-               @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize
-     ) {
+               @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize) {
           return importService.retrieve(pageNumber, pageSize);
      }
 
+     @GetMapping("/filter/{value}")
+     public JavaCollectionResponse<?> filter(
+               @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
+               @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
+               @PathVariable("value") String value) {
+          return importService.filter(pageNumber, pageSize, value);
+     }
+
      @DeleteMapping("/{id}")
-     public JavaMessageResponse<?> deleteById(@PathVariable("id") int id){
+     public JavaMessageResponse<?> deleteById(@PathVariable("id") int id) {
           importService.deleteById(id);
           return JavaMessageResponse.builder()
                     .status(HttpStatus.OK.value())
-                    .msg(JavaMessageResponse.deleteSuccess) 
+                    .msg(JavaMessageResponse.deleteSuccess)
                     .data(JavaMessageResponse.deleteSuccess)
                     .build();
      }
 
      @GetMapping("/{id}")
-     public JavaMessageResponse<?> retrieveDetailById(@PathVariable("id") int id){
+     public JavaMessageResponse<?> retrieveDetailById(@PathVariable("id") int id) {
           return JavaMessageResponse.builder()
                     .status(HttpStatus.OK.value())
-                    .msg(JavaMessageResponse.deleteSuccess) 
+                    .msg(JavaMessageResponse.deleteSuccess)
                     .data(importService.retrieveDetail(id))
                     .build();
      }

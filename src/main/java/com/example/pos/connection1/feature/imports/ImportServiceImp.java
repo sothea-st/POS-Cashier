@@ -57,6 +57,34 @@ public class ImportServiceImp implements ImportService {
      private final String importIdNotFound = "Import not found with Id : ";
      private final String categoryIdNotFound = "Category not found with Id : ";
 
+     /**
+      * filter Import
+      *
+      * @param value  value client want to filter
+      */
+     @Override
+     public JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value) {
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+          Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+
+          List<ImportResponse> data = pages.getContent().stream()
+                    .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                    .map(importMapper::mapToImportResponse)
+                    .toList();
+
+          return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
+     }
+
+     /**
+      * update Import
+      *
+      * @param importReques is a source from client
+      * @param id           to specify itme update
+      */
      @Override
      public void update(ImportRequest importRequest, int id) {
           createAndUpdateImport(importRequest, id);
@@ -248,7 +276,6 @@ public class ImportServiceImp implements ImportService {
                          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, importIdNotFound + id));
           }
 
-        
           data.setEmployee(employee);
           data.setVendor(vendor);
           data.setImpDate(importRequest.impDate());

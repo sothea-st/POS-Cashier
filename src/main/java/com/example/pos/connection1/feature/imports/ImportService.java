@@ -47,4 +47,14 @@ public interface ImportService {
       * @return An {@link ImportResponseById} object containing import details.
       */
      ImportResponseById retrieveDetail(int id);
+
+
+     /**
+      * filter import 
+      * @param value the value client want to filter
+      * @param pageNumber The page number to retrieve (1-based index).
+      * @param pageSize   The number of items per page.
+      * @return A {@link JavaCollectionResponse} containing imported data.
+      */
+      JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value);
 }
