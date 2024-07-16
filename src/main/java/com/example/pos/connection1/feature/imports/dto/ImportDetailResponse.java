@@ -6,6 +6,7 @@ import lombok.Builder;
 @Builder
 public record ImportDetailResponse(
      Integer id,
+     Integer productId,
      String barcode,
      String proNameEn,
      String proNameKh,
