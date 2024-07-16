@@ -2,19 +2,33 @@ package Stock.PurchaseOrder;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
-import Setting.Category.NoDataAvaibalePanel;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
+import Model.PurchaseOrder.DataPurchaseModel;
+import Model.PurchaseOrder.DetailPurchaseModelFirst;
+import Model.PurchaseOrder.DetailPurchaseModelSecond;
+import Model.PurchaseOrder.DetailPurchaseModelThird;
+import Model.PurchaseOrder.ListPurchaseOrderModel;
+import Model.PurchaseOrder.PurchaseModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class PurchaseOrder extends javax.swing.JDialog {
 
@@ -29,14 +43,51 @@ public class PurchaseOrder extends javax.swing.JDialog {
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Purchase Order");
-        appendPurchaeOrder(listGetOrder);
+        getListPurchase(listGetOrder);
+    }
+    
+    public void getListPurchase(JPanel jpanelData) {
+        try {
+
+            Response response = JavaConnection.get(JavaRoute.imports + "?pageNumber=0&pageSize=1000");
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
+                DataPurchaseModel[] listData = data.getData();
+                assignPurchase(listData, jpanelData);
+            } else {
+                System.err.println("fail loading purchase");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting purchase " + e);
+        }
+    }
+    
+    public void assignPurchase(DataPurchaseModel[] listData, JPanel assignPurchase) {
+        ArrayList<PurchaseModel> purchase = new ArrayList<>();
+          
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            PurchaseModel getPurchase = new PurchaseModel(
+                    obj.getId(),
+                    obj.getTransactionNo(),
+                    obj.getVendorName(),
+                    obj.getReferenceNo(),
+                    obj.getTransactionDate(),
+                    obj.getTotalQty(),
+                    obj.getTotalCost()
+            );
+            purchase.add(getPurchase);
+        }
+
+        appendPurchaeOrder(purchase, listGetOrder);
     }
     
     
-    void appendPurchaeOrder(JPanel listGetOrder) {
+    void appendPurchaeOrder(ArrayList<PurchaseModel> listPurchase, JPanel listGetOrder) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -47,8 +98,8 @@ public class PurchaseOrder extends javax.swing.JDialog {
 
         int x = 0;
         int y = 0;
-        if(5 > 0){
-            for (int i = 0; i < 5; i++) {
+        if(listPurchase.size() > 0){
+            for (int i = 0; i < listPurchase.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = x;
                 gbc.gridy = y;
@@ -59,14 +110,77 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     x = 0;
                     y++;
                 }
+                var listData = listPurchase.get(i);
                 
                 GetPurchaseOrder b = new GetPurchaseOrder();
-                b.setId(1);
-                b.setVendorName("Vendor");
-                b.setReferenceNo("12344456");
-                b.setTransactionDate("22-06-2024");
-                b.setTotalQty("100");
-                b.setTotalCost("$ 10000");
+                
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        DetailPurchaseOrder detail = new DetailPurchaseOrder(new JFrame(), true, listData.getId());
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.imports + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailPurchaseModelFirst data = objMap.readValue(responseData, DetailPurchaseModelFirst.class);
+                            DetailPurchaseModelSecond listDataOne = data.getData();
+                            
+                            detail.setVendorName(listDataOne.getVendorName());
+                            detail.setTransacionNo(""+listDataOne.getTransactionNo());
+                            detail.setPurchaseOrderNo(listDataOne.getPurchaseOrderNo());
+                            detail.setReferenceNo(listDataOne.getReferenceNo());
+                            detail.setTransactionDate(listDataOne.getTransactionDate());
+                            detail.setOrderDate(listDataOne.getOrderDate());
+                            detail.setTotalQty(""+listDataOne.getTotalQty());
+                            detail.setTotalCost(""+listDataOne.getTotalCost());
+                            detail.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting vendor " + e);
+                        }
+                    }
+                    
+                    
+                    @Override
+                    public void onRemove(String Key) {  // event delete 
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this purchase order?",
+                                    "Delete Purchase Order?", JOptionPane.YES_NO_OPTION);
+
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.imports + "/" + listData.getId(), json);
+
+                                if (response.isSuccessful()) {
+                                    PurchaseOrder list = new PurchaseOrder(new JFrame(), true);
+                                    listGetOrder.removeAll();
+                                    listGetOrder.revalidate();
+                                    listGetOrder.repaint();
+                                    list.getListPurchase(listGetOrder);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
+
+                        } catch (Exception e) {
+                            System.err.println("error getting purchase order " + e);
+                        }
+                    }
+                };
+                
+                b.initEvent(events);
+                
+                b.setId(listData.getId());
+                b.setVendorName(listData.getVendorName());
+                b.setReferenceNo(listData.getTransactionNo());
+                b.setTransactionDate(listData.getTransactionDate());
+                b.setTotalQty(""+listData.getTotalQty());
+                b.setTotalCost("$ " + listData.getTotalCost());
 
                 try {
 
@@ -90,7 +204,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                 listGetOrder.add(b, gbc);
             }  
         }else{
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+            PurchaseNoData no = new PurchaseNoData();
             listGetOrder.add(no);
         }
         

@@ -41,7 +41,6 @@ public class ListTax extends javax.swing.JDialog {
         setResizable(false);
         
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
         // custom scroll speed jscrollPane for vertical

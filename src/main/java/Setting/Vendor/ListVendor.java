@@ -39,7 +39,6 @@ public class ListVendor extends javax.swing.JDialog {
         setResizable(false);
         
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
         // custom scroll speed jscrollPane for vertical
@@ -58,7 +57,7 @@ public class ListVendor extends javax.swing.JDialog {
     public void getVendor(JPanel jpanelData) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.vendor );
+            Response response = JavaConnection.get(JavaRoute.vendor + "?pageNumber=0&pageSize=1000");
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();

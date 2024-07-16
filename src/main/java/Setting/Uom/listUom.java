@@ -43,7 +43,6 @@ public class listUom extends javax.swing.JDialog {
         setResizable(false);
         
         jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
         // custom scroll speed jscrollPane for vertical
@@ -62,7 +61,7 @@ public class listUom extends javax.swing.JDialog {
     public void getUom(JPanel jpanelData) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.uom );
+            Response response = JavaConnection.get(JavaRoute.uom + "?pageNumber=0&pageSize=1000");
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
