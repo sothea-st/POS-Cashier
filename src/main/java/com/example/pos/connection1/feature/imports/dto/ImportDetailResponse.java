@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import lombok.Builder;
 @Builder
 public record ImportDetailResponse(
+     Integer id,
      String barcode,
      String proNameEn,
      String proNameKh,

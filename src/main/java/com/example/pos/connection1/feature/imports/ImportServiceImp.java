@@ -137,6 +137,7 @@ public class ImportServiceImp implements ImportService {
 
                // Create ImportDetailResponse object and add to details list
                ImportDetailResponse importDetailResponse = ImportDetailResponse.builder()
+                         .id(value.getProduct().getId())
                          .barcode(value.getProduct().getBarcode())
                          .proNameEn(value.getProduct().getProNameEn())
                          .proNameKh(value.getProduct().getProNameKh())
