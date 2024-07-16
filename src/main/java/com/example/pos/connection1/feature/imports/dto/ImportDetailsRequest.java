@@ -11,6 +11,8 @@ public record ImportDetailsRequest(
      @NotNull(message = JavaMessage.required)
      Integer qtyNew,
 
+     Integer id,
+
      BigDecimal cost,
      BigDecimal amount,
      String expireDate

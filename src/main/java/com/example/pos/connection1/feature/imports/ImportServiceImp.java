@@ -30,6 +30,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -60,7 +61,7 @@ public class ImportServiceImp implements ImportService {
      /**
       * filter Import
       *
-      * @param value  value client want to filter
+      * @param value value client want to filter
       */
      @Override
      public JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value) {
@@ -125,6 +126,7 @@ public class ImportServiceImp implements ImportService {
           // Iterate through each ImportDetail entity and construct ImportDetailResponse
           // objects
           for (ImportDetail value : importDetails) {
+
                // Calculate total cost
                double totalCost = value.getProduct().getCost().doubleValue() * value.getQtyNew();
                String _totalCost = String.format("%.2f", totalCost);
@@ -137,7 +139,7 @@ public class ImportServiceImp implements ImportService {
 
                // Create ImportDetailResponse object and add to details list
                ImportDetailResponse importDetailResponse = ImportDetailResponse.builder()
-                         .id(value.getProduct().getId())
+                         .id(value.getId())
                          .barcode(value.getProduct().getBarcode())
                          .proNameEn(value.getProduct().getProNameEn())
                          .proNameKh(value.getProduct().getProNameKh())
@@ -301,16 +303,37 @@ public class ImportServiceImp implements ImportService {
                                    HttpStatus.NOT_FOUND, productIdNotFound + productId));
 
                int qtyNew = value.qtyNew();
-               ImportDetail details = new ImportDetail();
-               ImportDetail getImpDetails = importDetailRepository.getDataImportDetail(productId);
 
-               // Determine quantity to set based on existing or new detail
-               if (getImpDetails == null) {
-                    details.setQtyOld(qtyNew);
+               ImportDetail details = null;
+               if (value.id() == null) {
+                    details = new ImportDetail();
+                    ImportDetail getImpDetails = importDetailRepository.getDataImportDetail(productId);
+
+                    // Determine quantity to set based on existing or new detail
+                    if (getImpDetails == null) {
+                         details.setQtyOld(qtyNew);
+                    } else {
+                         int qtyOld = getImpDetails.getQtyOld();
+                         int qty = qtyOld + qtyNew;
+                         details.setQtyOld(qty);
+                    }
                } else {
-                    int qtyOld = getImpDetails.getQtyOld();
-                    int qty = qtyOld + qtyNew;
-                    details.setQtyOld(qty);
+                    Optional<ImportDetail> checkId = importDetailRepository.findById(value.id());
+                    if (checkId == null) {
+                         details = new ImportDetail();
+                    } else {
+                         details = checkId.get();
+                         ImportDetail getImpDetails = importDetailRepository.getDataImportDetail(productId);
+
+                         // Determine quantity to set based on existing or new detail
+                         if (getImpDetails == null) {
+                              details.setQtyOld(qtyNew);
+                         } else {
+                              int qtyOld = getImpDetails.getQtyOld() - getImpDetails.getQtyNew();
+                              int qty = qtyOld + qtyNew;
+                              details.setQtyOld(qty);
+                         }
+                    }
                }
 
                details.setImpId(data.getId());
