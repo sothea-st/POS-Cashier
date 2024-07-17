@@ -17,19 +17,19 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel1" min="-2" pref="381" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="panel" pref="381" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+          <Component id="panel" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="panel">
       <Properties>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[50, 50]"/>
@@ -52,8 +52,8 @@
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="pageFive" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="pageNext" min="-2" pref="45" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="pageNext" pref="45" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -64,16 +64,18 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="pageNext" alignment="1" max="32767" attributes="0"/>
                       <Component id="previousPage" max="32767" attributes="0"/>
+                      <Component id="pageOne" alignment="1" max="32767" attributes="0"/>
+                      <Component id="pageTwo" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="pageThree" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="pageFour" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                  <Component id="pageThree" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="pageFour" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="pageFive" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="pageFive" alignment="1" max="32767" attributes="0"/>
-                      <Component id="pageOne" alignment="1" max="32767" attributes="0"/>
-                      <Component id="pageTwo" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>

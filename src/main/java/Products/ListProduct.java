@@ -63,6 +63,8 @@ public class ListProduct extends javax.swing.JDialog {
      private LoginFormJdailog jdLogin;
      private String status = "allProduct";
      ProductResponseDetailV1[] listData;
+     private String pageNumber = "0";
+     private long totalPage = 0;
 
      ArrayList<ProductModel> listProduct = new ArrayList<>();
 
@@ -125,7 +127,9 @@ public class ListProduct extends javax.swing.JDialog {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick(String value) {
-                    System.out.println("value  : " + value);
+                    int _value = Integer.parseInt(value) - 1;
+                    pageNumber = String.valueOf(_value);
+                    getProduct(listGetProduct);
                }
           };
           paginationPanel.initEvent(event);
@@ -137,11 +141,18 @@ public class ListProduct extends javax.swing.JDialog {
 
      public void getProduct(JPanel jpanelData) {
           try {
-               Response response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=0&pageSize=100");
+               Response response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=14");
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
+                    
+                    totalPage = data.getCount();
+                    double result = (double) totalPage / 14;
+                    double roundedResult = Math.ceil(result);
+                    totalPage = (int) roundedResult;
+                    paginationPanel.setTotalPage((int) totalPage);
+                    
                     listData = data.getData();
                     listGetProduct.removeAll();
                     listGetProduct.revalidate();
@@ -157,10 +168,10 @@ public class ListProduct extends javax.swing.JDialog {
 
      public void setProduct(ProductResponseDetailV1[] listProductData) {
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0};
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0};
 
           listGetProduct.setLayout(gridBagLayout);
 
@@ -485,7 +496,7 @@ public class ListProduct extends javax.swing.JDialog {
           );
           listGetProductLayout.setVerticalGroup(
                listGetProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGap(0, 659, Short.MAX_VALUE)
+               .addGap(0, 665, Short.MAX_VALUE)
           );
 
           jScrollPane1.setViewportView(listGetProduct);
@@ -605,7 +616,7 @@ public class ListProduct extends javax.swing.JDialog {
                     .addGap(10, 10, 10)
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
