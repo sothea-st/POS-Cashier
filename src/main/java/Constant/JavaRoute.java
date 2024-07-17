@@ -7,7 +7,6 @@ public class JavaRoute {
      public static String productV1 = "/product/v1";
      public static String imports = "/import";
 
-     
      public static String getProductByCatId = "/product/getProductByCatId";
      public static String getNewPrdduct = "/product/getNewProduct";
      public static String getAllProduct = "/product?limit=50";
@@ -78,8 +77,10 @@ public class JavaRoute {
      public static String searchBrand = "/brand/searchBrand/";
      public static String searchStatus = "/status/searchStatus/";
      public static String searchCategory = "/category/code/";
-     
+
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
 
+     public static String reportPurchaseOrder = "/v1/reportPurchaseOrder";
+     public static String filterReportPurchaseOrder = "/v1/reportPurchaseOrder/filter";
 
 }

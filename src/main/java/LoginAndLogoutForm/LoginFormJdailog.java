@@ -39,19 +39,15 @@ import javax.swing.JOptionPane;
 import ButtonPackage.ButtonCancel;
 import Components.BoxItem;
 import Components.LabelFontGreen;
-
 import Constant.JavaMessage;
 import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
-
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import lombok.Getter;
 import lombok.Setter;
 import password.ChangePasswordForm;
@@ -101,6 +97,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      private LabelFontGreen previous;
      private String titleCategory;
      private JLabel boxImg;
+     private Button btnReporting;
+     private Button btnSettings;
 
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -362,7 +360,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          //     String userId = txtUserId.getValueTextField();
          //     String password = txtPassword.getValuePassword();
 
-         String userId = "0004";
+         String userId = "0005";
          String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
@@ -430,6 +428,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    if (model.getRoleName().equals("Admin")) {
                         stock.setVisible(true);
                         buttonStaff.setVisible(true);
+                        btnReporting.setVisible(true);
+                        btnSettings.setVisible(true);
+                        stock.setBackground(WindowColor.green);
+                        btnReporting.setBackground(WindowColor.green);
+                        btnSettings.setBackground(WindowColor.green);
+                        buttonStaff.setBackground(WindowColor.green);
                    }
 
                    if (responseOpenShift.isSuccessful()) {
@@ -442,12 +446,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              if (model.getRoleName().equals("Admin")) {
                                   stock.setVisible(true);
                                   buttonStaff.setVisible(true);
+                                  btnReporting.setVisible(true);
+                                  btnSettings.setVisible(true);
                              }
                              JavaConstant.checkOpenShift = true;
 
                              searchBox.disabledTextField(true);
                              textField.disabledTextField(true);
 
+                             btnReporting.setBackground(WindowColor.green);
+                             btnSettings.setBackground(WindowColor.green);
                              btnReturn.setBackground(WindowColor.brown);
                              buttonCustomer.setBackground(WindowColor.green);
                              buttonDiscount.setBackground(WindowColor.green);

@@ -83,6 +83,7 @@ public class SearchField extends javax.swing.JPanel {
                     String valueText = textSearch.getText();
                     setValueTextSearch(valueText);
                     event.onKeyType();
+                    event.onKeyRelease();
                }
           });
      }

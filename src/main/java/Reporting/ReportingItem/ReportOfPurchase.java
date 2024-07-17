@@ -6,6 +6,29 @@ public class ReportOfPurchase extends javax.swing.JPanel {
         initComponents();
     }
 
+    
+    public void setData(
+         String number,
+         String purchaseNo,
+         String transactionNo,
+         String transactionDate,
+         String orderDate,
+         String referenceNo,
+         String vendorName,
+         String totalQty,
+         String totalCost
+    ){
+         lbNumber.setText(number);
+         lbPurchaseNo.setText(purchaseNo);
+         lbTransactionNo.setText(transactionNo);
+         lbTransactionDate.setText(transactionDate);
+         lbOrderDate.setText(orderDate);
+         lbReferenceNo.setText(referenceNo);
+         lbVendorName.setText(vendorName);
+         lbTotalQty.setText(totalQty);
+         lbTotalCost.setText(totalCost);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

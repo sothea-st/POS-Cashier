@@ -2,49 +2,49 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pdf;
+package Reporting.export;
 
 import Constant.JavaConstant;
-import Model.ProductModelV1.ProductResponseDetailV1;
+import Model.Report.ReportSaleDetail;
+import Reporting.model.ReportingDetailResponse;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import javax.swing.JTable;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.property.HorizontalAlignment;
-import com.itextpdf.layout.property.TextAlignment;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.IOUtils;
+import static pdf.PrintListPDF.downloadFolderPath;
+import static pdf.PrintListPDF.folderPath;
 
-public class PrintListPDF {
-
-     public static String downloadFolderPath = System.getProperty("user.home");
-     public static String folderPath = downloadFolderPath + "\\Downloads\\PDF_Downloads";
-
-     public static void printListPdf(ProductResponseDetailV1[] listProduct) throws IOException {
+/**
+ *
+ * @author MOBILE-APP.02
+ */
+public class ExportReportPurchaseOrderToPDF {
+      public static void printListPdf(ArrayList<ReportingDetailResponse> list) throws IOException {
           try {
-
-               String fileName = PrintToExcel.getFileName();;
+               String fileName = JavaConstant.getFileName();
+               // Output PDF file path
 
                // Specify PDF file path
                String sourcePDFPath = downloadFolderPath + "/Downloads/PDF_Downloads/" + fileName + ".pdf";
@@ -56,44 +56,47 @@ public class PrintListPDF {
                PdfDocument pdfDocument = new PdfDocument(writer);
 
                // Create a Document instance with A4 page size
-               // Document document = new Document(pdfDocument);
-               Document document = new Document(pdfDocument, PageSize.A4.rotate());
+               Document document = new Document(pdfDocument);
 
                // Sample data
                List<Object[]> dataList = new ArrayList<>();
 
-               for (ProductResponseDetailV1 p : listProduct) {
+               for (int i = 0; i < list.size(); i++) {
+                    var detail = list.get(i);
                     String url = null;
-                    if (p.getProImageName().contains("media/file/crm/uploadfile/")) {
-                         url = "http://103.101.80.108:8082//" + p.getProImageName();
-                    } else {
-                         url = "http://localhost:8090/api/public/addImageForBackground/" + p.getProImageName();
-                    }
+//                    if (data.getProImageName().contains("media/file/crm/uploadfile/")) {
+//                         url = "http://103.101.80.108:8082//" + data.getProImageName();
+//                    } else {
+//                         url = "http://localhost:8090/api/public/addImageForBackground/" + data.getProImageName();
+//                    }
 
-                    boolean imageExists = JavaConstant.checkImageExists(url);
-                    if (!imageExists) {
-                         url = "http://localhost:8090/api/public/addImageForBackground/default.jpg";
-                    }
+ 
                     dataList.add(new Object[]{
-                         String.valueOf(p.getBarcode()),
-                         String.valueOf(p.getItemCode()),
-                         String.valueOf(p.getSubCatNameEn()),
-                         String.valueOf(p.getVendorCode()),
-                         String.valueOf(p.getVendorName()),
-                         String.valueOf(p.getProNameEn()),
-                         String.valueOf(p.getProNameEn()),
-                         String.valueOf(p.getQty()),
-                         "$".concat(String.valueOf(p.getPrice())),
-                         "$".concat(String.valueOf(p.getCost())),
-                         resizeImage(url, 30, 30)
+                         String.valueOf(i + 1),
+                         String.valueOf(detail.getPurchaseOrderNo()),
+                         String.valueOf(detail.getTransactionNo()),
+                         String.valueOf(detail.getTransactionDate()),
+                         String.valueOf(detail.getOrderDate()),
+                         String.valueOf(detail.getReferenceNo()),
+                         String.valueOf(detail.getVendorName()),
+                         String.valueOf(detail.getTotalQty()),
+                         String.valueOf(detail.getTotalCost())
                     });
                }
 
                // Convert ArrayList to Object[][]
                Object[][] data = dataList.toArray(new Object[dataList.size()][]);
 
-               Object[] columnHead = {"Barcode", "ItemCode", "Division", "Vendor Code", "Vendor Name",
-                    "Product Name", "Product Name Kh", "Qty", "Price", "Cost", "Image"};
+               Object[] columnHead = {
+                    "#",
+                    "Purchase Order No",
+                    "Transaction No",
+                    "Transaction Date",
+                    "Order Date",
+                    "Reference No",
+                    "Vendor Name",
+                    "Total Qty",
+                    "Total Cost"};
                // Create a table model
                DefaultTableModel model = new DefaultTableModel(data, columnHead);
 
@@ -123,14 +126,9 @@ public class PrintListPDF {
      private static void addJTableToPDF(Document document, JTable table) throws IOException {
           // Create a PDF Table
           Table pdfTable = new Table(table.getColumnCount());
-          // Set table properties
-          pdfTable.setWidth(100);
-          pdfTable.setHorizontalAlignment(HorizontalAlignment.CENTER);
 
-          // Add headers with bold font weight
           for (int i = 0; i < table.getColumnCount(); i++) {
-               pdfTable.addCell(new Cell().add(new Paragraph(table.getColumnName(i)).setFontSize(10)
-                    .setTextAlignment(TextAlignment.CENTER).setBold()));
+               pdfTable.addCell(table.getColumnName(i));
           }
 
           // Add data rows
@@ -147,11 +145,10 @@ public class PrintListPDF {
                          baos.close();
                          ImageData imageData = ImageDataFactory.create(imageBytes);
                          Image pdfImage = new Image(imageData);
-                         pdfTable.addCell(new Cell().add(pdfImage).setTextAlignment(TextAlignment.CENTER));
+                         pdfTable.addCell(new Cell().add(pdfImage));
                     } else {
                          // If the cell contains text, add the text to the PDF
-                         pdfTable.addCell(new Cell().add(new Paragraph(value != null ? value.toString() : "")
-                              .setFontSize(10).setTextAlignment(TextAlignment.CENTER)));
+                         pdfTable.addCell(new Cell().add(new Paragraph(value != null ? value.toString() : "")));
                     }
                }
           }
@@ -177,5 +174,4 @@ public class PrintListPDF {
 
           return resizedImage;
      }
-
 }

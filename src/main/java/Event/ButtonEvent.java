@@ -20,6 +20,9 @@ public interface ButtonEvent {
 
      default public void onMouseClick() {
      }
+     
+      default public void onMouseClick(String value) {
+     }
 
      default public void onKeyType() {
      }

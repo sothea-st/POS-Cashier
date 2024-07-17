@@ -1,9 +1,11 @@
 package pdf;
 
+import Constant.JavaConstant;
 import Model.ProductModelV1.ProductResponseDetailV1;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -25,7 +27,7 @@ public class PrintToExcel {
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH-mm-ss a");
           String formattedDateTime = currentDateTime.format(formatter);
           String fileName = formattedDateTime;
-          return  fileName;
+          return fileName;
      }
 
      public static void toExcel(ProductResponseDetailV1[] listProduct) {
@@ -43,6 +45,12 @@ public class PrintToExcel {
                     } else {
                          url = "http://localhost:8090/api/public/addImageForBackground/" + p.getProImageName();
                     }
+                    
+                    boolean imageExists = JavaConstant.checkImageExists(url);
+                    if( !imageExists ) {
+                        url = "http://localhost:8090/api/public/addImageForBackground/default.jpg";
+                    }
+                    
                     dataList.add(
                          new Object[]{
                               String.valueOf(p.getBarcode()),
@@ -168,5 +176,7 @@ public class PrintToExcel {
           inputStream.close();
           return imageBytes;
      }
+
+    
 
 }

@@ -1,10 +1,6 @@
 package Stock.PurchaseOrder;
-
-import org.apache.xmlbeans.impl.soap.Detail;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.*;
-import lombok.Builder;
 
 public class ImportRequest {
      private Integer createBy;

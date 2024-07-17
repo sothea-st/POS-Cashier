@@ -1,19 +1,15 @@
 package Components;
 
 import Color.WindowColor;
-import Components.Shadow.ShadowRenderer;
-import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
 import Constant.UtilShadow;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
+ 
 
 public class LabelFontGreen extends javax.swing.JPanel {
 
@@ -34,6 +30,10 @@ public class LabelFontGreen extends javax.swing.JPanel {
           JavaConstant.setPointer(lbLabel);
      }
 
+     public void setTextColor(Color color){
+          lbLabel.setForeground(color);
+     }
+     
      public void initEvent(ButtonEvent event) {
           lbLabel.addMouseListener(new MouseListener() {
                @Override

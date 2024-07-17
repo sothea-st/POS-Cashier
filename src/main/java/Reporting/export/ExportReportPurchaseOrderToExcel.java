@@ -1,16 +1,16 @@
-package GroupExport.ReportSale;
+package Reporting.export;
 
+ 
 import Constant.JavaConstant;
-import Model.Report.ReportImportDetail;
-import Model.Report.ReportSaleDetail;
+import Reporting.model.ReportingDetailResponse;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+ 
+ 
 import java.util.ArrayList;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -30,11 +30,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import static pdf.PrintToExcel.downloadFolderPath;
 import static pdf.PrintToExcel.folderPath;
 
-public class ExportReportSaleToExcel {
-
-     public static void toExcel(ReportSaleDetail[] list) {
-
-          String fileName = JavaConstant.getCurrentLocalTime();
+public class ExportReportPurchaseOrderToExcel {
+     public static void toExcel(ArrayList<ReportingDetailResponse> list) {
+          String fileName = JavaConstant.getFileName();
 
           try {
                // Create a new Excel workbook
@@ -45,51 +43,40 @@ public class ExportReportSaleToExcel {
 
                // Create an ArrayList to hold the rows
                ArrayList<Object[]> dataList = new ArrayList<>();
-               dataList.add(new Object[]{
-                    "#",
-                    "Transaction",
-                    "Date",
-                    "Product Name",
-                    "Qty",
-                    "Price",
-                    "Discount",
-                    "Amount (Include Tax)",
-                    "Tax Type",
-                    "Total Sale Exclude VAT",
-                    "VAT Amt",
-                    "PLT",
-                    "Net Sale",
-                    "Cost",
-                    "Margin",
-                    "Staff"});
+               dataList.add(new Object[] {
+                         "#",
+                         "Purchase Order No",
+                         "Transaction No",
+                         "Transaction Date",
+                         "Order Date",
+                         "Reference No",
+                         "Vendor Name",
+                         "Total Qty",
+                         "Total Cost"
+                          });
 
                // Add data rows to the ArrayList
-               for (int i = 0; i < list.length; i++) {
-                    var detail = list[i];
-//                    String url = null;
-//                    if (data.getProImageName().contains("media/file/crm/uploadfile/")) {
-//                         url = "http://103.101.80.108:8082//" + data.getProImageName();
-//                    } else {
-//                         url = "http://localhost:8090/api/public/addImageForBackground/" + data.getProImageName();
-//                    }
+               for (int i = 0; i < list.size(); i++) {
+                    var detail = list.get(i);
+                    // String url = null;
+                    // if (data.getProImageName().contains("media/file/crm/uploadfile/")) {
+                    // url = "http://103.101.80.108:8082//" + data.getProImageName();
+                    // } else {
+                    // url = "http://localhost:8090/api/public/addImageForBackground/" +
+                    // data.getProImageName();
+                    // }
 
-                    dataList.add(new Object[]{
-                         String.valueOf(i + 1),
-                         String.valueOf(detail.getInvoiceNumber()),
-                         String.valueOf(detail.getSaleDate()),
-                         String.valueOf(detail.getProNameEn()),
-                         String.valueOf(detail.getQty()),
-                         String.valueOf(detail.getPrice()),
-                         String.valueOf(detail.getDiscount()),
-                         String.valueOf(detail.getAmountWithTax()),
-                         String.valueOf(detail.getTaxType()),
-                         String.valueOf(detail.getTotalSaledExcludeVAT()),
-                         String.valueOf(detail.getVatAmt()),
-                         String.valueOf(detail.getPLT()),
-                         String.valueOf(detail.getNetSale()),
-                         String.valueOf(detail.getCost()),
-                         String.valueOf(detail.getMargin()),
-                         String.valueOf(detail.getUserName())
+                    dataList.add(new Object[] {
+                              String.valueOf(i + 1),
+                              String.valueOf(detail.getPurchaseOrderNo()),
+                              String.valueOf(detail.getTransactionNo()),
+                              String.valueOf(detail.getTransactionDate()),
+                              String.valueOf(detail.getOrderDate()),
+                              String.valueOf(detail.getReferenceNo()),
+                              String.valueOf(detail.getVendorName()),
+                              String.valueOf(detail.getTotalQty()),
+                              String.valueOf(detail.getTotalCost())
+                             
                     });
                }
 
@@ -117,22 +104,18 @@ public class ExportReportSaleToExcel {
                     for (int j = 0; j < dataList.get(i).length; j++) {
                          Cell cell = row.createCell(j);
                          if (dataList.get(i)[j] instanceof String) {
+                              
+ 
                               if (String.valueOf(dataList.get(i)[j]).equals("#")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Transaction")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Date")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Product Name")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Qty")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Price")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Discount")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Amount (Include Tax)")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Tax Type")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Total Sale Exclude VAT")
-                                   || String.valueOf(dataList.get(i)[j]).equals("VAT Amt")
-                                   || String.valueOf(dataList.get(i)[j]).equals("PLT")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Net Sale")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Cost")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Margin")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Staff")) {
+                                        || String.valueOf(dataList.get(i)[j]).equals("Purchase Order No")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Transaction No")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Transaction Date")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Order Date")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Reference No")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Vendor Name")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Amount (Include Tax)")
+                                        || String.valueOf(dataList.get(i)[j]).equals( "Total Qty")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Total Cost")) {
                                    cell.setCellStyle(style);
                                    cell.setCellValue((String) dataList.get(i)[j]);
                               } else {
@@ -157,7 +140,7 @@ public class ExportReportSaleToExcel {
                                    anchor.setRow2(i + 1); // Set the end row
 
                                    Picture pict = drawing.createPicture(anchor, pictureIdx);
-//                                   pict.resize(); // Automatically resize the image to fit in the cellcell
+                                   // pict.resize(); // Automatically resize the image to fit in the cellcell
 
                               }
                          } else if (dataList.get(i)[j] instanceof Double) {
@@ -168,17 +151,16 @@ public class ExportReportSaleToExcel {
                }
 
                sheet.setColumnWidth(0, 3000); // Set the width of the first column to 3000 units
-               sheet.setColumnWidth(1, 7000); // Set the width of the first column to 7000 units
-               sheet.setColumnWidth(2, 5000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(3, 20000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(4, 5000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(5, 5000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(6, 5000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(7, 8000); // Set the width of the first column to 8000 units
-               sheet.setColumnWidth(8, 5000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(1, 10000); // Set the width of the first column to 7000 units
+               sheet.setColumnWidth(2, 10000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(3, 10000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(4, 10000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(5, 10000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(6, 10000); // Set the width of the first column to 5000 units
+               sheet.setColumnWidth(7, 10000); // Set the width of the first column to 8000 units
+               sheet.setColumnWidth(8, 10000); // Set the width of the first column to 5000 units
                sheet.setColumnWidth(9, 10000); // Set the width of the first column to 10000 units
-               sheet.setColumnWidth(10, 7000); // Set the width of the first column to 5000 units
-               sheet.setColumnWidth(12, 5000); // Set the width of the first column to 5000 units
+              
 
                // Create folder
                try {

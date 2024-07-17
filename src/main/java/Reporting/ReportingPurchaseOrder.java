@@ -1,110 +1,213 @@
 package Reporting;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Components.NotFound;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import GroupExport.ReportSale.ExportReportSaleToCSV;
+import GroupExport.ReportSale.ExportReportSaleToExcel;
+import GroupExport.ReportSale.ExportReportSaleToPDF;
+import Products.ListProduct;
+import Reporting.ActionSearch.ActionSearchReportPurchaseOrder;
 import Reporting.ReportingItem.ReportOfPurchase;
+import Reporting.export.ExportReportPurchaseOrderToCSV;
+import Reporting.export.ExportReportPurchaseOrderToExcel;
+import Reporting.export.ExportReportPurchaseOrderToPDF;
+import Reporting.model.ReportingDetailResponse;
+import Reporting.model.ReportingRespone;
 import Setting.Category.NoDataAvaibalePanel;
-import Stock.PurchaseOrder.GetPurchaseOrder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.ImageIcon;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import okhttp3.Response;
+import org.json.JSONObject;
+import pdf.PrintListPDF;
+import pdf.PrintToCSV;
+import pdf.PrintToExcel;
 
 public class ReportingPurchaseOrder extends javax.swing.JDialog {
 
-    public ReportingPurchaseOrder(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        initComponents();
-        dateFrom.setLabelTextField("Date From");
-        dateTo.setLabelTextField("Date To");
-        searchField.setFocus();
-        
-        // custome scrollbar ui
-        jScrollPaneProduct.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPaneProduct.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPaneProduct.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPaneProduct.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
+     public ArrayList<ReportingDetailResponse> listDetail = new ArrayList<>();
 
-        // set background color
-        panelItem.setBackground(WindowColor.mediumGreen);
-        header.setBackground(WindowColor.darkGreen);
-        appendPurchaeOrder(panelItem);
-    }
-    
-    void appendPurchaeOrder(JPanel panelItem) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+     public ReportingPurchaseOrder(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          initComponents();
 
-        panelItem.setLayout(gridBagLayout);
+          searchField.setFocus();
 
-        int x = 0;
-        int y = 0;
-        if(5 > 0){
-            for (int i = 0; i < 5; i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
+          // custome scrollbar ui
+          jScrollPaneProduct.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPaneProduct.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPaneProduct.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPaneProduct.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
+          // set background color
+          panelItem.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
+//          appendPurchaeOrder(panelItem);
+
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          dateFrom.initEvent(btnevent);
+          dateTo.initEvent(btnevent);
+
+          groupEvent(this);
+     }
+
+     public void groupEvent(ReportingPurchaseOrder re) {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          dateFrom.initEvent(btnevent);
+          dateTo.initEvent(btnevent);
+
+          ButtonEvent searchEvent = new ButtonEvent() {
+//               @Override
+//               public void onKeyType() {
+//                    String value = searchField.getValueTextSearch();
+//                    if (value.isEmpty()) {
+//                         setData();
+//                         return;
+//                    }
+//
+//                    ActionSearchReportPurchaseOrder.search(value, panelItem, re, listDetail);
+//               }
+
+               @Override
+               public void onKeyRelease() {
+                    String value = searchField.getValueTextSearch();
+                    if (value.isEmpty()) {
+                         setData();
+                         return;
+                    }
+
+                    ActionSearchReportPurchaseOrder.search(value, panelItem, re, listDetail);
+               }
+          };
+          searchField.initEvent(searchEvent);
+
+          // event export to excel
+          ButtonEvent excel = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    ListProduct.msgPrint(PrintToExcel.folderPath);
+                    ExportReportPurchaseOrderToExcel.toExcel(listDetail);
+               }
+          };
+
+          groupButtonExport.excelEvent(excel);
+
+          // event export to excel
+          ButtonEvent csv = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    ListProduct.msgPrint(PrintToCSV.folderPath);
+                    ExportReportPurchaseOrderToCSV.toCSV(listDetail);
+               }
+          };
+
+          groupButtonExport.csvEvent(csv);
+          // event export to pdf
+          ButtonEvent pdf = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    ListProduct.msgPrint(PrintListPDF.folderPath);
+                    try {
+                         ExportReportPurchaseOrderToPDF.printListPdf(listDetail);
+                    } catch (IOException ex) {
+                         Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+          };
+
+          groupButtonExport.pdfEvent(pdf);
+     }
+
+     public void reloadPanel() {
+          panelItem.removeAll();
+          panelItem.repaint();
+          panelItem.revalidate();
+     }
+
+     public void appendPurchaeOrder(ReportingDetailResponse[] list) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0, 0};
+          reloadPanel();
+          panelItem.setLayout(gridBagLayout);
+          if (list.length == 0) {
+               panelItem.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               panelItem.add(nofound, BorderLayout.CENTER);
+               panelItem.add(nofound);
+               panelItem.revalidate();
+               panelItem.repaint();
+          }
+          int x = 0;
+          int y = 0;
+
+          for (int i = 0; i < list.length; i++) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
                     x = 0;
                     y++;
-                }
-                
-                ReportOfPurchase b = new ReportOfPurchase();
-//                b.setId(1);
-//                b.setVendorName("Vendor");
-//                b.setReferenceNo("12344456");
-//                b.setTransactionDate("22-06-2024");
-//                b.setTotalQty("100");
-//                b.setTotalCost("$ 10000");
+               }
+               var data = list[i];
 
-//                try {
-//
-//                    TimerTask task = new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            // Task to be executed
-//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                            b.setIconDetail(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "3141f98b-6212-4fa2-8a16-91a9cbc2af62")));
-//                        }
-//                    };
-//
-//                    Timer timer = new Timer();
-//                    timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                } catch (Exception e) {
-//                    System.err.println("error read image = " + e);
-//                }
+               ReportOfPurchase b = new ReportOfPurchase();
+               b.setData(
+                    String.valueOf(i + 1),
+                    String.valueOf(data.getPurchaseOrderNo()),
+                    String.valueOf(data.getTransactionNo()),
+                    String.valueOf(data.getTransactionDate()),
+                    String.valueOf(data.getOrderDate()),
+                    String.valueOf(data.getReferenceNo()),
+                    String.valueOf(data.getVendorName()),
+                    String.valueOf(data.getTotalQty()),
+                    "$".concat(String.valueOf(data.getTotalCost()))
+               );
+               panelItem.add(b, gbc);
+          }
 
-                panelItem.add(b, gbc);
-            }  
-        }else{
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            panelItem.add(no);
-        }
-        
-        panelItem.revalidate();
-        panelItem.repaint();
-    }
+          panelItem.revalidate();
+          panelItem.repaint();
+     }
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -340,51 +443,94 @@ public class ReportingPurchaseOrder extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        
+         setData();
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+     void setData() {
+          String dateFromValue = dateFrom.getValueTextField();
+          String dateToValue = dateTo.getValueTextField();
+
+          if (dateFromValue == null || dateFromValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date From can not be empty!");
+               return;
+          }
+
+          if (dateToValue == null || dateToValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date To can not be empty!");
+               return;
+          }
+
+          dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
+          dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
+
+          JSONObject json = new JSONObject();
+          json.put("dateFrom", dateFromValue);
+          json.put("dateTo", dateToValue);
+
+          try {
+               Response response = JavaConnection.post(JavaRoute.reportPurchaseOrder, json);
+
+               String dataResponse = response.body().string();
+               JSONObject jsonResponse = new JSONObject(dataResponse);
+               if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    String reason = error.getString("reason");
+                    JOptionPane.showMessageDialog(null, reason);
+               } else {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    ReportingRespone data = objectMapper.readValue(dataResponse, ReportingRespone.class);
+                    ReportingDetailResponse[] lists = data.getData();
+                    listDetail.clear();
+                    listDetail.addAll(Arrays.asList(lists));
+                    appendPurchaeOrder(lists);
+               }
+          } catch (Exception e) {
+               System.out.println("error : " + e);
+          }
+     }
+
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ReportingPurchaseOrder dialog = new ReportingPurchaseOrder(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ReportingPurchaseOrder dialog = new ReportingPurchaseOrder(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;

@@ -31,6 +31,7 @@ public class ReportingView extends javax.swing.JDialog {
         setResizable(false);
         JavaConstant.addTitleAndLogo(this, "Reporting");
         getImageAndTitle();
+        reportImport.setVisible(false);
     }
 
     private void getImageAndTitle() {

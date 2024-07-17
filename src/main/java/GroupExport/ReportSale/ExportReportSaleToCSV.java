@@ -4,6 +4,7 @@
  */
 package GroupExport.ReportSale;
 
+import Constant.JavaConstant;
 import Model.Report.ReportImportDetail;
 import Model.Report.ReportSaleDetail;
 import com.opencsv.CSVWriter;
@@ -25,12 +26,7 @@ public class ExportReportSaleToCSV {
 
      public static void toCSV(ReportSaleDetail[] list) {
 
-          LocalDate currentDate = LocalDate.now();
-          // Define a custom date format
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-          // Format the current date using the defined format
-          String formattedDate = currentDate.format(formatter);
-          String fileName = formattedDate;
+        String fileName = JavaConstant.getFileName();
 
           // Create the directory if it doesn't exist
           Path directoryPath = Paths.get(folderPath);

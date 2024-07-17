@@ -45,9 +45,6 @@ public class DatePicker extends javax.swing.JPanel {
                          setValueTextField(txtText.getText());
                     }
                     txtText.setForeground(Color.BLACK);
-
-                    
-                 
                }
 
                @Override
@@ -60,11 +57,7 @@ public class DatePicker extends javax.swing.JPanel {
 
                     if (txtText.getText().trim().equals(labelTextField)) {
                          txtText.setForeground(Color.LIGHT_GRAY);
-                    }
-
-                    
-                    
-                                     
+                    }                 
 
                }
           });

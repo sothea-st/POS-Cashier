@@ -17,11 +17,13 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -100,6 +102,19 @@ public class JavaConstant {
      public static ProductDataModel[] listData;
      public static boolean isCheckProductAll = false;
      public static String categoryName = "new items";
+
+     public static boolean checkImageExists(String imageUrl) {
+          try {
+               URL url = new URL(imageUrl);
+               HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+               connection.setRequestMethod("HEAD");
+               int responseCode = connection.getResponseCode();
+               return responseCode == HttpURLConnection.HTTP_OK;
+          } catch (Exception e) {
+               // If there's an exception, assume the image doesn't exist
+               return false;
+          }
+     }
 
      public static void setResultNotFound(JPanel panelProduct, JPanel panelPagination) {
           panelPagination.setVisible(false);
@@ -237,16 +252,15 @@ public class JavaConstant {
                lable.setIcon(icon);
           }
      }
-     
+
      public static void filePath(String url, JLabel lable) throws MalformedURLException, IOException {
-          
-         File file = new File(url);
+
+          File file = new File(url);
 
           if (file != null) {
-                lable.setText(file.getName());
+               lable.setText(file.getName());
           }
      }
-     
 
      public static void coverImage(String url, JLabel lable, int labelWidth, int labelHeight) throws MalformedURLException, IOException {
           URL imageUrl = new URL(url);
@@ -356,7 +370,22 @@ public class JavaConstant {
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
           String formattedDateTime = currentDateTime.format(formatter);
-          return  formattedDateTime;
+          return formattedDateTime;
+     }
+
+     public static String formateDateYYYYMMDD(String dateValue) {
+          DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+          LocalDate date = LocalDate.parse(dateValue, inputFormatter);
+          DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+          return date.format(outputFormatter);
+     }
+
+     public static String getFileName() {
+          LocalDateTime currentDateTime = LocalDateTime.now();
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH-mm-ss a");
+          String formattedDateTime = currentDateTime.format(formatter);
+          String fileName = formattedDateTime;
+          return fileName;
      }
 
 }
