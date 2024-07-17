@@ -2,11 +2,10 @@ package pagination;
 
 import Color.WindowColor;
 import Constant.JavaConstant;
-import Constant.UtilShadow;
 import Event.ButtonEvent;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -30,6 +29,9 @@ public class PaginationPanel extends javax.swing.JPanel {
           JavaConstant.setPointer(pageNext);
           setBorder(pageOne);
           checkPageNumber();
+          
+          
+          
      }
 
      public int getTotalPage() {

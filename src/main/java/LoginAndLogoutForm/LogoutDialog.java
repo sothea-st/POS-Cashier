@@ -19,15 +19,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+@Setter
 public class LogoutDialog extends javax.swing.JDialog {
 
      private SearchField searchBox;
      private TextField textField;
      private ComboBox comboBox;
      private JLabel boxImg;
+     private Button btnReporting;
+     private Button btnSettings;
+     private Button stock;
+     private Button staff;
 
      public JLabel getBoxImg() {
           return boxImg;
@@ -36,8 +42,6 @@ public class LogoutDialog extends javax.swing.JDialog {
      public void setBoxImg(JLabel boxImg) {
           this.boxImg = boxImg;
      }
-     
-     
 
      public ComboBox getComboBox() {
           return comboBox;
@@ -218,6 +222,10 @@ public class LogoutDialog extends javax.swing.JDialog {
               if (response.isSuccessful()) {
                    btnOpenShift.setBackground(WindowColor.lightGray);
                    buttonCashier.setBackground(WindowColor.lightGray);
+                   btnReporting.setBackground(WindowColor.lightGray);
+                   btnSettings.setBackground(WindowColor.lightGray);
+                   staff.setBackground(WindowColor.lightGray);
+                   stock.setBackground(WindowColor.lightGray);
 
                    lbPOSId.setText("");
                    //     boxUserName.setText("");
@@ -268,12 +276,11 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    searchBox.disabledTextField(false);
                    textField.disabledTextField(false);
-                   
-                   
+
                    boxImg.setVisible(false);
-                   
-                    JavaConstant.resetValuePagination(); // set variable relative with pagination to deafult value
-                   
+
+                   JavaConstant.resetValuePagination(); // set variable relative with pagination to deafult value
+
                    dispose();
               }
          } catch (Exception e) {
