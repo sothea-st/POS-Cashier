@@ -47,7 +47,7 @@ public class ReportingView extends javax.swing.JDialog {
                     
                     reportSale.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sale.png");
                     reportImport.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
-                    reportPurhaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
+                    reportPurhaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
 
                 } catch (IOException ex) {
                     Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);

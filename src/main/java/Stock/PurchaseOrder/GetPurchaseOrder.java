@@ -151,7 +151,7 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
         btnDetail.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
+                event.onSelectDetail("" + id);
             }
 
             @Override
@@ -265,11 +265,11 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbReferenceNo)
                         .addComponent(lbVendorName)
                         .addComponent(lbId)
-                        .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbTransactionDate)
                         .addComponent(lbTotalQty)
                         .addComponent(lbTotalCost))
