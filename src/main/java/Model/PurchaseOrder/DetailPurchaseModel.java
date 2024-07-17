@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 
 public class DetailPurchaseModel {
+    private Integer id;
+    private Integer productId;
     private String barcode;
     private String proNameEn;
     private String proNameKh;
@@ -21,7 +23,9 @@ public class DetailPurchaseModel {
     
     public DetailPurchaseModel(){};
     
-    public DetailPurchaseModel(String barcode,
+    public DetailPurchaseModel(Integer id,
+           Integer productId,
+           String barcode,
            String proNameEn,
            String proNameKh,
            String division,
@@ -33,6 +37,8 @@ public class DetailPurchaseModel {
            Double cost,
            Double totalCost
     ){
+           this.id = id;
+           this.productId = productId;
            this.barcode = barcode;
            this.proNameEn = proNameEn;
            this.proNameKh = proNameKh;

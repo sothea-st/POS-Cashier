@@ -7,6 +7,8 @@ import lombok.Setter;
 @Getter
 
 public class DetailPurchaseModelThird {
+    private Integer id;
+    private Integer productId;
     private String barcode;
     private String proNameEn;
     private String proNameKh;

@@ -116,7 +116,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                 
                 ButtonEvent events = new ButtonEvent() {
                     @Override
-                    public void onSelect(String Key) {  // event edit
+                    public void onSelectDetail(String Key) {  // event edit
                         DetailPurchaseOrder detail = new DetailPurchaseOrder(new JFrame(), true, listData.getId());
                         try {
                             Response response = JavaConnection.get(JavaRoute.imports + "/" + listData.getId());
@@ -135,7 +135,36 @@ public class PurchaseOrder extends javax.swing.JDialog {
                             detail.setTotalCost(""+listDataOne.getTotalCost());
                             detail.setVisible(true);
                         } catch (Exception e) {
-                             System.err.println("error getting vendor " + e);
+                             System.err.println("error getting purchase order " + e);
+                        }
+                    }
+                    
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        EditPurchaseOrder edit = new EditPurchaseOrder(new JFrame(), true, listData.getId());
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.imports + "/" + listData.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DetailPurchaseModelFirst data = objMap.readValue(responseData, DetailPurchaseModelFirst.class);
+                            DetailPurchaseModelSecond listDataOne = data.getData();
+                            edit.setListGetOrder(listGetOrder);
+                            edit.setValue(
+                                String.valueOf(listDataOne.getVendorName()),
+                                String.valueOf(listDataOne.getReferenceNo()),
+                                String.valueOf(listDataOne.getTransactionNo()),
+                                String.valueOf(listDataOne.getPurchaseOrderNo()),
+                                String.valueOf(listDataOne.getTotalQty()),
+                                String.valueOf(listDataOne.getTotalCost()),
+                                String.valueOf(listDataOne.getVendorId()),
+                                String.valueOf(listDataOne.getOrderDate()),
+                                String.valueOf(listDataOne.getTransactionDate())
+                                
+                            );
+                            
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                             System.err.println("error getting purchase order " + e);
                         }
                     }
                     

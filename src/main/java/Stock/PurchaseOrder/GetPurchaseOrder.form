@@ -75,11 +75,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btnDetail" alignment="0" min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbReferenceNo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbVendorName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbId" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDetail" alignment="0" min="-2" pref="17" max="-2" attributes="0"/>
                           <Component id="lbTransactionDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbTotalQty" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbTotalCost" alignment="3" min="-2" max="-2" attributes="0"/>

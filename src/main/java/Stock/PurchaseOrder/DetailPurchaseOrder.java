@@ -74,6 +74,8 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
         for (int i = 0; i < listData.length; i++) {
             var obj = listData[i];
             DetailPurchaseModel getPurchase = new DetailPurchaseModel(
+                    obj.getId(),
+                    obj.getProductId(),
                     obj.getBarcode(),
                     obj.getProNameEn(),
                     obj.getProNameKh(),

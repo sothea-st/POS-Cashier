@@ -60,7 +60,9 @@ public interface ButtonEvent {
      }
 
      ;
-          
+      
+     default public void onSelectDetail(String key) {
+     }
     
      default public void onFocusLost() {
      }
