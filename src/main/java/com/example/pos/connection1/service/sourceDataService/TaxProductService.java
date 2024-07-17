@@ -52,5 +52,8 @@ public class TaxProductService {
           repo.save(obj);
      }
 
+     public List<TaxProductProjection> searchTax(String searchvalue){
+          return repo.searchTax(searchvalue);
+     }
 
 }

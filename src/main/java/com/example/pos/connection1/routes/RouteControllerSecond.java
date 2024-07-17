@@ -506,6 +506,12 @@ public class RouteControllerSecond {
                service.delete(id, t);
                return JavaResponse.deleteSuccess(id);
           }
+
+          @GetMapping("/searchTax/{taxName}")
+          public ResponseEntity<?> searchTax(@PathVariable("taxName") String searchvalue){
+               List<TaxProductProjection> data = service.searchTax(searchvalue);
+               return JavaResponse.success(data);
+          }
      }
 
 }

@@ -7,6 +7,7 @@ import java.util.*;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
 import com.example.pos.connection1.projections.TaxProductProjection.TaxProductProjection;
 
+
 @Repository
 public interface TaxProductRepository extends JpaRepository<TaxProduct,Integer> {
 
@@ -27,5 +28,21 @@ public interface TaxProductRepository extends JpaRepository<TaxProduct,Integer> 
                     "\tand is_deleted = false\r\n" + //
                     "\tand id = ?")
      Optional<TaxProductProjection> getById(int id);
+
+
+     @Query(nativeQuery = true , value = "select\r\n" + //
+                    "\tid,\r\n" + //
+                    "\ttax_name,\r\n" + //
+                    "\trate_tax\r\n" + //
+                    "from\r\n" + //
+                    "\tpos_product_tax\r\n" + //
+                    "where\r\n" + //
+                    "\tstatus = true\r\n" + //
+                    "\tand is_deleted = false\r\n" + //
+                    "\tand tax_name ilike %?% \r\n" + //
+                    "order by\r\n" + //
+                    "\tid desc\r\n" + //
+                    "")
+     List<TaxProductProjection> searchTax(String searchvalue);
 
 }
