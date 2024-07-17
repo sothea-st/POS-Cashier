@@ -12,8 +12,6 @@ import Fonts.WindowFonts;
 import Model.Country.CountryModel;
 import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
-import Model.Uom.DataUomModel;
-import Model.Uom.ListUomModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -240,7 +238,7 @@ public class ListCountry extends javax.swing.JDialog {
                     getListCountry(listGetCountry);
                 } else {
 
-                    Response response = JavaConnection.get(JavaRoute.searchCountry + searchValue);
+                    Response response = JavaConnection.get(JavaRoute.searchCountry + searchValue + "?pageNumber=0&pageSize=100");
 
                     if (response.isSuccessful()) {
                         try {

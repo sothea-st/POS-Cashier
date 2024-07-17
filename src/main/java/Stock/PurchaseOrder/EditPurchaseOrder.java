@@ -14,6 +14,7 @@ import Model.PurchaseOrder.DetailPurchaseModelFirst;
 import Model.PurchaseOrder.DetailPurchaseModelSecond;
 import Model.PurchaseOrder.DetailPurchaseModelThird;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,6 +31,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.border.Border;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -58,6 +61,8 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
         verticalScrollBar.setBlockIncrement(35);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         _Id = id;
+        Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
+        borderUnderLine.setBorder(topBorder);
         
     }
     
@@ -516,15 +521,15 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                     .addComponent(txtPurchaseOrderNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(transactionDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(borderUnderLine)
-                .addGap(18, 18, 18)
+                .addComponent(borderUnderLine, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(lbTotalQty))
@@ -593,23 +598,18 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
          }
          
          json.put("details", details);
-         
-         System.out.println("json : " + json);
 
          Response response = JavaConnection.put(JavaRoute.imports + "/" + _Id, json);
          JavaConstant.setCircleLoadingCursor(this);
-
-         System.out.println("response : " + response);
          try {
               if (response.isSuccessful()) {
                    JavaConstant.restoreDefaultCursor(this);
-                   String dataString = response.body().string();
-                   dispose();
-                   PurchaseOrder list = new PurchaseOrder(new JFrame(), true);
+                   PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
                    listGetOrder.removeAll();
                    listGetOrder.revalidate();
                    listGetOrder.repaint();
-                   list.getListPurchase(listGetOrder);
+                   purchase.getListPurchase(listGetOrder);
+                   dispose();
                    
               }
          } catch (Exception e) {

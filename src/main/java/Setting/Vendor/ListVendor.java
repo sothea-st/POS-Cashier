@@ -234,7 +234,7 @@ public class ListVendor extends javax.swing.JDialog {
                     getVendor(listGetVendor);
                 } else {
 
-                    Response response = JavaConnection.get(JavaRoute.searchVendor + searchValue);
+                    Response response = JavaConnection.get(JavaRoute.searchVendor + searchValue + "?pageNumber=0&pageSize=100");
 
                     if (response.isSuccessful()) {
                         try {

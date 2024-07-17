@@ -33,6 +33,8 @@ import org.json.JSONObject;
 
 public class ListTax extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public ListTax(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -51,6 +53,7 @@ public class ListTax extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Tax");
         getTax(listGetTax);
+        eventSearchtax();
     }
     
     public void getTax(JPanel jpanelData) {
@@ -211,6 +214,53 @@ public class ListTax extends javax.swing.JDialog {
         listGetTax.repaint();
     }
     
+    //Action Search
+    private void eventSearchtax() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetTax.removeAll();
+                    listGetTax.revalidate();
+                    listGetTax.repaint();
+                    getTax(listGetTax);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchTax + searchValue );
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetTax.removeAll();
+                            listGetTax.revalidate();
+                            listGetTax.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            ListTaxModel data = objMap.readValue(responseData, ListTaxModel.class);
+                            DataTaxModel[] listData = data.getData();
+                            
+                            if (listData.length > 0) {
+                                assignTax(listData, listGetTax);
+                            } else {
+                                listGetTax.removeAll();
+                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
+                                notfound.setLabelName("Not Found!");
+                                listGetTax.add(notfound);
+                                listGetTax.revalidate();
+                                listGetTax.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search tax = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -367,9 +417,6 @@ public class ListTax extends javax.swing.JDialog {
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

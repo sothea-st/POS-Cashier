@@ -11,7 +11,6 @@ import Fonts.WindowFonts;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.DetailPurchaseModelFirst;
 import Model.PurchaseOrder.DetailPurchaseModelSecond;
-import Model.PurchaseOrder.DetailPurchaseModelThird;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Model.PurchaseOrder.PurchaseModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +31,8 @@ import org.json.JSONObject;
 
 public class PurchaseOrder extends javax.swing.JDialog {
 
+    String searchValue;
+    
     public PurchaseOrder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -46,6 +47,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Purchase Order");
         getListPurchase(listGetOrder);
+        eventSearchPuchaseOrder();
     }
     
     public void getListPurchase(JPanel jpanelData) {
@@ -83,11 +85,11 @@ public class PurchaseOrder extends javax.swing.JDialog {
             purchase.add(getPurchase);
         }
 
-        appendPurchaeOrder(purchase, listGetOrder);
+        appendPurchaseOrder(purchase, listGetOrder);
     }
     
     
-    void appendPurchaeOrder(ArrayList<PurchaseModel> listPurchase, JPanel listGetOrder) {
+    void appendPurchaseOrder(ArrayList<PurchaseModel> listPurchase, JPanel listGetOrder) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -185,11 +187,10 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                 Response response = JavaConnection.delete(JavaRoute.imports + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
-                                    PurchaseOrder list = new PurchaseOrder(new JFrame(), true);
                                     listGetOrder.removeAll();
                                     listGetOrder.revalidate();
                                     listGetOrder.repaint();
-                                    list.getListPurchase(listGetOrder);
+                                    getListPurchase(listGetOrder);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -206,10 +207,11 @@ public class PurchaseOrder extends javax.swing.JDialog {
                 
                 b.setId(listData.getId());
                 b.setVendorName(listData.getVendorName());
-                b.setReferenceNo(listData.getTransactionNo());
+                b.setReferenceNo(listData.getReferenceNo());
                 b.setTransactionDate(listData.getTransactionDate());
                 b.setTotalQty(""+listData.getTotalQty());
                 b.setTotalCost("$ " + listData.getTotalCost());
+                b.setTransactionNo(listData.getTransactionNo());
 
                 try {
 
@@ -253,6 +255,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane1 = new javax.swing.JScrollPane();
         listGetOrder = new javax.swing.JPanel();
@@ -292,6 +295,11 @@ public class PurchaseOrder extends javax.swing.JDialog {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Total Cost");
 
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Transaction №");
+
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -299,8 +307,10 @@ public class PurchaseOrder extends javax.swing.JDialog {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -321,7 +331,8 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -421,6 +432,54 @@ public class PurchaseOrder extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
+    //Action Search
+    private void eventSearchPuchaseOrder() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
+                
+                if (searchValue.isEmpty()) {
+                    listGetOrder.removeAll();
+                    listGetOrder.revalidate();
+                    listGetOrder.repaint();
+                    getListPurchase(listGetOrder);
+                } else {
+
+                    Response response = JavaConnection.get(JavaRoute.searchPurchase + searchValue + "?pageNumber=0&pageSize=100");
+
+                    if (response.isSuccessful()) {
+                        try {
+                            listGetOrder.removeAll();
+                            listGetOrder.revalidate();
+                            listGetOrder.repaint();
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
+                            DataPurchaseModel[] listData = data.getData();
+                            
+                            if (listData.length > 0) {
+                                assignPurchase(listData, listGetOrder);
+                            } else {
+                                listGetOrder.removeAll();
+                                PurchaseNoData notfound = new PurchaseNoData();
+                                notfound.setLabelName("Not Found!");
+                                listGetOrder.add(notfound);
+                                listGetOrder.revalidate();
+                                listGetOrder.repaint();
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("err from search purchase = " + e);
+                        }
+                    }
+                }
+            }
+        };
+        searchField.initEvent(events);
+    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -470,6 +529,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel listGetOrder;
     private javax.swing.JPanel panelListProduct;

@@ -385,7 +385,7 @@ public class ListAttribute extends javax.swing.JDialog {
                     getAttribute(listGetAttribute);
                 } else {
 
-                    Response response = JavaConnection.get(JavaRoute.searchAttribute + searchValue);
+                    Response response = JavaConnection.get(JavaRoute.searchAttribute + searchValue + "?pageNumber=0&pageSize=100");
 
                     if (response.isSuccessful()) {
                         try {

@@ -78,6 +78,9 @@ public class JavaRoute {
      public static String searchStatus = "/status/searchStatus/";
      public static String searchCategory = "/category/code/";
 
+     public static String searchTax = "/taxProduct/searchTax/";
+     public static String searchPurchase = "/import/filter/";
+     
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
 
      public static String reportPurchaseOrder = "/v1/reportPurchaseOrder";

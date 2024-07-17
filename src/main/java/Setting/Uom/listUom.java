@@ -232,7 +232,7 @@ public class listUom extends javax.swing.JDialog {
                     getUom(listGetUom);
                 } else {
 
-                    Response response = JavaConnection.get(JavaRoute.searchUom + searchValue);
+                    Response response = JavaConnection.get(JavaRoute.searchUom + searchValue + "?pageNumber=0&pageSize=100");
 
                     if (response.isSuccessful()) {
                         try {

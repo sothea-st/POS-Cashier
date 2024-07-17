@@ -229,7 +229,7 @@ public class ListStatus extends javax.swing.JDialog {
                     getStatus(listGetStatus);
                 } else {
 
-                    Response response = JavaConnection.get(JavaRoute.searchStatus + searchValue);
+                    Response response = JavaConnection.get(JavaRoute.searchStatus + searchValue + "?pageNumber=0&pageSize=100");
 
                     if (response.isSuccessful()) {
                         try {
