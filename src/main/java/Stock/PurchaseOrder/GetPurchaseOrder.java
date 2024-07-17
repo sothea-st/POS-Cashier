@@ -16,6 +16,7 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
     private Icon iconEdit;
     private Icon iconDelete;
     private Icon iconDetail;
+    private String transactionNo;
     
     public GetPurchaseOrder() {
         initComponents();
@@ -100,6 +101,17 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
     public void setIconDetail(Icon iconDetail) {
         this.iconDetail = iconDetail;
     }
+
+    public String getTransactionNo() {
+        return transactionNo;
+    }
+
+    public void setTransactionNo(String transactionNo) {
+        this.transactionNo = transactionNo;
+        lbTranactionNo.setText(transactionNo);
+    }
+    
+    
     
     public void initEvent(ButtonEvent event) {
         btnEdit.addMouseListener(new MouseListener() {
@@ -188,6 +200,7 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
         lbTotalQty = new javax.swing.JLabel();
         lbTotalCost = new javax.swing.JLabel();
         btnEdit = new javax.swing.JLabel();
+        lbTranactionNo = new javax.swing.JLabel();
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -235,12 +248,17 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
         btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
 
+        lbTranactionNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbTranactionNo.setForeground(new java.awt.Color(0, 0, 0));
+        lbTranactionNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTranactionNo.setText("Transaction №");
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addGap(15, 15, 15)
                 .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,7 +267,9 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTranactionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbReferenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -258,7 +278,7 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
                 .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +292,8 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
                         .addComponent(lbId)
                         .addComponent(lbTransactionDate)
                         .addComponent(lbTotalQty)
-                        .addComponent(lbTotalCost))
+                        .addComponent(lbTotalCost)
+                        .addComponent(lbTranactionNo))
                     .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -282,9 +303,7 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 894, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 1129, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -301,6 +320,7 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
     private javax.swing.JLabel lbReferenceNo;
     private javax.swing.JLabel lbTotalCost;
     private javax.swing.JLabel lbTotalQty;
+    private javax.swing.JLabel lbTranactionNo;
     private javax.swing.JLabel lbTransactionDate;
     private javax.swing.JLabel lbVendorName;
     private javax.swing.JPanel panel;
