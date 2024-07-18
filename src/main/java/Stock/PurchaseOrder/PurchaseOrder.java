@@ -2,6 +2,7 @@ package Stock.PurchaseOrder;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
+import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -14,6 +15,7 @@ import Model.PurchaseOrder.DetailPurchaseModelSecond;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Model.PurchaseOrder.PurchaseModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ import org.json.JSONObject;
 public class PurchaseOrder extends javax.swing.JDialog {
 
     String searchValue;
+    private String pageNumber = "0";
+    private long totalPage = 0;
     
     public PurchaseOrder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -48,17 +52,41 @@ public class PurchaseOrder extends javax.swing.JDialog {
         JavaConstant.addTitleAndLogo(this, "Purchase Order");
         getListPurchase(listGetOrder);
         eventSearchPuchaseOrder();
+        groupEvent();
+    }
+    
+    private void groupEvent() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    int _value = Integer.parseInt(value) - 1;
+                    pageNumber = String.valueOf(_value);
+                    getListPurchase(listGetOrder);
+               }
+          };
+          paginationPanel.initEvent(event);
     }
     
     public void getListPurchase(JPanel jpanelData) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.imports + "?pageNumber=0&pageSize=1000");
+            Response response = JavaConnection.get(JavaRoute.imports + "?pageNumber=" + pageNumber + "&pageSize=10");
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
                 DataPurchaseModel[] listData = data.getData();
+                
+                // divide page 
+                double result = (double) data.getCount() / 10; 
+                double roundedResult = Math.ceil(result);
+                totalPage = (int) roundedResult;
+                paginationPanel.setTotalPage((int) data.getCount());
+                // end
+                
+                listGetOrder.removeAll();
+                listGetOrder.revalidate();
+                listGetOrder.repaint();
                 assignPurchase(listData, jpanelData);
             } else {
                 System.err.println("fail loading purchase");
@@ -100,6 +128,16 @@ public class PurchaseOrder extends javax.swing.JDialog {
 
         int x = 0;
         int y = 0;
+        
+        if(listPurchase.size() == 0){
+            listGetOrder.setLayout(new BorderLayout());
+            PurchaseNoData nofound = new PurchaseNoData();
+            listGetOrder.add(nofound, BorderLayout.CENTER);
+            listGetOrder.add(nofound);
+            listGetOrder.revalidate();
+            listGetOrder.repaint();
+        }
+        
         if(listPurchase.size() > 0){
             for (int i = 0; i < listPurchase.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -261,6 +299,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
         listGetOrder = new javax.swing.JPanel();
         button1 = new Button.Button();
         btnCancel = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -352,7 +391,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
         );
         listGetOrderLayout.setVerticalGroup(
             listGetOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(listGetOrder);
@@ -377,19 +416,18 @@ public class PurchaseOrder extends javax.swing.JDialog {
         panelListProductLayout.setHorizontalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListProductLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListProductLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListProductLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelListProductLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1)
-                            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListProductLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         panelListProductLayout.setVerticalGroup(
@@ -402,9 +440,11 @@ public class PurchaseOrder extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -532,6 +572,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel listGetOrder;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListProduct;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

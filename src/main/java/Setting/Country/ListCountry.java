@@ -14,6 +14,7 @@ import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
@@ -36,6 +37,8 @@ import org.json.JSONObject;
 public class ListCountry extends javax.swing.JDialog {
 
     String searchValue;
+    private String pageNumber = "0";
+    private long totalPage = 0;
     
     public ListCountry(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -57,18 +60,43 @@ public class ListCountry extends javax.swing.JDialog {
         
         getListCountry(listGetCountry);
         eventSearchCountry();
+        groupEvent();
         
+    }
+    
+    private void groupEvent() {
+        ButtonEvent event = new ButtonEvent() {
+           @Override
+           public void onMouseClick(String value) {
+               int _value = Integer.parseInt(value) - 1;
+               pageNumber = String.valueOf(_value);
+               getListCountry(listGetCountry);
+           }
+        };
+        paginationPanel.initEvent(event);
     }
     
     public void getListCountry(JPanel jpanelData) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.country + "?pageNumber=0&pageSize=1000");
+            Response response = JavaConnection.get(JavaRoute.country + "?pageNumber=" + pageNumber + "&pageSize=10");
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListCountryModel data = objMap.readValue(responseData, ListCountryModel.class);
                 DataCountryModel[] listData = data.getData();
+                
+                // divide page 
+                double result = (double) data.getCount() / 10; 
+                double roundedResult = Math.ceil(result);
+                totalPage = (int) roundedResult;
+                paginationPanel.setTotalPage((int) data.getCount());
+                // end
+                
+                listGetCountry.removeAll();
+                listGetCountry.revalidate();
+                listGetCountry.repaint();
+                
                 assignCountry(listData, jpanelData);
             } else {
                 System.err.println("fail loading country");
@@ -107,6 +135,17 @@ public class ListCountry extends javax.swing.JDialog {
 
         int x = 0;
         int y = 0;
+        
+        if(list.size() == 0){
+            
+            listGetCountry.setLayout(new BorderLayout());
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+            listGetCountry.add(no, BorderLayout.CENTER);
+            listGetCountry.add(no);
+            listGetCountry.revalidate();
+            listGetCountry.repaint();
+        }
+         
         if(list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -284,6 +323,7 @@ public class ListCountry extends javax.swing.JDialog {
         listGetCountry = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -339,11 +379,11 @@ public class ListCountry extends javax.swing.JDialog {
         listGetCountry.setLayout(listGetCountryLayout);
         listGetCountryLayout.setHorizontalGroup(
             listGetCountryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 664, Short.MAX_VALUE)
         );
         listGetCountryLayout.setVerticalGroup(
             listGetCountryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         jScrollPane.setViewportView(listGetCountry);
@@ -367,19 +407,18 @@ public class ListCountry extends javax.swing.JDialog {
         panelListAttributeLayout.setHorizontalGroup(
             panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListAttributeLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListAttributeLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListAttributeLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelListAttributeLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListAttributeLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane)
+                    .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         panelListAttributeLayout.setVerticalGroup(
@@ -392,9 +431,11 @@ public class ListCountry extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -473,6 +514,7 @@ public class ListCountry extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel listGetCountry;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables
