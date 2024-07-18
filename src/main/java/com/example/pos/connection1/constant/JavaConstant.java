@@ -49,10 +49,10 @@ public class JavaConstant {
         for (int i = 0; i < n; i++) {
             if (str.charAt(i) < '0'
                     || str.charAt(i) > '9') {
-                return false;
+                return false; // false is digit
             }
         }
-        return true;
+        return true; // true is value
     }
 
     public static String insertComma(String str) {

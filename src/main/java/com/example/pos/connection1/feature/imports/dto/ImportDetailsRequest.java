@@ -7,12 +7,9 @@ import jakarta.validation.constraints.NotNull;
 public record ImportDetailsRequest(
      @NotNull(message = JavaMessage.required)
      Integer productId,
-
      @NotNull(message = JavaMessage.required)
      Integer qtyNew,
-
      Integer id,
-
      BigDecimal cost,
      BigDecimal amount,
      String expireDate

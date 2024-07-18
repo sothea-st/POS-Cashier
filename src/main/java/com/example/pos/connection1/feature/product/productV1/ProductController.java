@@ -44,15 +44,15 @@ public class ProductController {
 
      @GetMapping
      public JavaCollectionResponse<?> read(
-               @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-               @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize) {
+               @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+               @RequestParam(name = "pageSize", required = false) Integer pageSize) {
           return productService.read(pageNumber, pageSize);
      }
 
      @GetMapping("/search/{value}")
      public JavaCollectionResponse<?> search(
                @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-               @RequestParam(name = "pageSize", defaultValue = "100", required = false) int pageSize,
+               @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
                @PathVariable("value") String value) {
           return productService.search(pageNumber, pageSize, value);
      }

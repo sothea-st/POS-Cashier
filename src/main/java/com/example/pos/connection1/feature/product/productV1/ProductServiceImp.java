@@ -94,7 +94,8 @@ public class ProductServiceImp implements ProductService {
 
           List<ProductResponseByFilter> data = products.stream()
                     .map(product -> {
-                         Integer availableQty = product.getImportDetail() == null ? 0 : product.getImportDetail().getQtyOld();
+                         Integer availableQty = product.getImportDetail() == null ? 0
+                                   : product.getImportDetail().getQtyOld();
                          return ProductResponseByFilter.builder()
                                    .id(product.getId())
                                    .barcode(product.getBarcode())
@@ -122,23 +123,24 @@ public class ProductServiceImp implements ProductService {
       * @return A collection response containing products for the specified page.
       */
      @Override
-     public JavaCollectionResponse<?> search(int pageNumber, int pageSize, String value) {
+     public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String value) {
           Sort sortById = Sort.by(Sort.Direction.DESC, "id");
           PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-          Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
-          List<ProductResponse> data = pages.getContent().stream()
-                    .filter(p -> {
-                         boolean matchesProNameEn = p.getProNameEn() != null
-                                   && p.getProNameEn().toLowerCase().contains(value.toLowerCase());
-                         boolean matchesBarcode = p.getBarcode() != null
-                                   && p.getBarcode().toLowerCase().contains(value.toLowerCase());
-                         return matchesProNameEn || matchesBarcode; // search both proNameEn or barcode
-                    })
+          Page<Product> products = null;
+          boolean isCheck = JavaConstant.onlyDigits(value, value.length());
+          if (isCheck) {
+               products = productRepository
+                         .findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+          } else {
+               products = productRepository
+                         .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+          }
+
+          List<ProductResponse> data = products.getContent().stream()
                     .map(productMapper::mapToProductResponse)
                     .toList();
-
           return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
+                    .count(products.getTotalElements())
                     .data(data)
                     .build();
      }
@@ -237,17 +239,28 @@ public class ProductServiceImp implements ProductService {
       * @return A collection response containing products for the specified page.
       */
      @Override
-     public JavaCollectionResponse<?> read(int pageNumber, int pageSize) {
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-          Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
-          List<ProductResponse> data = pages.getContent().stream()
-                    .map(productMapper::mapToProductResponse)
-                    .toList();
-          return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
-                    .data(data)
-                    .build();
+     public JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize) {
+          List<ProductResponse> data = null;
+          if (pageNumber == null && pageSize == null) {
+               data = productRepository.findByStatusTrueAndIsDeletedFalseOrderByIdDesc().stream()
+                         .map(productMapper::mapToProductResponse)
+                         .toList();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
+          } else {
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+               Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+               data = pages.getContent().stream()
+                         .map(productMapper::mapToProductResponse)
+                         .toList();
+               return JavaCollectionResponse.builder()
+                         .count(pages.getTotalElements())
+                         .data(data)
+                         .build();
+          }
      }
 
      /**

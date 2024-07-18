@@ -3,7 +3,7 @@ package com.example.pos.connection1.feature.product;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
 import com.example.pos.connection1.entity.Product;
-import com.example.pos.connection1.entity.models.ProductModel;
+ 
 import com.example.pos.connection1.projections.HeadProductProjection;
 
 import org.springframework.data.domain.Page;
@@ -21,11 +21,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         List<Product> findByVendorIdAndStatusTrueAndIsDeletedFalse(int vendorId);
 
         Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
-
+        List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();
         Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
 
+        Page<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
+        Page<Product> findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
 
-        
 
         boolean existsByBarcode(String barcode);
 

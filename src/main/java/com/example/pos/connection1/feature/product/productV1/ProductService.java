@@ -30,7 +30,7 @@ public interface ProductService {
      * @param pageSize   The number of products per page.
      * @return A collection response containing products for the specified page.
      */
-    JavaCollectionResponse<?> read(int pageNumber, int pageSize);
+    JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize);
 
     /**
      * search a collection of products based on pagination parameters.
@@ -39,7 +39,7 @@ public interface ProductService {
      * @param pageSize   The number of products per page.
      * @return A collection response containing products for the specified page.
      */
-    JavaCollectionResponse<?> search(int pageNumber, int pageSize, String value);
+    JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String value);
 
     /**
      * Deletes a product identified by its unique identifier.
