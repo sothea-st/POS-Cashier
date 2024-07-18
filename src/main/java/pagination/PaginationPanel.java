@@ -29,9 +29,6 @@ public class PaginationPanel extends javax.swing.JPanel {
           JavaConstant.setPointer(pageNext);
           setBorder(pageOne);
           checkPageNumber();
-          
-          
-          
      }
 
      public int getTotalPage() {

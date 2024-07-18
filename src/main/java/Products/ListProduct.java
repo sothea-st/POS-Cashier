@@ -146,13 +146,14 @@ public class ListProduct extends javax.swing.JDialog {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
-                    
-                    totalPage = data.getCount();
-                    double result = (double) totalPage / 14;
+
+                    // divide page 
+                    double result = (double) data.getCount() / 14; 
                     double roundedResult = Math.ceil(result);
                     totalPage = (int) roundedResult;
-                    paginationPanel.setTotalPage((int) totalPage);
-                    
+                    paginationPanel.setTotalPage((int) data.getCount());
+                    // end
+
                     listData = data.getData();
                     listGetProduct.removeAll();
                     listGetProduct.revalidate();
@@ -168,10 +169,10 @@ public class ListProduct extends javax.swing.JDialog {
 
      public void setProduct(ProductResponseDetailV1[] listProductData) {
           GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0};
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0};
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
           listGetProduct.setLayout(gridBagLayout);
 
