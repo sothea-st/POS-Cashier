@@ -37,6 +37,7 @@ public class PaginationPanel extends javax.swing.JPanel {
 
      public void setTotalPage(int totalPage) {
           this.totalPage = totalPage;
+          checkPageNumber();
      }
 
      private void checkPageNumber() {
@@ -64,6 +65,9 @@ public class PaginationPanel extends javax.swing.JPanel {
                     setVisiblePage(true, true, true, true);
                     break;
                }
+               default -> {
+                    setVisiblePage(true, true, true, true);
+               }
           }
      }
 
@@ -75,7 +79,6 @@ public class PaginationPanel extends javax.swing.JPanel {
      }
 
      private void setBorder(JLabel label) {
-
           Border border = BorderFactory.createLineBorder(Color.BLACK);
           label.setBorder(border);
      }
@@ -109,6 +112,16 @@ public class PaginationPanel extends javax.swing.JPanel {
           pageFour.setText(String.valueOf(four));
           pageFive.setText(String.valueOf(five));
      }
+     
+     
+     public void resetPage(){
+          page = "pageOne";
+          pageNumber = 1;
+          totalPage = 1;
+          setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
+          setValueText(1, 2, 3, 4, 5);
+          checkPageNumber();
+     };
 
      public void initEvent(ButtonEvent event) {
 
