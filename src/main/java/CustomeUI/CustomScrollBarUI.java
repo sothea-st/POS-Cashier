@@ -4,6 +4,7 @@
  */
 package CustomeUI;
 
+import Color.WindowColor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -22,13 +23,13 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
      // Set the preferred size of the scrollbar
      @Override
      public Dimension getPreferredSize(JComponent c) {
-          return new Dimension(10, super.getPreferredSize(c).height);
+          return new Dimension(8, super.getPreferredSize(c).height);
      }
 
      // Paint the track (the area behind the thumb)
      @Override
      protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-          g.setColor(Color.LIGHT_GRAY); // Set track color
+          g.setColor(WindowColor.slightGreen); // Set track color
           g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height); // Fill track
      }
 
@@ -36,7 +37,8 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
      @Override
      protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
           g.setColor(Color.GRAY); // Set thumb color
-          g.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 2, 2); // Round thumb
+          g.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 0, 0); // Round thumb
+//            g.fillRoundRect(10, 10, 10, 10, 10, 10); remove scrollbar
      }
 
      // Paint the buttons (arrows at the ends of the scrollbar)
