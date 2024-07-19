@@ -159,7 +159,7 @@ public class AddStatus extends javax.swing.JDialog {
                     listGetStatus.removeAll();
                     listGetStatus.revalidate();
                     listGetStatus.repaint();
-                    list.getStatus(listGetStatus);
+                    list.getStatus(listGetStatus,true);
                     dispose();
                 } 
 
@@ -174,7 +174,7 @@ public class AddStatus extends javax.swing.JDialog {
                     listGetStatus.removeAll();
                     listGetStatus.revalidate();
                     listGetStatus.repaint();
-                    list.getStatus(listGetStatus);
+                    list.getStatus(listGetStatus,true);
                     dispose();
                 } 
             }

@@ -196,7 +196,7 @@ public class AddTax extends javax.swing.JDialog {
                     listGetTax.removeAll();
                     listGetTax.revalidate();
                     listGetTax.repaint();
-                    list.getTax(listGetTax);
+                    list.getTax(listGetTax,true);
                     dispose();
                 } 
 
@@ -213,7 +213,7 @@ public class AddTax extends javax.swing.JDialog {
                     listGetTax.removeAll();
                     listGetTax.revalidate();
                     listGetTax.repaint();
-                    list.getTax(listGetTax);
+                    list.getTax(listGetTax,true);
                     dispose();
                 } 
             }

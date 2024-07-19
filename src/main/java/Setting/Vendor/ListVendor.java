@@ -33,7 +33,8 @@ public class ListVendor extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
-    private long totalPage = 0;
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,43 +53,47 @@ public class ListVendor extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Vendor");
         
-        getVendor(listGetVendor);
+        getVendor(listGetVendor,true);
         eventSearchVendor();
-        groupEvent();
+        eventPagination();
     }
 
-    private void groupEvent() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick(String value) {
-                    int _value = Integer.parseInt(value) - 1;
-                    pageNumber = String.valueOf(_value);
-                    getVendor(listGetVendor);
-               }
-          };
-          paginationPanel.initEvent(event);
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getVendor(listGetVendor,true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
     }
     
-    public void getVendor(JPanel jpanelData) {
+    public void getVendor(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.vendor + "?pageNumber=" + pageNumber + "&pageSize=10");
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.vendor + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchVendor + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
                 DataVendorModel[] listData = data.getData();
-                
-                // divide page 
-                double result = (double) data.getCount() / 10; 
-                double roundedResult = Math.ceil(result);
-                totalPage = (int) roundedResult;
-                paginationPanel.setTotalPage((int) data.getCount());
-                // end
-                
-                listGetVendor.removeAll();
-                listGetVendor.revalidate();
-                listGetVendor.repaint();
+
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
                 
                 assignVendor(listData, jpanelData);
             } else {
@@ -120,6 +125,12 @@ public class ListVendor extends javax.swing.JDialog {
         appendVendor(vendor, listGetVendor);
     }
     
+    private void reloadPanel() {
+        listGetVendor.removeAll();
+        listGetVendor.revalidate();
+        listGetVendor.repaint();
+    }
+    
     void appendVendor(ArrayList<VendorModel> list, JPanel listGetVendor) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -128,20 +139,11 @@ public class ListVendor extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetVendor.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
-        
-        if(list.size() == 0){
-            
-            listGetVendor.setLayout(new BorderLayout());
-            NoData no = new NoData();
-            listGetVendor.add(no, BorderLayout.CENTER);
-            listGetVendor.add(no);
-            listGetVendor.revalidate();
-            listGetVendor.repaint();
-        }
-        
+           
         if(list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -206,7 +208,7 @@ public class ListVendor extends javax.swing.JDialog {
                                     listGetVendor.removeAll();
                                     listGetVendor.revalidate();
                                     listGetVendor.repaint();
-                                    list.getVendor(listGetVendor);
+                                    list.getVendor(listGetVendor, true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -266,39 +268,12 @@ public class ListVendor extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetVendor.removeAll();
-                    listGetVendor.revalidate();
-                    listGetVendor.repaint();
-                    getVendor(listGetVendor);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchVendor + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetVendor.removeAll();
-                            listGetVendor.revalidate();
-                            listGetVendor.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListVendorModel data = obj.readValue(responseData, ListVendorModel.class);
-                            DataVendorModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignVendor(listData, listGetVendor);
-                            } else {
-                                listGetVendor.removeAll();
-                                NoData notfound = new NoData();
-                                notfound.setLabelName("Not Found!");
-                                listGetVendor.add(notfound);
-                                listGetVendor.revalidate();
-                                listGetVendor.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search vendor = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getVendor(listGetVendor,true);
+                    return;
                 }
+                getVendor(listGetVendor,false);
             }
         };
         searchField.initEvent(events);
@@ -367,7 +342,7 @@ public class ListVendor extends javax.swing.JDialog {
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -410,7 +385,7 @@ public class ListVendor extends javax.swing.JDialog {
         listGetVendor.setLayout(listGetVendorLayout);
         listGetVendorLayout.setHorizontalGroup(
             listGetVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1053, Short.MAX_VALUE)
         );
         listGetVendorLayout.setVerticalGroup(
             listGetVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

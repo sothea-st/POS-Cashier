@@ -15,7 +15,6 @@ import Model.Attribute.ListAttributeModel;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -36,7 +35,8 @@ public class ListAttribute extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
-    private long totalPage = 0;
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListAttribute(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -55,44 +55,49 @@ public class ListAttribute extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Attribute");
         
-        getAttribute(listGetAttribute);
+        getAttribute(listGetAttribute, true);
         eventSearchAttribute();
-        groupEvent();
+        eventPagination();
     }
     
-    private void groupEvent() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick(String value) {
-                    int _value = Integer.parseInt(value) - 1;
-                    pageNumber = String.valueOf(_value);
-                    getAttribute(listGetAttribute);
-               }
-          };
-          paginationPanel.initEvent(event);
+    
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getAttribute(listGetAttribute, true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
     }
 
-    public void getAttribute(JPanel jpanelData) {
+    public void getAttribute(JPanel jpanelData,boolean isCheck) {
         try {
-
-            Response response = JavaConnection.get(JavaRoute.attribute + "?pageNumber=" + pageNumber + "&pageSize=10");
+            
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.attribute + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchAttribute + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListAttributeModel data = objMap.readValue(responseData, ListAttributeModel.class);
                 DataAttributeModel[] listData = data.getData();
                 
-                // divide page 
-                double result = (double) data.getCount() / 10; 
-                double roundedResult = Math.ceil(result);
-                totalPage = (int) roundedResult;
-                paginationPanel.setTotalPage((int) data.getCount());
-                // end
-                
-                listGetAttribute.removeAll();
-                listGetAttribute.revalidate();
-                listGetAttribute.repaint();
-                
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+
                 assignAttribute(listData, jpanelData);
             } else {
                 System.err.println("fail loading attribute");
@@ -118,6 +123,12 @@ public class ListAttribute extends javax.swing.JDialog {
         appenAttribute(attr, listGetAttribute);
     }
     
+    private void reloadPanel() {
+        listGetAttribute.removeAll();
+        listGetAttribute.revalidate();
+        listGetAttribute.repaint();
+    }
+    
     void appenAttribute(ArrayList<Attribute> listAttribute, JPanel listGetAttribute) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -126,19 +137,10 @@ public class ListAttribute extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetAttribute.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
-        
-        if(listAttribute.size() == 0){
-            
-            listGetAttribute.setLayout(new BorderLayout());
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetAttribute.add(no, BorderLayout.CENTER);
-            listGetAttribute.add(no);
-            listGetAttribute.revalidate();
-            listGetAttribute.repaint();
-        }
         
         if(listAttribute.size() > 0){
             for (int i = 0; i < listAttribute.size(); i++) {
@@ -185,7 +187,7 @@ public class ListAttribute extends javax.swing.JDialog {
                     
                     
                     @Override
-                    public void onRemove(String Key) {  // event delete brand
+                    public void onRemove(String Key) {  // event delete attribute
                         try {
                             UIManager UI = new UIManager();
                             UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -206,7 +208,7 @@ public class ListAttribute extends javax.swing.JDialog {
                                     listGetAttribute.removeAll();
                                     listGetAttribute.revalidate();
                                     listGetAttribute.repaint();
-                                    list.getAttribute(listGetAttribute);
+                                    list.getAttribute(listGetAttribute, true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -420,39 +422,12 @@ public class ListAttribute extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetAttribute.removeAll();
-                    listGetAttribute.revalidate();
-                    listGetAttribute.repaint();
-                    getAttribute(listGetAttribute);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchAttribute + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetAttribute.removeAll();
-                            listGetAttribute.revalidate();
-                            listGetAttribute.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListAttributeModel data = obj.readValue(responseData, ListAttributeModel.class);
-                            DataAttributeModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignAttribute(listData, listGetAttribute);
-                            } else {
-                                listGetAttribute.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetAttribute.add(notfound);
-                                listGetAttribute.revalidate();
-                                listGetAttribute.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search attribute = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getAttribute(listGetAttribute, true);
+                    return;
                 }
+                getAttribute(listGetAttribute, false);
             }
         };
         searchField.initEvent(events);

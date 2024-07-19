@@ -14,7 +14,6 @@ import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
@@ -38,7 +37,8 @@ public class ListCountry extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
-    private long totalPage = 0;
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListCountry(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -58,44 +58,48 @@ public class ListCountry extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Country");
         
-        getListCountry(listGetCountry);
+        getListCountry(listGetCountry, true);
         eventSearchCountry();
-        groupEvent();
+        eventPagination();
         
     }
     
-    private void groupEvent() {
+    private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-           @Override
-           public void onMouseClick(String value) {
-               int _value = Integer.parseInt(value) - 1;
-               pageNumber = String.valueOf(_value);
-               getListCountry(listGetCountry);
-           }
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getListCountry(listGetCountry, true);
+                  }
+             }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getListCountry(JPanel jpanelData) {
+    public void getListCountry(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.country + "?pageNumber=" + pageNumber + "&pageSize=10");
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.country + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchCountry + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListCountryModel data = objMap.readValue(responseData, ListCountryModel.class);
                 DataCountryModel[] listData = data.getData();
                 
-                // divide page 
-                double result = (double) data.getCount() / 10; 
-                double roundedResult = Math.ceil(result);
-                totalPage = (int) roundedResult;
-                paginationPanel.setTotalPage((int) data.getCount());
-                // end
-                
-                listGetCountry.removeAll();
-                listGetCountry.revalidate();
-                listGetCountry.repaint();
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
                 
                 assignCountry(listData, jpanelData);
             } else {
@@ -123,6 +127,12 @@ public class ListCountry extends javax.swing.JDialog {
 
         appendCountry(country, listGetCountry);
     }
+     
+    private void reloadPanel() {
+        listGetCountry.removeAll();
+        listGetCountry.revalidate();
+        listGetCountry.repaint();
+    }
     
     void appendCountry(ArrayList<CountryModel> list, JPanel listGetCountry) {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -132,20 +142,11 @@ public class ListCountry extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetCountry.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
-        
-        if(list.size() == 0){
-            
-            listGetCountry.setLayout(new BorderLayout());
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetCountry.add(no, BorderLayout.CENTER);
-            listGetCountry.add(no);
-            listGetCountry.revalidate();
-            listGetCountry.repaint();
-        }
-         
+
         if(list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -190,7 +191,7 @@ public class ListCountry extends javax.swing.JDialog {
                     
                     
                     @Override
-                    public void onRemove(String Key) {  // event delete brand
+                    public void onRemove(String Key) {  // event delete country
                         try {
                             UIManager UI = new UIManager();
                             UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -209,7 +210,7 @@ public class ListCountry extends javax.swing.JDialog {
                                     listGetCountry.removeAll();
                                     listGetCountry.revalidate();
                                     listGetCountry.repaint();
-                                    list.getListCountry(listGetCountry);
+                                    list.getListCountry(listGetCountry,true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -271,39 +272,12 @@ public class ListCountry extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetCountry.removeAll();
-                    listGetCountry.revalidate();
-                    listGetCountry.repaint();
-                    getListCountry(listGetCountry);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchCountry + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetCountry.removeAll();
-                            listGetCountry.revalidate();
-                            listGetCountry.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListCountryModel data = obj.readValue(responseData, ListCountryModel.class);
-                            DataCountryModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignCountry(listData, listGetCountry);
-                            } else {
-                                listGetCountry.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetCountry.add(notfound);
-                                listGetCountry.revalidate();
-                                listGetCountry.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search country = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getListCountry(listGetCountry, true);
+                    return;
                 }
+                getListCountry(listGetCountry, false);
             }
         };
         searchField.initEvent(events);

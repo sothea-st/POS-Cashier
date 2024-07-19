@@ -35,7 +35,8 @@ public class ListStatus extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
-    private long totalPage = 0;
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -55,43 +56,48 @@ public class ListStatus extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Status");
 
-        getStatus(listGetStatus);
+        getStatus(listGetStatus,true);
         eventSearchStatus();
-        groupEvent();
+        eventPagination();
+        
     }
     
-    private void groupEvent() {
+    private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-           @Override
-           public void onMouseClick(String value) {
-               int _value = Integer.parseInt(value) - 1;
-               pageNumber = String.valueOf(_value);
-               getStatus(listGetStatus);
-           }
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getStatus(listGetStatus,true);
+                  }
+             }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getStatus(JPanel jpanelData) {
+    public void getStatus(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.status + "?pageNumber=" + pageNumber + "&pageSize=10");
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.status + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchStatus + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListStatusModel data = objMap.readValue(responseData, ListStatusModel.class);
                 GetStatusModel[] listData = data.getData();
                 
-                // divide page 
-                double result = (double) data.getCount() / 10; 
-                double roundedResult = Math.ceil(result);
-                totalPage = (int) roundedResult;
-                paginationPanel.setTotalPage((int) data.getCount());
-                // end
-                
-                listGetStatus.removeAll();
-                listGetStatus.revalidate();
-                listGetStatus.repaint();
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
                 
                 assignStatus(listData, jpanelData);
             } else {
@@ -118,6 +124,11 @@ public class ListStatus extends javax.swing.JDialog {
         appendStatus(status, listGetStatus);
     }
     
+    private void reloadPanel() {
+        listGetStatus.removeAll();
+        listGetStatus.revalidate();
+        listGetStatus.repaint();
+    }
     
     void appendStatus(ArrayList<StatusModel> listStatus, JPanel listGetStatus) {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -127,19 +138,10 @@ public class ListStatus extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetStatus.setLayout(gridBagLayout);
-
+        reloadPanel();
+        
         int x = 0;
         int y = 0;
-        
-        if(listStatus.size() == 0){
-            
-            listGetStatus.setLayout(new BorderLayout());
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetStatus.add(no, BorderLayout.CENTER);
-            listGetStatus.add(no);
-            listGetStatus.revalidate();
-            listGetStatus.repaint();
-        }
         
         if(listStatus.size() > 0){
             for (int i = 0; i < listStatus.size(); i++) {
@@ -184,7 +186,7 @@ public class ListStatus extends javax.swing.JDialog {
                     
                     
                     @Override
-                    public void onRemove(String Key) {  // event delete brand
+                    public void onRemove(String Key) {  // event delete status
                         try {
                             UIManager UI = new UIManager();
                             UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -205,7 +207,7 @@ public class ListStatus extends javax.swing.JDialog {
                                     listGetStatus.removeAll();
                                     listGetStatus.revalidate();
                                     listGetStatus.repaint();
-                                    list.getStatus(listGetStatus);
+                                    list.getStatus(listGetStatus,true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -262,39 +264,13 @@ public class ListStatus extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetStatus.removeAll();
-                    listGetStatus.revalidate();
-                    listGetStatus.repaint();
-                    getStatus(listGetStatus);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchStatus + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetStatus.removeAll();
-                            listGetStatus.revalidate();
-                            listGetStatus.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListStatusModel data = obj.readValue(responseData, ListStatusModel.class);
-                            GetStatusModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignStatus(listData, listGetStatus);
-                            } else {
-                                listGetStatus.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetStatus.add(notfound);
-                                listGetStatus.revalidate();
-                                listGetStatus.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search status = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getStatus(listGetStatus,true);
+                    return;
                 }
+                getStatus(listGetStatus,false);
+                
             }
         };
         searchField.initEvent(events);

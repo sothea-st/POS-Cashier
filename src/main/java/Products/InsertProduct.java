@@ -839,10 +839,10 @@ public class InsertProduct extends javax.swing.JDialog {
                          String reason = error.getString("reason");
                          JOptionPane.showMessageDialog(this, reason);
                     } else {
-                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
+//                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
+//                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          dispose();
-                         listProduct.getProduct(listGetProduct);
+                         listProduct.getProduct(listGetProduct,true);
                     }
                }
           } catch (Exception e) {
@@ -906,19 +906,20 @@ public class InsertProduct extends javax.swing.JDialog {
           txtProductName.setLabelTextField("Product Name");
 
           txtBarcode.setFocus();
+          reloadList();
+//          System.out.println(" add category id : " + jdLogin.getCatId());
+//          jdLogin.onClickCategory("new items", jdLogin.getCatId());
+//          panelCategory.getComponents()[1].setBackground(WindowColor.black);
+//          panelCategory.revalidate();
+//          panelCategory.repaint();
+     }
 
+     public void reloadList() {
           // refresh list product
           listGetProduct.removeAll();
           listGetProduct.repaint();
           listGetProduct.revalidate();
-          listProduct.getProduct(listGetProduct);
-
-          System.out.println(" add category id : " + jdLogin.getCatId());
-          jdLogin.onClickCategory("new items", jdLogin.getCatId());
-          panelCategory.getComponents()[1].setBackground(WindowColor.black);
-          panelCategory.revalidate();
-          panelCategory.repaint();
-
+          listProduct.getProduct(listGetProduct,true);
      }
 
      public ListProduct getListProduct() {
@@ -949,6 +950,7 @@ public class InsertProduct extends javax.swing.JDialog {
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
          dispose();
          ImportFile importF = new ImportFile(new JFrame(), true);
+         importF.setInsertProduct(this);
          importF.setVisible(true);
 
     }//GEN-LAST:event_button1MouseClicked

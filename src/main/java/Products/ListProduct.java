@@ -8,6 +8,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Controller.ActionSearchProductController.ActionSearchProd;
+import Controller.ActionSearchProductController.ActionSearchProduct;
 import CustomeUI.CustomScrollBarUI;
 
 import Event.ButtonEvent;
@@ -21,6 +22,7 @@ import Model.ProductModelV1.ProductResponseV1;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -65,6 +67,8 @@ public class ListProduct extends javax.swing.JDialog {
      ProductResponseDetailV1[] listData;
      private String pageNumber = "0";
      private long totalPage = 0;
+     private int pageSize = 14;
+     private boolean isCheckSearch = true;
 
      ArrayList<ProductModel> listProduct = new ArrayList<>();
 
@@ -98,7 +102,7 @@ public class ListProduct extends javax.swing.JDialog {
           setBackground();
           panelListProduct.setBackground(WindowColor.mediumGreen);
           header.setBackground(WindowColor.darkGreen);
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
           eventSearchProduct(this);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 //        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
@@ -119,17 +123,19 @@ public class ListProduct extends javax.swing.JDialog {
           JavaConstant.setPointer(active);
           JavaConstant.setPointer(inActive);
 
-          groupEvent();
+          eventPagination();
 
      }
 
-     private void groupEvent() {
+     private void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick(String value) {
-                    int _value = Integer.parseInt(value) - 1;
-                    pageNumber = String.valueOf(_value);
-                    getProduct(listGetProduct);
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getProduct(listGetProduct, true);
+                    }
                }
           };
           paginationPanel.initEvent(event);
@@ -139,25 +145,28 @@ public class ListProduct extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
      }
 
-     public void getProduct(JPanel jpanelData) {
+     public void getProduct(JPanel jpanelData, boolean isCheck) {
           try {
-               Response response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=14");
+               Response response = null;
+               if (isCheck) { // isCheck true get itmes
+                    response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+               } else { // isCheck false search
+                    isCheckSearch = false;
+                    response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
+               }
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
 
-                    // divide page 
-                    double result = (double) data.getCount() / 14; 
-                    double roundedResult = Math.ceil(result);
-                    totalPage = (int) roundedResult;
-                    paginationPanel.setTotalPage((int) data.getCount());
-                    // end
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
+                    } else {
+                         paginationPanel.resetPage();
+                    }
 
                     listData = data.getData();
-                    listGetProduct.removeAll();
-                    listGetProduct.revalidate();
-                    listGetProduct.repaint();
                     setProduct(listData);
                } else {
                     System.err.println("fail loading product");
@@ -168,6 +177,10 @@ public class ListProduct extends javax.swing.JDialog {
      }
 
      public void setProduct(ProductResponseDetailV1[] listProductData) {
+
+          listGetProduct.removeAll();
+          listGetProduct.revalidate();
+          listGetProduct.repaint();
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -269,10 +282,10 @@ public class ListProduct extends javax.swing.JDialog {
                          listGetProduct.removeAll();
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
-                         getProduct(listGetProduct);
-                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
+                         getProduct(listGetProduct, true);
 
+//                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
+//                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          System.out.println("Successful deleted ");
                     }
                } else {
@@ -324,6 +337,24 @@ public class ListProduct extends javax.swing.JDialog {
           }
      }
 
+//     private void search() {
+//          isCheckSearch = false;
+//          Response response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
+//          if (response.isSuccessful()) {
+//               String responseData;
+//               try {
+//                    responseData = response.body().string();
+//                    ObjectMapper objMap = new ObjectMapper();
+//                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
+//                    paginationPanel.resetPage();
+//                    listData = data.getData();
+//                    setProduct(listData);
+//               } catch (IOException ex) {
+//                    Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
+//               }
+//
+//          }
+//     }
      //Action Search
      private void eventSearchProduct(ListProduct listP) {
           // this event was called when user type on searchTextField 
@@ -332,20 +363,12 @@ public class ListProduct extends javax.swing.JDialog {
                public void onKeyType() {
                     searchValue = searchField.getValueTextSearch();
                     if (searchValue.isEmpty()) {
-                         listGetProduct.removeAll();
-                         listGetProduct.revalidate();
-                         listGetProduct.repaint();
-                         getProduct(listGetProduct);
-                    } else {
-                         listGetProduct.removeAll();
-                         ActionSearchProd a = new ActionSearchProd();
-                         a.setCategory(panelCategory);
-                         a.setPanelProduct(panelProduct);
-                         a.setJdLogin(jdLogin);
-                         a.searchProducts(searchValue, listGetProduct, listP);
-                         listGetProduct.revalidate();
-                         listGetProduct.repaint();
+                         isCheckSearch = true;
+                         pageNumber = "0";
+                         getProduct(listGetProduct, true);
+                         return;
                     }
+                    getProduct(listGetProduct, false);
                }
           };
           searchField.initEvent(event);
@@ -681,23 +704,49 @@ public class ListProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_button1MouseClicked
 
      private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked
-          msgPrint(PrintToCSV.folderPath);
-          PrintToCSV.exportToCSV(listData);
+          exportFunc("csv");
      }//GEN-LAST:event_btnCsvMouseClicked
 
      private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
-          try {
-               msgPrint(PrintListPDF.folderPath);
-               PrintListPDF.printListPdf(listData);
-          } catch (IOException ex) {
-               Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
-          }
+          exportFunc("pdf");
      }//GEN-LAST:event_btnPdfMouseClicked
 
      private void btnExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcelMouseClicked
-          msgPrint(PrintToExcel.folderPath);
-          PrintToExcel.toExcel(listData);
+          exportFunc("excel");
      }//GEN-LAST:event_btnExcelMouseClicked
+
+     private void exportFunc(String typeExport) {
+          setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+          Response response = JavaConnection.get(JavaRoute.productV1);
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
+                    setCursor(Cursor.getDefaultCursor());
+                    switch (typeExport) {
+                         case "excel" -> {
+                              msgPrint(PrintToExcel.folderPath);
+                              PrintToExcel.toExcel(data.getData());
+                              break;
+                         }
+                         case "pdf" -> {
+                              msgPrint(PrintListPDF.folderPath);
+                              PrintListPDF.printListPdf(data.getData());
+                              break;
+                         }
+                         case "csv" -> {
+                              msgPrint(PrintToCSV.folderPath);
+                              PrintToCSV.exportToCSV(data.getData());
+                              break;
+                         }
+                    }
+
+               }
+          } catch (Exception e) {
+               System.out.println("error export : " + e);
+          }
+     }
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
@@ -708,7 +757,7 @@ public class ListProduct extends javax.swing.JDialog {
           removeBorder(inActive);
           allProduct.setBorder(new UnderlineBorder());
           status = "allProduct";
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
      }//GEN-LAST:event_allProductMouseClicked
 
      private void activeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activeMouseClicked
@@ -716,7 +765,8 @@ public class ListProduct extends javax.swing.JDialog {
           removeBorder(inActive);
           active.setBorder(new UnderlineBorder());
           status = "active";
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
+
 
      }//GEN-LAST:event_activeMouseClicked
 
@@ -725,7 +775,8 @@ public class ListProduct extends javax.swing.JDialog {
           removeBorder(allProduct);
           inActive.setBorder(new UnderlineBorder());
           status = "inActive";
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
+
 
      }//GEN-LAST:event_inActiveMouseClicked
 

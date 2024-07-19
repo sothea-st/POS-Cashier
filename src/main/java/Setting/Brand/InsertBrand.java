@@ -178,7 +178,7 @@ public class InsertBrand extends javax.swing.JDialog {
                     listGetBrand.removeAll();
                     listGetBrand.revalidate();
                     listGetBrand.repaint();
-                    list.getBrand(listGetBrand);
+                    list.getBrand(listGetBrand,true);
                     dispose();
 
                 } else if (response.code() == 500) {
@@ -200,7 +200,7 @@ public class InsertBrand extends javax.swing.JDialog {
                     listGetBrand.removeAll();
                     listGetBrand.revalidate();
                     listGetBrand.repaint();
-                    list.getBrand(listGetBrand);
+                    list.getBrand(listGetBrand, true);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");

@@ -36,7 +36,8 @@ public class listUom extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
-    private long totalPage = 0;
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public listUom(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -56,44 +57,48 @@ public class listUom extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "UOM");
         
-        getUom(listGetUom);
+        getUom(listGetUom,true);
         eventSearchUom();
-        groupEvent();
+        eventPagination();
     }
     
-    private void groupEvent() {
+    private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-           @Override
-           public void onMouseClick(String value) {
-               int _value = Integer.parseInt(value) - 1;
-               pageNumber = String.valueOf(_value);
-               getUom(listGetUom);
-           }
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getUom(listGetUom,true);
+                  }
+             }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getUom(JPanel jpanelData) {
+    public void getUom(JPanel jpanelData, boolean isCheck) {
         try {
+            
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchUom + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
 
-            Response response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize=10");
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListUomModel data = objMap.readValue(responseData, ListUomModel.class);
                 DataUomModel[] listData = data.getData();
                 
-                // divide page 
-                double result = (double) data.getCount() / 10; 
-                double roundedResult = Math.ceil(result);
-                totalPage = (int) roundedResult;
-                paginationPanel.setTotalPage((int) data.getCount());
-                // end
-                
-                listGetUom.removeAll();
-                listGetUom.revalidate();
-                listGetUom.repaint();
-                
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+                              
                 assignUom(listData, jpanelData);
             } else {
                 System.err.println("fail loading uom");
@@ -119,6 +124,12 @@ public class listUom extends javax.swing.JDialog {
         appendUom(uom, listGetUom);
     }
     
+    private void reloadPanel() {
+        listGetUom.removeAll();
+        listGetUom.revalidate();
+        listGetUom.repaint();
+    }
+    
     void appendUom(ArrayList<UomModel> listUom, JPanel listGetUom) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -127,20 +138,11 @@ public class listUom extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetUom.setLayout(gridBagLayout);
-
+        reloadPanel();
+        
         int x = 0;
         int y = 0;
-        
-        if(listUom.size() == 0){
-            
-            listGetUom.setLayout(new BorderLayout());
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetUom.add(no, BorderLayout.CENTER);
-            listGetUom.add(no);
-            listGetUom.revalidate();
-            listGetUom.repaint();
-        }
-        
+             
         if(listUom.size() > 0){
             for (int i = 0; i < listUom.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -207,7 +209,7 @@ public class listUom extends javax.swing.JDialog {
                                     listGetUom.removeAll();
                                     listGetUom.revalidate();
                                     listGetUom.repaint();
-                                    list.getUom(listGetUom);
+                                    list.getUom(listGetUom,true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -264,39 +266,12 @@ public class listUom extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetUom.removeAll();
-                    listGetUom.revalidate();
-                    listGetUom.repaint();
-                    getUom(listGetUom);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchUom + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetUom.removeAll();
-                            listGetUom.revalidate();
-                            listGetUom.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListUomModel data = obj.readValue(responseData, ListUomModel.class);
-                            DataUomModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignUom(listData, listGetUom);
-                            } else {
-                                listGetUom.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetUom.add(notfound);
-                                listGetUom.revalidate();
-                                listGetUom.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search uom = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getUom(listGetUom,true);
+                    return;
                 }
+                getUom(listGetUom,false);
             }
         };
         searchField.initEvent(events);

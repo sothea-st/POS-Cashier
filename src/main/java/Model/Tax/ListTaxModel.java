@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 
 public class ListTaxModel {
-    private String msg;
+    private Integer count;
     private DataTaxModel[] data;
 }

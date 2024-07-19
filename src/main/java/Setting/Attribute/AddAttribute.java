@@ -178,7 +178,7 @@ public class AddAttribute extends javax.swing.JDialog {
                     listGetAttribute.removeAll();
                     listGetAttribute.revalidate();
                     listGetAttribute.repaint();
-                    list.getAttribute(listGetAttribute);
+                    list.getAttribute(listGetAttribute,true);
                     dispose();
                 } 
 
@@ -193,7 +193,7 @@ public class AddAttribute extends javax.swing.JDialog {
                     listGetAttribute.removeAll();
                     listGetAttribute.revalidate();
                     listGetAttribute.repaint();
-                    list.getAttribute(listGetAttribute);
+                    list.getAttribute(listGetAttribute, true);
                     dispose();
                 } 
             }

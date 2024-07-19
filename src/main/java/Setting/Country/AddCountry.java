@@ -259,7 +259,7 @@ public class AddCountry extends javax.swing.JDialog {
                         listGetCountry.removeAll();
                         listGetCountry.revalidate();
                         listGetCountry.repaint();
-                        list.getListCountry(listGetCountry);
+                        list.getListCountry(listGetCountry,true);
                         dispose();
                    } else {
                         JOptionPane.showMessageDialog(this, "Save Failed!");
@@ -273,7 +273,7 @@ public class AddCountry extends javax.swing.JDialog {
                         listGetCountry.removeAll();
                         listGetCountry.revalidate();
                         listGetCountry.repaint();
-                        list.getListCountry(listGetCountry);
+                        list.getListCountry(listGetCountry,true);
                         dispose();
                    } else {
                         JOptionPane.showMessageDialog(this, "Save Failed!");

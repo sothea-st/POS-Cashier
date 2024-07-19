@@ -301,7 +301,6 @@ public class ActionProduct {
                          //===================================
                          int qty = Integer.valueOf(product.getQty());
 
-                         System.out.println("product status : " + listData.getProductStatus());
                          if (listData.getProductStatus() == null) {
                               j.setMessage("Products are not avalible for sale!");
                               j.setVisible(true);
@@ -424,9 +423,14 @@ public class ActionProduct {
                                    try {
                                         // Task to be executed
                                         if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
-                                             product.setProductImage(JavaConstant.urlImage + listData.getProImageName());
+                                             product.setProductImage(JavaBaseUrl.baseUrlImage + listData.getProImageName());
+                                             boolean imageExists = JavaConstant.checkImageExists(JavaBaseUrl.baseUrlImage + listData.getProImageName());
+                                             if (!imageExists) {
+                                                  product.setProductImage(JavaBaseUrl.baseUrlDefaultImage);
+                                             }
+
                                         } else {
-                                             product.setProductImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
+                                             product.setProductImage(JavaBaseUrl.baseUrlBgImage + listData.getProImageName());
                                         }
 
                                    } catch (IOException ex) {

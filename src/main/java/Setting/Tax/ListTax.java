@@ -10,7 +10,6 @@ import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.Tax.DataTaxModel;
 import Model.Tax.DetailTaxModel;
-import Model.Tax.DetailTaxSuccessModel;
 import Model.Tax.ListTaxModel;
 import Model.Tax.TaxModel;
 import Setting.Category.NoDataAvaibalePanel;
@@ -34,6 +33,9 @@ import org.json.JSONObject;
 public class ListTax extends javax.swing.JDialog {
 
     String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListTax(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,19 +54,48 @@ public class ListTax extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Tax");
-        getTax(listGetTax);
+        getTax(listGetTax,true);
         eventSearchtax();
+        eventPagination();
     }
     
-    public void getTax(JPanel jpanelData) {
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getTax(listGetTax,true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
+    }
+    
+    public void getTax(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.tax );
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.tax + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchTax + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListTaxModel data = objMap.readValue(responseData, ListTaxModel.class);
                 DataTaxModel[] listData = data.getData();
+                
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+                
                 assignTax(listData, jpanelData);
             } else {
                 System.err.println("fail loading tax");
@@ -91,6 +122,12 @@ public class ListTax extends javax.swing.JDialog {
         appendTax(tax, listGetTax);
     }
     
+    private void reloadPanel() {
+        listGetTax.removeAll();
+        listGetTax.revalidate();
+        listGetTax.repaint();
+    }
+    
     void appendTax(ArrayList<TaxModel> list, JPanel listGetTax) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -99,6 +136,7 @@ public class ListTax extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetTax.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
@@ -127,8 +165,7 @@ public class ListTax extends javax.swing.JDialog {
                             Response response = JavaConnection.get(JavaRoute.tax + "/" + listData.getId());
                             String responseData = response.body().string();
                             ObjectMapper objMap = new ObjectMapper();
-                            DetailTaxSuccessModel data = objMap.readValue(responseData, DetailTaxSuccessModel.class);
-                            DetailTaxModel listData = data.getData();
+                            DetailTaxModel listData = objMap.readValue(responseData, DetailTaxModel.class);
 
                             edit.setId(listData.getId());
                             edit.setListGetTax(listGetTax);
@@ -167,7 +204,7 @@ public class ListTax extends javax.swing.JDialog {
                                     listGetTax.removeAll();
                                     listGetTax.revalidate();
                                     listGetTax.repaint();
-                                    list.getTax(listGetTax);
+                                    list.getTax(listGetTax,true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -223,40 +260,12 @@ public class ListTax extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetTax.removeAll();
-                    listGetTax.revalidate();
-                    listGetTax.repaint();
-                    getTax(listGetTax);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchTax + searchValue );
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetTax.removeAll();
-                            listGetTax.revalidate();
-                            listGetTax.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper objMap = new ObjectMapper();
-                            ListTaxModel data = objMap.readValue(responseData, ListTaxModel.class);
-                            DataTaxModel[] listData = data.getData();
-                            
-                            if (listData.length > 0) {
-                                assignTax(listData, listGetTax);
-                            } else {
-                                listGetTax.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetTax.add(notfound);
-                                listGetTax.revalidate();
-                                listGetTax.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search tax = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getTax(listGetTax,true);
+                    return;
                 }
+                getTax(listGetTax,false);
             }
         };
         searchField.initEvent(events);
@@ -276,6 +285,7 @@ public class ListTax extends javax.swing.JDialog {
         listGetTax = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -359,19 +369,18 @@ public class ListTax extends javax.swing.JDialog {
         panelListAttributeLayout.setHorizontalGroup(
             panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListAttributeLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListAttributeLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListAttributeLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelListAttributeLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListAttributeLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         panelListAttributeLayout.setVerticalGroup(
@@ -385,8 +394,10 @@ public class ListTax extends javax.swing.JDialog {
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -465,6 +476,7 @@ public class ListTax extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel listGetTax;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

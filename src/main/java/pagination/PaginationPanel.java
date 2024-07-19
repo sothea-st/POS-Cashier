@@ -35,8 +35,11 @@ public class PaginationPanel extends javax.swing.JPanel {
           return totalPage;
      }
 
-     public void setTotalPage(int totalPage) {
-          this.totalPage = totalPage;
+     public void setTotalPage(long totalPage ,int pageSize) {
+          double result = (double) totalPage / pageSize;
+          double roundedResult = Math.ceil(result);
+          this.totalPage = (int) roundedResult;
+          checkPageNumber();
      }
 
      private void checkPageNumber() {
@@ -64,6 +67,9 @@ public class PaginationPanel extends javax.swing.JPanel {
                     setVisiblePage(true, true, true, true);
                     break;
                }
+               default -> {
+                    setVisiblePage(true, true, true, true);
+               }
           }
      }
 
@@ -75,7 +81,6 @@ public class PaginationPanel extends javax.swing.JPanel {
      }
 
      private void setBorder(JLabel label) {
-
           Border border = BorderFactory.createLineBorder(Color.BLACK);
           label.setBorder(border);
      }
@@ -109,6 +114,15 @@ public class PaginationPanel extends javax.swing.JPanel {
           pageFour.setText(String.valueOf(four));
           pageFive.setText(String.valueOf(five));
      }
+
+     public void resetPage() {
+          page = "pageOne";
+          pageNumber = 1;
+          totalPage = 1;
+          setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
+          setValueText(1, 2, 3, 4, 5);
+          checkPageNumber();
+     };
 
      public void initEvent(ButtonEvent event) {
 
@@ -147,10 +161,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    previousPage.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    previousPage.setForeground(WindowColor.black);
                }
 
                @Override
@@ -210,10 +226,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    pageNext.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    pageNext.setForeground(WindowColor.black);
                }
 
                @Override
@@ -234,10 +252,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    pageOne.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    pageOne.setForeground(WindowColor.black);
                }
 
                @Override
@@ -272,10 +292,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    pageTwo.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    pageTwo.setForeground(WindowColor.black);
                }
 
                @Override
@@ -310,10 +332,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    pageThree.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    pageThree.setForeground(WindowColor.black);
                }
 
                @Override
@@ -348,10 +372,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    pageFour.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    pageFour.setForeground(WindowColor.black);
                }
 
                @Override
@@ -375,10 +401,12 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    pageFive.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    pageFive.setForeground(WindowColor.black);
                }
 
                @Override

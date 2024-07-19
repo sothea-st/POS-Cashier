@@ -4,6 +4,7 @@
  */
 package pdf;
 
+import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
 import Model.ProductModelV1.ProductResponseDetailV1;
 import com.itextpdf.io.image.ImageData;
@@ -65,14 +66,14 @@ public class PrintListPDF {
                for (ProductResponseDetailV1 p : listProduct) {
                     String url = null;
                     if (p.getProImageName().contains("media/file/crm/uploadfile/")) {
-                         url = "http://103.101.80.108:8082//" + p.getProImageName();
+                         url = JavaBaseUrl.baseUrlImage + p.getProImageName();
                     } else {
-                         url = "http://localhost:8090/api/public/addImageForBackground/" + p.getProImageName();
+                         url = JavaBaseUrl.baseUrlBgImage + p.getProImageName();
                     }
 
                     boolean imageExists = JavaConstant.checkImageExists(url);
                     if (!imageExists) {
-                         url = "http://localhost:8090/api/public/addImageForBackground/default.jpg";
+                         url = JavaBaseUrl.baseUrlDefaultImage;
                     }
                     dataList.add(new Object[]{
                          String.valueOf(p.getBarcode()),
