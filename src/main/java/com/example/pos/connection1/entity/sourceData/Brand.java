@@ -33,8 +33,6 @@ public class Brand {
     private String brandNameEn;
 
     @Column(name = "brand_name_kh")
-    @NotBlank(message = JavaMessage.required)
-    @NotNull(message = JavaMessage.required)
     private String brandNameKh;
 
     @Column(name = "create_by")
