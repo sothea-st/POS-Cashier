@@ -608,7 +608,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                    listGetOrder.removeAll();
                    listGetOrder.revalidate();
                    listGetOrder.repaint();
-                   purchase.getListPurchase(listGetOrder);
+                   purchase.getListPurchase(listGetOrder,true);
                    dispose();
                    
               }

@@ -68,7 +68,7 @@ public class ListProduct extends javax.swing.JDialog {
      private String pageNumber = "0";
      private long totalPage = 0;
      private int pageSize = 14;
-     private boolean isCheck = true;
+     private boolean isCheckSearch = true;
 
      ArrayList<ProductModel> listProduct = new ArrayList<>();
 
@@ -102,7 +102,7 @@ public class ListProduct extends javax.swing.JDialog {
           setBackground();
           panelListProduct.setBackground(WindowColor.mediumGreen);
           header.setBackground(WindowColor.darkGreen);
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
           eventSearchProduct(this);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 //        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
@@ -123,20 +123,19 @@ public class ListProduct extends javax.swing.JDialog {
           JavaConstant.setPointer(active);
           JavaConstant.setPointer(inActive);
 
-          groupEvent();
+          eventPagination();
 
      }
 
-     private void groupEvent() {
+     private void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick(String value) {
-                    if (isCheck) {
-                         int _value = Integer.parseInt(value) - 1;
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                          pageNumber = String.valueOf(_value);
-                         getProduct(listGetProduct);
+                         getProduct(listGetProduct, true);
                     }
-
                }
           };
           paginationPanel.initEvent(event);
@@ -146,21 +145,26 @@ public class ListProduct extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
      }
 
-     public void getProduct(JPanel jpanelData) {
+     public void getProduct(JPanel jpanelData, boolean isCheck) {
           try {
-               Response response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+               Response response = null;
+               if (isCheck) { // isCheck true get itmes
+                    response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+               } else { // isCheck false search
+                    isCheckSearch = false;
+                    response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
+               }
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
 
-                    // divide page 
-                    double result = (double) data.getCount() / pageSize;
-                    double roundedResult = Math.ceil(result);
-                    totalPage = (int) roundedResult;
-                    paginationPanel.setTotalPage((int) totalPage);
-                    // end
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
+                    } else {
+                         paginationPanel.resetPage();
+                    }
 
                     listData = data.getData();
                     setProduct(listData);
@@ -278,10 +282,10 @@ public class ListProduct extends javax.swing.JDialog {
                          listGetProduct.removeAll();
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
-                         getProduct(listGetProduct);
-                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
-                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
+                         getProduct(listGetProduct, true);
 
+//                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
+//                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          System.out.println("Successful deleted ");
                     }
                } else {
@@ -333,25 +337,24 @@ public class ListProduct extends javax.swing.JDialog {
           }
      }
 
-     private void search() {
-          isCheck = false;
-          Response response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=" + pageSize);
-          if (response.isSuccessful()) {
-               String responseData;
-               try {
-                    responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
-                    paginationPanel.resetPage();
-                    listData = data.getData();
-                    setProduct(listData);
-               } catch (IOException ex) {
-                    Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
-               }
-
-          }
-     }
-
+//     private void search() {
+//          isCheckSearch = false;
+//          Response response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
+//          if (response.isSuccessful()) {
+//               String responseData;
+//               try {
+//                    responseData = response.body().string();
+//                    ObjectMapper objMap = new ObjectMapper();
+//                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
+//                    paginationPanel.resetPage();
+//                    listData = data.getData();
+//                    setProduct(listData);
+//               } catch (IOException ex) {
+//                    Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
+//               }
+//
+//          }
+//     }
      //Action Search
      private void eventSearchProduct(ListProduct listP) {
           // this event was called when user type on searchTextField 
@@ -360,11 +363,12 @@ public class ListProduct extends javax.swing.JDialog {
                public void onKeyType() {
                     searchValue = searchField.getValueTextSearch();
                     if (searchValue.isEmpty()) {
-                         isCheck = true;
-                         getProduct(listGetProduct);
+                         isCheckSearch = true;
+                         pageNumber = "0";
+                         getProduct(listGetProduct, true);
                          return;
                     }
-                    search();
+                    getProduct(listGetProduct, false);
                }
           };
           searchField.initEvent(event);
@@ -753,7 +757,7 @@ public class ListProduct extends javax.swing.JDialog {
           removeBorder(inActive);
           allProduct.setBorder(new UnderlineBorder());
           status = "allProduct";
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
      }//GEN-LAST:event_allProductMouseClicked
 
      private void activeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activeMouseClicked
@@ -761,7 +765,8 @@ public class ListProduct extends javax.swing.JDialog {
           removeBorder(inActive);
           active.setBorder(new UnderlineBorder());
           status = "active";
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
+
 
      }//GEN-LAST:event_activeMouseClicked
 
@@ -770,7 +775,8 @@ public class ListProduct extends javax.swing.JDialog {
           removeBorder(allProduct);
           inActive.setBorder(new UnderlineBorder());
           status = "inActive";
-          getProduct(listGetProduct);
+          getProduct(listGetProduct, true);
+
 
      }//GEN-LAST:event_inActiveMouseClicked
 

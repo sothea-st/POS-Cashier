@@ -15,9 +15,19 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ImportFile extends javax.swing.JDialog {
-
+     private InsertProduct insertProduct;
      String path;
 
+     public InsertProduct getInsertProduct() {
+          return insertProduct;
+     }
+
+     public void setInsertProduct(InsertProduct insertProduct) {
+          this.insertProduct = insertProduct;
+     }
+
+     
+     
      public ImportFile(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -142,6 +152,7 @@ public class ImportFile extends javax.swing.JDialog {
          ImportDetail importDetail = new ImportDetail(new JFrame(), true);
          importDetail.setListProductResponse(list);
          importDetail.setCustomTable(list);
+         importDetail.setInsertProduct(insertProduct);
          importDetail.setVisible(true);
          
     }//GEN-LAST:event_buttonSaveMouseClicked

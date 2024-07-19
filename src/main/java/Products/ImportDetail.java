@@ -47,7 +47,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class ImportDetail extends javax.swing.JDialog {
-
+     private InsertProduct insertProduct;
      private List<ProductResponse> listProductResponse;
      private String[] columnName = {
           "#",
@@ -108,6 +108,15 @@ public class ImportDetail extends javax.swing.JDialog {
           this.listProductResponse = listProductResponse;
      }
 
+     public InsertProduct getInsertProduct() {
+          return insertProduct;
+     }
+
+     public void setInsertProduct(InsertProduct insertProduct) {
+          this.insertProduct = insertProduct;
+     }
+
+     
      public void setCustomTable(List<ProductResponse> list) {
           Object[][] rows = new Object[list.size()][19];
 
@@ -517,6 +526,7 @@ public class ImportDetail extends javax.swing.JDialog {
                               } else {
                                    dispose();
                                    JavaConstant.restoreDefaultCursor(this);
+                                   insertProduct.reloadList();
                               }
 
                          }
