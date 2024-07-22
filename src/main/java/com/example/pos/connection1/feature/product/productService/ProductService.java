@@ -67,7 +67,7 @@ public class ProductService {
                         HttpStatus.NOT_FOUND,
                         "Tax Id has not been found ."));
 
-        if (repo.existsByBarcode(p.barcode())) {
+        if (repo.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(p.barcode())) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Barcode already exist in system .");
         }

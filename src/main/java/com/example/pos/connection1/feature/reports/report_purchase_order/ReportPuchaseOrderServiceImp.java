@@ -73,14 +73,15 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
       * @return JavaCollectionResponse containing report data and count.
       */
      @Override
-     public JavaCollectionResponse<?> reportPurchaseOrder(ReportPurchaseOrderRequest reportPurchaseOrderRequest) {
+     public JavaCollectionResponse<?> reportPurchaseOrder(Integer pageNumber, Integer pageSize, String dateFrom,
+               String dateTo) {
           LocalDate dateFromLocal;
           LocalDate dateToLocal;
 
           try {
                // Parse dateFrom and dateTo from the request
-               dateFromLocal = LocalDate.parse(reportPurchaseOrderRequest.dateFrom());
-               dateToLocal = LocalDate.parse(reportPurchaseOrderRequest.dateTo());
+               dateFromLocal = LocalDate.parse(dateFrom);
+               dateToLocal = LocalDate.parse(dateTo);
 
                // Validate date ranges
                LocalDate currentDate = LocalDate.now();
@@ -103,29 +104,49 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                          HttpStatus.BAD_REQUEST,
                          "Invalid date format. Expected format: yyyy-MM-dd", e);
           }
+          List<ReportPurchaseOrderResponse> reportPurchaseOrderResponses = new ArrayList<>();
+          long totalCount = 0;
+          if (pageNumber != null && pageSize != null) {
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+               // Fetch imports between dateFromLocal and dateToLocal
+               Page<Import> pages = importRepository.findByDateLocalBetween(dateFromLocal, dateToLocal, pageRequest);
+               totalCount = pages.getTotalElements();
 
-          // Fetch imports between dateFromLocal and dateToLocal
-          List<Import> imports = importRepository.findByDateLocalBetween(dateFromLocal, dateToLocal);
+               // Map Import entities to ReportPurchaseOrderResponse DTOs
+               reportPurchaseOrderResponses = pages.getContent().stream()
+                         .map(this::mapToReportPurchaseOrderResponse)
+                         .toList();
+          } else {
+               // Fetching data without pagination
+               List<Import> imports = importRepository.findByDateLocalBetween(dateFromLocal, dateToLocal);
 
-          // Map Import entities to ReportPurchaseOrderResponse DTOs
-          List<ReportPurchaseOrderResponse> reportPurchaseOrderResponses = imports.stream()
-                    .map(imp -> ReportPurchaseOrderResponse.builder()
-                              .purchaseOrderNo("PO-" + imp.getImpNo())
-                              .transactionNo(imp.getId())
-                              .transactionDate(imp.getTransactionDate())
-                              .orderDate(imp.getImpDate())
-                              .referenceNo(imp.getReferenceNo())
-                              .vendorName(imp.getVendor().getVendorName())
-                              .totalQty(imp.getTotalQty())
-                              .totalCost(imp.getTotal())
-                              .build())
-                    .toList();
+               // Mapping Import entities to ReportPurchaseOrderResponse DTOs
+               reportPurchaseOrderResponses = imports.stream()
+                         .map(this::mapToReportPurchaseOrderResponse) // Assuming mapToReportPurchaseOrderResponse is
+                                                                      // a// method reference
+                         .toList(); // Collecting results into a List
+
+               totalCount = reportPurchaseOrderResponses.size();
+          }
 
           // Build and return JavaCollectionResponse with results
           return JavaCollectionResponse.builder()
-                    .count(reportPurchaseOrderResponses.size())
+                    .count(totalCount)
                     .data(reportPurchaseOrderResponses)
                     .build();
      }
 
+     private ReportPurchaseOrderResponse mapToReportPurchaseOrderResponse(Import imp) {
+          return ReportPurchaseOrderResponse.builder()
+                    .purchaseOrderNo("PO-" + imp.getImpNo())
+                    .transactionNo(imp.getId())
+                    .transactionDate(imp.getTransactionDate())
+                    .orderDate(imp.getImpDate())
+                    .referenceNo(imp.getReferenceNo())
+                    .vendorName(imp.getVendor().getVendorName())
+                    .totalQty(imp.getTotalQty())
+                    .totalCost(imp.getTotal())
+                    .build();
+     }
 }

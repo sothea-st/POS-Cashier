@@ -42,8 +42,10 @@ import com.example.pos.connection1.entity.sourceData.CustomerType;
 import com.example.pos.connection1.entity.sourceData.Reason;
 import com.example.pos.connection1.entity.sourceData.ReturnProduct;
 import com.example.pos.connection1.entity.sourceData.Source;
+import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.projections.GetCategoryByCode;
 import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
+import com.example.pos.connection1.repository.SaleRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.shiftRepository.CloseShiftRepository;
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
@@ -64,6 +66,8 @@ import com.example.pos.connection1.service.sourceDataService.SourceService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import java.time.*;
 
 @RestController
 public class RouteController {
@@ -111,13 +115,12 @@ public class RouteController {
           }
 
           @GetMapping("/code/{code}/search/{catNameEn}")
-          public ResponseEntity<?> search (@Valid @PathVariable("code") String code, @PathVariable("catNameEn") String searchValue) {
+          public ResponseEntity<?> search(@Valid @PathVariable("code") String code,
+                    @PathVariable("catNameEn") String searchValue) {
                List<CategoryResponse> data = service.search(code, searchValue);
                return JavaResponse.success(data);
           }
      }
-
-
 
      @RequestMapping("/api/supplier")
      @RestController
@@ -281,13 +284,16 @@ public class RouteController {
 
      @RestController
      @RequestMapping("/api/sale")
+     @RequiredArgsConstructor
      public static class RouteSale {
-          @Autowired
-          private SaleService service;
-          @Autowired
-          private HttpSession session;
-          @Autowired
-          private OpenShiftRepository repoOpen;
+
+          private final SaleService service;
+
+          private final HttpSession session;
+
+          private final OpenShiftRepository repoOpen;
+
+          private final SaleRepository saleRepository;
 
           @PostMapping
           public ResponseEntity<?> saleProduct(@Valid @RequestBody Sale s) throws Exception {
@@ -304,9 +310,16 @@ public class RouteController {
                return JavaResponse.success(data);
           }
 
-          @PostMapping("/reportSaled")
-          public ResponseEntity<?> reportSaled(@Valid @RequestBody ReportRequest reportRequest) {
-               return JavaResponse.success(service.reportSaled(reportRequest));
+          @GetMapping("/reportSaled")
+          public ResponseEntity<?> reportSaled(
+                    @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+                    @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                    @RequestParam(name = "dateFrom") String dateFrom,
+                    @RequestParam(name = "dateTo") String dateTo,
+                    @RequestParam(name = "userId", required = false) Integer userId) {
+               int count = saleRepository.countSalesData(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), userId);
+               return ResponseEntity.ok().body(Map.of("data",
+                         service.reportSaled(dateFrom, dateTo, pageNumber, pageSize, userId), "count", count));
           }
 
      }

@@ -14,41 +14,45 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
-        
-       
 
-        @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data(?,?,?)")
-        List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId);
+        @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data_with_pagination(?,?, ?, ?, ?)")
+        List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId , Integer pageNumber , Integer pageSize);
 
-        @Query(nativeQuery = true , value = "select\r\n" + //
-                                "\tpsd.qty,\r\n" + //
-                                "\tpp.cost,\r\n" + //
-                                "\tpsd.price,\r\n" + //
-                                "\tpsd.amount,\r\n" + //
-                                "\tpsd.discount as discount_percentage,\r\n" + //
-                                "\tpp.pro_name_en,\r\n" + //
-                                "\tpp.pro_image_name,\r\n" + //
-                                "\tps.sale_date,\r\n" + //
-                                "\tppt.tax_name,\r\n" + //
-                                "\tps.discount_case,\r\n" + //
-                                "\tps.discount,\r\n" + //
-                                "\tpu.full_name\r\n" + //
-                                "from\r\n" + //
-                                "\tpos_sale ps\r\n" + //
-                                "right join pos_sale_details psd on\r\n" + //
-                                "\tpsd.sale_id = ps.id\r\n" + //
-                                "inner join pos_product pp on\r\n" + //
-                                "\tpp.id = psd.pro_id\r\n" + //
-                                "inner join pos_product_tax ppt on\r\n" + //
-                                "\tppt.id = pp.tax_id\r\n" + //
-                                "inner join pos_user pu on\r\n" + //
-                                "\tpu.id = ps.user_id\r\n" + //
-                                "where\r\n" + //
-                                "\tps.sale_date = ?\r\n" + //
-                                "\tand \r\n" + //
-                                "       ps.user_id = ?\r\n" + //
-                                "        ")
-        List<ReportSaledProjection> getReportSaleInToday(String date,int uesrId);
+        // @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data(?,?, ?)")
+        // List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId);
+
+        @Query(nativeQuery = true , value = "SELECT * FROM public.get_sales_data_count(?,?, ?)")
+        int countSalesData(LocalDate dateFrom, LocalDate dateTo, Integer userId);
+
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                        "\tpsd.qty,\r\n" + //
+                        "\tpp.cost,\r\n" + //
+                        "\tpsd.price,\r\n" + //
+                        "\tpsd.amount,\r\n" + //
+                        "\tpsd.discount as discount_percentage,\r\n" + //
+                        "\tpp.pro_name_en,\r\n" + //
+                        "\tpp.pro_image_name,\r\n" + //
+                        "\tps.sale_date,\r\n" + //
+                        "\tppt.tax_name,\r\n" + //
+                        "\tps.discount_case,\r\n" + //
+                        "\tps.discount,\r\n" + //
+                        "\tpu.full_name\r\n" + //
+                        "from\r\n" + //
+                        "\tpos_sale ps\r\n" + //
+                        "right join pos_sale_details psd on\r\n" + //
+                        "\tpsd.sale_id = ps.id\r\n" + //
+                        "inner join pos_product pp on\r\n" + //
+                        "\tpp.id = psd.pro_id\r\n" + //
+                        "inner join pos_product_tax ppt on\r\n" + //
+                        "\tppt.id = pp.tax_id\r\n" + //
+                        "inner join pos_user pu on\r\n" + //
+                        "\tpu.id = ps.user_id\r\n" + //
+                        "where\r\n" + //
+                        "\tps.sale_date = ?\r\n" + //
+                        "\tand \r\n" + //
+                        "       ps.user_id = ?\r\n" + //
+                        "        ")
+        List<ReportSaledProjection> getReportSaleInToday(String date, int uesrId);
 
         @Query(nativeQuery = true, value = "  select sum(psd.qty) from pos_sale ps \r\n" + //
                         "        inner join pos_payment pp on pp.sale_id = ps.id\r\n" + //

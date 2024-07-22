@@ -76,10 +76,10 @@ public class SaleService {
     @Autowired
     private ReprintService reprintService;
 
-    public List<ReportSaledResponse> reportSaled(ReportRequest reportRequest) {
-     
-        LocalDate dateFrom = LocalDate.parse(reportRequest.dateFrom());
-        LocalDate dateTo = LocalDate.parse(reportRequest.dateTo());
+    public List<ReportSaledResponse> reportSaled(String dateFromValue, String dateToValue, Integer pageNumber, Integer pageSize ,Integer userId) {
+ 
+        LocalDate dateFrom = LocalDate.parse(dateFromValue);
+        LocalDate dateTo = LocalDate.parse(dateToValue);
 
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -94,21 +94,19 @@ public class SaleService {
         if (dateTo.isAfter(currentDate)) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST,
-                    "The field dateTo can not greater than current date : "+formattedDate+".");
+                    "The field dateTo can not greater than current date : " + formattedDate + ".");
         }
 
         List<ReportSaledProjection> reportSaled = new ArrayList<>();
 
-        if (reportRequest.dateFrom().equals(reportRequest.dateTo()) && reportRequest.userId() != null) {
-            String[] arrDateTo = reportRequest.dateFrom().split("-");
-            String dateToValue = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
+        // if (reportRequest.dateFrom().equals(reportRequest.dateTo()) && reportRequest.userId() != null) {
+        //     String[] arrDateTo = reportRequest.dateFrom().split("-");
+        //     String dateToValue = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
+        //     reportSaled = repo.getReportSaleInToday(dateToValue, reportRequest.userId());
+        //     return reportResponse(reportSaled);
+        // }
 
-            System.out.println("dateToValue : " + dateToValue);
-            reportSaled = repo.getReportSaleInToday(dateToValue, reportRequest.userId());
-            return reportResponse(reportSaled);
-        }
-
-        reportSaled = repo.getReportSaleds(dateFrom, dateTo, reportRequest.userId());
+        reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId,pageNumber,pageSize);
         return reportResponse(reportSaled);
     }
 
@@ -128,6 +126,7 @@ public class SaleService {
                 total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
                                                                                  // calculate
             }
+
             totalSaledExcludeVAT = Double.parseDouble(df.format(total / 1.1));
             vatAmt = Double.parseDouble(df.format((totalSaledExcludeVAT / 1.1) * 0.1));
             netSale = Double.parseDouble(df.format(total - vatAmt - plt));

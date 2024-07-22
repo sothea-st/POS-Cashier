@@ -388,7 +388,7 @@ public class ProductServiceImp implements ProductService {
      }
 
      private void checkBarcodeExists(String barcode) {
-          if (productRepository.existsByBarcode(barcode)) {
+          if (productRepository.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(barcode)) {
                throw new ResponseStatusException(
                          HttpStatus.CONFLICT, barcodeAlreadyExist + barcode);
           }

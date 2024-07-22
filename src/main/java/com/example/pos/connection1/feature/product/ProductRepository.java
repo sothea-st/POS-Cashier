@@ -3,9 +3,7 @@ package com.example.pos.connection1.feature.product;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
 import com.example.pos.connection1.entity.Product;
- 
 import com.example.pos.connection1.projections.HeadProductProjection;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,21 +13,17 @@ import java.util.*;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-
         List<Product> findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(int vendorId, int subCategoryId);
-
         List<Product> findByVendorIdAndStatusTrueAndIsDeletedFalse(int vendorId);
-
         Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
         List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();
         Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
-
         Page<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
         Page<Product> findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
+        boolean existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(String barcode);
 
 
-        boolean existsByBarcode(String barcode);
-
+        
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\t*\r\n" + //
                         "from\r\n" + //

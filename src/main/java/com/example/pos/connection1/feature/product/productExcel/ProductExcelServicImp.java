@@ -1,4 +1,5 @@
 package com.example.pos.connection1.feature.product.productExcel;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -25,6 +26,7 @@ import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRep
 import java.math.*;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
+
 @Service
 @RequiredArgsConstructor
 public class ProductExcelServicImp implements ProductExcelService {
@@ -38,7 +40,7 @@ public class ProductExcelServicImp implements ProductExcelService {
      private final AttributeRepository attributeRepository;
      private final StatusRepository statusRepository;
      private final CountryRepository countryRepository;
-     // **************************** end *******************************
+     // **************************** end ***********************************
 
      // **************************** group variable ************************
      private String subCategoryIdNotFound = "Sub category not found with id: ";
@@ -51,11 +53,13 @@ public class ProductExcelServicImp implements ProductExcelService {
      private String countryIdNotFound = "Country not found with id: ";
      private String barcodeAlreadyExist = "Barcode already exist with: ";
      // **************************** end *******************************
-
+   
      @Override
      public void create(ProductMultipleInsert productMultipleInsert) {
           List<ProductExcelDetail> lists = productMultipleInsert.getLists();
           List<Product> products = new ArrayList<>();
+          long count = productRepository.count();
+          count--;
           for (ProductExcelDetail productExcelDetail : lists) {
 
                if (productExcelDetail.getBarcode() != null &&
@@ -110,12 +114,13 @@ public class ProductExcelServicImp implements ProductExcelService {
                                         countryIdNotFound + productExcelDetail.getCountryId()));
 
                     // validate barcode
-                    if (productRepository.existsByBarcode(productExcelDetail.getBarcode())) {
+                    if (productRepository.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(productExcelDetail.getBarcode())) {
                          throw new ResponseStatusException(
                                    HttpStatus.CONFLICT, barcodeAlreadyExist + productExcelDetail.getBarcode());
                     }
-
+                    count++;
                     Product product = new Product();
+
                     product.setSubCategory(subCategory);
                     product.setBrand(brand);
                     product.setTaxProduct(tax);
@@ -137,11 +142,17 @@ public class ProductExcelServicImp implements ProductExcelService {
                     product.setChoices(productExcelDetail.getChoiceValue());
                     product.setCreateBy(productExcelDetail.getCreateBy());
                     product.setBarcode(productExcelDetail.getBarcode());
+                    product.setItemCode(generateItemCode(count));
                     products.add(product);
                } else {
                     break;
                }
           }
           productRepository.saveAll(products);
+     }
+
+     private String generateItemCode(long count) {
+          count++;
+          return String.format("%07d", count);
      }
 }

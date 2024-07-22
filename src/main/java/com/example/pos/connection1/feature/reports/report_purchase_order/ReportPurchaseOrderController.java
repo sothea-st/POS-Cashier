@@ -1,15 +1,15 @@
 package com.example.pos.connection1.feature.reports.report_purchase_order;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.pos.connection1.feature.reports.report_purchase_order.dto.ReportPurchaseOrderRequest;
+ 
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+ 
 
 @RestController
 @RequestMapping("/api/v1/reportPurchaseOrder")
@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ReportPurchaseOrderController {
     private final ReportPurchaseOrderService reportPurchaseOrderService;
 
-    @PostMapping
+    @GetMapping
     public JavaCollectionResponse<?> purchase(
-            @Valid @RequestBody ReportPurchaseOrderRequest reportPurchaseOrderRequest) {
-        return reportPurchaseOrderService.reportPurchaseOrder(reportPurchaseOrderRequest);
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @Valid @RequestParam(name = "dateFrom") String dateFrom,
+            @Valid @RequestParam(name = "dateTo") String dateTo) {
+        return reportPurchaseOrderService.reportPurchaseOrder(pageNumber, pageSize, dateFrom, dateTo);
     }
 
     @GetMapping("/filter/{vendorName}")
