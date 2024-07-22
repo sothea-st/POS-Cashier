@@ -8,17 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RepostSaleResponse {
 
-     private String msg;
+     private int count;
      private ReportSaleDetail[] data;
 
-     @JsonProperty("msg")
-     public String getMsg() {
-          return msg;
+     @JsonProperty("count")
+     public int getCount() {
+          return count;
      }
 
-     @JsonProperty("msg")
-     public void setMsg(String value) {
-          this.msg = value;
+     @JsonProperty("count")
+     public void setCount(int value) {
+          this.count = value;
      }
 
      @JsonProperty("data")
