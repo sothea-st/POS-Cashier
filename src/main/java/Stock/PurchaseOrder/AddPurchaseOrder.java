@@ -484,6 +484,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          _totalCost = _totalCost.replace(",", "");
          json.put("total", _totalCost);
          json.put("totalQty", lbTotalQty.getText());
+         json.put("remark", "request");
 
          Component[] listCom = panel.getComponents();
 

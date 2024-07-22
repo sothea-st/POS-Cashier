@@ -215,6 +215,8 @@ public class LogoutDialog extends javax.swing.JDialog {
          json.put("id", JavaConstant.cashierId);
          json.put("posId", JavaConstant.posId);
          json.put("userCode", JavaConstant.userCode);
+         
+      
 
          Response response = JavaConnection.post(JavaRoute.logout, json);
 

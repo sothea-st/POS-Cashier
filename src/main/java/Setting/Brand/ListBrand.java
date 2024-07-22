@@ -139,7 +139,7 @@ public class ListBrand extends javax.swing.JDialog {
 
         int x = 0;
         int y = 0;
-        if(listBrand.size() > 0){
+        if(!listBrand.isEmpty()){
             for (int i = 0; i < listBrand.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = x;
