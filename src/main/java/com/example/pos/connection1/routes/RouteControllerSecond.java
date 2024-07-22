@@ -48,9 +48,9 @@ import com.example.pos.connection1.service.addImageService.AddImageService;
 import com.example.pos.connection1.service.addImageService.ImageResponse;
 import com.example.pos.connection1.service.branchService.BranchService;
 import com.example.pos.connection1.service.searchByBarcodeOrNameService.SearchByBarcodeOrNameService;
-import com.example.pos.connection1.service.sourceDataService.BrandService;
+// import com.example.pos.connection1.service.sourceDataService.BrandService;
 import com.example.pos.connection1.service.sourceDataService.CustomerService;
-import com.example.pos.connection1.service.sourceDataService.TaxProductService;
+// import com.example.pos.connection1.service.sourceDataService.TaxProductService;
 import com.example.pos.connection1.util.ImageUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -99,48 +99,48 @@ public class RouteControllerSecond {
           }
      }
 
-     @RestController
-     @RequestMapping("/api/brand")
-     public static class RouteBrand {
-          @Autowired
-          private BrandService service;
+     // @RestController
+     // @RequestMapping("/api/brand")
+     // public static class RouteBrand {
+     //      @Autowired
+     //      private BrandService service;
 
-          @PostMapping
-          public ResponseEntity<?> add(@Valid @RequestBody Brand b) {
-               Brand data = service.add(b);
-               return JavaResponse.success(data);
-          }
+     //      @PostMapping
+     //      public ResponseEntity<?> add(@Valid @RequestBody Brand b) {
+     //           Brand data = service.add(b);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping
-          public ResponseEntity<?> read() {
-               List<Brand> data = service.read();
-               return JavaResponse.success(data);
-          }
+     //      @GetMapping
+     //      public ResponseEntity<?> read() {
+     //           List<Brand> data = service.read();
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping("/{id}")
-          public ResponseEntity<?> getBrandById(@PathVariable("id") int id) {
-               Brand data = service.getBrandById(id);
-               return JavaResponse.success(data);
-          }
+     //      @GetMapping("/{id}")
+     //      public ResponseEntity<?> getBrandById(@PathVariable("id") int id) {
+     //           Brand data = service.getBrandById(id);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @DeleteMapping("/{id}")
-          public ResponseEntity<?> deleteBrand(@PathVariable("id") int id, @RequestBody Brand b) {
-               service.deleteBrand(id, b);
-               return JavaResponse.deleteSuccess(id);
-          }
+     //      @DeleteMapping("/{id}")
+     //      public ResponseEntity<?> deleteBrand(@PathVariable("id") int id, @RequestBody Brand b) {
+     //           service.deleteBrand(id, b);
+     //           return JavaResponse.deleteSuccess(id);
+     //      }
 
-          @PutMapping("/{id}")
-          public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Brand b) {
-               Brand data = service.updateBrand(id, b);
-               return JavaResponse.success(data);
-          }
+     //      @PutMapping("/{id}")
+     //      public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody Brand b) {
+     //           Brand data = service.updateBrand(id, b);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping("/searchBrand/{brandNameEn}")
-          public ResponseEntity<?> search(@PathVariable("brandNameEn") String searchValue) {
-               List<Brand> data = service.search(searchValue);
-               return JavaResponse.success(data);
-          }
-     }
+     //      @GetMapping("/searchBrand/{brandNameEn}")
+     //      public ResponseEntity<?> search(@PathVariable("brandNameEn") String searchValue) {
+     //           List<Brand> data = service.search(searchValue);
+     //           return JavaResponse.success(data);
+     //      }
+     // }
 
       @RestController
      @RequestMapping("/api/searchProductByBarcodeOrName")
@@ -471,47 +471,47 @@ public class RouteControllerSecond {
           }
      }
 
-     @RestController
-     @RequestMapping("/api/taxProduct")
-     public static class RouteTaxName {
-          @Autowired
-          private TaxProductService service;
+     // @RestController
+     // @RequestMapping("/api/taxProduct")
+     // public static class RouteTaxName {
+     //      @Autowired
+     //      private TaxProductService service;
 
-          @PostMapping
-          public ResponseEntity<?> add(@Valid @RequestBody TaxProduct t) {
-               TaxProduct data = service.add(t);
-               return JavaResponse.success(data);
-          }
+     //      @PostMapping
+     //      public ResponseEntity<?> add(@Valid @RequestBody TaxProduct t) {
+     //           TaxProduct data = service.add(t);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping
-          public ResponseEntity<?> read() {
-               List<TaxProductProjection> data = service.read();
-               return JavaResponse.success(data);
-          }
+     //      @GetMapping
+     //      public ResponseEntity<?> read() {
+     //           List<TaxProductProjection> data = service.read();
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping("/{id}")
-          public ResponseEntity<?> getById(@PathVariable("id") int id) {
-               TaxProductProjection data = service.getById(id);
-               return JavaResponse.success(data);
-          }
+     //      @GetMapping("/{id}")
+     //      public ResponseEntity<?> getById(@PathVariable("id") int id) {
+     //           TaxProductProjection data = service.getById(id);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @PutMapping("/{id}")
-          public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody TaxProduct t) {
-               TaxProduct data = service.update(id, t);
-               return JavaResponse.success(data);
-          }
+     //      @PutMapping("/{id}")
+     //      public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody TaxProduct t) {
+     //           TaxProduct data = service.update(id, t);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @DeleteMapping("/{id}")
-          public ResponseEntity<?> delete(@PathVariable("id") int id, @RequestBody TaxProduct t) {
-               service.delete(id, t);
-               return JavaResponse.deleteSuccess(id);
-          }
+     //      @DeleteMapping("/{id}")
+     //      public ResponseEntity<?> delete(@PathVariable("id") int id, @RequestBody TaxProduct t) {
+     //           service.delete(id, t);
+     //           return JavaResponse.deleteSuccess(id);
+     //      }
 
-          @GetMapping("/searchTax/{taxName}")
-          public ResponseEntity<?> searchTax(@PathVariable("taxName") String searchvalue){
-               List<TaxProductProjection> data = service.searchTax(searchvalue);
-               return JavaResponse.success(data);
-          }
-     }
+     //      @GetMapping("/searchTax/{taxName}")
+     //      public ResponseEntity<?> searchTax(@PathVariable("taxName") String searchvalue){
+     //           List<TaxProductProjection> data = service.searchTax(searchvalue);
+     //           return JavaResponse.success(data);
+     //      }
+     // }
 
 }

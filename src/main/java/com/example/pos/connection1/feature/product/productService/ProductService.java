@@ -9,13 +9,14 @@ import com.example.pos.connection1.entity.models.ProductModel;
 import com.example.pos.connection1.feature.attribute.AttributeRepository;
 import com.example.pos.connection1.feature.country.CountryRepository;
 import com.example.pos.connection1.feature.product.dto.ProductDataRequest;
+import com.example.pos.connection1.feature.tax.TaxRepository;
 import com.example.pos.connection1.feature.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
-import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
+// import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import com.example.pos.connection1.service.ImportService;
 import com.example.pos.connection1.util.exception.customeException.JavaNotFoundByIdGiven;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,7 @@ public class ProductService {
     private final ImportDetailRepository repoImp;
     private final ImportService service;
     private final VendorRepository vendorRepository;
-    private final TaxProductRepository taxProductRepository;
+    private final TaxRepository taxRepository;
     private final CountryRepository countryRepository;
     private final UomRepository uomRepository;
     private final AttributeRepository attributeRepository;
@@ -62,7 +63,7 @@ public class ProductService {
                         HttpStatus.NOT_FOUND,
                         "Country Id has not been found ."));
 
-        taxProductRepository.findById(p.taxId())
+        taxRepository.findById(p.taxId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Tax Id has not been found ."));

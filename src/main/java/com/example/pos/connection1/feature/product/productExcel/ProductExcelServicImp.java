@@ -13,16 +13,18 @@ import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
 import com.example.pos.connection1.feature.attribute.AttributeRepository;
+import com.example.pos.connection1.feature.brand.BrandRepository;
 import com.example.pos.connection1.feature.country.CountryRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.feature.product.productExcel.dto.ProductExcelDetail;
 import com.example.pos.connection1.feature.product.productExcel.dto.ProductMultipleInsert;
 import com.example.pos.connection1.feature.status.StatusRepository;
+import com.example.pos.connection1.feature.tax.TaxRepository;
 import com.example.pos.connection1.feature.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.CategoryRepository;
-import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
-import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
+// import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
+// import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import java.math.*;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +36,7 @@ public class ProductExcelServicImp implements ProductExcelService {
      private final ProductRepository productRepository;
      private final CategoryRepository categoryRepository;
      private final BrandRepository brandRepository;
-     private final TaxProductRepository taxProductRepository;
+     private final TaxRepository taxRepository;
      private final VendorRepository vendorRepository;
      private final UomRepository uomRepository;
      private final AttributeRepository attributeRepository;
@@ -79,7 +81,7 @@ public class ProductExcelServicImp implements ProductExcelService {
                                         brandIdNotFound + productExcelDetail.getBrandId()));
 
                     // validate tax
-                    TaxProduct tax = taxProductRepository
+                    TaxProduct tax = taxRepository
                               .findByIdAndStatusTrueAndIsDeletedFalse(productExcelDetail.getTaxId())
                               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                         taxIdNotFound + productExcelDetail.getTaxId()));
