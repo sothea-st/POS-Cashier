@@ -1,5 +1,6 @@
 package com.example.pos.connection1.feature.imports;
 
+import com.example.pos.connection1.feature.imports.dto.CheckingRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportResponseById;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
@@ -57,4 +58,6 @@ public interface ImportService {
       * @return A {@link JavaCollectionResponse} containing imported data.
       */
       JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value);
+
+      void checkingRequest(CheckingRequest checkingRequest , String poId);
 }

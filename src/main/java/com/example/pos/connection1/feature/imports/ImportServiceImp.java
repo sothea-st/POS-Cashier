@@ -7,12 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.Category;
 import com.example.pos.connection1.entity.Employee;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
+import com.example.pos.connection1.entity.ImportDetailTemporary;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Vendor;
+import com.example.pos.connection1.feature.imports.dto.CheckingRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportDetailResponse;
 import com.example.pos.connection1.feature.imports.dto.ImportDetailsRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportRequest;
@@ -50,6 +53,7 @@ public class ImportServiceImp implements ImportService {
      private final ImportDetailRepository importDetailRepository;
      private final ImportMapper importMapper;
      private final CategoryRepository categoryRepository;
+     private final ImportDetailTemporaryRepository importDetailTemporaryRepository;
 
      // Error messages for not found exceptions
      private final String vendorIdNotFound = "Vendor not found with Id : ";
@@ -57,6 +61,21 @@ public class ImportServiceImp implements ImportService {
      private final String productIdNotFound = "Product not found with Id : ";
      private final String importIdNotFound = "Import not found with Id : ";
      private final String categoryIdNotFound = "Category not found with Id : ";
+     private final String impNoNotFound = "Import not found with poId : ";
+
+     @Override
+     public void checkingRequest(CheckingRequest checkingRequest, String poId) {
+
+          if (checkingRequest.role().toLowerCase().equals(JavaConstant.admin.toLowerCase())) {
+               Import importData = importRepository.findByImpNo(poId)
+                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, impNoNotFound + poId));
+               importData.setRemark(checkingRequest.remark());
+               importRepository.save(importData);
+
+          } else {
+               throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not permission ");
+          }
+     }
 
      /**
       * filter Import
@@ -119,13 +138,15 @@ public class ImportServiceImp implements ImportService {
           Import imports = importRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, importIdNotFound + id));
 
+          System.out.println("ddddddddddddddddddd = " + imports.getImportDetailTemporaries().size());
+
           // Retrieve ImportDetail entities associated with the Import entity
-          List<ImportDetail> importDetails = importDetailRepository.getResultByImpId(id);
+          List<ImportDetailTemporary> importDetails = importDetailTemporaryRepository.getResultByImpId(id);
           List<ImportDetailResponse> details = new ArrayList<>();
 
           // Iterate through each ImportDetail entity and construct ImportDetailResponse
           // objects
-          for (ImportDetail value : importDetails) {
+          for (ImportDetailTemporary value : importDetails) {
 
                // Calculate total cost
                double totalCost = value.getProduct().getCost().doubleValue() * value.getQtyNew();
@@ -160,7 +181,7 @@ public class ImportServiceImp implements ImportService {
           // Build and return ImportResponseById object
           return ImportResponseById.builder()
                     .transactionNo(imports.getId())
-                    .purchaseOrderNo("PO-" + imports.getImpNo())
+                    .purchaseOrderNo(imports.getImpNo())
                     .referenceNo(imports.getReferenceNo())
                     .totalCost(imports.getTotal())
                     .totalQty(imports.getTotalQty())
@@ -289,10 +310,19 @@ public class ImportServiceImp implements ImportService {
           data.setTotalQty(importRequest.totalQty());
           data.setTransactionDate(importRequest.transactionDate());
           data.setReferenceNo(importRequest.referenceNo());
+          data.setRemark(importRequest.remark());
           // Save Import entity to repository
           importRepository.save(data);
 
-          // Process each detail in ImportRequest
+          if (importRequest.remark().toLowerCase().equals("stocked")) {
+               // Process each detail in ImportRequest
+               requestData(importRequest, data.getId());
+          } else {
+               requestDataTmp(importRequest, data.getId());
+          }
+     }
+
+     private void requestData(ImportRequest importRequest, int impoId) {
           List<ImportDetailsRequest> listDetail = importRequest.details();
           for (int i = 0; i < listDetail.size(); i++) {
                var value = listDetail.get(i);
@@ -337,7 +367,7 @@ public class ImportServiceImp implements ImportService {
                     }
                }
 
-               details.setImpId(data.getId());
+               details.setImpId(impoId);
                details.setProduct(product);
                details.setQtyNew(qtyNew);
                details.setCost(value.cost());
@@ -350,6 +380,39 @@ public class ImportServiceImp implements ImportService {
                // Update product status and import detail reference
                product.setProductStatus("In Stock");
                product.setImportDetail(details);
+               productRepository.save(product);
+          }
+     }
+
+     private void requestDataTmp(ImportRequest importRequest, int impoId) {
+          List<ImportDetailsRequest> listDetail = importRequest.details();
+          for (int i = 0; i < listDetail.size(); i++) {
+               var value = listDetail.get(i);
+               int productId = value.productId();
+
+               // Retrieve product entity or throw exception if not found
+               Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(productId)
+                         .orElseThrow(() -> new ResponseStatusException(
+                                   HttpStatus.NOT_FOUND, productIdNotFound + productId));
+
+               Import imp = importRepository.findById(impoId).orElseThrow(
+                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                   "Import id has not been found  with id : " + impoId));
+
+               ImportDetailTemporary importDetailTemporary = new ImportDetailTemporary();
+               importDetailTemporary.setProduct(product);
+               importDetailTemporary.setImpId(impoId);
+               importDetailTemporary.setImport1(imp);
+               importDetailTemporary.setProduct(product);
+               importDetailTemporary.setQtyNew(value.qtyNew());
+               importDetailTemporary.setCost(value.cost());
+               importDetailTemporary.setAmount(value.amount());
+               importDetailTemporary.setExpireDate(value.expireDate());
+               importDetailTemporary.setCreateBy(importRequest.createBy());
+               // Save ImportDetail entity to repository
+               importDetailTemporaryRepository.save(importDetailTemporary);
+               // Update product status and import detail reference
+               product.setProductStatus("In Stock");
                productRepository.save(product);
           }
      }

@@ -12,6 +12,8 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      @Query(nativeQuery = true, value = "select count(*) from pos_import")
      int countRecord();
 
+     Optional<Import> findByImpNo(String impNo);
+
      @Query(nativeQuery = true, value = "select * from get_import_details(?,?)")
      List<ReportImportProjection> getReport(LocalDate dateFrom, LocalDate dateTo);
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);

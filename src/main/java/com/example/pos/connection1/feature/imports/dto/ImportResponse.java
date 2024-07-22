@@ -10,7 +10,8 @@ public record ImportResponse(
      String referenceNo,
      String transactionDate,
      Integer totalQty,
-     BigDecimal totalCost
+     BigDecimal totalCost,
+     String remark
 ) {
      
 }

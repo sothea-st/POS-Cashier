@@ -76,8 +76,14 @@ public class SaleService {
     @Autowired
     private ReprintService reprintService;
 
-    public List<ReportSaledResponse> reportSaled(String dateFromValue, String dateToValue, Integer pageNumber, Integer pageSize ,Integer userId) {
- 
+    public List<ReportSaledResponse> searchReportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
+            Integer pageSize, Integer userId) {
+                return null;
+    }
+
+    public List<ReportSaledResponse> reportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
+            Integer pageSize, Integer userId) {
+
         LocalDate dateFrom = LocalDate.parse(dateFromValue);
         LocalDate dateTo = LocalDate.parse(dateToValue);
 
@@ -99,20 +105,21 @@ public class SaleService {
 
         List<ReportSaledProjection> reportSaled = new ArrayList<>();
 
-        // if (reportRequest.dateFrom().equals(reportRequest.dateTo()) && reportRequest.userId() != null) {
-        //     String[] arrDateTo = reportRequest.dateFrom().split("-");
-        //     String dateToValue = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
-        //     reportSaled = repo.getReportSaleInToday(dateToValue, reportRequest.userId());
-        //     return reportResponse(reportSaled);
-        // }
+        if (dateFromValue.equals(dateToValue) && userId != null) {
+            String[] arrDateTo = dateFromValue.split("-");
+            String dateToStr = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
+            reportSaled = repo.getReportSaleInToday(dateToStr, userId);
+            return reportResponse(reportSaled, null);
+        }
 
-        reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId,pageNumber,pageSize);
-        return reportResponse(reportSaled);
+        reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
+        return reportResponse(reportSaled, null);
     }
 
-    private List<ReportSaledResponse> reportResponse(List<ReportSaledProjection> reportSaled) {
+    private List<ReportSaledResponse> reportResponse(List<ReportSaledProjection> reportSaled,
+            String searchProductName) {
         List<ReportSaledResponse> listResponse = new ArrayList<>();
-        DecimalFormat df = new DecimalFormat("#0.00");
+
         reportSaled.forEach(report -> {
 
             double totalSaledExcludeVAT = 0;
@@ -127,16 +134,20 @@ public class SaleService {
                                                                                  // calculate
             }
 
-            totalSaledExcludeVAT = Double.parseDouble(df.format(total / 1.1));
-            vatAmt = Double.parseDouble(df.format((totalSaledExcludeVAT / 1.1) * 0.1));
-            netSale = Double.parseDouble(df.format(total - vatAmt - plt));
-            margin = Double.parseDouble(df.format(netSale - report.getCost().doubleValue()));
+            String _total = String.format("%.2f", total / 1.1);
+            String _totalSaledExludeVAT = String.format("%.2f", ((totalSaledExcludeVAT / 1.1) * 0.1));
+            String _netSale = String.format("%.2f", total - vatAmt - plt);
+            String _margin = String.format("%.2f", netSale - report.getCost().doubleValue());
+
+            totalSaledExcludeVAT = Double.parseDouble(_total);
+            vatAmt = Double.parseDouble(_totalSaledExludeVAT);
+            netSale = Double.parseDouble(_netSale);
+            margin = Double.parseDouble(_margin);
 
             if (report.getTax_name().equals("PLT")) {
                 plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
             }
-
-            listResponse.add(ReportSaledResponse.builder()
+            ReportSaledResponse reportSaledResponse = ReportSaledResponse.builder()
                     .saleDate(report.getSale_date())
                     .proNameEn(report.getPro_name_en())
                     .proImageName(report.getPro_image_name())
@@ -156,7 +167,15 @@ public class SaleService {
                     .barcode(report.getBarcode())
                     .invoiceNumber(report.getinvoice_number())
                     .userName(report.getfull_name() == null ? null : report.getfull_name())
-                    .build());
+                    .build();
+
+            if (searchProductName != null) {
+                if (report.getPro_name_en().toLowerCase().contains(searchProductName.toLowerCase())) {
+                    listResponse.add(reportSaledResponse);
+                }
+            } else {
+                listResponse.add(reportSaledResponse);
+            }
         });
 
         return listResponse;

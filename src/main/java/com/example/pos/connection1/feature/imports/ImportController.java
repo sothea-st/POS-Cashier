@@ -3,14 +3,14 @@ package com.example.pos.connection1.feature.imports;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pos.connection1.constant.JavaConstant;
+import com.example.pos.connection1.feature.imports.dto.CheckingRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import com.example.pos.connection1.util.response.JavaMessageResponse;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
-import org.mapstruct.ap.shaded.freemarker.core.ReturnInstruction.Return;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,11 +20,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@RequestMapping("/api/import")
+@RequestMapping("/api/v1/import")
 @RestController
 @RequiredArgsConstructor
 public class ImportController {
      private final ImportService importService;
+
+     @PostMapping("/checkingRequest/{poId}")
+     public JavaMessageResponse<?> checkingRequest(@Valid @RequestBody CheckingRequest checkingRequest,
+               @PathVariable("poId") String poId) {
+          importService.checkingRequest(checkingRequest, poId);
+          return JavaMessageResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .msg(JavaMessageResponse.success)
+                    .data(JavaMessageResponse.success)
+                    .build();
+     }
 
      @PostMapping
      public JavaMessageResponse<?> createImport(@Valid @RequestBody ImportRequest importRequest) {
@@ -75,7 +86,7 @@ public class ImportController {
      public JavaMessageResponse<?> retrieveDetailById(@PathVariable("id") int id) {
           return JavaMessageResponse.builder()
                     .status(HttpStatus.OK.value())
-                    .msg(JavaMessageResponse.deleteSuccess)
+                    .msg(JavaMessageResponse.success)
                     .data(importService.retrieveDetail(id))
                     .build();
      }

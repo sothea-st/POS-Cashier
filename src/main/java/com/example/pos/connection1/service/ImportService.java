@@ -68,16 +68,11 @@ public class ImportService {
     }
 
     public void addImport(Import imp) {
-
         LocalDate localDate = LocalDate.now();
         Import data = new Import();
-
-   
-
-
         int count =0;
         count++;
-        String impNo = "";
+        String impNo = "PO-";
         if (count < 10) {
             impNo = "0000" + count;
         } else if (count < 100) {

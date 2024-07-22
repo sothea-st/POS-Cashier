@@ -56,9 +56,15 @@ public class Import {
     @Column(name = "total_qty")
     private Integer totalQty;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "imps")
     private List<ImportDetail> details;
+
+
+    @OneToMany(mappedBy = "import1", fetch = FetchType.EAGER)
+    private List<ImportDetailTemporary> importDetailTemporaries;
   
+    @Column(name = "remark")
+    private String remark;
 
     @Column(name = "create_by")
     private int createBy;

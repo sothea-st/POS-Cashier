@@ -30,6 +30,9 @@ public record ImportRequest(
      @NotNull(message = JavaMessage.required)
      Integer totalQty,
 
+     @NotBlank(message = JavaMessage.required)
+     String remark,
+
      @NotEmpty(message = JavaMessage.required)
      List<ImportDetailsRequest> details
 

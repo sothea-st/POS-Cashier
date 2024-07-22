@@ -24,6 +24,10 @@ public class ImportDetail {
 
     // @Column(name = "pro_id",length = 30)
     // private int productId;
+    
+    @ManyToOne
+    private Import imps;
+
 
     @JoinColumn(name = "pro_id")
     @ManyToOne
