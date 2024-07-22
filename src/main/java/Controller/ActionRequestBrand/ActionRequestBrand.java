@@ -30,7 +30,7 @@ public class ActionRequestBrand {
                     BrandModel[] listBrand = data.getData();
                     
                     for (int i = 0; i < listBrand.length; i++) {
-                         map.put(listBrand[i].getBrandNameEn(), "" + listBrand[i].getID());
+                         map.put(listBrand[i].getBrandNameEn(), "" + listBrand[i].getId());
                     }
                  
                     cmBox.setMap(map);

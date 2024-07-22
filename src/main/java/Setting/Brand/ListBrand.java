@@ -12,7 +12,6 @@ import Model.Brand.Brand;
 import Model.Brand.BrandModel;
 import Model.Brand.BrandSuccessModel;
 import Model.Brand.DetailBrandModel;
-import Model.Brand.DetailBrandSuccess;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,6 +34,9 @@ import org.json.JSONObject;
 public class ListBrand extends javax.swing.JDialog {
 
     String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListBrand(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -49,22 +51,51 @@ public class ListBrand extends javax.swing.JDialog {
         JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
-        getBrand(listGetBrand);
+        getBrand(listGetBrand, true);
         
         JavaConstant.addTitleAndLogo(this, "Brand");
         
         eventSearchBrand();
+        eventPagination();
     }
     
-    public void getBrand(JPanel jpanelData) {
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getBrand(listGetBrand, true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
+    }
+    
+    public void getBrand(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.brand );
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.brand + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchBrand + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 BrandSuccessModel data = objMap.readValue(responseData, BrandSuccessModel.class);
                 BrandModel[] listData = data.getData();
+                
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+                 
                 assignBrand(listData, jpanelData);
             } else {
                 System.err.println("fail loading brand");
@@ -80,7 +111,7 @@ public class ListBrand extends javax.swing.JDialog {
         for (int i = 0; i < listData.length; i++) {
             var obj = listData[i];
             Brand getBrand = new Brand(
-                    obj.getID(),
+                    obj.getId(),
                     obj.getBrandNameEn(),
                     obj.getBrandNameKh()
             );
@@ -88,6 +119,12 @@ public class ListBrand extends javax.swing.JDialog {
         }
 
         appendBrand(brand, listGetBrand);
+    }
+    
+    private void reloadPanel() {
+        listGetBrand.removeAll();
+        listGetBrand.revalidate();
+        listGetBrand.repaint();
     }
     
     void appendBrand(ArrayList<Brand> listBrand, JPanel listGetBrand) {
@@ -98,6 +135,7 @@ public class ListBrand extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetBrand.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
@@ -125,8 +163,7 @@ public class ListBrand extends javax.swing.JDialog {
                             Response response = JavaConnection.get(JavaRoute.brand + "/" + listData.getId());
                             String responseData = response.body().string();
                             ObjectMapper objMap = new ObjectMapper();
-                            DetailBrandSuccess data = objMap.readValue(responseData, DetailBrandSuccess.class);
-                            DetailBrandModel listData = data.getData();
+                            DetailBrandModel listData = objMap.readValue(responseData, DetailBrandModel.class);
 
                             edit.setId(listData.getId());
                             edit.setListGetBrand(listGetBrand);
@@ -166,7 +203,7 @@ public class ListBrand extends javax.swing.JDialog {
                                     listGetBrand.removeAll();
                                     listGetBrand.revalidate();
                                     listGetBrand.repaint();
-                                    list.getBrand(listGetBrand);
+                                    list.getBrand(listGetBrand, true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -222,39 +259,12 @@ public class ListBrand extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetBrand.removeAll();
-                    listGetBrand.revalidate();
-                    listGetBrand.repaint();
-                    getBrand(listGetBrand);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchBrand + searchValue);
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetBrand.removeAll();
-                            listGetBrand.revalidate();
-                            listGetBrand.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            BrandSuccessModel data = obj.readValue(responseData, BrandSuccessModel.class);
-                            BrandModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignBrand(listData, listGetBrand);
-                            } else {
-                                listGetBrand.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetBrand.add(notfound);
-                                listGetBrand.revalidate();
-                                listGetBrand.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search brand = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getBrand(listGetBrand, true);
+                    return;
                 }
+                getBrand(listGetBrand, false);
             }
         };
         searchField.initEvent(events);
@@ -274,6 +284,7 @@ public class ListBrand extends javax.swing.JDialog {
         listGetBrand = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -356,19 +367,18 @@ public class ListBrand extends javax.swing.JDialog {
         panelListCategoryLayout.setHorizontalGroup(
             panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListCategoryLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListCategoryLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListCategoryLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelListCategoryLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                            .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListCategoryLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(header1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         panelListCategoryLayout.setVerticalGroup(
@@ -382,8 +392,10 @@ public class ListBrand extends javax.swing.JDialog {
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -460,6 +472,7 @@ public class ListBrand extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel listGetBrand;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListCategory;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

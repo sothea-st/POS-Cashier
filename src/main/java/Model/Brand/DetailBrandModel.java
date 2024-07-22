@@ -11,6 +11,6 @@ public class DetailBrandModel {
     private String brandNameKh;
     private Integer createBy;
     private String createDate;
-    private boolean status;
-    private boolean deleted;
+    private Boolean status;
+    private Boolean isDeleted;
 }

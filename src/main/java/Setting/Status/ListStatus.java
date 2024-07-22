@@ -14,6 +14,7 @@ import Model.Status.ListStatusModel;
 import Model.Status.StatusModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ import org.json.JSONObject;
 public class ListStatus extends javax.swing.JDialog {
 
     String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,19 +56,49 @@ public class ListStatus extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Status");
 
-        getStatus(listGetStatus);
+        getStatus(listGetStatus,true);
         eventSearchStatus();
+        eventPagination();
+        
     }
     
-     public void getStatus(JPanel jpanelData) {
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getStatus(listGetStatus,true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
+    }
+    
+    public void getStatus(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.status + "?pageNumber=0&pageSize=1000");
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.status + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchStatus + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListStatusModel data = objMap.readValue(responseData, ListStatusModel.class);
                 GetStatusModel[] listData = data.getData();
+                
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+                
                 assignStatus(listData, jpanelData);
             } else {
                 System.err.println("fail loading status");
@@ -90,6 +124,11 @@ public class ListStatus extends javax.swing.JDialog {
         appendStatus(status, listGetStatus);
     }
     
+    private void reloadPanel() {
+        listGetStatus.removeAll();
+        listGetStatus.revalidate();
+        listGetStatus.repaint();
+    }
     
     void appendStatus(ArrayList<StatusModel> listStatus, JPanel listGetStatus) {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -99,9 +138,11 @@ public class ListStatus extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetStatus.setLayout(gridBagLayout);
-
+        reloadPanel();
+        
         int x = 0;
         int y = 0;
+        
         if(listStatus.size() > 0){
             for (int i = 0; i < listStatus.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -145,7 +186,7 @@ public class ListStatus extends javax.swing.JDialog {
                     
                     
                     @Override
-                    public void onRemove(String Key) {  // event delete brand
+                    public void onRemove(String Key) {  // event delete status
                         try {
                             UIManager UI = new UIManager();
                             UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -166,7 +207,7 @@ public class ListStatus extends javax.swing.JDialog {
                                     listGetStatus.removeAll();
                                     listGetStatus.revalidate();
                                     listGetStatus.repaint();
-                                    list.getStatus(listGetStatus);
+                                    list.getStatus(listGetStatus,true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -223,39 +264,13 @@ public class ListStatus extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetStatus.removeAll();
-                    listGetStatus.revalidate();
-                    listGetStatus.repaint();
-                    getStatus(listGetStatus);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchStatus + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetStatus.removeAll();
-                            listGetStatus.revalidate();
-                            listGetStatus.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListStatusModel data = obj.readValue(responseData, ListStatusModel.class);
-                            GetStatusModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignStatus(listData, listGetStatus);
-                            } else {
-                                listGetStatus.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetStatus.add(notfound);
-                                listGetStatus.revalidate();
-                                listGetStatus.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search status = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getStatus(listGetStatus,true);
+                    return;
                 }
+                getStatus(listGetStatus,false);
+                
             }
         };
         searchField.initEvent(events);
@@ -274,6 +289,7 @@ public class ListStatus extends javax.swing.JDialog {
         listGetStatus = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -321,11 +337,11 @@ public class ListStatus extends javax.swing.JDialog {
         listGetStatus.setLayout(listGetStatusLayout);
         listGetStatusLayout.setHorizontalGroup(
             listGetStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 664, Short.MAX_VALUE)
         );
         listGetStatusLayout.setVerticalGroup(
             listGetStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         jScrollPane.setViewportView(listGetStatus);
@@ -349,19 +365,18 @@ public class ListStatus extends javax.swing.JDialog {
         panelListAttributeLayout.setHorizontalGroup(
             panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListAttributeLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListAttributeLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListAttributeLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelListAttributeLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListAttributeLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane)
+                    .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         panelListAttributeLayout.setVerticalGroup(
@@ -374,9 +389,11 @@ public class ListStatus extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListAttributeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -454,6 +471,7 @@ public class ListStatus extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel listGetStatus;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListAttribute;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

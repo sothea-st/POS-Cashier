@@ -179,7 +179,7 @@ public class AddUom extends javax.swing.JDialog {
                     listGetUom.removeAll();
                     listGetUom.revalidate();
                     listGetUom.repaint();
-                    list.getUom(listGetUom);
+                    list.getUom(listGetUom,true);
                     dispose();
                 } 
 
@@ -193,7 +193,7 @@ public class AddUom extends javax.swing.JDialog {
                     listGetUom.removeAll();
                     listGetUom.revalidate();
                     listGetUom.repaint();
-                    list.getUom(listGetUom);
+                    list.getUom(listGetUom,true);
                     dispose();
                 } 
             }

@@ -13,6 +13,7 @@ import Model.Vendor.DetailVendorModel;
 import Model.Vendor.ListVendorModel;
 import Model.Vendor.VendorModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -31,6 +32,9 @@ import org.json.JSONObject;
 public class ListVendor extends javax.swing.JDialog {
 
     String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
     
     public ListVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -49,20 +53,48 @@ public class ListVendor extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Vendor");
         
-        getVendor(listGetVendor);
+        getVendor(listGetVendor,true);
         eventSearchVendor();
+        eventPagination();
     }
 
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getVendor(listGetVendor,true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
+    }
     
-    public void getVendor(JPanel jpanelData) {
+    public void getVendor(JPanel jpanelData, boolean isCheck) {
         try {
 
-            Response response = JavaConnection.get(JavaRoute.vendor + "?pageNumber=0&pageSize=1000");
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.vendor + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchVendor + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 ListVendorModel data = objMap.readValue(responseData, ListVendorModel.class);
                 DataVendorModel[] listData = data.getData();
+
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+                
                 assignVendor(listData, jpanelData);
             } else {
                 System.err.println("fail loading vendor");
@@ -93,6 +125,12 @@ public class ListVendor extends javax.swing.JDialog {
         appendVendor(vendor, listGetVendor);
     }
     
+    private void reloadPanel() {
+        listGetVendor.removeAll();
+        listGetVendor.revalidate();
+        listGetVendor.repaint();
+    }
+    
     void appendVendor(ArrayList<VendorModel> list, JPanel listGetVendor) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -101,9 +139,11 @@ public class ListVendor extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetVendor.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
+           
         if(list.size() > 0){
             for (int i = 0; i < list.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -168,7 +208,7 @@ public class ListVendor extends javax.swing.JDialog {
                                     listGetVendor.removeAll();
                                     listGetVendor.revalidate();
                                     listGetVendor.repaint();
-                                    list.getVendor(listGetVendor);
+                                    list.getVendor(listGetVendor, true);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -228,39 +268,12 @@ public class ListVendor extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetVendor.removeAll();
-                    listGetVendor.revalidate();
-                    listGetVendor.repaint();
-                    getVendor(listGetVendor);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchVendor + searchValue + "?pageNumber=0&pageSize=100");
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetVendor.removeAll();
-                            listGetVendor.revalidate();
-                            listGetVendor.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            ListVendorModel data = obj.readValue(responseData, ListVendorModel.class);
-                            DataVendorModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignVendor(listData, listGetVendor);
-                            } else {
-                                listGetVendor.removeAll();
-                                NoData notfound = new NoData();
-                                notfound.setLabelName("Not Found!");
-                                listGetVendor.add(notfound);
-                                listGetVendor.revalidate();
-                                listGetVendor.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search vendor = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getVendor(listGetVendor,true);
+                    return;
                 }
+                getVendor(listGetVendor,false);
             }
         };
         searchField.initEvent(events);
@@ -284,6 +297,7 @@ public class ListVendor extends javax.swing.JDialog {
         listGetVendor = new javax.swing.JPanel();
         button1 = new Button.Button();
         btnCancel = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -328,7 +342,7 @@ public class ListVendor extends javax.swing.JDialog {
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,11 +385,11 @@ public class ListVendor extends javax.swing.JDialog {
         listGetVendor.setLayout(listGetVendorLayout);
         listGetVendorLayout.setHorizontalGroup(
             listGetVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1053, Short.MAX_VALUE)
         );
         listGetVendorLayout.setVerticalGroup(
             listGetVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(listGetVendor);
@@ -400,19 +414,18 @@ public class ListVendor extends javax.swing.JDialog {
         panelListVendorLayout.setHorizontalGroup(
             panelListVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListVendorLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListVendorLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListVendorLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelListVendorLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
         panelListVendorLayout.setVerticalGroup(
@@ -425,9 +438,11 @@ public class ListVendor extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListVendorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -511,6 +526,7 @@ public class ListVendor extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel listGetVendor;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListVendor;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

@@ -243,7 +243,7 @@ public class AddVendor extends javax.swing.JDialog {
                     listGetVendor.removeAll();
                     listGetVendor.revalidate();
                     listGetVendor.repaint();
-                    list.getVendor(listGetVendor);
+                    list.getVendor(listGetVendor, true);
                     dispose();
                 } 
 
@@ -259,7 +259,7 @@ public class AddVendor extends javax.swing.JDialog {
                     listGetVendor.removeAll();
                     listGetVendor.revalidate();
                     listGetVendor.repaint();
-                    list.getVendor(listGetVendor);
+                    list.getVendor(listGetVendor, true);
                     dispose();
                 } 
             }
