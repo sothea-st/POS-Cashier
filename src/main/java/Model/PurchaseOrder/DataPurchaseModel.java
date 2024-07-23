@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 
 public class DataPurchaseModel {
-
      private Integer id;
      private String transactionNo;
      private String vendorName;
