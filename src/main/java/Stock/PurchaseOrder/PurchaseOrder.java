@@ -48,7 +48,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
           verticalScrollBar.setBlockIncrement(35);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           header.setBackground(WindowColor.darkGreen);
-          JavaConstant.addTitleAndLogo(this, "Purchase Order");
+          JavaConstant.addTitleAndLogo(this, "Purchase Request");
           getListPurchase(listGetOrder, true);
           eventSearchPuchaseOrder();
 
@@ -155,8 +155,12 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                 Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
                                 String responseData = response.body().string();
                                 ObjectMapper objMap = new ObjectMapper();
-                                DetailPurchaseModelFirst data = objMap.readValue(responseData, DetailPurchaseModelFirst.class);
-                                DetailPurchaseModelSecond listDataOne = data.getData();
+//                                DetailPurchaseModelFirst data = objMap.readValue(responseData, DetailPurchaseModelFirst.class);
+//                                DetailPurchaseModelSecond listDataOne = data.getData();
+                                
+                                PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
+                                POCheckDetailsModel listDataOne = model.getData();
+                                
                                 edit.setListGetOrder(listGetOrder);
                                 edit.setValue(
                                         String.valueOf(listDataOne.getVendorName()),
@@ -165,7 +169,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                         String.valueOf(listDataOne.getPurchaseOrderNo()),
                                         String.valueOf(listDataOne.getTotalQty()),
                                         String.valueOf(listDataOne.getTotalCost()),
-                                        String.valueOf(listDataOne.getVendorId()),
+                                        String.valueOf(listDataOne.getVendorID()),
                                         String.valueOf(listDataOne.getOrderDate()),
                                         String.valueOf(listDataOne.getTransactionDate())
                                 );
@@ -374,7 +378,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
         jScrollPane1.setViewportView(listGetOrder);
 
         button1.setBackground(new java.awt.Color(47, 155, 70));
-        button1.setButtonName("+ Add Purchase Order");
+        button1.setButtonName("+ Add Purchase Request");
         button1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 button1MouseClicked(evt);
@@ -399,14 +403,12 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListProductLayout.createSequentialGroup()
                             .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 802, Short.MAX_VALUE)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         panelListProductLayout.setVerticalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

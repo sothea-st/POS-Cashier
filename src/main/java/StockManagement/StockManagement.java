@@ -48,7 +48,7 @@ public class StockManagement extends javax.swing.JDialog {
 
           product.setTitle("Product");
           purchaseOrder.setTitle("Purchase Order");
-          purchaseOrderReceive.setTitle("<html>" + "Purchase Order Receive" + "</html>"  );
+          purchaseOrderReceive.setTitle("Purchase Receive");
 
           TimerTask task = new TimerTask() {
                @Override
