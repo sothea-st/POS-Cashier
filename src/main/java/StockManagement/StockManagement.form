@@ -81,6 +81,7 @@
             <Component class="Components.SettingBox" name="purchaseOrder">
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchaseOrderMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchaseOrderMouseEntered"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="purchaseOrderReceive">

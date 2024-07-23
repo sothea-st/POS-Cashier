@@ -2,21 +2,29 @@ package Stock.PurchaseOrderCheck;
 
 import Color.WindowColor;
 import Components.NotFound;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
-import Model.PurchaseOrder.DetailPurchaseModel;
+
 import Stock.PurchaseOrder.GetDetailPurchase;
-import Stock.PurchaseOrder.PurchaseNoData;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import javax.swing.JPanel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
      private POCheckDetailsModel pOCheckDetailsModel;
+     private ListPurchaseOrderCheck obj;
 
      public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -35,6 +43,14 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           return pOCheckDetailsModel;
      }
 
+     public ListPurchaseOrderCheck getObj() {
+          return obj;
+     }
+
+     public void setObj(ListPurchaseOrderCheck obj) {
+          this.obj = obj;
+     }
+
      public void setpOCheckDetailsModel(POCheckDetailsModel p) {
           this.pOCheckDetailsModel = p;
           vendorName.setLabelName(p.getVendorName());
@@ -50,7 +66,6 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           checkBy.setLabelName(p.getCheckedBy().getName());
           checkDate.setLabelName(p.getCheckedBy().getDate());
           appendData(p.getDetails());
-
      }
 
      void appendData(PODetailItemModel[] details) {
@@ -510,6 +525,33 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
+         LocalDate currentDate = LocalDate.now();
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         String checkDate = currentDate.format(formatter);
+
+         if (pOCheckDetailsModel.getDetails().length == 0) {
+              JOptionPane.showMessageDialog(this, "Invalid!");
+              return;
+         }
+
+         JSONObject json = new JSONObject();
+         json.put("createBy", JavaConstant.cashierId);
+         json.put("remark", "check");
+         json.put("role", JavaConstant.roleName);
+         json.put("checkDate", checkDate);
+
+         Response response = JavaConnection.post(JavaRoute.imports + "/checkingRequest/" + puchaseOrderNo.getLabelName(), json);
+
+         try {
+              String responeData = response.body().string();
+              if (response.isSuccessful()) {
+                   System.out.println("responeData : " + responeData);
+                   dispose();
+                   obj.getData(obj);
+              }
+         } catch (Exception e) {
+              System.out.println("error : " + e);
+         }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
