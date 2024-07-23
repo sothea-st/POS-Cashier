@@ -37,11 +37,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="labelReferenceNo" alignment="0" pref="310" max="32767" attributes="0"/>
-                          <Component id="labelPurchaseNo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelTransactionNo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelVendorName" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelTransactionDate" max="32767" attributes="0"/>
+                          <Component id="referenceNo" alignment="0" pref="310" max="32767" attributes="0"/>
+                          <Component id="purchaseOrderNo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="transactionNo" alignment="0" max="32767" attributes="0"/>
+                          <Component id="vendorName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="transactionDate" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -49,25 +49,25 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lbTotalQty" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelTotalQty" max="32767" attributes="0"/>
+                                  <Component id="totalQty" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="lbOrderDate" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="labelOrderDate" min="-2" pref="310" max="-2" attributes="0"/>
+                                  <Component id="orderDate" min="-2" pref="310" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lbRequestedBy" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lbRequestBy" alignment="0" max="32767" attributes="0"/>
                                   <Component id="lbTotalCost" alignment="0" pref="165" max="32767" attributes="0"/>
                                   <Component id="lbRequestedDate" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="labelRequestedBy" alignment="0" pref="310" max="32767" attributes="0"/>
-                                  <Component id="labelTotalCost" max="32767" attributes="0"/>
-                                  <Component id="labelRequestedDate" max="32767" attributes="0"/>
+                                  <Component id="requestBy" alignment="0" pref="310" max="32767" attributes="0"/>
+                                  <Component id="totalCost" max="32767" attributes="0"/>
+                                  <Component id="requestDate" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -76,33 +76,33 @@
                           <Group type="102" attributes="0">
                               <Component id="lbApprovedBy" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelApprovedBy" min="-2" pref="310" max="-2" attributes="0"/>
+                              <Component id="approveBy" min="-2" pref="310" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lbCheckedBy" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelCheckedBy" min="-2" pref="310" max="-2" attributes="0"/>
+                              <Component id="checkBy" min="-2" pref="310" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lbCheckedDate" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelCheckedDate" min="-2" pref="310" max="-2" attributes="0"/>
+                              <Component id="checkDate" min="-2" pref="310" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lbApprovedDate" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelApprovedDate" min="-2" pref="310" max="-2" attributes="0"/>
+                              <Component id="approveDate" min="-2" pref="310" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lbComment" min="-2" pref="165" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelComment" min="-2" pref="310" max="-2" attributes="0"/>
+                              <Component id="comment" min="-2" pref="310" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="header1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="header" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="26" max="32767" attributes="0"/>
@@ -117,60 +117,60 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="labelVendorName" max="32767" attributes="0"/>
+                          <Component id="vendorName" max="32767" attributes="0"/>
                           <Component id="lbVendorName" pref="24" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="lbTransactionNo" max="32767" attributes="0"/>
-                          <Component id="labelTransactionNo" pref="24" max="32767" attributes="0"/>
+                          <Component id="transactionNo" pref="24" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="lbOrderDate" alignment="0" pref="24" max="32767" attributes="0"/>
                           <Component id="lbCheckedBy" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labelOrderDate" alignment="0" pref="24" max="32767" attributes="0"/>
-                          <Component id="labelCheckedBy" alignment="0" max="32767" attributes="0"/>
+                          <Component id="orderDate" alignment="0" pref="24" max="32767" attributes="0"/>
+                          <Component id="checkBy" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="12" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelTotalQty" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="totalQty" min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="lbTotalQty" min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="lbCheckedDate" max="32767" attributes="0"/>
-                          <Component id="labelCheckedDate" alignment="1" max="32767" attributes="0"/>
+                          <Component id="checkDate" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="lbPurchaseeOrderNo" pref="24" max="32767" attributes="0"/>
-                  <Component id="labelPurchaseNo" pref="24" max="32767" attributes="0"/>
+                  <Component id="purchaseOrderNo" pref="24" max="32767" attributes="0"/>
                   <Component id="lbTotalCost" alignment="0" max="32767" attributes="0"/>
-                  <Component id="labelTotalCost" alignment="0" max="32767" attributes="0"/>
+                  <Component id="totalCost" alignment="0" max="32767" attributes="0"/>
                   <Component id="lbApprovedBy" alignment="1" max="32767" attributes="0"/>
-                  <Component id="labelApprovedBy" alignment="1" max="32767" attributes="0"/>
+                  <Component id="approveBy" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="lbReferenceNo" pref="24" max="32767" attributes="0"/>
-                  <Component id="labelReferenceNo" max="32767" attributes="0"/>
-                  <Component id="lbRequestedBy" alignment="0" max="32767" attributes="0"/>
-                  <Component id="labelRequestedBy" alignment="0" max="32767" attributes="0"/>
+                  <Component id="referenceNo" max="32767" attributes="0"/>
+                  <Component id="lbRequestBy" alignment="0" max="32767" attributes="0"/>
+                  <Component id="requestBy" alignment="0" max="32767" attributes="0"/>
                   <Component id="lbApprovedDate" alignment="1" max="32767" attributes="0"/>
-                  <Component id="labelApprovedDate" alignment="1" max="32767" attributes="0"/>
+                  <Component id="approveDate" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="lbRequestedDate" alignment="0" max="32767" attributes="0"/>
                   <Component id="lbTransactionDate" alignment="0" pref="24" max="32767" attributes="0"/>
-                  <Component id="labelTransactionDate" alignment="0" pref="24" max="32767" attributes="0"/>
-                  <Component id="labelRequestedDate" max="32767" attributes="0"/>
+                  <Component id="transactionDate" alignment="0" pref="24" max="32767" attributes="0"/>
+                  <Component id="requestDate" max="32767" attributes="0"/>
                   <Component id="lbComment" alignment="1" max="32767" attributes="0"/>
-                  <Component id="labelComment" alignment="1" max="32767" attributes="0"/>
+                  <Component id="comment" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="32767" attributes="0"/>
-              <Component id="header1" min="-2" max="-2" attributes="0"/>
+              <Component id="header" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="492" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -224,47 +224,47 @@
         <Property name="labelName" type="java.lang.String" value="Total Cost :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelVendorName">
+    <Component class="Components.Label" name="vendorName">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelReferenceNo">
+    <Component class="Components.Label" name="referenceNo">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelPurchaseNo">
+    <Component class="Components.Label" name="purchaseOrderNo">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelTransactionNo">
+    <Component class="Components.Label" name="transactionNo">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelTransactionDate">
+    <Component class="Components.Label" name="transactionDate">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelTotalCost">
+    <Component class="Components.Label" name="totalCost">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelTotalQty">
+    <Component class="Components.Label" name="totalQty">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelOrderDate">
+    <Component class="Components.Label" name="orderDate">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="header1">
+    <Container class="javax.swing.JPanel" name="header">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -487,17 +487,17 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="Components.Label" name="lbRequestedBy">
+    <Component class="Components.Label" name="lbRequestBy">
       <Properties>
         <Property name="labelName" type="java.lang.String" value="Requested By :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelRequestedBy">
+    <Component class="Components.Label" name="requestBy">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelRequestedDate">
+    <Component class="Components.Label" name="requestDate">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
@@ -512,7 +512,7 @@
         <Property name="labelName" type="java.lang.String" value="Checked By :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelCheckedBy">
+    <Component class="Components.Label" name="checkBy">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
@@ -522,7 +522,7 @@
         <Property name="labelName" type="java.lang.String" value="Checked Date :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelCheckedDate">
+    <Component class="Components.Label" name="checkDate">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
@@ -532,7 +532,7 @@
         <Property name="labelName" type="java.lang.String" value="Approved By :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelApprovedBy">
+    <Component class="Components.Label" name="approveBy">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
@@ -542,7 +542,7 @@
         <Property name="labelName" type="java.lang.String" value="Approved Date :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelApprovedDate">
+    <Component class="Components.Label" name="approveDate">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
@@ -552,7 +552,7 @@
         <Property name="labelName" type="java.lang.String" value="Comment :"/>
       </Properties>
     </Component>
-    <Component class="Components.Label" name="labelComment">
+    <Component class="Components.Label" name="comment">
       <Properties>
         <Property name="labelName" type="java.lang.String" value=""/>
       </Properties>
