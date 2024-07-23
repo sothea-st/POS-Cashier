@@ -68,6 +68,9 @@ public class Import {
     @Column(name = "approve_by")
     private Integer approveBy;
 
+    @Column(name = "check_by")
+    private Integer checkBy;
+
     @Column(name = "reject_by")
     private Integer rejectBy;
 

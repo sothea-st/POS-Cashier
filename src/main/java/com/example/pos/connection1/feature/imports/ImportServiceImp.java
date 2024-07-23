@@ -102,8 +102,14 @@ public class ImportServiceImp implements ImportService {
           if (checkingRequest.role().toLowerCase().equals(JavaConstant.admin.toLowerCase())) {
                Import importData = importRepository.findByImpNo(poId)
                          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, impNoNotFound + poId));
+
+               System.out.print("ddddddddddddd = " + checkingRequest.remark());
                importData.setRemark(checkingRequest.remark());
-               importData.setApproveBy(checkingRequest.createBy());
+               if (checkingRequest.remark().toLowerCase().equals(JavaConstant.check.toLowerCase())) {
+                    importData.setCheckBy(checkingRequest.createBy());
+               } else if (checkingRequest.remark().toLowerCase().equals(JavaConstant.approved.toLowerCase())) {
+                    importData.setApproveBy(checkingRequest.createBy());
+               }
                importRepository.save(importData);
           } else {
                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not permission ");
@@ -174,8 +180,23 @@ public class ImportServiceImp implements ImportService {
           // Retrieve ImportDetail entities associated with the Import entity
           List<ImportDetailTemporary> importDetails = importDetailTemporaryRepository.getResultByImpId(id);
           List<ImportDetailResponse> details = new ArrayList<>();
+          String requestBy = userRepository.getNameEmp(imports.getCreateBy());
+          String checkBy = null;
+          String approvedBy = null;
+          String rejectBy = null;
 
-          String empName = userRepository.getNameEmp(imports.getCreateBy());
+          if (imports.getCheckBy() != null) {
+               checkBy = userRepository.getNameEmp(imports.getCheckBy());
+          }
+          if (imports.getApproveBy() != null) {
+               approvedBy = userRepository.getNameEmp(imports.getApproveBy());
+          }
+
+          if( imports.getRejectBy() != null ) {
+               rejectBy = userRepository.getNameEmp(imports.getRejectBy());
+          }
+
+         
 
           // Iterate through each ImportDetail entity and construct ImportDetailResponse
           // objects
@@ -221,7 +242,12 @@ public class ImportServiceImp implements ImportService {
                     .vendorId(imports.getVendor().getId())
                     .vendorName(imports.getVendor().getVendorName())
                     .details(details)
-                    .createBy(empName)
+                    .requestBy(requestBy)
+                    .checkedBy(checkBy)
+                    .approvedBy(approvedBy)
+                    .rejectBy(rejectBy)
+                    .feedBackReject(imports.getMsg())
+                    .remark(imports.getRemark())
                     .transactionDate(imports.getTransactionDate())
                     .build();
      }
@@ -293,14 +319,14 @@ public class ImportServiceImp implements ImportService {
       */
      @Override
      public void createImport(ImportRequest importRequest) {
-          if (importRequest.impId() == null) {
+          if (importRequest.impId() == 0) {
                createAndUpdateImport(importRequest, null);
           } else {
                if (importRequest.remark().toLowerCase().equals("stocked")) {
                     Import imp = importRepository.findById(importRequest.impId())
                               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                         "Import not found with id : " + importRequest.impId()));
-                    System.out.println("remark : " + imp);
+
                     imp.setRemark(importRequest.remark());
                     importRepository.save(imp);
                     requestData(importRequest, importRequest.impId());

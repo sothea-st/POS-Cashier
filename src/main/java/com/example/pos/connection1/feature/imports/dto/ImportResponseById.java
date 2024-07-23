@@ -16,7 +16,12 @@ public record ImportResponseById(
      BigDecimal totalCost,
      String referenceNo,
      String orderDate,
-     String createBy,
+     String requestBy,
+     String checkedBy,
+     String approvedBy,
+     String rejectBy,
+     String feedBackReject,
+     String remark,
      List<ImportDetailResponse> details
 ) {
      

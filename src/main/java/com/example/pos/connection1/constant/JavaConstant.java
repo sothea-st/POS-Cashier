@@ -7,6 +7,10 @@ public class JavaConstant {
     public static String success = "success";
     public static String userId = "idUser";
     public static String admin = "Admin";
+    public static String check = "check";
+    public static String approved = "approved";
+
+
     public static String statusCode = "statusCode";
     public static long status = 405;
     public static String userCode = "userCode";
