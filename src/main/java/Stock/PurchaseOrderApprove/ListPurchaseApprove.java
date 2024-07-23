@@ -1,4 +1,4 @@
-package Stock.PurchaseOrderCheck;
+package Stock.PurchaseOrderApprove;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
@@ -7,7 +7,7 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Setting.Category.NoDataAvaibalePanel;
-import Stock.PurchaseOrder.GetPurchaseOrder;
+import Stock.PurchaseOrderCheck.GetPurchaseOrderCheck;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Timer;
@@ -19,12 +19,11 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-public class ListPurchaseOrderCheck extends javax.swing.JDialog {
+public class ListPurchaseApprove extends javax.swing.JDialog {
 
-    public ListPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
+    public ListPurchaseApprove(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
@@ -34,11 +33,10 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
         verticalScrollBar.setBlockIncrement(35);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "Purchase Order Check");
+        JavaConstant.addTitleAndLogo(this, "Purchase Order Approval");
         appendPurchaeOrder(listGetOrder);
     }
-    
-    
+
     void appendPurchaeOrder(JPanel listGetOrder) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -68,7 +66,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event edit
-                              DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
+                              DetailPurchaseApprove detail = new DetailPurchaseApprove(new JFrame(), true);
                               try {
                                    
                                    detail.setVisible(true);
@@ -292,9 +290,6 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -309,20 +304,20 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ListPurchaseOrderCheck dialog = new ListPurchaseOrderCheck(new javax.swing.JFrame(), true);
+                ListPurchaseApprove dialog = new ListPurchaseApprove(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

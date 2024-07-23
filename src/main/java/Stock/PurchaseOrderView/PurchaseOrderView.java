@@ -5,6 +5,7 @@ import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import Stock.PurchaseOrder.PurchaseOrder;
+import Stock.PurchaseOrderApprove.ListPurchaseApprove;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import java.io.IOException;
 import java.util.Timer;
@@ -148,8 +149,8 @@ public class PurchaseOrderView extends javax.swing.JDialog {
     }//GEN-LAST:event_checkMouseClicked
 
     private void approveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_approveMouseClicked
-
-
+        ListPurchaseApprove listCheck = new ListPurchaseApprove(new JFrame(), true);
+        listCheck.setVisible(true);
     }//GEN-LAST:event_approveMouseClicked
 
 

@@ -1,15 +1,14 @@
-package Stock.PurchaseOrderCheck;
+package Stock.PurchaseOrderApprove;
 
 import Color.WindowColor;
 import CustomeUI.CustomScrollBarUI;
-import Stock.PurchaseOrderApprove.ActionReject;
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
+public class DetailPurchaseApprove extends javax.swing.JDialog {
 
-    public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
+    public DetailPurchaseApprove(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setResizable(false);
@@ -77,7 +76,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        labelPopUpTitle2.setLabelTitle(" Detail Purchase Order Check");
+        labelPopUpTitle2.setLabelTitle(" Detail Purchase Order Approval");
 
         header.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -249,7 +248,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
         lbPosId21.setLabelName("");
 
-        buttonSave.setTitleButton("Check");
+        buttonSave.setTitleButton("Approve");
         buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 buttonSaveMouseClicked(evt);
@@ -288,7 +287,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -453,7 +452,6 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-       
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
@@ -475,20 +473,20 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DetailPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DetailPurchaseOrderCheck dialog = new DetailPurchaseOrderCheck(new javax.swing.JFrame(), true);
+                DetailPurchaseApprove dialog = new DetailPurchaseApprove(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
