@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.feature.imports.dto.CheckingRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportRequest;
+import com.example.pos.connection1.feature.imports.dto.RejectPurchaseOrderRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import com.example.pos.connection1.util.response.JavaMessageResponse;
 
@@ -26,6 +27,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ImportController {
      private final ImportService importService;
 
+     @PostMapping("/rejectPurchaseOrder/{id}")
+     public JavaMessageResponse<?> rejectPurchaseOrder(@Valid @RequestBody RejectPurchaseOrderRequest data,
+               @PathVariable("id") int id) {
+          importService.rejectPurchaseOrder(data, id);
+          return JavaMessageResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .msg(JavaMessageResponse.success)
+                    .data(JavaMessageResponse.success)
+                    .build();
+     }
+
      @PostMapping("/checkingRequest/{poId}")
      public JavaMessageResponse<?> checkingRequest(@Valid @RequestBody CheckingRequest checkingRequest,
                @PathVariable("poId") String poId) {
@@ -45,6 +57,11 @@ public class ImportController {
                     .msg(JavaMessageResponse.success)
                     .data(JavaMessageResponse.success)
                     .build();
+     }
+
+     @GetMapping("/getPoId")
+     public JavaCollectionResponse<?> purchaseOrderResponse() {
+          return importService.purchaseOrderResponse();
      }
 
      @PutMapping("/{id}")

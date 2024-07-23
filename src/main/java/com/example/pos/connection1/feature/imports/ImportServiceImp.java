@@ -14,6 +14,7 @@ import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.ImportDetailTemporary;
 import com.example.pos.connection1.entity.Product;
+import com.example.pos.connection1.entity.User;
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.feature.imports.dto.CheckingRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportDetailResponse;
@@ -21,12 +22,15 @@ import com.example.pos.connection1.feature.imports.dto.ImportDetailsRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportResponse;
 import com.example.pos.connection1.feature.imports.dto.ImportResponseById;
+import com.example.pos.connection1.feature.imports.dto.PurchaseOrderResponse;
+import com.example.pos.connection1.feature.imports.dto.RejectPurchaseOrderRequest;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.mapper.ImportMapper;
 import com.example.pos.connection1.repository.CategoryRepository;
 import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
+import com.example.pos.connection1.repository.UserRepository;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 import java.math.BigDecimal;
@@ -54,6 +58,7 @@ public class ImportServiceImp implements ImportService {
      private final ImportMapper importMapper;
      private final CategoryRepository categoryRepository;
      private final ImportDetailTemporaryRepository importDetailTemporaryRepository;
+     private final UserRepository userRepository;
 
      // Error messages for not found exceptions
      private final String vendorIdNotFound = "Vendor not found with Id : ";
@@ -64,14 +69,42 @@ public class ImportServiceImp implements ImportService {
      private final String impNoNotFound = "Import not found with poId : ";
 
      @Override
-     public void checkingRequest(CheckingRequest checkingRequest, String poId) {
+     public void rejectPurchaseOrder(RejectPurchaseOrderRequest rejectPurchaseOrder, Integer id) {
+          Import data = importRepository.findById(id)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                              "Import not found with id : " + id));
 
+          data.setRemark("rejected");
+          data.setMsg(rejectPurchaseOrder.msg());
+          data.setRejectBy(rejectPurchaseOrder.rejectBy());
+          importRepository.save(data);
+     }
+
+     @Override
+     public JavaCollectionResponse<?> purchaseOrderResponse() {
+          List<Import> list = importRepository.findByStatusTrueAndIsDeletedFalseAndRemark("approved");
+
+          List<PurchaseOrderResponse> data = list.stream()
+                    .map(p -> PurchaseOrderResponse.builder()
+                              .id(p.getId())
+                              .poId(p.getImpNo())
+                              .build())
+                    .toList();
+
+          return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
+     }
+
+     @Override
+     public void checkingRequest(CheckingRequest checkingRequest, String poId) {
           if (checkingRequest.role().toLowerCase().equals(JavaConstant.admin.toLowerCase())) {
                Import importData = importRepository.findByImpNo(poId)
                          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, impNoNotFound + poId));
                importData.setRemark(checkingRequest.remark());
+               importData.setApproveBy(checkingRequest.createBy());
                importRepository.save(importData);
-
           } else {
                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not permission ");
           }
@@ -138,16 +171,15 @@ public class ImportServiceImp implements ImportService {
           Import imports = importRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, importIdNotFound + id));
 
-          System.out.println("ddddddddddddddddddd = " + imports.getImportDetailTemporaries().size());
-
           // Retrieve ImportDetail entities associated with the Import entity
           List<ImportDetailTemporary> importDetails = importDetailTemporaryRepository.getResultByImpId(id);
           List<ImportDetailResponse> details = new ArrayList<>();
 
+          String empName = userRepository.getNameEmp(imports.getCreateBy());
+
           // Iterate through each ImportDetail entity and construct ImportDetailResponse
           // objects
           for (ImportDetailTemporary value : importDetails) {
-
                // Calculate total cost
                double totalCost = value.getProduct().getCost().doubleValue() * value.getQtyNew();
                String _totalCost = String.format("%.2f", totalCost);
@@ -189,6 +221,7 @@ public class ImportServiceImp implements ImportService {
                     .vendorId(imports.getVendor().getId())
                     .vendorName(imports.getVendor().getVendorName())
                     .details(details)
+                    .createBy(empName)
                     .transactionDate(imports.getTransactionDate())
                     .build();
      }
@@ -260,7 +293,19 @@ public class ImportServiceImp implements ImportService {
       */
      @Override
      public void createImport(ImportRequest importRequest) {
-          createAndUpdateImport(importRequest, null);
+          if (importRequest.impId() == null) {
+               createAndUpdateImport(importRequest, null);
+          } else {
+               if (importRequest.remark().toLowerCase().equals("stocked")) {
+                    Import imp = importRepository.findById(importRequest.impId())
+                              .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                        "Import not found with id : " + importRequest.impId()));
+                    System.out.println("remark : " + imp);
+                    imp.setRemark(importRequest.remark());
+                    importRepository.save(imp);
+                    requestData(importRequest, importRequest.impId());
+               }
+          }
      }
 
      /**

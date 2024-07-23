@@ -3,12 +3,18 @@ package com.example.pos.connection1.feature.imports;
 import com.example.pos.connection1.feature.imports.dto.CheckingRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportRequest;
 import com.example.pos.connection1.feature.imports.dto.ImportResponseById;
+import com.example.pos.connection1.feature.imports.dto.RejectPurchaseOrderRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 /**
  * Service interface for managing import operations.
  */
 public interface ImportService {
+
+
+      void rejectPurchaseOrder(RejectPurchaseOrderRequest rejectPurchaseOrder , Integer id);
+
+      JavaCollectionResponse<?> purchaseOrderResponse();
 
      /**
       * Creates a new import based on the provided import request.

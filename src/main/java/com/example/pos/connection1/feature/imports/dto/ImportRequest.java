@@ -34,7 +34,9 @@ public record ImportRequest(
      String remark,
 
      @NotEmpty(message = JavaMessage.required)
-     List<ImportDetailsRequest> details
+     List<ImportDetailsRequest> details,
+
+     Integer impId
 
 ) {
      

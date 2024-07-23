@@ -56,15 +56,23 @@ public class Import {
     @Column(name = "total_qty")
     private Integer totalQty;
 
-    @OneToMany(mappedBy = "imps")
+    @OneToMany(mappedBy = "imps" , fetch = FetchType.EAGER)
     private List<ImportDetail> details;
-
 
     @OneToMany(mappedBy = "import1", fetch = FetchType.EAGER)
     private List<ImportDetailTemporary> importDetailTemporaries;
   
     @Column(name = "remark")
     private String remark;
+
+    @Column(name = "approve_by")
+    private Integer approveBy;
+
+    @Column(name = "reject_by")
+    private Integer rejectBy;
+
+    @Column(name = "msg" ,length = 500)
+    private String msg;
 
     @Column(name = "create_by")
     private int createBy;
@@ -81,5 +89,7 @@ public class Import {
 
     @Column(name = "date_local")
     private LocalDate dateLocal;
+
+
 
 }

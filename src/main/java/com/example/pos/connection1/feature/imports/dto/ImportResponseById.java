@@ -16,6 +16,7 @@ public record ImportResponseById(
      BigDecimal totalCost,
      String referenceNo,
      String orderDate,
+     String createBy,
      List<ImportDetailResponse> details
 ) {
      
