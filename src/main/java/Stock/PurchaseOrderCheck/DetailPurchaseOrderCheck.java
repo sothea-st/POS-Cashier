@@ -8,12 +8,14 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 
 import Stock.PurchaseOrder.GetDetailPurchase;
+import Stock.PurchaseOrderApprove.ActionReject;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import javax.swing.JScrollBar;
@@ -529,8 +531,6 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
      
- 
-         
          LocalDate currentDate = LocalDate.now();
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
          String checkDate = currentDate.format(formatter);
@@ -564,7 +564,8 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
+        ActionReject actionReject = new ActionReject(new JFrame(), true);
+        actionReject.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
      public static void main(String args[]) {
