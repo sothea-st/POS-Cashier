@@ -57,8 +57,6 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="uom" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="country" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="tax" min="-2" max="-2" attributes="0"/>
@@ -75,13 +73,13 @@
                               <Component id="subCategory" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="product" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="brand" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="vendor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="attribute" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="uom" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -100,19 +98,18 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="product" min="-2" max="-2" attributes="0"/>
                           <Component id="brand" min="-2" max="-2" attributes="0"/>
                           <Component id="vendor" min="-2" max="-2" attributes="0"/>
                           <Component id="attribute" min="-2" max="-2" attributes="0"/>
+                          <Component id="uom" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="uom" min="-2" max="-2" attributes="0"/>
-                          <Component id="country" min="-2" max="-2" attributes="0"/>
                           <Component id="tax" min="-2" max="-2" attributes="0"/>
+                          <Component id="country" min="-2" max="-2" attributes="0"/>
                           <Component id="status" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="42" max="32767" attributes="0"/>
+                      <EmptySpace pref="93" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -136,11 +133,6 @@
             <Component class="Components.SettingBox" name="subCategory">
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="subCategoryMouseClicked"/>
-              </Events>
-            </Component>
-            <Component class="Components.SettingBox" name="product">
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="brand">
