@@ -820,11 +820,19 @@ public class MainPage extends javax.swing.JFrame {
                         buttonDiscount, btnReprint,
                         btnReturn, buttonCashier, btnCancel,
                         buttonHoldOrder, bgimg, btnLogin,
-                        stock, buttonStaff, jdFormLogin
+                        stock, buttonStaff, jdFormLogin,
+                        this
                    );
               }
          }
     }//GEN-LAST:event_btnOpenShiftMouseClicked
+
+     public void setBackgroundButton() {
+          stock.setBackground(WindowColor.green);
+          buttonStaff.setBackground(WindowColor.green);
+          btnSettings.setBackground(WindowColor.green);
+          btnReporting.setBackground(WindowColor.green);
+     }
 
      //Action Button Reprint
     private void btnReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReprintMouseClicked

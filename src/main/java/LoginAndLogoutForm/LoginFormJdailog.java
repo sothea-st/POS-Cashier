@@ -367,7 +367,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          String ipAddress;
          try {
               ipAddress = JavaConstant.getIpAddressPC();
-
               json.put("userCode", userId);
               json.put("password", password);
               json.put("deviceName", deviceName);
@@ -422,6 +421,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.posId = model.getPosID();
                    JavaConstant.cashierId = model.getID();
                    JavaConstant.empId = model.getEmpID();
+                   JavaConstant.roleName = model.getRoleName();
 
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
 

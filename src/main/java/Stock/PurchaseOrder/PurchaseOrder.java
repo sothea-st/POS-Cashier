@@ -164,7 +164,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                    DetailPurchaseModelSecond listDataOne = data.getData();
 
                                    detail.setVendorName(listDataOne.getVendorName());
-                                   detail.setTransacionNo("" + listDataOne.getTransactionNo());
+                                   detail.setTransactionNo("" + listDataOne.getTransactionNo());
                                    detail.setPurchaseOrderNo(listDataOne.getPurchaseOrderNo());
                                    detail.setReferenceNo(listDataOne.getReferenceNo());
                                    detail.setTransactionDate(listDataOne.getTransactionDate());

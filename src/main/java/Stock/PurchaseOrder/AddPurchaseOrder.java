@@ -484,6 +484,8 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          _totalCost = _totalCost.replace(",", "");
          json.put("total", _totalCost);
          json.put("totalQty", lbTotalQty.getText());
+         json.put("remark", "request");
+         json.put("impId", "0");
 
          Component[] listCom = panel.getComponents();
 
@@ -502,6 +504,8 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          json.put("details", details);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
+         
+      
          JavaConstant.setCircleLoadingCursor(this);
 
          try {

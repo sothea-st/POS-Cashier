@@ -5,7 +5,7 @@ public class JavaRoute {
      public static String login = "/auth/login";
      public static String product = "/product";
      public static String productV1 = "/product/v1";
-     public static String imports = "/import";
+     public static String imports = "/v1/import";
 
      public static String getProductByCatId = "/product/getProductByCatId";
      public static String getNewPrdduct = "/product/getNewProduct";

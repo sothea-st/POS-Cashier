@@ -58,7 +58,6 @@ public class JavaConstant {
      public static String posId;
      public static Integer cashierId;
      public static Integer empId;
-
      public static Long checkCloseShift;
      public static int numberOpenShift = 0;
      public static int productId;
@@ -102,6 +101,7 @@ public class JavaConstant {
      public static ProductDataModel[] listData;
      public static boolean isCheckProductAll = false;
      public static String categoryName = "new items";
+ 
 
      public static boolean checkImageExists(String imageUrl) {
           try {

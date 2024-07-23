@@ -141,6 +141,14 @@ public class ReportingPurchaseOrder extends javax.swing.JDialog {
                     if (isCheckSearch) {
                          int _value = Integer.parseInt(value) - 1;
                          pageNumber = String.valueOf(_value);
+
+                         System.out.println("listDetail : " + listDetail.size());
+
+//                         if (!listDetail.isEmpty()) {
+//                              paginationPanel.resetPage();
+//                              pageNumber = "0";
+//                         }
+
                          setData(true);
                     }
                }
@@ -513,6 +521,12 @@ public class ReportingPurchaseOrder extends javax.swing.JDialog {
           json.put("dateTo", dateToValue);
 
           try {
+
+//               if (!listDetail.isEmpty()) {
+//                    paginationPanel.resetPage();
+//                    pageNumber = "0";
+//               }
+
                Response response = null;
                if (isCheck) { // isCheck true is get items
                     response = JavaConnection.get(JavaRoute.reportPurchaseOrder + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
@@ -533,8 +547,6 @@ public class ReportingPurchaseOrder extends javax.swing.JDialog {
                     ReportingDetailResponse[] lists = data.getData();
 
                     if (isCheck) {
-                         paginationPanel.resetPage();
-                         System.out.println("pageNumber : " + pageNumber);
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
                          paginationPanel.resetPage();
