@@ -1,5 +1,6 @@
 package com.example.pos.connection1.feature.imports;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -36,7 +37,7 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -103,12 +104,13 @@ public class ImportServiceImp implements ImportService {
                Import importData = importRepository.findByImpNo(poId)
                          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, impNoNotFound + poId));
 
-               System.out.print("ddddddddddddd = " + checkingRequest.remark());
                importData.setRemark(checkingRequest.remark());
                if (checkingRequest.remark().toLowerCase().equals(JavaConstant.check.toLowerCase())) {
                     importData.setCheckBy(checkingRequest.createBy());
+                    importData.setCheckDate(checkingRequest.checkDate());
                } else if (checkingRequest.remark().toLowerCase().equals(JavaConstant.approved.toLowerCase())) {
                     importData.setApproveBy(checkingRequest.createBy());
+                    importData.setApproveDate(checkingRequest.checkDate());
                }
                importRepository.save(importData);
           } else {
@@ -196,7 +198,6 @@ public class ImportServiceImp implements ImportService {
                rejectBy = userRepository.getNameEmp(imports.getRejectBy());
           }
 
-         
 
           // Iterate through each ImportDetail entity and construct ImportDetailResponse
           // objects
@@ -230,6 +231,17 @@ public class ImportServiceImp implements ImportService {
                          .build();
                details.add(importDetailResponse);
           }
+          Map<String,String> _requestBy = new HashedMap<>();
+          _requestBy.put("name", requestBy);
+          _requestBy.put("date", imports.getImpDate());
+
+          Map<String,String> _checkBy = new HashedMap<>();
+          _checkBy.put("name", checkBy);
+          _checkBy.put("date", imports.getCheckDate());
+
+          Map<String,String> _approveBy = new HashedMap<>();
+          _approveBy.put("name", approvedBy);
+          _approveBy.put("date", imports.getApproveDate());
 
           // Build and return ImportResponseById object
           return ImportResponseById.builder()
@@ -242,9 +254,9 @@ public class ImportServiceImp implements ImportService {
                     .vendorId(imports.getVendor().getId())
                     .vendorName(imports.getVendor().getVendorName())
                     .details(details)
-                    .requestBy(requestBy)
-                    .checkedBy(checkBy)
-                    .approvedBy(approvedBy)
+                    .requestBy(_requestBy)
+                    .checkedBy(_checkBy)
+                    .approvedBy(_approveBy)
                     .rejectBy(rejectBy)
                     .feedBackReject(imports.getMsg())
                     .remark(imports.getRemark())

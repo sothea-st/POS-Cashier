@@ -65,11 +65,18 @@ public class Import {
     @Column(name = "remark")
     private String remark;
 
+    @Column(name = "approve_date")
+    private String approveDate;
+
     @Column(name = "approve_by")
     private Integer approveBy;
 
     @Column(name = "check_by")
     private Integer checkBy;
+
+    @Column(name = "check_date")
+    private String checkDate;
+
 
     @Column(name = "reject_by")
     private Integer rejectBy;
