@@ -25,6 +25,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
      private POCheckDetailsModel pOCheckDetailsModel;
      private ListPurchaseOrderCheck obj;
+     private String typeForm;
 
      public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -51,7 +52,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           this.obj = obj;
      }
 
-     public void setpOCheckDetailsModel(POCheckDetailsModel p) {
+     public void setpOCheckDetailsModel(POCheckDetailsModel p , String typeForm) {
           this.pOCheckDetailsModel = p;
           vendorName.setLabelName(p.getVendorName());
           transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
@@ -66,6 +67,9 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           checkBy.setLabelName(p.getCheckedBy().getName());
           checkDate.setLabelName(p.getCheckedBy().getDate());
           appendData(p.getDetails());
+          this.typeForm = typeForm;
+          
+          System.out.println("typeFormddddddddddddddddd : " + typeForm);
      }
 
      void appendData(PODetailItemModel[] details) {
@@ -524,19 +528,23 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-
+     
+ 
+         
          LocalDate currentDate = LocalDate.now();
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
          String checkDate = currentDate.format(formatter);
 
          if (pOCheckDetailsModel.getDetails().length == 0) {
-              JOptionPane.showMessageDialog(this, "Invalid!");
+               JOptionPane.showMessageDialog(this, "Invalid!");
               return;
          }
-
+         
+         String checkType = typeForm.equals("check") ? "check" : "approved";
+         
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
-         json.put("remark", "check");
+         json.put("remark", checkType);
          json.put("role", JavaConstant.roleName);
          json.put("checkDate", checkDate);
 

@@ -5,6 +5,7 @@ import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import Stock.PurchaseOrder.PurchaseOrder;
+import Stock.PurchaseOrderApprove.ListPurchaseApprove;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import java.io.IOException;
 import java.util.Timer;
@@ -18,23 +19,23 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class PurchaseOrderView extends javax.swing.JDialog {
 
-    public PurchaseOrderView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
+     public PurchaseOrderView(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-        JavaConstant.addTitleAndLogo(this, "Purchase Order");
-        getImageAndTitle();
-    }
+          JavaConstant.addTitleAndLogo(this, "Purchase Order");
+          getImageAndTitle();
+     }
 
      private void getImageAndTitle() {
 
@@ -60,7 +61,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
           timer.schedule(task, 500); // Delays task execution by 1 second
      }
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -138,59 +139,66 @@ public class PurchaseOrderView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseClicked
-        PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
-        purchase.setVisible(true);
+         PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
+         purchase.setVisible(true);
     }//GEN-LAST:event_requestMouseClicked
 
     private void checkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkMouseClicked
-        ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
-        listCheck.setVisible(true);
+         ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
+         listCheck.setTypeForm("check");
+         listCheck.setTitle("Check");
+         listCheck.setVisible(true);
     }//GEN-LAST:event_checkMouseClicked
 
     private void approveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_approveMouseClicked
+//        ListPurchaseApprove listCheck = new ListPurchaseApprove(new JFrame(), true);
+//        listCheck.setVisible(true);
 
+         ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
+         listCheck.setTypeForm("approved");
+         listCheck.setTitle("Approved");
 
+         listCheck.setVisible(true);
     }//GEN-LAST:event_approveMouseClicked
 
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PurchaseOrderView dialog = new PurchaseOrderView(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(PurchaseOrderView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    PurchaseOrderView dialog = new PurchaseOrderView(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.SettingBox approve;
