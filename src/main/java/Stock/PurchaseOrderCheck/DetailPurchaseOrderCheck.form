@@ -87,22 +87,22 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lbRequestDate" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <Component id="lbTotalCost" min="-2" pref="165" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="requestDate" min="-2" pref="310" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lbRequestBy" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <Component id="lbTotalQty" min="-2" pref="165" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="requestBy" min="-2" pref="310" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lbTotalCost" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <Component id="lbTotalQty1" min="-2" pref="165" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="totalCost" min="-2" pref="310" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lbTotalQty" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <Component id="lbTotalQty2" min="-2" pref="165" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="totalQty" min="-2" pref="310" max="-2" attributes="0"/>
                                           </Group>
@@ -116,29 +116,19 @@
                                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="lbApprovedBy" min="-2" pref="165" max="-2" attributes="0"/>
+                                          <Component id="lbTransactionDate3" min="-2" pref="165" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="comment" min="-2" pref="310" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="lbCheckDate" min="-2" pref="165" max="-2" attributes="0"/>
+                                          <Component id="lbTransactionDate2" min="-2" pref="165" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="checkDate" min="-2" pref="310" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lbCheckBy" min="-2" pref="165" max="-2" attributes="0"/>
+                                          <Component id="lbTransactionDate1" min="-2" pref="165" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="checkBy" min="-2" pref="310" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lbApproveDate" min="-2" pref="165" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lbPosId19" min="-2" pref="310" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="lbComment" min="-2" pref="165" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lbPosId22" min="-2" pref="310" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -179,7 +169,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbTotalCost" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="lbTotalQty1" min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                           <Component id="puchaseOrderNo" alignment="0" max="32767" attributes="0"/>
                           <Component id="totalCost" alignment="0" max="32767" attributes="0"/>
@@ -188,9 +178,9 @@
                           <Component id="lbPurchaseeOrderNo" alignment="0" pref="25" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="lbTotalQty" pref="25" max="32767" attributes="0"/>
@@ -214,39 +204,18 @@
                                       <Component id="requestDate" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="lbComment" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lbPosId22" min="-2" pref="24" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="lbTransactionDate" pref="25" max="32767" attributes="0"/>
-                                                  <Component id="lbPosId21" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lbPosId19" min="-2" pref="24" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="header" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="492" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="buttonCancel" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
@@ -527,12 +496,12 @@
             <Property name="labelName" type="java.lang.String" value="Order Date :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbRequestBy">
+        <Component class="Components.Label" name="lbTotalQty">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Requested By :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbRequestDate">
+        <Component class="Components.Label" name="lbTotalCost">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Requested Date :"/>
           </Properties>
@@ -562,19 +531,19 @@
             <Property name="labelName" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCheckBy">
+        <Component class="Components.Label" name="lbTransactionDate1">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Checked By :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbCheckDate">
+        <Component class="Components.Label" name="lbTransactionDate2">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Checked Date :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbApprovedBy">
+        <Component class="Components.Label" name="lbTransactionDate3">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Approved By :"/>
+            <Property name="labelName" type="java.lang.String" value="Comment :"/>
           </Properties>
         </Component>
         <Component class="Components.Label" name="checkBy">
@@ -592,12 +561,12 @@
             <Property name="labelName" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbTotalCost">
+        <Component class="Components.Label" name="lbTotalQty1">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Total Cost :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbTotalQty">
+        <Component class="Components.Label" name="lbTotalQty2">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Total Qty :"/>
           </Properties>
@@ -628,26 +597,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCancelMouseClicked"/>
           </Events>
-        </Component>
-        <Component class="Components.Label" name="lbApproveDate">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Approved Date :"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbPosId19">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value=""/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbComment">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Comment :"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbPosId22">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value=""/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -2,25 +2,32 @@ package Stock.PurchaseOrderCheck;
 
 import Color.WindowColor;
 import Components.NotFound;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
-import Model.PurchaseOrder.DetailPurchaseModel;
+
 import Stock.PurchaseOrder.GetDetailPurchase;
-import Stock.PurchaseOrder.PurchaseNoData;
 import Stock.PurchaseOrderApprove.ActionReject;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
      private POCheckDetailsModel pOCheckDetailsModel;
+     private ListPurchaseOrderCheck obj;
+     private String typeForm;
 
      public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -39,7 +46,15 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           return pOCheckDetailsModel;
      }
 
-     public void setpOCheckDetailsModel(POCheckDetailsModel p) {
+     public ListPurchaseOrderCheck getObj() {
+          return obj;
+     }
+
+     public void setObj(ListPurchaseOrderCheck obj) {
+          this.obj = obj;
+     }
+
+     public void setpOCheckDetailsModel(POCheckDetailsModel p , String typeForm) {
           this.pOCheckDetailsModel = p;
           vendorName.setLabelName(p.getVendorName());
           transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
@@ -54,7 +69,9 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           checkBy.setLabelName(p.getCheckedBy().getName());
           checkDate.setLabelName(p.getCheckedBy().getDate());
           appendData(p.getDetails());
-
+          this.typeForm = typeForm;
+          
+          System.out.println("typeFormddddddddddddddddd : " + typeForm);
      }
 
      void appendData(PODetailItemModel[] details) {
@@ -513,13 +530,42 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+     
+         LocalDate currentDate = LocalDate.now();
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         String checkDate = currentDate.format(formatter);
 
+         if (pOCheckDetailsModel.getDetails().length == 0) {
+               JOptionPane.showMessageDialog(this, "Invalid!");
+              return;
+         }
+         
+         String checkType = typeForm.equals("check") ? "check" : "approved";
+         
+         JSONObject json = new JSONObject();
+         json.put("createBy", JavaConstant.cashierId);
+         json.put("remark", checkType);
+         json.put("role", JavaConstant.roleName);
+         json.put("checkDate", checkDate);
+
+         Response response = JavaConnection.post(JavaRoute.imports + "/checkingRequest/" + puchaseOrderNo.getLabelName(), json);
+
+         try {
+              String responeData = response.body().string();
+              if (response.isSuccessful()) {
+                   System.out.println("responeData : " + responeData);
+                   dispose();
+                   obj.getData(obj);
+              }
+         } catch (Exception e) {
+              System.out.println("error : " + e);
+         }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        ActionReject reject = new ActionReject(new JFrame(), true);
-        reject.setVisible(true);
+        ActionReject actionReject = new ActionReject(new JFrame(), true);
+        actionReject.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
      public static void main(String args[]) {

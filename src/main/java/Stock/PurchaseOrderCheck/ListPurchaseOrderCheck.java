@@ -28,6 +28,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
      private String pageNumber = "0";
      private int pageSize = 10;
+     private String typeForm;
 
      public ListPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -43,35 +44,51 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           header.setBackground(WindowColor.darkGreen);
           JavaConstant.addTitleAndLogo(this, "Purchase Order Check");
-          getData();
 
      }
 
-     public void getData() {
+     public String getTypeForm() {
+          return typeForm;
+     }
+
+     public void setTypeForm(String typeForm) {
+          this.typeForm = typeForm;
+          getData(this);
+     }
+
+     public void getData(ListPurchaseOrderCheck obj) {
           Response response = JavaConnection.get(JavaRoute.imports + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
           try {
                String responseData = response.body().string();
                ObjectMapper objMap = new ObjectMapper();
                ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
                DataPurchaseModel[] listData = data.getData();
-               appendPurchaeOrder(listData);
+               appendPurchaeOrder(listData, obj);
           } catch (Exception e) {
                System.out.println("error : " + e);
           }
 
      }
 
-     void appendPurchaeOrder(DataPurchaseModel[] listData) {
+     void reloadPanel() {
+          listGetOrder.removeAll();
+          listGetOrder.revalidate();
+          listGetOrder.repaint();
+     }
+
+     void appendPurchaeOrder(DataPurchaseModel[] listData, ListPurchaseOrderCheck obj) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+          reloadPanel();
           listGetOrder.setLayout(gridBagLayout);
 
           int x = 0;
           int y = 0;
+
+          System.out.println("typeForm ddd : " + typeForm);
 
           if (listData.length > 0) {
                for (int i = 0; i < listData.length; i++) {
@@ -105,9 +122,8 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-//                                   PODetailItemModel[] listDetails = detailData.getDetails();
-                                   
-                                   detail.setpOCheckDetailsModel(detailData);
+                                   detail.setpOCheckDetailsModel(detailData,typeForm);
+                                   detail.setObj(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {
                                    System.err.println("error getting purchase order " + e);
@@ -134,9 +150,16 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                          System.err.println("error read image = " + e);
                     }
 
-                    if (data.getRemark().toLowerCase().equals("request")) {
-                         listGetOrder.add(b, gbc);
+                    if (typeForm.toLowerCase().equals("check")) {
+                         if (data.getRemark().toLowerCase().equals("request")) {
+                              listGetOrder.add(b, gbc);
+                         }
+                    } else if (typeForm.toLowerCase().equals("approved")) {
+                         if (data.getRemark().toLowerCase().equals("check")) {
+                              listGetOrder.add(b, gbc);
+                         }
                     }
+
                }
           } else {
                NoDataAvaibalePanel no = new NoDataAvaibalePanel();
@@ -326,6 +349,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
