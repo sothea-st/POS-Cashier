@@ -122,7 +122,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-                                   detail.setpOCheckDetailsModel(detailData,typeForm);
+                                   detail.setpOCheckDetailsModel(detailData,typeForm, data.getId());
                                    detail.setObj(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {

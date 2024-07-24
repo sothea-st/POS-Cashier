@@ -1,9 +1,21 @@
 package Stock.PurchaseOrderApprove;
 
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
 import Event.ButtonEvent;
+import Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class ActionReject extends javax.swing.JDialog {
 
+    private Integer id;
+    private JPanel panelPurchase;
+    private DetailPurchaseOrderCheck obj;
+    
     public ActionReject(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -112,8 +124,59 @@ public class ActionReject extends javax.swing.JDialog {
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
         
+        String comment = txtComment.getValueTextField();
+        
+        JSONObject json = new JSONObject();
+        json.put("rejectBy", JavaConstant.cashierId);
+        json.put("msg", comment);
+  
+        Response response = JavaConnection.post(JavaRoute.imports + "/rejectPurchaseOrder/" + getId() , json);
+        
+        System.out.println("response : " + response);
+        System.out.println("json : " + json);
+        
+        try {
+             if (response.isSuccessful()) {
+                  DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
+                  panelPurchase.removeAll();
+                  panelPurchase.revalidate();
+                  panelPurchase.repaint();
+                  detail.add(panelPurchase);
+                  panelPurchase.revalidate();
+                  panelPurchase.repaint();
+                  dispose();
+             }
+        } catch (Exception e) {
+             System.out.println("error : " + e);
+        }
     }//GEN-LAST:event_button1MouseClicked
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public JPanel getPanelPurchase() {
+        return panelPurchase;
+    }
+
+    public void setPanelPurchase(JPanel panelPurchase) {
+        this.panelPurchase = panelPurchase;
+    }
+
+    public DetailPurchaseOrderCheck getObj() {
+        return obj;
+    }
+
+    public void setObj(DetailPurchaseOrderCheck obj) {
+        this.obj = obj;
+    }
+
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

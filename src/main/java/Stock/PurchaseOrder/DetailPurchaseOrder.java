@@ -46,6 +46,7 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
           requestDate.setLabelName(p.getRequestBy().getDate());
           checkBy.setLabelName(p.getCheckedBy().getName());
           checkDate.setLabelName(p.getCheckedBy().getDate());
+          comment.setLabelName(p.getFeedBackReject());
           appendData(p.getDetails());
 
      }
