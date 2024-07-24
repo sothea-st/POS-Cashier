@@ -559,7 +559,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
               if (response.isSuccessful()) {
                    System.out.println("responeData : " + responeData);
                    dispose();
-                   obj.getData(obj);
+                   obj.getData(obj,true);
               }
          } catch (Exception e) {
               System.out.println("error : " + e);

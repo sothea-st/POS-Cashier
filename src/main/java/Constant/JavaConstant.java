@@ -2,6 +2,7 @@ package Constant;
 
 import BlogCode.JavaBlogImage;
 import Components.BoxItem;
+import Components.NotFound;
 import Components.countCircleShape;
 import Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
@@ -10,6 +11,7 @@ import Model.HoldOrder.NewHoldOrderModel;
 import Products.ProductBox;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
@@ -101,7 +103,6 @@ public class JavaConstant {
      public static ProductDataModel[] listData;
      public static boolean isCheckProductAll = false;
      public static String categoryName = "new items";
- 
 
      public static boolean checkImageExists(String imageUrl) {
           try {
@@ -386,6 +387,15 @@ public class JavaConstant {
           String formattedDateTime = currentDateTime.format(formatter);
           String fileName = formattedDateTime;
           return fileName;
+     }
+
+     public static void noContent(JPanel panel) {
+          panel.setLayout(new BorderLayout());
+          NotFound nofound = new NotFound();
+          panel.add(nofound, BorderLayout.CENTER);
+          panel.add(nofound);
+          panel.revalidate();
+          panel.repaint();
      }
 
 }

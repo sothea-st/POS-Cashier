@@ -1,12 +1,14 @@
 package Components;
 
 import java.awt.BorderLayout;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class NotFound extends javax.swing.JPanel {
 
      public NotFound() {
           initComponents();
+   
      }
 
      @SuppressWarnings("unchecked")

@@ -1,5 +1,7 @@
 package Setting.Category;
 
+import java.awt.Dimension;
+
 
 public class NoDataAvaibalePanel extends javax.swing.JPanel {
 
@@ -12,6 +14,7 @@ public class NoDataAvaibalePanel extends javax.swing.JPanel {
     public void setLabelName(String labelName) {
         this.labelName = labelName;
         lbName.setText(labelName);
+     
     }
     
     public NoDataAvaibalePanel() {

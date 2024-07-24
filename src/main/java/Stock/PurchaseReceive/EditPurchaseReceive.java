@@ -1,75 +1,128 @@
 package Stock.PurchaseReceive;
 
 import Color.WindowColor;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Setting.Category.NoDataAvaibalePanel;
+import Stock.PurchaseOrder.ImportRequest;
+import Stock.PurchaseOrder.TdDetailPurchaseOrder;
+import Stock.PurchaseOrderCheck.POCheckDetailsModel;
+import Stock.PurchaseOrderCheck.PODetailItemModel;
+import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.Border;
+import lombok.Getter;
+import lombok.Setter;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class EditPurchaseReceive extends javax.swing.JDialog {
 
-    public EditPurchaseReceive(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        header.setBackground(WindowColor.darkGreen);
-        orderDate.setEnabled(false);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
-        borderUnderLine.setBorder(topBorder);
-        appendPurchaseReceive(listGetDetailReceive);
-    }
+     private Integer importId;
+     private POCheckDetailsModel data;
+     ArrayList<ImportRequest.ImportDetailRequest> details = new ArrayList<>();
 
-    
-    void appendPurchaseReceive(JPanel listGetDetailReceive) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+     public EditPurchaseReceive(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
 
-        listGetDetailReceive.setLayout(gridBagLayout);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          header.setBackground(WindowColor.darkGreen);
+          orderDate.setEnabled(false);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
+          borderUnderLine.setBorder(topBorder);
 
-        int x = 0;
-        int y = 0;
-        if(5 > 0){
-            for (int i = 0; i < 5; i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
-                    x = 0;
-                    y++;
-                }
-                
-                GetEditReceive b = new GetEditReceive();
+     }
 
-                listGetDetailReceive.add(b, gbc);
-            }  
-        }
-        
-        listGetDetailReceive.revalidate();
-        listGetDetailReceive.repaint();
-    }
-    
-    @SuppressWarnings("unchecked")
+     public void setImportId(Integer id) {
+          this.importId = id;
+          Response response = JavaConnection.get(JavaRoute.imports + "/" + id);
+
+          try {
+               String responseData = response.body().string();
+               ObjectMapper objectMapper = new ObjectMapper();
+               PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
+               data = model.getData();
+               setData();
+               appendPurchaseReceive(model.getData().getDetails());
+          } catch (Exception e) {
+               System.out.println("error : " + e);
+          }
+     }
+
+     private void setData() {
+          txtVendorName.setLabelTextField(data.getVendorName());
+          txtReference.setLabelTextField(data.getReferenceNo());
+          orderDate.setLabelTextField(data.getOrderDate());
+          txtTransactionNo.setLabelTextField(data.getTransactionNo() + "");
+          txtPurchaseOrderNo.setLabelTextField(data.getPurchaseOrderNo());
+          transactionDate.setLabelTextField(data.getTransactionDate());
+     }
+
+     void appendPurchaseReceive(PODetailItemModel[] details) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+          listGetDetailReceive.setLayout(gridBagLayout);
+
+          int x = 0;
+          int y = 0;
+          if (details.length != 0) {
+               for (int i = 0; i < details.length; i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
+                    }
+                    var data = details[i];
+
+                    GetEditReceive b = new GetEditReceive();
+                    b.setData(
+                         String.valueOf(data.getProductID()),
+                         String.valueOf(i + 1),
+                         String.valueOf(data.getBarcode()),
+                         String.valueOf(data.getProNameEn()),
+                         String.valueOf(data.getOrderQty()),
+                         "$".concat(String.valueOf(data.getCost())),
+                         "$".concat(String.valueOf(data.getTotalCost()))
+                    );
+                    listGetDetailReceive.add(b, gbc);
+               }
+          }
+
+          listGetDetailReceive.revalidate();
+          listGetDetailReceive.repaint();
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -353,54 +406,99 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-       
+
+  
+         JSONObject json = new JSONObject();
+         json.put("createBy", JavaConstant.cashierId);
+         json.put("empId", JavaConstant.empId);
+         json.put("vendorId", data.getVendorID());
+         json.put("impDate", data.getOrderDate());
+         json.put("discount", "0");
+         json.put("referenceNo", data.getReferenceNo());
+         json.put("transactionDate", data.getTransactionDate());
+         String _totalCost = lbTotalCost.getText().replace("$", "");
+         _totalCost = _totalCost.replace(",", "");
+         json.put("total", _totalCost);
+         json.put("totalQty", lbTotalQty.getText());
+         json.put("remark", "received");
+         json.put("impId", importId);
+
+         Component[] listCom = listGetDetailReceive.getComponents();
+
+         for (Component p : listCom) {
+              var data = ((GetEditReceive) p);
+              ImportRequest importRequest = new ImportRequest();
+              ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
+                   data.getProductId(),
+                   Integer.valueOf(data.getQtyUnit()),
+                   BigDecimal.valueOf(Double.parseDouble(data.getCost())),
+                   BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
+                   "");
+
+              details.add(imps);
+         }
+         json.put("details", details);
+
+         Response response = JavaConnection.post(JavaRoute.imports, json);
+         try {
+              if (response.isSuccessful()) {
+                   String responseData = response.body().string();
+                   System.out.println("responseData : " + responseData);
+                   dispose();
+              }
+         } catch (Exception e) {
+              System.out.println("error : " + e);
+         }
+
+
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EditPurchaseReceive dialog = new EditPurchaseReceive(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    EditPurchaseReceive dialog = new EditPurchaseReceive(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel borderUnderLine;

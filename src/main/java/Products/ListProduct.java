@@ -188,8 +188,7 @@ public class ListProduct extends javax.swing.JDialog {
           listGetProduct.setLayout(gridBagLayout);
 
           int x = 0;
-          int y = 0;
-          if (listProductData.length == 0) {
+          int y = 0; if (listProductData.length == 0) {
                listGetProduct.setLayout(new BorderLayout());
                NotFound nofound = new NotFound();
                listGetProduct.add(nofound, BorderLayout.CENTER);
@@ -197,6 +196,7 @@ public class ListProduct extends javax.swing.JDialog {
                listGetProduct.revalidate();
                listGetProduct.repaint();
           }
+         
           for (ProductResponseDetailV1 p : listProductData) {
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
