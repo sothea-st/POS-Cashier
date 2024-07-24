@@ -1,10 +1,27 @@
 package Stock.PurchaseOrderApprove;
 
+import Event.ButtonEvent;
+
 public class ActionReject extends javax.swing.JDialog {
 
     public ActionReject(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        txtComment.requestFocus();
+        event();
+    }
+    
+    //Place Holder
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
+
+            }
+        };
+        txtComment.initEvent(btnevent);
     }
 
     @SuppressWarnings("unchecked")
@@ -16,7 +33,7 @@ public class ActionReject extends javax.swing.JDialog {
         lbReason = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         button1 = new Button.Button();
-        redexpress = new Components.TextField();
+        txtComment = new Components.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -38,7 +55,7 @@ public class ActionReject extends javax.swing.JDialog {
             }
         });
 
-        redexpress.setLabelTextField("Comment");
+        txtComment.setLabelTextField("Comment");
 
         javax.swing.GroupLayout panelRejectLayout = new javax.swing.GroupLayout(panelReject);
         panelReject.setLayout(panelRejectLayout);
@@ -56,7 +73,7 @@ public class ActionReject extends javax.swing.JDialog {
                         .addGap(20, 20, 20)
                         .addComponent(lbReason, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(redexpress, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
         );
         panelRejectLayout.setVerticalGroup(
@@ -65,7 +82,7 @@ public class ActionReject extends javax.swing.JDialog {
                 .addComponent(labelPopUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(redexpress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,6 +159,6 @@ public class ActionReject extends javax.swing.JDialog {
     private Components.LabelPopUpTitle labelPopUpTitle;
     private Components.Label lbReason;
     private javax.swing.JPanel panelReject;
-    private Components.TextField redexpress;
+    private Components.TextField txtComment;
     // End of variables declaration//GEN-END:variables
 }

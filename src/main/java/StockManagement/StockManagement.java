@@ -8,6 +8,7 @@ import LoginAndLogoutForm.LoginFormJdailog;
 import Products.ListProduct;
 import Stock.PurchaseOrder.PurchaseOrder;
 import Stock.PurchaseOrderView.PurchaseOrderView;
+import Stock.PurchaseReceive.ListPurchaseReceive;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,6 +58,7 @@ public class StockManagement extends javax.swing.JDialog {
                          // Task to be executed
                          product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "item.png");
                          purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
+                         purchaseOrderReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "63157d93-b4c9-4c60-b9f3-8eb7e789c039");
                     } catch (IOException ex) {
                          Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -152,13 +154,11 @@ public class StockManagement extends javax.swing.JDialog {
     }//GEN-LAST:event_productMouseClicked
 
     private void purchaseOrderReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderReceiveMouseClicked
-        // TODO add your handling code here:
+        ListPurchaseReceive list = new ListPurchaseReceive(new JFrame(), true);
+        list.setVisible(true);
     }//GEN-LAST:event_purchaseOrderReceiveMouseClicked
 
     private void purchaseOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderMouseClicked
-//        PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
-//        purchase.setVisible(true);
-        
         PurchaseOrderView purchase = new PurchaseOrderView(new JFrame(), true);
         purchase.setVisible(true);
     }//GEN-LAST:event_purchaseOrderMouseClicked
