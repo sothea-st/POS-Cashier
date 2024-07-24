@@ -51,7 +51,7 @@
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Component id="lbReason" min="-2" pref="70" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="redexpress" min="-2" pref="263" max="-2" attributes="0"/>
+                          <Component id="txtComment" min="-2" pref="263" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -64,7 +64,7 @@
                   <Component id="labelPopUpTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="redexpress" max="32767" attributes="0"/>
+                      <Component id="txtComment" max="32767" attributes="0"/>
                       <Component id="lbReason" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -104,7 +104,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
           </Events>
         </Component>
-        <Component class="Components.TextField" name="redexpress">
+        <Component class="Components.TextField" name="txtComment">
           <Properties>
             <Property name="labelTextField" type="java.lang.String" value="Comment"/>
           </Properties>
