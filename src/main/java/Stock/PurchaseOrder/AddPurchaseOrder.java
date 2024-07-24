@@ -504,15 +504,14 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          json.put("details", details);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
-         
-      
+     
          JavaConstant.setCircleLoadingCursor(this);
 
          try {
               if (response.isSuccessful()) {
                    JavaConstant.restoreDefaultCursor(this);
                    String dataString = response.body().string();
-                   System.out.println("succes import : " + dataString);
+                  
                    buttonSave.setVisible(false);
                    reloadPanel();
                    cmbVendorName.setToFirstItem();
@@ -521,6 +520,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                    transactionDate.setLabelTextField("Transaction Date");
                    lbTotalCost.setText("$0.00");
                    lbTotalQty.setText("0");
+                   txtReference.setLabelTextField(null);
               }
          } catch (Exception e) {
               System.out.println("import request fails : " + e);

@@ -79,7 +79,7 @@ public class JavaRoute {
      public static String searchCategory = "/category/code/";
 
      public static String searchTax = "/taxProduct/searchTax/";
-     public static String searchPurchase = "/import/filter/";
+     public static String searchPurchase = "/v1/import/filter/";
      
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
 

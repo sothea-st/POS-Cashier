@@ -29,6 +29,8 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
      private String pageNumber = "0";
      private int pageSize = 10;
      private String typeForm;
+     private String searchValue;
+     private boolean isCheckSearch = true;
 
      public ListPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -44,7 +46,25 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           header.setBackground(WindowColor.darkGreen);
           JavaConstant.addTitleAndLogo(this, "Purchase Order Check");
+          eventSearchPuchaseOrder(this);
+     }
 
+     private void eventSearchPuchaseOrder(ListPurchaseOrderCheck obj) {
+          // this event was called when user type on searchTextField 
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+                    if (searchValue.isEmpty()) {
+                         isCheckSearch = true;
+                         pageNumber = "0";
+                         getData(obj, true);
+                         return;
+                    }
+                    getData(obj, false);
+               }
+          };
+          searchField.initEvent(events);
      }
 
      public String getTypeForm() {
@@ -53,16 +73,31 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
      public void setTypeForm(String typeForm) {
           this.typeForm = typeForm;
-          getData(this);
+          getData(this, true);
      }
 
-     public void getData(ListPurchaseOrderCheck obj) {
-          Response response = JavaConnection.get(JavaRoute.imports + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+     public void getData(ListPurchaseOrderCheck obj, boolean isCheck) {
+          Response response = null;
+          String remark = typeForm.equals("check") ? "request" : "check";
+          if (isCheck) {
+               response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=" + remark);
+          } else {
+               isCheckSearch = false;
+               response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=" + remark);
+          }
+
           try {
                String responseData = response.body().string();
                ObjectMapper objMap = new ObjectMapper();
                ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
                DataPurchaseModel[] listData = data.getData();
+
+               if (isCheckSearch) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+               } else {
+                    paginationPanel.resetPage();
+               }
+
                appendPurchaeOrder(listData, obj);
           } catch (Exception e) {
                System.out.println("error : " + e);
@@ -88,9 +123,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
           int x = 0;
           int y = 0;
 
-          System.out.println("typeForm ddd : " + typeForm);
-
-          if (listData.length > 0) {
+          if (listData.length != 0) {
                for (int i = 0; i < listData.length; i++) {
                     GridBagConstraints gbc = new GridBagConstraints();
                     gbc.gridx = x;
@@ -122,7 +155,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-                                   detail.setpOCheckDetailsModel(detailData,typeForm);
+                                   detail.setpOCheckDetailsModel(detailData, typeForm);
                                    detail.setObj(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {
@@ -159,11 +192,13 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                               listGetOrder.add(b, gbc);
                          }
                     }
+                    paginationPanel.setVisible(true);
 
                }
           } else {
                NoDataAvaibalePanel no = new NoDataAvaibalePanel();
                listGetOrder.add(no);
+               paginationPanel.setVisible(false);
           }
 
           listGetOrder.revalidate();

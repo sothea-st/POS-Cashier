@@ -146,7 +146,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
     private void checkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkMouseClicked
          ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
          listCheck.setTypeForm("check");
-         listCheck.setTitle("Check");
+         listCheck.setTitle("Purchase Check");
          listCheck.setVisible(true);
     }//GEN-LAST:event_checkMouseClicked
 

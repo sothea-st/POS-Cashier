@@ -9,8 +9,6 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.PurchaseOrder.DataPurchaseModel;
-import Model.PurchaseOrder.DetailPurchaseModelFirst;
-import Model.PurchaseOrder.DetailPurchaseModelSecond;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
@@ -51,7 +49,6 @@ public class PurchaseOrder extends javax.swing.JDialog {
           JavaConstant.addTitleAndLogo(this, "Purchase Request");
           getListPurchase(listGetOrder, true);
           eventSearchPuchaseOrder();
-
           eventPagination();
      }
 
@@ -89,7 +86,6 @@ public class PurchaseOrder extends javax.swing.JDialog {
                          paginationPanel.resetPage();
                     }
                     appendPurchaseOrder(listData, jpanelData);
-                    
                } else {
                     System.err.println("fail loading purchase");
                }
@@ -460,6 +456,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                @Override
                public void onKeyType() {
                     searchValue = searchField.getValueTextSearch();
+                    
                     if (searchValue.isEmpty()) {
                          isCheckSearch = true;
                          pageNumber = "0";
