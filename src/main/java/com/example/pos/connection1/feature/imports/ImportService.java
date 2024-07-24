@@ -11,6 +11,7 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
  */
 public interface ImportService {
 
+      JavaCollectionResponse<?> listRequestByRemark(Integer pageNumber , Integer pageSize ,String type);
 
       void rejectPurchaseOrder(RejectPurchaseOrderRequest rejectPurchaseOrder , Integer id);
 
@@ -63,7 +64,7 @@ public interface ImportService {
       * @param pageSize   The number of items per page.
       * @return A {@link JavaCollectionResponse} containing imported data.
       */
-      JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value);
+      JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value, String remark);
 
       void checkingRequest(CheckingRequest checkingRequest , String poId);
 }

@@ -36,9 +36,7 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.*;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -68,6 +66,24 @@ public class ImportServiceImp implements ImportService {
      private final String importIdNotFound = "Import not found with Id : ";
      private final String categoryIdNotFound = "Category not found with Id : ";
      private final String impNoNotFound = "Import not found with poId : ";
+
+     @Override
+     public JavaCollectionResponse<?> listRequestByRemark(Integer pageNumber, Integer pageSize, String type) {
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+          Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+
+          List<ImportResponse> data = pages.getContent().stream()
+                    .filter(p -> p.getRemark().toLowerCase().equals(type.toLowerCase()))
+                    .map(importMapper::mapToImportResponse)
+                    .toList();
+
+          return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
+
+     }
 
      @Override
      public void rejectPurchaseOrder(RejectPurchaseOrderRequest rejectPurchaseOrder, Integer id) {
@@ -124,15 +140,43 @@ public class ImportServiceImp implements ImportService {
       * @param value value client want to filter
       */
      @Override
-     public JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value) {
+     public JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value, String remark) {
           Sort sortById = Sort.by(Sort.Direction.DESC, "id");
           PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
           Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+          List<ImportResponse> data = new ArrayList<>();
+          switch (remark) {
+               case null:
+                    data = pages.getContent().stream()
+                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                              .map(importMapper::mapToImportResponse)
+                              .toList();
+                    break;
 
-          List<ImportResponse> data = pages.getContent().stream()
-                    .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
-                    .map(importMapper::mapToImportResponse)
-                    .toList();
+               case "request":
+                    data = pages.getContent().stream()
+                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                              .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                              .map(importMapper::mapToImportResponse)
+                              .toList();
+                    break;
+               case "check":
+                    data = pages.getContent().stream()
+                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                              .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                              .map(importMapper::mapToImportResponse)
+                              .toList();
+                    break;
+               case "approved":
+                    data = pages.getContent().stream()
+                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                              .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                              .map(importMapper::mapToImportResponse)
+                              .toList();
+                    break;
+               default:
+                    break;
+          }
 
           return JavaCollectionResponse.builder()
                     .count(data.size())
@@ -194,10 +238,9 @@ public class ImportServiceImp implements ImportService {
                approvedBy = userRepository.getNameEmp(imports.getApproveBy());
           }
 
-          if( imports.getRejectBy() != null ) {
+          if (imports.getRejectBy() != null) {
                rejectBy = userRepository.getNameEmp(imports.getRejectBy());
           }
-
 
           // Iterate through each ImportDetail entity and construct ImportDetailResponse
           // objects
@@ -231,15 +274,15 @@ public class ImportServiceImp implements ImportService {
                          .build();
                details.add(importDetailResponse);
           }
-          Map<String,String> _requestBy = new HashedMap<>();
+          Map<String, String> _requestBy = new HashedMap<>();
           _requestBy.put("name", requestBy);
           _requestBy.put("date", imports.getImpDate());
 
-          Map<String,String> _checkBy = new HashedMap<>();
+          Map<String, String> _checkBy = new HashedMap<>();
           _checkBy.put("name", checkBy);
           _checkBy.put("date", imports.getCheckDate());
 
-          Map<String,String> _approveBy = new HashedMap<>();
+          Map<String, String> _approveBy = new HashedMap<>();
           _approveBy.put("name", approvedBy);
           _approveBy.put("date", imports.getApproveDate());
 
@@ -342,6 +385,20 @@ public class ImportServiceImp implements ImportService {
                     imp.setRemark(importRequest.remark());
                     importRepository.save(imp);
                     requestData(importRequest, importRequest.impId());
+               } else if (importRequest.remark().toLowerCase().equals("received")) {
+                    System.out.println("importRequest.impId() : " + importRequest.impId());
+                    for (ImportDetailsRequest data : importRequest.details()) {
+                         Product product = productRepository.findById(data.productId())
+                                   .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                             "Product id not fouund with : " + data.productId()));
+                         ImportDetailTemporary detail = importDetailTemporaryRepository
+                                   .findByImpIdAndProduct(importRequest.impId(), product)
+                                   .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                             "Import Detail not found"));
+
+                         detail.setQtyNew(data.qtyNew());
+                         importDetailTemporaryRepository.save(detail);
+                    }
                }
           }
      }

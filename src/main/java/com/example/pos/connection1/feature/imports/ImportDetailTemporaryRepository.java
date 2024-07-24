@@ -1,6 +1,7 @@
 package com.example.pos.connection1.feature.imports;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.pos.connection1.entity.ImportDetail;
 import com.example.pos.connection1.entity.ImportDetailTemporary;
+import com.example.pos.connection1.entity.Product;
 
 @Repository
 public interface ImportDetailTemporaryRepository extends JpaRepository<ImportDetailTemporary, Integer> {
@@ -16,5 +18,8 @@ public interface ImportDetailTemporaryRepository extends JpaRepository<ImportDet
 
      @Query(nativeQuery = true, value = "select * from pos_import_detail_temporary pid where status =true and is_deleted =false and  imp_id = ?")
      List<ImportDetailTemporary> getResultByImpId(int impId);
+
+     Optional<ImportDetailTemporary> findByImpIdAndProduct(int impId, Product product);
+
 
 }

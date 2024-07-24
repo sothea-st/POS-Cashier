@@ -27,6 +27,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ImportController {
      private final ImportService importService;
 
+     @GetMapping("/getListByRemark")
+     public JavaCollectionResponse<?> listRequestByRemark(
+               @RequestParam(name = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+               @RequestParam(name = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+               @RequestParam("remark") String remark) {
+          return importService.listRequestByRemark(pageNumber, pageSize, remark);
+     }
+
      @PostMapping("/rejectPurchaseOrder/{id}")
      public JavaMessageResponse<?> rejectPurchaseOrder(@Valid @RequestBody RejectPurchaseOrderRequest data,
                @PathVariable("id") int id) {
@@ -85,8 +93,9 @@ public class ImportController {
      public JavaCollectionResponse<?> filter(
                @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
                @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
-               @PathVariable("value") String value) {
-          return importService.filter(pageNumber, pageSize, value);
+               @PathVariable("value") String value,
+               @RequestParam(name = "remark", required = false) String remark) { 
+          return importService.filter(pageNumber, pageSize, value,remark);
      }
 
      @DeleteMapping("/{id}")

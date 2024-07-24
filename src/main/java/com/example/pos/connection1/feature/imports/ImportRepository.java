@@ -11,17 +11,12 @@ import com.example.pos.connection1.projections.ReportImport.ReportImportProjecti
 public interface ImportRepository extends JpaRepository<Import, Integer> {
      @Query(nativeQuery = true, value = "select count(*) from pos_import")
      int countRecord();
-
      Optional<Import> findByImpNo(String impNo);
-
-     @Query(nativeQuery = true, value = "select * from get_import_details(?,?)")
+     @Query(nativeQuery = true, value = " select * from get_import_details(?,?) ")
      List<ReportImportProjection> getReport(LocalDate dateFrom, LocalDate dateTo);
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
-
      Optional<Import> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      Page<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest);
      List<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo);
-
      List<Import> findByStatusTrueAndIsDeletedFalseAndRemark(String remark);
-  
 }
