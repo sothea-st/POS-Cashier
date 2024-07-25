@@ -204,7 +204,7 @@ public class ReportingPurchaseCheck extends javax.swing.JDialog {
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Requested By");
+        jLabel9.setText("Checked By");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);

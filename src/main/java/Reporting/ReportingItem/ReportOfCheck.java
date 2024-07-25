@@ -71,7 +71,7 @@ public class ReportOfCheck extends javax.swing.JPanel {
 
         lbTransactionDate1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbTransactionDate1.setForeground(new java.awt.Color(0, 0, 0));
-        lbTransactionDate1.setText("Requested By");
+        lbTransactionDate1.setText("Checked By");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
