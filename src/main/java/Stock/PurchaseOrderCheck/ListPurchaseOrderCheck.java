@@ -11,6 +11,7 @@ import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Setting.Category.NoDataAvaibalePanel;
 import Stock.PurchaseOrder.GetPurchaseOrder;
+import Stock.PurchaseOrder.PurchaseNoData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -142,7 +143,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                     b.setReferenceNo(data.getReferenceNo());
                     b.setTransactionDate(data.getTransactionDate());
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
-                    b.setTotalCost("$".concat(String.valueOf(data.getTotalCost())));
+                    b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
                     b.setRemark(data.getRemark());
 
                     ButtonEvent events = new ButtonEvent() {
@@ -196,7 +197,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
                }
           } else {
-               NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+               PurchaseNoData no = new PurchaseNoData();
                listGetOrder.add(no);
                paginationPanel.setVisible(false);
           }
