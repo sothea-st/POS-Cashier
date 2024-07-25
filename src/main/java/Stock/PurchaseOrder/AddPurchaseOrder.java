@@ -476,6 +476,13 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          String referenceNo = txtReference.getValueTextField();
          String transactionDateValue = transactionDate.getValueTextField();
 
+         System.out.println("orderDateValue : " + orderDateValue);
+
+         if (referenceNo == null || referenceNo.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Reference № can not be empty!");
+              return;
+         }
+
          if (orderDateValue == null || orderDateValue.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Order date can not be empty!");
               return;
@@ -483,11 +490,6 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
          if (vendorId == null || vendorId.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Please select a vendor!");
-              return;
-         }
-
-         if (referenceNo == null || referenceNo.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Reference № can not be empty!");
               return;
          }
 

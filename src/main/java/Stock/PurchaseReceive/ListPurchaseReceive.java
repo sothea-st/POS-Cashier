@@ -33,7 +33,6 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
      private String typeForm;
      private String searchValue;
      private boolean isCheckSearch = true;
-   
 
      public ListPurchaseReceive(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -49,12 +48,33 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
           JavaConstant.addTitleAndLogo(this, "Purchase Receive");
 //          appendPurchaseReceive(listGetReceive);
-          getData(true ,this);
+          getData(true, this);
           cmbVendorName.setVisible(false);
           lbVendorName.setVisible(false);
+
+          eventSearchPuchaseOrder(this);
      }
 
-     public void getData(boolean isCheck , ListPurchaseReceive obj) {
+     private void eventSearchPuchaseOrder(ListPurchaseReceive obj) {
+          // this event was called when user type on searchTextField 
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+                    System.out.println("searchValue : " + searchValue);
+                    if (searchValue.isEmpty()) {
+                         isCheckSearch = true;
+                         pageNumber = "0";
+                         getData(true, obj);
+                         return;
+                    }
+                    getData(false, obj);
+               }
+          };
+          searchField.initEvent(events);
+     }
+
+     public void getData(boolean isCheck, ListPurchaseReceive obj) {
           Response response = null;
 //          String remark = typeForm.equals("check") ? "request" : "check";
           if (isCheck) {
@@ -81,7 +101,12 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           }
      }
 
-     void appendPurchaseReceive(DataPurchaseModel[] listData ,  ListPurchaseReceive obj) {
+     public void reloadPanel(){
+          listGetReceive.removeAll();
+          listGetReceive.revalidate();
+          listGetReceive.repaint();
+     }
+     void appendPurchaseReceive(DataPurchaseModel[] listData, ListPurchaseReceive obj) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -89,7 +114,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
           listGetReceive.setLayout(gridBagLayout);
-
+          reloadPanel();
           int x = 0;
           int y = 0;
           if (listData.length != 0) {
