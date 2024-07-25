@@ -8,13 +8,19 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 
 import Stock.PurchaseOrder.GetDetailPurchase;
+import Stock.PurchaseOrder.ImportRequest;
+import Stock.PurchaseOrder.TdDetailPurchaseOrder;
 import Stock.PurchaseOrderApprove.ActionReject;
+import Stock.PurchaseReceive.ListPurchaseReceive;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -29,6 +35,8 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
      private ListPurchaseOrderCheck obj;
      private String typeForm;
      private Integer id;
+     ArrayList<ImportRequest.ImportDetailRequest> details = new ArrayList<>();
+     private ListPurchaseReceive receive;
 
      public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -55,7 +63,15 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           this.obj = obj;
      }
 
-     public void setpOCheckDetailsModel(POCheckDetailsModel p , String typeForm, Integer id) {
+     public ListPurchaseReceive getReceive() {
+          return receive;
+     }
+
+     public void setReceive(ListPurchaseReceive receive) {
+          this.receive = receive;
+     }
+
+     public void setpOCheckDetailsModel(POCheckDetailsModel p, String typeForm, Integer id) {
           this.pOCheckDetailsModel = p;
           vendorName.setLabelName(p.getVendorName());
           transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
@@ -73,9 +89,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           appendData(p.getDetails());
           this.typeForm = typeForm;
           this.id = id;
-          
-          System.out.println("typeFormddddddddddddddddd : " + typeForm);
-          System.out.println("id : " + id);
+
      }
 
      void appendData(PODetailItemModel[] details) {
@@ -534,18 +548,23 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-     
+
          LocalDate currentDate = LocalDate.now();
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
          String checkDate = currentDate.format(formatter);
 
          if (pOCheckDetailsModel.getDetails().length == 0) {
-               JOptionPane.showMessageDialog(this, "Invalid!");
+              JOptionPane.showMessageDialog(this, "Invalid!");
               return;
          }
-         
+
+         if (typeForm.equals("stocked")) {
+              addStocked();
+              return;
+         }
+
          String checkType = typeForm.equals("check") ? "check" : "approved";
-         
+
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
          json.put("remark", checkType);
@@ -559,13 +578,62 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
               if (response.isSuccessful()) {
                    System.out.println("responeData : " + responeData);
                    dispose();
-                   obj.getData(obj,true);
+                   obj.getData(obj, true);
               }
          } catch (Exception e) {
               System.out.println("error : " + e);
          }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
+
+     private void addStocked() {
+
+          JSONObject json = new JSONObject();
+          json.put("createBy", JavaConstant.cashierId);
+          json.put("empId", JavaConstant.empId);
+          json.put("vendorId", pOCheckDetailsModel.getVendorID());
+          json.put("impDate", pOCheckDetailsModel.getOrderDate());
+          json.put("discount", "0");
+          json.put("referenceNo", referenceNo);
+          json.put("transactionDate", pOCheckDetailsModel.getTransactionDate());
+          String _totalCost = totalCost.getLabelName().replace("$", "");
+          _totalCost = _totalCost.replace(",", "");
+          json.put("total", _totalCost);
+          json.put("totalQty", totalQty.getLabelName());
+          json.put("remark", "stocked");
+          json.put("impId", id);
+
+          for (int i = 0; i < pOCheckDetailsModel.getDetails().length; i++) {
+               var data = pOCheckDetailsModel.getDetails()[i];
+               ImportRequest importRequest = new ImportRequest();
+               ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
+                    data.getProductID(),
+                    Integer.valueOf(data.getOrderQty()),
+                    data.getCost(),
+                    data.getTotalCost(),
+                    "");
+
+               details.add(imps);
+          }
+
+          json.put("details", details);
+
+          Response response = JavaConnection.post(JavaRoute.imports, json);
+
+          JavaConstant.setCircleLoadingCursor(this);
+
+          try {
+               if (response.isSuccessful()) {
+                    JavaConstant.restoreDefaultCursor(this);
+                    String dataString = response.body().string();
+                    System.out.println("success : " + dataString);
+                    dispose();
+                    receive.getData(true, receive);
+               }
+          } catch (Exception e) {
+               System.out.println("import request fails : " + e);
+          }
+     }
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
         ActionReject actionReject = new ActionReject(new JFrame(), true);

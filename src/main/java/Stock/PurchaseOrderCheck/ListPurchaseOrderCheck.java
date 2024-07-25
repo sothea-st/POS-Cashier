@@ -151,6 +151,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                          public void onSelectDetail(String Key) {  // event edit
                               DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
                               try {
+                                   
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objectMapper = new ObjectMapper();

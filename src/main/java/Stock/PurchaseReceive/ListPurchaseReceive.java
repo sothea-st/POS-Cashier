@@ -9,6 +9,10 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
+import Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
+import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
+import Stock.PurchaseOrderCheck.POCheckDetailsModel;
+import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -44,10 +48,33 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
           JavaConstant.addTitleAndLogo(this, "Purchase Receive");
 //          appendPurchaseReceive(listGetReceive);
-          getData(true);
+          getData(true, this);
+          cmbVendorName.setVisible(false);
+          lbVendorName.setVisible(false);
+
+          eventSearchPuchaseOrder(this);
      }
 
-     void getData(boolean isCheck) {
+     private void eventSearchPuchaseOrder(ListPurchaseReceive obj) {
+          // this event was called when user type on searchTextField 
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+                    System.out.println("searchValue : " + searchValue);
+                    if (searchValue.isEmpty()) {
+                         isCheckSearch = true;
+                         pageNumber = "0";
+                         getData(true, obj);
+                         return;
+                    }
+                    getData(false, obj);
+               }
+          };
+          searchField.initEvent(events);
+     }
+
+     public void getData(boolean isCheck, ListPurchaseReceive obj) {
           Response response = null;
 //          String remark = typeForm.equals("check") ? "request" : "check";
           if (isCheck) {
@@ -56,8 +83,6 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                isCheckSearch = false;
                response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
           }
-
-          System.out.println("response : " + response);
 
           try {
                String responseData = response.body().string();
@@ -70,13 +95,18 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                } else {
                     paginationPanel.resetPage();
                }
-               appendPurchaseReceive(listData);
+               appendPurchaseReceive(listData, obj);
           } catch (Exception e) {
                System.out.println("error : " + e);
           }
      }
 
-     void appendPurchaseReceive(DataPurchaseModel[] listData) {
+     public void reloadPanel(){
+          listGetReceive.removeAll();
+          listGetReceive.revalidate();
+          listGetReceive.repaint();
+     }
+     void appendPurchaseReceive(DataPurchaseModel[] listData, ListPurchaseReceive obj) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -84,7 +114,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
           listGetReceive.setLayout(gridBagLayout);
-
+          reloadPanel();
           int x = 0;
           int y = 0;
           if (listData.length != 0) {
@@ -114,12 +144,18 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event edit
-                              DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
+                              DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
                               try {
-
+                                   Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
+                                   String responseData = response.body().string();
+                                   ObjectMapper objectMapper = new ObjectMapper();
+                                   PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
+                                   POCheckDetailsModel detailData = model.getData();
+                                   detail.setpOCheckDetailsModel(detailData, "stocked", data.getId());
+                                   detail.setReceive(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {
-                                   System.err.println("error getting purchase receive " + e);
+                                   System.err.println("error getting purchase order " + e);
                               }
                          }
 
@@ -127,7 +163,6 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                          public void onSelect(String Key) {  // event edit
                               EditPurchaseReceive edit = new EditPurchaseReceive(new JFrame(), true);
                               try {
-                                   
                                    edit.setImportId(data.getId());
                                    edit.setVisible(true);
                               } catch (Exception e) {

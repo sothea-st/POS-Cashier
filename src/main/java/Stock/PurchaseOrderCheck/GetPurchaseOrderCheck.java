@@ -1,5 +1,6 @@
 package Stock.PurchaseOrderCheck;
 
+import Constant.JavaConstant;
 import Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -22,6 +23,7 @@ public class GetPurchaseOrderCheck extends javax.swing.JPanel {
      public GetPurchaseOrderCheck() {
           initComponents();
           lbId.setVisible(false);
+          JavaConstant.setPointer(btnDetail);
      }
      
      public String getRemark() {

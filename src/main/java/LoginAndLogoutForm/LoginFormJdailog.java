@@ -348,19 +348,16 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     if (data.getQty().equals("0")) {
                          data.setProductStatus(JavaMessage.outStock);
                     }
-
                }
           }
-
           pro.eventBtnBuy(proModel, 1, new ProductBox());
-
      }
 
     private void buttonLogin1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonLogin1MouseClicked
          //     String userId = txtUserId.getValueTextField();
          //     String password = txtPassword.getValuePassword();
 
-         String userId = "0022";
+         String userId = "0005";
          String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
@@ -467,7 +464,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              btnOpenShift.setButtonName(JavaConstant.closeShift);
                              JavaConstant.checkCloseShift = data.getData().getNumberOpenShift();
                              JavaConstant.numberOpenShift = Integer.valueOf("" + data.getData().getNumberOpenShift());
-
                         }
                    }
 

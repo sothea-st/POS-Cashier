@@ -26,6 +26,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
@@ -37,11 +38,12 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
      private String vendorId;
      private String subCatId;
-
+     private PurchaseOrder purchaseOrder;
      private ArrayList<ImportDetailOrder> listImport = new ArrayList<>();
      private int totalQty = 0;
      private double totalCost = 0;
      ArrayList<ImportDetailRequest> details = new ArrayList<>();
+     private JPanel jpanelData;
 
      public AddPurchaseOrder(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -80,17 +82,17 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
           event();
 
      }
-     
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
 
-            }
-        };
-        txtReference.initEvent(btnevent);
-    }
+     //Place Holder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          txtReference.initEvent(btnevent);
+     }
 
      private void groupCmb() {
           //  ============== combobox cmbVendorName ================
@@ -451,11 +453,35 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
+     public JPanel getJpanelData() {
+          return jpanelData;
+     }
+
+     public void setJpanelData(JPanel jpanelData) {
+          this.jpanelData = jpanelData;
+     }
+
+     public PurchaseOrder getPurchaseOrder() {
+          return purchaseOrder;
+     }
+
+     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+          this.purchaseOrder = purchaseOrder;
+     }
+
+
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
          String orderDateValue = orderDate.getValueTextField();
          String referenceNo = txtReference.getValueTextField();
          String transactionDateValue = transactionDate.getValueTextField();
+
+         System.out.println("orderDateValue : " + orderDateValue);
+
+         if (referenceNo == null || referenceNo.isEmpty()) {
+              JOptionPane.showMessageDialog(this, "Reference № can not be empty!");
+              return;
+         }
 
          if (orderDateValue == null || orderDateValue.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Order date can not be empty!");
@@ -464,11 +490,6 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
          if (vendorId == null || vendorId.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Please select a vendor!");
-              return;
-         }
-         
-         if (referenceNo == null || referenceNo.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Reference № can not be empty!");
               return;
          }
 
@@ -504,14 +525,14 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          json.put("details", details);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
-     
+
          JavaConstant.setCircleLoadingCursor(this);
 
          try {
               if (response.isSuccessful()) {
                    JavaConstant.restoreDefaultCursor(this);
                    String dataString = response.body().string();
-                  
+
                    buttonSave.setVisible(false);
                    reloadPanel();
                    cmbVendorName.setToFirstItem();
@@ -521,6 +542,9 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                    lbTotalCost.setText("$0.00");
                    lbTotalQty.setText("0");
                    txtReference.setLabelTextField(null);
+
+                   purchaseOrder.getListPurchase(jpanelData, true);
+
               }
          } catch (Exception e) {
               System.out.println("import request fails : " + e);

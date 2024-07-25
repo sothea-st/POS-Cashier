@@ -13,6 +13,7 @@ import Model.PurchaseOrder.DetailPurchaseModel;
 import Model.PurchaseOrder.DetailPurchaseModelFirst;
 import Model.PurchaseOrder.DetailPurchaseModelSecond;
 import Model.PurchaseOrder.DetailPurchaseModelThird;
+import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
@@ -36,175 +37,174 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class EditPurchaseOrder extends javax.swing.JDialog {
-
-    private int totalQty = 0;
-    private double totalCost = 0;
-    private String vendorId;
-    private Integer _Id;
-    ArrayList<ImportRequestSecond.ImportDetailRequestSecond> details = new ArrayList<>();
-    
-    private JPanel listGetOrder;
-    
-    public EditPurchaseOrder(java.awt.Frame parent, boolean modal, Integer id) {
-        super(parent, modal);
-        initComponents();
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        header.setBackground(WindowColor.darkGreen);
-        orderDate.setEnabled(false);
-        getListDetailPurchase(listGetDetailOrder, id);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        _Id = id;
-        Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
-        borderUnderLine.setBorder(topBorder);
-        
-    }
-    
-    public void getListDetailPurchase(JPanel jpanelData, Integer id) {
-        try {
-
-            Response response = JavaConnection.get(JavaRoute.imports + "/" + id );
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                DetailPurchaseModelFirst data = objMap.readValue(responseData, DetailPurchaseModelFirst.class);
-                DetailPurchaseModelSecond listDataOne = data.getData();
-                DetailPurchaseModelThird[] listDetail = listDataOne.getDetails();
-                assignPurchaseDetail(listDetail, jpanelData, id);
-            } else {
-                System.err.println("fail loading purchase");
-            }
-        } catch (Exception e) {
-            System.err.println("error getting purchase " + e);
-        }
-    }
-    
-    
-    public void assignPurchaseDetail(DetailPurchaseModelThird[] listData, JPanel listGetDetailOrder, Integer id) {
-        ArrayList<DetailPurchaseModel> purchase = new ArrayList<>();
+     
+     private int totalQty = 0;
+     private double totalCost = 0;
+     private String vendorId;
+     private Integer _Id;
+     ArrayList<ImportRequestSecond.ImportDetailRequestSecond> details = new ArrayList<>();
+     private POCheckDetailsModel detailData;
+     private JPanel listGetOrder;
+     
+     public EditPurchaseOrder(java.awt.Frame parent, boolean modal, Integer id) {
+          super(parent, modal);
+          initComponents();
           
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            DetailPurchaseModel getPurchase = new DetailPurchaseModel(
-                    obj.getId(),
-                    obj.getProductId(),
-                    obj.getBarcode(),
-                    obj.getProNameEn(),
-                    obj.getProNameKh(),
-                    obj.getDivision(),
-                    obj.getDepartment(),
-                    obj.getCategory(),
-                    obj.getSubCategory(),
-                    obj.getAvailableQty(),
-                    obj.getOrderQty(),
-                    obj.getCost(),
-                    obj.getTotalCost()
-            );
-            purchase.add(getPurchase);
-        }
-
-        appendPurchaeOrderDetail(purchase, listGetDetailOrder);
-    }
-
-    void appendPurchaeOrderDetail(ArrayList<DetailPurchaseModel> listPurchase, JPanel listGetDetailOrder) {
-        reloadPanel();
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-        listGetDetailOrder.setLayout(gridBagLayout);
-
-        int x = 0;
-        int y = 0;
-        int index = 0;
-        if(listPurchase.size() > 0){
-            for (int i = 0; i < listPurchase.size(); i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
-                    x = 0;
-                    y++;
-                }
-                var listData = listPurchase.get(i);
-                index++;
-                TdDetailPurchaseOrder detail = new TdDetailPurchaseOrder();
-                detail.setDetailSecond(
-                     String.valueOf(index),
-                     String.valueOf(listData.getBarcode()),
-                     String.valueOf(listData.getProNameEn()),
-                     String.valueOf(listData.getDivision()),
-                     String.valueOf(listData.getAvailableQty()),
-                     String.valueOf(listData.getOrderQty()),
-                     "$".concat(String.valueOf(listData.getCost())),
-                     "$".concat(String.valueOf(listData.getTotalCost())),
-                     String.valueOf(listData.getId()),
-                     String.valueOf(listData.getProductId())
-                );
-                
-                totalQty += listData.getOrderQty();
-                totalCost += listData.getCost().doubleValue();
-                
-                try {
-                    TimerTask task = new TimerTask() {
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          header.setBackground(WindowColor.darkGreen);
+          orderDate.setEnabled(false);
+//        getListDetailPurchase(listGetDetailOrder, id);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          _Id = id;
+          Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
+          borderUnderLine.setBorder(topBorder);
+          
+     }
+     
+     public void getListDetailPurchase(JPanel jpanelData, Integer id) {
+          try {
+               
+               Response response = JavaConnection.get(JavaRoute.imports + "/" + id);
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    DetailPurchaseModelFirst data = objMap.readValue(responseData, DetailPurchaseModelFirst.class);
+                    DetailPurchaseModelSecond listDataOne = data.getData();
+                    DetailPurchaseModelThird[] listDetail = listDataOne.getDetails();
+                    assignPurchaseDetail(listDetail, jpanelData, id);
+               } else {
+                    System.err.println("fail loading purchase");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting purchase " + e);
+          }
+     }
+     
+     public void assignPurchaseDetail(DetailPurchaseModelThird[] listData, JPanel listGetDetailOrder, Integer id) {
+//          ArrayList<DetailPurchaseModel> purchase = new ArrayList<>();
+//
+//          for (int i = 0; i < listData.length; i++) {
+//               var obj = listData[i];
+//               DetailPurchaseModel getPurchase = new DetailPurchaseModel(
+//                    obj.getId(),
+//                    obj.getProductId(),
+//                    obj.getBarcode(),
+//                    obj.getProNameEn(),
+//                    obj.getProNameKh(),
+//                    obj.getDivision(),
+//                    obj.getDepartment(),
+//                    obj.getCategory(),
+//                    obj.getSubCategory(),
+//                    obj.getAvailableQty(),
+//                    obj.getOrderQty(),
+//                    obj.getCost(),
+//                    obj.getTotalCost()
+//               );
+//               purchase.add(getPurchase);
+//          }
+//
+//          appendPurchaeOrderDetail(purchase, listGetDetailOrder);
+     }
+     
+     void appendPurchaeOrderDetail(ArrayList<DetailPurchaseModel> listPurchase, JPanel listGetDetailOrder) {
+          reloadPanel();
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          
+          listGetDetailOrder.setLayout(gridBagLayout);
+          
+          int x = 0;
+          int y = 0;
+          int index = 0;
+          if (listPurchase.size() > 0) {
+               for (int i = 0; i < listPurchase.size(); i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
+                    }
+                    var listData = listPurchase.get(i);
+                    index++;
+                    TdDetailPurchaseOrder detail = new TdDetailPurchaseOrder();
+                    detail.setDetailSecond(
+                         String.valueOf(index),
+                         String.valueOf(listData.getBarcode()),
+                         String.valueOf(listData.getProNameEn()),
+                         String.valueOf(listData.getDivision()),
+                         String.valueOf(listData.getAvailableQty()),
+                         String.valueOf(listData.getOrderQty()),
+                         "$".concat(String.valueOf(listData.getCost())),
+                         "$".concat(String.valueOf(listData.getTotalCost())),
+                         String.valueOf(listData.getId()),
+                         String.valueOf(listData.getProductId())
+                    );
+                    
+                    totalQty += listData.getOrderQty();
+                    totalCost += listData.getCost().doubleValue();
+                    
+                    try {
+                         TimerTask task = new TimerTask() {
+                              @Override
+                              public void run() {
+                                   detail.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                              }
+                         };
+                         
+                         Timer timer = new Timer();
+                         timer.schedule(task, 500);
+                         
+                    } catch (Exception e) {
+                         System.err.println("error read image = " + e);
+                    }
+                    
+                    ButtonEvent event = new ButtonEvent() {
                          @Override
-                         public void run() {
-                              detail.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                         public void onRemove(String index) {
+                              eventRemove(index);
+                         }
+                         
+                         @Override
+                         public void onKeyPress() {
+                              calculate();
                          }
                     };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500);
-
-               } catch (Exception e) {
-                    System.err.println("error read image = " + e);
+                    
+                    detail.initEvent(event);
+                    
+                    listGetDetailOrder.add(detail, gbc);
                }
-                
-                ButtonEvent event = new ButtonEvent() {
-                    @Override
-                    public void onRemove(String index) {
-                         eventRemove(index);
-                    }
-
-                    @Override
-                    public void onKeyPress() {
-                         calculate();
-                    }
-                };
-
-                detail.initEvent(event);
-                
-                listGetDetailOrder.add(detail, gbc);
-            }  
-        }else{
-            NotFound nofound = new NotFound();
-            listGetDetailOrder.add(nofound);
-        }
-        
-         lbTotalQty.setText(String.valueOf(totalQty));
-         lbTotalCost.setText("$".concat(String.format("%.2f", totalCost)));
-        
-        listGetDetailOrder.revalidate();
-        listGetDetailOrder.repaint();
-    }
-    
-    private void reloadPanel() {
-        listGetDetailOrder.removeAll();
-        listGetDetailOrder.revalidate();
-        listGetDetailOrder .repaint();
-    }
-
+          } else {
+               NotFound nofound = new NotFound();
+               listGetDetailOrder.add(nofound);
+          }
+          
+          lbTotalQty.setText(String.valueOf(totalQty));
+          lbTotalCost.setText("$".concat(String.format("%.2f", totalCost)));
+          
+          listGetDetailOrder.revalidate();
+          listGetDetailOrder.repaint();
+     }
+     
+     private void reloadPanel() {
+          listGetDetailOrder.removeAll();
+          listGetDetailOrder.revalidate();
+          listGetDetailOrder.repaint();
+     }
+     
      private void calculate() {
           Component[] listCom = listGetDetailOrder.getComponents();
           totalCost = 0;
@@ -219,24 +219,24 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
           }
           lbTotalCost.setText("$".concat(String.format("%.2f", totalCost)));
           lbTotalQty.setText(String.valueOf(totalQty));
-
+          
           for (int i = 0; i < listCom.length; i++) {
                var obj = ((TdDetailPurchaseOrder) listCom[i]);
                String ind = String.valueOf(i + 1);
                obj.setIndex(ind);
           }
      }
-
+     
      private void eventRemove(String index) {
           try {
                UIManager UI = new UIManager();
                UI.put("OptionPane.background", WindowColor.mediumGreen);
                UI.put("Panel.background", WindowColor.mediumGreen);
                UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
+               
                int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
                     "Delete?", JOptionPane.YES_NO_OPTION);
-
+               
                if (resp == JOptionPane.YES_OPTION) {
                     int ind = Integer.parseInt(index) - 1;
                     Component[] listComponent = listGetDetailOrder.getComponents();
@@ -250,13 +250,13 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }
-
+               
           } catch (Exception e) {
                System.err.println("error getting product " + e);
           }
      }
-    
-    @SuppressWarnings("unchecked")
+     
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -560,14 +560,14 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
          String orderDateValue = orderDate.getUneditText();
          String referenceNo = txtReference.getUneditText();
          String transactionDateValue = transactionDate.getUneditText();
-
+         
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
          json.put("empId", JavaConstant.empId);
@@ -582,7 +582,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
          json.put("totalQty", lbTotalQty.getText());
          
          Component[] listCom = listGetDetailOrder.getComponents();
-
+         
          for (Component p : listCom) {
               var data = ((TdDetailPurchaseOrder) p);
               ImportRequestSecond importRequest = new ImportRequestSecond();
@@ -593,12 +593,12 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                    BigDecimal.valueOf(Double.parseDouble(data.getCost())),
                    BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
                    "");
-
+              
               details.add(imps);
          }
          
          json.put("details", details);
-
+         
          Response response = JavaConnection.put(JavaRoute.imports + "/" + _Id, json);
          JavaConstant.setCircleLoadingCursor(this);
          try {
@@ -608,7 +608,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                    listGetOrder.removeAll();
                    listGetOrder.revalidate();
                    listGetOrder.repaint();
-                   purchase.getListPurchase(listGetOrder,true);
+                   purchase.getListPurchase(listGetOrder, true);
                    dispose();
                    
               }
@@ -616,79 +616,107 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
               System.out.println("import request fails : " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
-
-    
-    public void setValue(
-            String vendorNameValue,
-            String referenceNoValue,
-            String transactionNoValue,
-            String purchaseOrdernoValue,
-            String totalQty,
-            String totalCost,
-            String _vendorId,
-            String _orderDate,
-            String _transactionDate
-    ) {
-        txtVendorName.setUneditText(vendorNameValue);
-        txtReference.setUneditText(referenceNoValue);
-        txtTransactionNo.setUneditText(transactionNoValue);
-        txtPurchaseOrderNo.setUneditText(purchaseOrdernoValue);
-        lbTotalQty.setText(totalQty);
-        lbTotalCost.setText("$ " +totalCost);
-        vendorId = _vendorId;
-        orderDate.setUneditText(_orderDate);
-        transactionDate.setUneditText(_transactionDate);
-        
-    }
-
-    public JPanel getListGetOrder() {
-        return listGetOrder;
-    }
-
-    public void setListGetOrder(JPanel listGetOrder) {
-        this.listGetOrder = listGetOrder;
-    }
-    
-    
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     
+     public void setValue(
+          String vendorNameValue,
+          String referenceNoValue,
+          String transactionNoValue,
+          String purchaseOrdernoValue,
+          String totalQty,
+          String totalCost,
+          String _vendorId,
+          String _orderDate,
+          String _transactionDate
+     ) {
+          txtVendorName.setUneditText(vendorNameValue);
+          txtReference.setUneditText(referenceNoValue);
+          txtTransactionNo.setUneditText(transactionNoValue);
+          txtPurchaseOrderNo.setUneditText(purchaseOrdernoValue);
+          lbTotalQty.setText(totalQty);
+          lbTotalCost.setText("$ " + totalCost);
+          vendorId = _vendorId;
+          orderDate.setUneditText(_orderDate);
+          transactionDate.setUneditText(_transactionDate);
+          
+     }
+     
+     public JPanel getListGetOrder() {
+          return listGetOrder;
+     }
+     
+     public void setListGetOrder(JPanel listGetOrder) {
+          this.listGetOrder = listGetOrder;
+     }
+     
+     public POCheckDetailsModel getDetailData() {
+          return detailData;
+     }
+     
+     public void setDetailData(POCheckDetailsModel detailData) {
+          this.detailData = detailData;
+          ArrayList<DetailPurchaseModel> purchase = new ArrayList<>();
+          for (int i = 0; i < detailData.getDetails().length; i++) {
+               var obj = detailData.getDetails()[i];
+               
+               DetailPurchaseModel getPurchase = new DetailPurchaseModel(
+                    obj.getID(),
+                    obj.getProductID(),
+                    obj.getBarcode(),
+                    obj.getProNameEn(),
+                    obj.getProNameKh(),
+                    obj.getDivision(),
+                    obj.getDepartment(),
+                    obj.getCategory(),
+                    obj.getSubCategory(),
+                    obj.getAvailableQty(),
+                    obj.getOrderQty(),
+                    Double.valueOf(String.valueOf(obj.getCost())),
+                    Double.valueOf(String.valueOf(obj.getTotalCost()))
+               );
+               purchase.add(getPurchase);
+          }
+          appendPurchaeOrderDetail(purchase, listGetDetailOrder);
+          
+     }
+     
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EditPurchaseOrder dialog = new EditPurchaseOrder(new javax.swing.JFrame(), true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(EditPurchaseOrder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    EditPurchaseOrder dialog = new EditPurchaseOrder(new javax.swing.JFrame(), true, null);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel borderUnderLine;
