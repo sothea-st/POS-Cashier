@@ -41,7 +41,7 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
           transactionDate.setLabelName(p.getTransactionDate());
           orderDate.setLabelName(p.getOrderDate());
           totalQty.setLabelName(String.valueOf(p.getTotalQty()));
-          totalCost.setLabelName("$".concat(String.valueOf(p.getTotalCost())));
+          totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
           requestBy.setLabelName(p.getRequestBy().getName());
           requestDate.setLabelName(p.getRequestBy().getDate());
           checkBy.setLabelName(p.getCheckedBy().getName());

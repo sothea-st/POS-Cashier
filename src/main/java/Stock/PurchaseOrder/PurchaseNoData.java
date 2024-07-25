@@ -36,7 +36,7 @@ public class PurchaseNoData extends javax.swing.JPanel {
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 1127, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 1275, Short.MAX_VALUE)
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

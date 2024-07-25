@@ -5,16 +5,15 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import okhttp3.Response;
 import org.json.JSONObject;
 
 public class ActionReject extends javax.swing.JDialog {
 
     private Integer id;
-    private JPanel panelPurchase;
-    private DetailPurchaseOrderCheck obj;
+    private ListPurchaseOrderCheck obj;
+    private DetailPurchaseOrderCheck detail;
     
     public ActionReject(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -137,14 +136,9 @@ public class ActionReject extends javax.swing.JDialog {
         
         try {
              if (response.isSuccessful()) {
-                  DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
-                  panelPurchase.removeAll();
-                  panelPurchase.revalidate();
-                  panelPurchase.repaint();
-                  detail.add(panelPurchase);
-                  panelPurchase.revalidate();
-                  panelPurchase.repaint();
                   dispose();
+                  detail.dispose();
+                  obj.getData(obj,true);
              }
         } catch (Exception e) {
              System.out.println("error : " + e);
@@ -159,23 +153,21 @@ public class ActionReject extends javax.swing.JDialog {
         this.id = id;
     }
 
-    public JPanel getPanelPurchase() {
-        return panelPurchase;
-    }
-
-    public void setPanelPurchase(JPanel panelPurchase) {
-        this.panelPurchase = panelPurchase;
-    }
-
-    public DetailPurchaseOrderCheck getObj() {
+    public ListPurchaseOrderCheck getObj() {
         return obj;
     }
 
-    public void setObj(DetailPurchaseOrderCheck obj) {
+    public void setObj(ListPurchaseOrderCheck obj) {
         this.obj = obj;
     }
 
-    
+    public DetailPurchaseOrderCheck getDetail() {
+        return detail;
+    }
+
+    public void setDetail(DetailPurchaseOrderCheck detail) {
+        this.detail = detail;
+    }
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

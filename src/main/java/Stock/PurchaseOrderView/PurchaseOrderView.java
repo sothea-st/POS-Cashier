@@ -156,7 +156,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
 
          ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
          listCheck.setTypeForm("approved");
-         listCheck.setTitle("Approved");
+         listCheck.setTitle("Purchase Approval");
 
          listCheck.setVisible(true);
     }//GEN-LAST:event_approveMouseClicked

@@ -80,7 +80,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           transactionDate.setLabelName(p.getTransactionDate());
           orderDate.setLabelName(p.getOrderDate());
           totalQty.setLabelName(String.valueOf(p.getTotalQty()));
-          totalCost.setLabelName("$".concat(String.valueOf(p.getTotalCost())));
+          totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
           requestBy.setLabelName(p.getRequestBy().getName());
           requestDate.setLabelName(p.getRequestBy().getDate());
           checkBy.setLabelName(p.getCheckedBy().getName());
@@ -636,10 +636,11 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
      }
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         ActionReject actionReject = new ActionReject(new JFrame(), true);
-         actionReject.setId(id);
-         actionReject.setPanelPurchase(jPanel1);
-         actionReject.setVisible(true);
+        ActionReject actionReject = new ActionReject(new JFrame(), true);
+        actionReject.setId(id);
+        actionReject.setObj(obj);
+        actionReject.setDetail(this);
+        actionReject.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
      public static void main(String args[]) {
