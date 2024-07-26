@@ -1,12 +1,11 @@
 package Constant;
 
 public class JavaRoute {
-
+     
      public static String login = "/auth/login";
      public static String product = "/product";
      public static String productV1 = "/product/v1";
      public static String imports = "/v1/import";
-
      public static String getProductByCatId = "/product/getProductByCatId";
      public static String getNewPrdduct = "/product/getNewProduct";
      public static String getAllProduct = "/product?limit=50";
@@ -23,14 +22,10 @@ public class JavaRoute {
      public static String searchProductByBarcodeOrName = "/searchProductByBarcodeOrName";
      public static String searchEmployee = "/employee/searchEmployee/";
      public static String searchUserAccount = "/employee/searchUserAccount/";
-
      public static String searchWithInvoice = "/searchProductByBarcodeOrName/searchWithInvoice";
      public static String brand = "/brand";
-
      public static String country = "/country";
-
      public static String subcategory = "/category/code/subcategory";
-
      public static String getProductByBrandId = "/product/getProductByBrandId";
      public static String cashierReport = "/cashierReport?userCode=";
      public static String returnProduct = "/returnProduct";
@@ -59,15 +54,12 @@ public class JavaRoute {
      public static String getParentById = "/category/parentId/";
      public static String reportImport = "/import/reportImport";
      public static String reportSaled = "/sale/reportSaled";
-
      public static String productExcel = "/productExcel";
-
      public static String attribute = "/attribute";
      public static String uom = "/uom";
      public static String vendor = "/vendor";
      public static String addMultipleDataFromExcel = "/public/addImageForBackground/addMultiple";
      public static String importMultiple = "/product/importMultiple";
-
      public static String addBackground = "/public/addImageForBackground";
      public static String status = "/status";
      public static String searchAttribute = "/attribute/searchAttribute/";
@@ -77,13 +69,10 @@ public class JavaRoute {
      public static String searchBrand = "/brand/searchBrand/";
      public static String searchStatus = "/status/searchStatus/";
      public static String searchCategory = "/category/code/";
-
      public static String searchTax = "/taxProduct/searchTax/";
      public static String searchPurchase = "/v1/import/filter/";
-     
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
-
      public static String reportPurchaseOrder = "/v1/reportPurchaseOrder";
      public static String filterReportPurchaseOrder = "/v1/reportPurchaseOrder/filter/";
-
+     
 }

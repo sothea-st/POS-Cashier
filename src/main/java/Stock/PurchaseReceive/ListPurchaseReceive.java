@@ -61,7 +61,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                @Override
                public void onKeyType() {
                     searchValue = searchField.getValueTextSearch();
-                    System.out.println("searchValue : " + searchValue);
+               
                     if (searchValue.isEmpty()) {
                          isCheckSearch = true;
                          pageNumber = "0";
