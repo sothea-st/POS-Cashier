@@ -74,5 +74,6 @@ public class JavaRoute {
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
      public static String reportPurchaseOrder = "/v1/reportPurchaseOrder";
      public static String filterReportPurchaseOrder = "/v1/reportPurchaseOrder/filter/";
-     
+     public static String getReportPurchaseOrderByStatus = "/v1/reportPurchaseOrder/getReportPoByRemark";
+
 }

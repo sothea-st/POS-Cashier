@@ -32,12 +32,14 @@ public class ReportingView extends javax.swing.JDialog {
         JavaConstant.addTitleAndLogo(this, "Reporting");
         getImageAndTitle();
         reportImport.setVisible(false);
+        reportPurhaseCheck.setVisible(false);
+        reportPurhaseApproval.setVisible(false);
     }
 
     private void getImageAndTitle() {
         reportImport.setTitle("Reporting Import");
         reportSale.setTitle("Reporting Sale");
-        reportPurhaseRequest.setTitle("<html>" + "Reporting Purchase Request" + "</html>");
+        reportPurhaseRequest.setTitle("<html>" + "Reporting Purchase Order" + "</html>");
         reportPurhaseCheck.setTitle("<html>" + "Reporting Purchase Check" + "</html>");
         reportPurhaseApproval.setTitle("<html>" + "Reporting Purchase Approval" + "</html>");
         reportPurhaseReceive.setTitle("<html>" + "Reporting Purchase Receive" + "</html>");
@@ -50,7 +52,8 @@ public class ReportingView extends javax.swing.JDialog {
                     
                     reportSale.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sale.png");
                     reportImport.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
-                    reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "2964eeeb-ee20-4b17-80f9-a6bcfe11a277");
+//                    reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "2964eeeb-ee20-4b17-80f9-a6bcfe11a277");
+                    reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
                     reportPurhaseCheck.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "c4b2a597-abc9-4c8a-ba89-c03c6cf1ab5f");
                     reportPurhaseApproval.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "34f2863b-ff40-4323-b997-e31a810f9679");
                     reportPurhaseReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "63157d93-b4c9-4c60-b9f3-8eb7e789c039");
@@ -194,7 +197,7 @@ public class ReportingView extends javax.swing.JDialog {
 //         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
 //         purchaseOrder.setVisible(true);
         ReportingPurchaseRequest request = new ReportingPurchaseRequest(new JFrame(), true);
-        request.setTitle("Reporting Purchase Request");
+        request.setTitle("Reporting Purchase Order");
         request.setVisible(true);
 
     }//GEN-LAST:event_reportPurhaseRequestMouseClicked
