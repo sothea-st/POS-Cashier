@@ -6,82 +6,116 @@ public class ReportOfRequest extends javax.swing.JPanel {
         initComponents();
         lbId.setVisible(false);
     }
+    
+    public void setData(
+         String numberValue,
+         String vendorNameValue,
+         String transactionNoValue,
+         String referenceNoValue,
+         String transactionDateValue,
+         String requestedByValue,
+         String checkedByValue,
+         String approvedByValue,
+         String rejectedByValue,
+         String totalQtyValue,
+         String totalCostValue,
+         String statusValue
+         
+    ){
+         number.setText(numberValue);
+         vendorName.setText(vendorNameValue);
+         transactionNo.setText(transactionNoValue);
+         referenceNo.setText(referenceNoValue);
+         transactionDate.setText(transactionDateValue);
+         requestedBy.setText(requestedByValue);
+         checkedBy.setText(checkedByValue);
+         approvedBy.setText(approvedByValue);
+         rejectedBy.setText(rejectedByValue);
+         totalQty.setText(totalQtyValue);
+         totalCost.setText(totalCostValue);
+         status.setText(statusValue);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         panel = new javax.swing.JPanel();
-        lbReferenceNo = new javax.swing.JLabel();
-        lbVendorName = new javax.swing.JLabel();
+        referenceNo = new javax.swing.JLabel();
+        vendorName = new javax.swing.JLabel();
         lbId = new javax.swing.JLabel();
-        btnDetail = new javax.swing.JLabel();
-        lbTransactionDate = new javax.swing.JLabel();
-        lbTotalQty = new javax.swing.JLabel();
-        lbTotalCost = new javax.swing.JLabel();
-        lbTranactionNo = new javax.swing.JLabel();
-        lbremark = new javax.swing.JLabel();
-        lbTransactionDate1 = new javax.swing.JLabel();
-        lbTransactionDate2 = new javax.swing.JLabel();
-        lbTransactionDate3 = new javax.swing.JLabel();
+        number = new javax.swing.JLabel();
+        transactionDate = new javax.swing.JLabel();
+        totalQty = new javax.swing.JLabel();
+        totalCost = new javax.swing.JLabel();
+        transactionNo = new javax.swing.JLabel();
+        status = new javax.swing.JLabel();
+        requestedBy = new javax.swing.JLabel();
+        checkedBy = new javax.swing.JLabel();
+        approvedBy = new javax.swing.JLabel();
+        rejectedBy = new javax.swing.JLabel();
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         panel.setPreferredSize(new java.awt.Dimension(615, 35));
 
-        lbReferenceNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbReferenceNo.setForeground(new java.awt.Color(0, 0, 0));
-        lbReferenceNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbReferenceNo.setText("Reference №");
+        referenceNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        referenceNo.setForeground(new java.awt.Color(0, 0, 0));
+        referenceNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        referenceNo.setText("Reference №");
 
-        lbVendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbVendorName.setForeground(new java.awt.Color(0, 0, 0));
-        lbVendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbVendorName.setText("Vendor Name");
+        vendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        vendorName.setForeground(new java.awt.Color(0, 0, 0));
+        vendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vendorName.setText("Vendor Name");
 
         lbId.setText("jLabel1");
 
-        btnDetail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDetail.setForeground(new java.awt.Color(0, 0, 0));
-        btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDetail.setText("1");
+        number.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        number.setForeground(new java.awt.Color(0, 0, 0));
+        number.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        number.setText("1");
 
-        lbTransactionDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTransactionDate.setForeground(new java.awt.Color(0, 0, 0));
-        lbTransactionDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTransactionDate.setText("Transaction Date");
+        transactionDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        transactionDate.setForeground(new java.awt.Color(0, 0, 0));
+        transactionDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        transactionDate.setText("Transaction Date");
 
-        lbTotalQty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTotalQty.setForeground(new java.awt.Color(0, 0, 0));
-        lbTotalQty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTotalQty.setText("Total Qty");
+        totalQty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        totalQty.setForeground(new java.awt.Color(0, 0, 0));
+        totalQty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalQty.setText("Total Qty");
 
-        lbTotalCost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTotalCost.setForeground(new java.awt.Color(0, 0, 0));
-        lbTotalCost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTotalCost.setText("Total Cost");
+        totalCost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        totalCost.setForeground(new java.awt.Color(0, 0, 0));
+        totalCost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalCost.setText("Total Cost");
 
-        lbTranactionNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTranactionNo.setForeground(new java.awt.Color(0, 0, 0));
-        lbTranactionNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbTranactionNo.setText("Transaction №");
+        transactionNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        transactionNo.setForeground(new java.awt.Color(0, 0, 0));
+        transactionNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        transactionNo.setText("Transaction №");
 
-        lbremark.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbremark.setForeground(new java.awt.Color(0, 0, 0));
-        lbremark.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbremark.setText("remark");
+        status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        status.setForeground(new java.awt.Color(0, 0, 0));
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status.setText("Status");
 
-        lbTransactionDate1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTransactionDate1.setForeground(new java.awt.Color(0, 0, 0));
-        lbTransactionDate1.setText("Requested By");
+        requestedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        requestedBy.setForeground(new java.awt.Color(0, 0, 0));
+        requestedBy.setText("Requested By");
 
-        lbTransactionDate2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTransactionDate2.setForeground(new java.awt.Color(0, 0, 0));
-        lbTransactionDate2.setText("Checked By");
+        checkedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        checkedBy.setForeground(new java.awt.Color(0, 0, 0));
+        checkedBy.setText("Checked By");
 
-        lbTransactionDate3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTransactionDate3.setForeground(new java.awt.Color(0, 0, 0));
-        lbTransactionDate3.setText("Approved By");
+        approvedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        approvedBy.setForeground(new java.awt.Color(0, 0, 0));
+        approvedBy.setText("Approved By");
+
+        rejectedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        rejectedBy.setForeground(new java.awt.Color(0, 0, 0));
+        rejectedBy.setText("Rejected By");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -89,48 +123,51 @@ public class ReportOfRequest extends javax.swing.JPanel {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbTranactionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transactionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbReferenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(referenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTransactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(transactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTransactionDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(requestedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTransactionDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTransactionDate3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(approvedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rejectedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbremark, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(totalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbReferenceNo)
-                    .addComponent(lbVendorName)
+                    .addComponent(referenceNo)
+                    .addComponent(vendorName)
                     .addComponent(lbId)
-                    .addComponent(lbTransactionDate)
-                    .addComponent(lbTotalQty)
-                    .addComponent(lbTotalCost)
-                    .addComponent(lbTranactionNo)
-                    .addComponent(lbremark)
-                    .addComponent(lbTransactionDate1)
-                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbTransactionDate2)
-                    .addComponent(lbTransactionDate3))
+                    .addComponent(transactionDate)
+                    .addComponent(totalQty)
+                    .addComponent(totalCost)
+                    .addComponent(transactionNo)
+                    .addComponent(status)
+                    .addComponent(requestedBy)
+                    .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkedBy)
+                    .addComponent(approvedBy)
+                    .addComponent(rejectedBy))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -138,7 +175,7 @@ public class ReportOfRequest extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1675, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1841, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,18 +187,19 @@ public class ReportOfRequest extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnDetail;
+    private javax.swing.JLabel approvedBy;
+    private javax.swing.JLabel checkedBy;
     private javax.swing.JLabel lbId;
-    private javax.swing.JLabel lbReferenceNo;
-    private javax.swing.JLabel lbTotalCost;
-    private javax.swing.JLabel lbTotalQty;
-    private javax.swing.JLabel lbTranactionNo;
-    private javax.swing.JLabel lbTransactionDate;
-    private javax.swing.JLabel lbTransactionDate1;
-    private javax.swing.JLabel lbTransactionDate2;
-    private javax.swing.JLabel lbTransactionDate3;
-    private javax.swing.JLabel lbVendorName;
-    private javax.swing.JLabel lbremark;
+    private javax.swing.JLabel number;
     private javax.swing.JPanel panel;
+    private javax.swing.JLabel referenceNo;
+    private javax.swing.JLabel rejectedBy;
+    private javax.swing.JLabel requestedBy;
+    private javax.swing.JLabel status;
+    private javax.swing.JLabel totalCost;
+    private javax.swing.JLabel totalQty;
+    private javax.swing.JLabel transactionDate;
+    private javax.swing.JLabel transactionNo;
+    private javax.swing.JLabel vendorName;
     // End of variables declaration//GEN-END:variables
 }
