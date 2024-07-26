@@ -75,18 +75,21 @@ public class PurchaseOrderView extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(null);
 
+        request.setTitle("Purchase Request");
         request.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 requestMouseClicked(evt);
             }
         });
 
+        check.setTitle("Purchase Check");
         check.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 checkMouseClicked(evt);
             }
         });
 
+        approve.setTitle("Purchase Approval");
         approve.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 approveMouseClicked(evt);

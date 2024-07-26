@@ -80,16 +80,25 @@
           </Layout>
           <SubComponents>
             <Component class="Components.SettingBox" name="request">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Purchase Request"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="requestMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="check">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Purchase Check"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="approve">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Purchase Approval"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="approveMouseClicked"/>
               </Events>

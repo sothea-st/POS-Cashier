@@ -74,17 +74,26 @@
           </Layout>
           <SubComponents>
             <Component class="Components.SettingBox" name="product">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Product"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="purchaseOrder">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Purchase Order"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchaseOrderMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchaseOrderMouseEntered"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="purchaseOrderReceive">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Purchase Receive"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchaseOrderReceiveMouseClicked"/>
               </Events>

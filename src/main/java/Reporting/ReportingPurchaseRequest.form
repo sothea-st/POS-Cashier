@@ -91,7 +91,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="status" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonApply" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -113,7 +113,7 @@
                           <Component id="dateFrom" alignment="0" max="32767" attributes="0"/>
                           <Component id="dateTo" alignment="0" max="32767" attributes="0"/>
                           <Component id="status" alignment="0" max="32767" attributes="0"/>
-                          <Component id="buttonSave" alignment="1" pref="0" max="32767" attributes="0"/>
+                          <Component id="buttonApply" alignment="1" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -133,12 +133,12 @@
             </Component>
             <Component class="Reporting.GroupButtonExport" name="groupButtonExport">
             </Component>
-            <Component class="ButtonPackage.ButtonSave" name="buttonSave">
+            <Component class="ButtonPackage.ButtonSave" name="buttonApply">
               <Properties>
                 <Property name="titleButton" type="java.lang.String" value="Apply"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonApplyMouseClicked"/>
               </Events>
             </Component>
             <Component class="DatePicker.DatePicker" name="dateFrom">

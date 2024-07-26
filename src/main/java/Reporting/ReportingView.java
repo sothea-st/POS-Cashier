@@ -82,36 +82,42 @@ public class ReportingView extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(null);
 
+        reportImport.setTitle("Reporting Import");
         reportImport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportImportMouseClicked(evt);
             }
         });
 
+        reportSale.setTitle("Reporting Sales");
         reportSale.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportSaleMouseClicked(evt);
             }
         });
 
+        reportPurhaseRequest.setTitle("Reporting Purchase Request");
         reportPurhaseRequest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportPurhaseRequestMouseClicked(evt);
             }
         });
 
+        reportPurhaseCheck.setTitle("Reporting Purchase Check");
         reportPurhaseCheck.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportPurhaseCheckMouseClicked(evt);
             }
         });
 
+        reportPurhaseApproval.setTitle("Reporting Purchase Aapproval");
         reportPurhaseApproval.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportPurhaseApprovalMouseClicked(evt);
             }
         });
 
+        reportPurhaseReceive.setTitle("Reporting Purchase Receive");
         reportPurhaseReceive.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportPurhaseReceiveMouseClicked(evt);

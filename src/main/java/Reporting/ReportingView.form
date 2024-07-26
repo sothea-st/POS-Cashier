@@ -94,31 +94,49 @@
           </Layout>
           <SubComponents>
             <Component class="Components.SettingBox" name="reportImport">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Reporting Import"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportImportMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="reportSale">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Reporting Sales"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSaleMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseRequest">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Reporting Purchase Request"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseRequestMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseCheck">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Reporting Purchase Check"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseCheckMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseApproval">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Reporting Purchase Aapproval"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseApprovalMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseReceive">
+              <Properties>
+                <Property name="title" type="java.lang.String" value="Reporting Purchase Receive"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseReceiveMouseClicked"/>
               </Events>

@@ -154,7 +154,7 @@ public class ReportingPurchaseRequest extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         searchField = new Components.SearchField();
         groupButtonExport = new Reporting.GroupButtonExport();
-        buttonSave = new ButtonPackage.ButtonSave();
+        buttonApply = new ButtonPackage.ButtonSave();
         dateFrom = new DatePicker.DatePicker();
         dateTo = new DatePicker.DatePicker();
         userCombobox = new Components.ComboBox();
@@ -181,10 +181,10 @@ public class ReportingPurchaseRequest extends javax.swing.JDialog {
         searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
 
-        buttonSave.setTitleButton("Apply");
-        buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonApply.setTitleButton("Apply");
+        buttonApply.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonSaveMouseClicked(evt);
+                buttonApplyMouseClicked(evt);
             }
         });
 
@@ -204,7 +204,7 @@ public class ReportingPurchaseRequest extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonApply, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +221,7 @@ public class ReportingPurchaseRequest extends javax.swing.JDialog {
                     .addComponent(dateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dateTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(buttonApply, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,9 +401,9 @@ public class ReportingPurchaseRequest extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-   
-    }//GEN-LAST:event_buttonSaveMouseClicked
+    private void buttonApplyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonApplyMouseClicked
+        
+    }//GEN-LAST:event_buttonApplyMouseClicked
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         this.dispose();
@@ -452,7 +452,7 @@ public class ReportingPurchaseRequest extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;
-    private ButtonPackage.ButtonSave buttonSave;
+    private ButtonPackage.ButtonSave buttonApply;
     private DatePicker.DatePicker dateFrom;
     private DatePicker.DatePicker dateTo;
     private Reporting.GroupButtonExport groupButtonExport;
