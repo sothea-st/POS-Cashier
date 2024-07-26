@@ -22,12 +22,16 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
 
 
      Page<Import> findByDateLocalBetweenAndCreateByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , String remark);
-
      Page<Import> findByDateLocalBetweenAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int approvedBy , String remark);
      Page<Import> findByDateLocalBetweenAndRejectByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectBy , String remark);
+     Page<Import> findByDateLocalBetweenAndCreateBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy);
+     Page<Import> findByDateLocalBetweenAndCheckBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int checkBy);
+     Page<Import> findByDateLocalBetweenAndApproveBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int approvedBy);
+     Page<Import> findByDateLocalBetweenAndRejectBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectId);
+
+
+
+
  
-
-  
-
 
 }

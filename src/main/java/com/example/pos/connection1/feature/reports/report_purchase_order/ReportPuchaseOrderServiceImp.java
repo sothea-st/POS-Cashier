@@ -75,39 +75,60 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
           if (pageNumber != null && pageSize != null) {
                Page<Import> pages = null;
 
-               if (requestId != null) {
-                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+               if (requestId != null && remark != null) {
                     pages = importRepository.findByDateLocalBetweenAndCreateByAndRemark(
                               LocalDate.parse(dateFrom),
                               LocalDate.parse(dateTo),
                               pageRequest,
                               requestId,
                               remark);
-               } else if (checkId != null) {
-                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+               } else if (requestId != null && remark == null) {
+                    pages = importRepository.findByDateLocalBetweenAndCreateBy(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              requestId);
+               }  else if (checkId != null && remark != null) {
                     pages = importRepository.findByDateLocalBetweenAndCheckByAndRemark(
                               LocalDate.parse(dateFrom),
                               LocalDate.parse(dateTo),
                               pageRequest,
                               checkId,
                               remark);
-               } else if (approvedId != null) {
-                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+               }   else if (checkId != null && remark == null) {
+                    pages = importRepository.findByDateLocalBetweenAndCheckBy(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              checkId);
+               } else if (approvedId != null && remark != null) {
                     pages = importRepository.findByDateLocalBetweenAndApproveByAndRemark(
                               LocalDate.parse(dateFrom),
                               LocalDate.parse(dateTo),
                               pageRequest,
                               approvedId,
                               remark);
-               } else if (rejectId != null) {
-                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+               } else if (approvedId != null && remark == null) {
+                    pages = importRepository.findByDateLocalBetweenAndApproveBy(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              approvedId);
+               }  else if (rejectId != null && remark != null) {
                     pages = importRepository.findByDateLocalBetweenAndRejectByAndRemark(
                               LocalDate.parse(dateFrom),
                               LocalDate.parse(dateTo),
                               pageRequest,
                               rejectId,
                               remark);
-               } else {
+               }  else if (rejectId != null && remark == null) {
+                    pages = importRepository.findByDateLocalBetweenAndRejectBy(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              rejectId);
+               }
+               else {
                     pages = importRepository.findByDateLocalBetween(
                               LocalDate.parse(dateFrom),
                               LocalDate.parse(dateTo),
