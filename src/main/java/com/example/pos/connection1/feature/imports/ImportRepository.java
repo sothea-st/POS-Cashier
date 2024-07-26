@@ -19,4 +19,15 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      List<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo);
      List<Import> findByStatusTrueAndIsDeletedFalseAndRemark(String remark);
      Page<Import> findByDateLocalBetweenAndCheckByAndRemark(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest,int checkBy,String remark);
+
+
+     Page<Import> findByDateLocalBetweenAndCreateByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , String remark);
+
+     Page<Import> findByDateLocalBetweenAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int approvedBy , String remark);
+     Page<Import> findByDateLocalBetweenAndRejectByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectBy , String remark);
+ 
+
+  
+
+
 }

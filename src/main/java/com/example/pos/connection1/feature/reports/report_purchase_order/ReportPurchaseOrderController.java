@@ -33,18 +33,19 @@ public class ReportPurchaseOrderController {
         return reportPurchaseOrderService.filter(pageNumber, pageSize, vendorName);
     }
 
-
     @GetMapping("/getReportPoByRemark")
     public JavaCollectionResponse<?> getReportByRemark(
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
             @RequestParam(name = "pageSize", required = false) Integer pageSize,
             @Valid @RequestParam(name = "dateFrom") String dateFrom,
-            @Valid @RequestParam(name = "dateTo") String dateTo ,
-            @Valid @RequestParam(name = "userID") Integer userId ,
-            @Valid @RequestParam(name = "remark") String remark
-            ) {
-        return reportPurchaseOrderService.getReportByRemark(pageNumber, pageSize, dateFrom, dateTo,userId,remark);
+            @Valid @RequestParam(name = "dateTo") String dateTo,
+            @RequestParam(name = "requestId" , required = false) Integer requestId,
+            @RequestParam(name = "checkId" ,required = false) Integer checkId,
+            @RequestParam(name = "approvedId" , required = false) Integer approvedId,
+            @RequestParam(name = "rejectId" ,required = false) Integer rejectId,
+            @RequestParam(name = "remark" ,required = false) String remark) {
+        return reportPurchaseOrderService.getReportByRemark(pageNumber, pageSize, dateFrom, dateTo, requestId, checkId,
+                approvedId, rejectId, remark);
     }
 
- 
 }

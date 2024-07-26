@@ -77,9 +77,11 @@ public class Import {
     @Column(name = "check_date")
     private String checkDate;
 
-
     @JoinColumn(name = "reject_by")
     private Integer rejectBy;
+
+    @Column(name = "reject_date")
+    private String rejectDate;
 
     @Column(name = "msg" ,length = 500)
     private String msg;

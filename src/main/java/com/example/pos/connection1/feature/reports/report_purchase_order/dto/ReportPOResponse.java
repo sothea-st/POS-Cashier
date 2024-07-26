@@ -14,9 +14,13 @@ public record ReportPOResponse(
           Integer totalQty,
           BigDecimal totalCost,
           String requestBy,
+          String requestDate,
           String checkBy,
+          String checkDate,
           String approvedBy,
+          String approvedDate,
           String rejectBy,
+          String rejectDate,
           String remark
           ) {
 

@@ -28,9 +28,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
      private final ImportMapper importMapper;
      private final UserRepository userRepository;
 
-     @Override
-     public JavaCollectionResponse<?> getReportByRemark(Integer pageNumber, Integer pageSize, String dateFrom,
-               String dateTo, Integer userId, String remark) {
+     private void validationDate(String dateFrom, String dateTo) {
           LocalDate dateFromLocal;
           LocalDate dateToLocal;
 
@@ -60,23 +58,66 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                          HttpStatus.BAD_REQUEST,
                          "Invalid date format. Expected format: yyyy-MM-dd", e);
           }
+     }
 
-          List<ReportPOResponse> reportPurchaseOrderResponses = new ArrayList<>();
+     @Override
+     public JavaCollectionResponse<?> getReportByRemark(Integer pageNumber, Integer pageSize, String dateFrom,
+               String dateTo, Integer requestId, Integer checkId, Integer approvedId, Integer rejectId, String remark) {
+
+          validationDate(dateFrom, dateTo);
+
+          // List<ReportPOResponse> reportPurchaseOrderResponses = new ArrayList<>();
           long totalCount = 0;
           List<ReportPOResponse> list = new ArrayList<>();
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+
           if (pageNumber != null && pageSize != null) {
-               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-               // Fetch imports between dateFromLocal and dateToLocal
-               Page<Import> pages = importRepository.findByDateLocalBetweenAndCheckByAndRemark(dateFromLocal,
-                         dateToLocal,
-                         pageRequest, userId, remark);
+               Page<Import> pages = null;
+
+               if (requestId != null) {
+                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+                    pages = importRepository.findByDateLocalBetweenAndCreateByAndRemark(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              requestId,
+                              remark);
+               } else if (checkId != null) {
+                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+                    pages = importRepository.findByDateLocalBetweenAndCheckByAndRemark(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              checkId,
+                              remark);
+               } else if (approvedId != null) {
+                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+                    pages = importRepository.findByDateLocalBetweenAndApproveByAndRemark(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              approvedId,
+                              remark);
+               } else if (rejectId != null) {
+                    if( remark == null ) throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The remark field is required!");
+                    pages = importRepository.findByDateLocalBetweenAndRejectByAndRemark(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest,
+                              rejectId,
+                              remark);
+               } else {
+                    pages = importRepository.findByDateLocalBetween(
+                              LocalDate.parse(dateFrom),
+                              LocalDate.parse(dateTo),
+                              pageRequest);
+               }
+
                totalCount = pages.getTotalElements();
 
                for (Import data : pages.getContent()) {
-
                     String requestBy = null;
-
                     User user = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCreateBy())
                               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                         "User not found with id : " + data.getCheckBy()));
@@ -121,8 +162,12 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                               .approvedBy(approvedBy)
                               .rejectBy(rejectBy)
                               .requestBy(requestBy)
+                              .checkDate(data.getCheckDate())
+                              .approvedDate(data.getApproveDate())
+                              .rejectDate(data.getRejectDate())
                               .build();
                     list.add(d);
+
                }
 
           } else {
