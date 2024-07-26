@@ -3,13 +3,12 @@ package com.example.pos.connection1.feature.reports.report_purchase_order;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
- 
+
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
- 
 
 @RestController
 @RequestMapping("/api/v1/reportPurchaseOrder")
@@ -33,4 +32,19 @@ public class ReportPurchaseOrderController {
             @PathVariable("vendorName") String vendorName) {
         return reportPurchaseOrderService.filter(pageNumber, pageSize, vendorName);
     }
+
+
+    @GetMapping("/getReportPoByRemark")
+    public JavaCollectionResponse<?> getReportByRemark(
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @Valid @RequestParam(name = "dateFrom") String dateFrom,
+            @Valid @RequestParam(name = "dateTo") String dateTo ,
+            @Valid @RequestParam(name = "userID") Integer userId ,
+            @Valid @RequestParam(name = "remark") String remark
+            ) {
+        return reportPurchaseOrderService.getReportByRemark(pageNumber, pageSize, dateFrom, dateTo,userId,remark);
+    }
+
+ 
 }

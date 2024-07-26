@@ -7,4 +7,7 @@ public interface ReportPurchaseOrderService {
      JavaCollectionResponse<?> reportPurchaseOrder(Integer pageNumber , Integer pageSize , String dateFrom  , String dateTo);
 
      JavaCollectionResponse<?> filter(int pageNumber ,int pageSize , String vendorName);
+
+     JavaCollectionResponse<?> getReportByRemark(Integer pageNumber , Integer pageSize , String dateFrom  , String dateTo , Integer userId , String remark );
+
 }

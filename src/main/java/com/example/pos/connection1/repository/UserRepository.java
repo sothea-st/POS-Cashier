@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Integer> {
 
 
-
+    Optional<User> findByIdAndStatusTrueAndIsDeletedFalse(int id);
 
 //    Optional<User> findByEmail(String email);
     Optional<User>  findByUserCode(String userCode);

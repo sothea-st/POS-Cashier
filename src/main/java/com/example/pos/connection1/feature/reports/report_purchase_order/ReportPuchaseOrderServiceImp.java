@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.pos.connection1.entity.Import;
+import com.example.pos.connection1.entity.User;
 import com.example.pos.connection1.feature.imports.ImportRepository;
+import com.example.pos.connection1.feature.reports.report_purchase_order.dto.ReportPOResponse;
 import com.example.pos.connection1.feature.reports.report_purchase_order.dto.ReportPurchaseOrderRequest;
 import com.example.pos.connection1.feature.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
 import com.example.pos.connection1.mapper.ImportMapper;
+import com.example.pos.connection1.repository.UserRepository;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import java.util.*;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,126 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
      private final ImportRepository importRepository;
      private final ImportMapper importMapper;
+     private final UserRepository userRepository;
+
+     @Override
+     public JavaCollectionResponse<?> getReportByRemark(Integer pageNumber, Integer pageSize, String dateFrom,
+               String dateTo, Integer userId, String remark) {
+          LocalDate dateFromLocal;
+          LocalDate dateToLocal;
+
+          try {
+               // Parse dateFrom and dateTo from the request
+               dateFromLocal = LocalDate.parse(dateFrom);
+               dateToLocal = LocalDate.parse(dateTo);
+
+               // Validate date ranges
+               LocalDate currentDate = LocalDate.now();
+               if (dateToLocal.isAfter(currentDate)) {
+                    // Throw exception if dateTo is in the future
+                    throw new ResponseStatusException(
+                              HttpStatus.BAD_REQUEST,
+                              "The field dateTo cannot be greater than the current date: " + currentDate);
+               }
+               if (dateFromLocal.isAfter(dateToLocal)) {
+                    // Throw exception if dateFrom is after dateTo
+                    throw new ResponseStatusException(
+                              HttpStatus.BAD_REQUEST,
+                              "The field dateFrom must be smaller than field dateTo.");
+               }
+
+          } catch (DateTimeParseException e) {
+               // Handle invalid date format
+               throw new ResponseStatusException(
+                         HttpStatus.BAD_REQUEST,
+                         "Invalid date format. Expected format: yyyy-MM-dd", e);
+          }
+
+          List<ReportPOResponse> reportPurchaseOrderResponses = new ArrayList<>();
+          long totalCount = 0;
+          List<ReportPOResponse> list = new ArrayList<>();
+          if (pageNumber != null && pageSize != null) {
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+               // Fetch imports between dateFromLocal and dateToLocal
+               Page<Import> pages = importRepository.findByDateLocalBetweenAndCheckByAndRemark(dateFromLocal,
+                         dateToLocal,
+                         pageRequest, userId, remark);
+               totalCount = pages.getTotalElements();
+
+               for (Import data : pages.getContent()) {
+
+                    String requestBy = null;
+
+                    User user = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCreateBy())
+                              .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                        "User not found with id : " + data.getCheckBy()));
+                    requestBy = user.getFullName();
+
+                    String checkBy = null;
+                    if (data.getCheckBy() != null) {
+                         User user1 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCheckBy())
+                                   .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                             "User not found with id : " + data.getCheckBy()));
+                         checkBy = user1.getFullName();
+                    }
+
+                    String approvedBy = null;
+                    if (data.getApproveBy() != null) {
+                         User user2 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getApproveBy())
+                                   .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                             "User not found with id id : " + data.getCheckBy()));
+                         approvedBy = user2.getUsername();
+                    }
+
+                    String rejectBy = null;
+                    if (data.getRejectBy() != null) {
+                         User user3 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getRejectBy())
+                                   .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                             "User not found with id id : " + data.getCheckBy()));
+                         rejectBy = user3.getUsername();
+                    }
+
+                    ReportPOResponse d = ReportPOResponse.builder()
+                              .purchaseOrderNo(data.getImpNo())
+                              .transactionDate(data.getTransactionDate())
+                              .transactionNo(data.getId())
+                              .orderDate(data.getImpDate())
+                              .referenceNo(data.getReferenceNo())
+                              .vendorName(data.getVendor().getVendorName())
+                              .totalQty(data.getTotalQty())
+                              .totalCost(data.getTotal())
+                              .remark(data.getRemark())
+                              .rejectBy(rejectBy)
+                              .checkBy(checkBy)
+                              .approvedBy(approvedBy)
+                              .rejectBy(rejectBy)
+                              .requestBy(requestBy)
+                              .build();
+                    list.add(d);
+               }
+
+          } else {
+               // Fetching data without pagination
+               // List<Import> imports = importRepository.findByDateLocalBetween(dateFromLocal,
+               // dateToLocal);
+
+               // // Mapping Import entities to ReportPurchaseOrderResponse DTOs
+               // reportPurchaseOrderResponses = imports.stream()
+               // .map(this::mapToReportPurchaseOrderResponse) // Assuming
+               // mapToReportPurchaseOrderResponse is
+               // // a// method reference
+               // .toList(); // Collecting results into a List
+
+               // totalCount = reportPurchaseOrderResponses.size();
+          }
+
+          // Build and return JavaCollectionResponse with results
+          return JavaCollectionResponse.builder()
+                    .count(totalCount)
+                    .data(list)
+                    .build();
+     }
 
      /**
       * Filters imports based on vendor name and returns a paginated response.
