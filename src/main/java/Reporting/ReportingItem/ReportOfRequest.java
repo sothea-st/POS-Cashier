@@ -1,8 +1,8 @@
 package Reporting.ReportingItem;
 
-public class ReportOfCheck extends javax.swing.JPanel {
+public class ReportOfRequest extends javax.swing.JPanel {
 
-    public ReportOfCheck() {
+    public ReportOfRequest() {
         initComponents();
         lbId.setVisible(false);
     }
@@ -22,6 +22,8 @@ public class ReportOfCheck extends javax.swing.JPanel {
         lbTranactionNo = new javax.swing.JLabel();
         lbremark = new javax.swing.JLabel();
         lbTransactionDate1 = new javax.swing.JLabel();
+        lbTransactionDate2 = new javax.swing.JLabel();
+        lbTransactionDate3 = new javax.swing.JLabel();
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -71,7 +73,15 @@ public class ReportOfCheck extends javax.swing.JPanel {
 
         lbTransactionDate1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbTransactionDate1.setForeground(new java.awt.Color(0, 0, 0));
-        lbTransactionDate1.setText("Checked By");
+        lbTransactionDate1.setText("Requested By");
+
+        lbTransactionDate2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbTransactionDate2.setForeground(new java.awt.Color(0, 0, 0));
+        lbTransactionDate2.setText("Checked By");
+
+        lbTransactionDate3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbTransactionDate3.setForeground(new java.awt.Color(0, 0, 0));
+        lbTransactionDate3.setText("Approved By");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -89,15 +99,19 @@ public class ReportOfCheck extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(lbReferenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTransactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(lbTransactionDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbTransactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTransactionDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTransactionDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTransactionDate3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbremark, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbremark, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelLayout.setVerticalGroup(
@@ -114,7 +128,9 @@ public class ReportOfCheck extends javax.swing.JPanel {
                     .addComponent(lbTranactionNo)
                     .addComponent(lbremark)
                     .addComponent(lbTransactionDate1)
-                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbTransactionDate2)
+                    .addComponent(lbTransactionDate3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -122,7 +138,7 @@ public class ReportOfCheck extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 1398, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1675, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,6 +158,8 @@ public class ReportOfCheck extends javax.swing.JPanel {
     private javax.swing.JLabel lbTranactionNo;
     private javax.swing.JLabel lbTransactionDate;
     private javax.swing.JLabel lbTransactionDate1;
+    private javax.swing.JLabel lbTransactionDate2;
+    private javax.swing.JLabel lbTransactionDate3;
     private javax.swing.JLabel lbVendorName;
     private javax.swing.JLabel lbremark;
     private javax.swing.JPanel panel;

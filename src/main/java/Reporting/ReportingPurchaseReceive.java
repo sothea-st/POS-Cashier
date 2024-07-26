@@ -1,23 +1,35 @@
 package Reporting;
 
 import Color.WindowColor;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Event.ButtonEvent;
+import Model.Userlogin.UserDataModel;
+import Model.Userlogin.UserSuccessModel;
 import Reporting.ReportingItem.ReportOfApprove;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.HashMap;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
 
-public class ReportingPurchaseApprove extends javax.swing.JDialog {
+public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
-    public ReportingPurchaseApprove(java.awt.Frame parent, boolean modal) {
+    private String userId;
+    private String statusValue;
+    
+    public ReportingPurchaseReceive(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
-        initComponents();
 
         searchField.setFocus();
         jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
@@ -29,14 +41,76 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
+        JavaConstant.addTitleAndLogo(this, "Reporting Purchase Receive");
 
         // set background color
         listGetOrder.setBackground(WindowColor.mediumGreen);
         header.setBackground(WindowColor.darkGreen);
         appendPurchaeOrder(listGetOrder);
+        
+        addComboUser();
+        // action get select brand
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onSelect(String key) {
+                  userId = key;
+             }
+        };
+        userCombobox.initEvent(event);
+        
+        
+        addComboStatus();
+        ButtonEvent events = new ButtonEvent() {
+             @Override
+             public void onSelect(String key) {
+                  statusValue = key;
+             }
+        };
+        userCombobox.initEvent(events);
     }
     
-     void appendPurchaeOrder(JPanel listGetOrder) {
+    private void addComboUser() {
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               Response response = JavaConnection.get(JavaRoute.userAccount);
+               userCombobox.removeAllItemAndSetOption("-- Select Receiver --");
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
+                    UserDataModel[] listData = data.getData();
+                    for (UserDataModel user : listData) {
+                         int userId = user.getId();
+                         String userName = user.getFull_name();
+                         map.put(userName, "" + userId);
+                    }
+                    userCombobox.setMap(map);
+               } else {
+                    System.err.println("fail loading user");
+               }
+
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+    }
+    
+    
+    private void addComboStatus() {
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               status.removeAllItemAndSetOption("-- Select Status --");
+               map.put("Requested", "requested");
+               map.put("Checked", "checked");
+               map.put("Approved", "approved");
+               map.put("Rejected", "rejected");
+               status.setMap(map);
+               
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+    }
+    
+    void appendPurchaeOrder(JPanel listGetOrder) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -69,14 +143,12 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         listGetOrder.revalidate();
         listGetOrder.repaint();
     }
-
-
+     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        titlePopUp = new Components.LabelPopUpTitle();
         jPanel2 = new javax.swing.JPanel();
         searchField = new Components.SearchField();
         groupButtonExport = new Reporting.GroupButtonExport();
@@ -84,7 +156,7 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         dateFrom = new DatePicker.DatePicker();
         dateTo = new DatePicker.DatePicker();
         userCombobox = new Components.ComboBox();
-        userCombobox1 = new Components.ComboBox();
+        status = new Components.ComboBox();
         btnCancel = new Button.Button();
         paginationPanel = new pagination.PaginationPanel();
         header = new javax.swing.JPanel();
@@ -101,8 +173,6 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         listGetOrder = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        titlePopUp.setLabelTitle("Reporting Purchase Approval");
 
         searchField.setPlaceholder("Search");
         searchField.setValueTextSearch("");
@@ -128,7 +198,7 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(userCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(userCombobox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -146,7 +216,7 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
                     .addComponent(userCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dateTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(userCombobox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -204,7 +274,7 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Approved By");
+        jLabel9.setText("Received By");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -270,7 +340,6 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,8 +355,7 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,6 +391,9 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -337,20 +408,20 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseApprove.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ReportingPurchaseApprove dialog = new ReportingPurchaseApprove(new javax.swing.JFrame(), true);
+                ReportingPurchaseReceive dialog = new ReportingPurchaseReceive(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -384,8 +455,7 @@ public class ReportingPurchaseApprove extends javax.swing.JDialog {
     private javax.swing.JPanel listGetOrder;
     private pagination.PaginationPanel paginationPanel;
     private Components.SearchField searchField;
-    private Components.LabelPopUpTitle titlePopUp;
+    private Components.ComboBox status;
     private Components.ComboBox userCombobox;
-    private Components.ComboBox userCombobox1;
     // End of variables declaration//GEN-END:variables
 }

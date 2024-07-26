@@ -37,10 +37,10 @@ public class ReportingView extends javax.swing.JDialog {
     private void getImageAndTitle() {
         reportImport.setTitle("Reporting Import");
         reportSale.setTitle("Reporting Sale");
-        reportPurhaseOrder.setTitle("Purchase Order");
-        reportPurhaseCheck.setTitle("Purchase Check");
-        reportPurhaseApproval.setTitle("Purchase Approval");
-        reportPurhaseReceive.setTitle("Purchase Receive");
+        reportPurhaseRequest.setTitle("<html>" + "Reporting Purchase Request" + "</html>");
+        reportPurhaseCheck.setTitle("<html>" + "Reporting Purchase Check" + "</html>");
+        reportPurhaseApproval.setTitle("<html>" + "Reporting Purchase Approval" + "</html>");
+        reportPurhaseReceive.setTitle("<html>" + "Reporting Purchase Receive" + "</html>");
         
         TimerTask task = new TimerTask() {
             @Override
@@ -50,10 +50,10 @@ public class ReportingView extends javax.swing.JDialog {
                     
                     reportSale.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sale.png");
                     reportImport.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
-                    reportPurhaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
-                    reportPurhaseCheck.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
-                    reportPurhaseApproval.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
-                    reportPurhaseReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
+                    reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "2964eeeb-ee20-4b17-80f9-a6bcfe11a277");
+                    reportPurhaseCheck.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "c4b2a597-abc9-4c8a-ba89-c03c6cf1ab5f");
+                    reportPurhaseApproval.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "34f2863b-ff40-4323-b997-e31a810f9679");
+                    reportPurhaseReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "63157d93-b4c9-4c60-b9f3-8eb7e789c039");
 
                 } catch (IOException ex) {
                     Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,7 +73,7 @@ public class ReportingView extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         reportImport = new Components.SettingBox();
         reportSale = new Components.SettingBox();
-        reportPurhaseOrder = new Components.SettingBox();
+        reportPurhaseRequest = new Components.SettingBox();
         reportPurhaseCheck = new Components.SettingBox();
         reportPurhaseApproval = new Components.SettingBox();
         reportPurhaseReceive = new Components.SettingBox();
@@ -94,9 +94,9 @@ public class ReportingView extends javax.swing.JDialog {
             }
         });
 
-        reportPurhaseOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+        reportPurhaseRequest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                reportPurhaseOrderMouseClicked(evt);
+                reportPurhaseRequestMouseClicked(evt);
             }
         });
 
@@ -132,7 +132,7 @@ public class ReportingView extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(reportPurhaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(reportPurhaseCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -145,7 +145,7 @@ public class ReportingView extends javax.swing.JDialog {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(reportPurhaseCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(reportPurhaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reportPurhaseApproval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,22 +184,31 @@ public class ReportingView extends javax.swing.JDialog {
          reportingSaled.setVisible(true);
      }//GEN-LAST:event_reportSaleMouseClicked
 
-    private void reportPurhaseOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseOrderMouseClicked
-         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
-         purchaseOrder.setVisible(true);
-    }//GEN-LAST:event_reportPurhaseOrderMouseClicked
+    private void reportPurhaseRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseRequestMouseClicked
+//         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
+//         purchaseOrder.setVisible(true);
+        ReportingPurchaseRequest request = new ReportingPurchaseRequest(new JFrame(), true);
+        request.setTitle("Reporting Purchase Request");
+        request.setVisible(true);
+
+    }//GEN-LAST:event_reportPurhaseRequestMouseClicked
 
     private void reportPurhaseCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseCheckMouseClicked
-        ReportingPurchaseCheck check = new ReportingPurchaseCheck(new JFrame(), true);
+        ReportingPurchaseRequest check = new ReportingPurchaseRequest(new JFrame(), true);
+        check.setTitle("Reporting Purchase Check");
         check.setVisible(true);
     }//GEN-LAST:event_reportPurhaseCheckMouseClicked
 
     private void reportPurhaseApprovalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseApprovalMouseClicked
-        // TODO add your handling code here:
+       ReportingPurchaseRequest approve = new ReportingPurchaseRequest(new JFrame(), true);
+       approve.setTitle("Reporting Purchase Approval");
+       approve.setVisible(true);
+        
     }//GEN-LAST:event_reportPurhaseApprovalMouseClicked
 
     private void reportPurhaseReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseReceiveMouseClicked
-        // TODO add your handling code here:
+        ReportingPurchaseReceive receive = new ReportingPurchaseReceive(new JFrame(), true);
+        receive.setVisible(true);
     }//GEN-LAST:event_reportPurhaseReceiveMouseClicked
 
      /**
@@ -251,8 +260,8 @@ public class ReportingView extends javax.swing.JDialog {
     private Components.SettingBox reportImport;
     private Components.SettingBox reportPurhaseApproval;
     private Components.SettingBox reportPurhaseCheck;
-    private Components.SettingBox reportPurhaseOrder;
     private Components.SettingBox reportPurhaseReceive;
+    private Components.SettingBox reportPurhaseRequest;
     private Components.SettingBox reportSale;
     // End of variables declaration//GEN-END:variables
 }

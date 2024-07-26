@@ -38,7 +38,6 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="titlePopUp" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -58,8 +57,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="titlePopUp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="header" min="-2" max="-2" attributes="0"/>
@@ -76,11 +74,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Components.LabelPopUpTitle" name="titlePopUp">
-          <Properties>
-            <Property name="labelTitle" type="java.lang.String" value="Reporting Purchase Approval"/>
-          </Properties>
-        </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
 
           <Layout>
@@ -96,7 +89,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="userCombobox" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="userCombobox1" min="-2" max="-2" attributes="0"/>
+                              <Component id="status" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -119,7 +112,7 @@
                           <Component id="userCombobox" alignment="0" max="32767" attributes="0"/>
                           <Component id="dateFrom" alignment="0" max="32767" attributes="0"/>
                           <Component id="dateTo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="userCombobox1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="status" alignment="0" max="32767" attributes="0"/>
                           <Component id="buttonSave" alignment="1" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -154,7 +147,7 @@
             </Component>
             <Component class="Components.ComboBox" name="userCombobox">
             </Component>
-            <Component class="Components.ComboBox" name="userCombobox1">
+            <Component class="Components.ComboBox" name="status">
             </Component>
           </SubComponents>
         </Container>
@@ -325,7 +318,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Approved By"/>
+                <Property name="text" type="java.lang.String" value="Received By"/>
               </Properties>
             </Component>
           </SubComponents>

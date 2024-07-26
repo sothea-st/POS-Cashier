@@ -61,7 +61,7 @@
                           <Group type="102" attributes="0">
                               <Component id="reportSale" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="reportPurhaseOrder" min="-2" max="-2" attributes="0"/>
+                              <Component id="reportPurhaseRequest" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="reportPurhaseCheck" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -78,7 +78,7 @@
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="reportPurhaseCheck" min="-2" max="-2" attributes="0"/>
-                          <Component id="reportPurhaseOrder" min="-2" max="-2" attributes="0"/>
+                          <Component id="reportPurhaseRequest" min="-2" max="-2" attributes="0"/>
                           <Component id="reportSale" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="reportPurhaseApproval" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -103,9 +103,9 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportSaleMouseClicked"/>
               </Events>
             </Component>
-            <Component class="Components.SettingBox" name="reportPurhaseOrder">
+            <Component class="Components.SettingBox" name="reportPurhaseRequest">
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseOrderMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseRequestMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseCheck">
