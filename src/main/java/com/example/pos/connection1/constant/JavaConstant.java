@@ -7,8 +7,11 @@ public class JavaConstant {
     public static String success = "success";
     public static String userId = "idUser";
     public static String admin = "Admin";
-    public static String check = "check";
+    public static String checked = "checked";
     public static String approved = "approved";
+    public static String requested = "requested";
+    public static String rejected = "rejected";
+
 
 
     public static String statusCode = "statusCode";

@@ -121,7 +121,7 @@ public class ImportServiceImp implements ImportService {
                          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, impNoNotFound + poId));
 
                importData.setRemark(checkingRequest.remark());
-               if (checkingRequest.remark().toLowerCase().equals(JavaConstant.check.toLowerCase())) {
+               if (checkingRequest.remark().toLowerCase().equals("checked")) {
                     importData.setCheckBy(checkingRequest.createBy());
                     importData.setCheckDate(checkingRequest.checkDate());
                } else if (checkingRequest.remark().toLowerCase().equals(JavaConstant.approved.toLowerCase())) {
@@ -153,14 +153,14 @@ public class ImportServiceImp implements ImportService {
                               .toList();
                     break;
 
-               case "request":
+               case "requested":
                     data = pages.getContent().stream()
                               .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
                               .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
                               .map(importMapper::mapToImportResponse)
                               .toList();
                     break;
-               case "check":
+               case "checked":
                     data = pages.getContent().stream()
                               .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
                               .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
@@ -386,7 +386,7 @@ public class ImportServiceImp implements ImportService {
                     importRepository.save(imp);
                     requestData(importRequest, importRequest.impId());
                } else if (importRequest.remark().toLowerCase().equals("received")) {
-                    System.out.println("importRequest.impId() : " + importRequest.impId());
+                    
                     for (ImportDetailsRequest data : importRequest.details()) {
                          Product product = productRepository.findById(data.productId())
                                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
