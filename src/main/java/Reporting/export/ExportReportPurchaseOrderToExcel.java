@@ -44,16 +44,18 @@ public class ExportReportPurchaseOrderToExcel {
                // Create an ArrayList to hold the rows
                ArrayList<Object[]> dataList = new ArrayList<>();
                dataList.add(new Object[] {
-                         "#",
-                         "Purchase Order No",
-                         "Transaction No",
-                         "Transaction Date",
-                         "Order Date",
-                         "Reference No",
-                         "Vendor Name",
-                         "Total Qty",
-                         "Total Cost"
-                          });
+                        "#",
+                        "Vendor Name",
+                        "Transaction №",
+                        "Reference №",
+                        "Transaction Date",
+                        "Requested By",
+                        "Checked By",
+                        "Appoved By",
+                        "Rejected By",
+                        "Total Qty",
+                        "Total Cost",
+                        "Status"});
 
                // Add data rows to the ArrayList
                for (int i = 0; i < list.size(); i++) {
@@ -67,15 +69,18 @@ public class ExportReportPurchaseOrderToExcel {
                     // }
 
                     dataList.add(new Object[] {
-                              String.valueOf(i + 1),
-                              String.valueOf(detail.getPurchaseOrderNo()),
-                              String.valueOf(detail.getTransactionNo()),
-                              String.valueOf(detail.getTransactionDate()),
-                              String.valueOf(detail.getOrderDate()),
-                              String.valueOf(detail.getReferenceNo()),
-                              String.valueOf(detail.getVendorName()),
-                              String.valueOf(detail.getTotalQty()),
-                              String.valueOf(detail.getTotalCost())
+                        String.valueOf(i + 1),
+                        String.valueOf(detail.getVendorName()),
+                        String.valueOf(detail.getTransactionNo()),
+                        String.valueOf(detail.getReferenceNo()),
+                        String.valueOf(detail.getTransactionDate()),
+                        String.valueOf(detail.getRequestBy()),
+                        String.valueOf(detail.getCheckBy()),
+                        String.valueOf(detail.getApprovedBy()),
+                        String.valueOf(detail.getRejectBy()),
+                        String.valueOf(detail.getTotalQty()),
+                        String.valueOf(detail.getTotalCost()),
+                        String.valueOf(detail.getRemark())
                              
                     });
                }
@@ -107,15 +112,17 @@ public class ExportReportPurchaseOrderToExcel {
                               
  
                               if (String.valueOf(dataList.get(i)[j]).equals("#")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Purchase Order No")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Transaction No")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Transaction Date")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Order Date")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Reference No")
                                         || String.valueOf(dataList.get(i)[j]).equals("Vendor Name")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Amount (Include Tax)")
-                                        || String.valueOf(dataList.get(i)[j]).equals( "Total Qty")
-                                        || String.valueOf(dataList.get(i)[j]).equals("Total Cost")) {
+                                        || String.valueOf(dataList.get(i)[j]).equals("Transaction №")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Reference №")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Transaction Date")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Requested By")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Checked By")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Appoved By")
+                                        || String.valueOf(dataList.get(i)[j]).equals( "Rejected By")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Total Qty")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Total Cost")
+                                        || String.valueOf(dataList.get(i)[j]).equals("Status")) {
                                    cell.setCellStyle(style);
                                    cell.setCellValue((String) dataList.get(i)[j]);
                               } else {

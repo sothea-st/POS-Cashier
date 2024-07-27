@@ -41,14 +41,17 @@ public class ExportReportPurchaseOrderToCSV {
                // Write headers
                writer.writeNext(new String[]{
                     "#",
-                    "Purchase Order No",
-                    "Transaction No",
-                    "Transaction Date",
-                    "Order Date",
-                    "Reference No",
                     "Vendor Name",
+                    "Transaction №",
+                    "Reference №",
+                    "Transaction Date",
+                    "Requested By",
+                    "Checked By",
+                    "Appoved By",
+                    "Rejected By",
                     "Total Qty",
-                    "Total Cost"});
+                    "Total Cost",
+                    "Status"});
 
                int index = 0;
                // Write data
@@ -56,14 +59,17 @@ public class ExportReportPurchaseOrderToCSV {
                     index++;
                     String[] data = new String[]{
                          String.valueOf(index),
-                         String.valueOf(detail.getPurchaseOrderNo()),
-                         String.valueOf(detail.getTransactionNo()),
-                         String.valueOf(detail.getTransactionDate()),
-                         String.valueOf(detail.getOrderDate()),
-                         String.valueOf(detail.getReferenceNo()),
                          String.valueOf(detail.getVendorName()),
+                         String.valueOf(detail.getTransactionNo()),
+                         String.valueOf(detail.getReferenceNo()),
+                         String.valueOf(detail.getTransactionDate()),
+                         String.valueOf(detail.getRequestBy()),
+                         String.valueOf(detail.getCheckBy()),
+                         String.valueOf(detail.getApprovedBy()),
+                         String.valueOf(detail.getRejectBy()),
                          String.valueOf(detail.getTotalQty()),
-                         String.valueOf(detail.getTotalCost())};
+                         String.valueOf(detail.getTotalCost()),
+                         String.valueOf(detail.getRemark())};
                     writer.writeNext(data);
                }
 

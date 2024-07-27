@@ -72,15 +72,18 @@ public class ExportReportPurchaseOrderToPDF {
 
  
                     dataList.add(new Object[]{
-                         String.valueOf(i + 1),
-                         String.valueOf(detail.getPurchaseOrderNo()),
-                         String.valueOf(detail.getTransactionNo()),
-                         String.valueOf(detail.getTransactionDate()),
-                         String.valueOf(detail.getOrderDate()),
-                         String.valueOf(detail.getReferenceNo()),
-                         String.valueOf(detail.getVendorName()),
-                         String.valueOf(detail.getTotalQty()),
-                         String.valueOf(detail.getTotalCost())
+                        String.valueOf(i + 1),
+                        String.valueOf(detail.getVendorName()),
+                        String.valueOf(detail.getTransactionNo()),
+                        String.valueOf(detail.getReferenceNo()),
+                        String.valueOf(detail.getTransactionDate()),
+                        String.valueOf(detail.getRequestBy()),
+                        String.valueOf(detail.getCheckBy()),
+                        String.valueOf(detail.getApprovedBy()),
+                        String.valueOf(detail.getRejectBy()),
+                        String.valueOf(detail.getTotalQty()),
+                        String.valueOf(detail.getTotalCost()),
+                        String.valueOf(detail.getRemark())
                     });
                }
 
@@ -88,15 +91,19 @@ public class ExportReportPurchaseOrderToPDF {
                Object[][] data = dataList.toArray(new Object[dataList.size()][]);
 
                Object[] columnHead = {
-                    "#",
-                    "Purchase Order No",
-                    "Transaction No",
-                    "Transaction Date",
-                    "Order Date",
-                    "Reference No",
-                    "Vendor Name",
-                    "Total Qty",
-                    "Total Cost"};
+                        "#",
+                        "Vendor Name",
+                        "Transaction №",
+                        "Reference №",
+                        "Transaction Date",
+                        "Requested By",
+                        "Checked By",
+                        "Appoved By",
+                        "Rejected By",
+                        "Total Qty",
+                        "Total Cost",
+                        "Status"};
+               
                // Create a table model
                DefaultTableModel model = new DefaultTableModel(data, columnHead);
 
