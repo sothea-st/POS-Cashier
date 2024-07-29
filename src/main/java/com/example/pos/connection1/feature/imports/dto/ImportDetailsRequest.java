@@ -12,7 +12,8 @@ public record ImportDetailsRequest(
      Integer id,
      BigDecimal cost,
      BigDecimal amount,
-     String expireDate
+     String expireDate,
+     Integer receivedQty
 ) {
      
 }

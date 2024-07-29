@@ -18,7 +18,8 @@ public record ImportDetailResponse(
      Integer availableQty,
      Integer orderQty,
      BigDecimal cost,
-     BigDecimal totalCost
+     BigDecimal totalCost,
+     Integer receivedQty
 ) {
      
 }

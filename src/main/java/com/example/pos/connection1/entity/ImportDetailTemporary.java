@@ -46,6 +46,9 @@ public class ImportDetailTemporary {
      @Column(name = "qty_old", length = 30)
      private Integer qtyOld = 0;
 
+     @Column(name = "receive_qty", length = 30)
+     private Integer receiveQty;
+
      @Column(name = "cost", precision = 10, scale = 2)
      private BigDecimal cost;
 
