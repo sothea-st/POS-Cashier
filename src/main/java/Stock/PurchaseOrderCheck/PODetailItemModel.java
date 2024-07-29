@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PODetailItemModel {
+
      private Integer id;
      private Integer productID;
      private String barcode;
@@ -19,6 +20,17 @@ public class PODetailItemModel {
      private Integer orderQty;
      private BigDecimal cost;
      private BigDecimal totalCost;
+     private Integer receivedQty;
+
+     @JsonProperty("receivedQty")
+     public Integer getReceivedQty() {
+          return receivedQty;
+     }
+
+     @JsonProperty("receivedQty")
+     public void setReceivedQty(Integer receivedQty) {
+          this.receivedQty = receivedQty;
+     }
 
      @JsonProperty("id")
      public Integer getID() {

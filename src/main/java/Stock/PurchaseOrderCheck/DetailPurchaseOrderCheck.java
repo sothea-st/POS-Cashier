@@ -119,8 +119,9 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                     var listData = details[i];
                     index++;
                     GetDetailPurchase b = new GetDetailPurchase();
-
-                    b.setValue(
+                    
+                   
+                    b.setValue(    
                          String.valueOf(index),
                          String.valueOf(listData.getBarcode()),
                          String.valueOf(listData.getProNameEn()),
@@ -563,7 +564,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
               return;
          }
 
-         String checkType = typeForm.equals("check") ? "check" : "approved";
+         String checkType = typeForm.equals("checked") ? "checked" : "approved";
 
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);

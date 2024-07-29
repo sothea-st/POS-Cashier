@@ -79,6 +79,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
 //          String remark = typeForm.equals("check") ? "request" : "check";
           if (isCheck) {
                response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=approved");
+               System.out.println("response : " + response);
           } else {
                isCheckSearch = false;
                response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
