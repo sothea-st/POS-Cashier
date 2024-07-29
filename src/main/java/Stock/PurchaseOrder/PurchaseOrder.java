@@ -25,6 +25,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 public class PurchaseOrder extends javax.swing.JDialog {
@@ -216,7 +217,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     b.setTotalQty("" + data.getTotalQty());
                     b.setTotalCost("$ " + data.getTotalCost());
                     b.setTransactionNo(data.getTransactionNo());
-                    b.setStatus(data.getRemark());
+                    b.setStatus(StringUtils.capitalize(data.getRemark()));
 
                     try {
 

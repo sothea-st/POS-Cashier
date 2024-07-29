@@ -24,6 +24,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 
 public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
@@ -148,7 +149,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                     b.setTransactionDate(data.getTransactionDate());
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
                     b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
-                    b.setRemark(data.getRemark());
+                    b.setRemark(StringUtils.capitalize(data.getRemark()));
 
                     ButtonEvent events = new ButtonEvent() {
                          @Override

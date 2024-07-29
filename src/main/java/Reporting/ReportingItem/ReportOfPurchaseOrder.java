@@ -1,8 +1,8 @@
 package Reporting.ReportingItem;
 
-public class ReportOfRequest extends javax.swing.JPanel {
+public class ReportOfPurchaseOrder extends javax.swing.JPanel {
 
-    public ReportOfRequest() {
+    public ReportOfPurchaseOrder() {
         initComponents();
         lbId.setVisible(false);
     }

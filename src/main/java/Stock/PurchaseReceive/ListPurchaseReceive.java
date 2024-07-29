@@ -25,6 +25,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 
 public class ListPurchaseReceive extends javax.swing.JDialog {
 
@@ -139,21 +140,21 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     b.setReferenceNo(data.getReferenceNo());
                     b.setTransactionDate(data.getTransactionDate());
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
-                    b.setTotalCost("$".concat(String.valueOf(data.getTotalCost())));
-                    b.setRemark(data.getRemark());
+                    b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
+                    b.setRemark(StringUtils.capitalize(data.getRemark()));
 
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event edit
-                              DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
+                              DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-                                   detail.setpOCheckDetailsModel(detailData, "stocked", data.getId());
-                                   detail.setReceive(obj);
+//                                   detail.setpOCheckDetailsModel(detailData, "stocked", data.getId());
+//                                   detail.setReceive(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {
                                    System.err.println("error getting purchase order " + e);

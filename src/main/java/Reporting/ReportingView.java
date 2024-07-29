@@ -196,20 +196,20 @@ public class ReportingView extends javax.swing.JDialog {
     private void reportPurhaseRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseRequestMouseClicked
 //         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
 //         purchaseOrder.setVisible(true);
-        ReportingPurchaseRequest request = new ReportingPurchaseRequest(new JFrame(), true);
+        ReportingPurchaseOrderV2 request = new ReportingPurchaseOrderV2(new JFrame(), true);
         request.setTitle("Reporting Purchase Order");
         request.setVisible(true);
 
     }//GEN-LAST:event_reportPurhaseRequestMouseClicked
 
     private void reportPurhaseCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseCheckMouseClicked
-        ReportingPurchaseRequest check = new ReportingPurchaseRequest(new JFrame(), true);
+        ReportingPurchaseOrderV2 check = new ReportingPurchaseOrderV2(new JFrame(), true);
         check.setTitle("Reporting Purchase Check");
         check.setVisible(true);
     }//GEN-LAST:event_reportPurhaseCheckMouseClicked
 
     private void reportPurhaseApprovalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseApprovalMouseClicked
-       ReportingPurchaseRequest approve = new ReportingPurchaseRequest(new JFrame(), true);
+       ReportingPurchaseOrderV2 approve = new ReportingPurchaseOrderV2(new JFrame(), true);
        approve.setTitle("Reporting Purchase Approval");
        approve.setVisible(true);
         
