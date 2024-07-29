@@ -145,15 +145,15 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event edit
-                              DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
+                              DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-                                   detail.setpOCheckDetailsModel(detailData, "stocked", data.getId());
-                                   detail.setReceive(obj);
+//                                   detail.setpOCheckDetailsModel(detailData, "stocked", data.getId());
+//                                   detail.setReceive(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {
                                    System.err.println("error getting purchase order " + e);
