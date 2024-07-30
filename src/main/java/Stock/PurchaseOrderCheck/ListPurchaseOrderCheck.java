@@ -9,8 +9,6 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
-import Setting.Category.NoDataAvaibalePanel;
-import Stock.PurchaseOrder.GetPurchaseOrder;
 import Stock.PurchaseOrder.PurchaseNoData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -52,18 +50,25 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
      }
 
      private void eventSearchPuchaseOrder(ListPurchaseOrderCheck obj) {
-          // this event was called when user type on searchTextField 
           ButtonEvent events = new ButtonEvent() {
                @Override
                public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "0";
-                         getData(obj, true);
-                         return;
-                    }
-                    getData(obj, false);
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getData(obj, true);
+                                   return;
+                              }
+                              getData(obj, false);
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
                }
           };
           searchField.initEvent(events);
@@ -81,18 +86,16 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
      public void getData(ListPurchaseOrderCheck obj, boolean isCheck) {
           Response response = null;
           String remark = typeForm.equals("checked") ? "requested" : "checked";
-          System.out.println("remark : " + remark);
+
           if (isCheck) {
                response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=" + remark);
           } else {
                isCheckSearch = false;
                response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=" + remark);
           }
-           
 
           try {
                String responseData = response.body().string();
-              
                ObjectMapper objMap = new ObjectMapper();
                ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
                DataPurchaseModel[] listData = data.getData();
@@ -102,13 +105,12 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                } else {
                     paginationPanel.resetPage();
                }
-
+               reloadPanel();
                appendPurchaeOrder(listData, obj);
           } catch (Exception e) {
                System.out.println("error : " + e);
           }
 
-          
      }
 
      void reloadPanel() {
@@ -123,7 +125,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          reloadPanel();
+
           listGetOrder.setLayout(gridBagLayout);
 
           int x = 0;
@@ -157,11 +159,13 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                               DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
+                                   System.out.println("response : " + response);
                                    String responseData = response.body().string();
+                                   System.out.println("responseData : " + responseData);
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-                                   detail.setpOCheckDetailsModel(detailData,typeForm, data.getId());
+                                   detail.setpOCheckDetailsModel(detailData, typeForm, data.getId());
                                    detail.setObj(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {

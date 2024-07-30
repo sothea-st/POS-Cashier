@@ -100,6 +100,7 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
                     var data = details[i];
 
                     GetEditReceive b = new GetEditReceive();
+ 
                     b.setData(
                          String.valueOf(data.getProductID()),
                          String.valueOf(i + 1),
@@ -419,26 +420,30 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
          json.put("total", _totalCost);
          json.put("totalQty", lbTotalQty.getText());
          json.put("remark", "received");
+         json.put("receiveMsg", false);
          json.put("impId", importId);
 
          Component[] listCom = listGetDetailReceive.getComponents();
 
          for (Component p : listCom) {
               var data = ((GetEditReceive) p);
+ 
               ImportRequest importRequest = new ImportRequest();
               ImportRequest.ImportDetailRequests imps = importRequest.new ImportDetailRequests(
                    data.getProductId(),
-                   Integer.valueOf(data.getQtyUnit()),
+                   Integer.valueOf(data.getLbOrderQty().getText()),
                    BigDecimal.valueOf(Double.parseDouble(data.getCost())),
                    BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
                    "",
-               Integer.valueOf(data.getQtyUnit()));
-
+                   data.getQtyUnit());
+           
               details.add(imps);
          }
          json.put("details", details);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
+         
+         System.out.println("respne : " + response);
          try {
               if (response.isSuccessful()) {
                    String responseData = response.body().string();

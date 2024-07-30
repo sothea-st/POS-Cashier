@@ -155,7 +155,6 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                    PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
 
- 
                                    edit.setListGetOrder(listGetOrder);
                                    edit.setDetailData(detailData);
                                    edit.setValue(
@@ -457,15 +456,25 @@ public class PurchaseOrder extends javax.swing.JDialog {
           ButtonEvent events = new ButtonEvent() {
                @Override
                public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
 
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "0";
-                         getListPurchase(listGetOrder, true);
-                         return;
-                    }
-                    getListPurchase(listGetOrder, false);
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getListPurchase(listGetOrder, true);
+                                   return;
+                              }
+                              getListPurchase(listGetOrder, false);
+                         }
+                    };
+                    
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+                    
+
                }
           };
           searchField.initEvent(events);

@@ -20,7 +20,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -28,7 +27,6 @@ import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
 
 public class ListPurchaseReceive extends javax.swing.JDialog {
-
      private String pageNumber = "0";
      private int pageSize = 10;
      private String typeForm;
@@ -61,15 +59,23 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           ButtonEvent events = new ButtonEvent() {
                @Override
                public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
-               
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "0";
-                         getData(true, obj);
-                         return;
-                    }
-                    getData(false, obj);
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getData(true, obj);
+                                   return;
+                              }
+                              getData(false, obj);
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
                }
           };
           searchField.initEvent(events);
@@ -80,7 +86,6 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
 //          String remark = typeForm.equals("check") ? "request" : "check";
           if (isCheck) {
                response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=approved");
-               System.out.println("response : " + response);
           } else {
                isCheckSearch = false;
                response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
@@ -103,11 +108,12 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           }
      }
 
-     public void reloadPanel(){
+     public void reloadPanel() {
           listGetReceive.removeAll();
           listGetReceive.revalidate();
           listGetReceive.repaint();
      }
+
      void appendPurchaseReceive(DataPurchaseModel[] listData, ListPurchaseReceive obj) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
@@ -142,7 +148,6 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
                     b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
                     b.setRemark(StringUtils.capitalize(data.getRemark()));
-
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event edit

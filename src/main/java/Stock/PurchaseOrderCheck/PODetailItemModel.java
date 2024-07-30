@@ -21,6 +21,27 @@ public class PODetailItemModel {
      private BigDecimal cost;
      private BigDecimal totalCost;
      private Integer receivedQty;
+     private Integer halfQty;
+     private String receiveMsg;
+
+     public Integer getHalfQty() {
+          return halfQty;
+     }
+
+     public void setHalfQty(Integer halfQty) {
+          this.halfQty = halfQty;
+     }
+
+     public String getReceiveMsg() {
+          return receiveMsg;
+     }
+
+     public void setReceiveMsg(String receiveMsg) {
+          this.receiveMsg = receiveMsg;
+     }
+     
+     
+     
 
      @JsonProperty("receivedQty")
      public Integer getReceivedQty() {

@@ -156,7 +156,6 @@
         <Component class="javax.swing.JTextField" name="qty">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Qty"/>
           </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="qtyKeyReleased"/>
