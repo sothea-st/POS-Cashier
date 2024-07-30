@@ -50,7 +50,7 @@ import com.example.pos.connection1.repository.productProjection.ProductProjectio
 import com.example.pos.connection1.repository.shiftRepository.CloseShiftRepository;
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
 import com.example.pos.connection1.service.CategoryService;
-import com.example.pos.connection1.service.EmployeeService;
+// import com.example.pos.connection1.service.EmployeeService;
 import com.example.pos.connection1.service.ImportService;
 import com.example.pos.connection1.service.SaleService;
 import com.example.pos.connection1.service.SupplierService;
@@ -176,85 +176,85 @@ public class RouteController {
           }
      }
 
-     @RequestMapping("/api/employee")
-     @RestController
-     public static class RouteEmployee {
-          @Autowired
-          private EmployeeService service;
+     // @RequestMapping("/api/employee")
+     // @RestController
+     // public static class RouteEmployee {
+     //      @Autowired
+     //      private EmployeeService service;
 
-          @GetMapping("/userAccount")
-          public ResponseEntity<?> getUserAccount() {
-               return JavaResponse.success(service.getUserAccount());
-          }
+     //      @GetMapping("/userAccount")
+     //      public ResponseEntity<?> getUserAccount() {
+     //           return JavaResponse.success(service.getUserAccount());
+     //      }
 
-          @GetMapping("/searchEmployee/{nameEn}")
-          public ResponseEntity<?> searchEmp(@PathVariable("nameEn") String nameEn) {
-               return JavaResponse.success(service.searchEmp(nameEn));
-          }
+     //      @GetMapping("/searchEmployee/{nameEn}")
+     //      public ResponseEntity<?> searchEmp(@PathVariable("nameEn") String nameEn) {
+     //           return JavaResponse.success(service.searchEmp(nameEn));
+     //      }
 
-          @GetMapping("/searchUserAccount/{value}")
-          public ResponseEntity<?> searchUserAccount(@PathVariable("value") String value) {
-               return JavaResponse.success(service.seachUserAccount(value));
-          }
+     //      @GetMapping("/searchUserAccount/{value}")
+     //      public ResponseEntity<?> searchUserAccount(@PathVariable("value") String value) {
+     //           return JavaResponse.success(service.seachUserAccount(value));
+     //      }
 
-          @PostMapping
-          public ResponseEntity<?> addEmployee(@Valid @ModelAttribute Employee e,
-                    @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
-               HashMap<String, String> err = new HashMap<>();
-               String key = "contact";
-               String contact = JavaValidation.checkPhone(e.getContact());
+     //      @PostMapping
+     //      public ResponseEntity<?> addEmployee(@Valid @ModelAttribute Employee e,
+     //                @RequestParam(value = "image", required = false) MultipartFile file) throws IOException {
+     //           HashMap<String, String> err = new HashMap<>();
+     //           String key = "contact";
+     //           String contact = JavaValidation.checkPhone(e.getContact());
 
-               if (!contact.isEmpty()) {
-                    err.put(key, contact);
-                    return ResponseEntity.status(500).body(err);
-               }
-               Employee data = service.addEmployee(e, file);
-               return JavaResponse.success(data);
-          }
+     //           if (!contact.isEmpty()) {
+     //                err.put(key, contact);
+     //                return ResponseEntity.status(500).body(err);
+     //           }
+     //           Employee data = service.addEmployee(e, file);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping
-          public ResponseEntity<?> getEmployee() {
-               List<Employee> data = service.getEmployee();
-               return JavaResponse.success(data);
-          }
+     //      @GetMapping
+     //      public ResponseEntity<?> getEmployee() {
+     //           List<Employee> data = service.getEmployee();
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping("/{id}")
-          public ResponseEntity<?> getEmployeeById(@PathVariable("id") int id) {
-               Employee data = service.getEmployeeById(id);
-               return JavaResponse.success(data);
-          }
+     //      @GetMapping("/{id}")
+     //      public ResponseEntity<?> getEmployeeById(@PathVariable("id") int id) {
+     //           Employee data = service.getEmployeeById(id);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @DeleteMapping("/{id}")
-          public ResponseEntity<?> deleteEmployeeById(@PathVariable("id") int id) {
-               service.deleteEmployeeById(id);
-               return JavaResponse.deleteSuccess(id);
-          }
+     //      @DeleteMapping("/{id}")
+     //      public ResponseEntity<?> deleteEmployeeById(@PathVariable("id") int id) {
+     //           service.deleteEmployeeById(id);
+     //           return JavaResponse.deleteSuccess(id);
+     //      }
 
-          @PostMapping("/{id}")
-          public ResponseEntity<?> updateEmployee(@Valid @PathVariable("id") int id, @ModelAttribute Employee e,
-                    @RequestParam(name = "image", required = false) MultipartFile file) throws IOException {
+     //      @PostMapping("/{id}")
+     //      public ResponseEntity<?> updateEmployee(@Valid @PathVariable("id") int id, @ModelAttribute Employee e,
+     //                @RequestParam(name = "image", required = false) MultipartFile file) throws IOException {
 
-               HashMap<String, String> err = new HashMap<>();
-               String key = "contact";
-               String contact = JavaValidation.checkPhone(e.getContact());
+     //           HashMap<String, String> err = new HashMap<>();
+     //           String key = "contact";
+     //           String contact = JavaValidation.checkPhone(e.getContact());
 
-               if (!contact.isEmpty()) {
-                    err.put(key, contact);
-                    return ResponseEntity.status(500).body(err);
-               }
-               Employee data = service.updateEmployee(id, e, file);
-               return JavaResponse.success(data);
-          }
+     //           if (!contact.isEmpty()) {
+     //                err.put(key, contact);
+     //                return ResponseEntity.status(500).body(err);
+     //           }
+     //           Employee data = service.updateEmployee(id, e, file);
+     //           return JavaResponse.success(data);
+     //      }
 
-          @GetMapping("/readFileById/{id}")
-          public ResponseEntity<byte[]> getImage(@PathVariable("id") String id) throws IOException {
-               byte[] data = service.getImageEmployee(id);
-               return ResponseEntity.status(HttpStatus.OK)
-                         .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
-                         .body(data);
-          }
+     //      @GetMapping("/readFileById/{id}")
+     //      public ResponseEntity<byte[]> getImage(@PathVariable("id") String id) throws IOException {
+     //           byte[] data = service.getImageEmployee(id);
+     //           return ResponseEntity.status(HttpStatus.OK)
+     //                     .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
+     //                     .body(data);
+     //      }
 
-     }
+     // }
 
      @RestController
      @RequestMapping("/api/imports")

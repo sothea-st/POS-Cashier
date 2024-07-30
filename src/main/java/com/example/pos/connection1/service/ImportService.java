@@ -7,12 +7,13 @@ import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.models.ProductAddRemoveQty;
 import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
-import com.example.pos.connection1.repository.EmployeeRepository;
+// import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
  
 
 import lombok.RequiredArgsConstructor;
 
+import com.example.pos.connection1.feature.employee.EmployeeRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 
