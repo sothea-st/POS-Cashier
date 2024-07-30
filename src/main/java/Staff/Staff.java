@@ -94,13 +94,11 @@ public class Staff extends javax.swing.JDialog {
     private void btnStaffInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStaffInfoMouseClicked
          StaffInformation staffInfo = new StaffInformation(new JFrame(), true);
          staffInfo.setVisible(true);
-         dispose();
     }//GEN-LAST:event_btnStaffInfoMouseClicked
 
     private void btnUserloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserloginMouseClicked
          Userlogin user = new Userlogin(new JFrame(), true);
          user.setVisible(true);
-         dispose();
     }//GEN-LAST:event_btnUserloginMouseClicked
 
     private void panelReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelReprintMouseClicked

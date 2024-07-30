@@ -153,7 +153,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     UserDataModel[] listData = data.getData();
                     for (UserDataModel user : listData) {
                          int userId = user.getId();
-                         String userName = user.getFull_name();
+                         String userName = user.getFullName();
                          map.put(userName, "" + userId);
                     }
                     requestBy.setMap(map);
@@ -177,7 +177,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     UserDataModel[] listData = data.getData();
                     for (UserDataModel user : listData) {
                          int userId = user.getId();
-                         String userName = user.getFull_name();
+                         String userName = user.getFullName();
                          map.put(userName, "" + userId);
                     }
                     checkedBy.setMap(map);
@@ -202,7 +202,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     UserDataModel[] listData = data.getData();
                     for (UserDataModel user : listData) {
                          int userId = user.getId();
-                         String userName = user.getFull_name();
+                         String userName = user.getFullName();
                          map.put(userName, "" + userId);
                     }
                     approvedBy.setMap(map);
@@ -227,7 +227,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     UserDataModel[] listData = data.getData();
                     for (UserDataModel user : listData) {
                          int userId = user.getId();
-                         String userName = user.getFull_name();
+                         String userName = user.getFullName();
                          map.put(userName, "" + userId);
                     }
                     rejectedBy.setMap(map);

@@ -6,6 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class StaffDataSuccessModel {
-    private String msg;
+    private Integer count;
     private StaffGetDataModel[] data;
 }
