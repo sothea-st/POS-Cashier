@@ -32,7 +32,6 @@ public class ImportDetailTemporary {
      @ManyToOne
      private Import import1;
 
-
      @JoinColumn(name = "pro_id")
      @ManyToOne
      private Product product;
@@ -48,6 +47,12 @@ public class ImportDetailTemporary {
 
      @Column(name = "receive_qty", length = 30)
      private Integer receiveQty;
+
+     @Column(name = "receive_msg")
+     private String receiveMsg;
+
+     @Column(name = "half_qty")
+     private Integer halfQty;
 
      @Column(name = "cost", precision = 10, scale = 2)
      private BigDecimal cost;

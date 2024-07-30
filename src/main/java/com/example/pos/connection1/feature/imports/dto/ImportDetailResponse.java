@@ -19,7 +19,10 @@ public record ImportDetailResponse(
      Integer orderQty,
      BigDecimal cost,
      BigDecimal totalCost,
-     Integer receivedQty
+     Integer receivedQty,
+
+     Integer halfQty,
+     String receiveMsg
 ) {
      
 }

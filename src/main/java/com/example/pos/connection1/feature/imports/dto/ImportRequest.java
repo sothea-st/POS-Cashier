@@ -36,7 +36,9 @@ public record ImportRequest(
      @NotEmpty(message = JavaMessage.required)
      List<ImportDetailsRequest> details,
 
-     Integer impId
+     Integer impId ,
+
+     Boolean receiveMsg
 
 ) {
      
