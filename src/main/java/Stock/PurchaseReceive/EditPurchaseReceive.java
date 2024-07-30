@@ -28,7 +28,7 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
 
      private Integer importId;
      private POCheckDetailsModel data;
-     ArrayList<ImportRequest.ImportDetailRequest> details = new ArrayList<>();
+     ArrayList<ImportRequest.ImportDetailRequests> details = new ArrayList<>();
 
      public EditPurchaseReceive(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -406,8 +406,6 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-         System.out.println("lbTotalQty.getText() : " + lbTotalQty.getText());
-
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
          json.put("empId", JavaConstant.empId);
@@ -428,14 +426,13 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
          for (Component p : listCom) {
               var data = ((GetEditReceive) p);
               ImportRequest importRequest = new ImportRequest();
-              ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
+              ImportRequest.ImportDetailRequests imps = importRequest.new ImportDetailRequests(
                    data.getProductId(),
                    Integer.valueOf(data.getQtyUnit()),
                    BigDecimal.valueOf(Double.parseDouble(data.getCost())),
                    BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
-                   "");
-
-              System.out.println("qty Data : " + data.getQtyUnit());
+                   "",
+               Integer.valueOf(data.getQtyUnit()));
 
               details.add(imps);
          }

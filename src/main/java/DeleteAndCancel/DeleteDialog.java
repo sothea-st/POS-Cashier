@@ -274,10 +274,10 @@ public class DeleteDialog extends javax.swing.JDialog {
 
     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
 
-//         if (reasonId == null) {
-//              JOptionPane.showMessageDialog(this, "Please select a reason!");
-//              return;
-//         }
+         if (reasonId == null) {
+              JOptionPane.showMessageDialog(this, "Please select a reason!");
+              return;
+         }
 
          try {
               JSONObject json = new JSONObject();

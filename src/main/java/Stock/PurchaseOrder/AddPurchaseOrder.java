@@ -476,7 +476,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          String referenceNo = txtReference.getValueTextField();
          String transactionDateValue = transactionDate.getValueTextField();
 
-         System.out.println("orderDateValue : " + orderDateValue);
+ 
 
          if (referenceNo == null || referenceNo.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Reference № can not be empty!");
@@ -505,7 +505,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
          _totalCost = _totalCost.replace(",", "");
          json.put("total", _totalCost);
          json.put("totalQty", lbTotalQty.getText());
-         json.put("remark", "request");
+         json.put("remark", "requested");
          json.put("impId", "0");
 
          Component[] listCom = panel.getComponents();
