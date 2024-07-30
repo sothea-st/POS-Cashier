@@ -12,8 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDataModel {
-    private String user_code;
+    private String userCode;
     private Integer id;
-    private Integer emp_id;
-    private String full_name;
+    private Integer empId;
+    private String fullName;
 }

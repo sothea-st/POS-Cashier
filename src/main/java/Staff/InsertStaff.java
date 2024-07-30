@@ -32,132 +32,132 @@ import org.json.JSONObject;
  
 public class InsertStaff extends javax.swing.JDialog {
 
-     String path;
-     private String genderId;
-     private String roleId;
-     private JPanel listGetStaff;
+    String path;
+    private String genderId;
+    private String roleId;
+    private JPanel listGetStaff;
 
-     private Icon file;
-     private Integer id;
+    private Icon file;
+    private Integer id;
 
-     public Integer getId() {
-          return id;
-     }
+    public Integer getId() {
+        return id;
+    }
 
-     public void setId(Integer id) {
-          this.id = id;
-     }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-     public void setValueEdit(
-          String nameEn,
-          String dob,
-          String joinDate,
-          String addressValue,
-          String genderIdValue,
-          String roleIdValue,
-          String contactValue,
-          String urlImg
-     ) throws IOException {
-          staffName.setValueTextField(nameEn);
-          dobDate.setValueTextField(dob);
-          startDate.setValueTextField(joinDate);
-          address.setValueTextField(addressValue);
-          gender.setToLastItem(genderIdValue);
-          role.setToLastItem(roleIdValue);
-          contact.setValueTextField(contactValue);
-          JavaConstant.coverImage(urlImg, lbFile, 150, 135);
-     }
+    public void setValueEdit(
+            String nameEn,
+            String dob,
+            String joinDate,
+            String addressValue,
+            String genderIdValue,
+            String roleIdValue,
+            String contactValue,
+            String urlImg
+    ) throws IOException {
+        staffName.setValueTextField(nameEn);
+        dobDate.setValueTextField(dob);
+        startDate.setValueTextField(joinDate);
+        address.setValueTextField(addressValue);
+        gender.setToLastItem(genderIdValue);
+        role.setToLastItem(roleIdValue);
+        contact.setValueTextField(contactValue);
+        JavaConstant.coverImage(urlImg, lbFile, 150, 135);
+    }
 
-     public InsertStaff(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          event();
-          staffName.requestFocus();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+    public InsertStaff(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        event();
+        staffName.requestFocus();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-          // action get select 
-          ButtonEvent eventtss = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    genderId = key;
-               }
-          };
-          gender.initEvent(eventtss);
-          addComboGender();
+        // action get select 
+        ButtonEvent eventtss = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                genderId = key;
+            }
+        };
+        gender.initEvent(eventtss);
+        addComboGender();
 
-          // action get select 
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    roleId = key;
-               }
-          };
-          role.initEvent(event);
-          addComboRole();
-     }
+        // action get select 
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                roleId = key;
+            }
+        };
+        role.initEvent(event);
+        addComboRole();
+    }
 
-     //Place Holder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
+    //Place Holder
+    void event() {
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
 
-               }
-          };
-          staffName.initEvent(btnevent);
-          dobDate.initEvent(btnevent);
-          startDate.initEvent(btnevent);
-          address.initEvent(btnevent);
-          contact.initEvent(btnevent);
-     }
+            }
+        };
+        staffName.initEvent(btnevent);
+        dobDate.initEvent(btnevent);
+        startDate.initEvent(btnevent);
+        address.initEvent(btnevent);
+        contact.initEvent(btnevent);
+    }
 
-     //Set Combo box role
-     private void addComboRole() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<RoleModel> roleModel = new ArrayList<>();
-               Response response = JavaConnection.get(JavaRoute.role);
+    //Set Combo box role
+    private void addComboRole() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            ArrayList<RoleModel> roleModel = new ArrayList<>();
+            Response response = JavaConnection.get(JavaRoute.role);
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         RoleModel role = new RoleModel(
-                              obj.getInt("id"),
-                              obj.getString("role_name")
-                         );
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseData);
+                JSONArray data = jsonObject.getJSONArray("data");
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject obj = data.getJSONObject(i);
+                    RoleModel role = new RoleModel(
+                            obj.getInt("id"),
+                            obj.getString("role_name")
+                    );
 
-                         roleModel.add(role);
+                    roleModel.add(role);
 
-                         int idRole = roleModel.get(i).getRoleId();
-                         String roleName = roleModel.get(i).getRoleName();
-                         map.put(roleName, "" + idRole);
-                    }
-                    role.setMap(map);
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+                    int idRole = roleModel.get(i).getRoleId();
+                    String roleName = roleModel.get(i).getRoleName();
+                    map.put(roleName, "" + idRole);
+                }
+                role.setMap(map);
+            } else {
+                System.err.println("fail loading data");
+            }
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
 
-     //Set Combo box Gender
-     private void addComboGender() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               map.put("Male", "male");
-               map.put("Female", "female");
-               gender.setMap(map);
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+    //Set Combo box Gender
+    private void addComboGender() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            map.put("Male", "male");
+            map.put("Female", "female");
+            gender.setMap(map);
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
 
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
@@ -423,171 +423,174 @@ public class InsertStaff extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-         String staffNameEn = staffName.getValueTextField();
-         String dateOfBirth = dobDate.getValueTextField();
-         String staffStartDate = startDate.getValueTextField();
-         String staffAddress = address.getValueTextField();
-         String staffContact = contact.getValueTextField();
+        String staffNameEn = staffName.getValueTextField();
+        String dateOfBirth = dobDate.getValueTextField();
+        String staffStartDate = startDate.getValueTextField();
+        String staffAddress = address.getValueTextField();
+        String staffContact = contact.getValueTextField();
 
-         if (staffNameEn == null || staffNameEn.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Staff Name can not be empty!");
-              return;
-         }
-         if (dateOfBirth == null || dateOfBirth.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Date of Birth can not be empty!");
-              return;
-         }
-         if (staffStartDate == null || staffStartDate.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Start Date can not be empty!");
-              return;
-         }
-         if (staffAddress == null || staffAddress.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Address can not be empty!");
-              return;
-         }
-         if (genderId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a gender!");
-              return;
-         }
-         if (roleId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a role!");
-              return;
-         }
-         if (staffContact == null || staffContact.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Contact can not be empty!");
-              return;
-         }
+        if (staffNameEn == null || staffNameEn.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Staff Name can not be empty!");
+            return;
+        }
+        if (dateOfBirth == null || dateOfBirth.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Date of Birth can not be empty!");
+            return;
+        }
+        if (staffStartDate == null || staffStartDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Start Date can not be empty!");
+            return;
+        }
+        if (staffAddress == null || staffAddress.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address can not be empty!");
+            return;
+        }
+        if (genderId == null) {
+            JOptionPane.showMessageDialog(this, "Please select a gender!");
+            return;
+        }
+        if (roleId == null) {
+            JOptionPane.showMessageDialog(this, "Please select a role!");
+            return;
+        }
+        if (staffContact == null || staffContact.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Contact can not be empty!");
+            return;
+        }
 
-         String url = "";
+        String url = "";
 
-         if (id == null) {
-              url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee;
-         } else {
-              url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/" + id;
-         }
+        if (id == null) {
+            url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee;
+        } else {
+            url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/" + id;
+        }
 
-         OkHttpClient client = new OkHttpClient();
-         // File to upload
+        OkHttpClient client = new OkHttpClient();
+        // File to upload
 
-         // Request body
-         MultipartBody.Builder requestBody = new MultipartBody.Builder()
-              .setType(MultipartBody.FORM)
-              .addFormDataPart("nameEn", staffNameEn)
-              .addFormDataPart("gender", genderId)
-              .addFormDataPart("dob", dateOfBirth)
-              .addFormDataPart("startDate", staffStartDate)
-              .addFormDataPart("address", staffAddress)
-              .addFormDataPart("roleId", roleId)
-              .addFormDataPart("createBy", JavaConstant.cashierId + "")
-              .addFormDataPart("contact", staffContact);
+        // Request body
+        MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("nameEn", staffNameEn)
+                .addFormDataPart("gender", genderId)
+                .addFormDataPart("dob", dateOfBirth)
+                .addFormDataPart("startDate", staffStartDate)
+                .addFormDataPart("address", staffAddress)
+                .addFormDataPart("roleId", roleId)
+                .addFormDataPart("createBy", JavaConstant.cashierId + "")
+                .addFormDataPart("contact", staffContact);
 
-         if (path != null) {
-              File fileToUpload = new File(path);
-              requestBody.addFormDataPart("image", fileToUpload.getName(),
-                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-         }
+        if (path != null) {
+            File fileToUpload = new File(path);
+            requestBody.addFormDataPart("image", fileToUpload.getName(),
+                    RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+        }
 
-         // Request
-         Request request = new Request.Builder()
-              .url(url)
-              .post(requestBody.build())
-              .header("Authorization", "Bearer " + JavaConstant.token)
-              .build();
+        // Request
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody.build())
+                .header("Authorization", "Bearer " + JavaConstant.token)
+                .build();
 
-         try {
-              if (id == null) {
-                   Response response = client.newCall(request).execute();
-                   if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The phone number already uesd!");
-                        return;
-                   }
 
-                   if (response.isSuccessful()) {
-                        StaffInformation list = new StaffInformation(new JFrame(), true);
-                        listGetStaff.removeAll();
-                        listGetStaff.revalidate();
-                        listGetStaff.repaint();
-                        list.getStaff(listGetStaff);
-                        dispose();
-                   }
-              } else {
-                   Response response = client.newCall(request).execute();
-                   if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The phone number already uesd!");
-                        return;
-                   }
-                   if (response.isSuccessful()) {
-                        StaffInformation obj = new StaffInformation(new JFrame(), true);
-                        listGetStaff.removeAll();
-                        listGetStaff.revalidate();
-                        listGetStaff.repaint();
-                        obj.getStaff(listGetStaff);
-                        dispose();
-                   }
+        try {
+            if (id == null) {
+                Response response = client.newCall(request).execute();
 
-              }
+                if (response.code() == 500) {
+                    JOptionPane.showMessageDialog(this, "The phone number already uesd!");
+                    return;
+                }
 
-              // Do something with the response.
-         } catch (IOException e) {
-              System.out.println("err = " + e);
-         }
+                if (response.isSuccessful()) {
+                    StaffInformation list = new StaffInformation(new JFrame(), true);
+                    listGetStaff.removeAll();
+                    listGetStaff.revalidate();
+                    listGetStaff.repaint();
+                    list.getStaff(listGetStaff, true);
+                    dispose();
+                }
+            } else {
+                Response response = client.newCall(request).execute();
+
+                if (response.code() == 500) {
+                    JOptionPane.showMessageDialog(this, "The phone number already uesd!");
+                    return;
+                }
+                if (response.isSuccessful()) {
+                    StaffInformation obj = new StaffInformation(new JFrame(), true);
+                    listGetStaff.removeAll();
+                    listGetStaff.revalidate();
+                    listGetStaff.repaint();
+                    obj.getStaff(listGetStaff, true);
+                    dispose();
+                }
+
+            }
+
+            // Do something with the response.
+        } catch (IOException e) {
+            System.out.println("err = " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void buttonUploadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadMouseClicked
-         try {
-              path = JNAFileChooser.funChooseFile();
-              JavaConstant.coverImagePath(path, lbFile, 124, 235);
-         } catch (IOException ex) {
-              Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+            path = JNAFileChooser.funChooseFile();
+            JavaConstant.coverImagePath(path, lbFile, 124, 235);
+        } catch (IOException ex) {
+            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonUploadMouseClicked
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) "> 
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) "> 
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                InsertStaff dialog = new InsertStaff(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
                     }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    InsertStaff dialog = new InsertStaff(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+    public JPanel getListGetStaff() {
+        return listGetStaff;
+    }
 
-     public JPanel getListGetStaff() {
-          return listGetStaff;
-     }
-
-     public void setListGetStaff(JPanel listGetStaff) {
-          this.listGetStaff = listGetStaff;
-     }
+    public void setListGetStaff(JPanel listGetStaff) {
+        this.listGetStaff = listGetStaff;
+    }
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables

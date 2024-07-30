@@ -6,6 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserSuccessModel {
-    private String msg;
+    private Integer count;
     private UserDataModel[] data;
 }

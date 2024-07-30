@@ -69,7 +69,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     UserDataModel[] listData = data.getData();
                     for (UserDataModel user : listData) {
                          int userId = user.getId();
-                         String userName = user.getFull_name();
+                         String userName = user.getFullName();
                          map.put(userName, "" + userId);
                     }
                     userCombobox.setMap(map);
