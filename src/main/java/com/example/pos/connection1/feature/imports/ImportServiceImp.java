@@ -101,14 +101,12 @@ public class ImportServiceImp implements ImportService {
      @Override
      public JavaCollectionResponse<?> purchaseOrderResponse() {
           List<Import> list = importRepository.findByStatusTrueAndIsDeletedFalseAndRemark("approved");
-
           List<PurchaseOrderResponse> data = list.stream()
                     .map(p -> PurchaseOrderResponse.builder()
                               .id(p.getId())
                               .poId(p.getImpNo())
                               .build())
                     .toList();
-
           return JavaCollectionResponse.builder()
                     .count(data.size())
                     .data(data)
@@ -147,36 +145,27 @@ public class ImportServiceImp implements ImportService {
           Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
           List<ImportResponse> data = new ArrayList<>();
           switch (remark) {
-               case null:
+               case "requested" -> data = pages.getContent().stream()
+                       .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                       .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                       .map(importMapper::mapToImportResponse)
+                       .toList();
+               case "checked" -> data = pages.getContent().stream()
+                       .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                       .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                       .map(importMapper::mapToImportResponse)
+                       .toList();
+               case "approved" -> data = pages.getContent().stream()
+                       .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                       .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                       .map(importMapper::mapToImportResponse)
+                       .toList();
+               default -> {
                     data = pages.getContent().stream()
-                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
-                              .map(importMapper::mapToImportResponse)
-                              .toList();
-                    break;
-
-               case "requested":
-                    data = pages.getContent().stream()
-                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
-                              .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
-                              .map(importMapper::mapToImportResponse)
-                              .toList();
-                    break;
-               case "checked":
-                    data = pages.getContent().stream()
-                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
-                              .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
-                              .map(importMapper::mapToImportResponse)
-                              .toList();
-                    break;
-               case "approved":
-                    data = pages.getContent().stream()
-                              .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
-                              .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
-                              .map(importMapper::mapToImportResponse)
-                              .toList();
-                    break;
-               default:
-                    break;
+                            .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                            .map(importMapper::mapToImportResponse)
+                            .toList();
+               }
           }
 
           return JavaCollectionResponse.builder()
@@ -272,6 +261,7 @@ public class ImportServiceImp implements ImportService {
                          .orderQty(value.getQtyNew())
                          .cost(value.getProduct().getCost())
                          .totalCost(BigDecimal.valueOf(Double.parseDouble(_totalCost)))
+                         .receivedQty(value.getReceiveQty())
                          .build();
                details.add(importDetailResponse);
           }
@@ -386,18 +376,19 @@ public class ImportServiceImp implements ImportService {
                     imp.setRemark(importRequest.remark());
                     importRepository.save(imp);
                     requestData(importRequest, importRequest.impId());
-               } else if (importRequest.remark().toLowerCase().equals("received")) {
+               } else if (importRequest.remark().equalsIgnoreCase("received")) {
                     
                     for (ImportDetailsRequest data : importRequest.details()) {
                          Product product = productRepository.findById(data.productId())
                                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                             "Product id not fouund with : " + data.productId()));
+                                             "Product id not found with : " + data.productId()));
                          ImportDetailTemporary detail = importDetailTemporaryRepository
                                    .findByImpIdAndProduct(importRequest.impId(), product)
                                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                              "Import Detail not found"));
 
-                         detail.setQtyNew(data.qtyNew());
+//                         detail.setQtyNew(data.qtyNew()); // qtyNew is orderQty
+                         detail.setReceiveQty(data.receivedQty());
                          importDetailTemporaryRepository.save(detail);
                     }
                }
