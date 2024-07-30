@@ -4,10 +4,11 @@ import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaRoundUp;
 import com.example.pos.connection1.entity.models.SummeryCashierReport;
 import com.example.pos.connection1.entity.models.VatProductModel;
+import com.example.pos.connection1.feature.employee.EmployeeRepository;
 import com.example.pos.connection1.projections.LastInvoiceProjection;
 import com.example.pos.connection1.projections.SaleSomeFieldProject;
 import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
-import com.example.pos.connection1.repository.EmployeeRepository;
+// import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.SaleDetailsRepository;
 import com.example.pos.connection1.repository.SaleRepository;
 import com.example.pos.connection1.repository.UserRepository;
@@ -66,8 +67,8 @@ public class CashierReportService {
 
         // get user name
         User user = repoUser.getUserById(id);
-        Employee employee = repoEmp.getEmployeeById(user.getEmpId());
-        map.put("userName", employee.getNameEn());
+        Optional<Employee> employee = repoEmp.findByIdAndStatusTrueAndIsDeletedFalse(user.getEmpId());
+        map.put("userName", employee.get().getNameEn());
 
         // get posId, openDate , openCash from openShift
         OpenShift openShift = reposOpenShift.getDataOpenShift(userCode, JavaConstant.currentDate, posId);

@@ -1,5 +1,29 @@
 package com.example.pos.connection1.feature.employee;
 
-public interface EmployeeService {
+import java.io.IOException;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.pos.connection1.entity.Employee;
+import com.example.pos.connection1.feature.employee.dto.EmployeeResponse;
+import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
+
+public interface EmployeeService {
+    EmployeeResponse readById(Integer id);
+
+    JavaCollectionResponse<?> read(int pageSize, int pageNumber);
+
+    EmployeeResponse create (Employee e, MultipartFile file) throws IOException;
+
+    EmployeeResponse updateById (Integer id, Employee e, MultipartFile file) throws IOException;
+
+    void deleteById(Integer id);
+
+    JavaCollectionResponse<?> searchEmployee (int pageSize, int pageNumber, String searchValue);
+
+    byte[] getImageEmployee(String id);
+
+    JavaCollectionResponse<?> readUserAcccount(int pageSize, int pageNumber);
+
+    JavaCollectionResponse<?> searchUserAcccount(int pageSize, int pageNumber, String searchValue);
 }

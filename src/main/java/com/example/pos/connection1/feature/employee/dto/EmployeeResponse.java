@@ -2,8 +2,11 @@ package com.example.pos.connection1.feature.employee.dto;
 
 import java.util.Date;
 
+import lombok.Builder;
+
+@Builder
 public record EmployeeResponse(
-    String id,
+    Integer id,
     String nameKh,
     String nameEn,
     String gender,

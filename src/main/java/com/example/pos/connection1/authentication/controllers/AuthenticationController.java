@@ -8,7 +8,7 @@ import com.example.pos.connection1.components.JavaResponse;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.constant.JavaValidation;
 import com.example.pos.connection1.repository.DeviceRepository;
-import com.example.pos.connection1.repository.EmployeeRepository;
+// import com.example.pos.connection1.repository.EmployeeRepository;
 import com.example.pos.connection1.repository.IPAddressRepository;
 import com.example.pos.connection1.repository.UserRepository;
 import com.example.pos.connection1.repository.roleAndPermissionRepository.RoleRepository;
@@ -16,6 +16,8 @@ import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepositor
 import com.example.pos.connection1.entity.Device;
 import com.example.pos.connection1.entity.IPAddressPOSID;
 import com.example.pos.connection1.entity.User;
+import com.example.pos.connection1.feature.employee.EmployeeRepository;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
