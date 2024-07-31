@@ -153,11 +153,11 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
-//                                   detail.setpOCheckDetailsModel(detailData, "stocked", data.getId());
-//                                   detail.setReceive(obj);
+                                   detail.setpOCheckDetailsModel(detailData, data.getId());
+                                   detail.setReceive(obj);
                                    detail.setVisible(true);
                               } catch (Exception e) {
-                                   System.err.println("error getting purchase order " + e);
+                                   System.err.println("error getting purchase receive " + e);
                               }
                          }
 

@@ -16,7 +16,6 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 
@@ -56,6 +55,15 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
              }
         };
         userCombobox.initEvent(event);
+        
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
+
+            }
+        };
+        dateFrom.initEvent(btnevent);
+        dateTo.initEvent(btnevent);
     }
     
     private void addComboUser() {
@@ -81,6 +89,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                System.err.println("error = " + e);
           }
     }
+    
+    
     
     void appendPurchaeOrder(JPanel listGetOrder) {
         GridBagLayout gridBagLayout = new GridBagLayout();

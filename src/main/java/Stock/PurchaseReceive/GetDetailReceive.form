@@ -59,9 +59,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbAvailbleQty" min="-2" pref="163" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbQty" min="-2" pref="163" max="-2" attributes="0"/>
+                  <Component id="lbOrderQty" min="-2" pref="163" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbAvailbleQty1" min="-2" pref="163" max="-2" attributes="0"/>
+                  <Component id="lbReceivedQty" min="-2" pref="163" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbCost" pref="150" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -79,10 +79,10 @@
                       <Component id="lbDivision" alignment="3" max="32767" attributes="0"/>
                       <Component id="lbBarcode" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbAvailbleQty" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbQty" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbOrderQty" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbCost" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lbTotalCost" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbAvailbleQty1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbReceivedQty" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -151,7 +151,7 @@
             <Property name="text" type="java.lang.String" value="Available Qty"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbQty">
+        <Component class="javax.swing.JLabel" name="lbOrderQty">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
@@ -160,7 +160,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Received Qty"/>
+            <Property name="text" type="java.lang.String" value="Ordered Qty"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbCost">
@@ -187,7 +187,7 @@
             <Property name="text" type="java.lang.String" value="Total Cost"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbAvailbleQty1">
+        <Component class="javax.swing.JLabel" name="lbReceivedQty">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
@@ -196,7 +196,7 @@
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Ordered Qty"/>
+            <Property name="text" type="java.lang.String" value="Received Qty"/>
           </Properties>
         </Component>
       </SubComponents>
