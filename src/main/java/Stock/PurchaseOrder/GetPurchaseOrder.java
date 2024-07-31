@@ -8,128 +8,153 @@ import javax.swing.Icon;
 
 public class GetPurchaseOrder extends javax.swing.JPanel {
 
-     private Integer id;
-     private String vendorName;
-     private String referenceNo;
-     private String transactionDate;
-     private String totalQty;
-     private String totalCost;
-     private Icon iconEdit;
-     private Icon iconDelete;
-     private Icon iconDetail;
-     private String transactionNo;
-     private String status;
+    private Integer id;
+    private String vendorName;
+    private String referenceNo;
+    private String transactionDate;
+    private String totalQty;
+    private String totalCost;
+    private Icon iconEdit;
+    private Icon iconDelete;
+    private Icon iconDetail;
+    private String transactionNo;
+    private String status;
+    
+    public GetPurchaseOrder() {
+        initComponents();
+        lbId.setVisible(false);
+        JavaConstant.setPointer(btnDelete);
+        JavaConstant.setPointer(btnEdit);
+    }
 
-     public GetPurchaseOrder() {
-          initComponents();
-          lbId.setVisible(false);
-          JavaConstant.setPointer(btnDelete);
-          JavaConstant.setPointer(btnEdit);
+    public Integer getId() {
+        return id;
+    }
 
-     }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-     public Integer getId() {
-          return id;
-     }
+    public String getVendorName() {
+        return vendorName;
+    }
 
-     public void setId(Integer id) {
-          this.id = id;
-     }
+    public void setVendorName(String vendorName) {
+        this.vendorName = vendorName;
+        lbVendorName.setText(vendorName);
+    }
 
-     public String getVendorName() {
-          return vendorName;
-     }
+    public String getReferenceNo() {
+        return referenceNo;
+    }
 
-     public void setVendorName(String vendorName) {
-          this.vendorName = vendorName;
-          lbVendorName.setText(vendorName);
-     }
+    public void setReferenceNo(String referenceNo) {
+        this.referenceNo = referenceNo;
+        lbReferenceNo.setText(referenceNo);
+    }
 
-     public String getReferenceNo() {
-          return referenceNo;
-     }
+    public String getTransactionDate() {
+        return transactionDate;
+    }
 
-     public void setReferenceNo(String referenceNo) {
-          this.referenceNo = referenceNo;
-          lbReferenceNo.setText(referenceNo);
-     }
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
+        lbTransactionDate.setText(transactionDate);
+    }
 
-     public String getTransactionDate() {
-          return transactionDate;
-     }
+    public String getTotalQty() {
+        return totalQty;
+    }
 
-     public void setTransactionDate(String transactionDate) {
-          this.transactionDate = transactionDate;
-          lbTransactionDate.setText(transactionDate);
-     }
+    public void setTotalQty(String totalQty) {
+        this.totalQty = totalQty;
+        lbTotalQty.setText(totalQty);
+    }
 
-     public String getTotalQty() {
-          return totalQty;
-     }
+    public String getTotalCost() {
+        return totalCost;
+    }
 
-     public void setTotalQty(String totalQty) {
-          this.totalQty = totalQty;
-          lbTotalQty.setText(totalQty);
-     }
+    public void setTotalCost(String totalCost) {
+        this.totalCost = totalCost;
+        lbTotalCost.setText(totalCost);
+    }
 
-     public String getTotalCost() {
-          return totalCost;
-     }
+    public Icon getIconEdit() {
+        return iconEdit;
+    }
 
-     public void setTotalCost(String totalCost) {
-          this.totalCost = totalCost;
-          lbTotalCost.setText(totalCost);
-     }
+    public void setIconEdit(Icon iconEdit) {
+        this.iconEdit = iconEdit;
+        btnEdit.setIcon(iconEdit);
+    }
 
-     public Icon getIconEdit() {
-          return iconEdit;
-     }
+    public Icon getIconDelete() {
+        return iconDelete;
+    }
 
-     public void setIconEdit(Icon iconEdit) {
-          this.iconEdit = iconEdit;
-          btnEdit.setIcon(iconEdit);
-     }
+    public void setIconDelete(Icon iconDelete) {
+        this.iconDelete = iconDelete;
+        btnDelete.setIcon(iconDelete);
+    }
 
-     public Icon getIconDelete() {
-          return iconDelete;
-     }
+    public Icon getIconDetail() {
+        return iconDetail;
+    }
 
-     public void setIconDelete(Icon iconDelete) {
-          this.iconDelete = iconDelete;
-          btnDelete.setIcon(iconDelete);
-     }
+    public void setIconDetail(Icon iconDetail) {
+        this.iconDetail = iconDetail;
+        btnDetail.setIcon(iconDetail);
+    }
 
-     public Icon getIconDetail() {
-          return iconDetail;
-     }
+    public String getTransactionNo() {
+        return transactionNo;
+    }
 
-     public void setIconDetail(Icon iconDetail) {
-          this.iconDetail = iconDetail;
-     }
+    public void setTransactionNo(String transactionNo) {
+        this.transactionNo = transactionNo;
+        lbTranactionNo.setText(transactionNo);
+    }
 
-     public String getTransactionNo() {
-          return transactionNo;
-     }
+    public String getStatus() {
+        return status;
+    }
 
-     public void setTransactionNo(String transactionNo) {
-          this.transactionNo = transactionNo;
-          lbTranactionNo.setText(transactionNo);
-     }
+    public void setStatus(String status) {
+        this.status = status;
+        lbStatus.setText(status);
+    }
+    
+    
+    
+    public void initEvent(ButtonEvent event) {
+        btnEdit.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                event.onSelect("" + id);
+            }
 
-     public String getStatus() {
-          return status;
-     }
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
-     public void setStatus(String status) {
-          this.status = status;
-          lbStatus.setText(status);
-     }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
 
-     public void initEvent(ButtonEvent event) {
-          btnEdit.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+        
+        btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onSelect("" + id);
+                    event.onRemove(""+id);
                }
 
                @Override
@@ -147,57 +172,35 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-          });
+        });
+       
+        btnDetail.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                event.onSelectDetail("" + id);
+            }
 
-          btnDelete.addMouseListener(new MouseListener() {
-               @Override
-               public void mouseClicked(MouseEvent e) {
-                    event.onRemove("" + id);
-               }
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
-               @Override
-               public void mousePressed(MouseEvent e) {
-               }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
 
-               @Override
-               public void mouseReleased(MouseEvent e) {
-               }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
 
-               @Override
-               public void mouseEntered(MouseEvent e) {
-               }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
 
-               @Override
-               public void mouseExited(MouseEvent e) {
-               }
-          });
+    }
+    
 
-          btnDetail.addMouseListener(new MouseListener() {
-               @Override
-               public void mouseClicked(MouseEvent e) {
-                    event.onSelectDetail("" + id);
-               }
-
-               @Override
-               public void mousePressed(MouseEvent e) {
-               }
-
-               @Override
-               public void mouseReleased(MouseEvent e) {
-               }
-
-               @Override
-               public void mouseEntered(MouseEvent e) {
-               }
-
-               @Override
-               public void mouseExited(MouseEvent e) {
-               }
-          });
-
-     }
-
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
