@@ -175,6 +175,7 @@ public class ListProduct extends javax.swing.JDialog {
                     case 2 -> {
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Inactive");
+                              System.out.println("pageNumber : " + pageNumber);
                          } else { // isCheck false search
                               isCheckSearch = false;
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Inactive");
@@ -390,11 +391,13 @@ public class ListProduct extends javax.swing.JDialog {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyType() {
-
                     TimerTask task = new TimerTask() {
                          @Override
                          public void run() {
                               searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
+
                               if (searchValue.isEmpty()) {
                                    isCheckSearch = true;
                                    pageNumber = "0";
@@ -404,7 +407,7 @@ public class ListProduct extends javax.swing.JDialog {
                               searchCode(false);
                          }
                     };
-                    
+
                     Timer timer = new Timer();
                     timer.schedule(task, 500);
 
@@ -817,6 +820,8 @@ public class ListProduct extends javax.swing.JDialog {
           allProduct.setBorder(new UnderlineBorder());
           status = "allProduct";
           code = 0;
+          pageNumber = "0";
+          paginationPanel.resetPage();
           getProduct(listGetProduct, true, 0);
      }//GEN-LAST:event_allProductMouseClicked
 
@@ -826,6 +831,8 @@ public class ListProduct extends javax.swing.JDialog {
           active.setBorder(new UnderlineBorder());
           status = "active";
           code = 1;
+          pageNumber = "0";
+          paginationPanel.resetPage();
           getProduct(listGetProduct, true, 1);
 
      }//GEN-LAST:event_activeMouseClicked
@@ -836,6 +843,8 @@ public class ListProduct extends javax.swing.JDialog {
           inActive.setBorder(new UnderlineBorder());
           status = "inActive";
           code = 2;
+          pageNumber = "0";
+          paginationPanel.resetPage();
           getProduct(listGetProduct, true, 2);
 
 
