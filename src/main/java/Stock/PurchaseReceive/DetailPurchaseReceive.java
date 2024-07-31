@@ -1,21 +1,31 @@
 package Stock.PurchaseReceive;
 import Color.WindowColor;
 import Components.NotFound;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import Stock.PurchaseOrder.ImportRequest;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PODetailItemModel;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JPanel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class DetailPurchaseReceive extends javax.swing.JDialog {
 
     private POCheckDetailsModel pOCheckDetailsModel;
     private Integer id;
     private ListPurchaseReceive receive;
+    ArrayList<ImportRequest.ImportDetailRequests> details = new ArrayList<>();
     
     public DetailPurchaseReceive(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -511,7 +521,59 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String checkDate = currentDate.format(formatter);
 
+        if (pOCheckDetailsModel.getDetails().length == 0) {
+            JOptionPane.showMessageDialog(this, "Invalid!");
+            return;
+        }
+
+        JSONObject json = new JSONObject();
+        json.put("createBy", JavaConstant.cashierId);
+        json.put("empId", JavaConstant.empId);
+        json.put("sub_id", pOCheckDetailsModel.getVendorID());
+        json.put("impDate", pOCheckDetailsModel.getOrderDate());
+        json.put("discount", 0);
+        json.put("total", pOCheckDetailsModel.getTotalCost());
+        json.put("impId", id);
+        json.put("remark", "stocked");
+        json.put("totalQty", pOCheckDetailsModel.getTotalQty());
+        json.put("vendorId", pOCheckDetailsModel.getVendorID());
+        json.put("receiveMsg", false);
+        
+        for (int i = 0; i < pOCheckDetailsModel.getDetails().length; i++) {
+            var data = pOCheckDetailsModel.getDetails()[i];
+            ImportRequest importRequest = new ImportRequest();
+            ImportRequest.ImportDetailRequests imps = importRequest.new ImportDetailRequests(
+                    data.getProductID(),
+                    Integer.valueOf(data.getOrderQty()),
+                    data.getCost(),
+                    data.getTotalCost(),
+                    "",
+                    data.getReceivedQty());
+
+            details.add(imps);
+        }
+
+        json.put("details", details);
+        System.out.println("json : " + json);
+
+        Response response = JavaConnection.post(JavaRoute.imports , json);
+        System.out.println("response : " + response);
+        JavaConstant.setCircleLoadingCursor(this);
+        try {
+            String responeData = response.body().string();
+            if (response.isSuccessful()) {
+                JavaConstant.restoreDefaultCursor(this);
+                System.out.println("responeData : " + responeData);
+                dispose();
+                receive.getData(true, receive);
+            }
+        } catch (Exception e) {
+            System.out.println("error : " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     /**

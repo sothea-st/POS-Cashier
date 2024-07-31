@@ -9,8 +9,6 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
-import Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
-import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,187 +25,185 @@ import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
 
 public class ListPurchaseReceive extends javax.swing.JDialog {
-     private String pageNumber = "0";
-     private int pageSize = 10;
-     private String typeForm;
-     private String searchValue;
-     private boolean isCheckSearch = true;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private String typeForm;
+    private String searchValue;
+    private boolean isCheckSearch = true;
 
-     public ListPurchaseReceive(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
-          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-          header.setBackground(WindowColor.darkGreen);
-          JavaConstant.addTitleAndLogo(this, "Purchase Receive");
-//          appendPurchaseReceive(listGetReceive);
-          getData(true, this);
-          cmbVendorName.setVisible(false);
-          lbVendorName.setVisible(false);
+    public ListPurchaseReceive(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        header.setBackground(WindowColor.darkGreen);
+        JavaConstant.addTitleAndLogo(this, "Purchase Receive");
+        getData(true, this);
+        cmbVendorName.setVisible(false);
+        lbVendorName.setVisible(false);
 
-          eventSearchPuchaseOrder(this);
-     }
+        eventSearchPuchaseOrder(this);
+    }
 
-     private void eventSearchPuchaseOrder(ListPurchaseReceive obj) {
-          // this event was called when user type on searchTextField 
-          ButtonEvent events = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
+    private void eventSearchPuchaseOrder(ListPurchaseReceive obj) {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        searchValue = searchField.getValueTextSearch();
+
+                        if (searchValue.isEmpty()) {
+                            isCheckSearch = true;
+                            pageNumber = "0";
+                            getData(true, obj);
+                            return;
+                        }
+                        getData(false, obj);
+                    }
+                };
+
+                Timer timer = new Timer();
+                timer.schedule(task, 500);
+            }
+        };
+        searchField.initEvent(events);
+    }
+
+    public void getData(boolean isCheck, ListPurchaseReceive obj) {
+        Response response = null;
+        if (isCheck) {
+            response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=approved");
+        } else {
+            isCheckSearch = false;
+            response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
+        }
+
+        try {
+            String responseData = response.body().string();
+            ObjectMapper objMap = new ObjectMapper();
+            ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
+            DataPurchaseModel[] listData = data.getData();
+
+            if (isCheckSearch) {
+                paginationPanel.setTotalPage(data.getCount(), pageSize);
+            } else {
+                paginationPanel.resetPage();
+            }
+            appendPurchaseReceive(listData, obj);
+        } catch (Exception e) {
+            System.out.println("error : " + e);
+        }
+    }
+
+    public void reloadPanel() {
+        listGetReceive.removeAll();
+        listGetReceive.revalidate();
+        listGetReceive.repaint();
+    }
+
+    void appendPurchaseReceive(DataPurchaseModel[] listData, ListPurchaseReceive obj) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetReceive.setLayout(gridBagLayout);
+        reloadPanel();
+        int x = 0;
+        int y = 0;
+        if (listData.length != 0) {
+            for (int i = 0; i < listData.length; i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+                var data = listData[i];
+
+                GetPurchaseReceive b = new GetPurchaseReceive();
+
+                b.setVendorName(data.getVendorName());
+                b.setTransactionNo(data.getTransactionNo());
+                b.setReferenceNo(data.getReferenceNo());
+                b.setTransactionDate(data.getTransactionDate());
+                b.setTotalQty(String.valueOf(data.getTotalQty()));
+                b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
+                b.setRemark(StringUtils.capitalize(data.getRemark()));
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelectDetail(String Key) {  // event edit
+                        DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
+                            String responseData = response.body().string();
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
+                            POCheckDetailsModel detailData = model.getData();
+                            detail.setpOCheckDetailsModel(detailData, data.getId());
+                            detail.setReceive(obj);
+                            detail.setVisible(true);
+                        } catch (Exception e) {
+                            System.err.println("error getting purchase receive " + e);
+                        }
+                    }
+
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                        EditPurchaseReceive edit = new EditPurchaseReceive(new JFrame(), true);
+                        try {
+                            edit.setImportId(data.getId());
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                            System.err.println("error getting purchase receive " + e);
+                        }
+                    }
+                };
+
+                b.initEvent(events);
+
+                try {
+
                     TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              searchValue = searchField.getValueTextSearch();
-
-                              if (searchValue.isEmpty()) {
-                                   isCheckSearch = true;
-                                   pageNumber = "0";
-                                   getData(true, obj);
-                                   return;
-                              }
-                              getData(false, obj);
-                         }
+                        @Override
+                        public void run() {
+                            // Task to be executed
+                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                            b.setIconDetail(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "3141f98b-6212-4fa2-8a16-91a9cbc2af62")));
+                        }
                     };
 
                     Timer timer = new Timer();
-                    timer.schedule(task, 500);
-               }
-          };
-          searchField.initEvent(events);
-     }
+                    timer.schedule(task, 500); // Delays task execution by 1 second
 
-     public void getData(boolean isCheck, ListPurchaseReceive obj) {
-          Response response = null;
-//          String remark = typeForm.equals("check") ? "request" : "check";
-          if (isCheck) {
-               response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=approved");
-          } else {
-               isCheckSearch = false;
-               response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
-          }
+                } catch (Exception e) {
+                    System.err.println("error read image = " + e);
+                }
 
-          try {
-               String responseData = response.body().string();
-               ObjectMapper objMap = new ObjectMapper();
-               ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
-               DataPurchaseModel[] listData = data.getData();
+                listGetReceive.add(b, gbc);
+            }
+            paginationPanel.setVisible(true);
+        } else {
+            paginationPanel.setVisible(false);
+        }
 
-               if (isCheckSearch) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-               } else {
-                    paginationPanel.resetPage();
-               }
-               appendPurchaseReceive(listData, obj);
-          } catch (Exception e) {
-               System.out.println("error : " + e);
-          }
-     }
-
-     public void reloadPanel() {
-          listGetReceive.removeAll();
-          listGetReceive.revalidate();
-          listGetReceive.repaint();
-     }
-
-     void appendPurchaseReceive(DataPurchaseModel[] listData, ListPurchaseReceive obj) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-          listGetReceive.setLayout(gridBagLayout);
-          reloadPanel();
-          int x = 0;
-          int y = 0;
-          if (listData.length != 0) {
-               for (int i = 0; i < listData.length; i++) {
-                    GridBagConstraints gbc = new GridBagConstraints();
-                    gbc.gridx = x;
-                    gbc.gridy = y;
-                    gbc.gridwidth = 1;
-                    gbc.anchor = gbc.NORTH;
-                    x++;
-                    if (x == 1) {
-                         x = 0;
-                         y++;
-                    }
-                    var data = listData[i];
-
-                    GetPurchaseReceive b = new GetPurchaseReceive();
-
-                    b.setVendorName(data.getVendorName());
-                    b.setTransactionNo(data.getTransactionNo());
-                    b.setReferenceNo(data.getReferenceNo());
-                    b.setTransactionDate(data.getTransactionDate());
-                    b.setTotalQty(String.valueOf(data.getTotalQty()));
-                    b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
-                    b.setRemark(StringUtils.capitalize(data.getRemark()));
-                    ButtonEvent events = new ButtonEvent() {
-                         @Override
-                         public void onSelectDetail(String Key) {  // event edit
-                              DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
-                              try {
-                                   Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
-                                   String responseData = response.body().string();
-                                   ObjectMapper objectMapper = new ObjectMapper();
-                                   PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
-                                   POCheckDetailsModel detailData = model.getData();
-                                   detail.setpOCheckDetailsModel(detailData, data.getId());
-                                   detail.setReceive(obj);
-                                   detail.setVisible(true);
-                              } catch (Exception e) {
-                                   System.err.println("error getting purchase receive " + e);
-                              }
-                         }
-
-                         @Override
-                         public void onSelect(String Key) {  // event edit
-                              EditPurchaseReceive edit = new EditPurchaseReceive(new JFrame(), true);
-                              try {
-                                   edit.setImportId(data.getId());
-                                   edit.setVisible(true);
-                              } catch (Exception e) {
-                                   System.err.println("error getting purchase receive " + e);
-                              }
-                         }
-                    };
-
-                    b.initEvent(events);
-
-                    try {
-
-                         TimerTask task = new TimerTask() {
-                              @Override
-                              public void run() {
-                                   // Task to be executed
-                                   b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                                   b.setIconDetail(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "3141f98b-6212-4fa2-8a16-91a9cbc2af62")));
-                              }
-                         };
-
-                         Timer timer = new Timer();
-                         timer.schedule(task, 500); // Delays task execution by 1 second
-
-                    } catch (Exception e) {
-                         System.err.println("error read image = " + e);
-                    }
-
-                    listGetReceive.add(b, gbc);
-               }
-               paginationPanel.setVisible(true);
-          } else {
-               paginationPanel.setVisible(false);
-          }
-
-          listGetReceive.revalidate();
-          listGetReceive.repaint();
-     }
+        listGetReceive.revalidate();
+        listGetReceive.repaint();
+    }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
