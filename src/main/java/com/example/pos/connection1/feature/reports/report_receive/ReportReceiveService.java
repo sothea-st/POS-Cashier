@@ -4,4 +4,7 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 
 public interface ReportReceiveService {
     JavaCollectionResponse<?> reportReceive(Integer pageNumber , Integer pageSize , String dateFrom , String dateTo , Integer receiveBy);
+
+
+    JavaCollectionResponse<?> search(Integer pageNumber , Integer pageSize , String dateFrom , String dateTo , Integer receiveBy , String value);
 }

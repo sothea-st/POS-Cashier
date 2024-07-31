@@ -34,8 +34,6 @@ public class CategoryController {
             @Valid @PathVariable("code") String code,
             @PathVariable("catNameEn") String searchValue
     ) {
-//        List<CategoryResponse> data = service.search(code, searchValue);
-//        return JavaResponse.success(data);
         return  service.search(pageNumber,pageSize,code,searchValue);
     }
 }

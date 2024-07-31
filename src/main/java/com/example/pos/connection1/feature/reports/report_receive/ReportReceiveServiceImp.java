@@ -26,9 +26,72 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
     private final ImportRepository importRepository;
     private final UserRepository userRepository;
 
+
+    @Override
+    public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer receiveBy, String value) {
+        validationDate(dateFrom, dateTo);
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+        if (receiveBy == null) {
+            Page<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(
+                    LocalDate.parse(dateFrom),
+                    LocalDate.parse(dateTo),
+                    value,
+                    pageRequest
+            );
+
+            return JavaCollectionResponse.builder()
+                    .data(pages.getContent().stream()
+                            .map(d -> {
+                                String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
+                                return ReportReceiveResponse.builder()
+                                        .vendorName(d.getVendor().getVendorName())
+                                        .transactionNo(String.valueOf(d.getId()))
+                                        .referenceNo(d.getReferenceNo())
+                                        .transactionDate(d.getImpDate())
+                                        .receiveBy(receiveByName)
+                                        .totalQty(d.getTotalQty())
+                                        .totalCost(d.getTotal())
+                                        .remark(d.getRemark())
+                                        .build();
+                            })
+                    )
+                    .count(pages.getTotalElements())
+                    .build();
+        }
+
+        Page<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(
+                LocalDate.parse(dateFrom),
+                LocalDate.parse(dateTo),
+                value,
+                receiveBy,
+                pageRequest
+        );
+
+        return JavaCollectionResponse.builder()
+                .data(pages.getContent().stream()
+                        .map(d -> {
+                            String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
+                            return ReportReceiveResponse.builder()
+                                    .vendorName(d.getVendor().getVendorName())
+                                    .transactionNo(String.valueOf(d.getId()))
+                                    .referenceNo(d.getReferenceNo())
+                                    .transactionDate(d.getImpDate())
+                                    .receiveBy(receiveByName)
+                                    .totalQty(d.getTotalQty())
+                                    .totalCost(d.getTotal())
+                                    .remark(d.getRemark())
+                                    .build();
+                        })
+                )
+                .count(pages.getTotalElements())
+                .build();
+
+    }
+
     @Override
     public JavaCollectionResponse<?> reportReceive(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer receiveBy) {
-        validationDate(dateFrom,dateTo);
+        validationDate(dateFrom, dateTo);
         Page<Import> pages = null;
         List<Import> lists = new ArrayList<>();
         List<ReportReceiveResponse> data = new ArrayList<>();
@@ -93,8 +156,8 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
 
 
     private void validationDate(String dateFrom, String dateTo) {
-        if( dateFrom == null ) throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"dateFrom can not be null.");
-        if( dateTo == null ) throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"dateTo can not be null.");
+        if (dateFrom == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateFrom can not be null.");
+        if (dateTo == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateTo can not be null.");
         LocalDate dateFromLocal;
         LocalDate dateToLocal;
 

@@ -1,4 +1,5 @@
 package com.example.pos.connection1.feature.imports;
+import com.example.pos.connection1.entity.Vendor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +17,12 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
      Optional<Import> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      Page<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest);
+
+     Page<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(LocalDate dateFrom, LocalDate dateTo, String vendorName, PageRequest pageRequest);
+
+     Page<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(LocalDate dateFrom, LocalDate dateTo, String vendorName, int receiveBy,PageRequest pageRequest);
+
+
 
      Page<Import> findByDateLocalBetweenAndReceiveBy(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest , int receiveBy);
 

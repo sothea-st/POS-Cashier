@@ -3,17 +3,24 @@ package com.example.pos.connection1.feature.reports.report_receive;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/reportReceive")
 @RequiredArgsConstructor
 public class ReportReceiveController {
     private final ReportReceiveService reportReceiveService;
-
+    @GetMapping("/search/{value}")
+    public JavaCollectionResponse<?> search(
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @RequestParam(name = "dateFrom" , required = false) String dateFrom,
+            @RequestParam(name = "dateTo",required = false) String dateTo,
+            @RequestParam(name = "receiveId", required = false) Integer receiveId,
+            @PathVariable(name = "value") String value
+    ) {
+        return reportReceiveService.search(pageNumber, pageSize, dateFrom, dateTo, receiveId,value);
+    }
 
     @GetMapping
     public JavaCollectionResponse<?> getReport(
@@ -23,7 +30,7 @@ public class ReportReceiveController {
             @RequestParam(name = "dateTo",required = false) String dateTo,
             @RequestParam(name = "receiveId", required = false) Integer receiveId
     ) {
-        System.out.println("dddddddddd = " + pageNumber);
+
         return reportReceiveService.reportReceive(pageNumber, pageSize, dateFrom, dateTo, receiveId);
     }
 
