@@ -11,20 +11,22 @@ import com.example.pos.connection1.repository.CategoryRepository;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 import lombok.RequiredArgsConstructor;
-import  java.util.*;
+
+import java.util.*;
+
 @Service
 @RequiredArgsConstructor
-public class CategoryServiceImp implements  CategoryService{
+public class CategoryServiceImp implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public JavaCollectionResponse<?> read(int pageNumber, int pageSize, String code) {
-        Sort sortById = Sort.by(Sort.Direction.DESC,"id");
-        PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
-        Page<Category> pages = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalse(code,pageRequest);
+    public JavaCollectionResponse<?> search(int pageNumber, int pageSize, String code, String value) {
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+        Page<Category> pages = categoryRepository.findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(code, value, pageRequest);
 
         List<CategoryResponse> data = pages.getContent().stream()
-                .map(p->CategoryResponse.builder()
+                .map(p -> CategoryResponse.builder()
                         .id(p.getId())
                         .catNameEn(p.getCatNameEn())
                         .catNameKh(p.getCatNameKh())
@@ -33,10 +35,32 @@ public class CategoryServiceImp implements  CategoryService{
                         .build())
                 .toList();
 
-        return  JavaCollectionResponse.builder()
+        return JavaCollectionResponse.builder()
                 .data(data)
                 .count(pages.getTotalElements())
                 .build();
     }
-    
+
+    @Override
+    public JavaCollectionResponse<?> read(int pageNumber, int pageSize, String code) {
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+        Page<Category> pages = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalse(code, pageRequest);
+
+        List<CategoryResponse> data = pages.getContent().stream()
+                .map(p -> CategoryResponse.builder()
+                        .id(p.getId())
+                        .catNameEn(p.getCatNameEn())
+                        .catNameKh(p.getCatNameKh())
+                        .movePosition(p.getMovePosition())
+                        .parentId(p.getParentId())
+                        .build())
+                .toList();
+
+        return JavaCollectionResponse.builder()
+                .data(data)
+                .count(pages.getTotalElements())
+                .build();
+    }
+
 }

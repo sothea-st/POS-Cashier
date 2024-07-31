@@ -114,12 +114,12 @@ public class RouteController {
                return JavaResponse.deleteSuccess(id);
           }
 
-          @GetMapping("/code/{code}/search/{catNameEn}")
-          public ResponseEntity<?> search(@Valid @PathVariable("code") String code,
-                    @PathVariable("catNameEn") String searchValue) {
-               List<CategoryResponse> data = service.search(code, searchValue);
-               return JavaResponse.success(data);
-          }
+//          @GetMapping("/code/{code}/search/{catNameEn}")
+//          public ResponseEntity<?> search(@Valid @PathVariable("code") String code,
+//                    @PathVariable("catNameEn") String searchValue) {
+//               List<CategoryResponse> data = service.search(code, searchValue);
+//               return JavaResponse.success(data);
+//          }
      }
 
      @RequestMapping("/api/supplier")

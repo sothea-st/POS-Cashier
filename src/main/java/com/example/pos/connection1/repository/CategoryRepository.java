@@ -18,6 +18,8 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
 
     Page<Category> findByCodeAndStatusTrueAndIsDeletedFalse(String code, PageRequest pageRequest);
+    Page<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code,String catNameEn,PageRequest pageRequest);
+
 
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
     List<Category> getCategoryByCode(String code);

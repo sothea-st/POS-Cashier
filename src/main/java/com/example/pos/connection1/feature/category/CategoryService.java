@@ -4,4 +4,6 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 
 public interface CategoryService {
     JavaCollectionResponse<?> read(int pageNumber , int pageSize , String code);
+
+    JavaCollectionResponse<?> search(int pageNumber , int pageSize , String code , String value);
 }
