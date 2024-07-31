@@ -893,7 +893,7 @@ public class EditProduct extends javax.swing.JDialog {
                    listGetProduct.removeAll();
                    listGetProduct.revalidate();
                    listGetProduct.repaint();
-                   list.getProduct(listGetProduct,true);
+                   list.getProduct(listGetProduct,true ,0);
 
                    dispose();
               }

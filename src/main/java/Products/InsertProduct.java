@@ -842,7 +842,7 @@ public class InsertProduct extends javax.swing.JDialog {
 //                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
 //                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          dispose();
-                         listProduct.getProduct(listGetProduct,true);
+                         listProduct.getProduct(listGetProduct,true,0);
                     }
                }
           } catch (Exception e) {
@@ -919,7 +919,7 @@ public class InsertProduct extends javax.swing.JDialog {
           listGetProduct.removeAll();
           listGetProduct.repaint();
           listGetProduct.revalidate();
-          listProduct.getProduct(listGetProduct,true);
+          listProduct.getProduct(listGetProduct,true , 0);
      }
 
      public ListProduct getListProduct() {
