@@ -4,6 +4,8 @@ import com.example.pos.connection1.DTO.categoryDto.CategoryResponse;
 import com.example.pos.connection1.entity.Category;
 import com.example.pos.connection1.projections.GetCategoryByCode;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,8 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.parentId = :parentId ORDER BY c.movePosition ASC")
     List<Category> getCategory(int parentId);
 
+
+    Page<Category> findByCodeAndStatusTrueAndIsDeletedFalse(String code, PageRequest pageRequest);
 
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
     List<Category> getCategoryByCode(String code);
