@@ -37,6 +37,9 @@ public class Category extends javax.swing.JDialog {
 
     private String code;
     private String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
 
     public Category(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -51,7 +54,7 @@ public class Category extends javax.swing.JDialog {
         JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
-        getCategory(listGetCategory, codeType);
+        getCategory(listGetCategory, codeType, true);
 
         if (codeType.equals("division")) {
             JavaConstant.addTitleAndLogo(this, "Division");
@@ -63,10 +66,26 @@ public class Category extends javax.swing.JDialog {
             JavaConstant.addTitleAndLogo(this, "Sub Category");
         }
         
-        eventSearchStatus(codeType);
+        eventSearchCategory(codeType);
+        eventPagination(codeType);
+    }
+    
+    
+    private void eventPagination(String codeType) {
+        ButtonEvent event = new ButtonEvent() {
+             @Override
+             public void onMouseClick(String value) {
+                  if (isCheckSearch) {
+                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                       pageNumber = String.valueOf(_value);
+                       getCategory(listGetCategory, codeType, true);
+                  }
+             }
+        };
+        paginationPanel.initEvent(event);
     }
 
-    public void getCategory(JPanel jpanelData, String codeType) {
+    public void getCategory(JPanel jpanelData, String codeType, boolean isCheck) {
         try {
 
             String codeCategory = "";
@@ -80,13 +99,29 @@ public class Category extends javax.swing.JDialog {
             } else if (codeType.equals("subcategory")) {
                 codeCategory = "subcategory";
             }
-
-            Response response = JavaConnection.get(JavaRoute.getCategoryByCode + codeCategory);
+            
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                 response = JavaConnection.get(JavaRoute.getCategoryByCode +  codeCategory + "?pageNumber=" + pageNumber + "&pageSize=10");
+            } else { // isCheck false search
+                 isCheckSearch = false;
+                 response = JavaConnection.get(JavaRoute.searchCategory + codeType + "/search/" + searchValue);
+            }
+            
+            System.out.println("response : " + response);
+            
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
                 CategorySuccessModel data = objMap.readValue(responseData, CategorySuccessModel.class);
                 CategoryGetdataModel[] listData = data.getData();
+                
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
+                
                 assignCategory(listData, jpanelData, codeType);
 
             } else {
@@ -114,6 +149,12 @@ public class Category extends javax.swing.JDialog {
 
         appendCategory(cat, listGetCategory, codeType);
     }
+    
+    private void reloadPanel() {
+        listGetCategory.removeAll();
+        listGetCategory.revalidate();
+        listGetCategory.repaint();
+    }
 
     void appendCategory(ArrayList<ModelCategory> listCategory, JPanel listGetCategory, String codeType) {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -123,6 +164,7 @@ public class Category extends javax.swing.JDialog {
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
         listGetCategory.setLayout(gridBagLayout);
+        reloadPanel();
 
         int x = 0;
         int y = 0;
@@ -286,7 +328,7 @@ public class Category extends javax.swing.JDialog {
                                     listGetCategory.removeAll();
                                     listGetCategory.revalidate();
                                     listGetCategory.repaint();
-                                    list.getCategory(listGetCategory, codeType);
+                                    list.getCategory(listGetCategory, codeType, true);
                                 } else if (response.code() == 404) {
                                     JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
                                 }
@@ -335,7 +377,7 @@ public class Category extends javax.swing.JDialog {
     }
     
     //Action Search
-    private void eventSearchStatus(String codeType) {
+    private void eventSearchCategory(String codeType) {
         // this event was called when user type on searchTextField 
         ButtonEvent events = new ButtonEvent() {
             @Override
@@ -343,39 +385,12 @@ public class Category extends javax.swing.JDialog {
                 searchValue = searchField.getValueTextSearch();
                 
                 if (searchValue.isEmpty()) {
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    getCategory(listGetCategory,codeType);
-                } else {
-
-                    Response response = JavaConnection.get(JavaRoute.searchCategory + codeType + "/search/" + searchValue);
-
-                    if (response.isSuccessful()) {
-                        try {
-                            listGetCategory.removeAll();
-                            listGetCategory.revalidate();
-                            listGetCategory.repaint();
-                            String responseData = response.body().string();
-                            ObjectMapper obj = new ObjectMapper();
-                            CategorySuccessModel data = obj.readValue(responseData, CategorySuccessModel.class);
-                            CategoryGetdataModel[] listData = data.getData();
-                            if (listData.length > 0) {
-                                assignCategory(listData, listGetCategory, codeType);
-                            } else {
-                                listGetCategory.removeAll();
-                                NoDataAvaibalePanel notfound = new NoDataAvaibalePanel();
-                                notfound.setLabelName("Not Found!");
-                                listGetCategory.add(notfound);
-                                listGetCategory.revalidate();
-                                listGetCategory.repaint();
-                            }
-
-                        } catch (Exception e) {
-                            System.out.println("err from search category = " + e);
-                        }
-                    }
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getCategory(listGetCategory, codeType, true);
+                    return;
                 }
+                getCategory(listGetCategory, codeType, false);
             }
         };
         searchField.initEvent(events);
@@ -420,6 +435,7 @@ public class Category extends javax.swing.JDialog {
         listGetCategory = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
+        paginationPanel = new pagination.PaginationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -502,19 +518,18 @@ public class Category extends javax.swing.JDialog {
         panelListCategoryLayout.setHorizontalGroup(
             panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListCategoryLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListCategoryLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelListCategoryLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelListCategoryLayout.createSequentialGroup()
-                                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                            .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListCategoryLayout.createSequentialGroup()
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addComponent(header1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         panelListCategoryLayout.setVerticalGroup(
@@ -527,9 +542,11 @@ public class Category extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelListCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -623,6 +640,7 @@ public class Category extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel listGetCategory;
+    private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListCategory;
     private Components.SearchField searchField;
     // End of variables declaration//GEN-END:variables

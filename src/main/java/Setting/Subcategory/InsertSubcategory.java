@@ -447,7 +447,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
                     listGetCategory.removeAll();
                     listGetCategory.revalidate();
                     listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code);
+                    list.getCategory(listGetCategory, code, true);
                     dispose();
 
                 } else if (response.code() == 500) {
@@ -471,7 +471,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
                     listGetCategory.removeAll();
                     listGetCategory.revalidate();
                     listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code);
+                    list.getCategory(listGetCategory, code, true);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");

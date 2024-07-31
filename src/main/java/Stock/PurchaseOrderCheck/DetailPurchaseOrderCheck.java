@@ -31,126 +31,138 @@ import org.json.JSONObject;
 
 public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
-     private POCheckDetailsModel pOCheckDetailsModel;
-     private ListPurchaseOrderCheck obj;
-     private String typeForm;
-     private Integer id;
-     ArrayList<ImportRequest.ImportDetailRequest> details = new ArrayList<>();
-     private ListPurchaseReceive receive;
+    private POCheckDetailsModel pOCheckDetailsModel;
+    private ListPurchaseOrderCheck obj;
+    private String typeForm;
+    private Integer id;
+    ArrayList<ImportRequest.ImportDetailRequest> details = new ArrayList<>();
+    private ListPurchaseReceive receive;
 
-     public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          setResizable(false);
-          header.setBackground(WindowColor.darkGreen);
-          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
-          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-     }
+    public DetailPurchaseOrderCheck(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setResizable(false);
+        header.setBackground(WindowColor.darkGreen);
+        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        lbComment.setVisible(false);
+        comment.setVisible(false);
+    }
 
-     public POCheckDetailsModel getpOCheckDetailsModel() {
-          return pOCheckDetailsModel;
-     }
+    public POCheckDetailsModel getpOCheckDetailsModel() {
+        return pOCheckDetailsModel;
+    }
 
-     public ListPurchaseOrderCheck getObj() {
-          return obj;
-     }
+    public ListPurchaseOrderCheck getObj() {
+        return obj;
+    }
 
-     public void setObj(ListPurchaseOrderCheck obj) {
-          this.obj = obj;
-     }
+    public void setObj(ListPurchaseOrderCheck obj) {
+        this.obj = obj;
+    }
 
-     public ListPurchaseReceive getReceive() {
-          return receive;
-     }
+    public ListPurchaseReceive getReceive() {
+        return receive;
+    }
 
-     public void setReceive(ListPurchaseReceive receive) {
-          this.receive = receive;
-     }
+    public void setReceive(ListPurchaseReceive receive) {
+        this.receive = receive;
+    }
 
-     public void setpOCheckDetailsModel(POCheckDetailsModel p, String typeForm, Integer id) {
-          this.pOCheckDetailsModel = p;
-          vendorName.setLabelName(p.getVendorName());
-          transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
-          puchaseOrderNo.setLabelName(p.getPurchaseOrderNo());
-          referenceNo.setLabelName(p.getReferenceNo());
-          transactionDate.setLabelName(p.getTransactionDate());
-          orderDate.setLabelName(p.getOrderDate());
-          totalQty.setLabelName(String.valueOf(p.getTotalQty()));
-          totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
-          requestBy.setLabelName(p.getRequestBy().getName());
-          requestDate.setLabelName(p.getRequestBy().getDate());
-          checkBy.setLabelName(p.getCheckedBy().getName());
-          checkDate.setLabelName(p.getCheckedBy().getDate());
-          comment.setLabelName(p.getFeedBackReject());
-          appendData(p.getDetails());
-          this.typeForm = typeForm;
-          this.id = id;
+    public void setpOCheckDetailsModel(POCheckDetailsModel p, String typeForm, Integer id) {
+        this.pOCheckDetailsModel = p;
+        vendorName.setLabelName(p.getVendorName());
+        transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
+        puchaseOrderNo.setLabelName(p.getPurchaseOrderNo());
+        referenceNo.setLabelName(p.getReferenceNo());
+        transactionDate.setLabelName(p.getTransactionDate());
+        orderDate.setLabelName(p.getOrderDate());
+        totalQty.setLabelName(String.valueOf(p.getTotalQty()));
+        totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
+        requestBy.setLabelName(p.getRequestBy().getName());
+        requestDate.setLabelName(p.getRequestBy().getDate());
+        checkBy.setLabelName(p.getCheckedBy().getName());
+        checkDate.setLabelName(p.getCheckedBy().getDate());
+        comment.setLabelName(p.getFeedBackReject());
+        appendData(p.getDetails());
+        this.typeForm = typeForm;
+        this.id = id;
 
-     }
+        if (typeForm.equals("approved")) {
+            labelPopUpTitle2.setLabelTitle(" Detail Purchase Approval");
+        }
 
-     void appendData(PODetailItemModel[] details) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        if (typeForm.equals("checked")) {
+            lbCheckedBy.setVisible(false);
+            checkBy.setVisible(false);
+            lbCheckedDate.setVisible(false);
+            checkDate.setVisible(false);
+        }
 
-          listGetDetailOrder.setLayout(gridBagLayout);
+    }
 
-          int x = 0;
-          int y = 0;
-          int index = 0;
-          if (details.length > 0) {
-               for (int i = 0; i < details.length; i++) {
-                    GridBagConstraints gbc = new GridBagConstraints();
-                    gbc.gridx = x;
-                    gbc.gridy = y;
-                    gbc.gridwidth = 1;
-                    gbc.anchor = gbc.NORTH;
-                    x++;
-                    if (x == 1) {
-                         x = 0;
-                         y++;
-                    }
-                    var listData = details[i];
-                    index++;
-                    GetDetailPurchase b = new GetDetailPurchase();
-                    
-                   
-                    b.setValue(    
-                         String.valueOf(index),
-                         String.valueOf(listData.getBarcode()),
-                         String.valueOf(listData.getProNameEn()),
-                         String.valueOf(listData.getDivision()),
-                         String.valueOf(listData.getDepartment()),
-                         String.valueOf(listData.getCategory()),
-                         String.valueOf(listData.getSubCategory()),
-                         String.valueOf(listData.getAvailableQty()),
-                         String.valueOf(listData.getOrderQty()),
-                         String.valueOf(listData.getCost()),
-                         String.valueOf(listData.getTotalCost())
-                    );
+    void appendData(PODetailItemModel[] details) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-                    listGetDetailOrder.add(b, gbc);
-               }
-          } else {
-               listGetDetailOrder.setLayout(new BorderLayout());
-               NotFound nofound = new NotFound();
-               listGetDetailOrder.add(nofound, BorderLayout.CENTER);
-               listGetDetailOrder.add(nofound);
-               listGetDetailOrder.revalidate();
-               listGetDetailOrder.repaint();
-          }
+        listGetDetailOrder.setLayout(gridBagLayout);
 
-          listGetDetailOrder.revalidate();
-          listGetDetailOrder.repaint();
-     }
+        int x = 0;
+        int y = 0;
+        int index = 0;
+        if (details.length > 0) {
+            for (int i = 0; i < details.length; i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
+                var listData = details[i];
+                index++;
+                GetDetailPurchase b = new GetDetailPurchase();
 
-     @SuppressWarnings("unchecked")
+                b.setValue(
+                        String.valueOf(index),
+                        String.valueOf(listData.getBarcode()),
+                        String.valueOf(listData.getProNameEn()),
+                        String.valueOf(listData.getDivision()),
+                        String.valueOf(listData.getDepartment()),
+                        String.valueOf(listData.getCategory()),
+                        String.valueOf(listData.getSubCategory()),
+                        String.valueOf(listData.getAvailableQty()),
+                        String.valueOf(listData.getOrderQty()),
+                        String.valueOf(listData.getCost()),
+                        String.valueOf(listData.getTotalCost())
+                );
+
+                listGetDetailOrder.add(b, gbc);
+            }
+        } else {
+            listGetDetailOrder.setLayout(new BorderLayout());
+            NotFound nofound = new NotFound();
+            listGetDetailOrder.add(nofound, BorderLayout.CENTER);
+            listGetDetailOrder.add(nofound);
+            listGetDetailOrder.revalidate();
+            listGetDetailOrder.repaint();
+        }
+
+        listGetDetailOrder.revalidate();
+        listGetDetailOrder.repaint();
+    }
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -186,9 +198,9 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
         totalCost = new Components.Label();
         requestBy = new Components.Label();
         requestDate = new Components.Label();
-        lbTransactionDate1 = new Components.Label();
-        lbTransactionDate2 = new Components.Label();
-        lbTransactionDate3 = new Components.Label();
+        lbCheckedBy = new Components.Label();
+        lbCheckedDate = new Components.Label();
+        lbComment = new Components.Label();
         checkBy = new Components.Label();
         checkDate = new Components.Label();
         comment = new Components.Label();
@@ -201,7 +213,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        labelPopUpTitle2.setLabelTitle(" Detail Purchase Order Check");
+        labelPopUpTitle2.setLabelTitle(" Detail Purchase Check");
 
         header.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -353,11 +365,11 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
         requestDate.setLabelName("");
 
-        lbTransactionDate1.setLabelName("Checked By :");
+        lbCheckedBy.setLabelName("Checked By :");
 
-        lbTransactionDate2.setLabelName("Checked Date :");
+        lbCheckedDate.setLabelName("Checked Date :");
 
-        lbTransactionDate3.setLabelName("Comment :");
+        lbComment.setLabelName("Comment :");
 
         checkBy.setLabelName("");
 
@@ -451,15 +463,15 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                         .addGap(53, 53, 53)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbTransactionDate3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbComment, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comment, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbTransactionDate2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbCheckedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkDate, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbTransactionDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbCheckedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkBy, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -475,14 +487,14 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbTransactionDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbCheckedBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(checkBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(orderDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbOrderDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbVendorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbTransactionDate2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbCheckedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(checkDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(transactionNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbTransactionNo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
@@ -494,7 +506,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(puchaseOrderNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(totalCost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbTransactionDate3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbComment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbPurchaseeOrderNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,91 +562,91 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-         LocalDate currentDate = LocalDate.now();
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-         String checkDate = currentDate.format(formatter);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String checkDate = currentDate.format(formatter);
 
-         if (pOCheckDetailsModel.getDetails().length == 0) {
-              JOptionPane.showMessageDialog(this, "Invalid!");
-              return;
-         }
+        if (pOCheckDetailsModel.getDetails().length == 0) {
+            JOptionPane.showMessageDialog(this, "Invalid!");
+            return;
+        }
 
-         if (typeForm.equals("stocked")) {
-              addStocked();
-              return;
-         }
+        if (typeForm.equals("stocked")) {
+            addStocked();
+            return;
+        }
 
-         String checkType = typeForm.equals("checked") ? "checked" : "approved";
+        String checkType = typeForm.equals("checked") ? "checked" : "approved";
 
-         JSONObject json = new JSONObject();
-         json.put("createBy", JavaConstant.cashierId);
-         json.put("remark", checkType);
-         json.put("role", JavaConstant.roleName);
-         json.put("checkDate", checkDate);
+        JSONObject json = new JSONObject();
+        json.put("createBy", JavaConstant.cashierId);
+        json.put("remark", checkType);
+        json.put("role", JavaConstant.roleName);
+        json.put("checkDate", checkDate);
 
-         Response response = JavaConnection.post(JavaRoute.imports + "/checkingRequest/" + puchaseOrderNo.getLabelName(), json);
+        Response response = JavaConnection.post(JavaRoute.imports + "/checkingRequest/" + puchaseOrderNo.getLabelName(), json);
 
-         try {
-              String responeData = response.body().string();
-              if (response.isSuccessful()) {
-                   System.out.println("responeData : " + responeData);
-                   dispose();
-                   obj.getData(obj, true);
-              }
-         } catch (Exception e) {
-              System.out.println("error : " + e);
-         }
+        try {
+            String responeData = response.body().string();
+            if (response.isSuccessful()) {
+                System.out.println("responeData : " + responeData);
+                dispose();
+                obj.getData(obj, true);
+            }
+        } catch (Exception e) {
+            System.out.println("error : " + e);
+        }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-     private void addStocked() {
+    private void addStocked() {
 
-          JSONObject json = new JSONObject();
-          json.put("createBy", JavaConstant.cashierId);
-          json.put("empId", JavaConstant.empId);
-          json.put("vendorId", pOCheckDetailsModel.getVendorID());
-          json.put("impDate", pOCheckDetailsModel.getOrderDate());
-          json.put("discount", "0");
-          json.put("referenceNo", referenceNo);
-          json.put("transactionDate", pOCheckDetailsModel.getTransactionDate());
-          String _totalCost = totalCost.getLabelName().replace("$", "");
-          _totalCost = _totalCost.replace(",", "");
-          json.put("total", _totalCost);
-          json.put("totalQty", totalQty.getLabelName());
-          json.put("remark", "stocked");
-          json.put("impId", id);
+        JSONObject json = new JSONObject();
+        json.put("createBy", JavaConstant.cashierId);
+        json.put("empId", JavaConstant.empId);
+        json.put("vendorId", pOCheckDetailsModel.getVendorID());
+        json.put("impDate", pOCheckDetailsModel.getOrderDate());
+        json.put("discount", "0");
+        json.put("referenceNo", referenceNo);
+        json.put("transactionDate", pOCheckDetailsModel.getTransactionDate());
+        String _totalCost = totalCost.getLabelName().replace("$", "");
+        _totalCost = _totalCost.replace(",", "");
+        json.put("total", _totalCost);
+        json.put("totalQty", totalQty.getLabelName());
+        json.put("remark", "stocked");
+        json.put("impId", id);
 
-          for (int i = 0; i < pOCheckDetailsModel.getDetails().length; i++) {
-               var data = pOCheckDetailsModel.getDetails()[i];
-               ImportRequest importRequest = new ImportRequest();
-               ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
+        for (int i = 0; i < pOCheckDetailsModel.getDetails().length; i++) {
+            var data = pOCheckDetailsModel.getDetails()[i];
+            ImportRequest importRequest = new ImportRequest();
+            ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
                     data.getProductID(),
                     Integer.valueOf(data.getOrderQty()),
                     data.getCost(),
                     data.getTotalCost(),
                     "");
 
-               details.add(imps);
-          }
+            details.add(imps);
+        }
 
-          json.put("details", details);
+        json.put("details", details);
 
-          Response response = JavaConnection.post(JavaRoute.imports, json);
+        Response response = JavaConnection.post(JavaRoute.imports, json);
 
-          JavaConstant.setCircleLoadingCursor(this);
+        JavaConstant.setCircleLoadingCursor(this);
 
-          try {
-               if (response.isSuccessful()) {
-                    JavaConstant.restoreDefaultCursor(this);
-                    String dataString = response.body().string();
-                    System.out.println("success : " + dataString);
-                    dispose();
-                    receive.getData(true, receive);
-               }
-          } catch (Exception e) {
-               System.out.println("import request fails : " + e);
-          }
-     }
+        try {
+            if (response.isSuccessful()) {
+                JavaConstant.restoreDefaultCursor(this);
+                String dataString = response.body().string();
+                System.out.println("success : " + dataString);
+                dispose();
+                receive.getData(true, receive);
+            }
+        } catch (Exception e) {
+            System.out.println("import request fails : " + e);
+        }
+    }
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
         ActionReject actionReject = new ActionReject(new JFrame(), true);
@@ -644,44 +656,44 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
         actionReject.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(DetailPurchaseOrderCheck.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    DetailPurchaseOrderCheck dialog = new DetailPurchaseOrderCheck(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                DetailPurchaseOrderCheck dialog = new DetailPurchaseOrderCheck(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
@@ -704,6 +716,9 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private Components.LabelPopUpTitle labelPopUpTitle2;
+    private Components.Label lbCheckedBy;
+    private Components.Label lbCheckedDate;
+    private Components.Label lbComment;
     private Components.Label lbOrderDate;
     private Components.Label lbPurchaseeOrderNo;
     private Components.Label lbReferenceNo;
@@ -712,9 +727,6 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
     private Components.Label lbTotalQty1;
     private Components.Label lbTotalQty2;
     private Components.Label lbTransactionDate;
-    private Components.Label lbTransactionDate1;
-    private Components.Label lbTransactionDate2;
-    private Components.Label lbTransactionDate3;
     private Components.Label lbTransactionNo;
     private Components.Label lbVendorName;
     private javax.swing.JPanel listGetDetailOrder;
