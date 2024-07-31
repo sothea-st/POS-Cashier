@@ -57,6 +57,8 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                          @Override
                          public void run() {
                               searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
                               if (searchValue.isEmpty()) {
                                    isCheckSearch = true;
                                    pageNumber = "0";

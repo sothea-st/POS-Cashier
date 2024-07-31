@@ -1118,7 +1118,7 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSettingsMouseClicked
 
     private void btnReportingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportingMouseClicked
-
+         
          if (JavaConstant.token != null) {
               ReportingView re = new ReportingView(new JFrame(), true);
               re.setVisible(true);
