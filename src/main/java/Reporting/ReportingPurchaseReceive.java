@@ -1,6 +1,7 @@
 package Reporting;
 
 import Color.WindowColor;
+import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
@@ -9,10 +10,14 @@ import Event.ButtonEvent;
 import Model.Userlogin.UserDataModel;
 import Model.Userlogin.UserSuccessModel;
 import Reporting.ReportingItem.ReportOfReceive;
+import Reporting.model.ReportReceiveDetail;
+import Reporting.model.ReportReceiveResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -22,43 +27,72 @@ import okhttp3.Response;
 
 public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
-    private String userId;
-    private String statusValue;
-    
-    public ReportingPurchaseReceive(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+     private String dateFromValue;
+     private String dateToValue;
+     private String userId;
+     private String statusValue;
+     private String pageNumber = "0";
+     private int pageSize = 10;
+    private boolean isCheckSearch = true;
+     public ReportingPurchaseReceive(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-        searchField.setFocus();
-        // custome scrollbar ui
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        JavaConstant.addTitleAndLogo(this, "Reporting Purchase Receive");
+          searchField.setFocus();
+          // custome scrollbar ui
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          JavaConstant.addTitleAndLogo(this, "Reporting Purchase Receive");
 
-        // set background color
-        listGetOrder.setBackground(WindowColor.mediumGreen);
-        header.setBackground(WindowColor.darkGreen);
-        appendPurchaeOrder(listGetOrder);
-        
-        addComboUser();
-        // action get select brand
-        ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onSelect(String key) {
-                  userId = key;
-             }
-        };
-        userCombobox.initEvent(event);
-    }
-    
-    private void addComboUser() {
+          // set background color
+          listGetOrder.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
+//          appendPurchaeOrder(listGetOrder);
+
+          addComboUser();
+          // action get select brand
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    userId = key;
+               }
+          };
+          userCombobox.initEvent(event);
+
+          eventPagination();
+
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          dateFrom.initEvent(btnevent);
+          dateTo.initEvent(btnevent);
+     }
+
+     private void eventPagination() {
+          ButtonEvent paginationEvent = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getReport(true);
+                    }
+               }
+          };
+          paginationPanel.initEvent(paginationEvent);
+     }
+
+     private void addComboUser() {
           try {
                HashMap<String, String> map = new HashMap<>();
                Response response = JavaConnection.get(JavaRoute.userAccount);
@@ -80,43 +114,68 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
           } catch (Exception e) {
                System.err.println("error = " + e);
           }
-    }
-    
-    void appendPurchaeOrder(JPanel listGetOrder) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+     }
 
-        listGetOrder.setLayout(gridBagLayout);
+     void reloadPanel() {
+          listGetOrder.removeAll();
+          listGetOrder.revalidate();
+          listGetOrder.repaint();
+     }
 
-        int x = 0;
-        int y = 0;
-        if(10 > 0){
-            for (int i = 0; i < 10; i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
+     void appendPurchaeOrder(ReportReceiveDetail[] lists) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          reloadPanel();
+          listGetOrder.setLayout(gridBagLayout);
+
+          int x = 0;
+          int y = 0;
+
+          if (lists.length == 0) {
+               listGetOrder.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               listGetOrder.add(nofound, BorderLayout.CENTER);
+               listGetOrder.add(nofound);
+               listGetOrder.revalidate();
+               listGetOrder.repaint();
+               return;
+          }
+
+          for (int i = 0; i < lists.length; i++) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
                     x = 0;
                     y++;
-                }
-                
-                ReportOfReceive b = new ReportOfReceive();
+               }
+               var data = lists[i];
 
-                listGetOrder.add(b, gbc);
-            }  
-        }
-        
-        listGetOrder.revalidate();
-        listGetOrder.repaint();
-    }
-     
-    @SuppressWarnings("unchecked")
+               ReportOfReceive b = new ReportOfReceive();
+               b.setData(
+                    String.valueOf(i + 1),
+                    String.valueOf(data.getVendorName()),
+                    String.valueOf(data.getTransactionNo()),
+                    String.valueOf(data.getReferenceNo()),
+                    String.valueOf(data.getTransactionDate()),
+                    String.valueOf(data.getReceiveBy()),
+                    String.valueOf(data.getTotalQty()),
+                    "$".concat(String.valueOf(data.getTotalCost())),
+                    String.valueOf(data.getRemark()));
+               listGetOrder.add(b, gbc);
+          }
+
+          listGetOrder.revalidate();
+          listGetOrder.repaint();
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -372,54 +431,103 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+         getReport(true);
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
+     private void getReport(boolean isCheck) {
+
+          dateFromValue = dateFrom.getValueTextField();
+          dateToValue = dateTo.getValueTextField();
+
+          if (dateFromValue == null || dateFromValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date From can not be empty!");
+               return;
+          }
+
+          if (dateToValue == null || dateToValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date To can not be empty!");
+               return;
+          }
+
+          dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
+          dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
+
+          Response response = null;
+
+          String endpoint = "";
+          if (userId == null) {
+               response = JavaConnection.get(JavaRoute.reportReceive + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+          } else {
+               endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateFromValue + "&receiveId=" + userId;
+               response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
+          }
+
+          try {
+               String responseData = response.body().string();
+               ObjectMapper obj = new ObjectMapper();
+               ReportReceiveResponse data = obj.readValue(responseData, ReportReceiveResponse.class);
+               ReportReceiveDetail[] lists = data.getData();
+
+               if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+               } else {
+                    isCheckSearch = false;
+                    paginationPanel.resetPage();
+               }
+
+               appendPurchaeOrder(lists);
+          } catch (Exception e) {
+               System.err.println("error : " + e);
+          }
+
+     }
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ReportingPurchaseReceive dialog = new ReportingPurchaseReceive(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ReportingPurchaseReceive dialog = new ReportingPurchaseReceive(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;

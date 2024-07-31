@@ -3,6 +3,8 @@ package Constant;
 public class JavaRoute {
      
      public static String login = "/auth/login";
+     public static String reportReceive = "/v1/reportReceive";
+
      public static String product = "/product";
      public static String productV1 = "/product/v1";
      public static String imports = "/v1/import";
