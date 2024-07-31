@@ -1,17 +1,22 @@
 package Stock.PurchaseReceive;
 import Color.WindowColor;
+import Components.NotFound;
 import CustomeUI.CustomScrollBarUI;
-import Setting.Category.NoDataAvaibalePanel;
-import Stock.PurchaseOrderApprove.ActionReject;
+import Stock.PurchaseOrderCheck.POCheckDetailsModel;
+import Stock.PurchaseOrderCheck.PODetailItemModel;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 public class DetailPurchaseReceive extends javax.swing.JDialog {
 
+    private POCheckDetailsModel pOCheckDetailsModel;
+    private Integer id;
+    private ListPurchaseReceive receive;
+    
     public DetailPurchaseReceive(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -23,11 +28,47 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
         verticalScrollBar.setUnitIncrement(30);
         verticalScrollBar.setBlockIncrement(35);
         jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        appendPurchaseReceive(listGetDetailReceive);
+    }
+
+    public POCheckDetailsModel getpOCheckDetailsModel() {
+        return pOCheckDetailsModel;
+    }
+
+    public void setpOCheckDetailsModel(POCheckDetailsModel pOCheckDetailsModel) {
+        this.pOCheckDetailsModel = pOCheckDetailsModel;
+    }
+
+    public ListPurchaseReceive getReceive() {
+        return receive;
+    }
+
+    public void setReceive(ListPurchaseReceive receive) {
+        this.receive = receive;
     }
     
     
-    void appendPurchaseReceive(JPanel listGetDetailReceive) {
+    public void setpOCheckDetailsModel(POCheckDetailsModel p, Integer id) {
+          this.pOCheckDetailsModel = p;
+          vendorName.setLabelName(p.getVendorName());
+          transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
+          purchaseOrderNo.setLabelName(p.getPurchaseOrderNo());
+          referenceNo.setLabelName(p.getReferenceNo());
+          transactionDate.setLabelName(p.getTransactionDate());
+          orderDate.setLabelName(p.getOrderDate());
+          totalQty.setLabelName(String.valueOf(p.getTotalQty()));
+          totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
+          requestBy.setLabelName(p.getRequestBy().getName());
+          requestDate.setLabelName(p.getRequestBy().getDate());
+          checkBy.setLabelName(p.getCheckedBy().getName());
+          checkDate.setLabelName(p.getCheckedBy().getDate());
+          approveBy.setLabelName(p.getApprovedBy().getName());
+          approveDate.setLabelName(p.getApprovedBy().getDate());
+          appendPurchaseReceive(p.getDetails());
+          this.id = id;
+    }
+    
+    
+    void appendPurchaseReceive(PODetailItemModel[] details) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -38,8 +79,9 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
         int x = 0;
         int y = 0;
-        if(5 > 0){
-            for (int i = 0; i < 5; i++) {
+        int index = 0;
+        if(details.length > 0){
+            for (int i = 0; i < details.length; i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = x;
                 gbc.gridy = y;
@@ -51,11 +93,33 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                     y++;
                 }
                 
+                var listData = details[i];
+                index++;
                 GetDetailReceive b = new GetDetailReceive();
+                
+                
+                b.setValue(    
+                     String.valueOf(index),
+                     String.valueOf(listData.getBarcode()),
+                     String.valueOf(listData.getProNameEn()),
+                     String.valueOf(listData.getDivision()),
+                     String.valueOf(listData.getAvailableQty()),
+                     String.valueOf(listData.getOrderQty()),
+                     String.valueOf( listData.getReceivedQty()),
+                     String.valueOf(listData.getCost()),
+                     String.valueOf(listData.getTotalCost())
+                );
 
                 listGetDetailReceive.add(b, gbc);
             }  
-        }
+        }else {
+               listGetDetailReceive.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               listGetDetailReceive.add(nofound, BorderLayout.CENTER);
+               listGetDetailReceive.add(nofound);
+               listGetDetailReceive.revalidate();
+               listGetDetailReceive.repaint();
+          }
         
         listGetDetailReceive.revalidate();
         listGetDetailReceive.repaint();
@@ -80,36 +144,34 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         listGetDetailReceive = new javax.swing.JPanel();
         lbVendorName = new Components.Label();
-        lbPosId8 = new Components.Label();
+        vendorName = new Components.Label();
         lbTransactionNo = new Components.Label();
-        lbPosId11 = new Components.Label();
+        transactionNo = new Components.Label();
         lbPurchaseeOrderNo = new Components.Label();
-        lbPosId10 = new Components.Label();
+        purchaseOrderNo = new Components.Label();
         lbReferenceNo = new Components.Label();
-        lbPosId9 = new Components.Label();
+        referenceNo = new Components.Label();
         lbOrderDate = new Components.Label();
         lbRequestBy = new Components.Label();
         lbRequestDate = new Components.Label();
         lbTransactionDate = new Components.Label();
-        lbPosId12 = new Components.Label();
-        lbPosId13 = new Components.Label();
-        lbPosId14 = new Components.Label();
-        lbPosId15 = new Components.Label();
+        totalQty = new Components.Label();
+        totalCost = new Components.Label();
+        requestBy = new Components.Label();
+        requestDate = new Components.Label();
         lbCheckBy = new Components.Label();
         lbCheckDate = new Components.Label();
         lbApprovedBy = new Components.Label();
-        lbPosId16 = new Components.Label();
-        lbPosId17 = new Components.Label();
-        lbPosId18 = new Components.Label();
+        checkBy = new Components.Label();
+        checkDate = new Components.Label();
+        approveBy = new Components.Label();
         lbTotalCost = new Components.Label();
         lbTotalQty = new Components.Label();
-        lbPosId20 = new Components.Label();
-        lbPosId21 = new Components.Label();
+        orderDate = new Components.Label();
+        transactionDate = new Components.Label();
         buttonSave = new ButtonPackage.ButtonSave();
         lbApproveDate = new Components.Label();
-        lbPosId19 = new Components.Label();
-        lbComment = new Components.Label();
-        lbPosId22 = new Components.Label();
+        approveDate = new Components.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -222,19 +284,19 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
         lbVendorName.setLabelName("Vendor Name :");
 
-        lbPosId8.setLabelName("");
+        vendorName.setLabelName("");
 
         lbTransactionNo.setLabelName("Transaction № :");
 
-        lbPosId11.setLabelName("");
+        transactionNo.setLabelName("");
 
         lbPurchaseeOrderNo.setLabelName("Purchase Order № :");
 
-        lbPosId10.setLabelName("");
+        purchaseOrderNo.setLabelName("");
 
         lbReferenceNo.setLabelName("Reference № :");
 
-        lbPosId9.setLabelName("");
+        referenceNo.setLabelName("");
 
         lbOrderDate.setLabelName("Order Date :");
 
@@ -244,13 +306,13 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
         lbTransactionDate.setLabelName("Transaction Date :");
 
-        lbPosId12.setLabelName("");
+        totalQty.setLabelName("");
 
-        lbPosId13.setLabelName("");
+        totalCost.setLabelName("");
 
-        lbPosId14.setLabelName("");
+        requestBy.setLabelName("");
 
-        lbPosId15.setLabelName("");
+        requestDate.setLabelName("");
 
         lbCheckBy.setLabelName("Checked By :");
 
@@ -258,19 +320,19 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
         lbApprovedBy.setLabelName("Approved By :");
 
-        lbPosId16.setLabelName("");
+        checkBy.setLabelName("");
 
-        lbPosId17.setLabelName("");
+        checkDate.setLabelName("");
 
-        lbPosId18.setLabelName("");
+        approveBy.setLabelName("");
 
         lbTotalCost.setLabelName("Total Cost :");
 
         lbTotalQty.setLabelName("Total Qty :");
 
-        lbPosId20.setLabelName("");
+        orderDate.setLabelName("");
 
-        lbPosId21.setLabelName("");
+        transactionDate.setLabelName("");
 
         buttonSave.setTitleButton("Accept");
         buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -281,11 +343,7 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
         lbApproveDate.setLabelName("Approved Date :");
 
-        lbPosId19.setLabelName("");
-
-        lbComment.setLabelName("Comment :");
-
-        lbPosId22.setLabelName("");
+        approveDate.setLabelName("");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -307,68 +365,64 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbTransactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbPosId21, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(transactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbReferenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(referenceNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbPurchaseeOrderNo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(purchaseOrderNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(vendorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbTransactionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(transactionNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(55, 55, 55)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lbRequestDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lbPosId15, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(requestDate, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lbRequestBy, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lbPosId14, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(requestBy, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lbPosId13, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(totalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lbPosId12, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(totalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId20, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(orderDate, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(53, 53, 53)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbApprovedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId18, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(approveBy, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbCheckDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId17, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(checkDate, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbCheckBy, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId16, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(checkBy, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lbApproveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId19, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(lbComment, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lbPosId22, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(approveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(20, 20, 20))
         );
@@ -378,31 +432,31 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                 .addComponent(labelPopUpTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbPosId8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vendorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbCheckBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbPosId16, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lbPosId20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(orderDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbOrderDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbVendorName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lbCheckDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbPosId17, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPosId11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transactionNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbTransactionNo, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(lbTotalQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbPosId12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(totalQty, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lbPosId10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbPosId13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(purchaseOrderNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalCost, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbApprovedBy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbPosId18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(approveBy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbPurchaseeOrderNo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,28 +466,23 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lbRequestBy, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                                    .addComponent(lbPosId9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(referenceNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lbReferenceNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(lbPosId14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(requestBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbRequestDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbPosId15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(requestDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbComment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbPosId22, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(lbTransactionDate, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                                                .addComponent(lbPosId21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbTransactionDate, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                                    .addComponent(transactionDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbPosId19, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(approveDate, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -508,7 +557,11 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Components.Label approveBy;
+    private Components.Label approveDate;
     private ButtonPackage.ButtonSave buttonSave;
+    private Components.Label checkBy;
+    private Components.Label checkDate;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -526,23 +579,7 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
     private Components.Label lbApprovedBy;
     private Components.Label lbCheckBy;
     private Components.Label lbCheckDate;
-    private Components.Label lbComment;
     private Components.Label lbOrderDate;
-    private Components.Label lbPosId10;
-    private Components.Label lbPosId11;
-    private Components.Label lbPosId12;
-    private Components.Label lbPosId13;
-    private Components.Label lbPosId14;
-    private Components.Label lbPosId15;
-    private Components.Label lbPosId16;
-    private Components.Label lbPosId17;
-    private Components.Label lbPosId18;
-    private Components.Label lbPosId19;
-    private Components.Label lbPosId20;
-    private Components.Label lbPosId21;
-    private Components.Label lbPosId22;
-    private Components.Label lbPosId8;
-    private Components.Label lbPosId9;
     private Components.Label lbPurchaseeOrderNo;
     private Components.Label lbReferenceNo;
     private Components.Label lbRequestBy;
@@ -553,5 +590,15 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
     private Components.Label lbTransactionNo;
     private Components.Label lbVendorName;
     private javax.swing.JPanel listGetDetailReceive;
+    private Components.Label orderDate;
+    private Components.Label purchaseOrderNo;
+    private Components.Label referenceNo;
+    private Components.Label requestBy;
+    private Components.Label requestDate;
+    private Components.Label totalCost;
+    private Components.Label totalQty;
+    private Components.Label transactionDate;
+    private Components.Label transactionNo;
+    private Components.Label vendorName;
     // End of variables declaration//GEN-END:variables
 }
