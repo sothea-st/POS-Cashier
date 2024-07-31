@@ -1,5 +1,6 @@
 package com.example.pos.connection1.feature.product;
 
+import com.example.pos.connection1.entity.Status;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
 import com.example.pos.connection1.entity.Product;
@@ -16,10 +17,18 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         List<Product> findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(int vendorId, int subCategoryId);
         List<Product> findByVendorIdAndStatusTrueAndIsDeletedFalse(int vendorId);
         Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
+        Page<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(PageRequest pageRequest, Status status);
+
+        List<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(Status status);
+
         List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();
         Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
         Page<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
+        Page<Product> findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name,Status status);
         Page<Product> findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
+
+        Page<Product> findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name, Status status);
+
         boolean existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(String barcode);
 
 

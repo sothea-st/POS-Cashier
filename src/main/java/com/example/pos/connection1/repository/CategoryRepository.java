@@ -41,7 +41,7 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     int countLengthRow();
 
 
-    @Query(nativeQuery = true, value ="SELECT * FROM get_categories_by_code(?, ?)")
+    @Query(nativeQuery = true, value ="SELECT * FROM get_categories_by_code(?,?)")
     List<GetCategoryByCode> search (String code, String searchValue);
 
 

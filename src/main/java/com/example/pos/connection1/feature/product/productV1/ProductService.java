@@ -32,6 +32,17 @@ public interface ProductService {
      */
     JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize);
 
+
+        /**
+     * Retrieves a collection of products based on pagination parameters.
+     * 
+     * @param pageNumber The page number of the results to retrieve.
+     * @param pageSize   The number of products per page.
+     * @param status   value specific data that collect.
+     * @return A collection response containing products for the specified page.
+     */
+    JavaCollectionResponse<?> listByStatus(Integer pageNumber, Integer pageSize,String status);
+
     /**
      * search a collection of products based on pagination parameters.
      * 
@@ -40,6 +51,16 @@ public interface ProductService {
      * @return A collection response containing products for the specified page.
      */
     JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String value);
+
+
+    /**
+     * search a collection of products based on pagination parameters.
+     *
+     * @param pageNumber The page number of the results to retrieve.
+     * @param pageSize   The number of products per page.
+     * @return A collection response containing products for the specified page.
+     */
+    JavaCollectionResponse<?> searchByStatus(Integer pageNumber, Integer pageSize, String value , String status);
 
     /**
      * Deletes a product identified by its unique identifier.

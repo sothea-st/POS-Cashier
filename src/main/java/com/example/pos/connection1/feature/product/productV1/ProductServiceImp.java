@@ -1,5 +1,16 @@
 package com.example.pos.connection1.feature.product.productV1;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.entity.Attribute;
 import com.example.pos.connection1.entity.Category;
@@ -25,375 +36,426 @@ import com.example.pos.connection1.feature.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.mapper.ProductMapper;
 import com.example.pos.connection1.repository.CategoryRepository;
-import com.example.pos.connection1.repository.UserRepository;
-// import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
-// import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import java.util.*;
-import java.math.BigDecimal;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ProductServiceImp implements ProductService {
-     // **************************** group bean ************************
-     private final ProductRepository productRepository;
-     private final CategoryRepository categoryRepository;
-     private final ProductMapper productMapper;
-     private final BrandRepository brandRepository;
-     private final TaxRepository taxRepository;
-     private final VendorRepository vendorRepository;
-     private final UomRepository uomRepository;
-     private final AttributeRepository attributeRepository;
-     private final StatusRepository statusRepository;
-     private final CountryRepository countryRepository;
-     // **************************** end *******************************
+    // **************************** group bean ************************
 
-     // **************************** group variable ************************
-     private String subCategoryIdNotFound = "Sub category not found with id: ";
-     private String brandIdNotFound = "Brand not found with id: ";
-     private String taxIdNotFound = "Tax not found with id: ";
-     private String vendorIdNotFound = "Vendor not found with id: ";
-     private String uomIdNotFound = "Uom not found with id: ";
-     private String attributeIdNotFound = "Attribute not found with id: ";
-     private String statusIdNotFound = "Status not found with id: ";
-     private String countryIdNotFound = "Country not found with id: ";
-     private String barcodeAlreadyExist = "Barcode already exist with: ";
-     private String productIdNotFound = "Product not found with id: ";
+    private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductMapper productMapper;
+    private final BrandRepository brandRepository;
+    private final TaxRepository taxRepository;
+    private final VendorRepository vendorRepository;
+    private final UomRepository uomRepository;
+    private final AttributeRepository attributeRepository;
+    private final StatusRepository statusRepository;
+    private final CountryRepository countryRepository;
+    // **************************** end *******************************
 
-     // **************************** end *******************************
-     /**
-      * Retrieves products based on the vendor ID and optionally a subcategory ID.
-      * If subcategory ID is provided, filters products by both vendor ID and
-      * subcategory ID.
-      * If subcategory ID is null, filters products only by vendor ID.
-      * 
-      * @param p ProductRequestVendorOrSubCateId object containing vendor ID and
-      *          optional subcategory ID.
-      * @return A JavaCollectionResponse containing filtered products and count.
-      */
-     @Override
-     public JavaCollectionResponse<?> findByVendorIdOrSubCategoryId(ProductRequestVendorOrSubCateId p) {
-          List<Product> products = new ArrayList<>();
-          if (p.subCatId() != null) {
-               products = productRepository.findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(
-                         p.vendorId(), p.subCatId());
-          } else {
-               products = productRepository
-                         .findByVendorIdAndStatusTrueAndIsDeletedFalse(p.vendorId());
-          }
+    // **************************** group variable ************************
+    private String subCategoryIdNotFound = "Sub category not found with id: ";
+    private String brandIdNotFound = "Brand not found with id: ";
+    private String taxIdNotFound = "Tax not found with id: ";
+    private String vendorIdNotFound = "Vendor not found with id: ";
+    private String uomIdNotFound = "Uom not found with id: ";
+    private String attributeIdNotFound = "Attribute not found with id: ";
+    private String statusIdNotFound = "Status not found with id: ";
+    private String countryIdNotFound = "Country not found with id: ";
+    private String barcodeAlreadyExist = "Barcode already exist with: ";
+    private String productIdNotFound = "Product not found with id: ";
 
-          List<ProductResponseByFilter> data = products.stream()
-                    .map(product -> {
-                         Integer availableQty = product.getImportDetail() == null ? 0
-                                   : product.getImportDetail().getQtyOld();
-                         return ProductResponseByFilter.builder()
-                                   .id(product.getId())
-                                   .barcode(product.getBarcode())
-                                   .proNameEn(product.getProNameEn())
-                                   .division(product.getSubCategory().getCatNameEn())
-                                   .availableQty(availableQty)
-                                   .qty(1)
-                                   .cost(product.getCost())
-                                   .amount(product.getCost())
-                                   .build();
-                    })
-                    .toList(); // Collect stream into a list
+    // **************************** end *******************************
 
-          return JavaCollectionResponse.builder()
-                    .count(products.size())
-                    .data(data)
-                    .build();
-     }
 
-     /**
-      * search a collection of products based on pagination parameters.
-      * 
-      * @param pageNumber The page number of the results to retrieve.
-      * @param pageSize   The number of products per page.
-      * @return A collection response containing products for the specified page.
-      */
-     @Override
-     public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String value) {
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-          Page<Product> products = null;
-          boolean isCheck = JavaConstant.onlyDigits(value, value.length());
-          if (isCheck) {
-               products = productRepository
-                         .findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
-          } else {
-               products = productRepository
-                         .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
-          }
+    @Override
+    public JavaCollectionResponse<?> searchByStatus(Integer pageNumber, Integer pageSize, String value , String status) {
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+        Page<Product> products = null;
+        boolean isCheck = JavaConstant.onlyDigits(value, value.length());
+        Status status1 = statusRepository.findByStatusName(status)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND , "Status not found with statusName : " + status));
 
-          List<ProductResponse> data = products.getContent().stream()
+        if (isCheck) {
+            products = productRepository
+                    .findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value ,status1);
+        } else {
+            products = productRepository
+                    .findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value,status1);
+        }
+
+        List<ProductResponse> data = products.getContent().stream()
+                .map(productMapper::mapToProductResponse)
+                .toList();
+        return JavaCollectionResponse.builder()
+                .count(products.getTotalElements())
+                .data(data)
+                .build();
+    }
+
+    @Override
+    public JavaCollectionResponse<?> listByStatus(Integer pageNumber, Integer pageSize, String status) {
+        List<ProductResponse> data = null;
+
+
+        if (pageNumber == null && pageSize == null) {
+            Status status1 = statusRepository.findByStatusName(status).orElseThrow(
+                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with StatusName : " + status)
+            );
+            data = productRepository.findByStatusTrueAndIsDeletedFalseAndProductActive(status1).stream()
                     .map(productMapper::mapToProductResponse)
                     .toList();
-          return JavaCollectionResponse.builder()
-                    .count(products.getTotalElements())
+            return JavaCollectionResponse.builder()
+                    .count(data.size())
                     .data(data)
                     .build();
-     }
+        } else {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
 
-     /**
-      * Updates an existing product identified by its unique identifier.
-      * 
-      * @param id             The unique identifier of the product to update.
-      * @param productRequest The updated details of the product.
-      * @return The response containing details of the updated product.
-      */
-     @Override
-     public ProductResponse updateProductById(int id, ProductRequest productRequest) {
-          Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
+            Status status1 = statusRepository.findByStatusName(status).orElseThrow(
+                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with StatusName : " + status)
+            );
 
-          // validate subCategory
-          Category subCategory = subCategory(productRequest.subCatId());
+            Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalseAndProductActive(pageRequest, status1);
+            data = pages.getContent().stream()
+                    .map(productMapper::mapToProductResponse)
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(pages.getTotalElements())
+                    .data(data)
+                    .build();
+        }
+    }
 
-          // validate brand
-          Brand brand = brand(productRequest.brandId());
+    /**
+     * Retrieves products based on the vendor ID and optionally a subcategory
+     * ID. If subcategory ID is provided, filters products by both vendor ID and
+     * subcategory ID. If subcategory ID is null, filters products only by
+     * vendor ID.
+     *
+     * @param p ProductRequestVendorOrSubCateId object containing vendor ID and
+     *          optional subcategory ID.
+     * @return A JavaCollectionResponse containing filtered products and count.
+     */
+    @Override
+    public JavaCollectionResponse<?> findByVendorIdOrSubCategoryId(ProductRequestVendorOrSubCateId p) {
+        List<Product> products = new ArrayList<>();
+        if (p.subCatId() != null) {
+            products = productRepository.findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(
+                    p.vendorId(), p.subCatId());
+        } else {
+            products = productRepository
+                    .findByVendorIdAndStatusTrueAndIsDeletedFalse(p.vendorId());
+        }
 
-          // validate tax
-          TaxProduct tax = taxProduct(productRequest.taxId());
+        List<ProductResponseByFilter> data = products.stream()
+                .map(product -> {
+                    Integer availableQty = product.getImportDetail() == null ? 0
+                            : product.getImportDetail().getQtyOld();
+                    return ProductResponseByFilter.builder()
+                            .id(product.getId())
+                            .barcode(product.getBarcode())
+                            .proNameEn(product.getProNameEn())
+                            .division(product.getSubCategory().getCatNameEn())
+                            .availableQty(availableQty)
+                            .qty(1)
+                            .cost(product.getCost())
+                            .amount(product.getCost())
+                            .build();
+                })
+                .toList(); // Collect stream into a list
 
-          // validate vendor
-          Vendor vendor = vendor(productRequest.vendorId());
+        return JavaCollectionResponse.builder()
+                .count(products.size())
+                .data(data)
+                .build();
+    }
 
-          // validate uom
-          Attribute attribute = attribute(productRequest.attributeId());
+    /**
+     * search a collection of products based on pagination parameters.
+     *
+     * @param pageNumber The page number of the results to retrieve.
+     * @param pageSize   The number of products per page.
+     * @return A collection response containing products for the specified page.
+     */
+    @Override
+    public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String value) {
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+        Page<Product> products = null;
+        boolean isCheck = JavaConstant.onlyDigits(value, value.length());
+        if (isCheck) {
+            products = productRepository
+                    .findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+        } else {
+            products = productRepository
+                    .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+        }
 
-          // validate uom
-          Uom uom = uom(productRequest.uomId());
+        List<ProductResponse> data = products.getContent().stream()
+                .map(productMapper::mapToProductResponse)
+                .toList();
+        return JavaCollectionResponse.builder()
+                .count(products.getTotalElements())
+                .data(data)
+                .build();
+    }
 
-          // validate satatus
-          Status status = status(productRequest.productActiveId());
+    /**
+     * Updates an existing product identified by its unique identifier.
+     *
+     * @param id             The unique identifier of the product to update.
+     * @param productRequest The updated details of the product.
+     * @return The response containing details of the updated product.
+     */
+    @Override
+    public ProductResponse updateProductById(int id, ProductRequest productRequest) {
+        Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
 
-          // validate country
-          Country country = country(productRequest.countryId());
+        // validate subCategory
+        Category subCategory = subCategory(productRequest.subCatId());
 
-          // validate barcode
-          if (!product.getBarcode().equals(productRequest.barcode())) {
-               checkBarcodeExists(productRequest.barcode());
-          }
+        // validate brand
+        Brand brand = brand(productRequest.brandId());
 
-          String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
-                    : productRequest.proImageName();
+        // validate tax
+        TaxProduct tax = taxProduct(productRequest.taxId());
 
-          if (!product.getProImageName().equals(productRequest.proImageName())) {
-               product.setProImageName(fileName);
-          }
+        // validate vendor
+        Vendor vendor = vendor(productRequest.vendorId());
 
-          product.setProNameKh(productRequest.proNameKh());
-          product.setProNameEn(productRequest.proNameEn());
-          product.setCost(productRequest.cost());
-          product.setPrice(productRequest.price());
-          product.setMargin(productRequest.margin());
-          product.setBarcode(productRequest.barcode());
-          product.setChoices(productRequest.choices());
-          product.setCreateBy(productRequest.createBy());
-          product.setSubCategory(subCategory);
-          product.setBrand(brand);
-          product.setTaxProduct(tax);
-          product.setVendor(vendor);
-          product.setUom(uom);
-          product.setAttribute(attribute);
-          product.setProductActive(status);
-          product.setCountry(country);
-          product.setStatus(true);
-          product.setIsDeleted(false);
-          product.setDiscount(BigDecimal.valueOf(0));
-          product.setCatId(productRequest.subCatId());
-          productRepository.save(product);
-          return productMapper.mapToProductResponse(product);
-     }
+        // validate uom
+        Attribute attribute = attribute(productRequest.attributeId());
 
-     /**
-      * Deletes a product identified by its unique identifier.
-      * 
-      * @param id The unique identifier of the product to delete.
-      */
-     @Override
-     public void deleteById(int id) {
-          Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
-          product.setStatus(false);
-          product.setIsDeleted(true);
-          productRepository.save(product);
-     }
+        // validate uom
+        Uom uom = uom(productRequest.uomId());
 
-     /**
-      * Retrieves a collection of products based on pagination parameters.
-      * 
-      * @param pageNumber The page number of the results to retrieve.
-      * @param pageSize   The number of products per page.
-      * @return A collection response containing products for the specified page.
-      */
-     @Override
-     public JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize) {
-          List<ProductResponse> data = null;
-          if (pageNumber == null && pageSize == null) {
-               data = productRepository.findByStatusTrueAndIsDeletedFalseOrderByIdDesc().stream()
-                         .map(productMapper::mapToProductResponse)
-                         .toList();
-               return JavaCollectionResponse.builder()
-                         .count(data.size())
-                         .data(data)
-                         .build();
-          } else {
-               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-               Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
-               data = pages.getContent().stream()
-                         .map(productMapper::mapToProductResponse)
-                         .toList();
-               return JavaCollectionResponse.builder()
-                         .count(pages.getTotalElements())
-                         .data(data)
-                         .build();
-          }
-     }
+        // validate satatus
+        Status status = status(productRequest.productActiveId());
 
-     /**
-      * Retrieves product details by its unique identifier.
-      * 
-      * @param id The unique identifier of the product.
-      * @return The response containing details of the product found by ID.
-      */
-     @Override
-     public ProductResponseReadById readProductById(int id) {
-          Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
-          return productMapper.mapToProductResponseReadById(product);
-     }
+        // validate country
+        Country country = country(productRequest.countryId());
 
-     /**
-      * Creates a new product based on the provided product request.
-      * 
-      * @param productRequest The details of the product to create.
-      * @return The response containing details of the created product.
-      */
-     @Override
-     public ProductResponse create(ProductRequest productRequest) {
+        // validate barcode
+        if (!product.getBarcode().equals(productRequest.barcode())) {
+            checkBarcodeExists(productRequest.barcode());
+        }
 
-          // validate subCategory
-          Category subCategory = subCategory(productRequest.subCatId());
+        String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
+                : productRequest.proImageName();
 
-          // validate brand
-          Brand brand = brand(productRequest.brandId());
+        if (!product.getProImageName().equals(productRequest.proImageName())) {
+            product.setProImageName(fileName);
+        }
 
-          // validate tax
-          TaxProduct tax = taxProduct(productRequest.taxId());
+        product.setProNameKh(productRequest.proNameKh());
+        product.setProNameEn(productRequest.proNameEn());
+        product.setCost(productRequest.cost());
+        product.setPrice(productRequest.price());
+        product.setMargin(productRequest.margin());
+        product.setBarcode(productRequest.barcode());
+        product.setChoices(productRequest.choices());
+        product.setCreateBy(productRequest.createBy());
+        product.setSubCategory(subCategory);
+        product.setBrand(brand);
+        product.setTaxProduct(tax);
+        product.setVendor(vendor);
+        product.setUom(uom);
+        product.setAttribute(attribute);
+        product.setProductActive(status);
+        product.setCountry(country);
+        product.setStatus(true);
+        product.setIsDeleted(false);
+        product.setDiscount(BigDecimal.valueOf(0));
+        product.setCatId(productRequest.subCatId());
+        productRepository.save(product);
+        return productMapper.mapToProductResponse(product);
+    }
 
-          // validate vendor
-          Vendor vendor = vendor(productRequest.vendorId());
+    /**
+     * Deletes a product identified by its unique identifier.
+     *
+     * @param id The unique identifier of the product to delete.
+     */
+    @Override
+    public void deleteById(int id) {
+        Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
+        product.setStatus(false);
+        product.setIsDeleted(true);
+        productRepository.save(product);
+    }
 
-          // validate uom
-          Attribute attribute = attribute(productRequest.attributeId());
+    /**
+     * Retrieves a collection of products based on pagination parameters.
+     *
+     * @param pageNumber The page number of the results to retrieve.
+     * @param pageSize   The number of products per page.
+     * @return A collection response containing products for the specified page.
+     */
+    @Override
+    public JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize) {
+        List<ProductResponse> data = null;
+        if (pageNumber == null && pageSize == null) {
+            data = productRepository.findByStatusTrueAndIsDeletedFalseOrderByIdDesc().stream()
+                    .map(productMapper::mapToProductResponse)
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
+        } else {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+            data = pages.getContent().stream()
+                    .map(productMapper::mapToProductResponse)
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(pages.getTotalElements())
+                    .data(data)
+                    .build();
+        }
+    }
 
-          // validate uom
-          Uom uom = uom(productRequest.uomId());
+    /**
+     * Retrieves product details by its unique identifier.
+     *
+     * @param id The unique identifier of the product.
+     * @return The response containing details of the product found by ID.
+     */
+    @Override
+    public ProductResponseReadById readProductById(int id) {
+        Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
+        return productMapper.mapToProductResponseReadById(product);
+    }
 
-          // validate satatus
-          Status status = status(productRequest.productActiveId());
+    /**
+     * Creates a new product based on the provided product request.
+     *
+     * @param productRequest The details of the product to create.
+     * @return The response containing details of the created product.
+     */
+    @Override
+    public ProductResponse create(ProductRequest productRequest) {
 
-          // validate country
-          Country country = country(productRequest.countryId());
+        // validate subCategory
+        Category subCategory = subCategory(productRequest.subCatId());
 
-          // validate barcode
-          checkBarcodeExists(productRequest.barcode());
+        // validate brand
+        Brand brand = brand(productRequest.brandId());
 
-          String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
-                    : productRequest.proImageName();
+        // validate tax
+        TaxProduct tax = taxProduct(productRequest.taxId());
 
-          Product product = productMapper.mapToProduct(productRequest);
-          product.setSubCategory(subCategory);
-          product.setBrand(brand);
-          product.setTaxProduct(tax);
-          product.setVendor(vendor);
-          product.setUom(uom);
-          product.setAttribute(attribute);
-          product.setProductActive(status);
-          product.setCountry(country);
-          product.setStatus(true);
-          product.setIsDeleted(false);
-          product.setDiscount(BigDecimal.valueOf(0));
-          product.setProImageName(fileName);
-          product.setCatId(productRequest.subCatId());
-          product.setItemCode(generateItemCode(productRepository.count()));
-          productRepository.save(product);
-          return productMapper.mapToProductResponse(product);
-     }
+        // validate vendor
+        Vendor vendor = vendor(productRequest.vendorId());
 
-     private String generateItemCode(long count) {
-          count++;
-          return String.format("%07d", count);
-     }
+        // validate uom
+        Attribute attribute = attribute(productRequest.attributeId());
 
-     private Category subCategory(Integer subCatId) {
-          return categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(subCatId, "subcategory")
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, subCategoryIdNotFound + subCatId));
-     }
+        // validate uom
+        Uom uom = uom(productRequest.uomId());
 
-     private Brand brand(Integer brandId) {
-          return brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(brandId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, brandIdNotFound + brandId));
-     }
+        // validate satatus
+        Status status = status(productRequest.productActiveId());
 
-     private TaxProduct taxProduct(Integer taxId) {
-          return taxRepository.findByIdAndStatusTrueAndIsDeletedFalse(taxId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, taxIdNotFound + taxId));
-     }
+        // validate country
+        Country country = country(productRequest.countryId());
 
-     private Vendor vendor(Integer vendorId) {
-          return vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(vendorId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, vendorIdNotFound + vendorId));
-     }
+        // validate barcode
+        checkBarcodeExists(productRequest.barcode());
 
-     private Attribute attribute(Integer attributeId) {
-          return attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(attributeId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, attributeIdNotFound + attributeId));
-     }
+        String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
+                : productRequest.proImageName();
 
-     private Uom uom(Integer uomId) {
-          return uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(uomId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, uomIdNotFound + uomId));
-     }
+        Product product = productMapper.mapToProduct(productRequest);
+        product.setSubCategory(subCategory);
+        product.setBrand(brand);
+        product.setTaxProduct(tax);
+        product.setVendor(vendor);
+        product.setUom(uom);
+        product.setAttribute(attribute);
+        product.setProductActive(status);
+        product.setCountry(country);
+        product.setStatus(true);
+        product.setIsDeleted(false);
+        product.setDiscount(BigDecimal.valueOf(0));
+        product.setProImageName(fileName);
+        product.setCatId(productRequest.subCatId());
+        product.setItemCode(generateItemCode(productRepository.count()));
+        productRepository.save(product);
+        return productMapper.mapToProductResponse(product);
+    }
 
-     private Status status(Integer statusId) {
-          return statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(statusId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, statusIdNotFound + statusId));
-     }
+    private String generateItemCode(long count) {
+        count++;
+        return String.format("%07d", count);
+    }
 
-     private Country country(Integer countryId) {
-          return countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(countryId)
-                    .orElseThrow(() -> new ResponseStatusException(
-                              HttpStatus.NOT_FOUND, countryIdNotFound + countryId));
-     }
+    private Category subCategory(Integer subCatId) {
+        return categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(subCatId, "subcategory")
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, subCategoryIdNotFound + subCatId));
+    }
 
-     private void checkBarcodeExists(String barcode) {
-          if (productRepository.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(barcode)) {
-               throw new ResponseStatusException(
-                         HttpStatus.CONFLICT, barcodeAlreadyExist + barcode);
-          }
-     }
+    private Brand brand(Integer brandId) {
+        return brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(brandId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, brandIdNotFound + brandId));
+    }
+
+    private TaxProduct taxProduct(Integer taxId) {
+        return taxRepository.findByIdAndStatusTrueAndIsDeletedFalse(taxId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, taxIdNotFound + taxId));
+    }
+
+    private Vendor vendor(Integer vendorId) {
+        return vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(vendorId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, vendorIdNotFound + vendorId));
+    }
+
+    private Attribute attribute(Integer attributeId) {
+        return attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(attributeId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, attributeIdNotFound + attributeId));
+    }
+
+    private Uom uom(Integer uomId) {
+        return uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(uomId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, uomIdNotFound + uomId));
+    }
+
+    private Status status(Integer statusId) {
+        return statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(statusId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, statusIdNotFound + statusId));
+    }
+
+    private Country country(Integer countryId) {
+        return countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(countryId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, countryIdNotFound + countryId));
+    }
+
+    private void checkBarcodeExists(String barcode) {
+        if (productRepository.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(barcode)) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, barcodeAlreadyExist + barcode);
+        }
+    }
 
 }

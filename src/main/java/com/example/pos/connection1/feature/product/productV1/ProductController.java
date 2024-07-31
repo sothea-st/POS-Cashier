@@ -1,6 +1,5 @@
 package com.example.pos.connection1.feature.product.productV1;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import com.example.pos.connection1.util.response.JavaMessageResponse;
+
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/api/product/v1")
 @RestController
@@ -49,13 +51,29 @@ public class ProductController {
           return productService.read(pageNumber, pageSize);
      }
 
+     @GetMapping("/status")
+     public JavaCollectionResponse<?> listFilterStatus(
+             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+             @RequestParam(name = "pageSize", required = false) Integer pageSize,
+             @RequestParam("status") String status
+             ) {
+          return productService.listByStatus(pageNumber, pageSize,status);
+     }
+
      @GetMapping("/search/{value}")
      public JavaCollectionResponse<?> search(
                @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
                @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
-               @PathVariable("value") String value) {
+               @PathVariable("value") String value ,
+               @RequestParam(name = "status" , required = false) String status
+               ) {
+          if( status != null ) {
+               return productService.searchByStatus(pageNumber,pageSize,value,status);
+          }
           return productService.search(pageNumber, pageSize, value);
      }
+
+
 
      @PostMapping("/vendor/subCategory")
      public JavaCollectionResponse<?> searchByVendorIdOrSubCategoryId(
