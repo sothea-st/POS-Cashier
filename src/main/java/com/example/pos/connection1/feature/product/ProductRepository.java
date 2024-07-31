@@ -30,6 +30,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         Page<Product> findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name, Status status);
 
         boolean existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(String barcode);
+        boolean existsByProNameEnAndStatusIsTrueAndIsDeletedIsFalse(String proNameEn);
+        boolean existsByProNameKhAndStatusIsTrueAndIsDeletedIsFalse(String proNameKh);
 
 
         

@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ProductExcelServicImp implements ProductExcelService {
+public class ProductExcelServiceImp implements ProductExcelService {
      // **************************** group bean ************************
      private final ProductRepository productRepository;
      private final CategoryRepository categoryRepository;
@@ -68,6 +68,14 @@ public class ProductExcelServicImp implements ProductExcelService {
                          productExcelDetail.getVendorId() != null &&
                          productExcelDetail.getSubCatId() != null &&
                          productExcelDetail.getProductName() != null) {
+
+                    if( productRepository.existsByProNameEnAndStatusIsTrueAndIsDeletedIsFalse(productExcelDetail.getProductName()) ) {
+                         throw new ResponseStatusException(HttpStatus.CONFLICT , "Product Name : "+productExcelDetail.getProductName()+" already exists ");
+                    }
+                    if( productRepository.existsByProNameKhAndStatusIsTrueAndIsDeletedIsFalse(productExcelDetail.getProductNameKh()) ) {
+                         throw new ResponseStatusException(HttpStatus.CONFLICT , "Product Name Kh: "+productExcelDetail.getProductName()+" already exists ");
+                    }
+
                     // validate subCategory
                     Category subCategory = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(
                               productExcelDetail.getSubCatId(), "subcategory")
