@@ -590,7 +590,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
             }
         }else{
             isCheckSearch = false;
-            response = JavaConnection.get(JavaRoute.filterReportPurchaseOrder + "" + searchValue + "?pageNumber=0&pageSize=50");
+            response = JavaConnection.get(JavaRoute.searchPurchaseReceive + "" + searchValue + "?pageNumber=0&pageSize=50");
         }
         
         try {

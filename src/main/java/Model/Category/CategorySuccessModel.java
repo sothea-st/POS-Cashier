@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class CategorySuccessModel {
     private CategoryGetdataModel[] data;
-    private String msg;
+    private Integer count;
 }

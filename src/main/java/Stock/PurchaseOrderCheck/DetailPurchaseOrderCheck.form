@@ -117,17 +117,17 @@
                           <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="lbTransactionDate3" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbComment" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="comment" min="-2" pref="310" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="lbTransactionDate2" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbCheckedDate" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="checkDate" min="-2" pref="310" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbTransactionDate1" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbCheckedBy" min="-2" pref="165" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="checkBy" min="-2" pref="310" max="-2" attributes="0"/>
                               </Group>
@@ -149,7 +149,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbTransactionDate1" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="lbCheckedBy" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="checkBy" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -159,7 +159,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lbTransactionDate2" max="32767" attributes="0"/>
+                      <Component id="lbCheckedDate" max="32767" attributes="0"/>
                       <Component id="checkDate" min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="transactionNo" alignment="0" max="32767" attributes="0"/>
                       <Component id="lbTransactionNo" alignment="0" pref="25" max="32767" attributes="0"/>
@@ -172,7 +172,7 @@
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                           <Component id="puchaseOrderNo" alignment="0" max="32767" attributes="0"/>
                           <Component id="totalCost" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lbTransactionDate3" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbComment" alignment="0" max="32767" attributes="0"/>
                           <Component id="comment" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
                           <Component id="lbPurchaseeOrderNo" alignment="0" pref="25" max="32767" attributes="0"/>
                       </Group>
@@ -224,7 +224,7 @@
       <SubComponents>
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle2">
           <Properties>
-            <Property name="labelTitle" type="java.lang.String" value=" Detail Purchase Order Check"/>
+            <Property name="labelTitle" type="java.lang.String" value=" Detail Purchase Check"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="header">
@@ -530,17 +530,17 @@
             <Property name="labelName" type="java.lang.String" value=""/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbTransactionDate1">
+        <Component class="Components.Label" name="lbCheckedBy">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Checked By :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbTransactionDate2">
+        <Component class="Components.Label" name="lbCheckedDate">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Checked Date :"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbTransactionDate3">
+        <Component class="Components.Label" name="lbComment">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Comment :"/>
           </Properties>
