@@ -16,7 +16,13 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
      Optional<Import> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      Page<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest);
+
+     Page<Import> findByDateLocalBetweenAndReceiveBy(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest , int receiveBy);
+
      List<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo);
+     List<Import> findByDateLocalBetweenAndReceiveBy(LocalDate dateFrom, LocalDate dateTo,int receiveId);
+
+
      List<Import> findByStatusTrueAndIsDeletedFalseAndRemark(String remark);
      Page<Import> findByDateLocalBetweenAndCheckByAndRemark(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest,int checkBy,String remark);
 
@@ -25,7 +31,6 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Page<Import> findByDateLocalBetweenAndCreateByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , String remark);
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy);
      List<Import> findByDateLocalBetweenAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy);
-
 
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy,int approvedBy , String remark);
 

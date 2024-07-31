@@ -16,6 +16,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     Optional<User> findByIdAndStatusTrueAndIsDeletedFalse(int id);
 
+
+
     Page<User> findByStatusTrueAndIsDeletedFalse(PageRequest pageaable);
 
     @Query(nativeQuery = true, value = "select\r\n" + //

@@ -32,6 +32,8 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
     private final UserRepository userRepository;
 
     private void validationDate(String dateFrom, String dateTo) {
+        if( dateFrom == null ) throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"dateFrom can not be null.");
+        if( dateTo == null ) throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"dateTo can not be null.");
         LocalDate dateFromLocal;
         LocalDate dateToLocal;
 

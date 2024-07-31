@@ -150,7 +150,6 @@ public class ImportServiceImp implements ImportService {
                     .map(importMapper::mapToImportResponse)
                     .toList();
 
-            System.out.println("ffffffffffff = " + data);
         } else {
             switch (remark) {
                 case "requested" -> data = pages.getContent().stream()
@@ -395,7 +394,7 @@ public class ImportServiceImp implements ImportService {
                 if( !importRequest.receiveMsg()  || importRequest.receiveMsg() == null) {
                     imp.setRemark(importRequest.remark());
                 }
-
+                imp.setReceiveBy(importRequest.createBy());
                 importRepository.save(imp);
                 requestData(importRequest, importRequest.impId());
 
@@ -409,7 +408,7 @@ public class ImportServiceImp implements ImportService {
                             .findByImpIdAndProduct(importRequest.impId(), product)
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "Import Detail not found"));
-                    System.out.println("gggggggggggggggg = " + data.receivedQty());
+
                     if(!data.qtyNew().equals(data.receivedQty())) {
                         Integer halfQty = data.qtyNew() - data.receivedQty();
                         detail.setReceiveMsg("HALF");

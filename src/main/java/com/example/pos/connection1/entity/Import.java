@@ -71,6 +71,9 @@ public class Import {
     @JoinColumn(name = "approve_by")
     private Integer approveBy;
 
+    @Column(name = "receive_by")
+    private Integer receiveBy;
+
     @JoinColumn(name = "check_by")
     private Integer checkBy;
 
