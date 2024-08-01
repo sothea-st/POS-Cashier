@@ -21,7 +21,11 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,159 +39,188 @@ import pdf.PrintToExcel;
 
 public class ReportingSaled extends javax.swing.JDialog {
 
-     ReportSaleDetail[] saledDetail;
-     private String userId;
+    ReportSaleDetail[] saledDetail;
+    private String userId;
+    private String pageNumber = "1";
+    private int pageSize = 15;
+    private boolean isCheckSearch = true;
+    private String dateFromValue;
+    private String dateToValue;
+    private String searchValue = null;
+    public ArrayList<ReportSaleDetail> listDetail = new ArrayList<>();
 
-     private String pageNumber = "1";
-     private int pageSize = 15;
-     private boolean isCheckSearch = true;
-     private String dateFromValue;
-     private String dateToValue;
-     private String searchValue = null;
+    public ReportingSaled(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        searchField.setFocus();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        
+        // custome scrollbar ui
+        jScrollPaneProduct.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPaneProduct.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPaneProduct.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPaneProduct.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
+        
+        // set background color
+        panelItem.setBackground(WindowColor.mediumGreen);
+        header.setBackground(WindowColor.darkGreen);
+        
+        addComboUser();
+        // action get select brand
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelect(String key) {
+                userId = key;
+            }
+        };
+        userCombobox.initEvent(event);
+        
+        paginationPanel.setVisible(false);
+        JavaConstant.addTitleAndLogo(this, "Reporting Sale");
+        
+        eventPagination();
+        eventSearchSaleReport();
+        groupEvent();
+        
+        ButtonEvent btnevent = new ButtonEvent() {
+            @Override
+            public void onFocusGain() {
 
-     public ReportingSaled(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-//          dateFrom.setLabelTextField("Date From");
-//          dateTo.setLabelTextField("Date To");
-          searchField.setFocus();
-          groupEvent();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          // custome scrollbar ui
-          jScrollPaneProduct.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-          jScrollPaneProduct.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPaneProduct.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          // custom scroll speed jscrollPane for vertical
-          JScrollBar verticalScrollBar = jScrollPaneProduct.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
-          // set background color
-          panelItem.setBackground(WindowColor.mediumGreen);
-          header.setBackground(WindowColor.darkGreen);
+            }
+        };
+        dateFrom.initEvent(btnevent);
+        dateTo.initEvent(btnevent);
+    }
+    
+    private void addComboUser() {
+        try {
+            HashMap<String, String> map = new HashMap<>();
+            Response response = JavaConnection.get(JavaRoute.userAccount);
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
+                UserDataModel[] listData = data.getData();
+                for (UserDataModel user : listData) {
+                    int userId = user.getId();
+                    String userName = user.getFullName();
+                    map.put(userName, "" + userId);
+                }
+                userCombobox.setMap(map);
+            } else {
+                System.err.println("fail loading user");
+            }
 
-          addComboUser();
-
-          // action get select brand
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    userId = key;
-               }
-          };
-          userCombobox.initEvent(event);
-          paginationPanel.setVisible(false);
-          
-          JavaConstant.addTitleAndLogo(this, "Reporting Sale");
-
-     }
-
-     private void addComboUser() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               Response response = JavaConnection.get(JavaRoute.userAccount);
-//               userCombobox.removeAllItemAndSetOption("-- Select User --");
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
-                    UserDataModel[] listData = data.getData();
-                    for (UserDataModel user : listData) {
-                         int userId = user.getId();
-                         String userName = user.getFullName();
-                         map.put(userName, "" + userId);
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
+    
+    //Pagination
+    private void eventPagination() {
+        ButtonEvent paginationEvent = new ButtonEvent() {
+            @Override
+            public void onMouseClick(String value) {
+                if (isCheckSearch) {
+                    int _value = Integer.parseInt(value); // value pageNumber star from 1 
+                    pageNumber = String.valueOf(_value);
+                    getReport(true);
+                } 
+            }
+        };
+        paginationPanel.initEvent(paginationEvent);
+    }
+    
+    //Action Search
+    private void eventSearchSaleReport() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent events = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        searchValue = searchField.getValueTextSearch();
+                        paginationPanel.resetPage();
+                        pageNumber = "0";
+                        
+                        if (searchValue.isEmpty()) {
+                            isCheckSearch = true;
+                            pageNumber = "1";
+                            getReport(true);
+                            return;
+                        }
+                        getReport(false);
                     }
-                    userCombobox.setMap(map);
-               } else {
-                    System.err.println("fail loading user");
-               }
+                };
+                Timer time = new Timer();
+                time.schedule(task, 500);
+            }
+        };
+        searchField.initEvent(events);
+    }
 
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+    private void groupEvent() {
+        
+        // event export to excel
+        ButtonEvent excel = new ButtonEvent() {
+            @Override
+            public void onMouseClick() {
+                
+                if (listDetail.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Can not export .");
+                    return;
+                }
+                
+                ListProduct.msgPrint(PrintToExcel.folderPath);
+                ExportReportSaleToExcel.toExcel(saledDetail);
+            }
+        };
+        groupButtonExport.excelEvent(excel);
 
-     public void groupEvent() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
+        // event export to excel
+        ButtonEvent csv = new ButtonEvent() {
+            @Override
+            public void onMouseClick() {
+                
+                if (listDetail.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Can not export .");
+                    return;
+                }
+                
+                ListProduct.msgPrint(PrintToCSV.folderPath);
+                ExportReportSaleToCSV.toCSV(saledDetail);
+            }
+        };
+        groupButtonExport.csvEvent(csv);
 
-               }
-          };
-          dateFrom.initEvent(btnevent);
-          dateTo.initEvent(btnevent);
+        // event export to pdf
+        ButtonEvent pdf = new ButtonEvent() {
+            @Override
+            public void onMouseClick() {
+                
+                if (listDetail.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Can not export .");
+                    return;
+                }
+                
+                ListProduct.msgPrint(PrintListPDF.folderPath);
+                try {
+                    ExportReportSaleToPDF.printListPdf(saledDetail);
+                } catch (IOException ex) {
+                    Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+        groupButtonExport.pdfEvent(pdf);
+    }
 
-          ButtonEvent searchEvent = new ButtonEvent() {
-               @Override
-               public void onKeyRelease() {
-                    searchValue = searchField.getValueTextSearch();
-                   
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "1";
-//                         getProduct(listGetProduct, true);
-                         return;
-                    }
-//                    getProduct(listGetProduct, false);
-               }
-          };
-          searchField.initEvent(searchEvent);
-
-          // event export to excel
-          ButtonEvent excel = new ButtonEvent() {
-               @Override
-               public void onMouseClick() {
-                    ListProduct.msgPrint(PrintToExcel.folderPath);
-                    ExportReportSaleToExcel.toExcel(saledDetail);
-               }
-          };
-
-          groupButtonExport.excelEvent(excel);
-
-          // event export to excel
-          ButtonEvent csv = new ButtonEvent() {
-               @Override
-               public void onMouseClick() {
-                    ListProduct.msgPrint(PrintToCSV.folderPath);
-                    ExportReportSaleToCSV.toCSV(saledDetail);
-               }
-          };
-
-          groupButtonExport.csvEvent(csv);
-
-          // event export to pdf
-          ButtonEvent pdf = new ButtonEvent() {
-               @Override
-               public void onMouseClick() {
-                    ListProduct.msgPrint(PrintListPDF.folderPath);
-                    try {
-                         ExportReportSaleToPDF.printListPdf(saledDetail);
-                    } catch (IOException ex) {
-                         Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-               }
-          };
-
-          groupButtonExport.pdfEvent(pdf);
-
-          ButtonEvent paginationEvent = new ButtonEvent() {
-               @Override
-               public void onMouseClick(String value) {
-                    if (isCheckSearch) {
-                         pageNumber = value;
-                         try {
-                              returnDataReport();
-                         } catch (IOException ex) {
-                              System.out.println("error get report : " + ex);
-                         }
-                    }
-               }
-          };
-          paginationPanel.initEvent(paginationEvent);
-
-     }
-
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -480,7 +513,7 @@ public class ReportingSaled extends javax.swing.JDialog {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -508,42 +541,48 @@ public class ReportingSaled extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-     void appendItem(ReportSaleDetail[] listData) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    void reloadPanel() {
+        panelItem.removeAll();
+        panelItem.revalidate();
+        panelItem.repaint();
+    }
+    
+    void appendItem(ReportSaleDetail[] listData) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        reloadPanel();
+        panelItem.setLayout(gridBagLayout);
 
-          panelItem.setLayout(gridBagLayout);
+        int x = 0;
+        int y = 0;
+        int index = 0;
 
-          int x = 0;
-          int y = 0;
-          int index = 0;
+        if (listData.length == 0) {
+            panelItem.setLayout(new BorderLayout());
+            NotFound nofound = new NotFound();
+            panelItem.add(nofound, BorderLayout.CENTER);
+            panelItem.add(nofound);
+            panelItem.revalidate();
+            panelItem.repaint();
+        }
 
-          if (listData.length == 0) {
-               panelItem.setLayout(new BorderLayout());
-               NotFound nofound = new NotFound();
-               panelItem.add(nofound, BorderLayout.CENTER);
-               panelItem.add(nofound);
-               panelItem.revalidate();
-               panelItem.repaint();
-          }
-
-          for (ReportSaleDetail detail : listData) {
-               GridBagConstraints gbc = new GridBagConstraints();
-               gbc.gridx = x;
-               gbc.gridy = y;
-               gbc.gridwidth = 1;
-               gbc.anchor = gbc.NORTH;
-               x++;
-               if (x == 1) {
-                    x = 0;
-                    y++;
-               }
-               index++;
-               ReportOfSaled sale = new ReportOfSaled();
-               sale.setValue(
+        for (ReportSaleDetail detail : listData) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = x;
+            gbc.gridy = y;
+            gbc.gridwidth = 1;
+            gbc.anchor = gbc.NORTH;
+            x++;
+            if (x == 1) {
+                x = 0;
+                y++;
+            }
+            index++;
+            ReportOfSaled sale = new ReportOfSaled();
+            sale.setValue(
                     String.valueOf(index),
                     String.valueOf(detail.getInvoiceNumber()),
                     String.valueOf(detail.getSaleDate()),
@@ -560,95 +599,114 @@ public class ReportingSaled extends javax.swing.JDialog {
                     String.valueOf(detail.getCost()),
                     String.valueOf(detail.getMargin()),
                     String.valueOf(detail.getUserName())
-               );
-               panelItem.add(sale, gbc);
-          }
+            );
+            panelItem.add(sale, gbc);
+        }
 
-          panelItem.revalidate();
-          panelItem.repaint();
-     }
+        panelItem.revalidate();
+        panelItem.repaint();
+    }
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-          this.dispose();
+         this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-          dateFromValue = dateFrom.getValueTextField();
-          dateToValue = dateTo.getValueTextField();
-
-          if (dateFromValue == null || dateFromValue.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Date From can not be empty!");
-               return;
-          }
-
-          if (dateToValue == null || dateToValue.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Date To can not be empty!");
-               return;
-          }
-
-          String[] arrDateFrom = dateFromValue.split("-");
-          dateFromValue = arrDateFrom[2] + "-" + arrDateFrom[1] + "-" + arrDateFrom[0];
-
-          String[] arrDateTo = dateToValue.split("-");
-          dateToValue = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
-
-          try {
-               returnDataReport();
-          } catch (IOException ex) {
-               System.out.println("error get report : " + ex);
-          }
+         getReport(true);
      }//GEN-LAST:event_buttonSaveMouseClicked
 
-     private void returnDataReport() throws IOException {
-          String userIdEndPoint = null;
-          Response response = null;
-          if (userId != null) {
-               userIdEndPoint = "&userId=" + userId;
-               response = JavaConnection.get(JavaRoute.reportSaled + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&pageNumber=" + pageNumber + "&pageSize=" + pageSize + userIdEndPoint);
-          } else {
-               response = JavaConnection.get(JavaRoute.reportSaled + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&pageNumber=" + pageNumber + "&pageSize=" + pageSize);
-          }
+     
+    private void getReport(boolean isCheck) {
 
-          try {
-               if (response.isSuccessful()) {
-                    panelItem.removeAll();
-                    panelItem.revalidate();
-                    panelItem.repaint();
-                    String responseData = response.body().string();
+        dateFromValue = dateFrom.getValueTextField();
+        dateToValue = dateTo.getValueTextField();
 
-                    ObjectMapper objMap = new ObjectMapper();
-                    RepostSaleResponse data = objMap.readValue(responseData, RepostSaleResponse.class);
-                    saledDetail = data.getData();
-          
+        if (dateFromValue == null || dateFromValue.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Date From can not be empty!");
+            return;
+        }
+
+        if (dateToValue == null || dateToValue.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Date To can not be empty!");
+            return;
+        }
+
+        dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
+        dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
+
+        Response response = null;
+        String endpoint = "";
+
+        if (isCheck) {
+            if (userId == null) {
+                response = JavaConnection.get(JavaRoute.reportSaled + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+            } else {
+                endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&userId=" + userId;
+                response = JavaConnection.get(JavaRoute.reportSaled + endpoint);
+            }
+        } else {
+            isCheckSearch = false;
+            if (userId == null) {
+                response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+            } else {
+                endpoint = "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&userId=" + userId;
+                response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + endpoint);
+            }
+        }
+
+        try {
+
+            String responseData = response.body().string();
+            JSONObject jsonResponse = new JSONObject(responseData);
+            if (jsonResponse.has("error")) {
+                JSONObject error = jsonResponse.getJSONObject("error");
+                String reason = error.getString("reason");
+                JOptionPane.showMessageDialog(null, reason);
+            } else {
+                ObjectMapper objectMapper = new ObjectMapper();
+                RepostSaleResponse data = objectMapper.readValue(responseData, RepostSaleResponse.class);
+                
+                saledDetail = data.getData();
+                
+                System.out.println("response : " + response);
+                System.out.println("data.getCount() : " + data.getCount());
+                System.out.println("data.getData() : " + data.getData().length);
+                
+                if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
 
-                    appendItem(saledDetail);
+                listDetail.clear();
+                listDetail.addAll(Arrays.asList(saledDetail));
+                appendItem(saledDetail);
+                
+                if (saledDetail.length != 0) {
                     paginationPanel.setVisible(true);
-               } else {
-                    String responseData = response.body().string();
-                    new JavaConstant().errorResponse(responseData);
-               }
+                }
+            }
 
-          } catch (Exception e) {
-               System.out.println("error = " + e);
-          }
-
-     }
-
-     public static void main(String args[]) {
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    ReportingSaled dialog = new ReportingSaled(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        } catch (Exception e) {
+            System.err.println("error : " + e);
+        }
+    }
+     
+    
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ReportingSaled dialog = new ReportingSaled(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;
