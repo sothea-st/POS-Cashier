@@ -206,7 +206,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
         // Build and return JavaCollectionResponse with results
         return JavaCollectionResponse.builder()
-                .count(totalCount)
+                .count(list.size())
                 .data(list)
                 .build();
     }

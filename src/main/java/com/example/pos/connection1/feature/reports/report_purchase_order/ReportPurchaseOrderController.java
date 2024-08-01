@@ -63,8 +63,6 @@ public class ReportPurchaseOrderController {
             @RequestParam(name = "remark", required = false) String remark,
             @PathVariable(name = "value") String value
     ) {
-
-
         return reportPurchaseOrderService.search(pageNumber, pageSize, dateFrom, dateTo, requestId, checkId,
                 approvedId, rejectId, remark, value);
     }
