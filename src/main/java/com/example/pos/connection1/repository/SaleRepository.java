@@ -3,17 +3,30 @@ package com.example.pos.connection1.repository;
 import com.example.pos.connection1.entity.Sale;
 import com.example.pos.connection1.entity.SaleDetail;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
+import com.example.pos.connection1.projections.ReportImport.ReportSaledResponse;
 import com.example.pos.connection1.projections.discountProjection.DiscountProjection;
 
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Integer> {
+
+
+//        Page<Sale> findByProduct
+
+
+        @Query(nativeQuery = true, value = "select * from search_report_sale(?,?,?,?,?,?)")
+        List<ReportSaledProjection> searchReportSale(String dateFrom,
+                                                     String dateTo,
+                                                      String searchValue , Integer userId , Integer pageSize , Integer pageNumber );
 
         @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data_with_pagination(?,?, ?, ?, ?)")
         List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId , Integer pageNumber , Integer pageSize);

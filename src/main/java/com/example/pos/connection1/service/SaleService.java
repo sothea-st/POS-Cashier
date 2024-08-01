@@ -21,11 +21,14 @@ import com.example.pos.connection1.repository.paymentRepository.PaymentRepositor
 import com.example.pos.connection1.repository.peopleRepository.CustomerRepository;
 import com.example.pos.connection1.repository.shiftRepository.OpenShiftRepository;
 import com.example.pos.connection1.service.paymentService.ReprintService;
+import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -76,13 +79,43 @@ public class SaleService {
     @Autowired
     private ReprintService reprintService;
 
+    //    List<ReportSaledResponse>
     public List<ReportSaledResponse> searchReportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
-            Integer pageSize, Integer userId) {
-                return null;
+                                                       Integer pageSize, Integer userId, String searchValue) {
+
+        LocalDate dateFrom = LocalDate.parse(dateFromValue);
+        LocalDate dateTo = LocalDate.parse(dateToValue);
+
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
+        List<ReportSaledProjection> resultSearch = new ArrayList<>();
+        if (dateFrom.isAfter(dateTo)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "The field dateFrom must be smaller than field dateTo .");
+        }
+
+        if (dateTo.isAfter(currentDate)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "The field dateTo can not greater than current date : " + formattedDate + ".");
+        }
+
+
+        resultSearch = repo.searchReportSale(
+                dateFromValue,
+                dateToValue,
+                searchValue,
+                userId,
+                pageSize,
+                pageNumber
+        );
+        return reportResponse(resultSearch, null);
     }
 
     public List<ReportSaledResponse> reportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
-            Integer pageSize, Integer userId) {
+                                                 Integer pageSize, Integer userId) {
 
         LocalDate dateFrom = LocalDate.parse(dateFromValue);
         LocalDate dateTo = LocalDate.parse(dateToValue);
@@ -117,7 +150,7 @@ public class SaleService {
     }
 
     private List<ReportSaledResponse> reportResponse(List<ReportSaledProjection> reportSaled,
-            String searchProductName) {
+                                                     String searchProductName) {
         List<ReportSaledResponse> listResponse = new ArrayList<>();
 
         reportSaled.forEach(report -> {
@@ -131,7 +164,7 @@ public class SaleService {
 
             if (report.getDiscount_case() != null) {
                 total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
-                                                                                 // calculate
+                // calculate
             }
 
             String _total = String.format("%.2f", total / 1.1);

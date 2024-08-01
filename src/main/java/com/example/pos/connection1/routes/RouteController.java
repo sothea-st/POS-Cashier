@@ -322,6 +322,20 @@ public class RouteController {
                          service.reportSaled(dateFrom, dateTo, pageNumber, pageSize, userId), "count", count));
           }
 
+          @GetMapping("/search/{search}")
+          public  ResponseEntity<?> searchReport(
+                  @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+                  @RequestParam(name = "pageSize", required = false) Integer pageSize,
+                  @RequestParam(name = "dateFrom") String dateFrom,
+                  @RequestParam(name = "dateTo") String dateTo,
+                  @RequestParam(name = "userId", required = false) Integer userId,
+                  @PathVariable(name = "search") String search
+          ){
+               return ResponseEntity.ok().body(Map.of("data",
+                       service.searchReportSaled(
+                               dateFrom, dateTo, pageNumber, pageSize, userId ,search), "count", service.searchReportSaled(
+                               dateFrom, dateTo, pageNumber, pageSize, userId ,search).size()));
+          }
           
 
      }
