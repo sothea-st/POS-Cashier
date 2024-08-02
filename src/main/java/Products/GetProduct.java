@@ -2,6 +2,7 @@ package Products;
 
 import Constant.JavaConstant;
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -15,6 +16,7 @@ public class GetProduct extends javax.swing.JPanel {
 //          id.setVisible(false);
           JavaConstant.setPointer(btnDelete);
           JavaConstant.setPointer(btnEdit);
+          proNameKh.setFont(WindowFonts.khmerOsContent12);
      }
 
      private String productName;
@@ -318,10 +320,10 @@ public class GetProduct extends javax.swing.JPanel {
                         .addComponent(division)
                         .addComponent(vendorCode)
                         .addComponent(vendorName)
-                        .addComponent(proNameKh)
                         .addComponent(cost))
                     .addComponent(btnDelete))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(proNameKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

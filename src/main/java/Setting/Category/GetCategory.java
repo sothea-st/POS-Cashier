@@ -1,6 +1,7 @@
 package Setting.Category;
 
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -34,6 +35,7 @@ public class GetCategory extends javax.swing.JPanel {
     public void setCategoryNameKh(String categoryNameKh) {
         this.categoryNameKh = categoryNameKh;
         lbCategoryKh.setText(categoryNameKh);
+        lbCategoryKh.setFont(WindowFonts.khmerOsContent12);
         
     }
 
@@ -176,11 +178,11 @@ public class GetCategory extends javax.swing.JPanel {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnDelete)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbCategoryKh)
                         .addComponent(lbCategoryEn)
                         .addComponent(lbId)
                         .addComponent(btnEdit)))
                 .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(lbCategoryKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -191,9 +193,7 @@ public class GetCategory extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -26,6 +26,25 @@ public class TextField extends javax.swing.JPanel {
           JavaConstant.setPointer(txtText);
      }
 
+     
+    public static boolean isKhmerCharacter(char c) {
+        return (c >= '\u1780' && c <= '\u17FF') || (c >= '\u19E0' && c <= '\u19FF');
+    }
+
+    // Method to detect if a string contains any Khmer characters
+    public static boolean containsKhmer(String text) {
+        if (text == null || text.isEmpty()) {
+            return false;
+        }
+        for (char c : text.toCharArray()) {
+            if (isKhmerCharacter(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+     
      //Create Placeholder
      public void initEvent(ButtonEvent event) {
 
@@ -42,6 +61,7 @@ public class TextField extends javax.swing.JPanel {
                public void focusLost(FocusEvent e) {
                     if (txtText.getText().trim().equals("")) {
                          txtText.setText(labelTextField);
+                         txtText.setFont(WindowFonts.timeNewRoman14);
                          txtText.setForeground(Color.LIGHT_GRAY);
                     }
 
@@ -54,16 +74,13 @@ public class TextField extends javax.swing.JPanel {
           txtText.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-//                    String text = txtText.getText();
-//                    setValueTextField(text);
-//                    event.onKeyType();
+                   if(containsKhmer(txtText.getText())){
+                       txtText.setFont(WindowFonts.khmerOsContent12);
+                   }
                }
 
                @Override
                public void keyPressed(KeyEvent e) {
-//                    String text = txtText.getText();
-//                    setValueTextField(text);
-//                    event.onKeyType();
                }
 
                @Override
@@ -71,6 +88,9 @@ public class TextField extends javax.swing.JPanel {
                     String text = txtText.getText();
                     setValueTextField(text);
                     event.onKeyRelease();
+                    if(containsKhmer(txtText.getText())){
+                       txtText.setFont(WindowFonts.khmerOsContent12);
+                    }
                }
           });
      }
@@ -232,6 +252,9 @@ public class TextField extends javax.swing.JPanel {
           this.valueTextField = valueTextField;
           txtText.setText(valueTextField);
           txtText.setForeground(Color.BLACK);
+          if(containsKhmer(txtText.getText())){
+            txtText.setFont(WindowFonts.khmerOsContent12);
+          }
      }
 
 

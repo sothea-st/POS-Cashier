@@ -88,13 +88,13 @@
                           <Component id="division" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="vendorCode" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="vendorName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="proNameKh" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cost" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="btnDelete" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
+              <Component id="proNameKh" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
