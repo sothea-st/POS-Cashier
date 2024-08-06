@@ -36,6 +36,10 @@ public class ImportDetail {
     @Column(name = "imp_id",length = 30)
     private int impId;
 
+
+    @Column(name = "local_date'")
+    private LocalDate localDate;
+
     @Column(name = "qty_new",length = 30)
     private int qtyNew=0;
 

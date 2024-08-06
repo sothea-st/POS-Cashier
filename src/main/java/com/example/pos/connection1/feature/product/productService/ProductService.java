@@ -45,7 +45,6 @@ public class ProductService {
     private final UomRepository uomRepository;
     private final AttributeRepository attributeRepository;
 
-
     public Product addProduct(ProductDataRequest p, MultipartFile file) throws IOException {
 
         attributeRepository.findById(p.attributeId())
@@ -150,7 +149,7 @@ public class ProductService {
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
 
-                Integer qty = repoImp.getQty(data.getId());
+                Integer qty = repoImp.sumQtyByProId(data.getId());
                 if (qty == null)
                     qty = 0;
                 ProductModel p = proModel(data, qty);
@@ -162,7 +161,7 @@ public class ProductService {
         List<ProductProjection> lPro = repo.getProduct(limit);
         for (int i = 0; i < lPro.size(); i++) {
             var data = lPro.get(i);
-            Integer qty = repoImp.getQty(data.getId());
+            Integer qty = repoImp.sumQtyByProId(data.getId());
             if (qty == null)
                 qty = 0;
             ProductModel p = proModel(data, qty);
@@ -267,7 +266,7 @@ public class ProductService {
 
         for (int i = 0; i < listData.size(); i++) {
             var data = listData.get(i);
-            Integer qty = repoImp.getQty(data.getId());
+            Integer qty = repoImp.sumQtyByProId(data.getId());
             if (qty == null)
                 qty = 0;
             ProductModel p = proModel(data, qty);
@@ -302,7 +301,7 @@ public class ProductService {
         List<ProductModel> listModel = new ArrayList<>();
         for (int i = 0; i < listD.size(); i++) {
             var data = listD.get(i);
-            Integer qty = repoImp.getQty(data.getId());
+            Integer qty = repoImp.sumQtyByProId(data.getId());
             if (qty == null)
                 qty = 0;
             ProductModel p = proModel(data, qty);
@@ -318,7 +317,7 @@ public class ProductService {
         List<ProductModel> listModel = new ArrayList<>();
         for (int i = 0; i < listD.size(); i++) {
             var data = listD.get(i);
-            Integer qty = repoImp.getQty(data.getId());
+            Integer qty = repoImp.sumQtyByProId(data.getId());
             if (qty == null)
                 qty = 0;
             ProductModel p = proModel(data, qty);
@@ -359,12 +358,11 @@ public class ProductService {
     public List<ProductModel> getNewProduct(int limit, int page, int number) {
         List<ProductModel> list = new ArrayList<>();
         List<ProductProjection> listData = repo.getNewProduct(number);
-
         for (int i = page; i < listData.size(); i++) {
             if (i == limit)
                 break;
             var data = listData.get(i);
-            Integer qty = repoImp.getQty(data.getId());
+            Integer qty = repoImp.sumQtyByProId(data.getId());
             if (qty == null)
                 qty = 0;
             ProductModel p = proModel(data, qty);

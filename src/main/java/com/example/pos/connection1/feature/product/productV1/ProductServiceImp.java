@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.pos.connection1.repository.ImportDetailRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -57,6 +58,7 @@ public class ProductServiceImp implements ProductService {
     private final AttributeRepository attributeRepository;
     private final StatusRepository statusRepository;
     private final CountryRepository countryRepository;
+    private final ImportDetailRepository repoImp;
     // **************************** end *******************************
 
     // **************************** group variable ************************
@@ -158,14 +160,14 @@ public class ProductServiceImp implements ProductService {
 
         List<ProductResponseByFilter> data = products.stream()
                 .map(product -> {
-                    Integer availableQty = product.getImportDetail() == null ? 0
-                            : product.getImportDetail().getQtyOld();
+                    Integer qty = repoImp.sumQtyByProId(product.getId());
+                    if (qty == null) qty = 0;
                     return ProductResponseByFilter.builder()
                             .id(product.getId())
                             .barcode(product.getBarcode())
                             .proNameEn(product.getProNameEn())
                             .division(product.getSubCategory().getCatNameEn())
-                            .availableQty(availableQty)
+                            .availableQty(qty)
                             .qty(1)
                             .cost(product.getCost())
                             .amount(product.getCost())
@@ -307,7 +309,7 @@ public class ProductServiceImp implements ProductService {
         List<ProductResponse> data = null;
         if (pageNumber == null && pageSize == null) {
             data = productRepository.findByStatusTrueAndIsDeletedFalseOrderByIdDesc().stream()
-                    .map(productMapper::mapToProductResponse)
+                    .map(this::mapToProductResponse)
                     .toList();
             return JavaCollectionResponse.builder()
                     .count(data.size())
@@ -318,13 +320,41 @@ public class ProductServiceImp implements ProductService {
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
             data = pages.getContent().stream()
-                    .map(productMapper::mapToProductResponse)
+                    .map(this::mapToProductResponse)
                     .toList();
             return JavaCollectionResponse.builder()
                     .count(pages.getTotalElements())
                     .data(data)
                     .build();
         }
+    }
+
+    private ProductResponse mapToProductResponse(Product p){
+        Integer qty = repoImp.sumQtyByProId(p.getId());
+        if (qty == null) qty = 0;
+        return ProductResponse.builder()
+                .id(p.getId())
+                .subCatNameEn(p.getSubCategory().getCatNameEn())
+                .proNameKh(p.getProNameKh())
+                .proNameEn(p.getProNameEn())
+                .cost(p.getCost())
+                .price(p.getPrice())
+                .margin(p.getMargin())
+                .brandNameEn(p.getBrand().getBrandNameEn())
+                .barcode(p.getBarcode())
+                .createBy(p.getCreateBy())
+                .taxName(p.getTaxProduct().getTaxName())
+                .vendorName(p.getVendor().getVendorName())
+                .uomNameEn(p.getUom().getNameEn())
+                .attrNameEn(p.getAttribute().getAttrNameEn())
+                .statusName(p.getProductActive().getStatusName())
+                .countryImageName(p.getCountry().getCountryName())
+                .choices(p.getChoices())
+                .proImageName(p.getProImageName())
+                .qty(qty)
+                .itemCode(p.getItemCode())
+                .vendorCode(p.getVendor().getVendorCode())
+                .build();
     }
 
     /**

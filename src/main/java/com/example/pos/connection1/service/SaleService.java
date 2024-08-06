@@ -3,12 +3,10 @@ package com.example.pos.connection1.service;
 import com.example.pos.connection1.DTO.ReportRequest;
 import com.example.pos.connection1.constant.JavaConstant;
 import com.example.pos.connection1.controller.generateBarcode.BarcodeGenerator;
-import com.example.pos.connection1.entity.FileStore;
-import com.example.pos.connection1.entity.ImportDetail;
-import com.example.pos.connection1.entity.Sale;
-import com.example.pos.connection1.entity.SaleDetail;
+import com.example.pos.connection1.entity.*;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.people.Customer;
+import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledResponse;
 import com.example.pos.connection1.repository.FileStoreRepository;
@@ -78,6 +76,9 @@ public class SaleService {
 
     @Autowired
     private ReprintService reprintService;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     //    List<ReportSaledResponse>
     public List<ReportSaledResponse> searchReportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
@@ -264,26 +265,80 @@ public class SaleService {
             var detail = details.get(i);
             int productId = detail.getProductId();
             int qtyNew = detail.getQty();
+            Optional<Product> product = productRepository.findById(productId);
+            if (product != null) {
 
-            SaleDetail dataDetail = new SaleDetail();
-            dataDetail.setSaleId(saleId);
-            dataDetail.setProductId(productId);
-            dataDetail.setQty(qtyNew);
-            dataDetail.setPrice(detail.getPrice());
-            dataDetail.setAmount(detail.getAmount());
-            dataDetail.setDiscount(detail.getDiscount());
-            dataDetail.setCreateBy(userId);
-            dataDetail.setDiscountType(detail.getDiscountType());
-            repoDetail.save(dataDetail);
+                SaleDetail dataDetail = new SaleDetail();
+                dataDetail.setSaleId(saleId);
+                dataDetail.setProductId(productId);
+                dataDetail.setQty(qtyNew);
+                dataDetail.setPrice(detail.getPrice());
+                dataDetail.setAmount(detail.getAmount());
+                dataDetail.setDiscount(detail.getDiscount());
+                dataDetail.setCreateBy(userId);
+                dataDetail.setDiscountType(detail.getDiscountType());
+                repoDetail.save(dataDetail);
 
-            ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
-            int qtyOld = getQtyOld.getQtyOld();
-            int qty = qtyOld - qtyNew;
+                int qtyCheckStoke =0;
+                List<ImportDetail> lists = repoImp.findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByLocalDateAsc(product, 0);
+                for (int j = 0 ; j < lists.size() ; j++) {
+                    var data = lists.get(j);
 
-            Optional<ImportDetail> getImportDetail = repoImp.findByImpId(productId);
-            ImportDetail obj = getImportDetail.get();
-            obj.setQtyOld(qty);
-            repoImp.save(obj);
+                    if( j == 0  && data.getQtyOld() >= qtyNew) {
+                        int qty = data.getQtyOld() - qtyNew;
+                        Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
+                        if(updateDetail.isPresent()) {
+                            ImportDetail update = updateDetail.get();
+                            update.setQtyOld(qty);
+                            repoImp.save(update);
+                        }
+                        break;
+                    }
+
+
+                    if(  j == 0  && qtyNew > data.getQtyOld() ) {
+                        qtyCheckStoke = qtyNew - data.getQtyOld();
+                        Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
+                        if(updateDetail.isPresent()) {
+                            ImportDetail update = updateDetail.get();
+                            update.setQtyOld(0);
+                            repoImp.save(update);
+                        }
+                    } else {
+                        if( data.getQtyOld() >= qtyCheckStoke ) {
+                            int qty = data.getQtyOld() - qtyCheckStoke;
+                            Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
+                            if(updateDetail.isPresent()) {
+                                ImportDetail update = updateDetail.get();
+                                update.setQtyOld(qty);
+                                repoImp.save(update);
+                            }
+                            break;
+                        } else {
+                            qtyCheckStoke = qtyCheckStoke - data.getQtyOld();
+                            Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
+                            if(updateDetail.isPresent()) {
+                                ImportDetail update = updateDetail.get();
+                                update.setQtyOld(0);
+                                repoImp.save(update);
+                            }
+                        }
+                    }
+                }
+
+
+//            **************** old mechanism **************
+//            ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
+//            int qtyOld = getQtyOld.getQtyOld();
+//            int qty = qtyOld - qtyNew;
+//
+//            Optional<ImportDetail> getImportDetail = repoImp.findByImpId(productId);
+//            ImportDetail obj = getImportDetail.get();
+//            obj.setQtyOld(qty);
+//            repoImp.save(obj);
+
+
+            }
         }
 
         // save payment

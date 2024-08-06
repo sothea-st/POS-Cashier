@@ -273,7 +273,6 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             Page<Import> pages = null;
 
-
             if (check1) {
                 pages = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(
                         LocalDate.parse(dateFrom),

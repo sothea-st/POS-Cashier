@@ -59,6 +59,7 @@ public class ImportServiceImp implements ImportService {
     private final CategoryRepository categoryRepository;
     private final ImportDetailTemporaryRepository importDetailTemporaryRepository;
     private final UserRepository userRepository;
+    private final ImportDetailRepository repoImp;
 
     // Error messages for not found exceptions
     private final String vendorIdNotFound = "Vendor not found with Id : ";
@@ -246,8 +247,6 @@ public class ImportServiceImp implements ImportService {
         // objects
         for (ImportDetailTemporary value : importDetails) {
 
-
-
             // Calculate total cost
             double totalCost = value.getProduct().getCost().doubleValue() * value.getQtyNew();
             String _totalCost = String.format("%.2f", totalCost);
@@ -257,7 +256,8 @@ public class ImportServiceImp implements ImportService {
             Category category = category(categoryId, "category");
             Category deparment = category(category.getParentId(), "department");
             Category division = category(deparment.getParentId(), "division");
-
+            Integer qty = repoImp.sumQtyByProId(value.getProduct().getId());
+            if (qty == null) qty = 0;
             // Create ImportDetailResponse object and add to details list
             ImportDetailResponse importDetailResponse = ImportDetailResponse.builder()
                     .id(value != null ? value.getId() : null)
@@ -272,8 +272,7 @@ public class ImportServiceImp implements ImportService {
                             ? value.getProduct().getSubCategory().getId() : null)
                     .subCategory(value != null && value.getProduct() != null && value.getProduct().getSubCategory() != null
                             ? value.getProduct().getSubCategory().getCatNameEn() : null)
-                    .availableQty(value != null && value.getProduct() != null && value.getProduct().getImportDetail() != null
-                            ? value.getProduct().getImportDetail().getQtyOld() : 0)
+                    .availableQty(qty)
                     .orderQty(value != null ? value.getQtyNew() : null)
                     .cost(value != null && value.getProduct() != null ? value.getProduct().getCost() : null)
                     .totalCost(value != null && _totalCost != null ? BigDecimal.valueOf(Double.parseDouble(_totalCost)) : BigDecimal.ZERO)
@@ -504,9 +503,9 @@ public class ImportServiceImp implements ImportService {
                 if (getImpDetails == null) {
                     details.setQtyOld(qtyNew);
                 } else {
-                    int qtyOld = getImpDetails.getQtyOld();
-                    int qty = qtyOld + qtyNew;
-                    details.setQtyOld(qty);
+//                    int qtyOld = getImpDetails.getQtyOld();
+//                    int qty = qtyOld + qtyNew;
+                    details.setQtyOld(qtyNew);
                 }
             } else {
                 Optional<ImportDetail> checkId = importDetailRepository.findById(value.id());
@@ -520,13 +519,14 @@ public class ImportServiceImp implements ImportService {
                     if (getImpDetails == null) {
                         details.setQtyOld(qtyNew);
                     } else {
-                        int qtyOld = getImpDetails.getQtyOld() - getImpDetails.getQtyNew();
-                        int qty = qtyOld + qtyNew;
-                        details.setQtyOld(qty);
+//                        int qtyOld = getImpDetails.getQtyOld() - getImpDetails.getQtyNew();
+//                        int qty = qtyOld + qtyNew;
+                        details.setQtyOld(qtyNew);
                     }
                 }
             }
 
+            details.setLocalDate(LocalDate.now());
             details.setImpId(impoId);
             details.setProduct(product);
             details.setQtyNew(qtyNew);

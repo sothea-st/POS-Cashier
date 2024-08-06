@@ -1,9 +1,11 @@
 package com.example.pos.connection1.feature.product.productV1.dto;
 
-import java.math.*;
+import lombok.Builder;
 
+import java.math.*;
+@Builder
 public record ProductResponse(
-          Integer id,
+          Integer id, // productId
           String subCatNameEn,
           String proNameKh,
           String proNameEn,
