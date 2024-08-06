@@ -184,6 +184,7 @@ public class Userlogin extends javax.swing.JDialog {
                 System.err.println("error read image = " + e);
             }
 
+            paginationPanel.setVisible(true);
             listGetUserLogin.add(user, gbc);
         }
         
@@ -194,6 +195,7 @@ public class Userlogin extends javax.swing.JDialog {
             listGetUserLogin.add(nofound);
             listGetUserLogin.revalidate();
             listGetUserLogin.repaint();
+            paginationPanel.setVisible(false);
         }
         
         listGetUserLogin.revalidate();
@@ -309,7 +311,7 @@ public class Userlogin extends javax.swing.JDialog {
         panelListProduct1Layout.setHorizontalGroup(
             panelListProduct1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListProduct1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addGroup(panelListProduct1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelListProduct1Layout.createSequentialGroup()
                         .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,7 +322,7 @@ public class Userlogin extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(header1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                .addGap(20, 20, 20))
         );
         panelListProduct1Layout.setVerticalGroup(
             panelListProduct1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

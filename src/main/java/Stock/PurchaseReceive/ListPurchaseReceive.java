@@ -9,9 +9,11 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
+import Stock.PurchaseOrder.PurchaseNoData;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Timer;
@@ -123,6 +125,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           reloadPanel();
           int x = 0;
           int y = 0;
+          
           if (listData.length != 0) {
                for (int i = 0; i < listData.length; i++) {
                     GridBagConstraints gbc = new GridBagConstraints();
@@ -200,6 +203,12 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                }
                paginationPanel.setVisible(true);
           } else {
+               listGetReceive.setLayout(new BorderLayout());
+               PurchaseNoData nofound = new PurchaseNoData();
+               listGetReceive.add(nofound, BorderLayout.CENTER);
+               listGetReceive.add(nofound);
+               listGetReceive.revalidate();
+               listGetReceive.repaint();
                paginationPanel.setVisible(false);
           }
 
@@ -346,7 +355,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
         panelListProductLayout.setHorizontalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelListProductLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelListProductLayout.createSequentialGroup()
                         .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,7 +372,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                                 .addComponent(cmbVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(header, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18))
+                .addGap(20, 20, 20))
         );
         panelListProductLayout.setVerticalGroup(
             panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

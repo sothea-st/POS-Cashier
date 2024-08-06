@@ -15,6 +15,7 @@ public class StaffModel {
      private String imageName;
      private String contact;
      private String address;
+     private String roleName;
      private int createBy;
      private String createDate;
      private boolean status;
@@ -31,6 +32,7 @@ public class StaffModel {
              String imageName,
              String contact,
              String address,
+             String roleName,
              int createBy,
              String createDate,
              boolean status,
@@ -45,6 +47,7 @@ public class StaffModel {
             this.imageName = imageName;
             this.contact = contact;
             this.address = address;
+            this.roleName = roleName;
             this.createBy = createBy;
             this.createDate = createDate;
             this.status = status;
