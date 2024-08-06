@@ -182,9 +182,6 @@ public class MainPage extends javax.swing.JFrame {
           panelProduct.setBackground(WindowColor.slightGreen);
           panelPagination.setBackground(WindowColor.slightGreen);
           boxOne.setBackground(WindowColor.slightGreen);
-          
-          
-          
           detailItem.setBackground(WindowColor.slightGreen);
           panelCart.setBackground(WindowColor.darkGreen);
           // boxUserName.setVisible(false);

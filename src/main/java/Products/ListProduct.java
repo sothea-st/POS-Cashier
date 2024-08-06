@@ -175,7 +175,7 @@ public class ListProduct extends javax.swing.JDialog {
                     case 2 -> {
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Inactive");
-                              System.out.println("pageNumber : " + pageNumber);
+                             
                          } else { // isCheck false search
                               isCheckSearch = false;
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Inactive");

@@ -161,9 +161,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                               DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
-                                   System.out.println("response : " + response);
                                    String responseData = response.body().string();
-                                   System.out.println("responseData : " + responseData);
                                    ObjectMapper objectMapper = new ObjectMapper();
                                    PurchaseOrderCheckModel model = objectMapper.readValue(responseData, PurchaseOrderCheckModel.class);
                                    POCheckDetailsModel detailData = model.getData();
