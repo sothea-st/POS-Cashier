@@ -30,7 +30,7 @@ public class PurchaseNoData extends javax.swing.JPanel {
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbName.setText("No Data Available !");
+        lbName.setText("No Data !");
 
         javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
         user.setLayout(userLayout);

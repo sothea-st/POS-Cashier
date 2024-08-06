@@ -24,7 +24,7 @@ public class NotFound extends javax.swing.JPanel {
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbName.setText("Not Found");
+        lbName.setText("No Data !");
 
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);

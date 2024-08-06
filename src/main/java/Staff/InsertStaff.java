@@ -46,6 +46,7 @@ public class InsertStaff extends javax.swing.JDialog {
 
     public void setId(Integer id) {
         this.id = id;
+        labelPopUpTitle1.setLabelTitle("Edit Staff");
     }
 
     public void setValueEdit(

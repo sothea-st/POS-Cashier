@@ -19,6 +19,8 @@ public class GetStaff extends javax.swing.JPanel {
     private String contact;
     private String gender;
     private String address;
+    private String roleName;
+    private String startDate;
     private Icon iconEdit;
     private Icon iconDelete;
 
@@ -93,6 +95,24 @@ public class GetStaff extends javax.swing.JPanel {
         this.iconDelete = iconDelete;
         btnDelete.setIcon(iconDelete);
     }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+        role.setText(roleName);
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+        lbStartDate.setText(startDate);
+    }
     
     
     
@@ -160,6 +180,8 @@ public class GetStaff extends javax.swing.JPanel {
         btnEdit = new javax.swing.JLabel();
         lbAddress = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
+        lbStartDate = new javax.swing.JLabel();
+        role = new javax.swing.JLabel();
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -193,13 +215,21 @@ public class GetStaff extends javax.swing.JPanel {
 
         lbAddress.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbAddress.setForeground(new java.awt.Color(0, 0, 0));
-        lbAddress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbAddress.setText("Address");
 
         btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
+
+        lbStartDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbStartDate.setForeground(new java.awt.Color(0, 0, 0));
+        lbStartDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbStartDate.setText("Started Date");
+
+        role.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        role.setForeground(new java.awt.Color(0, 0, 0));
+        role.setText("Role");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
@@ -214,15 +244,19 @@ public class GetStaff extends javax.swing.JPanel {
                 .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbDob, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbContact, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbContact, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lbAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,7 +270,9 @@ public class GetStaff extends javax.swing.JPanel {
                         .addComponent(lbName)
                         .addComponent(lbId)
                         .addComponent(btnEdit)
-                        .addComponent(lbAddress))
+                        .addComponent(lbAddress)
+                        .addComponent(lbStartDate)
+                        .addComponent(role))
                     .addComponent(btnDelete))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -245,7 +281,7 @@ public class GetStaff extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -265,6 +301,8 @@ public class GetStaff extends javax.swing.JPanel {
     private javax.swing.JLabel lbGender;
     private javax.swing.JLabel lbId;
     private javax.swing.JLabel lbName;
+    private javax.swing.JLabel lbStartDate;
     private javax.swing.JPanel panel;
+    private javax.swing.JLabel role;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,6 +17,7 @@ public class StaffGetDataModel {
     private String imageName;
     private String contact;
     private String address;
+    private String roleName;
     private int createBy;
     private String createDate;
     private boolean status;

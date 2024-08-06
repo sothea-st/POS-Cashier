@@ -5,6 +5,17 @@ public class UserNotFound extends javax.swing.JPanel {
     public UserNotFound() {
         initComponents();
     }
+    
+    private String notFound;
+
+    public String getNotFound() {
+        return notFound;
+    }
+
+    public void setNotFound(String notFound) {
+        this.notFound = notFound;
+        lbName.setText(notFound);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -19,7 +30,7 @@ public class UserNotFound extends javax.swing.JPanel {
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbName.setText("Not Found");
+        lbName.setText("Not Data !");
 
         javax.swing.GroupLayout userLayout = new javax.swing.GroupLayout(user);
         user.setLayout(userLayout);
