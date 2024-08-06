@@ -2,6 +2,8 @@ package com.example.pos.connection1.feature.employee.dto;
 
 import java.util.Date;
 
+import com.example.pos.connection1.entity.role.Role;
+
 import lombok.Builder;
 
 @Builder
@@ -16,6 +18,7 @@ public record EmployeeResponse(
     String contact,
     Integer roleId,
     String address,
+    String roleName,
     Integer createBy,
     Date createDate,
     Boolean status,

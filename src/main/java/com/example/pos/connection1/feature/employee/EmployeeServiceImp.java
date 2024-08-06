@@ -134,7 +134,7 @@ public class EmployeeServiceImp implements EmployeeService{
         user.setUserCode(userCountRow);
         user.setEmpId(emp.getId());
         user.setCreateBy(e.getCreateBy());
-        user.setRole(e.getRoleId());
+        user.setRole(e.getRoleId().getId());
         userRepository.save(user);
         return mEmployeeResponse(emp);
     }
@@ -172,7 +172,7 @@ public class EmployeeServiceImp implements EmployeeService{
         Optional<User> user = userRepository.findByEmpId(id);
         User userData = user.get();
         userData.setFullName(e.getNameEn());
-        userData.setRole(e.getRoleId());
+        userData.setRole(e.getRoleId().getId());
         userRepository.save(userData);
 
         return mEmployeeResponse(emp);
@@ -226,8 +226,9 @@ public class EmployeeServiceImp implements EmployeeService{
                             .startDate(employee.getStartDate())
                             .imageName(employee.getImageName())
                             .contact(employee.getContact())
-                            .roleId(employee.getRoleId())
+                            .roleId(employee.getRoleId().getId())
                             .address(employee.getAddress())
+                            .roleName(employee.getRoleId().getRoleName())
                             .createBy(employee.getCreateBy())
                             .createDate(employee.getCreateDate())
                             .status(employee.isStatus())
