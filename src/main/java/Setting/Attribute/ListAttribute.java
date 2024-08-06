@@ -244,12 +244,13 @@ public class ListAttribute extends javax.swing.JDialog {
                 } catch (Exception e) {
                     System.err.println("error read image = " + e);
                 }
-
+                paginationPanel.setVisible(true);
                 listGetAttribute.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetAttribute.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetAttribute.revalidate();
