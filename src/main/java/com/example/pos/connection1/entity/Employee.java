@@ -1,6 +1,8 @@
 package com.example.pos.connection1.entity;
 
 import com.example.pos.connection1.constant.JavaMessage;
+import com.example.pos.connection1.entity.role.Role;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -52,8 +54,10 @@ public class Employee {
     @Column(length = 12)
     private String contact;
 
-    @Column(name = "role_id")
-    private Integer roleId;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    // @Column(name = "role_id")
+    private Role roleId;
 
     private String address;
 
