@@ -873,11 +873,8 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setTitleOrder(titleOrder);
 
                    if (btnPayment.getButtonName().equals("Return")) {
-                        try {
-                             pay.returnProduct();
-                        } catch (IOException ex) {
-                             Logger.getLogger(MainPage.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        System.err.println("return was clicked : ");
+                        pay.returnProduct();
                         return;
                    }
 

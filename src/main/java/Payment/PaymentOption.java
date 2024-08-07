@@ -1979,7 +1979,7 @@ public class PaymentOption extends javax.swing.JDialog {
           }
      }
 
-     public void returnProduct() throws IOException {
+     public void returnProduct() {
           DecimalFormat df = new DecimalFormat("#.##");
           double totalReturn = 0.0;
           if (!txtReceiveUsd.getText().isEmpty()) {
@@ -2025,44 +2025,48 @@ public class PaymentOption extends javax.swing.JDialog {
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
 
-          if (responseReturn.isSuccessful()) {
+          try {
+               if (responseReturn.isSuccessful()) {
 
 //               ============ after return reset value ==================
-               JavaConstant.setBackQty(detailItem, panelProduct);
-               JavaConstant.resetValueReturn();
+                    JavaConstant.setBackQty(detailItem, panelProduct);
+                    JavaConstant.resetValueReturn();
 
-               String _data = responseReturn.body().string();
-               dispose();
-               detailItem.removeAll();
-               detailItem.revalidate();
-               detailItem.repaint();
-               subtotalPanel.setLabelSubTitleToZero();
-               btnPayment.setBackground(WindowColor.lightGray);
-               btnCancel.setBackground(WindowColor.lightGray);
-               buttonHoldOrder.setBackground(WindowColor.lightGray);
-               btnReturn.setBackground(WindowColor.brown);
-               btnDiscount.setBackground(WindowColor.green);
-               detailItem.setBackground(WindowColor.slightGreen);
-               detailItem.setBorder(null);
-               btnPayment.setButtonName("Payment");
-               titleOrder.setVisible(false);
+                    String _data = responseReturn.body().string();
+                    dispose();
+                    detailItem.removeAll();
+                    detailItem.revalidate();
+                    detailItem.repaint();
+                    subtotalPanel.setLabelSubTitleToZero();
+                    btnPayment.setBackground(WindowColor.lightGray);
+                    btnCancel.setBackground(WindowColor.lightGray);
+                    buttonHoldOrder.setBackground(WindowColor.lightGray);
+                    btnReturn.setBackground(WindowColor.brown);
+                    btnDiscount.setBackground(WindowColor.green);
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    detailItem.setBorder(null);
+                    btnPayment.setButtonName("Payment");
+                    titleOrder.setVisible(false);
 
-               PrinterReturn print = new PrinterReturn(new JFrame(), true);
-               ObjectMapper objMap = new ObjectMapper();
-               DataSuccessModel d = objMap.readValue(_data, DataSuccessModel.class);
-               print.setDataSuccess(d);
-               print.revalidate();
-               print.repaint();
+                    PrinterReturn print = new PrinterReturn(new JFrame(), true);
+                    ObjectMapper objMap = new ObjectMapper();
+                    DataSuccessModel d = objMap.readValue(_data, DataSuccessModel.class);
+                    print.setDataSuccess(d);
+                    print.revalidate();
+                    print.repaint();
 //               print.printReceipt(); // print paper with device
-               print.setVisible(true);
+                    print.setVisible(true);
 
-               // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
-               ReturnDialog r = new ReturnDialog(new JFrame(), true);
-               r.setResetReturn();
+                    // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
+                    ReturnDialog r = new ReturnDialog(new JFrame(), true);
+                    r.setResetReturn();
 
 //               ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
-          } else {
-               System.err.println("err = 4444");
+               } else {
+                    System.err.println("err = 4444");
+               }
+          } catch (Exception e) {
+               System.err.println("eror return : " + e);
           }
 
      }
