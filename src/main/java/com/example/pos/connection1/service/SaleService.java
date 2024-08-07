@@ -6,14 +6,11 @@ import com.example.pos.connection1.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.connection1.entity.*;
 import com.example.pos.connection1.entity.payment.Payment;
 import com.example.pos.connection1.entity.people.Customer;
+import com.example.pos.connection1.feature.imports.ImportRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.connection1.projections.ReportImport.ReportSaledResponse;
-import com.example.pos.connection1.repository.FileStoreRepository;
-import com.example.pos.connection1.repository.ImportDetailRepository;
-import com.example.pos.connection1.repository.SaleDetailsRepository;
-import com.example.pos.connection1.repository.SaleRepository;
-import com.example.pos.connection1.repository.UserRepository;
+import com.example.pos.connection1.repository.*;
 import com.example.pos.connection1.repository.companyRepository.CompanyRepository;
 import com.example.pos.connection1.repository.paymentRepository.PaymentRepository;
 import com.example.pos.connection1.repository.peopleRepository.CustomerRepository;
@@ -79,6 +76,13 @@ public class SaleService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ImportRepository importRepository;
+
+
+    @Autowired
+    private SaleFiFoRepository saleFiFoRepository;
 
     //    List<ReportSaledResponse>
     public List<ReportSaledResponse> searchReportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
@@ -291,10 +295,10 @@ public class SaleService {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(qty);
                             repoImp.save(update);
+                           saveFiFo(productId,update.getImpId(),qtyNew,paymentNo,update.getLocalDate());
                         }
                         break;
                     }
-
 
                     if(  j == 0  && qtyNew > data.getQtyOld() ) {
                         qtyCheckStoke = qtyNew - data.getQtyOld();
@@ -303,6 +307,7 @@ public class SaleService {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(0);
                             repoImp.save(update);
+                            saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate());
                         }
                     } else {
                         if( data.getQtyOld() >= qtyCheckStoke ) {
@@ -312,6 +317,7 @@ public class SaleService {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(qty);
                                 repoImp.save(update);
+                                saveFiFo(productId,update.getImpId(),qtyCheckStoke,paymentNo,update.getLocalDate());
                             }
                             break;
                         } else {
@@ -321,6 +327,7 @@ public class SaleService {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(0);
                                 repoImp.save(update);
+                                saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate());
                             }
                         }
                     }
@@ -348,6 +355,24 @@ public class SaleService {
 
         return reprintService.readData("");
 
+    }
+
+    private void saveFiFo(int productId ,int impId , int qtyNew ,String paymentNo,LocalDate localDate ){
+        SaleFiFo saleFiFo = new SaleFiFo();
+
+        Product pId = productRepository.findById(productId).orElseThrow(
+                ()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found with id : " + productId)
+        );
+
+        Import anImport = importRepository.findById(impId).orElseThrow(
+                ()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Import not found with id : " + impId)
+        );
+        saleFiFo.setSaleQty(qtyNew);
+        saleFiFo.setProduct(pId);
+        saleFiFo.setAnImport(anImport);
+        saleFiFo.setPaymentNo(paymentNo);
+        saleFiFo.setLocalDate(localDate);
+        saleFiFoRepository.save(saleFiFo);
     }
 
     public void addCustomer(Customer cus, String cusId) {

@@ -9,6 +9,9 @@ import java.time.*;
 import com.example.pos.connection1.entity.Import;
 import com.example.pos.connection1.projections.ReportImport.ReportImportProjection;
 public interface ImportRepository extends JpaRepository<Import, Integer> {
+
+
+
      @Query(nativeQuery = true, value = "select count(*) from pos_import")
      int countRecord();
      Optional<Import> findByImpNo(String impNo);

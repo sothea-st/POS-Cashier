@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.List;
 
@@ -24,6 +26,16 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
 
     @Query(nativeQuery = true,value = "select * from pos_import_detail pid where imp_id = ? and pro_id = ? and status = true and is_deleted =false")
     ImportDetail getImpIdAndProduct(int impId,int productId);
+
+
+    @Query(nativeQuery = true,value = "SELECT * \n" +
+            "FROM pos_import_detail pid \n" +
+            "WHERE imp_id = ? \n" +
+            "  AND pro_id = ? \n" +
+            "  AND status = true \n" +
+            "  AND is_deleted = false \n" +
+            "  AND local_date = ?")
+    ImportDetail getImpIdAndProductAndLocalDate(int impId, int productId, LocalDate localDate);
 
     @Query(nativeQuery = true,value = "select * from pos_import_detail pid where status =true and is_deleted =false and  pro_id =? order by id desc limit 1")
     Optional<ImportDetail> findByImpId(int proId);
