@@ -440,6 +440,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     String.valueOf(String.valueOf(StringUtils.capitalize(data.getRemark())))
             );
 
+            paginationPanel.setVisible(true);
             listGetPurchaseOrder.add(b, gbc);
         }
 
@@ -450,6 +451,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
             listGetPurchaseOrder.add(nofound);
             listGetPurchaseOrder.revalidate();
             listGetPurchaseOrder.repaint();
+            paginationPanel.setVisible(false);
         }
 
         listGetPurchaseOrder.revalidate();

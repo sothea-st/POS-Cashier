@@ -240,11 +240,13 @@ public class ListTax extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
+                paginationPanel.setVisible(true);
                 listGetTax.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetTax.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetTax.revalidate();

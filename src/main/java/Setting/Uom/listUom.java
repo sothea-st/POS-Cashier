@@ -15,7 +15,6 @@ import Model.Uom.UomModel;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -246,11 +245,13 @@ public class listUom extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
+                paginationPanel.setVisible(true);
                 listGetUom.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetUom.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetUom.revalidate();

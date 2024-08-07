@@ -364,12 +364,14 @@ public class Category extends javax.swing.JDialog {
                 } catch (Exception e) {
                     System.err.println("error read image = " + e);
                 }
-
+                
+                paginationPanel.setVisible(true);
                 listGetCategory.add(category, gbc);
             }
         } else {
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetCategory.add(no);
+            paginationPanel.setVisible(false);
         }
 
         listGetCategory.revalidate();

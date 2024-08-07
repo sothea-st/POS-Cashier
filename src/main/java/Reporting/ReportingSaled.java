@@ -567,6 +567,7 @@ public class ReportingSaled extends javax.swing.JDialog {
             panelItem.add(nofound);
             panelItem.revalidate();
             panelItem.repaint();
+            paginationPanel.setVisible(false);
         }
 
         for (ReportSaleDetail detail : listData) {
@@ -600,6 +601,7 @@ public class ReportingSaled extends javax.swing.JDialog {
                     String.valueOf(detail.getMargin()),
                     String.valueOf(detail.getUserName())
             );
+            paginationPanel.setVisible(true);
             panelItem.add(sale, gbc);
         }
 
