@@ -32,7 +32,6 @@ public class PrintToExcel {
      }
 
      public static void toExcel(ProductResponseDetailV1[] listProduct) {
-
           try {
                Workbook workbook = new XSSFWorkbook();
                Sheet sheet = workbook.createSheet("Sheet1");

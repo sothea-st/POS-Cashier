@@ -46,6 +46,8 @@ import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import lombok.Getter;
@@ -108,6 +110,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           setResizable(false);
           event();
           txtUserId.setFocus();
+          // Override the window close button functionality
+          addWindowListener(new WindowAdapter() {
+               @Override
+               public void windowClosing(WindowEvent e) {
+                    JavaConstant.restoreDefaultCursor(mainFrame);
+                    dispose(); // Ensure the dialog is closed
+               }
+          });
+
      }
 
      //Function call Placeholder
@@ -357,7 +368,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          //     String userId = txtUserId.getValueTextField();
          //     String password = txtPassword.getValuePassword();
 
-         String userId = "0022";
+         String userId = "0005";
          String password = "TT@126$kh#";
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
@@ -519,7 +530,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.restoreDefaultCursor(mainFrame);
 
               } else {
-
+                   JavaConstant.restoreDefaultCursor(mainFrame);
                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
               }
 
