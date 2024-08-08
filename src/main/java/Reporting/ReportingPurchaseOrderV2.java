@@ -436,7 +436,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     String.valueOf(data.getApprovedBy()),
                     String.valueOf(data.getRejectBy()),
                     String.valueOf(data.getTotalQty()),
-                    "$ ".concat(String.valueOf(data.getTotalCost())),
+                    String.valueOf("$ " +String.format("%.2f", data.getTotalCost())),
                     String.valueOf(String.valueOf(StringUtils.capitalize(data.getRemark())))
             );
 

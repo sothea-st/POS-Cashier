@@ -147,7 +147,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     b.setReferenceNo(data.getReferenceNo());
                     b.setTransactionDate(data.getTransactionDate());
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
-                    b.setTotalCost("$ ".concat(String.valueOf(data.getTotalCost())));
+                    b.setTotalCost("$ " + String.format("%.2f", data.getTotalCost()));
                     b.setRemark(StringUtils.capitalize(data.getRemark()));
                     ButtonEvent events = new ButtonEvent() {
                          @Override

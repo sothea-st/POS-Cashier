@@ -36,8 +36,8 @@ public class PrintToCSV {
 
           try (CSVWriter writer = new CSVWriter(new FileWriter(filePath + "\\" + fileName + ".csv"))) {
                // Write headers
-               writer.writeNext(new String[] { "Barcode", "ItemCode", "Division", "Vendor Code", "Vendor Name",
-                         "Product Name", "Product Name Kh", "Qty", "Price", "Cost" });
+               writer.writeNext(new String[] { "Barcode", "ItemCode", "Sub Category", "Vendor Code", "Vendor Name",
+                         "Product Name", "Product Name Kh", "Total Qty", "Sale Price", "Cost" });
 
                // Write data
                for (ProductResponseDetailV1 p : listProduct) {

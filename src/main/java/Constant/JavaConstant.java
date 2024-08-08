@@ -380,6 +380,13 @@ public class JavaConstant {
           DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
           return date.format(outputFormatter);
      }
+     
+     public static String formateDateDDMMYYYY(String dateValue) {
+          DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+          LocalDate date = LocalDate.parse(dateValue, inputFormatter);
+          DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+          return date.format(outputFormatter);
+     }
 
      public static String getFileName() {
           LocalDateTime currentDateTime = LocalDateTime.now();

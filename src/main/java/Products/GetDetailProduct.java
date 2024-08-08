@@ -1,5 +1,7 @@
 package Products;
 
+import Constant.JavaConstant;
+
 public class GetDetailProduct extends javax.swing.JPanel {
 
     public GetDetailProduct() {
@@ -14,7 +16,11 @@ public class GetDetailProduct extends javax.swing.JPanel {
         String priceValue
     ) {
         lbNumber.setText(numberValue);
-        lbImportDate.setText(importDateValue);
+        if(importDateValue != "null"){
+            lbImportDate.setText(JavaConstant.formateDateDDMMYYYY(importDateValue));
+        }else{
+            lbImportDate.setText("N/A");
+        }
         lbQty.setText(qtyValue);
         lbCost.setText("$ " + costValue);
         lbPrice.setText("$ " + priceValue);

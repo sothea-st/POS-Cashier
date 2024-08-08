@@ -166,7 +166,8 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                         String.valueOf(detailData.getTotalCost()),
                                         String.valueOf(detailData.getVendorID()),
                                         String.valueOf(detailData.getOrderDate()),
-                                        String.valueOf(detailData.getTransactionDate())
+                                        String.valueOf(detailData.getTransactionDate()),
+                                        String.valueOf(detailData.getRemark())
                                    );
 
                                    edit.setVisible(true);
@@ -183,7 +184,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                    UI.put("Panel.background", WindowColor.mediumGreen);
                                    UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this purchase order?",
+                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this purchase request?",
                                         "Delete Purchase Order?", JOptionPane.YES_NO_OPTION);
 
                                    if (resp == JOptionPane.YES_OPTION) {
@@ -214,7 +215,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     b.setReferenceNo(data.getReferenceNo());
                     b.setTransactionDate(data.getTransactionDate());
                     b.setTotalQty("" + data.getTotalQty());
-                    b.setTotalCost("$ " + data.getTotalCost());
+                    b.setTotalCost("$ " + String.format("%.2f", data.getTotalCost()));
                     b.setTransactionNo(data.getTransactionNo());
                     b.setStatus(StringUtils.capitalize(data.getRemark()));
 

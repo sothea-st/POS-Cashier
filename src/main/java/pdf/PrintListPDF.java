@@ -93,8 +93,8 @@ public class PrintListPDF {
                // Convert ArrayList to Object[][]
                Object[][] data = dataList.toArray(new Object[dataList.size()][]);
 
-               Object[] columnHead = {"Barcode", "ItemCode", "Division", "Vendor Code", "Vendor Name",
-                    "Product Name", "Product Name Kh", "Qty", "Price", "Cost", "Image"};
+               Object[] columnHead = {"Barcode", "Item Code", "Sub Category", "Vendor Code", "Vendor Name",
+                    "Product Name", "Product Name Kh", "Total Qty", "Sale Price", "Cost", "Image"};
                // Create a table model
                DefaultTableModel model = new DefaultTableModel(data, columnHead);
 

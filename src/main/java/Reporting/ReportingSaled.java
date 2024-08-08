@@ -590,15 +590,15 @@ public class ReportingSaled extends javax.swing.JDialog {
                     String.valueOf(detail.getProNameEn()),
                     String.valueOf(detail.getQty()),
                     String.valueOf(detail.getPrice()),
-                    String.valueOf(detail.getDiscount()),
-                    String.valueOf(detail.getAmountWithTax()),
+                    String.valueOf(String.format("%.2f", detail.getDiscount())),
+                    String.valueOf(String.format("%.2f", detail.getAmountWithTax())),
                     String.valueOf(detail.getTaxType()),
-                    String.valueOf(detail.getTotalSaledExcludeVAT()),
-                    String.valueOf(detail.getVatAmt()),
-                    String.valueOf(detail.getPLT()),
-                    String.valueOf(detail.getNetSale()),
+                    String.valueOf(String.format("%.2f", detail.getTotalSaledExcludeVAT())),
+                    String.valueOf(String.format("%.2f", detail.getVatAmt())),
+                    String.valueOf(String.format("%.2f", detail.getPLT())),
+                    String.valueOf(String.format("%.2f", detail.getNetSale())),
                     String.valueOf(detail.getCost()),
-                    String.valueOf(detail.getMargin()),
+                    String.valueOf(String.format("%.2f", detail.getMargin())),
                     String.valueOf(detail.getUserName())
             );
             paginationPanel.setVisible(true);

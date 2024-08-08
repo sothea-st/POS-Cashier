@@ -36,8 +36,8 @@ public class PrintToExcel {
                Workbook workbook = new XSSFWorkbook();
                Sheet sheet = workbook.createSheet("Sheet1");
                ArrayList<Object[]> dataList = new ArrayList<>();
-               dataList.add(new Object[]{"Barcode", "ItemCode", "Division", "Vendor Code", "Vendor Name",
-                    "Product Name", "Product Name Kh", "Quantiry", "Price", "Cost", "Image"});
+               dataList.add(new Object[]{"Barcode", "ItemCode", "Sub Category", "Vendor Code", "Vendor Name",
+                    "Product Name", "Product Name Kh", "Total Qty", "Sale Price", "Cost", "Image"});
                for (ProductResponseDetailV1 p : listProduct) {
                     String url = null;
                     if (p.getProImageName().contains("media/file/crm/uploadfile/")) {
@@ -92,13 +92,13 @@ public class PrintToExcel {
                          if (dataList.get(i)[j] instanceof String) {
                               if (String.valueOf(dataList.get(i)[j]).equals("Barcode")
                                    || String.valueOf(dataList.get(i)[j]).equals("ItemCode")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Division")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Sub Category")
                                    || String.valueOf(dataList.get(i)[j]).equals("Vendor Code")
                                    || String.valueOf(dataList.get(i)[j]).equals("Vendor Name")
                                    || String.valueOf(dataList.get(i)[j]).equals("Product Name")
                                    || String.valueOf(dataList.get(i)[j]).equals("Product Name Kh")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Quantiry")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Price")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Total Qty")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Sale Price")
                                    || String.valueOf(dataList.get(i)[j]).equals("Cost")
                                    || String.valueOf(dataList.get(i)[j]).equals("Image")) {
                                    cell.setCellStyle(style);

@@ -23,9 +23,14 @@ public class GetDetailReceive extends javax.swing.JPanel {
         lbDivision.setText(divisionValue);
         lbAvailbleQty.setText(availableQtyValue);
         lbOrderQty.setText(qtyValue);
-        lbReceivedQty.setText(receivedQtyValue);
-        lbCost.setText("$ " + costValue);
-        lbTotalCost.setText("$ " + amountValue);
+        if(receivedQtyValue != "null"){
+            lbReceivedQty.setText(receivedQtyValue);
+        }else{
+            lbReceivedQty.setText("0");
+        }
+        
+        lbCost.setText(costValue);
+        lbTotalCost.setText(amountValue);
     }
 
     @SuppressWarnings("unchecked")

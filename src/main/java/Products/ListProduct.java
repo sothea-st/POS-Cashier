@@ -298,9 +298,17 @@ public class ListProduct extends javax.swing.JDialog {
                                 String.valueOf(p.getProNameKh()),
                                 String.valueOf(p.getBarcode()),
                                 String.valueOf(p.getItemCode()),
-                                String.valueOf(p.getVendorName()),
                                 String.valueOf(p.getSubCatNameEn()),
-                                String.valueOf(p.getQty())
+                                String.valueOf(p.getVendorName()),
+                                String.valueOf(p.getQty()),
+                                String.valueOf(p.getBrandNameEn()),
+                                String.valueOf(p.getMargin()),
+                                String.valueOf(p.getAttrNameEn() + " " + p.getChoices()),
+                                String.valueOf(p.getUomNameEn()),
+                                String.valueOf(p.getStatusName()),
+                                String.valueOf(p.getCountryImageName()),
+                                String.valueOf(p.getTaxName())
+                                
                         );
                         
                         detail.setVisible(true);
@@ -502,7 +510,7 @@ public class ListProduct extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Product Price");
+        jLabel3.setText("Sale Price");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -521,7 +529,7 @@ public class ListProduct extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Quantity");
+        jLabel8.setText("Total Qty");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -530,7 +538,7 @@ public class ListProduct extends javax.swing.JDialog {
 
         Division.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         Division.setForeground(new java.awt.Color(255, 255, 255));
-        Division.setText("Divison");
+        Division.setText("Sub Category");
 
         Division1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         Division1.setForeground(new java.awt.Color(255, 255, 255));
@@ -543,7 +551,7 @@ public class ListProduct extends javax.swing.JDialog {
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Product Name Khmer");
+        jLabel10.setText("Product Name Kh");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -728,8 +736,8 @@ public class ListProduct extends javax.swing.JDialog {
                         .addComponent(allProduct, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addGap(10, 10, 10)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelListProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -737,7 +745,7 @@ public class ListProduct extends javax.swing.JDialog {
                     .addComponent(btnCsv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
