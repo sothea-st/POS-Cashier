@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -305,6 +306,7 @@ public class ProductServiceImp implements ProductService {
      * @return A collection response containing products for the specified page.
      */
     @Override
+    @Async
     public JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize) {
         List<ProductResponse> data = null;
         if (pageNumber == null && pageSize == null) {

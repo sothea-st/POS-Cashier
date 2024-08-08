@@ -130,36 +130,142 @@ public class ReturnProductService {
 
         }
 
+//        for (int i = 0; i < listDetail.size(); i++) {
+//            int proId = listDetail.get(i).getProId();
+//            var item = listDetail.get(i);
+//
+//            System.out.println("item qty ============ " + item.getQty());
+//
+//            Product product = productRepository.findById(proId).orElseThrow(
+//                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id : " + proId)
+//            );
+//            List<SaleFiFo> saleFiFos = saleFiFoRepository.findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateDesc(re.getPaymentNo(), 0, product);
+//            int countSaleQty = 0;
+//            for( SaleFiFo s : saleFiFos ) {
+//                countSaleQty += s.getSaleQty();
+//            }
+//
+//
+//            if (item.getQty() == countSaleQty) {
+//
+//                for (SaleFiFo val : saleFiFos) {
+//
+//                    ImportDetail detail = repoImport.getImpIdAndProductAndLocalDate(
+//                            val.getAnImport().getId(),
+//                            val.getProduct().getId(),
+//                            val.getLocalDate()
+//                    );
+//                    int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
+//                    int qty = qtyOld + val.getSaleQty();
+//                    detail.setQtyOld(qty);
+//                    repoImport.save(detail);
+//
+//                    SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
+//                            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
+//                    );
+//                    saleFiFo.setSaleQty(0);
+//                    saleFiFoRepository.save(saleFiFo);
+//                }
+//            } else {
+//
+//                int _itemQty = item.getQty();
+//                for ( int j = 0 ; j < saleFiFos.size() ; j++ ) {
+//                    var val = saleFiFos.get(j);
+//                    SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
+//                            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
+//                    );
+//
+//
+//                    ImportDetail detail = repoImport.getImpIdAndProductAndLocalDate(
+//                            val.getAnImport().getId(),
+//                            val.getProduct().getId(),
+//                            val.getLocalDate()
+//                    );
+//
+//                    if ( j == 0 && _itemQty <= saleFiFo.getSaleQty()) {
+//
+//                        int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
+//                        int qty = qtyOld + item.getQty();
+//                        detail.setQtyOld(qty);
+//                        repoImport.save(detail);
+//
+//                        saleFiFo.setSaleQty(saleFiFo.getSaleQty() - item.getQty());
+//                        saleFiFoRepository.save(saleFiFo);
+//                        break;
+//                    }
+//
+//                      _itemQty = _itemQty - saleFiFo.getSaleQty();
+//                    if (_itemQty > 0) {
+//
+//                        int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
+//                        detail.setQtyOld(qtyOld + saleFiFo.getSaleQty());
+//                        repoImport.save(detail);
+//
+//                        saleFiFo.setSaleQty(0);
+//                        saleFiFoRepository.save(saleFiFo);
+//                    } else {
+//
+//
+//                        int _q = saleFiFo.getSaleQty() + _itemQty; // _itemQty can be -1
+//
+//                        int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
+//
+//                        detail.setQtyOld(qtyOld + _q);
+//                        repoImport.save(detail);
+//
+//                        saleFiFo.setSaleQty(_q);
+//                        saleFiFoRepository.save(saleFiFo);
+//                    }
+//
+//                }
+//            }
+//        }
+
         for (int i = 0; i < listDetail.size(); i++) {
+            // Get product ID and item from listDetail
             int proId = listDetail.get(i).getProId();
             var item = listDetail.get(i);
 
+            // Print item quantity for debugging
             System.out.println("item qty ============ " + item.getQty());
 
+            // Retrieve product by ID from product repository, throw exception if not found
             Product product = productRepository.findById(proId).orElseThrow(
                     () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id : " + proId)
             );
+
+            // Fetch all SaleFiFo entries for the given paymentNo, with saleQty > 0, and ordered by localDate descending
             List<SaleFiFo> saleFiFos = saleFiFoRepository.findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateDesc(re.getPaymentNo(), 0, product);
+
+            // Calculate total sale quantity from fetched SaleFiFo entries
             int countSaleQty = 0;
-            for( SaleFiFo s : saleFiFos ) {
+            for (SaleFiFo s : saleFiFos) {
                 countSaleQty += s.getSaleQty();
             }
 
-
+            // Check if item quantity matches total sale quantity
             if (item.getQty() == countSaleQty) {
-                System.out.println("1111111111111111111111");
+                // Process if item quantity matches total sale quantity
+
+                // Iterate through each SaleFiFo entry
                 for (SaleFiFo val : saleFiFos) {
-                    System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    // Retrieve ImportDetail for the SaleFiFo entry
                     ImportDetail detail = repoImport.getImpIdAndProductAndLocalDate(
                             val.getAnImport().getId(),
                             val.getProduct().getId(),
                             val.getLocalDate()
                     );
+
+                    // Calculate quantity old (qtyOld) or initialize to 0 if null
                     int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
+                    // Calculate new quantity (qty) by adding current sale quantity
                     int qty = qtyOld + val.getSaleQty();
+                    // Update qtyOld with new calculated quantity
                     detail.setQtyOld(qty);
+                    // Save updated ImportDetail
                     repoImport.save(detail);
 
+                    // Set sale quantity to 0 for the current SaleFiFo entry
                     SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
                             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
                     );
@@ -167,41 +273,44 @@ public class ReturnProductService {
                     saleFiFoRepository.save(saleFiFo);
                 }
             } else {
-                System.out.println("2222222222222222222222222222222");
+                // Process if item quantity does not match total sale quantity
+
+                // Initialize _itemQty to item quantity
                 int _itemQty = item.getQty();
-                for ( int j = 0 ; j < saleFiFos.size() ; j++ ) {
+                // Iterate through each SaleFiFo entry
+                for (int j = 0; j < saleFiFos.size(); j++) {
                     var val = saleFiFos.get(j);
-
-
-                    System.out.println("nnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+                    // Retrieve SaleFiFo entry by ID
                     SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
                             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
                     );
 
-
-                    System.out.println("hhhhhhhhhhhhhhh = " + _itemQty + " " + saleFiFo.getSaleQty());
-
+                    // Retrieve ImportDetail for the SaleFiFo entry
                     ImportDetail detail = repoImport.getImpIdAndProductAndLocalDate(
                             val.getAnImport().getId(),
                             val.getProduct().getId(),
                             val.getLocalDate()
                     );
 
-                    if ( j == 0 && _itemQty <= saleFiFo.getSaleQty()) {
-
+                    // Check if this is the first SaleFiFo entry and item quantity is less than or equal to sale quantity
+                    if (j == 0 && _itemQty <= saleFiFo.getSaleQty()) {
+                        // Update ImportDetail with new quantity
                         int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
                         int qty = qtyOld + item.getQty();
                         detail.setQtyOld(qty);
                         repoImport.save(detail);
 
+                        // Update SaleFiFo with adjusted sale quantity
                         saleFiFo.setSaleQty(saleFiFo.getSaleQty() - item.getQty());
                         saleFiFoRepository.save(saleFiFo);
                         break;
                     }
 
-                      _itemQty = _itemQty - saleFiFo.getSaleQty();
-                    if (_itemQty > 0) {
+                    // Subtract sale quantity from _itemQty
+                    _itemQty = _itemQty - saleFiFo.getSaleQty();
 
+                    // If _itemQty is greater than 0, update ImportDetail and SaleFiFo accordingly
+                    if (_itemQty > 0) {
                         int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
                         detail.setQtyOld(qtyOld + saleFiFo.getSaleQty());
                         repoImport.save(detail);
@@ -209,22 +318,20 @@ public class ReturnProductService {
                         saleFiFo.setSaleQty(0);
                         saleFiFoRepository.save(saleFiFo);
                     } else {
-
-
+                        // If _itemQty is less than or equal to 0, adjust quantities for ImportDetail and SaleFiFo
                         int _q = saleFiFo.getSaleQty() + _itemQty; // _itemQty can be -1
 
                         int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
-
                         detail.setQtyOld(qtyOld + _q);
                         repoImport.save(detail);
 
                         saleFiFo.setSaleQty(_q);
                         saleFiFoRepository.save(saleFiFo);
                     }
-
                 }
             }
         }
+
 
 
         int saleId = repoDetail.getSaleId(re.getPaymentNo(), JavaConstant.currentDate);

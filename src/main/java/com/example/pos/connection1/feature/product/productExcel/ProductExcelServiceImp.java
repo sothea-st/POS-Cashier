@@ -62,6 +62,8 @@ public class ProductExcelServiceImp implements ProductExcelService {
           List<Product> products = new ArrayList<>();
           long count = productRepository.count();
           count--;
+
+
           for (ProductExcelDetail productExcelDetail : lists) {
 
                if (productExcelDetail.getBarcode() != null &&
