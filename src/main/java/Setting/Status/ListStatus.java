@@ -244,11 +244,13 @@ public class ListStatus extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
+                paginationPanel.setVisible(true);
                 listGetStatus.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetStatus.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetStatus.revalidate();

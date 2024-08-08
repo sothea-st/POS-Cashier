@@ -5,7 +5,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
-import Stock.PurchaseOrder.ImportRequest;
+import Stock.PurchaseOrderRequest.ImportRequest;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PODetailItemModel;
 import java.awt.BorderLayout;

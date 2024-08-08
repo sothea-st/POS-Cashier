@@ -251,11 +251,13 @@ public class ListCountry extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
+                paginationPanel.setVisible(true);
                 listGetCountry.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetCountry.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetCountry.revalidate();

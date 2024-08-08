@@ -276,6 +276,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
             listGetOrder.add(nofound);
             listGetOrder.revalidate();
             listGetOrder.repaint();
+            paginationPanel.setVisible(false);
             return;
         }
 
@@ -303,6 +304,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     String.valueOf(data.getTotalQty()),
                     "$ ".concat(String.valueOf(data.getTotalCost())),
                     String.valueOf(StringUtils.capitalize(data.getRemark())));
+            
+            paginationPanel.setVisible(true);
             listGetOrder.add(b, gbc);
         }
 

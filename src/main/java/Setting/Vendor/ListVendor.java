@@ -13,7 +13,6 @@ import Model.Vendor.DetailVendorModel;
 import Model.Vendor.ListVendorModel;
 import Model.Vendor.VendorModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -248,11 +247,13 @@ public class ListVendor extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
+                paginationPanel.setVisible(true);
                 listGetVendor.add(b, gbc);
             }  
         }else{
             NoData no = new NoData();
             listGetVendor.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetVendor.revalidate();

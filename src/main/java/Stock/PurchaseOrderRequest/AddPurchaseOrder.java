@@ -1,4 +1,4 @@
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;
@@ -10,7 +10,7 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import Model.combobox.ComboBoxSelection;
-import Stock.PurchaseOrder.ImportRequest.ImportDetailRequest;
+import Stock.PurchaseOrderRequest.ImportRequest.ImportDetailRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -162,7 +162,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        labelPopUpTitle2.setLabelTitle("Add Purchase Order");
+        labelPopUpTitle2.setLabelTitle("Add Purchase Request");
 
         label5.setLabelName("Vendor Name");
 

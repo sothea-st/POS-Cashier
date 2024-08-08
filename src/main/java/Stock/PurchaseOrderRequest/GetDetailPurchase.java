@@ -1,4 +1,4 @@
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 public class GetDetailPurchase extends javax.swing.JPanel {
 

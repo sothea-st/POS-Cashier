@@ -1,17 +1,16 @@
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.*;
+import java.math.BigDecimal;
 
-public class ImportRequest {
-
-     private Integer createBy;
+public class ImportRequestSecond {
+    private Integer createBy;
      private Integer empID;
      private Integer subID;
      private String impDate;
      private BigDecimal discount;
      private Integer total;
-     private ImportDetailRequest[] details;
+     private ImportDetailRequestSecond[] details;
 
      @JsonProperty("createBy")
      public Integer getCreateBy() {
@@ -74,15 +73,15 @@ public class ImportRequest {
      }
 
      @JsonProperty("details")
-     public ImportDetailRequest[] getDetails() {
+     public ImportDetailRequestSecond[] getDetails() {
           return details;
      }
 
      @JsonProperty("details")
-     public void setDetails(ImportDetailRequest[] value) {
+     public void setDetails(ImportDetailRequestSecond[] value) {
           this.details = value;
      }
-
+     
      private Integer productId;
      private Integer qtyNew;
      private double cost;
@@ -138,113 +137,40 @@ public class ImportRequest {
      public void setExpireDate(String value) {
           this.expireDate = value;
      }
-
-     public class ImportDetailRequests {
-
-          private Integer productId;
-          private Integer qtyNew;
-          private BigDecimal cost;
-          private BigDecimal amount;
-          private String expireDate;
-          private Integer receivedQty;
-
-          public ImportDetailRequests(
-               Integer productId,
-               Integer qtyNew,
-               BigDecimal cost,
-               BigDecimal amount,
-               String expireDate,
-               Integer receivedQty
-          ) {
-               this.productId = productId;
-               this.qtyNew = qtyNew;
-               this.cost = cost;
-               this.amount = amount;
-               this.expireDate = expireDate;
-               this.receivedQty = receivedQty;
-          }
-
-          @JsonProperty("receivedQty")
-          public Integer getReceivedQty() {
-               return receivedQty;
-          }
-
-          @JsonProperty("receivedQty")
-          public void setReceivedQty(Integer receivedQty) {
-               this.receivedQty = receivedQty;
-          }
-
-          @JsonProperty("productId")
-          public Integer getProductId() {
-               return productId;
-          }
-
-          @JsonProperty("productId")
-          public void setProductId(Integer value) {
-               this.productId = value;
-          }
-
-          @JsonProperty("qtyNew")
-          public Integer getQtyNew() {
-               return qtyNew;
-          }
-
-          @JsonProperty("qtyNew")
-          public void setQtyNew(Integer value) {
-               this.qtyNew = value;
-          }
-
-          @JsonProperty("cost")
-          public BigDecimal getCost() {
-               return cost;
-          }
-
-          @JsonProperty("cost")
-          public void setCost(BigDecimal value) {
-               this.cost = value;
-          }
-
-          @JsonProperty("amount")
-          public BigDecimal getAmount() {
-               return amount;
-          }
-
-          @JsonProperty("amount")
-          public void setAmount(BigDecimal value) {
-               this.amount = value;
-          }
-
-          @JsonProperty("expireDate")
-          public String getExpireDate() {
-               return expireDate;
-          }
-
-          @JsonProperty("expireDate")
-          public void setExpireDate(String value) {
-               this.expireDate = value;
-          }
-     }
-
-     public class ImportDetailRequest {
-
+     
+     
+     public class ImportDetailRequestSecond {
+          private Integer id;
           private Integer productId;
           private Integer qtyNew;
           private BigDecimal cost;
           private BigDecimal amount;
           private String expireDate;
 
-          public ImportDetailRequest(
+          public ImportDetailRequestSecond(
+               Integer id,
                Integer productId,
                Integer qtyNew,
                BigDecimal cost,
                BigDecimal amount,
                String expireDate
           ) {
+               this.id = id;
                this.productId = productId;
                this.qtyNew = qtyNew;
                this.cost = cost;
                this.amount = amount;
                this.expireDate = expireDate;
+          }   
+          
+          @JsonProperty("id")
+          public Integer getId() {
+              return id;
+          }
+
+          @JsonProperty("id")
+          public void setId(Integer value) {
+              this.id = id;
           }
 
           @JsonProperty("productId")
@@ -297,5 +223,4 @@ public class ImportRequest {
                this.expireDate = value;
           }
      }
-
 }

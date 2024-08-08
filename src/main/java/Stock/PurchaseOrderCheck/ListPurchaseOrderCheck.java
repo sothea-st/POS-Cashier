@@ -9,7 +9,7 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
-import Stock.PurchaseOrder.PurchaseNoData;
+import Stock.PurchaseOrderRequest.PurchaseNoData;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

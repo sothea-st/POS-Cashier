@@ -1,4 +1,4 @@
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -236,12 +236,10 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
         btnDetail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnDetail.setForeground(new java.awt.Color(0, 0, 0));
         btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDetail.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\info.png")); // NOI18N
 
         btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
 
         lbTransactionDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbTransactionDate.setForeground(new java.awt.Color(0, 0, 0));
@@ -261,7 +259,6 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
         btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnEdit.setForeground(new java.awt.Color(0, 0, 0));
         btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
 
         lbTranactionNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbTranactionNo.setForeground(new java.awt.Color(0, 0, 0));

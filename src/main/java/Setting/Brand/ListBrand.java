@@ -239,11 +239,13 @@ public class ListBrand extends javax.swing.JDialog {
                     System.err.println("error read image = " + e);
                 }
 
+                paginationPanel.setVisible(true);
                 listGetBrand.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
             listGetBrand.add(no);
+            paginationPanel.setVisible(false);
         }
         
         listGetBrand.revalidate();

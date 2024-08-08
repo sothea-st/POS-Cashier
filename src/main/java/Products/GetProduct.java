@@ -11,191 +11,221 @@ import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
-     public GetProduct() {
-          initComponents();
-//          id.setVisible(false);
-          JavaConstant.setPointer(btnDelete);
-          JavaConstant.setPointer(btnEdit);
-          proNameKh.setFont(WindowFonts.khmerOsContent12);
-     }
+    public GetProduct() {
+        initComponents();
+        JavaConstant.setPointer(btnDelete);
+        JavaConstant.setPointer(btnEdit);
+        JavaConstant.setPointer(btnDetail);
+        proNameKh.setFont(WindowFonts.khmerOsContent12);
+    }
 
-     private String productName;
-     private String productBarcode;
-     private String productPrice;
-     private int quantity;
-     private int productId;
-     private Icon image;
-     private Icon imageDelete;
-     private JPanel panelProduct;
-     private String productStatus;
+    private String productName;
+    private String productBarcode;
+    private String productPrice;
+    private int quantity;
+    private int productId;
+    private Icon iconEdit;
+    private Icon iconDelete;
+    private JPanel panelProduct;
+    private String productStatus;
+    private Icon iconDetail;
 
-     private JPanel listGetProduct;
+    private JPanel listGetProduct;
 
-     public JPanel getPanelProduct() {
-          return panelProduct;
-     }
+    public JPanel getPanelProduct() {
+        return panelProduct;
+    }
 
-     
-     public void setData(
-          String _barcode,
-          String _itemCode,
-          String _division,
-          String _vendorCode,
-          String _vendorName,
-          String _productName,
-          String _productNameKh,
-          String _qty,
-          String _price,
-          String _cost,
-          String _productId
-     ){
-          barcode.setText(_barcode);
-          itemCode.setText(_itemCode);
-          division.setText(_division);
-          vendorCode.setText(_vendorCode);
-          vendorName.setText(_vendorName);
-          proName.setText(_productName);
-          proNameKh.setText(_productNameKh);
-          qty.setText(_qty);
-          price.setText(_price);
-          cost.setText(_cost);
-          productId = Integer.parseInt(_productId);
-     }
-     
-     public void setPanelProduct(JPanel panelProduct) {
-          this.panelProduct = panelProduct;
-     }
+    public void setData(
+            String _barcode,
+            String _itemCode,
+            String _division,
+            String _vendorCode,
+            String _vendorName,
+            String _productName,
+            String _productNameKh,
+            String _qty,
+            String _price,
+            String _cost,
+            String _productId
+    ) {
+        barcode.setText(_barcode);
+        itemCode.setText(_itemCode);
+        division.setText(_division);
+        vendorCode.setText(_vendorCode);
+        vendorName.setText(_vendorName);
+        proName.setText(_productName);
+        proNameKh.setText(_productNameKh);
+        qty.setText(_qty);
+        price.setText(_price);
+        cost.setText(_cost);
+        productId = Integer.parseInt(_productId);
+    }
 
-     @SuppressWarnings("unchecked")
+    public void setPanelProduct(JPanel panelProduct) {
+        this.panelProduct = panelProduct;
+    }
 
-     public JPanel getListGetProduct() {
-          return listGetProduct;
-     }
+    @SuppressWarnings("unchecked")
 
-     public void setListGetProduct(JPanel listGetProduct) {
-          this.listGetProduct = listGetProduct;
-     }
+    public JPanel getListGetProduct() {
+        return listGetProduct;
+    }
 
-     public int getProductId() {
-          return productId;
-     }
+    public void setListGetProduct(JPanel listGetProduct) {
+        this.listGetProduct = listGetProduct;
+    }
 
-     public void setProductId(int productId) {
-          this.productId = productId;
-//          id.setText("" + productId);
-     }
+    public int getProductId() {
+        return productId;
+    }
 
-     public String getProductName() {
-          return productName;
-     }
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
-     public void setProductName(String productName) {
-          this.productName = productName;
-          proName.setText(productName);
-     }
+    public String getProductName() {
+        return productName;
+    }
 
-     public String getProductBarcode() {
-          return productBarcode;
-     }
+    public void setProductName(String productName) {
+        this.productName = productName;
+        proName.setText(productName);
+    }
 
-     public void setProductBarcode(String productBarcode) {
-          this.productBarcode = productBarcode;
-//          lbBarcode.setText(productBarcode);
-     }
+    public String getProductBarcode() {
+        return productBarcode;
+    }
 
-     public String getProductPrice() {
-          return productPrice;
-     }
+    public void setProductBarcode(String productBarcode) {
+        this.productBarcode = productBarcode;
+    }
 
-     public void setProductPrice(String productPrice) {
-          this.productPrice = productPrice;
-          price.setText(productPrice);
-     }
+    public String getProductPrice() {
+        return productPrice;
+    }
 
-     public int getQty() {
-          return quantity;
-     }
+    public void setProductPrice(String productPrice) {
+        this.productPrice = productPrice;
+        price.setText(productPrice);
+    }
 
-     public void setQty(int quantity) {
-          this.quantity = quantity;
-          qty.setText("" + quantity);
-     }
+    public int getQty() {
+        return quantity;
+    }
 
-     public Icon getImage() {
-          return image;
-     }
+    public void setQty(int quantity) {
+        this.quantity = quantity;
+        qty.setText("" + quantity);
+    }
 
-     public void setImage(Icon image) {
-          this.image = image;
-          btnEdit.setIcon(image);
-     }
+    public Icon getIconEdit() {
+        return iconEdit;
+    }
 
-     public String getProductStatus() {
-          return productStatus;
-     }
+    public void setIconEdit(Icon iconEdit) {
+        this.iconEdit = iconEdit;
+        btnEdit.setIcon(iconEdit);
+    }
 
-     public void setProductStatus(String productStatus) {
-          this.productStatus = productStatus;
-          price.setText(productStatus);
-     }
+    public String getProductStatus() {
+        return productStatus;
+    }
 
-     public Icon getImageDelete() {
-          return imageDelete;
-     }
+    public void setProductStatus(String productStatus) {
+        this.productStatus = productStatus;
+        price.setText(productStatus);
+    }
 
-     public void setImageDelete(Icon imageDelete) {
-          this.imageDelete = imageDelete;
-          btnDelete.setIcon(imageDelete);
-     }
+    public Icon getIconDelete() {
+        return iconDelete;
+    }
 
-     public void initEvent(ButtonEvent event) {
-          btnEdit.addMouseListener(new MouseListener() {
-               @Override
-               public void mouseClicked(MouseEvent e) {
-                    event.onSelect("" + productId);
-               }
+    public void setIconDelete(Icon iconDelete) {
+        this.iconDelete = iconDelete;
+        btnDelete.setIcon(iconDelete);
+    }
 
-               @Override
-               public void mousePressed(MouseEvent e) {
-               }
+    public Icon getIconDetail() {
+        return iconDetail;
+    }
 
-               @Override
-               public void mouseReleased(MouseEvent e) {
-               }
+    public void setIconDetail(Icon iconDetail) {
+        this.iconDetail = iconDetail;
+        btnDetail.setIcon(iconDetail);
+    }
 
-               @Override
-               public void mouseEntered(MouseEvent e) {
-               }
+    public void initEvent(ButtonEvent event) {
+        btnEdit.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                event.onSelect("" + productId);
+            }
 
-               @Override
-               public void mouseExited(MouseEvent e) {
-               }
-          });
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
-          btnDelete.addMouseListener(new MouseListener() {
-               @Override
-               public void mouseClicked(MouseEvent e) {
-                    event.onRemove("" + productId);
-               }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
 
-               @Override
-               public void mousePressed(MouseEvent e) {
-               }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
 
-               @Override
-               public void mouseReleased(MouseEvent e) {
-               }
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
 
-               @Override
-               public void mouseEntered(MouseEvent e) {
-               }
+        btnDelete.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                event.onRemove("" + productId);
+            }
 
-               @Override
-               public void mouseExited(MouseEvent e) {
-               }
-          });
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
 
-     }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+        btnDetail.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                event.onSelectDetail("" + productId);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            }
+        });
+
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -204,7 +234,6 @@ public class GetProduct extends javax.swing.JPanel {
         qty = new javax.swing.JLabel();
         btnEdit = new javax.swing.JLabel();
         price = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JLabel();
         barcode = new javax.swing.JLabel();
         itemCode = new javax.swing.JLabel();
         division = new javax.swing.JLabel();
@@ -212,6 +241,8 @@ public class GetProduct extends javax.swing.JPanel {
         vendorName = new javax.swing.JLabel();
         proNameKh = new javax.swing.JLabel();
         cost = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JLabel();
+        btnDetail = new javax.swing.JLabel();
 
         getProduct.setBackground(new java.awt.Color(255, 255, 255));
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -234,10 +265,6 @@ public class GetProduct extends javax.swing.JPanel {
         price.setForeground(new java.awt.Color(0, 0, 0));
         price.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         price.setText("Price");
-
-        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
-        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         barcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         barcode.setForeground(new java.awt.Color(0, 0, 0));
@@ -274,16 +301,26 @@ public class GetProduct extends javax.swing.JPanel {
         cost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cost.setText("Cost");
 
+        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        btnDetail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnDetail.setForeground(new java.awt.Color(0, 0, 0));
+        btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
         getProduct.setLayout(getProductLayout);
         getProductLayout.setHorizontalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itemCode, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,23 +344,23 @@ public class GetProduct extends javax.swing.JPanel {
         );
         getProductLayout.setVerticalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(proNameKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(getProductLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(qty)
-                        .addComponent(proName)
-                        .addComponent(btnEdit)
-                        .addComponent(price)
-                        .addComponent(barcode)
-                        .addComponent(itemCode)
-                        .addComponent(division)
-                        .addComponent(vendorCode)
-                        .addComponent(vendorName)
-                        .addComponent(cost))
-                    .addComponent(btnDelete))
+                .addGroup(getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(qty)
+                    .addComponent(proName)
+                    .addComponent(price)
+                    .addComponent(barcode)
+                    .addComponent(itemCode)
+                    .addComponent(division)
+                    .addComponent(vendorCode)
+                    .addComponent(vendorName)
+                    .addComponent(cost))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(proNameKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -344,6 +381,7 @@ public class GetProduct extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel barcode;
     private javax.swing.JLabel btnDelete;
+    private javax.swing.JLabel btnDetail;
     private javax.swing.JLabel btnEdit;
     private javax.swing.JLabel cost;
     private javax.swing.JLabel division;
