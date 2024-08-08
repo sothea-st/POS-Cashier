@@ -31,6 +31,7 @@ import com.example.pos.connection1.feature.product.productV1.dto.ProductRequestV
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseByFilter;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.connection1.feature.status.StatusRepository;
 import com.example.pos.connection1.feature.tax.TaxRepository;
 import com.example.pos.connection1.feature.uom.UomRepository;
@@ -368,6 +369,14 @@ public class ProductServiceImp implements ProductService {
         Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
         return productMapper.mapToProductResponseReadById(product);
+    }
+
+
+    //Get List Detail Product By Id When imported
+    @Override
+    public List<ProductResponseReadByProductId> readProductByProductId(int id) {
+        List<ProductResponseReadByProductId> product = productRepository.geProductByIdProduct(id);
+        return product;
     }
 
     /**

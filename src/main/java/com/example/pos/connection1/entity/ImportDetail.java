@@ -37,7 +37,7 @@ public class ImportDetail {
     private int impId;
 
 
-    @Column(name = "local_date'")
+    @Column(name = "local_date")
     private LocalDate localDate;
 
     @Column(name = "qty_new",length = 30)

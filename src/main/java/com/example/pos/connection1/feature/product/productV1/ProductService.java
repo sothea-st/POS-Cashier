@@ -1,9 +1,12 @@
 package com.example.pos.connection1.feature.product.productV1;
 
+import java.util.List;
+
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 public interface ProductService {
@@ -22,6 +25,15 @@ public interface ProductService {
      * @return The response containing details of the product found by ID.
      */
     ProductResponseReadById readProductById(int id);
+
+
+    /**
+     * Retrieves product details by its unique identifier when import.
+     * 
+     * @param id The unique identifier of the product.
+     * @return The response containing details of the product found by ID.
+     */
+    List<ProductResponseReadByProductId> readProductByProductId(int id);
 
     /**
      * Retrieves a collection of products based on pagination parameters.
