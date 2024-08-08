@@ -1,6 +1,7 @@
 package com.example.pos.connection1.feature.product;
 
 import com.example.pos.connection1.entity.Status;
+import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.connection1.repository.productProjection.ProductProjection;
 import com.example.pos.connection1.repository.productProjection.ProductQty;
 import com.example.pos.connection1.entity.Product;
@@ -107,6 +108,21 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "\tand is_deleted = false\r\n" + //
                         "\tand id =?")
         Product getProductById(int id);
+
+        //Query Select detail product that been imported 
+        @Query(nativeQuery = true, value = "select\r\n" + //
+                        "\t pp.id, \r\n" + //
+                        "\t pid.qty_old, \r\n" + //
+                        "\t pid.local_date, \r\n" + //
+                        "\t pp.price, \r\n" + //
+                        "\t pp.cost \r\n" + //
+                        "from pos_product pp inner join pos_import_detail pid on pid.pro_id = pp.id\r\n" + //
+                        "where\r\n" + //
+                        "\t pid.qty_old > 0 \r\n" + //
+                        "\t and pp.id = ? \r\n" + //
+                        "\t order by local_date asc")
+        List<ProductResponseReadByProductId> geProductByIdProduct(int id);
+
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\tpid.qty_old\r\n" + //

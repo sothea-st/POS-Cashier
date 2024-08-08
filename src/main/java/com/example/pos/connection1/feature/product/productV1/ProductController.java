@@ -44,6 +44,15 @@ public class ProductController {
                     .build();
      }
 
+     @GetMapping("/detail/{id}")
+     public JavaMessageResponse<?> readByProductId(@PathVariable("id") int id) {
+          return JavaMessageResponse.builder()
+                    .status(HttpStatus.OK.value())
+                    .msg(JavaMessageResponse.success)
+                    .data(productService.readProductByProductId(id))
+                    .build();
+     }
+
      @GetMapping
      public JavaCollectionResponse<?> read(
                @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
