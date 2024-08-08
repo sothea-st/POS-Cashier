@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 import BlogCode.JavaBlogImage;
 import Constant.JavaConstant;

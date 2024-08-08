@@ -6,7 +6,7 @@ import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Products.ListProduct;
-import Stock.PurchaseOrder.PurchaseOrder;
+import Stock.PurchaseOrderRequest.PurchaseOrder;
 import Stock.PurchaseOrderView.PurchaseOrderView;
 import Stock.PurchaseReceive.ListPurchaseReceive;
 import java.io.IOException;

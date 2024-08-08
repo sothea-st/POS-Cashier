@@ -24,10 +24,13 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -46,204 +49,203 @@ import pdf.PrintToExcel;
 
 public class ListProduct extends javax.swing.JDialog {
 
-     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
-     private String searchValue;
-     private int id;
+    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+    private String searchValue;
+    private int id;
 
-     private JPanel panelProduct;
-     private JPanel panelCategory;
-     private LoginFormJdailog jdLogin;
-     String status = "allProduct";
-     ProductResponseDetailV1[] listData;
-     private String pageNumber = "0";
-     private long totalPage = 0;
-     private int pageSize = 15;
-     private int code = 0;
-     private boolean isCheckSearch = true;
+    private JPanel panelProduct;
+    private JPanel panelCategory;
+    private LoginFormJdailog jdLogin;
+    String status = "allProduct";
+    ProductResponseDetailV1[] listData;
+    private String pageNumber = "0";
+    private long totalPage = 0;
+    private int pageSize = 15;
+    private int code = 0;
+    private boolean isCheckSearch = true;
 
-     ArrayList<ProductModel> listProduct = new ArrayList<>();
+    ArrayList<ProductModel> listProduct = new ArrayList<>();
 
-     public JPanel getPanelProduct() {
-          return panelProduct;
-     }
+    public JPanel getPanelProduct() {
+        return panelProduct;
+    }
 
-     public void setPanelProduct(JPanel panelProduct) {
-          this.panelProduct = panelProduct;
-     }
+    public void setPanelProduct(JPanel panelProduct) {
+        this.panelProduct = panelProduct;
+    }
 
-     public LoginFormJdailog getJdLogin() {
-          return jdLogin;
-     }
+    public LoginFormJdailog getJdLogin() {
+        return jdLogin;
+    }
 
-     public void setJdLogin(LoginFormJdailog jdLogin) {
-          this.jdLogin = jdLogin;
-     }
+    public void setJdLogin(LoginFormJdailog jdLogin) {
+        this.jdLogin = jdLogin;
+    }
 
-     public JPanel getPanelCategory() {
-          return panelCategory;
-     }
+    public JPanel getPanelCategory() {
+        return panelCategory;
+    }
 
-     public void setPanelCategory(JPanel panelCategory) {
-          this.panelCategory = panelCategory;
-     }
+    public void setPanelCategory(JPanel panelCategory) {
+        this.panelCategory = panelCategory;
+    }
 
-     public ListProduct(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          setBackground();
-          panelListProduct.setBackground(WindowColor.mediumGreen);
-          header.setBackground(WindowColor.darkGreen);
-          getProduct(listGetProduct, true, 0);
-          eventSearchProduct(this);
-          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        jScrollPane1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          searchField.setFocus();
-          // custome scrollbar ui
-          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          // custom scroll speed jscrollPane for vertical
-          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
-          JavaConstant.addTitleAndLogo(this, "Product");
+    public ListProduct(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        setBackground();
+        panelListProduct.setBackground(WindowColor.mediumGreen);
+        header.setBackground(WindowColor.darkGreen);
+        getProduct(listGetProduct, true, 0);
+        eventSearchProduct(this);
+        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        searchField.setFocus();
+        // custome scrollbar ui
+        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
+        JavaConstant.addTitleAndLogo(this, "Product");
 
-          allProduct.setBorder(new UnderlineBorder());
-          JavaConstant.setPointer(allProduct);
-          JavaConstant.setPointer(active);
-          JavaConstant.setPointer(inActive);
+        allProduct.setBorder(new UnderlineBorder());
+        JavaConstant.setPointer(allProduct);
+        JavaConstant.setPointer(active);
+        JavaConstant.setPointer(inActive);
 
-          eventPagination();
+        eventPagination();
 
-     }
+    }
 
-     private void eventPagination() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick(String value) {
-                    if (isCheckSearch) {
-                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                         pageNumber = String.valueOf(_value);
-                         switch (code) {
-                              case 0 -> {
-                                   getProduct(listGetProduct, true, 0);
-                                   break;
-                              }
-                              case 1 -> {
-                                   getProduct(listGetProduct, true, 1);
-                                   break;
-                              }
-                              case 2 -> {
-                                   getProduct(listGetProduct, true, 2);
-                                   break;
-                              }
-                         }
-
-                    }
-               }
-          };
-          paginationPanel.initEvent(event);
-     }
-
-     void setBackground() {
-          header.setBackground(WindowColor.darkGreen);
-     }
-
-     public void getProduct(JPanel jpanelData, boolean isCheck, int code) {
-
-          try {
-               Response response = null;
-
-               switch (code) {
-                    case 0 -> {
-                         if (isCheck) { // isCheck true get itmes
-                              response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
-                         } else { // isCheck false search
-                              isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
-                         }
-                    }
-                    case 1 -> {
-                         if (isCheck) { // isCheck true get itmes
-                              response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Active");
-                         } else { // isCheck false search
-                              isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Active");
-                         }
-                    }
-                    case 2 -> {
-                         if (isCheck) { // isCheck true get itmes
-                              response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Inactive");
-                             
-                         } else { // isCheck false search
-                              isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Inactive");
-                         }
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onMouseClick(String value) {
+                if (isCheckSearch) {
+                    int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                    pageNumber = String.valueOf(_value);
+                    switch (code) {
+                        case 0 -> {
+                            getProduct(listGetProduct, true, 0);
+                            break;
+                        }
+                        case 1 -> {
+                            getProduct(listGetProduct, true, 1);
+                            break;
+                        }
+                        case 2 -> {
+                            getProduct(listGetProduct, true, 2);
+                            break;
+                        }
                     }
 
-               }
+                }
+            }
+        };
+        paginationPanel.initEvent(event);
+    }
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
+    void setBackground() {
+        header.setBackground(WindowColor.darkGreen);
+    }
 
-                    if (isCheck) {
-                         paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
-                    } else {
-                         paginationPanel.resetPage();
+    public void getProduct(JPanel jpanelData, boolean isCheck, int code) {
+
+        try {
+            Response response = null;
+
+            switch (code) {
+                case 0 -> {
+                    if (isCheck) { // isCheck true get itmes
+                        response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+                    } else { // isCheck false search
+                        isCheckSearch = false;
+                        response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
                     }
+                }
+                case 1 -> {
+                    if (isCheck) { // isCheck true get itmes
+                        response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Active");
+                    } else { // isCheck false search
+                        isCheckSearch = false;
+                        response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Active");
+                    }
+                }
+                case 2 -> {
+                    if (isCheck) { // isCheck true get itmes
+                        response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Inactive");
 
-                    listData = data.getData();
-                    setProduct(listData);
-               } else {
-                    System.err.println("fail loading product");
-               }
-          } catch (Exception e) {
-               System.err.println("error getting product " + e);
-          }
-     }
+                    } else { // isCheck false search
+                        isCheckSearch = false;
+                        response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Inactive");
+                    }
+                }
 
-     public void setProduct(ProductResponseDetailV1[] listProductData) {
+            }
 
-          listGetProduct.removeAll();
-          listGetProduct.revalidate();
-          listGetProduct.repaint();
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
 
-          listGetProduct.setLayout(gridBagLayout);
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
+                } else {
+                    paginationPanel.resetPage();
+                }
 
-          int x = 0;
-          int y = 0;
-          if (listProductData.length == 0) {
-               listGetProduct.setLayout(new BorderLayout());
-               NotFound nofound = new NotFound();
-               listGetProduct.add(nofound, BorderLayout.CENTER);
-               listGetProduct.add(nofound);
-               listGetProduct.revalidate();
-               listGetProduct.repaint();
-               paginationPanel.setVisible(false);
-          }
+                listData = data.getData();
+                setProduct(listData);
+            } else {
+                System.err.println("fail loading product");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting product " + e);
+        }
+    }
 
-          for (ProductResponseDetailV1 p : listProductData) {
-               GridBagConstraints gbc = new GridBagConstraints();
-               gbc.gridx = x;
-               gbc.gridy = y;
-               gbc.gridwidth = 1;
-               gbc.anchor = gbc.NORTH;
-               x++;
-               if (x == 1) {
-                    x = 0;
-                    y++;
-               }
+    public void setProduct(ProductResponseDetailV1[] listProductData) {
 
-               Products.GetProduct prod = new Products.GetProduct();
-               prod.setData(
+        listGetProduct.removeAll();
+        listGetProduct.revalidate();
+        listGetProduct.repaint();
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+        listGetProduct.setLayout(gridBagLayout);
+
+        int x = 0;
+        int y = 0;
+        if (listProductData.length == 0) {
+            listGetProduct.setLayout(new BorderLayout());
+            NotFound nofound = new NotFound();
+            listGetProduct.add(nofound, BorderLayout.CENTER);
+            listGetProduct.add(nofound);
+            listGetProduct.revalidate();
+            listGetProduct.repaint();
+            paginationPanel.setVisible(false);
+        }
+
+        for (ProductResponseDetailV1 p : listProductData) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = x;
+            gbc.gridy = y;
+            gbc.gridwidth = 1;
+            gbc.anchor = gbc.NORTH;
+            x++;
+            if (x == 1) {
+                x = 0;
+                y++;
+            }
+
+            Products.GetProduct prod = new Products.GetProduct();
+            prod.setData(
                     p.getBarcode(),
                     p.getItemCode(),
                     p.getSubCatNameEn(),
@@ -252,123 +254,144 @@ public class ListProduct extends javax.swing.JDialog {
                     p.getProNameEn(),
                     p.getProNameKh(),
                     String.valueOf(p.getQty() == null ? 0 : p.getQty()),
-                    "$" + String.valueOf(String.format("%.2f", p.getPrice())),
-                    "$" + String.valueOf(String.format("%.2f", p.getCost())),
+                    "$ " + String.valueOf(String.format("%.2f", p.getPrice())),
+                    "$ " + String.valueOf(String.format("%.2f", p.getCost())),
                     String.valueOf(p.getID())
-               );
-               prod.setProductId(p.getID());
-               try {
-                    TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              prod.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                              prod.setImageDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                         }
-                    };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500);
-
-               } catch (Exception e) {
-                    System.err.println("error read image = " + e);
-               }
-
-               ButtonEvent events = new ButtonEvent() {
+            );
+            prod.setProductId(p.getID());
+            try {
+                TimerTask task = new TimerTask() {
                     @Override
-                    public void onSelect(String id) {
-                         eventEdit(id);
+                    public void run() {
+                        prod.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+                        prod.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+                        prod.setIconDetail(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "3141f98b-6212-4fa2-8a16-91a9cbc2af62")));
                     }
+                };
 
-                    @Override
-                    public void onRemove(String id) {
-                         eventRemove(id);
+                Timer timer = new Timer();
+                timer.schedule(task, 500);
+
+            } catch (Exception e) {
+                System.err.println("error read image = " + e);
+            }
+
+            ButtonEvent events = new ButtonEvent() {
+                @Override
+                public void onSelect(String id) {
+                    eventEdit(id);
+                }
+
+                @Override
+                public void onRemove(String id) {
+                    eventRemove(id);
+                }
+
+                @Override
+                public void onSelectDetail(String id) {
+
+                    try {
+                        DetailProduct detail = new DetailProduct(new JFrame(), true, id);
+                        
+                        detail.setDetailValue(
+                                String.valueOf(p.getProNameEn()),
+                                String.valueOf(p.getProNameKh()),
+                                String.valueOf(p.getBarcode()),
+                                String.valueOf(p.getItemCode()),
+                                String.valueOf(p.getVendorName()),
+                                String.valueOf(p.getSubCatNameEn()),
+                                String.valueOf(p.getQty())
+                        );
+                        
+                        detail.setVisible(true);
+                        
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                }
 
-               };
-               prod.initEvent(events);
-               
-               paginationPanel.setVisible(true);
+            };
+            prod.initEvent(events);
 
-               if (status.equals("allProduct")) {
-                    listGetProduct.add(prod, gbc);
-               } else if (status.toLowerCase().equals(p.getStatusName().toLowerCase())) {
-                    listGetProduct.add(prod, gbc);
-               }
-          }
+            paginationPanel.setVisible(true);
 
-     }
+            if (status.equals("allProduct")) {
+                listGetProduct.add(prod, gbc);
+            } else if (status.toLowerCase().equals(p.getStatusName().toLowerCase())) {
+                listGetProduct.add(prod, gbc);
+            }
+        }
 
-     private void eventRemove(String id) {
-          try {
-               UIManager UI = new UIManager();
-               UI.put("OptionPane.background", WindowColor.mediumGreen);
-               UI.put("Panel.background", WindowColor.mediumGreen);
-               UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+    }
 
-               int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
+    private void eventRemove(String id) {
+        try {
+            UIManager UI = new UIManager();
+            UI.put("OptionPane.background", WindowColor.mediumGreen);
+            UI.put("Panel.background", WindowColor.mediumGreen);
+            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
                     "Delete Product?", JOptionPane.YES_NO_OPTION);
 
-               if (resp == JOptionPane.YES_OPTION) {
-                    Response response = JavaConnection.delete(JavaRoute.productV1 + "/" + id);
-                    if (response.isSuccessful()) {
+            if (resp == JOptionPane.YES_OPTION) {
+                Response response = JavaConnection.delete(JavaRoute.productV1 + "/" + id);
+                if (response.isSuccessful()) {
 
-                         listGetProduct.removeAll();
-                         listGetProduct.revalidate();
-                         listGetProduct.repaint();
-                         getProduct(listGetProduct, true, 0);
+                    listGetProduct.removeAll();
+                    listGetProduct.revalidate();
+                    listGetProduct.repaint();
+                    getProduct(listGetProduct, true, 0);
+                    System.out.println("Successful deleted ");
+                }
+            } else {
+                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            }
 
-//                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
-//                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
-                         System.out.println("Successful deleted ");
-                    }
-               } else {
-                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-               }
-
-          } catch (Exception e) {
-               System.err.println("error getting product " + e);
-          }
-     }
-
-     private void eventEdit(String id) {
-          Response response = JavaConnection.get(JavaRoute.productV1 + "/" + id);
-          try {
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    ProductResponseByIdV1 productResponseByIdV1 = objectMapper.readValue(responseData, ProductResponseByIdV1.class);
-                    ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
-                    InsertProduct insertProduct = new InsertProduct(new Frame(), true);
-                    insertProduct.setId(data.getID());
-                    insertProduct.setListGetProduct(listGetProduct);
-                    insertProduct.setListProduct(this);
-                    insertProduct.setEdit(
-                         data.getBarcode(),
-                         String.valueOf(data.getVendorID()),
-                         String.valueOf(data.getBrandID()),
-                         String.valueOf(data.getSubCatID()),
-                         String.valueOf(data.getProNameEn()),
-                         String.valueOf(data.getProNameKh() == null ? "" : data.getProNameKh()),
-                         String.valueOf(data.getCost()),
-                         String.valueOf(data.getPrice()),
-                         String.valueOf(data.getMargin()),
-                         String.valueOf(data.getAttributeID()),
-                         String.valueOf(data.getChoices()),
-                         String.valueOf(data.getUomID()),
-                         String.valueOf(data.getProductActiveID()),
-                         String.valueOf(data.getCountryID()),
-                         String.valueOf(data.getTaxID()),
-                         String.valueOf(data.getProImageName())
-                    );
-                    insertProduct.setJdLogin(jdLogin);
-                    insertProduct.setPanelProduct(panelProduct);
-                    insertProduct.setPanelCategory(panelCategory);
-                    insertProduct.setVisible(true);
-               }
-          } catch (Exception e) {
-               System.out.println("Error : " + e);
-          }
-     }
+        } catch (Exception e) {
+            System.err.println("error getting product " + e);
+        }
+    }
+     
+    private void eventEdit(String id) {
+        Response response = JavaConnection.get(JavaRoute.productV1 + "/" + id);
+        try {
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objectMapper = new ObjectMapper();
+                ProductResponseByIdV1 productResponseByIdV1 = objectMapper.readValue(responseData, ProductResponseByIdV1.class);
+                ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
+                InsertProduct insertProduct = new InsertProduct(new Frame(), true);
+                insertProduct.setId(data.getID());
+                insertProduct.setListGetProduct(listGetProduct);
+                insertProduct.setListProduct(this);
+                insertProduct.setEdit(
+                        data.getBarcode(),
+                        String.valueOf(data.getVendorID()),
+                        String.valueOf(data.getBrandID()),
+                        String.valueOf(data.getSubCatID()),
+                        String.valueOf(data.getProNameEn()),
+                        String.valueOf(data.getProNameKh() == null ? "" : data.getProNameKh()),
+                        String.valueOf(data.getCost()),
+                        String.valueOf(data.getPrice()),
+                        String.valueOf(data.getMargin()),
+                        String.valueOf(data.getAttributeID()),
+                        String.valueOf(data.getChoices()),
+                        String.valueOf(data.getUomID()),
+                        String.valueOf(data.getProductActiveID()),
+                        String.valueOf(data.getCountryID()),
+                        String.valueOf(data.getTaxID()),
+                        String.valueOf(data.getProImageName())
+                );
+                insertProduct.setJdLogin(jdLogin);
+                insertProduct.setPanelProduct(panelProduct);
+                insertProduct.setPanelCategory(panelCategory);
+                insertProduct.setVisible(true);
+            }
+        } catch (Exception e) {
+            System.out.println("Error : " + e);
+        }
+    }
 
 //     private void search() {
 //          isCheckSearch = false;
@@ -388,55 +411,56 @@ public class ListProduct extends javax.swing.JDialog {
 //
 //          }
 //     }
-     //Action Search
-     private void eventSearchProduct(ListProduct listP) {
-          // this event was called when user type on searchTextField 
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
-                    TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              searchValue = searchField.getValueTextSearch();
-                              paginationPanel.resetPage();
-                              pageNumber = "0";
+    
+        //Action Search
+    private void eventSearchProduct(ListProduct listP) {
+        // this event was called when user type on searchTextField 
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        searchValue = searchField.getValueTextSearch();
+                        paginationPanel.resetPage();
+                        pageNumber = "0";
 
-                              if (searchValue.isEmpty()) {
-                                   isCheckSearch = true;
-                                   pageNumber = "0";
-                                   searchCode(true);
-                                   return;
-                              }
-                              searchCode(false);
-                         }
-                    };
+                        if (searchValue.isEmpty()) {
+                            isCheckSearch = true;
+                            pageNumber = "0";
+                            searchCode(true);
+                            return;
+                        }
+                        searchCode(false);
+                    }
+                };
 
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500);
+                Timer timer = new Timer();
+                timer.schedule(task, 500);
 
-               }
-          };
-          searchField.initEvent(event);
-     }
+            }
+        };
+        searchField.initEvent(event);
+    }
 
-     private void searchCode(boolean isC) {
-          switch (code) {
-               case 0 -> {
-                    getProduct(listGetProduct, isC, 0);
-                    break;
-               }
-               case 1 -> {
-                    getProduct(listGetProduct, isC, 1);
-                    break;
-               }
-               case 2 -> {
-                    getProduct(listGetProduct, isC, 2);
-                    break;
-               }
-          }
-     }
+    private void searchCode(boolean isC) {
+        switch (code) {
+            case 0 -> {
+                getProduct(listGetProduct, isC, 0);
+                break;
+            }
+            case 1 -> {
+                getProduct(listGetProduct, isC, 1);
+                break;
+            }
+            case 2 -> {
+                getProduct(listGetProduct, isC, 2);
+                break;
+            }
+        }
+    }
 
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -731,30 +755,31 @@ public class ListProduct extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-     static class UnderlineBorder implements Border {
+    static class UnderlineBorder implements Border {
 
-          private final MatteBorder matteBorder;
+        private final MatteBorder matteBorder;
 
-          public UnderlineBorder() {
-               matteBorder = new MatteBorder(0, 0, 1, 0, Color.BLACK);
-          }
+        public UnderlineBorder() {
+            matteBorder = new MatteBorder(0, 0, 1, 0, Color.BLACK);
+        }
 
-          @Override
-          public void paintBorder(java.awt.Component c, Graphics g, int x, int y, int width, int height) {
-               Insets insets = matteBorder.getBorderInsets(c);
-               matteBorder.paintBorder(c, g, x, y + height - insets.bottom, width, insets.bottom);
-          }
+        @Override
+        public void paintBorder(java.awt.Component c, Graphics g, int x, int y, int width, int height) {
+            Insets insets = matteBorder.getBorderInsets(c);
+            matteBorder.paintBorder(c, g, x, y + height - insets.bottom, width, insets.bottom);
+        }
 
-          @Override
-          public Insets getBorderInsets(java.awt.Component c) {
-               return matteBorder.getBorderInsets(c);
-          }
+        @Override
+        public Insets getBorderInsets(java.awt.Component c) {
+            return matteBorder.getBorderInsets(c);
+        }
 
-          @Override
-          public boolean isBorderOpaque() {
-               return matteBorder.isBorderOpaque();
-          }
-     }
+        @Override
+        public boolean isBorderOpaque() {
+            return matteBorder.isBorderOpaque();
+        }
+    }
+
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
 
          InsertProduct add = new InsertProduct(new JFrame(), true);
@@ -767,140 +792,140 @@ public class ListProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_button1MouseClicked
 
      private void btnCsvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCsvMouseClicked
-          exportFunc("csv");
+         exportFunc("csv");
      }//GEN-LAST:event_btnCsvMouseClicked
 
      private void btnPdfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPdfMouseClicked
-          exportFunc("pdf");
+         exportFunc("pdf");
      }//GEN-LAST:event_btnPdfMouseClicked
 
      private void btnExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcelMouseClicked
-          exportFunc("excel");
+         exportFunc("excel");
      }//GEN-LAST:event_btnExcelMouseClicked
 
-     private void exportFunc(String typeExport) {
-          setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-          Response response = JavaConnection.get(JavaRoute.productV1);
-          try {
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
-                    setCursor(Cursor.getDefaultCursor());
-                    switch (typeExport) {
-                         case "excel" -> {
-                              msgPrint(PrintToExcel.folderPath);
-                              PrintToExcel.toExcel(data.getData());
-                              break;
-                         }
-                         case "pdf" -> {
-                              msgPrint(PrintListPDF.folderPath);
-                              PrintListPDF.printListPdf(data.getData());
-                              break;
-                         }
-                         case "csv" -> {
-                              msgPrint(PrintToCSV.folderPath);
-                              PrintToCSV.exportToCSV(data.getData());
-                              break;
-                         }
+    private void exportFunc(String typeExport) {
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        Response response = JavaConnection.get(JavaRoute.productV1);
+        try {
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
+                setCursor(Cursor.getDefaultCursor());
+                switch (typeExport) {
+                    case "excel" -> {
+                        msgPrint(PrintToExcel.folderPath);
+                        PrintToExcel.toExcel(data.getData());
+                        break;
                     }
+                    case "pdf" -> {
+                        msgPrint(PrintListPDF.folderPath);
+                        PrintListPDF.printListPdf(data.getData());
+                        break;
+                    }
+                    case "csv" -> {
+                        msgPrint(PrintToCSV.folderPath);
+                        PrintToCSV.exportToCSV(data.getData());
+                        break;
+                    }
+                }
 
-               }
-          } catch (Exception e) {
-               System.out.println("error export : " + e);
-          }
-     }
+            }
+        } catch (Exception e) {
+            System.out.println("error export : " + e);
+        }
+    }
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-          this.dispose();
+         this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void allProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allProductMouseClicked
-          removeBorder(active);
-          removeBorder(inActive);
-          allProduct.setBorder(new UnderlineBorder());
-          status = "allProduct";
-          code = 0;
-          pageNumber = "0";
-          paginationPanel.resetPage();
-          getProduct(listGetProduct, true, 0);
+         removeBorder(active);
+         removeBorder(inActive);
+         allProduct.setBorder(new UnderlineBorder());
+         status = "allProduct";
+         code = 0;
+         pageNumber = "0";
+         paginationPanel.resetPage();
+         getProduct(listGetProduct, true, 0);
      }//GEN-LAST:event_allProductMouseClicked
 
      private void activeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_activeMouseClicked
-          removeBorder(allProduct);
-          removeBorder(inActive);
-          active.setBorder(new UnderlineBorder());
-          status = "active";
-          code = 1;
-          pageNumber = "0";
-          paginationPanel.resetPage();
-          getProduct(listGetProduct, true, 1);
+         removeBorder(allProduct);
+         removeBorder(inActive);
+         active.setBorder(new UnderlineBorder());
+         status = "active";
+         code = 1;
+         pageNumber = "0";
+         paginationPanel.resetPage();
+         getProduct(listGetProduct, true, 1);
 
      }//GEN-LAST:event_activeMouseClicked
 
      private void inActiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inActiveMouseClicked
-          removeBorder(active);
-          removeBorder(allProduct);
-          inActive.setBorder(new UnderlineBorder());
-          status = "inActive";
-          code = 2;
-          pageNumber = "0";
-          paginationPanel.resetPage();
-          getProduct(listGetProduct, true, 2);
+         removeBorder(active);
+         removeBorder(allProduct);
+         inActive.setBorder(new UnderlineBorder());
+         status = "inActive";
+         code = 2;
+         pageNumber = "0";
+         paginationPanel.resetPage();
+         getProduct(listGetProduct, true, 2);
 
 
      }//GEN-LAST:event_inActiveMouseClicked
 
-     private void removeBorder(JLabel label) {
-          label.setBorder(new EmptyBorder(0, 0, 0, 0));
-     }
+    private void removeBorder(JLabel label) {
+        label.setBorder(new EmptyBorder(0, 0, 0, 0));
+    }
 
-     public static void msgPrint(String path) {
-          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-          j.setIsShow(true);
-          j.setMessage("File was saved to path " + path);
-          j.setPathOpen(path);
-          j.setVisible(true);
-     }
+    public static void msgPrint(String path) {
+        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+        j.setIsShow(true);
+        j.setMessage("File was saved to path " + path);
+        j.setPathOpen(path);
+        j.setVisible(true);
+    }
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ListProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    ListProduct dialog = new ListProduct(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ListProduct dialog = new ListProduct(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Division;

@@ -1,4 +1,4 @@
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 import BlogCode.JavaBlogImage;
 import Color.WindowColor;

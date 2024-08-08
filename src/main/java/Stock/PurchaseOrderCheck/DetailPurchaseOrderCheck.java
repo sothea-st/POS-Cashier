@@ -7,9 +7,9 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 
-import Stock.PurchaseOrder.GetDetailPurchase;
-import Stock.PurchaseOrder.ImportRequest;
-import Stock.PurchaseOrder.TdDetailPurchaseOrder;
+import Stock.PurchaseOrderRequest.GetDetailPurchase;
+import Stock.PurchaseOrderRequest.ImportRequest;
+import Stock.PurchaseOrderRequest.TdDetailPurchaseOrder;
 import Stock.PurchaseOrderApprove.ActionReject;
 import Stock.PurchaseReceive.ListPurchaseReceive;
 

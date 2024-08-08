@@ -1,6 +1,7 @@
 package Components;
 
 import Color.WindowColor;
+import static Components.TextField.containsKhmer;
 import Fonts.WindowFonts;
 
 /**
@@ -22,7 +23,13 @@ public class Label extends javax.swing.JPanel {
     public void setLabelName(String labelName) {
         this.labelName = labelName;
         lbLabel.setText(labelName);
+        if(containsKhmer(lbLabel.getText())){
+            lbLabel.setFont(WindowFonts.khmerOsContent12);
+        }else{
+            lbLabel.setFont(WindowFonts.timeNewRomanBold14);
+        }
     }
+    
 
     /**
      * Creates new form Label
@@ -30,9 +37,25 @@ public class Label extends javax.swing.JPanel {
     public Label() {
         initComponents();
         setBackground(WindowColor.mediumGreen);
-        lbLabel.setFont(WindowFonts.timeNewRomanBold14);
-        lbLabel.setForeground(WindowColor.black);
-        
+        lbLabel.setForeground(WindowColor.black);        
+    }
+    
+    
+    public static boolean isKhmerCharacter(char c) {
+        return (c >= '\u1780' && c <= '\u17FF') || (c >= '\u19E0' && c <= '\u19FF');
+    }
+
+    // Method to detect if a string contains any Khmer characters
+    public static boolean containsKhmer(String text) {
+        if (text == null || text.isEmpty()) {
+            return false;
+        }
+        for (char c : text.toCharArray()) {
+            if (isKhmerCharacter(c)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")

@@ -4,7 +4,7 @@ import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
-import Stock.PurchaseOrder.PurchaseOrder;
+import Stock.PurchaseOrderRequest.PurchaseOrder;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import java.io.IOException;
 import java.util.Timer;

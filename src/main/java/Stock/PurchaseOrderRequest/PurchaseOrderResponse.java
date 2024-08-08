@@ -1,4 +1,4 @@
-package Stock.PurchaseOrder;
+package Stock.PurchaseOrderRequest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
