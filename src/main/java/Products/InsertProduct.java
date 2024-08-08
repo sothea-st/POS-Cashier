@@ -944,6 +944,7 @@ public class InsertProduct extends javax.swing.JDialog {
 
      public void setId(Integer id) {
           this.id = id;
+          labelPopUpTitle1.setLabelTitle("Edit Product");
      }
 
 

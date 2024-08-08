@@ -24,8 +24,8 @@ public class GetDetailPurchase extends javax.swing.JPanel {
         lbSubCategory.setText(subCategoryValue);
         lbAvailbleQty.setText(availableQtyValue);
         lbQty.setText(qtyValue);
-        lbCost.setText("$ " + costValue);
-        lbTotalCost.setText("$ " + amountValue);
+        lbCost.setText(costValue);
+        lbTotalCost.setText(amountValue);
     }
     
     public GetDetailPurchase() {

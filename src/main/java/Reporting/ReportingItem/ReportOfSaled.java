@@ -1,5 +1,7 @@
 package Reporting.ReportingItem;
 
+import Constant.JavaConstant;
+
 /**
  *
  * @author MOBILE-APP.02
@@ -30,7 +32,13 @@ public class ReportOfSaled extends javax.swing.JPanel {
      ) {
           number.setText(numberValue);
           transactionNumber.setText(transactionValue);
-          date.setText(dateValue);
+          
+          if(dateValue != "null"){
+               date.setText(JavaConstant.formateDateDDMMYYYY(dateValue));
+          }else{
+              date.setText("N/A");
+          }
+          
           productName.setText(productNameValue);
           qty.setText(qtyValue);
           price.setText("$ "+priceValue);

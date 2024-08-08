@@ -183,7 +183,7 @@ public class TdDetailPurchaseOrder extends javax.swing.JPanel {
                     double costValue = Double.parseDouble(_cost);
                     double result = qtyValue * costValue;
 
-                    String _text = "$".concat(String.format("%.2f", result));
+                    String _text = "$ ".concat(String.format("%.2f", result));
                     amount.setText(_text);
                     event.onKeyPress();
                }
