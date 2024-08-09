@@ -36,7 +36,7 @@ public class PrintToExcel {
                Workbook workbook = new XSSFWorkbook();
                Sheet sheet = workbook.createSheet("Sheet1");
                ArrayList<Object[]> dataList = new ArrayList<>();
-               dataList.add(new Object[]{"Barcode", "ItemCode", "Sub Category", "Vendor Code", "Vendor Name",
+               dataList.add(new Object[]{"Barcode", "Item Code", "Sub Category", "Vendor Code", "Vendor Name",
                     "Product Name", "Product Name Kh", "Total Qty", "Sale Price", "Cost", "Image"});
                for (ProductResponseDetailV1 p : listProduct) {
                     String url = null;
@@ -61,8 +61,8 @@ public class PrintToExcel {
                               String.valueOf(p.getProNameEn()),
                               String.valueOf(p.getProNameEn()),
                               String.valueOf(p.getQty()),
-                              String.valueOf(p.getPrice()),
-                              String.valueOf(p.getCost()),
+                              "$".concat(String.valueOf(p.getPrice())),
+                              "$".concat(String.valueOf(p.getCost())),
                               getImageBytes(url)
                          });
                }
@@ -91,7 +91,7 @@ public class PrintToExcel {
                          Cell cell = row.createCell(j);
                          if (dataList.get(i)[j] instanceof String) {
                               if (String.valueOf(dataList.get(i)[j]).equals("Barcode")
-                                   || String.valueOf(dataList.get(i)[j]).equals("ItemCode")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Item Code")
                                    || String.valueOf(dataList.get(i)[j]).equals("Sub Category")
                                    || String.valueOf(dataList.get(i)[j]).equals("Vendor Code")
                                    || String.valueOf(dataList.get(i)[j]).equals("Vendor Name")

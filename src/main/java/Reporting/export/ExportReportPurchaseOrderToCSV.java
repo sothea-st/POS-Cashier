@@ -68,7 +68,7 @@ public class ExportReportPurchaseOrderToCSV {
                          String.valueOf(detail.getApprovedBy()),
                          String.valueOf(detail.getRejectBy()),
                          String.valueOf(detail.getTotalQty()),
-                         String.valueOf(detail.getTotalCost()),
+                         "$".concat(String.valueOf(detail.getTotalCost())),
                          String.valueOf(detail.getRemark())};
                     writer.writeNext(data);
                }

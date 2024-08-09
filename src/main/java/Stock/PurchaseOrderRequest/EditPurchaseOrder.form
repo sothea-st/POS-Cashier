@@ -172,7 +172,7 @@
       <SubComponents>
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle2">
           <Properties>
-            <Property name="labelTitle" type="java.lang.String" value="Edit Purchase Order"/>
+            <Property name="labelTitle" type="java.lang.String" value="Edit Purchase Request"/>
           </Properties>
         </Component>
         <Component class="Components.Label" name="label5">

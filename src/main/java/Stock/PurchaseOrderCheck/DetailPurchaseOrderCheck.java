@@ -98,6 +98,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
 
         if (typeForm.equals("approved")) {
             labelPopUpTitle2.setLabelTitle(" Detail Purchase Approval");
+            buttonSave.setTitleButton("Approve");
         }
 
         if (typeForm.equals("checked")) {
