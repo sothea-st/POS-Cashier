@@ -556,7 +556,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
      private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
           if (vendorId == null || vendorId.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Vendor Id can not be empty!");
+               JOptionPane.showMessageDialog(this, "Please select a vendor name!");
                return;
           }
 
