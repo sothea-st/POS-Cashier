@@ -41,260 +41,260 @@ import pdf.PrintToExcel;
 
 public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
-    private String dateFromValue;
-    private String dateToValue;
-    private String userId;
-    private String pageNumber = "0";
-    private int pageSize = 10;
-    private boolean isCheckSearch = true;
-    private String searchValue;
-    public ArrayList<ReportReceiveDetail> listDetail = new ArrayList<>();
+     private String dateFromValue;
+     private String dateToValue;
+     private String userId;
+     private String pageNumber = "0";
+     private int pageSize = 10;
+     private boolean isCheckSearch = true;
+     private String searchValue;
+     public ArrayList<ReportReceiveDetail> listDetail = new ArrayList<>();
 
-    public ReportingPurchaseReceive(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+     public ReportingPurchaseReceive(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-        searchField.setFocus();
-        // custome scrollbar ui
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        JavaConstant.addTitleAndLogo(this, "Reporting Purchase Receive");
+          searchField.setFocus();
+          // custome scrollbar ui
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          JavaConstant.addTitleAndLogo(this, "Reporting Purchase Receive");
 
-        // set background color
-        listGetOrder.setBackground(WindowColor.mediumGreen);
-        header.setBackground(WindowColor.darkGreen);
+          // set background color
+          listGetOrder.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
 
-        addComboUser();
-        // action get select brand
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                userId = key;
-            }
-        };
-        userCombobox.initEvent(event);
+          addComboUser();
+          // action get select brand
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    userId = key;
+               }
+          };
+          userCombobox.initEvent(event);
 
-        eventPagination();
+          eventPagination();
 
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
 
-            }
-        };
-        dateFrom.initEvent(btnevent);
-        dateTo.initEvent(btnevent);
+               }
+          };
+          dateFrom.initEvent(btnevent);
+          dateTo.initEvent(btnevent);
 
-        eventSearchPurchaseReceive();
-        groupEvent();
-        paginationPanel.setVisible(false);
+          eventSearchPurchaseReceive();
+          groupEvent();
+          paginationPanel.setVisible(false);
 
-    }
+     }
 
-    private void groupEvent() {
-        // event export to excel
-        ButtonEvent excel = new ButtonEvent() {
-            @Override
-            public void onMouseClick() {
-                export(1);
-            }
-        };
+     private void groupEvent() {
+          // event export to excel
+          ButtonEvent excel = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    export(1);
+               }
+          };
 
-        groupButtonExport.excelEvent(excel);
+          groupButtonExport.excelEvent(excel);
 
-        // event export to csv
-        ButtonEvent csv = new ButtonEvent() {
-            @Override
-            public void onMouseClick() {
-                export(2);
-            }
-        };
+          // event export to csv
+          ButtonEvent csv = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    export(2);
+               }
+          };
 
-        groupButtonExport.csvEvent(csv);
-        // event export to pdf
-        ButtonEvent pdf = new ButtonEvent() {
-            @Override
-            public void onMouseClick() {
-                export(3);
-            }
-        };
+          groupButtonExport.csvEvent(csv);
+          // event export to pdf
+          ButtonEvent pdf = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    export(3);
+               }
+          };
 
-        groupButtonExport.pdfEvent(pdf);
-    }
+          groupButtonExport.pdfEvent(pdf);
+     }
 
-    //Export
-    private void export(int type) {
-        if (listDetail.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Can not export .");
-            return;
-        }
+     //Export
+     private void export(int type) {
+          if (listDetail.isEmpty()) {
+               JOptionPane.showMessageDialog(null, "Can not export .");
+               return;
+          }
 
-        Response response = null;
-        String endpoint = "";
+          Response response = null;
+          String endpoint = "";
 
-        if (userId == null) {
-            response = JavaConnection.get(JavaRoute.reportReceive + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
-        } else {
-            endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
-            response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
-        }
+          if (userId == null) {
+               response = JavaConnection.get(JavaRoute.reportReceive + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+          } else {
+               endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
+               response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
+          }
 
-        try {
-            String responseData = response.body().string();
-            ObjectMapper objectMapper = new ObjectMapper();
-            ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
-            ReportReceiveDetail[] lists = data.getData();
-            listDetail.clear();
-            listDetail.addAll(Arrays.asList(lists));
+          try {
+               String responseData = response.body().string();
+               ObjectMapper objectMapper = new ObjectMapper();
+               ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
+               ReportReceiveDetail[] lists = data.getData();
+               listDetail.clear();
+               listDetail.addAll(Arrays.asList(lists));
 
-            switch (type) {
-                case 1 -> {
-                    ListProduct.msgPrint(PrintToExcel.folderPath);
-                    ExportReportReceiveToExcel.toExcel(listDetail);
-                    break;
-                }
-                case 2 -> {
-                    ListProduct.msgPrint(PrintToCSV.folderPath);
-                    ExportReportReceiveToCSV.toCSV(listDetail);
-                    break;
-                }
-
-                case 3 -> {
-                    ListProduct.msgPrint(PrintListPDF.folderPath);
-                    try {
-                        ExportReportReceiveToPDF.printListPdf(listDetail);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
+               switch (type) {
+                    case 1 -> {
+                         ListProduct.msgPrint(PrintToExcel.folderPath);
+                         ExportReportReceiveToExcel.toExcel(listDetail);
+                         break;
                     }
-                }
-
-            }
-
-        } catch (Exception e) {
-            System.err.println("error export : " + e);
-        }
-    }
-
-    //Combobox
-    private void addComboUser() {
-        try {
-            HashMap<String, String> map = new HashMap<>();
-            Response response = JavaConnection.get(JavaRoute.userAccount);
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
-                UserDataModel[] listData = data.getData();
-                for (UserDataModel user : listData) {
-                    int userId = user.getId();
-                    String userName = user.getFullName();
-                    map.put(userName, "" + userId);
-                }
-                userCombobox.setMap(map);
-            } else {
-                System.err.println("fail loading user");
-            }
-
-        } catch (Exception e) {
-            System.err.println("error = " + e);
-        }
-    }
-    
-    //Pagination
-    private void eventPagination() {
-        ButtonEvent paginationEvent = new ButtonEvent() {
-            @Override
-            public void onMouseClick(String value) {
-                if (isCheckSearch) {
-                    int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                    pageNumber = String.valueOf(_value);
-                    getReport(true);
-                } 
-            }
-        };
-        paginationPanel.initEvent(paginationEvent);
-    }
-
-    //Action Search
-    private void eventSearchPurchaseReceive() {
-        // this event was called when user type on searchTextField 
-        ButtonEvent events = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        searchValue = searchField.getValueTextSearch();
-                        paginationPanel.resetPage();
-                        pageNumber = "0";
-                        
-                        if (searchValue.isEmpty()) {
-                            isCheckSearch = true;
-                            pageNumber = "0";
-                            getReport(true);
-                            return;
-                        }
-                        getReport(false);
+                    case 2 -> {
+                         ListProduct.msgPrint(PrintToCSV.folderPath);
+                         ExportReportReceiveToCSV.toCSV(listDetail);
+                         break;
                     }
-                };
-                Timer time = new Timer();
-                time.schedule(task, 500);
-            }
-        };
-        searchField.initEvent(events);
-    }
 
-    void reloadPanel() {
-        listGetOrder.removeAll();
-        listGetOrder.revalidate();
-        listGetOrder.repaint();
-    }
+                    case 3 -> {
+                         ListProduct.msgPrint(PrintListPDF.folderPath);
+                         try {
+                              ExportReportReceiveToPDF.printListPdf(listDetail);
+                         } catch (IOException ex) {
+                              Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                    }
 
-    void appendPurchaseReceive(ReportReceiveDetail[] lists) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        reloadPanel();
-        listGetOrder.setLayout(gridBagLayout);
+               }
 
-        int x = 0;
-        int y = 0;
+          } catch (Exception e) {
+               System.err.println("error export : " + e);
+          }
+     }
 
-        if (lists.length == 0) {
-            listGetOrder.setLayout(new BorderLayout());
-            NotFound nofound = new NotFound();
-            listGetOrder.add(nofound, BorderLayout.CENTER);
-            listGetOrder.add(nofound);
-            listGetOrder.revalidate();
-            listGetOrder.repaint();
-            paginationPanel.setVisible(false);
-            return;
-        }
+     //Combobox
+     private void addComboUser() {
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               Response response = JavaConnection.get(JavaRoute.userAccount);
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
+                    UserDataModel[] listData = data.getData();
+                    for (UserDataModel user : listData) {
+                         int userId = user.getId();
+                         String userName = user.getFullName();
+                         map.put(userName, "" + userId);
+                    }
+                    userCombobox.setMap(map);
+               } else {
+                    System.err.println("fail loading user");
+               }
 
-        for (int i = 0; i < lists.length; i++) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = x;
-            gbc.gridy = y;
-            gbc.gridwidth = 1;
-            gbc.anchor = gbc.NORTH;
-            x++;
-            if (x == 1) {
-                x = 0;
-                y++;
-            }
-            var data = lists[i];
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
 
-            ReportOfReceive b = new ReportOfReceive();
-            b.setData(
+     //Pagination
+     private void eventPagination() {
+          ButtonEvent paginationEvent = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getReport(true);
+                    }
+               }
+          };
+          paginationPanel.initEvent(paginationEvent);
+     }
+
+     //Action Search
+     private void eventSearchPurchaseReceive() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
+
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getReport(true);
+                                   return;
+                              }
+                              getReport(false);
+                         }
+                    };
+                    Timer time = new Timer();
+                    time.schedule(task, 500);
+               }
+          };
+          searchField.initEvent(events);
+     }
+
+     void reloadPanel() {
+          listGetOrder.removeAll();
+          listGetOrder.revalidate();
+          listGetOrder.repaint();
+     }
+
+     void appendPurchaseReceive(ReportReceiveDetail[] lists) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          reloadPanel();
+          listGetOrder.setLayout(gridBagLayout);
+
+          int x = 0;
+          int y = 0;
+
+          if (lists.length == 0) {
+               listGetOrder.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               listGetOrder.add(nofound, BorderLayout.CENTER);
+               listGetOrder.add(nofound);
+               listGetOrder.revalidate();
+               listGetOrder.repaint();
+               paginationPanel.setVisible(false);
+               return;
+          }
+
+          for (int i = 0; i < lists.length; i++) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
+                    x = 0;
+                    y++;
+               }
+               var data = lists[i];
+
+               ReportOfReceive b = new ReportOfReceive();
+               b.setData(
                     String.valueOf(i + 1),
                     String.valueOf(data.getVendorName()),
                     String.valueOf(data.getTransactionNo()),
@@ -304,16 +304,16 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     String.valueOf(data.getTotalQty()),
                     "$ ".concat(String.valueOf(data.getTotalCost())),
                     String.valueOf(StringUtils.capitalize(data.getRemark())));
-            
-            paginationPanel.setVisible(true);
-            listGetOrder.add(b, gbc);
-        }
 
-        listGetOrder.revalidate();
-        listGetOrder.repaint();
-    }
+               paginationPanel.setVisible(true);
+               listGetOrder.add(b, gbc);
+          }
 
-    @SuppressWarnings("unchecked")
+          listGetOrder.revalidate();
+          listGetOrder.repaint();
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -573,122 +573,123 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    private void getReport(boolean isCheck) {
+     private void getReport(boolean isCheck) {
 
-        dateFromValue = dateFrom.getValueTextField();
-        dateToValue = dateTo.getValueTextField();
+          dateFromValue = dateFrom.getValueTextField();
+          dateToValue = dateTo.getValueTextField();
 
-        if (dateFromValue == null || dateFromValue.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Date From can not be empty!");
-            return;
-        }
+          if (dateFromValue == null || dateFromValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date From can not be empty!");
+               return;
+          }
 
-        if (dateToValue == null || dateToValue.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Date To can not be empty!");
-            return;
-        }
+          if (dateToValue == null || dateToValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date To can not be empty!");
+               return;
+          }
 
-        dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
-        dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
+          dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
+          dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
 
-        Response response = null;
-        String endpoint = "";
+          Response response = null;
+          String endpoint = "";
 
-        if (isCheck) {
-            if (userId == null) {
-                response = JavaConnection.get(JavaRoute.reportReceive + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
-            } else {
-                endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
-                response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
-            }
-        } else {
-            isCheckSearch = false;
-            if (userId == null) {
-                response = JavaConnection.get(JavaRoute.searchReportPurchaseReceive + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
-            } else {
-                endpoint = "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
-                response = JavaConnection.get(JavaRoute.searchReportPurchaseReceive + searchValue + endpoint);
-            }
-        }
+          if (isCheck) {
+               if (userId == null) {
+                    response = JavaConnection.get(JavaRoute.reportReceive + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+               } else {
+                    endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
+                    response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
+               }
+          } else {
+               isCheckSearch = false;
+               if (userId == null) {
+                    response = JavaConnection.get(JavaRoute.searchReportPurchaseReceive + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+               } else {
+                    endpoint = "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
+                    response = JavaConnection.get(JavaRoute.searchReportPurchaseReceive + searchValue + endpoint);
+               }
+          }
 
-        try {
+          try {
 
-            String responseData = response.body().string();
-            JSONObject jsonResponse = new JSONObject(responseData);
-            if (jsonResponse.has("error")) {
-                JSONObject error = jsonResponse.getJSONObject("error");
-                String reason = error.getString("reason");
-                JOptionPane.showMessageDialog(null, reason);
-            } else {
-                ObjectMapper objectMapper = new ObjectMapper();
-                ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
-                ReportReceiveDetail[] lists = data.getData();
+               String responseData = response.body().string();
+               JSONObject jsonResponse = new JSONObject(responseData);
+               if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    String reason = error.getString("reason");
+                    JOptionPane.showMessageDialog(null, reason);
+               } else {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
+                    ReportReceiveDetail[] lists = data.getData();
 
-                if (isCheck) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-                } else {
-                    paginationPanel.resetPage();
-                }
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize);
+                    } else {
+                         paginationPanel.resetPage();
+                    }
 
-                listDetail.clear();
-                listDetail.addAll(Arrays.asList(lists));
-                appendPurchaseReceive(lists);
-                if (lists.length != 0) {
-                    paginationPanel.setVisible(true);
-                }
-            }
+                    listDetail.clear();
+                    listDetail.addAll(Arrays.asList(lists));
+                    appendPurchaseReceive(lists);
+                    if (lists.length != 0) {
+                         paginationPanel.setVisible(true);
+                    }
+               }
 
-        } catch (Exception e) {
-            System.err.println("error : " + e);
-        }
+          } catch (Exception e) {
+               System.err.println("error : " + e);
+          }
 
-    }
+     }
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ReportingPurchaseReceive dialog = new ReportingPurchaseReceive(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseReceive.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ReportingPurchaseReceive dialog = new ReportingPurchaseReceive(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;

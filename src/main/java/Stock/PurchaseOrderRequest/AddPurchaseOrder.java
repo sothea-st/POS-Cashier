@@ -734,6 +734,8 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                          }
                     }
                     calculate();
+                            panel.revalidate();
+          panel.repaint();
                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }
