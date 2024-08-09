@@ -19,12 +19,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class Employee {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
- 
     @Column(name = "name_kh")
     private String nameKh;
 

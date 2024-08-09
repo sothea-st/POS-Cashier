@@ -122,6 +122,9 @@ public class SaleService {
     public List<ReportSaledResponse> reportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
                                                  Integer pageSize, Integer userId) {
 
+
+        System.out.println("ddddddddd = " + pageNumber + " == " + pageSize);
+
         LocalDate dateFrom = LocalDate.parse(dateFromValue);
         LocalDate dateTo = LocalDate.parse(dateToValue);
 

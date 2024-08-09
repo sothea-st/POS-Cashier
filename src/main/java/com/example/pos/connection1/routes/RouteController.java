@@ -336,8 +336,6 @@ public class RouteController {
                                dateFrom, dateTo, pageNumber, pageSize, userId ,search), "count", service.searchReportSaled(
                                dateFrom, dateTo, pageNumber, pageSize, userId ,search).size()));
           }
-          
-
      }
 
      @RestController
