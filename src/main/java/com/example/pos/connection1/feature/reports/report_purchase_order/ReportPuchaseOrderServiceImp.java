@@ -33,7 +33,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
 
     @Override
-    public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer requestId, Integer checkId, Integer approvedId, Integer rejectId, String remark , String search) {
+    public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer requestId, Integer checkId, Integer approvedId, Integer rejectId, String remark, String search) {
         validationDate(dateFrom, dateTo);
         boolean check1 = requestId != null && checkId != null && approvedId != null && remark != null && rejectId == null;
         boolean check2 = requestId != null && checkId != null && approvedId != null && remark == null && rejectId == null;
@@ -43,7 +43,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
         boolean check6 = requestId != null && remark == null && checkId == null && approvedId == null && rejectId == null;
         boolean check7 = checkId != null && remark != null && requestId == null && approvedId == null && rejectId == null;
         boolean check8 = checkId != null && remark == null && requestId == null && approvedId == null && rejectId == null;
-        boolean check9 = approvedId != null && remark != null &&  requestId == null && checkId == null && rejectId == null;
+        boolean check9 = approvedId != null && remark != null && requestId == null && checkId == null && rejectId == null;
         boolean check10 = approvedId != null && remark == null && requestId == null && checkId == null && rejectId == null;
         boolean check11 = rejectId != null && remark != null && requestId == null && approvedId == null && checkId == null;
         boolean check12 = rejectId != null && remark == null && requestId == null && approvedId == null && checkId == null;
@@ -149,7 +149,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
         for (Import data : pages.getContent()) {
 
-            if( data.getVendor().getVendorName().toLowerCase().contains(search.toLowerCase()) ) {
+            if (data.getVendor().getVendorName().toLowerCase().contains(search.toLowerCase())) {
 
                 String requestBy = null;
                 User user = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCreateBy())
@@ -212,8 +212,8 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
     }
 
     private void validationDate(String dateFrom, String dateTo) {
-        if( dateFrom == null ) throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"dateFrom can not be null.");
-        if( dateTo == null ) throw  new ResponseStatusException(HttpStatus.BAD_REQUEST,"dateTo can not be null.");
+        if (dateFrom == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateFrom can not be null.");
+        if (dateTo == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateTo can not be null.");
         LocalDate dateFromLocal;
         LocalDate dateToLocal;
 
@@ -263,10 +263,13 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
         boolean check6 = requestId != null && remark == null && checkId == null && approvedId == null && rejectId == null;
         boolean check7 = checkId != null && remark != null && requestId == null && approvedId == null && rejectId == null;
         boolean check8 = checkId != null && remark == null && requestId == null && approvedId == null && rejectId == null;
-        boolean check9 = approvedId != null && remark != null &&  requestId == null && checkId == null && rejectId == null;
+        boolean check9 = approvedId != null && remark != null && requestId == null && checkId == null && rejectId == null;
         boolean check10 = approvedId != null && remark == null && requestId == null && checkId == null && rejectId == null;
         boolean check11 = rejectId != null && remark != null && requestId == null && approvedId == null && checkId == null;
         boolean check12 = rejectId != null && remark == null && requestId == null && approvedId == null && checkId == null;
+        boolean check13 = rejectId != null && remark == null && requestId != null && approvedId == null && checkId == null;
+        boolean check14 = rejectId != null && remark == null && requestId != null && approvedId == null && checkId != null;
+        boolean check15 = rejectId == null && remark == null && requestId == null && approvedId == null && checkId == null;
 
 
         if (pageNumber != null && pageSize != null) {
@@ -360,11 +363,34 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         LocalDate.parse(dateTo),
                         pageRequest,
                         rejectId);
-            } else {
+            } else if (check13) {
+                pages = importRepository.findByDateLocalBetweenAndRejectByAndCreateBy(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        pageRequest,
+                        rejectId,
+                        requestId
+                );
+            } else if( check14 ) {
+                pages = importRepository.findByDateLocalBetweenAndRejectByAndCreateByAndCheckBy(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        pageRequest,
+                        rejectId,
+                        requestId,
+                        checkId
+                );
+            }
+            else if ( check15 ) {
                 pages = importRepository.findByDateLocalBetween(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         pageRequest);
+            } else {
+                return JavaCollectionResponse.builder()
+                        .count(0)
+                        .data(list)
+                        .build();
             }
 
             totalCount = pages.getTotalElements();
@@ -427,7 +453,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
             List<Import> datas = null;
 
 
-            if( check1 ) {
+            if (check1) {
                 datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
@@ -436,7 +462,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         approvedId,
                         remark
                 );
-            } else if ( check2 ) {
+            } else if (check2) {
                 datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveBy(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
@@ -444,68 +470,92 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         checkId,
                         approvedId
                 );
-            } else if ( check3 ) {
+            } else if (check3) {
                 datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndRemark(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
                         checkId,
                         remark);
-            } else if ( check4 ) {
+            } else if (check4) {
                 datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckBy(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
                         checkId);
-            } else if ( check5 ) {
+            } else if (check5) {
                 datas = importRepository.findByDateLocalBetweenAndCreateByAndRemark(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
                         remark);
-            } else if ( check6 ) {
+            } else if (check6) {
                 datas = importRepository.findByDateLocalBetweenAndCreateBy(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId);
-            } else if ( check7 ) {
+            } else if (check7) {
                 datas = importRepository.findByDateLocalBetweenAndCheckByAndRemark(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         checkId,
                         remark);
-            } else if ( check8 ) {
+            } else if (check8) {
                 datas = importRepository.findByDateLocalBetweenAndCheckBy(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         checkId);
-            } else if ( check9 ) {
+            } else if (check9) {
                 datas = importRepository.findByDateLocalBetweenAndApproveByAndRemark(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         approvedId,
                         remark);
-            } else if ( check10 ) {
+            } else if (check10) {
                 datas = importRepository.findByDateLocalBetweenAndApproveBy(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         approvedId);
-            } else if ( check11 ) {
+            } else if (check11) {
                 datas = importRepository.findByDateLocalBetweenAndRejectByAndRemark(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         rejectId,
                         remark);
-            } else  if ( check12 ) {
+            } else if (check12) {
                 datas = importRepository.findByDateLocalBetweenAndRejectBy(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         rejectId);
-            } else {
+            } else if (check13) {
+                datas = importRepository.findByDateLocalBetweenAndRejectByAndCreateBy(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        rejectId,
+                        requestId
+                );
+            } else if( check14 ) {
+                datas = importRepository.findByDateLocalBetweenAndRejectByAndCreateByAndCheckBy(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        rejectId,
+                        requestId,
+                        checkId
+                );
+            }
+            else if ( check15 ) {
                 datas = importRepository.findByDateLocalBetween(
                         LocalDate.parse(dateFrom),
-                        LocalDate.parse(dateTo));
+                        LocalDate.parse(dateTo)
+                         );
+            } else {
+                return JavaCollectionResponse.builder()
+                        .count(0)
+                        .data(list)
+                        .build();
             }
+
+
 
             totalCount = datas.size();
             for (Import data : datas) {
@@ -612,7 +662,6 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
     /**
      * Generates a report of purchase orders within a specified date range.
-     *
      *
      * @return JavaCollectionResponse containing report data and count.
      */
