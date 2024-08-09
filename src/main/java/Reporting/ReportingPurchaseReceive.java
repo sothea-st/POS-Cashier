@@ -140,9 +140,9 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
         String endpoint = "";
 
         if (userId == null) {
-            response = JavaConnection.get(JavaRoute.reportReceive + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+            response = JavaConnection.get(JavaRoute.reportReceive + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
         } else {
-            endpoint = "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
+            endpoint = "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
             response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
         }
 
