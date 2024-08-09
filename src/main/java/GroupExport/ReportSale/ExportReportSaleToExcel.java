@@ -1,7 +1,6 @@
 package GroupExport.ReportSale;
 
 import Constant.JavaConstant;
-import Model.Report.ReportImportDetail;
 import Model.Report.ReportSaleDetail;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,8 +8,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,7 +31,7 @@ public class ExportReportSaleToExcel {
 
      public static void toExcel(ReportSaleDetail[] list) {
 
-          String fileName = JavaConstant.getCurrentLocalTime();
+          String fileName = JavaConstant.getFileName();
 
           try {
                // Create a new Excel workbook
@@ -72,7 +69,6 @@ public class ExportReportSaleToExcel {
 //                    } else {
 //                         url = "http://localhost:8090/api/public/addImageForBackground/" + data.getProImageName();
 //                    }
-
                     dataList.add(new Object[]{
                          String.valueOf(i + 1),
                          String.valueOf(detail.getInvoiceNumber()),

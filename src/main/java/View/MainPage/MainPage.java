@@ -1069,6 +1069,7 @@ public class MainPage extends javax.swing.JFrame {
      }//GEN-LAST:event_panelCartMouseEntered
 
     private void stockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockMouseClicked
+//         System.out.println("JavaConstant.token : " + JavaConstant.token);
          if (JavaConstant.token != null) {
 //              if (JavaConstant.checkOpenShift) {
               StockManagement stock = new StockManagement(new JFrame(), true);
@@ -1112,7 +1113,6 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSettingsMouseClicked
 
     private void btnReportingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportingMouseClicked
-         
          if (JavaConstant.token != null) {
               ReportingView re = new ReportingView(new JFrame(), true);
               re.setVisible(true);

@@ -18,7 +18,12 @@ public class GroupButtonExport extends javax.swing.JPanel {
      public GroupButtonExport() {
           initComponents();
      }
-
+     
+     
+     
+     public void setPdf(){
+          btnPdf.setVisible(false);
+     }
      public void excelEvent(ButtonEvent event) {
           btnExcel.addMouseListener(new MouseListener() {
                @Override
