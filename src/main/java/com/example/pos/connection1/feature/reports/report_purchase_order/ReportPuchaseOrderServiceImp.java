@@ -389,7 +389,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     User user2 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getApproveBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "User not found with id id : " + data.getCheckBy()));
-                    approvedBy = user2.getUsername();
+                    approvedBy = user2.getFullName();
                 }
 
                 String rejectBy = null;
@@ -397,7 +397,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     User user3 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getRejectBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "User not found with id id : " + data.getCheckBy()));
-                    rejectBy = user3.getUsername();
+                    rejectBy = user3.getFullName();
                 }
 
                 ReportPOResponse d = ReportPOResponse.builder()

@@ -100,9 +100,9 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             if (receiveBy == null) {
-                pages = importRepository.findByDateLocalBetween(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), pageRequest);
+                pages = importRepository.findByDateLocalBetweenAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo),List.of("stocked","approved") ,pageRequest);
             } else {
-                pages = importRepository.findByDateLocalBetweenAndReceiveBy(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), pageRequest, receiveBy);
+                pages = importRepository.findByDateLocalBetweenAndReceiveByAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), pageRequest, receiveBy,List.of("stocked","approved"));
             }
 
             totalCount = pages.getTotalElements();

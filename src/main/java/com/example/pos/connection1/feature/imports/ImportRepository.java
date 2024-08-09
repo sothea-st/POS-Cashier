@@ -21,6 +21,10 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Optional<Import> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      Page<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest);
 
+
+     Page<Import> findByDateLocalBetweenAndRemarkIn(LocalDate dateFrom, LocalDate dateTo , List<String> remark,  PageRequest pageRequest);
+
+
      Page<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(LocalDate dateFrom, LocalDate dateTo, String vendorName, PageRequest pageRequest);
 
      Page<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(LocalDate dateFrom, LocalDate dateTo, String vendorName, int receiveBy,PageRequest pageRequest);
@@ -28,6 +32,9 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
 
 
      Page<Import> findByDateLocalBetweenAndReceiveBy(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest , int receiveBy);
+
+     Page<Import> findByDateLocalBetweenAndReceiveByAndRemarkIn(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest , int receiveBy,List<String> remark);
+
 
      List<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo);
      List<Import> findByDateLocalBetweenAndReceiveBy(LocalDate dateFrom, LocalDate dateTo,int receiveId);
