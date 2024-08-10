@@ -95,6 +95,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
           eventSearchPurchaseReceive();
           groupEvent();
           paginationPanel.setVisible(false);
+          groupButtonExport.setPdf();
 
      }
 
