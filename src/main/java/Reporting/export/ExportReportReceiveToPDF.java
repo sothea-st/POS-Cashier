@@ -75,7 +75,7 @@ public class ExportReportReceiveToPDF {
                         String.valueOf(detail.getTransactionDate()),
                         String.valueOf(detail.getReceiveBy()),
                         String.valueOf(detail.getTotalQty()),
-                        String.valueOf(detail.getTotalCost()),
+                        "$".concat(String.valueOf(detail.getTotalCost())),
                         String.valueOf(detail.getRemark())
                     });
                }
