@@ -82,14 +82,21 @@ public class InsertSubcategory extends javax.swing.JDialog {
     
     //Value Edit
     public void setValueEdit(
-        String divisEn,
-        String divisKh,
+        String subCateEn,
+        String subCatKh,
         String idDivision,
         String idDepartment,
         String idCategory
     ) throws IOException {
-        nameEn.setValueTextField(divisEn);
-        nameKh.setValueTextField(divisKh);
+        
+        if(subCateEn != null && subCateEn != ""){
+            nameEn.setValueTextField(subCateEn);  
+        }
+        
+        if(subCatKh != null && subCatKh != ""){
+            nameKh.setValueTextField(subCatKh);
+        }
+
         comboDivision.setToLastItem(idDivision);
         comboDepartment.setToLastItem(idDepartment);
         comboCategory.setToLastItem(idCategory);

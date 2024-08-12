@@ -43,8 +43,14 @@ public class InsertBrand extends javax.swing.JDialog {
         String brandNameEn,
         String brandNameKh
     ) throws IOException {
-        brandEn.setValueTextField(brandNameEn);
-        brandKh.setValueTextField(brandNameKh);
+        
+        if(brandNameEn != null && brandNameEn != ""){
+            brandEn.setValueTextField(brandNameEn);  
+        }
+        
+        if(brandNameKh != null && brandNameKh != ""){
+            brandKh.setValueTextField(brandNameKh);
+        }   
     }
 
     @SuppressWarnings("unchecked")

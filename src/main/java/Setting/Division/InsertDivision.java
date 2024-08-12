@@ -36,8 +36,14 @@ public class InsertDivision extends javax.swing.JDialog {
         String divisEn,
         String divisKh
     ) throws IOException {
-        divisionEn.setValueTextField(divisEn);
-        divisionKh.setValueTextField(divisKh);
+        
+        if(divisEn != null && divisEn != ""){
+            divisionEn.setValueTextField(divisEn);  
+        }
+        
+        if(divisKh != null && divisKh != ""){
+            divisionKh.setValueTextField(divisKh);
+        }
     }
 
     //Place Holder

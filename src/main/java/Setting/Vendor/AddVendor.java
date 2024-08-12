@@ -50,11 +50,27 @@ public class AddVendor extends javax.swing.JDialog {
         String Web,
         String address
     ) throws IOException {
-        txtVendorName.setValueTextField(vendorName);
-        txtPhoneNumber.setValueTextField(phone);
-        txtEmail.setValueTextField(email);
-        txtWebsite.setValueTextField(Web);
-        txtAddress.setValueTextField(address);
+        
+        if(vendorName != null && vendorName != ""){
+            txtVendorName.setValueTextField(vendorName);  
+        }
+        
+        if(phone != null && phone != ""){
+            txtPhoneNumber.setValueTextField(phone);
+        } 
+        
+        if(email != null && email != ""){
+            txtEmail.setValueTextField(email);  
+        }
+        
+        if(Web != null && Web != ""){
+            txtWebsite.setValueTextField(Web);
+        } 
+        
+        if(address != null && address != ""){
+            txtAddress.setValueTextField(address);  
+        }
+        
     }
 
     @SuppressWarnings("unchecked")
