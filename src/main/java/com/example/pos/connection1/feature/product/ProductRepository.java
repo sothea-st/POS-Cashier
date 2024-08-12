@@ -111,7 +111,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\t pp.id, \r\n" + //
                         "\t pid.qty_old, \r\n" + //
-                        "\t pid.local_date, \r\n" + //
+                        "\t pid.create_date as local_date , \r\n" + //
                         "\t pp.price, \r\n" + //
                         "\t pp.cost \r\n" + //
                         "from pos_product pp inner join pos_import_detail pid on pid.pro_id = pp.id\r\n" + //

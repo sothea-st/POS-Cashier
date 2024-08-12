@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -39,6 +40,10 @@ public class ImportDetail {
 
     @Column(name = "local_date")
     private LocalDate localDate;
+
+    @CreationTimestamp
+    @Column(name = "local_date_time")
+    private LocalDateTime localDateTime;
 
     @Column(name = "qty_new",length = 30)
     private int qtyNew=0;
