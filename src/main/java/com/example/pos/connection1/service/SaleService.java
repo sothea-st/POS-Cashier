@@ -122,9 +122,6 @@ public class SaleService {
     public List<ReportSaledResponse> reportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
                                                  Integer pageSize, Integer userId) {
 
-
-        System.out.println("ddddddddd = " + pageNumber + " == " + pageSize);
-
         LocalDate dateFrom = LocalDate.parse(dateFromValue);
         LocalDate dateTo = LocalDate.parse(dateToValue);
 
@@ -239,6 +236,9 @@ public class SaleService {
         // Define a custom date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
+
+
+
         Sale sale = new Sale();
         sale.setUserId(userId);
         sale.setPosId(posId);
@@ -252,6 +252,7 @@ public class SaleService {
         sale.setDiscountCase(s.getDiscountCase());
         sale.setSaleIsReturn(s.getSaleIsReturn());
         sale.setCreateBy(userId);
+
         sale.setDateLocal(currentDate);
         Customer cus = s.getCustomer();
 
@@ -283,6 +284,7 @@ public class SaleService {
                 dataDetail.setAmount(detail.getAmount());
                 dataDetail.setDiscount(detail.getDiscount());
                 dataDetail.setCreateBy(userId);
+                dataDetail.setCost(detail.getCost());
                 dataDetail.setDiscountType(detail.getDiscountType());
                 repoDetail.save(dataDetail);
 

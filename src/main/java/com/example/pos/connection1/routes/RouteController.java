@@ -306,6 +306,7 @@ public class RouteController {
                     map.put(JavaConstant.message, JavaConstant.openShift);
                     return JavaResponse.error(map);
                }
+
                var data = service.saleProduct(s);
                return JavaResponse.success(data);
           }

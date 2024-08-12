@@ -17,4 +17,6 @@ public interface ReportSaledProjection {
      String getfull_name();
      String getBarcode();
      String getinvoice_number();
+
+
 }
