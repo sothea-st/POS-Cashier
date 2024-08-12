@@ -4,29 +4,31 @@ import Constant.JavaConstant;
 
 public class GetDetailProduct extends javax.swing.JPanel {
 
-    public GetDetailProduct() {
-        initComponents();
-    }
-    
-    public void setValue(
-        String numberValue,
-        String importDateValue,
-        String qtyValue,
-        String costValue,
-        String priceValue
-    ) {
-        lbNumber.setText(numberValue);
-        if(importDateValue != "null"){
-            lbImportDate.setText(JavaConstant.formateDateDDMMYYYY(importDateValue));
-        }else{
-            lbImportDate.setText("N/A");
-        }
-        lbQty.setText(qtyValue);
-        lbCost.setText("$ " + costValue);
-        lbPrice.setText("$ " + priceValue);
-    }
+     public GetDetailProduct() {
+          initComponents();
+     }
 
-    @SuppressWarnings("unchecked")
+     public void setValue(
+          String numberValue,
+          String importDateValue,
+          String qtyValue,
+          String costValue,
+          String priceValue
+     ) {
+          lbNumber.setText(numberValue);
+//          if (importDateValue != "null") {
+//               lbImportDate.setText(JavaConstant.formateDateDDMMYYYY(importDateValue));
+          lbImportDate.setText(importDateValue);
+
+//          } else {
+//               lbImportDate.setText("N/A");
+//          }
+          lbQty.setText(qtyValue);
+          lbCost.setText("$ " + costValue);
+          lbPrice.setText("$ " + priceValue);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

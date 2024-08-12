@@ -40,6 +40,19 @@ import javax.swing.JPanel;
 import okhttp3.Response;
 
 public class BoxItem extends javax.swing.JPanel {
+     
+     
+     private String cost;
+
+     public String getCost() {
+          return cost;
+     }
+
+     public void setCost(String cost) {
+          this.cost = cost;
+     }
+     
+     
 
      public int getLabelQuantity() {
           return labelQuantity;

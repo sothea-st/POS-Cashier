@@ -705,7 +705,9 @@ public class ReportingSaled extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + endpoint);
                }
           }
-
+          
+          
+          System.err.println("response : " + response);
           try {
 
                String responseData = response.body().string();

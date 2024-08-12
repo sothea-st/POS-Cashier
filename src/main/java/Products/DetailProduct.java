@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -21,73 +23,73 @@ import okhttp3.Response;
  */
 public class DetailProduct extends javax.swing.JDialog {
 
-    public DetailProduct(java.awt.Frame parent, boolean modal, String id) {
-        super(parent, modal);
-        initComponents();
-        setResizable(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        header.setBackground(WindowColor.darkGreen);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        getList(listGetDetail, id);
-    }
-    
-    //Value Edit
-    public void setDetailValue(
-        String productNameValue,
-        String productNameKhValue,
-        String barcodeValue,
-        String itemCodeValue,
-        String divisionValue,
-        String vendorNameValue,
-        String totalQtyValue, 
-        String brandValue,
-        String marginValue,
-        String attributeValue,
-        String uomValue,
-        String statusValue,
-        String countryValue,
-        String taxValue
-        
-    ) throws IOException {
-        productName.setLabelName(productNameValue);
-        
-        if(productNameKhValue != "null"){
-            productNameKh.setLabelName(productNameKhValue);
-        }
-        barcode.setLabelName(barcodeValue);
-        itemCode.setLabelName(itemCodeValue);
-        division.setLabelName(divisionValue);
-        vendorName.setLabelName(vendorNameValue);
-        totalQty.setLabelName(""+totalQtyValue);
-        brand.setLabelName(brandValue);
-        margin.setLabelName(marginValue);
-        attribute.setLabelName(attributeValue);
-        uom.setLabelName(uomValue);
-        status.setLabelName(statusValue);
-        country.setLabelName(countryValue);
-        tax.setLabelName(taxValue);
-    }
-    
-    private void getList(JPanel listGetDetail, String id) {
-        try {
-            
-            Response response = JavaConnection.get(JavaRoute.productV1 + "/detail/" + id);
-            String responseData = response.body().string();
-            ObjectMapper objMap = new ObjectMapper();
-            DetailProductSuccess model = objMap.readValue(responseData, DetailProductSuccess.class);
-            DataDetailProduct[] listData = model.getData();
-            appendData(listData,listGetDetail);
-        } catch (Exception e) {
-             System.err.println("error getting purchase " + e);
-        }
-    }
-    
-    void appendData(DataDetailProduct[] listData, JPanel listGetDetail) {
+     public DetailProduct(java.awt.Frame parent, boolean modal, String id) {
+          super(parent, modal);
+          initComponents();
+          setResizable(false);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          header.setBackground(WindowColor.darkGreen);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          getList(listGetDetail, id);
+     }
+
+     //Value Edit
+     public void setDetailValue(
+          String productNameValue,
+          String productNameKhValue,
+          String barcodeValue,
+          String itemCodeValue,
+          String divisionValue,
+          String vendorNameValue,
+          String totalQtyValue,
+          String brandValue,
+          String marginValue,
+          String attributeValue,
+          String uomValue,
+          String statusValue,
+          String countryValue,
+          String taxValue
+     ) throws IOException {
+          productName.setLabelName(productNameValue);
+
+          if (productNameKhValue != "null") {
+               productNameKh.setLabelName(productNameKhValue);
+          }
+          barcode.setLabelName(barcodeValue);
+          itemCode.setLabelName(itemCodeValue);
+          division.setLabelName(divisionValue);
+          vendorName.setLabelName(vendorNameValue);
+          totalQty.setLabelName("" + totalQtyValue);
+          brand.setLabelName(brandValue);
+          margin.setLabelName(marginValue);
+          attribute.setLabelName(attributeValue);
+          uom.setLabelName(uomValue);
+          status.setLabelName(statusValue);
+          country.setLabelName(countryValue);
+          tax.setLabelName(taxValue);
+     }
+
+     private void getList(JPanel listGetDetail, String id) {
+          try {
+               Response response = JavaConnection.get(JavaRoute.productV1 + "/detail/" + id);
+
+               System.out.println(" response ddd = " + response);
+               String responseData = response.body().string();
+               ObjectMapper objMap = new ObjectMapper();
+               DetailProductSuccess model = objMap.readValue(responseData, DetailProductSuccess.class);
+               DataDetailProduct[] listData = model.getData();
+               appendData(listData, listGetDetail);
+          } catch (Exception e) {
+               System.err.println("error getting purchase " + e);
+          }
+     }
+
+     void appendData(DataDetailProduct[] listData, JPanel listGetDetail) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
@@ -113,13 +115,27 @@ public class DetailProduct extends javax.swing.JDialog {
                     }
                     var data = listData[i];
                     GetDetailProduct b = new GetDetailProduct();
+                    // Define the input formatter with milliseconds
+                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+                    LocalDateTime localDateTime = null;
+                    String formattedDateTime=null;
+                    if (data.getLocal_date() != null) {
+                         // Parse the input string to LocalDateTime
+                         localDateTime = LocalDateTime.parse(data.getLocal_date(), inputFormatter);
+
+                         // Define the output formatter in the desired format
+                         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss");
+
+                         // Format the LocalDateTime to the desired output string
+                         formattedDateTime = localDateTime.format(outputFormatter);
+                    }
 
                     b.setValue(
-                        String.valueOf(index++),
-                        String.valueOf(data.getLocal_date()),
-                        String.valueOf(data.getQty_old()),
-                        String.valueOf(data.getCost()),
-                        String.valueOf(data.getPrice())
+                         String.valueOf(index++),
+                         data.getLocal_date()!= null ? formattedDateTime : "N/A",
+                         String.valueOf(data.getQty_old()),
+                         String.valueOf(data.getCost()),
+                         String.valueOf(data.getPrice())
                     );
 
                     listGetDetail.add(b, gbc);
@@ -135,9 +151,9 @@ public class DetailProduct extends javax.swing.JDialog {
 
           listGetDetail.revalidate();
           listGetDetail.repaint();
-    }
-    
-    @SuppressWarnings("unchecked")
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -470,44 +486,44 @@ public class DetailProduct extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DetailProduct dialog = new DetailProduct(new javax.swing.JFrame(), true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(DetailProduct.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    DetailProduct dialog = new DetailProduct(new javax.swing.JFrame(), true, null);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.Label attribute;

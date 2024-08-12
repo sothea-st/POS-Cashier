@@ -480,7 +480,7 @@ public class ActionProduct {
 
           box.setProductBox(product);
           box.setPanelProduct(panelProduct);
-
+          box.setCost(String.valueOf(listData.getCost()));
           box.setWasPrice("" + price);
           box.setBtnPayment(btnPayment);
           box.setButtonHoldOrder(buttonHoldOrder);
