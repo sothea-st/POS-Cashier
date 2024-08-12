@@ -725,6 +725,9 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                if (resp == JOptionPane.YES_OPTION) {
                     int ind = Integer.parseInt(index) - 1;
                     Component[] listComponent = panel.getComponents();
+                    
+                    System.err.println("listComponent.length = " +listComponent.length);
+                    
                     for (int i = 0; i < listComponent.length; i++) {
                          if (ind == i) {
                               panel.remove(ind);

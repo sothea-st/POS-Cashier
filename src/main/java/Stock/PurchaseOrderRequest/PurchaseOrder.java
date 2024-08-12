@@ -146,7 +146,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                          }
 
                          @Override
-                         public void onSelect(String Key) {  // event edit
+                         public void onSelect(String Key) {  // event detail
                               EditPurchaseOrder edit = new EditPurchaseOrder(new JFrame(), true, data.getId());
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
