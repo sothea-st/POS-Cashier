@@ -42,8 +42,14 @@ public class AddUom extends javax.swing.JDialog {
         String uomName,
         String uomNameKh
     ) throws IOException {
-        txtUom.setValueTextField(uomName);
-        txtUomKh.setValueTextField(uomNameKh);
+        
+        if(uomName != null && uomName != ""){
+            txtUom.setValueTextField(uomName);  
+        }
+        
+        if(uomNameKh != null && uomNameKh != ""){
+            txtUomKh.setValueTextField(uomNameKh);
+        }  
     }
 
     @SuppressWarnings("unchecked")

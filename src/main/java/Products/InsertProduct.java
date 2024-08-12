@@ -97,12 +97,20 @@ public class InsertProduct extends javax.swing.JDialog {
           cmbBrand.setToLastItem(_brandId);
           cmbSubCategory.setToLastItem(_subCatId);
           txtProductName.setValueTextField(_proName);
-          txtProductNameKh.setValueTextField(_proNameKh);
+          
+          if(_proNameKh != null && _proNameKh != ""){
+              txtProductNameKh.setValueTextField(_proNameKh);
+          }
+          
           txtCost.setValueTextField(_cost);
           txtPrice.setValueTextField(_price);
           txtMargin.setLabelTextField(_margin);
           cmbAttribute.setToLastItem(_attributeId);
-          txtChoiceValue.setValueTextField(_choice);
+          
+          if(_choice != null && _choice != ""){
+              txtChoiceValue.setValueTextField(_choice);
+          }
+          
           cmbUom.setToLastItem(_uomId);
           cmbStatus.setToLastItem(_statusId);
           cmbCountry.setToLastItem(_countryId);

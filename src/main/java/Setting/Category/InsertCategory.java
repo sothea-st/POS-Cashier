@@ -57,13 +57,19 @@ public class InsertCategory extends javax.swing.JDialog {
 
     //Value Edit
     public void setValueEdit(
-            String divisEn,
-            String divisKh,
+            String cateNameEn,
+            String cateNameKh,
             String idDivision,
             String idDepartment
     ) throws IOException {
-        nameEn.setValueTextField(divisEn);
-        nameKh.setValueTextField(divisKh);
+        if(cateNameEn != null && cateNameEn != ""){
+            nameEn.setValueTextField(cateNameEn);  
+        }
+        
+        if(cateNameKh != null && cateNameKh != ""){
+            nameKh.setValueTextField(cateNameKh);
+        } 
+        
         comboDivision.setToLastItem(idDivision);
         comboDepartment.setToLastItem(idDepartment);
     }

@@ -41,8 +41,14 @@ public class AddAttribute extends javax.swing.JDialog {
         String attrEn,
         String attrKh
     ) throws IOException {
-        txtAttributeEn.setValueTextField(attrEn);
-        txtAttributeKh.setValueTextField(attrKh);
+        
+        if(attrEn != null && attrEn != ""){
+            txtAttributeEn.setValueTextField(attrEn);  
+        }
+        
+        if(attrKh != null && attrKh != ""){
+            txtAttributeKh.setValueTextField(attrKh);
+        }   
     }
     
     @SuppressWarnings("unchecked")

@@ -46,12 +46,19 @@ public class InsertDepartment extends javax.swing.JDialog {
     
     //Value Edit
     public void setValueEdit(
-        String divisEn,
-        String divisKh,
+        String departmentEn,
+        String departmentKh,
         String idDivision
     ) throws IOException {
-        departmentName.setValueTextField(divisEn);
-        departmentNameKh.setValueTextField(divisKh);
+        
+        if(departmentEn != null && departmentEn != ""){
+            departmentName.setValueTextField(departmentEn);  
+        }
+        
+        if(departmentKh != null && departmentKh != ""){
+            departmentNameKh.setValueTextField(departmentKh);
+        }
+        
         comboDivision.setToLastItem(idDivision);
     }
     
