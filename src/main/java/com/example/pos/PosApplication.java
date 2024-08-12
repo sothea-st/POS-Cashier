@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // @CrossOrigin(origins = "http://localhost:3000") 
 // @EnableScheduling
 public class PosApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(PosApplication.class, args);
 	}

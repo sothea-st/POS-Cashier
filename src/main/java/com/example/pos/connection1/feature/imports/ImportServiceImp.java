@@ -274,7 +274,7 @@ public class ImportServiceImp implements ImportService {
                             ? value.getProduct().getSubCategory().getCatNameEn() : null)
                     .availableQty(qty)
                     .orderQty(value != null ? value.getQtyNew() : null)
-                    .cost(value != null && value.getProduct() != null ? value.getProduct().getCost() : null)
+                    .cost(value != null  ? value.getCost() : null)
                     .totalCost(value != null && _totalCost != null ? BigDecimal.valueOf(Double.parseDouble(_totalCost)) : BigDecimal.ZERO)
                     .receivedQty(value != null ? value.getReceiveQty() : null)
                     .halfQty(value != null ? value.getHalfQty() : null)
