@@ -157,7 +157,7 @@ public class SaleService {
     private List<ReportSaledResponse> reportResponse(List<ReportSaledProjection> reportSaled,
                                                      String searchProductName) {
         List<ReportSaledResponse> listResponse = new ArrayList<>();
-
+        DecimalFormat dm = new DecimalFormat();
         reportSaled.forEach(report -> {
 
             double totalSaledExcludeVAT = 0;
@@ -173,13 +173,17 @@ public class SaleService {
             }
 
             String _total = String.format("%.2f", total / 1.1);
-            totalSaledExcludeVAT = Double.parseDouble(_total);
 
-            String _totalSaledExludeVAT = String.format("%.2f", ((totalSaledExcludeVAT / 1.1) * 0.1));
+            totalSaledExcludeVAT = Double.parseDouble(_total);
+//            System.out.println("ddddddddd = " + totalSaledExcludeVAT);
+
+            String _totalSaledExludeVAT = String.format("%.2f", totalSaledExcludeVAT* 0.1);
+//            System.out.println("aaaaaaaaaaaaaaaa = " + _totalSaledExludeVAT);
             if (report.getTax_name().equals("PLT")) {
                 plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
             }
             vatAmt = Double.parseDouble(_totalSaledExludeVAT);
+
             String _netSale = String.format("%.2f", totalSaledExcludeVAT - vatAmt - plt);
 
             netSale = Double.parseDouble(_netSale);
