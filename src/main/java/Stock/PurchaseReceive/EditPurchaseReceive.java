@@ -100,7 +100,7 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
                     var data = details[i];
 
                     GetEditReceive b = new GetEditReceive();
- 
+
                     b.setData(
                          String.valueOf(data.getProductID()),
                          String.valueOf(i + 1),
@@ -428,7 +428,7 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
 
          for (Component p : listCom) {
               var data = ((GetEditReceive) p);
- 
+
               ImportRequest importRequest = new ImportRequest();
               ImportRequest.ImportDetailRequests imps = importRequest.new ImportDetailRequests(
                    data.getProductId(),
@@ -437,18 +437,19 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
                    BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
                    "",
                    data.getQtyUnit());
-           
+
               details.add(imps);
          }
          json.put("details", details);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
-         
+
          System.out.println("respne : " + response);
          try {
               if (response.isSuccessful()) {
                    String responseData = response.body().string();
                    System.out.println("responseData : " + responseData);
+                   DetailPurchaseReceive.isAccept = true;
                    dispose();
               }
          } catch (Exception e) {

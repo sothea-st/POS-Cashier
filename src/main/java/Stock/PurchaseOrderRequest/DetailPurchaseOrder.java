@@ -9,6 +9,7 @@ import Stock.PurchaseOrderCheck.PODetailItemModel;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.math.BigDecimal;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
@@ -89,7 +90,10 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
                     var listData = details[i];
                     index++;
                     GetDetailPurchase b = new GetDetailPurchase();
-
+                    
+                    
+                    double _totalCost = listData.getOrderQty() * listData.getCost().doubleValue();
+                    
                     b.setValue(
                          String.valueOf(index),
                          String.valueOf(listData.getBarcode()),
@@ -101,7 +105,7 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
                          String.valueOf(listData.getAvailableQty()),
                          String.valueOf(listData.getOrderQty()),
                          String.valueOf("$ " + String.format("%.2f", listData.getCost())),
-                         String.valueOf("$ " + String.format("%.2f", listData.getTotalCost()))
+                         String.valueOf("$ " + String.format("%.2f", BigDecimal.valueOf(_totalCost)))
                     );
 
                     listGetDetailOrder.add(b, gbc);

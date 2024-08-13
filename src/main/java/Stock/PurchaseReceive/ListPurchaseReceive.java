@@ -151,7 +151,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     b.setRemark(StringUtils.capitalize(data.getRemark()));
                     ButtonEvent events = new ButtonEvent() {
                          @Override
-                         public void onSelectDetail(String Key) {  // event edit
+                         public void onSelectDetail(String Key) {  // event detail
                               DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
