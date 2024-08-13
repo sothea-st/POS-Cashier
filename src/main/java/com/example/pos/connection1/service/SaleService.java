@@ -187,7 +187,7 @@ public class SaleService {
             }
             vatAmt = Double.parseDouble(_totalSaledExludeVAT);
 
-            String _netSale = String.format("%.2f", totalSaledExcludeVAT - vatAmt - plt);
+            String _netSale = String.format("%.2f", total - vatAmt - plt);
 
             netSale = Double.parseDouble(_netSale);
 
