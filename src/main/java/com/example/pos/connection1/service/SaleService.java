@@ -167,8 +167,11 @@ public class SaleService {
             double margin = 0;
             double total = report.getAmount().doubleValue();
 
+            System.out.println("total before = " + total);
+            System.out.println("report.getDiscount_case() = " + report.getDiscount_case());
             if (report.getDiscount_case() != null) {
                 total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
+                System.out.println("total after = " + total);
                 // calculate
             }
 
@@ -202,7 +205,7 @@ public class SaleService {
                     .discountPercentage(report.getdiscount_percentage())
                     .discount(report.getDiscount())
                     .price(report.getPrice())
-                    .amountWithTax(report.getAmount())
+                    .amountWithTax(BigDecimal.valueOf(total))
                     .taxType(report.getTax_name())
                     .totalSaledExcludeVAT(BigDecimal.valueOf(totalSaledExcludeVAT))
                     .vatAmt(BigDecimal.valueOf(vatAmt))
