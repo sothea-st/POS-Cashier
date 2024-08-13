@@ -124,7 +124,7 @@ public class DetailProduct extends javax.swing.JDialog {
                          localDateTime = LocalDateTime.parse(data.getLocal_date(), inputFormatter);
 
                          // Define the output formatter in the desired format
-                         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm:ss");
+                         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm:ss");
 
                          // Format the LocalDateTime to the desired output string
                          formattedDateTime = localDateTime.format(outputFormatter);
