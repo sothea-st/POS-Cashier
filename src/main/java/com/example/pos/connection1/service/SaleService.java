@@ -166,14 +166,18 @@ public class SaleService {
             double netSale = 0;
             double margin = 0;
             double total = report.getAmount().doubleValue();
+            BigDecimal cost = BigDecimal.valueOf(0);
 
-            System.out.println("total before = " + total);
-            System.out.println("report.getDiscount_case() = " + report.getDiscount_case());
+//            System.out.println("total before = " + total);
+//            System.out.println("report.getDiscount_case() = " + report.getDiscount_case());
             if (report.getDiscount_case() != null) {
                 total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
-                System.out.println("total after = " + total);
+//                System.out.println("total after = " + total);
                 // calculate
             }
+
+           double calCost = report.getCost().doubleValue() * report.getQty();
+            cost = BigDecimal.valueOf(calCost);
 
             String _total = String.format("%.2f", total / 1.1);
 
@@ -191,7 +195,7 @@ public class SaleService {
 
             netSale = Double.parseDouble(_netSale);
 
-            String _margin = String.format("%.2f", netSale - report.getCost().doubleValue());
+            String _margin = String.format("%.2f", netSale - cost.doubleValue());
 
             margin = Double.parseDouble(_margin);
 
@@ -211,7 +215,7 @@ public class SaleService {
                     .vatAmt(BigDecimal.valueOf(vatAmt))
                     .plt(BigDecimal.valueOf(plt))
                     .netSale(BigDecimal.valueOf(netSale))
-                    .cost(report.getCost())
+                    .cost(cost)
                     .margin(BigDecimal.valueOf(margin))
                     .barcode(report.getBarcode())
                     .invoiceNumber(report.getinvoice_number())
