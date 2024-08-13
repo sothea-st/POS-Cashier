@@ -173,18 +173,22 @@ public class SaleService {
             }
 
             String _total = String.format("%.2f", total / 1.1);
-            String _totalSaledExludeVAT = String.format("%.2f", ((totalSaledExcludeVAT / 1.1) * 0.1));
-            String _netSale = String.format("%.2f", total - vatAmt - plt);
-            String _margin = String.format("%.2f", netSale - report.getCost().doubleValue());
-
             totalSaledExcludeVAT = Double.parseDouble(_total);
-            vatAmt = Double.parseDouble(_totalSaledExludeVAT);
-            netSale = Double.parseDouble(_netSale);
-            margin = Double.parseDouble(_margin);
 
+            String _totalSaledExludeVAT = String.format("%.2f", ((totalSaledExcludeVAT / 1.1) * 0.1));
             if (report.getTax_name().equals("PLT")) {
                 plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
             }
+            vatAmt = Double.parseDouble(_totalSaledExludeVAT);
+            String _netSale = String.format("%.2f", totalSaledExcludeVAT - vatAmt - plt);
+
+            netSale = Double.parseDouble(_netSale);
+
+            String _margin = String.format("%.2f", netSale - report.getCost().doubleValue());
+
+            margin = Double.parseDouble(_margin);
+
+
             ReportSaledResponse reportSaledResponse = ReportSaledResponse.builder()
                     .saleDate(report.getSale_date())
                     .proNameEn(report.getPro_name_en())
