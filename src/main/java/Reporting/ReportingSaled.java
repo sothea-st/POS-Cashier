@@ -648,7 +648,7 @@ public class ReportingSaled extends javax.swing.JDialog {
                     String.valueOf(String.format("%.2f", detail.getVatAmt())),
                     String.valueOf(String.format("%.2f", detail.getPLT())),
                     String.valueOf(String.format("%.2f", detail.getNetSale())),
-                    String.valueOf(detail.getCost()),
+                    String.valueOf(String.format("%.2f", detail.getCost())),
                     String.valueOf(String.format("%.2f", detail.getMargin())),
                     String.valueOf(detail.getUserName())
                );
