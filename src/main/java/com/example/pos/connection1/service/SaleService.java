@@ -237,8 +237,6 @@ public class SaleService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
 
-
-
         Sale sale = new Sale();
         sale.setUserId(userId);
         sale.setPosId(posId);
@@ -289,9 +287,12 @@ public class SaleService {
                 repoDetail.save(dataDetail);
 
                 int qtyCheckStoke =0;
-                List<ImportDetail> lists = repoImp.findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByLocalDateAsc(product, 0);
+                List<ImportDetail> lists = repoImp.findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(product, 0);
                 for (int j = 0 ; j < lists.size() ; j++) {
                     var data = lists.get(j);
+
+                    System.out.println("dddddddddddd " + data.getCreateDate() + " qty : " + data.getQtyOld());
+
 
                     if( j == 0  && data.getQtyOld() >= qtyNew) {
                         int qty = data.getQtyOld() - qtyNew;
@@ -300,7 +301,7 @@ public class SaleService {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(qty);
                             repoImp.save(update);
-                           saveFiFo(productId,update.getImpId(),qtyNew,paymentNo,update.getLocalDate());
+                           saveFiFo(productId,update.getImpId(),qtyNew,paymentNo,update.getLocalDate(),update.getCreateDate());
                         }
                         break;
                     }
@@ -312,7 +313,7 @@ public class SaleService {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(0);
                             repoImp.save(update);
-                            saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate());
+                            saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate(),update.getCreateDate());
                         }
                     } else {
                         if( data.getQtyOld() >= qtyCheckStoke ) {
@@ -322,7 +323,7 @@ public class SaleService {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(qty);
                                 repoImp.save(update);
-                                saveFiFo(productId,update.getImpId(),qtyCheckStoke,paymentNo,update.getLocalDate());
+                                saveFiFo(productId,update.getImpId(),qtyCheckStoke,paymentNo,update.getLocalDate(),update.getCreateDate());
                             }
                             break;
                         } else {
@@ -332,7 +333,7 @@ public class SaleService {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(0);
                                 repoImp.save(update);
-                                saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate());
+                                saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate(),update.getCreateDate());
                             }
                         }
                     }
@@ -362,7 +363,7 @@ public class SaleService {
 
     }
 
-    private void saveFiFo(int productId ,int impId , int qtyNew ,String paymentNo,LocalDate localDate ){
+    private void saveFiFo(int productId ,int impId , int qtyNew ,String paymentNo,LocalDate localDate ,Date localDateTime){
         SaleFiFo saleFiFo = new SaleFiFo();
 
         Product pId = productRepository.findById(productId).orElseThrow(
@@ -377,6 +378,7 @@ public class SaleService {
         saleFiFo.setAnImport(anImport);
         saleFiFo.setPaymentNo(paymentNo);
         saleFiFo.setLocalDate(localDate);
+        saleFiFo.setLocalDateTime(localDateTime);
         saleFiFoRepository.save(saleFiFo);
     }
 

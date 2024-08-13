@@ -235,7 +235,7 @@ public class ReturnProductService {
             );
 
             // Fetch all SaleFiFo entries for the given paymentNo, with saleQty > 0, and ordered by localDate descending
-            List<SaleFiFo> saleFiFos = saleFiFoRepository.findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateDesc(re.getPaymentNo(), 0, product);
+            List<SaleFiFo> saleFiFos = saleFiFoRepository.findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateTimeDesc(re.getPaymentNo(), 0, product);
 
             // Calculate total sale quantity from fetched SaleFiFo entries
             int countSaleQty = 0;

@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "pos_sale_fifo")
@@ -33,6 +35,10 @@ public class SaleFiFo {
 
     @Column(name = "local_date")
     private LocalDate localDate;
+
+    @Column(name = "local_date_time")
+    private Date localDateTime;
+
 
     @Column(name = "return_qty")
     private Integer returnQty;

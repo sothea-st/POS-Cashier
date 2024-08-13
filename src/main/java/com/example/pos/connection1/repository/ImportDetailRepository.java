@@ -22,7 +22,7 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
     ImportDetail getDataImportDetail(int productId);
 
 
-    List<ImportDetail> findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByLocalDateAsc(Optional<Product> product, int qtyOld);
+    List<ImportDetail> findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(Optional<Product> product, int qtyOld);
 
     @Query(nativeQuery = true,value = "select * from pos_import_detail pid where imp_id = ? and pro_id = ? and status = true and is_deleted =false")
     ImportDetail getImpIdAndProduct(int impId,int productId);

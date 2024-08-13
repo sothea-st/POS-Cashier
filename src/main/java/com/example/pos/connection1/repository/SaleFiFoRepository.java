@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface SaleFiFoRepository extends JpaRepository<SaleFiFo,Integer> {
 
-    List<SaleFiFo> findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateDesc(String paymentNo,int saleQty,Product product);
+    List<SaleFiFo> findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateTimeDesc(String paymentNo,int saleQty,Product product);
 
     @Query(nativeQuery = true , value = "select\n" +
             "\tsum(psf.sale_qty)\n" +
