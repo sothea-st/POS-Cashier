@@ -97,20 +97,20 @@ public class InsertProduct extends javax.swing.JDialog {
           cmbBrand.setToLastItem(_brandId);
           cmbSubCategory.setToLastItem(_subCatId);
           txtProductName.setValueTextField(_proName);
-          
-          if(_proNameKh != null && _proNameKh != ""){
-              txtProductNameKh.setValueTextField(_proNameKh);
+
+          if (_proNameKh != null && _proNameKh != "") {
+               txtProductNameKh.setValueTextField(_proNameKh);
           }
-          
+
           txtCost.setValueTextField(_cost);
           txtPrice.setValueTextField(_price);
           txtMargin.setLabelTextField(_margin);
           cmbAttribute.setToLastItem(_attributeId);
-          
-          if(_choice != null && _choice != ""){
-              txtChoiceValue.setValueTextField(_choice);
+
+          if (_choice != null && _choice != "") {
+               txtChoiceValue.setValueTextField(_choice);
           }
-          
+
           cmbUom.setToLastItem(_uomId);
           cmbStatus.setToLastItem(_statusId);
           cmbCountry.setToLastItem(_countryId);
@@ -150,14 +150,7 @@ public class InsertProduct extends javax.swing.JDialog {
           ButtonEvent eventCost = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    String _value = txtCost.getValueTextField();
-                    if (!_value.isEmpty()) {
-                         costVal = Double.parseDouble(_value);
-                         cal();
-                    } else {
-                         txtMargin.setLabelTextField(String.valueOf(0));
-                    }
-
+                    cal();
                }
           };
           txtCost.initEvent(eventCost);
@@ -165,13 +158,7 @@ public class InsertProduct extends javax.swing.JDialog {
           ButtonEvent eventPrice = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
-                    String _value = txtPrice.getValueTextField();
-                    if (!_value.isEmpty()) {
-                         priceVal = Double.parseDouble(_value);
-                         cal();
-                    } else {
-                         txtMargin.setLabelTextField(String.valueOf(0));
-                    }
+                    cal();
                }
           };
           txtPrice.initEvent(eventPrice);
@@ -179,15 +166,29 @@ public class InsertProduct extends javax.swing.JDialog {
      }
 
      private void cal() {
-          double result = priceVal - costVal;
-          if (result < 0) {
-               txtMargin.setLabelTextField(String.valueOf(0));
-          } else {
-               result = (result * 100) / priceVal;
-               String lastValue = String.format("%.2f", result) + "%";
-               txtMargin.setLabelTextField(String.valueOf(lastValue));
-          }
 
+          String _price = txtPrice.getValueTextField();
+          String _cost = txtCost.getValueTextField();
+ 
+          if (_cost != null
+               && _price != null
+               && !_price.isEmpty()
+               && !_cost.isEmpty()) {
+
+               double _pPrice = JavaConstant.getReplace(_price);
+               double _cCost = JavaConstant.getReplace(_cost);
+
+               double result = _pPrice - _cCost;
+               if (result < 0) {
+                    txtMargin.setLabelTextField(String.valueOf(0));
+               } else {
+                    result = (result * 100) / _pPrice;
+                    String lastValue = String.format("%.2f", result) + "%";
+                    txtMargin.setLabelTextField(String.valueOf(lastValue));
+               }
+          } else {
+               txtMargin.setLabelTextField(String.valueOf(0));
+          }
      }
 
      private void groupEventCmd() {
@@ -850,7 +851,7 @@ public class InsertProduct extends javax.swing.JDialog {
 //                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
 //                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          dispose();
-                         listProduct.getProduct(listGetProduct,true,0);
+                         listProduct.getProduct(listGetProduct, true, 0);
                     }
                }
           } catch (Exception e) {
@@ -927,7 +928,7 @@ public class InsertProduct extends javax.swing.JDialog {
           listGetProduct.removeAll();
           listGetProduct.repaint();
           listGetProduct.revalidate();
-          listProduct.getProduct(listGetProduct,true , 0);
+          listProduct.getProduct(listGetProduct, true, 0);
      }
 
      public ListProduct getListProduct() {
