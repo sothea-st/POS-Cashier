@@ -634,6 +634,8 @@ public class ReportingSaled extends javax.swing.JDialog {
                }
                index++;
                ReportOfSaled sale = new ReportOfSaled();
+               
+               System.err.println("detail.getVatAmt() = " + detail.getVatAmt());
                sale.setValue(
                     String.valueOf(index),
                     String.valueOf(detail.getInvoiceNumber()),
