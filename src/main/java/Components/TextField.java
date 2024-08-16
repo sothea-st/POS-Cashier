@@ -9,9 +9,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
- 
 
 public class TextField extends javax.swing.JPanel {
 
@@ -26,25 +26,23 @@ public class TextField extends javax.swing.JPanel {
           JavaConstant.setPointer(txtText);
      }
 
-     
-    public static boolean isKhmerCharacter(char c) {
-        return (c >= '\u1780' && c <= '\u17FF') || (c >= '\u19E0' && c <= '\u19FF');
-    }
+     public static boolean isKhmerCharacter(char c) {
+          return (c >= '\u1780' && c <= '\u17FF') || (c >= '\u19E0' && c <= '\u19FF');
+     }
 
-    // Method to detect if a string contains any Khmer characters
-    public static boolean containsKhmer(String text) {
-        if (text == null || text.isEmpty()) {
-            return false;
-        }
-        for (char c : text.toCharArray()) {
-            if (isKhmerCharacter(c)) {
-                return true;
-            }
-        }
-        return false;
-    }
+     // Method to detect if a string contains any Khmer characters
+     public static boolean containsKhmer(String text) {
+          if (text == null || text.isEmpty()) {
+               return false;
+          }
+          for (char c : text.toCharArray()) {
+               if (isKhmerCharacter(c)) {
+                    return true;
+               }
+          }
+          return false;
+     }
 
-     
      //Create Placeholder
      public void initEvent(ButtonEvent event) {
 
@@ -74,9 +72,9 @@ public class TextField extends javax.swing.JPanel {
           txtText.addKeyListener(new KeyListener() {
                @Override
                public void keyTyped(KeyEvent e) {
-                   if(containsKhmer(txtText.getText())){
-                       txtText.setFont(WindowFonts.khmerOsContent12);
-                   }
+                    if (containsKhmer(txtText.getText())) {
+                         txtText.setFont(WindowFonts.khmerOsContent12);
+                    }
                }
 
                @Override
@@ -88,9 +86,42 @@ public class TextField extends javax.swing.JPanel {
                     String text = txtText.getText();
                     setValueTextField(text);
                     event.onKeyRelease();
-                    if(containsKhmer(txtText.getText())){
-                       txtText.setFont(WindowFonts.khmerOsContent12);
+                    if (containsKhmer(txtText.getText())) {
+                         txtText.setFont(WindowFonts.khmerOsContent12);
                     }
+               }
+          });
+     }
+
+     // add phone number 3 digits add space
+     public void add3digits() {
+          txtText.addKeyListener(new KeyAdapter() {
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    String text = txtText.getText().replaceAll("\\s", ""); // Remove all spaces
+                    StringBuilder filteredText = new StringBuilder();
+
+                    // Filter out non-digit characters
+                    for (int i = 0; i < text.length(); i++) {
+                         if (Character.isDigit(text.charAt(i))) {
+                              filteredText.append(text.charAt(i));
+                         }
+                    }
+
+                    // Rebuild the string with spaces after every 3 digits
+                    StringBuilder formatted = new StringBuilder();
+                    for (int i = 0; i < filteredText.length(); i++) {
+                         formatted.append(filteredText.charAt(i));
+                         // Add a space after every 3rd digit
+                         if ((i + 1) % 3 == 0 && i + 1 < filteredText.length()) {
+                              formatted.append(" ");
+                         }
+                    }
+
+                    // Update the text field without triggering another event
+                    txtText.removeKeyListener(this); // Temporarily remove listener to avoid recursion
+                    txtText.setText(formatted.toString());
+                    txtText.addKeyListener(this); // Re-add listener after updating text
                }
           });
      }
@@ -252,8 +283,8 @@ public class TextField extends javax.swing.JPanel {
           this.valueTextField = valueTextField;
           txtText.setText(valueTextField);
           txtText.setForeground(Color.BLACK);
-          if(containsKhmer(txtText.getText())){
-            txtText.setFont(WindowFonts.khmerOsContent12);
+          if (containsKhmer(txtText.getText())) {
+               txtText.setFont(WindowFonts.khmerOsContent12);
           }
      }
 

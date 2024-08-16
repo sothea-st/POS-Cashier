@@ -199,6 +199,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonApplyMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonApplyMouseEntered"/>
               </Events>
             </Component>
             <Component class="DatePicker.DatePicker" name="dateFrom">

@@ -116,7 +116,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           txtTotalUsd.setFocus();
 
           txtTotalUsd.setComma("comma");
-          txtTotalKhr.setComma("comma"); // when user type 4length it will insert , at 3 length 
+          txtTotalKhr.setComma("comma"); // when user type 4length it will insert (,) at 3 length 
 
      }
 

@@ -319,6 +319,9 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                ObjectMapper objectMapper = new ObjectMapper();
                ReportingRespone data = objectMapper.readValue(responeData, ReportingRespone.class);
                ReportingDetailResponse[] lists = data.getData();
+               
+      
+                
                listDetail.clear();
                listDetail.addAll(Arrays.asList(lists));
 
@@ -510,6 +513,9 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
           buttonApply.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     buttonApplyMouseClicked(evt);
+               }
+               public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    buttonApplyMouseEntered(evt);
                }
           });
 
@@ -905,6 +911,10 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
     }//GEN-LAST:event_btnCancelMouseClicked
+
+     private void buttonApplyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonApplyMouseEntered
+          // TODO add your handling code here:
+     }//GEN-LAST:event_buttonApplyMouseEntered
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */

@@ -37,9 +37,11 @@ public class JavaSearchByNameAndCode {
                     if (JavaConstant.token != null) {
 
                          if (valueSearch.isEmpty()) {
+                              
                               panelProduct.removeAll();
                               panelProduct.revalidate();
                               panelProduct.repaint();
+                              jdFormLogin.runData();
                               return;
                          }
 

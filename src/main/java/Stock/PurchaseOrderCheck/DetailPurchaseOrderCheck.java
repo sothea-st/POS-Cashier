@@ -593,8 +593,8 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
          json.put("role", JavaConstant.roleName);
          json.put("checkDate", checkDate);
 
-         Response response = JavaConnection.post(JavaRoute.imports + "/checkingRequest/" + puchaseOrderNo.getLabelName(), json);
-
+         Response response = JavaConnection.post(JavaRoute.imports + "/checkingRequest/" + transactionNo.getLabelName(), json);
+      
          try {
               String responeData = response.body().string();
               if (response.isSuccessful()) {

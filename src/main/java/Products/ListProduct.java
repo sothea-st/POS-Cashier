@@ -123,7 +123,7 @@ public class ListProduct extends javax.swing.JDialog {
 
           eventPagination();
           eventPageNumber();
-          
+
           cmdPageSize.setVisible(false);
      }
 
@@ -153,7 +153,6 @@ public class ListProduct extends javax.swing.JDialog {
 //     void getAll(boolean isCheck) {
 //          Response response = JavaConnection.get(JavaRoute.productV1);
 //     }
-
      private void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
@@ -858,8 +857,19 @@ public class ListProduct extends javax.swing.JDialog {
      }//GEN-LAST:event_btnExcelMouseClicked
 
      private void exportFunc(String typeExport) {
+ 
+          System.out.println("status data : " + status);
           setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-          Response response = JavaConnection.get(JavaRoute.productV1);
+          Response response = null;
+
+          if (status.equals("active")) {
+               response = JavaConnection.get(JavaRoute.productV1 + "/status?status=Active");
+          } else if (status.equals("inActive")) {
+               response = JavaConnection.get(JavaRoute.productV1 + "/status?status=Inactive");
+          } else {
+               response = JavaConnection.get(JavaRoute.productV1);
+          }
+
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();

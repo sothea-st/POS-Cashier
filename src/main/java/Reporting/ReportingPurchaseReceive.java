@@ -152,6 +152,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                ObjectMapper objectMapper = new ObjectMapper();
                ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
                ReportReceiveDetail[] lists = data.getData();
+         
+               
                listDetail.clear();
                listDetail.addAll(Arrays.asList(lists));
 
@@ -624,6 +626,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     ObjectMapper objectMapper = new ObjectMapper();
                     ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
                     ReportReceiveDetail[] lists = data.getData();
+                    
+                 
 
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);

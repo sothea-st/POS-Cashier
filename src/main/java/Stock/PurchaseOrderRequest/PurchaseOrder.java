@@ -154,6 +154,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                               if (data.getRemark().toLowerCase().equals("requested")) {
                                    try {
                                         Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
+                                        System.out.println("response : " + response);
                                         String responseData = response.body().string();
                                         ObjectMapper objMap = new ObjectMapper();
                                         PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
