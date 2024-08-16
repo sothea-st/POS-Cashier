@@ -250,7 +250,7 @@ public class StaffInformation extends javax.swing.JDialog {
             prod.setId(listData.getId());
             prod.setStaffName(listData.getNameEn());
             prod.setDateOfBirth(listData.getDob());
-            prod.setContact(listData.getContact());
+            prod.setContact(String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"));
             prod.setGender(StringUtils.capitalize(listData.getGender()));
             prod.setAddress(listData.getAddress());
             prod.setRoleName(listData.getRoleName());
@@ -350,7 +350,7 @@ public class StaffInformation extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Contact");
+        jLabel3.setText("Phone Number");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -372,7 +372,7 @@ public class StaffInformation extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Started Date");
+        jLabel8.setText("Start Date");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);

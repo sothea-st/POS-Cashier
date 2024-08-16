@@ -44,7 +44,7 @@ public class ExportReportSaleToExcel {
                ArrayList<Object[]> dataList = new ArrayList<>();
                dataList.add(new Object[]{
                     "#",
-                    "Transaction",
+                    "Invoice №",
                     "Date",
                     "Product Name",
                     "Qty",
@@ -114,7 +114,7 @@ public class ExportReportSaleToExcel {
                          Cell cell = row.createCell(j);
                          if (dataList.get(i)[j] instanceof String) {
                               if (String.valueOf(dataList.get(i)[j]).equals("#")
-                                   || String.valueOf(dataList.get(i)[j]).equals("Transaction")
+                                   || String.valueOf(dataList.get(i)[j]).equals("Invoice №")
                                    || String.valueOf(dataList.get(i)[j]).equals("Date")
                                    || String.valueOf(dataList.get(i)[j]).equals("Product Name")
                                    || String.valueOf(dataList.get(i)[j]).equals("Qty")

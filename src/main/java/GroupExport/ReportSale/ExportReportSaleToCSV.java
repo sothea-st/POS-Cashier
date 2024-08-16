@@ -49,7 +49,7 @@ public class ExportReportSaleToCSV {
                // Write headers
                writer.writeNext(new String[]{
                     "#",
-                    "Transaction",
+                    "Invoice №",
                     "Date",
                     "Product Name",
                     "Qty",
