@@ -91,7 +91,10 @@
                                                   <EmptySpace max="32767" attributes="0"/>
                                                   <Component id="dobDate" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="startDate" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Component id="startDate" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -108,12 +111,12 @@
                                           <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="label7" min="-2" pref="51" max="-2" attributes="0"/>
+                                          <Component id="label7" min="-2" pref="93" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                           <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                                  <EmptySpace pref="26" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="contact" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -316,7 +319,7 @@
         </Component>
         <Component class="Components.Label" name="label7">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Contact"/>
+            <Property name="labelName" type="java.lang.String" value="Phone Number"/>
           </Properties>
         </Component>
         <Component class="Components.TextField" name="contact">
