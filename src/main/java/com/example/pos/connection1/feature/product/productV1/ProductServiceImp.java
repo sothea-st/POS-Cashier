@@ -108,7 +108,6 @@ public class ProductServiceImp implements ProductService {
     public JavaCollectionResponse<?> listByStatus(Integer pageNumber, Integer pageSize, String status) {
         List<ProductResponse> data = null;
 
-
         if (pageNumber == null && pageSize == null) {
             Status status1 = statusRepository.findByStatusName(status).orElseThrow(
                     () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with StatusName : " + status)

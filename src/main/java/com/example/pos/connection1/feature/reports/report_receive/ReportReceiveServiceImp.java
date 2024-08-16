@@ -97,7 +97,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
         List<ReportReceiveResponse> data = new ArrayList<>();
         long totalCount = 0;
         if (pageNumber != null && pageSize != null) {
-            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id","createDate");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             if (receiveBy == null) {
                 pages = importRepository.findByDateLocalBetweenAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo),List.of("stocked","approved") ,pageRequest);
@@ -113,7 +113,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                         String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
                         return ReportReceiveResponse.builder()
                                 .vendorName(d.getVendor().getVendorName())
-                                .transactionNo(d.getTransactionNo())
+                                .transactionNo(d.getImpNo())
                                 .referenceNo(d.getReferenceNo())
                                 .transactionDate(d.getImpDate())
                                 .receiveBy(receiveByName)
@@ -126,9 +126,9 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
         } else {
 
             if (receiveBy == null) {
-                lists = importRepository.findByDateLocalBetween(LocalDate.parse(dateFrom), LocalDate.parse(dateTo));
+                lists = importRepository.findByDateLocalBetweenAndRemarkInOrderByCreateDateDesc(LocalDate.parse(dateFrom), LocalDate.parse(dateTo),List.of("stocked","approved"));
             } else {
-                lists = importRepository.findByDateLocalBetweenAndReceiveBy(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), receiveBy);
+                lists = importRepository.findByDateLocalBetweenAndReceiveByAndRemarkInOrderByCreateDateDesc(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), receiveBy,List.of("stocked","approved"));
             }
             totalCount = lists.size();
             data = lists.stream()
@@ -136,7 +136,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                         String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
                         return ReportReceiveResponse.builder()
                                 .vendorName(d.getVendor().getVendorName())
-                                .transactionNo(String.valueOf(d.getId()))
+                                .transactionNo(d.getImpNo())
                                 .referenceNo(d.getReferenceNo())
                                 .transactionDate(d.getImpDate())
                                 .receiveBy(receiveByName)

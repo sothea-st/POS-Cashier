@@ -47,7 +47,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
         boolean check10 = approvedId != null && remark == null && requestId == null && checkId == null && rejectId == null;
         boolean check11 = rejectId != null && remark != null && requestId == null && approvedId == null && checkId == null;
         boolean check12 = rejectId != null && remark == null && requestId == null && approvedId == null && checkId == null;
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id","created_date");
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id","createDate");
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
         Page<Import> pages = null;
         List<ReportPOResponse> list = new ArrayList<>();
@@ -170,7 +170,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     User user2 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getApproveBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "User not found with id id : " + data.getCheckBy()));
-                    approvedBy = user2.getUsername();
+                    approvedBy = user2.getFullName();
                 }
 
                 String rejectBy = null;
@@ -178,7 +178,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     User user3 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getRejectBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "User not found with id id : " + data.getCheckBy()));
-                    rejectBy = user3.getUsername();
+                    rejectBy = user3.getFullName();
                 }
 
                 ReportPOResponse d = ReportPOResponse.builder()
@@ -253,7 +253,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
         long totalCount = 0;
         List<ReportPOResponse> list = new ArrayList<>();
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id","created_date");
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id","createDate");
 
         boolean check1 = requestId != null && checkId != null && approvedId != null && remark != null && rejectId == null;
         boolean check2 = requestId != null && checkId != null && approvedId != null && remark == null && rejectId == null;
@@ -454,7 +454,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
 
             if (check1) {
-                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(
+                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemarkOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
@@ -463,7 +463,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         remark
                 );
             } else if (check2) {
-                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveBy(
+                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndApproveByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
@@ -471,71 +471,71 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         approvedId
                 );
             } else if (check3) {
-                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndRemark(
+                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByAndRemarkOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
                         checkId,
                         remark);
             } else if (check4) {
-                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckBy(
+                datas = importRepository.findByDateLocalBetweenAndCreateByAndCheckByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
                         checkId);
             } else if (check5) {
-                datas = importRepository.findByDateLocalBetweenAndCreateByAndRemark(
+                datas = importRepository.findByDateLocalBetweenAndCreateByAndRemarkOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId,
                         remark);
             } else if (check6) {
-                datas = importRepository.findByDateLocalBetweenAndCreateBy(
+                datas = importRepository.findByDateLocalBetweenAndCreateByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         requestId);
             } else if (check7) {
-                datas = importRepository.findByDateLocalBetweenAndCheckByAndRemark(
+                datas = importRepository.findByDateLocalBetweenAndCheckByAndRemarkOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         checkId,
                         remark);
             } else if (check8) {
-                datas = importRepository.findByDateLocalBetweenAndCheckBy(
+                datas = importRepository.findByDateLocalBetweenAndCheckByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         checkId);
             } else if (check9) {
-                datas = importRepository.findByDateLocalBetweenAndApproveByAndRemark(
+                datas = importRepository.findByDateLocalBetweenAndApproveByAndRemarkOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         approvedId,
                         remark);
             } else if (check10) {
-                datas = importRepository.findByDateLocalBetweenAndApproveBy(
+                datas = importRepository.findByDateLocalBetweenAndApproveByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         approvedId);
             } else if (check11) {
-                datas = importRepository.findByDateLocalBetweenAndRejectByAndRemark(
+                datas = importRepository.findByDateLocalBetweenAndRejectByAndRemarkOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         rejectId,
                         remark);
             } else if (check12) {
-                datas = importRepository.findByDateLocalBetweenAndRejectBy(
+                datas = importRepository.findByDateLocalBetweenAndRejectByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         rejectId);
             } else if (check13) {
-                datas = importRepository.findByDateLocalBetweenAndRejectByAndCreateBy(
+                datas = importRepository.findByDateLocalBetweenAndRejectByAndCreateByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         rejectId,
                         requestId
                 );
             } else if( check14 ) {
-                datas = importRepository.findByDateLocalBetweenAndRejectByAndCreateByAndCheckBy(
+                datas = importRepository.findByDateLocalBetweenAndRejectByAndCreateByAndCheckByOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         rejectId,
@@ -544,7 +544,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 );
             }
             else if ( check15 ) {
-                datas = importRepository.findByDateLocalBetween(
+                datas = importRepository.findByDateLocalBetweenOrderByCreateDateDesc(
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo)
                          );
@@ -578,7 +578,9 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     User user2 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getApproveBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "User not found with id id : " + data.getCheckBy()));
-                    approvedBy = user2.getUsername();
+                    approvedBy = user2.getFullName();
+
+                    System.out.println("    approvedBy = user2.getUsername(); = " + approvedBy);
                 }
 
                 String rejectBy = null;
@@ -586,7 +588,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     User user3 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getRejectBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                     "User not found with id id : " + data.getCheckBy()));
-                    rejectBy = user3.getUsername();
+                    rejectBy = user3.getFullName();
                 }
 
                 ReportPOResponse d = ReportPOResponse.builder()
@@ -630,7 +632,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
     @Override
     public JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String vendorName) {
         // Define sorting criteria by id in descending order
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id","created_at");
 
         // Create page request for the specified page number, page size, and sorting
         // criteria
@@ -700,7 +702,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
         List<ReportPurchaseOrderResponse> reportPurchaseOrderResponses = new ArrayList<>();
         long totalCount = 0;
         if (pageNumber != null && pageSize != null) {
-            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id","createDate");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             // Fetch imports between dateFromLocal and dateToLocal
             Page<Import> pages = importRepository.findByDateLocalBetween(dateFromLocal, dateToLocal, pageRequest);
@@ -712,7 +714,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                     .toList();
         } else {
             // Fetching data without pagination
-            List<Import> imports = importRepository.findByDateLocalBetween(dateFromLocal, dateToLocal);
+            List<Import> imports = importRepository.findByDateLocalBetweenOrderByCreateDateDesc(dateFromLocal, dateToLocal);
 
             // Mapping Import entities to ReportPurchaseOrderResponse DTOs
             reportPurchaseOrderResponses = imports.stream()

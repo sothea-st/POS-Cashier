@@ -36,57 +36,63 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Page<Import> findByDateLocalBetweenAndReceiveByAndRemarkIn(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest , int receiveBy,List<String> remark);
 
 
-     List<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo);
-     List<Import> findByDateLocalBetweenAndReceiveBy(LocalDate dateFrom, LocalDate dateTo,int receiveId);
+     List<Import> findByDateLocalBetweenOrderByCreateDateDesc(LocalDate dateFrom, LocalDate dateTo);
+
+     List<Import> findByDateLocalBetweenAndRemarkInOrderByCreateDateDesc(LocalDate dateFrom, LocalDate dateTo,List<String> remarks);
+
+     List<Import> findByDateLocalBetweenAndReceiveByOrderByCreateDateDesc(LocalDate dateFrom, LocalDate dateTo,int receiveId);
+
+     List<Import> findByDateLocalBetweenAndReceiveByAndRemarkInOrderByCreateDateDesc(LocalDate dateFrom, LocalDate dateTo,int receiveId,List<String> remarks);
+
 
 
      List<Import> findByStatusTrueAndIsDeletedFalseAndRemark(String remark);
      Page<Import> findByDateLocalBetweenAndCheckByAndRemark(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest,int checkBy,String remark);
 
-     List<Import> findByDateLocalBetweenAndCheckByAndRemark(LocalDate dateFrom, LocalDate dateTo ,int checkBy,String remark);
+     List<Import> findByDateLocalBetweenAndCheckByAndRemarkOrderByCreateDateDesc(LocalDate dateFrom, LocalDate dateTo ,int checkBy,String remark);
 
      Page<Import> findByDateLocalBetweenAndCreateByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , String remark);
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy);
-     List<Import> findByDateLocalBetweenAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy);
+     List<Import> findByDateLocalBetweenAndCreateByAndCheckByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy);
 
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy,int approvedBy , String remark);
-     List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,int approvedBy , String remark);
+     List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemarkOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,int approvedBy , String remark);
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy,int approvedBy);
 
-     List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveBy(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,int approvedBy);
+     List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,int approvedBy);
 
 
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy,String remark);
 
-     List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndRemark(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,String remark);
+     List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndRemarkOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,String remark);
 
-     List<Import> findByDateLocalBetweenAndCreateByAndRemark(LocalDate dateFrom , LocalDate dateTo  , int creataBy , String remark);
-     List<Import> findByDateLocalBetweenAndCreateBy(LocalDate dateFrom , LocalDate dateTo  , int creataBy);
+     List<Import> findByDateLocalBetweenAndCreateByAndRemarkOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo  , int creataBy , String remark);
+     List<Import> findByDateLocalBetweenAndCreateByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo  , int creataBy);
 
-     List<Import> findByDateLocalBetweenAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , int approvedBy , String remark);
+     List<Import> findByDateLocalBetweenAndApproveByAndRemarkOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int approvedBy , String remark);
 
      Page<Import> findByDateLocalBetweenAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int approvedBy , String remark);
      Page<Import> findByDateLocalBetweenAndRejectByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectBy , String remark);
-     List<Import> findByDateLocalBetweenAndRejectByAndRemark(LocalDate dateFrom , LocalDate dateTo , int rejectBy , String remark);
+     List<Import> findByDateLocalBetweenAndRejectByAndRemarkOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int rejectBy , String remark);
 
      Page<Import> findByDateLocalBetweenAndCreateBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy);
      Page<Import> findByDateLocalBetweenAndCheckBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int checkBy);
-     List<Import> findByDateLocalBetweenAndCheckBy(LocalDate dateFrom , LocalDate dateTo  , int checkBy);
+     List<Import> findByDateLocalBetweenAndCheckByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo  , int checkBy);
 
 
      Page<Import> findByDateLocalBetweenAndApproveBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int approvedBy);
-     List<Import> findByDateLocalBetweenAndApproveBy(LocalDate dateFrom , LocalDate dateTo ,  int approvedBy);
+     List<Import> findByDateLocalBetweenAndApproveByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo ,  int approvedBy);
 
      Page<Import> findByDateLocalBetweenAndRejectBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectId);
 
      Page<Import> findByDateLocalBetweenAndRejectByAndCreateBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectId,int creataBy);
 
-     List<Import> findByDateLocalBetweenAndRejectByAndCreateBy(LocalDate dateFrom , LocalDate dateTo , int rejectId,int creataBy);
-     List<Import> findByDateLocalBetweenAndRejectByAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo ,  int rejectId,int creataBy,int checkBy);
+     List<Import> findByDateLocalBetweenAndRejectByAndCreateByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int rejectId,int creataBy);
+     List<Import> findByDateLocalBetweenAndRejectByAndCreateByAndCheckByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo ,  int rejectId,int creataBy,int checkBy);
 
      Page<Import> findByDateLocalBetweenAndRejectByAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int rejectId,int creataBy,int checkBy);
 
 
-     List<Import> findByDateLocalBetweenAndRejectBy(LocalDate dateFrom , LocalDate dateTo , int rejectId);
+     List<Import> findByDateLocalBetweenAndRejectByOrderByCreateDateDesc(LocalDate dateFrom , LocalDate dateTo , int rejectId);
 
 }
