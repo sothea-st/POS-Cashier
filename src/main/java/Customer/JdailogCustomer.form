@@ -80,7 +80,7 @@
                       <Component id="txtCustomerName" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="txtPhone" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtPoint" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="txtAmount" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -110,7 +110,7 @@
         </Component>
         <Component class="Components.TextField" name="txtPhone">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Phone Number"/>
+            <Property name="labelTextField" type="java.lang.String" value="000 000 0000"/>
           </Properties>
         </Component>
         <Component class="Components.TextField" name="txtPoint">

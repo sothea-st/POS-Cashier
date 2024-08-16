@@ -14,6 +14,9 @@ import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeParseException;
 
 public class DatePicker extends javax.swing.JPanel {
 
@@ -64,6 +67,33 @@ public class DatePicker extends javax.swing.JPanel {
 
      }
 
+     
+     //Validate date of birth at least 18 years old
+     public static boolean isValidDateOfBirth(String dobStr) {
+
+        String dateOfbirth = JavaConstant.formateDateYYYYMMDD(dobStr);
+
+        try {
+            LocalDate dob = LocalDate.parse(dateOfbirth);
+            LocalDate now = LocalDate.now();
+            // Ensure the date is not in the future
+            if (dob.isAfter(now)) {
+                return false;
+            }
+            
+            // Optionally, check the age (e.g., must be at least 18 years old)
+            int age = Period.between(dob, now).getYears();
+            
+            System.out.println("age : " + age);
+            
+            return age >= 18;
+        } catch (DateTimeParseException e) {
+            // Invalid date format or invalid date
+            return false;
+        }
+       
+    }
+     
      //=================================================Create Shadow Box
      private ShadowType shadowType;
      private int shadowSize = 1;

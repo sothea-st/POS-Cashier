@@ -5,16 +5,10 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
-import Model.CustomerType.CustomerTypeModel;
-import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import okhttp3.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Customer extends javax.swing.JDialog {
@@ -32,10 +26,10 @@ public class Customer extends javax.swing.JDialog {
           setResizable(false);
           txtCustomerName.requestFocus();
           event();
-//          addComboCustomerType();
           nationalityGroupButton();
           genderGroupButton();
           buttonSave1.setBackground(WindowColor.lightGray);
+          txtPhone.add3digitsToPhoneNumber();
 
           // action get select customer type
           ButtonEvent event = new ButtonEvent() {
@@ -47,6 +41,7 @@ public class Customer extends javax.swing.JDialog {
           customerFun();
           cmdEvent();
           cmdNationalityEvent();
+          
      }
 
      void changeBackGroundBtn() {
@@ -265,7 +260,7 @@ public class Customer extends javax.swing.JDialog {
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmdNationality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbCustomerType1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(34, 34, 34)
+                .addGap(20, 20, 20)
                 .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -291,10 +286,8 @@ public class Customer extends javax.swing.JDialog {
 
      private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
 
-        
-          
           String txtCus = txtCustomerName.getValueTextField();
-          String txtPh = txtPhone.getValueTextField();
+          String txtPh = txtPhone.getValueTextField().replace(" ", "");
           if (txtCus.isEmpty()) {
                txtCus = null;
           }
@@ -303,11 +296,11 @@ public class Customer extends javax.swing.JDialog {
           }
           
           if (txtPh == null) {
-               JOptionPane.showMessageDialog(this, "The field phone number is required!");
+               JOptionPane.showMessageDialog(this, "Phone Number is required!");
                return;
           }
           if (!txtPh.isEmpty() && txtPh.length() < 9 || txtPh.length() > 10) {
-               JOptionPane.showMessageDialog(this, "The field phone must be 9 or 10 charaters!");
+               JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
                return;
           }
 
@@ -325,7 +318,7 @@ public class Customer extends javax.swing.JDialog {
                     if (response.isSuccessful()) {
                          dispose();
                     } else {
-                         JOptionPane.showMessageDialog(this, "The phone number already uesd!");
+                         JOptionPane.showMessageDialog(this, "The phone number is already uesd!");
                     }
                } catch (Exception e) {
                     System.err.println("data err" + e);

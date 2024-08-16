@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package Customer;
 
 import Color.WindowColor;
@@ -38,8 +34,7 @@ public class JdailogCustomer extends javax.swing.JDialog {
           event();
           getPointCustomer();
           txtCustomerName.requestFocusInWindow();
-//          txtPoint.disabledTextField(false);
-//          txtAmount.disabledTextField(false);
+          txtPhone.add3digitsToPhoneNumber();
      }
 
      void event() {
@@ -116,7 +111,7 @@ public class JdailogCustomer extends javax.swing.JDialog {
 
         txtCustomerName.setLabelTextField("Customer Code");
 
-        txtPhone.setLabelTextField("Phone Number");
+        txtPhone.setLabelTextField("000 000 0000");
 
         txtPoint.setEnabled(false);
         txtPoint.setLabelTextField("Total Point earned");
@@ -151,7 +146,7 @@ public class JdailogCustomer extends javax.swing.JDialog {
                 .addGroup(pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

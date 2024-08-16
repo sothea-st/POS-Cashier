@@ -199,7 +199,7 @@ public class StaffInformation extends javax.swing.JDialog {
                                 data.getAddress(),
                                 data.getGender(),
                                 "" + data.getRoleId(),
-                                data.getContact(),
+                                String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"),
                                 _urlImg
                         );
 
@@ -358,7 +358,6 @@ public class StaffInformation extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Gender");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N

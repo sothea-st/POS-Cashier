@@ -119,7 +119,7 @@
                                   <EmptySpace pref="26" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="contact" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="phoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="role" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -189,7 +189,7 @@
                               <Component id="jLabel13" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="contact" min="-2" max="-2" attributes="0"/>
+                      <Component id="phoneNumber" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel17" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -322,7 +322,7 @@
             <Property name="labelName" type="java.lang.String" value="Phone Number"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="contact">
+        <Component class="Components.TextField" name="phoneNumber">
           <Properties>
             <Property name="labelTextField" type="java.lang.String" value="000 000 0000"/>
           </Properties>
