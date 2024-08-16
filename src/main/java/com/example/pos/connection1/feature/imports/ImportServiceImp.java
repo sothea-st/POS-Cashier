@@ -293,8 +293,8 @@ public class ImportServiceImp implements ImportService {
         // Build and return ImportResponseById object
         return ImportResponseById.builder()
                 .id(imports.getId())
-                .transactionNo(imports.getTransactionNo())
-                .purchaseOrderNo(imports.getImpNo())
+                .transactionNo(imports.getImpNo())
+                .purchaseOrderNo(imports.getTransactionNo())
                 .referenceNo(imports.getReferenceNo())
                 .totalCost(imports.getTotal())
                 .totalQty(imports.getTotalQty())

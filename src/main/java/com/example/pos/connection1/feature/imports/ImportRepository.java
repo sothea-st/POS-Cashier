@@ -50,7 +50,6 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      List<Import> findByDateLocalBetweenAndCreateByAndCheckBy(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy);
 
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy,int approvedBy , String remark);
-
      List<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveByAndRemark(LocalDate dateFrom , LocalDate dateTo , int creataBy , int checkBy,int approvedBy , String remark);
      Page<Import> findByDateLocalBetweenAndCreateByAndCheckByAndApproveBy(LocalDate dateFrom , LocalDate dateTo , PageRequest pageRequest , int creataBy , int checkBy,int approvedBy);
 

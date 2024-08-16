@@ -70,7 +70,12 @@ public class ProductExcelServiceImp implements ProductExcelService {
                          productExcelDetail.getVendorId() != null &&
                          productExcelDetail.getSubCatId() != null &&
                          productExcelDetail.getProductName() != null) {
-
+                    // validate barcode
+                    if (productRepository.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(productExcelDetail.getBarcode())) {
+                         System.out.println("ddddddddddddddddd");
+                         throw new ResponseStatusException(
+                                 HttpStatus.CONFLICT, barcodeAlreadyExist + productExcelDetail.getBarcode());
+                    }
                     if( productRepository.existsByProNameEnAndStatusIsTrueAndIsDeletedIsFalse(productExcelDetail.getProductName()) ) {
                          throw new ResponseStatusException(HttpStatus.CONFLICT , "Product Name : "+productExcelDetail.getProductName()+" already exists ");
                     }
@@ -125,11 +130,7 @@ public class ProductExcelServiceImp implements ProductExcelService {
                               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                         countryIdNotFound + productExcelDetail.getCountryId()));
 
-                    // validate barcode
-                    if (productRepository.existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(productExcelDetail.getBarcode())) {
-                         throw new ResponseStatusException(
-                                   HttpStatus.CONFLICT, barcodeAlreadyExist + productExcelDetail.getBarcode());
-                    }
+
                     count++;
                     Product product = new Product();
 

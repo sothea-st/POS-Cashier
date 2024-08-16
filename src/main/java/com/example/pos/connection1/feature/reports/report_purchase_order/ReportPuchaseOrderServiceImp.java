@@ -47,7 +47,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
         boolean check10 = approvedId != null && remark == null && requestId == null && checkId == null && rejectId == null;
         boolean check11 = rejectId != null && remark != null && requestId == null && approvedId == null && checkId == null;
         boolean check12 = rejectId != null && remark == null && requestId == null && approvedId == null && checkId == null;
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id","created_date");
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
         Page<Import> pages = null;
         List<ReportPOResponse> list = new ArrayList<>();
@@ -253,7 +253,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
 
         long totalCount = 0;
         List<ReportPOResponse> list = new ArrayList<>();
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id","created_date");
 
         boolean check1 = requestId != null && checkId != null && approvedId != null && remark != null && rejectId == null;
         boolean check2 = requestId != null && checkId != null && approvedId != null && remark == null && rejectId == null;
