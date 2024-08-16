@@ -37,6 +37,7 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -185,12 +186,7 @@ public class ImportServiceImp implements ImportService {
                 .build();
     }
 
-    /**
-     * update Import
-     *
-     * @param importReques is a source from client
-     * @param id           to specify itme update
-     */
+
     @Override
     public void update(ImportRequest importRequest, int id) {
         createAndUpdateImport(importRequest, id);
@@ -296,7 +292,8 @@ public class ImportServiceImp implements ImportService {
 
         // Build and return ImportResponseById object
         return ImportResponseById.builder()
-                .transactionNo(imports.getId())
+                .id(imports.getId())
+                .transactionNo(imports.getTransactionNo())
                 .purchaseOrderNo(imports.getImpNo())
                 .referenceNo(imports.getReferenceNo())
                 .totalCost(imports.getTotal())
@@ -429,7 +426,33 @@ public class ImportServiceImp implements ImportService {
      * @return A formatted import number.
      */
     private String impCount(long count) {
-        return String.format("%05d", count + 1);
+        LocalDate currentDate = LocalDate.now();
+
+        // Format the date as YYMMDD
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyMMdd");
+        String datePart = currentDate.format(formatter);
+
+        // Format the count as a 3-digit number with leading zeros
+        String countPart = String.format("%03d", count + 1);
+
+        // Combine all parts into the final POD code
+        return "POD-" + datePart + countPart;
+
+    }
+
+    public String transactionNo(long count) {
+        // Get the current year
+        LocalDate currentDate = LocalDate.now();
+
+        // Format the year as YY
+        DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yy");
+        String yearPart = currentDate.format(yearFormatter);
+
+        // Format the count as a 4-digit number with leading zeros
+        String countPart = String.format("%04d", count + 1);
+
+        // Combine all parts into the final PO code
+        return "PO-" + yearPart + countPart;
     }
 
     private void createAndUpdateImport(ImportRequest importRequest, Integer id) {
@@ -453,6 +476,7 @@ public class ImportServiceImp implements ImportService {
             data = new Import();
             // Generate import number
             impNo = impCount(importRepository.count());
+            data.setTransactionNo(transactionNo(importRepository.count()));
             data.setImpNo(impNo);
             data.setDateLocal(localDate);
         } else {

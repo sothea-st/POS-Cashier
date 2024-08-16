@@ -62,7 +62,7 @@ public class ReturnProductService {
 
 
     public Map<String, Object> returnProduct(ReturnProduct re) {
-
+        System.out.println("ddddddddddddddddddddd");
         String time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(Calendar.getInstance().getTime());
 
         ReturnProduct r = new ReturnProduct();

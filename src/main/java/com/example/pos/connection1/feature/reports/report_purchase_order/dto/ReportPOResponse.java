@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 public record ReportPOResponse(
           String purchaseOrderNo,
-          Integer transactionNo,
+          String transactionNo,
           String transactionDate,
           String orderDate,
           String referenceNo,

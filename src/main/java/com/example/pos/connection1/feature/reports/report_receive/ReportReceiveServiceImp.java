@@ -46,7 +46,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                                 String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
                                 return ReportReceiveResponse.builder()
                                         .vendorName(d.getVendor().getVendorName())
-                                        .transactionNo(String.valueOf(d.getId()))
+                                        .transactionNo(d.getTransactionNo())
                                         .referenceNo(d.getReferenceNo())
                                         .transactionDate(d.getImpDate())
                                         .receiveBy(receiveByName)
@@ -74,7 +74,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                             String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
                             return ReportReceiveResponse.builder()
                                     .vendorName(d.getVendor().getVendorName())
-                                    .transactionNo(String.valueOf(d.getId()))
+                                    .transactionNo(d.getTransactionNo())
                                     .referenceNo(d.getReferenceNo())
                                     .transactionDate(d.getImpDate())
                                     .receiveBy(receiveByName)
@@ -113,7 +113,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                         String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
                         return ReportReceiveResponse.builder()
                                 .vendorName(d.getVendor().getVendorName())
-                                .transactionNo(String.valueOf(d.getId()))
+                                .transactionNo(d.getTransactionNo())
                                 .referenceNo(d.getReferenceNo())
                                 .transactionDate(d.getImpDate())
                                 .receiveBy(receiveByName)

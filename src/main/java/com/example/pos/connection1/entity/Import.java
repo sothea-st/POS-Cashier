@@ -41,6 +41,9 @@ public class Import {
     @Column(name = "reference_no")
     private String referenceNo;
 
+    @Column(name = "transaction_no")
+    private String transactionNo;
+
     @Column(name = "imp_date",length = 50)
     @NotNull(message = JavaMessage.required)
     @NotBlank(message = JavaMessage.required)

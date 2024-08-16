@@ -7,7 +7,8 @@ import lombok.Builder;
 
 @Builder
 public record ImportResponseById(
-     Integer transactionNo,
+        int id,
+     String transactionNo,
      String purchaseOrderNo,
      String transactionDate,
      Integer vendorId,

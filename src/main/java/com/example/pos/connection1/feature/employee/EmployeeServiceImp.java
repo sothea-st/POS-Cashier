@@ -67,7 +67,7 @@ public class EmployeeServiceImp implements EmployeeService{
 
         List<EmployeeResponse> content = pages.getContent()
                                         .stream()
-                                        .map(c -> mEmployeeResponse(c))
+                                        .map(this::mEmployeeResponse)
                                         .toList();
 
         return JavaCollectionResponse.builder()
@@ -202,7 +202,7 @@ public class EmployeeServiceImp implements EmployeeService{
 
         List<EmployeeResponse> content = pages.getContent()
                                         .stream()
-                                        .map(c -> mEmployeeResponse(c))
+                                        .map(this::mEmployeeResponse)
                                         .toList();
 
         return JavaCollectionResponse.builder()
