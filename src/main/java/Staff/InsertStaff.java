@@ -6,12 +6,19 @@ import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
+import static DatePicker.DatePicker.isValidDateOfBirth;
 import Event.ButtonEvent;
 import Model.Role.RoleModel;
-import java.awt.Cursor;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +26,6 @@ import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import lombok.Getter;
-import lombok.Setter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -65,7 +70,7 @@ public class InsertStaff extends javax.swing.JDialog {
         address.setValueTextField(addressValue);
         gender.setToLastItem(genderIdValue);
         role.setToLastItem(roleIdValue);
-        contact.setValueTextField(contactValue);
+        phoneNumber.setValueTextField(contactValue);
         JavaConstant.coverImage(urlImg, lbFile, 150, 135);
     }
 
@@ -96,6 +101,13 @@ public class InsertStaff extends javax.swing.JDialog {
         };
         role.initEvent(event);
         addComboRole();
+        
+        phoneNumber.add3digitsToPhoneNumber();
+        dobDate.setValueTextField("");
+        dobDate.setLabelTextField("Select Date");
+        startDate.setValueTextField("");
+        startDate.setLabelTextField("Select Date");
+        
     }
 
     //Place Holder
@@ -110,7 +122,7 @@ public class InsertStaff extends javax.swing.JDialog {
         dobDate.initEvent(btnevent);
         startDate.initEvent(btnevent);
         address.initEvent(btnevent);
-        contact.initEvent(btnevent);
+        phoneNumber.initEvent(btnevent);
     }
 
     //Set Combo box role
@@ -180,7 +192,7 @@ public class InsertStaff extends javax.swing.JDialog {
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
         label7 = new Components.Label();
-        contact = new Components.TextField();
+        phoneNumber = new Components.TextField();
         role = new Components.ComboBox();
         label9 = new Components.Label();
         jLabel15 = new javax.swing.JLabel();
@@ -243,7 +255,7 @@ public class InsertStaff extends javax.swing.JDialog {
 
         label7.setLabelName("Phone Number");
 
-        contact.setLabelTextField("000 000 0000");
+        phoneNumber.setLabelTextField("000 000 0000");
 
         label9.setLabelName("Role");
 
@@ -339,7 +351,7 @@ public class InsertStaff extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                                 .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 20, Short.MAX_VALUE))
                     .addGroup(panelAddStaffLayout.createSequentialGroup()
@@ -389,7 +401,7 @@ public class InsertStaff extends javax.swing.JDialog {
                             .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(contact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -424,38 +436,58 @@ public class InsertStaff extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        String staffNameEn = staffName.getValueTextField();
+        
         String dateOfBirth = dobDate.getValueTextField();
+        String staffNameEn = staffName.getValueTextField();
         String staffStartDate = startDate.getValueTextField();
         String staffAddress = address.getValueTextField();
-        String staffContact = contact.getValueTextField();
 
         if (staffNameEn == null || staffNameEn.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Staff Name can not be empty!");
+            JOptionPane.showMessageDialog(this, "Staff Name is required!");
             return;
         }
-        if (dateOfBirth == null || dateOfBirth.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Date of Birth can not be empty!");
-            return;
-        }
-        if (staffStartDate == null || staffStartDate.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Start Date can not be empty!");
-            return;
-        }
-        if (staffAddress == null || staffAddress.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Address can not be empty!");
-            return;
-        }
+        
         if (genderId == null) {
             JOptionPane.showMessageDialog(this, "Please select a gender!");
             return;
         }
+        
+        if (dateOfBirth == null || dateOfBirth.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Date of Birth is required!");
+            return;
+        }
+        
+        if(isValidDateOfBirth(dateOfBirth) == false){
+            JOptionPane.showMessageDialog(this, "Age must be at least 18 years old!");
+            return;
+        }
+        
         if (roleId == null) {
             JOptionPane.showMessageDialog(this, "Please select a role!");
             return;
         }
+        
+        if (staffStartDate == null || staffStartDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Start Date is required!");
+            return;
+        }
+        
+        String staffContact = phoneNumber.getValueTextField();
+        
         if (staffContact == null || staffContact.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Contact can not be empty!");
+            JOptionPane.showMessageDialog(this, "Phone Number is required!");
+            return;
+        }
+        
+        String phone = staffContact.replace(" ", "");
+
+        if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 10) {
+            JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
+            return;
+        }
+        
+        if (staffAddress == null || staffAddress.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Address is required!");
             return;
         }
 
@@ -480,7 +512,7 @@ public class InsertStaff extends javax.swing.JDialog {
                 .addFormDataPart("address", staffAddress)
                 .addFormDataPart("roleId", roleId)
                 .addFormDataPart("createBy", JavaConstant.cashierId + "")
-                .addFormDataPart("contact", staffContact);
+                .addFormDataPart("contact", phone);
 
         if (path != null) {
             File fileToUpload = new File(path);
@@ -495,13 +527,12 @@ public class InsertStaff extends javax.swing.JDialog {
                 .header("Authorization", "Bearer " + JavaConstant.token)
                 .build();
 
-
         try {
             if (id == null) {
                 Response response = client.newCall(request).execute();
 
                 if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The phone number already uesd!");
+                    JOptionPane.showMessageDialog(this, "Phone Number is already uesd!");
                     return;
                 }
 
@@ -517,7 +548,7 @@ public class InsertStaff extends javax.swing.JDialog {
                 Response response = client.newCall(request).execute();
 
                 if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The phone number already uesd!");
+                    JOptionPane.showMessageDialog(this, "Phone Number is already uesd!");
                     return;
                 }
                 if (response.isSuccessful()) {
@@ -599,7 +630,6 @@ public class InsertStaff extends javax.swing.JDialog {
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
     private Button.Button buttonUpload;
-    private Components.TextField contact;
     private DatePicker.DatePicker dobDate;
     private Components.ComboBox gender;
     private javax.swing.JLabel jLabel11;
@@ -620,6 +650,7 @@ public class InsertStaff extends javax.swing.JDialog {
     private Components.LabelPopUpTitle labelPopUpTitle1;
     private javax.swing.JLabel lbFile;
     private javax.swing.JPanel panelAddStaff;
+    private Components.TextField phoneNumber;
     private Components.ComboBox role;
     private Components.TextField staffName;
     private DatePicker.DatePicker startDate;

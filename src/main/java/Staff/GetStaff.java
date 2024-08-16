@@ -203,7 +203,6 @@ public class GetStaff extends javax.swing.JPanel {
 
         lbGender.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbGender.setForeground(new java.awt.Color(0, 0, 0));
-        lbGender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbGender.setText("Gender");
 
         lbId.setText("jLabel1");

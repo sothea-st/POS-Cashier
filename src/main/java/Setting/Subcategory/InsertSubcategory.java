@@ -432,7 +432,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
             }
 
             if (categoryName == null || categoryName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Category Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "Sub Category Name can not be empty!");
                 return;
             }
 

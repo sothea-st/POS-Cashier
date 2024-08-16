@@ -200,17 +200,14 @@ public class GetVendor extends javax.swing.JPanel {
 
         lbEmail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbEmail.setForeground(new java.awt.Color(0, 0, 0));
-        lbEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbEmail.setText("Email");
 
         lbAddress.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbAddress.setForeground(new java.awt.Color(0, 0, 0));
-        lbAddress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbAddress.setText("Address");
 
         lbWebsite.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lbWebsite.setForeground(new java.awt.Color(0, 0, 0));
-        lbWebsite.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbWebsite.setText("Website");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);

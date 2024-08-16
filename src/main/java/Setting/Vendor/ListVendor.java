@@ -174,7 +174,7 @@ public class ListVendor extends javax.swing.JDialog {
 
                             edit.setValueEdit(
                                 data.getVendorName(),
-                                data.getContact(),
+                                String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"),
                                 data.getEmail(),
                                 data.getWebsite(),
                                 data.getAddress()
@@ -224,7 +224,7 @@ public class ListVendor extends javax.swing.JDialog {
                 b.setId(listData.getId());
                 b.setVendorName(listData.getVendorName());
                 b.setVendorCode(listData.getVdCode());
-                b.setPhoneNumber(listData.getContact());
+                b.setPhoneNumber(String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"));
                 b.setEmail(listData.getEmail());
                 b.setAddress(listData.getAddress());
                 b.setWebsite(listData.getWebsite());
@@ -325,17 +325,14 @@ public class ListVendor extends javax.swing.JDialog {
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Email");
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Address");
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Website");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);

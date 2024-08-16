@@ -7,8 +7,11 @@ import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
  
@@ -255,6 +258,46 @@ public class TextField extends javax.swing.JPanel {
           if(containsKhmer(txtText.getText())){
             txtText.setFont(WindowFonts.khmerOsContent12);
           }
+     }
+     
+     
+     // add phone number 3 digits add space
+     public void add3digitsToPhoneNumber() {
+        
+          txtText.addKeyListener(new KeyAdapter() {
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    String text = txtText.getText().replaceAll("\\s", ""); // Remove all spaces
+                    StringBuilder filteredText = new StringBuilder();
+
+                    // Filter out non-digit characters
+                    for (int i = 0; i < text.length(); i++) {
+                         if (Character.isDigit(text.charAt(i))) {
+                              filteredText.append(text.charAt(i));
+                         }
+                    }
+                    
+                    //Set Limit text to 10 digit 
+                    if (filteredText.length() > 10) {
+                        filteredText.setLength(10);
+                    }
+
+                    // Rebuild the string with spaces after every 3 digits
+                    StringBuilder formatted = new StringBuilder();
+                    for (int i = 0; i < filteredText.length(); i++) {
+                         formatted.append(filteredText.charAt(i));
+                         // Add a space after every 3rd digit
+                         if ((i + 1) % 3 == 0 && i + 1 < filteredText.length()) {
+                              formatted.append(" ");
+                         }
+                    }
+
+                    // Update the text field without triggering another event
+                    txtText.removeKeyListener(this); // Temporarily remove listener to avoid recursion
+                    txtText.setText(formatted.toString());
+                    txtText.addKeyListener(this); // Re-add listener after updating text
+               }
+          });
      }
 
 
