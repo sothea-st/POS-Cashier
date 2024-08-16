@@ -4,6 +4,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
+import LoginAndLogoutForm.LoginFormJdailog;
 import Model.combobox.CategoryModel;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,161 +12,165 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+@Setter
+@Getter
 public class InsertCategory extends javax.swing.JDialog {
 
-    private String departmentId;
-    private String divisionId;
-    private Integer id;
-    private String code;
-    private JPanel listGetCategory;
-    private Integer movePosition;
-    private Integer parentId;
+     private String departmentId;
+     private String divisionId;
+     private Integer id;
+     private String code;
+     private JPanel listGetCategory;
+     private Integer movePosition;
+     private Integer parentId;
+     private JPanel category;
+     private LoginFormJdailog jdLogin;
 
-    public InsertCategory(java.awt.Frame parent, boolean modal, String codeType) {
-        super(parent, modal);
-        initComponents();
-        event();
-        nameEn.requestFocus();
-        setCode(codeType);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+     public InsertCategory(java.awt.Frame parent, boolean modal, String codeType) {
+          super(parent, modal);
+          initComponents();
+          event();
+          nameEn.requestFocus();
+          setCode(codeType);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-        // action get select 
-        ButtonEvent eventtss = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                divisionId = key;
-                addComboDepartment(divisionId);
-            }
-        };
-        comboDivision.initEvent(eventtss);
-        addComboDivision();
+          // action get select 
+          ButtonEvent eventtss = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    divisionId = key;
+                    addComboDepartment(divisionId);
+               }
+          };
+          comboDivision.initEvent(eventtss);
+          addComboDivision();
 
-        // action get select 
-        ButtonEvent events = new ButtonEvent() {
-            @Override
-            public void onSelect(String key) {
-                departmentId = key;
-            }
-        };
-        comboDepartment.initEvent(events);
-    }
+          // action get select 
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    departmentId = key;
+               }
+          };
+          comboDepartment.initEvent(events);
+     }
 
-    //Value Edit
-    public void setValueEdit(
-            String cateNameEn,
-            String cateNameKh,
-            String idDivision,
-            String idDepartment
-    ) throws IOException {
-        if(cateNameEn != null && cateNameEn != ""){
-            nameEn.setValueTextField(cateNameEn);  
-        }
-        
-        if(cateNameKh != null && cateNameKh != ""){
-            nameKh.setValueTextField(cateNameKh);
-        } 
-        
-        comboDivision.setToLastItem(idDivision);
-        comboDepartment.setToLastItem(idDepartment);
-    }
+     //Value Edit
+     public void setValueEdit(
+          String cateNameEn,
+          String cateNameKh,
+          String idDivision,
+          String idDepartment
+     ) throws IOException {
+          if (cateNameEn != null && cateNameEn != "") {
+               nameEn.setValueTextField(cateNameEn);
+          }
 
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+          if (cateNameKh != null && cateNameKh != "") {
+               nameKh.setValueTextField(cateNameKh);
+          }
 
-            }
-        };
-        nameEn.initEvent(btnevent);
-        nameKh.initEvent(btnevent);
-    }
+          comboDivision.setToLastItem(idDivision);
+          comboDepartment.setToLastItem(idDepartment);
+     }
 
-    //Set Combo box division
-    private void addComboDivision() {
-        
-        try {
-            HashMap<String, String> map = new HashMap<>();
-            ArrayList<CategoryModel> category = new ArrayList<>();
+     //Place Holder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
 
-            Response response = JavaConnection.get(JavaRoute.category);
+               }
+          };
+          nameEn.initEvent(btnevent);
+          nameKh.initEvent(btnevent);
+     }
 
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                JSONObject jsonObject = new JSONObject(responseData);
-                JSONArray data = jsonObject.getJSONArray("data");
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject obj = data.getJSONObject(i);
-                    CategoryModel cat = new CategoryModel(
-                            obj.getInt("id"),
-                            obj.getString("catNameEn")
-                    );
+     //Set Combo box division
+     private void addComboDivision() {
 
-                    category.add(cat);
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               ArrayList<CategoryModel> category = new ArrayList<>();
 
-                    int idCat = category.get(i).getCategoryId();
-                    String catName = category.get(i).getCategoryName();
-                    map.put(catName, "" + idCat);
-                }
-                comboDivision.setMap(map);
+               Response response = JavaConnection.get(JavaRoute.category);
 
-            } else {
-                System.err.println("fail loading data");
-            }
-        } catch (Exception e) {
-            System.err.println("error = " + e);
-        }
-    }
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                         JSONObject obj = data.getJSONObject(i);
+                         CategoryModel cat = new CategoryModel(
+                              obj.getInt("id"),
+                              obj.getString("catNameEn")
+                         );
 
-    //Set Combo box department
-    private void addComboDepartment(String divisionId) {
+                         category.add(cat);
 
-        comboDepartment.revalidate();
-        comboDepartment.invalidate();
+                         int idCat = category.get(i).getCategoryId();
+                         String catName = category.get(i).getCategoryName();
+                         map.put(catName, "" + idCat);
+                    }
+                    comboDivision.setMap(map);
 
-        // remove item by index
-        if (comboDepartment.countItem() > 1) {
-            comboDepartment.removeAllItem();
-        }
+               } else {
+                    System.err.println("fail loading data");
+               }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
 
-        try {
-            HashMap<String, String> map = new HashMap<>();
-            ArrayList<CategoryModel> category = new ArrayList<>();
-            Response response = JavaConnection.get(JavaRoute.getParentById + divisionId);
-            if (response.isSuccessful()) {
+     //Set Combo box department
+     private void addComboDepartment(String divisionId) {
 
-                String responseData = response.body().string();
-                JSONObject jsonObject = new JSONObject(responseData);
-                JSONArray data = jsonObject.getJSONArray("data");
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject obj = data.getJSONObject(i);
-                    CategoryModel cat = new CategoryModel(
-                            obj.getInt("id"),
-                            obj.getString("catNameEn")
-                    );
+          comboDepartment.revalidate();
+          comboDepartment.invalidate();
 
-                    category.add(cat);
+          // remove item by index
+          if (comboDepartment.countItem() > 1) {
+               comboDepartment.removeAllItem();
+          }
 
-                    int idCat = category.get(i).getCategoryId();
-                    String catName = category.get(i).getCategoryName();
-                    map.put(catName, "" + idCat);
-                }
+          try {
+               HashMap<String, String> map = new HashMap<>();
+               ArrayList<CategoryModel> category = new ArrayList<>();
+               Response response = JavaConnection.get(JavaRoute.getParentById + divisionId);
+               if (response.isSuccessful()) {
 
-                comboDepartment.setMap(map);
+                    String responseData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    JSONArray data = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < data.length(); i++) {
+                         JSONObject obj = data.getJSONObject(i);
+                         CategoryModel cat = new CategoryModel(
+                              obj.getInt("id"),
+                              obj.getString("catNameEn")
+                         );
 
-            } else {
-                System.err.println("fail loading data");
-            }
-        } catch (Exception e) {
-            System.err.println("error = " + e);
-        }
-    }
+                         category.add(cat);
 
+                         int idCat = category.get(i).getCategoryId();
+                         String catName = category.get(i).getCategoryName();
+                         map.put(catName, "" + idCat);
+                    }
+
+                    comboDepartment.setMap(map);
+
+               } else {
+                    System.err.println("fail loading data");
+               }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -315,121 +320,121 @@ public class InsertCategory extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        String categoryName = nameEn.getValueTextField();
-        String categoryNameKh = nameKh.getValueTextField();
+         String categoryName = nameEn.getValueTextField();
+         String categoryNameKh = nameKh.getValueTextField();
 
-        try {
-            if (divisionId == null || divisionId.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please select a division!");
-                return;
-            }
+         try {
+              if (divisionId == null || divisionId.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Please select a division!");
+                   return;
+              }
 
-            if (departmentId == null || departmentId.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please select a department!");
-                return;
-            }
+              if (departmentId == null || departmentId.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Please select a department!");
+                   return;
+              }
 
-            if (categoryName == null || categoryName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Category Name can not be empty!");
-                return;
-            }
+              if (categoryName == null || categoryName.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Category Name can not be empty!");
+                   return;
+              }
 
-            JSONObject json = new JSONObject();
-            json.put("catNameEn", categoryName);
-            json.put("catNameKh", categoryNameKh);
-            json.put("parentId", departmentId);
+              JSONObject json = new JSONObject();
+              json.put("catNameEn", categoryName);
+              json.put("catNameKh", categoryNameKh);
+              json.put("parentId", departmentId);
 
-            if (id != null) {
+              if (id != null) {
 
-                json.put("movePosition", movePosition);
+                   json.put("movePosition", movePosition);
 
-                Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+                   Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
+                   System.out.println("response : " + response);
+                   System.out.println("json : " + json);
 
-                if (response.isSuccessful()) {
-                    Category list = new Category(new JFrame(), true, code);
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
-                    dispose();
+                   if (response.isSuccessful()) {
+                        Category list = new Category(new JFrame(), true, code);
+                        listGetCategory.removeAll();
+                        listGetCategory.revalidate();
+                        listGetCategory.repaint();
+                        list.getCategory(listGetCategory, code, true);
+                        dispose();
 
-                } else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
+                   } else if (response.code() == 500) {
+                        JOptionPane.showMessageDialog(this, "The Name is already used!");
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                   }
 
-            } else {
+              } else {
 
-                json.put("createBy", JavaConstant.cashierId);
-                json.put("code", code);
+                   json.put("createBy", JavaConstant.cashierId);
+                   json.put("code", code);
 
-                Response response = JavaConnection.post(JavaRoute.addCategory, json);
+                   Response response = JavaConnection.post(JavaRoute.addCategory, json);
 
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+                   System.out.println("response : " + response);
+                   System.out.println("json : " + json);
 
-                if (response.isSuccessful()) {
-                    Category list = new Category(new JFrame(), true, code);
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
-                    dispose();
-                } else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
-            }
+                   if (response.isSuccessful()) {
+                        Category list = new Category(new JFrame(), true, code);
+                        listGetCategory.removeAll();
+                        listGetCategory.revalidate();
+                        listGetCategory.repaint();
+                        list.getCategory(listGetCategory, code, true);
+                        dispose();
+                   } else if (response.code() == 500) {
+                        JOptionPane.showMessageDialog(this, "The Name is already used!");
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                   }
+              }
 
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        titlePopUp.setLabelTitle("Edit Category");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          titlePopUp.setLabelTitle("Edit Category");
+     }
 
-    public String getCode() {
-        return code;
-    }
+     public String getCode() {
+          return code;
+     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+     public void setCode(String code) {
+          this.code = code;
+     }
 
-    public JPanel getListGetCategory() {
-        return listGetCategory;
-    }
+     public JPanel getListGetCategory() {
+          return listGetCategory;
+     }
 
-    public void setListGetCategory(JPanel listGetCategory) {
-        this.listGetCategory = listGetCategory;
-    }
+     public void setListGetCategory(JPanel listGetCategory) {
+          this.listGetCategory = listGetCategory;
+     }
 
-    public Integer getMovePosition() {
-        return movePosition;
-    }
+     public Integer getMovePosition() {
+          return movePosition;
+     }
 
-    public void setMovePosition(Integer movePosition) {
-        this.movePosition = movePosition;
-    }
+     public void setMovePosition(Integer movePosition) {
+          this.movePosition = movePosition;
+     }
 
-    public Integer getParentId() {
-        return parentId;
-    }
+     public Integer getParentId() {
+          return parentId;
+     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+     public void setParentId(Integer parentId) {
+          this.parentId = parentId;
+     }
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */

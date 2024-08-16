@@ -20,6 +20,8 @@ import org.json.JSONObject;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import View.MainPage.MainPage;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -82,17 +84,53 @@ public class ReturnDialog extends javax.swing.JDialog {
                public void onKeyRelease() {
                     String value = txtinvoice.getValueTextField();
                     String barcodeValue = value.substring(2); // this working with device scanner 
-                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+                    System.out.println("barcodeValue : " + barcodeValue);
 
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+                    System.out.println("responseData onKeyRelease : " + responseData);
                     try {
                          String _data = responseData.body().string();
                          JSONObject obj = new JSONObject(_data);
                          String invoice = obj.getString("data");
+                         System.out.println("invoice == onKeyRelease " + invoice);
                          txtinvoice.setValueTextField(invoice);
                     } catch (Exception e) {
                          System.err.println("response data 333= " + e);
                     }
                }
+
+//               @Override
+//               public void onKeyPress() {
+//                    String value = txtinvoice.getValueTextField();
+//                    String barcodeValue = value.substring(2); // this working with device scanner 
+//                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+//
+//                    try {
+//                         String _data = responseData.body().string();
+//                         JSONObject obj = new JSONObject(_data);
+//                         String invoice = obj.getString("data");
+//                         System.out.println("invoice onKeyPress == " + invoice);
+//                         txtinvoice.setValueTextField(invoice);
+//                    } catch (Exception e) {
+//                         System.err.println("response data 333= " + e);
+//                    }
+//               }
+//               @Override
+//               public void onKeyType() {
+//                    String value = txtinvoice.getValueTextField();
+//                    String barcodeValue = value.substring(2); // this working with device scanner 
+//                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+//
+//                    try {
+//                         String _data = responseData.body().string();
+//                         JSONObject obj = new JSONObject(_data);
+//                         String invoice = obj.getString("data");
+//                         System.out.println("invoice onKeyType == " + invoice);
+//                         txtinvoice.setValueTextField(invoice);
+//                    } catch (Exception e) {
+//                         System.err.println("response data 333= " + e);
+//                    }
+//               }
           };
 
           txtinvoice.initEvent(event);
@@ -298,6 +336,8 @@ public class ReturnDialog extends javax.swing.JDialog {
          String barcode = txtBarcode.getValueTextField();
          String invoiceNo = txtinvoice.getValueTextField();
 
+         System.out.println("ddddddd = " + invoiceNo);
+
          if (invoiceNo == null || invoiceNo.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
               return;
@@ -327,11 +367,11 @@ public class ReturnDialog extends javax.swing.JDialog {
 //         btnDiscount.setBackground(WindowColor.lightGray);
          JavaConstant.reasonId = reasonId;
          JavaConstant.invoiceNo = invoiceNo;
-        
+
          if (JavaConstant.tmpInvoice != null) {
               dispose();
          } else {
-               
+
          }
 
     }//GEN-LAST:event_button1MouseClicked

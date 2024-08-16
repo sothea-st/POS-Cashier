@@ -7,7 +7,8 @@ import org.apache.xmlbeans.impl.soap.Detail;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class POCheckDetailsModel {
-     private Integer transactionNo;
+     private String transactionNo;
+     private Integer id;
      private String purchaseOrderNo;
      private String transactionDate;
      private Integer vendorID;
@@ -23,14 +24,24 @@ public class POCheckDetailsModel {
      private String feedBackReject;
      private String remark;
      private PODetailItemModel[] details;
+     
+     @JsonProperty("id")
+     public Integer getId() {
+          return id;
+     }
+
+     @JsonProperty("id")
+     public void setIdd(Integer value) {
+          this.id = value;
+     }
 
      @JsonProperty("transactionNo")
-     public Integer getTransactionNo() {
+     public String getTransactionNo() {
           return transactionNo;
      }
 
      @JsonProperty("transactionNo")
-     public void setTransactionNo(Integer value) {
+     public void setTransactionNo(String value) {
           this.transactionNo = value;
      }
 

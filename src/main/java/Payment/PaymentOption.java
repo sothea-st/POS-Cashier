@@ -1881,10 +1881,9 @@ public class PaymentOption extends javax.swing.JDialog {
           for (int i = 0; i < listCom.length; i++) {
                var obj = ((BoxItem) listCom[i]);
                double price = JavaConstant.getReplace(obj.getLabelPrice());
-               
+
                System.err.println("cost ======== " + obj.getCost());
-               
-               
+
                double discountDigit = obj.getDiscountDigit();
                double unitPrice = price - (price * discountDigit) / 100;
                double p = JavaConstant.getReplace(df.format(unitPrice));
@@ -2027,8 +2026,10 @@ public class PaymentOption extends javax.swing.JDialog {
           }
           jsonReturnData.put("dataDetails", dataDetails);
 
+          System.out.println("jsonReturnData  : " + jsonReturnData);
+          
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-
+          System.out.println("responseReturn : " + responseReturn);
           try {
                if (responseReturn.isSuccessful()) {
 
@@ -2058,14 +2059,14 @@ public class PaymentOption extends javax.swing.JDialog {
                     print.setDataSuccess(d);
                     print.revalidate();
                     print.repaint();
-//               print.printReceipt(); // print paper with device
-                    print.setVisible(true);
+                    print.printReceipt(); // print paper with device
+//                    print.setVisible(true);
 
                     // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                     ReturnDialog r = new ReturnDialog(new JFrame(), true);
                     r.setResetReturn();
 
-//               ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
+                    ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
                } else {
                     System.err.println("err = 4444");
                }

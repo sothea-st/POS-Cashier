@@ -198,6 +198,7 @@ public class ApprovalCode extends javax.swing.JDialog {
               JOptionPane.showMessageDialog(this, "Password can not be empty!");
               return;
          }
+         
          JSONObject json = new JSONObject();
          json.put("userCode", userCode);
          json.put("password", password);

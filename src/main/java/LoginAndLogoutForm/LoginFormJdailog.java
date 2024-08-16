@@ -433,7 +433,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
 
-                   if (model.getRoleName().equals("Admin")) {
+                   if (model.getRoleName().equals("Admin") || model.getRoleName().equals("Supervisor")) {
                         stock.setVisible(true);
                         buttonStaff.setVisible(true);
                         btnReporting.setVisible(true);
@@ -600,7 +600,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      }
      private String categoryName;
 
-     private void category() {
+     public void category() {
           try {
                ArrayList<CategoryModel> listCategory = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.category);

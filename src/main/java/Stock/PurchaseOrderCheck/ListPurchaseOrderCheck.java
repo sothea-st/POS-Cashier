@@ -157,7 +157,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
                     ButtonEvent events = new ButtonEvent() {
                          @Override
-                         public void onSelectDetail(String Key) {  // event edit
+                         public void onSelectDetail(String Key) {  // event checked
                               DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());

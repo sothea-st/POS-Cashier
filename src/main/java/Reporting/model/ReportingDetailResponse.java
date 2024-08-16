@@ -1,7 +1,6 @@
 package Reporting.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.math.*;
+ 
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import lombok.Setter;
 
 public class ReportingDetailResponse {
     private String purchaseOrderNo;
-    private Integer transactionNo;
+    private String transactionNo;
     private String transactionDate;
     private String orderDate;
     private String referenceNo;

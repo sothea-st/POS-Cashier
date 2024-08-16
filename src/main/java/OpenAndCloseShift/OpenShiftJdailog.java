@@ -441,7 +441,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     previous.setBackground(WindowColor.lightGray);
                     cmboxBrand.setToFirstItem();
                     
-//                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
+                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
                } else {
                     UIManager UI = new UIManager();
                     UI.put("OptionPane.background", WindowColor.mediumGreen);

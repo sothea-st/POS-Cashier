@@ -23,73 +23,77 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class Settings extends javax.swing.JDialog {
 
-    private JPanel panelProduct;
-    
-    private LoginFormJdailog jdLogin;
-    
-    public Settings(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        getImageAndTitle();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        
-        JavaConstant.addTitleAndLogo(this, "Settings");
-    }
-    
-    private void getImageAndTitle(){
-        division.setTitle("Division");
-        department.setTitle("Department");
-        category.setTitle("Category");
-        subCategory.setTitle("Sub Category");
-        brand.setTitle("Brand");
-        vendor.setTitle("Vendor");
-        attribute.setTitle("Attribute");
-        uom.setTitle("UOM");
-        country.setTitle("Country");
-        tax.setTitle("Tax");
-        status.setTitle("Status");
-        
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    // Task to be executed
-                    division.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "division.png");
-                    subCategory.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sub_category.png");
-                    brand.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "brand.png");
-                    category.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "Category.png");
-                    department.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "department.png");
-                    vendor.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "vendor.png");
-                    attribute.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "attribute.png");
-                    uom.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "measure.png");
-                    country.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "countries.png");
-                    tax.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "taxes.png");
-                    status.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "db5e86b7-6cb4-4b3b-a148-da227bd048de");
+     private JPanel panelProduct;
+     private JPanel pCategory;
 
-                } catch (IOException ex) {
-                    Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
+     private LoginFormJdailog jdLogin;
 
-        Timer timer = new Timer();
-        timer.schedule(task, 500); // Delays task execution by 1 second
-    }
-    
-    
-    @SuppressWarnings("unchecked")
+     public Settings(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          getImageAndTitle();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
+          JavaConstant.addTitleAndLogo(this, "Settings");
+     }
+
+     private void getImageAndTitle() {
+          division.setTitle("Division");
+          department.setTitle("Department");
+          category.setTitle("Category");
+          subCategory.setTitle("Sub Category");
+          brand.setTitle("Brand");
+          vendor.setTitle("Vendor");
+          attribute.setTitle("Attribute");
+          uom.setTitle("UOM");
+          country.setTitle("Country");
+          tax.setTitle("Tax");
+          status.setTitle("Status");
+
+          TimerTask task = new TimerTask() {
+               @Override
+               public void run() {
+                    try {
+                         // Task to be executed
+                         division.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "division.png");
+                         subCategory.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sub_category.png");
+                         brand.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "brand.png");
+                         category.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "Category.png");
+                         department.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "department.png");
+                         vendor.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "vendor.png");
+                         attribute.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "attribute.png");
+                         uom.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "measure.png");
+                         country.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "countries.png");
+                         tax.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "taxes.png");
+                         status.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "db5e86b7-6cb4-4b3b-a148-da227bd048de");
+
+                    } catch (IOException ex) {
+                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+          };
+
+          Timer timer = new Timer();
+          timer.schedule(task, 500); // Delays task execution by 1 second
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -254,89 +258,90 @@ public class Settings extends javax.swing.JDialog {
 
     private void divisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divisionMouseClicked
 
-        Category cat = new Category(new JFrame(), true, "division");
-        cat.setCode("division");
-        cat.setVisible(true);
+         Category cat = new Category(new JFrame(), true, "division");
+         cat.setCode("division");
+         cat.setPCategory(pCategory);
+         cat.setJdLogin(jdLogin);
+         cat.setVisible(true);
     }//GEN-LAST:event_divisionMouseClicked
 
     private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
 
-        Category cat = new Category(new JFrame(), true, "category");
-        cat.setCode("category");
-        cat.setVisible(true);
+         Category cat = new Category(new JFrame(), true, "category");
+         cat.setCode("category");
+         cat.setVisible(true);
     }//GEN-LAST:event_categoryMouseClicked
 
     private void departmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentMouseClicked
 
-        Category cat = new Category(new JFrame(), true, "department");
-        cat.setCode("department");
-        cat.setVisible(true);
+         Category cat = new Category(new JFrame(), true, "department");
+         cat.setCode("department");
+         cat.setVisible(true);
     }//GEN-LAST:event_departmentMouseClicked
 
     private void subCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subCategoryMouseClicked
 
-        Category cat = new Category(new JFrame(), true, "subcategory");
-        cat.setCode("subcategory");
-        cat.setVisible(true);
+         Category cat = new Category(new JFrame(), true, "subcategory");
+         cat.setCode("subcategory");
+         cat.setVisible(true);
     }//GEN-LAST:event_subCategoryMouseClicked
 
     private void brandMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandMouseClicked
-        ListBrand brand = new ListBrand(new JFrame(), true);
-        brand.setVisible(true);
+         ListBrand brand = new ListBrand(new JFrame(), true);
+         brand.setVisible(true);
     }//GEN-LAST:event_brandMouseClicked
 
     private void vendorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendorMouseClicked
-        ListVendor vendor = new ListVendor(new JFrame(), true);
-        vendor.setVisible(true);
+         ListVendor vendor = new ListVendor(new JFrame(), true);
+         vendor.setVisible(true);
     }//GEN-LAST:event_vendorMouseClicked
 
     private void attributeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attributeMouseClicked
-        ListAttribute attribute = new ListAttribute(new JFrame(), true);
-        attribute.setVisible(true);
-        
+         ListAttribute attribute = new ListAttribute(new JFrame(), true);
+         attribute.setVisible(true);
+
     }//GEN-LAST:event_attributeMouseClicked
 
     private void uomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uomMouseClicked
-        listUom uom = new listUom(new JFrame(), true);
-        uom.setVisible(true);
+         listUom uom = new listUom(new JFrame(), true);
+         uom.setVisible(true);
     }//GEN-LAST:event_uomMouseClicked
 
     private void countryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_countryMouseClicked
-        ListCountry list = new ListCountry(new JFrame(), true);
-        list.setVisible(true);
+         ListCountry list = new ListCountry(new JFrame(), true);
+         list.setVisible(true);
     }//GEN-LAST:event_countryMouseClicked
 
     private void taxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taxMouseClicked
-        ListTax list = new ListTax(new JFrame(), true);
-        list.setVisible(true);
+         ListTax list = new ListTax(new JFrame(), true);
+         list.setVisible(true);
     }//GEN-LAST:event_taxMouseClicked
 
     private void statusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusMouseClicked
-        ListStatus list = new ListStatus(new JFrame(), true);
-        list.setVisible(true);
+         ListStatus list = new ListStatus(new JFrame(), true);
+         list.setVisible(true);
     }//GEN-LAST:event_statusMouseClicked
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    public LoginFormJdailog getJdLogin() {
-        return jdLogin;
-    }
+     public LoginFormJdailog getJdLogin() {
+          return jdLogin;
+     }
 
-    public void setJdLogin(LoginFormJdailog jdLogin) {
-        this.jdLogin = jdLogin;
-    }
+     public void setJdLogin(LoginFormJdailog jdLogin) {
+          this.jdLogin = jdLogin;
+     }
 
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
            */
           try {

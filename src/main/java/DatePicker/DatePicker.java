@@ -1,11 +1,5 @@
 package DatePicker;
 
-import Color.WindowColor;
-import Components.Shadow.ShadowRenderer;
-import Components.Shadow.ShadowType;
-import Constant.JavaConstant;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +7,13 @@ import java.awt.RenderingHints;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
-import com.raven.datechooser.DateChooser;
+
+import Color.WindowColor;
+import Components.Shadow.ShadowRenderer;
+import Components.Shadow.ShadowType;
+import Constant.JavaConstant;
+import Event.ButtonEvent;
+import Fonts.WindowFonts;
 
 public class DatePicker extends javax.swing.JPanel {
 
@@ -146,11 +146,11 @@ public class DatePicker extends javax.swing.JPanel {
            * this one is incorrect 
            * error show : Cannot invoke "java.net.URL.toExternalForm()" because "location" is null
            */
-          // dateChooser1 = new com.raven.datechooser.DateChooser(); 
+          dateChooser1 = new com.raven.datechooser.DateChooser(); 
 
           // solution
           // import path DateChooser
-          DateChooser dateChooser1 =new DateChooser(); 
+          // DateChooser dateChooser1 =new DateChooser(); 
 
 
           txtText = new javax.swing.JTextField();

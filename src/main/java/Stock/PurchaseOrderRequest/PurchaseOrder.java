@@ -130,8 +130,9 @@ public class PurchaseOrder extends javax.swing.JDialog {
 
                     ButtonEvent events = new ButtonEvent() {
                          @Override
-                         public void onSelectDetail(String Key) {  // event edit
+                         public void onSelectDetail(String Key) {  // event details
                               DetailPurchaseOrder detail = new DetailPurchaseOrder(new JFrame(), true);
+
                               try {
                                    Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
                                    String responseData = response.body().string();
@@ -146,33 +147,39 @@ public class PurchaseOrder extends javax.swing.JDialog {
                          }
 
                          @Override
-                         public void onSelect(String Key) {  // event detail
+                         public void onSelect(String Key) {  // event edit
                               EditPurchaseOrder edit = new EditPurchaseOrder(new JFrame(), true, data.getId());
-                              try {
-                                   Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
-                                   String responseData = response.body().string();
-                                   ObjectMapper objMap = new ObjectMapper();
-                                   PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
-                                   POCheckDetailsModel detailData = model.getData();
+                              System.out.println("status = " + data.getRemark());
 
-                                   edit.setListGetOrder(listGetOrder);
-                                   edit.setDetailData(detailData);
-                                   edit.setValue(
-                                        String.valueOf(detailData.getVendorName()),
-                                        String.valueOf(detailData.getReferenceNo()),
-                                        String.valueOf(detailData.getTransactionNo()),
-                                        String.valueOf(detailData.getPurchaseOrderNo()),
-                                        String.valueOf(detailData.getTotalQty()),
-                                        String.valueOf(detailData.getTotalCost()),
-                                        String.valueOf(detailData.getVendorID()),
-                                        String.valueOf(detailData.getOrderDate()),
-                                        String.valueOf(detailData.getTransactionDate()),
-                                        String.valueOf(detailData.getRemark())
-                                   );
+                              if (data.getRemark().toLowerCase().equals("requested")) {
+                                   try {
+                                        Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
+                                        String responseData = response.body().string();
+                                        ObjectMapper objMap = new ObjectMapper();
+                                        PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
+                                        POCheckDetailsModel detailData = model.getData();
 
-                                   edit.setVisible(true);
-                              } catch (Exception e) {
-                                   System.err.println("error getting purchase order " + e);
+                                        edit.setListGetOrder(listGetOrder);
+                                        edit.setDetailData(detailData);
+                                        edit.setValue(
+                                             String.valueOf(detailData.getVendorName()),
+                                             String.valueOf(detailData.getReferenceNo()),
+                                             String.valueOf(detailData.getTransactionNo()),
+                                             String.valueOf(detailData.getPurchaseOrderNo()),
+                                             String.valueOf(detailData.getTotalQty()),
+                                             String.valueOf(detailData.getTotalCost()),
+                                             String.valueOf(detailData.getVendorID()),
+                                             String.valueOf(detailData.getOrderDate()),
+                                             String.valueOf(detailData.getTransactionDate()),
+                                             String.valueOf(detailData.getRemark())
+                                        );
+
+                                        edit.setVisible(true);
+                                   } catch (Exception e) {
+                                        System.err.println("error getting purchase order " + e);
+                                   }
+                              } else {
+                                   JOptionPane.showMessageDialog(null, "Status already " + data.getRemark());
                               }
                          }
 
@@ -239,7 +246,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     }
 
                     paginationPanel.setVisible(true);
-                    
+
                     listGetOrder.add(b, gbc);
                }
           } else {

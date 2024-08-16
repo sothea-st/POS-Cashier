@@ -123,9 +123,7 @@ public class ActionProduct {
 
      public void newProduct(int limit, JPanel panelProduct) {
           try {
-
                Response response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
-
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

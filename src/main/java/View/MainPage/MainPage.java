@@ -871,16 +871,13 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setButtonHoldOrder(buttonHoldOrder);
                    pay.setjScrollPaneDetail(jScrollPaneDetail);
                    pay.setTitleOrder(titleOrder);
-
                    if (btnPayment.getButtonName().equals("Return")) {
                         System.err.println("return was clicked : ");
                         pay.returnProduct();
                         return;
                    }
-
                    pay.setVisible(true);
               }
-
          } else {
               System.err.println("System cannot open payment option");
          }
@@ -1107,6 +1104,7 @@ public class MainPage extends javax.swing.JFrame {
               Settings setting = new Settings(new JFrame(), true);
               setting.setPanelProduct(panelProduct);
               setting.setJdLogin(jdFormLogin);
+              setting.setPCategory(category);
               setting.setVisible(true);
 //              }
          }

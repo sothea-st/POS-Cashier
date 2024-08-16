@@ -10,31 +10,49 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 public class ComboBox extends javax.swing.JPanel {
-     
+
      private HashMap<String, String> map;
-     
+
+     private LinkedHashMap<String, String> linkedHashMap;
+
+     public LinkedHashMap<String, String> getLinkedHashMap() {
+          return linkedHashMap;
+     }
+
+     public void setLinkedHashMaps(Map<String, String> map) {
+          this.linkedHashMap = new LinkedHashMap<>(map); // Ensure it is a LinkedHashMap
+          combo.removeAllItems();
+          for (String key : linkedHashMap.keySet()) {
+               ComboItem cm = new ComboItem(key, linkedHashMap.get(key));
+               combo.addItem(cm.getKey());
+          }
+          combo.setFont(WindowFonts.timeNewRoman14);
+     }
+
      public int getItemCount() {
           return combo.getItemCount();
      }
-     
+
      public HashMap<String, String> getMap() {
           return map;
      }
-     
+
      public void setMap(HashMap<String, String> map) {
           this.map = map;
-          
+
           for (String key : map.keySet()) {
                ComboItem cm = new ComboItem(key, map.get(key));
                combo.addItem(cm.getKey());
                combo.setFont(WindowFonts.timeNewRoman14);
           }
-          
+
      }
-     
+
      public ComboBox() {
           initComponents();
           setBackground(WindowColor.white);
@@ -43,7 +61,7 @@ public class ComboBox extends javax.swing.JPanel {
           combo.setUI(new BasicComboBoxUI());
           JavaConstant.setPointer(combo);
      }
-     
+
      public void initEvent(ButtonEvent events) {
           combo.addActionListener(new ActionListener() {
                @Override
@@ -54,11 +72,11 @@ public class ComboBox extends javax.swing.JPanel {
                }
           });
      }
-     
+
      public void setToFirstItem() {
           combo.setSelectedIndex(0);
      }
-     
+
      public void setToLastItem(int id) {
           int index = 0;
           if (!map.isEmpty()) {
@@ -72,7 +90,7 @@ public class ComboBox extends javax.swing.JPanel {
           }
           combo.setSelectedIndex(index);
      }
-     
+
      public void setToLastItem(String id) {
           int index = 0;
           for (String key : map.keySet()) {
@@ -83,25 +101,27 @@ public class ComboBox extends javax.swing.JPanel {
                index++;
           }
           combo.setSelectedIndex(index);
-          
+
      }
-     
+
      public void removeAllItem() {
           int length = countItem();
           for (int i = 0; i < length; i++) {
-               if( i == 0  ) continue;
+               if (i == 0) {
+                    continue;
+               }
                combo.removeItemAt(i);
           }
      }
-     
-      public void removeAllItemAndSetOption(String selectOption) {
+
+     public void removeAllItemAndSetOption(String selectOption) {
           int length = countItem();
           for (int i = 0; i < length; i++) {
                combo.removeItemAt(i);
           }
           combo.addItem(selectOption);
      }
-     
+
      public int countItem() {
           return combo.getItemCount();
      }
@@ -113,7 +133,7 @@ public class ComboBox extends javax.swing.JPanel {
           UtilShadow.createShadow(grphcs, getWidth(), getHeight(), getBackground());
           super.paintComponent(grphcs);
      }
-     
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
