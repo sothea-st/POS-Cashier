@@ -22,6 +22,8 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
     ImportDetail getDataImportDetail(int productId);
 
 
+
+
     List<ImportDetail> findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(Optional<Product> product, int qtyOld);
 
     @Query(nativeQuery = true,value = "select * from pos_import_detail pid where imp_id = ? and pro_id = ? and status = true and is_deleted =false")
@@ -45,7 +47,7 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
 
  
 
-    @Query(nativeQuery = true , value = "select qty_old  from pos_import_detail pid where pro_id = ? order by id desc limit 1")
+    @Query(nativeQuery = true , value = "select sum(qty_old)  from pos_import_detail pid where pro_id = 678  and qty_old > 0 and status = true and is_deleted = false")
     Integer getQty(int proId);
 
     @Query(nativeQuery = true , value = "select sum(pid.qty_old) from pos_import_detail pid where pro_id = ? and qty_old > 0 and is_deleted = false and status = true;")

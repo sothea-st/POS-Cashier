@@ -306,7 +306,6 @@ public class SaleService {
                 for (int j = 0 ; j < lists.size() ; j++) {
                     var data = lists.get(j);
 
-                    System.out.println("dddddddddddd " + data.getCreateDate() + " qty : " + data.getQtyOld());
 
 
                     if( j == 0  && data.getQtyOld() >= qtyNew) {

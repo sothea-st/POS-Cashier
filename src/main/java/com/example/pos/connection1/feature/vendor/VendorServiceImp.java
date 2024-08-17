@@ -53,6 +53,7 @@ public class VendorServiceImp implements VendorService {
           vendor.setAddress(vendorUpdateRequest.address());
           vendor.setEmail(vendorUpdateRequest.email());
           vendor.setWebsite(vendorUpdateRequest.website());
+          vendor.setContact(vendorUpdateRequest.contact());
           vendorRepository.save(vendor);
           return mapToVendorResponse(vendor);
      }

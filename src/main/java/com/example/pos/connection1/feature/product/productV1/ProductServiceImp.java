@@ -95,13 +95,51 @@ public class ProductServiceImp implements ProductService {
                     .findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value,status1);
         }
 
+
+
         List<ProductResponse> data = products.getContent().stream()
-                .map(productMapper::mapToProductResponse)
+                .map(p->{
+                    Integer qty = repoImp.getQty(p.getId());
+                    return mapToProductResponse(p,qty);
+                })
                 .toList();
+
+        // old
+//        List<ProductResponse> data = products.getContent().stream()
+//                .map(productMapper::mapToProductResponse)
+//                .toList();
         return JavaCollectionResponse.builder()
                 .count(products.getTotalElements())
                 .data(data)
                 .build();
+    }
+
+
+    private ProductResponse mapToProductResponse(Product p ,Integer qty){
+        return ProductResponse.builder()
+                .id(p.getId())
+                .subCatNameEn(p.getSubCategory().getCatNameEn())
+                .proNameKh(p.getProNameKh())
+                .proNameEn(p.getProNameEn())
+                .cost(p.getCost())
+                .price(p.getPrice())
+                .margin(p.getMargin())
+                .brandNameEn(p.getBrand().getBrandNameEn())
+                .barcode(p.getBarcode())
+                .createBy(p.getCreateBy())
+                .taxName(p.getTaxProduct().getTaxName())
+                .vendorName(p.getVendor().getVendorName())
+                .uomNameEn(p.getUom().getNameEn())
+                .attrNameEn(p.getAttribute().getAttrNameEn())
+                .statusName(p.getProductActive().getStatusName())
+                .countryImageName(p.getCountry().getUuid())
+                .choices(p.getChoices())
+                .proImageName(p.getProImageName())
+                .qty(qty==null ? 0 : qty)
+                .itemCode(p.getItemCode())
+                .vendorCode(p.getVendor().getVendorCode())
+                .build();
+
     }
 
     @Override
@@ -203,9 +241,18 @@ public class ProductServiceImp implements ProductService {
                     .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
         }
 
+
         List<ProductResponse> data = products.getContent().stream()
-                .map(productMapper::mapToProductResponse)
+                .map(p->{
+                    Integer qty = repoImp.getQty(p.getId());
+                    return mapToProductResponse(p,qty);
+                })
                 .toList();
+
+        // old
+//        List<ProductResponse> data = products.getContent().stream()
+//                .map(productMapper::mapToProductResponse)
+//                .toList();
         return JavaCollectionResponse.builder()
                 .count(products.getTotalElements())
                 .data(data)

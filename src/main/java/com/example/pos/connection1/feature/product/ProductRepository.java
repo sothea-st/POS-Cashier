@@ -45,30 +45,34 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "\tbarcode = ?")
         Product getBarcode(String barcode);
 
-        @Query(nativeQuery = true, value = "select\r\n" + //
-                        "\tpc.id,\r\n" + //
-                        "\tpc.barcode,\r\n" + //
-                        "\tpc.cat_id ,\r\n" + //
-                        "\tpc.brand_id ,\r\n" + //
-                        "\tpc.flag ,\r\n" + //
-                        "\tpc.weight ,\r\n" + //
-                        "\tpc.pro_image_name ,\r\n" + //
-                        "\tpc.brand_id ,\r\n" + //
-                        "\tpc.pro_name_en ,\r\n" + //
-                        "\tpc.pro_name_kh ,\r\n" + //
-                        "\tpc.cost,\r\n" + //
-                        "\tpc.price ,\r\n" + //
-                        "\tpc.product_status ,\r\n" + //
-                        "\tpc.discount ,\r\n" + //
-                        "\tpc.code_out_stock ,\r\n" + //
-                        "\tpc.code_expired\r\n" + //
-                        "from\r\n" + //
-                        "\tpos_product pc\r\n" + //
-                        "where\r\n" + //
-                        "\tpc.status = true\r\n" + //
-                        "\tand pc.is_deleted = false\r\n" + //
-                        "order by\r\n" + //
-                        "\tpc.create_date desc limit ?")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid as flag ,\n" +
+                "\tpc.choices as weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "inner join pos_countries pc2 \n" +
+                "on pc2.id  = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "order by\n" +
+                "\tpc.create_date desc\n" +
+                "limit ?\n" +
+                " ")
         List<ProductProjection> getNewProduct(int limit);
 
         @Query(nativeQuery = true, value = "select id,pro_name_en from product_header")
@@ -78,20 +82,62 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
         boolean existsByProNameEn(String name);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n"
-                        + //
-                        "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
-                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
-                        "from pos_product pc\r\n" + //
-                        "where pc.status=true and pc.is_deleted=false order by pc.id desc limit ?")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid as flag ,\n" +
+                "\tpc.weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "inner join pos_countries pc2 \n" +
+                "on pc2.id = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "order by\n" +
+                "\tpc.id desc\n" +
+                "limit ?")
         List<ProductProjection> getProduct(int limit);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,\r\n"
-                        + //
-                        "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,\r\n" + //
-                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired \r\n" + //
-                        "from pos_product pc\r\n" + //
-                        "where pc.status=true and pc.is_deleted=false order by pc.id desc LIMIT ? OFFSET ?")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid  as flag ,\n" +
+                "\tpc.weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "inner join pos_countries pc2 \n" +
+                "on pc2.id = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "order by\n" +
+                "\tpc.id desc\n" +
+                "limit ? offset ?")
         List<ProductProjection> getAllProduct(int perPage, int page);
 
         @Query(nativeQuery = true, value = "select count(*) from pos_product where status=true and is_deleted=false")
@@ -153,12 +199,34 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         // "and pc.cat_id = ? order by id desc limit ?")
         // List<ProductProjection> getProductByCatId(int catId, int limit);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
-                        + //
-                        "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
-                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
-                        "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
-                        "and pc.cat_id = ? order by pc.id desc limit ? offset ?")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid as flag ,\n" +
+                "\tpc.choices as weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "inner join pos_countries pc2 \n" +
+                "on pc2.id = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "\tand pc.cat_id = ?\n" +
+                "order by\n" +
+                "\tpc.id desc\n" +
+                "limit ? offset ?")
         List<ProductProjection> getProductByCatId(int catId, int limit, int page);
 
         @Query(nativeQuery = true, value = "select\r\n" + //
@@ -189,49 +257,90 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         "and pc.brand_id = ? order by id desc limit ? OFFSET  ?")
         List<ProductProjection> getProductByBrandId(int brandId, int limit, int page);
 
-        @Query(nativeQuery = true, value = "select\r\n" + //
-                        "\tpc.id,\r\n" + //
-                        "\tpc.barcode,\r\n" + //
-                        "\tpc.cat_id ,\r\n" + //
-                        "\tpc.brand_id ,\r\n" + //
-                        "\tpc.flag ,\r\n" + //
-                        "\tpc.weight ,\r\n" + //
-                        "\tpc.pro_image_name ,\r\n" + //
-                        "\tpc.brand_id ,\r\n" + //
-                        "\tpc.pro_name_en ,\r\n" + //
-                        "\tpc.pro_name_kh ,\r\n" + //
-                        "\tpc.cost,\r\n" + //
-                        "\tpc.price ,\r\n" + //
-                        "\tpc.product_status ,\r\n" + //
-                        "\tpc.discount ,\r\n" + //
-                        "\tpc.code_out_stock ,\r\n" + //
-                        "\tpc.code_expired\r\n" + //
-                        "from\r\n" + //
-                        "\tpos_product pc\r\n" + //
-                        "where\r\n" + //
-                        "\tpc.status = true\r\n" + //
-                        "\tand pc.is_deleted = false\r\n" + //
-                        "\tand pc.discount > 0 order by pc.id desc\r\n" + //
-                        " ")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid as flag ,\n" +
+                "\tpc.choices as weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "inner join pos_countries pc2 \n" +
+                "on pc2.id = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "\tand pc.discount > 0\n" +
+                "order by\n" +
+                "\tpc.id desc")
         List<ProductProjection> getProductPromotion();
 
         @Query(nativeQuery = true, value = "select count(*) from pos_product pp where pp.status = true and pp.is_deleted = false and pp.discount > 0")
         int countProductDiscount();
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
-                        + //
-                        " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,  \r\n" + //
-                        " pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired    \r\n" + //
-                        " from pos_product pc where pc.status=true and pc.is_deleted=false  \r\n" + //
-                        " and pc.pro_name_en  ilike %?%")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid as flag ,\n" +
+                "\tpc.choices as weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "inner join pos_countries pc2 \n" +
+                "on pc2.id = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "\tand pc.pro_name_en ilike %?%")
         List<ProductProjection> searchProductByName(String proNameEn);
 
-        @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,  \r\n"
-                        + //
-                        " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price ,   \r\n" + //
-                        " pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired    \r\n" + //
-                        " from pos_product pc where pc.status=true and pc.is_deleted=false  \r\n" + //
-                        " and pc.barcode like  %?%")
+        @Query(nativeQuery = true, value = "select\n" +
+                "\tpc.id,\n" +
+                "\tpc.barcode,\n" +
+                "\tpc.cat_id ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc2.uuid as flag ,\n" +
+                "\tpc.choices as weight ,\n" +
+                "\tpc.pro_image_name ,\n" +
+                "\tpc.brand_id ,\n" +
+                "\tpc.pro_name_en ,\n" +
+                "\tpc.pro_name_kh ,\n" +
+                "\tpc.cost,\n" +
+                "\tpc.price ,\n" +
+                "\tpc.product_status ,\n" +
+                "\tpc.discount ,\n" +
+                "\tpc.code_out_stock ,\n" +
+                "\tpc.code_expired\n" +
+                "from\n" +
+                "\tpos_product pc\n" +
+                "\tinner join pos_countries pc2 \n" +
+                "\ton pc2.id = pc.country_id \n" +
+                "where\n" +
+                "\tpc.status = true\n" +
+                "\tand pc.is_deleted = false\n" +
+                "\tand pc.barcode like %?%")
         List<ProductProjection> searchProductByBarcode(String barcode);
 
         @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,   \r\n"

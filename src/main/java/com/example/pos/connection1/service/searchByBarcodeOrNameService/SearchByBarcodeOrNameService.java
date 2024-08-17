@@ -12,6 +12,7 @@ import com.example.pos.connection1.feature.product.productService.ProductService
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Service
@@ -77,7 +78,7 @@ public class SearchByBarcodeOrNameService {
             }
         } else {
             int countProductExistInInvoice = repo.countProductExistInIvoice(invoiceNo, barcode);
-         
+
             if (countProductExistInInvoice == 0) {
                 _map.put("msg", JavaConstant.PRODUCT_DOES_NOT_EXIST_IN_INVOICE_NUMBER);
                 return _map;
