@@ -27,7 +27,7 @@ public class JavaSearchByNameAndCode {
      private static Button btnPayment;
      private static Button btnReturn;
 
-     public static void searchProduct(JPanel panelProduct, SearchField searchBox, JPanel panelPagination, LoginFormJdailog jdFormLogin, JPanel category) {
+     public static void searchProduct(JPanel panelProduct, SearchField searchBox, JPanel panelPagination, LoginFormJdailog jdFormLogin, JPanel category , TextField textField) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyType() {
@@ -42,6 +42,8 @@ public class JavaSearchByNameAndCode {
                               panelProduct.revalidate();
                               panelProduct.repaint();
                               jdFormLogin.runData();
+                              textField.setFocus();
+                              
                               return;
                          }
 

@@ -14,67 +14,66 @@ import org.json.JSONObject;
 
 public class AddVendor extends javax.swing.JDialog {
 
-    private Integer id;
-    private JPanel listGetVendor;
-    
-    public AddVendor(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        txtVendorName.requestFocus();
-        txtPhoneNumber.add3digitsToPhoneNumber();
-        event();
-    }
-    
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+     private Integer id;
+     private JPanel listGetVendor;
 
-            }
-        };
-        txtVendorName.initEvent(btnevent);
-        txtPhoneNumber.initEvent(btnevent);
-        txtEmail.initEvent(btnevent);
-        txtWebsite.initEvent(btnevent);
-        txtAddress.initEvent(btnevent);
-    }
-    
-    //Value Edit
-    public void setValueEdit(
-        String vendorName,
-        String phone,
-        String email,
-        String Web,
-        String address
-    ) throws IOException {
-        
-        if(vendorName != null && vendorName != ""){
-            txtVendorName.setValueTextField(vendorName);  
-        }
-        
-        if(phone != null && phone != ""){
-            txtPhoneNumber.setValueTextField(phone);
-        } 
-        
-        if(email != null && email != ""){
-            txtEmail.setValueTextField(email);  
-        }
-        
-        if(Web != null && Web != ""){
-            txtWebsite.setValueTextField(Web);
-        } 
-        
-        if(address != null && address != ""){
-            txtAddress.setValueTextField(address);  
-        }
-        
-    }
+     public AddVendor(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          txtVendorName.requestFocus();
+          txtPhoneNumber.add3digitsToPhoneNumber();
+          event();
+     }
 
-    @SuppressWarnings("unchecked")
+     //Place Holder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          txtVendorName.initEvent(btnevent);
+          txtPhoneNumber.initEvent(btnevent);
+          txtEmail.initEvent(btnevent);
+          txtWebsite.initEvent(btnevent);
+          txtAddress.initEvent(btnevent);
+     }
+
+     //Value Edit
+     public void setValueEdit(
+          String vendorName,
+          String phone,
+          String email,
+          String Web,
+          String address
+     ) throws IOException {
+
+          if (vendorName != null && vendorName != "") {
+               txtVendorName.setValueTextField(vendorName);
+          }
+
+          if (phone != null && phone != "") {
+               txtPhoneNumber.setValueTextField(phone);
+          }
+
+          if (email != null && email != "") {
+               txtEmail.setValueTextField(email);
+          }
+
+          if (Web != null && Web != "") {
+               txtWebsite.setValueTextField(Web);
+          }
+
+          if (address != null && address != "") {
+               txtAddress.setValueTextField(address);
+          }
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -240,157 +239,186 @@ public class AddVendor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        String vendorName = txtVendorName.getValueTextField();
-        String email = txtEmail.getValueTextField();
-        String website = txtWebsite.getValueTextField();
-        String address = txtAddress.getValueTextField();
+         String vendorName = txtVendorName.getValueTextField();
+         String email = txtEmail.getValueTextField();
+         String website = txtWebsite.getValueTextField();
+         String address = txtAddress.getValueTextField();
 
-        try {
-            if (vendorName == null || vendorName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vendor Name is required!");
-                return;
-            }
-            
-            String phoneNumber = txtPhoneNumber.getValueTextField();
-        
-            if (phoneNumber == null || phoneNumber.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Phone Number is required!");
-                return;
-            }
+         try {
+              if (vendorName == null || vendorName.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Vendor Name is required!");
+                   return;
+              }
 
-            String phone = phoneNumber.replace(" ", "");
+              String phoneNumber = txtPhoneNumber.getValueTextField();
 
-            if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 10) {
-                JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
-                return;
-            }
-            
-            if (email == null || email.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Email is required!");
-                return;
-            }
-            
-            //Validate on email
-            Pattern pat = Pattern.compile(JavaConstant.emailRegex); 
-            if(email != null && pat.matcher(email).matches()){
-               
-            }else{
-                JOptionPane.showMessageDialog(this, "Email is incorrect!");
-                return;
-            }
-            
-            if (address == null || address.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Address is required!");
-                return;
-            }
-             
+              if (phoneNumber == null || phoneNumber.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Phone Number is required!");
+                   return;
+              }
 
-            JSONObject json = new JSONObject();
-            json.put("vendorName", vendorName);
-            json.put("contact", phone);
-            json.put("email", email);
-            json.put("website", website);
-            json.put("address", address);
+              String phone = phoneNumber.replace(" ", "");
 
+              if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 10) {
+                   JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
+                   return;
+              }
 
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.vendor + '/' + id, json);
-                
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+              if (email == null || email.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Email is required!");
+                   return;
+              }
 
-                if (response.isSuccessful()) {
-                    ListVendor list = new ListVendor(new JFrame(), true);
-                    listGetVendor.removeAll();
-                    listGetVendor.revalidate();
-                    listGetVendor.repaint();
-                    list.getVendor(listGetVendor, true);
-                    dispose();
-                } 
+              //Validate on email
+              Pattern pat = Pattern.compile(JavaConstant.emailRegex);
+              if (email != null && pat.matcher(email).matches()) {
 
-            } else {
-                json.put("createBy", JavaConstant.cashierId + "");
-                
-                Response response = JavaConnection.post(JavaRoute.vendor, json);
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+              } else {
+                   JOptionPane.showMessageDialog(this, "Email is incorrect!");
+                   return;
+              }
 
-                if (response.isSuccessful()) {
-                    ListVendor list = new ListVendor(new JFrame(), true);
-                    listGetVendor.removeAll();
-                    listGetVendor.revalidate();
-                    listGetVendor.repaint();
-                    list.getVendor(listGetVendor, true);
-                    dispose();
-                } 
-            }
+              if (address == null || address.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Address is required!");
+                   return;
+              }
 
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+              JSONObject json = new JSONObject();
+              json.put("vendorName", vendorName);
+              json.put("contact", phone);
+              json.put("email", email);
+              json.put("website", website);
+              json.put("address", address);
+
+              if (id != null) {
+                   Response response = JavaConnection.put(JavaRoute.vendor + '/' + id, json);
+                   String responeData = response.body().string();
+                   JSONObject jsonResponse = new JSONObject(responeData);
+                   if (jsonResponse.has("error")) {
+
+                        JSONObject error = jsonResponse.getJSONObject("error");
+                        int code = error.getInt("code");
+                        String reason = error.getString("reason");
+                        if (code == 409) {
+                             if (reason.contains("contact")) {
+                                  JOptionPane.showMessageDialog(this, reason.replace("contact", "phone number"));
+                             } else {
+                                  JOptionPane.showMessageDialog(this, reason);
+                             }
+                        }
+
+                   } else {
+                        System.out.println("response : " + response);
+                        System.out.println("json : " + json);
+
+                        if (response.isSuccessful()) {
+                             ListVendor list = new ListVendor(new JFrame(), true);
+                             listGetVendor.removeAll();
+                             listGetVendor.revalidate();
+                             listGetVendor.repaint();
+                             list.getVendor(listGetVendor, true);
+                             dispose();
+                        }
+                   }
+
+              } else {
+                   json.put("createBy", JavaConstant.cashierId + "");
+
+                   Response response = JavaConnection.post(JavaRoute.vendor, json);
+                   String responeData = response.body().string();
+
+                   JSONObject jsonResponse = new JSONObject(responeData);
+                   if (jsonResponse.has("error")) {
+
+                        JSONObject error = jsonResponse.getJSONObject("error");
+                        int code = error.getInt("code");
+                        String reason = error.getString("reason");
+                        if (code == 409) {
+                             if (reason.contains("contact")) {
+                                  JOptionPane.showMessageDialog(this, reason.replace("contact", "phone number"));
+                             } else {
+                                  JOptionPane.showMessageDialog(this, reason);
+                             }
+                        }
+
+                   } else {
+                        System.out.println("response : " + response);
+                        System.out.println("json : " + json);
+                        ListVendor list = new ListVendor(new JFrame(), true);
+                        listGetVendor.removeAll();
+                        listGetVendor.revalidate();
+                        listGetVendor.repaint();
+                        list.getVendor(listGetVendor, true);
+                        dispose();
+
+                   }
+
+              }
+
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        titlePopUp.setLabelTitle("Edit Vendor");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          titlePopUp.setLabelTitle("Edit Vendor");
+     }
 
-    public JPanel getListGetVendor() {
-        return listGetVendor;
-    }
+     public JPanel getListGetVendor() {
+          return listGetVendor;
+     }
 
-    public void setListGetVendor(JPanel listGetVendor) {
-        this.listGetVendor = listGetVendor;
-    }
+     public void setListGetVendor(JPanel listGetVendor) {
+          this.listGetVendor = listGetVendor;
+     }
 
-    
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddVendor dialog = new AddVendor(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(AddVendor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    AddVendor dialog = new AddVendor(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;

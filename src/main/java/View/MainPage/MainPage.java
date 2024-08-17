@@ -191,7 +191,7 @@ public class MainPage extends javax.swing.JFrame {
 
           JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this, panelProduct, previous);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this, next);  // pagination previous
-          JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category);  // search product by name or barcode
+          JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category ,textField);  // search product by name or barcode
 
           JavaSearchByNameAndCode j = new JavaSearchByNameAndCode();
           j.setBtnCancel(btnCancel);

@@ -18,9 +18,11 @@ import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
 import Setting.Subcategory.InsertSubcategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
@@ -196,7 +198,7 @@ public class Category extends javax.swing.JDialog {
 
                               if (codeType.equals("division")) { // edit division
                                    InsertDivision edit = new InsertDivision(new JFrame(), true, codeType);
-                                  
+
                                    try {
                                         Response response = JavaConnection.get(JavaRoute.addCategory + "/" + listData.getId());
                                         String responseData = response.body().string();
@@ -329,20 +331,19 @@ public class Category extends javax.swing.JDialog {
                                         JSONObject json = new JSONObject();
                                         Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
 
-                                        System.out.println(" response " + response.code());
-
                                         if (response.isSuccessful()) {
-                                             Category list = new Category(new JFrame(), true, codeType);
-                                             listGetCategory.removeAll();
-                                             listGetCategory.revalidate();
-                                             listGetCategory.repaint();
-                                             list.getCategory(listGetCategory, codeType, true);
-
-              
                                              pCategory.removeAll();
                                              pCategory.revalidate();
                                              pCategory.repaint();
                                              jdLogin.category();
+
+                                             Category list = new Category(new JFrame(), true, codeType);
+                                             list.setPCategory(pCategory);
+                                             list.setJdLogin(jdLogin);
+                                             listGetCategory.removeAll();
+                                             listGetCategory.revalidate();
+                                             listGetCategory.repaint();
+                                             list.getCategory(listGetCategory, codeType, true);
 
                                         } else if (response.code() == 404) {
                                              JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
@@ -359,6 +360,7 @@ public class Category extends javax.swing.JDialog {
 
                     category.initEvent(events);
                     category.setId(listData.getId());
+
                     category.setCategoryNameEn(listData.getCategoryNameEn());
                     category.setCategoryNameKh(listData.getCategoryNameKh());
 
@@ -593,9 +595,8 @@ public class Category extends javax.swing.JDialog {
               addDivision.setListGetCategory(listGetCategory);
               addDivision.setCategory(pCategory);
               addDivision.setJdLogin(jdLogin);
-        
               addDivision.setVisible(true);
-          
+
          } else if (code.equals("department")) {
               InsertDepartment addDepartment = new InsertDepartment(new JFrame(), true, code);
               addDepartment.setListGetCategory(listGetCategory);

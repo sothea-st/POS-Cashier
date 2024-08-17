@@ -5,6 +5,7 @@ import Fonts.WindowFonts;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
+import javax.swing.JLabel;
 
 public class GetCategory extends javax.swing.JPanel {
 
@@ -19,6 +20,16 @@ public class GetCategory extends javax.swing.JPanel {
         lbId.setVisible(false);
     }
 
+     public JLabel getLbId() {
+          return lbId;
+     }
+
+     public void setLbId(JLabel lbId) {
+          this.lbId = lbId;
+     }
+
+    
+    
     public Integer getId() {
         return id;
     }

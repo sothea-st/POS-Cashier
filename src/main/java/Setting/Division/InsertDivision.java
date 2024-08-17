@@ -195,14 +195,13 @@ public class InsertDivision extends javax.swing.JDialog {
 
                    if (response.isSuccessful()) {
                         Category list = new Category(new JFrame(), true, code);
+                        list.setPCategory(category);
+                        list.setJdLogin(jdLogin);
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
                         list.getCategory(listGetCategory, code, true);
-
                         dispose();
-                         
-
 
                    } else if (response.code() == 500) {
                         JOptionPane.showMessageDialog(this, "The Name is already used!");
@@ -219,6 +218,8 @@ public class InsertDivision extends javax.swing.JDialog {
                    System.out.println("response : " + response);
                    if (response.isSuccessful()) {
                         Category list = new Category(new JFrame(), true, code);
+                        list.setPCategory(category);
+                        list.setJdLogin(jdLogin);
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
