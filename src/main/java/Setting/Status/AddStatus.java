@@ -141,7 +141,7 @@ public class AddStatus extends javax.swing.JDialog {
 
         try {
             if (statusName == null || statusName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Status Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "Status Name is required!");
                 return;
             }
 
@@ -161,7 +161,10 @@ public class AddStatus extends javax.swing.JDialog {
                     listGetStatus.repaint();
                     list.getStatus(listGetStatus,true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
+                
 
             } else {
                 Response response = JavaConnection.post(JavaRoute.status, json);
@@ -176,6 +179,8 @@ public class AddStatus extends javax.swing.JDialog {
                     listGetStatus.repaint();
                     list.getStatus(listGetStatus,true);
                     dispose();
+                }else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 } 
             }
 

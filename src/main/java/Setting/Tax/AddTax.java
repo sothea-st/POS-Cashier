@@ -172,12 +172,12 @@ public class AddTax extends javax.swing.JDialog {
 
         try {
             if (name == null || name.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Tax Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "Tax Name is required!");
                 return;
             }
             
             if (rate == null || rate.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Rate can not be empty!");
+                JOptionPane.showMessageDialog(this, "Rate is required!");
                 return;
             }
 
@@ -198,7 +198,9 @@ public class AddTax extends javax.swing.JDialog {
                     listGetTax.repaint();
                     list.getTax(listGetTax,true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
 
             } else {
                 
@@ -215,7 +217,9 @@ public class AddTax extends javax.swing.JDialog {
                     listGetTax.repaint();
                     list.getTax(listGetTax,true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
             }
 
         } catch (Exception e) {

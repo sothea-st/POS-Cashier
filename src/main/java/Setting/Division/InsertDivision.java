@@ -179,7 +179,7 @@ public class InsertDivision extends javax.swing.JDialog {
 
          try {
               if (divisionNameEn == null || divisionNameEn.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Division Name can not be empty!");
+                   JOptionPane.showMessageDialog(this, "Division Name is required!");
                    return;
               }
 

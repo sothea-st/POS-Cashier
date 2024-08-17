@@ -166,7 +166,7 @@ public class AddUom extends javax.swing.JDialog {
 
         try {
             if (uomNameEn == null || uomNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "UOM Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "UOM Name is required!");
                 return;
             }
 
@@ -187,7 +187,9 @@ public class AddUom extends javax.swing.JDialog {
                     listGetUom.repaint();
                     list.getUom(listGetUom,true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
 
             } else {
                 Response response = JavaConnection.post(JavaRoute.uom, json);
@@ -201,7 +203,9 @@ public class AddUom extends javax.swing.JDialog {
                     listGetUom.repaint();
                     list.getUom(listGetUom,true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
             }
 
         } catch (Exception e) {

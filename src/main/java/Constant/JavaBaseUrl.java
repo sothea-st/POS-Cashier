@@ -9,6 +9,7 @@ public class JavaBaseUrl {
 
      public static String baseUrlBgImage = "http://localhost:8090/api/public/addImageForBackground/";
      public static String baseUrlDefaultImage = "http://localhost:8090/api/public/addImageForBackground/default.jpg";
+     public static String baseUrlDefaultImageStaff = "http://localhost:8090/api/public/addImageForBackground/93ed3b9c-be82-4c69-8b7d-331ab82ef54a";
      public String getBaseUrl(){
           return baseUrl;
      }
