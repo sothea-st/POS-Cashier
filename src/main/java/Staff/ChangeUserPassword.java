@@ -182,12 +182,12 @@ public class ChangeUserPassword extends javax.swing.JDialog {
          String confirmPasswordString = confirmPass.getValuePassword();
 
          if (newPassString == null || newPassString.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "New Password can not be empty!");
+              JOptionPane.showMessageDialog(this, "New Password is required!");
               return;
          }
 
          if (confirmPasswordString == null || confirmPasswordString.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "confirm Password can not be empty!");
+              JOptionPane.showMessageDialog(this, "confirm Password is required!");
               return;
          }
 

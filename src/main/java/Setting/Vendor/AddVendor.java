@@ -310,7 +310,9 @@ public class AddVendor extends javax.swing.JDialog {
                     listGetVendor.repaint();
                     list.getVendor(listGetVendor, true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
 
             } else {
                 json.put("createBy", JavaConstant.cashierId + "");
@@ -326,7 +328,9 @@ public class AddVendor extends javax.swing.JDialog {
                     listGetVendor.repaint();
                     list.getVendor(listGetVendor, true);
                     dispose();
-                } 
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
             }
 
         } catch (Exception e) {

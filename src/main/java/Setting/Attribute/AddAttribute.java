@@ -165,7 +165,7 @@ public class AddAttribute extends javax.swing.JDialog {
 
         try {
             if (attrNameEn == null || attrNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Attribute Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "Attribute Name is required!");
                 return;
             }
 
@@ -186,7 +186,11 @@ public class AddAttribute extends javax.swing.JDialog {
                     listGetAttribute.repaint();
                     list.getAttribute(listGetAttribute,true);
                     dispose();
-                } 
+                }else if (response.code() == 500) {
+                    JOptionPane.showMessageDialog(this, "The Name is already used!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                }
 
             } else {
                 Response response = JavaConnection.post(JavaRoute.attribute, json);
@@ -201,6 +205,10 @@ public class AddAttribute extends javax.swing.JDialog {
                     listGetAttribute.repaint();
                     list.getAttribute(listGetAttribute, true);
                     dispose();
+                }else if (response.code() == 500) {
+                    JOptionPane.showMessageDialog(this, "The Name is already used!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 } 
             }
 

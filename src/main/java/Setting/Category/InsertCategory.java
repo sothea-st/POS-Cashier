@@ -335,7 +335,7 @@ public class InsertCategory extends javax.swing.JDialog {
               }
 
               if (categoryName == null || categoryName.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Category Name can not be empty!");
+                   JOptionPane.showMessageDialog(this, "Category Name is required!");
                    return;
               }
 

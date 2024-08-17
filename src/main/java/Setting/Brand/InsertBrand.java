@@ -168,7 +168,7 @@ public class InsertBrand extends javax.swing.JDialog {
 
         try {
             if (brandNameEn == null || brandNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Brand Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "Brand Name is required!");
                 return;
             }
 

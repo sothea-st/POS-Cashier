@@ -10,6 +10,7 @@ import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.combobox.ComboBoxSelection;
+import Staff.InsertStaff;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.Timer;
@@ -70,6 +71,12 @@ public class InsertProduct extends javax.swing.JDialog {
           txtCost.setComma("comma");
           txtPrice.setComma("comma");
           JavaConstant.setPointer(browse);
+          
+          try {
+                JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
+          } catch (IOException ex) {
+                Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+          }
      }
      double costVal = 0;
      double priceVal = 0;
@@ -809,6 +816,8 @@ public class InsertProduct extends javax.swing.JDialog {
                               fileName = obj.getString("fileName");
                               json.put("proImageName", fileName);
                               responseAddProduct(json);
+                         }else {
+                            JOptionPane.showMessageDialog(this, "Save Failed!");
                          }
                     } catch (Exception e) {
                          System.out.println("erro : " + e);
@@ -826,6 +835,8 @@ public class InsertProduct extends javax.swing.JDialog {
                               fileName = obj.getString("fileName");
                               json.put("proImageName", fileName);
                               responseUpdateProduct(json);
+                         }else {
+                            JOptionPane.showMessageDialog(this, "Save Failed!");
                          }
                     } catch (Exception e) {
                          System.out.println("erro : " + e);

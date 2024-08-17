@@ -250,7 +250,7 @@ public class InsertDepartment extends javax.swing.JDialog {
             }
 
             if (categoryName == null || categoryName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Department Name can not be empty!");
+                JOptionPane.showMessageDialog(this, "Department Name is required!");
                 return;
             }
 
