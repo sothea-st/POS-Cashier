@@ -879,7 +879,7 @@ public class MainPage extends javax.swing.JFrame {
                    pay.setButtonHoldOrder(buttonHoldOrder);
                    pay.setjScrollPaneDetail(jScrollPaneDetail);
                    pay.setTitleOrder(titleOrder);
-                   if (btnPayment.getButtonName().equals("Return")) {
+                   if (btnPayment.getButtonName().equals("Continue")) {
                         System.err.println("return was clicked : ");
                         pay.returnProduct();
                         return;
