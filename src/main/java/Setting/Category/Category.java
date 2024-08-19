@@ -317,7 +317,7 @@ public class Category extends javax.swing.JDialog {
                          }
 
                          @Override
-                         public void onRemove(String Key) {  // event delete staff
+                         public void onRemove(String Key) {  // event delete  
                               try {
                                    UIManager UI = new UIManager();
                                    UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -332,14 +332,18 @@ public class Category extends javax.swing.JDialog {
                                         Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
 
                                         if (response.isSuccessful()) {
-                                             pCategory.removeAll();
-                                             pCategory.revalidate();
-                                             pCategory.repaint();
-                                             jdLogin.category();
-
                                              Category list = new Category(new JFrame(), true, codeType);
-                                             list.setPCategory(pCategory);
-                                             list.setJdLogin(jdLogin);
+                                             switch (codeType) {
+                                                  case "division" -> {
+                                                       pCategory.removeAll();
+                                                       pCategory.revalidate();
+                                                       pCategory.repaint();
+                                                       jdLogin.category();
+                                                       list.setPCategory(pCategory);
+                                                       list.setJdLogin(jdLogin);
+                                                       break;
+                                                  }
+                                             }
                                              listGetCategory.removeAll();
                                              listGetCategory.revalidate();
                                              listGetCategory.repaint();

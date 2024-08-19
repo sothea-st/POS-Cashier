@@ -101,10 +101,10 @@ public class ReturnDialog extends javax.swing.JDialog {
                                    _value = _value.substring(0, 17);
                                    System.out.println("The truncated string is: " + _value);
                               } else {
-                                   System.out.println("ffffffffffffffffffffff = " + barcodeValue);
-                                   barcodeValue = barcodeValue.substring(0, 17);
-                                   System.out.println("The truncated string is: " + barcodeValue);
-                                   txtinvoice.setValueTextField(barcodeValue);
+//                                   System.out.println("ffffffffffffffffffffff = " + barcodeValue);
+//                                   barcodeValue = barcodeValue.substring(0, 17);
+//                                   System.out.println("The truncated string is: " + barcodeValue);
+//                                   txtinvoice.setValueTextField(barcodeValue);
                               }
                          } catch (Exception e) {
                               System.err.println("response data 333= " + e);

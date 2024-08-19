@@ -37,7 +37,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class EditPurchaseOrder extends javax.swing.JDialog {
-     
+
      private int totalQty = 0;
      private double totalCost = 0;
      private String vendorId;
@@ -45,11 +45,11 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
      ArrayList<ImportRequestSecond.ImportDetailRequestSecond> details = new ArrayList<>();
      private POCheckDetailsModel detailData;
      private JPanel listGetOrder;
-     
+
      public EditPurchaseOrder(java.awt.Frame parent, boolean modal, Integer id) {
           super(parent, modal);
           initComponents();
-          
+
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           header.setBackground(WindowColor.darkGreen);
@@ -64,12 +64,12 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
           _Id = id;
           Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
           borderUnderLine.setBorder(topBorder);
-          
+
      }
-     
+
      public void getListDetailPurchase(JPanel jpanelData, Integer id) {
           try {
-               
+
                Response response = JavaConnection.get(JavaRoute.imports + "/" + id);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -85,7 +85,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                System.err.println("error getting purchase " + e);
           }
      }
-     
+
      public void assignPurchaseDetail(DetailPurchaseModelThird[] listData, JPanel listGetDetailOrder, Integer id) {
 //          ArrayList<DetailPurchaseModel> purchase = new ArrayList<>();
 //
@@ -111,7 +111,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
 //
 //          appendPurchaeOrderDetail(purchase, listGetDetailOrder);
      }
-     
+
      void appendPurchaeOrderDetail(ArrayList<DetailPurchaseModel> listPurchase, JPanel listGetDetailOrder) {
           reloadPanel();
           GridBagLayout gridBagLayout = new GridBagLayout();
@@ -119,9 +119,9 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          
+
           listGetDetailOrder.setLayout(gridBagLayout);
-          
+
           int x = 0;
           int y = 0;
           int index = 0;
@@ -152,10 +152,10 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                          String.valueOf(listData.getId()),
                          String.valueOf(listData.getProductId())
                     );
-                    
+
                     totalQty += listData.getOrderQty();
                     totalCost += listData.getCost().doubleValue();
-                    
+
                     try {
                          TimerTask task = new TimerTask() {
                               @Override
@@ -163,48 +163,48 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                                    detail.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
                               }
                          };
-                         
+
                          Timer timer = new Timer();
                          timer.schedule(task, 500);
-                         
+
                     } catch (Exception e) {
                          System.err.println("error read image = " + e);
                     }
-                    
+
                     ButtonEvent event = new ButtonEvent() {
                          @Override
                          public void onRemove(String index) {
                               eventRemove(index);
                          }
-                         
+
                          @Override
                          public void onKeyPress() {
                               calculate();
                          }
                     };
-                    
+
                     detail.initEvent(event);
-                    
+
                     listGetDetailOrder.add(detail, gbc);
                }
           } else {
                NotFound nofound = new NotFound();
                listGetDetailOrder.add(nofound);
           }
-          
+
           lbTotalQty.setText(String.valueOf(totalQty));
           lbTotalCost.setText("$ ".concat(String.format("%.2f", totalCost)));
-          
+
           listGetDetailOrder.revalidate();
           listGetDetailOrder.repaint();
      }
-     
+
      private void reloadPanel() {
           listGetDetailOrder.removeAll();
           listGetDetailOrder.revalidate();
           listGetDetailOrder.repaint();
      }
-     
+
      private void calculate() {
           Component[] listCom = listGetDetailOrder.getComponents();
           totalCost = 0;
@@ -219,24 +219,24 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
           }
           lbTotalCost.setText("$ ".concat(String.format("%.2f", totalCost)));
           lbTotalQty.setText(String.valueOf(totalQty));
-          
+
           for (int i = 0; i < listCom.length; i++) {
                var obj = ((TdDetailPurchaseOrder) listCom[i]);
                String ind = String.valueOf(i + 1);
                obj.setIndex(ind);
           }
      }
-     
+
      private void eventRemove(String index) {
           try {
                UIManager UI = new UIManager();
                UI.put("OptionPane.background", WindowColor.mediumGreen);
                UI.put("Panel.background", WindowColor.mediumGreen);
                UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-               
+
                int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
                     "Delete?", JOptionPane.YES_NO_OPTION);
-               
+
                if (resp == JOptionPane.YES_OPTION) {
                     int ind = Integer.parseInt(index) - 1;
                     Component[] listComponent = listGetDetailOrder.getComponents();
@@ -250,12 +250,12 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }
-               
+
           } catch (Exception e) {
                System.err.println("error getting product " + e);
           }
      }
-     
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -568,7 +568,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
          String orderDateValue = orderDate.getUneditText();
          String referenceNo = txtReference.getUneditText();
          String transactionDateValue = transactionDate.getUneditText();
-         
+
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
          json.put("empId", JavaConstant.empId);
@@ -581,9 +581,10 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
          _totalCost = _totalCost.replace(",", "");
          json.put("total", _totalCost);
          json.put("totalQty", lbTotalQty.getText());
-         
+         json.put("remark", "requested");
+
          Component[] listCom = listGetDetailOrder.getComponents();
-         
+
          for (Component p : listCom) {
               var data = ((TdDetailPurchaseOrder) p);
               ImportRequestSecond importRequest = new ImportRequestSecond();
@@ -594,13 +595,15 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                    BigDecimal.valueOf(Double.parseDouble(data.getCost())),
                    BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
                    "");
-              
+
               details.add(imps);
          }
-         
+
          json.put("details", details);
-         
+
+         System.out.println("jjjjjjjjjjjjjjjj = " + json);
          Response response = JavaConnection.put(JavaRoute.imports + "/" + _Id, json);
+         System.err.println("response + " + response);
          JavaConstant.setCircleLoadingCursor(this);
          try {
               if (response.isSuccessful()) {
@@ -611,13 +614,13 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                    listGetOrder.repaint();
                    purchase.getListPurchase(listGetOrder, true);
                    dispose();
-                   
+
               }
          } catch (Exception e) {
               System.out.println("import request fails : " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
-     
+
      public void setValue(
           String vendorNameValue,
           String referenceNoValue,
@@ -639,33 +642,33 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
           vendorId = _vendorId;
           orderDate.setUneditText(_orderDate);
           transactionDate.setUneditText(_transactionDate);
-          
-          if(_remark.equals("requested")){
-              buttonSave.setVisible(true);
-          }else{
-              buttonSave.setVisible(false);
+
+          if (_remark.equals("requested")) {
+               buttonSave.setVisible(true);
+          } else {
+               buttonSave.setVisible(false);
           }
-         
+
      }
-     
+
      public JPanel getListGetOrder() {
           return listGetOrder;
      }
-     
+
      public void setListGetOrder(JPanel listGetOrder) {
           this.listGetOrder = listGetOrder;
      }
-     
+
      public POCheckDetailsModel getDetailData() {
           return detailData;
      }
-     
+
      public void setDetailData(POCheckDetailsModel detailData) {
           this.detailData = detailData;
           ArrayList<DetailPurchaseModel> purchase = new ArrayList<>();
           for (int i = 0; i < detailData.getDetails().length; i++) {
                var obj = detailData.getDetails()[i];
-               
+
                DetailPurchaseModel getPurchase = new DetailPurchaseModel(
                     obj.getID(),
                     obj.getProductID(),
@@ -684,9 +687,9 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                purchase.add(getPurchase);
           }
           appendPurchaeOrderDetail(purchase, listGetDetailOrder);
-          
+
      }
-     
+
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

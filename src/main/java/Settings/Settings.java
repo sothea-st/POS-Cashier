@@ -269,6 +269,8 @@ public class Settings extends javax.swing.JDialog {
 
          Category cat = new Category(new JFrame(), true, "category");
          cat.setCode("category");
+         cat.setPCategory(pCategory);
+         cat.setJdLogin(jdLogin);
          cat.setVisible(true);
     }//GEN-LAST:event_categoryMouseClicked
 
@@ -276,6 +278,8 @@ public class Settings extends javax.swing.JDialog {
 
          Category cat = new Category(new JFrame(), true, "department");
          cat.setCode("department");
+         cat.setPCategory(pCategory);
+         cat.setJdLogin(jdLogin);
          cat.setVisible(true);
     }//GEN-LAST:event_departmentMouseClicked
 
@@ -283,6 +287,8 @@ public class Settings extends javax.swing.JDialog {
 
          Category cat = new Category(new JFrame(), true, "subcategory");
          cat.setCode("subcategory");
+         cat.setPCategory(pCategory);
+         cat.setJdLogin(jdLogin);
          cat.setVisible(true);
     }//GEN-LAST:event_subCategoryMouseClicked
 
