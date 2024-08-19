@@ -388,11 +388,11 @@ public class JavaConstant {
           return date.format(outputFormatter);
      }
 
-     public static String getFileName() {
+     public static String getFileName(String name) {
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH-mm-ss a");
           String formattedDateTime = currentDateTime.format(formatter);
-          String fileName = formattedDateTime;
+          String fileName = name +" "+ formattedDateTime;
           return fileName;
      }
 

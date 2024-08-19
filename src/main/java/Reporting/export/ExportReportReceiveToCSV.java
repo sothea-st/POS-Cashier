@@ -21,7 +21,7 @@ import static pdf.PrintToCSV.folderPath;
 public class ExportReportReceiveToCSV {
     public static void toCSV(ArrayList<ReportReceiveDetail> list) {
 
-          String fileName = JavaConstant.getFileName();
+          String fileName = JavaConstant.getFileName(ExportReportReceiveToExcel.reportingPurchaseReceive);
 
           // Create the directory if it doesn't exist
           Path directoryPath = Paths.get(folderPath);

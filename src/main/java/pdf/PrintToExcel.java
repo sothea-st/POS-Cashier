@@ -23,11 +23,11 @@ public class PrintToExcel {
      public static String downloadFolderPath = System.getProperty("user.home");
      public static String folderPath = downloadFolderPath + "\\Downloads\\EXCEL_Downloads";
 
-     public static String getFileName() {
+     public static String getFileName(String name) {
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH-mm-ss a");
           String formattedDateTime = currentDateTime.format(formatter);
-          String fileName = formattedDateTime;
+          String fileName =name+" "+ formattedDateTime;
           return fileName;
      }
 
@@ -155,7 +155,7 @@ public class PrintToExcel {
                }
 
                // Specify PDF file path
-               String sourcePDFPath = downloadFolderPath + "/Downloads/EXCEL_Downloads/" + getFileName() + ".xlsx";
+               String sourcePDFPath = downloadFolderPath + "/Downloads/EXCEL_Downloads/" + getFileName("product") + ".xlsx";
 
                // Write the workbook content to a file
                try (FileOutputStream outputStream = new FileOutputStream(sourcePDFPath)) {

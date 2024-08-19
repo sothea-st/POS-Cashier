@@ -31,8 +31,9 @@ import static pdf.PrintToExcel.downloadFolderPath;
 import static pdf.PrintToExcel.folderPath;
 
 public class ExportReportPurchaseOrderToExcel {
+     public static String reportingPurchaseOrder = "Reporting Purchase Order";
      public static void toExcel(ArrayList<ReportingDetailResponse> list) {
-          String fileName = JavaConstant.getFileName();
+          String fileName = JavaConstant.getFileName(reportingPurchaseOrder);
 
           try {
                // Create a new Excel workbook

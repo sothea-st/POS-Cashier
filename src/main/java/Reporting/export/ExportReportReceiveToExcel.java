@@ -33,8 +33,10 @@ import static pdf.PrintToExcel.folderPath;
  * @author FRONT-END.06
  */
 public class ExportReportReceiveToExcel {
+    public static String reportingPurchaseReceive = "Reporting Purchase Receive";
+     
      public static void toExcel(ArrayList<ReportReceiveDetail> list) {
-          String fileName = JavaConstant.getFileName();
+          String fileName = JavaConstant.getFileName(reportingPurchaseReceive);
 
           try {
                // Create a new Excel workbook

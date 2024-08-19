@@ -16,7 +16,7 @@ public class PrintToCSV {
 
      public static void exportToCSV(ProductResponseDetailV1[] listProduct) {
 
-          String fileName = PrintToExcel.getFileName();
+          String fileName = PrintToExcel.getFileName("Product");
 
           // Create the directory if it doesn't exist
           Path directoryPath = Paths.get(folderPath);

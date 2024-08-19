@@ -95,7 +95,7 @@ public class ReportingSaled extends javax.swing.JDialog {
           };
           dateFrom.initEvent(btnevent);
           dateTo.initEvent(btnevent);
-          
+
           groupButtonExport.setPdf();
      }
 
@@ -198,11 +198,10 @@ public class ReportingSaled extends javax.swing.JDialog {
                               ObjectMapper objectMapper = new ObjectMapper();
                               RepostSaleResponse data = objectMapper.readValue(responseData, RepostSaleResponse.class);
                               ReportSaleDetail[] saledDetails = data.getData();
-                              
-                              for( int i = 0 ; i< 10 ; i++ ) {
-                                   System.err.println("data = " + saledDetails[i].getProNameEn());
-                              }
-                              
+
+//                              for( int i = 0 ; i< 10 ; i++ ) {
+//                                   System.err.println("data = " + saledDetails[i].getProNameEn());
+//                              }
                               ListProduct.msgPrint(PrintToExcel.folderPath);
                               ExportReportSaleToExcel.toExcel(saledDetails);
                          }
@@ -710,8 +709,8 @@ public class ReportingSaled extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + endpoint);
                }
           }
-          
-          System.err.println("response : " + response);
+
+          System.err.println("responseddddddddddddddddddd : " + response);
           try {
 
                String responseData = response.body().string();
@@ -746,7 +745,7 @@ public class ReportingSaled extends javax.swing.JDialog {
                }
 
           } catch (Exception e) {
-               System.err.println("error : " + e);
+               System.err.println("error : gggggggggg " + e);
           }
      }
 

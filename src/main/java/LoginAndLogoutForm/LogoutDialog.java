@@ -12,6 +12,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Fonts.WindowFonts;
+import View.MainPage.MainPage;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -34,7 +35,10 @@ public class LogoutDialog extends javax.swing.JDialog {
      private Button btnSettings;
      private Button stock;
      private Button staff;
-
+     private MainPage mainPage;
+     
+     
+     
      public JLabel getBoxImg() {
           return boxImg;
      }
@@ -216,8 +220,6 @@ public class LogoutDialog extends javax.swing.JDialog {
          json.put("posId", JavaConstant.posId);
          json.put("userCode", JavaConstant.userCode);
          
-      
-
          Response response = JavaConnection.post(JavaRoute.logout, json);
 
          try {
@@ -280,6 +282,8 @@ public class LogoutDialog extends javax.swing.JDialog {
                    textField.disabledTextField(false);
 
                    boxImg.setVisible(false);
+                   
+                   mainPage.hideCompoent();
 
                    JavaConstant.resetValuePagination(); // set variable relative with pagination to deafult value
 

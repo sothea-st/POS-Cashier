@@ -18,7 +18,7 @@ public class ExportReportPurchaseOrderToCSV {
 
      public static void toCSV(ArrayList<ReportingDetailResponse> list) {
 
-          String fileName = JavaConstant.getFileName();
+          String fileName = JavaConstant.getFileName(ExportReportPurchaseOrderToExcel.reportingPurchaseOrder);
 
           // Create the directory if it doesn't exist
           Path directoryPath = Paths.get(folderPath);

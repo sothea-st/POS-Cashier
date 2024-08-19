@@ -45,7 +45,7 @@ public class PrintListPDF {
      public static void printListPdf(ProductResponseDetailV1[] listProduct) throws IOException {
           try {
 
-               String fileName = PrintToExcel.getFileName();;
+               String fileName = PrintToExcel.getFileName("Product");;
 
                // Specify PDF file path
                String sourcePDFPath = downloadFolderPath + "/Downloads/PDF_Downloads/" + fileName + ".pdf";

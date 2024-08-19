@@ -28,10 +28,10 @@ import static pdf.PrintToExcel.downloadFolderPath;
 import static pdf.PrintToExcel.folderPath;
 
 public class ExportReportSaleToExcel {
-
+     public static String reportSale = "Reporting Sale";
      public static void toExcel(ReportSaleDetail[] list) {
 
-          String fileName = JavaConstant.getFileName();
+          String fileName = JavaConstant.getFileName(reportSale);
 
           try {
                // Create a new Excel workbook

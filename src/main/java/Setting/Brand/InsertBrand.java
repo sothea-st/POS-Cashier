@@ -8,52 +8,58 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
+import pagination.PaginationPanel;
 
+@Setter
+@Getter
 public class InsertBrand extends javax.swing.JDialog {
 
-    private JPanel listGetBrand;
-    private Integer id;
-    
-    public InsertBrand(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        event();
-        brandEn.requestFocus();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-    }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
+     private JPanel listGetBrand;
+     private Integer id;
+     private PaginationPanel paginationPanel;
+     private String pageNumber;
 
-            }
-        };
-        brandEn.initEvent(btnevent);
-        brandKh.initEvent(btnevent);
-    }
-    
-    
-        //Value Edit
-    public void setValueEdit(
-        String brandNameEn,
-        String brandNameKh
-    ) throws IOException {
-        
-        if(brandNameEn != null && brandNameEn != ""){
-            brandEn.setValueTextField(brandNameEn);  
-        }
-        
-        if(brandNameKh != null && brandNameKh != ""){
-            brandKh.setValueTextField(brandNameKh);
-        }   
-    }
+     public InsertBrand(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          event();
+          brandEn.requestFocus();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+     }
 
-    @SuppressWarnings("unchecked")
+     //Place Holder
+     void event() {
+          ButtonEvent btnevent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+
+               }
+          };
+          brandEn.initEvent(btnevent);
+          brandKh.initEvent(btnevent);
+     }
+
+     //Value Edit
+     public void setValueEdit(
+          String brandNameEn,
+          String brandNameKh
+     ) throws IOException {
+
+          if (brandNameEn != null && brandNameEn != "") {
+               brandEn.setValueTextField(brandNameEn);
+          }
+
+          if (brandNameKh != null && brandNameKh != "") {
+               brandKh.setValueTextField(brandNameKh);
+          }
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -159,124 +165,122 @@ public class InsertBrand extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-        String brandNameEn = brandEn.getValueTextField();
-        String brandNameKh = brandKh.getValueTextField();
+         String brandNameEn = brandEn.getValueTextField();
+         String brandNameKh = brandKh.getValueTextField();
 
-        try {
-            if (brandNameEn == null || brandNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Brand Name is required!");
-                return;
-            }
+         try {
+              if (brandNameEn == null || brandNameEn.isEmpty()) {
+                   JOptionPane.showMessageDialog(this, "Brand Name is required!");
+                   return;
+              }
 
-            JSONObject json = new JSONObject();
-            json.put("brandNameEn", brandNameEn);
-            json.put("brandNameKh", brandNameKh);
+              JSONObject json = new JSONObject();
+              json.put("brandNameEn", brandNameEn);
+              json.put("brandNameKh", brandNameKh);
 
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.brand + '/' + id, json);
+              if (id != null) {
+                   Response response = JavaConnection.put(JavaRoute.brand + '/' + id, json);
 
-                if (response.isSuccessful()) {
-                    ListBrand list = new ListBrand(new JFrame(), true);
-                    listGetBrand.removeAll();
-                    listGetBrand.revalidate();
-                    listGetBrand.repaint();
-                    list.getBrand(listGetBrand,true);
-                    dispose();
+                   if (response.isSuccessful()) {
+                        System.out.println("fffff = " + pageNumber);
+                        ListBrand list = new ListBrand(new JFrame(), true);
+                        listGetBrand.removeAll();
+                        listGetBrand.revalidate();
+                        listGetBrand.repaint();
+                        list.getBrand(listGetBrand, true,pageNumber);
+                        dispose();
 
-                } else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
+                   } else if (response.code() == 500) {
+                        JOptionPane.showMessageDialog(this, "The Name is already used!");
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                   }
 
-            } else {
-                json.put("createBy", JavaConstant.cashierId);
+              } else {
+                   json.put("createBy", JavaConstant.cashierId);
 
-                Response response = JavaConnection.post(JavaRoute.brand, json);
-                
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+                   Response response = JavaConnection.post(JavaRoute.brand, json);
 
-                if (response.isSuccessful()) {
-                    ListBrand list = new ListBrand(new JFrame(), true);
-                    listGetBrand.removeAll();
-                    listGetBrand.revalidate();
-                    listGetBrand.repaint();
-                    list.getBrand(listGetBrand, true);
-                    dispose();
-                } else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                }
-            }
+//                   System.out.println("response : " + response);
+//                   System.out.println("json : " + json);
+                   if (response.isSuccessful()) {
+                        ListBrand list = new ListBrand(new JFrame(), true);
+                        listGetBrand.removeAll();
+                        listGetBrand.revalidate();
+                        listGetBrand.repaint();
+                        list.getBrand(listGetBrand, true,pageNumber);
+                        dispose();
+                   } else if (response.code() == 500) {
+                        JOptionPane.showMessageDialog(this, "The Name is already used!");
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                   }
+              }
 
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    public JPanel getListGetBrand() {
-        return listGetBrand;
-    }
+     public JPanel getListGetBrand() {
+          return listGetBrand;
+     }
 
-    public void setListGetBrand(JPanel listGetBrand) {
-        this.listGetBrand = listGetBrand;
-    }
+     public void setListGetBrand(JPanel listGetBrand) {
+          this.listGetBrand = listGetBrand;
+     }
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        titlePopUp.setLabelTitle("Edit Brand");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          titlePopUp.setLabelTitle("Edit Brand");
+     }
 
-    
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InsertBrand dialog = new InsertBrand(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(InsertBrand.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    InsertBrand dialog = new InsertBrand(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.TextField brandEn;

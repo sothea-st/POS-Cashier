@@ -191,7 +191,7 @@ public class MainPage extends javax.swing.JFrame {
 
           JavaEventNextPrevious.eventNext(next, limit, jdFormLogin, this, panelProduct, previous);  // pagination next
           JavaEventNextPrevious.eventPrevious(previous, limit, jdFormLogin, this, next);  // pagination previous
-          JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category ,textField);  // search product by name or barcode
+          JavaSearchByNameAndCode.searchProduct(panelProduct, searchBox, panelPagination, jdFormLogin, category, textField);  // search product by name or barcode
 
           JavaSearchByNameAndCode j = new JavaSearchByNameAndCode();
           j.setBtnCancel(btnCancel);
@@ -723,6 +723,13 @@ public class MainPage extends javax.swing.JFrame {
           jdFormLogin.setBtnSettings(btnSettings);
      }
 
+     public void hideCompoent() {
+          stock.setVisible(false);
+          buttonStaff.setVisible(false);
+          btnReporting.setVisible(false);
+          btnSettings.setVisible(false);
+     }
+
      //Action Button Login and Logout
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
          String buttonName = btnLogin.getButtonName().toLowerCase();
@@ -752,6 +759,7 @@ public class MainPage extends javax.swing.JFrame {
                    logout.setBtnSettings(btnSettings);
                    logout.setStaff(buttonStaff);
                    logout.setStock(stock);
+                   logout.setMainPage(this);
                    logout.setVisible(true);
               } else {
                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);

@@ -43,7 +43,7 @@ import static pdf.PrintListPDF.folderPath;
 public class ExportReportPurchaseOrderToPDF {
       public static void printListPdf(ArrayList<ReportingDetailResponse> list) throws IOException {
           try {
-               String fileName = JavaConstant.getFileName();
+               String fileName = JavaConstant.getFileName(ExportReportPurchaseOrderToExcel.reportingPurchaseOrder);
                // Output PDF file path
 
                // Specify PDF file path
