@@ -14,7 +14,6 @@ import Model.Status.ListStatusModel;
 import Model.Status.StatusModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class ListStatus extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Status");
 
-        getStatus(listGetStatus,true);
+        getStatus(listGetStatus,true,pageNumber);
         eventSearchStatus();
         eventPagination();
         
@@ -69,14 +68,14 @@ public class ListStatus extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getStatus(listGetStatus,true);
+                       getStatus(listGetStatus,true,pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getStatus(JPanel jpanelData, boolean isCheck) {
+    public void getStatus(JPanel jpanelData, boolean isCheck, String pageNumber) {
         try {
 
             Response response = null;
@@ -173,6 +172,7 @@ public class ListStatus extends javax.swing.JDialog {
 
                             edit.setId(data.getId());
                             edit.setListGetStatus(listGetStatus);
+                            edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
                                 data.getStatusName()
@@ -207,7 +207,7 @@ public class ListStatus extends javax.swing.JDialog {
                                     listGetStatus.removeAll();
                                     listGetStatus.revalidate();
                                     listGetStatus.repaint();
-                                    list.getStatus(listGetStatus,true);
+                                    list.getStatus(listGetStatus,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -268,10 +268,10 @@ public class ListStatus extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getStatus(listGetStatus,true);
+                    getStatus(listGetStatus,true,pageNumber);
                     return;
                 }
-                getStatus(listGetStatus,false);
+                getStatus(listGetStatus,false,pageNumber);
                 
             }
         };
@@ -422,6 +422,7 @@ public class ListStatus extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
        AddStatus add = new AddStatus(new JFrame(),true);
+       add.setPageNumber(pageNumber);
        add.setListGetStatus(listGetStatus);
        add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked

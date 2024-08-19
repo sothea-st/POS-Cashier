@@ -536,8 +536,6 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                    reloadPanel();
                    cmbVendorName.setToFirstItem();
                    cmbSubCategory.setToFirstItem();
-                   orderDate.setLabelTextField("Order Date");
-                   transactionDate.setLabelTextField("Transaction Date");
                    lbTotalCost.setText("$ 0.00");
                    lbTotalQty.setText("0");
                    txtReference.setLabelTextField(null);

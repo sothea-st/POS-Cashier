@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -32,6 +31,7 @@ public class AddCountry extends javax.swing.JDialog {
      private Integer id;
      String path;
      String fileName;
+     private String pageNumber;
 
      private JPanel listGetCountry;
 
@@ -70,7 +70,11 @@ public class AddCountry extends javax.swing.JDialog {
           String uuid
      ) throws IOException {
           txtCountry.setValueTextField(country);
-          JavaConstant.coverImage(urlImg, lbFile, 150, 135);
+          if(uuid != null){
+              JavaConstant.coverImage(urlImg, lbFile, 150, 135);
+          }else{
+              JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
+          }
           fileName = uuid;
      }
 
@@ -253,38 +257,49 @@ public class AddCountry extends javax.swing.JDialog {
               json.put("countryName", countryName);
               json.put("uuid", fileName);
 
-              System.out.println("fileName : " + fileName);
-
               if (id != null) {
-                   Response response = JavaConnection.put(JavaRoute.country + "/" + id, json);
-
-                   System.out.println("response : " + response);
-                   System.out.println("json : " + json);
-
-                   if (response.isSuccessful()) {
+                    Response response = JavaConnection.put(JavaRoute.country + "/" + id, json);
+                    String responeData = response.body().string();
+                    JSONObject jsonResponse = new JSONObject(responeData);
+                   
+                    if (jsonResponse.has("error")) {
+                        JSONObject error = jsonResponse.getJSONObject("error");
+                        int code = error.getInt("code");
+                        String reason = error.getString("reason");
+                        if (code == 409) {
+                            JOptionPane.showMessageDialog(this, reason);
+                        }
+                    }else{
                         ListCountry list = new ListCountry(new JFrame(), true);
                         listGetCountry.removeAll();
                         listGetCountry.revalidate();
                         listGetCountry.repaint();
-                        list.getListCountry(listGetCountry,true);
+                        list.getListCountry(listGetCountry,true, pageNumber);
                         dispose();
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
+                    }
+
               } else {
-                   json.put("createBy", JavaConstant.cashierId);
-                   Response response = JavaConnection.post(JavaRoute.country, json);
-
-                   if (response.isSuccessful()) {
+                    json.put("createBy", JavaConstant.cashierId);
+                   
+                    Response response = JavaConnection.post(JavaRoute.country, json);
+                    String responeData = response.body().string();
+                    JSONObject jsonResponse = new JSONObject(responeData);
+                    
+                    if (jsonResponse.has("error")) {
+                        JSONObject error = jsonResponse.getJSONObject("error");
+                        int code = error.getInt("code");
+                        String reason = error.getString("reason");
+                        if (code == 409) {
+                            JOptionPane.showMessageDialog(this, reason);
+                        }
+                    }else{
                         ListCountry list = new ListCountry(new JFrame(), true);
                         listGetCountry.removeAll();
                         listGetCountry.revalidate();
                         listGetCountry.repaint();
-                        list.getListCountry(listGetCountry,true);
+                        list.getListCountry(listGetCountry,true,pageNumber);
                         dispose();
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
+                    }
               }
 
          } catch (Exception e) {
@@ -328,6 +343,14 @@ public class AddCountry extends javax.swing.JDialog {
           this.id = id;
           titlePopUp.setLabelTitle("Edit Country");
      }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */

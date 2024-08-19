@@ -6,6 +6,7 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
+import javax.swing.JOptionPane;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -45,6 +46,7 @@ public class ActionReject extends javax.swing.JDialog {
         buttonCancel = new ButtonPackage.ButtonCancel();
         button1 = new Button.Button();
         txtComment = new Components.TextField();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,6 +70,10 @@ public class ActionReject extends javax.swing.JDialog {
 
         txtComment.setLabelTextField("Comment");
 
+        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel12.setText("*");
+
         javax.swing.GroupLayout panelRejectLayout = new javax.swing.GroupLayout(panelReject);
         panelReject.setLayout(panelRejectLayout);
         panelRejectLayout.setHorizontalGroup(
@@ -82,7 +88,9 @@ public class ActionReject extends javax.swing.JDialog {
                         .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelRejectLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(lbReason, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbReason, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20))
@@ -92,9 +100,11 @@ public class ActionReject extends javax.swing.JDialog {
             .addGroup(panelRejectLayout.createSequentialGroup()
                 .addComponent(labelPopUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,6 +134,11 @@ public class ActionReject extends javax.swing.JDialog {
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
         
         String comment = txtComment.getValueTextField();
+        
+        if (comment == null || comment.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Comment is required!");
+            return;
+        }
         
         JSONObject json = new JSONObject();
         json.put("rejectBy", JavaConstant.cashierId);
@@ -211,6 +226,7 @@ public class ActionReject extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button button1;
     private ButtonPackage.ButtonCancel buttonCancel;
+    private javax.swing.JLabel jLabel12;
     private Components.LabelPopUpTitle labelPopUpTitle;
     private Components.Label lbReason;
     private javax.swing.JPanel panelReject;

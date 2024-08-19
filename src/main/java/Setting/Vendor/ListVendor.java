@@ -52,7 +52,7 @@ public class ListVendor extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Vendor");
         
-        getVendor(listGetVendor,true);
+        getVendor(listGetVendor,true,pageNumber);
         eventSearchVendor();
         eventPagination();
     }
@@ -64,14 +64,14 @@ public class ListVendor extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getVendor(listGetVendor,true);
+                       getVendor(listGetVendor,true,pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getVendor(JPanel jpanelData, boolean isCheck) {
+    public void getVendor(JPanel jpanelData, boolean isCheck,String pageNumber) {
         try {
 
             Response response = null;
@@ -171,6 +171,7 @@ public class ListVendor extends javax.swing.JDialog {
 
                             edit.setId(data.getId());
                             edit.setListGetVendor(listGetVendor);
+                            edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
                                 data.getVendorName(),
@@ -207,7 +208,7 @@ public class ListVendor extends javax.swing.JDialog {
                                     listGetVendor.removeAll();
                                     listGetVendor.revalidate();
                                     listGetVendor.repaint();
-                                    list.getVendor(listGetVendor, true);
+                                    list.getVendor(listGetVendor, true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -271,10 +272,10 @@ public class ListVendor extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getVendor(listGetVendor,true);
+                    getVendor(listGetVendor,true,pageNumber);
                     return;
                 }
-                getVendor(listGetVendor,false);
+                getVendor(listGetVendor,false,pageNumber);
             }
         };
         searchField.initEvent(events);
@@ -461,6 +462,7 @@ public class ListVendor extends javax.swing.JDialog {
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
         AddVendor add = new AddVendor(new JFrame(), true);
+        add.setPageNumber(pageNumber);
         add.setListGetVendor(listGetVendor);
         add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked

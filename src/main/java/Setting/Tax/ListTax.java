@@ -54,7 +54,7 @@ public class ListTax extends javax.swing.JDialog {
         
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Tax");
-        getTax(listGetTax,true);
+        getTax(listGetTax,true,pageNumber);
         eventSearchtax();
         eventPagination();
     }
@@ -66,14 +66,14 @@ public class ListTax extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getTax(listGetTax,true);
+                       getTax(listGetTax,true,pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getTax(JPanel jpanelData, boolean isCheck) {
+    public void getTax(JPanel jpanelData, boolean isCheck, String pageNumber) {
         try {
 
             Response response = null;
@@ -169,6 +169,7 @@ public class ListTax extends javax.swing.JDialog {
 
                             edit.setId(listData.getId());
                             edit.setListGetTax(listGetTax);
+                            edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
                                 listData.getTax_name(),
@@ -204,7 +205,7 @@ public class ListTax extends javax.swing.JDialog {
                                     listGetTax.removeAll();
                                     listGetTax.revalidate();
                                     listGetTax.repaint();
-                                    list.getTax(listGetTax,true);
+                                    list.getTax(listGetTax,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -264,10 +265,10 @@ public class ListTax extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getTax(listGetTax,true);
+                    getTax(listGetTax,true,pageNumber);
                     return;
                 }
-                getTax(listGetTax,false);
+                getTax(listGetTax,false,pageNumber);
             }
         };
         searchField.initEvent(events);
@@ -426,6 +427,7 @@ public class ListTax extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddTax add = new AddTax(new JFrame(), true);
+        add.setPageNumber(pageNumber);
         add.setListGetTax(listGetTax);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
