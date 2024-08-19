@@ -49,11 +49,13 @@ public class CategoryService {
         }
 
         // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
-        boolean catNameEn = repo.existsByCatNameEnAndStatusTrueAndIsDeletedFalse(c.catNameEn());
+        boolean catNameEn = repo.existsByCatNameEnIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn());
+        boolean catNameKh = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn());
         // JavaValidation.checkDataAlreadyExists(catNameKh); // check catName already
         // exists or not
         System.out.println("api/category + " + catNameEn);
         JavaValidation.checkDataAlreadyExists(catNameEn); // check catName already exists or not
+        JavaValidation.checkDataAlreadyExists(catNameKh); // check catNameKh already exists or not
 
         int count = repo.countLengthRow();
         count++;
@@ -85,18 +87,24 @@ public class CategoryService {
     public Category updateCategory(int id, Category c) {
         Optional<Category> data = repo.findById(id);
         Category obj = data.get();
-
+        System.out.println("dddddddddddddddd");
         if (!Objects.equals(obj.getCatNameKh(), c.getCatNameKh())) {
-            boolean isExist = repo.existsByCatNameKh(c.getCatNameKh());
+            System.out.println("11111111111111 = " + c.getCatNameKh());
+
+
+            boolean isExist = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameKh());
+            System.out.println("isExist : " + isExist);
             JavaValidation.checkDataAlreadyExists(isExist);
         }
 
         if (!Objects.equals(obj.getCatNameEn(), c.getCatNameEn())) {
-            boolean isExist = repo.existsByCatNameEnAndStatusTrueAndIsDeletedFalse(c.getCatNameEn());
+            System.out.println("nnnnnnnnnnnnn");
+
+            boolean isExist = repo.existsByCatNameEnIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameEn());
             JavaValidation.checkDataAlreadyExists(isExist);
         }
 
-        obj.setCatNameKh(c.getCatNameKh());
+        obj.setCatNameKh(c.getCatNameKh().isEmpty() ? null : c.getCatNameKh());
         obj.setCatNameEn(c.getCatNameEn());
         obj.setParentId(c.getParentId());
         obj.setMovePosition(c.getMovePosition());

@@ -145,7 +145,7 @@ public class EmployeeServiceImp implements EmployeeService{
         Employee emp = op.get();
         // var createdBy = session.getAttribute(JavaConstant.userId);
         if (!e.getContact().equals(emp.getContact())) {
-            boolean isExistContact = employeeRepository.existsByContact(e.getContact());
+            boolean isExistContact = employeeRepository.existsByContactAndStatusTrueAndIsDeletedFalse(e.getContact());
             JavaValidation.phoneAlreadyExist(isExistContact);
         }
 

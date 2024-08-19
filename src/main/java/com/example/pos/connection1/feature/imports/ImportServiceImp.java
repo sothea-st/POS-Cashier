@@ -254,6 +254,7 @@ public class ImportServiceImp implements ImportService {
 
             // Retrieve category information based on productId
             int categoryId = value.getProduct().getSubCategory().getParentId();
+            System.out.println("categoryId : " + categoryId);
             Category category = category(categoryId, "category");
             Category deparment = category(category.getParentId(), "department");
             Category division = category(deparment.getParentId(), "division");
@@ -485,6 +486,7 @@ public class ImportServiceImp implements ImportService {
             data.setImpNo(impNo);
             data.setDateLocal(localDate);
         } else {
+
             data = importRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, importIdNotFound + id));
         }
@@ -506,7 +508,16 @@ public class ImportServiceImp implements ImportService {
             // Process each detail in ImportRequest
             requestData(importRequest, data.getId());
         } else {
-            requestDataTmp(importRequest, data.getId());
+
+            if( id == null ) {
+                // add new
+                requestDataTmp(importRequest, data.getId());
+            } else {
+
+                // update import detail temporary
+                requestUpdateDataTmp(importRequest,data.getId());
+            }
+
         }
     }
 
@@ -573,7 +584,46 @@ public class ImportServiceImp implements ImportService {
         }
     }
 
-    private void requestDataTmp(ImportRequest importRequest, int impoId) {
+
+    private void requestUpdateDataTmp(ImportRequest importRequest, Integer impId){
+
+        List<ImportDetailsRequest> listDetail = importRequest.details();
+        for (int i = 0; i < listDetail.size(); i++) {
+            var value = listDetail.get(i);
+            int productId = value.productId();
+
+            // Retrieve product entity or throw exception if not found
+            Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(productId)
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND, productIdNotFound + productId));
+
+            Import imp = importRepository.findById(impId).orElseThrow(
+                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                            "Import id has not been found  with id : " + impId));
+
+
+            ImportDetailTemporary importDetailTemporary = importDetailTemporaryRepository.findByImpIdAndProduct(impId,product)
+                    .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Import Detail not found with productId : " + productId + " and ImportId : " + impId));
+
+            importDetailTemporary.setProduct(product);
+            importDetailTemporary.setImpId(impId);
+            importDetailTemporary.setImport1(imp);
+            importDetailTemporary.setProduct(product);
+            importDetailTemporary.setQtyNew(value.qtyNew());
+            importDetailTemporary.setCost(value.cost());
+            importDetailTemporary.setAmount(value.amount());
+            importDetailTemporary.setExpireDate(value.expireDate());
+            importDetailTemporary.setCreateBy(importRequest.createBy());
+            // Save ImportDetail entity to repository
+            importDetailTemporaryRepository.save(importDetailTemporary);
+            // Update product status and import detail reference
+            product.setProductStatus("In Stock");
+            productRepository.save(product);
+        }
+    }
+
+    private void requestDataTmp(ImportRequest importRequest, Integer impoId) {
+
         List<ImportDetailsRequest> listDetail = importRequest.details();
         for (int i = 0; i < listDetail.size(); i++) {
             var value = listDetail.get(i);
@@ -587,8 +637,8 @@ public class ImportServiceImp implements ImportService {
             Import imp = importRepository.findById(impoId).orElseThrow(
                     () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                             "Import id has not been found  with id : " + impoId));
+            ImportDetailTemporary importDetailTemporary =new ImportDetailTemporary();
 
-            ImportDetailTemporary importDetailTemporary = new ImportDetailTemporary();
             importDetailTemporary.setProduct(product);
             importDetailTemporary.setImpId(impoId);
             importDetailTemporary.setImport1(imp);

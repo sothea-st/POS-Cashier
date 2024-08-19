@@ -22,4 +22,6 @@ public interface ImportDetailTemporaryRepository extends JpaRepository<ImportDet
      Optional<ImportDetailTemporary> findByImpIdAndProduct(int impId, Product product);
 
 
+
+
 }

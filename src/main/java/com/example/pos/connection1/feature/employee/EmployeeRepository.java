@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
 
-    boolean existsByContact(String contact);
+    boolean existsByContactAndStatusTrueAndIsDeletedFalse(String contact);
 
     Optional<Employee> findById(Integer id);
 
