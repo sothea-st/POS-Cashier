@@ -190,7 +190,7 @@ public class ListProduct extends javax.swing.JDialog {
           try {
                Response response = null;
                switch (code) {
-                    case 0 -> {
+                    case 0 -> { // all product
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
                          } else { // isCheck false search
@@ -198,7 +198,7 @@ public class ListProduct extends javax.swing.JDialog {
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
                          }
                     }
-                    case 1 -> {
+                    case 1 -> { // Active
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Active");
                          } else { // isCheck false search
@@ -206,7 +206,7 @@ public class ListProduct extends javax.swing.JDialog {
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Active");
                          }
                     }
-                    case 2 -> {
+                    case 2 -> { // Inactive
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Inactive");
 
@@ -331,7 +331,6 @@ public class ListProduct extends javax.swing.JDialog {
 
                     @Override
                     public void onSelectDetail(String id) {
-
                          try {
                               DetailProduct detail = new DetailProduct(new JFrame(), true, id);
 
@@ -390,7 +389,14 @@ public class ListProduct extends javax.swing.JDialog {
                          listGetProduct.removeAll();
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
-                         getProduct(listGetProduct, true, 0);
+
+                         if (status.equals("allProduct")) {
+                              getProduct(listGetProduct, true, 0);
+                         } else if (status.equals("active")) {
+                              getProduct(listGetProduct, true, 1);
+                         } else if (status.equals("inActive")) {
+                              getProduct(listGetProduct, true, 2);
+                         }
                          System.out.println("Successful deleted ");
                     }
                } else {
@@ -412,6 +418,7 @@ public class ListProduct extends javax.swing.JDialog {
                     ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
                     InsertProduct insertProduct = new InsertProduct(new Frame(), true);
                     insertProduct.setId(data.getID());
+                    insertProduct.setStatus(status);
                     insertProduct.setListGetProduct(listGetProduct);
                     insertProduct.setListProduct(this);
                     insertProduct.setEdit(
@@ -842,6 +849,7 @@ public class ListProduct extends javax.swing.JDialog {
          add.setPanelCategory(panelCategory);
          add.setPanelProduct(panelProduct);
          add.setListProduct(this);
+         add.setStatus(status);
          add.setListGetProduct(listGetProduct);
          add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
@@ -859,7 +867,7 @@ public class ListProduct extends javax.swing.JDialog {
      }//GEN-LAST:event_btnExcelMouseClicked
 
      private void exportFunc(String typeExport) {
- 
+
           System.out.println("status data : " + status);
           setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
           Response response = null;

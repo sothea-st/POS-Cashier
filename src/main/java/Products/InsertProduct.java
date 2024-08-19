@@ -31,6 +31,7 @@ import org.json.JSONObject;
 public class InsertProduct extends javax.swing.JDialog {
 
      private Integer id;
+     private String status;
 
      private String brandId;
      private String taxId;
@@ -71,11 +72,11 @@ public class InsertProduct extends javax.swing.JDialog {
           txtCost.setComma("comma");
           txtPrice.setComma("comma");
           JavaConstant.setPointer(browse);
-          
+
           try {
-                JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
+               JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
           } catch (IOException ex) {
-                Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+               Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
           }
      }
      double costVal = 0;
@@ -176,7 +177,7 @@ public class InsertProduct extends javax.swing.JDialog {
 
           String _price = txtPrice.getValueTextField();
           String _cost = txtCost.getValueTextField();
- 
+
           if (_cost != null
                && _price != null
                && !_price.isEmpty()
@@ -816,8 +817,8 @@ public class InsertProduct extends javax.swing.JDialog {
                               fileName = obj.getString("fileName");
                               json.put("proImageName", fileName);
                               responseAddProduct(json);
-                         }else {
-                            JOptionPane.showMessageDialog(this, "Save Failed!");
+                         } else {
+                              JOptionPane.showMessageDialog(this, "Save Failed!");
                          }
                     } catch (Exception e) {
                          System.out.println("erro : " + e);
@@ -835,8 +836,8 @@ public class InsertProduct extends javax.swing.JDialog {
                               fileName = obj.getString("fileName");
                               json.put("proImageName", fileName);
                               responseUpdateProduct(json);
-                         }else {
-                            JOptionPane.showMessageDialog(this, "Save Failed!");
+                         } else {
+                              JOptionPane.showMessageDialog(this, "Save Failed!");
                          }
                     } catch (Exception e) {
                          System.out.println("erro : " + e);
@@ -862,7 +863,8 @@ public class InsertProduct extends javax.swing.JDialog {
 //                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
 //                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          dispose();
-                         listProduct.getProduct(listGetProduct, true, 0);
+//                         listProduct.getProduct(listGetProduct, true, 0);
+                         reloadList();
                     }
                }
           } catch (Exception e) {
@@ -927,6 +929,7 @@ public class InsertProduct extends javax.swing.JDialog {
 
           txtBarcode.setFocus();
           reloadList();
+
 //          System.out.println(" add category id : " + jdLogin.getCatId());
 //          jdLogin.onClickCategory("new items", jdLogin.getCatId());
 //          panelCategory.getComponents()[1].setBackground(WindowColor.black);
@@ -939,7 +942,15 @@ public class InsertProduct extends javax.swing.JDialog {
           listGetProduct.removeAll();
           listGetProduct.repaint();
           listGetProduct.revalidate();
-          listProduct.getProduct(listGetProduct, true, 0);
+
+          if (status.equals("allProduct")) {
+               listProduct.getProduct(listGetProduct, true, 0);
+          } else if (status.equals("active")) {
+               listProduct.getProduct(listGetProduct, true, 1);
+          } else if (status.equals("inActive")) {
+               listProduct.getProduct(listGetProduct, true, 2);
+          }
+
      }
 
      public ListProduct getListProduct() {

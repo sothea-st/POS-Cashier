@@ -515,6 +515,9 @@ public class InsertStaff extends javax.swing.JDialog {
          OkHttpClient client = new OkHttpClient();
          // File to upload
 
+         
+         System.out.println("roleId : " + roleId);
+         
          // Request body
          MultipartBody.Builder requestBody = new MultipartBody.Builder()
               .setType(MultipartBody.FORM)
@@ -550,6 +553,7 @@ public class InsertStaff extends javax.swing.JDialog {
                    }
 
                    if (response.isSuccessful()) {
+                        System.out.println("success insert staff");
 //                        StaffInformation list = new StaffInformation(new JFrame(), true);
                         listGetStaff.removeAll();
                         listGetStaff.revalidate();
