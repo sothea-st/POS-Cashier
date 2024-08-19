@@ -144,9 +144,12 @@ public class SaleService {
         List<ReportSaledProjection> reportSaled = new ArrayList<>();
 
         if (dateFromValue.equals(dateToValue) && userId != null) {
+
             String[] arrDateTo = dateFromValue.split("-");
             String dateToStr = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
-            reportSaled = repo.getReportSaleInToday(dateToStr, userId);
+
+//            reportSaled = repo.getReportSaleInToday(dateToStr, userId);
+            reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
             return reportResponse(reportSaled, null);
         }
 
