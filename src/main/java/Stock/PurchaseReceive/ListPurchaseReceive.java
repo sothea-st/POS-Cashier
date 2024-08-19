@@ -9,6 +9,7 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
+import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import Stock.PurchaseOrderRequest.PurchaseNoData;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
@@ -53,8 +54,24 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
           lbVendorName.setVisible(false);
 
           eventSearchPuchaseOrder(this);
+          eventPagination(this,true);
      }
 
+       //Pagination
+     private void eventPagination(ListPurchaseReceive obj , boolean  isCheck) {
+          ButtonEvent paginationEvent = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 1 
+                         pageNumber = String.valueOf(_value);
+                         getData(isCheck,obj);
+                    }
+               }
+          };
+          paginationPanel.initEvent(paginationEvent);
+     }
+     
      private void eventSearchPuchaseOrder(ListPurchaseReceive obj) {
           // this event was called when user type on searchTextField 
           ButtonEvent events = new ButtonEvent() {
@@ -92,6 +109,8 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
           }
 
+          
+          System.err.println("respone : " + response);
           try {
                String responseData = response.body().string();
                ObjectMapper objMap = new ObjectMapper();

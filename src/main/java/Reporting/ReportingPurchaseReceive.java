@@ -140,20 +140,19 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
           Response response = null;
           String endpoint = "";
 
-        if (userId == null) {
-            response = JavaConnection.get(JavaRoute.reportReceive + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
-        } else {
-            endpoint = "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
-            response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
-        }
+          if (userId == null) {
+               response = JavaConnection.get(JavaRoute.reportReceive + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+          } else {
+               endpoint = "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&receiveId=" + userId;
+               response = JavaConnection.get(JavaRoute.reportReceive + endpoint);
+          }
 
           try {
                String responseData = response.body().string();
                ObjectMapper objectMapper = new ObjectMapper();
                ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
                ReportReceiveDetail[] lists = data.getData();
-         
-               
+
                listDetail.clear();
                listDetail.addAll(Arrays.asList(lists));
 
@@ -573,7 +572,6 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
          getReport(true);
-
     }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void getReport(boolean isCheck) {
@@ -626,9 +624,9 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     ObjectMapper objectMapper = new ObjectMapper();
                     ReportReceiveResponse data = objectMapper.readValue(responseData, ReportReceiveResponse.class);
                     ReportReceiveDetail[] lists = data.getData();
-                    
-                 
 
+                    //paginatin code
+//                    paginationPanel.setPageSize(pageSize);
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {

@@ -231,6 +231,8 @@ public class ListProduct extends javax.swing.JDialog {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
 
+                    // pagination code
+//                    paginationPanel.setPageSize(pageSize);
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
                     } else {

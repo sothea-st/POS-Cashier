@@ -890,6 +890,8 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     ReportingRespone data = objectMapper.readValue(dataResponse, ReportingRespone.class);
                     ReportingDetailResponse[] lists = data.getData();
 
+                    //paginatin code
+//                    paginationPanel.setPageSize(pageSize);
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
