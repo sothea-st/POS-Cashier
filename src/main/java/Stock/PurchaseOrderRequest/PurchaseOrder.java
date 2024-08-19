@@ -76,6 +76,9 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     isCheckSearch = false;
                     response = JavaConnection.get(JavaRoute.searchPurchase + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
                }
+               
+               System.out.println("response search : " + response);
+               
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

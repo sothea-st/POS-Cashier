@@ -5,7 +5,6 @@ import Constant.JavaConstant;
 import Event.ButtonEvent;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
@@ -17,6 +16,7 @@ public class PaginationPanel extends javax.swing.JPanel {
      private int totalPage = 0;
      private String page = "pageOne";
      private int pageNumber = 1; // alway start from 1
+//     private int pageSize = 0;
 
      public PaginationPanel() {
           initComponents();
@@ -35,10 +35,30 @@ public class PaginationPanel extends javax.swing.JPanel {
           return totalPage;
      }
 
-     public void setTotalPage(long totalPage ,int pageSize) {
+     public void setTotalPage(long totalPage, int pageSize) {
           double result = (double) totalPage / pageSize;
           double roundedResult = Math.ceil(result);
           this.totalPage = (int) roundedResult;
+
+          if (pageNumber != 1) {
+               int _calPageSize = pageNumber * pageSize;
+               showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
+               if (_calPageSize > totalPage) {
+                    showPageSize.setText(String.valueOf(totalPage));
+               } else {
+                    showPageSize.setText(String.valueOf(_calPageSize));
+               }
+               showTotal.setText(String.valueOf(totalPage));
+          } else {
+               showPageNumber.setText(String.valueOf(1));
+               showTotal.setText(String.valueOf(totalPage));
+               if (pageSize > totalPage) {
+                    showPageSize.setText(String.valueOf(totalPage));
+               } else {
+                    showPageSize.setText(String.valueOf(pageSize));
+               }
+          }
+
           checkPageNumber();
      }
 
@@ -72,6 +92,14 @@ public class PaginationPanel extends javax.swing.JPanel {
                }
           }
      }
+
+//     public int getPageSize() {
+//          return pageSize;
+//     }
+//
+//     public void setPageSize(int pageSize) {
+//          this.pageSize = pageSize;
+//     }
 
      private void setVisiblePage(boolean two, boolean three, boolean four, boolean five) {
           pageTwo.setForeground(two ? WindowColor.black : WindowColor.white);
@@ -122,7 +150,9 @@ public class PaginationPanel extends javax.swing.JPanel {
           setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
           setValueText(1, 2, 3, 4, 5);
           checkPageNumber();
-     };
+     }
+
+     ;
      
        
 
@@ -573,6 +603,12 @@ public class PaginationPanel extends javax.swing.JPanel {
           pageThree = new javax.swing.JLabel();
           pageNext = new javax.swing.JLabel();
           pageFive = new javax.swing.JLabel();
+          jLabel1 = new javax.swing.JLabel();
+          showPageNumber = new javax.swing.JLabel();
+          jLabel3 = new javax.swing.JLabel();
+          showPageSize = new javax.swing.JLabel();
+          jLabel5 = new javax.swing.JLabel();
+          showTotal = new javax.swing.JLabel();
 
           panel.setPreferredSize(new java.awt.Dimension(50, 50));
 
@@ -597,6 +633,18 @@ public class PaginationPanel extends javax.swing.JPanel {
           pageFive.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           pageFive.setText("5");
 
+          jLabel1.setText("Showing ");
+
+          showPageNumber.setText("1");
+
+          jLabel3.setText("to");
+
+          showPageSize.setText("10");
+
+          jLabel5.setText("of");
+
+          showTotal.setText("100");
+
           javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
           panel.setLayout(panelLayout);
           panelLayout.setHorizontalGroup(
@@ -614,7 +662,19 @@ public class PaginationPanel extends javax.swing.JPanel {
                     .addGap(10, 10, 10)
                     .addComponent(pageFive, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(10, 10, 10)
-                    .addComponent(pageNext, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(pageNext, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(showPageNumber)
+                    .addGap(6, 6, 6)
+                    .addComponent(jLabel3)
+                    .addGap(6, 6, 6)
+                    .addComponent(showPageSize, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(6, 6, 6)
+                    .addComponent(jLabel5)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(showTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap())
           );
           panelLayout.setVerticalGroup(
@@ -622,7 +682,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                .addGroup(panelLayout.createSequentialGroup()
                     .addGap(0, 0, 0)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(pageNext, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(previousPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(pageOne, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(pageTwo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -632,7 +691,15 @@ public class PaginationPanel extends javax.swing.JPanel {
                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(pageThree, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(pageFour, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addComponent(pageFive, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(pageFive, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pageNext, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(showPageNumber)
+                                        .addComponent(jLabel3)
+                                        .addComponent(showPageSize)
+                                        .addComponent(jLabel5)
+                                        .addComponent(showTotal))))))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -640,7 +707,7 @@ public class PaginationPanel extends javax.swing.JPanel {
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                     .addGap(0, 0, 0))
           );
           layout.setVerticalGroup(
@@ -651,6 +718,9 @@ public class PaginationPanel extends javax.swing.JPanel {
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel jLabel1;
+     private javax.swing.JLabel jLabel3;
+     private javax.swing.JLabel jLabel5;
      private javax.swing.JLabel pageFive;
      private javax.swing.JLabel pageFour;
      private javax.swing.JLabel pageNext;
@@ -659,5 +729,8 @@ public class PaginationPanel extends javax.swing.JPanel {
      private javax.swing.JLabel pageTwo;
      private javax.swing.JPanel panel;
      private javax.swing.JLabel previousPage;
+     private javax.swing.JLabel showPageNumber;
+     private javax.swing.JLabel showPageSize;
+     private javax.swing.JLabel showTotal;
      // End of variables declaration//GEN-END:variables
 }

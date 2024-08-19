@@ -47,7 +47,27 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
           JavaConstant.addTitleAndLogo(this, "Purchase Order Check");
           eventSearchPuchaseOrder(this);
+          
+          eventPagination(this,true);
      }
+     
+     
+     
+       //Pagination
+     private void eventPagination(ListPurchaseOrderCheck listPurchaseOrderCheck , boolean  isCheck) {
+          ButtonEvent paginationEvent = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 1 
+                         pageNumber = String.valueOf(_value);
+                         getData(listPurchaseOrderCheck,isCheck);
+                    }
+               }
+          };
+          paginationPanel.initEvent(paginationEvent);
+     }
+
 
      private void eventSearchPuchaseOrder(ListPurchaseOrderCheck obj) {
           ButtonEvent events = new ButtonEvent() {
@@ -91,10 +111,16 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
           if (isCheck) {
                response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=" + remark);
+               System.out.println("respone111 : " + response);
           } else {
                isCheckSearch = false;
                response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=" + remark);
+               
+               System.out.println("respone2222 : " + response);
+
           }
+          
+          System.out.println("respone dat : " + response);
 
           try {
                String responseData = response.body().string();
