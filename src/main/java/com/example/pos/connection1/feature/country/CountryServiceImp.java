@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class CountryServiceImp implements CountryService {
      private final CountryRepository countryRepository;
      private String idNotFound = "Id has not been found .";
+     private String nameAlreadyExisted = "The Country Name is already existed.";
 
      @Override
      public void deleteById(int id) {
@@ -34,6 +35,13 @@ public class CountryServiceImp implements CountryService {
      public CountryResponse updateById(int id, CountryUpdateRequest countryUpdateRequest) {
           Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+          if (!countryUpdateRequest.countryName().equals(country.getCountryName())) {
+               // validate name already exist
+               if (countryRepository.existsByCountryName(countryUpdateRequest.countryName())) {
+                         throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+               }
+          }
 
           country.setCountryName(countryUpdateRequest.countryName());
           country.setUuid(countryUpdateRequest.uuid());
@@ -70,6 +78,12 @@ public class CountryServiceImp implements CountryService {
 
      @Override
      public CountryResponse create(CountryRequest countryRequest) {
+
+          // validate name already exist
+          if (countryRepository.existsByCountryName(countryRequest.countryName())) {
+               throw new ResponseStatusException(
+                         HttpStatus.CONFLICT,nameAlreadyExisted);
+          }
 
           Country country = Country.builder()
                     .countryName(countryRequest.countryName())

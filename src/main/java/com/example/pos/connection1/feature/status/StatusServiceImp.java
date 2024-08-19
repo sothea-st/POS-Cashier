@@ -24,6 +24,7 @@ public class StatusServiceImp implements StatusService {
 
     private final StatusRepository statusRepository;
     private String idNotFound = "Id has not been found .";
+    private String nameAlreadyExisted = "The Status Name is already existed.";
 
     /*
       * read status by id
@@ -65,6 +66,13 @@ public class StatusServiceImp implements StatusService {
     */
     @Override
     public StatusResponse create(StatusRequest statusRequest) {
+        
+        // validate name already exist
+        if (statusRepository.existsByStatusName(statusRequest.statusName())) {
+          throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,nameAlreadyExisted);
+        }
+
         Status status = new Status();
         status.setStatusName(statusRequest.statusName());
         statusRepository.save(status);
@@ -79,6 +87,14 @@ public class StatusServiceImp implements StatusService {
     public StatusResponse update(Integer id, StatusRequest statusRequest) {
         Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
             .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+        if (!statusRequest.statusName().equals(status.getStatusName())) {
+          // validate name already exist
+          if (statusRepository.existsByStatusName(statusRequest.statusName())) {
+                      throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+          }
+        }   
+
         status.setStatusName(statusRequest.statusName());     
         statusRepository.save(status);
         return mStatusResponse(status);

@@ -11,11 +11,13 @@ import com.example.pos.connection1.entity.Attribute;
 @Repository
 public interface AttributeRepository extends JpaRepository<Attribute, Integer>{
 
+    boolean existsByAttrNameEn(String attrNameEn);
+
     Optional<Attribute> findById(Integer id);
 
     Optional<Attribute> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
-    Page<Attribute> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);
 
+    Page<Attribute> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);
     @Query(nativeQuery = true, value = "select\r\n" + //
             "\ta.id ,\r\n" + //
             "\ta.attr_name_en,\r\n" + //

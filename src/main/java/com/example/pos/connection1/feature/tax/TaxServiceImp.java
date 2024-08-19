@@ -28,6 +28,7 @@ public class TaxServiceImp implements TaxService {
 
     private final TaxRepository taxRepository;
     private String idNotFound = "Id has not been found .";
+    private String nameAlreadyExisted = "The Tax Name is already existed.";
 
     @Override
     public TaxResponse readById(Integer id) {
@@ -54,6 +55,13 @@ public class TaxServiceImp implements TaxService {
 
     @Override
     public TaxResponse create(TaxRequest taxRequest) {
+
+        // validate name already exist
+        if (taxRepository.existsByTaxName(taxRequest.taxName())) {
+            throw new ResponseStatusException(
+                      HttpStatus.CONFLICT,nameAlreadyExisted);
+        }
+
         TaxProduct taxProduct = new TaxProduct();
         taxProduct.setTaxName(taxRequest.taxName());
         taxProduct.setRateTax(taxRequest.rateTax());
@@ -66,6 +74,13 @@ public class TaxServiceImp implements TaxService {
     public TaxResponse update(Integer id, TaxRequestUpdate taxRequestUpdate) {
         TaxProduct taxProduct = taxRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+        if (!taxRequestUpdate.taxName().equals(taxProduct.getTaxName())) {
+            // validate name already exist
+            if (taxRepository.existsByTaxName(taxRequestUpdate.taxName())) {
+                        throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+            }
+        }            
 
         taxProduct.setTaxName(taxRequestUpdate.taxName());
         taxProduct.setRateTax(taxRequestUpdate.rateTax());

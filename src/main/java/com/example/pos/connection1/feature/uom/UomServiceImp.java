@@ -26,6 +26,7 @@ public class UomServiceImp implements UomService{
 
     private final UomRepository uomRepository;
     private String idNotFound = "Id has not been found .";
+    private String nameAlreadyExisted = "The UOM Name is already existed.";
 
     /*
       * read vendor by id
@@ -44,6 +45,12 @@ public class UomServiceImp implements UomService{
     */
     @Override
     public UomResponse create(UomRequest uomRequest){
+
+        // validate name already exist
+        if (uomRepository.existsByNameEn(uomRequest.nameEn())) {
+              throw new ResponseStatusException(
+                        HttpStatus.CONFLICT,nameAlreadyExisted);
+        }
 
         Uom uom = new Uom();
         uom.setNameEn(uomRequest.nameEn());
@@ -64,6 +71,13 @@ public class UomServiceImp implements UomService{
 
         Uom uom = uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+        if (!uomUpdateRequest.nameEn().equals(uom.getNameEn())) {
+            // validate name already exist
+            if (uomRepository.existsByNameEn(uomUpdateRequest.nameEn())) {
+                      throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+            }
+        }
 
         uom.setNameEn(uomUpdateRequest.nameEn());
         uom.setNameKh(uomUpdateRequest.nameKh());

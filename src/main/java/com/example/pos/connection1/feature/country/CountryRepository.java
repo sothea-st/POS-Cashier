@@ -8,17 +8,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.example.pos.connection1.entity.Country;
-
-
 public interface CountryRepository extends JpaRepository<Country,Integer> {
+
+    boolean existsByCountryName(String countryName);
+
     Page<Country> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
 
     Optional<Country> findByUuid(String uuid);
 
     Optional<Country> findByIdAndStatusTrueAndIsDeletedFalse(int id);
- 
-
-
     @Query(nativeQuery = true, value = "select\r\n" + //
         "\tc.id ,\r\n" + //
         "\tc.country_name,\r\n" + //

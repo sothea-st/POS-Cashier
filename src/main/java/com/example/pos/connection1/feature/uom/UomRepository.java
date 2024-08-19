@@ -15,10 +15,9 @@ public interface UomRepository extends JpaRepository<Uom,Integer>{
 
     Optional<Uom> findByIdAndStatusTrueAndIsDeletedFalse (Integer id);
  
-
+    boolean existsByNameEn(String nameEn);
 
     Page<Uom> findByStatusTrueAndIsDeletedFalse (PageRequest pageable);
-
     @Query(nativeQuery = true, value = "select\r\n" + //
         "\tu.id ,\r\n" + //
         "\tu.name_en,\r\n" + //

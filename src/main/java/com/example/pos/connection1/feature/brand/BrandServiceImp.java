@@ -25,6 +25,7 @@ public class BrandServiceImp implements BrandServices{
     
     private final BrandRepository brandRepository;
     private String idNotFound = "Id has not been found .";
+    private String nameAlreadyExisted = "The Brand Name is already existed.";
 
     @Override
     public BrandResponse readById(Integer id){
@@ -52,6 +53,13 @@ public class BrandServiceImp implements BrandServices{
 
     @Override
     public BrandResponse create(BrandRequest brandRequest) {
+
+        // validate name already exist
+        if (brandRepository.existsByBrandNameEn(brandRequest.brandNameEn())) {
+            throw new ResponseStatusException(
+                      HttpStatus.CONFLICT,nameAlreadyExisted);
+        }
+
         Brand brand =  new Brand();
         brand.setBrandNameEn(brandRequest.brandNameEn());
         brand.setBrandNameKh(brandRequest.brandNameKh());
@@ -66,6 +74,13 @@ public class BrandServiceImp implements BrandServices{
     public BrandResponse update(Integer id, BrandRequestUpdate brandRequestUpdate) {
         Brand brand = brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+        if (!brandRequestUpdate.brandNameEn().equals(brand.getBrandNameEn())) {
+            // validate name already exist
+            if (brandRepository.existsByBrandNameEn(brandRequestUpdate.brandNameEn())) {
+                    throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+            }
+        }
 
         brand.setBrandNameEn(brandRequestUpdate.brandNameEn());
         brand.setBrandNameKh(brandRequestUpdate.brandNameKh());
