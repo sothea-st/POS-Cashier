@@ -17,7 +17,10 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Optional<Import> findByImpNo(String impNo);
      @Query(nativeQuery = true, value = "select * from get_import_details(?,?)")
      List<ReportImportProjection> getReport(LocalDate dateFrom, LocalDate dateTo);
+     Page<Import> findByStatusTrueAndIsDeletedFalseAndRemark(PageRequest pageRequest,String remark);
+
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
+
      Optional<Import> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      Page<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest);
 

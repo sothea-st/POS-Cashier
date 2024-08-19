@@ -45,7 +45,7 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                         "\tpsd.discount as discount_percentage,\r\n" + //
                         "\tpp.pro_name_en,\r\n" + //
                         "\tpp.pro_image_name,\r\n" + //
-                        "\tps.sale_date,\r\n" + //
+                        "\tps.date_local  as sale_date,\r\n" + //
                         "\tppt.tax_name,\r\n" + //
                         "\tps.discount_case,\r\n" + //
                         "\tps.discount,\r\n" + //

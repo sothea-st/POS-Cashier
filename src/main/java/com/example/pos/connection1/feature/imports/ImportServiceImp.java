@@ -74,15 +74,16 @@ public class ImportServiceImp implements ImportService {
     public JavaCollectionResponse<?> listRequestByRemark(Integer pageNumber, Integer pageSize, String type) {
         Sort sortById = Sort.by(Sort.Direction.DESC, "id");
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-        Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+        Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalseAndRemark(pageRequest,type);
 
         List<ImportResponse> data = pages.getContent().stream()
                 .filter(p -> p.getRemark().toLowerCase().equals(type.toLowerCase()))
+                .sorted(Comparator.comparing(Import::getId).reversed())
                 .map(importMapper::mapToImportResponse)
                 .toList();
 
         return JavaCollectionResponse.builder()
-                .count(data.size())
+                .count(pages.getTotalElements())
                 .data(data)
                 .build();
 
@@ -144,35 +145,39 @@ public class ImportServiceImp implements ImportService {
     public JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value, String remark) {
         Sort sortById = Sort.by(Sort.Direction.DESC, "id");
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-        Page<Import> pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+        Page<Import> pages = null;
         List<ImportResponse> data = new ArrayList<>();
         if (remark == null) {
+             pages = importRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
             data = pages.getContent().stream()
                     .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
                     .map(importMapper::mapToImportResponse)
                     .toList();
-
         } else {
+              pages = importRepository.findByStatusTrueAndIsDeletedFalseAndRemark(pageRequest,remark);
             switch (remark) {
                 case "requested" -> data = pages.getContent().stream()
                         .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
                         .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                        .sorted(Comparator.comparing(Import::getCreateDate).reversed())
                         .map(importMapper::mapToImportResponse)
                         .toList();
                 case "checked" -> data = pages.getContent().stream()
                         .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
                         .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                        .sorted(Comparator.comparing(Import::getCreateDate).reversed())
                         .map(importMapper::mapToImportResponse)
                         .toList();
                 case "approved" -> data = pages.getContent().stream()
                         .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
                         .filter(p -> p.getRemark().toLowerCase().equals(remark.toLowerCase()))
+                        .sorted(Comparator.comparing(Import::getCreateDate).reversed())
                         .map(importMapper::mapToImportResponse)
                         .toList();
                 default -> {
-
                     data = pages.getContent().stream()
                             .filter(p -> p.getVendor().getVendorName().toLowerCase().contains(value.toLowerCase()))
+                            .sorted(Comparator.comparing(Import::getCreateDate).reversed())
                             .map(importMapper::mapToImportResponse)
                             .toList();
                 }
@@ -181,7 +186,7 @@ public class ImportServiceImp implements ImportService {
 
 
         return JavaCollectionResponse.builder()
-                .count(data.size())
+                .count(pages.getTotalElements())
                 .data(data)
                 .build();
     }
