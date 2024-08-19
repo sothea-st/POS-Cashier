@@ -14,6 +14,7 @@ public class AddAttribute extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetAttribute;
+    private String pageNumber;
     
     public AddAttribute(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -174,42 +175,46 @@ public class AddAttribute extends javax.swing.JDialog {
             json.put("attrNameKh", attrNameKh);
 
             if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.attribute + '/' + id, json);
-                
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+                Response response = JavaConnection.put(JavaRoute.attribute + '/' + id, json); 
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
 
-                if (response.isSuccessful()) {
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     ListAttribute list = new ListAttribute(new JFrame(), true);
                     listGetAttribute.removeAll();
                     listGetAttribute.revalidate();
                     listGetAttribute.repaint();
-                    list.getAttribute(listGetAttribute,true);
+                    list.getAttribute(listGetAttribute, true, pageNumber);
                     dispose();
-                }else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
 
             } else {
                 Response response = JavaConnection.post(JavaRoute.attribute, json);
-
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                if (response.isSuccessful()) {
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     ListAttribute list = new ListAttribute(new JFrame(), true);
                     listGetAttribute.removeAll();
                     listGetAttribute.revalidate();
                     listGetAttribute.repaint();
-                    list.getAttribute(listGetAttribute, true);
+                    list.getAttribute(listGetAttribute, true, pageNumber);
                     dispose();
-                }else if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "The Name is already used!");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                } 
+                }
             }
 
         } catch (Exception e) {
@@ -232,6 +237,14 @@ public class AddAttribute extends javax.swing.JDialog {
 
     public void setListGetAttribute(JPanel listGetAttribute) {
         this.listGetAttribute = listGetAttribute;
+    }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     

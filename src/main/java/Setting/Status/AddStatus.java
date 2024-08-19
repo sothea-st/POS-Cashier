@@ -3,7 +3,6 @@ package Setting.Status;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Setting.Attribute.ListAttribute;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +14,7 @@ public class AddStatus extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetStatus;
+    private String pageNumber;
     
     public AddStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -150,38 +150,45 @@ public class AddStatus extends javax.swing.JDialog {
 
             if (id != null) {
                 Response response = JavaConnection.put(JavaRoute.status + '/' + id, json);
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
-
-                if (response.isSuccessful()) {
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     ListStatus list = new ListStatus(new JFrame(), true);
                     listGetStatus.removeAll();
                     listGetStatus.revalidate();
                     listGetStatus.repaint();
-                    list.getStatus(listGetStatus,true);
+                    list.getStatus(listGetStatus,true,pageNumber);
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
-                
 
             } else {
                 Response response = JavaConnection.post(JavaRoute.status, json);
-
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                if (response.isSuccessful()) {
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     ListStatus list = new ListStatus(new JFrame(), true);
                     listGetStatus.removeAll();
                     listGetStatus.revalidate();
                     listGetStatus.repaint();
-                    list.getStatus(listGetStatus,true);
+                    list.getStatus(listGetStatus,true,pageNumber);
                     dispose();
-                }else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                } 
+                }
             }
 
         } catch (Exception e) {
@@ -204,6 +211,14 @@ public class AddStatus extends javax.swing.JDialog {
 
     public void setListGetStatus(JPanel listGetStatus) {
         this.listGetStatus = listGetStatus;
+    }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     

@@ -4,7 +4,6 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Setting.Uom.listUom;
 import java.io.IOException;
 import java.math.BigDecimal;
 import javax.swing.JFrame;
@@ -17,6 +16,7 @@ public class AddTax extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetTax;
+    private String pageNumber;
     
     public AddTax(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -187,38 +187,46 @@ public class AddTax extends javax.swing.JDialog {
 
             if (id != null) {
                 Response response = JavaConnection.put(JavaRoute.tax + '/' + id, json);
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
-
-                if (response.isSuccessful()) {
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     ListTax list = new ListTax(new JFrame(), true);
                     listGetTax.removeAll();
                     listGetTax.revalidate();
                     listGetTax.repaint();
-                    list.getTax(listGetTax,true);
+                    list.getTax(listGetTax,true,pageNumber);
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
 
             } else {
-                
                 json.put("createBy", JavaConstant.cashierId);
                 
                 Response response = JavaConnection.post(JavaRoute.tax, json);
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
-
-                if (response.isSuccessful()) {
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
+                
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     ListTax list = new ListTax(new JFrame(), true);
                     listGetTax.removeAll();
                     listGetTax.revalidate();
                     listGetTax.repaint();
-                    list.getTax(listGetTax,true);
+                    list.getTax(listGetTax,true,pageNumber);
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
             }
 
@@ -242,6 +250,14 @@ public class AddTax extends javax.swing.JDialog {
 
     public void setListGetTax(JPanel listGetTax) {
         this.listGetTax = listGetTax;
+    }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     

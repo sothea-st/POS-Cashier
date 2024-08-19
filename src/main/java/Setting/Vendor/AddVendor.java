@@ -16,6 +16,7 @@ public class AddVendor extends javax.swing.JDialog {
 
      private Integer id;
      private JPanel listGetVendor;
+     private String pageNumber;
 
      public AddVendor(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -320,7 +321,7 @@ public class AddVendor extends javax.swing.JDialog {
                              listGetVendor.removeAll();
                              listGetVendor.revalidate();
                              listGetVendor.repaint();
-                             list.getVendor(listGetVendor, true);
+                             list.getVendor(listGetVendor, true,pageNumber);
                              dispose();
                         }
                    }
@@ -352,7 +353,7 @@ public class AddVendor extends javax.swing.JDialog {
                         listGetVendor.removeAll();
                         listGetVendor.revalidate();
                         listGetVendor.repaint();
-                        list.getVendor(listGetVendor, true);
+                        list.getVendor(listGetVendor, true,pageNumber);
                         dispose();
 
                    }
@@ -380,6 +381,16 @@ public class AddVendor extends javax.swing.JDialog {
      public void setListGetVendor(JPanel listGetVendor) {
           this.listGetVendor = listGetVendor;
      }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+     
+     
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */

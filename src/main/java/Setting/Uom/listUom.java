@@ -56,7 +56,7 @@ public class listUom extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "UOM");
         
-        getUom(listGetUom,true);
+        getUom(listGetUom,true,pageNumber);
         eventSearchUom();
         eventPagination();
     }
@@ -68,14 +68,14 @@ public class listUom extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getUom(listGetUom,true);
+                       getUom(listGetUom,true,pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getUom(JPanel jpanelData, boolean isCheck) {
+    public void getUom(JPanel jpanelData, boolean isCheck, String pageNumber) {
         try {
             
             Response response = null;
@@ -173,6 +173,7 @@ public class listUom extends javax.swing.JDialog {
 
                             edit.setId(data.getId());
                             edit.setListGetUom(listGetUom);
+                            edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
                                 data.getNameEn(),
@@ -208,7 +209,7 @@ public class listUom extends javax.swing.JDialog {
                                     listGetUom.removeAll();
                                     listGetUom.revalidate();
                                     listGetUom.repaint();
-                                    list.getUom(listGetUom,true);
+                                    list.getUom(listGetUom,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -269,10 +270,10 @@ public class listUom extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getUom(listGetUom,true);
+                    getUom(listGetUom,true,pageNumber);
                     return;
                 }
-                getUom(listGetUom,false);
+                getUom(listGetUom,false,pageNumber);
             }
         };
         searchField.initEvent(events);
@@ -430,6 +431,7 @@ public class listUom extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddUom add = new AddUom(new JFrame(), true);
+        add.setPageNumber(pageNumber);
         add.setListGetUom(listGetUom);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked

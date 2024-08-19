@@ -55,7 +55,7 @@ public class ListAttribute extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Attribute");
         
-        getAttribute(listGetAttribute, true);
+        getAttribute(listGetAttribute, true, pageNumber);
         eventSearchAttribute();
         eventPagination();
     }
@@ -68,14 +68,14 @@ public class ListAttribute extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getAttribute(listGetAttribute, true);
+                       getAttribute(listGetAttribute, true, pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
 
-    public void getAttribute(JPanel jpanelData,boolean isCheck) {
+    public void getAttribute(JPanel jpanelData,boolean isCheck, String pageNumber) {
         try {
             
             Response response = null;
@@ -173,6 +173,7 @@ public class ListAttribute extends javax.swing.JDialog {
 
                             edit.setId(data.getId());
                             edit.setListGetAttribute(listGetAttribute);
+                            edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
                                 data.getAttrNameEn(),
@@ -208,7 +209,7 @@ public class ListAttribute extends javax.swing.JDialog {
                                     listGetAttribute.removeAll();
                                     listGetAttribute.revalidate();
                                     listGetAttribute.repaint();
-                                    list.getAttribute(listGetAttribute, true);
+                                    list.getAttribute(listGetAttribute, true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -410,6 +411,7 @@ public class ListAttribute extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddAttribute add = new AddAttribute(new JFrame(), true);
+        add.setPageNumber(pageNumber);
         add.setListGetAttribute(listGetAttribute);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
@@ -425,10 +427,10 @@ public class ListAttribute extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getAttribute(listGetAttribute, true);
+                    getAttribute(listGetAttribute, true,pageNumber);
                     return;
                 }
-                getAttribute(listGetAttribute, false);
+                getAttribute(listGetAttribute, false,pageNumber);
             }
         };
         searchField.initEvent(events);

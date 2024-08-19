@@ -47,7 +47,7 @@ public class StaffInformation extends javax.swing.JDialog {
         initComponents();
 
         header.setBackground(WindowColor.darkGreen);
-        getStaff(listGetStaff,true);
+        getStaff(listGetStaff,true,pageNumber);
         eventSearchStaff();
 
         // custome scrollbar ui
@@ -71,14 +71,14 @@ public class StaffInformation extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getStaff(listGetStaff, true);
+                       getStaff(listGetStaff, true,pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
 
-    public void getStaff(JPanel jpanelData, boolean isCheck) {
+    public void getStaff(JPanel jpanelData, boolean isCheck, String pageNumber) {
         try {
             Response response = null;
             if (isCheck) { // isCheck true get items
@@ -191,6 +191,8 @@ public class StaffInformation extends javax.swing.JDialog {
                         } else {
                             _urlImg = new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName();
                         }
+                        
+                        edit.setPageNumber(pageNumber);
 
                         edit.setValueEdit(
                                 data.getNameEn(),
@@ -233,7 +235,7 @@ public class StaffInformation extends javax.swing.JDialog {
                                 listGetStaff.removeAll();
                                 listGetStaff.revalidate();
                                 listGetStaff.repaint();
-                                list.getStaff(listGetStaff, true);
+                                list.getStaff(listGetStaff, true,pageNumber);
                                 System.out.println("Successful deleted ");
                             }
                         } else {
@@ -303,10 +305,10 @@ public class StaffInformation extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getStaff(listGetStaff, true);
+                    getStaff(listGetStaff, true, pageNumber);
                     return;
                 }
-                getStaff(listGetStaff, false);
+                getStaff(listGetStaff, false, pageNumber);
             }
         };
         searchField.initEvent(event);
@@ -502,6 +504,7 @@ public class StaffInformation extends javax.swing.JDialog {
     private void btnAddStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStaffMouseClicked
 
           InsertStaff addStaff = new InsertStaff(new JFrame(), true);
+          addStaff.setPageNumber(pageNumber);
           addStaff.setListGetStaff(listGetStaff);
           addStaff.setVisible(true);
           

@@ -15,6 +15,7 @@ public class AddUom extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetUom;
+    private String pageNumber;
     
     public AddUom(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -176,35 +177,44 @@ public class AddUom extends javax.swing.JDialog {
 
             if (id != null) {
                 Response response = JavaConnection.put(JavaRoute.uom + '/' + id, json);
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
-
-                if (response.isSuccessful()) {
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     listUom list = new listUom(new JFrame(), true);
                     listGetUom.removeAll();
                     listGetUom.revalidate();
                     listGetUom.repaint();
-                    list.getUom(listGetUom,true);
+                    list.getUom(listGetUom,true,pageNumber);
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
 
             } else {
                 Response response = JavaConnection.post(JavaRoute.uom, json);
-                System.out.println("response : " + response);
-                System.out.println("json : " + json);
-
-                if (response.isSuccessful()) {
+                String responeData = response.body().string();
+                JSONObject jsonResponse = new JSONObject(responeData);
+                
+                if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    int code = error.getInt("code");
+                    String reason = error.getString("reason");
+                    if (code == 409) {
+                        JOptionPane.showMessageDialog(this, reason);
+                    }
+                }else{
                     listUom list = new listUom(new JFrame(), true);
                     listGetUom.removeAll();
                     listGetUom.revalidate();
                     listGetUom.repaint();
-                    list.getUom(listGetUom,true);
+                    list.getUom(listGetUom,true,pageNumber);
                     dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
             }
 
@@ -228,6 +238,14 @@ public class AddUom extends javax.swing.JDialog {
 
     public void setListGetUom(JPanel listGetUom) {
         this.listGetUom = listGetUom;
+    }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
     }
 
     

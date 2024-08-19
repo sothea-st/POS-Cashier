@@ -35,6 +35,7 @@ public class InsertStaff extends javax.swing.JDialog {
     private String genderId;
     private String roleId;
     private JPanel listGetStaff;
+    private String pageNumber;
 
     private Icon file;
     private Integer id;
@@ -543,7 +544,7 @@ public class InsertStaff extends javax.swing.JDialog {
                 Response response = client.newCall(request).execute();
 
                 if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "Phone Number is already uesd!");
+                    JOptionPane.showMessageDialog(this, "The Phone Number is already existed!");
                     return;
                 }
 
@@ -552,7 +553,7 @@ public class InsertStaff extends javax.swing.JDialog {
                     listGetStaff.removeAll();
                     listGetStaff.revalidate();
                     listGetStaff.repaint();
-                    list.getStaff(listGetStaff, true);
+                    list.getStaff(listGetStaff, true,pageNumber);
                     dispose();
                 }else {
                     JOptionPane.showMessageDialog(this, "Save Failed!");
@@ -561,7 +562,7 @@ public class InsertStaff extends javax.swing.JDialog {
                 Response response = client.newCall(request).execute();
 
                 if (response.code() == 500) {
-                    JOptionPane.showMessageDialog(this, "Phone Number is already uesd!");
+                    JOptionPane.showMessageDialog(this, "The Phone Number is already existed!");
                     return;
                 }
                 if (response.isSuccessful()) {
@@ -569,7 +570,7 @@ public class InsertStaff extends javax.swing.JDialog {
                     listGetStaff.removeAll();
                     listGetStaff.revalidate();
                     listGetStaff.repaint();
-                    obj.getStaff(listGetStaff, true);
+                    obj.getStaff(listGetStaff, true,pageNumber);
                     dispose();
                 }else {
                     JOptionPane.showMessageDialog(this, "Save Failed!");
@@ -648,6 +649,16 @@ public class InsertStaff extends javax.swing.JDialog {
     public void setListGetStaff(JPanel listGetStaff) {
         this.listGetStaff = listGetStaff;
     }
+
+    public String getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
+    
+    
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

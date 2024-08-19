@@ -183,42 +183,47 @@ public class InsertBrand extends javax.swing.JDialog {
               json.put("brandNameKh", brandNameKh);
 
               if (id != null) {
-                   Response response = JavaConnection.put(JavaRoute.brand + '/' + id, json);
-
-                   if (response.isSuccessful()) {
-                        System.out.println("fffff = " + pageNumber);
+                    Response response = JavaConnection.put(JavaRoute.brand + '/' + id, json);
+                    String responeData = response.body().string();
+                    JSONObject jsonResponse = new JSONObject(responeData);
+                   
+                    if (jsonResponse.has("error")) {
+                        JSONObject error = jsonResponse.getJSONObject("error");
+                        int code = error.getInt("code");
+                        String reason = error.getString("reason");
+                        if (code == 409) {
+                            JOptionPane.showMessageDialog(this, reason);
+                        }
+                    }else{
                         ListBrand list = new ListBrand(new JFrame(), true);
                         listGetBrand.removeAll();
                         listGetBrand.revalidate();
                         listGetBrand.repaint();
                         list.getBrand(listGetBrand, true,pageNumber);
                         dispose();
-
-                   } else if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The Name is already used!");
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
-
+                    }
               } else {
-                   json.put("createBy", JavaConstant.cashierId);
+                    json.put("createBy", JavaConstant.cashierId);
 
-                   Response response = JavaConnection.post(JavaRoute.brand, json);
-
-//                   System.out.println("response : " + response);
-//                   System.out.println("json : " + json);
-                   if (response.isSuccessful()) {
+                    Response response = JavaConnection.post(JavaRoute.brand, json);
+                    String responeData = response.body().string();
+                    JSONObject jsonResponse = new JSONObject(responeData);
+                   
+                    if (jsonResponse.has("error")) {
+                        JSONObject error = jsonResponse.getJSONObject("error");
+                        int code = error.getInt("code");
+                        String reason = error.getString("reason");
+                        if (code == 409) {
+                            JOptionPane.showMessageDialog(this, reason);
+                        }
+                    }else{
                         ListBrand list = new ListBrand(new JFrame(), true);
                         listGetBrand.removeAll();
                         listGetBrand.revalidate();
                         listGetBrand.repaint();
                         list.getBrand(listGetBrand, true,pageNumber);
                         dispose();
-                   } else if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The Name is already used!");
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
+                    }
               }
 
          } catch (Exception e) {

@@ -58,7 +58,7 @@ public class ListCountry extends javax.swing.JDialog {
         header.setBackground(WindowColor.darkGreen);
         JavaConstant.addTitleAndLogo(this, "Country");
         
-        getListCountry(listGetCountry, true);
+        getListCountry(listGetCountry, true,pageNumber);
         eventSearchCountry();
         eventPagination();
         
@@ -71,14 +71,14 @@ public class ListCountry extends javax.swing.JDialog {
                   if (isCheckSearch) {
                        int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                        pageNumber = String.valueOf(_value);
-                       getListCountry(listGetCountry, true);
+                       getListCountry(listGetCountry, true,pageNumber);
                   }
              }
         };
         paginationPanel.initEvent(event);
     }
     
-    public void getListCountry(JPanel jpanelData, boolean isCheck) {
+    public void getListCountry(JPanel jpanelData, boolean isCheck,String pageNumber) {
         try {
 
             Response response = null;
@@ -176,6 +176,7 @@ public class ListCountry extends javax.swing.JDialog {
 
                             edit.setId(data.getId());
                             edit.setListGetCountry(listGetCountry);
+                            edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
                                 data.getCountryName(),
@@ -210,7 +211,7 @@ public class ListCountry extends javax.swing.JDialog {
                                     listGetCountry.removeAll();
                                     listGetCountry.revalidate();
                                     listGetCountry.repaint();
-                                    list.getListCountry(listGetCountry,true);
+                                    list.getListCountry(listGetCountry,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -276,10 +277,10 @@ public class ListCountry extends javax.swing.JDialog {
                 if (searchValue.isEmpty()) {
                     isCheckSearch = true;
                     pageNumber = "0";
-                    getListCountry(listGetCountry, true);
+                    getListCountry(listGetCountry, true,pageNumber);
                     return;
                 }
-                getListCountry(listGetCountry, false);
+                getListCountry(listGetCountry, false,pageNumber);
             }
         };
         searchField.initEvent(events);
@@ -438,6 +439,7 @@ public class ListCountry extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         AddCountry add = new AddCountry(new JFrame(), true);
+        add.setPageNumber(pageNumber);
         add.setListGetCountry(listGetCountry);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
