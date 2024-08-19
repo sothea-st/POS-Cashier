@@ -14,6 +14,8 @@ import com.example.pos.connection1.entity.sourceData.Brand;
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
     Optional<Brand> findById(Integer id);
 
+    boolean existsByBrandNameEn(String brandNameEn);
+
     Optional<Brand> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
 
     Page<Brand> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);

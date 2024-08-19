@@ -12,7 +12,6 @@ public record CountryRequest(
      @NotNull(message = JavaMessage.required)
      Integer createBy,
 
-     @NotBlank(message = JavaMessage.required)
      String uuid
 ) {
      

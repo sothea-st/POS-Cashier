@@ -22,6 +22,7 @@ public class AttributeServiceImp implements AttributeService {
 
      private final AttributeRepository attributeRepository;
      private String idNotFound = "Id has not been found .";
+     private String nameAlreadyExisted = "The Attribute Name is already existed.";
 
      /*
       * read attribute by id
@@ -65,6 +66,13 @@ public class AttributeServiceImp implements AttributeService {
       */
      @Override
      public AttributeResponse create(AttributeRequest attributeRequest) {
+
+          // validate name already exist
+          if (attributeRepository.existsByAttrNameEn(attributeRequest.attrNameEn())) {
+               throw new ResponseStatusException(
+                         HttpStatus.CONFLICT,nameAlreadyExisted);
+          }
+
           Attribute attribute = new Attribute();
           attribute.setAttrNameEn(attributeRequest.attrNameEn());
           attribute.setAttrNameKh(attributeRequest.attrNameKh());
@@ -82,6 +90,13 @@ public class AttributeServiceImp implements AttributeService {
      public AttributeResponse updateById(Integer id, AttributeUpdateRequest attributeUpdateRequest) {
           Attribute attribute = attributeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+
+          if (!attributeUpdateRequest.attrNameEn().equals(attribute.getAttrNameEn())) {
+               // validate name already exist
+               if (attributeRepository.existsByAttrNameEn(attributeUpdateRequest.attrNameEn())) {
+                         throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+               }
+          }
 
           attribute.setAttrNameEn(attributeUpdateRequest.attrNameEn());
           attribute.setAttrNameKh(attributeUpdateRequest.attrNameKh());

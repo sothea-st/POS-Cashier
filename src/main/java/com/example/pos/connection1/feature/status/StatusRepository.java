@@ -6,18 +6,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.example.pos.connection1.entity.Status;
-import com.example.pos.connection1.entity.Uom;
 
 import java.util.Optional;
 
 public interface StatusRepository extends JpaRepository<Status,Integer>{
+    boolean existsByStatusName(String statusName);
+
     Optional<Status> findById(Integer id);
 
     Optional<Status> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
 
     Optional<Status> findByStatusName(String statusName);
- 
-
 
     Page<Status> findByStatusTrueAndIsDeletedFalse (PageRequest pageable);
 

@@ -13,8 +13,10 @@ import com.example.pos.connection1.entity.sourceData.TaxProduct;
 @Repository
 public interface TaxRepository extends JpaRepository<TaxProduct, Integer>{
     Optional<TaxProduct> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
+
     Page<TaxProduct> findByStatusTrueAndIsDeletedFalse (PageRequest pageable);
 
+    boolean existsByTaxName(String taxName);
     @Query(nativeQuery = true , value = "select\r\n" + //
                     "\tid,\r\n" + //
                     "\ttax_name,\r\n" + //
