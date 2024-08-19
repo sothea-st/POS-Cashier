@@ -70,7 +70,7 @@ public class ProductController {
      }
 
      @GetMapping("/search/{value}")
-     public JavaCollectionResponse<?> search(
+     public JavaCollectionResponse<?> search( 
                @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
                @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
                @PathVariable("value") String value ,
