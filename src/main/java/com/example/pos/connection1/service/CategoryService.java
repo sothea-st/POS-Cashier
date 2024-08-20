@@ -87,15 +87,18 @@ public class CategoryService {
     public Category updateCategory(int id, Category c) {
         Optional<Category> data = repo.findById(id);
         Category obj = data.get();
-        System.out.println("dddddddddddddddd");
-        if (!Objects.equals(obj.getCatNameKh(), c.getCatNameKh())) {
-            System.out.println("11111111111111 = " + c.getCatNameKh());
+        String catNameKh = c.getCatNameKh();
 
 
-            boolean isExist = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameKh());
-            System.out.println("isExist : " + isExist);
-            JavaValidation.checkDataAlreadyExists(isExist);
+        if( catNameKh != null ) {
+            if (!Objects.equals(obj.getCatNameKh(),catNameKh)) {
+                System.out.println("11111111111111 = " + c.getCatNameKh());
+                boolean isExist = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameKh());
+                System.out.println("isExist : " + isExist);
+                JavaValidation.checkDataAlreadyExists(isExist);
+            }
         }
+
 
         if (!Objects.equals(obj.getCatNameEn(), c.getCatNameEn())) {
             System.out.println("nnnnnnnnnnnnn");
@@ -104,7 +107,7 @@ public class CategoryService {
             JavaValidation.checkDataAlreadyExists(isExist);
         }
 
-        obj.setCatNameKh(c.getCatNameKh().isEmpty() ? null : c.getCatNameKh());
+        obj.setCatNameKh(c.getCatNameKh());
         obj.setCatNameEn(c.getCatNameEn());
         obj.setParentId(c.getParentId());
         obj.setMovePosition(c.getMovePosition());
