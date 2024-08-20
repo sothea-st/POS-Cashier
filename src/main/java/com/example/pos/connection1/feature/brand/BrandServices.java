@@ -6,15 +6,21 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 
 public interface BrandServices {
     
+    //read brand by id
     BrandResponse readById (Integer id);
 
-    JavaCollectionResponse<?> read(int pageSize, int pageNumber);
+    //raed all brand
+    JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber);
 
+    //create new brand
     BrandResponse create(BrandRequest brandRequest);
 
+    //update brand
     BrandResponse update(Integer id, BrandRequestUpdate brandRequestUpdate);
 
+    //delete brand
     void deleteById(Integer id);
 
-    JavaCollectionResponse<?> search (int pageSize, int pageNumber, String searchValue);
+    //search brand
+    JavaCollectionResponse<?> search (Integer pageSize, Integer pageNumber, String searchValue);
 }

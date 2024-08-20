@@ -39,8 +39,8 @@ public class StatusController {
     */
     @GetMapping
     JavaCollectionResponse<?> read(
-        @RequestParam(defaultValue = "10", required = false ) int pageSize, 
-        @RequestParam(defaultValue = "0", required = false) int pageNumber
+        @RequestParam(name = "pageSize", required = false ) Integer pageSize, 
+        @RequestParam(name = "pageNumber", required = false) Integer pageNumber
     ){
         return statusService.read(pageSize, pageNumber);
     }
@@ -74,8 +74,8 @@ public class StatusController {
     */
     @GetMapping("/searchStatus/{statusName}")
     JavaCollectionResponse<?> search(
-        @RequestParam(defaultValue = "10", required = false) int pageSize, 
-        @RequestParam(defaultValue = "0", required = false ) int pageNumber, 
+        @RequestParam(name = "pageSize", required = false) Integer pageSize, 
+        @RequestParam(name = "pageNumber", required = false ) Integer pageNumber, 
         @PathVariable("statusName") String searchValue){
           return statusService.search(pageSize,pageNumber,searchValue);
         }

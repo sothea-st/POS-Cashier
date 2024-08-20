@@ -26,7 +26,7 @@ import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.UserRepository;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
-import jakarta.servlet.http.HttpSession;
+// import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,8 +39,8 @@ public class EmployeeServiceImp implements EmployeeService{
     private final EmployeeRepository employeeRepository;
     private String idNotFound = "Id has not been found .";
 
-    @Autowired
-    private HttpSession session;
+    // @Autowired
+    // private HttpSession session;
 
     @Autowired
     private UserRepository userRepository;
@@ -79,7 +79,7 @@ public class EmployeeServiceImp implements EmployeeService{
 
     @Override
     public EmployeeResponse create(Employee e, MultipartFile file) throws IOException {
-        var createdBy = session.getAttribute(JavaConstant.userId);
+        // var createdBy = session.getAttribute(JavaConstant.userId);
         Optional<Employee> isExistContact = employeeRepository.checkPhoneNumber(e.getContact());
         JavaValidation.phoneAlreadyExist(isExistContact.isEmpty()  ? false : true);
 

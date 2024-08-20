@@ -17,9 +17,15 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     List<Category> getCategory(int parentId);
 
 
+    //List get category with pagination
     Page<Category> findByCodeAndStatusTrueAndIsDeletedFalse(String code, PageRequest pageRequest);
-    Page<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code,String catNameEn,PageRequest pageRequest);
+    //List get category without pagination
+    List<Category> findByCodeAndStatusTrueAndIsDeletedFalse(String code);
 
+    //List get search category with pagination
+    Page<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code,String catNameEn,PageRequest pageRequest);
+    //List get search category without pagination
+    List<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code,String catNameEn);
 
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
     List<Category> getCategoryByCode(String code);

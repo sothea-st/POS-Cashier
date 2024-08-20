@@ -1,7 +1,6 @@
 package com.example.pos.connection1.feature.country;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,65 +23,84 @@ public class CountryServiceImp implements CountryService {
      private String idNotFound = "Id has not been found .";
      private String nameAlreadyExisted = "The Country Name is already existed.";
 
+     // Delete Country by id
      @Override
-     public void deleteById(int id) {
+     public void deleteById(Integer id) {
           Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
           countryRepository.delete(country);
      }
 
+     // Update Country by id
      @Override
-     public CountryResponse updateById(int id, CountryUpdateRequest countryUpdateRequest) {
+     public CountryResponse updateById(Integer id, CountryUpdateRequest countryUpdateRequest) {
           Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
 
           if (!countryUpdateRequest.countryName().equals(country.getCountryName())) {
                // validate name already exist
                if (countryRepository.existsByCountryName(countryUpdateRequest.countryName())) {
-                         throw new ResponseStatusException(HttpStatus.CONFLICT,nameAlreadyExisted);
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, nameAlreadyExisted);
                }
           }
 
           country.setCountryName(countryUpdateRequest.countryName());
           country.setUuid(countryUpdateRequest.uuid());
           countryRepository.save(country);
-          return  mapToCountryResponse(country);
+          return mapToCountryResponse(country);
      }
 
+     // Get Country by id
      @Override
-     public CountryResponse readById(int id) {
+     public CountryResponse readById(Integer id) {
           Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
           return mapToCountryResponse(country);
      }
 
+     // Get List Country
      @Override
-     public JavaCollectionResponse<?> read(int pageNumber, int pageSize) {
+     public JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber) {
 
-          // sort list by id desc
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-          // get pagination by 10 items per page
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+          List<CountryResponse> data = null;
 
-          Page<Country> pages = countryRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+          if (pageNumber == null && pageSize == null) {
+               data = countryRepository.findByStatusTrueAndIsDeletedFalse().stream()
+                         .map(this::mapToCountryResponse)
+                         .toList();
 
-          List<CountryResponse> content = pages.getContent().stream()
-                    .map(this::mapToCountryResponse)
-                    .toList();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
 
-          return JavaCollectionResponse.builder()
-                    .data(content)
-                    .count(pages.getTotalElements())
-                    .build();
+          } else {
+               // sort list by id desc
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+               // get pagination by 10 items per page
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+
+               Page<Country> pages = countryRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+
+               List<CountryResponse> content = pages.getContent().stream()
+                         .map(this::mapToCountryResponse)
+                         .toList();
+
+               return JavaCollectionResponse.builder()
+                         .data(content)
+                         .count(pages.getTotalElements())
+                         .build();
+          }
      }
 
+     // Create new country
      @Override
      public CountryResponse create(CountryRequest countryRequest) {
 
           // validate name already exist
           if (countryRepository.existsByCountryName(countryRequest.countryName())) {
                throw new ResponseStatusException(
-                         HttpStatus.CONFLICT,nameAlreadyExisted);
+                         HttpStatus.CONFLICT, nameAlreadyExisted);
           }
 
           Country country = Country.builder()
@@ -97,6 +115,7 @@ public class CountryServiceImp implements CountryService {
           return mapToCountryResponse(country);
      }
 
+     // Response
      private CountryResponse mapToCountryResponse(Country c) {
           return CountryResponse.builder()
                     .countryName(c.getCountryName())
@@ -105,22 +124,38 @@ public class CountryServiceImp implements CountryService {
                     .build();
      }
 
+     // Search country by country name
      @Override
-     public JavaCollectionResponse<?> search(int pageNumber, int pageSize, String searchValue) {
+     public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue) {
 
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-          Page<Country> pages = countryRepository.findByCountryName(pageRequest,searchValue);
+          List<CountryResponse> data = null;
 
-          List<CountryResponse> content = pages.getContent()
-                              .stream()
-                              .map(c->mapToCountryResponse(c))
-                              .toList();
+          if (pageNumber == null && pageSize == null) {
+               data = countryRepository.findByCountryName(searchValue).stream()
+                         .map(this::mapToCountryResponse)
+                         .toList();
 
-          return JavaCollectionResponse.builder()
-                              .count(pages.getTotalElements())
-                              .data(content)
-                              .build();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
+
+          } else {
+
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+               Page<Country> pages = countryRepository.findByCountryName(pageRequest, searchValue);
+
+               List<CountryResponse> content = pages.getContent()
+                         .stream()
+                         .map(c -> mapToCountryResponse(c))
+                         .toList();
+
+               return JavaCollectionResponse.builder()
+                         .count(pages.getTotalElements())
+                         .data(content)
+                         .build();
+          }
      }
 
 }

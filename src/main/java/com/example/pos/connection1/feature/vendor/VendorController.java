@@ -25,39 +25,45 @@ public class VendorController {
 
      private final VendorService vendorService;
 
+     //create vendor
      @PostMapping
      VendorResponse create(@Valid @RequestBody VendorRequest vendorRequest) {
           return vendorService.create(vendorRequest);
      }
 
+     //get list vendor
      @GetMapping
      JavaCollectionResponse<?> read(
-               @RequestParam(defaultValue = "10", required = false) int pageSize,
-               @RequestParam(defaultValue = "0", required = false) int pageNumber) {
+               @RequestParam(name = "pageSize", required = false) Integer pageSize,
+               @RequestParam(name = "pageNumber", required = false) Integer pageNumber) {
           return vendorService.read(pageSize, pageNumber);
      }
 
+     //get vendor by id
      @GetMapping("/{id}")
-     VendorResponse readByUuid(@PathVariable("id") int id) {
+     VendorResponse readByUuid(@PathVariable("id") Integer id) {
           return vendorService.readByUuid(id);
      }
 
+     //delete vendor
      @ResponseStatus(HttpStatus.NO_CONTENT)
      @DeleteMapping("/{id}")
-     void delete(@PathVariable("id") int id) {
+     void delete(@PathVariable("id") Integer id) {
           vendorService.delete(id);
      }
 
+     //update vendor
      @PutMapping("/{id}")
-     VendorResponse updateByUuid(@PathVariable("id") int id,
+     VendorResponse updateByUuid(@PathVariable("id") Integer id,
                @Valid @RequestBody VendorUpdateRequest vendorUpdateRequest) {
           return vendorService.updateByUuid(id, vendorUpdateRequest);
      }
 
+     //search vendor by vendor name
      @GetMapping("/searchVendor/{vendorName}")
      JavaCollectionResponse<?> search (
-          @RequestParam(defaultValue = "10", required = false) int pageSize, 
-          @RequestParam(defaultValue = "0", required = false) int pageNumber, 
+          @RequestParam(name = "pageSize", required = false) Integer pageSize, 
+          @RequestParam(name = "pageNumber", required = false) Integer pageNumber, 
           @PathVariable("vendorName") String searchValue){
                return vendorService.search(pageSize, pageNumber, searchValue);
      }

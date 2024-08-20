@@ -17,7 +17,7 @@ public interface StatusService {
       * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
       * value was given from controller
     */
-    JavaCollectionResponse<?> read (int pageSize, int pageNumber);
+    JavaCollectionResponse<?> read (Integer pageSize, Integer pageNumber);
 
     /*
       * create new status 
@@ -39,7 +39,7 @@ public interface StatusService {
     /*
       * Search status
     */
-    JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue);
+    JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue);
 
 }
  

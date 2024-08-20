@@ -6,10 +6,21 @@ import com.example.pos.connection1.feature.tax.dto.TaxResponse;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 
 public interface TaxService {
+    //read tax by id
     TaxResponse readById (Integer id);
-    JavaCollectionResponse<?> readList (int pageSize, int pageNumber);
+
+    //read list tax
+    JavaCollectionResponse<?> readList (Integer pageSize, Integer pageNumber);
+
+    //create new tax
     TaxResponse create (TaxRequest taxRequest);
+
+    //update tax by id
     TaxResponse update (Integer id, TaxRequestUpdate taxRequestUpdate);
+
+    //delete tax by id
     void deleteById (Integer id);
-    JavaCollectionResponse<?> search (int pageSize, int pageNumber, String searchValue);
+
+    //search tax
+    JavaCollectionResponse<?> search (Integer pageSize, Integer pageNumber, String searchValue);
 }

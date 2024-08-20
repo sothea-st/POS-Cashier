@@ -1,7 +1,5 @@
 package com.example.pos.connection1.feature.vendor;
 
-import java.util.List;
-import java.util.Map;
 import com.example.pos.connection1.feature.vendor.dto.VendorRequest;
 import com.example.pos.connection1.feature.vendor.dto.VendorResponse;
 import com.example.pos.connection1.feature.vendor.dto.VendorUpdateRequest;
@@ -18,27 +16,27 @@ public interface VendorService {
       * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
       * value was given from controller
       */
-     JavaCollectionResponse<?> read(int pageSize,int pageNumber);
+     JavaCollectionResponse<?> read(Integer pageSize,Integer pageNumber);
      /*
       * read vendor by id
       * required paramater id
       */
-     VendorResponse readByUuid(int id);
+     VendorResponse readByUuid(Integer id);
 
      /*
       * delete vendor by id paramater
       */
-     void delete(int id);
+     void delete(Integer id);
       /*
       * update vendor by id
       * required paramater id , VendorUpdateRequest
       */
-      VendorResponse updateByUuid(int id,VendorUpdateRequest vendorUpdateRequest);
+      VendorResponse updateByUuid(Integer id,VendorUpdateRequest vendorUpdateRequest);
 
       /*
       * read Search vendor 
       * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
       * value was given from controller
       */
-      JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue);
+      JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue);
 }

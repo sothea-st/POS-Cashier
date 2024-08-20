@@ -27,6 +27,7 @@ public class BrandServiceImp implements BrandServices{
     private String idNotFound = "Id has not been found .";
     private String nameAlreadyExisted = "The Brand Name is already existed.";
 
+    //get brand by id
     @Override
     public BrandResponse readById(Integer id){
         Brand brand = brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
@@ -35,22 +36,36 @@ public class BrandServiceImp implements BrandServices{
         return mBrandResponse(brand);
     }
 
+    //get list brand 
     @Override
-    public JavaCollectionResponse<?> read(int pageSize, int pageNumber) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-        Page<Brand> pages = brandRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
-        
-        List<BrandResponse> content = pages.getContent()
-                            .stream()
-                            .map(c->mBrandResponse(c))
-                            .toList();
-        return JavaCollectionResponse.builder()
-                            .count(pages.getTotalElements())
-                            .data(content)
-                            .build();
+    public JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber) {
+        List<BrandResponse> data = null;
+
+        if (pageNumber == null && pageSize == null) {
+            data = brandRepository.findByStatusTrueAndIsDeletedFalse().stream()
+                    .map(this::mBrandResponse)
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
+        }else{
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<Brand> pages = brandRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+            
+            List<BrandResponse> content = pages.getContent()
+                                .stream()
+                                .map(c->mBrandResponse(c))
+                                .toList();
+            return JavaCollectionResponse.builder()
+                                .count(pages.getTotalElements())
+                                .data(content)
+                                .build();
+        }
     }
 
+    //create brand
     @Override
     public BrandResponse create(BrandRequest brandRequest) {
 
@@ -70,6 +85,7 @@ public class BrandServiceImp implements BrandServices{
         return mBrandResponse(brand);
     }
 
+    //Update brand
     @Override
     public BrandResponse update(Integer id, BrandRequestUpdate brandRequestUpdate) {
         Brand brand = brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
@@ -88,6 +104,7 @@ public class BrandServiceImp implements BrandServices{
         return mBrandResponse(brand);
     }
 
+    //delete brand
     @Override
     public void deleteById(Integer id) {
         Brand brand = brandRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
@@ -97,22 +114,39 @@ public class BrandServiceImp implements BrandServices{
         brandRepository.save(brand);
     }
 
+    //search brand by brand name
     @Override
-    public JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-        Page<Brand> pages = brandRepository.searchBrand(pageRequest, searchValue);
-        
-        List<BrandResponse> content = pages.getContent()
-                            .stream()
-                            .map(c->mBrandResponse(c))
-                            .toList();
-        return JavaCollectionResponse.builder()
-                            .count(pages.getTotalElements())
-                            .data(content)
-                            .build();
+    public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue) {
+        List<BrandResponse> data = null;
+
+        System.out.println("pageNumber " + pageNumber);
+        System.out.println("pageSize " + pageSize);
+
+        if (pageNumber == null && pageSize == null) {
+            data = brandRepository.searchBrand(searchValue).stream()
+                    .map(this::mBrandResponse)
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
+        }else{
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<Brand> pages = brandRepository.searchBrand(pageRequest, searchValue);
+            
+            List<BrandResponse> content = pages.getContent()
+                                .stream()
+                                .map(c->mBrandResponse(c))
+                                .toList();
+            return JavaCollectionResponse.builder()
+                                .count(pages.getTotalElements())
+                                .data(content)
+                                .build();
+        }
     }
 
+    //response
     private BrandResponse mBrandResponse(Brand brand){
         return BrandResponse.builder()
                 .id(brand.getId())
