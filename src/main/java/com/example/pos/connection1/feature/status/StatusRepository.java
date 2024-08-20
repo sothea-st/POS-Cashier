@@ -17,6 +17,8 @@ public interface StatusRepository extends JpaRepository<Status, Integer> {
 
     Optional<Status> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
 
+    Optional<Status> findByStatusName(String statusName);
+
     //Get List with pagination
     Page<Status> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);
 
@@ -39,7 +41,7 @@ public interface StatusRepository extends JpaRepository<Status, Integer> {
             "\ts.id desc\r\n" + //
             "")
     //search with pagination
-    Page<Status> findByStatusName(PageRequest pageable, String valueSearch);
+    Page<Status> searchByStatusName(PageRequest pageable, String valueSearch);
 
     @Query(nativeQuery = true, value = "select\r\n" + //
             "\ts.id ,\r\n" + //
@@ -57,5 +59,5 @@ public interface StatusRepository extends JpaRepository<Status, Integer> {
             "")
 
     //search without pagination
-    List<Status> findByStatusName(String valueSearch);
+    List<Status> searchByStatusName(String valueSearch);
 }
