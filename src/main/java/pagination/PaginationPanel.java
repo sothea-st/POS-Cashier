@@ -10,13 +10,15 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
-
+import lombok.Setter;
+ 
 public class PaginationPanel extends javax.swing.JPanel {
 
      private int totalPage = 0;
      private String page = "pageOne";
      private int pageNumber = 1; // alway start from 1
 //     private int pageSize = 0;
+     private PaginationPanel paginationPanel;
 
      public PaginationPanel() {
           initComponents();
@@ -30,6 +32,11 @@ public class PaginationPanel extends javax.swing.JPanel {
           setBorder(pageOne);
           checkPageNumber();
      }
+     
+     
+     public void setPaginationPanel(PaginationPanel paginationPanel) {
+          resetPage();
+     }
 
      public int getTotalPage() {
           return totalPage;
@@ -40,6 +47,8 @@ public class PaginationPanel extends javax.swing.JPanel {
           double roundedResult = Math.ceil(result);
           this.totalPage = (int) roundedResult;
 
+          System.out.println("pageNumber : " + pageNumber);
+
           if (pageNumber != 1) {
                int _calPageSize = pageNumber * pageSize;
                showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
@@ -49,6 +58,12 @@ public class PaginationPanel extends javax.swing.JPanel {
                     showPageSize.setText(String.valueOf(_calPageSize));
                }
                showTotal.setText(String.valueOf(totalPage));
+
+//               if (totalPage == pageSize) {
+//                    pageNumber = pageNumber - 1;
+//               }
+               pageNumber = 0;
+               System.out.println("after pageNumber : " + pageNumber);
           } else {
                showPageNumber.setText(String.valueOf(1));
                showTotal.setText(String.valueOf(totalPage));
@@ -59,7 +74,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                }
           }
 
- 
           checkPageNumber();
      }
 
@@ -93,14 +107,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                }
           }
      }
-
-//     public int getPageSize() {
-//          return pageSize;
-//     }
-//
-//     public void setPageSize(int pageSize) {
-//          this.pageSize = pageSize;
-//     }
 
      private void setVisiblePage(boolean two, boolean three, boolean four, boolean five) {
           pageTwo.setForeground(two ? WindowColor.black : WindowColor.white);
@@ -152,10 +158,6 @@ public class PaginationPanel extends javax.swing.JPanel {
           setValueText(1, 2, 3, 4, 5);
           checkPageNumber();
      }
-
-     ;
-     
-       
 
      public void initEvent(ButtonEvent event) {
 

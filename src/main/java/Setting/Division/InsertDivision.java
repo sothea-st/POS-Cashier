@@ -27,6 +27,7 @@ public class InsertDivision extends javax.swing.JDialog {
      private Integer parentId;
      private JPanel category;
      private LoginFormJdailog jdLogin;
+     private Category obj;
 
      public InsertDivision(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -217,13 +218,13 @@ public class InsertDivision extends javax.swing.JDialog {
                    Response response = JavaConnection.post(JavaRoute.addCategory, json);
                    System.out.println("response : " + response);
                    if (response.isSuccessful()) {
-                        Category list = new Category(new JFrame(), true, code);
-                        list.setPCategory(category);
-                        list.setJdLogin(jdLogin);
-                        listGetCategory.removeAll();
-                        listGetCategory.revalidate();
-                        listGetCategory.repaint();
-                        list.getCategory(listGetCategory, code, true);
+//                        Category list = new Category(new JFrame(), true, code);
+//                        list.setPCategory(category);
+//                        list.setJdLogin(jdLogin);
+//                        listGetCategory.removeAll();
+//                        listGetCategory.revalidate();
+//                        listGetCategory.repaint();
+                        obj.getCategory(listGetCategory, code, true);
 
                         dispose();
                    } else if (response.code() == 500) {
