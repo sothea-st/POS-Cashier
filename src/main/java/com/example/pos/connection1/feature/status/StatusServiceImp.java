@@ -147,7 +147,7 @@ public class StatusServiceImp implements StatusService {
     List<StatusResponse> data = null;
     
     if (pageNumber == null && pageSize == null) {
-      data = statusRepository.findByStatusName(searchValue).stream()
+      data = statusRepository.searchByStatusName(searchValue).stream()
           .map(this::mStatusResponse)
           .toList();
       return JavaCollectionResponse.builder()
@@ -157,7 +157,7 @@ public class StatusServiceImp implements StatusService {
     } else {
       Sort sortById = Sort.by(Sort.Direction.DESC, "id");
       PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-      Page<Status> pages = statusRepository.findByStatusName(pageRequest, searchValue);
+      Page<Status> pages = statusRepository.searchByStatusName(pageRequest, searchValue);
 
       List<StatusResponse> content = pages.getContent()
           .stream()
