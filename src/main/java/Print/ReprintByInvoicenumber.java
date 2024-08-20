@@ -38,16 +38,29 @@ public class ReprintByInvoicenumber extends javax.swing.JDialog {
                public void onKeyRelease() {
                     String value = txtInvoiceNumber.getValueTextField();
                     String barcodeValue = value.substring(2); // this working with device scanner 
+                    barcodeValue = barcodeValue.substring(0, barcodeValue.length() - 1);
+                    System.out.println("barcodeValue : " + barcodeValue);
                     Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
-
                     try {
                          String _data = responseData.body().string();
                          JSONObject obj = new JSONObject(_data);
                          String invoice = obj.getString("data");
                          txtInvoiceNumber.setValueTextField(invoice);
                     } catch (Exception e) {
-                         System.err.println("response data 333= " + e);
+                         System.err.println("error : " + e);
                     }
+//                    String value = txtInvoiceNumber.getValueTextField();
+//                    String barcodeValue = value.substring(2); // this working with device scanner 
+//                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+//
+//                    try {
+//                         String _data = responseData.body().string();
+//                         JSONObject obj = new JSONObject(_data);
+//                         String invoice = obj.getString("data");
+//                         txtInvoiceNumber.setValueTextField(invoice);
+//                    } catch (Exception e) {
+//                         System.err.println("response data 333= " + e);
+//                    }
                }
           };
 

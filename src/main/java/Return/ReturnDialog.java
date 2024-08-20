@@ -83,33 +83,48 @@ public class ReturnDialog extends javax.swing.JDialog {
                @Override
                public void onKeyRelease() {
                     String value = txtinvoice.getValueTextField();
-                    if (value.length() >= 9) {
-                         String barcodeValue = value.substring(2); // this working with device scanner 
-                         System.out.println("barcodeValue : " + barcodeValue);
-
-                         Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
-                         System.out.println("responseData onKeyRelease : " + responseData);
-                         try {
-                              if (responseData.isSuccessful()) {
-                                   String _data = responseData.body().string();
-                                   JSONObject obj = new JSONObject(_data);
-                                   String invoice = obj.getString("data");
-                                   System.out.println("invoice == onKeyRelease " + invoice);
-                                   txtinvoice.setValueTextField(invoice);
-                                   String _value = txtinvoice.getValueTextField();
-
-                                   _value = _value.substring(0, 17);
-                                   System.out.println("The truncated string is: " + _value);
-                              } else {
-//                                   System.out.println("ffffffffffffffffffffff = " + barcodeValue);
-//                                   barcodeValue = barcodeValue.substring(0, 17);
-//                                   System.out.println("The truncated string is: " + barcodeValue);
-//                                   txtinvoice.setValueTextField(barcodeValue);
-                              }
-                         } catch (Exception e) {
-                              System.err.println("response data 333= " + e);
-                         }
+                    String barcodeValue = value.substring(2); // this working with device scanner 
+                    barcodeValue = barcodeValue.substring(0, barcodeValue.length() - 1);
+                    System.out.println("barcodeValue : " + barcodeValue);
+                    Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+                    try {
+                         String _data = responseData.body().string();
+                         JSONObject obj = new JSONObject(_data);
+                         String invoice = obj.getString("data");
+                         txtinvoice.setValueTextField(invoice);
+                    } catch (Exception e) {
+                         System.err.println("error : " + e);
                     }
+                    
+                    
+                    
+//                    if (value.length() >= 9) {
+//                         String barcodeValue = value.substring(2); // this working with device scanner 
+//                         System.out.println("barcodeValue : " + barcodeValue);
+//
+//                         Response responseData = JavaConnection.get(JavaRoute.getInvoice + barcodeValue);
+//                         System.out.println("responseData onKeyRelease : " + responseData);
+//                         try {
+//                              if (responseData.isSuccessful()) {
+//                                   String _data = responseData.body().string();
+//                                   JSONObject obj = new JSONObject(_data);
+//                                   String invoice = obj.getString("data");
+//                                   System.out.println("invoice == onKeyRelease " + invoice);
+//                                   txtinvoice.setValueTextField(invoice);
+//                                   String _value = txtinvoice.getValueTextField();
+//
+//                                   _value = _value.substring(0, 17);
+//                                   System.out.println("The truncated string is: " + _value);
+//                              } else {
+////                                   System.out.println("ffffffffffffffffffffff = " + barcodeValue);
+////                                   barcodeValue = barcodeValue.substring(0, 17);
+////                                   System.out.println("The truncated string is: " + barcodeValue);
+////                                   txtinvoice.setValueTextField(barcodeValue);
+//                              }
+//                         } catch (Exception e) {
+//                              System.err.println("response data 333= " + e);
+//                         }
+//                    }
                }
           };
 

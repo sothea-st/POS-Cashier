@@ -159,7 +159,7 @@ public class ListBrand extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
                               InsertBrand edit = new InsertBrand(new JFrame(), true);
-                              System.out.println("pageNumber edit :" + pageNumber);
+                              
                               try {
                                    Response response = JavaConnection.get(JavaRoute.brand + "/" + listData.getId());
                                    String responseData = response.body().string();
@@ -168,6 +168,7 @@ public class ListBrand extends javax.swing.JDialog {
                                
                                    edit.setId(listData.getId());
                                    edit.setPageNumber(pageNumber);
+                             
                                    edit.setListGetBrand(listGetBrand);
                                    
                                    edit.setValueEdit(

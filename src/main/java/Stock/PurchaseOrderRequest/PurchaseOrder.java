@@ -34,6 +34,8 @@ public class PurchaseOrder extends javax.swing.JDialog {
      private String pageNumber = "0";
      private int pageSize = 10;
      private boolean isCheckSearch = true;
+     private int dataCount = 0;
+     private String pageType;
 
      public PurchaseOrder(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -63,7 +65,15 @@ public class PurchaseOrder extends javax.swing.JDialog {
                          getListPurchase(listGetOrder, true);
                     }
                }
+               // for pagination
+
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+
           };
+
           paginationPanel.initEvent(event);
      }
 
@@ -76,14 +86,15 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     isCheckSearch = false;
                     response = JavaConnection.get(JavaRoute.searchPurchase + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
                }
-               
-               
-               
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
                     DataPurchaseModel[] listData = data.getData();
+                    
+                    // pagination code
+                    dataCount = data.getCount();
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
@@ -157,7 +168,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                               if (data.getRemark().toLowerCase().equals("requested")) {
                                    try {
                                         Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
-                                        System.out.println("responsedddddd : " + response);
+                                       
                                         String responseData = response.body().string();
                                         ObjectMapper objMap = new ObjectMapper();
                                         PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
@@ -206,8 +217,22 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                              listGetOrder.removeAll();
                                              listGetOrder.revalidate();
                                              listGetOrder.repaint();
+                                             
+                                               
+                                             // delete for pagination
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+                                             // end delete for pagination
+                                             
                                              getListPurchase(listGetOrder, true);
                                              System.out.println("Successful deleted ");
+                                             
+                                             
                                         }
                                    } else {
                                         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

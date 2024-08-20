@@ -44,6 +44,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
      private double totalCost = 0;
      ArrayList<ImportDetailRequest> details = new ArrayList<>();
      private JPanel jpanelData;
+     private ArrayList<PurchaseOrderDetailResponse> pListDetail = new ArrayList<>();
 
      public AddPurchaseOrder(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -571,6 +572,8 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     PurchaseOrderResponse data = obj.readValue(responseData, PurchaseOrderResponse.class);
 
                     PurchaseOrderDetailResponse[] listPurchase = data.getData();
+
+                    pListDetail.clear();
                     listImport.clear();
                     appendData(listPurchase);
                     buttonSave.setVisible(true);
@@ -594,6 +597,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     p.getAmount()
                );
                listImport.add(pp);
+               pListDetail.add(p);
           }
           setDetail(listImport);
      }
@@ -616,6 +620,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                panel.add(nofound);
                panel.revalidate();
                panel.repaint();
+
           }
           int i = 0;
           for (ImportDetailOrder p : list) {
@@ -664,7 +669,8 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                ButtonEvent event = new ButtonEvent() {
                     @Override
                     public void onRemove(String index) {
-                         eventRemove(index);
+                         System.out.println("barcode : " + p.getBarcode());
+                         eventRemove(index, p.getBarcode());
                     }
 
                     @Override
@@ -690,6 +696,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
      private void calculate() {
           Component[] listCom = panel.getComponents();
+
           totalCost = 0;
           totalQty = 0;
           for (Component c : listCom) {
@@ -708,9 +715,10 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                String ind = String.valueOf(i + 1);
                obj.setIndex(ind);
           }
+
      }
 
-     private void eventRemove(String index) {
+     private void eventRemove(String index, String barcode) { // event delete
           try {
                UIManager UI = new UIManager();
                UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -722,19 +730,42 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
 
                if (resp == JOptionPane.YES_OPTION) {
                     int ind = Integer.parseInt(index) - 1;
-                    Component[] listComponent = panel.getComponents();
-                    
-                    System.err.println("listComponent.length = " +listComponent.length);
-                    
-                    for (int i = 0; i < listComponent.length; i++) {
-                         if (ind == i) {
-                              panel.remove(ind);
+//                    Component[] listComponent = panel.getComponents();
+
+//                    System.err.println("listComponent.length = " + listComponent.length);
+//                    for (int i = 0; i < listComponent.length; i++) {
+//                         if (ind == i) {
+//                              panel.remove(ind);
+//                              break;
+//                         }
+//                    }
+                    for (ImportDetailOrder p : listImport) {
+                         if (p.getBarcode().equals(barcode)) {
+                              listImport.remove(p);
                               break;
                          }
                     }
-                    calculate();
+
+ 
+
+                    panel.removeAll();
                     panel.revalidate();
                     panel.repaint();
+                    if (listImport.isEmpty()) {
+                         lbTotalQty.setText("0");
+                         lbTotalCost.setText("$ 0.00");
+                         panel.setLayout(new BorderLayout());
+                         NotFound nofound = new NotFound();
+                         panel.add(nofound, BorderLayout.CENTER);
+                         panel.add(nofound);
+                         panel.revalidate();
+                         panel.repaint();
+                         return;
+                    }
+
+                    setDetail(listImport);
+                    calculate();
+
                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }

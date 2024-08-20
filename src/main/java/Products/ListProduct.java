@@ -68,7 +68,8 @@ public class ListProduct extends javax.swing.JDialog {
      private int pageSize = 15;
      private int code = 0;
      private boolean isCheckSearch = true;
-
+     private int dataCount = 0;
+     private String pageType;
      ArrayList<ProductModel> listProduct = new ArrayList<>();
 
      public JPanel getPanelProduct() {
@@ -177,6 +178,12 @@ public class ListProduct extends javax.swing.JDialog {
 
                     }
                }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
           };
           paginationPanel.initEvent(event);
      }
@@ -232,7 +239,7 @@ public class ListProduct extends javax.swing.JDialog {
                     ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
 
                     // pagination code
-//                    paginationPanel.setPageSize(pageSize);
+                    dataCount = (int) data.getCount();
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
                     } else {
@@ -390,6 +397,16 @@ public class ListProduct extends javax.swing.JDialog {
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
 
+                         // delete for pagination
+                         dataCount = dataCount - 1;
+                         int totalP = pageSize * Integer.valueOf(pageNumber);
+                         if (dataCount == totalP) {
+                              paginationPanel.resetPage(pageType, pageNumber);
+                              int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                              pageNumber = String.valueOf(_value);
+                         }
+                         // end delete for pagination
+
                          if (status.equals("allProduct")) {
                               getProduct(listGetProduct, true, 0);
                          } else if (status.equals("active")) {
@@ -397,6 +414,7 @@ public class ListProduct extends javax.swing.JDialog {
                          } else if (status.equals("inActive")) {
                               getProduct(listGetProduct, true, 2);
                          }
+
                          System.out.println("Successful deleted ");
                     }
                } else {
