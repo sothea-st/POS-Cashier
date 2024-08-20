@@ -5,13 +5,14 @@ import Constant.JavaConstant;
 import Event.ButtonEvent;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 import lombok.Setter;
- 
+
 public class PaginationPanel extends javax.swing.JPanel {
 
      private int totalPage = 0;
@@ -32,8 +33,7 @@ public class PaginationPanel extends javax.swing.JPanel {
           setBorder(pageOne);
           checkPageNumber();
      }
-     
-     
+
      public void setPaginationPanel(PaginationPanel paginationPanel) {
           resetPage();
      }
@@ -47,8 +47,6 @@ public class PaginationPanel extends javax.swing.JPanel {
           double roundedResult = Math.ceil(result);
           this.totalPage = (int) roundedResult;
 
-          System.out.println("pageNumber : " + pageNumber);
-
           if (pageNumber != 1) {
                int _calPageSize = pageNumber * pageSize;
                showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
@@ -58,12 +56,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                     showPageSize.setText(String.valueOf(_calPageSize));
                }
                showTotal.setText(String.valueOf(totalPage));
-
-//               if (totalPage == pageSize) {
-//                    pageNumber = pageNumber - 1;
-//               }
-               pageNumber = 0;
-               System.out.println("after pageNumber : " + pageNumber);
           } else {
                showPageNumber.setText(String.valueOf(1));
                showTotal.setText(String.valueOf(totalPage));
@@ -159,6 +151,38 @@ public class PaginationPanel extends javax.swing.JPanel {
           checkPageNumber();
      }
 
+     public void resetPage(String page,String pageNum) {
+          pageNumber = Integer.valueOf(pageNum);
+          switch (page) {
+               case "pageOne" -> {
+                    resetPage();
+                    break;
+               }
+               case "pageTwo" -> {
+                    setUIBorder(pageOne, pageThree, previousPage, pageNext, pageFour, pageTwo, pageFive);
+                    break;
+               }
+
+               case "pageThree" -> {
+                    setUIBorder(pageTwo, pageThree, previousPage, pageNext, pageFour, pageOne, pageFive);
+                    break;
+               }
+
+               case "pageFour" -> {
+                    setUIBorder(pageThree, pageTwo, previousPage, pageNext, pageFour, pageOne, pageFive);
+                    break;
+               }
+
+               case "pageFive" -> {
+                    setUIBorder(pageFour, pageTwo, previousPage, pageNext, pageThree, pageOne, pageFive);
+                    break;
+               }
+          }
+ 
+          checkPageNumber();
+
+     }
+
      public void initEvent(ButtonEvent event) {
 
           previousPage.addMouseListener(new MouseListener() {
@@ -192,6 +216,8 @@ public class PaginationPanel extends javax.swing.JPanel {
                     }
                     pageNumber--;
                     event.onMouseClick(String.valueOf(pageNumber));
+                    event.onMouseClick(String.valueOf(pageNumber), "previousPage");
+
                }
 
                @Override
@@ -257,6 +283,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                     }
                     pageNumber++;
                     event.onMouseClick(String.valueOf(pageNumber));
+                    event.onMouseClick(String.valueOf(pageNumber), "pageNext");
                }
 
                @Override
@@ -283,6 +310,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                public void mouseClicked(MouseEvent e) {
                     pageNumber = Integer.parseInt(pageOne.getText());
                     funcPageOne(event);
+                    event.onMouseClick(String.valueOf(pageNumber), "pageOne");
                }
 
                @Override
@@ -323,6 +351,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                     );
                     String value = pageTwo.getText();
                     event.onMouseClick(value);
+                    event.onMouseClick(String.valueOf(pageNumber), "pageTwo");
                }
 
                @Override
@@ -363,6 +392,8 @@ public class PaginationPanel extends javax.swing.JPanel {
                     );
                     String value = pageThree.getText();
                     event.onMouseClick(value);
+                    event.onMouseClick(String.valueOf(pageNumber), "pageThree");
+
                }
 
                @Override
@@ -403,6 +434,8 @@ public class PaginationPanel extends javax.swing.JPanel {
                     );
                     String value = pageFour.getText();
                     event.onMouseClick(value);
+                    event.onMouseClick(String.valueOf(pageNumber), "pageFour");
+
                }
 
                @Override
@@ -432,6 +465,8 @@ public class PaginationPanel extends javax.swing.JPanel {
                     }
                     pageNumber = Integer.parseInt(pageFive.getText());
                     funcPageFive(event);
+                    event.onMouseClick(String.valueOf(pageNumber), "pageFive");
+
                }
 
                @Override

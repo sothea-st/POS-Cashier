@@ -49,7 +49,8 @@ public class Category extends javax.swing.JDialog {
      private JPanel pCategory;
      private LoginFormJdailog jdLogin;
      private boolean isCheckSearch = true;
-     private int dataCount=0;
+     private int dataCount = 0;
+     private String pageType;
 
      public Category(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -90,6 +91,13 @@ public class Category extends javax.swing.JDialog {
                          getCategory(listGetCategory, codeType, true);
                     }
                }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+
           };
           paginationPanel.initEvent(event);
      }
@@ -126,15 +134,13 @@ public class Category extends javax.swing.JDialog {
                     ObjectMapper objMap = new ObjectMapper();
                     CategorySuccessModel data = objMap.readValue(responseData, CategorySuccessModel.class);
                     CategoryGetdataModel[] listData = data.getData();
+
                     dataCount = data.getCount();
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
                          paginationPanel.resetPage();
                     }
-                    
-                    System.out.println("listData : " + listData.length
-                    );
 
                     assignCategory(listData, jpanelData, codeType);
 
@@ -345,15 +351,22 @@ public class Category extends javax.swing.JDialog {
                                                        pCategory.revalidate();
                                                        pCategory.repaint();
                                                        jdLogin.category();
-//                                                       list.setPCategory(pCategory);
-//                                                       list.setJdLogin(jdLogin);
-
-                                                       System.out.println("pageNUmber : " + pageNumber + " dataCount : " + dataCount);
-                                                     
                                                        getCategory(listGetCategory, codeType, true);
                                                        break;
                                                   }
                                              }
+                                             
+                                             // delete for pagination
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+                                             // end delete for pagination
+                                             
+                                             
                                              listGetCategory.removeAll();
                                              listGetCategory.revalidate();
                                              listGetCategory.repaint();
