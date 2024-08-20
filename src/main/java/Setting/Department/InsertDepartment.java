@@ -23,6 +23,7 @@ public class InsertDepartment extends javax.swing.JDialog {
     private JPanel listGetCategory;
     private Integer id;
     private Integer movePosition;
+    private Category obj;
     
     public InsertDepartment(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -288,11 +289,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                 Response response = JavaConnection.post(JavaRoute.addCategory, json);
 
                 if (response.isSuccessful()) {
-                    Category list = new Category(new JFrame(), true, code);
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
+                    obj.getCategory(listGetCategory, code, true);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");
@@ -300,6 +297,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
             }
+            
 
         } catch (Exception e) {
             System.err.println("errr -- " + e);
@@ -339,7 +337,15 @@ public class InsertDepartment extends javax.swing.JDialog {
         this.movePosition = movePosition;
     }
 
+    public Category getObj() {
+        return obj;
+    }
 
+    public void setObj(Category obj) {
+        this.obj = obj;
+    }
+
+    
     /**
      * @param args the command line arguments
      */

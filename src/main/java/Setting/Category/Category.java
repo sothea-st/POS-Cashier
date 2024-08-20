@@ -629,14 +629,17 @@ public class Category extends javax.swing.JDialog {
          } else if (code.equals("department")) {
               InsertDepartment addDepartment = new InsertDepartment(new JFrame(), true, code);
               addDepartment.setListGetCategory(listGetCategory);
+              addDepartment.setObj(this);
               addDepartment.setVisible(true);
          } else if (code.equals("category")) {
               InsertCategory addCategory = new InsertCategory(new JFrame(), true, code);
               addCategory.setListGetCategory(listGetCategory);
+              addCategory.setObj(this);
               addCategory.setVisible(true);
          } else {
               InsertSubcategory addSubCategory = new InsertSubcategory(new JFrame(), true, code);
               addSubCategory.setListGetCategory(listGetCategory);
+              addSubCategory.setObj(this);
               addSubCategory.setVisible(true);
          }
     }//GEN-LAST:event_btnAddMouseClicked

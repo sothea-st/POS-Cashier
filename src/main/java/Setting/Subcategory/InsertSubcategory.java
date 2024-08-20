@@ -25,6 +25,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
     private String code;
     private JPanel listGetCategory;
     private Integer movePosition;
+    private Category obj;
     
     public InsertSubcategory(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -474,11 +475,7 @@ public class InsertSubcategory extends javax.swing.JDialog {
                 System.out.println("json : " + json);
 
                 if (response.isSuccessful()) {
-                    Category list = new Category(new JFrame(), true, code);
-                    listGetCategory.removeAll();
-                    listGetCategory.revalidate();
-                    listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
+                    obj.getCategory(listGetCategory, code, true);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");
@@ -523,6 +520,14 @@ public class InsertSubcategory extends javax.swing.JDialog {
 
     public void setMovePosition(Integer movePosition) {
         this.movePosition = movePosition;
+    }
+
+    public Category getObj() {
+        return obj;
+    }
+
+    public void setObj(Category obj) {
+        this.obj = obj;
     }
 
     
