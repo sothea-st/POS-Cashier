@@ -43,12 +43,10 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public JavaCollectionResponse<?> read(int pageNumber, int pageSize, String code) {
-        Sort sortById = Sort.by(Sort.Direction.ASC, "id");
+        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
         Page<Category> pages = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalse(code, pageRequest);
-
         List<CategoryResponse> data = pages.getContent().stream()
-
                 .map(p -> CategoryResponse.builder()
                         .id(p.getId())
                         .catNameEn(p.getCatNameEn())
