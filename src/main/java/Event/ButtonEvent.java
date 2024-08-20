@@ -20,8 +20,11 @@ public interface ButtonEvent {
 
      default public void onMouseClick() {
      }
-     
-      default public void onMouseClick(String value) {
+
+     default public void onMouseClick(String value) {
+     }
+
+     default public void onMouseClick(String value,String pageType) {
      }
 
      default public void onKeyType() {
@@ -33,7 +36,7 @@ public interface ButtonEvent {
      default public void onKeyPress() {
      }
 
-     default public void onKeyPress(String value , String index) {
+     default public void onKeyPress(String value, String index) {
      }
 
      default public void onFocusGain() {
@@ -66,7 +69,7 @@ public interface ButtonEvent {
       
      default public void onSelectDetail(String key) {
      }
-    
+
      default public void onFocusLost() {
      }
 ;

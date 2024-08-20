@@ -49,6 +49,8 @@ public class Category extends javax.swing.JDialog {
      private JPanel pCategory;
      private LoginFormJdailog jdLogin;
      private boolean isCheckSearch = true;
+     private int dataCount = 0;
+     private String pageType;
 
      public Category(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -89,6 +91,13 @@ public class Category extends javax.swing.JDialog {
                          getCategory(listGetCategory, codeType, true);
                     }
                }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+
           };
           paginationPanel.initEvent(event);
      }
@@ -108,9 +117,11 @@ public class Category extends javax.swing.JDialog {
                     codeCategory = "subcategory";
                }
 
+               System.out.println("division : " + codeCategory);
+
                Response response = null;
                if (isCheck) { // isCheck true get items
-                    response = JavaConnection.get(JavaRoute.getCategoryByCode + codeCategory + "?pageNumber=" + pageNumber + "&pageSize=10");
+                    response = JavaConnection.get(JavaRoute.getCategoryByCode + codeCategory + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
                } else { // isCheck false search
                     isCheckSearch = false;
                     response = JavaConnection.get(JavaRoute.searchCategory + codeType + "/search/" + searchValue);
@@ -124,6 +135,7 @@ public class Category extends javax.swing.JDialog {
                     CategorySuccessModel data = objMap.readValue(responseData, CategorySuccessModel.class);
                     CategoryGetdataModel[] listData = data.getData();
 
+                    dataCount = data.getCount();
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
@@ -176,7 +188,7 @@ public class Category extends javax.swing.JDialog {
 
           int x = 0;
           int y = 0;
-          if (listCategory.size() > 0) {
+          if (!listCategory.isEmpty()) {
                for (int i = 0; i < listCategory.size(); i++) {
                     GridBagConstraints gbc = new GridBagConstraints();
                     gbc.gridx = x;
@@ -332,22 +344,34 @@ public class Category extends javax.swing.JDialog {
                                         Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
 
                                         if (response.isSuccessful()) {
-                                             Category list = new Category(new JFrame(), true, codeType);
+//                                             Category list = new Category(new JFrame(), true, codeType);
                                              switch (codeType) {
                                                   case "division" -> {
                                                        pCategory.removeAll();
                                                        pCategory.revalidate();
                                                        pCategory.repaint();
                                                        jdLogin.category();
-                                                       list.setPCategory(pCategory);
-                                                       list.setJdLogin(jdLogin);
+                                                       getCategory(listGetCategory, codeType, true);
                                                        break;
                                                   }
                                              }
+                                             
+                                             // delete for pagination
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+                                             // end delete for pagination
+                                             
+                                             
                                              listGetCategory.removeAll();
                                              listGetCategory.revalidate();
                                              listGetCategory.repaint();
-                                             list.getCategory(listGetCategory, codeType, true);
+//                                             list.getCategory(listGetCategory, codeType, true);
+                                             getCategory(listGetCategory, codeType, true);
 
                                         } else if (response.code() == 404) {
                                              JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
@@ -599,6 +623,7 @@ public class Category extends javax.swing.JDialog {
               addDivision.setListGetCategory(listGetCategory);
               addDivision.setCategory(pCategory);
               addDivision.setJdLogin(jdLogin);
+              addDivision.setObj(this);
               addDivision.setVisible(true);
 
          } else if (code.equals("department")) {
