@@ -114,7 +114,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               JavaConstant.qtyReturn = obj.getQty();
                               JavaConstant.returnByBarcode = invoice;
                               JavaConstant.tmpInvoice = invoice;
-                              btnPayment.setButtonName("Return");
+                              btnPayment.setButtonName("Continue");
                               btnPayment.setBackground(WindowColor.lightBlue);
                               product = new ProductModel(
                                    obj.getID(),
@@ -190,7 +190,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     JavaConstant.saleId = model.getSaleId();
                     for (int i = 0; i < listProduct.length; i++) {
                          var obj = listProduct[i];
-                         btnPayment.setButtonName("Return");
+                         btnPayment.setButtonName("Continue");
                          JavaConstant.isReturn = "return";
                          JavaConstant.tmpInvoice = invoice;
 
