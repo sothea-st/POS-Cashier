@@ -51,8 +51,11 @@ public class PaginationPanel extends javax.swing.JPanel {
                int _calPageSize = pageNumber * pageSize;
                showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
                if (_calPageSize > totalPage) {
+
+//                    pageNext.setForeground(Color.WHITE);
                     showPageSize.setText(String.valueOf(totalPage));
                } else {
+//                    pageNext.setForeground(Color.BLACK);
                     showPageSize.setText(String.valueOf(_calPageSize));
                }
                showTotal.setText(String.valueOf(totalPage));
@@ -60,10 +63,14 @@ public class PaginationPanel extends javax.swing.JPanel {
                showPageNumber.setText(String.valueOf(1));
                showTotal.setText(String.valueOf(totalPage));
                if (pageSize > totalPage) {
+//                    System.out.println("dddddddddddd = dddddddddddddddddd1111");
                     showPageSize.setText(String.valueOf(totalPage));
                } else {
+//                    System.out.println("dddddddddddd = 111111111111111111111111");
+//                    pageNext.setForeground(Color.BLACK);
                     showPageSize.setText(String.valueOf(pageSize));
                }
+             
           }
 
           checkPageNumber();
@@ -101,10 +108,10 @@ public class PaginationPanel extends javax.swing.JPanel {
      }
 
      private void setVisiblePage(boolean two, boolean three, boolean four, boolean five) {
-          pageTwo.setForeground(two ? WindowColor.black : WindowColor.white);
-          pageThree.setForeground(three ? WindowColor.black : WindowColor.white);
-          pageFour.setForeground(four ? WindowColor.black : WindowColor.white);
-          pageFive.setForeground(five ? WindowColor.black : WindowColor.white);
+          pageTwo.setForeground(two ? Color.BLACK : Color.WHITE);
+          pageThree.setForeground(three ? Color.BLACK : Color.WHITE);
+          pageFour.setForeground(four ? Color.BLACK : Color.WHITE);
+          pageFive.setForeground(five ? Color.BLACK : Color.WHITE);
      }
 
      private void setBorder(JLabel label) {
@@ -151,7 +158,7 @@ public class PaginationPanel extends javax.swing.JPanel {
           checkPageNumber();
      }
 
-     public void resetPage(String page,String pageNum) {
+     public void resetPage(String page, String pageNum) {
           pageNumber = Integer.valueOf(pageNum);
           switch (page) {
                case "pageOne" -> {
@@ -178,7 +185,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                     break;
                }
           }
- 
+
           checkPageNumber();
 
      }
@@ -222,11 +229,19 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    Color bg = previousPage.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     previousPage.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    Color bg = previousPage.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     previousPage.setForeground(WindowColor.black);
                }
 
@@ -288,11 +303,19 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    Color bg = pageNext.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageNext.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    Color bg = pageNext.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageNext.setForeground(WindowColor.black);
                }
 
@@ -315,11 +338,19 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    Color bg = pageOne.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageOne.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    Color bg = pageOne.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageOne.setForeground(WindowColor.black);
                }
 
@@ -356,11 +387,19 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    Color bg = pageTwo.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageTwo.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    Color bg = pageTwo.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageTwo.setForeground(WindowColor.black);
                }
 
@@ -398,12 +437,20 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
-                    pageThree.setForeground(WindowColor.gray);
+                    Color bg = pageThree.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
+                    pageThree.setForeground(Color.GRAY);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
-                    pageThree.setForeground(WindowColor.black);
+                    Color bg = pageThree.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
+                    pageThree.setForeground(Color.black);
                }
 
                @Override
@@ -440,11 +487,19 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    Color bg = pageFour.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageFour.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    Color bg = pageFour.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageFour.setForeground(WindowColor.black);
                }
 
@@ -471,11 +526,19 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+                    Color bg = pageFive.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageFive.setForeground(WindowColor.gray);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
+                    Color bg = pageFive.getBackground();
+                    if (bg.equals(new Color(238, 238, 238))) {
+                         return;
+                    }
                     pageFive.setForeground(WindowColor.black);
                }
 

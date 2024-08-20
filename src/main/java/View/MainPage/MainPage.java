@@ -862,7 +862,6 @@ public class MainPage extends javax.swing.JFrame {
     private void btnPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPaymentMouseClicked
 
          if (JavaConstant.token != null) {
-
               Component[] listCom = detailItem.getComponents();
               if (listCom.length != 0) {
                    PaymentOption pay = new PaymentOption(new JFrame(), true);
