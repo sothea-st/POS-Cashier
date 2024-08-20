@@ -2,7 +2,6 @@ package com.example.pos.connection1.feature.vendor.dto;
 import com.example.pos.connection1.constant.JavaMessage;
  
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 public record VendorUpdateRequest(

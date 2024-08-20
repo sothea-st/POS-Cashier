@@ -7,8 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import com.example.pos.connection1.entity.Uom;
 import com.example.pos.connection1.feature.uom.dto.UomRequest;
@@ -93,20 +91,33 @@ public class UomServiceImp implements UomService{
       * value was given from controller
     */
     @Override
-    public JavaCollectionResponse<?> read (int pageSize, int pageNumber){
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize , sortById); // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
-        Page<Uom> pages = uomRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+    public JavaCollectionResponse<?> read (Integer pageSize, Integer pageNumber){
 
-        List<UomResponse> content = pages.getContent()
-                        .stream()
-                        .map(c->mapTUomResponse(c))
-                        .toList();
-                    
-        return JavaCollectionResponse.builder()
-                        .count(pages.getTotalElements())
-                        .data(content)
-                        .build();
+        List<UomResponse> data = null;
+
+        if(pageNumber == null && pageSize == null){
+          data = uomRepository.findByStatusTrueAndIsDeletedFalse().stream()
+                          .map(this::mapTUomResponse)
+                          .toList();
+          return JavaCollectionResponse.builder()
+                          .count(data.size())
+                          .data(data)
+                          .build();
+        }else{
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize , sortById); // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
+          Page<Uom> pages = uomRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+
+          List<UomResponse> content = pages.getContent()
+                          .stream()
+                          .map(c->mapTUomResponse(c))
+                          .toList();
+                      
+          return JavaCollectionResponse.builder()
+                          .count(pages.getTotalElements())
+                          .data(content)
+                          .build();
+        }
     }
 
     /*
@@ -140,20 +151,35 @@ public class UomServiceImp implements UomService{
       * value was given from controller
     */
     @Override
-    public JavaCollectionResponse<?> search(int pageSize,int pageNumber, String serchValue) {
+    public JavaCollectionResponse<?> search(Integer pageSize,Integer pageNumber, String valueSearch) {
 
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
-        Page<Uom> pages = uomRepository.findByNameEn(pageRequest,serchValue);
+       List<UomResponse> data = null;
 
-        List<UomResponse> content = pages.getContent()
-                  .stream()
-                  .map(c->mapTUomResponse(c))
-                  .toList();
+       System.out.println("data :" + data);
 
-       return JavaCollectionResponse.builder()
-                  .count(pages.getTotalElements())
-                  .data(content)
-                  .build();
+        if(pageNumber == null && pageSize == null){
+          data = uomRepository.searchByNameEn(valueSearch).stream()
+                          .map(this::mapTUomResponse)
+                          .toList();
+          return JavaCollectionResponse.builder()
+                          .count(data.size())
+                          .data(data)
+                          .build();
+        }else{
+
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
+          Page<Uom> pages = uomRepository.searchByNameEn(pageRequest,valueSearch);
+
+          List<UomResponse> content = pages.getContent()
+                    .stream()
+                    .map(c->mapTUomResponse(c))
+                    .toList();
+
+        return JavaCollectionResponse.builder()
+                    .count(pages.getTotalElements())
+                    .data(content)
+                    .build();
+        }
     }
 }

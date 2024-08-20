@@ -7,11 +7,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+
 import com.example.pos.connection1.entity.Attribute;
 import com.example.pos.connection1.feature.attribute.dto.AttributeRequest;
 import com.example.pos.connection1.feature.attribute.dto.AttributeResponse;
 import com.example.pos.connection1.feature.attribute.dto.AttributeUpdateRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,23 +43,35 @@ public class AttributeServiceImp implements AttributeService {
       * value was given from controller
       */
      @Override
-     public JavaCollectionResponse<?> read(int pageSize, int pageNumber) {
+     public JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber) {
+          List<AttributeResponse> data = null;
 
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...
-                                                                                    // pageSize:10
-                                                                                    // => 1 page has 10 items
-          Page<Attribute> pages = attributeRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+          if (pageNumber == null && pageSize == null) {
+               data = attributeRepository.findByStatusTrueAndIsDeletedFalse().stream()
+                         .map(this::mAttributeResponse)
+                         .toList();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
+          }else{
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...
+                                                                                     // pageSize:10
+                                                                                     // => 1 page has 10 items
+               Page<Attribute> pages = attributeRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
-          List<AttributeResponse> content = pages.getContent()
-                    .stream()
-                    .map(c -> mAttributeResponse(c))
-                    .toList();
+               List<AttributeResponse> content = pages.getContent()
+                         .stream()
+                         .map(c -> mAttributeResponse(c))
+                         .toList();
 
-          return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
-                    .data(content)
-                    .build();
+               return JavaCollectionResponse.builder()
+                         .count(pages.getTotalElements())
+                         .data(content)
+                         .build();
+
+          }
      }
 
      /*
@@ -138,21 +152,37 @@ public class AttributeServiceImp implements AttributeService {
       * value was given from controller
       */
      @Override
-     public JavaCollectionResponse<?> search(int pageSize, int pageNumber, String valueSearch) {
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...
-                                                                                    // pageSize:10
-                                                                                    // => 1 page has 10 items
-          Page<Attribute> pages = attributeRepository.findByAttrNameEn(pageRequest, valueSearch);
+     public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String valueSearch) {
+          List<AttributeResponse> data = null;
 
-          List<AttributeResponse> content = pages.getContent()
-                    .stream()
-                    .map(c -> mAttributeResponse(c))
-                    .toList();
+          System.out.println("pageSize : " + pageSize);
+          System.out.println("pageNumber : " + pageNumber);
 
-          return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
-                    .data(content)
-                    .build();
+          if (pageNumber == null && pageSize == null) {
+               data = attributeRepository.findByAttrNameEn(valueSearch).stream()
+                         .map(this::mAttributeResponse)
+                         .toList();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
+          }else{
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...
+                                                                                     // pageSize:10
+                                                                                     // => 1 page has 10 items
+               Page<Attribute> pages = attributeRepository.findByAttrNameEn(pageRequest, valueSearch);
+
+               List<AttributeResponse> content = pages.getContent()
+                         .stream()
+                         .map(c -> mAttributeResponse(c))
+                         .toList();
+
+               return JavaCollectionResponse.builder()
+                         .count(pages.getTotalElements())
+                         .data(content)
+                         .build();
+          }
+          
      }
 }

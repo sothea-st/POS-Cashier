@@ -1,7 +1,5 @@
 package com.example.pos.connection1.feature.vendor.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Builder;
 
 @Builder

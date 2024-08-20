@@ -1,5 +1,6 @@
 package com.example.pos.connection1.feature.uom;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
@@ -9,30 +10,56 @@ import org.springframework.stereotype.Repository;
 import com.example.pos.connection1.entity.Uom;
 
 @Repository
-public interface UomRepository extends JpaRepository<Uom,Integer>{
+public interface UomRepository extends JpaRepository<Uom, Integer> {
 
-    Optional<Uom> findById (Integer id); 
+    Optional<Uom> findById(Integer id);
 
-    Optional<Uom> findByIdAndStatusTrueAndIsDeletedFalse (Integer id);
- 
+    Optional<Uom> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
+
     boolean existsByNameEn(String nameEn);
 
-    Page<Uom> findByStatusTrueAndIsDeletedFalse (PageRequest pageable);
+    //get list with pagination
+    Page<Uom> findByStatusTrueAndIsDeletedFalse(PageRequest pageable);
+
+    //get list without pagination
+    List<Uom> findByStatusTrueAndIsDeletedFalse();
+
+    //Query for search
     @Query(nativeQuery = true, value = "select\r\n" + //
-        "\tu.id ,\r\n" + //
-        "\tu.name_en,\r\n" + //
-        "\tu.name_kh,\r\n" + //
-        "\tu.is_deleted,\r\n" + //
-        "\tu.status\r\n" + //
-        "from\r\n" + //
-        "\tpos_uoms u\r\n" + //
-        "where\r\n" + //
-        "\tu.status = true\r\n" + //
-        "\tand u.is_deleted = false\r\n" + //
-        "\tand u.name_en ilike %?% \r\n" + //
-        "order by\r\n" + //
-        "\tu.id desc\r\n" + //
-        "")
-    Page<Uom> findByNameEn (PageRequest pageable, String valueSearch);
+            "\tu.id ,\r\n" + //
+            "\tu.name_en,\r\n" + //
+            "\tu.name_kh,\r\n" + //
+            "\tu.is_deleted,\r\n" + //
+            "\tu.status\r\n" + //
+            "from\r\n" + //
+            "\tpos_uoms u\r\n" + //
+            "where\r\n" + //
+            "\tu.status = true\r\n" + //
+            "\tand u.is_deleted = false\r\n" + //
+            "\tand u.name_en ilike %?% \r\n" + //
+            "order by\r\n" + //
+            "\tu.id desc\r\n" + //
+            "")
+    //search with pagination
+    Page<Uom> searchByNameEn(PageRequest pageable, String valueSearch);
+
+    //Query for search
+    @Query(nativeQuery = true, value = "select\r\n" + //
+            "\tu.id ,\r\n" + //
+            "\tu.name_en,\r\n" + //
+            "\tu.name_kh,\r\n" + //
+            "\tu.is_deleted,\r\n" + //
+            "\tu.status\r\n" + //
+            "from\r\n" + //
+            "\tpos_uoms u\r\n" + //
+            "where\r\n" + //
+            "\tu.status = true\r\n" + //
+            "\tand u.is_deleted = false\r\n" + //
+            "\tand u.name_en ilike %?% \r\n" + //
+            "order by\r\n" + //
+            "\tu.id desc\r\n" + //
+            "")
+    //search without pagination
+    List<Uom> searchByNameEn(String valueSearch);
 
 }

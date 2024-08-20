@@ -16,32 +16,32 @@ public interface CountryService {
       * read all country
       * required paramater CountryRequest
       */
-     JavaCollectionResponse<?> read(int pageNumber, int pageSize);
+     JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber);
 
      /*
       * read country
       * required paramater id
       */
-     CountryResponse readById(int id);
+     CountryResponse readById(Integer id);
 
      /*
       * update country  
       * required paramater id and CountryRequest
       */
-     CountryResponse updateById(int id,CountryUpdateRequest countryUpdateRequest);
+     CountryResponse updateById(Integer id,CountryUpdateRequest countryUpdateRequest);
 
      /*
       * delete country by id
       * required paramater id  
       */
-     void deleteById(int id);
+     void deleteById(Integer id);
 
 
      /*
       * read search country
       * required paramater searchValue
       */
-     JavaCollectionResponse<?> search (int pageNumber, int pageSize, String searchValue);
+     JavaCollectionResponse<?> search (Integer pageSize, Integer pageNumber, String searchValue);
 
 
 }

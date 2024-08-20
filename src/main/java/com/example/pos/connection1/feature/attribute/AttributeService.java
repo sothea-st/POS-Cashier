@@ -18,7 +18,7 @@ public interface AttributeService {
       * paramater pageSize and pageNumber optional pageNumber = 10 , pageSize = 0 
       * value was given from controller
     */
-    JavaCollectionResponse<?> read(int pageSize, int pageNumber);
+    JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber);
 
     /*
       * create new attribute 
@@ -40,6 +40,6 @@ public interface AttributeService {
     /*
       * Search attribute
     */
-    JavaCollectionResponse<?> search (int pageSize, int pageNumber, String valueSearch);
+    JavaCollectionResponse<?> search (Integer pageSize, Integer pageNumber, String valueSearch);
 
 }

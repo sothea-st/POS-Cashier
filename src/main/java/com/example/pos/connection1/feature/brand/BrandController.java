@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.pos.connection1.feature.brand.dto.BrandRequest;
 import com.example.pos.connection1.feature.brand.dto.BrandRequestUpdate;
@@ -16,11 +19,6 @@ import com.example.pos.connection1.util.collection_response.JavaCollectionRespon
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 @RestController
 @RequestMapping("/api/brand")
 @RequiredArgsConstructor
@@ -34,15 +32,15 @@ public class BrandController {
 
     @GetMapping
     JavaCollectionResponse<?> read(
-        @RequestParam(defaultValue = "10", required = false) int pageSize, 
-        @RequestParam(defaultValue = "0", required = false) int pageNumber){
+        @RequestParam(name = "pageSize", required = false) Integer pageSize, 
+        @RequestParam(name = "pageNumber", required = false) Integer pageNumber){
         return brandServices.read(pageSize, pageNumber);
     }
 
     @GetMapping("/searchBrand/{brandNameEn}")
     JavaCollectionResponse<?> search(
-        @RequestParam(defaultValue = "10", required = false) int pageSize, 
-        @RequestParam(defaultValue = "0", required = false) int pageNumber,
+        @RequestParam(name = "pageSize", required = false) Integer pageSize, 
+        @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
         @PathVariable("brandNameEn") String searchValue){
         return brandServices.search(pageSize, pageNumber,searchValue);
     }

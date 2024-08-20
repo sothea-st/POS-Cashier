@@ -2,8 +2,6 @@ package com.example.pos.connection1.feature.employee.dto;
 
 import java.util.Date;
 
-import com.example.pos.connection1.entity.role.Role;
-
 import lombok.Builder;
 
 @Builder

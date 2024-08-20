@@ -24,12 +24,13 @@ public class VendorServiceImp implements VendorService {
      private String idNotFound = "Id has not been found .";
      private String contactAlreadyExist = "The contact already exist.";
      private String emailAlreadyExist = "The email already exist.";
+
      /*
       * update vendor by uuid
       * required paramater uuid , VendorUpdateRequest
       */
      @Override
-     public VendorResponse updateByUuid(int id, VendorUpdateRequest vendorUpdateRequest) {
+     public VendorResponse updateByUuid(Integer id, VendorUpdateRequest vendorUpdateRequest) {
           // find vendor by uuid and it will validate if uuid wrong
           Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(
@@ -38,14 +39,14 @@ public class VendorServiceImp implements VendorService {
           if (!vendorUpdateRequest.contact().equals(vendor.getContact())) {
                // validate contact already exist
                if (vendorRepository.existsByContact(vendorUpdateRequest.contact())) {
-                    throw new ResponseStatusException(HttpStatus.CONFLICT,contactAlreadyExist);
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, contactAlreadyExist);
                }
           }
 
           if (!vendorUpdateRequest.email().equals(vendor.getEmail())) {
                // validate email already exist
                if (vendorRepository.existsByEmail(vendorUpdateRequest.email())) {
-                    throw new ResponseStatusException(HttpStatus.CONFLICT,emailAlreadyExist);
+                    throw new ResponseStatusException(HttpStatus.CONFLICT, emailAlreadyExist);
                }
           }
 
@@ -62,7 +63,7 @@ public class VendorServiceImp implements VendorService {
       * delete vendor by uuid paramater
       */
      @Override
-     public void delete(int id) {
+     public void delete(Integer id) {
           Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(
                               HttpStatus.NOT_FOUND, idNotFound));
@@ -77,7 +78,7 @@ public class VendorServiceImp implements VendorService {
       * required paramater uuid
       */
      @Override
-     public VendorResponse readByUuid(int id) {
+     public VendorResponse readByUuid(Integer id) {
           // validation uuid
           Vendor vendor = vendorRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(
@@ -95,13 +96,13 @@ public class VendorServiceImp implements VendorService {
           // validate contact already exist
           if (vendorRepository.existsByContact(vendorRequest.contact())) {
                throw new ResponseStatusException(
-                         HttpStatus.CONFLICT,contactAlreadyExist);
+                         HttpStatus.CONFLICT, contactAlreadyExist);
           }
 
           // validate email already exist
           if (vendorRepository.existsByEmail(vendorRequest.email())) {
                throw new ResponseStatusException(
-                         HttpStatus.CONFLICT,emailAlreadyExist);
+                         HttpStatus.CONFLICT, emailAlreadyExist);
           }
 
           long count = vendorRepository.count();
@@ -150,20 +151,36 @@ public class VendorServiceImp implements VendorService {
       * value was given from controller
       */
      @Override
-     public JavaCollectionResponse<?> read(int pageSize, int pageNumber) {
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC 
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...  pageSize:10  => 1 page has 10 items
-          Page<Vendor> pages = vendorRepository.findByStatusTrueAndIsDeletedFalse(pageRequest); 
+     public JavaCollectionResponse<?> read(Integer pageSize, Integer pageNumber) {
 
-          List<VendorResponse> content = pages.getContent()
-                    .stream()
-                    .map(this::mapToVendorResponse)
-                    .toList();
+          List<VendorResponse> data = null;
 
-          return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
-                    .data(content)
-                    .build();
+          if (pageNumber == null && pageSize == null) {
+               data = vendorRepository.findByStatusTrueAndIsDeletedFalse().stream()
+                         .map(this::mapToVendorResponse)
+                         .toList();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
+          }else{
+
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // sort by id DESC
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...
+                                                                                         // pageSize:10 => 1 page has 10
+                                                                                         // items
+               Page<Vendor> pages = vendorRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
+
+               List<VendorResponse> content = pages.getContent()
+                         .stream()
+                         .map(this::mapToVendorResponse)
+                         .toList();
+
+               return JavaCollectionResponse.builder()
+                         .count(pages.getTotalElements())
+                         .data(content)
+                         .build();
+          }
      }
 
      /*
@@ -182,20 +199,35 @@ public class VendorServiceImp implements VendorService {
                     .build();
      }
 
+     //search vendor by vendor name
      @Override
-     public JavaCollectionResponse<?> search(int pageSize, int pageNumber, String searchValue) {
-          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-          PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-          Page<Vendor> pages = vendorRepository.findByVendorName(pageRequest,searchValue);
-
-          List<VendorResponse> content = pages.getContent()
-                              .stream()
-                              .map(c->mapToVendorResponse(c))
-                              .toList();
+     public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue) {
           
-          return JavaCollectionResponse.builder()
-                              .count(pages.getTotalElements())
-                              .data(content)
-                              .build();
+          List<VendorResponse> data = null;
+
+          if (pageNumber == null && pageSize == null) {
+               data = vendorRepository.findByVendorName(searchValue).stream()
+                         .map(this::mapToVendorResponse)
+                         .toList();
+               return JavaCollectionResponse.builder()
+                         .count(data.size())
+                         .data(data)
+                         .build();
+          }else{
+
+               Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+               PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+               Page<Vendor> pages = vendorRepository.findByVendorName(pageRequest, searchValue);
+
+               List<VendorResponse> content = pages.getContent()
+                         .stream()
+                         .map(c -> mapToVendorResponse(c))
+                         .toList();
+
+               return JavaCollectionResponse.builder()
+                         .count(pages.getTotalElements())
+                         .data(content)
+                         .build();
+          }
      }
 }

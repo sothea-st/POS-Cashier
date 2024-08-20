@@ -22,41 +22,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CountryController {
     private final CountryService countryService;
 
+    //Update Country by id
     @PutMapping("/{id}")
-    public CountryResponse upateById(@PathVariable("id") int id,@RequestBody CountryUpdateRequest countryUpdateRequest) {
-        System.out.println("country name : " + countryUpdateRequest.countryName());
-        System.out.println("country uuid : " + countryUpdateRequest.uuid());
+    public CountryResponse upateById(@PathVariable("id") Integer id,@RequestBody CountryUpdateRequest countryUpdateRequest) {
         return countryService.updateById(id, countryUpdateRequest);
     }
 
+    //read country by id
     @GetMapping("/{id}")
-    public CountryResponse readByUuid(@PathVariable("id") int id) {
+    public CountryResponse readByUuid(@PathVariable("id") Integer id) {
         return countryService.readById(id);
     }
 
+    //Create country
     @PostMapping
     public CountryResponse create(@Valid @RequestBody CountryRequest countryRequest) {
         return countryService.create(countryRequest);
     }
 
+    //get list country
     @GetMapping
     public JavaCollectionResponse<?> read(
-            @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize) {
-        return countryService.read(pageNumber, pageSize);
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber) {
+        return countryService.read(pageSize, pageNumber);
     }
 
+    //delete country
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") int id) {
+    public void deleteById(@PathVariable("id") Integer id) {
         countryService.deleteById(id);
     }
 
+    //search country by country name
     @GetMapping("/searchCountry/{countryName}")
     public JavaCollectionResponse<?> search (
-            @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-            @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
             @PathVariable("countryName") String searchValue) {
-        return countryService.search(pageNumber, pageSize, searchValue);
+        return countryService.search(pageSize,pageNumber,searchValue);
     }
 
 }
