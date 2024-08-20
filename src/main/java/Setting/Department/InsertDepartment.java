@@ -12,10 +12,11 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+@Setter
 public class InsertDepartment extends javax.swing.JDialog {
 
     private String divisionId;
@@ -23,6 +24,7 @@ public class InsertDepartment extends javax.swing.JDialog {
     private JPanel listGetCategory;
     private Integer id;
     private Integer movePosition;
+    private String pageNumber;
     
     public InsertDepartment(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -272,7 +274,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                     listGetCategory.removeAll();
                     listGetCategory.revalidate();
                     listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
+                    list.getCategory(listGetCategory, code, true,pageNumber);
                     dispose();
 
                 } else if (response.code() == 500) {
@@ -292,7 +294,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                     listGetCategory.removeAll();
                     listGetCategory.revalidate();
                     listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
+                    list.getCategory(listGetCategory, code, true,pageNumber);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");
