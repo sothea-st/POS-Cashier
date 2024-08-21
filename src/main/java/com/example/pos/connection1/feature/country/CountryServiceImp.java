@@ -28,7 +28,10 @@ public class CountryServiceImp implements CountryService {
      public void deleteById(Integer id) {
           Country country = countryRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
-          countryRepository.delete(country);
+          
+          country.setStatus(false);
+          country.setDeleted(true);
+          countryRepository.save(country);
      }
 
      // Update Country by id
