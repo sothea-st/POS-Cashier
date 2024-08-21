@@ -12,10 +12,11 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+@Setter
 public class InsertDepartment extends javax.swing.JDialog {
 
     private String divisionId;
@@ -23,7 +24,7 @@ public class InsertDepartment extends javax.swing.JDialog {
     private JPanel listGetCategory;
     private Integer id;
     private Integer movePosition;
-    private Category obj;
+    private String pageNumber;
     
     public InsertDepartment(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -273,7 +274,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                     listGetCategory.removeAll();
                     listGetCategory.revalidate();
                     listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true);
+                    list.getCategory(listGetCategory, code, true,pageNumber);
                     dispose();
 
                 } else if (response.code() == 500) {
@@ -289,7 +290,11 @@ public class InsertDepartment extends javax.swing.JDialog {
                 Response response = JavaConnection.post(JavaRoute.addCategory, json);
 
                 if (response.isSuccessful()) {
-                    obj.getCategory(listGetCategory, code, true);
+                    Category list = new Category(new JFrame(), true, code);
+                    listGetCategory.removeAll();
+                    listGetCategory.revalidate();
+                    listGetCategory.repaint();
+                    list.getCategory(listGetCategory, code, true,pageNumber);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");
@@ -297,7 +302,6 @@ public class InsertDepartment extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Save Failed!");
                 }
             }
-            
 
         } catch (Exception e) {
             System.err.println("errr -- " + e);
@@ -337,15 +341,7 @@ public class InsertDepartment extends javax.swing.JDialog {
         this.movePosition = movePosition;
     }
 
-    public Category getObj() {
-        return obj;
-    }
 
-    public void setObj(Category obj) {
-        this.obj = obj;
-    }
-
-    
     /**
      * @param args the command line arguments
      */
