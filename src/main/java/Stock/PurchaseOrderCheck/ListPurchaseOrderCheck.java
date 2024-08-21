@@ -111,27 +111,24 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
           if (isCheck) {
                response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=" + remark);
-               System.out.println("respone111 : " + response);
+              
           } else {
                isCheckSearch = false;
-               response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=" + remark);
-               
-               System.out.println("respone2222 : " + response);
-
+               response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?remark=" + remark);
           }
           
-          System.out.println("respone dat : " + response);
-
+   
           try {
                String responseData = response.body().string();
                ObjectMapper objMap = new ObjectMapper();
                ListPurchaseOrderModel data = objMap.readValue(responseData, ListPurchaseOrderModel.class);
                DataPurchaseModel[] listData = data.getData();
-
+               
+               
                if (isCheckSearch) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                }
                reloadPanel();
                appendPurchaeOrder(listData, obj);

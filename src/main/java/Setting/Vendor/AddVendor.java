@@ -9,14 +9,19 @@ import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+@Setter
+@Getter
 public class AddVendor extends javax.swing.JDialog {
 
      private Integer id;
      private JPanel listGetVendor;
      private String pageNumber;
+     private ListVendor obj;
 
      public AddVendor(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -263,6 +268,8 @@ public class AddVendor extends javax.swing.JDialog {
               }
 
               String phone = phoneNumber.replace(" ", "");
+              
+              System.out.println("phone : " + phone);
 
               if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 10) {
                    JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
@@ -294,6 +301,9 @@ public class AddVendor extends javax.swing.JDialog {
               json.put("email", email);
               json.put("website", website);
               json.put("address", address);
+              
+              
+              System.out.println("json : " + json);
 
               if (id != null) {
                    Response response = JavaConnection.put(JavaRoute.vendor + '/' + id, json);
@@ -349,11 +359,10 @@ public class AddVendor extends javax.swing.JDialog {
                    } else {
                         System.out.println("response : " + response);
                         System.out.println("json : " + json);
-                        ListVendor list = new ListVendor(new JFrame(), true);
                         listGetVendor.removeAll();
                         listGetVendor.revalidate();
                         listGetVendor.repaint();
-                        list.getVendor(listGetVendor, true,pageNumber);
+                        obj.getVendor(listGetVendor, true,pageNumber);
                         dispose();
 
                    }

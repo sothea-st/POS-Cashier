@@ -18,11 +18,9 @@ import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
 import Setting.Subcategory.InsertSubcategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
@@ -117,6 +115,7 @@ public class Category extends javax.swing.JDialog {
                     codeCategory = "subcategory";
                }
 
+               // code pagination
                this.pageNumber = pageNumber;
               
                Response response = null;
@@ -440,22 +439,33 @@ public class Category extends javax.swing.JDialog {
 
      //Action Search
      private void eventSearchCategory(String codeType) {
-          // this event was called when user type on searchTextField 
-          ButtonEvent events = new ButtonEvent() {
+          // this event was called when user type on searchTextField           
+          ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
 
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "0";
-                         getCategory(listGetCategory, codeType, true, pageNumber);
-                         return;
-                    }
-                    getCategory(listGetCategory, codeType, false, pageNumber);
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getCategory(listGetCategory, codeType, true, pageNumber);
+                                   return;
+                              }
+                              getCategory(listGetCategory, codeType, false, pageNumber);
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+
                }
           };
-          searchField.initEvent(events);
+          searchField.initEvent(event);
      }
 
      public String getCode() {

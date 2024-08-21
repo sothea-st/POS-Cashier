@@ -309,7 +309,10 @@ public class TextField extends javax.swing.JPanel {
                     
                     //Set Limit text to 10 digit 
                     if (filteredText.length() > 10) {
+                        
+                        filteredText.substring(filteredText.length() - 10); 
                         filteredText.setLength(10);
+                        
                     }
 
                     // Rebuild the string with spaces after every 3 digits

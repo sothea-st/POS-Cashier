@@ -12,12 +12,14 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
 import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 @Setter
+@Getter
 public class InsertDepartment extends javax.swing.JDialog {
 
      private String divisionId;

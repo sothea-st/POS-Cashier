@@ -700,9 +700,9 @@ public class ReportingSaled extends javax.swing.JDialog {
           } else {
                isCheckSearch = false;
                if (userId == null) {
-                    response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+                    response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
                } else {
-                    endpoint = "?pageNumber=" + pageNumber + "&pageSize=50" + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&userId=" + userId;
+                    endpoint = "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&userId=" + userId;
                     response = JavaConnection.get(JavaRoute.searchReportSale + searchValue + endpoint);
                }
           }
@@ -730,7 +730,7 @@ public class ReportingSaled extends javax.swing.JDialog {
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage(data.getCount());
                     }
                     
                     listDetail.clear();

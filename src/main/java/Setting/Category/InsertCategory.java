@@ -341,10 +341,18 @@ public class InsertCategory extends javax.swing.JDialog {
                    JOptionPane.showMessageDialog(this, "Category Name is required!");
                    return;
               }
-
+              
               JSONObject json = new JSONObject();
               json.put("catNameEn", categoryName);
-              json.put("catNameKh", categoryNameKh);
+              if (categoryNameKh == null) {
+                 json.put("catNameKh", categoryNameKh);
+              } else {
+                 if (categoryNameKh.isEmpty()) {
+                     json.put("catNameKh", JSONObject.NULL);
+                 } else {
+                     json.put("catNameKh", categoryNameKh);
+                 }
+              }
               json.put("parentId", departmentId);
 
               if (id != null) {

@@ -18,6 +18,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -25,13 +27,16 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONObject;
+@Setter
+@Getter
 
 public class AddCountry extends javax.swing.JDialog {
-
+    
      private Integer id;
      String path;
      String fileName;
      private String pageNumber;
+     private ListCountry obj;
 
      private JPanel listGetCountry;
 
@@ -293,11 +298,10 @@ public class AddCountry extends javax.swing.JDialog {
                             JOptionPane.showMessageDialog(this, reason);
                         }
                     }else{
-                        ListCountry list = new ListCountry(new JFrame(), true);
                         listGetCountry.removeAll();
                         listGetCountry.revalidate();
                         listGetCountry.repaint();
-                        list.getListCountry(listGetCountry,true,pageNumber);
+                        obj.getListCountry(listGetCountry,true,pageNumber);
                         dispose();
                     }
               }

@@ -36,6 +36,8 @@ public class ListStatus extends javax.swing.JDialog {
     private String pageNumber = "0";
     private int pageSize = 10;
     private boolean isCheckSearch = true;
+    private int dataCount = 0;
+    private String pageType;
     
     public ListStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -63,14 +65,20 @@ public class ListStatus extends javax.swing.JDialog {
     
     private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onMouseClick(String value) {
-                  if (isCheckSearch) {
-                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                       pageNumber = String.valueOf(_value);
-                       getStatus(listGetStatus,true,pageNumber);
-                  }
-             }
+            @Override
+            public void onMouseClick(String value) {
+                 if (isCheckSearch) {
+                      int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                      pageNumber = String.valueOf(_value);
+                      getStatus(listGetStatus,true,pageNumber);
+                 }
+            }
+             
+            // for pagination
+            @Override
+            public void onMouseClick(String value, String pType) {
+                 pageType = pType;
+            }
         };
         paginationPanel.initEvent(event);
     }
@@ -83,7 +91,7 @@ public class ListStatus extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.status + "?pageNumber=" + pageNumber + "&pageSize=10");
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.searchStatus + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+                 response = JavaConnection.get(JavaRoute.searchStatus + searchValue);
             }
 
             if (response.isSuccessful()) {
@@ -203,11 +211,19 @@ public class ListStatus extends javax.swing.JDialog {
                                 Response response = JavaConnection.delete(JavaRoute.status + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
-                                    ListStatus list = new ListStatus(new JFrame(), true);
+                                    
+                                    dataCount = dataCount - 1;
+                                    int totalP = pageSize * Integer.valueOf(pageNumber);
+                                    if (dataCount == totalP) {
+                                         paginationPanel.resetPage(pageType, pageNumber);
+                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                         pageNumber = String.valueOf(_value);
+                                    }
+                                    
                                     listGetStatus.removeAll();
                                     listGetStatus.revalidate();
                                     listGetStatus.repaint();
-                                    list.getStatus(listGetStatus,true,pageNumber);
+                                    getStatus(listGetStatus,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -259,23 +275,34 @@ public class ListStatus extends javax.swing.JDialog {
     
     //Action Search
     private void eventSearchStatus() {
+        
         // this event was called when user type on searchTextField 
-        ButtonEvent events = new ButtonEvent() {
+        ButtonEvent event = new ButtonEvent() {
             @Override
             public void onKeyType() {
-                searchValue = searchField.getValueTextSearch();
-                
-                if (searchValue.isEmpty()) {
-                    isCheckSearch = true;
-                    pageNumber = "0";
-                    getStatus(listGetStatus,true,pageNumber);
-                    return;
-                }
-                getStatus(listGetStatus,false,pageNumber);
-                
+                 TimerTask task = new TimerTask() {
+                      @Override
+                      public void run() {
+                           searchValue = searchField.getValueTextSearch();
+                           paginationPanel.resetPage();
+                           pageNumber = "0";
+
+                           if (searchValue.isEmpty()) {
+                                isCheckSearch = true;
+                                pageNumber = "0";
+                                getStatus(listGetStatus,true,pageNumber);
+                                return;
+                           }
+                           getStatus(listGetStatus,false,pageNumber);
+                      }
+                 };
+
+                 Timer timer = new Timer();
+                 timer.schedule(task, 500);
+
             }
         };
-        searchField.initEvent(events);
+        searchField.initEvent(event);
     }
     
     @SuppressWarnings("unchecked")
@@ -424,6 +451,7 @@ public class ListStatus extends javax.swing.JDialog {
        AddStatus add = new AddStatus(new JFrame(),true);
        add.setPageNumber(pageNumber);
        add.setListGetStatus(listGetStatus);
+       add.setObj(this);
        add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 

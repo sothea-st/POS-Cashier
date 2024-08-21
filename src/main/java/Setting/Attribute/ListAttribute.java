@@ -37,6 +37,8 @@ public class ListAttribute extends javax.swing.JDialog {
     private String pageNumber = "0";
     private int pageSize = 10;
     private boolean isCheckSearch = true;
+    private int dataCount = 0;
+    private String pageType;
     
     public ListAttribute(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -63,14 +65,20 @@ public class ListAttribute extends javax.swing.JDialog {
     
     private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onMouseClick(String value) {
-                  if (isCheckSearch) {
-                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                       pageNumber = String.valueOf(_value);
-                       getAttribute(listGetAttribute, true, pageNumber);
-                  }
-             }
+            @Override
+            public void onMouseClick(String value) {
+                 if (isCheckSearch) {
+                      int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                      pageNumber = String.valueOf(_value);
+                      getAttribute(listGetAttribute, true, pageNumber);
+                 }
+            }
+             
+            // for pagination
+            @Override
+            public void onMouseClick(String value, String pType) {
+                 pageType = pType;
+            }
         };
         paginationPanel.initEvent(event);
     }
@@ -83,7 +91,7 @@ public class ListAttribute extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.attribute + "?pageNumber=" + pageNumber + "&pageSize=10");
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.searchAttribute + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+                 response = JavaConnection.get(JavaRoute.searchAttribute + searchValue);
             }
             
             if (response.isSuccessful()) {
@@ -205,11 +213,19 @@ public class ListAttribute extends javax.swing.JDialog {
                                 Response response = JavaConnection.delete(JavaRoute.attribute + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
-                                    ListAttribute list = new ListAttribute(new JFrame(), true);
+                                    
+                                    dataCount = dataCount - 1;
+                                    int totalP = pageSize * Integer.valueOf(pageNumber);
+                                    if (dataCount == totalP) {
+                                         paginationPanel.resetPage(pageType, pageNumber);
+                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                         pageNumber = String.valueOf(_value);
+                                    }
+                                    
                                     listGetAttribute.removeAll();
                                     listGetAttribute.revalidate();
                                     listGetAttribute.repaint();
-                                    list.getAttribute(listGetAttribute, true,pageNumber);
+                                    getAttribute(listGetAttribute, true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -413,27 +429,40 @@ public class ListAttribute extends javax.swing.JDialog {
         AddAttribute add = new AddAttribute(new JFrame(), true);
         add.setPageNumber(pageNumber);
         add.setListGetAttribute(listGetAttribute);
+        add.setObj(this);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
     //Action Search
     private void eventSearchAttribute() {
+        
         // this event was called when user type on searchTextField 
-        ButtonEvent events = new ButtonEvent() {
+        ButtonEvent event = new ButtonEvent() {
             @Override
             public void onKeyType() {
-                searchValue = searchField.getValueTextSearch();
-                
-                if (searchValue.isEmpty()) {
-                    isCheckSearch = true;
-                    pageNumber = "0";
-                    getAttribute(listGetAttribute, true,pageNumber);
-                    return;
-                }
-                getAttribute(listGetAttribute, false,pageNumber);
+                 TimerTask task = new TimerTask() {
+                      @Override
+                      public void run() {
+                           searchValue = searchField.getValueTextSearch();
+                           paginationPanel.resetPage();
+                           pageNumber = "0";
+
+                           if (searchValue.isEmpty()) {
+                                isCheckSearch = true;
+                                pageNumber = "0";
+                                getAttribute(listGetAttribute, true,pageNumber);
+                                return;
+                           }
+                           getAttribute(listGetAttribute, false,pageNumber);
+                      }
+                 };
+
+                 Timer timer = new Timer();
+                 timer.schedule(task, 500);
+
             }
         };
-        searchField.initEvent(events);
+        searchField.initEvent(event);
     }
     
     public static void main(String args[]) {

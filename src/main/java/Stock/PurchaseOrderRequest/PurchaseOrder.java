@@ -84,7 +84,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.imports + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
                } else { // isCheck false search
                     isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.searchPurchase + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+                    response = JavaConnection.get(JavaRoute.searchPurchase + searchValue);
                }
 
                if (response.isSuccessful()) {
@@ -98,7 +98,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage(dataCount);
                     }
                     appendPurchaseOrder(listData, jpanelData);
                } else {

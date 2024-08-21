@@ -3,19 +3,23 @@ package Setting.Uom;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Setting.Attribute.ListAttribute;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
+@Setter
+@Getter
 
 public class AddUom extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetUom;
     private String pageNumber;
+    private listUom obj;
     
     public AddUom(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -209,11 +213,10 @@ public class AddUom extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(this, reason);
                     }
                 }else{
-                    listUom list = new listUom(new JFrame(), true);
                     listGetUom.removeAll();
                     listGetUom.revalidate();
                     listGetUom.repaint();
-                    list.getUom(listGetUom,true,pageNumber);
+                    obj.getUom(listGetUom,true,pageNumber);
                     dispose();
                 }
             }

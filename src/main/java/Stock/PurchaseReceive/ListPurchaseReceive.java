@@ -106,7 +106,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                response = JavaConnection.get(JavaRoute.imports + "/getListByRemark?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&remark=approved");
           } else {
                isCheckSearch = false;
-               response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50&remark=approved");
+               response = JavaConnection.get(JavaRoute.imports + "/filter/" + searchValue + "?remark=approved");
           }
 
           
@@ -120,7 +120,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                if (isCheckSearch) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                }
                appendPurchaseReceive(listData, obj);
           } catch (Exception e) {

@@ -7,14 +7,19 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+@Setter
+@Getter
 public class AddStatus extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetStatus;
     private String pageNumber;
+    private ListStatus obj;
     
     public AddStatus(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -182,11 +187,10 @@ public class AddStatus extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(this, reason);
                     }
                 }else{
-                    ListStatus list = new ListStatus(new JFrame(), true);
                     listGetStatus.removeAll();
                     listGetStatus.revalidate();
                     listGetStatus.repaint();
-                    list.getStatus(listGetStatus,true,pageNumber);
+                    obj.getStatus(listGetStatus,true,pageNumber);
                     dispose();
                 }
             }

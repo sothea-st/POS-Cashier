@@ -7,14 +7,19 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+@Setter
+@Getter
 public class AddAttribute extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetAttribute;
     private String pageNumber;
+    private ListAttribute obj;
     
     public AddAttribute(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -208,11 +213,10 @@ public class AddAttribute extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(this, reason);
                     }
                 }else{
-                    ListAttribute list = new ListAttribute(new JFrame(), true);
                     listGetAttribute.removeAll();
                     listGetAttribute.revalidate();
                     listGetAttribute.repaint();
-                    list.getAttribute(listGetAttribute, true, pageNumber);
+                    obj.getAttribute(listGetAttribute, true, pageNumber);
                     dispose();
                 }
             }

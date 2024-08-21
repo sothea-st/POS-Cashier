@@ -34,6 +34,8 @@ public class ListVendor extends javax.swing.JDialog {
     private String pageNumber = "0";
     private int pageSize = 10;
     private boolean isCheckSearch = true;
+    private int dataCount = 0;
+    private String pageType;
     
     public ListVendor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -59,14 +61,20 @@ public class ListVendor extends javax.swing.JDialog {
 
     private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onMouseClick(String value) {
-                  if (isCheckSearch) {
-                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                       pageNumber = String.valueOf(_value);
-                       getVendor(listGetVendor,true,pageNumber);
-                  }
-             }
+            @Override
+            public void onMouseClick(String value) {
+                if (isCheckSearch) {
+                    int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                    pageNumber = String.valueOf(_value);
+                    getVendor(listGetVendor, true, pageNumber);
+                }
+            }
+
+            // for pagination
+            @Override
+            public void onMouseClick(String value, String pType) {
+                 pageType = pType;
+            }
         };
         paginationPanel.initEvent(event);
     }
@@ -79,7 +87,7 @@ public class ListVendor extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.vendor + "?pageNumber=" + pageNumber + "&pageSize=10");
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.searchVendor + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+                 response = JavaConnection.get(JavaRoute.searchVendor + searchValue);
             }
             
             if (response.isSuccessful()) {
@@ -204,11 +212,19 @@ public class ListVendor extends javax.swing.JDialog {
                                 Response response = JavaConnection.delete(JavaRoute.vendor + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
-                                    ListVendor list = new ListVendor(new JFrame(), true);
+                                    
+                                    dataCount = dataCount - 1;
+                                    int totalP = pageSize * Integer.valueOf(pageNumber);
+                                    if (dataCount == totalP) {
+                                         paginationPanel.resetPage(pageType, pageNumber);
+                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                         pageNumber = String.valueOf(_value);
+                                    }
+                                    
                                     listGetVendor.removeAll();
                                     listGetVendor.revalidate();
                                     listGetVendor.repaint();
-                                    list.getVendor(listGetVendor, true,pageNumber);
+                                    getVendor(listGetVendor, true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -264,21 +280,34 @@ public class ListVendor extends javax.swing.JDialog {
     //Action Search
     private void eventSearchVendor() {
         // this event was called when user type on searchTextField 
-        ButtonEvent events = new ButtonEvent() {
+        ButtonEvent event = new ButtonEvent() {
             @Override
             public void onKeyType() {
-                searchValue = searchField.getValueTextSearch();
-                
-                if (searchValue.isEmpty()) {
-                    isCheckSearch = true;
-                    pageNumber = "0";
-                    getVendor(listGetVendor,true,pageNumber);
-                    return;
-                }
-                getVendor(listGetVendor,false,pageNumber);
+                 TimerTask task = new TimerTask() {
+                      @Override
+                      public void run() {
+                           searchValue = searchField.getValueTextSearch();
+                           paginationPanel.resetPage();
+                           pageNumber = "0";
+
+                           if (searchValue.isEmpty()) {
+                                isCheckSearch = true;
+                                pageNumber = "0";
+                                getVendor(listGetVendor,false,pageNumber);
+                                return;
+                           }
+                           getVendor(listGetVendor,false,pageNumber);
+                      }
+                 };
+
+                 Timer timer = new Timer();
+                 timer.schedule(task, 500);
+
             }
         };
-        searchField.initEvent(events);
+        searchField.initEvent(event);
+        
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -464,6 +493,7 @@ public class ListVendor extends javax.swing.JDialog {
         AddVendor add = new AddVendor(new JFrame(), true);
         add.setPageNumber(pageNumber);
         add.setListGetVendor(listGetVendor);
+        add.setObj(this);
         add.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 

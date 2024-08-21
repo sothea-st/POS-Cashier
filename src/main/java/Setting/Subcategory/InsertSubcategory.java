@@ -15,9 +15,11 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import javax.swing.JOptionPane;
+import lombok.Getter;
 import lombok.Setter;
 
 @Setter
+@Getter
 public class InsertSubcategory extends javax.swing.JDialog {
 
      private String departmentId;
