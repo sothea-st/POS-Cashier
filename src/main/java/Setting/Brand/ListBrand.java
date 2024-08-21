@@ -37,6 +37,8 @@ public class ListBrand extends javax.swing.JDialog {
      private String pageNumber = "0";
      private int pageSize = 10;
      private boolean isCheckSearch = true;
+     private int dataCount = 0;
+     private String pageType;
      
      public ListBrand(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -69,6 +71,12 @@ public class ListBrand extends javax.swing.JDialog {
                          getBrand(listGetBrand, true, pageNumber);
                     }
                }
+               
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
           };
           paginationPanel.initEvent(event);
      }
@@ -81,7 +89,7 @@ public class ListBrand extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.brand + "?pageNumber=" + pageNumber + "&pageSize=10");
                } else { // isCheck false search
                     isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.searchBrand + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+                    response = JavaConnection.get(JavaRoute.searchBrand + searchValue);
                }
                
                if (response.isSuccessful()) {
@@ -201,11 +209,19 @@ public class ListBrand extends javax.swing.JDialog {
                                         Response response = JavaConnection.delete(JavaRoute.brand + "/" + listData.getId(), json);
                                         
                                         if (response.isSuccessful()) {
-                                             ListBrand list = new ListBrand(new JFrame(), true);
+                                            
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+                                             
                                              listGetBrand.removeAll();
                                              listGetBrand.revalidate();
                                              listGetBrand.repaint();
-                                             list.getBrand(listGetBrand, true,pageNumber);
+                                             getBrand(listGetBrand, true,pageNumber);
                                              System.out.println("Successful deleted ");
                                         }
                                    } else {
@@ -256,22 +272,33 @@ public class ListBrand extends javax.swing.JDialog {
 
      //Action Search
      private void eventSearchBrand() {
-          // this event was called when user type on searchTextField 
-          ButtonEvent events = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
-                    
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "0";
-                         getBrand(listGetBrand, true,pageNumber);
-                         return;
-                    }
-                    getBrand(listGetBrand, false,pageNumber);
-               }
-          };
-          searchField.initEvent(events);
+        // this event was called when user type on searchTextField 
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                 TimerTask task = new TimerTask() {
+                      @Override
+                      public void run() {
+                           searchValue = searchField.getValueTextSearch();
+                           paginationPanel.resetPage();
+                           pageNumber = "0";
+
+                           if (searchValue.isEmpty()) {
+                                isCheckSearch = true;
+                                pageNumber = "0";
+                                 getBrand(listGetBrand, true,pageNumber);
+                                return;
+                           }
+                           getBrand(listGetBrand, false,pageNumber);
+                      }
+                 };
+
+                 Timer timer = new Timer();
+                 timer.schedule(task, 500);
+
+            }
+        };
+        searchField.initEvent(event);
      }
      
      @SuppressWarnings("unchecked")
@@ -427,6 +454,7 @@ public class ListBrand extends javax.swing.JDialog {
          insert.setListGetBrand(listGetBrand);
          insert.setPaginationPanel(paginationPanel);
          insert.setPageNumber(pageNumber);
+         insert.setObj(this);
          insert.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
      

@@ -9,14 +9,20 @@ import java.math.BigDecimal;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
+
+@Setter
+@Getter
 
 public class AddTax extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetTax;
     private String pageNumber;
+    private ListTax obj;
     
     public AddTax(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -221,11 +227,10 @@ public class AddTax extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(this, reason);
                     }
                 }else{
-                    ListTax list = new ListTax(new JFrame(), true);
                     listGetTax.removeAll();
                     listGetTax.revalidate();
                     listGetTax.repaint();
-                    list.getTax(listGetTax,true,pageNumber);
+                    obj.getTax(listGetTax,true,pageNumber);
                     dispose();
                 }
             }

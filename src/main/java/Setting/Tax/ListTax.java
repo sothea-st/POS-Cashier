@@ -36,6 +36,8 @@ public class ListTax extends javax.swing.JDialog {
     private String pageNumber = "0";
     private int pageSize = 10;
     private boolean isCheckSearch = true;
+    private int dataCount = 0;
+    private String pageType;
     
     public ListTax(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -61,14 +63,20 @@ public class ListTax extends javax.swing.JDialog {
     
     private void eventPagination() {
         ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onMouseClick(String value) {
-                  if (isCheckSearch) {
-                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                       pageNumber = String.valueOf(_value);
-                       getTax(listGetTax,true,pageNumber);
-                  }
-             }
+            @Override
+            public void onMouseClick(String value) {
+                 if (isCheckSearch) {
+                      int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                      pageNumber = String.valueOf(_value);
+                      getTax(listGetTax,true,pageNumber);
+                 }
+            }
+             
+            // for pagination
+            @Override
+            public void onMouseClick(String value, String pType) {
+                 pageType = pType;
+            }
         };
         paginationPanel.initEvent(event);
     }
@@ -81,7 +89,7 @@ public class ListTax extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.tax + "?pageNumber=" + pageNumber + "&pageSize=10");
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.searchTax + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+                 response = JavaConnection.get(JavaRoute.searchTax + searchValue);
             }
             
             if (response.isSuccessful()) {
@@ -201,11 +209,19 @@ public class ListTax extends javax.swing.JDialog {
                                 Response response = JavaConnection.delete(JavaRoute.tax + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
-                                    ListTax list = new ListTax(new JFrame(), true);
+                                    
+                                    dataCount = dataCount - 1;
+                                    int totalP = pageSize * Integer.valueOf(pageNumber);
+                                    if (dataCount == totalP) {
+                                         paginationPanel.resetPage(pageType, pageNumber);
+                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                         pageNumber = String.valueOf(_value);
+                                    }
+                                    
                                     listGetTax.removeAll();
                                     listGetTax.revalidate();
                                     listGetTax.repaint();
-                                    list.getTax(listGetTax,true,pageNumber);
+                                    getTax(listGetTax,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -256,22 +272,34 @@ public class ListTax extends javax.swing.JDialog {
     
     //Action Search
     private void eventSearchtax() {
+        
         // this event was called when user type on searchTextField 
-        ButtonEvent events = new ButtonEvent() {
+        ButtonEvent event = new ButtonEvent() {
             @Override
             public void onKeyType() {
-                searchValue = searchField.getValueTextSearch();
-                
-                if (searchValue.isEmpty()) {
-                    isCheckSearch = true;
-                    pageNumber = "0";
-                    getTax(listGetTax,true,pageNumber);
-                    return;
-                }
-                getTax(listGetTax,false,pageNumber);
+                 TimerTask task = new TimerTask() {
+                      @Override
+                      public void run() {
+                           searchValue = searchField.getValueTextSearch();
+                           paginationPanel.resetPage();
+                           pageNumber = "0";
+
+                           if (searchValue.isEmpty()) {
+                                isCheckSearch = true;
+                                pageNumber = "0";
+                                getTax(listGetTax,true,pageNumber);
+                                return;
+                           }
+                           getTax(listGetTax,false,pageNumber);
+                      }
+                 };
+
+                 Timer timer = new Timer();
+                 timer.schedule(task, 500);
+
             }
         };
-        searchField.initEvent(events);
+        searchField.initEvent(event);
     }
 
     @SuppressWarnings("unchecked")
@@ -429,6 +457,7 @@ public class ListTax extends javax.swing.JDialog {
         AddTax add = new AddTax(new JFrame(), true);
         add.setPageNumber(pageNumber);
         add.setListGetTax(listGetTax);
+        add.setObj(this);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 

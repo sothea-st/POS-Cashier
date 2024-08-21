@@ -22,6 +22,7 @@ public class InsertBrand extends javax.swing.JDialog {
      private Integer id;
      private PaginationPanel paginationPanel;
      private String pageNumber;
+     private ListBrand obj;
 
      public InsertBrand(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -217,11 +218,10 @@ public class InsertBrand extends javax.swing.JDialog {
                             JOptionPane.showMessageDialog(this, reason);
                         }
                     }else{
-                        ListBrand list = new ListBrand(new JFrame(), true);
                         listGetBrand.removeAll();
                         listGetBrand.revalidate();
                         listGetBrand.repaint();
-                        list.getBrand(listGetBrand, true,pageNumber);
+                        obj.getBrand(listGetBrand, true,pageNumber);
                         dispose();
                     }
               }

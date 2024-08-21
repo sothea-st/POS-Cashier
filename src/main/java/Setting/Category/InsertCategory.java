@@ -31,6 +31,7 @@ public class InsertCategory extends javax.swing.JDialog {
      private JPanel category;
      private LoginFormJdailog jdLogin;
      private String pageNumber;
+     private Category obj;
 
      public InsertCategory(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -339,10 +340,18 @@ public class InsertCategory extends javax.swing.JDialog {
                    JOptionPane.showMessageDialog(this, "Category Name is required!");
                    return;
               }
-
+              
               JSONObject json = new JSONObject();
               json.put("catNameEn", categoryName);
-              json.put("catNameKh", categoryNameKh);
+              if (categoryNameKh == null) {
+                 json.put("catNameKh", categoryNameKh);
+              } else {
+                 if (categoryNameKh.isEmpty()) {
+                     json.put("catNameKh", JSONObject.NULL);
+                 } else {
+                     json.put("catNameKh", categoryNameKh);
+                 }
+              }
               json.put("parentId", departmentId);
 
               if (id != null) {
@@ -382,7 +391,7 @@ public class InsertCategory extends javax.swing.JDialog {
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
-                        list.getCategory(listGetCategory, code, true,pageNumber);
+                        obj.getCategory(listGetCategory, code, true,pageNumber);
                         dispose();
                    } else if (response.code() == 500) {
                         JOptionPane.showMessageDialog(this, "The Name is already used!");

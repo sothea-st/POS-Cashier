@@ -12,11 +12,13 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import lombok.Getter;
 import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 @Setter
+@Getter
 public class InsertDepartment extends javax.swing.JDialog {
 
     private String divisionId;
@@ -25,6 +27,7 @@ public class InsertDepartment extends javax.swing.JDialog {
     private Integer id;
     private Integer movePosition;
     private String pageNumber;
+    private Category obj;
     
     public InsertDepartment(java.awt.Frame parent, boolean modal, String codeType) {
         super(parent, modal);
@@ -255,11 +258,20 @@ public class InsertDepartment extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Department Name is required!");
                 return;
             }
-
+            
             JSONObject json = new JSONObject();
             json.put("catNameEn", categoryName);
-            json.put("catNameKh", categoryNameKh);
+            if (categoryNameKh == null) {
+                 json.put("catNameKh", categoryNameKh);
+            } else {
+                 if (categoryNameKh.isEmpty()) {
+                      json.put("catNameKh", JSONObject.NULL);
+                 } else {
+                      json.put("catNameKh", categoryNameKh);
+                 }
+            }
             json.put("parentId", divisionId);
+            
 
             if (id != null) {
                 
@@ -294,7 +306,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                     listGetCategory.removeAll();
                     listGetCategory.revalidate();
                     listGetCategory.repaint();
-                    list.getCategory(listGetCategory, code, true,pageNumber);
+                    obj.getCategory(listGetCategory, code, true,pageNumber);
                     dispose();
                 } else if (response.code() == 500) {
                     JOptionPane.showMessageDialog(this, "The Name is already used!");
