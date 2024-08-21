@@ -2,6 +2,7 @@ package com.example.pos.connection1.feature.country;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.pos.connection1.feature.country.dto.CountryRequest;
 import com.example.pos.connection1.feature.country.dto.CountryResponse;
@@ -9,6 +10,8 @@ import com.example.pos.connection1.feature.country.dto.CountryUpdateRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,11 +51,11 @@ public class CountryController {
         return countryService.read(pageSize, pageNumber);
     }
 
-    //delete country
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable("id") Integer id) {
-        countryService.deleteById(id);
-    }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{id}")
+	void deleteById(@PathVariable("id") Integer id) {
+		countryService.deleteById(id);
+	}
 
     //search country by country name
     @GetMapping("/searchCountry/{countryName}")

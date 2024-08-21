@@ -22,7 +22,7 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
 
     Optional<Country> findByUuid(String uuid);
 
-    Optional<Country> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+    Optional<Country> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
 
     // Query for search
     @Query(nativeQuery = true, value = "select\r\n" + //
