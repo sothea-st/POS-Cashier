@@ -17,6 +17,7 @@ import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 @Setter
 @Getter
 public class InsertCategory extends javax.swing.JDialog {
@@ -31,6 +32,7 @@ public class InsertCategory extends javax.swing.JDialog {
      private JPanel category;
      private LoginFormJdailog jdLogin;
      private String pageNumber;
+     private Category obj;
 
      public InsertCategory(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -358,7 +360,7 @@ public class InsertCategory extends javax.swing.JDialog {
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
-                        list.getCategory(listGetCategory, code, true,pageNumber);
+                        list.getCategory(listGetCategory, code, true, pageNumber);
                         dispose();
 
                    } else if (response.code() == 500) {
@@ -382,7 +384,7 @@ public class InsertCategory extends javax.swing.JDialog {
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
-                        list.getCategory(listGetCategory, code, true,pageNumber);
+                        obj.getCategory(listGetCategory, code, true, pageNumber);
                         dispose();
                    } else if (response.code() == 500) {
                         JOptionPane.showMessageDialog(this, "The Name is already used!");

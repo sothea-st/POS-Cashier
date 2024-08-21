@@ -103,6 +103,7 @@ public class JavaConstant {
      public static ProductDataModel[] listData;
      public static boolean isCheckProductAll = false;
      public static String categoryName = "new items";
+     public static int seconds = 500;
 
      public static boolean checkImageExists(String imageUrl) {
           try {

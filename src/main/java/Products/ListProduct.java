@@ -202,7 +202,7 @@ public class ListProduct extends javax.swing.JDialog {
                               response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
                          } else { // isCheck false search
                               isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
+                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue);
                          }
                     }
                     case 1 -> { // Active
@@ -210,7 +210,7 @@ public class ListProduct extends javax.swing.JDialog {
                               response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Active");
                          } else { // isCheck false search
                               isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Active");
+                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?status=Active");
                          }
                     }
                     case 2 -> { // Inactive
@@ -219,7 +219,7 @@ public class ListProduct extends javax.swing.JDialog {
 
                          } else { // isCheck false search
                               isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Inactive");
+                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?status=Inactive");
                          }
                     }
                     case 3 -> {
@@ -227,7 +227,7 @@ public class ListProduct extends javax.swing.JDialog {
                               response = JavaConnection.get(JavaRoute.productV1);
                          } else { // isCheck false search
                               isCheckSearch = false;
-                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50&status=Active");
+                              response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?&status=Active");
                          }
                     }
 
@@ -243,7 +243,7 @@ public class ListProduct extends javax.swing.JDialog {
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage(dataCount);
                     }
 
                     listData = data.getData();
@@ -509,7 +509,7 @@ public class ListProduct extends javax.swing.JDialog {
                     };
 
                     Timer timer = new Timer();
-                    timer.schedule(task, 500);
+                    timer.schedule(task, JavaConstant.seconds);
 
                }
           };

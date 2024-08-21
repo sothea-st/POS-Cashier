@@ -46,31 +46,27 @@ public class PaginationPanel extends javax.swing.JPanel {
           double result = (double) totalPage / pageSize;
           double roundedResult = Math.ceil(result);
           this.totalPage = (int) roundedResult;
-
           if (pageNumber != 1) {
+                         System.out.println("111111111111111111111");
+
                int _calPageSize = pageNumber * pageSize;
                showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
                if (_calPageSize > totalPage) {
-
-//                    pageNext.setForeground(Color.WHITE);
                     showPageSize.setText(String.valueOf(totalPage));
                } else {
-//                    pageNext.setForeground(Color.BLACK);
                     showPageSize.setText(String.valueOf(_calPageSize));
                }
                showTotal.setText(String.valueOf(totalPage));
           } else {
+                                        System.out.println("22222222222222222222");
+
                showPageNumber.setText(String.valueOf(1));
                showTotal.setText(String.valueOf(totalPage));
                if (pageSize > totalPage) {
-//                    System.out.println("dddddddddddd = dddddddddddddddddd1111");
                     showPageSize.setText(String.valueOf(totalPage));
                } else {
-//                    System.out.println("dddddddddddd = 111111111111111111111111");
-//                    pageNext.setForeground(Color.BLACK);
                     showPageSize.setText(String.valueOf(pageSize));
                }
-             
           }
 
           checkPageNumber();
@@ -149,17 +145,32 @@ public class PaginationPanel extends javax.swing.JPanel {
           pageFive.setText(String.valueOf(five));
      }
 
-     public void resetPage() {
+     public void resetPage(int dataCount) {
           page = "pageOne";
           pageNumber = 1;
           totalPage = 1;
+          System.out.println("totalPage dd : " + totalPage);
           setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
           setValueText(1, 2, 3, 4, 5);
           checkPageNumber();
+          showPageSize.setText(String.valueOf(dataCount));
+          showTotal.setText(String.valueOf(dataCount));
+     }
+     
+       public void resetPage() {
+          page = "pageOne";
+          pageNumber = 1;
+          totalPage = 1;
+          System.out.println("totalPage dd : " + totalPage);
+          setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
+          setValueText(1, 2, 3, 4, 5);
+          checkPageNumber();
+          showPageSize.setText("100");
+          showTotal.setText("222");
      }
 
      public void resetPage(String page, String pageNum) {
-          pageNumber = Integer.valueOf(pageNum);
+          pageNumber = Integer.parseInt(pageNum);
           switch (page) {
                case "pageOne" -> {
                     resetPage();

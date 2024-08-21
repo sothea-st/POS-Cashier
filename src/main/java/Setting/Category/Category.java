@@ -117,8 +117,8 @@ public class Category extends javax.swing.JDialog {
                     codeCategory = "subcategory";
                }
 
-               System.out.println("division : " + codeCategory);
-
+               this.pageNumber = pageNumber;
+              
                Response response = null;
                if (isCheck) { // isCheck true get items
                     response = JavaConnection.get(JavaRoute.getCategoryByCode + codeCategory + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
@@ -127,15 +127,15 @@ public class Category extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.searchCategory + codeType + "/search/" + searchValue);
                }
 
-               System.out.println("response : " + response);
-
+//               System.out.println("response dddddd : " + response);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     CategorySuccessModel data = objMap.readValue(responseData, CategorySuccessModel.class);
                     CategoryGetdataModel[] listData = data.getData();
 
-//                    dataCount = data.getCount();
+                    // code pagination
+                    dataCount = data.getCount();
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
@@ -219,6 +219,7 @@ public class Category extends javax.swing.JDialog {
                                         DetailCategoryModel listCategory = datas.getData();
                                         edit.setCategory(pCategory);
                                         edit.setJdLogin(jdLogin);
+                                        
                                         edit.setPageNumber(pageNumber);
 
                                         edit.setId(listCategory.getId());
@@ -243,6 +244,7 @@ public class Category extends javax.swing.JDialog {
                                         ObjectMapper objMap = new ObjectMapper();
                                         DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
                                         DetailCategoryModel listCategory = datas.getData();
+                                      
                                         edit.setPageNumber(pageNumber);
 
                                         edit.setId(listCategory.getId());
@@ -345,39 +347,50 @@ public class Category extends javax.swing.JDialog {
                                    if (resp == JOptionPane.YES_OPTION) {
                                         JSONObject json = new JSONObject();
                                         Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
+                                        System.out.println("bug delete : " + response);
+                                        try {
+                                             String responseData = response.body().string();
 
-                                        if (response.isSuccessful()) {
-//                                             Category list = new Category(new JFrame(), true, codeType);
-                                             switch (codeType) {
-                                                  case "division" -> {
-                                                       pCategory.removeAll();
-                                                       pCategory.revalidate();
-                                                       pCategory.repaint();
-                                                       jdLogin.category();
-                                                       getCategory(listGetCategory, codeType, true, pageNumber);
-                                                       break;
+                                             JSONObject jsonObject = new JSONObject(responseData);
+                                             if (jsonObject.has("error")) {
+                                                  JSONObject object = jsonObject.getJSONObject("error");
+                                                  String reason = object.getString("reason");
+                                                  JOptionPane.showMessageDialog(null, reason);
+                                                  return;
+                                             }
+
+                                             if (response.isSuccessful()) {
+                                                  switch (codeType) {
+                                                       case "division" -> {
+                                                            pCategory.removeAll();
+                                                            pCategory.revalidate();
+                                                            pCategory.repaint();
+                                                            jdLogin.category();
+                                                            break;
+                                                       }
                                                   }
+
+                                                  
+                                                  
+                                                  // delete for pagination
+                                                  dataCount = dataCount - 1;
+                                                  int totalP = pageSize * Integer.parseInt(pageNumber);
+                                                  if (dataCount == totalP) {
+                                                       paginationPanel.resetPage(pageType, pageNumber);
+                                                       int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                       pageNumber = String.valueOf(_value);
+                                                  }
+                                                  
+                                                  // end delete for pagination
+                                                  getCategory(listGetCategory, codeType, true, pageNumber);
+
+                                             } else if (response.code() == 404) {
+                                                  JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
                                              }
-
-                                             // delete for pagination
-                                             dataCount = dataCount - 1;
-                                             int totalP = pageSize * Integer.valueOf(pageNumber);
-                                             if (dataCount == totalP) {
-                                                  paginationPanel.resetPage(pageType, pageNumber);
-                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
-                                                  pageNumber = String.valueOf(_value);
-                                             }
-                                             // end delete for pagination
-
-                                             listGetCategory.removeAll();
-                                             listGetCategory.revalidate();
-                                             listGetCategory.repaint();
-//                                             list.getCategory(listGetCategory, codeType, true);
-                                             getCategory(listGetCategory, codeType, true, pageNumber);
-
-                                        } else if (response.code() == 404) {
-                                             JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
+                                        } catch (Exception e) {
+                                             System.err.println("error : " + e);
                                         }
+
                                    } else {
                                         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                                    }
@@ -632,14 +645,20 @@ public class Category extends javax.swing.JDialog {
          } else if (code.equals("department")) {
               InsertDepartment addDepartment = new InsertDepartment(new JFrame(), true, code);
               addDepartment.setListGetCategory(listGetCategory);
+              addDepartment.setPageNumber(pageNumber);
+              addDepartment.setObj(this);
               addDepartment.setVisible(true);
          } else if (code.equals("category")) {
               InsertCategory addCategory = new InsertCategory(new JFrame(), true, code);
               addCategory.setListGetCategory(listGetCategory);
+              addCategory.setPageNumber(pageNumber);
+              addCategory.setObj(this);
               addCategory.setVisible(true);
          } else {
               InsertSubcategory addSubCategory = new InsertSubcategory(new JFrame(), true, code);
               addSubCategory.setListGetCategory(listGetCategory);
+              addSubCategory.setPageNumber(pageNumber);
+              addSubCategory.setObj(this);
               addSubCategory.setVisible(true);
          }
     }//GEN-LAST:event_btnAddMouseClicked
