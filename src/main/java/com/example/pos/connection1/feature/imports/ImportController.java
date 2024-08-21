@@ -91,8 +91,8 @@ public class ImportController {
 
      @GetMapping("/filter/{value}")
      public JavaCollectionResponse<?> filter(
-               @RequestParam(name = "pageNumber", defaultValue = "0", required = false) int pageNumber,
-               @RequestParam(name = "pageSize", defaultValue = "10", required = false) int pageSize,
+               @RequestParam(name = "pageNumber",   required = false) Integer pageNumber,
+               @RequestParam(name = "pageSize",   required = false) Integer pageSize,
                @PathVariable("value") String value,
                @RequestParam(name = "remark", required = false) String remark) { 
           return importService.filter(pageNumber, pageSize, value,remark);

@@ -64,7 +64,7 @@ public interface ImportService {
       * @param pageSize   The number of items per page.
       * @return A {@link JavaCollectionResponse} containing imported data.
       */
-      JavaCollectionResponse<?> filter(int pageNumber, int pageSize, String value, String remark);
+      JavaCollectionResponse<?> filter(Integer pageNumber, Integer pageSize, String value, String remark);
 
       void checkingRequest(CheckingRequest checkingRequest , String poId);
 }

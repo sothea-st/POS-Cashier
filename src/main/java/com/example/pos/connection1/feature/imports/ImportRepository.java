@@ -19,7 +19,10 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      List<ReportImportProjection> getReport(LocalDate dateFrom, LocalDate dateTo);
      Page<Import> findByStatusTrueAndIsDeletedFalseAndRemark(PageRequest pageRequest,String remark);
 
+
+
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
+     List<Import> findByStatusTrueAndIsDeletedFalse();
 
      Optional<Import> findByIdAndStatusTrueAndIsDeletedFalse(int id);
      Page<Import> findByDateLocalBetween(LocalDate dateFrom, LocalDate dateTo , PageRequest pageRequest);
