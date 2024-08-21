@@ -26,10 +26,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();
         Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
         Page<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
+        List<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(String name);
         Page<Product> findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name,Status status);
+        List<Product> findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(String name,Status status);
         Page<Product> findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
 
+        List<Product> findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(String name);
+
         Page<Product> findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name, Status status);
+        List<Product> findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(String name, Status status);
 
         boolean existsByBarcodeAndStatusIsTrueAndIsDeletedIsFalse(String barcode);
         boolean existsByProNameEnAndStatusIsTrueAndIsDeletedIsFalse(String proNameEn);

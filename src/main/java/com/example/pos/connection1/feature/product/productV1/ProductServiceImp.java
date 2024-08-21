@@ -79,35 +79,54 @@ public class ProductServiceImp implements ProductService {
 
 
     @Override
-    public JavaCollectionResponse<?> searchByStatus(Integer pageNumber, Integer pageSize, String value , String status) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+    public JavaCollectionResponse<?> searchByStatus(Integer pageNumber, Integer pageSize, String value, String status) {
+
         Page<Product> products = null;
         boolean isCheck = JavaConstant.onlyDigits(value, value.length());
         Status status1 = statusRepository.findByStatusName(status)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND , "Status not found with statusName : " + status));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with statusName : " + status));
 
-        if (isCheck) {
-            products = productRepository
-                    .findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value ,status1);
+        if (pageNumber != null && pageSize != null) {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            if (isCheck) {
+                products = productRepository
+                        .findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value, status1);
+            } else {
+                products = productRepository
+                        .findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value, status1);
+            }
         } else {
-            products = productRepository
-                    .findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(pageRequest, value,status1);
+            List<Product> lists = new ArrayList<>();
+            if (isCheck) {
+                lists = productRepository
+                        .findByBarcodeIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(value, status1);
+            } else {
+                lists = productRepository
+                        .findByProNameEnIgnoreCaseContainingAndProductActiveAndStatusTrueAndIsDeletedFalse(value, status1);
+            }
+
+            List<ProductResponse> data = lists.stream()
+                    .map(p -> {
+                        Integer qty = repoImp.getQty(p.getId());
+                        return mapToProductResponse(p, qty);
+                    })
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(data.size())
+                    .data(data)
+                    .build();
         }
 
 
-
         List<ProductResponse> data = products.getContent().stream()
-                .map(p->{
+                .map(p -> {
                     Integer qty = repoImp.getQty(p.getId());
-                    return mapToProductResponse(p,qty);
+                    return mapToProductResponse(p, qty);
                 })
                 .toList();
 
-        // old
-//        List<ProductResponse> data = products.getContent().stream()
-//                .map(productMapper::mapToProductResponse)
-//                .toList();
+
         return JavaCollectionResponse.builder()
                 .count(products.getTotalElements())
                 .data(data)
@@ -115,7 +134,7 @@ public class ProductServiceImp implements ProductService {
     }
 
 
-    private ProductResponse mapToProductResponse(Product p ,Integer qty){
+    private ProductResponse mapToProductResponse(Product p, Integer qty) {
         return ProductResponse.builder()
                 .id(p.getId())
                 .subCatNameEn(p.getSubCategory().getCatNameEn())
@@ -135,7 +154,7 @@ public class ProductServiceImp implements ProductService {
                 .countryImageName(p.getCountry().getUuid())
                 .choices(p.getChoices())
                 .proImageName(p.getProImageName())
-                .qty(qty==null ? 0 : qty)
+                .qty(qty == null ? 0 : qty)
                 .itemCode(p.getItemCode())
                 .vendorCode(p.getVendor().getVendorCode())
                 .build();
@@ -229,23 +248,48 @@ public class ProductServiceImp implements ProductService {
      */
     @Override
     public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String value) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+
         Page<Product> products = null;
         boolean isCheck = JavaConstant.onlyDigits(value, value.length());
-        if (isCheck) {
-            products = productRepository
-                    .findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+
+        if (pageNumber != null && pageSize != null) {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            if (isCheck) {
+                products = productRepository
+                        .findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+            } else {
+                products = productRepository
+                        .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+            }
+
         } else {
-            products = productRepository
-                    .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(pageRequest, value);
+            List<Product> listProducts = new ArrayList<>();
+            if (isCheck) {
+                listProducts = productRepository
+                        .findByBarcodeIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(value);
+            } else {
+                listProducts = productRepository
+                        .findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(value);
+            }
+
+            List<ProductResponse> data = listProducts.stream()
+                    .map(p -> {
+                        Integer qty = repoImp.getQty(p.getId());
+                        return mapToProductResponse(p, qty);
+                    })
+                    .toList();
+            return JavaCollectionResponse.builder()
+                    .count(listProducts.size())
+                    .data(data)
+                    .build();
         }
 
 
         List<ProductResponse> data = products.getContent().stream()
-                .map(p->{
+                .map(p -> {
                     Integer qty = repoImp.getQty(p.getId());
-                    return mapToProductResponse(p,qty);
+                    return mapToProductResponse(p, qty);
                 })
                 .toList();
 
@@ -378,7 +422,7 @@ public class ProductServiceImp implements ProductService {
         }
     }
 
-    private ProductResponse mapToProductResponse(Product p){
+    private ProductResponse mapToProductResponse(Product p) {
         Integer qty = repoImp.sumQtyByProId(p.getId());
         if (qty == null) qty = 0;
         return ProductResponse.builder()
