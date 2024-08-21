@@ -28,6 +28,7 @@ public class InsertDivision extends javax.swing.JDialog {
      private JPanel category;
      private LoginFormJdailog jdLogin;
      private Category obj;
+     private String pageNumber;
 
      public InsertDivision(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -183,17 +184,28 @@ public class InsertDivision extends javax.swing.JDialog {
                    JOptionPane.showMessageDialog(this, "Division Name is required!");
                    return;
               }
-
+              
+              
+              System.out.println("ddddddddddd divisionNamekh : " + divisionNamekh);
+              
               JSONObject json = new JSONObject();
               json.put("catNameEn", divisionNameEn);
-              json.put("catNameKh", divisionNamekh);
+              if (divisionNamekh == null) {
+                   json.put("catNameKh", divisionNamekh);
+              } else {
+                   if (divisionNamekh.isEmpty()) {
+                        json.put("catNameKh", JSONObject.NULL);
+                   } else {
+                        json.put("catNameKh", divisionNamekh);
+                   }
+              }
 
               if (id != null) {
                    json.put("parentId", parentId);
                    json.put("movePosition", movePosition);
-
+                   System.err.println("respone Josn : " + json);
                    Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
-
+                   System.err.println("response   : " + response);
                    if (response.isSuccessful()) {
                         Category list = new Category(new JFrame(), true, code);
                         list.setPCategory(category);
@@ -201,7 +213,7 @@ public class InsertDivision extends javax.swing.JDialog {
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
-                        list.getCategory(listGetCategory, code, true);
+                        list.getCategory(listGetCategory, code, true, pageNumber);
                         dispose();
 
                    } else if (response.code() == 500) {
@@ -215,16 +227,18 @@ public class InsertDivision extends javax.swing.JDialog {
                    json.put("createBy", JavaConstant.cashierId);
                    json.put("code", "division");
 
+                   System.err.println("json reponse : " + json);
+
                    Response response = JavaConnection.post(JavaRoute.addCategory, json);
                    System.out.println("response : " + response);
                    if (response.isSuccessful()) {
-//                        Category list = new Category(new JFrame(), true, code);
-//                        list.setPCategory(category);
-//                        list.setJdLogin(jdLogin);
-//                        listGetCategory.removeAll();
-//                        listGetCategory.revalidate();
-//                        listGetCategory.repaint();
-                        obj.getCategory(listGetCategory, code, true);
+                        Category list = new Category(new JFrame(), true, code);
+                        list.setPCategory(category);
+                        list.setJdLogin(jdLogin);
+                        listGetCategory.removeAll();
+                        listGetCategory.revalidate();
+                        listGetCategory.repaint();
+                        obj.getCategory(listGetCategory, code, true, pageNumber);
 
                         dispose();
                    } else if (response.code() == 500) {

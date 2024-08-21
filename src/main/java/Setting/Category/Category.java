@@ -65,7 +65,7 @@ public class Category extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
-          getCategory(listGetCategory, codeType, true);
+          getCategory(listGetCategory, codeType, true, pageNumber);
 
           if (codeType.equals("division")) {
                JavaConstant.addTitleAndLogo(this, "Division");
@@ -88,7 +88,7 @@ public class Category extends javax.swing.JDialog {
                     if (isCheckSearch) {
                          int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                          pageNumber = String.valueOf(_value);
-                         getCategory(listGetCategory, codeType, true);
+                         getCategory(listGetCategory, codeType, true, pageNumber);
                     }
                }
 
@@ -102,7 +102,7 @@ public class Category extends javax.swing.JDialog {
           paginationPanel.initEvent(event);
      }
 
-     public void getCategory(JPanel jpanelData, String codeType, boolean isCheck) {
+     public void getCategory(JPanel jpanelData, String codeType, boolean isCheck, String pageNumber) {
           try {
 
                String codeCategory = "";
@@ -135,7 +135,7 @@ public class Category extends javax.swing.JDialog {
                     CategorySuccessModel data = objMap.readValue(responseData, CategorySuccessModel.class);
                     CategoryGetdataModel[] listData = data.getData();
 
-                    dataCount = data.getCount();
+//                    dataCount = data.getCount();
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
@@ -219,6 +219,8 @@ public class Category extends javax.swing.JDialog {
                                         DetailCategoryModel listCategory = datas.getData();
                                         edit.setCategory(pCategory);
                                         edit.setJdLogin(jdLogin);
+                                        edit.setPageNumber(pageNumber);
+
                                         edit.setId(listCategory.getId());
                                         edit.setMovePosition(listCategory.getMovePosition());
                                         edit.setParentId(listCategory.getParentId());
@@ -241,6 +243,7 @@ public class Category extends javax.swing.JDialog {
                                         ObjectMapper objMap = new ObjectMapper();
                                         DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
                                         DetailCategoryModel listCategory = datas.getData();
+                                        edit.setPageNumber(pageNumber);
 
                                         edit.setId(listCategory.getId());
                                         edit.setMovePosition(listCategory.getMovePosition());
@@ -265,7 +268,7 @@ public class Category extends javax.swing.JDialog {
                                         ObjectMapper objMap = new ObjectMapper();
                                         DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
                                         DetailCategoryModel listCategory = datas.getData();
-
+                                        edit.setPageNumber(pageNumber);
                                         edit.setId(listCategory.getId());
                                         edit.setMovePosition(listCategory.getMovePosition());
                                         edit.setListGetCategory(listGetCategory);
@@ -297,7 +300,7 @@ public class Category extends javax.swing.JDialog {
                                         ObjectMapper objMap = new ObjectMapper();
                                         DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
                                         DetailCategoryModel listCategory = datas.getData();
-
+                                        edit.setPageNumber(pageNumber);
                                         edit.setId(listCategory.getId());
                                         edit.setMovePosition(listCategory.getMovePosition());
                                         edit.setListGetCategory(listGetCategory);
@@ -351,11 +354,11 @@ public class Category extends javax.swing.JDialog {
                                                        pCategory.revalidate();
                                                        pCategory.repaint();
                                                        jdLogin.category();
-                                                       getCategory(listGetCategory, codeType, true);
+                                                       getCategory(listGetCategory, codeType, true, pageNumber);
                                                        break;
                                                   }
                                              }
-                                             
+
                                              // delete for pagination
                                              dataCount = dataCount - 1;
                                              int totalP = pageSize * Integer.valueOf(pageNumber);
@@ -365,13 +368,12 @@ public class Category extends javax.swing.JDialog {
                                                   pageNumber = String.valueOf(_value);
                                              }
                                              // end delete for pagination
-                                             
-                                             
+
                                              listGetCategory.removeAll();
                                              listGetCategory.revalidate();
                                              listGetCategory.repaint();
 //                                             list.getCategory(listGetCategory, codeType, true);
-                                             getCategory(listGetCategory, codeType, true);
+                                             getCategory(listGetCategory, codeType, true, pageNumber);
 
                                         } else if (response.code() == 404) {
                                              JOptionPane.showMessageDialog(null, "Cannot delete this beacause it is currently using.");
@@ -434,10 +436,10 @@ public class Category extends javax.swing.JDialog {
                     if (searchValue.isEmpty()) {
                          isCheckSearch = true;
                          pageNumber = "0";
-                         getCategory(listGetCategory, codeType, true);
+                         getCategory(listGetCategory, codeType, true, pageNumber);
                          return;
                     }
-                    getCategory(listGetCategory, codeType, false);
+                    getCategory(listGetCategory, codeType, false, pageNumber);
                }
           };
           searchField.initEvent(events);
@@ -624,6 +626,7 @@ public class Category extends javax.swing.JDialog {
               addDivision.setCategory(pCategory);
               addDivision.setJdLogin(jdLogin);
               addDivision.setObj(this);
+              addDivision.setPageNumber(pageNumber);
               addDivision.setVisible(true);
 
          } else if (code.equals("department")) {

@@ -30,7 +30,7 @@ public class InsertCategory extends javax.swing.JDialog {
      private Integer parentId;
      private JPanel category;
      private LoginFormJdailog jdLogin;
-     private Category obj;
+     private String pageNumber;
 
      public InsertCategory(java.awt.Frame parent, boolean modal, String codeType) {
           super(parent, modal);
@@ -358,7 +358,7 @@ public class InsertCategory extends javax.swing.JDialog {
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
-                        list.getCategory(listGetCategory, code, true);
+                        list.getCategory(listGetCategory, code, true,pageNumber);
                         dispose();
 
                    } else if (response.code() == 500) {
@@ -378,7 +378,11 @@ public class InsertCategory extends javax.swing.JDialog {
                    System.out.println("json : " + json);
 
                    if (response.isSuccessful()) {
-                        obj.getCategory(listGetCategory, code, true);
+                        Category list = new Category(new JFrame(), true, code);
+                        listGetCategory.removeAll();
+                        listGetCategory.revalidate();
+                        listGetCategory.repaint();
+                        list.getCategory(listGetCategory, code, true,pageNumber);
                         dispose();
                    } else if (response.code() == 500) {
                         JOptionPane.showMessageDialog(this, "The Name is already used!");
