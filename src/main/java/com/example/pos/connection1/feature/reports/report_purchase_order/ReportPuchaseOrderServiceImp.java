@@ -35,6 +35,9 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
     @Override
     public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer requestId, Integer checkId, Integer approvedId, Integer rejectId, String remark, String search) {
         validationDate(dateFrom, dateTo);
+
+        System.out.println("gggggggggggggggggddddddddddddddddddddddddddddddddddddddgg");
+
         boolean check1 = requestId != null && checkId != null && approvedId != null && remark != null && rejectId == null;
         boolean check2 = requestId != null && checkId != null && approvedId != null && remark == null && rejectId == null;
         boolean check3 = requestId != null && checkId != null && remark != null && approvedId == null && rejectId == null;
@@ -154,14 +157,14 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 String requestBy = null;
                 User user = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCreateBy())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "User not found with id : " + data.getCheckBy()));
+                                "User not found with id : " + data.getCreateBy()));
                 requestBy = user.getFullName();
 
                 String checkBy = null;
                 if (data.getCheckBy() != null) {
                     User user1 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCheckBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "User not found with id : " + data.getCheckBy()));
+                                    "checkBy not found with id : " + data.getCheckBy()));
                     checkBy = user1.getFullName();
                 }
 
@@ -169,7 +172,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 if (data.getApproveBy() != null) {
                     User user2 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getApproveBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "User not found with id id : " + data.getCheckBy()));
+                                    "approvedBy not found with id id : " + data.getApproveBy()));
                     approvedBy = user2.getFullName();
                 }
 
@@ -177,7 +180,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 if (data.getRejectBy() != null) {
                     User user3 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getRejectBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "User not found with id id : " + data.getCheckBy()));
+                                    "rejectBy not found with id id : " + data.getRejectBy()));
                     rejectBy = user3.getFullName();
                 }
 
@@ -248,6 +251,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
     @Override
     public JavaCollectionResponse<?> getReportByRemark(Integer pageNumber, Integer pageSize, String dateFrom,
                                                        String dateTo, Integer requestId, Integer checkId, Integer approvedId, Integer rejectId, String remark) {
+
 
         validationDate(dateFrom, dateTo);
 
@@ -399,14 +403,14 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 String requestBy = null;
                 User user = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCreateBy())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                "User not found with id : " + data.getCheckBy()));
+                                "User not found with id : " + data.getCreateBy()));
                 requestBy = user.getFullName();
 
                 String checkBy = null;
                 if (data.getCheckBy() != null) {
                     User user1 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getCheckBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "User not found with id : " + data.getCheckBy()));
+                                    "checkBy not found with id : " + data.getCheckBy()));
                     checkBy = user1.getFullName();
                 }
 
@@ -414,7 +418,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 if (data.getApproveBy() != null) {
                     User user2 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getApproveBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "User not found with id id : " + data.getCheckBy()));
+                                    "approvedBy not found with id id : " + data.getApproveBy()));
                     approvedBy = user2.getFullName();
                 }
 
@@ -422,7 +426,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 if (data.getRejectBy() != null) {
                     User user3 = userRepository.findByIdAndStatusTrueAndIsDeletedFalse(data.getRejectBy())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "User not found with id id : " + data.getCheckBy()));
+                                    "rejectBy not found with id id : " + data.getRejectBy()));
                     rejectBy = user3.getFullName();
                 }
 

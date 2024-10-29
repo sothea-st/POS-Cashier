@@ -1,6 +1,7 @@
 package com.example.pos.connection1.feature.employee;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 
-public class EmployeeServiceImp implements EmployeeService{
-    
+public class EmployeeServiceImp implements EmployeeService {
+
     private final EmployeeRepository employeeRepository;
     private String idNotFound = "Id has not been found .";
 
@@ -55,33 +56,33 @@ public class EmployeeServiceImp implements EmployeeService{
     @Override
     public EmployeeResponse readById(Integer id) {
         Employee employee = employeeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
-                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
         return mEmployeeResponse(employee);
     }
 
     @Override
     public JavaCollectionResponse<?> read(int pageSize, int pageNumber) {
         Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
         Page<Employee> pages = employeeRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
         List<EmployeeResponse> content = pages.getContent()
-                                        .stream()
-                                        .map(this::mEmployeeResponse)
-                                        .toList();
+                .stream()
+                .map(this::mEmployeeResponse)
+                .toList();
 
         return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
-                    .data(content)
-                    .build();
+                .count(pages.getTotalElements())
+                .data(content)
+                .build();
     }
-    
+
 
     @Override
     public EmployeeResponse create(Employee e, MultipartFile file) throws IOException {
         // var createdBy = session.getAttribute(JavaConstant.userId);
         Optional<Employee> isExistContact = employeeRepository.checkPhoneNumber(e.getContact());
-        JavaValidation.phoneAlreadyExist(isExistContact.isEmpty()  ? false : true);
+        JavaValidation.phoneAlreadyExist(isExistContact.isEmpty() ? false : true);
 
         Employee emp = new Employee();
         emp.setNameKh(e.getNameKh());
@@ -181,7 +182,7 @@ public class EmployeeServiceImp implements EmployeeService{
     @Override
     public void deleteById(Integer id) {
         Employee employee = employeeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, idNotFound));
 
         employee.setStatus(false);
         employee.setDeleted(true);
@@ -195,88 +196,130 @@ public class EmployeeServiceImp implements EmployeeService{
     }
 
     @Override
-    public JavaCollectionResponse<?> searchEmployee(int pageSize, int pageNumber, String searchValue) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
-        Page<Employee> pages = employeeRepository.searchByNameEn(pageRequest,searchValue);
+    public JavaCollectionResponse<?> searchEmployee(Integer pageSize, Integer pageNumber, String searchValue) {
 
-        List<EmployeeResponse> content = pages.getContent()
-                                        .stream()
-                                        .map(this::mEmployeeResponse)
-                                        .toList();
+        System.out.println("pageNume : " + pageNumber +  "pageSize : " + pageSize );
 
-        return JavaCollectionResponse.builder()
+        if (pageNumber != null && pageSize != null) {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<Employee> pages = employeeRepository.searchByNameEn(pageRequest, searchValue);
+
+            List<EmployeeResponse> content = pages.getContent()
+                    .stream()
+                    .map(this::mEmployeeResponse)
+                    .toList();
+
+            return JavaCollectionResponse.builder()
                     .count(pages.getTotalElements())
                     .data(content)
                     .build();
+        }
+
+
+        List<Employee> pages = employeeRepository.searchByNameEn(searchValue);
+
+        List<EmployeeResponse> content = pages
+                .stream()
+                .map(this::mEmployeeResponse)
+                .toList();
+
+        return JavaCollectionResponse.builder()
+                .count(pages.size())
+                .data(content)
+                .build();
     }
 
     public byte[] getImageEmployee(String id) {
         Optional<FileStore> data = fileStore.findById(id);
         return data.get().getData();
     }
-   
-    private EmployeeResponse mEmployeeResponse(Employee employee){
+
+    private EmployeeResponse mEmployeeResponse(Employee employee) {
         return EmployeeResponse.builder()
-                            .id(employee.getId())
-                            .nameKh(employee.getNameKh())
-                            .nameEn(employee.getNameEn())
-                            .gender(employee.getGender())
-                            .dob(employee.getDob())
-                            .startDate(employee.getStartDate())
-                            .imageName(employee.getImageName())
-                            .contact(employee.getContact())
-                            .roleId(employee.getRoleId().getId())
-                            .address(employee.getAddress())
-                            .roleName(employee.getRoleId().getRoleName())
-                            .createBy(employee.getCreateBy())
-                            .createDate(employee.getCreateDate())
-                            .status(employee.isStatus())
-                            .deleted(employee.isDeleted())
-                            .build();
+                .id(employee.getId())
+                .nameKh(employee.getNameKh())
+                .nameEn(employee.getNameEn())
+                .gender(employee.getGender())
+                .dob(employee.getDob())
+                .startDate(employee.getStartDate())
+                .imageName(employee.getImageName())
+                .contact(employee.getContact())
+                .roleId(employee.getRoleId().getId())
+                .address(employee.getAddress())
+                .roleName(employee.getRoleId().getRoleName())
+                .createBy(employee.getCreateBy())
+                .createDate(employee.getCreateDate())
+                .status(employee.isStatus())
+                .deleted(employee.isDeleted())
+                .build();
     }
 
     @Override
     public JavaCollectionResponse<?> readUserAcccount(int pageSize, int pageNumber) {
         Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
         Page<User> pages = userRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
+        System.out.println("hhhhhhhhhhhhhhhhhh = " + pages);
+
+
         List<UerAccountResponse> content = pages.getContent()
-                                        .stream()
-                                        .map(c -> mUerAccountResponse(c))
-                                        .toList();
+                .stream()
+                .map(this::mUerAccountResponse)
+                .toList();
 
         return JavaCollectionResponse.builder()
-                    .count(pages.getTotalElements())
-                    .data(content)
-                    .build();
+                .count(pages.getTotalElements())
+                .data(content)
+                .build();
+
     }
 
     @Override
-    public JavaCollectionResponse<?> searchUserAcccount(int pageSize, int pageNumber, String searchValue) {
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize,sortById);
-        Page<User> pages = userRepository.searchByFullName(pageRequest,searchValue);
+    public JavaCollectionResponse<?> searchUserAcccount(Integer pageSize, Integer pageNumber, String searchValue) {
 
-        List<UerAccountResponse> content = pages.getContent()
-                                        .stream()
-                                        .map(c -> mUerAccountResponse(c))
-                                        .toList();
+        if( pageNumber != null && pageSize != null ) {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<User> pages = userRepository.searchByFullName(pageRequest, searchValue);
 
-        return JavaCollectionResponse.builder()
+            List<UerAccountResponse> content = pages.getContent()
+                    .stream()
+                    .sorted(Comparator.comparing(User::getId).reversed())
+                    .map(this::mUerAccountResponse)
+                    .toList();
+
+            return JavaCollectionResponse.builder()
                     .count(pages.getTotalElements())
                     .data(content)
                     .build();
+        }
+
+
+        List<User> pages = userRepository.searchByFullName(searchValue);
+
+        List<UerAccountResponse> content = pages
+                .stream()
+                .sorted(Comparator.comparing(User::getId).reversed())
+                .map(this::mUerAccountResponse)
+                .toList();
+
+        return JavaCollectionResponse.builder()
+                .count(pages.size())
+                .data(content)
+                .build();
+
+
     }
 
-    private UerAccountResponse mUerAccountResponse(User user){
+    private UerAccountResponse mUerAccountResponse(User user) {
         return UerAccountResponse.builder()
-                            .id(user.getId())
-                            .fullName(user.getFullName())
-                            .userCode(user.getUserCode())
-                            .empId(user.getEmpId())
-                            .build();
+                .id(user.getId())
+                .fullName(user.getFullName())
+                .userCode(user.getUserCode())
+                .empId(user.getEmpId())
+                .build();
     }
 
 }

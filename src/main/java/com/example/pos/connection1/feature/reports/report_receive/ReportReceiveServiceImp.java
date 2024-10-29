@@ -30,13 +30,44 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
     @Override
     public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer receiveBy, String value) {
         validationDate(dateFrom, dateTo);
-        Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-        if (receiveBy == null) {
-            Page<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(
+
+
+        if (pageNumber != null && pageSize != null) {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            if (receiveBy == null) {
+                Page<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        value,
+                        pageRequest
+                );
+
+                return JavaCollectionResponse.builder()
+                        .data(pages.getContent().stream()
+                                .map(d -> {
+                                    String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
+                                    return ReportReceiveResponse.builder()
+                                            .vendorName(d.getVendor().getVendorName())
+                                            .transactionNo(d.getTransactionNo())
+                                            .referenceNo(d.getReferenceNo())
+                                            .transactionDate(d.getImpDate())
+                                            .receiveBy(receiveByName)
+                                            .totalQty(d.getTotalQty())
+                                            .totalCost(d.getTotal())
+                                            .remark(d.getRemark())
+                                            .build();
+                                })
+                        )
+                        .count(pages.getTotalElements())
+                        .build();
+            }
+
+            Page<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(
                     LocalDate.parse(dateFrom),
                     LocalDate.parse(dateTo),
                     value,
+                    receiveBy,
                     pageRequest
             );
 
@@ -58,18 +89,46 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                     )
                     .count(pages.getTotalElements())
                     .build();
+
         }
 
-        Page<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(
+        // in case pageNumber == null && pageSize == null
+        if (receiveBy == null) {
+            List<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(
+                    LocalDate.parse(dateFrom),
+                    LocalDate.parse(dateTo),
+                    value
+            );
+
+            return JavaCollectionResponse.builder()
+                    .data(pages.stream()
+                            .map(d -> {
+                                String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
+                                return ReportReceiveResponse.builder()
+                                        .vendorName(d.getVendor().getVendorName())
+                                        .transactionNo(d.getTransactionNo())
+                                        .referenceNo(d.getReferenceNo())
+                                        .transactionDate(d.getImpDate())
+                                        .receiveBy(receiveByName)
+                                        .totalQty(d.getTotalQty())
+                                        .totalCost(d.getTotal())
+                                        .remark(d.getRemark())
+                                        .build();
+                            })
+                    )
+                    .count(pages.size())
+                    .build();
+        }
+
+        List<Import> pages = importRepository.findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(
                 LocalDate.parse(dateFrom),
                 LocalDate.parse(dateTo),
                 value,
-                receiveBy,
-                pageRequest
+                receiveBy
         );
 
         return JavaCollectionResponse.builder()
-                .data(pages.getContent().stream()
+                .data(pages.stream()
                         .map(d -> {
                             String receiveByName = d.getReceiveBy() != null ? userRepository.getNameEmp(d.getReceiveBy()) : null;
                             return ReportReceiveResponse.builder()
@@ -84,7 +143,7 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
                                     .build();
                         })
                 )
-                .count(pages.getTotalElements())
+                .count(pages.size())
                 .build();
 
     }
@@ -97,12 +156,12 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
         List<ReportReceiveResponse> data = new ArrayList<>();
         long totalCount = 0;
         if (pageNumber != null && pageSize != null) {
-            Sort sortById = Sort.by(Sort.Direction.DESC, "id","createDate");
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id", "createDate");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             if (receiveBy == null) {
-                pages = importRepository.findByDateLocalBetweenAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo),List.of("stocked","approved") ,pageRequest);
+                pages = importRepository.findByDateLocalBetweenAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), List.of("stocked", "approved"), pageRequest);
             } else {
-                pages = importRepository.findByDateLocalBetweenAndReceiveByAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), pageRequest, receiveBy,List.of("stocked","approved"));
+                pages = importRepository.findByDateLocalBetweenAndReceiveByAndRemarkIn(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), pageRequest, receiveBy, List.of("stocked", "approved"));
             }
 
             totalCount = pages.getTotalElements();
@@ -126,9 +185,9 @@ public class ReportReceiveServiceImp implements ReportReceiveService {
         } else {
 
             if (receiveBy == null) {
-                lists = importRepository.findByDateLocalBetweenAndRemarkInOrderByCreateDateDesc(LocalDate.parse(dateFrom), LocalDate.parse(dateTo),List.of("stocked","approved"));
+                lists = importRepository.findByDateLocalBetweenAndRemarkInOrderByCreateDateDesc(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), List.of("stocked", "approved"));
             } else {
-                lists = importRepository.findByDateLocalBetweenAndReceiveByAndRemarkInOrderByCreateDateDesc(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), receiveBy,List.of("stocked","approved"));
+                lists = importRepository.findByDateLocalBetweenAndReceiveByAndRemarkInOrderByCreateDateDesc(LocalDate.parse(dateFrom), LocalDate.parse(dateTo), receiveBy, List.of("stocked", "approved"));
             }
             totalCount = lists.size();
             data = lists.stream()

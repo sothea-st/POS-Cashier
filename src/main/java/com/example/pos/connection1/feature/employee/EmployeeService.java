@@ -19,11 +19,11 @@ public interface EmployeeService {
 
     void deleteById(Integer id);
 
-    JavaCollectionResponse<?> searchEmployee (int pageSize, int pageNumber, String searchValue);
+    JavaCollectionResponse<?> searchEmployee(Integer pageSize, Integer pageNumber, String searchValue);
 
     byte[] getImageEmployee(String id);
 
     JavaCollectionResponse<?> readUserAcccount(int pageSize, int pageNumber);
 
-    JavaCollectionResponse<?> searchUserAcccount(int pageSize, int pageNumber, String searchValue);
+    JavaCollectionResponse<?> searchUserAcccount(Integer pageSize, Integer pageNumber, String searchValue);
 }

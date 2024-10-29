@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +61,7 @@ public class AuthenticationController {
     private final IPAddressRepository ipAddressRepository;
 
     public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService,
-            IPAddressRepository ipAddressRepository) {
+                                    IPAddressRepository ipAddressRepository) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
         this.ipAddressRepository = ipAddressRepository;
@@ -114,6 +116,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody LoginUserDto loginUserDto) {
+
         HashMap<String, Object> map = new HashMap<>();
         User authenticatedUser = authenticationService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
@@ -122,7 +125,7 @@ public class AuthenticationController {
 
         Optional<User> userCheck = userRepo.findByUserCodeAndStatusTrue(loginUserDto.getUserCode());
 
- 
+
         // for do at home
         // if (!userCheck.isEmpty()) {
         //     map.put("token", jwtToken);
@@ -140,13 +143,12 @@ public class AuthenticationController {
         // ============ end ==========
 
 
-
-
         if (userCheck.isEmpty()) {
             return ResponseEntity.ok().body(Map.of("msg", "Check your account and password again"));
         }
 
         if (loginUserDto.getIpAddress() != null && loginUserDto.getDeviceName() != null) {
+            System.out.println("fffffffffffffffffffffffffffffffffff");
 
             if (getCountIP > 0) {
                 Optional<IPAddressPOSID> data = ipAddressRepository.getIpAdrress();
@@ -203,11 +205,14 @@ public class AuthenticationController {
         String roleName = "This account not assign role yet.They can not use any function in system!";
 
         if (authenticatedUser.getRole() != null) {
+
             roleName = repoRole.findById(authenticatedUser.getRole()).get().getRoleName();
         }
 
         if (loginUserDto.getDeviceName() != null) {
+            System.out.println("qqqqqqqqqqqqqqqqqqqqq");
             if (authenticatedUser.getDevice() == null) {
+                System.out.println("11111111111111111111111");
                 int count = deviceRepo.count(authenticatedUser.getId(), JavaConstant.currentDate);
                 count++;
                 Device d = new Device();
@@ -221,12 +226,18 @@ public class AuthenticationController {
                 _user.setDevice(d.getId());
                 userRepo.save(_user);
             } else {
+//                System.out.println("33333333333333333333333333");
                 String deviceName = deviceRepo.deviceName(authenticatedUser.getDevice());
-                deviceName = deviceName.toLowerCase();
-                if (!deviceName.equals(loginUserDto.getDeviceName().toLowerCase())) {
-                    map.put("msg", "This user already used in other device !");
-                    return ResponseEntity.ok().body(map);
+                System.out.println("fffffffffffffff = " + deviceName);
+                if (deviceName != null) {
+                    deviceName = deviceName.toLowerCase();
+                    if (!deviceName.equals(loginUserDto.getDeviceName().toLowerCase())) {
+//                    System.out.println("66666666666666666666666666");
+                        map.put("msg", "This user already used in other device !");
+                        return ResponseEntity.ok().body(map);
+                    }
                 }
+
             }
         }
 

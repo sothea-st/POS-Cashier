@@ -32,8 +32,10 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
 
 
      Page<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(LocalDate dateFrom, LocalDate dateTo, String vendorName, PageRequest pageRequest);
+     List<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCase(LocalDate dateFrom, LocalDate dateTo, String vendorName);
 
      Page<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(LocalDate dateFrom, LocalDate dateTo, String vendorName, int receiveBy,PageRequest pageRequest);
+     List<Import> findByDateLocalBetweenAndVendor_VendorNameContainingIgnoreCaseAndReceiveBy(LocalDate dateFrom, LocalDate dateTo, String vendorName, int receiveBy);
 
 
 

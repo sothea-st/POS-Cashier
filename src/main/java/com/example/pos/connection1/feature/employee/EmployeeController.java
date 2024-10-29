@@ -90,12 +90,14 @@ public class EmployeeController {
 
     //Search Employee
     @GetMapping("/searchEmployee/{nameEn}")
-    JavaCollectionResponse<?> searchEmployee(
-        @RequestParam(defaultValue = "10", required = false ) int pageSize, 
-        @RequestParam(defaultValue = "0", required = false )int pageNumber,
-        @PathVariable("nameEn") String searchValue){
-            return employeeService.searchEmployee(pageSize, pageNumber,searchValue);
+    public JavaCollectionResponse<?> searchEmployee(
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam(required = false) Integer pageNumber,
+            @PathVariable("nameEn") String searchValue) {
+        System.out.println("pageNumber : " + pageNumber + " pageSize : " + pageSize);
+        return employeeService.searchEmployee(pageSize, pageNumber, searchValue);
     }
+
 
     @GetMapping("/readFileById/{id}")
     public ResponseEntity<byte[]> getImage(@PathVariable("id") String id) throws IOException {
@@ -109,13 +111,15 @@ public class EmployeeController {
     JavaCollectionResponse<?> readUserAcccount(
         @RequestParam(defaultValue = "10", required = false ) int pageSize, 
         @RequestParam(defaultValue = "0", required = false )int pageNumber){
+
+        System.out.println("hhhhhhhhhhhhhhhhhh = fffffffffffffff ");
             return employeeService.readUserAcccount(pageSize, pageNumber);
     }
 
     @GetMapping("/searchUserAccount/{fullName}")
     JavaCollectionResponse<?> searchUserAcccount(
-        @RequestParam(defaultValue = "10", required = false ) int pageSize, 
-        @RequestParam(defaultValue = "0", required = false )int pageNumber,
+        @RequestParam(  required = false ) Integer pageSize,
+        @RequestParam(required = false )Integer pageNumber,
         @PathVariable("fullName") String searchValue){
             return employeeService.searchUserAcccount(pageSize, pageNumber, searchValue);
     }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.pos.connection1.entity.Employee;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
@@ -43,5 +44,17 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer>{
         "order by\r\n" + //
         "\tp.id desc\r\n")
     Page<Employee> searchByNameEn(PageRequest pageable, String searchValue);
+
+    @Query(nativeQuery = true, value = "select\r\n" + //
+            "\t*\r\n" + //
+            "from\r\n" + //
+            "\tpos_employee p\r\n" + //
+            "where\r\n" + //
+            "\tp.name_en ilike %?%\r\n" + //
+            "\tand p.status = true\r\n" + //
+            "\tand p.is_deleted = false\r\n" + //
+            "order by\r\n" + //
+            "\tp.id desc\r\n")
+    List<Employee> searchByNameEn(String searchValue);
 
 }

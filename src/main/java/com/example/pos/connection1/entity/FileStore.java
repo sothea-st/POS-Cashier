@@ -9,8 +9,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "pos_file")
 public class FileStore {
 //    @Id
-//    @GeneratedValue(generator = "uuid")
-//    @GenericGenerator(name = "uuid", strategy = "uuid2")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long iden;
     @Id
     private String id;
 
