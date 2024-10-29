@@ -15,58 +15,57 @@ import javax.swing.JScrollPane;
 
 public class ReportingView extends javax.swing.JDialog {
 
+     public ReportingView(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+          setResizable(false);
+          JavaConstant.addTitleAndLogo(this, "Reporting");
+          getImageAndTitle();
+          reportImport.setVisible(false);
+          reportPurhaseCheck.setVisible(false);
+          reportPurhaseApproval.setVisible(false);
+     }
 
-    public ReportingView(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        setResizable(false);
-        JavaConstant.addTitleAndLogo(this, "Reporting");
-        getImageAndTitle();
-        reportImport.setVisible(false);
-        reportPurhaseCheck.setVisible(false);
-        reportPurhaseApproval.setVisible(false);
-    }
+     private void getImageAndTitle() {
+          reportImport.setTitle("Reporting Import");
+          reportSale.setTitle("Reporting Sale");
+          reportPurhaseRequest.setTitle("<html>" + "Reporting Purchase Order" + "</html>");
+          reportPurhaseCheck.setTitle("<html>" + "Reporting Purchase Check" + "</html>");
+          reportPurhaseApproval.setTitle("<html>" + "Reporting Purchase Approval" + "</html>");
+          reportPurhaseReceive.setTitle("<html>" + "Reporting Purchase Receive" + "</html>");
 
-    private void getImageAndTitle() {
-        reportImport.setTitle("Reporting Import");
-        reportSale.setTitle("Reporting Sale");
-        reportPurhaseRequest.setTitle("<html>" + "Reporting Purchase Order" + "</html>");
-        reportPurhaseCheck.setTitle("<html>" + "Reporting Purchase Check" + "</html>");
-        reportPurhaseApproval.setTitle("<html>" + "Reporting Purchase Approval" + "</html>");
-        reportPurhaseReceive.setTitle("<html>" + "Reporting Purchase Receive" + "</html>");
-        
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    // Task to be executed
-                    
-                    reportSale.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sale.png");
-                    reportImport.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
+          TimerTask task = new TimerTask() {
+               @Override
+               public void run() {
+                    try {
+                         // Task to be executed
+
+                         reportSale.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sale.png");
+                         reportImport.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "import.png");
 //                    reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "2964eeeb-ee20-4b17-80f9-a6bcfe11a277");
-                    reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
-                    reportPurhaseCheck.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "c4b2a597-abc9-4c8a-ba89-c03c6cf1ab5f");
-                    reportPurhaseApproval.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "34f2863b-ff40-4323-b997-e31a810f9679");
-                    reportPurhaseReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "63157d93-b4c9-4c60-b9f3-8eb7e789c039");
+                         reportPurhaseRequest.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "PurchaseOrder.png");
+                         reportPurhaseCheck.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "c4b2a597-abc9-4c8a-ba89-c03c6cf1ab5f");
+                         reportPurhaseApproval.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "34f2863b-ff40-4323-b997-e31a810f9679");
+                       
+                         reportPurhaseReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "63157d93-b4c9-4c60-b9f3-8eb7e789c039");
+                    } catch (IOException ex) {
+                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+               }
+          };
 
-                } catch (IOException ex) {
-                    Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-
-        Timer timer = new Timer();
-        timer.schedule(task, 500); // Delays task execution by 1 second
-    }
+          Timer timer = new Timer();
+          timer.schedule(task, 500); // Delays task execution by 1 second
+     }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -184,40 +183,40 @@ public class ReportingView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      private void reportImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportImportMouseClicked
-         ReportingImportDetail reportingImportDetail = new ReportingImportDetail(new JFrame(), true);
-         reportingImportDetail.setVisible(true);
+          ReportingImportDetail reportingImportDetail = new ReportingImportDetail(new JFrame(), true);
+          reportingImportDetail.setVisible(true);
      }//GEN-LAST:event_reportImportMouseClicked
 
      private void reportSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportSaleMouseClicked
-         ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
-         reportingSaled.setVisible(true);
+          ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
+          reportingSaled.setVisible(true);
      }//GEN-LAST:event_reportSaleMouseClicked
 
     private void reportPurhaseRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseRequestMouseClicked
 //         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
 //         purchaseOrder.setVisible(true);
-        ReportingPurchaseOrderV2 request = new ReportingPurchaseOrderV2(new JFrame(), true);
-        request.setTitle("Reporting Purchase Order");
-        request.setVisible(true);
+         ReportingPurchaseOrderV2 request = new ReportingPurchaseOrderV2(new JFrame(), true);
+         request.setTitle("Reporting Purchase Order");
+         request.setVisible(true);
 
     }//GEN-LAST:event_reportPurhaseRequestMouseClicked
 
     private void reportPurhaseCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseCheckMouseClicked
-        ReportingPurchaseOrderV2 check = new ReportingPurchaseOrderV2(new JFrame(), true);
-        check.setTitle("Reporting Purchase Check");
-        check.setVisible(true);
+         ReportingPurchaseOrderV2 check = new ReportingPurchaseOrderV2(new JFrame(), true);
+         check.setTitle("Reporting Purchase Check");
+         check.setVisible(true);
     }//GEN-LAST:event_reportPurhaseCheckMouseClicked
 
     private void reportPurhaseApprovalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseApprovalMouseClicked
-       ReportingPurchaseOrderV2 approve = new ReportingPurchaseOrderV2(new JFrame(), true);
-       approve.setTitle("Reporting Purchase Approval");
-       approve.setVisible(true);
-        
+         ReportingPurchaseOrderV2 approve = new ReportingPurchaseOrderV2(new JFrame(), true);
+         approve.setTitle("Reporting Purchase Approval");
+         approve.setVisible(true);
+
     }//GEN-LAST:event_reportPurhaseApprovalMouseClicked
 
     private void reportPurhaseReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseReceiveMouseClicked
-        ReportingPurchaseReceive receive = new ReportingPurchaseReceive(new JFrame(), true);
-        receive.setVisible(true);
+         ReportingPurchaseReceive receive = new ReportingPurchaseReceive(new JFrame(), true);
+         receive.setVisible(true);
     }//GEN-LAST:event_reportPurhaseReceiveMouseClicked
 
      /**

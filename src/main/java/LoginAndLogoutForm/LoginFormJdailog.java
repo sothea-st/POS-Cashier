@@ -381,6 +381,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               json.put("ipAddress", ipAddress);
 //              json.put("deviceName", "TT-MOB-APP-02");
 //              json.put("ipAddress", "172.20.10.48");
+
+               System.err.println("json : " + json);
          } catch (Exception ex) {
               System.err.println("erro getIpAddress : " + ex);
          }
@@ -400,7 +402,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
               }
 
               Response response = JavaConnection.login(JavaRoute.login, json);
-
+              System.err.println("response login " + response);
               if (response.isSuccessful()) {
                    String responseData = response.body().string();
 
@@ -432,7 +434,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    JavaConstant.roleName = model.getRoleName();
 
                    Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
-
                    if (model.getRoleName().equals("Admin") || model.getRoleName().equals("Supervisor")) {
                         stock.setVisible(true);
                         buttonStaff.setVisible(true);
@@ -450,7 +451,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         ObjectMapper objectMapper = new ObjectMapper();
                         OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                         if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
-
                              if (model.getRoleName().equals("Admin")) {
                                   stock.setVisible(true);
                                   buttonStaff.setVisible(true);
@@ -480,14 +480,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    dispose();
                    getBtnLogin().setButtonName("Logout");
-
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
-
+                  
                    //         ==== event on profile image for change password ====
                    Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
+             
                    JavaConstant.setPointer(boxImg);
                    boxImg.setIcon(icon);
                    boxImg.setVisible(true);
+                
                    boxImg.addMouseListener(new MouseListener() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -512,7 +513,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         }
 
                    });
-
+                   
                    category();
                    jScrollPaneCategory.setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
@@ -604,6 +605,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           try {
                ArrayList<CategoryModel> listCategory = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.category);
+               System.err.println("response category = " + response);
                category.setLayout(new GridLayout());
                if (response.isSuccessful()) {
                     String strData = response.body().string(); // convert response to string 

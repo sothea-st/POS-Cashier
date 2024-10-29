@@ -47,9 +47,9 @@ public class PurchaseOrderView extends javax.swing.JDialog {
                public void run() {
                     try {
                          // Task to be executed
-                         request.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "2964eeeb-ee20-4b17-80f9-a6bcfe11a277");
-                         check.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "c4b2a597-abc9-4c8a-ba89-c03c6cf1ab5f");
-                         approve.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "34f2863b-ff40-4323-b997-e31a810f9679");
+                         request.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/purchaseRequest.png");
+                         check.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/purchaseCheck.png");
+                         approve.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/purchaseApprove.png");
                     } catch (IOException ex) {
                          Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
                     }
