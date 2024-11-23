@@ -639,6 +639,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
+                                   System.err.println("ddddddddddddd");
+                                        
                                    onClickCategory(catNameData, catId);
                               }
 
