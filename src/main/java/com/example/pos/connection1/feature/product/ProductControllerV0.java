@@ -141,7 +141,14 @@ public class ProductControllerV0 {
         public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit, @RequestParam int page) {
             // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
             int countRow = repo.countRow();
-            int number = (countRow * 30) / 100;
+            int number = 21;
+
+//            if( countRow == 0 ) {
+//                number = 21;
+//            } else {
+//                number = (countRow * 30) / 100;
+//            }
+
             return ResponseEntity.ok().body(
                     Map.of("count", number, "msg", "success", "data", service.getNewProduct(limit, page, number)));
         }

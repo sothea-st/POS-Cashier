@@ -358,6 +358,7 @@ public class ProductService {
     public List<ProductModel> getNewProduct(int limit, int page, int number) {
         List<ProductModel> list = new ArrayList<>();
         List<ProductProjection> listData = repo.getNewProduct(number);
+
         for (int i = page; i < listData.size(); i++) {
             if (i == limit)
                 break;
