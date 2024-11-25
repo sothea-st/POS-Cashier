@@ -3,7 +3,7 @@ package View.MainPage;
 import BlogCode.ActionCloseShift;
 import BlogCode.JavaActionAddHold;
 import BlogCode.JavaActionDiscount;
-import BlogCode.JavaBlogImage;
+
 import BlogCode.JavaEventNextPrevious;
 import BlogCode.JavaExistScreen;
 import BlogCode.JavaSearchByNameAndCode;
