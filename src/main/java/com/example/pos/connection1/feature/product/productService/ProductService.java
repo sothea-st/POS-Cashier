@@ -10,7 +10,7 @@ import com.example.pos.connection1.feature.attribute.AttributeRepository;
 import com.example.pos.connection1.feature.country.CountryRepository;
 import com.example.pos.connection1.feature.product.dto.ProductDataRequest;
 import com.example.pos.connection1.feature.tax.TaxRepository;
-import com.example.pos.connection1.feature.uom.UomRepository;
+import com.example.pos.connection1.feature.settings.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.repository.ImportDetailRepository;
