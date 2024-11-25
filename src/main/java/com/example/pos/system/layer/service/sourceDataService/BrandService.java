@@ -1,0 +1,68 @@
+package com.example.pos.system.layer.service.sourceDataService;
+
+// import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
+
+// @Service
+// public class BrandService {
+//     @Autowired
+//     private BrandRepository repo;
+
+//     public Brand add(Brand b) {
+//         boolean isExistEn = repo.existsByBrandNameEn(b.getBrandNameEn());
+//         boolean isExistKh = repo.existsByBrandNameKh(b.getBrandNameKh());
+//         JavaValidation.checkDataAlreadyExists(isExistEn);
+//         JavaValidation.checkDataAlreadyExists(isExistKh);
+//         Brand data = new Brand();
+//         data.setBrandNameKh(b.getBrandNameKh());
+//         data.setBrandNameEn(b.getBrandNameEn());
+//         data.setCreateBy(b.getCreateBy());
+//         repo.save(data);
+//         return data;
+//     }
+
+//     public List<Brand> read(){
+//         return repo.getListBrand();
+//     }
+
+//     public Brand getBrandById(int id) {
+//         Optional<Brand> data = repo.findById(id);
+//         if( data == null ) throw new JavaNotFoundByIdGiven();
+//         return data.get();
+//     }
+
+//     public void deleteBrand(int id , Brand b) {
+//         Optional<Brand> data = repo.findById(id);
+//         if( data == null ) throw new JavaNotFoundByIdGiven();
+//         Brand brand = data.get();
+//         brand.setStatus(b.isStatus());
+//         brand.setDeleted(b.isDeleted());
+//         repo.save(brand);
+//     }
+
+//     public Brand updateBrand(int id , Brand b) {
+//         Optional<Brand> data = repo.findById(id);
+//         if( data == null ) throw new JavaNotFoundByIdGiven();
+      
+//         Brand brand = data.get();
+//         if( !Objects.equals(b.getBrandNameEn(), brand.getBrandNameEn()) ) {
+//             boolean isExistEn = repo.existsByBrandNameEn(b.getBrandNameEn());
+//             JavaValidation.checkDataAlreadyExists(isExistEn);
+//         }
+
+//         if( !Objects.equals(b.getBrandNameKh(), brand.getBrandNameKh()) ) {
+//             boolean isExistKh = repo.existsByBrandNameKh(b.getBrandNameKh());
+//             JavaValidation.checkDataAlreadyExists(isExistKh);
+//         }
+        
+//         brand.setBrandNameEn(b.getBrandNameEn());
+//         brand.setBrandNameKh(b.getBrandNameKh());
+    
+//         repo.save(brand);
+//         return brand;
+//     }
+
+//     public List<Brand> search(String valueSearch){
+//         return repo.searchBrand(valueSearch);
+//     }
+
+// }

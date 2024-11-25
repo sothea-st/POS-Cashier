@@ -1,0 +1,28 @@
+package com.example.pos.system.feature.imports.dto;
+
+import java.math.BigDecimal;
+
+import lombok.Builder;
+@Builder
+public record ImportDetailResponse(
+     Integer id,
+     Integer productId,
+     String barcode,
+     String proNameEn,
+     String proNameKh,
+     String division,
+     String department,
+     String category,
+     String subCategory,
+     Integer subCategoryId,
+     Integer availableQty,
+     Integer orderQty,
+     BigDecimal cost,
+     BigDecimal totalCost,
+     Integer receivedQty,
+
+     Integer halfQty,
+     String receiveMsg
+) {
+     
+}

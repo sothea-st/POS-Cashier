@@ -1,0 +1,22 @@
+package com.example.pos.system.layer.DTO.categoryDto;
+
+import com.example.pos.system.constant.JavaMessage;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public record CategoryRequest(
+     @NotBlank(message = JavaMessage.required)
+     String catNameEn,
+
+     String catNameKh,
+
+     @NotNull(message = "Field createBy is required .!")
+     Integer createBy,
+   
+     Integer parentId,
+
+     String code
+) {
+     
+}
