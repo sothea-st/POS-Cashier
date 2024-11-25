@@ -93,7 +93,7 @@ public class SearchField extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           textSearch.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(textSearch);
-          jLabel1.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Search Icon.png")));
+          //jLabel1.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Search Icon.png")));
      }
 
      public void disabledTextField(boolean value) {

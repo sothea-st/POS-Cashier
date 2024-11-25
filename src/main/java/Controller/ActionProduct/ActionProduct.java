@@ -428,6 +428,7 @@ public class ActionProduct {
                                              }
 
                                         } else {
+                                             System.err.println("hello worl : " + listData.getProImageName());
                                              product.setProductImage(JavaBaseUrl.baseUrlBgImage + listData.getProImageName());
                                         }
 

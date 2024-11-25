@@ -154,7 +154,7 @@ public class Userlogin extends javax.swing.JDialog {
                 public void onSelect(String Key) {  // event edit
 
                     ChangeUserPassword edit = new ChangeUserPassword(new JFrame(), true);
-                    edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
+                    //edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
                     edit.setEmId(listData.getEmId());
                     edit.setUserCode(listData.getUserCode());
                     edit.setVisible(true);

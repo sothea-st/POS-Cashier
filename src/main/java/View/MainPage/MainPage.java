@@ -45,6 +45,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -62,10 +63,15 @@ public class MainPage extends javax.swing.JFrame {
      BackgroundImage bgimg = new BackgroundImage();
 
      public void setBgImage() {
-          BackgroundImage bgimg = new BackgroundImage();
+//          BackgroundImage bgimg = new BackgroundImage();
+
+          // Create a JLabel
+          JLabel bg = new JLabel();
+          ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("image/King Mart bg.png"));
+          bg.setIcon(icon);
           panelProduct.setLayout(new GridBagLayout());
           panelProduct.removeAll();
-          panelProduct.add(bgimg);
+          panelProduct.add(bg);
           panelProduct.revalidate();
           panelProduct.repaint();
           // Set the label to be centered within the panel
@@ -84,7 +90,7 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          //setBgImage();
+          setBgImage();
           jScrollPaneCategory.setVisible(false);
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();

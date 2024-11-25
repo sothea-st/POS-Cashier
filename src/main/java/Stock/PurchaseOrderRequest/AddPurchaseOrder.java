@@ -651,20 +651,20 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                totalQty += p.getQty();
                totalCost += p.getCost().doubleValue();
 
-               try {
-                    TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              detail.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                         }
-                    };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500);
-
-               } catch (Exception e) {
-                    System.err.println("error read image = " + e);
-               }
+//               try {
+//                    TimerTask task = new TimerTask() {
+//                         @Override
+//                         public void run() {
+//                              detail.setImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+//                         }
+//                    };
+//
+//                    Timer timer = new Timer();
+//                    timer.schedule(task, 500);
+//
+//               } catch (Exception e) {
+//                    System.err.println("error read image = " + e);
+//               }
 
                ButtonEvent event = new ButtonEvent() {
                     @Override

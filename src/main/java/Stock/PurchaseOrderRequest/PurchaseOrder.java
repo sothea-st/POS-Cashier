@@ -255,24 +255,24 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     b.setTransactionNo(data.getTransactionNo());
                     b.setStatus(StringUtils.capitalize(data.getRemark()));
 
-                    try {
-
-                         TimerTask task = new TimerTask() {
-                              @Override
-                              public void run() {
-                                   // Task to be executed
-                                   b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                                   b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                                   b.setIconDetail(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "3141f98b-6212-4fa2-8a16-91a9cbc2af62")));
-                              }
-                         };
-
-                         Timer timer = new Timer();
-                         timer.schedule(task, 500); // Delays task execution by 1 second
-
-                    } catch (Exception e) {
-                         System.err.println("error read image = " + e);
-                    }
+//                    try {
+//
+//                         TimerTask task = new TimerTask() {
+//                              @Override
+//                              public void run() {
+//                                   // Task to be executed
+//                                   b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+//                                   b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+//                                   b.setIconDetail(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "3141f98b-6212-4fa2-8a16-91a9cbc2af62")));
+//                              }
+//                         };
+//
+//                         Timer timer = new Timer();
+//                         timer.schedule(task, 500); // Delays task execution by 1 second
+//
+//                    } catch (Exception e) {
+//                         System.err.println("error read image = " + e);
+//                    }
 
                     paginationPanel.setVisible(true);
 

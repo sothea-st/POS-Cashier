@@ -365,7 +365,7 @@ public class JavaConstant {
 
      public static void addTitleAndLogo(JDialog jDialog, String title) {
           jDialog.setTitle(title);
-          jDialog.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
+          //jDialog.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
      }
 
      public static String getCurrentLocalTime() {

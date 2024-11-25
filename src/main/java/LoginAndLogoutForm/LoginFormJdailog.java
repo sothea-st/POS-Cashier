@@ -483,10 +483,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
                   
                    //         ==== event on profile image for change password ====
-                   Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
+                   //Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
              
                    JavaConstant.setPointer(boxImg);
-                   boxImg.setIcon(icon);
+                   //boxImg.setIcon(icon);
                    boxImg.setVisible(true);
                 
                    boxImg.addMouseListener(new MouseListener() {
