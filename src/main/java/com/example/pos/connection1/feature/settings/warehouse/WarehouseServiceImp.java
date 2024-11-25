@@ -54,7 +54,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             Page<Warehouse> pages = warehouseRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
             // assign total pages
@@ -99,7 +99,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Warehouse> pages = warehouseRepository.searchByWarehouseNameEnOrWarehouseNameKh(pageRequest,searchValue);
 
             // assign total pages

@@ -57,7 +57,7 @@ public class UomServiceImp implements UomService{
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Uom> pages = uomRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
 
@@ -104,7 +104,7 @@ public class UomServiceImp implements UomService{
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Uom> pages = uomRepository.searchByUomNameEnOrUomNameKh(pageRequest,searchValue);
 
             // assign total pages
