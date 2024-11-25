@@ -84,7 +84,7 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPaneDetail.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPane2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           jScrollPaneCategory.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-          setBgImage();
+          //setBgImage();
           jScrollPaneCategory.setVisible(false);
           panelPagination.setVisible(false);
           searchBox.requestFocusInWindow();
