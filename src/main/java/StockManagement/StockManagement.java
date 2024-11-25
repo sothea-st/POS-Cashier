@@ -51,23 +51,23 @@ public class StockManagement extends javax.swing.JDialog {
           purchaseOrder.setTitle("Purchase Order");
           purchaseOrderReceive.setTitle("Purchase Receive");
 
-          TimerTask task = new TimerTask() {
-               @Override
-               public void run() {
-                    try {
-                         // Task to be executed
-                         product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/item.png");
-                         purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/PurchaseOrder.png");
-                         purchaseOrderReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/63157d93-b4c9-4c60-b9f3-8eb7e789c039");
-                      
-                    } catch (IOException ex) {
-                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-               }
-          };
-
-          Timer timer = new Timer();
-          timer.schedule(task, 500); // Delays task execution by 1 second
+//          TimerTask task = new TimerTask() {
+//               @Override
+//               public void run() {
+//                    try {
+//                         // Task to be executed
+//                         product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/item.png");
+//                         purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/PurchaseOrder.png");
+//                         purchaseOrderReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/63157d93-b4c9-4c60-b9f3-8eb7e789c039");
+//                      
+//                    } catch (IOException ex) {
+//                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//               }
+//          };
+//
+//          Timer timer = new Timer();
+//          timer.schedule(task, 500); // Delays task execution by 1 second
      }
 
      @SuppressWarnings("unchecked")

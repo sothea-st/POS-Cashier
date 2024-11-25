@@ -159,6 +159,7 @@ public class GetProduct extends javax.swing.JPanel {
         btnEdit.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                 System.err.println("productID : " + productId);
                 event.onSelect("" + productId);
             }
 

@@ -233,7 +233,7 @@ public class InsertProduct extends javax.swing.JDialog {
           };
           cmbUom.initEvent(uomEvent);
           // nameEn is field from response that we want data add in combo
-          ComboBoxSelection.addComboBox(cmbUom, JavaRoute.uom, "nameEn");
+          ComboBoxSelection.addComboBox(cmbUom, JavaRoute.uom, "uomNameEn");
           //  ============== end ================
 
           //  ============== combobox cmbAttribute ================
