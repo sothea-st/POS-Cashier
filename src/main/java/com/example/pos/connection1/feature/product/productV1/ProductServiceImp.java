@@ -19,7 +19,7 @@ import com.example.pos.connection1.entity.Category;
 import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Status;
-import com.example.pos.connection1.entity.Uom;
+import com.example.pos.connection1.entity.settings.Uom;
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
@@ -35,7 +35,7 @@ import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.connection1.feature.status.StatusRepository;
 import com.example.pos.connection1.feature.tax.TaxRepository;
-import com.example.pos.connection1.feature.uom.UomRepository;
+import com.example.pos.connection1.feature.settings.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.mapper.ProductMapper;
 import com.example.pos.connection1.repository.CategoryRepository;
@@ -148,7 +148,7 @@ public class ProductServiceImp implements ProductService {
                 .createBy(p.getCreateBy())
                 .taxName(p.getTaxProduct().getTaxName())
                 .vendorName(p.getVendor().getVendorName())
-                .uomNameEn(p.getUom().getNameEn())
+                .uomNameEn(p.getUom().getUomNameEn())
                 .attrNameEn(p.getAttribute().getAttrNameEn())
                 .statusName(p.getProductActive().getStatusName())
                 .countryImageName(p.getCountry().getUuid())
@@ -438,7 +438,7 @@ public class ProductServiceImp implements ProductService {
                 .createBy(p.getCreateBy())
                 .taxName(p.getTaxProduct().getTaxName())
                 .vendorName(p.getVendor().getVendorName())
-                .uomNameEn(p.getUom().getNameEn())
+                .uomNameEn(p.getUom().getUomNameEn())
                 .attrNameEn(p.getAttribute().getAttrNameEn())
                 .statusName(p.getProductActive().getStatusName())
                 .countryImageName(p.getCountry().getCountryName())

@@ -8,7 +8,7 @@ import com.example.pos.connection1.entity.Category;
 import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Status;
-import com.example.pos.connection1.entity.Uom;
+import com.example.pos.connection1.entity.settings.Uom;
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
@@ -20,7 +20,7 @@ import com.example.pos.connection1.feature.product.productExcel.dto.ProductExcel
 import com.example.pos.connection1.feature.product.productExcel.dto.ProductMultipleInsert;
 import com.example.pos.connection1.feature.status.StatusRepository;
 import com.example.pos.connection1.feature.tax.TaxRepository;
-import com.example.pos.connection1.feature.uom.UomRepository;
+import com.example.pos.connection1.feature.settings.uom.UomRepository;
 import com.example.pos.connection1.feature.vendor.VendorRepository;
 import com.example.pos.connection1.repository.CategoryRepository;
 // import com.example.pos.connection1.repository.sourceDataRepository.BrandRepository;
