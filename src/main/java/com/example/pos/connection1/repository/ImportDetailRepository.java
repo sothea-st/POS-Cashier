@@ -47,7 +47,7 @@ public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integ
 
  
 
-    @Query(nativeQuery = true , value = "select sum(qty_old)  from pos_import_detail pid where pro_id = 678  and qty_old > 0 and status = true and is_deleted = false")
+    @Query(nativeQuery = true , value = "select sum(qty_old)  from pos_import_detail pid where pro_id = ?  and qty_old > 0 and status = true and is_deleted = false")
     Integer getQty(int proId);
 
     @Query(nativeQuery = true , value = "select sum(pid.qty_old) from pos_import_detail pid where pro_id = ? and qty_old > 0 and is_deleted = false and status = true;")

@@ -57,7 +57,7 @@ public record ProductRequest(
         @NotNull(message = JavaMessage.required)
         Integer countryId,
 
-        @NotBlank(message = JavaMessage.required)
+        //@NotBlank(message = JavaMessage.required)
         String choices,
 
         String proImageName

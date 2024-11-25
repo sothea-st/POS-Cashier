@@ -23,6 +23,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
+    @ManyToOne
+    @JoinColumn(name = "uom_id")
+    private Uom uom;
+
     @Column(name = "cat_id")
     private Integer catId;
 
@@ -75,9 +80,6 @@ public class Product {
     @JoinColumn(name = "country_id")
     private Country country;
 
-    @ManyToOne
-    @JoinColumn(name = "uom_id")
-    private Uom uom;
 
     @ManyToOne
     @JoinColumn(name = "attribute_id")
