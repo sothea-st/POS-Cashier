@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IPAddressPOSID {
+
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int id;
@@ -36,4 +37,5 @@ public class IPAddressPOSID {
 
      @Column(name = "user_id")
      private int userId;
+
 }
