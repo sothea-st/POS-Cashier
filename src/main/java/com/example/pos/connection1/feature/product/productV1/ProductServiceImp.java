@@ -351,6 +351,8 @@ public class ProductServiceImp implements ProductService {
             product.setProImageName(fileName);
         }
 
+        Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
+
         product.setProNameKh(productRequest.proNameKh());
         product.setProNameEn(productRequest.proNameEn());
         product.setCost(productRequest.cost());
@@ -370,7 +372,7 @@ public class ProductServiceImp implements ProductService {
         product.setStatus(true);
         product.setIsDeleted(false);
         product.setDiscount(BigDecimal.valueOf(0));
-        product.setCatId(productRequest.subCatId());
+        product.setCatId(divisionId);
         productRepository.save(product);
         return productMapper.mapToProductResponse(product);
     }
@@ -510,6 +512,11 @@ public class ProductServiceImp implements ProductService {
         String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
                 : productRequest.proImageName();
 
+
+
+
+        Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
+
         Product product = productMapper.mapToProduct(productRequest);
         product.setSubCategory(subCategory);
         product.setBrand(brand);
@@ -523,7 +530,7 @@ public class ProductServiceImp implements ProductService {
         product.setIsDeleted(false);
         product.setDiscount(BigDecimal.valueOf(0));
         product.setProImageName(fileName);
-        product.setCatId(productRequest.subCatId());
+        product.setCatId(divisionId);
         product.setItemCode(generateItemCode(productRepository.count()));
         productRepository.save(product);
         return productMapper.mapToProductResponse(product);

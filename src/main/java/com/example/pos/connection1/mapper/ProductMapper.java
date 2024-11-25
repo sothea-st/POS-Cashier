@@ -4,9 +4,9 @@ import com.example.pos.connection1.entity.Product;
 
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponse;
-import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseByFilter;
+
 import com.example.pos.connection1.feature.product.productV1.dto.ProductResponseReadById;
-import java.util.*;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -22,7 +22,7 @@ public interface ProductMapper {
     @Mapping(source = "product.vendor.vendorName", target = "vendorName")
     @Mapping(source = "product.brand.brandNameEn", target = "brandNameEn")
     @Mapping(source = "product.attribute.attrNameEn", target = "attrNameEn")
-    @Mapping(source = "product.uom.nameEn", target = "uomNameEn")
+    @Mapping(source = "product.uom.uomNameEn", target = "uomNameEn")
     @Mapping(source = "product.productActive.statusName", target = "statusName")
     @Mapping(source = "product.country.uuid", target = "countryImageName")
     @Mapping(source = "product.taxProduct.taxName", target = "taxName")

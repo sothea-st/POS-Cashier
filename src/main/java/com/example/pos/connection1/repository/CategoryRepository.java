@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 
@@ -33,6 +34,28 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
     Optional<Category> findByParentIdAndStatusTrueAndIsDeletedFalse(int parentId);
 
     Optional<Category> findByIdAndStatusTrueAndIsDeletedFalse(int id);
+
+    @Query(value = """
+            WITH RECURSIVE category_hierarchy AS (
+                -- Base case: Start with the given id
+                SELECT id, parent_id
+                FROM pos_category
+                WHERE id = :subCatId
+                
+                UNION ALL
+                
+                -- Recursive case: Find the parent for the current id
+                SELECT c.id, c.parent_id
+                FROM pos_category c
+                INNER JOIN category_hierarchy ch
+                ON c.id = ch.parent_id
+            )
+            -- Select the topmost ancestor
+            SELECT id
+            FROM category_hierarchy
+            WHERE parent_id = 0
+            """, nativeQuery = true)
+    Integer getDivisionId(@Param("subCatId") int subCatId);
 
     Optional<Category> findByIdAndStatusTrueAndIsDeletedFalseAndCode(int id,String code);
     
