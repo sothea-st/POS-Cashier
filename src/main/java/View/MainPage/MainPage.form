@@ -90,8 +90,8 @@
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="boxImg" max="32767" attributes="0"/>
-                              <Component id="currentDate" pref="40" max="32767" attributes="0"/>
-                              <Component id="lbPOSId" alignment="0" pref="40" max="32767" attributes="0"/>
+                              <Component id="currentDate" max="32767" attributes="0"/>
+                              <Component id="lbPOSId" alignment="0" max="32767" attributes="0"/>
                               <Component id="searchBox" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -103,7 +103,7 @@
                       <Group type="102" attributes="0">
                           <Component id="titleOrder" min="-2" pref="24" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPaneDetail" pref="409" max="32767" attributes="0"/>
+                          <Component id="jScrollPaneDetail" pref="395" max="32767" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="panelprocessing" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -140,7 +140,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelCategory" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="panelCart" pref="26" max="32767" attributes="0"/>
+                              <Component id="panelCart" max="32767" attributes="0"/>
                               <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -230,6 +230,11 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JLabel" name="imageShopping">
+                  <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/image/shopping-cart.png"/>
+                    </Property>
+                  </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="6" y="5" width="-1" height="-1"/>
@@ -243,6 +248,9 @@
         <Component class="javax.swing.JLabel" name="lbLogo">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/King Mart Small Logo second.png"/>
+            </Property>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="panelprocessing">
@@ -689,6 +697,12 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="boxImg">
+          <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/UserIcon.png"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

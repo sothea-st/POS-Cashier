@@ -406,23 +406,23 @@ public class Category extends javax.swing.JDialog {
                     category.setCategoryNameEn(listData.getCategoryNameEn());
                     category.setCategoryNameKh(listData.getCategoryNameKh());
 
-                    try {
-
-                         TimerTask task = new TimerTask() {
-                              @Override
-                              public void run() {
-                                   // Task to be executed
-                                   category.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                                   category.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                              }
-                         };
-
-                         Timer timer = new Timer();
-                         timer.schedule(task, 500); // Delays task execution by 1 second
-
-                    } catch (Exception e) {
-                         System.err.println("error read image = " + e);
-                    }
+//                    try {
+//
+//                         TimerTask task = new TimerTask() {
+//                              @Override
+//                              public void run() {
+//                                   // Task to be executed
+//                                   category.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+//                                   category.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+//                              }
+//                         };
+//
+//                         Timer timer = new Timer();
+//                         timer.schedule(task, 500); // Delays task execution by 1 second
+//
+//                    } catch (Exception e) {
+//                         System.err.println("error read image = " + e);
+//                    }
 
                     paginationPanel.setVisible(true);
                     listGetCategory.add(category, gbc);

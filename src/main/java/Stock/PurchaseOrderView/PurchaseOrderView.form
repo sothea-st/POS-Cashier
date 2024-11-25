@@ -81,6 +81,9 @@
           <SubComponents>
             <Component class="Components.SettingBox" name="request">
               <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/purchaseRequest.png"/>
+                </Property>
                 <Property name="title" type="java.lang.String" value="Purchase Request"/>
               </Properties>
               <Events>
@@ -89,6 +92,9 @@
             </Component>
             <Component class="Components.SettingBox" name="check">
               <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/purchaseCheck.png"/>
+                </Property>
                 <Property name="title" type="java.lang.String" value="Purchase Check"/>
               </Properties>
               <Events>
@@ -97,6 +103,9 @@
             </Component>
             <Component class="Components.SettingBox" name="approve">
               <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/purchaseApprove.png"/>
+                </Property>
                 <Property name="title" type="java.lang.String" value="Purchase Approval"/>
               </Properties>
               <Events>

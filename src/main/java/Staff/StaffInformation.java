@@ -279,23 +279,23 @@ public class StaffInformation extends javax.swing.JDialog {
                prod.setRoleName(listData.getRoleName());
                prod.setStartDate(listData.getStartDate());
 
-               try {
-
-                    TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              // Task to be executed
-                              prod.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                              prod.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                         }
-                    };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500); // Delays task execution by 1 second
-
-               } catch (Exception e) {
-                    System.err.println("error read image = " + e);
-               }
+//               try {
+//
+//                    TimerTask task = new TimerTask() {
+//                         @Override
+//                         public void run() {
+//                              // Task to be executed
+//                              prod.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+//                              prod.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+//                         }
+//                    };
+//
+//                    Timer timer = new Timer();
+//                    timer.schedule(task, 500); // Delays task execution by 1 second
+//
+//               } catch (Exception e) {
+//                    System.err.println("error read image = " + e);
+//               }
 
                paginationPanel.setVisible(true);
                listGetStaff.add(prod, gbc);

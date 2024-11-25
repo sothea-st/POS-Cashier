@@ -103,6 +103,9 @@
             </Component>
             <Component class="Components.SettingBox" name="reportSale">
               <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/report image/sale.png"/>
+                </Property>
                 <Property name="title" type="java.lang.String" value="Reporting Sales"/>
               </Properties>
               <Events>
@@ -111,6 +114,9 @@
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseRequest">
               <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/report image/PurchaseOrder.png"/>
+                </Property>
                 <Property name="title" type="java.lang.String" value="Reporting Purchase Request"/>
               </Properties>
               <Events>
@@ -135,6 +141,9 @@
             </Component>
             <Component class="Components.SettingBox" name="reportPurhaseReceive">
               <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/purchaseReceive.png"/>
+                </Property>
                 <Property name="title" type="java.lang.String" value="Reporting Purchase Receive"/>
               </Properties>
               <Events>

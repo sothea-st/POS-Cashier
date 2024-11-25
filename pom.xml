@@ -178,5 +178,5 @@
           <maven.compiler.target>21</maven.compiler.target>
           <exec.mainClass>com.mycompany.kingmart.KingMart</exec.mainClass>
      </properties>
-    
+    <name>pos-construction-2024</name>
 </project>

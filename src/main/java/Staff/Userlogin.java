@@ -167,22 +167,22 @@ public class Userlogin extends javax.swing.JDialog {
             user.setUserName(listData.getUserName());
             user.setUserCode(listData.getUserCode());
 
-            try {
-
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        // Task to be executed
-                        user.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                    }
-                };
-
-                Timer timer = new Timer();
-                timer.schedule(task, 500); // Delays task execution by 1 second
-
-            } catch (Exception e) {
-                System.err.println("error read image = " + e);
-            }
+//            try {
+//
+//                TimerTask task = new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        // Task to be executed
+//                        user.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+//                    }
+//                };
+//
+//                Timer timer = new Timer();
+//                timer.schedule(task, 500); // Delays task execution by 1 second
+//
+//            } catch (Exception e) {
+//                System.err.println("error read image = " + e);
+//            }
 
             paginationPanel.setVisible(true);
             listGetUserLogin.add(user, gbc);

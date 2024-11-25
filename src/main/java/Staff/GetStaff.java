@@ -168,140 +168,140 @@ public class GetStaff extends javax.swing.JPanel {
     
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        panel = new javax.swing.JPanel();
-        lbDob = new javax.swing.JLabel();
-        lbContact = new javax.swing.JLabel();
-        lbName = new javax.swing.JLabel();
-        lbGender = new javax.swing.JLabel();
-        lbId = new javax.swing.JLabel();
-        btnEdit = new javax.swing.JLabel();
-        lbAddress = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JLabel();
-        lbStartDate = new javax.swing.JLabel();
-        role = new javax.swing.JLabel();
+          panel = new javax.swing.JPanel();
+          lbDob = new javax.swing.JLabel();
+          lbContact = new javax.swing.JLabel();
+          lbName = new javax.swing.JLabel();
+          lbGender = new javax.swing.JLabel();
+          lbId = new javax.swing.JLabel();
+          btnEdit = new javax.swing.JLabel();
+          lbAddress = new javax.swing.JLabel();
+          btnDelete = new javax.swing.JLabel();
+          lbStartDate = new javax.swing.JLabel();
+          role = new javax.swing.JLabel();
 
-        panel.setBackground(new java.awt.Color(255, 255, 255));
-        panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+          panel.setBackground(new java.awt.Color(255, 255, 255));
+          panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        lbDob.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbDob.setForeground(new java.awt.Color(0, 0, 0));
-        lbDob.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbDob.setText("Date of Birth");
+          lbDob.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbDob.setForeground(new java.awt.Color(0, 0, 0));
+          lbDob.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbDob.setText("Date of Birth");
 
-        lbContact.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbContact.setForeground(new java.awt.Color(0, 0, 0));
-        lbContact.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbContact.setText("Contact");
+          lbContact.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbContact.setForeground(new java.awt.Color(0, 0, 0));
+          lbContact.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbContact.setText("Contact");
 
-        lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbName.setForeground(new java.awt.Color(0, 0, 0));
-        lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbName.setText("Staff Name");
+          lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbName.setForeground(new java.awt.Color(0, 0, 0));
+          lbName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          lbName.setText("Staff Name");
 
-        lbGender.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbGender.setForeground(new java.awt.Color(0, 0, 0));
-        lbGender.setText("Gender");
+          lbGender.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbGender.setForeground(new java.awt.Color(0, 0, 0));
+          lbGender.setText("Gender");
 
-        lbId.setText("jLabel1");
+          lbId.setText("jLabel1");
 
-        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(0, 0, 0));
-        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEdit.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\Edit.png")); // NOI18N
+          btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnEdit.setForeground(new java.awt.Color(0, 0, 0));
+          btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
 
-        lbAddress.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbAddress.setForeground(new java.awt.Color(0, 0, 0));
-        lbAddress.setText("Address");
+          lbAddress.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbAddress.setForeground(new java.awt.Color(0, 0, 0));
+          lbAddress.setText("Address");
 
-        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
-        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDelete.setIcon(new javax.swing.ImageIcon("D:\\POSCASHIERMASTER\\tt_pos_window\\src\\main\\resources\\image\\DeleteIcon.png")); // NOI18N
+          btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+          btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
 
-        lbStartDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbStartDate.setForeground(new java.awt.Color(0, 0, 0));
-        lbStartDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbStartDate.setText("Started Date");
+          lbStartDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbStartDate.setForeground(new java.awt.Color(0, 0, 0));
+          lbStartDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbStartDate.setText("Started Date");
 
-        role.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        role.setForeground(new java.awt.Color(0, 0, 0));
-        role.setText("Role");
+          role.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          role.setForeground(new java.awt.Color(0, 0, 0));
+          role.setText("Role");
 
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-        panel.setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbDob, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbContact, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbDob)
-                        .addComponent(lbContact)
-                        .addComponent(lbGender)
-                        .addComponent(lbName)
-                        .addComponent(lbId)
-                        .addComponent(btnEdit)
-                        .addComponent(lbAddress)
-                        .addComponent(lbStartDate)
-                        .addComponent(role))
-                    .addComponent(btnDelete))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+          panel.setLayout(panelLayout);
+          panelLayout.setHorizontalGroup(
+               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(12, 12, 12)
+                    .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbDob, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbContact, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lbAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(19, 19, 19))
+          );
+          panelLayout.setVerticalGroup(
+               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                              .addComponent(lbDob)
+                              .addComponent(lbContact)
+                              .addComponent(lbGender)
+                              .addComponent(lbName)
+                              .addComponent(lbId)
+                              .addComponent(btnEdit)
+                              .addComponent(lbAddress)
+                              .addComponent(lbStartDate)
+                              .addComponent(role))
+                         .addComponent(btnDelete))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0))
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnDelete;
-    private javax.swing.JLabel btnEdit;
-    private javax.swing.JLabel lbAddress;
-    private javax.swing.JLabel lbContact;
-    private javax.swing.JLabel lbDob;
-    private javax.swing.JLabel lbGender;
-    private javax.swing.JLabel lbId;
-    private javax.swing.JLabel lbName;
-    private javax.swing.JLabel lbStartDate;
-    private javax.swing.JPanel panel;
-    private javax.swing.JLabel role;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel btnDelete;
+     private javax.swing.JLabel btnEdit;
+     private javax.swing.JLabel lbAddress;
+     private javax.swing.JLabel lbContact;
+     private javax.swing.JLabel lbDob;
+     private javax.swing.JLabel lbGender;
+     private javax.swing.JLabel lbId;
+     private javax.swing.JLabel lbName;
+     private javax.swing.JLabel lbStartDate;
+     private javax.swing.JPanel panel;
+     private javax.swing.JLabel role;
+     // End of variables declaration//GEN-END:variables
 }

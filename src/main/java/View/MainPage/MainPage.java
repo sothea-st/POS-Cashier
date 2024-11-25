@@ -28,7 +28,6 @@ import NewCashierReport.CashierPreview;
 import OpenAndCloseShift.OpenShiftJdailog;
 import Payment.PaymentOption;
 import Print.ReprintJdailog;
-
 import Reporting.ReportingView;
 import Return.ApprovalCode;
 import Settings.Settings;
@@ -40,13 +39,10 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -167,9 +163,9 @@ public class MainPage extends javax.swing.JFrame {
 
      void getImage() {
           // get image from api
-          setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "King Mart Small Logo.png")).getImage());
-          lbLogo.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "logoKingMart.png")));
-          imageShopping.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "shopping-cart.png")));
+          setIconImage(null);
+          //lbLogo.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "logoKingMart.png")));
+          //imageShopping.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "shopping-cart.png")));
 
           // set background color 
           mainPanel.setBackground(WindowColor.slightGreen);
@@ -304,6 +300,8 @@ public class MainPage extends javax.swing.JFrame {
           });
           panelCart.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
           panelCart.add(countCircleShape, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, -1));
+
+          imageShopping.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/shopping-cart.png"))); // NOI18N
           panelCart.add(imageShopping, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 5, -1, -1));
 
           javax.swing.GroupLayout menuBarLayout = new javax.swing.GroupLayout(menuBar);
@@ -324,7 +322,7 @@ public class MainPage extends javax.swing.JFrame {
                     .addGroup(menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(panelCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addGroup(menuBarLayout.createSequentialGroup()
-                              .addComponent(panelCart, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                              .addComponent(panelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addGap(17, 17, 17))
                          .addGroup(menuBarLayout.createSequentialGroup()
                               .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -333,6 +331,7 @@ public class MainPage extends javax.swing.JFrame {
           );
 
           lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/King Mart Small Logo second.png"))); // NOI18N
 
           btnReturn.setBackground(new java.awt.Color(204, 204, 204));
           btnReturn.setForeground(new java.awt.Color(255, 255, 255));
@@ -607,6 +606,9 @@ public class MainPage extends javax.swing.JFrame {
           titleOrder.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           titleOrder.setText("Current Order");
 
+          boxImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          boxImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/UserIcon.png"))); // NOI18N
+
           javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
           mainPanel.setLayout(mainPanelLayout);
           mainPanelLayout.setHorizontalGroup(
@@ -649,8 +651,8 @@ public class MainPage extends javax.swing.JFrame {
                               .addGap(10, 10, 10)
                               .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                    .addComponent(boxImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(currentDate, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                                   .addComponent(lbPOSId, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                                   .addComponent(currentDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addComponent(lbPOSId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                    .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(menuBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,7 +661,7 @@ public class MainPage extends javax.swing.JFrame {
                          .addGroup(mainPanelLayout.createSequentialGroup()
                               .addComponent(titleOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+                              .addComponent(jScrollPaneDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(panelprocessing, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(mainPanelLayout.createSequentialGroup()

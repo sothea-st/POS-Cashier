@@ -244,23 +244,23 @@ public class listUom extends javax.swing.JDialog {
                 b.setCategoryNameEn(listData.getNameEn());
                 b.setCategoryNameKh(listData.getNameKh());
 
-                try {
-
-                    TimerTask task = new TimerTask() {
-                        @Override
-                        public void run() {
-                            // Task to be executed
-                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                        }
-                    };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500); // Delays task execution by 1 second
-
-                } catch (Exception e) {
-                    System.err.println("error read image = " + e);
-                }
+//                try {
+//
+//                    TimerTask task = new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            // Task to be executed
+//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+//                        }
+//                    };
+//
+//                    Timer timer = new Timer();
+//                    timer.schedule(task, 500); // Delays task execution by 1 second
+//
+//                } catch (Exception e) {
+//                    System.err.println("error read image = " + e);
+//                }
 
                 paginationPanel.setVisible(true);
                 listGetUom.add(b, gbc);

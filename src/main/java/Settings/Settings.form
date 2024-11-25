@@ -116,56 +116,123 @@
           </Layout>
           <SubComponents>
             <Component class="Components.SettingBox" name="division">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/division.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Division"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="divisionMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="department">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/department.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Department"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="departmentMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="category">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/Category.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Category"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="categoryMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="subCategory">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/sub_category.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Sub Category"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="subCategoryMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="brand">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/brand.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Brand"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="brandMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="vendor">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/vendor.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Vendor"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="vendorMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="attribute">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/attribute.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Attribute"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="attributeMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="uom">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/measure.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="UOM"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="uomMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="country">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/countries.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Country"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="countryMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="countryMouseEntered"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="tax">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/taxes.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="TAX"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="taxMouseClicked"/>
               </Events>
             </Component>
             <Component class="Components.SettingBox" name="status">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/status.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Status"/>
+              </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="statusMouseClicked"/>
               </Events>

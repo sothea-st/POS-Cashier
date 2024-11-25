@@ -239,23 +239,23 @@ public class ListTax extends javax.swing.JDialog {
                 b.setTaxName(listData.getTaxName());
                 b.setTaxRate(listData.getRateTax() + "%");
 
-                try {
-
-                    TimerTask task = new TimerTask() {
-                        @Override
-                        public void run() {
-                            // Task to be executed
-                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-                        }
-                    };
-
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500); // Delays task execution by 1 second
-
-                } catch (Exception e) {
-                    System.err.println("error read image = " + e);
-                }
+//                try {
+//
+//                    TimerTask task = new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            // Task to be executed
+//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
+//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
+//                        }
+//                    };
+//
+//                    Timer timer = new Timer();
+//                    timer.schedule(task, 500); // Delays task execution by 1 second
+//
+//                } catch (Exception e) {
+//                    System.err.println("error read image = " + e);
+//                }
 
                 paginationPanel.setVisible(true);
                 listGetTax.add(b, gbc);
