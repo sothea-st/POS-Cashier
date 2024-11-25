@@ -93,7 +93,7 @@ public class SlotServiceImp implements SlotService{
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Slot> pages = slotRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
             // assign total pages
@@ -209,7 +209,7 @@ public class SlotServiceImp implements SlotService{
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Slot> pages = slotRepository.searchBySlotNameEnOrSlotNameKh(pageRequest,searchValue);
 
             // assign total pages

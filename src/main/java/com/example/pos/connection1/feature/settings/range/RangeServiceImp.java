@@ -92,7 +92,7 @@ public class RangeServiceImp implements RangeService {
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Ranges> pages = rangeRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
             // assign total pages
@@ -209,7 +209,7 @@ public class RangeServiceImp implements RangeService {
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber-1,pageSize,sortById);
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
             Page<Ranges> pages = rangeRepository.searchByRangeNameEnOrRangeNameKh(pageRequest,searchValue);
 
             // assign total pages
