@@ -43,6 +43,11 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <Component id="label18" min="-2" pref="58" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="jLabel18" min="-2" pref="13" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="label1" min="-2" pref="51" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
@@ -57,17 +62,13 @@
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label18" min="-2" pref="58" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel18" min="-2" pref="13" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="label7" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="label15" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="jLabel22" min="-2" pref="13" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="label7" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                      <Component id="label23" min="-2" pref="84" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -100,6 +101,7 @@
                                       <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
                                       <Component id="cmbStatus" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtCost" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cmdWharehouse" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -124,6 +126,7 @@
                                               <Component id="jLabel15" alignment="0" min="-2" pref="13" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <Component id="label21" min="-2" pref="52" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -134,6 +137,7 @@
                               <Component id="txtPrice" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="cmbCountry" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="txtChoiceValue" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmdRange" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -154,6 +158,7 @@
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="jLabel20" min="-2" pref="13" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="label22" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -162,10 +167,11 @@
                               <Component id="txtMargin" min="-2" max="-2" attributes="0"/>
                               <Component id="cmbTax" min="-2" max="-2" attributes="0"/>
                               <Component id="cmbUom" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmdSlot" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -247,6 +253,19 @@
                                       <Component id="jLabel21" min="-2" pref="25" max="-2" attributes="0"/>
                                       <Component id="jLabel22" min="-2" pref="25" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="label22" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="cmdWharehouse" alignment="0" pref="29" max="32767" attributes="0"/>
+                                              <Component id="cmdSlot" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="label23" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="cmdRange" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="label21" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Component id="jLabel18" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
@@ -267,10 +286,10 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="browse" min="-2" pref="27" max="-2" attributes="0"/>
-                          <EmptySpace pref="63" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="40" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="button1" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
@@ -591,6 +610,27 @@
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseExited"/>
           </Events>
+        </Component>
+        <Component class="Components.ComboBox" name="cmdWharehouse">
+        </Component>
+        <Component class="Components.Label" name="label21">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Range"/>
+          </Properties>
+        </Component>
+        <Component class="Components.ComboBox" name="cmdRange">
+        </Component>
+        <Component class="Components.Label" name="label22">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Slot"/>
+          </Properties>
+        </Component>
+        <Component class="Components.ComboBox" name="cmdSlot">
+        </Component>
+        <Component class="Components.Label" name="label23">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Wharehouse"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
