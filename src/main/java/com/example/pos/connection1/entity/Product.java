@@ -2,10 +2,9 @@ package com.example.pos.connection1.entity;
 
 import java.util.Date;
 
-import com.example.pos.connection1.constant.JavaMessage;
+import com.example.pos.connection1.entity.settings.Uom;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;
-import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.*;
 
 @Entity
 @Table(name = "pos_product")

@@ -5,20 +5,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.pos.connection1.constant.JavaConstant;
-import com.example.pos.connection1.entity.Attribute;
-import com.example.pos.connection1.entity.Category;
-import com.example.pos.connection1.entity.Country;
-import com.example.pos.connection1.entity.Product;
-import com.example.pos.connection1.entity.Status;
-import com.example.pos.connection1.entity.Uom;
-import com.example.pos.connection1.entity.Vendor;
-import com.example.pos.connection1.entity.sourceData.Brand;
-import com.example.pos.connection1.entity.sourceData.TaxProduct;
 import com.example.pos.connection1.repository.FileStoreRepository;
 import com.example.pos.connection1.feature.product.ProductRepository;
 import com.example.pos.connection1.feature.product.productV1.ProductService;
-import com.example.pos.connection1.feature.product.productV1.ProductServiceImp;
 import com.example.pos.connection1.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.connection2.entity.ProductByCategory;
 import com.example.pos.connection2.repository.ProdcutByCategoryRepository;
@@ -26,7 +15,6 @@ import com.example.pos.connection2.repository.ProdcutByCategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 @Service

@@ -8,7 +8,7 @@ import com.example.pos.connection1.entity.Category;
 import com.example.pos.connection1.entity.Country;
 import com.example.pos.connection1.entity.Product;
 import com.example.pos.connection1.entity.Status;
-import com.example.pos.connection1.entity.Uom;
+import com.example.pos.connection1.entity.settings.Uom;
 import com.example.pos.connection1.entity.Vendor;
 import com.example.pos.connection1.entity.sourceData.Brand;
 import com.example.pos.connection1.entity.sourceData.TaxProduct;

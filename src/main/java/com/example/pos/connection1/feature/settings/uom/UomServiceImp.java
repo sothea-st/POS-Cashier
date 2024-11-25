@@ -13,7 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.pos.connection1.entity.Uom;
+import com.example.pos.connection1.entity.settings.Uom;
 import com.example.pos.connection1.feature.settings.uom.dto.UomRequest;
 import com.example.pos.connection1.util.collection_response.JavaCollectionResponse;
 import lombok.RequiredArgsConstructor;

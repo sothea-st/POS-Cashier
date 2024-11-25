@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import com.example.pos.connection1.entity.Uom;
+import com.example.pos.connection1.entity.settings.Uom;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Repository
