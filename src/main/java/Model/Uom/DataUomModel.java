@@ -8,8 +8,7 @@ import lombok.Setter;
 
 public class DataUomModel {
     private Integer id;
-    private String nameEn;
-    private String nameKh;
-    private Boolean status;
-    private Boolean isDeleted;
+    private String uomNameEn;
+    private String uomNameKh;
+    private Integer numberOfUnit;
 }
