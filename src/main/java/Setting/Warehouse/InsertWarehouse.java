@@ -193,7 +193,13 @@ public class InsertWarehouse extends javax.swing.JDialog {
                         int code = error.getInt("code");
                         String reason = error.getString("reason");
                         if (code == 409) {
-                            JOptionPane.showMessageDialog(this, reason);
+                            if(reason.contains("WarehouseNameEn")){
+                                JOptionPane.showMessageDialog(this, "Warehouse Name is already existed!");
+                            }else if(reason.contains("WarehouseNameKh")){
+                                JOptionPane.showMessageDialog(this, "Warehouse Name Kh is already existed!");
+                            }else{
+                                JOptionPane.showMessageDialog(this, reason);
+                            }
                         }
                     }else{
                         listGetWarehouse.removeAll();
@@ -214,7 +220,13 @@ public class InsertWarehouse extends javax.swing.JDialog {
                         int code = error.getInt("code");
                         String reason = error.getString("reason");
                         if (code == 409) {
-                            JOptionPane.showMessageDialog(this, reason);
+                            if(reason.contains("WarehouseNameEn")){
+                                JOptionPane.showMessageDialog(this, "Warehouse Name is already existed!");
+                            }else if(reason.contains("WarehouseNameKh")){
+                                JOptionPane.showMessageDialog(this, "Warehouse Name Kh is already existed!");
+                            }else{
+                                JOptionPane.showMessageDialog(this, reason);
+                            }
                         }
                     }else{
                         listGetWarehouse.removeAll();

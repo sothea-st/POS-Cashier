@@ -7,6 +7,8 @@ import Setting.Attribute.ListAttribute;
 import Setting.Brand.ListBrand;
 import Setting.Category.Category;
 import Setting.Country.ListCountry;
+import Setting.Range.ListRange;
+import Setting.Slot.ListSlot;
 import Setting.Status.ListStatus;
 import Setting.Tax.ListTax;
 import Setting.Uom.listUom;
@@ -104,6 +106,8 @@ public class Settings extends javax.swing.JDialog {
         tax = new Components.SettingBox();
         status = new Components.SettingBox();
         warehouse = new Components.SettingBox();
+        range = new Components.SettingBox();
+        slot = new Components.SettingBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -197,11 +201,27 @@ public class Settings extends javax.swing.JDialog {
             }
         });
 
-        warehouse.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/status.png"))); // NOI18N
+        warehouse.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/warehouse.png"))); // NOI18N
         warehouse.setTitle("Warehouse");
         warehouse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 warehouseMouseClicked(evt);
+            }
+        });
+
+        range.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/range.png"))); // NOI18N
+        range.setTitle("Range");
+        range.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rangeMouseClicked(evt);
+            }
+        });
+
+        slot.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/status.png"))); // NOI18N
+        slot.setTitle("Slot");
+        slot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                slotMouseClicked(evt);
             }
         });
 
@@ -212,6 +232,10 @@ public class Settings extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(slot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,7 +283,11 @@ public class Settings extends javax.swing.JDialog {
                     .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(warehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(slot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -275,8 +303,8 @@ public class Settings extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+                .addComponent(jScrollPane1)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -360,6 +388,16 @@ public class Settings extends javax.swing.JDialog {
          list.setVisible(true);
     }//GEN-LAST:event_warehouseMouseClicked
 
+    private void rangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rangeMouseClicked
+         ListRange list = new ListRange(new JFrame(), true);
+         list.setVisible(true);
+    }//GEN-LAST:event_rangeMouseClicked
+
+    private void slotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slotMouseClicked
+         ListSlot list = new ListSlot(new JFrame(), true);
+         list.setVisible(true);
+    }//GEN-LAST:event_slotMouseClicked
+
      public JPanel getPanelProduct() {
           return panelProduct;
      }
@@ -424,6 +462,8 @@ public class Settings extends javax.swing.JDialog {
     private Components.SettingBox division;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private Components.SettingBox range;
+    private Components.SettingBox slot;
     private Components.SettingBox status;
     private Components.SettingBox subCategory;
     private Components.SettingBox tax;
