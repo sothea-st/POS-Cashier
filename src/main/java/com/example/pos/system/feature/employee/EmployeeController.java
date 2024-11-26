@@ -111,8 +111,6 @@ public class EmployeeController {
     JavaCollectionResponse<?> readUserAcccount(
         @RequestParam(defaultValue = "10", required = false ) int pageSize, 
         @RequestParam(defaultValue = "0", required = false )int pageNumber){
-
-        System.out.println("hhhhhhhhhhhhhhhhhh = fffffffffffffff ");
             return employeeService.readUserAcccount(pageSize, pageNumber);
     }
 
