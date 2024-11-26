@@ -1,4 +1,4 @@
-package Setting.Uom;
+package Setting.Range;
 
 import Color.WindowColor;
 import Constant.JavaConnection;
@@ -7,10 +7,10 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import Model.Uom.DataUomModel;
-import Model.Uom.DetailUomModel;
-import Model.Uom.ListUomModel;
-import Model.Uom.UomModel;
+import Model.Range.Range;
+import Model.Range.RangeDetailModel;
+import Model.Range.RangeModel;
+import Model.Range.RangeModel.RangeDetail;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -28,7 +28,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class listUom extends javax.swing.JDialog {
+public class ListRange extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
@@ -37,7 +37,7 @@ public class listUom extends javax.swing.JDialog {
     private int dataCount = 0;
     private String pageType;
     
-    public listUom(java.awt.Frame parent, boolean modal) {
+    public ListRange(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -53,10 +53,10 @@ public class listUom extends javax.swing.JDialog {
         verticalScrollBar.setBlockIncrement(35);
         
         header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "UOM");
+        JavaConstant.addTitleAndLogo(this, "Range");
         
-        getUom(listGetUom,true,pageNumber);
-        eventSearchUom();
+        getRange(listGetRange,true,pageNumber);
+        eventSearchRange();
         eventPagination();
     }
     
@@ -67,7 +67,7 @@ public class listUom extends javax.swing.JDialog {
                  if (isCheckSearch) {
                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                       pageNumber = String.valueOf(_value);
-                      getUom(listGetUom,true,pageNumber);
+                      getRange(listGetRange,true,pageNumber);
                  }
             }
              
@@ -80,15 +80,15 @@ public class listUom extends javax.swing.JDialog {
         paginationPanel.initEvent(event);
     }
     
-    public void getUom(JPanel jpanelData, boolean isCheck, String pageNumber) {
+    public void getRange(JPanel jpanelData, boolean isCheck, String pageNumber) {
         try {
             
             Response response = null;
             if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize=10");
+                 response = JavaConnection.get(JavaRoute.range + "?pageNumber=" + pageNumber + "&pageSize=10");
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.uom + "/search?" + searchValue);
+                 response = JavaConnection.get(JavaRoute.range + "/search?" + searchValue);
             }
             
             System.out.println("response : " + response);
@@ -96,8 +96,8 @@ public class listUom extends javax.swing.JDialog {
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
-                ListUomModel data = objMap.readValue(responseData, ListUomModel.class);
-                DataUomModel[] listData = data.getData();
+                RangeModel data = objMap.readValue(responseData, RangeModel.class);
+                RangeDetail[] listData = data.getData();
                 
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
@@ -105,53 +105,53 @@ public class listUom extends javax.swing.JDialog {
                     paginationPanel.resetPage();
                 }
                               
-                assignUom(listData, jpanelData);
+                assignRange(listData, jpanelData);
             } else {
-                System.err.println("fail loading uom");
+                System.err.println("fail loading range");
             }
         } catch (Exception e) {
-            System.err.println("error getting uom " + e);
+            System.err.println("error getting range " + e);
         }
     }
      
-    public void assignUom(DataUomModel[] listData, JPanel listGetUom) {
-        ArrayList<UomModel> uom = new ArrayList<>();
+    public void assignRange(RangeDetail[] listData, JPanel listGetRange) {
+        ArrayList<Range> range = new ArrayList<>();
           
         for (int i = 0; i < listData.length; i++) {
             var obj = listData[i];
-            UomModel getUom = new UomModel(
+            Range getRange = new Range(
                     obj.getId(),
-                    obj.getUomNameEn(),
-                    obj.getUomNameKh(),
-                    obj.getNumberOfUnit()
+                    obj.getRangeNameEn(),
+                    obj.getRangeNameEn(),
+                    obj.getWarehouse().getWarehouseNameEn()
             );
-            uom.add(getUom);
+            range.add(getRange);
         }
 
-        appendUom(uom, listGetUom);
+        appendRange(range, listGetRange);
     }
     
     private void reloadPanel() {
-        listGetUom.removeAll();
-        listGetUom.revalidate();
-        listGetUom.repaint();
+        listGetRange.removeAll();
+        listGetRange.revalidate();
+        listGetRange.repaint();
     }
     
-    void appendUom(ArrayList<UomModel> listUom, JPanel listGetUom) {
+    void appendRange(ArrayList<Range> listRange, JPanel listGetRange) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        listGetUom.setLayout(gridBagLayout);
+        listGetRange.setLayout(gridBagLayout);
         reloadPanel();
         
         int x = 0;
         int y = 0;
              
-        if(listUom.size() > 0){
-            for (int i = 0; i < listUom.size(); i++) {
+        if(listRange.size() > 0){
+            for (int i = 0; i < listRange.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = x;
                 gbc.gridy = y;
@@ -163,35 +163,36 @@ public class listUom extends javax.swing.JDialog {
                     y++;
                 }
 
-                var listData = listUom.get(i);
+                var listData = listRange.get(i);
                 
-                GetUom b = new GetUom();
+                GetRange b = new GetRange();
 
                 ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String Key) {  // event edit
-                        AddUom edit = new AddUom(new JFrame(), true);
+                        AddRange edit = new AddRange(new JFrame(), true);
                         try {
-                            Response response = JavaConnection.get(JavaRoute.uom + "/" + listData.getId());
+                            Response response = JavaConnection.get(JavaRoute.range + "/" + listData.getId());
                             String responseData = response.body().string();
                             ObjectMapper objMap = new ObjectMapper();
-                            DetailUomModel data = objMap.readValue(responseData, DetailUomModel.class);
+                            RangeDetailModel data = objMap.readValue(responseData, RangeDetailModel.class);
                             
                             System.out.println("data : " + data);
 
                             edit.setId(data.getData().getId());
-                            edit.setListGetUom(listGetUom);
+                            edit.setListGetRange(listGetRange);
                             edit.setPageNumber(pageNumber);
+                            edit.setObj(ListRange.this);
 
                             edit.setValueEdit(
-                                data.getData().getUomNameEn(),
-                                data.getData().getUomNameKh(),
-                                ""+data.getData().getNumberOfUnit()
+                                data.getData().getRangeNameEn(),
+                                data.getData().getRangeNameKh(),
+                                ""+data.getData().getWarehouse().getId()
                             );
 
                             edit.setVisible(true);
                         } catch (Exception e) {
-                             System.err.println("error getting uom " + e);
+                             System.err.println("error getting warehouse " + e);
                         }
                     }
                     
@@ -204,14 +205,14 @@ public class listUom extends javax.swing.JDialog {
                             UI.put("Panel.background", WindowColor.mediumGreen);
                             UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this UOM?",
-                                    "Delete UOM?", JOptionPane.YES_NO_OPTION);
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this range?",
+                                    "Delete Range?", JOptionPane.YES_NO_OPTION);
 
                             if (resp == JOptionPane.YES_OPTION) {
                                 JSONObject json = new JSONObject();
                                 json.put("status", false);
                                 json.put("isDeleted", true);
-                                Response response = JavaConnection.delete(JavaRoute.uom + "/" + listData.getId(), json);
+                                Response response = JavaConnection.delete(JavaRoute.range + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
                                     
@@ -223,10 +224,10 @@ public class listUom extends javax.swing.JDialog {
                                          pageNumber = String.valueOf(_value);
                                     }
                                     
-                                    listGetUom.removeAll();
-                                    listGetUom.revalidate();
-                                    listGetUom.repaint();
-                                    getUom(listGetUom,true,pageNumber);
+                                    listGetRange.removeAll();
+                                    listGetRange.revalidate();
+                                    listGetRange.repaint();
+                                    getRange(listGetRange,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -234,7 +235,7 @@ public class listUom extends javax.swing.JDialog {
                             }
 
                         } catch (Exception e) {
-                            System.err.println("error getting uom " + e);
+                            System.err.println("error getting warehouse " + e);
                         }
                     }
                 };
@@ -242,25 +243,24 @@ public class listUom extends javax.swing.JDialog {
                 b.initEvent(events);
                 b.setId(listData.getId());
                 
-                b.setUomNameEn(listData.getUomNameEn());
-                b.setUomNameKh(listData.getUomNameKh());
-                b.setUomValue(""+listData.getNumberOfUnit());
-
+                b.setRangeNameEn(listData.getRangeNameEn());
+                b.setRangeNameKh(listData.getRangeNameKh());
+                b.setWarehouseName(listData.getWarehouse());
                 paginationPanel.setVisible(true);
-                listGetUom.add(b, gbc);
+                listGetRange.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetUom.add(no);
+            listGetRange.add(no);
             paginationPanel.setVisible(false);
         }
         
-        listGetUom.revalidate();
-        listGetUom.repaint();
+        listGetRange.revalidate();
+        listGetRange.repaint();
     }
     
     //Action Search
-    private void eventSearchUom() {        
+    private void eventSearchRange() {        
         // this event was called when user type on searchTextField 
         ButtonEvent event = new ButtonEvent() {
             @Override
@@ -275,10 +275,10 @@ public class listUom extends javax.swing.JDialog {
                            if (searchValue.isEmpty()) {
                                 isCheckSearch = true;
                                 pageNumber = "0";
-                                getUom(listGetUom,true,pageNumber);
+                                getRange(listGetRange,true,pageNumber);
                                 return;
                            }
-                           getUom(listGetUom,false,pageNumber);
+                           getRange(listGetRange,false,pageNumber);
                       }
                  };
 
@@ -302,7 +302,7 @@ public class listUom extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetUom = new javax.swing.JPanel();
+        listGetRange = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
         paginationPanel = new pagination.PaginationPanel();
@@ -318,16 +318,15 @@ public class listUom extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("UOM Name Kh");
+        jLabel8.setText("Range Name Kh");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("UOM Name");
+        jLabel10.setText("Range Name");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("UOM Value");
+        jLabel9.setText("Warehouse");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -362,20 +361,20 @@ public class listUom extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetUom.setBackground(new java.awt.Color(176, 215, 181));
+        listGetRange.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetUomLayout = new javax.swing.GroupLayout(listGetUom);
-        listGetUom.setLayout(listGetUomLayout);
-        listGetUomLayout.setHorizontalGroup(
-            listGetUomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetRangeLayout = new javax.swing.GroupLayout(listGetRange);
+        listGetRange.setLayout(listGetRangeLayout);
+        listGetRangeLayout.setHorizontalGroup(
+            listGetRangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 664, Short.MAX_VALUE)
         );
-        listGetUomLayout.setVerticalGroup(
-            listGetUomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetRangeLayout.setVerticalGroup(
+            listGetRangeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 430, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetUom);
+        jScrollPane.setViewportView(listGetRange);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -384,7 +383,7 @@ public class listUom extends javax.swing.JDialog {
         });
 
         btnAdd.setBackground(new java.awt.Color(47, 155, 70));
-        btnAdd.setButtonName("+ Add UOM");
+        btnAdd.setButtonName("+ Add Range");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMouseClicked(evt);
@@ -450,9 +449,9 @@ public class listUom extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AddUom add = new AddUom(new JFrame(), true);
+        AddRange add = new AddRange(new JFrame(), true);
         add.setPageNumber(pageNumber);
-        add.setListGetUom(listGetUom);
+        add.setListGetRange(listGetRange);
         add.setObj(this);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
@@ -471,20 +470,23 @@ public class listUom extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListRange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListRange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListRange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListRange.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                listUom dialog = new listUom(new javax.swing.JFrame(), true);
+                ListRange dialog = new ListRange(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -505,7 +507,7 @@ public class listUom extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetUom;
+    private javax.swing.JPanel listGetRange;
     private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListUom;
     private Components.SearchField searchField;

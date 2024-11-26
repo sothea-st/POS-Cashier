@@ -229,7 +229,7 @@ public class ListWarehouse extends javax.swing.JDialog {
                                    }
                                    
                               } catch (Exception e) {
-                                   System.err.println("error getting brand " + e);
+                                   System.err.println("error getting Warehouse " + e);
                               }
                          }
                     };

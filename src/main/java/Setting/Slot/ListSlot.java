@@ -1,4 +1,4 @@
-package Setting.Uom;
+package Setting.Slot;
 
 import Color.WindowColor;
 import Constant.JavaConnection;
@@ -7,10 +7,10 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import Model.Uom.DataUomModel;
-import Model.Uom.DetailUomModel;
-import Model.Uom.ListUomModel;
-import Model.Uom.UomModel;
+import Model.Slot.Slot;
+import Model.Slot.SlotDetailModel;
+import Model.Slot.SlotModel;
+import Model.Slot.SlotModel.SlotDetail;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -28,7 +28,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class listUom extends javax.swing.JDialog {
+public class ListSlot extends javax.swing.JDialog {
 
     String searchValue;
     private String pageNumber = "0";
@@ -37,7 +37,7 @@ public class listUom extends javax.swing.JDialog {
     private int dataCount = 0;
     private String pageType;
     
-    public listUom(java.awt.Frame parent, boolean modal) {
+    public ListSlot(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
@@ -53,10 +53,10 @@ public class listUom extends javax.swing.JDialog {
         verticalScrollBar.setBlockIncrement(35);
         
         header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "UOM");
+        JavaConstant.addTitleAndLogo(this, "Slot");
         
-        getUom(listGetUom,true,pageNumber);
-        eventSearchUom();
+        getSlot(listGetSlot,true,pageNumber);
+        eventSearchRange();
         eventPagination();
     }
     
@@ -67,7 +67,7 @@ public class listUom extends javax.swing.JDialog {
                  if (isCheckSearch) {
                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                       pageNumber = String.valueOf(_value);
-                      getUom(listGetUom,true,pageNumber);
+                      getSlot(listGetSlot,true,pageNumber);
                  }
             }
              
@@ -80,24 +80,22 @@ public class listUom extends javax.swing.JDialog {
         paginationPanel.initEvent(event);
     }
     
-    public void getUom(JPanel jpanelData, boolean isCheck, String pageNumber) {
+    public void getSlot(JPanel jpanelData, boolean isCheck, String pageNumber) {
         try {
             
             Response response = null;
             if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize=10");
+                 response = JavaConnection.get(JavaRoute.slot + "?pageNumber=" + pageNumber + "&pageSize=10");
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.uom + "/search?" + searchValue);
+                 response = JavaConnection.get(JavaRoute.slot + "/search?" + searchValue);
             }
-            
-            System.out.println("response : " + response);
 
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
                 ObjectMapper objMap = new ObjectMapper();
-                ListUomModel data = objMap.readValue(responseData, ListUomModel.class);
-                DataUomModel[] listData = data.getData();
+                SlotModel data = objMap.readValue(responseData, SlotModel.class);
+                SlotDetail[] listData = data.getData();
                 
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
@@ -105,53 +103,53 @@ public class listUom extends javax.swing.JDialog {
                     paginationPanel.resetPage();
                 }
                               
-                assignUom(listData, jpanelData);
+                assignSlot(listData, jpanelData);
             } else {
-                System.err.println("fail loading uom");
+                System.err.println("fail loading slot");
             }
         } catch (Exception e) {
-            System.err.println("error getting uom " + e);
+            System.err.println("error getting slot " + e);
         }
     }
      
-    public void assignUom(DataUomModel[] listData, JPanel listGetUom) {
-        ArrayList<UomModel> uom = new ArrayList<>();
+    public void assignSlot(SlotDetail[] listData, JPanel listGetSlot) {
+        ArrayList<Slot> slot = new ArrayList<>();
           
         for (int i = 0; i < listData.length; i++) {
             var obj = listData[i];
-            UomModel getUom = new UomModel(
+            Slot getSlot = new Slot(
                     obj.getId(),
-                    obj.getUomNameEn(),
-                    obj.getUomNameKh(),
-                    obj.getNumberOfUnit()
+                    obj.getSlotNameEn(),
+                    obj.getSlotNameKh(),
+                    obj.getRange().getRangeNameEn()
             );
-            uom.add(getUom);
+            slot.add(getSlot);
         }
 
-        appendUom(uom, listGetUom);
+        appenSlot(slot, listGetSlot);
     }
     
     private void reloadPanel() {
-        listGetUom.removeAll();
-        listGetUom.revalidate();
-        listGetUom.repaint();
+        listGetSlot.removeAll();
+        listGetSlot.revalidate();
+        listGetSlot.repaint();
     }
     
-    void appendUom(ArrayList<UomModel> listUom, JPanel listGetUom) {
+    void appenSlot(ArrayList<Slot> listSlot, JPanel listGetSlot) {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
         gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
         gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        listGetUom.setLayout(gridBagLayout);
+        listGetSlot.setLayout(gridBagLayout);
         reloadPanel();
         
         int x = 0;
         int y = 0;
              
-        if(listUom.size() > 0){
-            for (int i = 0; i < listUom.size(); i++) {
+        if(listSlot.size() > 0){
+            for (int i = 0; i < listSlot.size(); i++) {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = x;
                 gbc.gridy = y;
@@ -163,35 +161,36 @@ public class listUom extends javax.swing.JDialog {
                     y++;
                 }
 
-                var listData = listUom.get(i);
+                var listData = listSlot.get(i);
                 
-                GetUom b = new GetUom();
+                GetSlot b = new GetSlot();
 
                 ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String Key) {  // event edit
-                        AddUom edit = new AddUom(new JFrame(), true);
+                        AddSlot edit = new AddSlot(new JFrame(), true);
                         try {
-                            Response response = JavaConnection.get(JavaRoute.uom + "/" + listData.getId());
+                            Response response = JavaConnection.get(JavaRoute.slot + "/" + listData.getId());
                             String responseData = response.body().string();
                             ObjectMapper objMap = new ObjectMapper();
-                            DetailUomModel data = objMap.readValue(responseData, DetailUomModel.class);
+                            SlotDetailModel data = objMap.readValue(responseData, SlotDetailModel.class);
                             
                             System.out.println("data : " + data);
 
                             edit.setId(data.getData().getId());
-                            edit.setListGetUom(listGetUom);
+                            edit.setListGetSlot(listGetSlot);
                             edit.setPageNumber(pageNumber);
+                            edit.setObj(ListSlot.this);
 
                             edit.setValueEdit(
-                                data.getData().getUomNameEn(),
-                                data.getData().getUomNameKh(),
-                                ""+data.getData().getNumberOfUnit()
+                                data.getData().getSlotNameEn(),
+                                data.getData().getSlotNameKh(),
+                                ""+data.getData().getRange().getId()
                             );
 
                             edit.setVisible(true);
                         } catch (Exception e) {
-                             System.err.println("error getting uom " + e);
+                             System.err.println("error getting warehouse " + e);
                         }
                     }
                     
@@ -204,14 +203,14 @@ public class listUom extends javax.swing.JDialog {
                             UI.put("Panel.background", WindowColor.mediumGreen);
                             UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this UOM?",
-                                    "Delete UOM?", JOptionPane.YES_NO_OPTION);
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this slot?",
+                                    "Delete Slot?", JOptionPane.YES_NO_OPTION);
 
                             if (resp == JOptionPane.YES_OPTION) {
                                 JSONObject json = new JSONObject();
                                 json.put("status", false);
                                 json.put("isDeleted", true);
-                                Response response = JavaConnection.delete(JavaRoute.uom + "/" + listData.getId(), json);
+                                Response response = JavaConnection.delete(JavaRoute.slot + "/" + listData.getId(), json);
 
                                 if (response.isSuccessful()) {
                                     
@@ -223,10 +222,10 @@ public class listUom extends javax.swing.JDialog {
                                          pageNumber = String.valueOf(_value);
                                     }
                                     
-                                    listGetUom.removeAll();
-                                    listGetUom.revalidate();
-                                    listGetUom.repaint();
-                                    getUom(listGetUom,true,pageNumber);
+                                    listGetSlot.removeAll();
+                                    listGetSlot.revalidate();
+                                    listGetSlot.repaint();
+                                    getSlot(listGetSlot,true,pageNumber);
                                     System.out.println("Successful deleted ");
                                 }
                             } else {
@@ -234,7 +233,7 @@ public class listUom extends javax.swing.JDialog {
                             }
 
                         } catch (Exception e) {
-                            System.err.println("error getting uom " + e);
+                            System.err.println("error getting slot " + e);
                         }
                     }
                 };
@@ -242,25 +241,24 @@ public class listUom extends javax.swing.JDialog {
                 b.initEvent(events);
                 b.setId(listData.getId());
                 
-                b.setUomNameEn(listData.getUomNameEn());
-                b.setUomNameKh(listData.getUomNameKh());
-                b.setUomValue(""+listData.getNumberOfUnit());
-
+                b.setSlotNameEn(listData.getSlotNameEn());
+                b.setSlotNameKh(listData.getSlotNameKh());
+                b.setRange(listData.getRange());
                 paginationPanel.setVisible(true);
-                listGetUom.add(b, gbc);
+                listGetSlot.add(b, gbc);
             }  
         }else{
             NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetUom.add(no);
+            listGetSlot.add(no);
             paginationPanel.setVisible(false);
         }
         
-        listGetUom.revalidate();
-        listGetUom.repaint();
+        listGetSlot.revalidate();
+        listGetSlot.repaint();
     }
     
     //Action Search
-    private void eventSearchUom() {        
+    private void eventSearchRange() {        
         // this event was called when user type on searchTextField 
         ButtonEvent event = new ButtonEvent() {
             @Override
@@ -275,10 +273,10 @@ public class listUom extends javax.swing.JDialog {
                            if (searchValue.isEmpty()) {
                                 isCheckSearch = true;
                                 pageNumber = "0";
-                                getUom(listGetUom,true,pageNumber);
+                                getSlot(listGetSlot,true,pageNumber);
                                 return;
                            }
-                           getUom(listGetUom,false,pageNumber);
+                           getSlot(listGetSlot,false,pageNumber);
                       }
                  };
 
@@ -302,7 +300,7 @@ public class listUom extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
-        listGetUom = new javax.swing.JPanel();
+        listGetSlot = new javax.swing.JPanel();
         buttonCancel1 = new ButtonPackage.ButtonCancel();
         btnAdd = new Button.Button();
         paginationPanel = new pagination.PaginationPanel();
@@ -318,16 +316,15 @@ public class listUom extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("UOM Name Kh");
+        jLabel8.setText("Slot Name Kh");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("UOM Name");
+        jLabel10.setText("Slot Name");
 
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("UOM Value");
+        jLabel9.setText("Range");
 
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
@@ -362,20 +359,20 @@ public class listUom extends javax.swing.JDialog {
         jScrollPane.setBackground(new java.awt.Color(176, 215, 181));
         jScrollPane.setBorder(null);
 
-        listGetUom.setBackground(new java.awt.Color(176, 215, 181));
+        listGetSlot.setBackground(new java.awt.Color(176, 215, 181));
 
-        javax.swing.GroupLayout listGetUomLayout = new javax.swing.GroupLayout(listGetUom);
-        listGetUom.setLayout(listGetUomLayout);
-        listGetUomLayout.setHorizontalGroup(
-            listGetUomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout listGetSlotLayout = new javax.swing.GroupLayout(listGetSlot);
+        listGetSlot.setLayout(listGetSlotLayout);
+        listGetSlotLayout.setHorizontalGroup(
+            listGetSlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 664, Short.MAX_VALUE)
         );
-        listGetUomLayout.setVerticalGroup(
-            listGetUomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        listGetSlotLayout.setVerticalGroup(
+            listGetSlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 430, Short.MAX_VALUE)
         );
 
-        jScrollPane.setViewportView(listGetUom);
+        jScrollPane.setViewportView(listGetSlot);
 
         buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -384,7 +381,7 @@ public class listUom extends javax.swing.JDialog {
         });
 
         btnAdd.setBackground(new java.awt.Color(47, 155, 70));
-        btnAdd.setButtonName("+ Add UOM");
+        btnAdd.setButtonName("+ Add Slot");
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnAddMouseClicked(evt);
@@ -450,9 +447,9 @@ public class listUom extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AddUom add = new AddUom(new JFrame(), true);
+        AddSlot add = new AddSlot(new JFrame(), true);
         add.setPageNumber(pageNumber);
-        add.setListGetUom(listGetUom);
+        add.setListGetSlot(listGetSlot);
         add.setObj(this);
         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
@@ -471,20 +468,27 @@ public class listUom extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                listUom dialog = new listUom(new javax.swing.JFrame(), true);
+                ListSlot dialog = new ListSlot(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -505,7 +509,7 @@ public class listUom extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JPanel listGetUom;
+    private javax.swing.JPanel listGetSlot;
     private pagination.PaginationPanel paginationPanel;
     private javax.swing.JPanel panelListUom;
     private Components.SearchField searchField;

@@ -24,7 +24,7 @@ public class JavaRoute {
      public static String searchUserAccount = "/employee/searchUserAccount/";
      public static String searchWithInvoice = "/searchProductByBarcodeOrName/searchWithInvoice";
      public static String brand = "/brand";
-     public static String warehouse = "/warehouse";
+
      public static String ranges = "/ranges";
      public static String slots = "/slots";
      public static String country = "/country";
@@ -81,5 +81,7 @@ public class JavaRoute {
      public static String searchReportPurchaseReceive = "/v1/reportReceive/search/";
      public static String searchReportSale = "/sale/search/";
      public static String searchReportPurchaseOrder = "/v1/reportPurchaseOrder/search/";
- 
+     public static String warehouse = "/warehouse";
+     public static String range = "/ranges";
+     public static String slot = "/slots";
 }
