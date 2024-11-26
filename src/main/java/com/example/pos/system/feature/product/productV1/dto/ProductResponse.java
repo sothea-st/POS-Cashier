@@ -25,6 +25,9 @@ public record ProductResponse(
           String proImageName,
           Integer qty,
           String itemCode,
-          String vendorCode
+          String vendorCode,
+          String warehouse,
+          String range,
+          String slot
           ) {
 }

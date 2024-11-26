@@ -34,6 +34,21 @@ public class RangeServiceImp implements RangeService {
     private final String nameKhAlreadyExisted = "RangeNameKh is already existed!!";
     private final String rangeIdNotFound = "Range is not found with id : ";
 
+    @Override
+    public JavaCollectionResponse<?> readByWarehouseId(Integer id) {
+        Warehouse warehouse = warehouseRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, warehouseIdNotFound + id));
+
+        List<RangeResponse> data = warehouse.getRanges().stream()
+                .map(this::mapToRangeResponse).toList();
+
+
+        return JavaCollectionResponse.builder()
+                .count(warehouse.getRanges().size())
+                .data(data)
+                .build();
+    }
+
     /**
      * create rangeRequest
      * @param rangeRequest

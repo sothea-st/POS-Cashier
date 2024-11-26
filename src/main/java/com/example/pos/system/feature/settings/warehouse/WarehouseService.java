@@ -14,6 +14,8 @@ public interface WarehouseService {
      */
     JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize);
 
+
+
     /**
      * search warehouse
      * @param pageNumber

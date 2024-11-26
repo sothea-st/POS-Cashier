@@ -19,7 +19,10 @@ public record ProductResponseReadById(
      Integer countryId,
      String choices,
      String proImageName,
-     Integer qty
+     Integer qty,
+     Integer warehouseId,
+     Integer rangeId,
+     Integer slotId
 ) {
      
 }

@@ -2,7 +2,9 @@ package com.example.pos.system.feature.settings.slot;
 
 import com.example.pos.system.domain.settings.Ranges;
 import com.example.pos.system.domain.settings.Slot;
+import com.example.pos.system.domain.settings.Warehouse;
 import com.example.pos.system.feature.settings.range.RangeRepository;
+import com.example.pos.system.feature.settings.range.dto.RangeResponse;
 import com.example.pos.system.feature.settings.slot.dto.RangeDetail;
 import com.example.pos.system.feature.settings.slot.dto.SlotRequest;
 import com.example.pos.system.feature.settings.slot.dto.SlotResponse;
@@ -34,6 +36,21 @@ public class SlotServiceImp implements SlotService{
     private final String slotNotFound = "Slot not found with id : ";
     private final String nameEnAlreadyExist = "SlotNameEn is already existed!";
     private final String nameKhAlreadyExist = "SlotNameKh is already existed!";
+
+    @Override
+    public JavaCollectionResponse<?> readByRangeId(Integer id) {
+        Ranges ranges = rangeRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, rangeIdNotFound + id));
+
+        List<SlotResponse> data = ranges.getSlots().stream()
+                .map(this::mapToSlotResponse).toList();
+
+
+        return JavaCollectionResponse.builder()
+                .count(ranges.getSlots().size())
+                .data(data)
+                .build();
+    }
 
     /**
      * create slot

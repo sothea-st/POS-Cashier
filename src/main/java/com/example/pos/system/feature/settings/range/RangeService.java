@@ -9,6 +9,13 @@ import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 public interface RangeService {
 
     /**
+     * read warehouse
+     * @param id
+     * @return
+     */
+    JavaCollectionResponse<?> readByWarehouseId(Integer id);
+
+    /**
      * create rangeRequest
      * @param rangeRequest
      * @return

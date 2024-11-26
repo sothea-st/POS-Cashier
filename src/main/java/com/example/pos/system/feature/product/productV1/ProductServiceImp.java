@@ -4,9 +4,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.pos.system.domain.settings.Ranges;
+import com.example.pos.system.domain.settings.Slot;
+import com.example.pos.system.domain.settings.Warehouse;
+import com.example.pos.system.feature.settings.range.RangeRepository;
+import com.example.pos.system.feature.settings.slot.SlotRepository;
+import com.example.pos.system.feature.settings.warehouse.WarehouseRepository;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Range;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
@@ -61,6 +68,9 @@ public class ProductServiceImp implements ProductService {
     private final StatusRepository statusRepository;
     private final CountryRepository countryRepository;
     private final ImportDetailRepository repoImp;
+    private final WarehouseRepository warehouseRepository;
+    private final RangeRepository rangeRepository;
+    private final SlotRepository slotRepository;
     // **************************** end *******************************
 
     // **************************** group variable ************************
@@ -74,6 +84,11 @@ public class ProductServiceImp implements ProductService {
     private String countryIdNotFound = "Country not found with id: ";
     private String barcodeAlreadyExist = "Barcode already exist with: ";
     private String productIdNotFound = "Product not found with id: ";
+
+    private String warehouseIdNotFound = "Warehouse not found with id: ";
+    private String rangeIdNotFound = "Range not found with id: ";
+    private String slotIdNotFound = "Slot not found with id: ";
+
 
     // **************************** end *******************************
 
@@ -353,6 +368,25 @@ public class ProductServiceImp implements ProductService {
 
         Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
 
+        if( productRequest.warehouseId() != null ) {
+            Warehouse warehouse = warehouseRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.warehouseId())
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,warehouseIdNotFound+productRequest.warehouseId()));
+            product.setWarehouse(warehouse);
+        }
+
+        if( productRequest.rangeId() != null ) {
+            Ranges range = rangeRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.rangeId())
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,rangeIdNotFound+productRequest.rangeId()));
+            product.setRange(range);
+        }
+
+        if( productRequest.slotId() != null ) {
+            Slot slot = slotRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.slotId())
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,slotIdNotFound+productRequest.slotId()));
+            product.setSlot(slot);
+        }
+
+
         product.setProNameKh(productRequest.proNameKh());
         product.setProNameEn(productRequest.proNameEn());
         product.setCost(productRequest.cost());
@@ -427,6 +461,7 @@ public class ProductServiceImp implements ProductService {
     private ProductResponse mapToProductResponse(Product p) {
         Integer qty = repoImp.sumQtyByProId(p.getId());
         if (qty == null) qty = 0;
+
         return ProductResponse.builder()
                 .id(p.getId())
                 .subCatNameEn(p.getSubCategory().getCatNameEn())
@@ -449,6 +484,15 @@ public class ProductServiceImp implements ProductService {
                 .qty(qty)
                 .itemCode(p.getItemCode())
                 .vendorCode(p.getVendor().getVendorCode())
+                .warehouse(p.getWarehouse() != null && p.getWarehouse().getWarehouseNameEn() != null
+                        ? p.getWarehouse().getWarehouseNameEn()
+                        : "")
+                .range(p.getRange() != null && p.getRange().getRangeNameEn() != null
+                        ? p.getRange().getRangeNameEn()
+                        : "")
+                .slot(p.getSlot() != null && p.getSlot().getSlotNameEn() != null
+                        ? p.getSlot().getSlotNameEn()
+                        : "")
                 .build();
     }
 
@@ -513,11 +557,28 @@ public class ProductServiceImp implements ProductService {
                 : productRequest.proImageName();
 
 
-
-
         Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
 
         Product product = productMapper.mapToProduct(productRequest);
+
+        if( productRequest.warehouseId() != null ) {
+            Warehouse warehouse = warehouseRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.warehouseId())
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,warehouseIdNotFound+productRequest.warehouseId()));
+            product.setWarehouse(warehouse);
+        }
+
+        if( productRequest.rangeId() != null ) {
+            Ranges range = rangeRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.rangeId())
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,rangeIdNotFound+productRequest.rangeId()));
+            product.setRange(range);
+        }
+
+        if( productRequest.slotId() != null ) {
+            Slot slot = slotRepository.findByIdAndStatusTrueAndIsDeletedFalse(productRequest.slotId())
+                    .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,slotIdNotFound+productRequest.slotId()));
+            product.setSlot(slot);
+        }
+
         product.setSubCategory(subCategory);
         product.setBrand(brand);
         product.setTaxProduct(tax);

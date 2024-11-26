@@ -80,4 +80,10 @@ public class SlotController {
         return slotService.search(pageNumber, pageSize, searchValue);
     }
 
+    @GetMapping("/readByRangeId/{id}")
+    JavaCollectionResponse<?> readByWarehouseId( @PathVariable("id") Integer id ){
+        return slotService.readByRangeId(id);
+    }
+
+
 }

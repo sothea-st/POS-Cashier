@@ -37,6 +37,7 @@ public class ProductController {
 
      @GetMapping("/{id}")
      public JavaMessageResponse<?> readById(@PathVariable("id") int id) {
+
           return JavaMessageResponse.builder()
                     .status(HttpStatus.OK.value())
                     .msg(JavaMessageResponse.success)
