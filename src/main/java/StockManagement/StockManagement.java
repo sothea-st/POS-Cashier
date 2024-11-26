@@ -1,19 +1,11 @@
 package StockManagement;
 
-import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
-import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Products.ListProduct;
-import Stock.PurchaseOrderRequest.PurchaseOrder;
 import Stock.PurchaseOrderView.PurchaseOrderView;
 import Stock.PurchaseReceive.ListPurchaseReceive;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;

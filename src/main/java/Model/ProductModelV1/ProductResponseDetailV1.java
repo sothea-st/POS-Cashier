@@ -1,11 +1,8 @@
-
 package Model.ProductModelV1;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
-
- 
 public class ProductResponseDetailV1 {
 
      private Integer id;
@@ -29,6 +26,39 @@ public class ProductResponseDetailV1 {
      private Integer qty;
      private String itemCode;
      private String vendorCode;
+     private String warehouse;
+     private String range;
+     private String slot;
+
+     @JsonProperty("warehouse")
+     public String getWarehouse() {
+          return warehouse;
+     }
+
+     @JsonProperty("warehouse")
+     public void setWarehouse(String warehouse) {
+          this.warehouse = warehouse;
+     }
+
+     @JsonProperty("range")
+     public String getRange() {
+          return range;
+     }
+
+     @JsonProperty("range")
+     public void setRange(String range) {
+          this.range = range;
+     }
+
+     @JsonProperty("slot")
+     public String getSlot() {
+          return slot;
+     }
+
+     @JsonProperty("slot")
+     public void setSlot(String slot) {
+          this.slot = slot;
+     }
 
      @JsonProperty("id")
      public Integer getID() {
@@ -219,7 +249,7 @@ public class ProductResponseDetailV1 {
      public void setQty(Integer value) {
           this.qty = value;
      }
-     
+
      @JsonProperty("itemCode")
      public String getItemCode() {
           return itemCode;

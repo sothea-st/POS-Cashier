@@ -1,8 +1,10 @@
 package Model.ProductModelV1;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 
 public class ProductResponseByIdV1 {
+
      private Integer status;
      private String msg;
      private Data data;
@@ -38,6 +40,7 @@ public class ProductResponseByIdV1 {
      }
 
      public class Data {
+
           private Integer id;
           private Integer subCatID;
           private String proNameKh;
@@ -57,6 +60,39 @@ public class ProductResponseByIdV1 {
           private String choices;
           private String proImageName;
           private Integer qty;
+          private Integer warehouseId;
+          private Integer rangeId;
+          private Integer slotId;
+
+          @JsonProperty("warehouseId")
+          public Integer getWarehouseId() {
+               return warehouseId;
+          }
+
+          @JsonProperty("warehouseId")
+          public void setWarehouseId(Integer warehouseId) {
+               this.warehouseId = warehouseId;
+          }
+
+          @JsonProperty("rangeId")
+          public Integer getRangeId() {
+               return rangeId;
+          }
+
+          @JsonProperty("rangeId")
+          public void setRangeId(Integer rangeId) {
+               this.rangeId = rangeId;
+          }
+
+          @JsonProperty("slotId")
+          public Integer getSlotId() {
+               return slotId;
+          }
+
+          @JsonProperty("slotId")
+          public void setSlotId(Integer slotId) {
+               this.slotId = slotId;
+          }
 
           @JsonProperty("id")
           public Integer getID() {
