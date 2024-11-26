@@ -7,8 +7,20 @@ import lombok.Setter;
 @Getter
 
 public class DetailUomModel {
-    private Integer id;
-    private String uomNameEn;
-    private String uomNameKh;
-    private Integer numberOfUnit;
+
+    private int status;
+    private String msg;
+    private UomDetail data;
+    private int count;
+    
+    @Setter
+    @Getter
+    public static class UomDetail{
+        private int id;
+        private String uomNameEn;
+        private String uomNameKh;
+        private int numberOfUnit;
+    }
+    
+    
 }

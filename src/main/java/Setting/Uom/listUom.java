@@ -11,7 +11,6 @@ import Model.Uom.DataUomModel;
 import Model.Uom.DetailUomModel;
 import Model.Uom.ListUomModel;
 import Model.Uom.UomModel;
-import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
@@ -180,14 +179,14 @@ public class listUom extends javax.swing.JDialog {
                             
                             System.out.println("data : " + data);
 
-                            edit.setId(data.getId());
+                            edit.setId(data.getData().getId());
                             edit.setListGetUom(listGetUom);
                             edit.setPageNumber(pageNumber);
 
                             edit.setValueEdit(
-                                data.getUomNameEn(),
-                                data.getUomNameKh(),
-                                ""+data.getNumberOfUnit()
+                                data.getData().getUomNameEn(),
+                                data.getData().getUomNameKh(),
+                                ""+data.getData().getNumberOfUnit()
                             );
 
                             edit.setVisible(true);
