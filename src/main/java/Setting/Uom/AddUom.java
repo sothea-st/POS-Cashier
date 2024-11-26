@@ -1,6 +1,7 @@
 package Setting.Uom;
 
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import java.io.IOException;
@@ -59,7 +60,7 @@ public class AddUom extends javax.swing.JDialog {
         }  
         
         if(uomValue != null && uomValue != ""){
-            txtUomKh.setValueTextField(uomValue);
+            txtUomValue.setValueTextField(uomValue);
         }  
     }
 
@@ -200,12 +201,14 @@ public class AddUom extends javax.swing.JDialog {
             }
 
             JSONObject json = new JSONObject();
-            json.put("nameEn", uomNameEn);
-            json.put("nameKh", uomNameKh);
+            json.put("uomNameEn", uomNameEn);
+            json.put("uomNameKh", uomNameKh);
             json.put("numberOfUnit", uomValue);
+            json.put("createdBy", JavaConstant.cashierId);
 
             if (id != null) {
                 Response response = JavaConnection.put(JavaRoute.uom + '/' + id, json);
+                 
                 String responeData = response.body().string();
                 JSONObject jsonResponse = new JSONObject(responeData);
                 
