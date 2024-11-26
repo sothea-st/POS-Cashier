@@ -25,7 +25,7 @@ public class WarehouseServiceImp implements WarehouseService {
     private final WarehouseRepository warehouseRepository;
     // variable not found
     private final String nameEnAlreadyExist = "WarehouseNameEn is already existed!";
-    private final String nameKhAlreadyExist = "WarehouseNameEn is already existed!";
+    private final String nameKhAlreadyExist = "WarehouseNameKh is already existed!";
     private final String warehouseIdNotFound = "Warehouse not found with id : ";
 
     /**
