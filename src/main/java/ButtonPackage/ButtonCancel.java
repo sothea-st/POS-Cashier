@@ -19,29 +19,29 @@ public class ButtonCancel extends javax.swing.JPanel {
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        btnCancel = new javax.swing.JLabel();
+          btnCancel = new javax.swing.JLabel();
 
-        btnCancel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnCancel.setText("Cancel");
+          btnCancel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+          btnCancel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnCancel.setText("Close");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+                    .addGap(0, 0, 0))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
      //=====================Create Shadow Box============================
      @Override
@@ -62,7 +62,7 @@ public class ButtonCancel extends javax.swing.JPanel {
      }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnCancel;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel btnCancel;
+     // End of variables declaration//GEN-END:variables
 }

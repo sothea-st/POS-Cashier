@@ -473,6 +473,7 @@ public class InsertProduct extends javax.swing.JDialog {
           lbPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productImage/default.jpg"))); // NOI18N
           lbPicture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+          buttonCancel.setButtonName("Close");
           buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     buttonCancelMouseClicked(evt);

@@ -48,8 +48,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+
 import lombok.Getter;
 import lombok.Setter;
 import password.ChangePasswordForm;
@@ -382,7 +381,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //              json.put("deviceName", "TT-MOB-APP-02");
 //              json.put("ipAddress", "172.20.10.48");
 
-               System.err.println("json : " + json);
+              System.err.println("json : " + json);
          } catch (Exception ex) {
               System.err.println("erro getIpAddress : " + ex);
          }
@@ -481,14 +480,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                    dispose();
                    getBtnLogin().setButtonName("Logout");
                    lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
-                  
+
                    //         ==== event on profile image for change password ====
                    //Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
-             
                    JavaConstant.setPointer(boxImg);
                    //boxImg.setIcon(icon);
                    boxImg.setVisible(true);
-                
+
                    boxImg.addMouseListener(new MouseListener() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
@@ -513,7 +511,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         }
 
                    });
-                   
+
                    category();
                    jScrollPaneCategory.setVisible(true);
                    ActionRequestBrand.requestBrand(cmboxBrand);
@@ -605,7 +603,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           try {
                ArrayList<CategoryModel> listCategory = new ArrayList<>();
                Response response = JavaConnection.get(JavaRoute.category);
-               System.err.println("response category = " + response);
+               //System.err.println("response category = " + response);
                category.setLayout(new GridLayout());
                if (response.isSuccessful()) {
                     String strData = response.body().string(); // convert response to string 
@@ -639,8 +637,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                          ButtonEvent event = new ButtonEvent() { // click on category
                               @Override
                               public void onMouseClick() {
-                                   System.err.println("ddddddddddddd");
-                                        
                                    onClickCategory(catNameData, catId);
                               }
 
@@ -751,36 +747,40 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
      public void runData() {
           if (btnOpenShift.getButtonName().equals("Close Shift")) {
-               category.getComponents()[1].setBackground(WindowColor.black);
-               Component[] _listCom = category.getComponents();
-               for (int i = 0; i < _listCom.length; i++) {
-                    var titleCategory = ((LabelTitle) _listCom[i]).getLabelTitle();
-                    var _catId = ((LabelTitle) _listCom[i]).getLbCatId();
+ 
+               if (category.getComponentCount() > 0) {
 
-                    String _tCategory = titleCategory.toLowerCase();
-                    if (_tCategory.equals("new items")) {
+                    category.getComponents()[1].setBackground(WindowColor.black);
+                    Component[] _listCom = category.getComponents();
+                    for (int i = 0; i < _listCom.length; i++) {
+                         var titleCategory = ((LabelTitle) _listCom[i]).getLabelTitle();
+                         var _catId = ((LabelTitle) _listCom[i]).getLbCatId();
 
-                         categoryName = titleCategory.toLowerCase();
-                         catId = Integer.parseInt(_catId);
-                         setCatId(catId);
+                         String _tCategory = titleCategory.toLowerCase();
+                         if (_tCategory.equals("new items")) {
 
-                         setTitleCategory(titleCategory);
-                         setCatName("" + i); // setCatName is index for change back ground when user try to pick other category and select brand
-                         break;
+                              categoryName = titleCategory.toLowerCase();
+                              catId = Integer.parseInt(_catId);
+                              setCatId(catId);
+
+                              setTitleCategory(titleCategory);
+                              setCatName("" + i); // setCatName is index for change back ground when user try to pick other category and select brand
+                              break;
+                         }
                     }
-               }
 
-               previous.setBackground(WindowColor.lightGray);
-               panelPagination.setVisible(true);
-               setBrandId(0); // each time user click on category brandId will be 0
-               cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
-               searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
-               panelProduct.removeAll();
-               pro.newProduct(limit, panelProduct);
-               pro.setBtnPayment(btnPayment);
-               panelProduct.revalidate();
-               panelProduct.repaint();
-               setCount(pro.getCount());
+                    previous.setBackground(WindowColor.lightGray);
+                    panelPagination.setVisible(true);
+                    setBrandId(0); // each time user click on category brandId will be 0
+                    cmboxBrand.setToFirstItem(); // each time user click on category combobox brand will be set to first item
+                    searchBox.requestFocusInWindow(); // each time user click on category remove cursor from searchBox
+                    panelProduct.removeAll();
+                    pro.newProduct(limit, panelProduct);
+                    pro.setBtnPayment(btnPayment);
+                    panelProduct.revalidate();
+                    panelProduct.repaint();
+                    setCount(pro.getCount());
+               }
           } else {
                //      == == == == == == == Add Background == == == == == == ==
                BackgroundImage bgimg = new BackgroundImage();

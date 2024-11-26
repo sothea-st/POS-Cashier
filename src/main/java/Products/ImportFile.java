@@ -38,106 +38,107 @@ public class ImportFile extends javax.swing.JDialog {
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        browse = new javax.swing.JLabel();
-        buttonCancel = new ButtonPackage.ButtonCancel();
-        buttonSave = new ButtonPackage.ButtonSave();
-        labelPopUpTitle1 = new Components.LabelPopUpTitle();
-        fileName = new javax.swing.JLabel();
-        label1 = new Components.Label();
+          jPanel1 = new javax.swing.JPanel();
+          browse = new javax.swing.JLabel();
+          buttonCancel = new ButtonPackage.ButtonCancel();
+          buttonSave = new ButtonPackage.ButtonSave();
+          labelPopUpTitle1 = new Components.LabelPopUpTitle();
+          fileName = new javax.swing.JLabel();
+          label1 = new Components.Label();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        browse.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        browse.setForeground(new java.awt.Color(0, 51, 102));
-        browse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        browse.setText("Browse here to Upload");
-        browse.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                browseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                browseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                browseMouseExited(evt);
-            }
-        });
+          browse.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          browse.setForeground(new java.awt.Color(0, 51, 102));
+          browse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          browse.setText("Browse here to Upload");
+          browse.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    browseMouseClicked(evt);
+               }
+               public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    browseMouseEntered(evt);
+               }
+               public void mouseExited(java.awt.event.MouseEvent evt) {
+                    browseMouseExited(evt);
+               }
+          });
 
-        buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCancelMouseClicked(evt);
-            }
-        });
+          buttonCancel.setButtonName("Close");
+          buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancelMouseClicked(evt);
+               }
+          });
 
-        buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonSaveMouseClicked(evt);
-            }
-        });
+          buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonSaveMouseClicked(evt);
+               }
+          });
 
-        labelPopUpTitle1.setLabelTitle("Select File to Import");
+          labelPopUpTitle1.setLabelTitle("Select File to Import");
 
-        label1.setLabelName("File Name :");
+          label1.setLabelName("File Name :");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(fileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(227, Short.MAX_VALUE)
-                .addComponent(browse)
-                .addGap(224, 224, 224))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(fileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
-        );
+          javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+          jPanel1.setLayout(jPanel1Layout);
+          jPanel1Layout.setHorizontalGroup(
+               jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                              .addGap(0, 0, Short.MAX_VALUE)
+                              .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(fileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(20, 20, 20))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(227, Short.MAX_VALUE)
+                    .addComponent(browse)
+                    .addGap(224, 224, 224))
+          );
+          jPanel1Layout.setVerticalGroup(
+               jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                         .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                         .addComponent(fileName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(19, 19, 19))
+          );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+          getContentPane().setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          );
 
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+          pack();
+          setLocationRelativeTo(null);
+     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
          this.dispose();
@@ -217,13 +218,13 @@ public class ImportFile extends javax.swing.JDialog {
           });
      }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel browse;
-    private ButtonPackage.ButtonCancel buttonCancel;
-    private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel fileName;
-    private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.LabelPopUpTitle labelPopUpTitle1;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel browse;
+     private ButtonPackage.ButtonCancel buttonCancel;
+     private ButtonPackage.ButtonSave buttonSave;
+     private javax.swing.JLabel fileName;
+     private javax.swing.JPanel jPanel1;
+     private Components.Label label1;
+     private Components.LabelPopUpTitle labelPopUpTitle1;
+     // End of variables declaration//GEN-END:variables
 }

@@ -76,6 +76,8 @@ public class Userlogin extends javax.swing.JDialog {
                 isCheckSearch = false;
                 response = JavaConnection.get(JavaRoute.searchUserAccount + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
             }
+            
+             System.err.println("response : " + response);
 
             if (response.isSuccessful()) {
                 String responseData = response.body().string();

@@ -1,14 +1,10 @@
 package Reporting;
 
-import Constant.JavaBaseUrl;
+ 
 import Constant.JavaConstant;
-import Controller.ActionProduct.ActionProduct;
+ 
 import CustomeUI.CustomScrollBarUI;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+ 
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -266,6 +262,8 @@ public class ReportingView extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private ButtonPackage.ButtonCancel buttonCancel;
+     private ButtonPackage.ButtonCancel buttonCancel1;
      private javax.swing.JPanel jPanel1;
      private javax.swing.JScrollPane jScrollPane1;
      private Components.SettingBox reportImport;

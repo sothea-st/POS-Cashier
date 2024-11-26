@@ -3,6 +3,7 @@ package pdf;
 import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
 import Model.ProductModelV1.ProductResponseDetailV1;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +28,7 @@ public class PrintToExcel {
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH-mm-ss a");
           String formattedDateTime = currentDateTime.format(formatter);
-          String fileName =name+" "+ formattedDateTime;
+          String fileName = name + " " + formattedDateTime;
           return fileName;
      }
 
@@ -45,12 +46,21 @@ public class PrintToExcel {
                     } else {
                          url = JavaBaseUrl.baseUrlBgImage + p.getProImageName();
                     }
-                    
+
                     boolean imageExists = JavaConstant.checkImageExists(url);
-                    if( !imageExists ) {
-                        url = JavaBaseUrl.baseUrlDefaultImage;
+                    if (!imageExists) {
+                         url = JavaBaseUrl.baseUrlDefaultImage;
                     }
-                    
+                    byte[] imageBytes = null;
+
+                    if (p.getProImageName().equals("default.jpg")) {
+                         
+                         imageBytes = getDefaultImage();
+
+                    } else {
+                         imageBytes = getImageBytes(url);
+                    }
+
                     dataList.add(
                          new Object[]{
                               String.valueOf(p.getBarcode()),
@@ -63,7 +73,7 @@ public class PrintToExcel {
                               String.valueOf(p.getQty()),
                               "$".concat(String.valueOf(p.getPrice())),
                               "$".concat(String.valueOf(p.getCost())),
-                              getImageBytes(url)
+                              imageBytes
                          });
                }
 
@@ -177,6 +187,13 @@ public class PrintToExcel {
           return imageBytes;
      }
 
-    
+     public static byte[] getDefaultImage() throws IOException {
+          try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("productImage/default.jpg")) {
+               if (inputStream == null) {
+                    throw new FileNotFoundException("File not found: productImage/default.jpg");
+               }
+               return IOUtils.toByteArray(inputStream);
+          }
+     }
 
 }

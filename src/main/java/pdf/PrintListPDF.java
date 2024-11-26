@@ -58,7 +58,8 @@ public class PrintListPDF {
 
                // Create a Document instance with A4 page size
                // Document document = new Document(pdfDocument);
-               Document document = new Document(pdfDocument, PageSize.A4.rotate());
+//               Document document = new Document(pdfDocument, PageSize.A4.rotate());// for rotate
+               Document document = new Document(pdfDocument, PageSize.A4);
 
                // Sample data
                List<Object[]> dataList = new ArrayList<>();
@@ -75,6 +76,15 @@ public class PrintListPDF {
                     if (!imageExists) {
                          url = JavaBaseUrl.baseUrlDefaultImage;
                     }
+
+                    BufferedImage image = null;
+
+                    if (p.getProImageName().equals("default.jpg")) {
+                         image = defaultImage(30, 30);
+                    } else {
+                         image = resizeImage(url, 30, 30);
+                    }
+
                     dataList.add(new Object[]{
                          String.valueOf(p.getBarcode()),
                          String.valueOf(p.getItemCode()),
@@ -86,7 +96,7 @@ public class PrintListPDF {
                          String.valueOf(p.getQty()),
                          "$".concat(String.valueOf(p.getPrice())),
                          "$".concat(String.valueOf(p.getCost())),
-                         resizeImage(url, 30, 30)
+                         image
                     });
                }
 
@@ -179,4 +189,26 @@ public class PrintListPDF {
           return resizedImage;
      }
 
+     public static BufferedImage defaultImage(int targetWidth, int targetHeight) throws IOException {
+          // Load the image from resources
+          InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("productImage/default.jpg");
+          if (inputStream == null) {
+               throw new FileNotFoundException("File not found: ");
+          }
+
+          try (ByteArrayInputStream bis = new ByteArrayInputStream(IOUtils.toByteArray(inputStream))) {
+               // Convert byte array to BufferedImage
+               BufferedImage originalImage = ImageIO.read(bis);
+
+               // Resize the image using Bicubic interpolation
+               BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
+               Graphics2D g2d = resizedImage.createGraphics();
+               g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+               g2d.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+               g2d.dispose();
+
+               return resizedImage;
+          }
+
+     }
 }
