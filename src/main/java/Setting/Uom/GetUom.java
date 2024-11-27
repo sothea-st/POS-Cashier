@@ -12,7 +12,6 @@ public class GetUom extends javax.swing.JPanel {
     private Integer id;
     private String uomNameKh;
     private String uomNameEn;
-    private String uomValue;
     private Icon iconEdit;
     private Icon iconDelete;
     
@@ -59,17 +58,7 @@ public class GetUom extends javax.swing.JPanel {
         this.uomNameEn = uomNameEn;
         lbUomName.setText(uomNameEn);
     }
-
-    public String getUomValue() {
-        return uomValue;
-    }
-
-    public void setUomValue(String uomValue) {
-        this.uomValue = uomValue;
-        lbUomValue.setText(uomValue);
-    }
     
-
     public Icon getIconEdit() {
         return iconEdit;
     }
@@ -149,7 +138,6 @@ public class GetUom extends javax.swing.JPanel {
         lbId = new javax.swing.JLabel();
         btnEdit = new javax.swing.JLabel();
         btnDelete = new javax.swing.JLabel();
-        lbUomValue = new javax.swing.JLabel();
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
         panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -176,11 +164,6 @@ public class GetUom extends javax.swing.JPanel {
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
 
-        lbUomValue.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbUomValue.setForeground(new java.awt.Color(0, 0, 0));
-        lbUomValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbUomValue.setText("UOM Value");
-
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -193,16 +176,12 @@ public class GetUom extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbUomName, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbUomName, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbUomNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbUomValue, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(lbUomNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbUomValue, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -212,7 +191,7 @@ public class GetUom extends javax.swing.JPanel {
                         .addComponent(lbId)
                         .addComponent(btnEdit)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(lbUomNameKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbUomNameKh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lbUomNameKh.getAccessibleContext().setAccessibleName("");
@@ -237,7 +216,6 @@ public class GetUom extends javax.swing.JPanel {
     private javax.swing.JLabel lbId;
     private javax.swing.JLabel lbUomName;
     private javax.swing.JLabel lbUomNameKh;
-    private javax.swing.JLabel lbUomValue;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }

@@ -122,8 +122,7 @@ public class listUom extends javax.swing.JDialog {
             UomModel getUom = new UomModel(
                     obj.getId(),
                     obj.getUomNameEn(),
-                    obj.getUomNameKh(),
-                    obj.getNumberOfUnit()
+                    obj.getUomNameKh()
             );
             uom.add(getUom);
         }
@@ -185,8 +184,7 @@ public class listUom extends javax.swing.JDialog {
 
                             edit.setValueEdit(
                                 data.getData().getUomNameEn(),
-                                data.getData().getUomNameKh(),
-                                ""+data.getData().getNumberOfUnit()
+                                data.getData().getUomNameKh()
                             );
 
                             edit.setVisible(true);
@@ -244,7 +242,6 @@ public class listUom extends javax.swing.JDialog {
                 
                 b.setUomNameEn(listData.getUomNameEn());
                 b.setUomNameKh(listData.getUomNameKh());
-                b.setUomValue(""+listData.getNumberOfUnit());
 
                 paginationPanel.setVisible(true);
                 listGetUom.add(b, gbc);
@@ -299,7 +296,6 @@ public class listUom extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         searchField = new Components.SearchField();
         jScrollPane = new javax.swing.JScrollPane();
         listGetUom = new javax.swing.JPanel();
@@ -324,11 +320,6 @@ public class listUom extends javax.swing.JDialog {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("UOM Name");
 
-        jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("UOM Value");
-
         javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
         header.setLayout(headerLayout);
         headerLayout.setHorizontalGroup(
@@ -337,11 +328,9 @@ public class listUom extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         headerLayout.setVerticalGroup(
@@ -351,8 +340,7 @@ public class listUom extends javax.swing.JDialog {
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel10))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
@@ -433,8 +421,8 @@ public class listUom extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(panelListUom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(panelListUom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -503,7 +491,6 @@ public class listUom extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JPanel listGetUom;
     private pagination.PaginationPanel paginationPanel;

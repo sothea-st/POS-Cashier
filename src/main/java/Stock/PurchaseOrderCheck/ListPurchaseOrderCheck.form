@@ -268,7 +268,7 @@
         </Container>
         <Component class="Button.Button" name="btnCancel">
           <Properties>
-            <Property name="buttonName" type="java.lang.String" value="Cancel"/>
+            <Property name="buttonName" type="java.lang.String" value="Close"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseClicked"/>

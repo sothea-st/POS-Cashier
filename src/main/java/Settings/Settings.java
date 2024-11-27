@@ -217,7 +217,7 @@ public class Settings extends javax.swing.JDialog {
             }
         });
 
-        slot.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/status.png"))); // NOI18N
+        slot.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/slot.png"))); // NOI18N
         slot.setTitle("Slot");
         slot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -302,9 +302,7 @@ public class Settings extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addGap(0, 0, 0))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

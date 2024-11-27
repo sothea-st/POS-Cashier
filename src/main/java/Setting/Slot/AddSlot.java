@@ -273,18 +273,9 @@ public class AddSlot extends javax.swing.JDialog {
                 JSONObject jsonResponse = new JSONObject(responeData);
                 
                 if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        if(reason.contains("SlotNameEn")){
-                            JOptionPane.showMessageDialog(this, "Slot Name is already existed!");
-                        }else if(reason.contains("SlotNameKh")){
-                            JOptionPane.showMessageDialog(this, "Slot Name Kh is already existed!");
-                        }else{
-                            JOptionPane.showMessageDialog(this, reason);
-                        }
-                    }
+
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                    
                 }else{
                     listGetSlot.removeAll();
                     listGetSlot.revalidate();
@@ -299,18 +290,9 @@ public class AddSlot extends javax.swing.JDialog {
                 JSONObject jsonResponse = new JSONObject(responeData);
                 
                 if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        if(reason.contains("SlotNameEn")){
-                            JOptionPane.showMessageDialog(this, "Slot Name is already existed!");
-                        }else if(reason.contains("SlotNameKh")){
-                            JOptionPane.showMessageDialog(this, "Slot Name Kh is already existed!");
-                        }else{
-                            JOptionPane.showMessageDialog(this, reason);
-                        }
-                    }
+                    
+                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                    
                 }else{
                     listGetSlot.removeAll();
                     listGetSlot.revalidate();

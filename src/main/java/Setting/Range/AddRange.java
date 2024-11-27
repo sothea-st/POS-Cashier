@@ -272,7 +272,9 @@ public class AddRange extends javax.swing.JDialog {
                 JSONObject jsonResponse = new JSONObject(responeData);
                 
                 if (jsonResponse.has("error")) {
+                    
                     JOptionPane.showMessageDialog(this, "Save Failed!");
+                    
                 }else{
                     listGetRange.removeAll();
                     listGetRange.revalidate();
@@ -287,20 +289,9 @@ public class AddRange extends javax.swing.JDialog {
                 JSONObject jsonResponse = new JSONObject(responeData);
                 
                 if (jsonResponse.has("error")) {
-//                    JSONObject error = jsonResponse.getJSONObject("error");
-//                    int code = error.getInt("code");
-//                    String reason = error.getString("reason");
-//                    if (code == 409) {
-//                        if(reason.contains("RangeNameEn")){
-//                            JOptionPane.showMessageDialog(this, "Range Name is already existed!");
-//                        }else if(reason.contains("RangeNameKh")){
-//                            JOptionPane.showMessageDialog(this, "Range Name Kh is already existed!");
-//                        }else{
-//                            JOptionPane.showMessageDialog(this, reason);
-//                        }
-//                    }
 
                     JOptionPane.showMessageDialog(this, "Save Failed!");
+                    
                 }else{
                     listGetRange.removeAll();
                     listGetRange.revalidate();

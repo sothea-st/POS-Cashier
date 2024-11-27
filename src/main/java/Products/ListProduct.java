@@ -302,7 +302,8 @@ public class ListProduct extends javax.swing.JDialog {
                     String.valueOf(p.getQty() == null ? 0 : p.getQty()),
                     "$ " + String.valueOf(String.format("%.2f", p.getPrice())),
                     "$ " + String.valueOf(String.format("%.2f", p.getCost())),
-                    String.valueOf(p.getID())
+                    String.valueOf(p.getID()),
+                    String.valueOf(p.getChoices())
                );
                prod.setProductId(p.getID());
 //               try {
@@ -355,7 +356,8 @@ public class ListProduct extends javax.swing.JDialog {
                                    String.valueOf(p.getTaxName()),
                                    String.valueOf(p.getWarehouse()),
                                    String.valueOf(p.getRange()),
-                                   String.valueOf(p.getSlot())
+                                   String.valueOf(p.getSlot()),
+                                   String.valueOf(p.getChoices())
                               );
 
                               detail.setVisible(true);

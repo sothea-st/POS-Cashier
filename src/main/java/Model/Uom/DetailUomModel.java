@@ -19,7 +19,6 @@ public class DetailUomModel {
         private int id;
         private String uomNameEn;
         private String uomNameKh;
-        private int numberOfUnit;
     }
     
     

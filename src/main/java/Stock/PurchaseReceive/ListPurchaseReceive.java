@@ -373,7 +373,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(listGetReceive);
 
-        btnCancel.setButtonName("Cancel");
+        btnCancel.setButtonName("Close");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelMouseClicked(evt);

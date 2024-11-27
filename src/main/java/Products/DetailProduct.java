@@ -23,6 +23,9 @@ import okhttp3.Response;
  */
 public class DetailProduct extends javax.swing.JDialog {
 
+    
+     private String _choiceValue;
+    
      public DetailProduct(java.awt.Frame parent, boolean modal, String id) {
           super(parent, modal);
           initComponents();
@@ -56,12 +59,13 @@ public class DetailProduct extends javax.swing.JDialog {
           String taxValue,
           String warehouseValue,
           String rangeValue,
-          String slotValue
+          String slotValue,
+          String choiceValue
      ) throws IOException {
-          productName.setLabelName(productNameValue);
+          productName.setLabelName(productNameValue + " " + choiceValue);
 
           if (productNameKhValue != "null") {
-               productNameKh.setLabelName(productNameKhValue);
+               productNameKh.setLabelName(productNameKhValue + " " + choiceValue);
           }
           barcode.setLabelName(barcodeValue);
           itemCode.setLabelName(itemCodeValue);
@@ -79,6 +83,8 @@ public class DetailProduct extends javax.swing.JDialog {
           warehouse.setLabelName(warehouseValue);
           range.setLabelName(rangeValue);
           slot.setLabelName(slotValue);
+          _choiceValue = choiceValue;
+          
      }
 
      private void getList(JPanel listGetDetail, String id) {

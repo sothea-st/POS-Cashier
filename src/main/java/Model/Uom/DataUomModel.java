@@ -10,5 +10,4 @@ public class DataUomModel {
     private Integer id;
     private String uomNameEn;
     private String uomNameKh;
-    private Integer numberOfUnit;
 }
