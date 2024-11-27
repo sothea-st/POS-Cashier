@@ -150,7 +150,6 @@ public class UomServiceImp implements UomService{
         Uom uom = new Uom();
         uom.setUomNameEn(uomRequest.uomNameEn());
         uom.setUomNameKh(uomRequest.uomNameKh());
-        uom.setNumberOfUnit(uomRequest.numberOfUnit()==null ? 0 : uomRequest.numberOfUnit());
         uom.setCreatedBy(uomRequest.createdBy());
         uom.setStatus(true);
         uom.setIsDeleted(false);
@@ -172,7 +171,6 @@ public class UomServiceImp implements UomService{
 
         uom.setUomNameEn(uomRequest.uomNameEn());
         uom.setUomNameKh(uomRequest.uomNameKh());
-        uom.setNumberOfUnit(uomRequest.numberOfUnit()==null ? 0 : uomRequest.numberOfUnit());
         uom.setCreatedBy(uomRequest.createdBy());
         uomRepository.save(uom);
         return ResponseSuccess.builder().build();
@@ -206,7 +204,6 @@ public class UomServiceImp implements UomService{
                 .id(uom.getId())
                 .uomNameEn(uom.getUomNameEn())
                 .uomNameKh(uom.getUomNameKh())
-                .numberOfUnit(uom.getNumberOfUnit())
                 .build();
     }
 }

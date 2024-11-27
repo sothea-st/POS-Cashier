@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RangeRepository extends JpaRepository<Ranges,Integer> {
-    // Check if range name kh is already existed?
-    Boolean existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(String rangeNameKh);
 
     // Check if range name kh is already existed?
-    Boolean existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(String rangeNameEn);
+    // Boolean existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(String rangeNameKh);
+
+    // Check if range name kh is already existed?
+    // Boolean existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(String rangeNameEn);
 
     // List range with page Number and page size
     Page<Ranges> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);

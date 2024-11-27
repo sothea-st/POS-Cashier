@@ -6,8 +6,7 @@ import lombok.Builder;
 public record UomResponse(
         Integer id,
         String uomNameEn,
-        String uomNameKh,
-        Integer numberOfUnit
+        String uomNameKh
 ) {
 
 }
