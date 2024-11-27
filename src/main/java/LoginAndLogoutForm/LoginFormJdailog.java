@@ -717,6 +717,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                     JavaConstant.page = 0;
                     String lowerCase = catNameData.toLowerCase();
                     pro.setNext(next);
+                    System.err.println("lowercase : " + lowerCase);
                     switch (lowerCase) {
                          case "new items" -> //   NEW ITEMS
                               pro.newProduct(JavaConstant.limitPagination, panelProduct);

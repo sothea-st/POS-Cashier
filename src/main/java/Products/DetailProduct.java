@@ -208,6 +208,8 @@ public class DetailProduct extends javax.swing.JDialog {
           range = new Components.Label();
           lbSlot = new Components.Label();
           slot = new Components.Label();
+          buttonCancel = new ButtonPackage.ButtonCancel();
+          buttonCancel1 = new ButtonPackage.ButtonCancel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -356,6 +358,19 @@ public class DetailProduct extends javax.swing.JDialog {
 
           slot.setLabelName("");
 
+          buttonCancel.setButtonName("Close");
+          buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancelMouseClicked(evt);
+               }
+          });
+
+          buttonCancel1.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancel1MouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
           jPanel1.setLayout(jPanel1Layout);
           jPanel1Layout.setHorizontalGroup(
@@ -450,6 +465,15 @@ public class DetailProduct extends javax.swing.JDialog {
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(slot, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                               .addGap(521, 521, 521))))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(30, 30, 30))
+               .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                         .addGap(472, 472, 472)
+                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addContainerGap(473, Short.MAX_VALUE)))
           );
           jPanel1Layout.setVerticalGroup(
                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -520,7 +544,13 @@ public class DetailProduct extends javax.swing.JDialog {
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18))
+                    .addGap(12, 12, 12)
+                    .addComponent(buttonCancel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                         .addGap(379, 379, 379)
+                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addContainerGap(402, Short.MAX_VALUE)))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -531,12 +561,22 @@ public class DetailProduct extends javax.swing.JDialog {
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(20, 20, 20))
           );
 
           pack();
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
+
+     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+          this.dispose();
+     }//GEN-LAST:event_buttonCancelMouseClicked
+
+     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
+          this.dispose();
+     }//GEN-LAST:event_buttonCancel1MouseClicked
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
@@ -581,6 +621,8 @@ public class DetailProduct extends javax.swing.JDialog {
      private Components.Label attribute;
      private Components.Label barcode;
      private Components.Label brand;
+     private ButtonPackage.ButtonCancel buttonCancel;
+     private ButtonPackage.ButtonCancel buttonCancel1;
      private Components.Label country;
      private Components.Label division;
      private javax.swing.JPanel header;

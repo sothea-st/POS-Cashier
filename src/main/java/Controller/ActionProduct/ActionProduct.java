@@ -180,6 +180,7 @@ public class ActionProduct {
      public void getPromotion(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getPromotion);
+               System.err.println("dddddddddddddddd = " + response);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

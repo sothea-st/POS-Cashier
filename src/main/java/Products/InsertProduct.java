@@ -10,7 +10,6 @@ import Controller.ActionProduct.ActionProduct;
 import Event.ButtonEvent;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.combobox.ComboBoxSelection;
-import Staff.InsertStaff;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.Timer;
@@ -44,6 +43,7 @@ public class InsertProduct extends javax.swing.JDialog {
      private String warehouseId;
      private String rangeId;
      private String slotId;
+     private String proImageName;
 
      private String barcode;
      private String productName;
@@ -139,6 +139,8 @@ public class InsertProduct extends javax.swing.JDialog {
           if (!_slotId.equals("0")) {
                cmdSlot.setToLastItem(_slotId);
           }
+
+          proImageName = _proImageName;
 
           try {
                if (_proImageName != null) {
@@ -910,6 +912,7 @@ public class InsertProduct extends javax.swing.JDialog {
                     responseAddProduct(json);
                }
           } else { // update
+
                if (path != null) {
                     Response responseImg = JavaConnection.postFile(path);
                     try {
@@ -926,6 +929,9 @@ public class InsertProduct extends javax.swing.JDialog {
                          System.out.println("erro : " + e);
                     }
                } else {
+                    if (proImageName != null) {
+                         json.put("proImageName", proImageName);
+                    }
                     responseUpdateProduct(json);
                }
           }
@@ -948,6 +954,8 @@ public class InsertProduct extends javax.swing.JDialog {
                          dispose();
 //                         listProduct.getProduct(listGetProduct, true, 0);
                          reloadList();
+
+                         proImageName = null;
                     }
                }
           } catch (Exception e) {
@@ -993,9 +1001,16 @@ public class InsertProduct extends javax.swing.JDialog {
           cmbStatus.setToFirstItem();
           cmbCountry.setToFirstItem();
           cmbTax.setToFirstItem();
-          cmdWharehouse.setToFirstItem();
-          cmdRange.setToFirstItem();
-          cmdSlot.setToFirstItem();
+
+          if (warehouseId != null) {
+               cmdWharehouse.setToFirstItem();
+          }
+          if (rangeId != null) {
+               cmdRange.setToFirstItem();
+          }
+          if (slotId != null) {
+               cmdSlot.setToFirstItem();
+          }
 
           lbPicture.setIcon(null);
 

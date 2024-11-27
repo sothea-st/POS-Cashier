@@ -23,7 +23,7 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
      // Set the preferred size of the scrollbar
      @Override
      public Dimension getPreferredSize(JComponent c) {
-          return new Dimension(8, super.getPreferredSize(c).height);
+          return new Dimension(8, 20);
      }
 
      // Paint the track (the area behind the thumb)

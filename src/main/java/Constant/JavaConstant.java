@@ -4,6 +4,7 @@ import BlogCode.JavaBlogImage;
 import Components.BoxItem;
 import Components.NotFound;
 import Components.countCircleShape;
+import CustomeUI.CustomScrollBarUI;
 import Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
 import Model.ProductModel.ProductDataModel;
@@ -40,6 +41,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -406,6 +408,16 @@ public class JavaConstant {
           panel.repaint();
      }
 
+     
+      public static void setScroll(JScrollPane jScrollPane1) {
+        // custome scrollbar ui
+        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBars = jScrollPane1.getVerticalScrollBar();
+        verticalScrollBars.setUnitIncrement(30);
+        verticalScrollBars.setBlockIncrement(35);
+    }
      
     public static String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
                             "[a-zA-Z0-9_+&*-]+)*@" + 

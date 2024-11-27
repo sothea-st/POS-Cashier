@@ -147,6 +147,9 @@ public class MainPage extends javax.swing.JFrame {
           buttonStaff.setVisible(false);
           btnReporting.setVisible(false);
           btnSettings.setVisible(false);
+          
+          
+          JavaConstant.setScroll(jScrollPaneCategory);
      }
 
      // Set Timer
@@ -315,8 +318,8 @@ public class MainPage extends javax.swing.JFrame {
           menuBarLayout.setHorizontalGroup(
                menuBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(menuBarLayout.createSequentialGroup()
-                    .addComponent(panelCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                    .addComponent(panelCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(90, 90, 90)
                     .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(28, 28, 28)
                     .addComponent(panelCart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
