@@ -12,6 +12,7 @@ import Model.HoldOrder.NewHoldOrderModel;
 import Products.ProductBox;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -44,6 +45,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -106,6 +108,16 @@ public class JavaConstant {
      public static boolean isCheckProductAll = false;
      public static String categoryName = "new items";
      public static int seconds = 500;
+
+     public static void setLookAndFeel() {
+          // Set FlatDarkLaf Look and Feel
+          try {
+               UIManager.setLookAndFeel(new FlatLightLaf());
+
+          } catch (Exception ex) {
+               ex.printStackTrace();
+          }
+     }
 
      public static boolean checkImageExists(String imageUrl) {
           try {
@@ -383,7 +395,7 @@ public class JavaConstant {
           DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
           return date.format(outputFormatter);
      }
-     
+
      public static String formateDateDDMMYYYY(String dateValue) {
           DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
           LocalDate date = LocalDate.parse(dateValue, inputFormatter);
@@ -395,7 +407,7 @@ public class JavaConstant {
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH-mm-ss a");
           String formattedDateTime = currentDateTime.format(formatter);
-          String fileName = name +" "+ formattedDateTime;
+          String fileName = name + " " + formattedDateTime;
           return fileName;
      }
 
@@ -407,20 +419,37 @@ public class JavaConstant {
           panel.revalidate();
           panel.repaint();
      }
+//Set Font khmer
 
-     
-      public static void setScroll(JScrollPane jScrollPane1) {
-        // custome scrollbar ui
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBars = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBars.setUnitIncrement(30);
-        verticalScrollBars.setBlockIncrement(35);
-    }
-     
-    public static String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+ 
-                            "[a-zA-Z0-9_+&*-]+)*@" + 
-                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + 
-                            "A-Z]{2,7}$"; 
+     public static boolean isKhmerCharacter(char c) {
+          return (c >= '\u1780' && c <= '\u17FF') || (c >= '\u19E0' && c <= '\u19FF');
+     }
+
+     // Method to detect if a string contains any Khmer characters
+     public static boolean containsKhmer(String text) {
+          if (text == null || text.isEmpty()) {
+               return false;
+          }
+          for (char c : text.toCharArray()) {
+               if (isKhmerCharacter(c)) {
+                    return true;
+               }
+          }
+          return false;
+     }
+
+     public static void setScroll(JScrollPane jScrollPane1) {
+          // custome scrollbar ui
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBars = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBars.setUnitIncrement(30);
+          verticalScrollBars.setBlockIncrement(35);
+     }
+
+     public static String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+          + "[a-zA-Z0-9_+&*-]+)*@"
+          + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+          + "A-Z]{2,7}$";
 }

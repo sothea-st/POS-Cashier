@@ -1,21 +1,22 @@
 package com.mycompany.kingmart;
 
-import Products.ImportFile;
+import Constant.JavaConstant;
+import Fonts.WindowFonts;
+
 import View.MainPage.MainPage;
-import java.awt.Desktop;
-import java.io.File;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import javax.swing.JFrame;
 
-/**
- *
- * @author FRONT-END.06
- */
+import javax.swing.UIManager;
+
 public class KingMart {
 
      public static void main(String[] args) throws FileNotFoundException {
+
+          //JavaConstant.setLookAndFeel();
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
 
@@ -24,4 +25,3 @@ public class KingMart {
      }
 
 }
-

@@ -17,8 +17,8 @@ public class WindowColor {
      public static Color light = new Color(209, 255, 255);
      public static Color darkGray = new Color(140, 140, 140);
      public static Color lightGray = new Color(204, 204, 204);
-     
-     
+     public static Color red = Color.red;
+
      public static Color darkGreen = new Color(16, 107, 67);
      public static Color slightGreen = new Color(215, 234, 213);
      public static Color mediumGreen = new Color(176, 215, 181);
@@ -30,12 +30,12 @@ public class WindowColor {
 //     public static Color green = new Color(0, 0, 0);
      public static Color darkred = new Color(204, 0, 0);
      public static Color lightBlue = new Color(51, 153, 255);
-     public static Color slightBlue = new Color(153,204,255);
+     public static Color slightBlue = new Color(153, 204, 255);
      public static Color blue = new Color(0, 204, 255);
      public static Color brown = new Color(153, 102, 0);
      public static Color yellow = new Color(255, 204, 0);
      public static boolean isCheck = true;
-     
-     public static Color darkBlue = new Color(0,51,102);
-     public static Color light_Blue = new Color(	0 , 0 ,255);
+
+     public static Color darkBlue = new Color(0, 51, 102);
+     public static Color light_Blue = new Color(0, 0, 255);
 }
