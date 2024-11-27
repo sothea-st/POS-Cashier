@@ -430,7 +430,7 @@ public class ListVendor extends javax.swing.JDialog {
             }
         });
 
-        btnCancel.setButtonName("Cancel");
+        btnCancel.setButtonName("Close");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCancelMouseClicked(evt);
