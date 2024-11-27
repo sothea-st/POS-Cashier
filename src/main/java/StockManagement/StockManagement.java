@@ -1,19 +1,11 @@
 package StockManagement;
 
-import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
-import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Products.ListProduct;
-import Stock.PurchaseOrderRequest.PurchaseOrder;
 import Stock.PurchaseOrderView.PurchaseOrderView;
 import Stock.PurchaseReceive.ListPurchaseReceive;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -51,23 +43,23 @@ public class StockManagement extends javax.swing.JDialog {
           purchaseOrder.setTitle("Purchase Order");
           purchaseOrderReceive.setTitle("Purchase Receive");
 
-          TimerTask task = new TimerTask() {
-               @Override
-               public void run() {
-                    try {
-                         // Task to be executed
-                         product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/item.png");
-                         purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/PurchaseOrder.png");
-                         purchaseOrderReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/63157d93-b4c9-4c60-b9f3-8eb7e789c039");
-                      
-                    } catch (IOException ex) {
-                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-               }
-          };
-
-          Timer timer = new Timer();
-          timer.schedule(task, 500); // Delays task execution by 1 second
+//          TimerTask task = new TimerTask() {
+//               @Override
+//               public void run() {
+//                    try {
+//                         // Task to be executed
+//                         product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/item.png");
+//                         purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/PurchaseOrder.png");
+//                         purchaseOrderReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/63157d93-b4c9-4c60-b9f3-8eb7e789c039");
+//                      
+//                    } catch (IOException ex) {
+//                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//               }
+//          };
+//
+//          Timer timer = new Timer();
+//          timer.schedule(task, 500); // Delays task execution by 1 second
      }
 
      @SuppressWarnings("unchecked")
@@ -79,6 +71,7 @@ public class StockManagement extends javax.swing.JDialog {
           product = new Components.SettingBox();
           purchaseOrder = new Components.SettingBox();
           purchaseOrderReceive = new Components.SettingBox();
+          buttonCancel = new ButtonPackage.ButtonCancel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,6 +104,13 @@ public class StockManagement extends javax.swing.JDialog {
                }
           });
 
+          buttonCancel.setButtonName("Close");
+          buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancelMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
           jPanel3.setLayout(jPanel3Layout);
           jPanel3Layout.setHorizontalGroup(
@@ -123,6 +123,10 @@ public class StockManagement extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(170, Short.MAX_VALUE))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(23, 23, 23))
           );
           jPanel3Layout.setVerticalGroup(
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +136,9 @@ public class StockManagement extends javax.swing.JDialog {
                          .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(purchaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(439, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 331, Short.MAX_VALUE)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(70, 70, 70))
           );
 
           jScrollPane1.setViewportView(jPanel3);
@@ -173,6 +179,10 @@ public class StockManagement extends javax.swing.JDialog {
      private void purchaseOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderMouseEntered
           // TODO add your handling code here:
      }//GEN-LAST:event_purchaseOrderMouseEntered
+
+     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+          this.dispose();
+     }//GEN-LAST:event_buttonCancelMouseClicked
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -239,6 +249,7 @@ public class StockManagement extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private ButtonPackage.ButtonCancel buttonCancel;
      private javax.swing.JPanel jPanel3;
      private javax.swing.JScrollPane jScrollPane1;
      private Components.SettingBox product;

@@ -135,6 +135,22 @@
                           </Group>
                           <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="lbWarehouse" min="-2" pref="165" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="warehouse" pref="311" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lbRange" min="-2" pref="165" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="range" min="-2" pref="310" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="lbSlot" min="-2" pref="165" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="slot" pref="311" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="521" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
           </Group>
@@ -201,6 +217,23 @@
                               <Component id="totalQty" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbWarehouse" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="warehouse" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbRange" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="range" alignment="1" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbSlot" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="slot" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="header" min="-2" max="-2" attributes="0"/>
@@ -491,6 +524,36 @@
           </Properties>
         </Component>
         <Component class="Components.Label" name="margin">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="lbWarehouse">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Warehouse :"/>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="warehouse">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="lbRange">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Range :"/>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="range">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="lbSlot">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Slot :"/>
+          </Properties>
+        </Component>
+        <Component class="Components.Label" name="slot">
           <Properties>
             <Property name="labelName" type="java.lang.String" value=""/>
           </Properties>

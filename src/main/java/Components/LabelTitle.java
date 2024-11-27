@@ -115,7 +115,7 @@ public class LabelTitle extends javax.swing.JPanel {
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
                     .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                    .addGap(0, 0, 0))
+                    .addContainerGap())
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

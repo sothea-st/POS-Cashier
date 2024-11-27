@@ -8,8 +8,8 @@ import lombok.Setter;
  * @author FRONT-END.06
  */
 
-@Setter
-@Getter
+ @Setter
+ @Getter
 public class Range {
     private Integer id;
     private String rangeNameEn;

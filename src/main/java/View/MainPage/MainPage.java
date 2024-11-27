@@ -3,7 +3,7 @@ package View.MainPage;
 import BlogCode.ActionCloseShift;
 import BlogCode.JavaActionAddHold;
 import BlogCode.JavaActionDiscount;
-import BlogCode.JavaBlogImage;
+
 import BlogCode.JavaEventNextPrevious;
 import BlogCode.JavaExistScreen;
 import BlogCode.JavaSearchByNameAndCode;
@@ -169,7 +169,7 @@ public class MainPage extends javax.swing.JFrame {
 
      void getImage() {
           // get image from api
-          setIconImage(null);
+         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("image/King Mart Small Logo.png")).getImage());
           //lbLogo.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "logoKingMart.png")));
           //imageShopping.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "shopping-cart.png")));
 

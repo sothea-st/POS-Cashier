@@ -41,6 +41,9 @@ public class InsertProduct extends javax.swing.JDialog {
      private String vendorId;
      private String countryId;
      private String statusId;
+     private String warehouseId;
+     private String rangeId;
+     private String slotId;
 
      private String barcode;
      private String productName;
@@ -73,11 +76,11 @@ public class InsertProduct extends javax.swing.JDialog {
           txtPrice.setComma("comma");
           JavaConstant.setPointer(browse);
 
-          try {
-               JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
-          } catch (IOException ex) {
-               Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-          }
+//          try {
+//               JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
+//          } catch (IOException ex) {
+//               Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+//          }
      }
      double costVal = 0;
      double priceVal = 0;
@@ -98,7 +101,10 @@ public class InsertProduct extends javax.swing.JDialog {
           String _statusId,
           String _countryId,
           String _taxId,
-          String _proImageName
+          String _proImageName,
+          String _warehouseId,
+          String _rangeId,
+          String _slotId
      ) {
           txtBarcode.setValueTextField(_barcode);
           cmbVendorName.setToLastItem(_vendorId);
@@ -123,6 +129,16 @@ public class InsertProduct extends javax.swing.JDialog {
           cmbStatus.setToLastItem(_statusId);
           cmbCountry.setToLastItem(_countryId);
           cmbTax.setToLastItem(_taxId);
+
+          if (!_warehouseId.equals("0")) {
+               cmdWharehouse.setToLastItem(_warehouseId);
+          }
+          if (!_rangeId.equals("0")) {
+               cmdRange.setToLastItem(_rangeId);
+          }
+          if (!_slotId.equals("0")) {
+               cmdSlot.setToLastItem(_slotId);
+          }
 
           try {
                if (_proImageName != null) {
@@ -233,7 +249,7 @@ public class InsertProduct extends javax.swing.JDialog {
           };
           cmbUom.initEvent(uomEvent);
           // nameEn is field from response that we want data add in combo
-          ComboBoxSelection.addComboBox(cmbUom, JavaRoute.uom, "nameEn");
+          ComboBoxSelection.addComboBox(cmbUom, JavaRoute.uom, "uomNameEn");
           //  ============== end ================
 
           //  ============== combobox cmbAttribute ================
@@ -295,6 +311,40 @@ public class InsertProduct extends javax.swing.JDialog {
           // countryName is field from response that we want data add in combo
           ComboBoxSelection.addComboBox(cmbStatus, JavaRoute.status, "statusName");
           //  ============== end ================
+
+          //  ============== combobox wharehouse ================
+          ButtonEvent wharehouseEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    warehouseId = key;
+                    // rangeNameEn is field from response that we want data add in combo
+                    ComboBoxSelection.addComboBox(cmdRange, JavaRoute.ranges + "/readByWarehouseId/" + warehouseId, "rangeNameEn");
+               }
+          };
+          cmdWharehouse.initEvent(wharehouseEvent);
+          // brandNameEn is field from response that we want data add in combo
+          ComboBoxSelection.addComboBox(cmdWharehouse, JavaRoute.warehouse, "warehouseNameEn");
+
+          //  ============== combobox ranges ================
+          ButtonEvent rangeEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    rangeId = key;
+                    // brandNameEn is field from response that we want data add in combo
+                    ComboBoxSelection.addComboBox(cmdSlot, JavaRoute.slots + "/readByRangeId/" + rangeId, "slotNameEn");
+               }
+          };
+          cmdRange.initEvent(rangeEvent);
+
+          //  ============== combobox ranges ================
+          ButtonEvent slotEvent = new ButtonEvent() {
+               @Override
+               public void onSelect(String key) {
+                    slotId = key;
+               }
+          };
+          cmdSlot.initEvent(slotEvent);
+
      }
 
      //Place Holder
@@ -420,8 +470,10 @@ public class InsertProduct extends javax.swing.JDialog {
           label7.setLabelName("Image");
 
           lbPicture.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbPicture.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productImage/default.jpg"))); // NOI18N
           lbPicture.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+          buttonCancel.setButtonName("Close");
           buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     buttonCancelMouseClicked(evt);
@@ -748,6 +800,7 @@ public class InsertProduct extends javax.swing.JDialog {
          price = txtPrice.getValueTextField();
          margin = txtMargin.getLabelTextField();
          choiceValue = txtChoiceValue.getValueTextField();
+
          saveFunction(); // save
     }//GEN-LAST:event_buttonSaveMouseClicked
 
@@ -781,7 +834,6 @@ public class InsertProduct extends javax.swing.JDialog {
 //               JOptionPane.showMessageDialog(this, "Choice Value can not be empty!");
 //               return;
 //          }
-
           if (brandId == null || brandId.isEmpty()) {
                JOptionPane.showMessageDialog(this, "Please Select Brand!");
                return;
@@ -834,6 +886,9 @@ public class InsertProduct extends javax.swing.JDialog {
           json.put("productActiveId", statusId);
           json.put("countryId", countryId);
           json.put("choices", choiceValue);
+          json.put("warehouseId", warehouseId);
+          json.put("rangeId", rangeId);
+          json.put("slotId", slotId);
 
           if (id == null) { // add new
                if (path != null) {
@@ -938,9 +993,15 @@ public class InsertProduct extends javax.swing.JDialog {
           cmbStatus.setToFirstItem();
           cmbCountry.setToFirstItem();
           cmbTax.setToFirstItem();
+          cmdWharehouse.setToFirstItem();
+          cmdRange.setToFirstItem();
+          cmdSlot.setToFirstItem();
 
           lbPicture.setIcon(null);
 
+          warehouseId = null;
+          rangeId = null;
+          slotId = null;
           brandId = null;
           taxId = null;
           uomId = null;

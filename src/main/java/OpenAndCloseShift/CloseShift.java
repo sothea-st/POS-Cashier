@@ -22,10 +22,11 @@ import lombok.Getter;
 import lombok.Setter;
 import okhttp3.Response;
 import org.json.JSONObject;
+
 @Setter
 @Getter
 public class CloseShift extends javax.swing.JDialog {
-     
+
      private Button btnOpenShift;
      private JPanel panelProduct;
      private JPanel panelPagination;
@@ -44,7 +45,7 @@ public class CloseShift extends javax.swing.JDialog {
      private Button stock;
      private Button buttonStaff;
      private MainPage mainPage;
-     
+
      public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
           initComponents();
@@ -53,23 +54,23 @@ public class CloseShift extends javax.swing.JDialog {
           setResizable(false);
           event();
           this.btnOpenShift = btnOpenShift;
-          
+
           redexpress.setComma("comma");
           qrMnk.setComma("comma"); // when user type 4length it will insert , at 3 length 
           qrAba.setComma("comma"); // when user type 4length it will insert , at 3 length 
           abaCreditCard.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashUs.setComma("comma"); // when user type 4length it will insert , at 3 length 
           cashKh.setComma("comma"); // when user type 4length it will insert , at 3 length 
-          
+
      }
-     
+
      void event() {
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
                public void onFocusGain() {
-                    
+
                }
-               
+
           };
           redexpress.initEvent(btnevent);
           qrMnk.initEvent(btnevent);
@@ -79,7 +80,7 @@ public class CloseShift extends javax.swing.JDialog {
           cashKh.initEvent(btnevent);
 //          cashCount.initEvent(btnevent);
      }
-     
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -310,7 +311,7 @@ public class CloseShift extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-         
+
          String express = redexpress.getValueTextField();
          String khqrMnk = qrMnk.getValueTextField();
          String khqrAba = qrAba.getValueTextField();
@@ -318,9 +319,9 @@ public class CloseShift extends javax.swing.JDialog {
          String cashKhr = cashKh.getValueTextField();
          String cashUsd = cashUs.getValueTextField();
 //         String countCash = cashCount.getValueTextField();
-         System.out.println("roleddd : " + JavaConstant.roleName);
+         //System.out.println("roleddd : " + JavaConstant.roleName);
          try {
-              
+
               if (express == null || express.isEmpty()) {
                    JOptionPane.showMessageDialog(this, "RED ANT EXPRESS can not be empty!");
                    return;
@@ -357,7 +358,7 @@ public class CloseShift extends javax.swing.JDialog {
                    j.setVisible(true);
                    return;
               }
-              
+
               express = express.replace(",", "");
               khqrMnk = khqrMnk.replace(",", "");
               khqrAba = khqrAba.replace(",", "");
@@ -377,37 +378,37 @@ public class CloseShift extends javax.swing.JDialog {
               json.put("userCode", JavaConstant.userCode);
               json.put("userId", JavaConstant.cashierId);
               json.put("posId", JavaConstant.posId);
-              
+
               boolean isExpress = JavaConstant.onlyDigits(express);
               if (!isExpress) {
                    JOptionPane.showMessageDialog(this, "Invalid value Express !");
                    return;
               }
-              
+
               boolean isKhqrMnk = JavaConstant.onlyDigits(khqrMnk);
               if (!isKhqrMnk) {
                    JOptionPane.showMessageDialog(this, "Invalid value KHQR-MNK !");
                    return;
               }
-              
+
               boolean isKhqrAba = JavaConstant.onlyDigits(khqrAba);
               if (!isKhqrAba) {
                    JOptionPane.showMessageDialog(this, "Invalid value KHQR-ABA !");
                    return;
               }
-              
+
               boolean isAbaCreditCart = JavaConstant.onlyDigits(creditCard);
               if (!isAbaCreditCart) {
                    JOptionPane.showMessageDialog(this, "Invalid value ABA Credit Cart !");
                    return;
               }
-              
+
               boolean isCashUsd = JavaConstant.onlyDigits(cashUsd);
               if (!isCashUsd) {
                    JOptionPane.showMessageDialog(this, "Invalid value Cash(USD) !");
                    return;
               }
-              
+
               boolean isCashKhr = JavaConstant.onlyDigits(cashKhr);
               if (!isCashKhr) {
                    JOptionPane.showMessageDialog(this, "Invalid value Cash(KHR) !");
@@ -420,23 +421,33 @@ public class CloseShift extends javax.swing.JDialog {
 //                   return;
 //              }
               Response response = JavaConnection.post(JavaRoute.closeShift, json);
-              
+              System.err.println("json : " + json);
+              System.err.println("response : " + response);
+              try {
+                   System.err.println("dddddddddddddd11111111111 = " + response.body().string());
+
+              } catch (Exception e) {
+                   System.err.println("ddddddddddddaaaaaaaaaaaaaa = " + e);
+              }
+
               if (response.isSuccessful()) {
-                   
+
                    searchBox.disabledTextField(false);
                    searchBox.setPlaceholder("Search by name or barcode");
-                   
+
                    textField.disabledTextField(false);
                    textField.setLabelTextField("Scan or input barcode");
-                   
+
                    panelProduct.removeAll();
                    panelProduct.revalidate();
                    panelProduct.repaint();
                    getPanelPagination().setVisible(false);
-                   category.getComponents()[0].setBackground(WindowColor.darkGreen);
-                   
+                   if (category.getComponentCount() > 0) {
+                        category.getComponents()[0].setBackground(WindowColor.darkGreen);
+                   }
+
                    dispose();
-                   
+
                    btnreturn.setBackground(WindowColor.lightGray);
                    buttonCustomer.setBackground(WindowColor.lightGray);
                    buttonDiscount.setBackground(WindowColor.lightGray);
@@ -453,157 +464,150 @@ public class CloseShift extends javax.swing.JDialog {
                    JavaConstant.checkCloseShift = 0l;
                    JavaConstant.checkOpenShift = false;
                    JavaConstant.isOpenShift = "Can not openshift";
-                   
+
                    category.removeAll();
                    category.revalidate();
                    category.repaint();
-                   
+
                    if (JavaConstant.roleName.toLowerCase().equals(JavaConstant.admin.toLowerCase())) {
                         mainPage.setBackgroundButton();
                    }
 
-                   //      == == == == == == == Add Background == == == == == == ==
-//                   BackgroundImage bgimg = new BackgroundImage();
-//                   panelProduct.removeAll();
-//                   panelProduct.add(bgImage);
-//                   panelProduct.revalidate();
-//                   panelProduct.repaint();
-//                          == == == == == == == == == == == == == == == == == == == == == == =
                    EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
               } else {
                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                   
+
               }
-              
+
          } catch (Exception e) {
               System.err.println("errr -- " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
-     
+
      public BackgroundImage getBgImage() {
           return bgImage;
      }
-     
+
      public void setBgImage(BackgroundImage bgImage) {
           this.bgImage = bgImage;
      }
-     
+
      public Button getBtnHold() {
           return btnHold;
      }
-     
+
      public void setBtnHold(Button btnHold) {
           this.btnHold = btnHold;
      }
-     
+
      public ButtonCancel getBtnCancel() {
           return btnCancel;
      }
-     
+
      public void setBtnCancel(ButtonCancel btnCancel) {
           this.btnCancel = btnCancel;
      }
-     
+
      public JPanel getPanelProduct() {
           return panelProduct;
      }
-     
+
      public void setPanelProduct(JPanel panelProduct) {
           this.panelProduct = panelProduct;
      }
-     
+
      public JPanel getPanelPagination() {
           return panelPagination;
      }
-     
+
      public void setPanelPagination(JPanel panelPagination) {
           this.panelPagination = panelPagination;
      }
-     
+
      public JPanel getCategory() {
           return category;
      }
-     
+
      public void setCategory(JPanel category) {
           this.category = category;
      }
-     
+
      public SearchField getSearchBox() {
           return searchBox;
      }
-     
+
      public void setSearchBox(SearchField searchBox) {
           this.searchBox = searchBox;
      }
-     
+
      public TextField getTextField() {
           return textField;
      }
-     
+
      public void setTextField(TextField textField) {
           this.textField = textField;
      }
-     
+
      public Button getBtnreturn() {
           return btnreturn;
      }
-     
+
      public void setBtnreturn(Button btnreturn) {
           this.btnreturn = btnreturn;
      }
-     
+
      public Button getBtnReprint() {
           return btnReprint;
      }
-     
+
      public void setBtnReprint(Button btnReprint) {
           this.btnReprint = btnReprint;
      }
-     
+
      public Button getButtonDiscount() {
           return buttonDiscount;
      }
-     
+
      public void setButtonDiscount(Button buttonDiscount) {
           this.buttonDiscount = buttonDiscount;
      }
-     
+
      public Button getButtonCustomer() {
           return buttonCustomer;
      }
-     
+
      public void setButtonCustomer(Button buttonCustomer) {
           this.buttonCustomer = buttonCustomer;
      }
-     
+
      public Button getButtonCashier() {
           return buttonCashier;
      }
-     
+
      public void setButtonCashier(Button buttonCashier) {
           this.buttonCashier = buttonCashier;
      }
-     
+
      public Button getBtnLogin() {
           return btnLogin;
      }
-     
+
      public void setBtnLogin(Button btnLogin) {
           this.btnLogin = btnLogin;
      }
-     
+
      public Button getStock() {
           return stock;
      }
-     
+
      public void setStock(Button stock) {
           this.stock = stock;
      }
-     
+
      public Button getButtonStaff() {
           return buttonStaff;
      }
-     
+
      public void setButtonStaff(Button buttonStaff) {
           this.buttonStaff = buttonStaff;
      }

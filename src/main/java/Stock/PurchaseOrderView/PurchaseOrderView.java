@@ -1,16 +1,10 @@
 package Stock.PurchaseOrderView;
 
-import Constant.JavaBaseUrl;
+
 import Constant.JavaConstant;
-import Controller.ActionProduct.ActionProduct;
 import CustomeUI.CustomScrollBarUI;
 import Stock.PurchaseOrderRequest.PurchaseOrder;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
-import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -69,6 +63,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
           request = new Components.SettingBox();
           check = new Components.SettingBox();
           approve = new Components.SettingBox();
+          buttonCancel = new ButtonPackage.ButtonCancel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,6 +93,13 @@ public class PurchaseOrderView extends javax.swing.JDialog {
                }
           });
 
+          buttonCancel.setButtonName("Close");
+          buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonCancelMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
           jPanel2.setLayout(jPanel2Layout);
           jPanel2Layout.setHorizontalGroup(
@@ -110,6 +112,10 @@ public class PurchaseOrderView extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(approve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(170, Short.MAX_VALUE))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(25, 25, 25))
           );
           jPanel2Layout.setVerticalGroup(
                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,7 +125,9 @@ public class PurchaseOrderView extends javax.swing.JDialog {
                          .addComponent(approve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(check, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(request, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(439, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(87, 87, 87))
           );
 
           jScrollPane1.setViewportView(jPanel2);
@@ -164,6 +172,10 @@ public class PurchaseOrderView extends javax.swing.JDialog {
          listCheck.setVisible(true);
     }//GEN-LAST:event_approveMouseClicked
 
+     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+          this.dispose();
+     }//GEN-LAST:event_buttonCancelMouseClicked
+
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -205,6 +217,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Components.SettingBox approve;
+     private ButtonPackage.ButtonCancel buttonCancel;
      private Components.SettingBox check;
      private javax.swing.JPanel jPanel2;
      private javax.swing.JScrollPane jScrollPane1;

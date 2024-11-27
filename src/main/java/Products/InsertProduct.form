@@ -434,6 +434,9 @@
         <Component class="javax.swing.JLabel" name="lbPicture">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/productImage/default.jpg"/>
+            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
@@ -442,6 +445,9 @@
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
+          <Properties>
+            <Property name="buttonName" type="java.lang.String" value="Close"/>
+          </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCancelMouseClicked"/>
           </Events>

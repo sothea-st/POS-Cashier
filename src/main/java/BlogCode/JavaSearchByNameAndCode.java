@@ -27,7 +27,7 @@ public class JavaSearchByNameAndCode {
      private static Button btnPayment;
      private static Button btnReturn;
 
-     public static void searchProduct(JPanel panelProduct, SearchField searchBox, JPanel panelPagination, LoginFormJdailog jdFormLogin, JPanel category , TextField textField) {
+     public static void searchProduct(JPanel panelProduct, SearchField searchBox, JPanel panelPagination, LoginFormJdailog jdFormLogin, JPanel category, TextField textField) {
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onKeyType() {
@@ -37,18 +37,18 @@ public class JavaSearchByNameAndCode {
                     if (JavaConstant.token != null) {
 
                          if (valueSearch.isEmpty()) {
-                              
+
                               panelProduct.removeAll();
                               panelProduct.revalidate();
                               panelProduct.repaint();
                               jdFormLogin.runData();
                               textField.setFocus();
-                              
+
                               return;
                          }
 
                          if (JavaConstant.checkOpenShift) {
-                              ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct ,panelPagination);
+                              ActionSearchProduct.searchProduct(valueSearch, jdFormLogin, panelProduct, panelPagination);
                               panelPagination.setVisible(false);
 
                               // each time search product by barcode or name category will remove bg color 
@@ -84,10 +84,13 @@ public class JavaSearchByNameAndCode {
 //                    }
 
                     String barcode = textField.getValueTextField();
+                   
                     JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
                     if (JavaConstant.token != null) {
                          if (barcode.length() == 13) {
+ 
                               if (JavaConstant.checkOpenShift) {
+                                   
                                    ActionScanBarcodeAddProduct a = new ActionScanBarcodeAddProduct();
                                    a.setPanelProduct(panelProduct);
                                    a.setDetailItem(detailItem);
@@ -98,7 +101,9 @@ public class JavaSearchByNameAndCode {
                                    if (JavaConstant.isReturn != null) {
                                         a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.tmpInvoice); // JavaConstant.returnByBarcode is store value invoice number
                                    } else {
+                                          
                                         if (JavaConstant.returnByBarcode == null) {
+                                               
                                              a.scanBarcode(barcode, jdFormLogin);
                                         } else {
                                              a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.returnByBarcode); // JavaConstant.returnByBarcode is store value invoice number

@@ -29,14 +29,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -200,6 +196,7 @@ public class ListProduct extends javax.swing.JDialog {
                     case 0 -> { // all product
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+                            
                          } else { // isCheck false search
                               isCheckSearch = false;
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue);
@@ -355,7 +352,10 @@ public class ListProduct extends javax.swing.JDialog {
                                    String.valueOf(p.getUomNameEn()),
                                    String.valueOf(p.getStatusName()),
                                    String.valueOf(p.getCountryImageName()),
-                                   String.valueOf(p.getTaxName())
+                                   String.valueOf(p.getTaxName()),
+                                   String.valueOf(p.getWarehouse()),
+                                   String.valueOf(p.getRange()),
+                                   String.valueOf(p.getSlot())
                               );
 
                               detail.setVisible(true);
@@ -421,13 +421,15 @@ public class ListProduct extends javax.swing.JDialog {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }
 
-          } catch (Exception e) {
+          } catch (Exception e) { 
                System.err.println("error getting product " + e);
           }
      }
 
      private void eventEdit(String id) {
           Response response = JavaConnection.get(JavaRoute.productV1 + "/" + id);
+
+          System.err.println("response  : " + response);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -455,7 +457,10 @@ public class ListProduct extends javax.swing.JDialog {
                          String.valueOf(data.getProductActiveID()),
                          String.valueOf(data.getCountryID()),
                          String.valueOf(data.getTaxID()),
-                         String.valueOf(data.getProImageName())
+                         String.valueOf(data.getProImageName()),
+                         String.valueOf(data.getWarehouseId()),
+                         String.valueOf(data.getRangeId()),
+                         String.valueOf(data.getSlotId())
                     );
                     insertProduct.setJdLogin(jdLogin);
                     insertProduct.setPanelProduct(panelProduct);
@@ -720,7 +725,7 @@ public class ListProduct extends javax.swing.JDialog {
                }
           });
 
-          btnCancel.setButtonName("Cancel");
+          btnCancel.setButtonName("Close");
           btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     btnCancelMouseClicked(evt);
@@ -886,7 +891,7 @@ public class ListProduct extends javax.swing.JDialog {
 
      private void exportFunc(String typeExport) {
 
-          System.out.println("status data : " + status);
+          //System.out.println("status data : " + status);
           setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
           Response response = null;
 

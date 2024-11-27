@@ -100,8 +100,6 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
      public void setCmboxBrand(ComboBox cmboxBrand) {
           this.cmboxBrand = cmboxBrand;
      }
-     
-     
 
      public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
           super(parent, modal);
@@ -401,12 +399,14 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     // jdLoginForm.setCheckOpenShift(true);
                     JavaConstant.checkOpenShift = true;
                     JavaConstant.checkCloseShift = 1l;
-                    
- 
 
                     // after open shift will show all product at category ALL
-                    Component[] listCom = category.getComponents();
-                    listCom[1].setBackground(WindowColor.black);
+                    
+                    if (category.getComponentCount() > 0) {
+                         Component[] listCom = category.getComponents();
+                         listCom[1].setBackground(WindowColor.black);
+                    }
+
                     panelProduct.removeAll();
                     pro.setDetailItem(detailItem);
 //                    pro.getAllProduct(panelProduct);
@@ -425,22 +425,21 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                     searchBox.disabledTextField(true);
                     textField.disabledTextField(true);
                     textField.setFocus();
-            
-                                   
+
                     labelTitle.setLabelTitle("NEW ITEMS");
-                    
+
                     if (MainPage.isFullScreen) {
                          loginFormJdailog.callDataInFullScreen();
                     }
-                    
+
                     loginFormJdailog.runData();
-                    
+
                     JavaConstant.restoreDefaultCursor(mainFrame);
-                    
+
                     next.setBackground(WindowColor.white);
                     previous.setBackground(WindowColor.lightGray);
                     cmboxBrand.setToFirstItem();
-                    
+
                     EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
                } else {
                     UIManager UI = new UIManager();
@@ -627,15 +626,13 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
           this.titleOrder = titleOrder;
      }
 
-    public Button getButtonStaff() {
-        return buttonStaff;
-    }
+     public Button getButtonStaff() {
+          return buttonStaff;
+     }
 
-    public void setButtonStaff(Button buttonStaff) {
-        this.buttonStaff = buttonStaff;
-    }
-     
-     
+     public void setButtonStaff(Button buttonStaff) {
+          this.buttonStaff = buttonStaff;
+     }
 
      /**
       * @param args the command line

@@ -184,9 +184,7 @@ public class InsertDivision extends javax.swing.JDialog {
                    JOptionPane.showMessageDialog(this, "Division Name is required!");
                    return;
               }
-              
-              
-//              System.out.println("ddddddddddd divisionNamekh : " + divisionNamekh);
+             
               
               JSONObject json = new JSONObject();
               json.put("catNameEn", divisionNameEn);
@@ -231,7 +229,7 @@ public class InsertDivision extends javax.swing.JDialog {
                    System.err.println("json reponse : " + json);
 
                    Response response = JavaConnection.post(JavaRoute.addCategory, json);
-                   System.out.println("response : " + response);
+ 
                    if (response.isSuccessful()) {
                         Category list = new Category(new JFrame(), true, code);
                         list.setPCategory(category);
