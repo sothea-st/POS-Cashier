@@ -13,10 +13,10 @@ import java.util.Optional;
 public interface SlotRepository extends JpaRepository<Slot,Integer> {
 
     // Check if slot name kh is already existed?
-    Boolean existsBySlotNameKhAndStatusTrueAndIsDeletedFalseAndSlotNameKhIsNotNull(String slotNameKh);
+    // Boolean existsBySlotNameKhAndStatusTrueAndIsDeletedFalseAndSlotNameKhIsNotNull(String slotNameKh);
 
     // Check if slot name kh is already existed?
-    Boolean existsBySlotNameEnAndStatusTrueAndIsDeletedFalse(String slotNameEn);
+    // Boolean existsBySlotNameEnAndStatusTrueAndIsDeletedFalse(String slotNameEn);
 
     // List status with page Number and page size
     Page<Slot> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);

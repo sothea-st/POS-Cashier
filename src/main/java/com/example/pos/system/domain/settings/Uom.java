@@ -30,9 +30,6 @@ public class Uom {
     @Column(name = "name_kh")
     private String uomNameKh;
 
-    @Column(name = "number_of_unit")
-    private Integer numberOfUnit;
-
     @Column(name = "is_deleted")
     private Boolean isDeleted;
 

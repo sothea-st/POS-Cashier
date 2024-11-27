@@ -42,13 +42,13 @@ public class RangeServiceImp implements RangeService {
     @Override
     public ResponseSuccess create(RangeRequest rangeRequest) {
 
-        if( rangeRepository.existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(rangeRequest.rangeNameEn()) ) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,nameEnAlreadyExisted);
-        }
+//        if( rangeRepository.existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(rangeRequest.rangeNameEn()) ) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT,nameEnAlreadyExisted);
+//        }
 
-        if( rangeRepository.existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(rangeRequest.rangeNameKh()) ) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,nameKhAlreadyExisted);
-        }
+//        if( rangeRepository.existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(rangeRequest.rangeNameKh()) ) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT,nameKhAlreadyExisted);
+//        }
 
         // get warehouse
         Warehouse warehouse = warehouseRepository.findByIdAndStatusTrueAndIsDeletedFalse(rangeRequest.warehouseId())
@@ -160,18 +160,18 @@ public class RangeServiceImp implements RangeService {
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,rangeIdNotFound+id));
 
         //Check if range name en is already existed?
-        if (!ranges.getRangeNameEn().equals(rangeRequest.rangeNameEn()) &&
-                rangeRepository.existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(rangeRequest.rangeNameEn())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExisted);
-        }
+//        if (!ranges.getRangeNameEn().equals(rangeRequest.rangeNameEn()) &&
+//                rangeRepository.existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(rangeRequest.rangeNameEn())) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExisted);
+//        }
 
         //Check if range name kh is already existed?
-        if (ranges.getRangeNameKh() != null) {
-            if (!ranges.getRangeNameKh().equals(rangeRequest.rangeNameKh()) &&
-                    rangeRepository.existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(rangeRequest.rangeNameKh())) {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExisted);
-            }
-        }
+//        if (ranges.getRangeNameKh() != null) {
+//            if (!ranges.getRangeNameKh().equals(rangeRequest.rangeNameKh()) &&
+//                    rangeRepository.existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(rangeRequest.rangeNameKh())) {
+//                throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExisted);
+//            }
+//        }
 
         ranges.setRangeNameEn(rangeRequest.rangeNameEn());
         ranges.setRangeNameKh(rangeRequest.rangeNameKh());

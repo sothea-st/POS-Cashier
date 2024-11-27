@@ -47,13 +47,13 @@ public class SlotServiceImp implements SlotService{
         Ranges ranges = rangeRepository.findByIdAndStatusTrueAndIsDeletedFalse(slotRequest.rangeId())
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,rangeIdNotFound+slotRequest.rangeId()));
 
-        if( slotRepository.existsBySlotNameEnAndStatusTrueAndIsDeletedFalse(slotRequest.slotNameEn()) ) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,nameEnAlreadyExist);
-        }
+//        if( slotRepository.existsBySlotNameEnAndStatusTrueAndIsDeletedFalse(slotRequest.slotNameEn()) ) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT,nameEnAlreadyExist);
+//        }
 
-        if( slotRepository.existsBySlotNameKhAndStatusTrueAndIsDeletedFalseAndSlotNameKhIsNotNull(slotRequest.slotNameKh()) ) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,nameKhAlreadyExist);
-        }
+//        if( slotRepository.existsBySlotNameKhAndStatusTrueAndIsDeletedFalseAndSlotNameKhIsNotNull(slotRequest.slotNameKh()) ) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT,nameKhAlreadyExist);
+//        }
 
         Slot slot = new Slot();
         slot.setSlotNameEn(slotRequest.slotNameEn());
@@ -156,18 +156,18 @@ public class SlotServiceImp implements SlotService{
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND ,slotNotFound+id));
 
         //Check if nameEn is already existed?
-        if (!slot.getSlotNameEn().equals(slotRequest.slotNameEn()) &&
-                rangeRepository.existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(slotRequest.slotNameEn())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExist);
-        }
+//        if (!slot.getSlotNameEn().equals(slotRequest.slotNameEn()) &&
+//                rangeRepository.existsByRangeNameEnAndStatusTrueAndIsDeletedFalse(slotRequest.slotNameEn())) {
+//            throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExist);
+//        }
 
         //Check if nameKh is already existed?
-        if (slot.getSlotNameKh() != null) {
-            if (!slot.getSlotNameKh().equals(slotRequest.slotNameKh()) &&
-                    rangeRepository.existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(slotRequest.slotNameKh())) {
-                throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExist);
-            }
-        }
+//        if (slot.getSlotNameKh() != null) {
+//            if (!slot.getSlotNameKh().equals(slotRequest.slotNameKh()) &&
+//                    rangeRepository.existsByRangeNameKhAndStatusTrueAndIsDeletedFalseAndRangeNameKhIsNotNull(slotRequest.slotNameKh())) {
+//                throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExist);
+//            }
+//        }
 
         //validate range id exist ot not
         Ranges ranges = rangeRepository.findByIdAndStatusTrueAndIsDeletedFalse(slotRequest.rangeId())
