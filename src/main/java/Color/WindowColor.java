@@ -1,6 +1,7 @@
 package Color;
 
 import java.awt.Color;
+import javax.swing.UIManager;
 
 /**
  *
@@ -18,7 +19,7 @@ public class WindowColor {
      public static Color darkGray = new Color(140, 140, 140);
      public static Color lightGray = new Color(204, 204, 204);
      public static Color red = Color.red;
-
+     public static Color bgDefault = UIManager.getColor("Panel.background");
      public static Color darkGreen = new Color(16, 107, 67);
      public static Color slightGreen = new Color(215, 234, 213);
      public static Color mediumGreen = new Color(176, 215, 181);

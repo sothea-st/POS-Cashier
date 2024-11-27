@@ -15,6 +15,9 @@ public interface ButtonEvent {
      default public void onDelete() {
      }
 
+      default public void onSelected(String id) {
+     }
+     
      default public void onEditQty(int qty) {
      }
 
