@@ -658,6 +658,9 @@
           </Properties>
         </Component>
         <Component class="FormComponent.JavaTextField" name="javaTextField1">
+          <Properties>
+            <Property name="placeHolder" type="java.lang.String" value="Enter ..."/>
+          </Properties>
         </Component>
         <Component class="FormComponent.combobox.JavaCombobox" name="javaCombobox1">
         </Component>

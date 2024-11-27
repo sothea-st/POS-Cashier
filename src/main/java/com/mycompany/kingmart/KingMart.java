@@ -16,7 +16,20 @@ public class KingMart {
 
      public static void main(String[] args) throws FileNotFoundException {
 
-          JavaConstant.setLookAndFeel();
+//          JavaConstant.setLookAndFeel();
+//          System.out.println("Hello World!");
+          // change view teplate
+          FlatRobotoFont.install();
+          FlatLaf.registerCustomDefaultsSource("theme");
+          //UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+          UIManager.put("defaultFont", WindowFonts.timeNewRoman14);
+
+          // Set custom outline color for JTextField and JComboBox
+          // UIManager.put("TextField.focusedBorderColor", JavaColor.primary); // Focused border color for JTextField
+//        UIManager.put("ComboBox.focusedBorderColor", Color.RED);  // Focused border color for JComboBox
+          // Set outline color globally
+          //UIManager.put("Component.focusedBorderColor", JavaColor.primary); // Global focus border color
+          FlatMacDarkLaf.setup();
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
 
