@@ -29,6 +29,9 @@ public interface ProductMapper {
     @Mapping(source = "product.subCategory.catNameEn", target = "subCatNameEn")
     @Mapping(source = "product.importDetail.qtyOld", target = "qty" ,defaultValue = "0")
     @Mapping(source = "product.vendor.vendorCode", target = "vendorCode")
+    @Mapping(source = "product.warehouse.warehouseNameEn", target = "warehouse")
+    @Mapping(source = "product.range.rangeNameEn", target = "range")
+    @Mapping(source = "product.slot.slotNameEn", target = "slot")
     ProductResponse mapToProductResponse(Product product);
 
     // Maps fields from Product to ProductResponseReadById for read operations
