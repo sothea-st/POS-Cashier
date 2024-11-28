@@ -130,91 +130,91 @@ public class GetCategory extends javax.swing.JPanel {
     
 
     @SuppressWarnings("unchecked")
-     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-          panel = new javax.swing.JPanel();
-          lbCategoryKh = new javax.swing.JLabel();
-          lbCategoryEn = new javax.swing.JLabel();
-          lbId = new javax.swing.JLabel();
-          btnEdit = new javax.swing.JLabel();
-          btnDelete = new javax.swing.JLabel();
+        panel = new javax.swing.JPanel();
+        lbCategoryKh = new javax.swing.JLabel();
+        lbCategoryEn = new javax.swing.JLabel();
+        lbId = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JLabel();
 
-          panel.setBackground(new java.awt.Color(255, 255, 255));
-          panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-          panel.setPreferredSize(new java.awt.Dimension(615, 35));
+        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panel.setPreferredSize(new java.awt.Dimension(615, 35));
 
-          lbCategoryKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbCategoryKh.setForeground(new java.awt.Color(0, 0, 0));
-          lbCategoryKh.setText("Category Name Kh");
+        lbCategoryKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbCategoryKh.setForeground(new java.awt.Color(0, 0, 0));
+        lbCategoryKh.setText("Category Name Kh");
 
-          lbCategoryEn.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          lbCategoryEn.setForeground(new java.awt.Color(0, 0, 0));
-          lbCategoryEn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-          lbCategoryEn.setText("Category Name En");
+        lbCategoryEn.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lbCategoryEn.setForeground(new java.awt.Color(0, 0, 0));
+        lbCategoryEn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbCategoryEn.setText("Category Name En");
 
-          lbId.setText("jLabel1");
+        lbId.setText("jLabel1");
 
-          btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnEdit.setForeground(new java.awt.Color(0, 0, 0));
-          btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnEdit.setForeground(new java.awt.Color(0, 0, 0));
+        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
 
-          btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnDelete.setForeground(new java.awt.Color(0, 0, 0));
-          btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
 
-          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-          panel.setLayout(panelLayout);
-          panelLayout.setHorizontalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(16, 16, 16)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(lbCategoryEn, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbCategoryKh, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
-          );
-          panelLayout.setVerticalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(btnDelete)
-                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                              .addComponent(lbCategoryEn)
-                              .addComponent(lbId)
-                              .addComponent(btnEdit)))
-                    .addContainerGap(17, Short.MAX_VALUE))
-               .addComponent(lbCategoryKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          );
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbCategoryEn, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbCategoryKh, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDelete)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbCategoryEn)
+                        .addComponent(lbId)
+                        .addComponent(btnEdit)))
+                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(lbCategoryKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-          this.setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-          );
-     }// </editor-fold>//GEN-END:initComponents
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JLabel btnDelete;
-     private javax.swing.JLabel btnEdit;
-     private javax.swing.JLabel lbCategoryEn;
-     private javax.swing.JLabel lbCategoryKh;
-     private javax.swing.JLabel lbId;
-     private javax.swing.JPanel panel;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnDelete;
+    private javax.swing.JLabel btnEdit;
+    private javax.swing.JLabel lbCategoryEn;
+    private javax.swing.JLabel lbCategoryKh;
+    private javax.swing.JLabel lbId;
+    private javax.swing.JPanel panel;
+    // End of variables declaration//GEN-END:variables
 }
