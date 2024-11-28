@@ -19,6 +19,8 @@ public class ProductModel {
     private int qty;
     private String discountType;
 
+    private String choices;
+
     public ProductModel() {
     }
 
@@ -38,7 +40,10 @@ public class ProductModel {
             int catID,
             String codeExpired,
             String codeOutStock,
-            int qty) {
+            int qty,
+            String choices
+
+            ) {
         this.brandId = brandId;
         this.proNameKh = proNameKh;
         this.proImageName = proImageName;
@@ -55,6 +60,7 @@ public class ProductModel {
         this.codeExpired = codeExpired;
         this.codeOutStock = codeOutStock;
         this.qty = qty;
+        this.choices = choices;
     }
 
     public ProductModel(
@@ -74,7 +80,8 @@ public class ProductModel {
             String codeExpired,
             String codeOutStock,
             int qty,
-            String discountType
+            String discountType,
+            String choices
             ) {
         this.brandId = brandId;
         this.proNameKh = proNameKh;
@@ -93,6 +100,7 @@ public class ProductModel {
         this.codeOutStock = codeOutStock;
         this.qty = qty;
         this.discountType=discountType;
+        this.choices =choices;
     }
 
 
@@ -230,5 +238,13 @@ public class ProductModel {
 
     public void setQty(int qty) {
         this.qty = qty;
+    }
+
+    public String getChoices() {
+        return choices;
+    }
+
+    public void setChoices(String choices) {
+        this.choices = choices;
     }
 }

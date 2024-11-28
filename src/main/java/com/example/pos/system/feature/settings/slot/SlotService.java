@@ -7,6 +7,14 @@ import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 
 public interface SlotService {
 
+
+    /**
+     * read ranges
+     * @param id
+     * @return
+     */
+    JavaCollectionResponse<?> readByRangeId(Integer id);
+
     /**
      * create slot
      * @param slotRequest

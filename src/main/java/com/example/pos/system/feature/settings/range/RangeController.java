@@ -79,4 +79,11 @@ public class RangeController {
             @RequestParam(name = "search", required = false) String searchValue){
         return rangeService.search(pageNumber, pageSize, searchValue);
     }
+
+
+    @GetMapping("/readByWarehouseId/{id}")
+    JavaCollectionResponse<?> readByWarehouseId( @PathVariable("id") Integer id ){
+        return rangeService.readByWarehouseId(id);
+    }
+
 }

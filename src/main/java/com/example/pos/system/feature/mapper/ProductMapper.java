@@ -41,6 +41,9 @@ public interface ProductMapper {
     @Mapping(source = "product.taxProduct.id", target = "taxId")
     @Mapping(source = "product.subCategory.id", target = "subCatId")
     @Mapping(source = "product.importDetail.qtyOld", target = "qty")
+    @Mapping(source = "product.warehouse.id", target = "warehouseId")
+    @Mapping(source = "product.range.id", target = "rangeId")
+    @Mapping(source = "product.slot.id", target = "slotId")
     ProductResponseReadById mapToProductResponseReadById(Product product);
  
 

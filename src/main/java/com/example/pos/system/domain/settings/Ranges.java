@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,6 +22,9 @@ public class Ranges {
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
+
+    @OneToMany(mappedBy = "ranges" , fetch = FetchType.EAGER)
+    private List<Slot> slots;
 
     @Column(name = "name_en", nullable = false)
     private String rangeNameEn;

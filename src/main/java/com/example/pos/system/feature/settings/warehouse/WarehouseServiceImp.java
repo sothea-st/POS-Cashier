@@ -30,6 +30,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
     /**
      * read warehouse
+     *
      * @param pageNumber
      * @param pageSize
      * @return
@@ -72,8 +73,11 @@ public class WarehouseServiceImp implements WarehouseService {
                 .build();
     }
 
+
+
     /**
      * search warehouse
+     *
      * @param pageNumber
      * @param pageSize
      * @param searchValue
@@ -84,7 +88,7 @@ public class WarehouseServiceImp implements WarehouseService {
         long totalPageNumber = 0;
         List<WarehouseResponse> data = new ArrayList<>();
 
-        if(pageNumber == null && pageSize == null){
+        if (pageNumber == null && pageSize == null) {
             // map value to List
             data = warehouseRepository.searchByWarehouseNameEnOrWarehouseNameKh(searchValue).stream()
                     .sorted(Comparator.comparing(Warehouse::getId).reversed())
@@ -94,13 +98,13 @@ public class WarehouseServiceImp implements WarehouseService {
             // assign total pages
             totalPageNumber = data.size();
 
-        }else{
+        } else {
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
-            Page<Warehouse> pages = warehouseRepository.searchByWarehouseNameEnOrWarehouseNameKh(pageRequest,searchValue);
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<Warehouse> pages = warehouseRepository.searchByWarehouseNameEnOrWarehouseNameKh(pageRequest, searchValue);
 
             // assign total pages
             totalPageNumber = pages.getTotalElements();
@@ -119,6 +123,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
     /**
      * read warehouse By id
+     *
      * @param id
      * @return
      */
@@ -134,6 +139,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
     /**
      * create warehouseRequest
+     *
      * @param warehouseRequest
      * @return
      */
@@ -164,6 +170,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
     /**
      * update warehouseRequest
+     *
      * @param id
      * @param warehouseRequest
      * @return
@@ -204,6 +211,7 @@ public class WarehouseServiceImp implements WarehouseService {
 
     /**
      * delete warehouse by id
+     *
      * @param id
      * @return
      */

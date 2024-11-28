@@ -47,11 +47,12 @@ public class CategoryService {
         }
 
         // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
-        boolean catNameEn = repo.existsByCatNameEnIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn());
-        boolean catNameKh = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameKh());
+
+        boolean catNameEn = repo.existsByCatNameEnAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn(),c.code());
+        boolean catNameKh = repo.existsByCatNameKhAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameKh(),c.code());
         // JavaValidation.checkDataAlreadyExists(catNameKh); // check catName already
         // exists or not
-        System.out.println("api/category + " + catNameEn);
+
         JavaValidation.checkDataAlreadyExists(catNameEn); // check catName already exists or not
         JavaValidation.checkDataAlreadyExists(catNameKh); // check catNameKh already exists or not
 
@@ -90,18 +91,15 @@ public class CategoryService {
 
         if( catNameKh != null ) {
             if (!Objects.equals(obj.getCatNameKh(),catNameKh)) {
-                System.out.println("11111111111111 = " + c.getCatNameKh());
-                boolean isExist = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameKh());
-                System.out.println("isExist : " + isExist);
+                boolean isExist = repo.existsByCatNameKhAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameKh(),c.getCode());
                 JavaValidation.checkDataAlreadyExists(isExist);
             }
         }
 
 
         if (!Objects.equals(obj.getCatNameEn(), c.getCatNameEn())) {
-            System.out.println("nnnnnnnnnnnnn");
 
-            boolean isExist = repo.existsByCatNameEnIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameEn());
+            boolean isExist = repo.existsByCatNameEnAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameEn(),c.getCode());
             JavaValidation.checkDataAlreadyExists(isExist);
         }
 

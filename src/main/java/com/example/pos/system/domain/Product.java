@@ -2,7 +2,10 @@ package com.example.pos.system.domain;
 
 import java.util.Date;
 
+import com.example.pos.system.domain.settings.Ranges;
+import com.example.pos.system.domain.settings.Slot;
 import com.example.pos.system.domain.settings.Uom;
+import com.example.pos.system.domain.settings.Warehouse;
 import com.example.pos.system.domain.sourceData.Brand;
 import com.example.pos.system.domain.sourceData.TaxProduct;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,6 +13,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.w3c.dom.ranges.Range;
 
 import java.math.BigDecimal;
 
@@ -27,6 +31,18 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "uom_id")
     private Uom uom;
+
+    @ManyToOne
+    @JoinColumn(name = "warehouse_id")
+    private Warehouse warehouse;
+
+    @ManyToOne
+    @JoinColumn(name = "range_id")
+    private Ranges range;
+
+    @ManyToOne
+    @JoinColumn(name = "slot_id")
+    private Slot slot;
 
     @Column(name = "cat_id")
     private Integer catId;

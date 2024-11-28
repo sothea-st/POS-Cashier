@@ -56,6 +56,10 @@ public record ProductRequest(
         @NotNull(message = JavaMessage.required)
         Integer countryId,
 
+        Integer warehouseId,
+        Integer rangeId,
+        Integer slotId,
+
         //@NotBlank(message = JavaMessage.required)
         String choices,
 

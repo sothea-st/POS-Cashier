@@ -68,6 +68,7 @@ public class EmployeeServiceImp implements EmployeeService {
 
         List<EmployeeResponse> content = pages.getContent()
                 .stream()
+
                 .map(this::mEmployeeResponse)
                 .toList();
 
@@ -261,16 +262,15 @@ public class EmployeeServiceImp implements EmployeeService {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
         Page<User> pages = userRepository.findByStatusTrueAndIsDeletedFalse(pageRequest);
 
-        System.out.println("hhhhhhhhhhhhhhhhhh = " + pages);
-
 
         List<UerAccountResponse> content = pages.getContent()
                 .stream()
+                .filter(emp -> emp.getEmpId() != null)
                 .map(this::mUerAccountResponse)
                 .toList();
 
         return JavaCollectionResponse.builder()
-                .count(pages.getTotalElements())
+                .count(content.size())
                 .data(content)
                 .build();
 

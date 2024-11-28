@@ -45,7 +45,7 @@ public class SearchByBarcodeOrNameService {
         for (int i = 0; i < data.size(); i++) {
             var val = data.get(i);
             Integer qty = repoImp.getQty(val.getId());
-            System.out.println("fffffffffffff = " + qty + " id : " + val.getId());
+
             if (qty == null)
                 qty = 0;
             ProductModel p = proService.proModel(val, qty);
@@ -139,7 +139,11 @@ public class SearchByBarcodeOrNameService {
                 data.getCode_expired(),
                 data.getCode_out_stock(),
                 qty,
-                data.getDiscount_type());
+                data.getDiscount_type(),
+                data.getChoices()
+
+        );
+
         return p;
     }
 }

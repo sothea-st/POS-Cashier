@@ -58,8 +58,8 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 
     Optional<Category> findByIdAndStatusTrueAndIsDeletedFalseAndCode(int id,String code);
     
-    boolean existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(String catNameKh);
-    boolean existsByCatNameEnIgnoreCaseAndStatusTrueAndIsDeletedFalse(String catNameKh);
+    boolean existsByCatNameKhAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(String catNameKh,String code);
+    boolean  existsByCatNameEnAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(String catNameKh,String code);
 
     @Query(nativeQuery = true,value = "select\r\n" + //
                 "\t*\r\n" + //
