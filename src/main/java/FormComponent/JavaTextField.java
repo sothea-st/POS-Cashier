@@ -5,11 +5,15 @@ import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Collections;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,22 +31,23 @@ public class JavaTextField extends javax.swing.JPanel {
      public static String invalidAmount = "Invalid amount!";
 
      public JavaTextField() {
+
+          FlatLightLaf.setup();
+
           initComponents();
           init();
           initEvent(); // remember must be call method initEvent without paramater to do action typing and get text 
      }
 
-    private void init() {
-        label.setFont(WindowFonts.timeNewRomanBold14); // set font
- 
-        // label error
-        lbError.setVisible(false);
-        lbError.setForeground(WindowColor.red);
-        lbError.setFont(WindowFonts.timeNewRomanBold14);
-        txt.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
-        setBackground(WindowColor.mediumGreen);
-        txt.setBackground(WindowColor.white);
-
+     private void init() {
+          label.setFont(WindowFonts.timeNewRomanBold14); // set font
+          // label error
+          lbError.setVisible(false);
+          lbError.setForeground(WindowColor.red);
+          lbError.setFont(WindowFonts.timeNewRomanBold14);
+          txt.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
+          setBackground(WindowColor.mediumGreen);
+          txt.setBackground(WindowColor.white);
      }
 
      public String getLabelName() {
@@ -72,7 +77,8 @@ public class JavaTextField extends javax.swing.JPanel {
 
      // Method to set the red border for JTextField
      public void setErrorBorder() {
-          txt.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000;");
+          txt.putClientProperty(FlatClientProperties.STYLE,
+               "borderColor:#FF0000;arc:10;");
      }
 
      // Method to reset the border to the default color for JTextField
@@ -296,6 +302,7 @@ public class JavaTextField extends javax.swing.JPanel {
                     } else {
                          txt.setFont(WindowFonts.timeNewRoman14);
                     }
+                    txt.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
                }
           });
      }
@@ -323,6 +330,8 @@ public class JavaTextField extends javax.swing.JPanel {
                     } else {
                          txt.setFont(WindowFonts.timeNewRoman14);
                     }
+
+                    txt.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
                }
           });
      }
@@ -349,43 +358,43 @@ public class JavaTextField extends javax.swing.JPanel {
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
-        label = new javax.swing.JLabel();
-        txt = new javax.swing.JTextField();
-        lbError = new javax.swing.JLabel();
+          label = new javax.swing.JLabel();
+          txt = new javax.swing.JTextField();
+          lbError = new javax.swing.JLabel();
 
-        label.setText("Label Name");
-        label.setPreferredSize(new java.awt.Dimension(63, 20));
+          label.setText("Label Name");
+          label.setPreferredSize(new java.awt.Dimension(63, 20));
 
-        txt.setPreferredSize(new java.awt.Dimension(300, 35));
+          txt.setPreferredSize(new java.awt.Dimension(300, 35));
 
-        lbError.setText("The field is required.");
+          lbError.setText("The field is required.");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-                .addGap(6, 6, 6)
-                .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(lbError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                         .addComponent(lbError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGap(0, 0, 0))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
+                    .addGap(6, 6, 6)
+                    .addComponent(txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(6, 6, 6)
+                    .addComponent(lbError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel label;
-    private javax.swing.JLabel lbError;
-    private javax.swing.JTextField txt;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel label;
+     private javax.swing.JLabel lbError;
+     private javax.swing.JTextField txt;
+     // End of variables declaration//GEN-END:variables
 }

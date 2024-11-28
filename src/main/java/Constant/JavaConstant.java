@@ -113,7 +113,6 @@ public class JavaConstant {
           // Set FlatDarkLaf Look and Feel
           try {
                UIManager.setLookAndFeel(new FlatLightLaf());
-
           } catch (Exception ex) {
                ex.printStackTrace();
           }
