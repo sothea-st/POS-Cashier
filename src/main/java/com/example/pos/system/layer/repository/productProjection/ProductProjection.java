@@ -16,4 +16,6 @@ public interface ProductProjection {
      Double getDiscount();
      String getCode_out_stock();
      String getCode_expired();
+
+     String getChoices();
 }

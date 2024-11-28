@@ -18,5 +18,7 @@ public interface HoldProjection {
      int getQty();
      BigDecimal getDiscount();
      String getDiscount_type();
+
+     String getChoices();
      
 }  

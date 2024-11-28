@@ -66,7 +66,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 "\tpc.product_status ,\n" +
                 "\tpc.discount ,\n" +
                 "\tpc.code_out_stock ,\n" +
-                "\tpc.code_expired\n" +
+                "\tpc.code_expired , pc.choices \n" +
                 "from\n" +
                 "\tpos_product pc\n" +
                 "inner join pos_countries pc2 \n" +
@@ -220,7 +220,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 "\tpc.product_status ,\n" +
                 "\tpc.discount ,\n" +
                 "\tpc.code_out_stock ,\n" +
-                "\tpc.code_expired\n" +
+                "\tpc.code_expired , pc.choices\n" +
                 "from\n" +
                 "\tpos_product pc\n" +
                 "inner join pos_countries pc2 \n" +
@@ -257,7 +257,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name , \r\n"
                         + //
                         "pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price , \r\n" + //
-                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired  \r\n" + //
+                        "pc.product_status ,pc.discount ,pc.code_out_stock ,pc.code_expired ,pc.choices  \r\n" + //
                         "from pos_product pc where pc.status=true and pc.is_deleted=false\r\n" + //
                         "and pc.brand_id = ? order by id desc limit ? OFFSET  ?")
         List<ProductProjection> getProductByBrandId(int brandId, int limit, int page);
@@ -278,7 +278,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 "\tpc.product_status ,\n" +
                 "\tpc.discount ,\n" +
                 "\tpc.code_out_stock ,\n" +
-                "\tpc.code_expired\n" +
+                "\tpc.code_expired , pc.choices\n" +
                 "from\n" +
                 "\tpos_product pc\n" +
                 "inner join pos_countries pc2 \n" +
@@ -310,7 +310,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 "\tpc.product_status ,\n" +
                 "\tpc.discount ,\n" +
                 "\tpc.code_out_stock ,\n" +
-                "\tpc.code_expired\n" +
+                "\tpc.code_expired , pc.choices\n" +
                 "from\n" +
                 "\tpos_product pc\n" +
                 "inner join pos_countries pc2 \n" +
@@ -337,7 +337,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                 "\tpc.product_status ,\n" +
                 "\tpc.discount ,\n" +
                 "\tpc.code_out_stock ,\n" +
-                "\tpc.code_expired\n" +
+                "\tpc.code_expired , pc.choices\n" +
                 "from\n" +
                 "\tpos_product pc\n" +
                 "\tinner join pos_countries pc2 \n" +
@@ -352,7 +352,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
                         + //
                         "\t  pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,( psd.qty - psd.qty_returned ) as qty ,     \r\n"
                         + //
-                        "\t  pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired   \r\n"
+                        "\t  pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired ,pc.choices  \r\n"
                         + //
                         "\t from pos_payment pp inner join pos_sale_details psd on psd.sale_id = pp.sale_id \r\n" + //
                         "\t inner join pos_product pc on pc.id = psd.pro_id  inner join pos_sale ps on ps.id = pp.sale_id \r\n"
@@ -363,7 +363,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         @Query(nativeQuery = true, value = "select\r\n" + //
                         " pc.id,pc.barcode,pc.cat_id ,pc.brand_id ,pc.flag ,pc.weight ,pc.pro_image_name ,  \r\n" + //
                         " pc.brand_id ,pc.pro_name_en ,pc.pro_name_kh ,pc.cost,pc.price,psd.qty,     \r\n" + //
-                        " pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock ,pc.code_expired , ( psd.qty - psd.qty_returned ) as qty    \r\n"
+                        " pc.product_status ,psd.discount,psd.discount_type ,pc.code_out_stock,pc.choices ,pc.code_expired , ( psd.qty - psd.qty_returned ) as qty    \r\n"
                         + //
                         "from\r\n" + //
                         "\tpos_payment pp\r\n" + //
