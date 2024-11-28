@@ -30,11 +30,12 @@ public class HoldProductModel {
      private String proNameKh;
      private String proImageName;
      private String productStatus;
+     private String choices;
 
      public HoldProductModel() {
      }
 
-     public HoldProductModel(int id, String flag, double discount, int qty, double cost, double price, int catID, String barcode, String weight, String discountType, String proNameEn, String codeExpired, String codeOutStock, int brandID, String proNameKh, String proImageName, String productStatus) {
+     public HoldProductModel(int id, String flag, double discount, int qty, double cost, double price, int catID, String barcode, String weight, String discountType, String proNameEn, String codeExpired, String codeOutStock, int brandID, String proNameKh, String proImageName, String productStatus,String choices) {
           this.id = id;
           this.flag = flag;
           this.discount = discount;
@@ -52,7 +53,19 @@ public class HoldProductModel {
           this.proNameKh = proNameKh;
           this.proImageName = proImageName;
           this.productStatus = productStatus;
+          this.choices = choices;
      }
+
+     public String getChoices() {
+          return choices;
+     }
+
+     public void setChoices(String choices) {
+          this.choices = choices;
+     }
+     
+     
+     
 
      public int getId() {
           return id;
@@ -189,10 +202,5 @@ public class HoldProductModel {
      public void setProductStatus(String productStatus) {
           this.productStatus = productStatus;
      }
-     
-     
-     
-     
-     
 
 }

@@ -6,7 +6,6 @@ import ButtonPackage.ButtonCancel;
 import Color.WindowColor;
 import Components.BoxItem;
 import Components.NoData;
-import Components.NotFound;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaBaseUrl;
@@ -22,9 +21,7 @@ import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Model.HoldOrder.HoldProductModel;
-import Model.PackageProduct.ProductModel;
 import Products.ProductBox;
-import View.MainPage.MainPage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -32,7 +29,6 @@ import java.awt.GridBagLayout;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,7 +37,6 @@ import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.border.BevelBorder;
 import okhttp3.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ListHoldOrder extends javax.swing.JDialog {
@@ -92,7 +87,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
      public void getHoldItem(JPanel panelHold) {
           try {
                Response response = JavaConnection.get(JavaRoute.holdOrder + "?userId=" + JavaConstant.cashierId);
-
+              
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -166,7 +161,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                                         obj.getBrandID(),
                                         obj.getProNameKh(),
                                         obj.getProImageName(),
-                                        obj.getProductStatus()
+                                        obj.getProductStatus(),
+                                        obj.getChoices()
                                    );
                                    addItemToCart(product,obj.getQty(),new ProductBox());
                               }
@@ -222,7 +218,8 @@ public class ListHoldOrder extends javax.swing.JDialog {
                                         obj.getBrandID(),
                                         obj.getProNameKh(),
                                         obj.getProImageName(),
-                                        obj.getProductStatus()
+                                        obj.getProductStatus(),
+                                        obj.getChoices()
                                    );
                               }
 
@@ -342,7 +339,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           }
 
           box.setDiscountDigit(listData.getDiscount());
-          box.setLabelProductName(listData.getProNameEn());
+          box.setLabelProductName(listData.getProNameEn() + " " + listData.getChoices());
           
 //          //        ====================== get weight ====================
 //          String _weight = "";

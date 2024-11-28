@@ -1,9 +1,9 @@
 package Model.ProductModel;
 
-import BlogCode.ParentProductModel;
+ 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ProductDataModel  {
+public class ProductDataModel {
 
      private int qty;
      private int brandID;
@@ -22,6 +22,17 @@ public class ProductDataModel  {
      private String codeExpired;
      private String codeOutStock;
      private String discountType;
+     private String choices;
+
+     @JsonProperty("choices")
+     public String getChoices() {
+          return choices;
+     }
+
+     @JsonProperty("choices")
+     public void setChoices(String choices) {
+          this.choices = choices;
+     }
 
      @JsonProperty("discountType")
      public String getDiscountType() {

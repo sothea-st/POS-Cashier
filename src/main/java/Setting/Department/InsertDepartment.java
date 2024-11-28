@@ -67,7 +67,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                departmentNameKh.setValueTextField(departmentKh);
           }
 
-          comboDivision.setToLastItem(idDivision);
+//          comboDivision.setToLastItem(idDivision);
      }
 
      //Place Holder
@@ -107,7 +107,7 @@ public class InsertDepartment extends javax.swing.JDialog {
                          String catName = category.get(i).getCategoryName();
                          map.put(catName, "" + idCat);
                     }
-                    comboDivision.setMap(map);
+//                    comboDivision.setMap(map);
 
                } else {
                     System.err.println("fail loading data");

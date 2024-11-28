@@ -21,6 +21,17 @@ public class ListDetailHold {
      private String codeOutStock;
      private double discount;
      private String discountType;
+     private String choices;
+
+     @JsonProperty("choices")
+     public String getChoices() {
+          return choices;
+     }
+
+     @JsonProperty("choices")
+     public void setChoices(String choices) {
+          this.choices = choices;
+     }
 
      @JsonProperty("id")
      public int getID() {

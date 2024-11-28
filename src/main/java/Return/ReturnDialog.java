@@ -331,7 +331,7 @@ public class ReturnDialog extends javax.swing.JDialog {
          String barcode = txtBarcode.getValueTextField();
          String invoiceNo = txtinvoice.getValueTextField();
 
-         System.out.println("ddddddd = " + invoiceNo);
+     
 
          if (invoiceNo == null || invoiceNo.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
@@ -350,9 +350,9 @@ public class ReturnDialog extends javax.swing.JDialog {
          obj.setDetailItem(detailItem);
          obj.setBoxOne(boxOne);
 
-         if (barcode != null) {
+         if (barcode != null) { // return with barcode
               obj.returnWithBarcode(barcode, jdFormLogin, invoiceNo);
-         } else {
+         } else { // return withour barcode
               obj.scanWithoutReturn(invoiceNo, jdFormLogin);
          }
 
@@ -365,9 +365,7 @@ public class ReturnDialog extends javax.swing.JDialog {
 
          if (JavaConstant.tmpInvoice != null) {
               dispose();
-         } else {
-
-         }
+         }  
 
     }//GEN-LAST:event_button1MouseClicked
 

@@ -22,7 +22,7 @@ import Products.ProductBox;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Color;
 import java.awt.Component;
- 
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -40,8 +40,7 @@ import javax.swing.JPanel;
 import okhttp3.Response;
 
 public class BoxItem extends javax.swing.JPanel {
-     
-     
+
      private String cost;
 
      public String getCost() {
@@ -51,8 +50,6 @@ public class BoxItem extends javax.swing.JPanel {
      public void setCost(String cost) {
           this.cost = cost;
      }
-     
-     
 
      public int getLabelQuantity() {
           return labelQuantity;
@@ -449,6 +446,9 @@ public class BoxItem extends javax.swing.JPanel {
           JavaConstant.setPointer(btnDelete);
           eventAddAndRemove();
 
+          ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("image/Delete.png"));
+          btnDelete.setIcon(icon);
+
 //          Border border = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK);
 //          setBorder(border);
      }
@@ -509,7 +509,7 @@ public class BoxItem extends javax.swing.JPanel {
                // add qty 
                getQty++;
                if (JavaConstant.tmpInvoice != null) {  // protect when cashier processing return 
- 
+
                     int qtyTmp = Integer.parseInt(buttonAddProduct.getLbQty().getText());
                     qtyTmp++;
                     if (qtyTmp > getMaxQty()) {
@@ -574,7 +574,7 @@ public class BoxItem extends javax.swing.JPanel {
                }
 
           } else if (sign == "-") {
-                
+
                getHold();
                // remove qty 
                getQty--;
@@ -690,7 +690,7 @@ public class BoxItem extends javax.swing.JPanel {
                     }
                }
           }
- 
+
      }
 
      //=================================================Create Shadow Box

@@ -514,9 +514,13 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                    category();
                    jScrollPaneCategory.setVisible(true);
+                   
+                   // for event select brand 
                    ActionRequestBrand.requestBrand(cmboxBrand);
-
                    eventSelectBrand();
+                   // end brand
+                   
+                   
                    txtUserId.setValueTextField(null);
                    txtPassword.setValuePassword(null);
 
@@ -565,7 +569,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public void getProductByBrandID(String key, int limits) {
 
           Response response = JavaConnection.get(JavaRoute.getProductByBrandId + "?brandId=" + key + "&limit=" + JavaConstant.limitPagination + "&page=" + JavaConstant.page);
-
+          
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
