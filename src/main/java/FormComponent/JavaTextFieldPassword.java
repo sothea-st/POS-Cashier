@@ -7,7 +7,6 @@ import Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JTextField;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -135,8 +134,8 @@ public class JavaTextFieldPassword extends javax.swing.JPanel {
      }
 
      // Method to set the red border for JPasswordField with reveal button
-     private void setRedBorder() {
-          txtPass.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000; showRevealButton:true;");
+     public void setErrorBorder() {
+          txtPass.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000; showRevealButton:true;arc:10;");
      }
 
      // Method to reset the border to the default color for JPasswordField

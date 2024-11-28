@@ -236,25 +236,7 @@ public class ListBrand extends javax.swing.JDialog {
                     b.setId(listData.getId());
                     b.setCategoryNameEn(listData.getBrandNameEn());
                     b.setCategoryNameKh(listData.getBrandNameKh());
-                    
-//                    try {
-//                         
-//                         TimerTask task = new TimerTask() {
-//                              @Override
-//                              public void run() {
-//                                   // Task to be executed
-//                                   b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                                   b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                              }
-//                         };
-//                         
-//                         Timer timer = new Timer();
-//                         timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                    } catch (Exception e) {
-//                         System.err.println("error read image = " + e);
-//                    }
-                    
+                   
                     paginationPanel.setVisible(true);
                     listGetBrand.add(b, gbc);
                }               
@@ -337,9 +319,9 @@ public class ListBrand extends javax.swing.JDialog {
         header1Layout.setHorizontalGroup(
             header1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(header1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)

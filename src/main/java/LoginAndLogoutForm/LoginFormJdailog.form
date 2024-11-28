@@ -40,24 +40,16 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="labelPopUpTitle2" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="objPass" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="buttonCancel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonLogin1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lbUserId" min="-2" pref="81" max="-2" attributes="0"/>
-                              <Component id="lbPassword" min="-2" pref="81" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtUserId" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Component id="txtUserId" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -68,52 +60,24 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelPopUpTitle2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtUserId" max="32767" attributes="0"/>
-                      <Component id="lbUserId" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lbPassword" max="32767" attributes="0"/>
-                      <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="objPass" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="txtUserId" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                  <Component id="txtPassword" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonCancel1" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonLogin1" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="Components.TextField" name="txtUserId">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="User ID"/>
-          </Properties>
-        </Component>
-        <Component class="Components.PasswordField" name="txtPassword">
-          <Properties>
-            <Property name="textPassowrd" type="java.lang.String" value="Password"/>
-          </Properties>
-        </Component>
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle2">
           <Properties>
             <Property name="labelTitle" type="java.lang.String" value="Login"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbUserId">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="User ID"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbPassword">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Password"/>
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel1">
@@ -126,9 +90,15 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonLogin1MouseClicked"/>
           </Events>
         </Component>
-        <Component class="FormComponent.JavaTextFieldPassword" name="objPass">
+        <Component class="FormComponent.JavaTextFieldPassword" name="txtPassword">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Password *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtUserId">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="User ID *"/>
+            <Property name="placeHolder" type="java.lang.String" value="User ID"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -184,7 +184,7 @@ public class InsertDivision extends javax.swing.JDialog {
 
                 fields.add(JavaConflicValidation.builder()
                         .key("name") // specific word that exist in key "reason"
-                        .msg("The field name is already existed!") // message to show 
+                        .msg("This name is already existed!") // message to show 
                         .field(divisionKh) // obj of JavaTextField
                         .build());
 
