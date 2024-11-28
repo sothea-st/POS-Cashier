@@ -18,7 +18,6 @@ import java.util.Map;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import lombok.Getter;
- 
 
 @Getter
 public class JavaCombobox extends javax.swing.JPanel {
@@ -42,6 +41,7 @@ public class JavaCombobox extends javax.swing.JPanel {
         search();
         setPlaceholder(placeHolder);
         setBackground(WindowColor.mediumGreen);
+        cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
     }
 
     private void setPlaceholder(String placeholder) {
@@ -87,6 +87,7 @@ public class JavaCombobox extends javax.swing.JPanel {
                 }
             }
         });
+         cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
     }
 
     private void search() {
@@ -189,10 +190,13 @@ public class JavaCombobox extends javax.swing.JPanel {
 
                     if (selectedItem.getValue().equals("0")) {
                         SwingUtilities.invokeLater(() -> cmd.setSelectedIndex(-1)); // Reset selection
+                        
                     } else {
                         event.onSelected(selectedItem.getValue());
                         //System.err.println("selectedItem " + selectedItem.getValue());
                     }
+                    
+                     cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
 
                 } else {
                     System.err.println("Unexpected item type: " + selectedObject);
@@ -296,7 +300,7 @@ public class JavaCombobox extends javax.swing.JPanel {
 
     // Method to set the red border for JTextField
     public void setErrorBorder() {
-        cmd.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000;");
+        cmd.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000; arc:10;");
     }
 
     // Method to reset the border to the default color for JTextField
