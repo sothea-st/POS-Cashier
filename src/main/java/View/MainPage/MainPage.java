@@ -182,7 +182,7 @@ public class MainPage extends javax.swing.JFrame {
           category.setBackground(WindowColor.darkGreen);
           menuBar.setBackground(WindowColor.darkGreen);
           jScrollPaneCategory.setBackground(WindowColor.darkGreen);
-//          day.setBackground(WindowColor.slightGreen);
+          //          day.setBackground(WindowColor.slightGreen);
           panelprocessing.setBackground(WindowColor.slightGreen);
           panelProduct.setBackground(WindowColor.slightGreen);
           panelPagination.setBackground(WindowColor.slightGreen);

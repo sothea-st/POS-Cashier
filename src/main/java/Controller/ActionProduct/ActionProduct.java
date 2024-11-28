@@ -93,7 +93,7 @@ public class ActionProduct {
           try {
 
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-
+               System.err.println("respnse ddddddddddd = " + response);
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -124,6 +124,7 @@ public class ActionProduct {
      public void newProduct(int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
+             
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -180,7 +181,7 @@ public class ActionProduct {
      public void getPromotion(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getPromotion);
-               System.err.println("dddddddddddddddd = " + response);
+              
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -225,7 +226,8 @@ public class ActionProduct {
                     obj.getProductStatus(),
                     obj.getDiscount(),
                     obj.getQty(),
-                    obj.getDiscountType()
+                    obj.getDiscountType(),
+                    obj.getChoices()
                );
                listProduct.add(product);
           }
@@ -400,7 +402,7 @@ public class ActionProduct {
 
                product.setDiscountPercent(listData.getDiscount());
 
-               product.setProductName("<html>" + listData.getProductNameEn() + "</html>");
+               product.setProductName("<html>" + listData.getProductNameEn() + " " + listData.getChoises() + "</html>");
 
                product.setWeight(listData.getWeight());
 
@@ -545,7 +547,7 @@ public class ActionProduct {
           }
 
           box.setDiscountDigit(listData.getDiscount());
-          box.setLabelProductName(listData.getProductNameEn());
+          box.setLabelProductName(listData.getProductNameEn() + " " + listData.getChoises());
 
           box.setLabelWeight(listData.getWeight());
           box.setLabelBarcode(listData.getBarcode());

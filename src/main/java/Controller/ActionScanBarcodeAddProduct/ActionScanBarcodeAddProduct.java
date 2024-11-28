@@ -48,7 +48,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
           if (barcode.length() == 13) {
                Response response = JavaConnection.get(JavaRoute.searchProductByBarcodeOrName + "?code=barcode&valueSearch=" + barcode);
                
-             
                func(response, jdFormLogin);
           }
      }
@@ -158,7 +157,7 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
      public void scanWithoutReturn(String invoice, LoginFormJdailog jdFormLogin) {
           Response response = JavaConnection.get(JavaRoute.searchWithInvoice + "?invoiceNo=" + invoice);
-
+          System.err.println("return response data ================ " + response);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -198,6 +197,9 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
 
                          btnReturn.setBackground(WindowColor.lightGray);
                          detailItem.setBackground(WindowColor.slightGreen);
+                         
+                         System.err.println("return obj.getChoices() : " + obj.getChoices());
+                         
                          product = new ProductModel(
                               obj.getID(),
                               obj.getCatID(),
@@ -212,7 +214,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getProductStatus(),
                               obj.getDiscount(),
                               obj.getQty(),
-                              obj.getDiscountType()
+                              obj.getDiscountType(),
+                              obj.getChoices()
                          );
                          
                          jdFormLogin.scanbarCodeAddProduct(product);
@@ -235,9 +238,6 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                     ObjectMapper objMap = new ObjectMapper();
                     ProductSuccessData model = objMap.readValue(responseData, ProductSuccessData.class);
                     ProductDataModel[] listProduct = model.getData();
-                         
-                    
-                    
                     
                     if (listProduct.length == 0) {
                          msgAlertErr();
@@ -262,7 +262,8 @@ public class ActionScanBarcodeAddProduct extends ActionProduct {
                               obj.getProductStatus(),
                               obj.getDiscount(),
                               obj.getQty(),
-                              obj.getDiscountType()
+                              obj.getDiscountType(),
+                              obj.getChoices()
                          );
                          jdFormLogin.scanbarCodeAddProduct(product, "scan");
                     }

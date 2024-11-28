@@ -98,15 +98,15 @@ public class JavaSearchByNameAndCode {
                                    a.setBtnPayment(btnPayment);
                                    a.setBtnReturn(btnReturn);
 
-                                   if (JavaConstant.isReturn != null) {
-                                        a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.tmpInvoice); // JavaConstant.returnByBarcode is store value invoice number
-                                   } else {
-                                          
-                                        if (JavaConstant.returnByBarcode == null) {
-                                               
+                                   if (JavaConstant.isReturn != null) { // for return
+                                        // JavaConstant.returnByBarcode is store value invoice number
+                                        a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.tmpInvoice); 
+                                   } else { // for sale 
+                                        if (JavaConstant.returnByBarcode == null) { // for sale
                                              a.scanBarcode(barcode, jdFormLogin);
-                                        } else {
-                                             a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.returnByBarcode); // JavaConstant.returnByBarcode is store value invoice number
+                                        } else { // for return
+                                             // JavaConstant.returnByBarcode is store value invoice number
+                                             a.returnWithBarcode(barcode, jdFormLogin, JavaConstant.returnByBarcode); 
                                         }
                                    }
 
