@@ -9,14 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import lombok.Getter;
@@ -43,9 +41,7 @@ public class JavaCombobox extends javax.swing.JPanel {
         // Enable search in JComboBox
         search();
         setPlaceholder(placeHolder);
-
-        putClientProperty(FlatClientProperties.STYLE, "background:$Table.background;");
-
+        setBackground(WindowColor.mediumGreen);
     }
 
     private void setPlaceholder(String placeholder) {

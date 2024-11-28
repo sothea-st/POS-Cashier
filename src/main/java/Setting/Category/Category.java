@@ -1,6 +1,5 @@
 package Setting.Category;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -367,8 +366,6 @@ public class Category extends javax.swing.JDialog {
                                                             break;
                                                        }
                                                   }
-
-                                                  
                                                   
                                                   // delete for pagination
                                                   dataCount = dataCount - 1;
@@ -404,24 +401,6 @@ public class Category extends javax.swing.JDialog {
 
                     category.setCategoryNameEn(listData.getCategoryNameEn());
                     category.setCategoryNameKh(listData.getCategoryNameKh());
-
-//                    try {
-//
-//                         TimerTask task = new TimerTask() {
-//                              @Override
-//                              public void run() {
-//                                   // Task to be executed
-//                                   category.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                                   category.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                              }
-//                         };
-//
-//                         Timer timer = new Timer();
-//                         timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                    } catch (Exception e) {
-//                         System.err.println("error read image = " + e);
-//                    }
 
                     paginationPanel.setVisible(true);
                     listGetCategory.add(category, gbc);
@@ -475,19 +454,19 @@ public class Category extends javax.swing.JDialog {
           this.code = code;
           if (code.equals("division")) {
                jLabel10.setText("Divison Name");
-               jLabel8.setText("Divison Name Kh");
+               jLabel8.setText("Divison Name (KH)");
                btnAdd.setButtonName("+ Add Division");
           } else if (code.equals("department")) {
                jLabel10.setText("Department Name");
-               jLabel8.setText("Department Name Kh");
+               jLabel8.setText("Department Name (KH)");
                btnAdd.setButtonName("+ Add Department");
           } else if (code.equals("category")) {
                jLabel10.setText("Category Name");
-               jLabel8.setText("Category Name Kh");
+               jLabel8.setText("Category Name (KH)");
                btnAdd.setButtonName("+ Add Category");
           } else if (code.equals("subcategory")) {
                jLabel10.setText("Sub Category Name");
-               jLabel8.setText("Sub Category Name Kh");
+               jLabel8.setText("Sub Category Name (KH)");
                btnAdd.setButtonName("+ Add Sub Category");
           }
      }
