@@ -1,5 +1,7 @@
 package com.example.pos.system.feature.imports;
 
+import com.example.pos.system.domain.report.ReportInventory;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryRepository;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +61,8 @@ public class ImportServiceImp implements ImportService {
     private final ImportDetailTemporaryRepository importDetailTemporaryRepository;
     private final UserRepository userRepository;
     private final ImportDetailRepository repoImp;
+    private final ReportInventoryRepository reportInventoryRepository;
+
 
     // Error messages for not found exceptions
     private final String vendorIdNotFound = "Vendor not found with Id : ";
@@ -445,10 +449,11 @@ public class ImportServiceImp implements ImportService {
      */
     @Override
     public void createImport(ImportRequest importRequest) {
-        if (importRequest.impId() == 0) {
+
+        if (importRequest.impId() == 0) { // impId = 0 is make requested
             createAndUpdateImport(importRequest, null);
         } else {
-            if (importRequest.remark().toLowerCase().equals("stocked")) {
+            if (importRequest.remark().toLowerCase().equals("stocked")) { // final add to stocked is add qty to inventory
                 Import imp = importRepository.findById(importRequest.impId())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                                 "Import not found with id : " + importRequest.impId()));
@@ -456,12 +461,38 @@ public class ImportServiceImp implements ImportService {
                 if (!importRequest.receiveMsg() || importRequest.receiveMsg() == null) {
                     imp.setRemark(importRequest.remark());
                 }
+
                 imp.setReceiveBy(importRequest.createBy());
                 importRepository.save(imp);
                 requestData(importRequest, importRequest.impId());
 
-            } else if (importRequest.remark().equalsIgnoreCase("received")) {
 
+                // add qty to report
+                for (ImportDetailsRequest data : importRequest.details()) {
+                    Product product = productRepository.findById(data.productId())
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                    "Product id not found with : " + data.productId()));
+
+
+                    Integer qtyByProId = importDetailRepository.sumQtyByProId(product.getId());
+                    qtyByProId = qtyByProId == null ? 0 : qtyByProId;
+
+                    ReportInventory reportInventory = new ReportInventory();
+                    reportInventory.setProduct(product);
+                    reportInventory.setDate(LocalDate.parse(importRequest.impDate()));
+                    reportInventory.setBeginningQty(qtyByProId);
+                    reportInventory.setStockInQty(data.receivedQty());
+                    reportInventory.setAvailableQty(0);
+                    reportInventory.setStockOutQty(0);
+                    reportInventory.setReturnInQty(0);
+                    reportInventory.setReturnOutQty(0);
+                    reportInventory.setEndingQty(0);
+                    reportInventoryRepository.save(reportInventory);
+
+                }
+
+
+            } else if (importRequest.remark().equalsIgnoreCase("received")) { // for receive ; receive can full qty or lack qty
                 for (ImportDetailsRequest data : importRequest.details()) {
                     Product product = productRepository.findById(data.productId())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
@@ -480,6 +511,8 @@ public class ImportServiceImp implements ImportService {
 //                         detail.setQtyNew(data.qtyNew()); // qtyNew is orderQty
                     detail.setReceiveQty(data.receivedQty());
                     importDetailTemporaryRepository.save(detail);
+
+
                 }
             }
         }
