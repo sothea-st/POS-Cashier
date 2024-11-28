@@ -48,7 +48,7 @@ public class CategoryService {
 
         // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
         boolean catNameEn = repo.existsByCatNameEnIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn());
-        boolean catNameKh = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn());
+        boolean catNameKh = repo.existsByCatNameKhIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameKh());
         // JavaValidation.checkDataAlreadyExists(catNameKh); // check catName already
         // exists or not
         System.out.println("api/category + " + catNameEn);
