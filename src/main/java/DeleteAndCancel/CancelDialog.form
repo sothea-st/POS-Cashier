@@ -45,21 +45,18 @@
               <Group type="102" alignment="1" attributes="0">
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Component id="lbReason" min="-2" pref="45" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="comboBoxReason" pref="275" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="cancel" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="comboBoxReason" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -67,18 +64,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="titlePopUp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="comboBoxReason" max="32767" attributes="0"/>
-                      <Component id="lbReason" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="comboBoxReason" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="cancel" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -88,13 +81,6 @@
           <Properties>
             <Property name="labelTitle" type="java.lang.String" value="Cancel"/>
           </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbReason">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Reason"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="comboBoxReason">
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="cancel">
           <Events>
@@ -106,15 +92,9 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="FormComponent.combobox.JavaCombobox" name="comboBoxReason">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
+            <Property name="labelName" type="java.lang.String" value="Reason *"/>
           </Properties>
         </Component>
       </SubComponents>

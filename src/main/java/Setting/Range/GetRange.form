@@ -53,9 +53,9 @@
                   <Component id="lbId" min="-2" pref="6" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="lbRangeNameEn" min="-2" pref="191" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                   <Component id="lbRangeNameKh" min="-2" pref="183" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="lbWarehouse" min="-2" pref="156" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

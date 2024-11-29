@@ -19,36 +19,36 @@ import pagination.PaginationPanel;
 @Getter
 public class InsertWarehouse extends javax.swing.JDialog {
 
-     private JPanel listGetWarehouse;
-     private Integer id;
-     private PaginationPanel paginationPanel;
-     private String pageNumber;
-     private ListWarehouse obj;
+    private JPanel listGetWarehouse;
+    private Integer id;
+    private PaginationPanel paginationPanel;
+    private String pageNumber;
+    private ListWarehouse obj;
 
-     public InsertWarehouse(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          txtWarehouseEn.requestFocus();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-     }
+    public InsertWarehouse(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        txtWarehouseEn.requestFocus();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+    }
 
-     //Value Edit
-     public void setValueEdit(
-          String warehouseNameEn,
-          String warehouseNameKh
-     ) throws IOException {
+    //Value Edit
+    public void setValueEdit(
+            String warehouseNameEn,
+            String warehouseNameKh
+    ) throws IOException {
 
-          if (warehouseNameEn != null && warehouseNameEn != "") {
-               txtWarehouseEn.setText(warehouseNameEn);
-          }
+        if (warehouseNameEn != null && warehouseNameEn != "") {
+            txtWarehouseEn.setText(warehouseNameEn);
+        }
 
-          if (warehouseNameKh != null && warehouseNameKh != "") {
-               txtWarehouseKh.setText(warehouseNameKh);
-          }
-     }
+        if (warehouseNameKh != null && warehouseNameKh != "") {
+            txtWarehouseKh.setText(warehouseNameKh);
+        }
+    }
 
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -137,24 +137,23 @@ public class InsertWarehouse extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-         String warehouseNameEn = txtWarehouseEn.getValueTextField();
-         String warehouseNameKh = txtWarehouseKh.getValueTextField();
-         
-         
-         try {
-            
+        String warehouseNameEn = txtWarehouseEn.getValueTextField();
+        String warehouseNameKh = txtWarehouseKh.getValueTextField();
+
+        try {
+
             boolean isCheck = JavaValidation.checkValidation(jPanel1);
-            
+
             if (isCheck) {
                 JSONObject json = new JSONObject();
                 json.put("warehouseNameEn", warehouseNameEn);
                 json.put("warehouseNameKh", warehouseNameKh);
                 json.put("createBy", JavaConstant.cashierId);
-                
+
                 // create response 
                 Response response = null;
                 if (id != null) { // update
@@ -162,7 +161,7 @@ public class InsertWarehouse extends javax.swing.JDialog {
                 } else { // add new 
                     response = JavaConnection.post(JavaRoute.warehouse, json);
                 }
-                
+
                 // check if name already exist
                 List<JavaConflicValidation> fields = new ArrayList<>();
 
@@ -171,7 +170,7 @@ public class InsertWarehouse extends javax.swing.JDialog {
                         .msg("This name is already existed!") // message to show 
                         .field(txtWarehouseEn) // obj of JavaTextField
                         .build());
-                
+
                 fields.add(JavaConflicValidation.builder()
                         .key("WarehouseNameKh") // specific word that exist in key "reason"
                         .msg("This name is already existed!") // message to show 
@@ -189,7 +188,7 @@ public class InsertWarehouse extends javax.swing.JDialog {
                         listGetWarehouse.removeAll();
                         listGetWarehouse.revalidate();
                         listGetWarehouse.repaint();
-                        obj.getWarehouse(listGetWarehouse, true,pageNumber);
+                        obj.getWarehouse(listGetWarehouse, true, pageNumber);
                         dispose();
                     }
 
@@ -203,62 +202,62 @@ public class InsertWarehouse extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-     public JPanel getListGetWarehouse() {
-          return listGetWarehouse;
-     }
+    public JPanel getListGetWarehouse() {
+        return listGetWarehouse;
+    }
 
-     public void setListGetWarehouse(JPanel listGetWarehouse) {
-          this.listGetWarehouse = listGetWarehouse;
-     }
+    public void setListGetWarehouse(JPanel listGetWarehouse) {
+        this.listGetWarehouse = listGetWarehouse;
+    }
 
-     public Integer getId() {
-          return id;
-     }
+    public Integer getId() {
+        return id;
+    }
 
-     public void setId(Integer id) {
-          this.id = id;
-          titlePopUp.setLabelTitle("Edit Warehouse");
-     }
+    public void setId(Integer id) {
+        this.id = id;
+        titlePopUp.setLabelTitle("Edit Warehouse");
+    }
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(InsertWarehouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    InsertWarehouse dialog = new InsertWarehouse(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                InsertWarehouse dialog = new InsertWarehouse(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;

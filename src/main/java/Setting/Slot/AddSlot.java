@@ -4,24 +4,20 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Model.Range.RangeSelectModel;
-import Model.Warehouse.WarehouseSelectModel;
+import FormComponent.combobox.JavaComboBoxSelection;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaValidation;
 import okhttp3.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 @Setter
 @Getter
 
 public class AddSlot extends javax.swing.JDialog {
 
-    private String slotId;
+    private String rangeId = "-1";
     private Integer id;
     private JPanel listGetSlot;
     private String pageNumber;
@@ -33,69 +29,25 @@ public class AddSlot extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtSlot.requestFocus();
-        event();
-        
-        // action get select 
-         ButtonEvent eventtss = new ButtonEvent() {
-              @Override
-              public void onSelect(String key) {
-                   slotId = key;
-              }
-         };
-         comboRange.initEvent(eventtss);
-         addComboRange();
+        cmdWarehouse();
     }
-    
-    
-    //Set Combo box range
-     private void addComboRange() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<RangeSelectModel> range = new ArrayList<>();
 
-               Response response = JavaConnection.get(JavaRoute.range);
+    private void cmdWarehouse(){
+        JavaComboBoxSelection.addComboBox(comboRange,
+                JavaRoute.range,
+                "rangeNameEn",
+                JavaComboBoxSelection.DESC);
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         
-                         RangeSelectModel ran = new RangeSelectModel(
-                              obj.getInt("id"),
-                              obj.getString("rangeNameEn")
-                         );
-
-                         range.add(ran);
-
-                         int idRan = range.get(i).getId();
-                         String rangeName = range.get(i).getRangeNameEn();
-                         map.put(rangeName, "" + idRan);
-                    }
-                    comboRange.setMap(map);
-
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
+        ButtonEvent event = new ButtonEvent() {
             @Override
-            public void onFocusGain() {
-
+            public void onSelected(String id) {
+                rangeId = id;
             }
         };
-        txtSlot.initEvent(btnevent);
-        txtSlotKh.initEvent(btnevent);
+        comboRange.initEvent(event);
     }
-    
+     
+     
     //Value Edit
     public void setValueEdit(
         String rangeName,
@@ -104,14 +56,14 @@ public class AddSlot extends javax.swing.JDialog {
     ) throws IOException {
         
         if(rangeName != null && rangeName != ""){
-            txtSlot.setValueTextField(rangeName);  
+            txtSlot.setText(rangeName);  
         }
         
         if(rangeNameKh != null && rangeNameKh != ""){
-            txtSlotKh.setValueTextField(rangeNameKh);
+            txtSlotKh.setText(rangeNameKh);
         }  
         
-        comboRange.setToLastItem(idWarehouse);
+        comboRange.setSelectedItem(idWarehouse);
     }
 
     @SuppressWarnings("unchecked")
@@ -120,22 +72,15 @@ public class AddSlot extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtSlotKh = new Components.TextField();
-        txtSlot = new Components.TextField();
-        label2 = new Components.Label();
-        jLabel13 = new javax.swing.JLabel();
-        comboRange = new Components.ComboBox();
+        comboRange = new FormComponent.combobox.JavaCombobox();
+        txtSlot = new FormComponent.JavaTextField();
+        txtSlotKh = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         titlePopUp.setLabelTitle("Add Slot");
-
-        label1.setLabelName("Slot Name Kh");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -149,80 +94,47 @@ public class AddSlot extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Slot Name");
+        comboRange.setLabelName("Range *");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
+        txtSlot.setLabelName("Slot Name *");
+        txtSlot.setPlaceHolder("Slot Name");
 
-        txtSlotKh.setLabelTextField("Slot Name Kh");
-
-        txtSlot.setLabelTextField("Slot Name");
-
-        label2.setLabelName("Range");
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel13.setText("*");
+        txtSlotKh.setLabelName("Slot Name (KH)");
+        txtSlotKh.setPlaceHolder("Slot Name (KH)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(comboRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSlotKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                                .addComponent(txtSlotKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(comboRange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(comboRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtSlotKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(txtSlotKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,64 +159,93 @@ public class AddSlot extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String slotNameEn = txtSlot.getValueTextField();
         String slotNameKh = txtSlotKh.getValueTextField();
-
+        
         try {
-            
-            if (slotId == null || slotId.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please select a warehouse!");
-                return;
-           }
-            
-            if (slotNameEn == null || slotNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Slot Name is required!");
-                return;
-            }
 
-            JSONObject json = new JSONObject();
-            json.put("slotNameEn", slotNameEn);
-            json.put("slotNameKh", slotNameKh);
-            json.put("rangeId", slotId);
-            json.put("createBy", JavaConstant.cashierId);
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
 
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.slot + '/' + id, json);
-                
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-                
-                if (jsonResponse.has("error")) {
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("slotNameEn", slotNameEn);
+                json.put("slotNameKh", slotNameKh);
+                json.put("rangeId", rangeId);
+                json.put("createBy", JavaConstant.cashierId);
 
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                    
-                }else{
-                    listGetSlot.removeAll();
-                    listGetSlot.revalidate();
-                    listGetSlot.repaint();
-                    obj.getSlot(listGetSlot,true,pageNumber);
-                    dispose();
+                // create response 
+                Response response = null;
+                if (id != null) { // update
+                    response = JavaConnection.put(JavaRoute.slot + '/' + id, json);
+                } else { // add new 
+                    response = JavaConnection.post(JavaRoute.slot, json);
                 }
 
-            } else {
-                Response response = JavaConnection.post(JavaRoute.range, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-                
-                if (jsonResponse.has("error")) {
-                    
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                    
-                }else{
-                    listGetSlot.removeAll();
-                    listGetSlot.revalidate();
-                    listGetSlot.repaint();
-                    obj.getSlot(listGetSlot,true,pageNumber);
-                    dispose();
+                try {
+                    if (response.isSuccessful()) {
+                         listGetSlot.removeAll();
+                        listGetSlot.revalidate();
+                        listGetSlot.repaint();
+                        obj.getSlot(listGetSlot,true,pageNumber);
+                        dispose();
+                    }
+
+                } catch (Exception e) {
+                    System.err.println("error post slot : " + e);
                 }
             }
 
         } catch (Exception e) {
             System.err.println("errr -- " + e);
         }
+        
+//        
+//
+//        try {
+//
+//            JSONObject json = new JSONObject();
+//            json.put("slotNameEn", slotNameEn);
+//            json.put("slotNameKh", slotNameKh);
+//            json.put("rangeId", rangeId);
+//            json.put("createBy", JavaConstant.cashierId);
+//
+//            if (id != null) {
+//                Response response = JavaConnection.put(JavaRoute.slot + '/' + id, json);
+//                
+//                String responeData = response.body().string();
+//                JSONObject jsonResponse = new JSONObject(responeData);
+//                
+//                if (jsonResponse.has("error")) {
+//
+//                    JOptionPane.showMessageDialog(this, "Save Failed!");
+//                    
+//                }else{
+//                    listGetSlot.removeAll();
+//                    listGetSlot.revalidate();
+//                    listGetSlot.repaint();
+//                    obj.getSlot(listGetSlot,true,pageNumber);
+//                    dispose();
+//                }
+//
+//            } else {
+//                Response response = JavaConnection.post(JavaRoute.range, json);
+//                String responeData = response.body().string();
+//                JSONObject jsonResponse = new JSONObject(responeData);
+//                
+//                if (jsonResponse.has("error")) {
+//                    
+//                    JOptionPane.showMessageDialog(this, "Save Failed!");
+//                    
+//                }else{
+//                    listGetSlot.removeAll();
+//                    listGetSlot.revalidate();
+//                    listGetSlot.repaint();
+//                    obj.getSlot(listGetSlot,true,pageNumber);
+//                    dispose();
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            System.err.println("errr -- " + e);
+//        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     public Integer getId() {
@@ -377,15 +318,10 @@ public class AddSlot extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private Components.ComboBox comboRange;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private FormComponent.combobox.JavaCombobox comboRange;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.Label label2;
-    private Components.Label label3;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtSlot;
-    private Components.TextField txtSlotKh;
+    private FormComponent.JavaTextField txtSlot;
+    private FormComponent.JavaTextField txtSlotKh;
     // End of variables declaration//GEN-END:variables
 }

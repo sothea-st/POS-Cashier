@@ -152,28 +152,23 @@ public class GetSlot extends javax.swing.JPanel {
         panel.setPreferredSize(new java.awt.Dimension(615, 35));
 
         lbSlotKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbSlotKh.setForeground(new java.awt.Color(0, 0, 0));
         lbSlotKh.setText("Slot Name Kh");
 
         lbSlot.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbSlot.setForeground(new java.awt.Color(0, 0, 0));
         lbSlot.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbSlot.setText("Slot Name En");
 
         lbId.setText("jLabel1");
 
         btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnEdit.setForeground(new java.awt.Color(0, 0, 0));
         btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
 
         btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
         btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Delete.png"))); // NOI18N
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
 
         lbRange.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbRange.setForeground(new java.awt.Color(0, 0, 0));
         lbRange.setText("Range");
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
@@ -181,17 +176,17 @@ public class GetSlot extends javax.swing.JPanel {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(2, 2, 2)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
                 .addComponent(lbSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(lbSlotKh, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(8, 8, 8)
                 .addComponent(lbRange, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -199,15 +194,13 @@ public class GetSlot extends javax.swing.JPanel {
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbRange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDelete)
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbSlot)
-                        .addComponent(lbId)
-                        .addComponent(btnEdit)))
+                .addGap(8, 8, 8)
+                .addComponent(lbId)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(lbSlotKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbSlot, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         lbSlotKh.getAccessibleContext().setAccessibleName("");
