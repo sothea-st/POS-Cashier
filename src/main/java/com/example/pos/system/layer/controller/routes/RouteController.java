@@ -280,13 +280,9 @@ public class RouteController {
      @RequestMapping("/api/sale")
      @RequiredArgsConstructor
      public static class RouteSale {
-
           private final SaleService service;
-
           private final HttpSession session;
-
           private final OpenShiftRepository repoOpen;
-
           private final SaleRepository saleRepository;
 
           @PostMapping

@@ -2,6 +2,8 @@ package com.example.pos.system.feature.imports;
 
 import com.example.pos.system.domain.report.ReportInventory;
 import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryRepository;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
+import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -62,6 +64,7 @@ public class ImportServiceImp implements ImportService {
     private final UserRepository userRepository;
     private final ImportDetailRepository repoImp;
     private final ReportInventoryRepository reportInventoryRepository;
+    private final ReportInventoryService reportInventoryService;
 
 
     // Error messages for not found exceptions
@@ -466,30 +469,17 @@ public class ImportServiceImp implements ImportService {
                 importRepository.save(imp);
                 requestData(importRequest, importRequest.impId());
 
-
-                // add qty to report
+                // add report
+                List<ReportInventoryRequest> reportInventoryRequests = new ArrayList<>();
                 for (ImportDetailsRequest data : importRequest.details()) {
-                    Product product = productRepository.findById(data.productId())
-                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                                    "Product id not found with : " + data.productId()));
-
-
-                    Integer qtyByProId = importDetailRepository.sumQtyByProId(product.getId());
-                    qtyByProId = qtyByProId == null ? 0 : qtyByProId;
-
-                    ReportInventory reportInventory = new ReportInventory();
-                    reportInventory.setProduct(product);
-                    reportInventory.setDate(LocalDate.parse(importRequest.impDate()));
-                    reportInventory.setBeginningQty(qtyByProId);
-                    reportInventory.setStockInQty(data.receivedQty());
-                    reportInventory.setAvailableQty(0);
-                    reportInventory.setStockOutQty(0);
-                    reportInventory.setReturnInQty(0);
-                    reportInventory.setReturnOutQty(0);
-                    reportInventory.setEndingQty(0);
-                    reportInventoryRepository.save(reportInventory);
-
+                    reportInventoryRequests.add(ReportInventoryRequest.builder()
+                                    .productId(data.productId())
+                                    .impDate(importRequest.impDate())
+                                    .stockInQty(data.receivedQty())
+                            .build());
                 }
+                reportInventoryService.create(reportInventoryRequests);
+
 
 
             } else if (importRequest.remark().equalsIgnoreCase("received")) { // for receive ; receive can full qty or lack qty

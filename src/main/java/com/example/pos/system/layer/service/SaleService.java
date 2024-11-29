@@ -5,7 +5,11 @@ import com.example.pos.system.domain.*;
 import com.example.pos.system.domain.payment.Payment;
 import com.example.pos.system.domain.people.Customer;
 import com.example.pos.system.feature.imports.ImportRepository;
+import com.example.pos.system.feature.imports.dto.ImportDetailsRequest;
 import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryRepository;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
+import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
 import com.example.pos.system.layer.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.system.layer.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.system.layer.projections.ReportImport.ReportSaledResponse;
@@ -21,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -76,6 +81,10 @@ public class SaleService {
 
     @Autowired
     private SaleFiFoRepository saleFiFoRepository;
+
+
+    @Autowired
+    private ReportInventoryService reportInventoryService;
 
     //    List<ReportSaledResponse>
     public List<ReportSaledResponse> searchReportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
@@ -172,7 +181,7 @@ public class SaleService {
                 // calculate
             }
 
-           double calCost = report.getCost().doubleValue() * report.getQty();
+            double calCost = report.getCost().doubleValue() * report.getQty();
             cost = BigDecimal.valueOf(calCost);
 
             String _total = String.format("%.2f", total / 1.1);
@@ -180,7 +189,7 @@ public class SaleService {
             totalSaledExcludeVAT = Double.parseDouble(_total);
 //            System.out.println("ddddddddd = " + totalSaledExcludeVAT);
 
-            String _totalSaledExludeVAT = String.format("%.2f", totalSaledExcludeVAT* 0.1);
+            String _totalSaledExludeVAT = String.format("%.2f", totalSaledExcludeVAT * 0.1);
 //            System.out.println("aaaaaaaaaaaaaaaa = " + _totalSaledExludeVAT);
             if (report.getTax_name().equals("PLT")) {
                 plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
@@ -278,6 +287,8 @@ public class SaleService {
         int saleId = sale.getId();
         List<SaleDetail> details = s.getDataSale();
 
+        List<ReportInventoryRequest> reportInventoryRequests = new ArrayList<>();
+
         for (int i = 0; i < details.size(); i++) {
             var detail = details.get(i);
             int productId = detail.getProductId();
@@ -297,72 +308,70 @@ public class SaleService {
                 dataDetail.setDiscountType(detail.getDiscountType());
                 repoDetail.save(dataDetail);
 
-                int qtyCheckStoke =0;
+                int qtyCheckStoke = 0;
                 List<ImportDetail> lists = repoImp.findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(product, 0);
-                for (int j = 0 ; j < lists.size() ; j++) {
+                for (int j = 0; j < lists.size(); j++) {
                     var data = lists.get(j);
 
-
-
-                    if( j == 0  && data.getQtyOld() >= qtyNew) {
+                    if (j == 0 && data.getQtyOld() >= qtyNew) {
                         int qty = data.getQtyOld() - qtyNew;
                         Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
-                        if(updateDetail.isPresent()) {
+                        if (updateDetail.isPresent()) {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(qty);
                             repoImp.save(update);
-                           saveFiFo(productId,update.getImpId(),qtyNew,paymentNo,update.getLocalDate(),update.getCreateDate());
+                            saveFiFo(productId, update.getImpId(), qtyNew, paymentNo, update.getLocalDate(), update.getCreateDate());
                         }
                         break;
                     }
 
-                    if(  j == 0  && qtyNew > data.getQtyOld() ) {
+                    if (j == 0 && qtyNew > data.getQtyOld()) {
                         qtyCheckStoke = qtyNew - data.getQtyOld();
                         Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
-                        if(updateDetail.isPresent()) {
+                        if (updateDetail.isPresent()) {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(0);
                             repoImp.save(update);
-                            saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate(),update.getCreateDate());
+                            saveFiFo(productId, update.getImpId(), data.getQtyOld(), paymentNo, update.getLocalDate(), update.getCreateDate());
                         }
                     } else {
-                        if( data.getQtyOld() >= qtyCheckStoke ) {
+                        if (data.getQtyOld() >= qtyCheckStoke) {
                             int qty = data.getQtyOld() - qtyCheckStoke;
                             Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
-                            if(updateDetail.isPresent()) {
+                            if (updateDetail.isPresent()) {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(qty);
                                 repoImp.save(update);
-                                saveFiFo(productId,update.getImpId(),qtyCheckStoke,paymentNo,update.getLocalDate(),update.getCreateDate());
+                                saveFiFo(productId, update.getImpId(), qtyCheckStoke, paymentNo, update.getLocalDate(), update.getCreateDate());
                             }
                             break;
                         } else {
                             qtyCheckStoke = qtyCheckStoke - data.getQtyOld();
                             Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
-                            if(updateDetail.isPresent()) {
+                            if (updateDetail.isPresent()) {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(0);
                                 repoImp.save(update);
-                                saveFiFo(productId,update.getImpId(),data.getQtyOld(),paymentNo,update.getLocalDate(),update.getCreateDate());
+                                saveFiFo(productId, update.getImpId(), data.getQtyOld(), paymentNo, update.getLocalDate(), update.getCreateDate());
                             }
                         }
                     }
                 }
-
-
-//            **************** old mechanism **************
-//            ImportDetail getQtyOld = repoImp.getDataImportDetail(productId);
-//            int qtyOld = getQtyOld.getQtyOld();
-//            int qty = qtyOld - qtyNew;
-//
-//            Optional<ImportDetail> getImportDetail = repoImp.findByImpId(productId);
-//            ImportDetail obj = getImportDetail.get();
-//            obj.setQtyOld(qty);
-//            repoImp.save(obj);
-
-
             }
         }
+
+        // add report to reportInventory
+        // add report
+        for (int i = 0; i < details.size(); i++) {
+            var data = details.get(i);
+            reportInventoryRequests.add(ReportInventoryRequest.builder()
+                    .productId(data.getProductId())
+                    .impDate(s.getSaleDate())
+                    .stockInQty(0)
+                    .stockOutQty(data.getQty())
+                    .build());
+        }
+        reportInventoryService.create(reportInventoryRequests);
 
         // save payment
         Payment p = s.getDataPay();
@@ -373,15 +382,15 @@ public class SaleService {
 
     }
 
-    private void saveFiFo(int productId ,int impId , int qtyNew ,String paymentNo,LocalDate localDate ,Date localDateTime){
+    private void saveFiFo(int productId, int impId, int qtyNew, String paymentNo, LocalDate localDate, Date localDateTime) {
         SaleFiFo saleFiFo = new SaleFiFo();
 
         Product pId = productRepository.findById(productId).orElseThrow(
-                ()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Product not found with id : " + productId)
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id : " + productId)
         );
 
         Import anImport = importRepository.findById(impId).orElseThrow(
-                ()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Import not found with id : " + impId)
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Import not found with id : " + impId)
         );
         saleFiFo.setSaleQty(qtyNew);
         saleFiFo.setProduct(pId);
