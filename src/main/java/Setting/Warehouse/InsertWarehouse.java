@@ -3,12 +3,14 @@ package Setting.Warehouse;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
 import java.io.IOException;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 import pagination.PaginationPanel;
@@ -26,22 +28,9 @@ public class InsertWarehouse extends javax.swing.JDialog {
      public InsertWarehouse(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
-          event();
           txtWarehouseEn.requestFocus();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
-     }
-
-     //Place Holder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
-
-               }
-          };
-          txtWarehouseEn.initEvent(btnevent);
-          txtWarehouseKh.initEvent(btnevent);
      }
 
      //Value Edit
@@ -51,11 +40,11 @@ public class InsertWarehouse extends javax.swing.JDialog {
      ) throws IOException {
 
           if (warehouseNameEn != null && warehouseNameEn != "") {
-               txtWarehouseEn.setValueTextField(warehouseNameEn);
+               txtWarehouseEn.setText(warehouseNameEn);
           }
 
           if (warehouseNameKh != null && warehouseNameKh != "") {
-               txtWarehouseKh.setValueTextField(warehouseNameKh);
+               txtWarehouseKh.setText(warehouseNameKh);
           }
      }
 
@@ -65,21 +54,16 @@ public class InsertWarehouse extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtWarehouseKh = new Components.TextField();
-        txtWarehouseEn = new Components.TextField();
+        txtWarehouseEn = new FormComponent.JavaTextField();
+        txtWarehouseKh = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(422, 201));
 
         titlePopUp.setLabelTitle("Add Warehouse");
-
-        label1.setLabelName("Warehouse Name Kh");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -93,15 +77,11 @@ public class InsertWarehouse extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Warehouse Name");
+        txtWarehouseEn.setLabelName("Warehouse Name *");
+        txtWarehouseEn.setPlaceHolder("Warehouse Name");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
-        txtWarehouseKh.setLabelTextField("Warehouse Name Kh");
-
-        txtWarehouseEn.setLabelTextField("Warehouse Name");
+        txtWarehouseKh.setLabelName("Warehouse Name (KH)");
+        txtWarehouseKh.setPlaceHolder("Warehouse Name (KH)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,55 +89,47 @@ public class InsertWarehouse extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtWarehouseEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(txtWarehouseKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtWarehouseKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtWarehouseEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtWarehouseEn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
+                .addGap(19, 19, 19)
+                .addComponent(txtWarehouseEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtWarehouseKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addComponent(txtWarehouseKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,75 +143,64 @@ public class InsertWarehouse extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
          String warehouseNameEn = txtWarehouseEn.getValueTextField();
          String warehouseNameKh = txtWarehouseKh.getValueTextField();
-
+         
+         
          try {
-              if (warehouseNameEn == null || warehouseNameEn.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Warehouse Name is required!");
-                   return;
-              }
+            
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("warehouseNameEn", warehouseNameEn);
+                json.put("warehouseNameKh", warehouseNameKh);
+                json.put("createBy", JavaConstant.cashierId);
+                
+                // create response 
+                Response response = null;
+                if (id != null) { // update
+                    response = JavaConnection.put(JavaRoute.warehouse + '/' + id, json);
+                } else { // add new 
+                    response = JavaConnection.post(JavaRoute.warehouse, json);
+                }
+                
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
 
-              JSONObject json = new JSONObject();
-              json.put("warehouseNameEn", warehouseNameEn);
-              json.put("warehouseNameKh", warehouseNameKh);
-              json.put("createBy", JavaConstant.cashierId);
+                fields.add(JavaConflicValidation.builder()
+                        .key("WarehouseNameEn") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtWarehouseEn) // obj of JavaTextField
+                        .build());
+                
+                fields.add(JavaConflicValidation.builder()
+                        .key("WarehouseNameKh") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtWarehouseKh) // obj of JavaTextField
+                        .build());
 
-              if (id != null) {
-                    Response response = JavaConnection.put(JavaRoute.warehouse + '/' + id, json);
-                    String responeData = response.body().string();
-                    JSONObject jsonResponse = new JSONObject(responeData);
-                   
-                    if (jsonResponse.has("error")) {
-                        JSONObject error = jsonResponse.getJSONObject("error");
-                        int code = error.getInt("code");
-                        String reason = error.getString("reason");
-                        if (code == 409) {
-                            if(reason.contains("WarehouseNameEn")){
-                                JOptionPane.showMessageDialog(this, "Warehouse Name is already existed!");
-                            }else if(reason.contains("WarehouseNameKh")){
-                                JOptionPane.showMessageDialog(this, "Warehouse Name Kh is already existed!");
-                            }else{
-                                JOptionPane.showMessageDialog(this, reason);
-                            }
-                        }
-                    }else{
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExist(response, fields);
+
+                try {
+                    if (response.isSuccessful() && isExist) {
                         listGetWarehouse.removeAll();
                         listGetWarehouse.revalidate();
                         listGetWarehouse.repaint();
                         obj.getWarehouse(listGetWarehouse, true,pageNumber);
                         dispose();
                     }
-                    
-              } else {
-                  
-                    Response response = JavaConnection.post(JavaRoute.warehouse, json);
-                    String responeData = response.body().string();
-                    JSONObject jsonResponse = new JSONObject(responeData);
-                   
-                    if (jsonResponse.has("error")) {
-                        JSONObject error = jsonResponse.getJSONObject("error");
-                        int code = error.getInt("code");
-                        String reason = error.getString("reason");
-                        if (code == 409) {
-                            if(reason.contains("WarehouseNameEn")){
-                                JOptionPane.showMessageDialog(this, "Warehouse Name is already existed!");
-                            }else if(reason.contains("WarehouseNameKh")){
-                                JOptionPane.showMessageDialog(this, "Warehouse Name Kh is already existed!");
-                            }else{
-                                JOptionPane.showMessageDialog(this, reason);
-                            }
-                        }
-                    }else{
-                        listGetWarehouse.removeAll();
-                        listGetWarehouse.revalidate();
-                        listGetWarehouse.repaint();
-                        obj.getWarehouse(listGetWarehouse, true,pageNumber);
-                        dispose();
-                    }
-              }
 
-         } catch (Exception e) {
-              System.err.println("errr -- " + e);
-         }
+                } catch (Exception e) {
+                    System.err.println("error post warehouse : " + e);
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
      public JPanel getListGetWarehouse() {
@@ -302,12 +263,9 @@ public class InsertWarehouse extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.Label label3;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtWarehouseEn;
-    private Components.TextField txtWarehouseKh;
+    private FormComponent.JavaTextField txtWarehouseEn;
+    private FormComponent.JavaTextField txtWarehouseKh;
     // End of variables declaration//GEN-END:variables
 }

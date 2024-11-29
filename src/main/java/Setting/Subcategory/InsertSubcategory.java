@@ -4,236 +4,117 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Model.combobox.CategoryModel;
+import FormComponent.combobox.JavaComboBoxSelection;
 import Setting.Category.Category;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import okhttp3.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 
 @Setter
 @Getter
 public class InsertSubcategory extends javax.swing.JDialog {
 
-     private String departmentId;
-     private String divisionId;
-     private String categoryId;
-     private Integer id;
-     private String code;
-     private JPanel listGetCategory;
-     private Integer movePosition;
-     private String pageNumber;
-     private Category obj;
+    private String departmentId = "-1";
+    private String divisionId = "-1";
+    private String categoryId = "-1";
+    private Integer id;
+    private String code;
+    private JPanel listGetCategory;
+    private Integer movePosition;
+    private String pageNumber;
+    private Category obj;
 
-     public InsertSubcategory(java.awt.Frame parent, boolean modal, String codeType) {
-          super(parent, modal);
-          initComponents();
-          event();
-          nameEn.requestFocus();
-          setCode(codeType);
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+    public InsertSubcategory(java.awt.Frame parent, boolean modal, String codeType) {
+        super(parent, modal);
+        initComponents();
+        nameEn.requestFocus();
+        setCode(codeType);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        cmdDivision();
+    }
 
-          // action get select 
-          ButtonEvent eventOne = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    divisionId = key;
-                    addComboDepartment(divisionId);
 
-               }
-          };
-          comboDivision.initEvent(eventOne);
-          addComboDivision();
+    //Value Edit
+    public void setValueEdit(
+            String subCateEn,
+            String subCatKh,
+            String idDivision,
+            String idDepartment,
+            String idCategory
+    ) throws IOException {
 
-          // action get select 
-          ButtonEvent eventTwo = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    departmentId = key;
-                    addComboCategory(departmentId);
-               }
-          };
-          comboDepartment.initEvent(eventTwo);
+        if (subCateEn != null && subCateEn != "") {
+            nameEn.setText(subCateEn);
+        }
 
-          // action get select 
-          ButtonEvent eventThree = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    categoryId = key;
-               }
-          };
-          comboCategory.initEvent(eventThree);
-     }
+        if (subCatKh != null && subCatKh != "") {
+            nameKh.setText(subCatKh);
+        }
 
-     //Place Holder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
+        comboDivision.setSelectedItem(idDivision);
+        comboDepartment.setSelectedItem(idDepartment);
+        comboCategory.setSelectedItem(idCategory);
+    }
 
-               }
-          };
-          nameEn.initEvent(btnevent);
-          nameKh.initEvent(btnevent);
-     }
+    // SELECT COMBOBOX
+    private void cmdDivision(){
+        JavaComboBoxSelection.addComboBox(comboDivision,
+                JavaRoute.category,
+                "catNameEn",
+                JavaComboBoxSelection.DESC);
 
-     //Value Edit
-     public void setValueEdit(
-          String subCateEn,
-          String subCatKh,
-          String idDivision,
-          String idDepartment,
-          String idCategory
-     ) throws IOException {
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelected(String id) {
+                divisionId = id;
+                cmdDepartment(divisionId);
+            }
+        };
+        comboDivision.initEvent(event);
+    }
+    
+    private void cmdDepartment(String divisionId){
+       
+        JavaComboBoxSelection.addComboBox(comboDepartment,
+                JavaRoute.getParentById + divisionId,
+                "catNameEn",
+                JavaComboBoxSelection.DESC);
 
-          if (subCateEn != null && subCateEn != "") {
-               nameEn.setValueTextField(subCateEn);
-          }
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelected(String id) {
+                departmentId = id;
+                cmdCategory(departmentId);
+            }
+        };
+        comboDepartment.initEvent(event);
+    }
+     
+     
+    private void cmdCategory(String departmentId){
+       
+        JavaComboBoxSelection.addComboBox(comboCategory,
+                JavaRoute.getParentById + departmentId,
+                "catNameEn",
+                JavaComboBoxSelection.DESC);
 
-          if (subCatKh != null && subCatKh != "") {
-               nameKh.setValueTextField(subCatKh);
-          }
-
-          comboDivision.setToLastItem(idDivision);
-          comboDepartment.setToLastItem(idDepartment);
-          comboCategory.setToLastItem(idCategory);
-     }
-
-     //Set Combobox division
-     private void addComboDivision() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<CategoryModel> category = new ArrayList<>();
-
-               Response response = JavaConnection.get(JavaRoute.category);
-
-               System.out.println("response division: " + response);
-
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         CategoryModel cat = new CategoryModel(
-                              obj.getInt("id"),
-                              obj.getString("catNameEn")
-                         );
-
-                         category.add(cat);
-
-                         int idCat = category.get(i).getCategoryId();
-                         String catName = category.get(i).getCategoryName();
-                         map.put(catName, "" + idCat);
-                    }
-                    comboDivision.setMap(map);
-
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
-
-     //Set Combobox department
-     private void addComboDepartment(String divisionId) {
-
-          comboDepartment.revalidate();
-          comboDepartment.invalidate();
-
-          // remove item by index
-          if (comboDepartment.countItem() > 1) {
-               comboDepartment.removeAllItem();
-          }
-
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<CategoryModel> category = new ArrayList<>();
-
-               Response response = JavaConnection.get(JavaRoute.getParentById + divisionId);
-
-               System.out.println("response department: " + response);
-
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         CategoryModel cat = new CategoryModel(
-                              obj.getInt("id"),
-                              obj.getString("catNameEn")
-                         );
-
-                         category.add(cat);
-
-                         int idCat = category.get(i).getCategoryId();
-                         String catName = category.get(i).getCategoryName();
-                         map.put(catName, "" + idCat);
-                    }
-                    comboDepartment.setMap(map);
-
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
-
-     //Set Combobox category
-     private void addComboCategory(String departmentId) {
-
-          comboCategory.revalidate();
-          comboCategory.invalidate();
-
-          // remove item by index
-          if (comboCategory.countItem() > 1) {
-               comboCategory.removeAllItem();
-          }
-
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<CategoryModel> category = new ArrayList<>();
-
-               Response response = JavaConnection.get(JavaRoute.getParentById + departmentId);
-               System.out.println("response category: " + response);
-
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         CategoryModel cat = new CategoryModel(
-                              obj.getInt("id"),
-                              obj.getString("catNameEn")
-                         );
-
-                         category.add(cat);
-
-                         int idCat = category.get(i).getCategoryId();
-                         String catName = category.get(i).getCategoryName();
-                         map.put(catName, "" + idCat);
-                    }
-                    comboCategory.setMap(map);
-
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelected(String id) {
+                categoryId = id;
+            }
+        };
+        comboCategory.initEvent(event);
+    }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -241,28 +122,17 @@ public class InsertSubcategory extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        nameKh = new Components.TextField();
-        nameEn = new Components.TextField();
-        label2 = new Components.Label();
-        comboDivision = new Components.ComboBox();
-        jLabel13 = new javax.swing.JLabel();
-        label4 = new Components.Label();
-        comboDepartment = new Components.ComboBox();
-        jLabel14 = new javax.swing.JLabel();
-        label5 = new Components.Label();
-        comboCategory = new Components.ComboBox();
-        jLabel15 = new javax.swing.JLabel();
+        nameKh = new FormComponent.JavaTextField();
+        comboDivision = new FormComponent.combobox.JavaCombobox();
+        comboDepartment = new FormComponent.combobox.JavaCombobox();
+        comboCategory = new FormComponent.combobox.JavaCombobox();
+        nameEn = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         titlePopUp.setLabelTitle("Add Sub Category");
-
-        label1.setLabelName("Sub Category Name Kh");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -276,33 +146,17 @@ public class InsertSubcategory extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Sub Category Name");
+        nameKh.setLabelName("Sub Category Name (KH)");
+        nameKh.setPlaceHolder("Sub Category Name (KH)");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
+        comboDivision.setLabelName("Division *");
 
-        nameKh.setLabelTextField("Sub Category Name Kh");
+        comboDepartment.setLabelName("Department *");
 
-        nameEn.setLabelTextField("Sub Category Name");
+        comboCategory.setLabelName("Category *");
 
-        label2.setLabelName("Division");
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel13.setText("*");
-
-        label4.setLabelName("Department ");
-
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel14.setText("*");
-
-        label5.setLabelName("Category");
-
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel15.setText("*");
+        nameEn.setLabelName("Sub Category Name *");
+        nameEn.setPlaceHolder("Sub Category Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -311,85 +165,45 @@ public class InsertSubcategory extends javax.swing.JDialog {
             .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(30, 30, 30))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 1, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nameEn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboDivision, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(comboCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(nameKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nameEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nameKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboDivision, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(jLabel13)
-                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboDivision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(comboDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel14))
+                    .addComponent(comboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(comboCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nameEn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addComponent(nameKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -407,90 +221,83 @@ public class InsertSubcategory extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
-    }//GEN-LAST:event_buttonCancelMouseClicked
-
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-         String categoryName = nameEn.getValueTextField();
-         String categoryNameKh = nameKh.getValueTextField();
+        String categoryName = nameEn.getValueTextField();
+        String categoryNameKh = nameKh.getValueTextField();
 
-         try {
-              if (divisionId == null || divisionId.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Please select a division!");
-                   return;
-              }
+        try {
+            
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            
+            if (isCheck) {
+                
+                JSONObject json = new JSONObject();
+                json.put("catNameEn", categoryName);
+                if (categoryNameKh == null) {
+                    json.put("catNameKh", categoryNameKh);
+                } else {
+                    if (categoryNameKh.isEmpty()) {
+                        json.put("catNameKh", JSONObject.NULL);
+                    } else {
+                        json.put("catNameKh", categoryNameKh);
+                    }
+                }
+                json.put("parentId", categoryId);
+                
+                // create response 
+                Response response = null;
+                if (id != null) { // add new
+                    json.put("movePosition", movePosition);
+                    response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
+                } else { // update 
+                    json.put("createBy", JavaConstant.cashierId);
+                    json.put("code", code);
+                    response = JavaConnection.post(JavaRoute.addCategory, json);
+                }
+                
+                System.out.println("json : " + json);
+                System.out.println("response : " + response);
 
-              if (departmentId == null || departmentId.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Please select a department!");
-                   return;
-              }
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
 
-              if (departmentId == null || departmentId.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Please select a department!");
-                   return;
-              }
+                fields.add(JavaConflicValidation.builder()
+                        .key("name") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(nameKh) // obj of JavaTextField
+                        .build());
 
-              if (categoryName == null || categoryName.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Sub Category Name is required!");
-                   return;
-              }
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExistSecondFunction(response, fields);
 
-              JSONObject json = new JSONObject();
-              json.put("catNameEn", categoryName);
-              json.put("catNameKh", categoryNameKh);
-              json.put("parentId", categoryId);
+                try {
+                    if (response.isSuccessful() && isExist) {
 
-              if (id != null) {
-
-                   json.put("movePosition", movePosition);
-
-                   Response response = JavaConnection.put(JavaRoute.addCategory + '/' + id, json);
-                   System.out.println("response : " + response);
-                   System.out.println("json : " + json);
-
-                   if (response.isSuccessful()) {
                         Category list = new Category(new JFrame(), true, code);
                         listGetCategory.removeAll();
                         listGetCategory.revalidate();
                         listGetCategory.repaint();
                         list.getCategory(listGetCategory, code, true, pageNumber);
                         dispose();
+                    }
 
-                   } else if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The Name is already used!");
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
+                } catch (Exception e) {
+                    System.err.println("error post category : " + e);
+                }
+                
+            }
 
-              } else {
-
-                   json.put("createBy", JavaConstant.cashierId);
-                   json.put("code", code);
-
-                   Response response = JavaConnection.post(JavaRoute.addCategory, json);
-
-//                   System.out.println("response : " + response);
-//                   System.out.println("json : " + json);
-
-                   if (response.isSuccessful()) {
-                        Category list = new Category(new JFrame(), true, code);
-                        listGetCategory.removeAll();
-                        listGetCategory.revalidate();
-                        listGetCategory.repaint();
-                        obj.getCategory(listGetCategory, code, true, pageNumber);
-                        dispose();
-                   } else if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The Name is already used!");
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
-              }
-
-         } catch (Exception e) {
-              System.err.println("errr -- " + e);
-         }
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
+
+    private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_buttonCancelMouseClicked
 
      public String getCode() {
           return code;
@@ -567,21 +374,12 @@ public class InsertSubcategory extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private Components.ComboBox comboCategory;
-    private Components.ComboBox comboDepartment;
-    private Components.ComboBox comboDivision;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
+    private FormComponent.combobox.JavaCombobox comboCategory;
+    private FormComponent.combobox.JavaCombobox comboDepartment;
+    private FormComponent.combobox.JavaCombobox comboDivision;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.Label label2;
-    private Components.Label label3;
-    private Components.Label label4;
-    private Components.Label label5;
-    private Components.TextField nameEn;
-    private Components.TextField nameKh;
+    private FormComponent.JavaTextField nameEn;
+    private FormComponent.JavaTextField nameKh;
     private Components.LabelPopUpTitle titlePopUp;
     // End of variables declaration//GEN-END:variables
 }

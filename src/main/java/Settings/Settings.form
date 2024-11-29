@@ -207,7 +207,7 @@
                 <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/image/measure.png"/>
                 </Property>
-                <Property name="title" type="java.lang.String" value="UOM"/>
+                <Property name="title" type="java.lang.String" value="UoM"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="uomMouseClicked"/>

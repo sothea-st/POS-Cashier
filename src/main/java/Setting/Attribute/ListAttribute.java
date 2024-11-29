@@ -1,6 +1,5 @@
 package Setting.Attribute;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -20,7 +19,6 @@ import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -243,24 +241,6 @@ public class ListAttribute extends javax.swing.JDialog {
                 
                 b.setCategoryNameEn(listData.getAttributeNameEn());
                 b.setCategoryNameKh(listData.getAttributeNameKh());
-
-//                try {
-//
-//                    TimerTask task = new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            // Task to be executed
-//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                        }
-//                    };
-//
-//                    Timer timer = new Timer();
-//                    timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                } catch (Exception e) {
-//                    System.err.println("error read image = " + e);
-//                }
                 paginationPanel.setVisible(true);
                 listGetAttribute.add(b, gbc);
             }  
@@ -302,7 +282,7 @@ public class ListAttribute extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Attribute Name Kh");
+        jLabel8.setText("Attribute Name (KH)");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -323,13 +303,9 @@ public class ListAttribute extends javax.swing.JDialog {
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10))
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         searchField.setPlaceholder("Search");

@@ -1,6 +1,7 @@
 package main_validation;
 
 import FormComponent.JavaTextField;
+import FormComponent.JavaTextFieldPassword;
 import FormComponent.combobox.JavaCombobox;
 import java.awt.Component;
 import java.util.List;
@@ -27,6 +28,7 @@ public class JavaValidation {
                     String fieldEmail = ((JavaTextField) com).getEmail();
                     String fieldPhoneNumber = ((JavaTextField) com).getPhoneNumber();
                     String fieldAmount = ((JavaTextField) com).getAmount();
+                    
 
                     // Ensure text is not null
                     if (text == null) {
@@ -72,6 +74,19 @@ public class JavaValidation {
                          ((JavaCombobox) com).setErrorBorder();
                          isCheck = false;
                     }
+               }else if(com instanceof JavaTextFieldPassword){
+                    String text = ((JavaTextFieldPassword) com).getValueTextField();
+                    String lanelName = ((JavaTextFieldPassword) com).getLabelName();
+                    
+                    if (text == null) {
+                         text = ""; // Default to an empty string
+                    }
+
+                    // for general textField 
+                    if (lanelName.contains("*") && text.isEmpty()) {
+                         ((JavaTextFieldPassword) com).setErrorBorder();
+                         isCheck = false;
+                    }
                }
           }
 
@@ -93,7 +108,7 @@ public class JavaValidation {
                JSONObject errorJson = new JSONObject(responseData);
                if (errorJson.has("error")) {
                     JSONObject err = errorJson.getJSONObject("error");
-                    int statusCode = err.getInt("status");
+                    int statusCode = err.getInt("code");
                     String reason = err.getString("reason");
                     if (statusCode == 409) { // conflic
                          isExist = false;

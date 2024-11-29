@@ -6,11 +6,14 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -31,6 +34,7 @@ public class AddTax extends javax.swing.JDialog {
         setResizable(false);
         txtTax.requestFocus();
         event();
+        txtRate.setValidateNumber();
     }
     
     //Place Holder
@@ -50,8 +54,8 @@ public class AddTax extends javax.swing.JDialog {
         String taxName,
         BigDecimal taxRate
     ) throws IOException {
-        txtTax.setValueTextField(taxName);
-        txtRate.setValueTextField(""+taxRate);
+        txtTax.setText(taxName);
+        txtRate.setText(""+taxRate);
     }
 
     @SuppressWarnings("unchecked")
@@ -62,12 +66,8 @@ public class AddTax extends javax.swing.JDialog {
         titlePopUp = new Components.LabelPopUpTitle();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtTax = new Components.TextField();
-        label4 = new Components.Label();
-        txtRate = new Components.TextField();
-        jLabel13 = new javax.swing.JLabel();
+        txtTax = new FormComponent.JavaTextField();
+        txtRate = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -85,21 +85,11 @@ public class AddTax extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Tax Name");
+        txtTax.setLabelName("Tax Name *");
+        txtTax.setPlaceHolder("Tax Name");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
-        txtTax.setLabelTextField("Tax Name");
-
-        label4.setLabelName("Rate");
-
-        txtRate.setLabelTextField("Rate");
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel13.setText("*");
+        txtRate.setLabelName("Rate *");
+        txtRate.setPlaceHolder("0%");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,41 +106,24 @@ public class AddTax extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                                .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txtRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTax, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(txtTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtRate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(label4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addComponent(txtRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,69 +148,60 @@ public class AddTax extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String name = txtTax.getValueTextField();
         String rate = txtRate.getValueTextField();
-
+        
         try {
-            if (name == null || name.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Tax Name is required!");
-                return;
-            }
             
-            if (rate == null || rate.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Rate is required!");
-                return;
-            }
-
-            JSONObject json = new JSONObject();
-            json.put("taxName", name);
-            json.put("rateTax", rate);
-
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.tax + '/' + id, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("taxName", name);
+                json.put("rateTax", rate);
                 
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
-                    }
-                }else{
-                    ListTax list = new ListTax(new JFrame(), true);
-                    listGetTax.removeAll();
-                    listGetTax.revalidate();
-                    listGetTax.repaint();
-                    list.getTax(listGetTax,true,pageNumber);
-                    dispose();
+                // create response 
+                Response response = null;
+                if (id != null) { // add new
+                    response = JavaConnection.put(JavaRoute.tax + '/' + id, json);
+                } else { // update 
+                    json.put("createBy", JavaConstant.cashierId);
+                    response = JavaConnection.post(JavaRoute.tax, json);
                 }
+                
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
 
-            } else {
-                json.put("createBy", JavaConstant.cashierId);
-                
-                Response response = JavaConnection.post(JavaRoute.tax, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-                
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
+                fields.add(JavaConflicValidation.builder()
+                        .key("Name") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtTax) // obj of JavaTextField
+                        .build());
+
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExist(response, fields);
+
+                try {
+                    if (response.isSuccessful() && isExist) {
+
+                        ListTax list = new ListTax(new JFrame(), true);
+                        listGetTax.removeAll();
+                        listGetTax.revalidate();
+                        listGetTax.repaint();
+                        list.getTax(listGetTax,true,pageNumber);
+                        dispose();
                     }
-                }else{
-                    listGetTax.removeAll();
-                    listGetTax.revalidate();
-                    listGetTax.repaint();
-                    obj.getTax(listGetTax,true,pageNumber);
-                    dispose();
+
+                } catch (Exception e) {
+                    System.err.println("error post tax : " + e);
                 }
             }
 
         } catch (Exception e) {
             System.err.println("errr -- " + e);
         }
+        
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     public Integer getId() {
@@ -309,13 +273,9 @@ public class AddTax extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label3;
-    private Components.Label label4;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtRate;
-    private Components.TextField txtTax;
+    private FormComponent.JavaTextField txtRate;
+    private FormComponent.JavaTextField txtTax;
     // End of variables declaration//GEN-END:variables
 }

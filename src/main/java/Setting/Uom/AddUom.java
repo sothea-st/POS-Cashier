@@ -3,13 +3,16 @@ package Setting.Uom;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 @Setter
@@ -28,19 +31,6 @@ public class AddUom extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtUom.requestFocus();
-        event();
-    }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
-
-            }
-        };
-        txtUom.initEvent(btnevent);
-        txtUomKh.initEvent(btnevent);
     }
     
     //Value Edit
@@ -50,11 +40,11 @@ public class AddUom extends javax.swing.JDialog {
     ) throws IOException {
         
         if(uomName != null && uomName != ""){
-            txtUom.setValueTextField(uomName);  
+            txtUom.setText(uomName);  
         }
         
         if(uomNameKh != null && uomNameKh != ""){
-            txtUomKh.setValueTextField(uomNameKh);
+            txtUomKh.setText(uomNameKh);
         }  
     }
 
@@ -64,19 +54,14 @@ public class AddUom extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtUomKh = new Components.TextField();
-        txtUom = new Components.TextField();
+        txtUom = new FormComponent.JavaTextField();
+        txtUomKh = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        titlePopUp.setLabelTitle("Add UOM");
-
-        label1.setLabelName("UOM Name Kh");
+        titlePopUp.setLabelTitle("Add UoM");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -90,15 +75,11 @@ public class AddUom extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("UOM Name");
+        txtUom.setLabelName("UoM Name *");
+        txtUom.setPlaceHolder("UoM Name");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
-        txtUomKh.setLabelTextField("UOM Name Kh");
-
-        txtUom.setLabelTextField("UOM Name");
+        txtUomKh.setLabelName("UoM Name (KH)");
+        txtUomKh.setPlaceHolder("UoM Name (KH)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,16 +96,9 @@ public class AddUom extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtUom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                                .addComponent(txtUomKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txtUomKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,19 +106,14 @@ public class AddUom extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtUom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
+                .addComponent(txtUom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtUomKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(txtUomKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,58 +138,66 @@ public class AddUom extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String uomNameEn = txtUom.getValueTextField();
         String uomNameKh = txtUomKh.getValueTextField();
-
+        
+        
         try {
-            if (uomNameEn == null || uomNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "UOM Name is required!");
-                return;
-            }
+            
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("uomNameEn", uomNameEn);
 
-            JSONObject json = new JSONObject();
-            json.put("uomNameEn", uomNameEn);
-            json.put("uomNameKh", uomNameKh);
-            json.put("createdBy", JavaConstant.cashierId);
-
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.uom + '/' + id, json);
-                 
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-                
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
+                if (uomNameKh == null) {
+                    json.put("uomNameKh", uomNameKh);
+                } else {
+                    if (uomNameKh.isEmpty()) {
+                        json.put("uomNameKh", JSONObject.NULL);
+                    } else {
+                        json.put("uomNameKh", uomNameKh);
                     }
-                }else{
-                    listUom list = new listUom(new JFrame(), true);
-                    listGetUom.removeAll();
-                    listGetUom.revalidate();
-                    listGetUom.repaint();
-                    list.getUom(listGetUom,true,pageNumber);
-                    dispose();
                 }
-
-            } else {
-                Response response = JavaConnection.post(JavaRoute.uom, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
+                json.put("createdBy", JavaConstant.cashierId);
+                
+                // create response 
+                Response response = null;
+                if (id != null) { // add new
+                    response = JavaConnection.put(JavaRoute.uom + '/' + id, json);
+                } else { // update 
+                    response = JavaConnection.post(JavaRoute.uom, json);
+                }
+                
+//                // check if name already exist
+//                List<JavaConflicValidation> fields = new ArrayList<>();
+//
+//                fields.add(JavaConflicValidation.builder()
+//                        .key("Name") // specific word that exist in key "reason"
+//                        .msg("This name is already existed!") // message to show 
+//                        .field(txtUomKh) // obj of JavaTextField
+//                        .build());
+//
+//                /* 
+//                        isExist = true ( name not yet used )
+//                        isExist =  false ( name already used )
+//                 */
+//                boolean isExist = JavaValidation.checkNameExist(response, fields);
+
+                try {
+                    if (response.isSuccessful()) {
+
+                        listUom list = new listUom(new JFrame(), true);
+                        listGetUom.removeAll();
+                        listGetUom.revalidate();
+                        listGetUom.repaint();
+                        list.getUom(listGetUom,true,pageNumber);
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
                     }
-                }else{
-                    listGetUom.removeAll();
-                    listGetUom.revalidate();
-                    listGetUom.repaint();
-                    obj.getUom(listGetUom,true,pageNumber);
-                    dispose();
+
+                } catch (Exception e) {
+                    System.err.println("error post uom : " + e);
                 }
             }
 
@@ -235,7 +212,7 @@ public class AddUom extends javax.swing.JDialog {
 
     public void setId(Integer id) {
         this.id = id;
-        titlePopUp.setLabelTitle("Edit UOM");
+        titlePopUp.setLabelTitle("Edit UoM");
     }
 
     public JPanel getListGetUom() {
@@ -298,12 +275,9 @@ public class AddUom extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.Label label3;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtUom;
-    private Components.TextField txtUomKh;
+    private FormComponent.JavaTextField txtUom;
+    private FormComponent.JavaTextField txtUomKh;
     // End of variables declaration//GEN-END:variables
 }

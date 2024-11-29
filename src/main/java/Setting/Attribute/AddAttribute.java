@@ -1,14 +1,17 @@
 package Setting.Attribute;
 
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -27,19 +30,6 @@ public class AddAttribute extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtAttributeEn.requestFocus();
-        event();
-    }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
-
-            }
-        };
-        txtAttributeEn.initEvent(btnevent);
-        txtAttributeKh.initEvent(btnevent);
     }
 
     //Value Edit
@@ -49,11 +39,11 @@ public class AddAttribute extends javax.swing.JDialog {
     ) throws IOException {
         
         if(attrEn != null && attrEn != ""){
-            txtAttributeEn.setValueTextField(attrEn);  
+            txtAttributeEn.setText(attrEn);  
         }
         
         if(attrKh != null && attrKh != ""){
-            txtAttributeKh.setValueTextField(attrKh);
+            txtAttributeKh.setText(attrKh);
         }   
     }
     
@@ -63,19 +53,14 @@ public class AddAttribute extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtAttributeKh = new Components.TextField();
-        txtAttributeEn = new Components.TextField();
+        txtAttributeEn = new FormComponent.JavaTextField();
+        txtAttributeKh = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         titlePopUp.setLabelTitle("Add Attribute");
-
-        label1.setLabelName("Attribute Name Kh");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -89,15 +74,11 @@ public class AddAttribute extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Attribute Name");
+        txtAttributeEn.setLabelName("Attribute Name *");
+        txtAttributeEn.setPlaceHolder("Attribute Name");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
-        txtAttributeKh.setLabelTextField("Attribute Name Kh");
-
-        txtAttributeEn.setLabelTextField("Attribute Name");
+        txtAttributeKh.setLabelName("Attribute Name (KH)");
+        txtAttributeKh.setPlaceHolder("Attribute Name (KH)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,24 +87,17 @@ public class AddAttribute extends javax.swing.JDialog {
             .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAttributeEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                                .addComponent(txtAttributeKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAttributeKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAttributeEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,19 +105,14 @@ public class AddAttribute extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAttributeEn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
+                .addComponent(txtAttributeEn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtAttributeKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addComponent(txtAttributeKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,58 +135,65 @@ public class AddAttribute extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+        
         String attrNameEn = txtAttributeEn.getValueTextField();
         String attrNameKh = txtAttributeKh.getValueTextField();
 
         try {
-            if (attrNameEn == null || attrNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Attribute Name is required!");
-                return;
-            }
+            
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("attrNameEn", attrNameEn);
 
-            JSONObject json = new JSONObject();
-            json.put("attrNameEn", attrNameEn);
-            json.put("attrNameKh", attrNameKh);
-
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.attribute + '/' + id, json); 
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
+                if (attrNameKh == null) {
+                    json.put("attrNameKh", attrNameKh);
+                } else {
+                    if (attrNameKh.isEmpty()) {
+                        json.put("attrNameKh", JSONObject.NULL);
+                    } else {
+                        json.put("attrNameKh", attrNameKh);
                     }
-                }else{
-                    ListAttribute list = new ListAttribute(new JFrame(), true);
-                    listGetAttribute.removeAll();
-                    listGetAttribute.revalidate();
-                    listGetAttribute.repaint();
-                    list.getAttribute(listGetAttribute, true, pageNumber);
-                    dispose();
                 }
-
-            } else {
-                Response response = JavaConnection.post(JavaRoute.attribute, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
+                // create response 
+                Response response = null;
+                if (id != null) { // add new
+                    response = JavaConnection.put(JavaRoute.attribute + '/' + id, json);
+                } else { // update 
+                    json.put("createBy", JavaConstant.cashierId);
+                    response = JavaConnection.post(JavaRoute.attribute, json);
+                }
+                
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
+
+                fields.add(JavaConflicValidation.builder()
+                        .key("Name") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtAttributeKh) // obj of JavaTextField
+                        .build());
+
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExist(response, fields);
+
+                try {
+                    if (response.isSuccessful() && isExist) {
+
+                        ListAttribute list = new ListAttribute(new JFrame(), true);
+                        listGetAttribute.removeAll();
+                        listGetAttribute.revalidate();
+                        listGetAttribute.repaint();
+                        list.getAttribute(listGetAttribute, true, pageNumber);
+                        dispose();
                     }
-                }else{
-                    listGetAttribute.removeAll();
-                    listGetAttribute.revalidate();
-                    listGetAttribute.repaint();
-                    obj.getAttribute(listGetAttribute, true, pageNumber);
-                    dispose();
+
+                } catch (Exception e) {
+                    System.err.println("error post attribute : " + e);
                 }
             }
 
@@ -295,12 +271,9 @@ public class AddAttribute extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.Label label3;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtAttributeEn;
-    private Components.TextField txtAttributeKh;
+    private FormComponent.JavaTextField txtAttributeEn;
+    private FormComponent.JavaTextField txtAttributeKh;
     // End of variables declaration//GEN-END:variables
 }

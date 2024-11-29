@@ -3,14 +3,15 @@ package Setting.Vendor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
 import java.io.IOException;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -28,24 +29,9 @@ public class AddVendor extends javax.swing.JDialog {
           initComponents();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
+          txtPhoneNumber.setValidatePhoneNumber();
+          txtEmail.setValidateEmail();
           txtVendorName.requestFocus();
-          txtPhoneNumber.add3digitsToPhoneNumber();
-          event();
-     }
-
-     //Place Holder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
-
-               }
-          };
-          txtVendorName.initEvent(btnevent);
-          txtPhoneNumber.initEvent(btnevent);
-          txtEmail.initEvent(btnevent);
-          txtWebsite.initEvent(btnevent);
-          txtAddress.initEvent(btnevent);
      }
 
      //Value Edit
@@ -58,23 +44,23 @@ public class AddVendor extends javax.swing.JDialog {
      ) throws IOException {
 
           if (vendorName != null && vendorName != "") {
-               txtVendorName.setValueTextField(vendorName);
+               txtVendorName.setText(vendorName);
           }
 
           if (phone != null && phone != "") {
-               txtPhoneNumber.setValueTextField(phone);
+               txtPhoneNumber.setText(phone);
           }
 
           if (email != null && email != "") {
-               txtEmail.setValueTextField(email);
+               txtEmail.setText(email);
           }
 
           if (Web != null && Web != "") {
-               txtWebsite.setValueTextField(Web);
+               txtWebsite.setText(Web);
           }
 
           if (address != null && address != "") {
-               txtAddress.setValueTextField(address);
+               txtAddress.setText(address);
           }
 
      }
@@ -84,23 +70,15 @@ public class AddVendor extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel13 = new javax.swing.JLabel();
-        titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
-        txtVendorName = new Components.TextField();
-        label4 = new Components.Label();
-        txtPhoneNumber = new Components.TextField();
-        label2 = new Components.Label();
-        txtEmail = new Components.TextField();
-        label5 = new Components.Label();
-        txtWebsite = new Components.TextField();
-        label6 = new Components.Label();
-        txtAddress = new Components.TextField();
+        panel = new javax.swing.JPanel();
+        txtVendorName = new FormComponent.JavaTextField();
+        txtPhoneNumber = new FormComponent.JavaTextField();
+        txtEmail = new FormComponent.JavaTextField();
+        txtAddress = new FormComponent.JavaTextField();
+        txtWebsite = new FormComponent.JavaTextField();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        titlePopUp = new Components.LabelPopUpTitle();
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(204, 0, 0));
@@ -108,27 +86,20 @@ public class AddVendor extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        titlePopUp.setLabelTitle("Add Vendor");
+        txtVendorName.setLabelName("Vendor Name *");
+        txtVendorName.setPlaceHolder("Vendor Name");
 
-        label1.setLabelName("Vendor Name");
+        txtPhoneNumber.setLabelName("Phone Number *");
+        txtPhoneNumber.setPlaceHolder("000 000 0000");
 
-        txtVendorName.setLabelTextField("Vendor Name");
+        txtEmail.setLabelName("Email *");
+        txtEmail.setPlaceHolder("Email");
 
-        label4.setLabelName("Phone Number");
+        txtAddress.setLabelName("Address *");
+        txtAddress.setPlaceHolder("Address");
 
-        txtPhoneNumber.setLabelTextField("000 000 0000");
-
-        label2.setLabelName("Email");
-
-        txtEmail.setLabelTextField("Email");
-
-        label5.setLabelName("Website");
-
-        txtWebsite.setLabelTextField("Website");
-
-        label6.setLabelName("Address");
-
-        txtAddress.setLabelTextField("Address");
+        txtWebsite.setLabelName("Website");
+        txtWebsite.setPlaceHolder("Website");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -142,102 +113,67 @@ public class AddVendor extends javax.swing.JDialog {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
+        titlePopUp.setLabelTitle("Add Vendor");
 
-        jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel14.setText("*");
-
-        jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel15.setText("*");
-
-        jLabel16.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel16.setText("*");
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(titlePopUp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelLayout.createSequentialGroup()
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelLayout.createSequentialGroup()
+                            .addComponent(txtVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtVendorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(67, 67, 67))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(label5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                        .addGap(33, 33, 33)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtWebsite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
-                                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(20, 20, 20))
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(label4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtVendorName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel14))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(label2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(label6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtWebsite, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -253,121 +189,67 @@ public class AddVendor extends javax.swing.JDialog {
          String email = txtEmail.getValueTextField();
          String website = txtWebsite.getValueTextField();
          String address = txtAddress.getValueTextField();
+         String phoneNumber = txtPhoneNumber.getValueTextField();
+         
+         if(phoneNumber!= null){
+             phoneNumber = phoneNumber.replace(" ", "");
+         }
 
          try {
-              if (vendorName == null || vendorName.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Vendor Name is required!");
-                   return;
-              }
+             
+            boolean isCheck = JavaValidation.checkValidation(panel);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("vendorName", vendorName);
+                json.put("contact", phoneNumber);
+                json.put("email", email);
+                json.put("website", website);
+                json.put("address", address);
 
-              String phoneNumber = txtPhoneNumber.getValueTextField();
+                // create response 
+                Response response = null;
+                if (id != null) { // add new
+                    response = JavaConnection.put(JavaRoute.vendor + '/' + id, json);
+                } else { // update 
+                    json.put("createBy", JavaConstant.cashierId);
+                    response = JavaConnection.post(JavaRoute.vendor, json);
+                }
+                
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
 
-              if (phoneNumber == null || phoneNumber.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Phone Number is required!");
-                   return;
-              }
+                fields.add(JavaConflicValidation.builder()
+                        .key("contact") // specific word that exist in key "reason"
+                        .msg("This phone number is already existed!") // message to show 
+                        .field(txtPhoneNumber) // obj of JavaTextField
+                        .build());
+                
+                fields.add(JavaConflicValidation.builder()
+                        .key("email") // specific word that exist in key "reason"
+                        .msg("This email is already existed!") // message to show 
+                        .field(txtEmail) // obj of JavaTextField
+                        .build());
 
-              String phone = phoneNumber.replace(" ", "");
-              
-              System.out.println("phone : " + phone);
+                boolean isExist = JavaValidation.checkNameExist(response, fields);                
+                System.out.println("json : " + json);
+                System.out.println("response : " + response);
+                
+                try {
+                    if (response.isSuccessful() && isExist) {
 
-              if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 10) {
-                   JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
-                   return;
-              }
-
-              if (email == null || email.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Email is required!");
-                   return;
-              }
-
-              //Validate on email
-              Pattern pat = Pattern.compile(JavaConstant.emailRegex);
-              if (email != null && pat.matcher(email).matches()) {
-
-              } else {
-                   JOptionPane.showMessageDialog(this, "Email is incorrect!");
-                   return;
-              }
-
-              if (address == null || address.isEmpty()) {
-                   JOptionPane.showMessageDialog(this, "Address is required!");
-                   return;
-              }
-
-              JSONObject json = new JSONObject();
-              json.put("vendorName", vendorName);
-              json.put("contact", phone);
-              json.put("email", email);
-              json.put("website", website);
-              json.put("address", address);
-              
-              
-              System.out.println("json : " + json);
-
-              if (id != null) {
-                   Response response = JavaConnection.put(JavaRoute.vendor + '/' + id, json);
-                   String responeData = response.body().string();
-                   JSONObject jsonResponse = new JSONObject(responeData);
-                   if (jsonResponse.has("error")) {
-
-                        JSONObject error = jsonResponse.getJSONObject("error");
-                        int code = error.getInt("code");
-                        String reason = error.getString("reason");
-                        if (code == 409) {
-                             if (reason.contains("contact")) {
-                                  JOptionPane.showMessageDialog(this, reason.replace("contact", "phone number"));
-                             } else {
-                                  JOptionPane.showMessageDialog(this, reason);
-                             }
-                        }
-
-                   } else {
-                        System.out.println("response : " + response);
-                        System.out.println("json : " + json);
-
-                        if (response.isSuccessful()) {
-                             ListVendor list = new ListVendor(new JFrame(), true);
-                             listGetVendor.removeAll();
-                             listGetVendor.revalidate();
-                             listGetVendor.repaint();
-                             list.getVendor(listGetVendor, true,pageNumber);
-                             dispose();
-                        }
-                   }
-
-              } else {
-                   json.put("createBy", JavaConstant.cashierId + "");
-
-                   Response response = JavaConnection.post(JavaRoute.vendor, json);
-                   String responeData = response.body().string();
-
-                   JSONObject jsonResponse = new JSONObject(responeData);
-                   if (jsonResponse.has("error")) {
-
-                        JSONObject error = jsonResponse.getJSONObject("error");
-                        int code = error.getInt("code");
-                        String reason = error.getString("reason");
-                        if (code == 409) {
-                             if (reason.contains("contact")) {
-                                  JOptionPane.showMessageDialog(this, reason.replace("contact", "phone number"));
-                             } else {
-                                  JOptionPane.showMessageDialog(this, reason);
-                             }
-                        }
-
-                   } else {
-                        System.out.println("response : " + response);
-                        System.out.println("json : " + json);
+                        ListVendor list = new ListVendor(new JFrame(), true);
                         listGetVendor.removeAll();
                         listGetVendor.revalidate();
                         listGetVendor.repaint();
-                        obj.getVendor(listGetVendor, true,pageNumber);
+                        list.getVendor(listGetVendor, true,pageNumber);
                         dispose();
+                    }
 
-                   }
-
-              }
+                } catch (Exception e) {
+                    System.err.println("error post vendor : " + e);
+                }
+            }
 
          } catch (Exception e) {
               System.err.println("errr -- " + e);
@@ -443,21 +325,13 @@ public class AddVendor extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private Components.Label label1;
-    private Components.Label label2;
-    private Components.Label label4;
-    private Components.Label label5;
-    private Components.Label label6;
+    private javax.swing.JPanel panel;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtAddress;
-    private Components.TextField txtEmail;
-    private Components.TextField txtPhoneNumber;
-    private Components.TextField txtVendorName;
-    private Components.TextField txtWebsite;
+    private FormComponent.JavaTextField txtAddress;
+    private FormComponent.JavaTextField txtEmail;
+    private FormComponent.JavaTextField txtPhoneNumber;
+    private FormComponent.JavaTextField txtVendorName;
+    private FormComponent.JavaTextField txtWebsite;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,10 +8,13 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Model.Country.GetFlagModel;
+import Setting.Attribute.ListAttribute;
 import Staff.InsertStaff;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -20,6 +23,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -32,41 +37,29 @@ import org.json.JSONObject;
 
 public class AddCountry extends javax.swing.JDialog {
     
-     private Integer id;
-     String path;
-     String fileName;
-     private String pageNumber;
-     private ListCountry obj;
+    private Integer id;
+    String path;
+    String fileName;
+    private String pageNumber;
+    private ListCountry obj;
+    private JPanel listGetCountry;
 
-     private JPanel listGetCountry;
+    public AddCountry(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        txtCountry.requestFocus();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-     public AddCountry(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          txtCountry.requestFocus();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
 
-          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
-          event();
-          
-          try {
-                JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
-          } catch (IOException ex) {
-                Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-          }
-     }
+        try {
+            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
+        } catch (IOException ex) {
+            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-     //Place Holder
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
-
-               }
-          };
-          txtCountry.initEvent(btnevent);
-     }
 
      //Value Edit
      public void setValueEdit(
@@ -74,7 +67,7 @@ public class AddCountry extends javax.swing.JDialog {
           String urlImg,
           String uuid
      ) throws IOException {
-          txtCountry.setValueTextField(country);
+          txtCountry.setText(country);
           if(uuid != null){
               JavaConstant.coverImage(urlImg, lbFile, 150, 135);
           }else{
@@ -93,10 +86,8 @@ public class AddCountry extends javax.swing.JDialog {
         browse = new javax.swing.JLabel();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtCountry = new Components.TextField();
         lbFile = new javax.swing.JLabel();
+        txtCountry = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -132,16 +123,11 @@ public class AddCountry extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Country Name");
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
-        txtCountry.setLabelTextField("Country Name");
-
         lbFile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbFile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txtCountry.setLabelName("Country Name *");
+        txtCountry.setPlaceHolder("Country Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,48 +135,37 @@ public class AddCountry extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(titlePopUp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(browse)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtCountry, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCountry, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(txtCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
                 .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -214,67 +189,78 @@ public class AddCountry extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-         String countryName = txtCountry.getValueTextField();
+        String countryName = txtCountry.getValueTextField();
 
-         if (countryName == null || countryName.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Country Name is required!");
-              return;
-         }
+        try {
+            
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            if (isCheck) {
+                if (path != null) {
 
-         if (path != null) {
+                    String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
+                    OkHttpClient client = new OkHttpClient();
 
-              String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
-              OkHttpClient client = new OkHttpClient();
+                    MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                         .setType(MultipartBody.FORM);
 
-              MultipartBody.Builder requestBody = new MultipartBody.Builder()
-                   .setType(MultipartBody.FORM);
+                    File fileToUpload = new File(path);
+                    requestBody.addFormDataPart("file", fileToUpload.getName(),
+                         RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
 
-              File fileToUpload = new File(path);
-              requestBody.addFormDataPart("file", fileToUpload.getName(),
-                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+                    // Request
+                    Request request = new Request.Builder()
+                         .url(url)
+                         .post(requestBody.build())
+                         .header("Authorization", "Bearer " + JavaConstant.token)
+                         .build();
 
-              // Request
-              Request request = new Request.Builder()
-                   .url(url)
-                   .post(requestBody.build())
-                   .header("Authorization", "Bearer " + JavaConstant.token)
-                   .build();
+                    try {
+                         Response response = client.newCall(request).execute();
 
-              try {
-                   Response response = client.newCall(request).execute();
+                         String responseData = response.body().string();
+                         ObjectMapper objMap = new ObjectMapper();
+                         GetFlagModel data = objMap.readValue(responseData, GetFlagModel.class);
 
-                   String responseData = response.body().string();
-                   ObjectMapper objMap = new ObjectMapper();
-                   GetFlagModel data = objMap.readValue(responseData, GetFlagModel.class);
+                         if (response.isSuccessful()) {
+                              fileName = data.getFileName();
+                         }
+                         // Do something with the response.
+                    } catch (IOException e) {
+                         System.out.println("err = " + e);
+                    }
+                }
+                
+                JSONObject json = new JSONObject();
+                json.put("countryName", countryName);
+                json.put("uuid", fileName);
+                
+                // create response 
+                Response response = null;
+                if (id != null) { // add new
+                    response = JavaConnection.put(JavaRoute.country + '/' + id, json);
+                } else { // update 
+                    json.put("createBy", JavaConstant.cashierId);
+                    response = JavaConnection.post(JavaRoute.country, json);
+                }
+                
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
 
-                   if (response.isSuccessful()) {
-                        fileName = data.getFileName();
-                   }
-                   // Do something with the response.
-              } catch (IOException e) {
-                   System.out.println("err = " + e);
-              }
-         }
+                fields.add(JavaConflicValidation.builder()
+                        .key("Name") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtCountry) // obj of JavaTextField
+                        .build());
 
-         try {
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExist(response, fields);
 
-              JSONObject json = new JSONObject();
-              json.put("countryName", countryName);
-              json.put("uuid", fileName);
+                try {
+                    if (response.isSuccessful() && isExist) {
 
-              if (id != null) {
-                    Response response = JavaConnection.put(JavaRoute.country + "/" + id, json);
-                    String responeData = response.body().string();
-                    JSONObject jsonResponse = new JSONObject(responeData);
-                   
-                    if (jsonResponse.has("error")) {
-                        JSONObject error = jsonResponse.getJSONObject("error");
-                        int code = error.getInt("code");
-                        String reason = error.getString("reason");
-                        if (code == 409) {
-                            JOptionPane.showMessageDialog(this, reason);
-                        }
-                    }else{
                         ListCountry list = new ListCountry(new JFrame(), true);
                         listGetCountry.removeAll();
                         listGetCountry.revalidate();
@@ -283,70 +269,52 @@ public class AddCountry extends javax.swing.JDialog {
                         dispose();
                     }
 
-              } else {
-                    json.put("createBy", JavaConstant.cashierId);
-                   
-                    Response response = JavaConnection.post(JavaRoute.country, json);
-                    String responeData = response.body().string();
-                    JSONObject jsonResponse = new JSONObject(responeData);
-                    
-                    if (jsonResponse.has("error")) {
-                        JSONObject error = jsonResponse.getJSONObject("error");
-                        int code = error.getInt("code");
-                        String reason = error.getString("reason");
-                        if (code == 409) {
-                            JOptionPane.showMessageDialog(this, reason);
-                        }
-                    }else{
-                        listGetCountry.removeAll();
-                        listGetCountry.revalidate();
-                        listGetCountry.repaint();
-                        obj.getListCountry(listGetCountry,true,pageNumber);
-                        dispose();
-                    }
-              }
-
-         } catch (Exception e) {
-              System.err.println("errr -- " + e);
-         }
+                } catch (Exception e) {
+                    System.err.println("error post country : " + e);
+                }
+            }
+            
+        } catch (Exception e) {
+            System.err.println("errr -- " + e);
+        }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-         try {
-              path = JNAFileChooser.funChooseFile();
-              JavaConstant.coverImagePath(path, lbFile, 124, 235);
-         } catch (IOException ex) {
-              Logger.getLogger(AddCountry.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+            path = JNAFileChooser.funChooseFile();
+            JavaConstant.coverImagePath(path, lbFile, 124, 235);
+        } catch (IOException ex) {
+            Logger.getLogger(AddCountry.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-         browse.setForeground(WindowColor.light_Blue);
-         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+        browse.setForeground(WindowColor.light_Blue);
+        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-         browse.setForeground(WindowColor.darkBlue);
-         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+        browse.setForeground(WindowColor.darkBlue);
+        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-     public JPanel getListGetCountry() {
-          return listGetCountry;
-     }
+    public JPanel getListGetCountry() {
+        return listGetCountry;
+    }
 
-     public void setListGetCountry(JPanel listGetCountry) {
-          this.listGetCountry = listGetCountry;
-     }
+    public void setListGetCountry(JPanel listGetCountry) {
+        this.listGetCountry = listGetCountry;
+    }
 
-     public Integer getId() {
-          return id;
-     }
+    public Integer getId() {
+        return id;
+    }
 
-     public void setId(Integer id) {
-          this.id = id;
-          titlePopUp.setLabelTitle("Edit Country");
-     }
+    public void setId(Integer id) {
+        this.id = id;
+        titlePopUp.setLabelTitle("Edit Country");
+    }
 
     public String getPageNumber() {
         return pageNumber;
@@ -356,55 +324,53 @@ public class AddCountry extends javax.swing.JDialog {
         this.pageNumber = pageNumber;
     }
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    AddCountry dialog = new AddCountry(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                AddCountry dialog = new AddCountry(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel browse;
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
     private Components.Label label1;
-    private Components.Label label3;
     private javax.swing.JLabel lbFile;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtCountry;
+    private FormComponent.JavaTextField txtCountry;
     // End of variables declaration//GEN-END:variables
 }
