@@ -1,6 +1,5 @@
 package Stock.PurchaseReceive;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -9,7 +8,6 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
-import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import Stock.PurchaseOrderRequest.PurchaseNoData;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
@@ -19,7 +17,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -174,7 +171,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                          public void onSelectDetail(String Key) {  // event detail
                               DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
 
-                              System.out.println("JavaConstant.roleName : " + JavaConstant.roleName);
+                              //System.out.println("JavaConstant.roleName : " + JavaConstant.roleName);
                               if (!JavaConstant.roleName.equals("Admin")) {
                                    JOptionPane.showMessageDialog(null, "You are no permission!");
                                    return;
@@ -197,7 +194,7 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
                               EditPurchaseReceive edit = new EditPurchaseReceive(new JFrame(), true);
-                              System.out.println("JavaConstant.roleName : " + JavaConstant.roleName);
+                              //System.out.println("JavaConstant.roleName : " + JavaConstant.roleName);
                               if (!JavaConstant.roleName.equals("Admin")) {
                                    JOptionPane.showMessageDialog(null, "You are no permission!");
                                    return;

@@ -331,8 +331,6 @@ public class ReturnDialog extends javax.swing.JDialog {
          String barcode = txtBarcode.getValueTextField();
          String invoiceNo = txtinvoice.getValueTextField();
 
-     
-
          if (invoiceNo == null || invoiceNo.isEmpty()) {
               JOptionPane.showMessageDialog(this, "Invoice № can not be empty!");
               return;

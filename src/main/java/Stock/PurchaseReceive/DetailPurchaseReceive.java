@@ -572,16 +572,16 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
          }
 
          json.put("details", details);
-         System.out.println("json : " + json);
+         //System.out.println("json : " + json);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
-         System.out.println("response : " + response);
+         //System.out.println("response : " + response);
          JavaConstant.setCircleLoadingCursor(this);
          try {
               String responeData = response.body().string();
               if (response.isSuccessful()) {
                    JavaConstant.restoreDefaultCursor(this);
-                   System.out.println("responeData : " + responeData);
+                   //System.out.println("responeData : " + responeData);
                    dispose();
                    DetailPurchaseReceive.isAccept = false;
                    receive.getData(true, receive);

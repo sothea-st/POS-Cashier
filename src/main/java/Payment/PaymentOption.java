@@ -30,7 +30,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1882,8 +1881,7 @@ public class PaymentOption extends javax.swing.JDialog {
                var obj = ((BoxItem) listCom[i]);
                double price = JavaConstant.getReplace(obj.getLabelPrice());
 
-               System.err.println("cost ======== " + obj.getCost());
-
+               //System.err.println("cost ======== " + obj.getCost());
                double discountDigit = obj.getDiscountDigit();
                double unitPrice = price - (price * discountDigit) / 100;
                double p = JavaConstant.getReplace(df.format(unitPrice));
@@ -1916,6 +1914,9 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonData.put("discountCase", discountType);
 
           Response response = JavaConnection.post(JavaRoute.sale, jsonData);
+
+          System.err.println("response = " + response);
+          System.err.println("jsonData = " + jsonData);
 
           try {
                if (response.isSuccessful()) {
@@ -2027,7 +2028,7 @@ public class PaymentOption extends javax.swing.JDialog {
           jsonReturnData.put("dataDetails", dataDetails);
 
           System.out.println("jsonReturnData  : " + jsonReturnData);
-          
+
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
           System.out.println("responseReturn : " + responseReturn);
           try {
