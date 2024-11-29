@@ -104,6 +104,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
     public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        txtUserId.requestFocus();
         panelLogin.setBackground(WindowColor.mediumGreen);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -172,8 +173,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
         txtPassword.setLabelName("Password *");
 
-        txtUserId.setLabelName("User ID *");
-        txtUserId.setPlaceHolder("User ID");
+        txtUserId.setLabelName("User Code *");
+        txtUserId.setPlaceHolder("User Code");
 
         javax.swing.GroupLayout panelLoginLayout = new javax.swing.GroupLayout(panelLogin);
         panelLogin.setLayout(panelLoginLayout);
@@ -494,7 +495,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                 } else {
                     JavaConstant.restoreDefaultCursor(mainFrame);
-                    JOptionPane.showMessageDialog(this, "Wrong email or password!");
+                    JOptionPane.showMessageDialog(this, "Wrong user code or password!");
                 }
             }
 

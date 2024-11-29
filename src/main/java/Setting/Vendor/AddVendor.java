@@ -6,9 +6,7 @@ import Constant.JavaRoute;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +31,7 @@ public class AddVendor extends javax.swing.JDialog {
           setResizable(false);
           txtPhoneNumber.setValidatePhoneNumber();
           txtEmail.setValidateEmail();
+          txtVendorName.requestFocus();
      }
 
      //Value Edit
@@ -190,7 +189,11 @@ public class AddVendor extends javax.swing.JDialog {
          String email = txtEmail.getValueTextField();
          String website = txtWebsite.getValueTextField();
          String address = txtAddress.getValueTextField();
-         String phoneNumber = txtPhoneNumber.getValueTextField().replace(" ", "");
+         String phoneNumber = txtPhoneNumber.getValueTextField();
+         
+         if(phoneNumber!= null){
+             phoneNumber = phoneNumber.replace(" ", "");
+         }
 
          try {
              

@@ -170,7 +170,7 @@ public class Settings extends javax.swing.JDialog {
         });
 
         uom.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/measure.png"))); // NOI18N
-        uom.setTitle("UOM");
+        uom.setTitle("UoM");
         uom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 uomMouseClicked(evt);

@@ -1,6 +1,5 @@
 package Setting.Country;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
@@ -22,7 +21,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -243,30 +241,11 @@ public class ListCountry extends javax.swing.JDialog {
                 b.initEvent(events);
                 b.setId(listData.getId());
                 b.setCountry(listData.getCountryName());
-
-//                try {
-//
-//                    TimerTask task = new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            // Task to be executed
-//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                            
-//                            try {
-//                                b.setFlag(new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid());
-//                            } catch (IOException ex) {
-//                                Logger.getLogger(ListCountry.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                    };
-//
-//                    Timer timer = new Timer();
-//                    timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                } catch (Exception e) {
-//                    System.err.println("error read image = " + e);
-//                }
+                try {
+                    b.setFlag( new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid());
+                } catch (IOException ex) {
+                    Logger.getLogger(ListCountry.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 paginationPanel.setVisible(true);
                 listGetCountry.add(b, gbc);
@@ -362,13 +341,9 @@ public class ListCountry extends javax.swing.JDialog {
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10))
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         searchField.setPlaceholder("Search");

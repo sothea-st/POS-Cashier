@@ -97,8 +97,8 @@
         </Component>
         <Component class="FormComponent.JavaTextField" name="txtUserId">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="User ID *"/>
-            <Property name="placeHolder" type="java.lang.String" value="User ID"/>
+            <Property name="labelName" type="java.lang.String" value="User Code *"/>
+            <Property name="placeHolder" type="java.lang.String" value="User Code"/>
           </Properties>
         </Component>
       </SubComponents>

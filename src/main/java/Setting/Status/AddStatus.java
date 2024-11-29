@@ -2,13 +2,15 @@ package Setting.Status;
 
 import Constant.JavaConnection;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -28,25 +30,13 @@ public class AddStatus extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtStatus.requestFocus();
-        event();
-    }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
-
-            }
-        };
-        txtStatus.initEvent(btnevent);
     }
     
     //Value Edit
     public void setValueEdit(
         String statName
     ) throws IOException {
-        txtStatus.setValueTextField(statName);
+        txtStatus.setText(statName);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,9 +47,7 @@ public class AddStatus extends javax.swing.JDialog {
         titlePopUp = new Components.LabelPopUpTitle();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtStatus = new Components.TextField();
+        txtStatus = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -77,13 +65,8 @@ public class AddStatus extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Status Name");
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
-
-        txtStatus.setLabelTextField("Status Name");
+        txtStatus.setLabelName("Status Name *");
+        txtStatus.setPlaceHolder("Status Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,17 +76,14 @@ public class AddStatus extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,15 +91,12 @@ public class AddStatus extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
-                .addGap(18, 18, 18)
+                .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,61 +120,59 @@ public class AddStatus extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String statusName = txtStatus.getValueTextField();
-
+        
+        
         try {
-            if (statusName == null || statusName.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Status Name is required!");
-                return;
-            }
-
-            JSONObject json = new JSONObject();
-            json.put("statusName", statusName);
-
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.status + '/' + id, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
+            
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("statusName", statusName);
                 
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
-                    }
-                }else{
-                    ListStatus list = new ListStatus(new JFrame(), true);
-                    listGetStatus.removeAll();
-                    listGetStatus.revalidate();
-                    listGetStatus.repaint();
-                    list.getStatus(listGetStatus,true,pageNumber);
-                    dispose();
+                // create response 
+                Response response = null;
+                if (id != null) { // update
+                    response = JavaConnection.put(JavaRoute.status + '/' + id, json);
+                } else { // add new 
+                    response = JavaConnection.post(JavaRoute.status, json);
                 }
-
-            } else {
-                Response response = JavaConnection.post(JavaRoute.status, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
                 
-                if (jsonResponse.has("error")) {
-                    JSONObject error = jsonResponse.getJSONObject("error");
-                    int code = error.getInt("code");
-                    String reason = error.getString("reason");
-                    if (code == 409) {
-                        JOptionPane.showMessageDialog(this, reason);
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
+
+                fields.add(JavaConflicValidation.builder()
+                        .key("Name") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtStatus) // obj of JavaTextField
+                        .build());
+
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExist(response, fields);
+
+                try {
+                    if (response.isSuccessful() && isExist) {
+
+                        ListStatus list = new ListStatus(new JFrame(), true);
+                        listGetStatus.removeAll();
+                        listGetStatus.revalidate();
+                        listGetStatus.repaint();
+                        list.getStatus(listGetStatus,true,pageNumber);
+                        dispose();
                     }
-                }else{
-                    listGetStatus.removeAll();
-                    listGetStatus.revalidate();
-                    listGetStatus.repaint();
-                    obj.getStatus(listGetStatus,true,pageNumber);
-                    dispose();
+
+                } catch (Exception e) {
+                    System.err.println("error post attribute : " + e);
                 }
             }
 
         } catch (Exception e) {
             System.err.println("errr -- " + e);
         }
+
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     public Integer getId() {
@@ -269,10 +244,8 @@ public class AddStatus extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label3;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtStatus;
+    private FormComponent.JavaTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 }
