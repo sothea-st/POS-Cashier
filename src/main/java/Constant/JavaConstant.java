@@ -337,7 +337,6 @@ public class JavaConstant {
 
           for (Component c : listDetailItem) {
                var data = ((BoxItem) c);
-
                int saleQty = data.getQty();
 
                for (Component cc : listPanelProduct) {

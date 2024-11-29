@@ -1,34 +1,25 @@
 package Return;
 
-import Button.Button;
+
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Event.ButtonEvent;
-import Fonts.WindowFonts;
 import LoginAndLogoutForm.LoginFormJdailog;
 import Model.Package.ReasonModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
-import View.MainPage.MainPage;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-/**
- *
- * @author FRONT-END.06
- */
+
 public class ReturnDialog extends javax.swing.JDialog {
 
      private String reasonId;
@@ -374,35 +365,9 @@ public class ReturnDialog extends javax.swing.JDialog {
           JavaConstant.returnerId = null;
      }
 
-     /**
-      * @param args the command line
-      * arguments
-      */
+ 
      public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(ReturnDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
-
-          /* Create and display the dialog */
+         
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     ReturnDialog dialog = new ReturnDialog(new javax.swing.JFrame(), true);
