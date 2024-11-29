@@ -22,6 +22,8 @@ public interface ReasonRepository extends JpaRepository<Reason,Integer> {
                     "\tand id = ?")
      Reason getReasonById(int id);
 
+     Optional<Reason> findByIdAndStatusTrueAndIsDeletedFalseAndCode(Integer id,String code);
+
      @Query(nativeQuery = true , value = "select * from pos_reason pr where code = ? order by id desc")
      List<Reason> getReasonByCode(String code);
 

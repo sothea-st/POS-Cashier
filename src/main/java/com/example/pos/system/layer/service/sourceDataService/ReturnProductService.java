@@ -6,15 +6,19 @@ import java.text.SimpleDateFormat;
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.*;
 import com.example.pos.system.domain.payment.Payment;
+import com.example.pos.system.domain.sourceData.Reason;
 import com.example.pos.system.domain.sourceData.ReturnDetails;
 import com.example.pos.system.domain.sourceData.ReturnProduct;
 import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
+import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
 import com.example.pos.system.layer.repository.SaleDetailsRepository;
 import com.example.pos.system.layer.repository.SaleFiFoRepository;
 import com.example.pos.system.layer.repository.SaleRepository;
 import com.example.pos.system.layer.repository.paymentRepository.PaymentRepository;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
+import com.example.pos.system.layer.repository.sourceDataRepository.ReasonRepository;
 import com.example.pos.system.layer.repository.sourceDataRepository.ReturnDetailsRepository;
 import com.example.pos.system.layer.repository.sourceDataRepository.ReturnProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,10 +63,19 @@ public class ReturnProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ReportInventoryService reportInventoryService;
+
+    @Autowired
+    private ReasonRepository reasonRepository;
+
 
     public Map<String, Object> returnProduct(ReturnProduct re) {
-        System.out.println("ddddddddddddddddddddd");
+
         String time = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss a").format(Calendar.getInstance().getTime());
+
+        Reason reason = reasonRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(re.getReasonId(), "return")
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Reason not found with id : " + re.getReasonId()));
 
         ReturnProduct r = new ReturnProduct();
         r.setCreateBy(re.getCreateBy());
@@ -104,14 +117,6 @@ public class ReturnProductService {
 
             repoDetail.save(obj);
 
-            // ole mechanism
-            // restock qty back
-//            Optional<ImportDetail> dataImp = repoImport.findByImpId(proId);
-//            ImportDetail impDetail = dataImp.get();
-//            int restockQty = qtyReturn + impDetail.getQtyOld();
-//            impDetail.setQtyOld(restockQty);
-//            repoImport.save(impDetail);
-
             // ============ update column is_returned in table pos_sale_details to returned
             Optional<SaleDetail> listSaleDetails = saleDetailsRepository.findBySaleIdAndProductId(posSaleID,
                     listDetail.get(i).getProId());
@@ -129,96 +134,6 @@ public class ReturnProductService {
 
         }
 
-//        for (int i = 0; i < listDetail.size(); i++) {
-//            int proId = listDetail.get(i).getProId();
-//            var item = listDetail.get(i);
-//
-//            System.out.println("item qty ============ " + item.getQty());
-//
-//            Product product = productRepository.findById(proId).orElseThrow(
-//                    () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found with id : " + proId)
-//            );
-//            List<SaleFiFo> saleFiFos = saleFiFoRepository.findByPaymentNoAndSaleQtyGreaterThanAndProductOrderByLocalDateDesc(re.getPaymentNo(), 0, product);
-//            int countSaleQty = 0;
-//            for( SaleFiFo s : saleFiFos ) {
-//                countSaleQty += s.getSaleQty();
-//            }
-//
-//
-//            if (item.getQty() == countSaleQty) {
-//
-//                for (SaleFiFo val : saleFiFos) {
-//
-//                    ImportDetail detail = repoImport.getImpIdAndProductAndLocalDate(
-//                            val.getAnImport().getId(),
-//                            val.getProduct().getId(),
-//                            val.getLocalDate()
-//                    );
-//                    int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
-//                    int qty = qtyOld + val.getSaleQty();
-//                    detail.setQtyOld(qty);
-//                    repoImport.save(detail);
-//
-//                    SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
-//                            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
-//                    );
-//                    saleFiFo.setSaleQty(0);
-//                    saleFiFoRepository.save(saleFiFo);
-//                }
-//            } else {
-//
-//                int _itemQty = item.getQty();
-//                for ( int j = 0 ; j < saleFiFos.size() ; j++ ) {
-//                    var val = saleFiFos.get(j);
-//                    SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
-//                            () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
-//                    );
-//
-//
-//                    ImportDetail detail = repoImport.getImpIdAndProductAndLocalDate(
-//                            val.getAnImport().getId(),
-//                            val.getProduct().getId(),
-//                            val.getLocalDate()
-//                    );
-//
-//                    if ( j == 0 && _itemQty <= saleFiFo.getSaleQty()) {
-//
-//                        int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
-//                        int qty = qtyOld + item.getQty();
-//                        detail.setQtyOld(qty);
-//                        repoImport.save(detail);
-//
-//                        saleFiFo.setSaleQty(saleFiFo.getSaleQty() - item.getQty());
-//                        saleFiFoRepository.save(saleFiFo);
-//                        break;
-//                    }
-//
-//                      _itemQty = _itemQty - saleFiFo.getSaleQty();
-//                    if (_itemQty > 0) {
-//
-//                        int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
-//                        detail.setQtyOld(qtyOld + saleFiFo.getSaleQty());
-//                        repoImport.save(detail);
-//
-//                        saleFiFo.setSaleQty(0);
-//                        saleFiFoRepository.save(saleFiFo);
-//                    } else {
-//
-//
-//                        int _q = saleFiFo.getSaleQty() + _itemQty; // _itemQty can be -1
-//
-//                        int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
-//
-//                        detail.setQtyOld(qtyOld + _q);
-//                        repoImport.save(detail);
-//
-//                        saleFiFo.setSaleQty(_q);
-//                        saleFiFoRepository.save(saleFiFo);
-//                    }
-//
-//                }
-//            }
-//        }
 
         for (int i = 0; i < listDetail.size(); i++) {
             // Get product ID and item from listDetail
@@ -257,10 +172,25 @@ public class ReturnProductService {
 
                     // Calculate quantity old (qtyOld) or initialize to 0 if null
                     int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
+
+
+                    // qty that return
+                    int itemReturnQty = val.getSaleQty();
+
+                    // check reason
+                    // not add qty to stock
+                    // reason : it's damaged or expired
+
+                    if( reason.getReason().equals("Damaged") || reason.getReason().equals("Expired") ) {
+                        itemReturnQty = 0;
+                    }
+
                     // Calculate new quantity (qty) by adding current sale quantity
-                    int qty = qtyOld + val.getSaleQty();
+                    int qty = qtyOld + itemReturnQty;
+
                     // Update qtyOld with new calculated quantity
                     detail.setQtyOld(qty);
+
                     // Save updated ImportDetail
                     repoImport.save(detail);
 
@@ -295,7 +225,20 @@ public class ReturnProductService {
                     if (j == 0 && _itemQty <= saleFiFo.getSaleQty()) {
                         // Update ImportDetail with new quantity
                         int qtyOld = detail.getQtyOld() == null ? 0 : detail.getQtyOld();
-                        int qty = qtyOld + item.getQty();
+
+                        // qty that return
+                        int itemReturnQty = item.getQty();
+
+                        // check reason
+                        // not add qty to stock
+                        // reason : it's damaged or expired
+                        if( reason.getReason().equals("Damaged") || reason.getReason().equals("Expired") ) {
+                            itemReturnQty = 0;
+                        }
+
+                        int qty = qtyOld + itemReturnQty;
+
+
                         detail.setQtyOld(qty);
                         repoImport.save(detail);
 
@@ -332,7 +275,6 @@ public class ReturnProductService {
         }
 
 
-
         int saleId = repoDetail.getSaleId(re.getPaymentNo(), JavaConstant.currentDate);
         Optional<Sale> dataSale = repoSale.findById(saleId);
         Sale result = dataSale.get();
@@ -342,6 +284,40 @@ public class ReturnProductService {
         result.setTotalReturn(BigDecimal.valueOf(sumTotalReturn - result.getDiscount().doubleValue()));
         result.setTotalMinusTotalReturn(BigDecimal.valueOf(valueReturn));
         repoSale.save(result);
+
+
+        // add report to reportInventory
+        // add report
+
+        re.getReasonId();
+
+
+        List<ReportInventoryRequest> reportInventoryRequests = new ArrayList<>();
+        for (int i = 0; i < listDetail.size(); i++) {
+            var value = listDetail.get(i);
+
+            if (reason.getReason().equals("Damaged") || reason.getReason().equals("Expired")) { // return but not plus qty
+                reportInventoryRequests.add(ReportInventoryRequest.builder()
+                        .productId(value.getProId())
+                        .impDate(JavaConstant.currentDate)
+                        .stockInQty(0)
+                        .stockOutQty(0)
+                        .returnInQty(0)
+                        .returnOutQty(value.getQty())
+                        .build());
+            } else { // return stock in
+                reportInventoryRequests.add(ReportInventoryRequest.builder()
+                        .productId(value.getProId())
+                        .impDate(JavaConstant.currentDate)
+                        .stockInQty(0)
+                        .stockOutQty(0)
+                        .returnInQty(value.getQty())
+                        .build());
+            }
+
+
+        }
+        reportInventoryService.create(reportInventoryRequests);
 
 
         return reprintService.readData(re.getPaymentNo(), re);

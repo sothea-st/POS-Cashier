@@ -602,7 +602,6 @@ public class RouteController {
 
           @PostMapping
           public ResponseEntity<?> returnProduct(@Valid @RequestBody ReturnProduct r) {
-               System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                Map<String, Object> map = service.returnProduct(r);
                return JavaResponse.success(map);
           }

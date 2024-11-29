@@ -33,7 +33,8 @@ public class RangeController {
     @GetMapping
     JavaCollectionResponse<?> read(
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
-            @RequestParam(name = "pageSize", required = false)Integer pageSize){
+            @RequestParam(name = "pageSize", required = false)Integer pageSize
+    ){
         return rangeService.read(pageNumber, pageSize);
     }
 

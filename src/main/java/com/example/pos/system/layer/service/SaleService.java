@@ -287,7 +287,7 @@ public class SaleService {
         int saleId = sale.getId();
         List<SaleDetail> details = s.getDataSale();
 
-        List<ReportInventoryRequest> reportInventoryRequests = new ArrayList<>();
+
 
         for (int i = 0; i < details.size(); i++) {
             var detail = details.get(i);
@@ -362,6 +362,7 @@ public class SaleService {
 
         // add report to reportInventory
         // add report
+        List<ReportInventoryRequest> reportInventoryRequests = new ArrayList<>();
         for (int i = 0; i < details.size(); i++) {
             var data = details.get(i);
             reportInventoryRequests.add(ReportInventoryRequest.builder()
