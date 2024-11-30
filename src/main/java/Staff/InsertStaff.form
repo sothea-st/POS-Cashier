@@ -28,10 +28,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="panelAddStaff" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="panelAddStaff" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -46,84 +43,35 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <Component id="address" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="label8" min="-2" pref="103" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="browse" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbFile" min="-2" pref="124" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Component id="lbFile" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <Component id="browse" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="label1" min="-2" pref="70" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="label4" min="-2" pref="50" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="jLabel13" min="-2" pref="13" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="staffName" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="address" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="label3" min="-2" pref="67" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Component id="jLabel7" min="-2" pref="13" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="label6" pref="0" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="jLabel15" min="-2" pref="13" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="dobDate" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="startDate" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="startDate" max="32767" attributes="0"/>
+                              <Component id="staffName" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="dobDate" alignment="1" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label5" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel14" min="-2" pref="13" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                  <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="role" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label9" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label7" min="-2" pref="93" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="26" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="phoneNumber" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="role" min="-2" max="-2" attributes="0"/>
+                              <Component id="phoneNumber" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -135,76 +83,35 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="gender" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel14" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jLabel11" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="staffName" alignment="0" max="32767" attributes="0"/>
-                      <Component id="label5" alignment="0" max="32767" attributes="0"/>
-                      <Component id="label1" alignment="1" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="staffName" min="-2" max="-2" attributes="0"/>
+                      <Component id="gender" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="label6" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="role" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel15" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="label9" alignment="0" max="32767" attributes="0"/>
-                              <Component id="dobDate" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="role" min="-2" max="-2" attributes="0"/>
+                      <Component id="dobDate" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="startDate" max="32767" attributes="0"/>
-                              <Component id="jLabel7" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="label3" alignment="0" max="32767" attributes="0"/>
-                              <Component id="label7" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="label4" alignment="0" max="32767" attributes="0"/>
-                              <Component id="address" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jLabel13" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Component id="phoneNumber" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel17" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="startDate" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
-                      <Component id="buttonCancel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="lbFile" min="-2" pref="135" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="label8" min="-2" pref="34" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="browse" min="-2" pref="27" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="address" min="-2" max="-2" attributes="0"/>
+                      <Component id="label8" min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="lbFile" min="-2" pref="135" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="browse" min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -213,98 +120,6 @@
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle1">
           <Properties>
             <Property name="labelTitle" type="java.lang.String" value="Add Staff"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label1">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Staff Name"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="staffName">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Staff Name"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label6">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Date of Birth"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label4">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Address"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="address">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Address"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label3">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Start Date"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label5">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Gender"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="gender">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel16">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
@@ -316,34 +131,6 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
-        </Component>
-        <Component class="Components.Label" name="label7">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Phone Number"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="phoneNumber">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="000 000 0000"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="role">
-        </Component>
-        <Component class="Components.Label" name="label9">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Role"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel15">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
         </Component>
         <Component class="Components.Label" name="label8">
           <Properties>
@@ -358,27 +145,6 @@
                 <LineBorder/>
               </Border>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="DatePicker.DatePicker" name="dobDate">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Select Date"/>
-          </Properties>
-        </Component>
-        <Component class="DatePicker.DatePicker" name="startDate">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Select Date"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel17">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="browse">
@@ -397,6 +163,45 @@
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseExited"/>
           </Events>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="staffName">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Staff Name *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Staff Name"/>
+            <Property name="typeTextField" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="address">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Address *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Address"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.datepicker.JavaDatePicker" name="startDate">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Start Date *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="gender">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Gender *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="role">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Role *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="phoneNumber">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Phone Number *"/>
+            <Property name="placeHolder" type="java.lang.String" value="000 000 0000"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.datepicker.JavaDatePicker" name="dobDate">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Date of Birth *"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

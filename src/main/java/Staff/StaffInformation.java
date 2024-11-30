@@ -1,6 +1,5 @@
 package Staff;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
@@ -20,9 +19,6 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,98 +31,98 @@ import org.json.JSONObject;
 
 public class StaffInformation extends javax.swing.JDialog {
 
-     private String searchValue;
-     private String pageNumber = "0";
-     private int pageSize = 10;
-     private boolean isCheckSearch = true;
-     private int dataCount = 0;
-     private String pageType;
+    private String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
+    private int dataCount = 0;
+    private String pageType;
 
-     public StaffInformation(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          initComponents();
+    public StaffInformation(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        initComponents();
 
-          header.setBackground(WindowColor.darkGreen);
-          getStaff(listGetStaff, true, pageNumber);
-          eventSearchStaff();
+        header.setBackground(WindowColor.darkGreen);
+        getStaff(listGetStaff, true, pageNumber);
+        eventSearchStaff();
 
-          // custome scrollbar ui
-          jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-          jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          // custom scroll speed jscrollPane for vertical
-          JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
+        // custome scrollbar ui
+        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
 
-          JavaConstant.addTitleAndLogo(this, "Staff Information");
-          eventPagination();
+        JavaConstant.addTitleAndLogo(this, "Staff Information");
+        eventPagination();
 
-     }
+    }
 
-     private void eventPagination() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick(String value) {
-                    if (isCheckSearch) {
-                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                         pageNumber = String.valueOf(_value);
-                         getStaff(listGetStaff, true, pageNumber);
-                    }
-               }
-               // for pagination
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onMouseClick(String value) {
+                if (isCheckSearch) {
+                    int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                    pageNumber = String.valueOf(_value);
+                    getStaff(listGetStaff, true, pageNumber);
+                }
+            }
+            // for pagination
 
-               @Override
-               public void onMouseClick(String value, String pType) {
-                    pageType = pType;
-               }
-          };
-          paginationPanel.initEvent(event);
-     }
+            @Override
+            public void onMouseClick(String value, String pType) {
+                pageType = pType;
+            }
+        };
+        paginationPanel.initEvent(event);
+    }
 
-     public void getStaff(JPanel jpanelData, boolean isCheck, String pageNumber) {
+    public void getStaff(JPanel jpanelData, boolean isCheck, String pageNumber) {
 
-          try {
-               Response response = null;
-               if (isCheck) { // isCheck true get items
-                    response = JavaConnection.get(JavaRoute.employee + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
-               } else { // isCheck false search
-                    isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.searchEmployee + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
-               }
+        try {
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                response = JavaConnection.get(JavaRoute.employee + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+            } else { // isCheck false search
+                isCheckSearch = false;
+                response = JavaConnection.get(JavaRoute.searchEmployee + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+            }
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    StaffDataSuccessModel data = objMap.readValue(responseData, StaffDataSuccessModel.class);
-                    StaffGetDataModel[] listData = data.getData();
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                StaffDataSuccessModel data = objMap.readValue(responseData, StaffDataSuccessModel.class);
+                StaffGetDataModel[] listData = data.getData();
 
-                    // code pagination
-                    dataCount = data.getCount();
-                    if (isCheck) {
-                         paginationPanel.setTotalPage(data.getCount(), pageSize);
-                    } else {
-                         paginationPanel.resetPage();
-                    }
+                // code pagination
+                dataCount = data.getCount();
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage();
+                }
 
-                    assignStaff(listData, jpanelData);
+                assignStaff(listData, jpanelData);
 
-               } else {
-                    System.err.println("fail loading staff");
-               }
-          } catch (Exception e) {
-               System.err.println("error getting staff " + e);
-          }
-     }
+            } else {
+                System.err.println("fail loading staff");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting staff " + e);
+        }
+    }
 
-     public void assignStaff(StaffGetDataModel[] listData, JPanel listStaff) {
-          ArrayList<StaffModel> staffList = new ArrayList<>();
+    public void assignStaff(StaffGetDataModel[] listData, JPanel listStaff) {
+        ArrayList<StaffModel> staffList = new ArrayList<>();
 
-          for (int i = 0; i < listData.length; i++) {
-               var obj = listData[i];
-               StaffModel staff = new StaffModel(
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            StaffModel staff = new StaffModel(
                     obj.getId(),
                     obj.getNameEn(),
                     obj.getNameKh(),
@@ -141,201 +137,179 @@ public class StaffInformation extends javax.swing.JDialog {
                     obj.getCreateDate(),
                     obj.isStatus(),
                     obj.isDeleted()
-               );
-               staffList.add(staff);
-          }
-          appendStaff(staffList, listStaff);
-     }
+            );
+            staffList.add(staff);
+        }
+        appendStaff(staffList, listStaff);
+    }
 
-     private void reloadPanel() {
-          listGetStaff.removeAll();
-          listGetStaff.revalidate();
-          listGetStaff.repaint();
-     }
+    private void reloadPanel() {
+        listGetStaff.removeAll();
+        listGetStaff.revalidate();
+        listGetStaff.repaint();
+    }
 
-     void appendStaff(ArrayList<StaffModel> listStaff, JPanel listGetStaff) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    void appendStaff(ArrayList<StaffModel> listStaff, JPanel listGetStaff) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-          listGetStaff.setLayout(gridBagLayout);
-          reloadPanel();
+        listGetStaff.setLayout(gridBagLayout);
+        reloadPanel();
 
-          int x = 0;
-          int y = 0;
-          for (int i = 0; i < listStaff.size(); i++) {
-               GridBagConstraints gbc = new GridBagConstraints();
-               gbc.gridx = x;
-               gbc.gridy = y;
-               gbc.gridwidth = 1;
-               gbc.anchor = gbc.NORTH;
-               x++;
-               if (x == 1) {
-                    x = 0;
-                    y++;
-               }
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < listStaff.size(); i++) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.gridx = x;
+            gbc.gridy = y;
+            gbc.gridwidth = 1;
+            gbc.anchor = gbc.NORTH;
+            x++;
+            if (x == 1) {
+                x = 0;
+                y++;
+            }
 
-               var listData = listStaff.get(i);
-               GetStaff prod = new GetStaff();
+            var listData = listStaff.get(i);
+            GetStaff prod = new GetStaff();
 
-               ButtonEvent events = new ButtonEvent() {
+            ButtonEvent events = new ButtonEvent() {
 
-                    @Override
-                    public void onSelect(String Key) {  // event edit
-                         InsertStaff edit = new InsertStaff(new JFrame(), true);
+                @Override
+                public void onSelect(String Key) {  // event edit
+                    InsertStaff edit = new InsertStaff(new JFrame(), true);
 
-                         try {
-                              Response response = JavaConnection.get(JavaRoute.employee + "/" + listData.getId());
-                              String responseData = response.body().string();
-                              ObjectMapper objMap = new ObjectMapper();
-                              DetailGetDataModel data = objMap.readValue(responseData, DetailGetDataModel.class);
+                    try {
+                        Response response = JavaConnection.get(JavaRoute.employee + "/" + listData.getId());
+                        String responseData = response.body().string();
+                        ObjectMapper objMap = new ObjectMapper();
+                        DetailGetDataModel data = objMap.readValue(responseData, DetailGetDataModel.class);
 
-                              edit.setId(data.getId());
-                              edit.setListGetStaff(listGetStaff);
+                        edit.setId(data.getId());
+                        edit.setListGetStaff(listGetStaff);
 
-                              String _urlImg = "";
-                              if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
-                                   _urlImg = JavaConstant.urlImage + listData.getImageName();
-                              } else {
-                                   _urlImg = new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName();
-                              }
+                        String _urlImg = "";
+                        if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
+                            _urlImg = JavaConstant.urlImage + listData.getImageName();
+                        } else {
+                            _urlImg = new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName();
+                        }
 
-                              edit.setPageNumber(pageNumber);
+                        edit.setPageNumber(pageNumber);
 
-                              edit.setValueEdit(
-                                   data.getNameEn(),
-                                   data.getDob(),
-                                   data.getStartDate(),
-                                   data.getAddress(),
-                                   data.getGender(),
-                                   "" + data.getRoleId(),
-                                   String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"),
-                                   _urlImg
-                              );
+                        edit.setValueEdit(
+                                data.getNameEn(),
+                                data.getDob(),
+                                data.getStartDate(),
+                                data.getAddress(),
+                                data.getGender(),
+                                "" + data.getRoleId(),
+                                String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"),
+                                _urlImg
+                        );
 
-                              edit.setVisible(true);
+                        edit.setVisible(true);
 
-                         } catch (Exception e) {
-                              System.err.println("error getting product " + e);
-                         }
+                    } catch (Exception e) {
+                        System.err.println("error getting product " + e);
                     }
+                }
 
-                    @Override
-                    public void onRemove(String Key) {  // event delete staff
-                         try {
+                @Override
+                public void onRemove(String Key) {  // event delete staff
+                    try {
 
-                              UIManager UI = new UIManager();
-                              UI.put("OptionPane.background", WindowColor.mediumGreen);
-                              UI.put("Panel.background", WindowColor.mediumGreen);
-                              UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+                        UIManager UI = new UIManager();
+                        UI.put("OptionPane.background", WindowColor.mediumGreen);
+                        UI.put("Panel.background", WindowColor.mediumGreen);
+                        UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                              int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this staff?",
-                                   "Delete Staff?", JOptionPane.YES_NO_OPTION);
+                        int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this staff?",
+                                "Delete Staff?", JOptionPane.YES_NO_OPTION);
 
-                              if (resp == JOptionPane.YES_OPTION) {
-                                   JSONObject json = new JSONObject();
-                                   json.put("status", false);
-                                   json.put("is_deleted", true);
-                                   Response response = JavaConnection.delete(JavaRoute.employee + "/" + listData.getId(), json);
+                        if (resp == JOptionPane.YES_OPTION) {
+                            JSONObject json = new JSONObject();
+                            json.put("status", false);
+                            json.put("is_deleted", true);
+                            Response response = JavaConnection.delete(JavaRoute.employee + "/" + listData.getId(), json);
 
-                                   if (response.isSuccessful()) {
-//                                        StaffInformation list = new StaffInformation(new JFrame(), true);
-//                                        listGetStaff.removeAll();
-//                                        listGetStaff.revalidate();
-//                                        listGetStaff.repaint();
+                            if (response.isSuccessful()) {
 
-                                        // delete for pagination
-                                        dataCount = dataCount - 1;
-                                        int totalP = pageSize * Integer.valueOf(pageNumber);
-                                        if (dataCount == totalP) {
-                                             paginationPanel.resetPage(pageType, pageNumber);
-                                             int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
-                                             pageNumber = String.valueOf(_value);
-                                        }
-                                        // end delete for pagination
+                                // delete for pagination
+                                dataCount = dataCount - 1;
+                                int totalP = pageSize * Integer.valueOf(pageNumber);
+                                if (dataCount == totalP) {
+                                    paginationPanel.resetPage(pageType, pageNumber);
+                                    int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                    pageNumber = String.valueOf(_value);
+                                }
+                                // end delete for pagination
 
-                                        getStaff(listGetStaff, true, pageNumber);
-                                        System.out.println("Successful deleted ");
-                                   }
-                              } else {
-                                   setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                              }
+                                getStaff(listGetStaff, true, pageNumber);
+                                System.out.println("Successful deleted ");
+                            }
+                        } else {
+                            setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                        }
 
-                         } catch (Exception e) {
-                              System.err.println("error getting product " + e);
-                         }
+                    } catch (Exception e) {
+                        System.err.println("error getting product " + e);
                     }
-               };
+                }
+            };
 
-               prod.initEvent(events);
-               prod.setId(listData.getId());
-               prod.setStaffName(listData.getNameEn());
-               prod.setDateOfBirth(listData.getDob());
-               prod.setContact(String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"));
-               prod.setGender(StringUtils.capitalize(listData.getGender()));
-               prod.setAddress(listData.getAddress());
-               prod.setRoleName(listData.getRoleName());
-               prod.setStartDate(listData.getStartDate());
+            prod.initEvent(events);
+            prod.setId(listData.getId());
+            prod.setStaffName(listData.getNameEn());
+            prod.setDateOfBirth(listData.getDob());
+            prod.setContact(String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"));
+            prod.setGender(StringUtils.capitalize(listData.getGender()));
+            prod.setAddress(listData.getAddress());
+            prod.setRoleName(listData.getRoleName());
+            prod.setStartDate(listData.getStartDate());
 
-//               try {
-//
-//                    TimerTask task = new TimerTask() {
-//                         @Override
-//                         public void run() {
-//                              // Task to be executed
-//                              prod.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                              prod.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                         }
-//                    };
-//
-//                    Timer timer = new Timer();
-//                    timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//               } catch (Exception e) {
-//                    System.err.println("error read image = " + e);
-//               }
+            paginationPanel.setVisible(true);
+            listGetStaff.add(prod, gbc);
+        }
 
-               paginationPanel.setVisible(true);
-               listGetStaff.add(prod, gbc);
-          }
+        if (listStaff.size() == 0) {
+            listGetStaff.setLayout(new BorderLayout());
+            UserNotFound nofound = new UserNotFound();
+            listGetStaff.add(nofound, BorderLayout.CENTER);
+            listGetStaff.add(nofound);
+            listGetStaff.revalidate();
+            listGetStaff.repaint();
+            paginationPanel.setVisible(false);
+        }
 
-          if (listStaff.size() == 0) {
-               listGetStaff.setLayout(new BorderLayout());
-               UserNotFound nofound = new UserNotFound();
-               listGetStaff.add(nofound, BorderLayout.CENTER);
-               listGetStaff.add(nofound);
-               listGetStaff.revalidate();
-               listGetStaff.repaint();
-               paginationPanel.setVisible(false);
-          }
+        listGetStaff.revalidate();
+        listGetStaff.repaint();
+    }
 
-          listGetStaff.revalidate();
-          listGetStaff.repaint();
-     }
+    //Action Search
+    private void eventSearchStaff() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                searchValue = searchField.getValueTextSearch();
 
-     //Action Search
-     private void eventSearchStaff() {
-          // this event was called when user type on searchTextField 
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
-                    searchValue = searchField.getValueTextSearch();
+                if (searchValue.isEmpty()) {
+                    isCheckSearch = true;
+                    pageNumber = "0";
+                    getStaff(listGetStaff, true, pageNumber);
+                    return;
+                }
+                getStaff(listGetStaff, false, pageNumber);
+            }
+        };
+        searchField.initEvent(event);
+    }
 
-                    if (searchValue.isEmpty()) {
-                         isCheckSearch = true;
-                         pageNumber = "0";
-                         getStaff(listGetStaff, true, pageNumber);
-                         return;
-                    }
-                    getStaff(listGetStaff, false, pageNumber);
-               }
-          };
-          searchField.initEvent(event);
-     }
-
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -413,26 +387,22 @@ public class StaffInformation extends javax.swing.JDialog {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addContainerGap(12, Short.MAX_VALUE))
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         searchField.setPlaceholder("Search by staff name");
@@ -511,7 +481,7 @@ public class StaffInformation extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelListProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelListProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -524,60 +494,59 @@ public class StaffInformation extends javax.swing.JDialog {
 
     private void btnAddStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStaffMouseClicked
 
-         InsertStaff addStaff = new InsertStaff(new JFrame(), true);
-         addStaff.setPageNumber(pageNumber);
-         addStaff.setListGetStaff(listGetStaff);
-         addStaff.setStaffInformation(this);
-         addStaff.setVisible(true);
+        InsertStaff addStaff = new InsertStaff(new JFrame(), true);
+        addStaff.setPageNumber(pageNumber);
+        addStaff.setListGetStaff(listGetStaff);
+        addStaff.setStaffInformation(this);
+        addStaff.setVisible(true);
 
     }//GEN-LAST:event_btnAddStaffMouseClicked
 
      private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-          dispose();
+         dispose();
      }//GEN-LAST:event_buttonCancel1MouseClicked
 
-     /**
-      * @param args the command line
-      * arguments
-      */
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(StaffInformation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    StaffInformation dialog = new StaffInformation(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                StaffInformation dialog = new StaffInformation(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnAddStaff;

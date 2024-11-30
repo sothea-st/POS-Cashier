@@ -100,6 +100,60 @@ public class JavaValidation {
                textField.setFieldError(false);
           }
      }
+     
+     public static void setPasswordError(String errorReason, String key, String msg, JavaTextFieldPassword textField) {
+          if (errorReason.contains(key)) {
+               textField.setFieldError(msg);
+          } else {
+               textField.setFieldError(false);
+          }
+     }
+     
+     
+     public static boolean checkPassword(Response response, List<JavaPasswordConflicValidation> fields) {
+          boolean isExist = true;
+          try {
+                String responseData = response.body().string();
+                JSONObject errorJson = new JSONObject(responseData);
+                
+                System.out.println("errorJson : " + errorJson);
+                
+                
+                if (errorJson.has("newPassword")) {
+                     String reason = errorJson.getString("newPassword");
+
+                     isExist = false;
+                     for (JavaPasswordConflicValidation field : fields) {
+                          setPasswordError(
+                               reason,
+                               field.getKey(),
+                               field.getMsg(),
+                               field.getField());
+                     }
+
+                }else if(errorJson.has("msg")){
+                     String reason = errorJson.getString("msg");
+                     
+                     if(reason.equals("success")){
+                        isExist = true;
+                     }else{
+                        isExist = false;
+                        for (JavaPasswordConflicValidation field : fields) {
+                             setPasswordError(
+                                  reason,
+                                  field.getKey(),
+                                  field.getMsg(),
+                                  field.getField());
+                        }
+                     }
+                }
+               
+          } catch (Exception e) {
+               System.err.println("error : " + e);
+          }
+          return isExist;
+     }
+     
 
      public static boolean checkNameExist(Response response, List<JavaConflicValidation> fields) {
           boolean isExist = true;

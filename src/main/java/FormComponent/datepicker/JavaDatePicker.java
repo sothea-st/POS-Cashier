@@ -1,7 +1,9 @@
 package FormComponent.datepicker;
 
+import Color.WindowColor;
 import Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Color;
  
 import javax.swing.UIManager;
 import raven.datetime.component.date.DatePicker;
@@ -21,7 +23,6 @@ public class JavaDatePicker extends javax.swing.JPanel {
 
         // label error
         lbError.setVisible(false);
-//          lbError.setForeground(JavaColor.red);
         lbError.setFont(WindowFonts.timeNewRomanBold12);
 
         label.setFont(WindowFonts.timeNewRomanBold14);
@@ -41,7 +42,7 @@ public class JavaDatePicker extends javax.swing.JPanel {
 //          txtDate.setFocusLostBehavior(JFormattedTextField.COMMIT);
 //        label.setBackground(JavaColor.white);
 //        lbError.setBackground(JavaColor.white);
-        putClientProperty(FlatClientProperties.STYLE, "background:$Table.background;");
+        setBackground(WindowColor.mediumGreen);
     }
 
     public void setLabelName(String labelName) {
