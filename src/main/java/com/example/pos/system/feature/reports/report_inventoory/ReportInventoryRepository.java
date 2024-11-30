@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ReportInventoryRepository extends JpaRepository<ReportInventory,Long> {
+public interface ReportInventoryRepository extends JpaRepository<ReportInventory, Long> {
 
     // Fetch the latest endingQty for a given product
     @Query(nativeQuery = true, value = "SELECT r.ending_qty  FROM pos_report_inventories  r WHERE r.product_id  = ? ORDER BY r.id desc limit 1")
@@ -20,8 +20,38 @@ public interface ReportInventoryRepository extends JpaRepository<ReportInventory
 
     List<ReportInventory> findByDateBetween(LocalDate startDate, LocalDate endDate);
 
+    Page<ReportInventory> findByDateBetween(LocalDate startDate, LocalDate endDate, PageRequest pageRequest);
 
-    Page<ReportInventory> findAll(PageRequest pageRequest);
+
+
+    @Query(value = """
+        SELECT r 
+        FROM ReportInventory r 
+        JOIN r.product p 
+        WHERE r.date >= :startDate 
+          AND r.date <= :endDate 
+          AND (:name IS NULL OR LOWER(p.proNameEn) LIKE LOWER(CONCAT('%', :name, '%')))
+    """)
+    Page<ReportInventory> searchWithPagination(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate,
+            @Param("name") String name,
+            PageRequest pageRequest
+    );
+
+    @Query(value = """
+        SELECT r 
+        FROM ReportInventory r 
+        JOIN r.product p 
+        WHERE r.date >= :startDate 
+          AND r.date <= :endDate 
+          AND (:name IS NULL OR LOWER(p.proNameEn) LIKE LOWER(CONCAT('%', :name, '%')))
+    """)
+    List<ReportInventory> searchWithoutPagination(
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate,
+            @Param("name") String name
+    );
 
 
 }

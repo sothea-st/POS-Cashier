@@ -92,8 +92,8 @@ public class ReportInventoryService {
     public JavaCollectionResponse<?> read(String dateFrom,String dateTo, Integer pageSize, Integer pageNumber){
         List<ReportInventoryResponse> reportInventoryResponses = new ArrayList<>();
         long totalPageNumber = 0;
-
         if(pageNumber == null && pageSize == null){ // get all
+
             reportInventoryResponses  = reportInventoryRepository.findByDateBetween(LocalDate.parse(dateFrom),LocalDate.parse(dateTo)).stream()
                     .map(this::mapToReportInventoryResponse).toList();
 
@@ -102,11 +102,10 @@ public class ReportInventoryService {
 
         }else{ // get by pagination
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
-
             // page request
             // pageNumber start from 0
             PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
-            Page<ReportInventory>  pages = reportInventoryRepository.findAll(pageRequest);
+            Page<ReportInventory>  pages = reportInventoryRepository.findByDateBetween(LocalDate.parse(dateFrom),LocalDate.parse(dateTo),pageRequest);
 
             // assign total pages
             totalPageNumber = pages.getTotalElements();
@@ -118,6 +117,39 @@ public class ReportInventoryService {
 
         }
 
+        return JavaCollectionResponse.builder()
+                .count(totalPageNumber)
+                .data(reportInventoryResponses)
+                .build();
+    }
+
+    public JavaCollectionResponse<?> search(String dateFrom,String dateTo, Integer pageSize, Integer pageNumber,String search){
+        List<ReportInventoryResponse> reportInventoryResponses = new ArrayList<>();
+        long totalPageNumber = 0;
+        if(pageNumber == null && pageSize == null){ // get all
+
+            reportInventoryResponses  = reportInventoryRepository.searchWithoutPagination(LocalDate.parse(dateFrom),LocalDate.parse(dateTo),search).stream()
+                    .map(this::mapToReportInventoryResponse).toList();
+
+            // assign total pages
+            totalPageNumber = reportInventoryResponses.size();
+
+        }else{ // get by pagination
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            // page request
+            // pageNumber start from 0
+            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
+            Page<ReportInventory>  pages = reportInventoryRepository.searchWithPagination(LocalDate.parse(dateFrom),LocalDate.parse(dateTo),search,pageRequest);
+
+            // assign total pages
+            totalPageNumber = pages.getTotalElements();
+
+            // map value to List
+            reportInventoryResponses = pages.getContent().stream()
+                    .map(this::mapToReportInventoryResponse)
+                    .toList();
+
+        }
 
         return JavaCollectionResponse.builder()
                 .count(totalPageNumber)
@@ -137,6 +169,7 @@ public class ReportInventoryService {
                 .returnInQty(reportInventory.getReturnInQty())
                 .returnOutQty(reportInventory.getReturnOutQty())
                 .stockOutQty(reportInventory.getStockOutQty())
+                .endingQty(reportInventory.getEndingQty())
                 .build();
     }
 }

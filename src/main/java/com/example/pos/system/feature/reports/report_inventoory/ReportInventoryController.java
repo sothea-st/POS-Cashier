@@ -16,11 +16,22 @@ public class ReportInventoryController {
     @GetMapping
     public JavaCollectionResponse<?> read(
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
-            @RequestParam(name = "pageSize", required = false)Integer pageSize,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
             @RequestParam(name = "dateFrom") String dateFrom,
-            @RequestParam(name = "pageSize") String dateTo
+            @RequestParam(name = "dateTo") String dateTo
     ){
-        return null;
+        return reportInventoryService.read(dateFrom,dateTo,pageSize,pageNumber);
+    }
+
+    @GetMapping("/search")
+    public JavaCollectionResponse<?> search(
+            @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @RequestParam(name = "dateFrom") String dateFrom,
+            @RequestParam(name = "dateTo") String dateTo,
+            @RequestParam(name = "search") String search
+    ){
+        return reportInventoryService.search(dateFrom,dateTo,pageSize,pageNumber,search);
     }
 
 
