@@ -4,6 +4,7 @@ package Reporting;
 import Constant.JavaConstant;
  
 import CustomeUI.CustomScrollBarUI;
+import Reporting.ReportInventory.ReportInventoryForm;
  
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
@@ -75,6 +76,7 @@ public class ReportingView extends javax.swing.JDialog {
           reportPurhaseCheck = new Components.SettingBox();
           reportPurhaseApproval = new Components.SettingBox();
           reportPurhaseReceive = new Components.SettingBox();
+          reportInventory = new Components.SettingBox();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -125,6 +127,14 @@ public class ReportingView extends javax.swing.JDialog {
                }
           });
 
+          reportInventory.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/purchaseReceive.png"))); // NOI18N
+          reportInventory.setTitle("Reporting Inventory");
+          reportInventory.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    reportInventoryMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
           jPanel1.setLayout(jPanel1Layout);
           jPanel1Layout.setHorizontalGroup(
@@ -135,7 +145,9 @@ public class ReportingView extends javax.swing.JDialog {
                          .addGroup(jPanel1Layout.createSequentialGroup()
                               .addComponent(reportPurhaseCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(reportPurhaseApproval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addComponent(reportPurhaseApproval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                              .addComponent(reportImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(jPanel1Layout.createSequentialGroup()
                               .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -143,7 +155,7 @@ public class ReportingView extends javax.swing.JDialog {
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(reportImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                              .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(18, Short.MAX_VALUE))
           );
           jPanel1Layout.setVerticalGroup(
@@ -154,11 +166,12 @@ public class ReportingView extends javax.swing.JDialog {
                          .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(reportImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(reportPurhaseCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(reportPurhaseApproval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(reportPurhaseApproval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(reportImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(215, Short.MAX_VALUE))
           );
 
@@ -181,11 +194,6 @@ public class ReportingView extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
-     private void reportImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportImportMouseClicked
-          ReportingImportDetail reportingImportDetail = new ReportingImportDetail(new JFrame(), true);
-          reportingImportDetail.setVisible(true);
-     }//GEN-LAST:event_reportImportMouseClicked
-
      private void reportSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportSaleMouseClicked
           ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
           reportingSaled.setVisible(true);
@@ -200,53 +208,36 @@ public class ReportingView extends javax.swing.JDialog {
 
     }//GEN-LAST:event_reportPurhaseRequestMouseClicked
 
-    private void reportPurhaseCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseCheckMouseClicked
-         ReportingPurchaseOrderV2 check = new ReportingPurchaseOrderV2(new JFrame(), true);
-         check.setTitle("Reporting Purchase Check");
-         check.setVisible(true);
-    }//GEN-LAST:event_reportPurhaseCheckMouseClicked
-
-    private void reportPurhaseApprovalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseApprovalMouseClicked
-         ReportingPurchaseOrderV2 approve = new ReportingPurchaseOrderV2(new JFrame(), true);
-         approve.setTitle("Reporting Purchase Approval");
-         approve.setVisible(true);
-
-    }//GEN-LAST:event_reportPurhaseApprovalMouseClicked
-
     private void reportPurhaseReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseReceiveMouseClicked
          ReportingPurchaseReceive receive = new ReportingPurchaseReceive(new JFrame(), true);
          receive.setVisible(true);
     }//GEN-LAST:event_reportPurhaseReceiveMouseClicked
 
-     /**
-      * @param args the command line
-      * arguments
-      */
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(ReportingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(ReportingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(ReportingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(ReportingView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+     private void reportPurhaseApprovalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseApprovalMouseClicked
+          ReportingPurchaseOrderV2 approve = new ReportingPurchaseOrderV2(new JFrame(), true);
+          approve.setTitle("Reporting Purchase Approval");
+          approve.setVisible(true);
+     }//GEN-LAST:event_reportPurhaseApprovalMouseClicked
 
-          /* Create and display the dialog */
+     private void reportPurhaseCheckMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseCheckMouseClicked
+          ReportingPurchaseOrderV2 check = new ReportingPurchaseOrderV2(new JFrame(), true);
+          check.setTitle("Reporting Purchase Check");
+          check.setVisible(true);
+     }//GEN-LAST:event_reportPurhaseCheckMouseClicked
+
+     private void reportImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportImportMouseClicked
+          ReportingImportDetail reportingImportDetail = new ReportingImportDetail(new JFrame(), true);
+          reportingImportDetail.setVisible(true);
+     }//GEN-LAST:event_reportImportMouseClicked
+
+     private void reportInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportInventoryMouseClicked
+          ReportInventoryForm reportInventoryForm = new ReportInventoryForm(new JFrame(), true);
+          reportInventoryForm.setVisible(true);
+     }//GEN-LAST:event_reportInventoryMouseClicked
+
+   
+     public static void main(String args[]) {
+       
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     ReportingView dialog = new ReportingView(new javax.swing.JFrame(), true);
@@ -262,11 +253,10 @@ public class ReportingView extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
-     private ButtonPackage.ButtonCancel buttonCancel;
-     private ButtonPackage.ButtonCancel buttonCancel1;
      private javax.swing.JPanel jPanel1;
      private javax.swing.JScrollPane jScrollPane1;
      private Components.SettingBox reportImport;
+     private Components.SettingBox reportInventory;
      private Components.SettingBox reportPurhaseApproval;
      private Components.SettingBox reportPurhaseCheck;
      private Components.SettingBox reportPurhaseReceive;

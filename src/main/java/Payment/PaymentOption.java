@@ -2031,7 +2031,7 @@ public class PaymentOption extends javax.swing.JDialog {
           System.out.println("jsonReturnData  : " + jsonReturnData);
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-          System.out.println("responseReturn : " + responseReturn);
+          //System.out.println("responseReturn : " + responseReturn);
           try {
                if (responseReturn.isSuccessful()) {
 

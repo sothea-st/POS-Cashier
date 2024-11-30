@@ -1,6 +1,7 @@
 package Constant;
 
 public class JavaRoute {
+
      public static String login = "/auth/login";
      public static String reportReceive = "/v1/reportReceive";
      public static String product = "/product";
@@ -76,6 +77,7 @@ public class JavaRoute {
      public static String searchPurchase = "/v1/import/filter/";
      public static String vendorOrSubCategory = "/product/v1/vendor/subCategory";
      public static String reportPurchaseOrder = "/v1/reportPurchaseOrder";
+     public static String reportInventory = "/reportInventory";
      public static String filterReportPurchaseOrder = "/v1/reportPurchaseOrder/filter/";
      public static String getReportPurchaseOrderByStatus = "/v1/reportPurchaseOrder/getReportPoByRemark";
      public static String searchReportPurchaseReceive = "/v1/reportReceive/search/";

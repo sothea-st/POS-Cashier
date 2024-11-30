@@ -47,7 +47,6 @@ public class PaginationPanel extends javax.swing.JPanel {
           double roundedResult = Math.ceil(result);
           this.totalPage = (int) roundedResult;
           if (pageNumber != 1) {
-                         System.out.println("111111111111111111111");
 
                int _calPageSize = pageNumber * pageSize;
                showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
@@ -58,7 +57,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                }
                showTotal.setText(String.valueOf(totalPage));
           } else {
-                                        System.out.println("22222222222222222222");
 
                showPageNumber.setText(String.valueOf(1));
                showTotal.setText(String.valueOf(totalPage));
