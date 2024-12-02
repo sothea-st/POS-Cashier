@@ -3,7 +3,10 @@ package FormComponent.datepicker;
 import Color.WindowColor;
 import Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
-import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
  
 import javax.swing.UIManager;
 import raven.datetime.component.date.DatePicker;
@@ -33,18 +36,15 @@ public class JavaDatePicker extends javax.swing.JPanel {
         datePicker = new raven.datetime.component.date.DatePicker();
         datePicker.setCloseAfterSelected(true);
         datePicker.setEditor(txtDate);
+        datePicker.setDateFormat("dd-MM-yyyy");
         datePicker.now();
-
-//          Border border = BorderFactory.createLineBorder(JavaColor.lightGray, 1); // Red border, 2px thickness
-//          txtDate.setBorder(border); // Set the custom border
-//
-//          // Optionally, you can also set the focus border (outline color)
-//          txtDate.setFocusLostBehavior(JFormattedTextField.COMMIT);
-//        label.setBackground(JavaColor.white);
-//        lbError.setBackground(JavaColor.white);
         setBackground(WindowColor.mediumGreen);
     }
 
+    public String getLabelName() {
+        return labelName;
+    }
+    
     public void setLabelName(String labelName) {
         this.labelName = labelName;
         if (labelName.contains("*")) {
@@ -64,6 +64,31 @@ public class JavaDatePicker extends javax.swing.JPanel {
         lbError.setVisible(true);
     }
 
+    
+    // Set the date value programmatically when you already have a date string (e.g., "dd-MM-yyyy")
+    public void setSelectedDate(String dateValue) {
+        try {
+            // Define the date format
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+            // Parse the string into a Date object
+            Date parsedDate = formatter.parse(dateValue);
+
+            // Convert java.util.Date to java.time.LocalDate
+            LocalDate localDate = parsedDate.toInstant()
+                                            .atZone(ZoneId.systemDefault())
+                                            .toLocalDate();
+
+            // Set the LocalDate in the DatePicker
+            datePicker.setSelectedDate(localDate);
+
+        } catch (Exception e) {
+            // Handle potential parsing errors
+            e.printStackTrace();
+        }
+    }
+    
+    
     public String getSelectedDate() {
         return datePicker.getSelectedDate().toString();
     }
@@ -77,6 +102,7 @@ public class JavaDatePicker extends javax.swing.JPanel {
     public void resetError() {
         txtDate.putClientProperty(FlatClientProperties.STYLE, "");
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
