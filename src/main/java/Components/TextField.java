@@ -25,6 +25,8 @@ public class TextField extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           txtText.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(txtText);
+          
+          txtText.setBackground(WindowColor.white);
      }
 
      public static boolean isKhmerCharacter(char c) {

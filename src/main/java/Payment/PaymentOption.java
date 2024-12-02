@@ -18,6 +18,7 @@ import Event.ButtonEvent;
 import HoldOrder.HoldeModel;
 import Model.CustomerType.CustomerTypeModel;
 import Model.CustomerType.SourceModel;
+import Model.Reason.ReasonModel;
 import Model.Reprint.DataSuccessModel;
 import Model.ReturnModel.ModelReturnData;
 import Model.ReturnModel.ReturnProductModel;
@@ -2030,12 +2031,26 @@ public class PaymentOption extends javax.swing.JDialog {
           System.out.println("jsonReturnData  : " + jsonReturnData);
 
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-          System.out.println("responseReturn : " + responseReturn);
+          //System.out.println("responseReturn : " + responseReturn);
           try {
                if (responseReturn.isSuccessful()) {
 
 //               ============ after return reset value ==================
-                    JavaConstant.setBackQty(detailItem, panelProduct);
+                    // check reason damaged or expired
+                    Response responseReason = JavaConnection.get("/reason/" + JavaConstant.reasonId);
+                    String reasonString = responseReason.body().string();
+                    ObjectMapper object = new ObjectMapper();
+
+                    ReasonModel model = object.readValue(reasonString, ReasonModel.class);
+
+                    // check if reason is Damaged or  Expired
+                    if (model.getData().getReason().equals("Damaged") || model.getData().getReason().equals("Expired")) {
+
+                    } else {
+                         // will reset qty on ui 
+                         JavaConstant.setBackQty(detailItem, panelProduct);
+                    }
+
                     JavaConstant.resetValueReturn();
 
                     String _data = responseReturn.body().string();

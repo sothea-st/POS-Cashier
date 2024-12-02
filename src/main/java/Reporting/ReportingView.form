@@ -57,6 +57,8 @@
                               <Component id="reportPurhaseCheck" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="reportPurhaseApproval" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="reportImport" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="reportSale" min="-2" max="-2" attributes="0"/>
@@ -65,7 +67,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="reportPurhaseReceive" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="reportImport" min="-2" max="-2" attributes="0"/>
+                              <Component id="reportInventory" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="18" max="32767" attributes="0"/>
@@ -80,12 +82,13 @@
                           <Component id="reportPurhaseRequest" min="-2" max="-2" attributes="0"/>
                           <Component id="reportSale" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="reportPurhaseReceive" min="-2" max="-2" attributes="0"/>
-                          <Component id="reportImport" min="-2" max="-2" attributes="0"/>
+                          <Component id="reportInventory" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="reportPurhaseCheck" min="-2" max="-2" attributes="0"/>
                           <Component id="reportPurhaseApproval" min="-2" max="-2" attributes="0"/>
+                          <Component id="reportImport" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="215" max="32767" attributes="0"/>
                   </Group>
@@ -148,6 +151,17 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportPurhaseReceiveMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="Components.SettingBox" name="reportInventory">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/purchaseReceive.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Reporting Inventory"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportInventoryMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

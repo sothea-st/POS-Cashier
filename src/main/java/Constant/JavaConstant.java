@@ -1,18 +1,5 @@
 package Constant;
 
-import BlogCode.JavaBlogImage;
-import Components.BoxItem;
-import Components.NotFound;
-import Components.countCircleShape;
-import CustomeUI.CustomScrollBarUI;
-import Fonts.WindowFonts;
-import Model.HoldOrder.HoldOrderModel;
-import Model.ProductModel.ProductDataModel;
-import Model.HoldOrder.NewHoldOrderModel;
-import Products.ProductBox;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -34,6 +21,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -51,6 +39,20 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.formdev.flatlaf.FlatLightLaf;
+
+import Components.BoxItem;
+import Components.NotFound;
+import Components.countCircleShape;
+import CustomeUI.CustomScrollBarUI;
+import Fonts.WindowFonts;
+import Model.HoldOrder.HoldOrderModel;
+import Model.HoldOrder.NewHoldOrderModel;
+import Model.ProductModel.ProductDataModel;
+import Products.ProductBox;
 import okhttp3.MediaType;
 
 public class JavaConstant {
@@ -334,10 +336,8 @@ public class JavaConstant {
     public static void setBackQty(JPanel detailItem, JPanel panelProduct) {
         Component[] listDetailItem = detailItem.getComponents();
         Component[] listPanelProduct = panelProduct.getComponents();
-
         for (Component c : listDetailItem) {
             var data = ((BoxItem) c);
-
             int saleQty = data.getQty();
 
             for (Component cc : listPanelProduct) {
@@ -352,9 +352,7 @@ public class JavaConstant {
                     pro.setProductStatus(JavaMessage.inStock);
                     break;
                 }
-
             }
-
         }
     }
 
@@ -475,8 +473,7 @@ public class JavaConstant {
                     formattedNumber.append(" ");
                 }
             }
-        }
-        // Check if the number length is 10 (format into three groups of 3 digits, and last group of 4 digits)
+        } // Check if the number length is 10 (format into three groups of 3 digits, and last group of 4 digits)
         else if (length == 10) {
             for (int i = 0; i < length; i++) {
                 formattedNumber.append(number.charAt(i));
@@ -490,9 +487,9 @@ public class JavaConstant {
 
         return formattedNumber.toString();
     }
-    
+
     public static String formatDate(String dateValue) {
-        
+
         // Define two possible input date formats
         DateTimeFormatter inputFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -502,7 +499,7 @@ public class JavaConstant {
 
         try {
             LocalDate date = null;
-            
+
             // Try to parse using the first input format ("yyyy-MM-dd")
             try {
                 date = LocalDate.parse(dateValue, inputFormatter1);

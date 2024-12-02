@@ -44,7 +44,6 @@ public class InsertProduct extends javax.swing.JDialog {
      private String rangeId;
      private String slotId;
      private String proImageName;
-
      private String barcode;
      private String productName;
      private String productNameKh;

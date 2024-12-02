@@ -47,7 +47,6 @@ public class PaginationPanel extends javax.swing.JPanel {
           double roundedResult = Math.ceil(result);
           this.totalPage = (int) roundedResult;
           if (pageNumber != 1) {
-                         System.out.println("111111111111111111111");
 
                int _calPageSize = pageNumber * pageSize;
                showPageNumber.setText(String.valueOf(((pageNumber - 1) * pageSize + 1)));
@@ -58,7 +57,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                }
                showTotal.setText(String.valueOf(totalPage));
           } else {
-                                        System.out.println("22222222222222222222");
 
                showPageNumber.setText(String.valueOf(1));
                showTotal.setText(String.valueOf(totalPage));
@@ -165,8 +163,11 @@ public class PaginationPanel extends javax.swing.JPanel {
           setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
           setValueText(1, 2, 3, 4, 5);
           checkPageNumber();
+          
+          
           showPageSize.setText("100");
-          showTotal.setText("222");
+          showTotal.setText("100");
+          
      }
 
      public void resetPage(String page, String pageNum) {
@@ -532,7 +533,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                     pageNumber = Integer.parseInt(pageFive.getText());
                     funcPageFive(event);
                     event.onMouseClick(String.valueOf(pageNumber), "pageFive");
-
                }
 
                @Override
