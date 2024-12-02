@@ -40,11 +40,6 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="panelCloseShift">
-      <Properties>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -59,68 +54,16 @@
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lbPosId" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label1" min="-2" pref="123" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="label3" pref="0" max="32767" attributes="0"/>
-                                      <Component id="label2" min="-2" pref="78" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel8" alignment="0" min="-2" pref="13" max="-2" attributes="0"/>
-                                      <Component id="jLabel10" alignment="1" min="-2" pref="13" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label4" min="-2" pref="130" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="abaCreditCard" min="-2" max="-2" attributes="0"/>
-                                      <Component id="qrAba" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cashUs" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cashKh" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="qrMnk" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="redexpress" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="9" max="32767" attributes="0"/>
-                                  <Component id="IbUserId" min="-2" pref="230" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="label6" min="-2" pref="81" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="label5" min="-2" pref="81" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="0" pref="326" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cashKh" max="32767" attributes="0"/>
+                      <Component id="cashUs" max="32767" attributes="0"/>
+                      <Component id="abaCreditCard" max="32767" attributes="0"/>
+                      <Component id="qrAba" max="32767" attributes="0"/>
+                      <Component id="qrMnk" max="32767" attributes="0"/>
+                      <Component id="redexpress" max="32767" attributes="0"/>
+                      <Component id="lbPosId1" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -128,57 +71,26 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="IbUserId" pref="29" max="32767" attributes="0"/>
-                      <Component id="lbPosId" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="redexpress" max="32767" attributes="0"/>
-                          <Component id="label1" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel9" min="-2" pref="25" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="lbPosId1" min="-2" pref="24" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="label2" max="32767" attributes="0"/>
-                          <Component id="qrMnk" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel8" min="-2" pref="25" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="redexpress" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="qrAba" max="32767" attributes="0"/>
-                      <Component id="jLabel10" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="label3" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="qrMnk" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="abaCreditCard" max="32767" attributes="0"/>
-                      <Component id="jLabel11" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="label4" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="qrAba" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel5" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="cashUs" max="32767" attributes="0"/>
-                      <Component id="label5" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="abaCreditCard" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel6" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="cashKh" max="32767" attributes="0"/>
-                      <Component id="label6" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <Component id="cashUs" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="cashKh" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -187,16 +99,6 @@
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle1">
           <Properties>
             <Property name="labelTitle" type="java.lang.String" value="Close Shift"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbPosId">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Payment Type"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="IbUserId">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Cash Amount"/>
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
@@ -209,130 +111,46 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Components.Label" name="label1">
+        <Component class="FormComponent.JavaTextField" name="redexpress">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="RED ANT EXPRESS"/>
+            <Property name="labelName" type="java.lang.String" value="RED ANT EXPRESS *"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="label2">
+        <Component class="FormComponent.JavaTextField" name="qrMnk">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="KHQR-MNK"/>
+            <Property name="labelName" type="java.lang.String" value="KHQR-MNK *"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="label3">
+        <Component class="FormComponent.JavaTextField" name="qrAba">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="KHQR-ABA"/>
+            <Property name="labelName" type="java.lang.String" value="KHQR-ABA *"/>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="label4">
+        <Component class="FormComponent.JavaTextField" name="abaCreditCard">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="ABA-CREDIT CARD"/>
+            <Property name="labelName" type="java.lang.String" value="ABA-CREDIT CARD *"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="label5">
+        <Component class="FormComponent.JavaTextField" name="cashUs">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="CASH (USD)"/>
+            <Property name="labelName" type="java.lang.String" value="CASH (USD) *"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="label6">
+        <Component class="FormComponent.JavaTextField" name="cashKh">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="CASH (KHR)"/>
+            <Property name="labelName" type="java.lang.String" value="CASH (KHR) *"/>
+            <Property name="placeHolder" type="java.lang.String" value="0"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="redexpress">
+        <Component class="Components.Label" name="lbPosId1">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="qrMnk">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="qrAba">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="abaCreditCard">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="cashUs">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="$ 0.00"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="cashKh">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="0.00"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel5">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel9">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
+            <Property name="labelName" type="java.lang.String" value="Payment Type &amp; Cash Amount"/>
           </Properties>
         </Component>
       </SubComponents>
