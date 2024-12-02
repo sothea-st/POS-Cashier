@@ -130,6 +130,7 @@ public class CategoryService {
     public CategoryResponse getCategoryById(int id) {
         Category c = repo.getCategoryById(id);
         if (c == null)
+
             throw new JavaNotFoundByIdGiven();
 
         return CategoryResponse.builder()
@@ -139,7 +140,6 @@ public class CategoryService {
                 .parentId(c.getParentId())
                 .movePosition(c.getMovePosition())
                 .build();
-
     }
 
     public void deleteCategory(int id) {
