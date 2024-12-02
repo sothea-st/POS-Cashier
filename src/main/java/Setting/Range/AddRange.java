@@ -4,23 +4,20 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Event.ButtonEvent;
-import Model.Warehouse.WarehouseSelectModel;
+import FormComponent.combobox.JavaComboBoxSelection;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaValidation;
 import okhttp3.Response;
-import org.json.JSONArray;
 import org.json.JSONObject;
 @Setter
 @Getter
 
 public class AddRange extends javax.swing.JDialog {
 
-    private String warehouseId;
+    private String warehouseId = "-1";
     private Integer id;
     private JPanel listGetRange;
     private String pageNumber;
@@ -32,68 +29,24 @@ public class AddRange extends javax.swing.JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
         txtRange.requestFocus();
-        event();
-        
-        // action get select 
-         ButtonEvent eventtss = new ButtonEvent() {
-              @Override
-              public void onSelect(String key) {
-                   warehouseId = key;
-              }
-         };
-         comboWarehouse.initEvent(eventtss);
-         addComboWarehouse();
+        cmdWarehouse();
     }
     
-    
-    //Set Combo box warehouse
-     private void addComboWarehouse() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               ArrayList<WarehouseSelectModel> warehouse = new ArrayList<>();
+    private void cmdWarehouse(){
+        JavaComboBoxSelection.addComboBox(comboWarehouse,
+                JavaRoute.warehouse,
+                "warehouseNameEn",
+                JavaComboBoxSelection.DESC);
 
-               Response response = JavaConnection.get(JavaRoute.warehouse);
-
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    JSONObject jsonObject = new JSONObject(responseData);
-                    JSONArray data = jsonObject.getJSONArray("data");
-                    
-                    for (int i = 0; i < data.length(); i++) {
-                         JSONObject obj = data.getJSONObject(i);
-                         
-                         WarehouseSelectModel war = new WarehouseSelectModel(
-                              obj.getInt("id"),
-                              obj.getString("warehouseNameEn")
-                         );
-
-                         warehouse.add(war);
-
-                         int idWare = warehouse.get(i).getId();
-                         String warehouseName = warehouse.get(i).getWarehouseNameEn();
-                         map.put(warehouseName, "" + idWare);
-                    }
-                    comboWarehouse.setMap(map);
-
-               } else {
-                    System.err.println("fail loading data");
-               }
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
-    
-    //Place Holder
-    void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
+        ButtonEvent event = new ButtonEvent() {
             @Override
-            public void onFocusGain() {
-
+            public void onSelected(String id) {
+                warehouseId = id;
             }
         };
-        txtRange.initEvent(btnevent);
-        txtRangeKh.initEvent(btnevent);
+        comboWarehouse.initEvent(event);
     }
+    
     
     //Value Edit
     public void setValueEdit(
@@ -103,14 +56,14 @@ public class AddRange extends javax.swing.JDialog {
     ) throws IOException {
         
         if(rangeName != null && rangeName != ""){
-            txtRange.setValueTextField(rangeName);  
+            txtRange.setText(rangeName);  
         }
         
         if(rangeNameKh != null && rangeNameKh != ""){
-            txtRangeKh.setValueTextField(rangeNameKh);
+            txtRangeKh.setText(rangeNameKh);
         }  
         
-        comboWarehouse.setToLastItem(idWarehouse);
+        comboWarehouse.setSelectedItem(idWarehouse);
     }
 
     @SuppressWarnings("unchecked")
@@ -119,22 +72,15 @@ public class AddRange extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         titlePopUp = new Components.LabelPopUpTitle();
-        label1 = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         buttonSave = new ButtonPackage.ButtonSave();
-        label3 = new Components.Label();
-        jLabel12 = new javax.swing.JLabel();
-        txtRangeKh = new Components.TextField();
-        txtRange = new Components.TextField();
-        label2 = new Components.Label();
-        jLabel13 = new javax.swing.JLabel();
-        comboWarehouse = new Components.ComboBox();
+        comboWarehouse = new FormComponent.combobox.JavaCombobox();
+        txtRange = new FormComponent.JavaTextField();
+        txtRangeKh = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         titlePopUp.setLabelTitle("Add Range");
-
-        label1.setLabelName("Range Name Kh");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -148,21 +94,13 @@ public class AddRange extends javax.swing.JDialog {
             }
         });
 
-        label3.setLabelName("Range Name");
+        comboWarehouse.setLabelName("Warehouse *");
 
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
+        txtRange.setLabelName("Range Name *");
+        txtRange.setPlaceHolder("Range Name");
 
-        txtRangeKh.setLabelTextField("Range Name Kh");
-
-        txtRange.setLabelTextField("Range Name");
-
-        label2.setLabelName("Warehouse");
-
-        jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel13.setText("*");
+        txtRangeKh.setLabelName("Range Name (KH)");
+        txtRangeKh.setPlaceHolder("Range Name (KH)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -177,51 +115,29 @@ public class AddRange extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                                .addComponent(txtRangeKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txtRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRangeKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(titlePopUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(comboWarehouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(comboWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtRange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel12))
+                .addComponent(txtRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtRangeKh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(txtRangeKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -246,58 +162,37 @@ public class AddRange extends javax.swing.JDialog {
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String rangeNameEn = txtRange.getValueTextField();
         String rangeNameKh = txtRangeKh.getValueTextField();
-
+        
         try {
-            
-            if (warehouseId == null || warehouseId.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please select a warehouse!");
-                return;
-           }
-            
-            if (rangeNameEn == null || rangeNameEn.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Range Name is required!");
-                return;
-            }
 
-            JSONObject json = new JSONObject();
-            json.put("rangeNameEn", rangeNameEn);
-            json.put("rangeNameKh", rangeNameKh);
-            json.put("warehouseId", warehouseId);
-            json.put("createBy", JavaConstant.cashierId);
+            boolean isCheck = JavaValidation.checkValidation(jPanel1);
 
-            if (id != null) {
-                Response response = JavaConnection.put(JavaRoute.range + '/' + id, json);
-                
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-                
-                if (jsonResponse.has("error")) {
-                    
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                    
-                }else{
-                    listGetRange.removeAll();
-                    listGetRange.revalidate();
-                    listGetRange.repaint();
-                    obj.getRange(listGetRange,true,pageNumber);
-                    dispose();
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("rangeNameEn", rangeNameEn);
+                json.put("rangeNameKh", rangeNameKh);
+                json.put("warehouseId", warehouseId);
+                json.put("createBy", JavaConstant.cashierId);
+
+                // create response 
+                Response response = null;
+                if (id != null) { // update
+                    response = JavaConnection.put(JavaRoute.range + '/' + id, json);
+                } else { // add new 
+                    response = JavaConnection.post(JavaRoute.range, json);
                 }
 
-            } else {
-                Response response = JavaConnection.post(JavaRoute.range, json);
-                String responeData = response.body().string();
-                JSONObject jsonResponse = new JSONObject(responeData);
-                
-                if (jsonResponse.has("error")) {
+                try {
+                    if (response.isSuccessful()) {
+                        listGetRange.removeAll();
+                        listGetRange.revalidate();
+                        listGetRange.repaint();
+                        obj.getRange(listGetRange,true,pageNumber);
+                        dispose();
+                    }
 
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
-                    
-                }else{
-                    listGetRange.removeAll();
-                    listGetRange.revalidate();
-                    listGetRange.repaint();
-                    obj.getRange(listGetRange,true,pageNumber);
-                    dispose();
+                } catch (Exception e) {
+                    System.err.println("error post range : " + e);
                 }
             }
 
@@ -374,15 +269,10 @@ public class AddRange extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private Components.ComboBox comboWarehouse;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
+    private FormComponent.combobox.JavaCombobox comboWarehouse;
     private javax.swing.JPanel jPanel1;
-    private Components.Label label1;
-    private Components.Label label2;
-    private Components.Label label3;
     private Components.LabelPopUpTitle titlePopUp;
-    private Components.TextField txtRange;
-    private Components.TextField txtRangeKh;
+    private FormComponent.JavaTextField txtRange;
+    private FormComponent.JavaTextField txtRangeKh;
     // End of variables declaration//GEN-END:variables
 }

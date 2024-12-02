@@ -39,40 +39,20 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="titlePopUp" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="comboRange" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSlot" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSlotKh" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="label3" min="-2" pref="65" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" min="-2" pref="13" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="txtSlot" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="label1" min="-2" pref="125" max="-2" attributes="0"/>
-                                  <EmptySpace pref="46" max="32767" attributes="0"/>
-                                  <Component id="txtSlotKh" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label2" min="-2" pref="40" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" min="-2" pref="13" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="comboRange" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -80,32 +60,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="titlePopUp" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label2" pref="29" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="comboRange" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <Component id="comboRange" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="txtSlot" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtSlot" alignment="0" max="32767" attributes="0"/>
-                      <Component id="label3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtSlotKh" max="32767" attributes="0"/>
-                      <Component id="label1" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                  <Component id="txtSlotKh" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonCancel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSave" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -114,11 +80,6 @@
         <Component class="Components.LabelPopUpTitle" name="titlePopUp">
           <Properties>
             <Property name="labelTitle" type="java.lang.String" value="Add Slot"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label1">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Slot Name Kh"/>
           </Properties>
         </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
@@ -131,49 +92,22 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Components.Label" name="label3">
+        <Component class="FormComponent.combobox.JavaCombobox" name="comboRange">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Slot Name"/>
+            <Property name="labelName" type="java.lang.String" value="Range *"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
+        <Component class="FormComponent.JavaTextField" name="txtSlot">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
+            <Property name="labelName" type="java.lang.String" value="Slot Name *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Slot Name"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="txtSlotKh">
+        <Component class="FormComponent.JavaTextField" name="txtSlotKh">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Slot Name Kh"/>
+            <Property name="labelName" type="java.lang.String" value="Slot Name (KH)"/>
+            <Property name="placeHolder" type="java.lang.String" value="Slot Name (KH)"/>
           </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtSlot">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Slot Name"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label2">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Range"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="comboRange">
         </Component>
       </SubComponents>
     </Container>

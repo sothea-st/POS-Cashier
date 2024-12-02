@@ -20,7 +20,7 @@ public class Range {
     
     public Range(Integer id,
             String rangeNameEn,
-            String warehouseNameKh,
+            String rangeNameKh,
             String warehouse
     ){
             this.id = id;
