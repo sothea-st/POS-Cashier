@@ -158,15 +158,15 @@ public class ListProduct extends javax.swing.JDialog {
                          int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
                          pageNumber = String.valueOf(_value);
                          switch (code) {
-                              case 0 -> {
+                              case 0 -> { // search all product
                                    getProduct(listGetProduct, true, 0);
                                    break;
                               }
-                              case 1 -> {
+                              case 1 -> { // search product active
                                    getProduct(listGetProduct, true, 1);
                                    break;
                               }
-                              case 2 -> {
+                              case 2 -> { // search produc inactive
                                    getProduct(listGetProduct, true, 2);
                                    break;
                               }

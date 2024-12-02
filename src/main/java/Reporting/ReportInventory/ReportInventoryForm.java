@@ -11,30 +11,18 @@ import Products.ListProduct;
 import Reporting.ReportInventory.ReportInventoryModel.ReportInventoryDetail;
 import Reporting.ReportInventory.export.ExportReportInventoryToCSV;
 import Reporting.ReportInventory.export.ExportReportInventoryToExcel;
-import Reporting.ReportingImportDetail;
-import Reporting.ReportingItem.ReportOfPurchase;
-import Reporting.ReportingPurchaseOrder;
-import Reporting.export.ExportReportPurchaseOrderToCSV;
-import Reporting.export.ExportReportPurchaseOrderToExcel;
-import Reporting.export.ExportReportPurchaseOrderToPDF;
-import Reporting.model.ReportingDetailResponse;
-import Reporting.model.ReportingRespone;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import okhttp3.Response;
 import org.json.JSONObject;
-import pdf.PrintListPDF;
 import pdf.PrintToCSV;
 import pdf.PrintToExcel;
 
@@ -54,15 +42,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
           initComponents();
 
           searchField.setFocus();
-          jScrollPaneP.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER); // Hide vertical scroll bar
-          // custome scrollbar ui
-          jScrollPaneP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-          jScrollPaneP.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPaneP.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          // custom scroll speed jscrollPane for vertical
-          JScrollBar verticalScrollBar = jScrollPaneP.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
+          
 
           // set background color
           panelItem.setBackground(WindowColor.mediumGreen);
@@ -79,12 +59,26 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 
           groupEvent(this);
           paginationPanel.setVisible(false);
+          
+          
+          
+           // custome scrollbar ui
+          jScrollPaneP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPaneP.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPaneP.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPaneP.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
+ 
      }
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
+          jPanel1 = new javax.swing.JPanel();
           jPanel2 = new javax.swing.JPanel();
           searchField = new Components.SearchField();
           groupButtonExport = new Reporting.GroupButtonExport();
@@ -102,10 +96,10 @@ public class ReportInventoryForm extends javax.swing.JDialog {
           jLabel9 = new javax.swing.JLabel();
           jLabel10 = new javax.swing.JLabel();
           jLabel11 = new javax.swing.JLabel();
-          jScrollPaneP = new javax.swing.JScrollPane();
-          panelItem = new javax.swing.JPanel();
           paginationPanel = new pagination.PaginationPanel();
           btnCancel = new Button.Button();
+          jScrollPaneP = new javax.swing.JScrollPane();
+          panelItem = new javax.swing.JPanel();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -252,23 +246,6 @@ public class ReportInventoryForm extends javax.swing.JDialog {
                     .addGap(13, 13, 13))
           );
 
-          jScrollPaneP.setBorder(null);
-
-          panelItem.setPreferredSize(new java.awt.Dimension(1200, 430));
-
-          javax.swing.GroupLayout panelItemLayout = new javax.swing.GroupLayout(panelItem);
-          panelItem.setLayout(panelItemLayout);
-          panelItemLayout.setHorizontalGroup(
-               panelItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGap(0, 1433, Short.MAX_VALUE)
-          );
-          panelItemLayout.setVerticalGroup(
-               panelItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGap(0, 430, Short.MAX_VALUE)
-          );
-
-          jScrollPaneP.setViewportView(panelItem);
-
           btnCancel.setButtonName("Close");
           btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -276,39 +253,66 @@ public class ReportInventoryForm extends javax.swing.JDialog {
                }
           });
 
+          jScrollPaneP.setBackground(new java.awt.Color(176, 215, 181));
+          jScrollPaneP.setBorder(null);
+
+          javax.swing.GroupLayout panelItemLayout = new javax.swing.GroupLayout(panelItem);
+          panelItem.setLayout(panelItemLayout);
+          panelItemLayout.setHorizontalGroup(
+               panelItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGap(0, 1467, Short.MAX_VALUE)
+          );
+          panelItemLayout.setVerticalGroup(
+               panelItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGap(0, 418, Short.MAX_VALUE)
+          );
+
+          jScrollPaneP.setViewportView(panelItem);
+
+          javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+          jPanel1.setLayout(jPanel1Layout);
+          jPanel1Layout.setHorizontalGroup(
+               jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(header, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(jScrollPaneP)
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                              .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(10, 10, 10)))
+                    .addContainerGap())
+          );
+          jPanel1Layout.setVerticalGroup(
+               jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneP, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(20, 20, 20))
+          );
+
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
           getContentPane().setLayout(layout);
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addGroup(layout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(layout.createSequentialGroup()
-                              .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGroup(layout.createSequentialGroup()
-                              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                   .addComponent(jScrollPaneP)
-                                   .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addGap(0, 0, Short.MAX_VALUE)))
-                    .addGap(18, 18, 18))
+               .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, 0)
-                    .addComponent(jScrollPaneP, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(24, Short.MAX_VALUE))
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0))
           );
 
           pack();
@@ -343,10 +347,12 @@ public class ReportInventoryForm extends javax.swing.JDialog {
           try {
                Response response = null;
                if (isCheck) { // isCheck true is get items
-                    response = JavaConnection.get(JavaRoute.reportInventory + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
+                    response = JavaConnection.get(JavaRoute.reportInventory + "?pageNumber=" + pageNumber + "&pageSize="+pageSize+"&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
                } else { // isCheck false is search
                     isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.reportInventory + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue +"&search="+searchValue);
+                    response = JavaConnection.get(JavaRoute.reportInventory + "/search?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&search=" + searchValue);
+               
+                    System.err.println("response search : " + response);
                }
 
                String dataResponse = response.body().string();
@@ -360,12 +366,15 @@ public class ReportInventoryForm extends javax.swing.JDialog {
                     ReportInventoryModel data = objectMapper.readValue(dataResponse, ReportInventoryModel.class);
                     ReportInventoryModel.ReportInventoryDetail[] lists = data.getData();
 
+                    System.err.println("length : " + lists.length);
+
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage(data.getCount());
                     }
 
+      
                     listDetail.clear();
                     listDetail.addAll(Arrays.asList(lists));
                     appendPurchaeOrder(lists);
@@ -397,6 +406,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
           int x = 0;
           int y = 0;
 
+           
           for (int i = 0; i < list.length; i++) {
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
@@ -423,6 +433,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
                     String.valueOf(data.getEndingQty()),
                     String.valueOf(data.getReturnInQty())
                );
+                
                panelItem.add(b, gbc);
           }
 
@@ -439,11 +450,11 @@ public class ReportInventoryForm extends javax.swing.JDialog {
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
-     
-      public void groupEvent(ReportInventoryForm re) {
-           
-           groupButtonExport.setPdf(); // hide btnPdf
-           
+
+     public void groupEvent(ReportInventoryForm re) {
+
+          groupButtonExport.setPdf(); // hide btnPdf
+
           ButtonEvent btnevent = new ButtonEvent() {
                @Override
                public void onFocusGain() {
@@ -511,15 +522,14 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 //                              paginationPanel.resetPage();
 //                              pageNumber = "0";
 //                         }
-
                          setData(true);
                     }
                }
           };
           paginationPanel.initEvent(paginationEvent);
      }
-      
-    private void export(int type) {
+
+     private void export(int type) {
           if (listDetail.isEmpty()) {
                JOptionPane.showMessageDialog(null, "Can not export .");
                return;
@@ -535,7 +545,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 
                switch (type) {
                     case 1 -> {
-                         
+
                          ListProduct.msgPrint(PrintToExcel.folderPath);
                          ExportReportInventoryToExcel.toExcel(listDetail);
                          break;
@@ -554,13 +564,13 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 //                              Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
 //                         }
 //                    }
-
                }
 
           } catch (Exception e) {
                System.err.println("error export : " + e);
           }
      }
+
      public static void main(String args[]) {
 
           java.awt.EventQueue.invokeLater(new Runnable() {
@@ -594,6 +604,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
      private javax.swing.JLabel jLabel7;
      private javax.swing.JLabel jLabel8;
      private javax.swing.JLabel jLabel9;
+     private javax.swing.JPanel jPanel1;
      private javax.swing.JPanel jPanel2;
      private javax.swing.JScrollPane jScrollPaneP;
      private pagination.PaginationPanel paginationPanel;

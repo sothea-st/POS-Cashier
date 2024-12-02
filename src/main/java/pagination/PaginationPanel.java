@@ -163,8 +163,11 @@ public class PaginationPanel extends javax.swing.JPanel {
           setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
           setValueText(1, 2, 3, 4, 5);
           checkPageNumber();
+          
+          
           showPageSize.setText("100");
-          showTotal.setText("222");
+          showTotal.setText("100");
+          
      }
 
      public void resetPage(String page, String pageNum) {
@@ -530,7 +533,6 @@ public class PaginationPanel extends javax.swing.JPanel {
                     pageNumber = Integer.parseInt(pageFive.getText());
                     funcPageFive(event);
                     event.onMouseClick(String.valueOf(pageNumber), "pageFive");
-
                }
 
                @Override

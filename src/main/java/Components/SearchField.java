@@ -83,6 +83,8 @@ public class SearchField extends javax.swing.JPanel {
           setBackground(WindowColor.white);
           textSearch.setFont(WindowFonts.timeNewRoman14);
           JavaConstant.setPointer(textSearch);
+          
+          textSearch.setBackground(WindowColor.white);
      }
 
      public void disabledTextField(boolean value) {

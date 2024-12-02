@@ -87,12 +87,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lbLogo" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="boxImg" max="32767" attributes="0"/>
-                              <Component id="currentDate" max="32767" attributes="0"/>
-                              <Component id="lbPOSId" alignment="0" max="32767" attributes="0"/>
-                              <Component id="searchBox" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="boxImg" max="32767" attributes="0"/>
+                                  <Component id="currentDate" max="32767" attributes="0"/>
+                                  <Component id="lbPOSId" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="searchBox" min="-2" pref="43" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -139,13 +141,12 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelCategory" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="panelCart" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="textField" alignment="0" pref="43" max="32767" attributes="0"/>
+                                  <Component id="panelCart" max="32767" attributes="0"/>
+                              </Group>
                               <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="textField" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -249,7 +250,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/King Mart Small Logo second.png"/>
+              <Image iconType="3" name="/company/logoTT_small.png"/>
             </Property>
           </Properties>
         </Component>
