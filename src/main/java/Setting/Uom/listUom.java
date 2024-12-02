@@ -85,7 +85,7 @@ public class listUom extends javax.swing.JDialog {
             
             Response response = null;
             if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize=10");
+                 response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
             } else { // isCheck false search
                  isCheckSearch = false;
                  response = JavaConnection.get(JavaRoute.uom + "/search?" + searchValue);
@@ -102,7 +102,7 @@ public class listUom extends javax.swing.JDialog {
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                 } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                 }
                               
                 assignUom(listData, jpanelData);

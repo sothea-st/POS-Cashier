@@ -103,7 +103,7 @@ public class ListStatus extends javax.swing.JDialog {
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                 } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                 }
                 
                 assignStatus(listData, jpanelData);

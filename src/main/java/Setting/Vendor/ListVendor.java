@@ -99,7 +99,7 @@ public class ListVendor extends javax.swing.JDialog {
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                 } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                 }
                 
                 assignVendor(listData, jpanelData);
@@ -293,7 +293,7 @@ public class ListVendor extends javax.swing.JDialog {
                            if (searchValue.isEmpty()) {
                                 isCheckSearch = true;
                                 pageNumber = "0";
-                                getVendor(listGetVendor,false,pageNumber);
+                                getVendor(listGetVendor,true,pageNumber);
                                 return;
                            }
                            getVendor(listGetVendor,false,pageNumber);

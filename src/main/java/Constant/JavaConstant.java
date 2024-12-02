@@ -1,6 +1,5 @@
 package Constant;
 
-import BlogCode.JavaBlogImage;
 import Components.BoxItem;
 import Components.NotFound;
 import Components.countCircleShape;
@@ -34,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -301,6 +299,7 @@ public class JavaConstant {
           }
      }
 
+
      public static void setCommaIn3Length(JTextField txtText) {
           ((AbstractDocument) txtText.getDocument()).setDocumentFilter(new DocumentFilter() {
                @Override
@@ -338,9 +337,7 @@ public class JavaConstant {
           for (Component c : listDetailItem) {
                var data = ((BoxItem) c);
                int saleQty = data.getQty();
-
                for (Component cc : listPanelProduct) {
-
                     var pro = ((ProductBox) cc);
 
                     int qty = Integer.parseInt(pro.getQty());
@@ -351,7 +348,6 @@ public class JavaConstant {
                          pro.setProductStatus(JavaMessage.inStock);
                          break;
                     }
-
                }
 
           }
