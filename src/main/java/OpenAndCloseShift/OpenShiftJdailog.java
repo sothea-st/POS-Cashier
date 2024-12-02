@@ -38,689 +38,600 @@ import org.json.JSONObject;
  */
 public class OpenShiftJdailog extends javax.swing.JDialog {
 
-     private SearchField searchBox;
-     private Button btnOpenShift;
-     private LoginFormJdailog jdLoginForm;
-     private DataModelDefaultPrice dataSuccess;
-     private JPanel category;
-     private JPanel panelProduct;
-     private LoginFormJdailog jdFormLogin;
-     private int limit;
-     private JPanel panelPagination;
-     private JPanel detailItem;
-     private SubtotalPanel subtotalPanel;
-     private Button btnPayment;
-     private TextField textField;
+    private SearchField searchBox;
+    private Button btnOpenShift;
+    private LoginFormJdailog jdLoginForm;
+    private DataModelDefaultPrice dataSuccess;
+    private JPanel category;
+    private JPanel panelProduct;
+    private LoginFormJdailog jdFormLogin;
+    private int limit;
+    private JPanel panelPagination;
+    private JPanel detailItem;
+    private SubtotalPanel subtotalPanel;
+    private Button btnPayment;
+    private TextField textField;
 
-     private Button btnReturn;
-     private Button btnReprint;
-     private Button buttonDiscount;
-     private Button buttonCustomer;
-     private Button buttonHoldOrder;
-     private ButtonCancel btnCancel;
-     private Button btnLogin;
-     private JLabel titleOrder;
-     private Button stock;
-     private LabelFontGreen previous;
-     private LabelFontGreen next;
-     private JFrame mainFrame;
-     private LoginFormJdailog loginFormJdailog;
-     private LabelTitle labelTitle;
-     private ComboBox cmboxBrand;
-     private Button buttonStaff;
+    private Button btnReturn;
+    private Button btnReprint;
+    private Button buttonDiscount;
+    private Button buttonCustomer;
+    private Button buttonHoldOrder;
+    private ButtonCancel btnCancel;
+    private Button btnLogin;
+    private JLabel titleOrder;
+    private Button stock;
+    private LabelFontGreen previous;
+    private LabelFontGreen next;
+    private JFrame mainFrame;
+    private LoginFormJdailog loginFormJdailog;
+    private LabelTitle labelTitle;
+    private ComboBox cmboxBrand;
+    private Button buttonStaff;
 
-     public LabelFontGreen getPrevious() {
-          return previous;
-     }
+    public LabelFontGreen getPrevious() {
+        return previous;
+    }
 
-     public void setPrevious(LabelFontGreen previous) {
-          this.previous = previous;
-     }
+    public void setPrevious(LabelFontGreen previous) {
+        this.previous = previous;
+    }
 
-     public LabelFontGreen getNext() {
-          return next;
-     }
+    public LabelFontGreen getNext() {
+        return next;
+    }
 
-     public void setNext(LabelFontGreen next) {
-          this.next = next;
-     }
+    public void setNext(LabelFontGreen next) {
+        this.next = next;
+    }
 
-     public LabelTitle getLabelTitle() {
-          return labelTitle;
-     }
+    public LabelTitle getLabelTitle() {
+        return labelTitle;
+    }
 
-     public void setLabelTitle(LabelTitle labelTitle) {
-          this.labelTitle = labelTitle;
-     }
+    public void setLabelTitle(LabelTitle labelTitle) {
+        this.labelTitle = labelTitle;
+    }
 
-     public ComboBox getCmboxBrand() {
-          return cmboxBrand;
-     }
+    public ComboBox getCmboxBrand() {
+        return cmboxBrand;
+    }
 
-     public void setCmboxBrand(ComboBox cmboxBrand) {
-          this.cmboxBrand = cmboxBrand;
-     }
+    public void setCmboxBrand(ComboBox cmboxBrand) {
+        this.cmboxBrand = cmboxBrand;
+    }
 
-     public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
-          super(parent, modal);
-          initComponents();
-          panelOpenShift.setBackground(WindowColor.mediumGreen);
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          currenDateTime();
-          event();
-          setText();
-          this.btnOpenShift = btnOpenShift;
-          txtTotalUsd.setFocus();
+    public OpenShiftJdailog(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
+        super(parent, modal);
+        initComponents();
+        panelOpenShift.setBackground(WindowColor.mediumGreen);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        currenDateTime();
+        setText();
+        this.btnOpenShift = btnOpenShift;
+        txtTotalUsd.setFocus();
+        
+        txtTotalUsd.setValidateAmount();
+        txtTotalKhr.setValidateAmount();
+        
+        txtDateTime.requestFocus();
 
-          txtTotalUsd.setComma("comma");
-          txtTotalKhr.setComma("comma"); // when user type 4length it will insert (,) at 3 length 
+    }
 
-     }
+    private void currenDateTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
+        LocalDateTime date = LocalDateTime.now();
+        txtDateTime.setText(dtf.format(date));
+        txtDateTime.setDisable();
+    }
 
-     private void currenDateTime() {
-          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
-          LocalDateTime date = LocalDateTime.now();
-          txtDateTime.setUneditText(dtf.format(date));
-     }
+    private void setText() {
+        txtCashierName.setText(JavaConstant.fullName);
+        txtCashierName.setDisable();
+        txtUserId.setText(JavaConstant.userCode);
+        txtUserId.setDisable();
+        txtPosId.setText(JavaConstant.posId);
+        txtPosId.setDisable();
+    }
 
-     private void setText() {
-          txtCashierName.setUneditText(JavaConstant.fullName);
-          txtUserId.setUneditText(JavaConstant.userCode);
-          txtPosId.setUneditText(JavaConstant.posId);
-     }
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
+        jLabel2 = new javax.swing.JLabel();
+        panelOpenShift = new javax.swing.JPanel();
+        labelPopUpTitle1 = new Components.LabelPopUpTitle();
+        buttonCancel = new ButtonPackage.ButtonCancel();
+        buttonSave = new ButtonPackage.ButtonSave();
+        txtPosId = new FormComponent.JavaTextField();
+        txtUserId = new FormComponent.JavaTextField();
+        txtCashierName = new FormComponent.JavaTextField();
+        txtTotalUsd = new FormComponent.JavaTextField();
+        txtTotalKhr = new FormComponent.JavaTextField();
+        txtDateTime = new FormComponent.JavaTextField();
 
-               }
-          };
-          txtTotalUsd.initEvent(btnevent);
-          txtTotalKhr.initEvent(btnevent);
-     }
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel2.setText("*");
 
-     @SuppressWarnings("unchecked")
-     // <editor-fold defaultstate="collapsed" desc="Generated
-     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-          jLabel2 = new javax.swing.JLabel();
-          panelOpenShift = new javax.swing.JPanel();
-          txtTotalUsd = new Components.TextField();
-          txtPosId = new Components.UnEditableTextField();
-          txtUserId = new Components.UnEditableTextField();
-          txtDateTime = new Components.UnEditableTextField();
-          txtCashierName = new Components.UnEditableTextField();
-          labelPopUpTitle1 = new Components.LabelPopUpTitle();
-          lbPosId = new Components.Label();
-          IbUserId = new Components.Label();
-          lbOpenDate = new Components.Label();
-          lbTotalUsd = new Components.Label();
-          lbCashier = new Components.Label();
-          LbTotalKhr = new Components.Label();
-          buttonCancel = new ButtonPackage.ButtonCancel();
-          buttonSave = new ButtonPackage.ButtonSave();
-          txtTotalKhr = new Components.TextField();
-          jLabel1 = new javax.swing.JLabel();
-          jLabel3 = new javax.swing.JLabel();
+        labelPopUpTitle1.setLabelTitle("Open Shift");
 
-          jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel2.setForeground(new java.awt.Color(204, 0, 0));
-          jLabel2.setText("*");
+        buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonCancelMouseClicked(evt);
+            }
+        });
 
-          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonSaveMouseClicked(evt);
+            }
+        });
 
-          panelOpenShift.setForeground(new java.awt.Color(0, 0, 0));
+        txtPosId.setLabelName("POS ID");
+        txtPosId.setPlaceHolder("POS ID");
 
-          txtTotalUsd.setLabelTextField("$ 0.00");
+        txtUserId.setLabelName("User Code");
+        txtUserId.setPlaceHolder("User Code");
 
-          txtPosId.setUneditText("01");
+        txtCashierName.setLabelName("Cashier Name");
+        txtCashierName.setPlaceHolder("Cashier Name");
 
-          txtUserId.setUneditText("0006");
+        txtTotalUsd.setLabelName("Total Cash (USD) *");
+        txtTotalUsd.setPlaceHolder("$ 0.00");
 
-          txtDateTime.setUneditText("02-01- 2024 03:50:00 PM");
+        txtTotalKhr.setLabelName("Total Cash (KHR) *");
+        txtTotalKhr.setPlaceHolder("0");
 
-          txtCashierName.setUneditText("KIMSRON");
+        txtDateTime.setLabelName("Open Date / Time ");
 
-          labelPopUpTitle1.setLabelTitle("Open Shift");
+        javax.swing.GroupLayout panelOpenShiftLayout = new javax.swing.GroupLayout(panelOpenShift);
+        panelOpenShift.setLayout(panelOpenShiftLayout);
+        panelOpenShiftLayout.setHorizontalGroup(
+            panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                        .addComponent(txtPosId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTotalKhr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotalUsd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                            .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                            .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCashierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 23, Short.MAX_VALUE))
+            .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelOpenShiftLayout.setVerticalGroup(
+            panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpenShiftLayout.createSequentialGroup()
+                .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPosId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCashierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotalUsd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotalKhr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40))
+        );
 
-          lbPosId.setLabelName("POS ID");
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelOpenShift, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-          IbUserId.setLabelName("User ID");
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
 
-          lbOpenDate.setLabelName("Open Date / Time");
+    public JFrame getMainFrame() {
+        return mainFrame;
+    }
 
-          lbTotalUsd.setLabelName("Total Cash ( USD)");
+    public void setMainFrame(JFrame mainFrame) {
+        this.mainFrame = mainFrame;
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        JavaConstant.rowNum = 7;
+    }
 
-          lbCashier.setLabelName("Cashier Name");
+    private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonCancelMouseClicked
+        this.dispose();
+    }// GEN-LAST:event_buttonCancelMouseClicked
+    ActionProduct pro = new ActionProduct();
 
-          LbTotalKhr.setLabelName("Total Cash ( KHR)");
+    private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonSaveMouseClicked
 
-          buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    buttonCancelMouseClicked(evt);
-               }
-          });
+        String reserveUsd = txtTotalUsd.getValueTextField();
+        String reserveKhr = txtTotalKhr.getValueTextField();
+        String posId = txtPosId.getValueTextField();
+        String userCode = txtUserId.getValueTextField();
+        String openTime = txtDateTime.getValueTextField();
 
-          buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    buttonSaveMouseClicked(evt);
-               }
-          });
+        try {
 
-          txtTotalKhr.setLabelTextField("0.00");
+            reserveUsd = reserveUsd.replace(",", "");
+            reserveKhr = reserveKhr.replace(",", "");
 
-          jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-          jLabel1.setText("*");
+            JSONObject json = new JSONObject();
+            json.put("reserveUsd", reserveUsd);
+            json.put("reserveKhr", reserveKhr);
+            json.put("posId", posId);
+            json.put("userCode", userCode);
+            json.put("openTime", openTime);
+            json.put("createBy", JavaConstant.cashierId);
 
-          jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel3.setForeground(new java.awt.Color(204, 0, 0));
-          jLabel3.setText("*");
+            boolean isReserveUsd = JavaConstant.onlyDigits(reserveUsd);
+            if (!isReserveUsd) {
+                JOptionPane.showMessageDialog(this, "Invalid value Total Cash(USD) !");
+                return;
+            }
 
-          javax.swing.GroupLayout panelOpenShiftLayout = new javax.swing.GroupLayout(panelOpenShift);
-          panelOpenShift.setLayout(panelOpenShiftLayout);
-          panelOpenShiftLayout.setHorizontalGroup(
-               panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                              .addGap(106, 106, 106)
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(lbTotalUsd, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(LbTotalKhr, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                              .addGap(2, 2, 2)
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                   .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(13, 13, 13))
-                                   .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(txtTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(txtTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
-                              .addGap(0, 0, Short.MAX_VALUE)
-                              .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(22, 22, 22))
-                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpenShiftLayout.createSequentialGroup()
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(lbPosId, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(IbUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(txtPosId, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                   .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(lbOpenDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(lbCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                   .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                   .addComponent(txtCashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                              .addGap(0, 0, Short.MAX_VALUE))))
-               .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                    .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-          );
-          panelOpenShiftLayout.setVerticalGroup(
-               panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                    .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(23, 23, 23)
-                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(txtPosId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(txtDateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(lbPosId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(lbOpenDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                         .addComponent(txtCashierName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(txtUserId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(IbUserId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(lbCashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                              .addComponent(lbTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(txtTotalUsd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(LbTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(txtTotalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addGroup(panelOpenShiftLayout.createSequentialGroup()
-                              .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 0, Short.MAX_VALUE)))
-                    .addGap(30, 30, 30)
-                    .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                         .addComponent(buttonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(buttonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGap(17, 17, 17))
-          );
+            boolean isReserveKhr = JavaConstant.onlyDigits(reserveKhr);
+            if (!isReserveKhr) {
+                JOptionPane.showMessageDialog(this, "Invalid value Total Cash(KHR) !");
+                return;
+            }
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-          getContentPane().setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                    .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panelOpenShift, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          );
+            Response response = JavaConnection.post(JavaRoute.openShift, json);
 
-          pack();
-          setLocationRelativeTo(null);
-     }// </editor-fold>//GEN-END:initComponents
+            JavaConstant.setCircleLoadingCursor(mainFrame);
 
-     public JFrame getMainFrame() {
-          return mainFrame;
-     }
+            if (response.isSuccessful()) {
+                dispose();
+                btnReturn.setBackground(WindowColor.brown);
+                btnReprint.setBackground(WindowColor.green);
+                buttonDiscount.setBackground(WindowColor.green);
+                buttonCustomer.setBackground(WindowColor.green);
+                stock.setBackground(WindowColor.green);
+                buttonStaff.setBackground(WindowColor.green);
 
-     public void setMainFrame(JFrame mainFrame) {
-          this.mainFrame = mainFrame;
-          mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-          JavaConstant.rowNum = 7;
-     }
+                btnOpenShift.setButtonName(JavaConstant.closeShift);
+                // jdLoginForm.setCheckOpenShift(true);
+                JavaConstant.checkOpenShift = true;
+                JavaConstant.checkCloseShift = 1l;
 
-     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonCancelMouseClicked
-          this.dispose();
-     }// GEN-LAST:event_buttonCancelMouseClicked
-     ActionProduct pro = new ActionProduct();
+                // after open shift will show all product at category ALL
+                if (category.getComponentCount() > 0) {
+                    Component[] listCom = category.getComponents();
+                    listCom[1].setBackground(WindowColor.black);
+                }
 
-     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_buttonSaveMouseClicked
-
-          String reserveUsd = txtTotalUsd.getValueTextField();
-          String reserveKhr = txtTotalKhr.getValueTextField();
-          String posId = txtPosId.getUneditText();
-          String userCode = txtUserId.getUneditText();
-          String openTime = txtDateTime.getUneditText();
-
-          try {
-
-               if (reserveUsd == null || reserveUsd.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, " Total Cash (USD) can not be empty!");
-                    return;
-               }
-
-               if (reserveKhr == null || reserveKhr.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, " Total Cash (KHR) can not be empty!");
-                    return;
-               }
-
-               reserveUsd = reserveUsd.replace(",", "");
-               reserveKhr = reserveKhr.replace(",", "");
-
-               JSONObject json = new JSONObject();
-               json.put("reserveUsd", reserveUsd);
-               json.put("reserveKhr", reserveKhr);
-               json.put("posId", posId);
-               json.put("userCode", userCode);
-               json.put("openTime", openTime);
-               json.put("createBy", JavaConstant.cashierId);
-
-               boolean isReserveUsd = JavaConstant.onlyDigits(reserveUsd);
-               if (!isReserveUsd) {
-                    JOptionPane.showMessageDialog(this, "Invalid value Total Cash(USD) !");
-                    return;
-               }
-
-               boolean isReserveKhr = JavaConstant.onlyDigits(reserveKhr);
-               if (!isReserveKhr) {
-                    JOptionPane.showMessageDialog(this, "Invalid value Total Cash(KHR) !");
-                    return;
-               }
-
-               Response response = JavaConnection.post(JavaRoute.openShift, json);
-
-               JavaConstant.setCircleLoadingCursor(mainFrame);
-
-               if (response.isSuccessful()) {
-                    dispose();
-                    btnReturn.setBackground(WindowColor.brown);
-                    btnReprint.setBackground(WindowColor.green);
-                    buttonDiscount.setBackground(WindowColor.green);
-                    buttonCustomer.setBackground(WindowColor.green);
-                    stock.setBackground(WindowColor.green);
-                    buttonStaff.setBackground(WindowColor.green);
-
-                    btnOpenShift.setButtonName(JavaConstant.closeShift);
-                    // jdLoginForm.setCheckOpenShift(true);
-                    JavaConstant.checkOpenShift = true;
-                    JavaConstant.checkCloseShift = 1l;
-
-                    // after open shift will show all product at category ALL
-                    
-                    if (category.getComponentCount() > 0) {
-                         Component[] listCom = category.getComponents();
-                         listCom[1].setBackground(WindowColor.black);
-                    }
-
-                    panelProduct.removeAll();
-                    pro.setDetailItem(detailItem);
+                panelProduct.removeAll();
+                pro.setDetailItem(detailItem);
 //                    pro.getAllProduct(panelProduct);
-                    pro.setNext(next);
-                    pro.newProduct(limit, panelProduct);
-                    pro.setSubtotalPanel(subtotalPanel);
-                    pro.setPanelProduct(panelProduct);
-                    pro.setBtnPayment(btnPayment);
-                    pro.setButtonHoldOrder(buttonHoldOrder);
-                    pro.setBtnCancel(btnCancel);
-                    pro.setBtnReturn(btnReturn);
-                    pro.setTitleOrder(titleOrder);
-                    panelProduct.revalidate();
-                    panelProduct.repaint();
-                    panelPagination.setVisible(true);
-                    searchBox.disabledTextField(true);
-                    textField.disabledTextField(true);
-                    textField.setFocus();
+                pro.setNext(next);
+                pro.newProduct(limit, panelProduct);
+                pro.setSubtotalPanel(subtotalPanel);
+                pro.setPanelProduct(panelProduct);
+                pro.setBtnPayment(btnPayment);
+                pro.setButtonHoldOrder(buttonHoldOrder);
+                pro.setBtnCancel(btnCancel);
+                pro.setBtnReturn(btnReturn);
+                pro.setTitleOrder(titleOrder);
+                panelProduct.revalidate();
+                panelProduct.repaint();
+                panelPagination.setVisible(true);
+                searchBox.disabledTextField(true);
+                textField.disabledTextField(true);
+                textField.setFocus();
 
-                    labelTitle.setLabelTitle("NEW ITEMS");
+                labelTitle.setLabelTitle("NEW ITEMS");
 
-                    if (MainPage.isFullScreen) {
-                         loginFormJdailog.callDataInFullScreen();
-                    }
+                if (MainPage.isFullScreen) {
+                    loginFormJdailog.callDataInFullScreen();
+                }
 
-                    loginFormJdailog.runData();
+                loginFormJdailog.runData();
 
-                    JavaConstant.restoreDefaultCursor(mainFrame);
+                JavaConstant.restoreDefaultCursor(mainFrame);
 
-                    next.setBackground(WindowColor.white);
-                    previous.setBackground(WindowColor.lightGray);
-                    cmboxBrand.setToFirstItem();
+                next.setBackground(WindowColor.white);
+                previous.setBackground(WindowColor.lightGray);
+                cmboxBrand.setToFirstItem();
 
-                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
-               } else {
-                    UIManager UI = new UIManager();
-                    UI.put("OptionPane.background", WindowColor.mediumGreen);
-                    UI.put("Panel.background", WindowColor.mediumGreen);
-                    UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-                    JOptionPane.showMessageDialog(null, "Save Failed!");
+                EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
+            } else {
+                UIManager UI = new UIManager();
+                UI.put("OptionPane.background", WindowColor.mediumGreen);
+                UI.put("Panel.background", WindowColor.mediumGreen);
+                UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+                JOptionPane.showMessageDialog(null, "Save Failed!");
 
-               }
+            }
 
-          } catch (Exception e) {
-               System.out.println("error : " + e);
-          }
-     }// GEN-LAST:event_buttonSaveMouseClicked
+        } catch (Exception e) {
+            System.out.println("error : " + e);
+        }
+    }// GEN-LAST:event_buttonSaveMouseClicked
 
-     public LoginFormJdailog getLoginFormJdailog() {
-          return loginFormJdailog;
-     }
+    public LoginFormJdailog getLoginFormJdailog() {
+        return loginFormJdailog;
+    }
 
-     public void setLoginFormJdailog(LoginFormJdailog loginFormJdailog) {
-          this.loginFormJdailog = loginFormJdailog;
-     }
+    public void setLoginFormJdailog(LoginFormJdailog loginFormJdailog) {
+        this.loginFormJdailog = loginFormJdailog;
+    }
 
-     public SearchField getSearchBox() {
-          return searchBox;
-     }
+    public SearchField getSearchBox() {
+        return searchBox;
+    }
 
-     public void setSearchBox(SearchField searchBox) {
-          this.searchBox = searchBox;
-     }
+    public void setSearchBox(SearchField searchBox) {
+        this.searchBox = searchBox;
+    }
 
-     public TextField getTextField() {
-          return textField;
-     }
+    public TextField getTextField() {
+        return textField;
+    }
 
-     public void setTextField(TextField textField) {
-          this.textField = textField;
-     }
+    public void setTextField(TextField textField) {
+        this.textField = textField;
+    }
 
-     public Button getBtnPayment() {
-          return btnPayment;
-     }
+    public Button getBtnPayment() {
+        return btnPayment;
+    }
 
-     public void setBtnPayment(Button btnPayment) {
-          this.btnPayment = btnPayment;
-     }
+    public void setBtnPayment(Button btnPayment) {
+        this.btnPayment = btnPayment;
+    }
 
-     public DataModelDefaultPrice getDataSuccess() {
-          return dataSuccess;
-     }
+    public DataModelDefaultPrice getDataSuccess() {
+        return dataSuccess;
+    }
 
-     public SubtotalPanel getSubtotalPanel() {
-          return subtotalPanel;
-     }
+    public SubtotalPanel getSubtotalPanel() {
+        return subtotalPanel;
+    }
 
-     public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
-          this.subtotalPanel = subtotalPanel;
-     }
+    public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
+        this.subtotalPanel = subtotalPanel;
+    }
 
-     public void setDataSuccess(DataModelDefaultPrice dataSuccess) {
-          this.dataSuccess = dataSuccess;
-          txtTotalUsd.setForeground(Color.red);
+    public void setDataSuccess(DataModelDefaultPrice dataSuccess) {
+        this.dataSuccess = dataSuccess;
+        txtTotalUsd.setForeground(Color.red);
 //          assignValue(dataSuccess);
-     }
+    }
 
-     private void assignValue(DataModelDefaultPrice dataSuccess) {
-          try {
-               txtTotalUsd.setValueTextField("" + dataSuccess.getData()[0].getDefaultPriceUsd());
-               txtTotalKhr.setValueTextField("" + dataSuccess.getData()[0].getDefaultPriceKhr());
-          } catch (Exception e) {
-               System.err.println("getting error at " + e);
-          }
-     }
+    private void assignValue(DataModelDefaultPrice dataSuccess) {
+        try {
+            txtTotalUsd.setValueTextField("" + dataSuccess.getData()[0].getDefaultPriceUsd());
+            txtTotalKhr.setValueTextField("" + dataSuccess.getData()[0].getDefaultPriceKhr());
+        } catch (Exception e) {
+            System.err.println("getting error at " + e);
+        }
+    }
 
-     public JPanel getDetailItem() {
-          return detailItem;
-     }
+    public JPanel getDetailItem() {
+        return detailItem;
+    }
 
-     public void setDetailItem(JPanel detailItem) {
-          this.detailItem = detailItem;
-     }
+    public void setDetailItem(JPanel detailItem) {
+        this.detailItem = detailItem;
+    }
 
-     public JPanel getPanelPagination() {
-          return panelPagination;
-     }
+    public JPanel getPanelPagination() {
+        return panelPagination;
+    }
 
-     public void setPanelPagination(JPanel panelPagination) {
-          this.panelPagination = panelPagination;
-     }
+    public void setPanelPagination(JPanel panelPagination) {
+        this.panelPagination = panelPagination;
+    }
 
-     public int getLimit() {
-          return limit;
-     }
+    public int getLimit() {
+        return limit;
+    }
 
-     public void setLimit(int limit) {
-          this.limit = limit;
-     }
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
 
-     public JPanel getCategory() {
-          return category;
-     }
+    public JPanel getCategory() {
+        return category;
+    }
 
-     public void setCategory(JPanel category) {
-          this.category = category;
-     }
+    public void setCategory(JPanel category) {
+        this.category = category;
+    }
 
-     public JPanel getPanelProduct() {
-          return panelProduct;
-     }
+    public JPanel getPanelProduct() {
+        return panelProduct;
+    }
 
-     public void setPanelProduct(JPanel panelProduct) {
-          this.panelProduct = panelProduct;
-     }
+    public void setPanelProduct(JPanel panelProduct) {
+        this.panelProduct = panelProduct;
+    }
 
-     public LoginFormJdailog getJdFormLogin() {
-          return jdFormLogin;
-     }
+    public LoginFormJdailog getJdFormLogin() {
+        return jdFormLogin;
+    }
 
-     public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
-          this.jdFormLogin = jdFormLogin;
-     }
+    public void setJdFormLogin(LoginFormJdailog jdFormLogin) {
+        this.jdFormLogin = jdFormLogin;
+    }
 
-     public Button getBtnReturn() {
-          return btnReturn;
-     }
+    public Button getBtnReturn() {
+        return btnReturn;
+    }
 
-     public void setBtnReturn(Button btnReturn) {
-          this.btnReturn = btnReturn;
-     }
+    public void setBtnReturn(Button btnReturn) {
+        this.btnReturn = btnReturn;
+    }
 
-     public Button getBtnReprint() {
-          return btnReprint;
-     }
+    public Button getBtnReprint() {
+        return btnReprint;
+    }
 
-     public void setBtnReprint(Button btnReprint) {
-          this.btnReprint = btnReprint;
-     }
+    public void setBtnReprint(Button btnReprint) {
+        this.btnReprint = btnReprint;
+    }
 
-     public Button getButtonDiscount() {
-          return buttonDiscount;
-     }
+    public Button getButtonDiscount() {
+        return buttonDiscount;
+    }
 
-     public void setButtonDiscount(Button buttonDiscount) {
-          this.buttonDiscount = buttonDiscount;
-     }
+    public void setButtonDiscount(Button buttonDiscount) {
+        this.buttonDiscount = buttonDiscount;
+    }
 
-     public Button getButtonCustomer() {
-          return buttonCustomer;
-     }
+    public Button getButtonCustomer() {
+        return buttonCustomer;
+    }
 
-     public void setButtonCustomer(Button buttonCustomer) {
-          this.buttonCustomer = buttonCustomer;
-     }
+    public void setButtonCustomer(Button buttonCustomer) {
+        this.buttonCustomer = buttonCustomer;
+    }
 
-     public Button getButtonHoldOrder() {
-          return buttonHoldOrder;
-     }
+    public Button getButtonHoldOrder() {
+        return buttonHoldOrder;
+    }
 
-     public void setButtonHoldOrder(Button buttonHoldOrder) {
-          this.buttonHoldOrder = buttonHoldOrder;
-     }
+    public void setButtonHoldOrder(Button buttonHoldOrder) {
+        this.buttonHoldOrder = buttonHoldOrder;
+    }
 
-     public ButtonCancel getBtnCancel() {
-          return btnCancel;
-     }
+    public ButtonCancel getBtnCancel() {
+        return btnCancel;
+    }
 
-     public void setBtnCancel(ButtonCancel btnCancel) {
-          this.btnCancel = btnCancel;
-     }
+    public void setBtnCancel(ButtonCancel btnCancel) {
+        this.btnCancel = btnCancel;
+    }
 
-     public Button getBtnLogin() {
-          return btnLogin;
-     }
+    public Button getBtnLogin() {
+        return btnLogin;
+    }
 
-     public void setBtnLogin(Button btnLogin) {
-          this.btnLogin = btnLogin;
-     }
+    public void setBtnLogin(Button btnLogin) {
+        this.btnLogin = btnLogin;
+    }
 
-     public JLabel getTitleOrder() {
-          return titleOrder;
-     }
+    public JLabel getTitleOrder() {
+        return titleOrder;
+    }
 
-     public void setTitleOrder(JLabel titleOrder) {
-          this.titleOrder = titleOrder;
-     }
+    public void setTitleOrder(JLabel titleOrder) {
+        this.titleOrder = titleOrder;
+    }
 
-     public Button getButtonStaff() {
-          return buttonStaff;
-     }
+    public Button getButtonStaff() {
+        return buttonStaff;
+    }
 
-     public void setButtonStaff(Button buttonStaff) {
-          this.buttonStaff = buttonStaff;
-     }
+    public void setButtonStaff(Button buttonStaff) {
+        this.buttonStaff = buttonStaff;
+    }
 
-     /**
-      * @param args the command line
-      * arguments
-      */
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-          // (optional) ">
-          /*
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
+        // (optional) ">
+        /*
          * If Nimbus (introduced in Java SE 6) is not available, stay with the default
          * look and feel.
          * For details see
          * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
+                    null, ex);
+        }
+        // </editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                OpenShiftJdailog dialog = new OpenShiftJdailog(new javax.swing.JFrame(), true, null);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
                     }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(OpenShiftJdailog.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-          }
-          // </editor-fold>
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    OpenShiftJdailog dialog = new OpenShiftJdailog(new javax.swing.JFrame(), true, null);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+    public LoginFormJdailog getJdLoginForm() {
+        return jdLoginForm;
+    }
 
-     public LoginFormJdailog getJdLoginForm() {
-          return jdLoginForm;
-     }
+    public void setJdLoginForm(LoginFormJdailog jdLoginForm) {
+        this.jdLoginForm = jdLoginForm;
+    }
 
-     public void setJdLoginForm(LoginFormJdailog jdLoginForm) {
-          this.jdLoginForm = jdLoginForm;
-     }
+    public Button getStock() {
+        return stock;
+    }
 
-     public Button getStock() {
-          return stock;
-     }
-
-     public void setStock(Button stock) {
-          this.stock = stock;
-     }
+    public void setStock(Button stock) {
+        this.stock = stock;
+    }
 
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private Components.Label IbUserId;
-     private Components.Label LbTotalKhr;
-     private ButtonPackage.ButtonCancel buttonCancel;
-     private ButtonPackage.ButtonSave buttonSave;
-     private javax.swing.JLabel jLabel1;
-     private javax.swing.JLabel jLabel2;
-     private javax.swing.JLabel jLabel3;
-     private Components.LabelPopUpTitle labelPopUpTitle1;
-     private Components.Label lbCashier;
-     private Components.Label lbOpenDate;
-     private Components.Label lbPosId;
-     private Components.Label lbTotalUsd;
-     private javax.swing.JPanel panelOpenShift;
-     private Components.UnEditableTextField txtCashierName;
-     private Components.UnEditableTextField txtDateTime;
-     private Components.UnEditableTextField txtPosId;
-     private Components.TextField txtTotalKhr;
-     private Components.TextField txtTotalUsd;
-     private Components.UnEditableTextField txtUserId;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private ButtonPackage.ButtonCancel buttonCancel;
+    private ButtonPackage.ButtonSave buttonSave;
+    private javax.swing.JLabel jLabel2;
+    private Components.LabelPopUpTitle labelPopUpTitle1;
+    private javax.swing.JPanel panelOpenShift;
+    private FormComponent.JavaTextField txtCashierName;
+    private FormComponent.JavaTextField txtDateTime;
+    private FormComponent.JavaTextField txtPosId;
+    private FormComponent.JavaTextField txtTotalKhr;
+    private FormComponent.JavaTextField txtTotalUsd;
+    private FormComponent.JavaTextField txtUserId;
+    // End of variables declaration//GEN-END:variables
 }

@@ -135,7 +135,69 @@ public class JavaTextField extends javax.swing.JPanel {
 
     // Validate phone number Method
     public void setValidatePhoneNumber() {
-        typeTextField = phoneNumber; // for check validation 
+//        typeTextField = phoneNumber; // for check validation 
+//        txt.addKeyListener(new KeyListener() {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//                char c = e.getKeyChar();
+//                String currentText = txt.getText().replaceAll("\\s", ""); // Remove spaces for length checking
+//                int length = currentText.length();
+//
+//                // Allow only digits, backspace, and delete
+//                if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+//                    e.consume(); // Ignore non-digit characters
+//                }
+//
+//                // Restrict the length to 12 digits (excluding spaces)
+//                if (length >= 10 && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+//                    e.consume(); // Stop input if length exceeds 12 digits
+//                }
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                // No specific action needed for keyPressed
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                if (txt.getText().isEmpty()) {
+//                    lbError.setVisible(false); // Hide error if valid
+//                    return;
+//                }
+//
+//                String text = txt.getText().replaceAll("\\s", ""); // Remove existing spaces for reformatting
+//                int length = text.length();
+//
+//                // Format the text to add a space after every 3 digits
+//                StringBuilder formattedText = new StringBuilder();
+//                for (int i = 0; i < length; i++) {
+//                    if (i > 0 && i % 3 == 0) {
+//                        formattedText.append(" ");
+//                    }
+//                    formattedText.append(text.charAt(i));
+//                }
+//
+//                // Update the text field with formatted text
+//                txt.setText(formattedText.toString());
+//
+//                // Check the length for validation
+//                if (length != 9 && length != 10) {
+//                    lbError.setText("Phone Number must be exactly 9 or 10 digits.");
+//                    lbError.setVisible(true); // Show error message
+//                    setErrorBorder();
+//                } else {
+//                    lbError.setVisible(false); // Hide error message if valid
+//                    resetError();
+//                }
+//
+//                txt.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
+//
+//            }
+//        });
+
+
+        typeTextField = phoneNumber; // For validation checking 
         txt.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -148,9 +210,21 @@ public class JavaTextField extends javax.swing.JPanel {
                     e.consume(); // Ignore non-digit characters
                 }
 
-                // Restrict the length to 12 digits (excluding spaces)
+                // Restrict the length to 10 digits (excluding spaces)
                 if (length >= 10 && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
-                    e.consume(); // Stop input if length exceeds 12 digits
+                    e.consume(); // Stop input if length exceeds 10 digits
+                }
+
+                // Prevent invalid phone number starting characters like '00' or '1-9' at the start
+                if (length == 0 && c != '0') {
+                    e.consume(); // If the first character is not '0', block the input
+                }
+                if (length == 1 && currentText.equals("0") && (c == '0')) {
+                    e.consume(); // If the second character is '0' after '0', block the input (e.g., '00')
+                }
+                if (length == 1 && currentText.equals("0") && (c >= '1' && c <= '9')) {
+                    // Allow the second character to be between '1' and '9' (but not '0')
+                    return;
                 }
             }
 
@@ -166,7 +240,7 @@ public class JavaTextField extends javax.swing.JPanel {
                     return;
                 }
 
-                String text = txt.getText().replaceAll("\\s", ""); // Remove existing spaces for reformatting
+                String text = txt.getText().replaceAll("\\s", ""); // Remove spaces for reformatting
                 int length = text.length();
 
                 // Format the text to add a space after every 3 digits
@@ -192,7 +266,6 @@ public class JavaTextField extends javax.swing.JPanel {
                 }
 
                 txt.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
-
             }
         });
     }

@@ -48,7 +48,7 @@ public class AddVendor extends javax.swing.JDialog {
           }
 
           if (phone != null && phone != "") {
-               txtPhoneNumber.setText(phone);
+               txtPhoneNumber.setText(JavaConstant.formatPhoneNumber(phone));
           }
 
           if (email != null && email != "") {

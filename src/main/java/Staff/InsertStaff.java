@@ -3,162 +3,132 @@ package Staff;
 import Color.WindowColor;
 import Constant.JNAFileChooser;
 import Constant.JavaBaseUrl;
-import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import static DatePicker.DatePicker.isValidDateOfBirth;
 import Event.ButtonEvent;
-import Model.Role.RoleModel;
+import FormComponent.combobox.JavaComboBoxSelection;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Setter;
+import main_validation.JavaConflicValidation;
+import main_validation.JavaValidation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.json.JSONArray;
-import org.json.JSONObject;
 @Setter
 public class InsertStaff extends javax.swing.JDialog {
 
-     String path;
-     private String genderId;
-     private String roleId;
-     private JPanel listGetStaff;
-     private String pageNumber;
-     private StaffInformation staffInformation;
-     private Icon file;
-     private Integer id;
+    String path;
+    private String genderId = "-1";
+    private String roleId = "-1";
+    private JPanel listGetStaff;
+    private String pageNumber;
+    private StaffInformation staffInformation;
+    private Icon file;
+    private Integer id;
 
-     public Integer getId() {
-          return id;
-     }
+    public Integer getId() {
+        return id;
+    }
 
-     public void setId(Integer id) {
-          this.id = id;
-          labelPopUpTitle1.setLabelTitle("Edit Staff");
-     }
+    public void setId(Integer id) {
+        this.id = id;
+        labelPopUpTitle1.setLabelTitle("Edit Staff");
+    }
 
-     public void setValueEdit(
-          String nameEn,
-          String dob,
-          String joinDate,
-          String addressValue,
-          String genderIdValue,
-          String roleIdValue,
-          String contactValue,
-          String urlImg
-     ) throws IOException {
-          staffName.setText(nameEn);
-//          dobDate.setValueTextField(dob);
-//          startDate.setValueTextField(joinDate);
-          address.setText(addressValue);
-          gender.setSelectedItem(genderIdValue);
-          role.setSelectedItem(roleIdValue);
-          phoneNumber.setValueTextField(contactValue);
-          JavaConstant.coverImage(urlImg, lbFile, 150, 135);
-     }
+    public void setValueEdit(
+            String nameEn,
+            String dob,
+            String joinDate,
+            String addressValue,
+            String genderIdValue,
+            String roleIdValue,
+            String contactValue,
+            String urlImg
+    ) throws IOException {
+        staffName.setText(nameEn);
+        dobDate.setSelectedDate(dob);
+        startDate.setSelectedDate(joinDate);
+        address.setText(addressValue);
+        gender.setSelectedItem(genderIdValue);
+        role.setSelectedItem(roleIdValue);
+        phoneNumber.setText(contactValue);
+        JavaConstant.coverImage(urlImg, lbFile, 150, 135);
+    }
 
-     public InsertStaff(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          staffName.requestFocus();
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+    public InsertStaff(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        staffName.requestFocus();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        phoneNumber.setValidatePhoneNumber();
+        
+        cmdRole();
+        
+        cmdgender();
+        
 
-//          // action get select 
-//          ButtonEvent eventtss = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    genderId = key;
-//               }
-//          };
-//          gender.initEvent(eventtss);
-//          addComboGender();
-//
-//          // action get select 
-//          ButtonEvent event = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    roleId = key;
-//               }
-//          };
-//          role.initEvent(event);
-//          addComboRole();
+        try {
+            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
+        } catch (IOException ex) {
+            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-//          phoneNumber.add3digitsToPhoneNumber();
-//          dobDate.setValueTextField("");
-//          dobDate.setLabelTextField("Select Date");
-//          startDate.setValueTextField("");
-//          startDate.setLabelTextField("Select Date");
-
-          try {
-               JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
-          } catch (IOException ex) {
-               Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-          }
-
-          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
-     }
+        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+    }
      
-     
-//     //Set Combo box role
-//     private void addComboRole() {
-//          try {
-//               HashMap<String, String> map = new HashMap<>();
-//               ArrayList<RoleModel> roleModel = new ArrayList<>();
-//               Response response = JavaConnection.get(JavaRoute.role);
-//
-//               if (response.isSuccessful()) {
-//                    String responseData = response.body().string();
-//                    JSONObject jsonObject = new JSONObject(responseData);
-//                    JSONArray data = jsonObject.getJSONArray("data");
-//                    for (int i = 0; i < data.length(); i++) {
-//                         JSONObject obj = data.getJSONObject(i);
-//                         RoleModel role = new RoleModel(
-//                              obj.getInt("id"),
-//                              obj.getString("role_name")
-//                         );
-//
-//                         roleModel.add(role);
-//
-//                         int idRole = roleModel.get(i).getRoleId();
-//                         String roleName = roleModel.get(i).getRoleName();
-//                         map.put(roleName, "" + idRole);
-//                    }
-//                    role.setMap(map);
-//               } else {
-//                    System.err.println("fail loading data");
-//               }
-//          } catch (Exception e) {
-//               System.err.println("error = " + e);
-//          }
-//     }
+    // Action Select Role
+    private void cmdRole(){
+        JavaComboBoxSelection.addComboBox(role,
+                JavaRoute.role,
+                "role_name",
+                JavaComboBoxSelection.DESC);
 
-     //Set Combo box Gender
-//     private void addComboGender() {
-//          try {
-//               HashMap<String, String> map = new HashMap<>();
-//               map.put("Male", "male");
-//               map.put("Female", "female");
-//               gender.setMap(map);
-//          } catch (Exception e) {
-//               System.err.println("error = " + e);
-//          }
-//     }
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelected(String id) {
+                roleId = id;
+            }
+        };
+        role.initEvent(event);
+    }
+    
+    // Action Select Gender
+    private void cmdgender() {
+      
+        try {
+            LinkedHashMap<String, String> map = new LinkedHashMap<>();
+            map.put("male", "Male");
+            map.put("female", "Female");
+            gender.setMap(map);
 
-     @SuppressWarnings("unchecked")
+            ButtonEvent event = new ButtonEvent() {
+                @Override
+                public void onSelected(String id) {
+                    genderId = id;
+                }
+            };
+            gender.initEvent(event);
+
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -239,20 +209,7 @@ public class InsertStaff extends javax.swing.JDialog {
             .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelAddStaffLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAddStaffLayout.createSequentialGroup()
-                        .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelAddStaffLayout.createSequentialGroup()
-                                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(browse))))
+                .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelAddStaffLayout.createSequentialGroup()
                         .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(startDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -263,8 +220,24 @@ public class InsertStaff extends javax.swing.JDialog {
                             .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(role, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(phoneNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 20, Short.MAX_VALUE))
+                            .addComponent(phoneNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelAddStaffLayout.createSequentialGroup()
+                        .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddStaffLayout.createSequentialGroup()
+                                .addGap(0, 138, Short.MAX_VALUE)
+                                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))
+                            .addGroup(panelAddStaffLayout.createSequentialGroup()
+                                .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
         panelAddStaffLayout.setVerticalGroup(
             panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,15 +258,16 @@ public class InsertStaff extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(address, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelAddStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAddStaffLayout.createSequentialGroup()
+                        .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbFile, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(browse, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -312,223 +286,164 @@ public class InsertStaff extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-         String dateOfBirth = dobDate.getSelectedDate();
-         String staffNameEn = staffName.getValueTextField();
-         String staffStartDate = startDate.getSelectedDate();
-         String staffAddress = address.getValueTextField();
+        String dateOfBirth = dobDate.getSelectedDate();
+        String staffNameEn = staffName.getValueTextField();
+        String staffStartDate = startDate.getSelectedDate();
+        String staffAddress = address.getValueTextField();
+        String phoneNumberValue = phoneNumber.getValueTextField();
+        
+        if(phoneNumberValue!= null){
+            phoneNumberValue = phoneNumberValue.replace(" ", "");
+        }
+  
+        try {
 
-         if (staffNameEn == null || staffNameEn.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Staff Name is required!");
-              return;
-         }
+           boolean isCheck = JavaValidation.checkValidation(panelAddStaff);
 
-         if (genderId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a gender!");
-              return;
-         }
+           if (isCheck) {
+               
+                String url = "";
 
-         if (dateOfBirth == null || dateOfBirth.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Date of Birth is required!");
-              return;
-         }
+                if (id == null) {
+                    url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee;
+                } else {
+                    url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/" + id;
+                }
 
-         if (isValidDateOfBirth(dateOfBirth) == false) {
-              JOptionPane.showMessageDialog(this, "Age must be at least 18 years old!");
-              return;
-         }
+                OkHttpClient client = new OkHttpClient();
+                // File to upload
 
-         if (roleId == null) {
-              JOptionPane.showMessageDialog(this, "Please select a role!");
-              return;
-         }
+                // Request body
+                MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("nameEn", staffNameEn)
+                        .addFormDataPart("gender", genderId)
+                        .addFormDataPart("dob", dateOfBirth)
+                        .addFormDataPart("startDate", staffStartDate)
+                        .addFormDataPart("address", staffAddress)
+                        .addFormDataPart("roleId", roleId)
+                        .addFormDataPart("createBy", JavaConstant.cashierId + "")
+                        .addFormDataPart("contact", phoneNumberValue);
 
-         if (staffStartDate == null || staffStartDate.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Start Date is required!");
-              return;
-         }
+                if (path != null) {
+                    File fileToUpload = new File(path);
+                    requestBody.addFormDataPart("image", fileToUpload.getName(),
+                            RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+                }
 
-         String staffContact = phoneNumber.getValueTextField();
+                // Request
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(requestBody.build())
+                        .header("Authorization", "Bearer " + JavaConstant.token)
+                        .build();
+                
+                Response response = client.newCall(request).execute();
+                
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
 
-         if (staffContact == null || staffContact.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Phone Number is required!");
-              return;
-         }
+                fields.add(JavaConflicValidation.builder()
+                    .key("phone") // specific word that exist in key "reason"
+                    .msg("This phone number is already existed!") // message to show 
+                    .field(phoneNumber) // obj of JavaTextField
+                    .build());
 
-         String phone = staffContact.replace(" ", "");
-
-         if (!phone.isEmpty() && phone.length() < 9 || phone.length() > 10) {
-              JOptionPane.showMessageDialog(this, "Phone Number must be 9 or 10 charaters!");
-              return;
-         }
-
-         if (staffAddress == null || staffAddress.isEmpty()) {
-              JOptionPane.showMessageDialog(this, "Address is required!");
-              return;
-         }
-
-         String url = "";
-
-         if (id == null) {
-              url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee;
-         } else {
-              url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/" + id;
-         }
-
-         OkHttpClient client = new OkHttpClient();
-         // File to upload
-
-         
-         System.out.println("roleId : " + roleId);
-         
-         // Request body
-         MultipartBody.Builder requestBody = new MultipartBody.Builder()
-              .setType(MultipartBody.FORM)
-              .addFormDataPart("nameEn", staffNameEn)
-              .addFormDataPart("gender", genderId)
-              .addFormDataPart("dob", dateOfBirth)
-              .addFormDataPart("startDate", staffStartDate)
-              .addFormDataPart("address", staffAddress)
-              .addFormDataPart("roleId", roleId)
-              .addFormDataPart("createBy", JavaConstant.cashierId + "")
-              .addFormDataPart("contact", phone);
-
-         if (path != null) {
-              File fileToUpload = new File(path);
-              requestBody.addFormDataPart("image", fileToUpload.getName(),
-                   RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-         }
-
-         // Request
-         Request request = new Request.Builder()
-              .url(url)
-              .post(requestBody.build())
-              .header("Authorization", "Bearer " + JavaConstant.token)
-              .build();
-
-         try {
-              if (id == null) {
-                   Response response = client.newCall(request).execute();
-
-                   if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The Phone Number is already existed!");
-                        return;
-                   }
-
-                   if (response.isSuccessful()) {
-                        System.out.println("success insert staff");
-//                        StaffInformation list = new StaffInformation(new JFrame(), true);
-                        listGetStaff.removeAll();
-                        listGetStaff.revalidate();
-                        listGetStaff.repaint();
-                        staffInformation.getStaff(listGetStaff, true, pageNumber);
-                        dispose();
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
-              } else {
-                   Response response = client.newCall(request).execute();
-
-                   if (response.code() == 500) {
-                        JOptionPane.showMessageDialog(this, "The Phone Number is already existed!");
-                        return;
-                   }
-                   if (response.isSuccessful()) {
-                        StaffInformation obj = new StaffInformation(new JFrame(), true);
-                        listGetStaff.removeAll();
-                        listGetStaff.revalidate();
-                        listGetStaff.repaint();
-                        obj.getStaff(listGetStaff, true, pageNumber);
-                        dispose();
-                   } else {
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
-                   }
-
-              }
-
-              // Do something with the response.
-         } catch (IOException e) {
-              System.out.println("err = " + e);
-         }
+                boolean isExist = JavaValidation.checkNameExistSecondFunction(response, fields);     
+                
+                if (response.isSuccessful() && isExist) {
+                    StaffInformation list = new StaffInformation(new JFrame(), true);
+                    listGetStaff.removeAll();
+                    listGetStaff.revalidate();
+                    listGetStaff.repaint();
+                    list.getStaff(listGetStaff, true, pageNumber);
+                    dispose();
+                }
+                
+           }
+        } catch (Exception e) {
+             System.err.println("errr -- " + e);
+        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-         try {
-              path = JNAFileChooser.funChooseFile();
-              JavaConstant.coverImagePath(path, lbFile, 124, 235);
-         } catch (IOException ex) {
-              Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+            path = JNAFileChooser.funChooseFile();
+            JavaConstant.coverImagePath(path, lbFile, 124, 235);
+        } catch (IOException ex) {
+            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-         browse.setForeground(WindowColor.light_Blue);
-         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+        browse.setForeground(WindowColor.light_Blue);
+        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-         browse.setForeground(WindowColor.darkBlue);
-         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+        browse.setForeground(WindowColor.darkBlue);
+        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) "> 
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) "> 
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                InsertStaff dialog = new InsertStaff(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
                     }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    InsertStaff dialog = new InsertStaff(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+    public JPanel getListGetStaff() {
+        return listGetStaff;
+    }
 
-     public JPanel getListGetStaff() {
-          return listGetStaff;
-     }
+    public void setListGetStaff(JPanel listGetStaff) {
+        this.listGetStaff = listGetStaff;
+    }
 
-     public void setListGetStaff(JPanel listGetStaff) {
-          this.listGetStaff = listGetStaff;
-     }
+    public String getPageNumber() {
+        return pageNumber;
+    }
 
-     public String getPageNumber() {
-          return pageNumber;
-     }
-
-     public void setPageNumber(String pageNumber) {
-          this.pageNumber = pageNumber;
-     }
+    public void setPageNumber(String pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

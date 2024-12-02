@@ -18,7 +18,6 @@ import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -183,7 +182,7 @@ public class ListVendor extends javax.swing.JDialog {
 
                             edit.setValueEdit(
                                 data.getVendorName(),
-                                String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"),
+                                String.valueOf(JavaConstant.formatPhoneNumber(data.getContact())),
                                 data.getEmail(),
                                 data.getWebsite(),
                                 data.getAddress()
@@ -245,25 +244,6 @@ public class ListVendor extends javax.swing.JDialog {
                 b.setEmail(listData.getEmail());
                 b.setAddress(listData.getAddress());
                 b.setWebsite(listData.getWebsite());
-
-//                try {
-//
-//                    TimerTask task = new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            // Task to be executed
-//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                        }
-//                    };
-//
-//                    Timer timer = new Timer();
-//                    timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                } catch (Exception e) {
-//                    System.err.println("error read image = " + e);
-//                }
-
                 paginationPanel.setVisible(true);
                 listGetVendor.add(b, gbc);
             }  

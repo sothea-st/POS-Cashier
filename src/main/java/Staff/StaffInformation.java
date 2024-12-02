@@ -195,19 +195,19 @@ public class StaffInformation extends javax.swing.JDialog {
                         if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
                             _urlImg = JavaConstant.urlImage + listData.getImageName();
                         } else {
-                            _urlImg = new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getImageName();
+                            _urlImg = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getImageName();
                         }
 
                         edit.setPageNumber(pageNumber);
 
                         edit.setValueEdit(
                                 data.getNameEn(),
-                                data.getDob(),
-                                data.getStartDate(),
+                                JavaConstant.formatDate(data.getDob()),
+                                JavaConstant.formatDate(data.getStartDate()),
                                 data.getAddress(),
                                 data.getGender(),
                                 "" + data.getRoleId(),
-                                String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"),
+                                String.valueOf(JavaConstant.formatPhoneNumber(data.getContact())),
                                 _urlImg
                         );
 
@@ -264,12 +264,12 @@ public class StaffInformation extends javax.swing.JDialog {
             prod.initEvent(events);
             prod.setId(listData.getId());
             prod.setStaffName(listData.getNameEn());
-            prod.setDateOfBirth(listData.getDob());
-            prod.setContact(String.valueOf(listData.getContact()).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "$1 $2 $3"));
+            prod.setDateOfBirth(JavaConstant.formatDate(listData.getDob()));
+            prod.setContact(String.valueOf(JavaConstant.formatPhoneNumber(listData.getContact())));
             prod.setGender(StringUtils.capitalize(listData.getGender()));
             prod.setAddress(listData.getAddress());
             prod.setRoleName(listData.getRoleName());
-            prod.setStartDate(listData.getStartDate());
+            prod.setStartDate(JavaConstant.formatDate(listData.getStartDate()));
 
             paginationPanel.setVisible(true);
             listGetStaff.add(prod, gbc);
