@@ -47,7 +47,7 @@ public class CategoryService {
         }
 
 
-        System.out.println("nameEn : " + c.catNameEn() + "  code : " + c.code());
+        //System.out.println("nameEn : " + c.catNameEn() + "  code : " + c.code());
 
         JavaValidation.checkDataAlreadyExists(
                 repo.existsCatNameEnAndCode(c.catNameEn(),c.code()),
