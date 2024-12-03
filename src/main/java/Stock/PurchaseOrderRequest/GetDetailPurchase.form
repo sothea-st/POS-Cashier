@@ -16,12 +16,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="header" min="-2" pref="1565" max="-2" attributes="0"/>
+          <Component id="header" min="-2" pref="1546" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="header" max="32767" attributes="0"/>
+          <Component id="header" pref="37" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -66,30 +66,24 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbCost" min="-2" pref="109" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbTotalCost" pref="123" max="32767" attributes="0"/>
+                  <Component id="lbTotalCost" pref="104" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lbNumber" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbProductName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbDivision" alignment="3" max="32767" attributes="0"/>
-                      <Component id="lbDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbBarcode" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbCategory" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbAvailbleQty" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbQty" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbSubCategory" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbCost" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbTotalCost" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="lbTotalCost" alignment="1" pref="35" max="32767" attributes="0"/>
+              <Component id="lbCost" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbQty" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbAvailbleQty" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbSubCategory" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbCategory" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbDepartment" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbDivision" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbProductName" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbBarcode" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbNumber" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

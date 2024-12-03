@@ -45,27 +45,22 @@ public class GetDetailProduct extends javax.swing.JPanel {
 
         lbNumber.setBackground(new java.awt.Color(0, 0, 0));
         lbNumber.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbNumber.setForeground(new java.awt.Color(0, 0, 0));
         lbNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbNumber.setText("#");
 
         lbImportDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbImportDate.setForeground(new java.awt.Color(0, 0, 0));
         lbImportDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbImportDate.setText("Import Date");
 
         lbQty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbQty.setForeground(new java.awt.Color(0, 0, 0));
         lbQty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbQty.setText("Qty");
 
         lbCost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbCost.setForeground(new java.awt.Color(0, 0, 0));
         lbCost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbCost.setText("Cost");
 
         lbPrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbPrice.setForeground(new java.awt.Color(0, 0, 0));
         lbPrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPrice.setText("Price");
 
@@ -83,20 +78,16 @@ public class GetDetailProduct extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbCost, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addComponent(lbPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbNumber)
-                    .addComponent(lbImportDate)
-                    .addComponent(lbQty)
-                    .addComponent(lbCost)
-                    .addComponent(lbPrice))
-                .addContainerGap())
+            .addComponent(lbPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(lbCost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbQty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbImportDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lbNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -108,7 +99,7 @@ public class GetDetailProduct extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents

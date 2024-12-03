@@ -28,7 +28,6 @@ public class UserNotFound extends javax.swing.JPanel {
         user.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbName.setText("Not Data !");
 
@@ -36,7 +35,7 @@ public class UserNotFound extends javax.swing.JPanel {
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -30,7 +30,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="3" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -45,44 +45,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label18" min="-2" pref="58" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel18" min="-2" pref="13" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label1" min="-2" pref="51" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" pref="13" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label9" min="-2" pref="84" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel14" min="-2" pref="13" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label12" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel16" min="-2" pref="13" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="label7" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label15" min="-2" pref="39" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="jLabel22" min="-2" pref="13" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="label23" min="-2" pref="84" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbPicture" min="-2" pref="124" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="browse" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="browse" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
                                   <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -90,91 +58,60 @@
                           <Component id="button1" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="lbPicture" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cmbVendorName" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="cmbBrand" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="txtCost" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtPrice" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtMargin" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="cmbSubCategory" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtProductName" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtProductNameKh" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cmbAttribute" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtChoiceValue" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmbUom" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cmbStatus" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmbCountry" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmbTax" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="cmdWharehouse" min="-2" max="-2" attributes="0"/>
+                                      <Component id="label7" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmdRange" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cmdSlot" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="cmbAttribute" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cmbSubCategory" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmbStatus" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCost" min="-2" max="-2" attributes="0"/>
-                                      <Component id="cmdWharehouse" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="label16" min="-2" pref="52" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="jLabel21" min="-2" pref="13" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="label13" min="-2" pref="63" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Component id="jLabel17" min="-2" pref="13" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="label2" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="label10" pref="87" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jLabel12" min="-2" pref="13" max="-2" attributes="0"/>
-                                              <Component id="jLabel15" alignment="0" min="-2" pref="13" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="label21" min="-2" pref="52" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="23" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmbVendorName" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtProductName" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtPrice" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbCountry" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtChoiceValue" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmdRange" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="label11" pref="119" max="32767" attributes="0"/>
-                              <Component id="label14" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label3" min="-2" pref="38" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label19" min="-2" pref="34" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel19" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="label17" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="jLabel20" min="-2" pref="13" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="label22" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmbBrand" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtProductNameKh" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtMargin" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbTax" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbUom" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmdSlot" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -182,123 +119,60 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelPopUpTitle1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="label1" max="32767" attributes="0"/>
-                          <Component id="txtBarcode" alignment="0" max="32767" attributes="0"/>
-                          <Component id="label2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="label3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cmbVendorName" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cmbBrand" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="jLabel11" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jLabel12" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jLabel13" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbVendorName" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbBrand" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cmbSubCategory" max="32767" attributes="0"/>
+                      <Component id="txtProductName" max="32767" attributes="0"/>
+                      <Component id="txtProductNameKh" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtCost" max="32767" attributes="0"/>
+                      <Component id="txtPrice" max="32767" attributes="0"/>
+                      <Component id="txtMargin" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cmbUom" max="32767" attributes="0"/>
+                      <Component id="cmbAttribute" max="32767" attributes="0"/>
+                      <Component id="txtChoiceValue" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="label9" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="label10" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="label11" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="txtProductName" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="cmbSubCategory" alignment="1" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="txtProductNameKh" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel15" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtMargin" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="label12" max="32767" attributes="0"/>
-                                  <Component id="txtCost" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="label13" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="txtPrice" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="label14" alignment="1" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel16" min="-2" pref="25" max="-2" attributes="0"/>
-                              <Component id="jLabel17" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="label18" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cmbAttribute" alignment="0" pref="29" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="label19" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtChoiceValue" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="cmbUom" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel19" min="-2" pref="25" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="label17" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="cmbStatus" alignment="0" pref="29" max="32767" attributes="0"/>
-                                                  <Component id="cmbTax" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="label15" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Component id="cmbCountry" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="label16" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Component id="jLabel20" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="jLabel21" min="-2" pref="25" max="-2" attributes="0"/>
-                                      <Component id="jLabel22" min="-2" pref="25" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="label22" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="cmdWharehouse" alignment="0" pref="29" max="32767" attributes="0"/>
-                                              <Component id="cmdSlot" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="label23" alignment="1" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="cmdRange" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="label21" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="jLabel18" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="jLabel14" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="cmbStatus" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbCountry" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmbTax" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="lbPicture" min="-2" pref="135" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="label7" min="-2" pref="29" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="cmdWharehouse" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmdRange" min="-2" max="-2" attributes="0"/>
+                      <Component id="cmdSlot" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="label7" min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbPicture" min="-2" pref="135" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="browse" min="-2" pref="27" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="56" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="button1" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonCancel" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonSave" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -309,124 +183,6 @@
         <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle1">
           <Properties>
             <Property name="labelTitle" type="java.lang.String" value="Add Product"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label1">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Barcode"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtBarcode">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Barcode"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label2">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Vendor Name"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtProductNameKh">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Product Name Kh"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label3">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Brand"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtProductName">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Product Name"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label9">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Sub Category"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="cmbSubCategory">
-        </Component>
-        <Component class="Components.Label" name="label10">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Product Name "/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="cmbStatus">
-        </Component>
-        <Component class="Components.Label" name="label11">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Product Name Kh"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="cmbCountry">
-        </Component>
-        <Component class="Components.ComboBox" name="cmbVendorName">
-        </Component>
-        <Component class="Components.ComboBox" name="cmbBrand">
-        </Component>
-        <Component class="Components.Label" name="label12">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Cost"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtCost">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Cost"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label13">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Sale Price"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtPrice">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Sale Price"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label14">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Margin"/>
-          </Properties>
-        </Component>
-        <Component class="Components.UnEditableTextField" name="txtMargin">
-        </Component>
-        <Component class="Components.Label" name="label15">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Status"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label16">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Country"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="label17">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Tax"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="cmbTax">
-        </Component>
-        <Component class="Components.Label" name="label18">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Attribute"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="cmbAttribute">
-        </Component>
-        <Component class="Components.Label" name="label19">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="UOM"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="cmbUom">
-        </Component>
-        <Component class="Components.TextField" name="txtChoiceValue">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Choice Values"/>
           </Properties>
         </Component>
         <Component class="Components.Label" name="label7">
@@ -460,138 +216,6 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel15">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel16">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel17">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel18">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel19">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel20">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel21">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel22">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
         <Component class="Button.Button" name="button1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -620,25 +244,103 @@
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="browseMouseExited"/>
           </Events>
         </Component>
-        <Component class="Components.ComboBox" name="cmdWharehouse">
+        <Component class="FormComponent.JavaTextField" name="txtBarcode">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Barcode *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Barcode"/>
+          </Properties>
         </Component>
-        <Component class="Components.Label" name="label21">
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbSubCategory">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Sub Category *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbVendorName">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Vendor Name *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbBrand">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Brand *"/>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtProductName">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Product Name *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Product Name"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtProductNameKh">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Product Name (KH)"/>
+            <Property name="placeHolder" type="java.lang.String" value="Product Name (KH)"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtCost">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Cost *"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbAttribute">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Attribute *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbCountry">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Country *"/>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmdWharehouse">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Warehouse "/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtPrice">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Sale Price *"/>
+            <Property name="placeHolder" type="java.lang.String" value="$ 0.00"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtMargin">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Margin *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Margin"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtChoiceValue">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Choice Value *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Choice Value"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbStatus">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Status *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmdRange">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Range"/>
           </Properties>
         </Component>
-        <Component class="Components.ComboBox" name="cmdRange">
-        </Component>
-        <Component class="Components.Label" name="label22">
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbUom">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Slot"/>
+            <Property name="labelName" type="java.lang.String" value="UoM *"/>
           </Properties>
         </Component>
-        <Component class="Components.ComboBox" name="cmdSlot">
-        </Component>
-        <Component class="Components.Label" name="label23">
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbTax">
           <Properties>
-            <Property name="labelName" type="java.lang.String" value="Wharehouse"/>
+            <Property name="labelName" type="java.lang.String" value="Tax *"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmdSlot">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Slot"/>
           </Properties>
         </Component>
       </SubComponents>
