@@ -87,7 +87,8 @@ public class ListWarehouse extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.warehouse + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
                } else { // isCheck false search
                     isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.warehouse + "/search?" + searchValue);
+                    response = JavaConnection.get(JavaRoute.warehouse + "/search?search=" + searchValue);
+                    System.err.println("response : " + response);
                }
                
                if (response.isSuccessful()) {

@@ -27,108 +27,113 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+
 @Setter
 public class InsertStaff extends javax.swing.JDialog {
 
-    String path;
-    private String genderId = "-1";
-    private String roleId = "-1";
-    private JPanel listGetStaff;
-    private String pageNumber;
-    private StaffInformation staffInformation;
-    private Icon file;
-    private Integer id;
+     String path;
+     private String genderId = "-1";
+     private String roleId = "-1";
+     private JPanel listGetStaff;
+     private String pageNumber;
+     private StaffInformation staffInformation;
+     private Icon file;
+     private Integer id;
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        labelPopUpTitle1.setLabelTitle("Edit Staff");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          labelPopUpTitle1.setLabelTitle("Edit Staff");
+     }
 
-    public void setValueEdit(
-            String nameEn,
-            String dob,
-            String joinDate,
-            String addressValue,
-            String genderIdValue,
-            String roleIdValue,
-            String contactValue,
-            String urlImg
-    ) throws IOException {
-        staffName.setText(nameEn);
-        dobDate.setSelectedDate(dob);
-        startDate.setSelectedDate(joinDate);
-        address.setText(addressValue);
-        gender.setSelectedItem(genderIdValue);
-        role.setSelectedItem(roleIdValue);
-        phoneNumber.setText(contactValue);
-        JavaConstant.coverImage(urlImg, lbFile, 150, 135);
-    }
+     public void setValueEdit(
+          String nameEn,
+          String dob,
+          String joinDate,
+          String addressValue,
+          String genderIdValue,
+          String roleIdValue,
+          String contactValue,
+          String urlImg
+     ) throws IOException {
+          staffName.setText(nameEn);
+          dobDate.setSelectedDate(dob);
+          startDate.setSelectedDate(joinDate);
+          address.setText(addressValue);
+          gender.setSelectedItem(genderIdValue);
+          role.setSelectedItem(roleIdValue);
+          phoneNumber.setText(contactValue);
+               
+          System.err.println("urlImg : " + urlImg);
+          if (urlImg != null) {
+               String _urlImg = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + urlImg;
+               JavaConstant.coverImage(_urlImg, lbFile, 150, 135);
+          }
 
-    public InsertStaff(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        staffName.requestFocus();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        phoneNumber.setValidatePhoneNumber();
-        
-        cmdRole();
-        
-        cmdgender();
-        
+     }
 
-        try {
-            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
-        } catch (IOException ex) {
-            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     public InsertStaff(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          staffName.requestFocus();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          phoneNumber.setValidatePhoneNumber();
 
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
-    }
-     
-    // Action Select Role
-    private void cmdRole(){
-        JavaComboBoxSelection.addComboBox(role,
-                JavaRoute.role,
-                "role_name",
-                JavaComboBoxSelection.DESC);
+          cmdRole();
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                roleId = id;
-            }
-        };
-        role.initEvent(event);
-    }
-    
-    // Action Select Gender
-    private void cmdgender() {
-      
-        try {
-            LinkedHashMap<String, String> map = new LinkedHashMap<>();
-            map.put("male", "Male");
-            map.put("female", "Female");
-            gender.setMap(map);
+          cmdgender();
 
-            ButtonEvent event = new ButtonEvent() {
-                @Override
-                public void onSelected(String id) {
-                    genderId = id;
-                }
-            };
-            gender.initEvent(event);
+//        try {
+//            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
+//        } catch (IOException ex) {
+//            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+     }
 
-        } catch (Exception e) {
-            System.err.println("error = " + e);
-        }
-    }
+     // Action Select Role
+     private void cmdRole() {
+          JavaComboBoxSelection.addComboBox(role,
+               JavaRoute.role,
+               "role_name",
+               JavaComboBoxSelection.DESC);
 
-    @SuppressWarnings("unchecked")
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    roleId = id;
+               }
+          };
+          role.initEvent(event);
+     }
+
+     // Action Select Gender
+     private void cmdgender() {
+
+          try {
+               LinkedHashMap<String, String> map = new LinkedHashMap<>();
+               map.put("male", "Male");
+               map.put("female", "Female");
+               gender.setMap(map);
+
+               ButtonEvent event = new ButtonEvent() {
+                    @Override
+                    public void onSelected(String id) {
+                         genderId = id;
+                    }
+               };
+               gender.initEvent(event);
+
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -286,40 +291,40 @@ public class InsertStaff extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-        String dateOfBirth = dobDate.getSelectedDate();
-        String staffNameEn = staffName.getValueTextField();
-        String staffStartDate = startDate.getSelectedDate();
-        String staffAddress = address.getValueTextField();
-        String phoneNumberValue = phoneNumber.getValueTextField();
-        
-        if(phoneNumberValue!= null){
-            phoneNumberValue = phoneNumberValue.replace(" ", "");
-        }
-  
-        try {
+         String dateOfBirth = dobDate.getSelectedDate();
+         String staffNameEn = staffName.getValueTextField();
+         String staffStartDate = startDate.getSelectedDate();
+         String staffAddress = address.getValueTextField();
+         String phoneNumberValue = phoneNumber.getValueTextField();
 
-           boolean isCheck = JavaValidation.checkValidation(panelAddStaff);
+         if (phoneNumberValue != null) {
+              phoneNumberValue = phoneNumberValue.replace(" ", "");
+         }
 
-           if (isCheck) {
-               
-                String url = "";
+         try {
 
-                if (id == null) {
-                    url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee;
-                } else {
-                    url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/" + id;
-                }
+              boolean isCheck = JavaValidation.checkValidation(panelAddStaff);
 
-                OkHttpClient client = new OkHttpClient();
-                // File to upload
+              if (isCheck) {
 
-                // Request body
-                MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                   String url = "";
+
+                   if (id == null) {
+                        url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee;
+                   } else {
+                        url = new JavaBaseUrl().getBaseUrl() + JavaRoute.employee + "/" + id;
+                   }
+
+                   OkHttpClient client = new OkHttpClient();
+                   // File to upload
+
+                   // Request body
+                   MultipartBody.Builder requestBody = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("nameEn", staffNameEn)
                         .addFormDataPart("gender", genderId)
@@ -330,120 +335,120 @@ public class InsertStaff extends javax.swing.JDialog {
                         .addFormDataPart("createBy", JavaConstant.cashierId + "")
                         .addFormDataPart("contact", phoneNumberValue);
 
-                if (path != null) {
-                    File fileToUpload = new File(path);
-                    requestBody.addFormDataPart("image", fileToUpload.getName(),
-                            RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
-                }
+                   if (path != null) {
+                        File fileToUpload = new File(path);
+                        requestBody.addFormDataPart("image", fileToUpload.getName(),
+                             RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+                   }
 
-                // Request
-                Request request = new Request.Builder()
+                   // Request
+                   Request request = new Request.Builder()
                         .url(url)
                         .post(requestBody.build())
                         .header("Authorization", "Bearer " + JavaConstant.token)
                         .build();
-                
-                Response response = client.newCall(request).execute();
-                
-                // check if name already exist
-                List<JavaConflicValidation> fields = new ArrayList<>();
 
-                fields.add(JavaConflicValidation.builder()
-                    .key("phone") // specific word that exist in key "reason"
-                    .msg("This phone number is already existed!") // message to show 
-                    .field(phoneNumber) // obj of JavaTextField
-                    .build());
+                   Response response = client.newCall(request).execute();
 
-                boolean isExist = JavaValidation.checkNameExistSecondFunction(response, fields);     
-                
-                if (response.isSuccessful() && isExist) {
-                    StaffInformation list = new StaffInformation(new JFrame(), true);
-                    listGetStaff.removeAll();
-                    listGetStaff.revalidate();
-                    listGetStaff.repaint();
-                    list.getStaff(listGetStaff, true, pageNumber);
-                    dispose();
-                }
-                
-           }
-        } catch (Exception e) {
-             System.err.println("errr -- " + e);
-        }
+                   // check if name already exist
+                   List<JavaConflicValidation> fields = new ArrayList<>();
+
+                   fields.add(JavaConflicValidation.builder()
+                        .key("phone") // specific word that exist in key "reason"
+                        .msg("This phone number is already existed!") // message to show 
+                        .field(phoneNumber) // obj of JavaTextField
+                        .build());
+
+                   boolean isExist = JavaValidation.checkNameExistSecondFunction(response, fields);
+
+                   if (response.isSuccessful() && isExist) {
+                        StaffInformation list = new StaffInformation(new JFrame(), true);
+                        listGetStaff.removeAll();
+                        listGetStaff.revalidate();
+                        listGetStaff.repaint();
+                        list.getStaff(listGetStaff, true, pageNumber);
+                        dispose();
+                   }
+
+              }
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-        try {
-            path = JNAFileChooser.funChooseFile();
-            JavaConstant.coverImagePath(path, lbFile, 124, 235);
-        } catch (IOException ex) {
-            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         try {
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbFile, 124, 235);
+         } catch (IOException ex) {
+              Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-        browse.setForeground(WindowColor.light_Blue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+         browse.setForeground(WindowColor.light_Blue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-        browse.setForeground(WindowColor.darkBlue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+         browse.setForeground(WindowColor.darkBlue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) "> 
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) "> 
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InsertStaff dialog = new InsertStaff(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(InsertStaff.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
 
-    public JPanel getListGetStaff() {
-        return listGetStaff;
-    }
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    InsertStaff dialog = new InsertStaff(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
-    public void setListGetStaff(JPanel listGetStaff) {
-        this.listGetStaff = listGetStaff;
-    }
+     public JPanel getListGetStaff() {
+          return listGetStaff;
+     }
 
-    public String getPageNumber() {
-        return pageNumber;
-    }
+     public void setListGetStaff(JPanel listGetStaff) {
+          this.listGetStaff = listGetStaff;
+     }
 
-    public void setPageNumber(String pageNumber) {
-        this.pageNumber = pageNumber;
-    }
+     public String getPageNumber() {
+          return pageNumber;
+     }
+
+     public void setPageNumber(String pageNumber) {
+          this.pageNumber = pageNumber;
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

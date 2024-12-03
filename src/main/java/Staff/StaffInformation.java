@@ -191,12 +191,12 @@ public class StaffInformation extends javax.swing.JDialog {
                         edit.setId(data.getId());
                         edit.setListGetStaff(listGetStaff);
 
-                        String _urlImg = "";
-                        if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
-                            _urlImg = JavaConstant.urlImage + listData.getImageName();
-                        } else {
-                            _urlImg = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getImageName();
-                        }
+                        String _urlImg = listData.getImageName();
+//                        if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
+//                            _urlImg = JavaConstant.urlImage + listData.getImageName();
+//                        } else {
+//                            _urlImg = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getImageName();
+//                        }
 
                         edit.setPageNumber(pageNumber);
 
@@ -208,7 +208,7 @@ public class StaffInformation extends javax.swing.JDialog {
                                 data.getGender(),
                                 "" + data.getRoleId(),
                                 String.valueOf(JavaConstant.formatPhoneNumber(data.getContact())),
-                                _urlImg
+                                listData.getImageName()
                         );
 
                         edit.setVisible(true);

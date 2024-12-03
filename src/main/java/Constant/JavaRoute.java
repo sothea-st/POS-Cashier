@@ -25,7 +25,6 @@ public class JavaRoute {
      public static String searchUserAccount = "/employee/searchUserAccount/";
      public static String searchWithInvoice = "/searchProductByBarcodeOrName/searchWithInvoice";
      public static String brand = "/brand";
-
      public static String ranges = "/ranges";
      public static String slots = "/slots";
      public static String country = "/country";

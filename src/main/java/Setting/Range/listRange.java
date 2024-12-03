@@ -88,7 +88,7 @@ public class ListRange extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.range + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.range + "/search?" + searchValue);
+                 response = JavaConnection.get(JavaRoute.range + "/search?search=" + searchValue);
             }
             
             System.out.println("response : " + response);
@@ -102,7 +102,7 @@ public class ListRange extends javax.swing.JDialog {
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                 } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                 }
                               
                 assignRange(listData, jpanelData);

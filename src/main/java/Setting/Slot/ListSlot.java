@@ -88,7 +88,7 @@ public class ListSlot extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.slot + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
             } else { // isCheck false search
                  isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.slot + "/search?" + searchValue);
+                 response = JavaConnection.get(JavaRoute.slot + "/search?search=" + searchValue);
             }
 
             if (response.isSuccessful()) {

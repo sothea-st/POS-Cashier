@@ -3,108 +3,115 @@ package FormComponent.datepicker;
 import Color.WindowColor;
 import Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
- 
+import javax.swing.JButton;
+
 import javax.swing.UIManager;
 import raven.datetime.component.date.DatePicker;
 
 public class JavaDatePicker extends javax.swing.JPanel {
 
-    private String titleLabel;
-    private String labelName;
-    private String valueTextField = "";
-    private DatePicker datePicker;
+     private String titleLabel;
+     private String labelName;
+     private String valueTextField = "";
+     private DatePicker datePicker;
 
-    public JavaDatePicker() {
-        initComponents();
+     public JavaDatePicker() {
+          initComponents();
 
-        // Set rounded corners for FlatLaf text components 1 px
-        UIManager.put("TextComponent.arc", 5);
+          // Set rounded corners for FlatLaf text components 1 px
+          UIManager.put("TextComponent.arc", 5);
 
-        // label error
-        lbError.setVisible(false);
-        lbError.setFont(WindowFonts.timeNewRomanBold12);
+          // label error
+          lbError.setVisible(false);
+          lbError.setFont(WindowFonts.timeNewRomanBold12);
 
-        label.setFont(WindowFonts.timeNewRomanBold14);
+          label.setFont(WindowFonts.timeNewRomanBold14);
 
-        txtDate.putClientProperty(FlatClientProperties.STYLE, ""
-                + "arc:10;");
+          txtDate.putClientProperty(FlatClientProperties.STYLE, ""
+               + "arc:10;");
 
-        datePicker = new raven.datetime.component.date.DatePicker();
-        datePicker.setCloseAfterSelected(true);
-        datePicker.setEditor(txtDate);
-        datePicker.setDateFormat("dd-MM-yyyy");
-        datePicker.now();
-        setBackground(WindowColor.mediumGreen);
-    }
+          datePicker = new raven.datetime.component.date.DatePicker();
+          datePicker.setCloseAfterSelected(false);
+          datePicker.setEditor(txtDate);
+          datePicker.setDateFormat("dd-MM-yyyy");
+          datePicker.now();
 
-    public String getLabelName() {
-        return labelName;
-    }
-    
-    public void setLabelName(String labelName) {
-        this.labelName = labelName;
-        if (labelName.contains("*")) {
-            labelName = labelName.replace("*", "");
-            label.setText("<html>" + labelName + " <span style='color:red;font-size:16;'>*</span></html>");
-        } else {
-            label.setText(labelName);
-        }
-    }
+          for (Component component : datePicker.getComponents()) {
+               if (component instanceof JButton && "Clear".equals(((JButton) component).getToolTipText())) {
+                    component.setVisible(false);
+               }
+          }
 
-    public void setFieldError(boolean value) {
-        lbError.setVisible(value);
-    }
+          setBackground(WindowColor.mediumGreen);
 
-    public void setFieldError(String text) {
-        lbError.setText(text);
-        lbError.setVisible(true);
-    }
+     }
 
-    
-    // Set the date value programmatically when you already have a date string (e.g., "dd-MM-yyyy")
-    public void setSelectedDate(String dateValue) {
-        try {
-            // Define the date format
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+     public String getLabelName() {
+          return labelName;
+     }
 
-            // Parse the string into a Date object
-            Date parsedDate = formatter.parse(dateValue);
+     public void setLabelName(String labelName) {
+          this.labelName = labelName;
+          if (labelName.contains("*")) {
+               labelName = labelName.replace("*", "");
+               label.setText("<html>" + labelName + " <span style='color:red;font-size:16;'>*</span></html>");
+          } else {
+               label.setText(labelName);
+          }
+     }
 
-            // Convert java.util.Date to java.time.LocalDate
-            LocalDate localDate = parsedDate.toInstant()
-                                            .atZone(ZoneId.systemDefault())
-                                            .toLocalDate();
+     public void setFieldError(boolean value) {
+          lbError.setVisible(value);
+     }
 
-            // Set the LocalDate in the DatePicker
-            datePicker.setSelectedDate(localDate);
+     public void setFieldError(String text) {
+          lbError.setText(text);
+          lbError.setVisible(true);
+     }
 
-        } catch (Exception e) {
-            // Handle potential parsing errors
-            e.printStackTrace();
-        }
-    }
-    
-    
-    public String getSelectedDate() {
-        return datePicker.getSelectedDate().toString();
-    }
+     // Set the date value programmatically when you already have a date string (e.g., "dd-MM-yyyy")
+     public void setSelectedDate(String dateValue) {
+          try {
+               // Define the date format
+               SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-    // Method to set the red border for JTextField
-    public void setErrorBorder() {
-        txtDate.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000;");
-    }
+               // Parse the string into a Date object
+               Date parsedDate = formatter.parse(dateValue);
 
-    // Method to reset the border to the default color for JTextField
-    public void resetError() {
-        txtDate.putClientProperty(FlatClientProperties.STYLE, "");
-    }
+               // Convert java.util.Date to java.time.LocalDate
+               LocalDate localDate = parsedDate.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
 
+               // Set the LocalDate in the DatePicker
+               datePicker.setSelectedDate(localDate);
 
-    @SuppressWarnings("unchecked")
+          } catch (Exception e) {
+               // Handle potential parsing errors
+               e.printStackTrace();
+          }
+     }
+
+     public String getSelectedDate() {
+          return datePicker.getSelectedDate().toString();
+     }
+
+     // Method to set the red border for JTextField
+     public void setErrorBorder() {
+          txtDate.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000;");
+     }
+
+     // Method to reset the border to the default color for JTextField
+     public void resetError() {
+          txtDate.putClientProperty(FlatClientProperties.STYLE, "");
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

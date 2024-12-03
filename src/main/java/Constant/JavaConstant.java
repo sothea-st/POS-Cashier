@@ -52,6 +52,7 @@ import Model.HoldOrder.HoldOrderModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import Products.ProductBox;
+import java.time.format.DateTimeParseException;
 import okhttp3.MediaType;
 
 public class JavaConstant {
@@ -449,4 +450,77 @@ public class JavaConstant {
           + "[a-zA-Z0-9_+&*-]+)*@"
           + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
           + "A-Z]{2,7}$";
+     
+     
+     
+     public static String formatPhoneNumber(String number) {
+        if (number == null) {
+            return null;
+        }
+
+        // Remove all non-digit characters
+        number = number.replaceAll("\\D", "");
+
+        // Create a StringBuilder to build the formatted phone number
+        StringBuilder formattedNumber = new StringBuilder();
+
+        int length = number.length();
+
+        // Check if the number length is 9 (format into three groups of 3 digits)
+        if (length == 9) {
+            for (int i = 0; i < length; i++) {
+                formattedNumber.append(number.charAt(i));
+
+                // Insert space after every 3 digits except at the end
+                if ((i + 1) % 3 == 0 && i < length - 1) {
+                    formattedNumber.append(" ");
+                }
+            }
+        } // Check if the number length is 10 (format into three groups of 3 digits, and last group of 4 digits)
+        else if (length == 10) {
+            for (int i = 0; i < length; i++) {
+                formattedNumber.append(number.charAt(i));
+
+                // Insert space after every 3 digits, but not before the last 4 digits
+                if ((i + 1) % 3 == 0 && i < length - 4) {
+                    formattedNumber.append(" ");
+                }
+            }
+        }
+
+        return formattedNumber.toString();
+    }
+
+    public static String formatDate(String dateValue) {
+
+        // Define two possible input date formats
+        DateTimeFormatter inputFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter inputFormatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        // Define the output date format ("dd-MM-yyyy")
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        try {
+            LocalDate date = null;
+
+            // Try to parse using the first input format ("yyyy-MM-dd")
+            try {
+                date = LocalDate.parse(dateValue, inputFormatter1);
+            } catch (DateTimeParseException e1) {
+                // If parsing fails, try the second format ("dd-MM-yyyy")
+                try {
+                    date = LocalDate.parse(dateValue, inputFormatter2);
+                } catch (DateTimeParseException e2) {
+                    // If both formats fail, throw an exception
+                    throw new DateTimeParseException("Invalid date format", dateValue, 0);
+                }
+            }
+
+            // Convert the LocalDate object to the desired format ("dd-MM-yyyy")
+            return date.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            System.err.println("Error parsing date: " + e.getMessage());
+            return null;  // Return null or handle differently if needed
+        }
+    }
 }

@@ -9,7 +9,6 @@ import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import GroupExport.ReportSale.ExportReportSaleToCSV;
 import GroupExport.ReportSale.ExportReportSaleToExcel;
-import GroupExport.ReportSale.ExportReportSaleToPDF;
 import Model.Report.ReportSaleDetail;
 import Model.Report.RepostSaleResponse;
 import Model.Userlogin.UserDataModel;
@@ -33,7 +32,6 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import okhttp3.Response;
 import org.json.JSONObject;
-import pdf.PrintListPDF;
 import pdf.PrintToCSV;
 import pdf.PrintToExcel;
 

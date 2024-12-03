@@ -6,9 +6,7 @@ import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
 import Model.Country.GetFlagModel;
-import Setting.Attribute.ListAttribute;
 import Staff.InsertStaff;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
@@ -19,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,34 +29,34 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONObject;
+
 @Setter
 @Getter
 
 public class AddCountry extends javax.swing.JDialog {
-    
-    private Integer id;
-    String path;
-    String fileName;
-    private String pageNumber;
-    private ListCountry obj;
-    private JPanel listGetCountry;
 
-    public AddCountry(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        txtCountry.requestFocus();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+     private Integer id;
+     String path;
+     String fileName;
+     private String pageNumber;
+     private ListCountry obj;
+     private JPanel listGetCountry;
 
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+     public AddCountry(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          txtCountry.requestFocus();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-        try {
-            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
-        } catch (IOException ex) {
-            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
 
+//        try {
+//            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
+//        } catch (IOException ex) {
+//            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+     }
 
      //Value Edit
      public void setValueEdit(
@@ -68,12 +65,11 @@ public class AddCountry extends javax.swing.JDialog {
           String uuid
      ) throws IOException {
           txtCountry.setText(country);
-          if(uuid != null){
-              JavaConstant.coverImage(urlImg, lbFile, 150, 135);
-          }else{
-              JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
+          if (uuid != null) {
+               JavaConstant.coverImage(urlImg, lbFile, 150, 135);
+               fileName = uuid;
           }
-          fileName = uuid;
+
      }
 
      @SuppressWarnings("unchecked")
@@ -189,179 +185,179 @@ public class AddCountry extends javax.swing.JDialog {
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-        String countryName = txtCountry.getValueTextField();
+         String countryName = txtCountry.getValueTextField();
 
-        try {
-            
-            boolean isCheck = JavaValidation.checkValidation(jPanel1);
-            if (isCheck) {
-                if (path != null) {
+         try {
 
-                    String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
-                    OkHttpClient client = new OkHttpClient();
+              boolean isCheck = JavaValidation.checkValidation(jPanel1);
+              if (isCheck) {
+                   if (path != null) {
 
-                    MultipartBody.Builder requestBody = new MultipartBody.Builder()
-                         .setType(MultipartBody.FORM);
+                        String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addBackground;
+                        OkHttpClient client = new OkHttpClient();
 
-                    File fileToUpload = new File(path);
-                    requestBody.addFormDataPart("file", fileToUpload.getName(),
-                         RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
+                        MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                             .setType(MultipartBody.FORM);
 
-                    // Request
-                    Request request = new Request.Builder()
-                         .url(url)
-                         .post(requestBody.build())
-                         .header("Authorization", "Bearer " + JavaConstant.token)
-                         .build();
+                        File fileToUpload = new File(path);
+                        requestBody.addFormDataPart("file", fileToUpload.getName(),
+                             RequestBody.create(MediaType.parse("image/jpeg"), fileToUpload));
 
-                    try {
-                         Response response = client.newCall(request).execute();
+                        // Request
+                        Request request = new Request.Builder()
+                             .url(url)
+                             .post(requestBody.build())
+                             .header("Authorization", "Bearer " + JavaConstant.token)
+                             .build();
 
-                         String responseData = response.body().string();
-                         ObjectMapper objMap = new ObjectMapper();
-                         GetFlagModel data = objMap.readValue(responseData, GetFlagModel.class);
+                        try {
+                             Response response = client.newCall(request).execute();
 
-                         if (response.isSuccessful()) {
-                              fileName = data.getFileName();
-                         }
-                         // Do something with the response.
-                    } catch (IOException e) {
-                         System.out.println("err = " + e);
-                    }
-                }
-                
-                JSONObject json = new JSONObject();
-                json.put("countryName", countryName);
-                json.put("uuid", fileName);
-                
-                // create response 
-                Response response = null;
-                if (id != null) { // add new
-                    response = JavaConnection.put(JavaRoute.country + '/' + id, json);
-                } else { // update 
-                    json.put("createBy", JavaConstant.cashierId);
-                    response = JavaConnection.post(JavaRoute.country, json);
-                }
-                
-                // check if name already exist
-                List<JavaConflicValidation> fields = new ArrayList<>();
+                             String responseData = response.body().string();
+                             ObjectMapper objMap = new ObjectMapper();
+                             GetFlagModel data = objMap.readValue(responseData, GetFlagModel.class);
 
-                fields.add(JavaConflicValidation.builder()
+                             if (response.isSuccessful()) {
+                                  fileName = data.getFileName();
+                             }
+                             // Do something with the response.
+                        } catch (IOException e) {
+                             System.out.println("err = " + e);
+                        }
+                   }
+
+                   JSONObject json = new JSONObject();
+                   json.put("countryName", countryName);
+                   json.put("uuid", fileName);
+
+                   // create response 
+                   Response response = null;
+                   if (id != null) { // add new
+                        response = JavaConnection.put(JavaRoute.country + '/' + id, json);
+                   } else { // update 
+                        json.put("createBy", JavaConstant.cashierId);
+                        response = JavaConnection.post(JavaRoute.country, json);
+                   }
+
+                   // check if name already exist
+                   List<JavaConflicValidation> fields = new ArrayList<>();
+
+                   fields.add(JavaConflicValidation.builder()
                         .key("Name") // specific word that exist in key "reason"
                         .msg("This name is already existed!") // message to show 
                         .field(txtCountry) // obj of JavaTextField
                         .build());
 
-                /* 
+                   /* 
                         isExist = true ( name not yet used )
                         isExist =  false ( name already used )
-                 */
-                boolean isExist = JavaValidation.checkNameExist(response, fields);
+                    */
+                   boolean isExist = JavaValidation.checkNameExist(response, fields);
 
-                try {
-                    if (response.isSuccessful() && isExist) {
+                   try {
+                        if (response.isSuccessful() && isExist) {
 
-                        ListCountry list = new ListCountry(new JFrame(), true);
-                        listGetCountry.removeAll();
-                        listGetCountry.revalidate();
-                        listGetCountry.repaint();
-                        list.getListCountry(listGetCountry,true, pageNumber);
-                        dispose();
-                    }
+                             ListCountry list = new ListCountry(new JFrame(), true);
+                             listGetCountry.removeAll();
+                             listGetCountry.revalidate();
+                             listGetCountry.repaint();
+                             list.getListCountry(listGetCountry, true, pageNumber);
+                             dispose();
+                        }
 
-                } catch (Exception e) {
-                    System.err.println("error post country : " + e);
-                }
-            }
-            
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+                   } catch (Exception e) {
+                        System.err.println("error post country : " + e);
+                   }
+              }
+
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-        try {
-            path = JNAFileChooser.funChooseFile();
-            JavaConstant.coverImagePath(path, lbFile, 124, 235);
-        } catch (IOException ex) {
-            Logger.getLogger(AddCountry.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         try {
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbFile, 124, 235);
+         } catch (IOException ex) {
+              Logger.getLogger(AddCountry.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-        browse.setForeground(WindowColor.light_Blue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+         browse.setForeground(WindowColor.light_Blue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-        browse.setForeground(WindowColor.darkBlue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+         browse.setForeground(WindowColor.darkBlue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-    public JPanel getListGetCountry() {
-        return listGetCountry;
-    }
+     public JPanel getListGetCountry() {
+          return listGetCountry;
+     }
 
-    public void setListGetCountry(JPanel listGetCountry) {
-        this.listGetCountry = listGetCountry;
-    }
+     public void setListGetCountry(JPanel listGetCountry) {
+          this.listGetCountry = listGetCountry;
+     }
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        titlePopUp.setLabelTitle("Edit Country");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          titlePopUp.setLabelTitle("Edit Country");
+     }
 
-    public String getPageNumber() {
-        return pageNumber;
-    }
+     public String getPageNumber() {
+          return pageNumber;
+     }
 
-    public void setPageNumber(String pageNumber) {
-        this.pageNumber = pageNumber;
-    }
+     public void setPageNumber(String pageNumber) {
+          this.pageNumber = pageNumber;
+     }
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddCountry dialog = new AddCountry(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(AddCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    AddCountry dialog = new AddCountry(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel browse;
