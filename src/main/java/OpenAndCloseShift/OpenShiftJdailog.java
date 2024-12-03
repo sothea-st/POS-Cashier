@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -214,14 +215,14 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
                             .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtCashierName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
             .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelOpenShiftLayout.setVerticalGroup(
             panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpenShiftLayout.createSequentialGroup()
                 .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(panelOpenShiftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPosId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -279,96 +280,99 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
         String openTime = txtDateTime.getValueTextField();
 
         try {
+            boolean isCheck = JavaValidation.checkValidation(panelOpenShift);
 
-            reserveUsd = reserveUsd.replace(",", "");
-            reserveKhr = reserveKhr.replace(",", "");
+            if (isCheck) {
+                reserveUsd = reserveUsd.replace(",", "");
+                reserveKhr = reserveKhr.replace(",", "");
 
-            JSONObject json = new JSONObject();
-            json.put("reserveUsd", reserveUsd);
-            json.put("reserveKhr", reserveKhr);
-            json.put("posId", posId);
-            json.put("userCode", userCode);
-            json.put("openTime", openTime);
-            json.put("createBy", JavaConstant.cashierId);
+                JSONObject json = new JSONObject();
+                json.put("reserveUsd", reserveUsd);
+                json.put("reserveKhr", reserveKhr);
+                json.put("posId", posId);
+                json.put("userCode", userCode);
+                json.put("openTime", openTime);
+                json.put("createBy", JavaConstant.cashierId);
 
-            boolean isReserveUsd = JavaConstant.onlyDigits(reserveUsd);
-            if (!isReserveUsd) {
-                JOptionPane.showMessageDialog(this, "Invalid value Total Cash(USD) !");
-                return;
-            }
-
-            boolean isReserveKhr = JavaConstant.onlyDigits(reserveKhr);
-            if (!isReserveKhr) {
-                JOptionPane.showMessageDialog(this, "Invalid value Total Cash(KHR) !");
-                return;
-            }
-
-            Response response = JavaConnection.post(JavaRoute.openShift, json);
-
-            JavaConstant.setCircleLoadingCursor(mainFrame);
-
-            if (response.isSuccessful()) {
-                dispose();
-                btnReturn.setBackground(WindowColor.brown);
-                btnReprint.setBackground(WindowColor.green);
-                buttonDiscount.setBackground(WindowColor.green);
-                buttonCustomer.setBackground(WindowColor.green);
-                stock.setBackground(WindowColor.green);
-                buttonStaff.setBackground(WindowColor.green);
-
-                btnOpenShift.setButtonName(JavaConstant.closeShift);
-                // jdLoginForm.setCheckOpenShift(true);
-                JavaConstant.checkOpenShift = true;
-                JavaConstant.checkCloseShift = 1l;
-
-                // after open shift will show all product at category ALL
-                if (category.getComponentCount() > 0) {
-                    Component[] listCom = category.getComponents();
-                    listCom[1].setBackground(WindowColor.black);
+                boolean isReserveUsd = JavaConstant.onlyDigits(reserveUsd);
+                if (!isReserveUsd) {
+                    JOptionPane.showMessageDialog(this, "Invalid value Total Cash(USD) !");
+                    return;
                 }
 
-                panelProduct.removeAll();
-                pro.setDetailItem(detailItem);
-//                    pro.getAllProduct(panelProduct);
-                pro.setNext(next);
-                pro.newProduct(limit, panelProduct);
-                pro.setSubtotalPanel(subtotalPanel);
-                pro.setPanelProduct(panelProduct);
-                pro.setBtnPayment(btnPayment);
-                pro.setButtonHoldOrder(buttonHoldOrder);
-                pro.setBtnCancel(btnCancel);
-                pro.setBtnReturn(btnReturn);
-                pro.setTitleOrder(titleOrder);
-                panelProduct.revalidate();
-                panelProduct.repaint();
-                panelPagination.setVisible(true);
-                searchBox.disabledTextField(true);
-                textField.disabledTextField(true);
-                textField.setFocus();
-
-                labelTitle.setLabelTitle("NEW ITEMS");
-
-                if (MainPage.isFullScreen) {
-                    loginFormJdailog.callDataInFullScreen();
+                boolean isReserveKhr = JavaConstant.onlyDigits(reserveKhr);
+                if (!isReserveKhr) {
+                    JOptionPane.showMessageDialog(this, "Invalid value Total Cash(KHR) !");
+                    return;
                 }
 
-                loginFormJdailog.runData();
+                Response response = JavaConnection.post(JavaRoute.openShift, json);
 
-                JavaConstant.restoreDefaultCursor(mainFrame);
+                JavaConstant.setCircleLoadingCursor(mainFrame);
 
-                next.setBackground(WindowColor.white);
-                previous.setBackground(WindowColor.lightGray);
-                cmboxBrand.setToFirstItem();
+                if (response.isSuccessful()) {
+                    dispose();
+                    btnReturn.setBackground(WindowColor.brown);
+                    btnReprint.setBackground(WindowColor.green);
+                    buttonDiscount.setBackground(WindowColor.green);
+                    buttonCustomer.setBackground(WindowColor.green);
+                    stock.setBackground(WindowColor.green);
+                    buttonStaff.setBackground(WindowColor.green);
 
-                EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
-            } else {
-                UIManager UI = new UIManager();
-                UI.put("OptionPane.background", WindowColor.mediumGreen);
-                UI.put("Panel.background", WindowColor.mediumGreen);
-                UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-                JOptionPane.showMessageDialog(null, "Save Failed!");
+                    btnOpenShift.setButtonName(JavaConstant.closeShift);
+                    // jdLoginForm.setCheckOpenShift(true);
+                    JavaConstant.checkOpenShift = true;
+                    JavaConstant.checkCloseShift = 1l;
 
-            }
+                    // after open shift will show all product at category ALL
+                    if (category.getComponentCount() > 0) {
+                        Component[] listCom = category.getComponents();
+                        listCom[1].setBackground(WindowColor.black);
+                    }
+
+                    panelProduct.removeAll();
+                    pro.setDetailItem(detailItem);
+                    // pro.getAllProduct(panelProduct);
+                    pro.setNext(next);
+                    pro.newProduct(limit, panelProduct);
+                    pro.setSubtotalPanel(subtotalPanel);
+                    pro.setPanelProduct(panelProduct);
+                    pro.setBtnPayment(btnPayment);
+                    pro.setButtonHoldOrder(buttonHoldOrder);
+                    pro.setBtnCancel(btnCancel);
+                    pro.setBtnReturn(btnReturn);
+                    pro.setTitleOrder(titleOrder);
+                    panelProduct.revalidate();
+                    panelProduct.repaint();
+                    panelPagination.setVisible(true);
+                    searchBox.disabledTextField(true);
+                    textField.disabledTextField(true);
+                    textField.setFocus();
+
+                    labelTitle.setLabelTitle("NEW ITEMS");
+
+                    if (MainPage.isFullScreen) {
+                        loginFormJdailog.callDataInFullScreen();
+                    }
+
+                    loginFormJdailog.runData();
+
+                    JavaConstant.restoreDefaultCursor(mainFrame);
+
+                    next.setBackground(WindowColor.white);
+                    previous.setBackground(WindowColor.lightGray);
+                    cmboxBrand.setToFirstItem();
+
+                    EpsonPrinter.printReceipt(new JPanel());  // for open cash drawer
+                } else {
+                    UIManager UI = new UIManager();
+                    UI.put("OptionPane.background", WindowColor.mediumGreen);
+                    UI.put("Panel.background", WindowColor.mediumGreen);
+                    UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+                    JOptionPane.showMessageDialog(null, "Save Failed!");
+
+                }
+           }
 
         } catch (Exception e) {
             System.out.println("error : " + e);
