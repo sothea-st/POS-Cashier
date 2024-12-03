@@ -74,7 +74,7 @@ public class InsertProduct extends javax.swing.JDialog {
         txtCost.setValidateAmount();
         txtPrice.setValidateAmount();
         JavaConstant.setPointer(browse);
-//        txtMargin.setDisable();
+        txtMargin.setDisable();
 
 //          try {
 //               JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
@@ -183,10 +183,14 @@ public class InsertProduct extends javax.swing.JDialog {
 
     private void groupCalculation() {
 
+        System.out.println("Hiiiiiiiiiiiiiii");
+        
         ButtonEvent eventCost = new ButtonEvent() {
             @Override
             public void onKeyRelease() {
                 cal();
+                
+                System.out.println("Helllllllllooooo");
             }
         };
         txtCost.initEvent(eventCost);
