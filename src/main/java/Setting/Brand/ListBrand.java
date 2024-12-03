@@ -99,7 +99,7 @@ public class ListBrand extends javax.swing.JDialog {
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage(data.getCount());
                     }
                     
                     assignBrand(listData, jpanelData);

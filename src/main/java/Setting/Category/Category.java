@@ -136,7 +136,7 @@ public class Category extends javax.swing.JDialog {
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage(dataCount);
                     }
 
                     assignCategory(listData, jpanelData, codeType);

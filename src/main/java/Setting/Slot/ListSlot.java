@@ -85,7 +85,7 @@ public class ListSlot extends javax.swing.JDialog {
             
             Response response = null;
             if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.slot + "?pageNumber=" + pageNumber + "&pageSize=10");
+                 response = JavaConnection.get(JavaRoute.slot + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
             } else { // isCheck false search
                  isCheckSearch = false;
                  response = JavaConnection.get(JavaRoute.slot + "/search?" + searchValue);
@@ -100,7 +100,7 @@ public class ListSlot extends javax.swing.JDialog {
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
                 } else {
-                    paginationPanel.resetPage();
+                    paginationPanel.resetPage(data.getCount());
                 }
                               
                 assignSlot(listData, jpanelData);

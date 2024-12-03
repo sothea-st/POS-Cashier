@@ -172,7 +172,7 @@ public class MainPage extends javax.swing.JFrame {
 
      void getImage() {
           // get image from api
-         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("image/King Mart Small Logo.png")).getImage());
+         setIconImage(new ImageIcon(getClass().getClassLoader().getResource("company/logo/logoTT_small.jpg")).getImage());
           //lbLogo.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "logoKingMart.png")));
           //imageShopping.setIcon(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "shopping-cart.png")));
 

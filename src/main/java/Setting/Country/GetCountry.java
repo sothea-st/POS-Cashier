@@ -6,97 +6,80 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class GetCountry extends javax.swing.JPanel {
 
-    private Integer id;
-    private String country;
-    private Icon flag;
-    private Icon iconEdit;
-    private Icon iconDelete;
+     private Integer id;
+     private String country;
+     private Icon flag;
+     private Icon iconEdit;
+     private Icon iconDelete;
 
-    public GetCountry() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     public GetCountry() {
+          initComponents();
+          lbId.setVisible(false);
+     }
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public String getCountry() {
-        return country;
-    }
+     public String getCountry() {
+          return country;
+     }
 
-    public void setCountry(String country) {
-        this.country = country;
-        lbCountry.setText(country);
-    }
+     public void setCountry(String country) {
+          this.country = country;
+          lbCountry.setText(country);
+     }
 
-    public Icon getFlag() {
-        return flag;
-    }
+     public Icon getFlag() {
+          return flag;
+     }
 
-    public void setFlag(Icon flag) {
-        this.flag = flag;
-        imgFlag.setIcon(flag);
-    }
-    
-    public void setFlag(String url) throws IOException {
-        JavaConstant.coverImage(url, imgFlag, 30, 15);
-    }
+     public void setFlag(Icon flag) {
+          this.flag = flag;
+          imgFlag.setIcon(flag);
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public void setFlag(String url) throws IOException {
+          JavaConstant.coverImage(url, imgFlag, 30, 15);
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public void setDefaultImage() throws IOException {
+          ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("productImage/flag.png"));
+          imgFlag.setIcon(icon);
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
-    
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -114,12 +97,34 @@ public class GetCountry extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
-    
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
