@@ -16,4 +16,8 @@ public interface RoleRepository extends JpaRepository<Role,Integer> {
      @Query(nativeQuery = true , value = "select * from pos_role where status = true and is_deleted = false and id = ?")
      Role getRoleById(int id);
 
+
+     Boolean existsByRoleName(String roleName);
+
+
 }

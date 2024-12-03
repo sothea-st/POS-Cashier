@@ -1,4 +1,4 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.settings;
 
 import com.example.pos.system.constant.JavaMessage;
 import jakarta.validation.constraints.NotNull;

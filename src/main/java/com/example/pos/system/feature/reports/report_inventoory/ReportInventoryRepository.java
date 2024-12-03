@@ -1,8 +1,6 @@
 package com.example.pos.system.feature.reports.report_inventoory;
 
-import com.example.pos.system.domain.Product;
 import com.example.pos.system.domain.report.ReportInventory;
-import com.example.pos.system.domain.settings.Ranges;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -2,7 +2,7 @@ package com.example.pos.system.layer.service.paymentService;
 
 import com.example.pos.system.layer.DTO.ReturnDetailsProduct;
 import com.example.pos.system.constant.JavaConstant;
-import com.example.pos.system.domain.Company;
+import com.example.pos.system.domain.settings.Company;
 import com.example.pos.system.domain.payment.Payment;
 import com.example.pos.system.domain.projection.PaymentProjection;
 import com.example.pos.system.domain.projection.SaleDetailProjection;

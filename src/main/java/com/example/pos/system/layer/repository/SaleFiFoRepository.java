@@ -1,6 +1,6 @@
 package com.example.pos.system.layer.repository;
 
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.SaleFiFo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

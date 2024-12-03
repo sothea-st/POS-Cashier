@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.pos.system.constant.JavaValidation;
-import com.example.pos.system.domain.Supplier;
+import com.example.pos.system.domain.settings.Supplier;
 import com.example.pos.system.layer.repository.SupplierRepository;
 
 import jakarta.servlet.http.HttpSession;

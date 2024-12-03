@@ -13,7 +13,7 @@ import com.example.pos.system.layer.repository.IPAddressRepository;
 import com.example.pos.system.layer.repository.UserRepository;
 import com.example.pos.system.layer.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.system.layer.repository.shiftRepository.OpenShiftRepository;
-import com.example.pos.system.domain.Device;
+import com.example.pos.system.domain.general.Device;
 import com.example.pos.system.domain.IPAddressPOSID;
 import com.example.pos.system.domain.User;
 import com.example.pos.system.feature.employee.EmployeeRepository;

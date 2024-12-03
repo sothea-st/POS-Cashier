@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.pos.system.domain.Employee;
+import com.example.pos.system.domain.settings.Employee;
 import com.example.pos.system.feature.employee.dto.EmployeeResponse;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 

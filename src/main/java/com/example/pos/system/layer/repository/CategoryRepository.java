@@ -1,6 +1,6 @@
 package com.example.pos.system.layer.repository;
 
-import com.example.pos.system.domain.Category;
+import com.example.pos.system.domain.settings.Category;
 import com.example.pos.system.layer.projections.GetCategoryByCode;
 
 import org.springframework.data.domain.Page;

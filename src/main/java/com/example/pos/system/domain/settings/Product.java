@@ -1,11 +1,8 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.settings;
 
 import java.util.Date;
 
-import com.example.pos.system.domain.settings.Ranges;
-import com.example.pos.system.domain.settings.Slot;
-import com.example.pos.system.domain.settings.Uom;
-import com.example.pos.system.domain.settings.Warehouse;
+import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.domain.sourceData.Brand;
 import com.example.pos.system.domain.sourceData.TaxProduct;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,7 +10,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.w3c.dom.ranges.Range;
 
 import java.math.BigDecimal;
 

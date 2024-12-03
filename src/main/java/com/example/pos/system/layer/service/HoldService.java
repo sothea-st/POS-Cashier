@@ -2,8 +2,8 @@ package com.example.pos.system.layer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.pos.system.domain.Hold;
-import com.example.pos.system.domain.HoldeDetails;
+import com.example.pos.system.domain.general.Hold;
+import com.example.pos.system.domain.general.HoldeDetails;
 import com.example.pos.system.layer.projections.holdProjection.HoldDataProjection;
 import com.example.pos.system.layer.projections.holdProjection.HoldDetailModel;
 import com.example.pos.system.layer.projections.holdProjection.HoldProjection;

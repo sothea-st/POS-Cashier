@@ -4,7 +4,7 @@ import com.example.pos.system.constant.util.exception.customeException.JavaNotFo
 import com.example.pos.system.layer.DTO.categoryDto.CategoryRequest;
 import com.example.pos.system.layer.DTO.categoryDto.CategoryResponse;
 import com.example.pos.system.constant.JavaValidation;
-import com.example.pos.system.domain.Category;
+import com.example.pos.system.domain.settings.Category;
 import com.example.pos.system.layer.repository.CategoryRepository;
 
 import jakarta.servlet.http.HttpSession;

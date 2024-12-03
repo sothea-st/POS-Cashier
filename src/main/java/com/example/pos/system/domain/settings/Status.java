@@ -1,4 +1,4 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.settings;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,21 +14,20 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "pos_attribute")
-public class Attribute {
+@Table(name="pos_status")
+public class Status {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
-    @Column(name = "attr_name_en", nullable = false, length = 100)
-    private String attrNameEn;
+    private Integer id;
 
-    @Column(name = "attr_name_kh", length = 100)
-    private String attrNameKh;
+    @Column(name="status_name", nullable = false, length = 100)
+    private String statusName;
 
-    @Column(name = "status")
+    @Column(name="status")
     private Boolean status = true;
 
-    @Column(name = "is_deleted")
+    @Column(name="is_deleted")
     private Boolean isDeleted = false;
+    
 }

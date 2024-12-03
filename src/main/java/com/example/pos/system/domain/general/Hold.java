@@ -1,4 +1,4 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.general;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

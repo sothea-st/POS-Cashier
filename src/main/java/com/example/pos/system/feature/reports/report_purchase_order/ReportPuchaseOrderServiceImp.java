@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.pos.system.domain.Import;
+import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.User;
 import com.example.pos.system.feature.imports.ImportRepository;
 import com.example.pos.system.feature.reports.report_purchase_order.dto.ReportPOResponse;

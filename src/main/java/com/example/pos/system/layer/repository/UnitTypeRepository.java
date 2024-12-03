@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.pos.system.domain.UnitType;
+import com.example.pos.system.domain.settings.UnitType;
 
 @Repository
 public interface UnitTypeRepository extends JpaRepository<UnitType, Integer> {

@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.pos.system.domain.Hold;
+import com.example.pos.system.domain.general.Hold;
 import com.example.pos.system.layer.projections.holdProjection.HoldDataProjection;
 import com.example.pos.system.layer.projections.holdProjection.HoldProjection;
 

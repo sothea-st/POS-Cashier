@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.pos.system.domain.Country;
+import com.example.pos.system.domain.settings.Country;
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
 

@@ -1,8 +1,8 @@
 package com.example.pos.system.layer.service;
 
 import com.example.pos.system.layer.DTO.ReportRequest;
-import com.example.pos.system.domain.Import;
-import com.example.pos.system.domain.ImportDetail;
+import com.example.pos.system.domain.stock.Import;
+import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.domain.models.ProductAddRemoveQty;
 import com.example.pos.system.layer.projections.ReportImport.ReportImportProjection;
 // import com.example.pos.connection1.repository.EmployeeRepository;

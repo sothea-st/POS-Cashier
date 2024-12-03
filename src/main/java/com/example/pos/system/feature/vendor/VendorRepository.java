@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.*;
-import com.example.pos.system.domain.Vendor;
+import com.example.pos.system.domain.settings.Vendor;
 
 public interface VendorRepository extends JpaRepository<Vendor,Integer> {
 

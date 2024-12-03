@@ -1,6 +1,6 @@
 package com.example.pos.system.feature.reports.report_receive;
 
-import com.example.pos.system.domain.Import;
+import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.feature.imports.ImportRepository;
 import com.example.pos.system.feature.reports.report_receive.dto.ReportReceiveResponse;
 import com.example.pos.system.layer.repository.UserRepository;

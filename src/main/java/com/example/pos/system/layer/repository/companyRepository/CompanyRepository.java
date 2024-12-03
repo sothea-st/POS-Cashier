@@ -2,7 +2,7 @@ package com.example.pos.system.layer.repository.companyRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import com.example.pos.system.domain.Company;
+import com.example.pos.system.domain.settings.Company;
 import java.util.*;
 
 @Repository

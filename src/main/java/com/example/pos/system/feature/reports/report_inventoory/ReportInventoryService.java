@@ -1,15 +1,11 @@
 package com.example.pos.system.feature.reports.report_inventoory;
 
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
-import com.example.pos.system.domain.Employee;
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.report.ReportInventory;
-import com.example.pos.system.domain.settings.Ranges;
-import com.example.pos.system.feature.employee.dto.EmployeeResponse;
 import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
 import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryResponse;
-import com.example.pos.system.feature.settings.range.dto.RangeResponse;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service

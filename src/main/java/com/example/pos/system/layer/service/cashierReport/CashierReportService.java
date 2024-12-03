@@ -18,9 +18,9 @@ import com.example.pos.system.layer.repository.shiftRepository.CloseShiftReposit
 import com.example.pos.system.layer.repository.shiftRepository.OpenShiftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.pos.system.domain.CloseShift;
-import com.example.pos.system.domain.Company;
-import com.example.pos.system.domain.Employee;
+import com.example.pos.system.domain.general.CloseShift;
+import com.example.pos.system.domain.settings.Company;
+import com.example.pos.system.domain.settings.Employee;
 import com.example.pos.system.domain.OpenShift;
 import com.example.pos.system.domain.User;
 import java.text.DecimalFormat;

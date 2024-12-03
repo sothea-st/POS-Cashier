@@ -21,24 +21,27 @@ import lombok.NoArgsConstructor;
 public class RoleHasPermission {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private int id;
+     private Integer id;
 
      @Column(name = "role_id")
-     private int roleId;
+     private Integer roleId;
      
      @Column(name = "permission_id")
-     private int permissiomId;
+     private Integer permissionId;
 
-     @Column(name = "status")
-     private boolean status = true;
+     @Column(name = "is_visible")
+     private Boolean isVisible;
 
-     @Column(name = "is_deleted")
-     private boolean isDeleted = false;
+     @Column(name = "is_create")
+     private Boolean isCreate;
 
-     @CreationTimestamp
-     @Column(updatable = false, name = "create_date")
-     private Date createDate;
+     @Column(name = "is_read")
+     private Boolean isRead;
 
-     @Column(name = "create_by")
-     private int createBy;
+     @Column(name = "is_update")
+     private Boolean isUpdate;
+
+     @Column(name = "is_delete")
+     private Boolean isDelete;
+
 }

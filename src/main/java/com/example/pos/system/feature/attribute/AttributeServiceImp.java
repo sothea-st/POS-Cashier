@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
-import com.example.pos.system.domain.Attribute;
+import com.example.pos.system.domain.settings.Attribute;
 import com.example.pos.system.feature.attribute.dto.AttributeRequest;
 import com.example.pos.system.feature.attribute.dto.AttributeResponse;
 import com.example.pos.system.feature.attribute.dto.AttributeUpdateRequest;

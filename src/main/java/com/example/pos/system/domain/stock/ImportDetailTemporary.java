@@ -1,8 +1,9 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.stock;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.example.pos.system.domain.settings.Product;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;

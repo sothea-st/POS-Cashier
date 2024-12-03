@@ -27,6 +27,9 @@ public class Permission {
      @Column(name = "permission_name")
      private String permissionName;
 
+     @Column(name = "parent_id")
+     private Integer parentId;
+
      @Column(name = "status")
      private boolean status = true;
 

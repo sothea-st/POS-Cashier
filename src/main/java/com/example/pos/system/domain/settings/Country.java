@@ -1,4 +1,4 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.settings;
 
 import java.util.Date;
 
@@ -10,40 +10,28 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "pos_vendors")
-public class Vendor {
+@Table(name = "pos_countries")
+@Builder
+@AllArgsConstructor
+public class Country {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private int id;
+     private Integer id;
 
-     @Column(name = "vendor_name",nullable = false)
-     private String vendorName;
-
-     @Column(name = "uuid",nullable = false,unique = true)
+     @Column(name = "uuid",length = 100)
      private String uuid;
 
-     @Column(name = "address",nullable = false)
-     private String address;
-
-     @Column(name = "contact",nullable = false,length = 12 , unique = true)
-     private String contact;
-
-     @Column(name = "email",length = 50 , unique = true)
-     private String email;
-
-     @Column(name = "website",length = 255)
-     private String website;
-
-     @Column(name = "vendor_code",length = 20,nullable = false)
-     private String vendorCode;
+     @Column(name = "country_name",length = 100)
+     private String countryName;
 
      @Column(name = "create_by",length = 20)
      private int createBy;
@@ -57,5 +45,5 @@ public class Vendor {
      
      @Column(name = "is_deleted")
      private boolean isDeleted=false;
- 
+
 }

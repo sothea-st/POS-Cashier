@@ -5,7 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.pos.system.domain.Employee;
+import com.example.pos.system.domain.settings.Employee;
 
 import java.util.List;
 import java.util.Optional;

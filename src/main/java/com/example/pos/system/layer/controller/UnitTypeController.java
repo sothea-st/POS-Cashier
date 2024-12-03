@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import com.example.pos.system.constant.JavaResponse;
-import com.example.pos.system.domain.UnitType;
+import com.example.pos.system.domain.settings.UnitType;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

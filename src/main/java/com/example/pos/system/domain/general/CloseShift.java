@@ -1,4 +1,4 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.general;
 
 import java.math.BigDecimal;
 import java.util.Date;

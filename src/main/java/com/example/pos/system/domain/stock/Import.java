@@ -1,6 +1,8 @@
-package com.example.pos.system.domain;
+package com.example.pos.system.domain.stock;
 
 import com.example.pos.system.constant.JavaMessage;
+import com.example.pos.system.domain.settings.Employee;
+import com.example.pos.system.domain.settings.Vendor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

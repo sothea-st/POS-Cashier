@@ -3,7 +3,7 @@ package com.example.pos.system.layer.service.shiftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.pos.system.domain.CloseShift;
+import com.example.pos.system.domain.general.CloseShift;
 import com.example.pos.system.domain.OpenShift;
 
 import com.example.pos.system.layer.repository.shiftRepository.CloseShiftRepository;

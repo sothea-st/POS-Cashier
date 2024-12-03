@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.pos.system.domain.Attribute;
+import com.example.pos.system.domain.settings.Attribute;
 
 @Repository
 public interface AttributeRepository extends JpaRepository<Attribute, Integer> {

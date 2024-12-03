@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.JavaValidation;
-import com.example.pos.system.domain.Employee;
+import com.example.pos.system.domain.settings.Employee;
 import com.example.pos.system.feature.employee.dto.EmployeeResponse;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 import static org.springframework.util.MimeTypeUtils.IMAGE_PNG_VALUE;
