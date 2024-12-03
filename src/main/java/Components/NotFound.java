@@ -22,7 +22,6 @@ public class NotFound extends javax.swing.JPanel {
         getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbName.setText("No Data !");
 
@@ -30,17 +29,11 @@ public class NotFound extends javax.swing.JPanel {
         getProduct.setLayout(getProductLayout);
         getProductLayout.setHorizontalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, getProductLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 1174, Short.MAX_VALUE)
         );
         getProductLayout.setVerticalGroup(
             getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(getProductLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbName)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lbName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
