@@ -421,6 +421,7 @@ public class JavaTextField extends javax.swing.JPanel {
             public void keyReleased(KeyEvent e) {
                 valueTextField = txt.getText();
                 resetError();
+                event.onKeyRelease();
                 //Check if khmer font
                 if (JavaConstant.containsKhmer(valueTextField)) {
                     txt.setFont(WindowFonts.khmerOsContent12);

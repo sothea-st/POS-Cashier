@@ -28,7 +28,6 @@ public class PurchaseNoData extends javax.swing.JPanel {
         user.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbName.setForeground(new java.awt.Color(0, 0, 0));
         lbName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbName.setText("No Data !");
 
@@ -36,7 +35,9 @@ public class PurchaseNoData extends javax.swing.JPanel {
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, 1275, Short.MAX_VALUE)
+            .addGroup(userLayout.createSequentialGroup()
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 1249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

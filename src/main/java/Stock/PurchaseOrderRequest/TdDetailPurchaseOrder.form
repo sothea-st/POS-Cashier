@@ -62,7 +62,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="cost" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="amount" pref="130" max="32767" attributes="0"/>
+                  <Component id="amount" pref="131" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
