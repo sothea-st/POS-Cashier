@@ -505,6 +505,7 @@ public class ProductServiceImp implements ProductService {
     public ProductResponseReadById readProductById(int id) {
         Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
+        System.out.println("product id : " + product);
         return productMapper.mapToProductResponseReadById(product);
     }
 

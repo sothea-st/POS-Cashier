@@ -2,9 +2,7 @@ package com.example.pos.system.domain.stock;
 
 import com.example.pos.system.domain.settings.Product;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
@@ -14,7 +12,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "pos_import_detail")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ImportDetail {
