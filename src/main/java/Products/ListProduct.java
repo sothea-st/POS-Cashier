@@ -196,7 +196,7 @@ public class ListProduct extends javax.swing.JDialog {
                     case 0 -> { // all product
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
-                            
+
                          } else { // isCheck false search
                               isCheckSearch = false;
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue);
@@ -277,7 +277,8 @@ public class ListProduct extends javax.swing.JDialog {
                listGetProduct.repaint();
                paginationPanel.setVisible(false);
           }
-
+          
+          System.err.println("listProductData : " + listProductData.length);
           for (ProductResponseDetailV1 p : listProductData) {
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
@@ -326,6 +327,7 @@ public class ListProduct extends javax.swing.JDialog {
                ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String id) {
+                         System.err.println("dddddddddddddddddddddddddd");
                          eventEdit(id);
                     }
 
@@ -423,14 +425,14 @@ public class ListProduct extends javax.swing.JDialog {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }
 
-          } catch (Exception e) { 
+          } catch (Exception e) {
                System.err.println("error getting product " + e);
           }
      }
 
      private void eventEdit(String id) {
           Response response = JavaConnection.get(JavaRoute.productV1 + "/" + id);
-
+          System.err.println("response : " + response);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -438,10 +440,16 @@ public class ListProduct extends javax.swing.JDialog {
                     ProductResponseByIdV1 productResponseByIdV1 = objectMapper.readValue(responseData, ProductResponseByIdV1.class);
                     ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
                     InsertProduct insertProduct = new InsertProduct(new Frame(), true);
+                    
+                    System.err.println("warehouseID : " + data.getWarehouseId());
+                    System.err.println("rangeId : " + data.getRangeId());
+                    System.err.println("slotId : " + data.getSlotId());
+
                     insertProduct.setId(data.getID());
                     insertProduct.setStatus(status);
                     insertProduct.setListGetProduct(listGetProduct);
                     insertProduct.setListProduct(this);
+
                     insertProduct.setEdit(
                          data.getBarcode(),
                          String.valueOf(data.getVendorID()),

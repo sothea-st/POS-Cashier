@@ -30,393 +30,388 @@ import org.json.JSONObject;
 @Getter
 public class InsertProduct extends javax.swing.JDialog {
 
-    private Integer id;
-    private String status;
+     private Integer id;
+     private String status;
 
-    private String brandId = "-1";
-    private String taxId = "-1";
-    private String uomId = "-1";
-    private String attributeId = "-1";
-    private String subCatId = "-1";
-    private String vendorId = "-1";
-    private String countryId = "-1";
-    private String statusId = "-1";
-    private String warehouseId = "-1";
-    private String rangeId = "-1";
-    private String slotId = "-1";
-    private String proImageName;
-    private String barcode;
-    private String productName;
-    private String productNameKh;
-    private String cost;
-    private String price;
-    private String margin;
-    private String choiceValue;
-    private String path;
-    private ListProduct listProduct;
-    private JPanel listGetProduct;
-    private JPanel panelProduct;
-    private JPanel panelCategory;
-    private LoginFormJdailog jdLogin;
+     private String brandId = "-1";
+     private String taxId = "-1";
+     private String uomId = "-1";
+     private String attributeId = "-1";
+     private String subCatId = "-1";
+     private String vendorId = "-1";
+     private String countryId = "-1";
+     private String statusId = "-1";
+     private String warehouseId = "-1";
+     private String rangeId = "-1";
+     private String slotId = "-1";
+     private String proImageName;
+     private String barcode;
+     private String productName;
+     private String productNameKh;
+     private String cost;
+     private String price;
+     private String margin;
+     private String choiceValue;
+     private String path;
+     private ListProduct listProduct;
+     private JPanel listGetProduct;
+     private JPanel panelProduct;
+     private JPanel panelCategory;
+     private LoginFormJdailog jdLogin;
 
-    public InsertProduct(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        txtBarcode.requestFocus();
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+     public InsertProduct(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          txtBarcode.requestFocus();
+          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
 
-        Font khmerFont = new Font("Khmer OS", Font.PLAIN, 12);
-        txtProductNameKh.setFont(khmerFont);
-        groupEventCmd();
-        groupCalculation();
-        txtCost.setValidateAmount();
-        txtPrice.setValidateAmount();
-        JavaConstant.setPointer(browse);
-        txtMargin.setDisable();
+          Font khmerFont = new Font("Khmer OS", Font.PLAIN, 12);
+          txtProductNameKh.setFont(khmerFont);
+          groupEventCmd();
+          groupCalculation();
+          txtCost.setValidateAmount();
+          txtPrice.setValidateAmount();
+          JavaConstant.setPointer(browse);
+          txtMargin.setDisable();
 
 //          try {
 //               JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImage, lbPicture, 150, 135);
 //          } catch (IOException ex) {
 //               Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-    }
-     
-    double costVal = 0;
-    double priceVal = 0;
+     }
 
-    public void setEdit(
-            String _barcode,
-            String _vendorId,
-            String _brandId,
-            String _subCatId,
-            String _proName,
-            String _proNameKh,
-            String _cost,
-            String _price,
-            String _margin,
-            String _attributeId,
-            String _choice,
-            String _uomId,
-            String _statusId,
-            String _countryId,
-            String _taxId,
-            String _proImageName,
-            String _warehouseId,
-            String _rangeId,
-            String _slotId
-    ) {
+     double costVal = 0;
+     double priceVal = 0;
 
-        System.out.println("_warehouseId : " + _warehouseId);
-        
-        txtBarcode.setText(_barcode);
-        cmbVendorName.setSelectedItem(_vendorId);
-        cmbBrand.setSelectedItem(_brandId);
-        cmbSubCategory.setSelectedItem(_subCatId);
-        txtProductName.setText(_proName);
+     public void setEdit(
+          String _barcode,
+          String _vendorId,
+          String _brandId,
+          String _subCatId,
+          String _proName,
+          String _proNameKh,
+          String _cost,
+          String _price,
+          String _margin,
+          String _attributeId,
+          String _choice,
+          String _uomId,
+          String _statusId,
+          String _countryId,
+          String _taxId,
+          String _proImageName,
+          String _warehouseId,
+          String _rangeId,
+          String _slotId
+     ) {
 
-        if (_proNameKh != null && _proNameKh != "") {
-            txtProductNameKh.setValueTextField(_proNameKh);
-        }
+          System.out.println("_warehouseId : " + _warehouseId);
 
-        txtCost.setText(_cost);
-        txtPrice.setText(_price);
-        txtMargin.setText(_margin);
-        txtMargin.setDisable();
-        cmbAttribute.setSelectedItem(_attributeId);
+          txtBarcode.setText(_barcode);
+          cmbVendorName.setSelectedItem(_vendorId);
+          cmbBrand.setSelectedItem(_brandId);
+          cmbSubCategory.setSelectedItem(_subCatId);
+          txtProductName.setText(_proName);
 
-        if (_choice != null && _choice != "") {
-            txtChoiceValue.setText(_choice);
-        }
+          if (_proNameKh != null && _proNameKh != "") {
+               txtProductNameKh.setValueTextField(_proNameKh);
+          }
 
-        cmbUom.setSelectedItem(_uomId);
-        cmbStatus.setSelectedItem(_statusId);
-        cmbCountry.setSelectedItem(_countryId);
-        cmbTax.setSelectedItem(_taxId);
-        
-        
-        cmdWharehouse.setSelectedItem(_warehouseId);
-        cmdRange.setSelectedItem(_rangeId);
-        cmdSlot.setSelectedItem(_slotId);
+          txtCost.setText(_cost);
+          txtPrice.setText(_price);
+          txtMargin.setText(_margin);
+          txtMargin.setDisable();
+          cmbAttribute.setSelectedItem(_attributeId);
 
-//        if (!_warehouseId.equals("-1")) {
-//            cmdWharehouse.setSelectedItem(_warehouseId);
-//        }
-//        if (!_rangeId.equals("-1")) {
-//            cmdRange.setSelectedItem(_rangeId);
-//        }
-//        if (!_slotId.equals("-1")) {
-//            cmdSlot.setSelectedItem(_slotId);
-//        }
+          if (_choice != null && _choice != "") {
+               txtChoiceValue.setText(_choice);
+          }
 
-        proImageName = _proImageName;
+          cmbUom.setSelectedItem(_uomId);
+          cmbStatus.setSelectedItem(_statusId);
+          cmbCountry.setSelectedItem(_countryId);
+          cmbTax.setSelectedItem(_taxId);
 
-        try {
-            if (_proImageName != null) {
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        try {
-                            // Task to be executed
-                            if (_proImageName.contains("media/file/crm/uploadfile/")) {
-                                JavaConstant.coverImage(JavaConstant.urlImage + _proImageName, lbPicture, 125, 135);
-                            } else {
-                                JavaConstant.coverImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + _proImageName, lbPicture, 125, 135);
-                                lbPicture.repaint();
-                                lbPicture.revalidate();
-                            }
-                        } catch (IOException ex) {
-                            Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
-                };
+//        cmdWharehouse.setSelectedItem(_warehouseId);
+//        cmdRange.setSelectedItem(_rangeId);
+//        cmdSlot.setSelectedItem(_slotId);
+          if (!_warehouseId.equals("-1")) {
+               cmdWharehouse.setSelectedItem(_warehouseId);
+          }
+          if (!_rangeId.equals("-1")) {
+               cmdRange.setSelectedItem(_rangeId);
+          }
+          if (!_slotId.equals("-1")) {
+               cmdSlot.setSelectedItem(_slotId);
+          }
 
-                Timer timer = new Timer();
-                timer.schedule(task, 500); // Delays task execution by 1 second
-            }
+          proImageName = _proImageName;
 
-        } catch (Exception e) {
-            System.err.println("error read image = " + e);
-        }
-    }
+          try {
+               if (_proImageName != null) {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              try {
+                                   // Task to be executed
+                                   if (_proImageName.contains("media/file/crm/uploadfile/")) {
+                                        JavaConstant.coverImage(JavaConstant.urlImage + _proImageName, lbPicture, 125, 135);
+                                   } else {
+                                        JavaConstant.coverImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + _proImageName, lbPicture, 125, 135);
+                                        lbPicture.repaint();
+                                        lbPicture.revalidate();
+                                   }
+                              } catch (IOException ex) {
+                                   Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
+                              }
+                         }
+                    };
 
-    private void groupCalculation() {
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500); // Delays task execution by 1 second
+               }
 
-        System.out.println("Hiiiiiiiiiiiiiii");
-        
-        ButtonEvent eventCost = new ButtonEvent() {
-            @Override
-            public void onKeyRelease() {
-                cal();
-                
-                System.out.println("Helllllllllooooo");
-            }
-        };
-        txtCost.initEvent(eventCost);
+          } catch (Exception e) {
+               System.err.println("error read image = " + e);
+          }
+     }
 
-        ButtonEvent eventPrice = new ButtonEvent() {
-            @Override
-            public void onKeyRelease() {
-                cal();
-            }
-        };
-        txtPrice.initEvent(eventPrice);
+     private void groupCalculation() {
 
-    }
+          System.out.println("Hiiiiiiiiiiiiiii");
 
-    private void cal() {
+          ButtonEvent eventCost = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    cal();
 
-        
-        String _price = txtPrice.getValueTextField();
-        String _cost = txtCost.getValueTextField();
-        
-        System.out.println("_price : " + _price);
-        System.out.println("_cost : " + _cost);
+                    System.out.println("Helllllllllooooo");
+               }
+          };
+          txtCost.initEvent(eventCost);
 
-        if (_cost != null
-                && _price != null
-                && !_price.isEmpty()
-                && !_cost.isEmpty()) {
+          ButtonEvent eventPrice = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    cal();
+               }
+          };
+          txtPrice.initEvent(eventPrice);
 
-            double _pPrice = JavaConstant.getReplace(_price);
-            double _cCost = JavaConstant.getReplace(_cost);
+     }
 
-            double result = _pPrice - _cCost;
-            if (result < 0) {
-                txtMargin.setText(String.valueOf(0));
-            } else {
-                result = (result * 100) / _pPrice;
-                String lastValue = String.format("%.2f", result) + "%";
-                txtMargin.setText(String.valueOf(lastValue));
-            }
-        } else {
-            txtMargin.setText(String.valueOf(0));
-        }
-    }
-     
-    private void groupEventCmd(){
-        cmdVendor();
-        cmdBrand();
-        cmdSubCategory();
-        cmdAttribute();
-        cmdUom();
-        cmdStatus();
-        cmdCountry();
-        cmdTax();
-        cmdWarehouse();
-        
-    }
-    
-    private void cmdVendor() {
-        JavaComboBoxSelection.addComboBox(cmbVendorName,
-                JavaRoute.vendor,
-                "vendorName",
-                JavaComboBoxSelection.DESC);
+     private void cal() {
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                vendorId = id;
-            }
-        };
-        cmbVendorName.initEvent(event);
-    }
-     
-    private void cmdBrand() {
-        JavaComboBoxSelection.addComboBox(cmbBrand,
-                JavaRoute.brand,
-                "brandNameEn",
-                JavaComboBoxSelection.DESC);
+          String _price = txtPrice.getValueTextField();
+          String _cost = txtCost.getValueTextField();
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                brandId = id;
-            }
-        };
-        cmbBrand.initEvent(event);
-    }
-     
-    private void cmdSubCategory() {
-        JavaComboBoxSelection.addComboBox(cmbSubCategory,
-                JavaRoute.subcategory,
-                "catNameEn",
-                JavaComboBoxSelection.DESC);
+          System.out.println("_price : " + _price);
+          System.out.println("_cost : " + _cost);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                subCatId = id;
-            }
-        };
-        cmbSubCategory.initEvent(event);
-    }
-     
-    private void cmdAttribute() {
-        JavaComboBoxSelection.addComboBox(cmbAttribute,
-                JavaRoute.attribute,
-                "attrNameEn",
-                JavaComboBoxSelection.DESC);
+          if (_cost != null
+               && _price != null
+               && !_price.isEmpty()
+               && !_cost.isEmpty()) {
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                attributeId = id;
-            }
-        };
-        cmbAttribute.initEvent(event);
-    }
-    
-    private void cmdUom() {
-        JavaComboBoxSelection.addComboBox(cmbUom,
-                JavaRoute.uom,
-                "uomNameEn",
-                JavaComboBoxSelection.DESC);
+               double _pPrice = JavaConstant.getReplace(_price);
+               double _cCost = JavaConstant.getReplace(_cost);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                uomId = id;
-            }
-        };
-        cmbUom.initEvent(event);
-    }
-    
-    private void cmdStatus() {
-        JavaComboBoxSelection.addComboBox(cmbStatus,
-                JavaRoute.status,
-                "statusName",
-                JavaComboBoxSelection.DESC);
+               double result = _pPrice - _cCost;
+               if (result < 0) {
+                    txtMargin.setText(String.valueOf(0));
+               } else {
+                    result = (result * 100) / _pPrice;
+                    String lastValue = String.format("%.2f", result) + "%";
+                    txtMargin.setText(String.valueOf(lastValue));
+               }
+          } else {
+               txtMargin.setText(String.valueOf(0));
+          }
+     }
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                statusId = id;
-            }
-        };
-        cmbStatus.initEvent(event);
-    }
-    
-    private void cmdCountry() {
-        JavaComboBoxSelection.addComboBox(cmbCountry,
-                JavaRoute.country,
-                "countryName",
-                JavaComboBoxSelection.DESC);
+     private void groupEventCmd() {
+          cmdVendor();
+          cmdBrand();
+          cmdSubCategory();
+          cmdAttribute();
+          cmdUom();
+          cmdStatus();
+          cmdCountry();
+          cmdTax();
+          cmdWarehouse();
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                countryId = id;
-            }
-        };
-        cmbCountry.initEvent(event);
-    }
-    
-    private void cmdTax() {
-        JavaComboBoxSelection.addComboBox(cmbTax,
-                JavaRoute.tax,
-                "tax_name",
-                JavaComboBoxSelection.DESC);
+     }
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                taxId = id;
-            }
-        };
-        cmbTax.initEvent(event);
-    }
-    
-    private void cmdWarehouse() {
-        JavaComboBoxSelection.addComboBox(cmdWharehouse,
-                JavaRoute.warehouse,
-                "warehouseNameEn",
-                JavaComboBoxSelection.DESC);
+     private void cmdVendor() {
+          JavaComboBoxSelection.addComboBox(cmbVendorName,
+               JavaRoute.vendor,
+               "vendorName",
+               JavaComboBoxSelection.DESC);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                warehouseId = id;
-                cmdRange(id);
-            }
-        };
-        cmdWharehouse.initEvent(event);
-    }
-    
-    private void cmdRange(String warehouseId) {
-        JavaComboBoxSelection.addComboBox(cmdRange,
-                JavaRoute.ranges + "/readByWarehouseId/" + warehouseId,
-                "rangeNameEn",
-                JavaComboBoxSelection.DESC);
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    vendorId = id;
+               }
+          };
+          cmbVendorName.initEvent(event);
+     }
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                rangeId = id;
-                cmdSlot(id);
-            }
-        };
-        cmdRange.initEvent(event);
-    }
-    
-    private void cmdSlot(String rangeId) {
-        JavaComboBoxSelection.addComboBox(cmdSlot,
-                JavaRoute.slots + "/readByRangeId/" + rangeId,
-                "slotNameEn",
-                JavaComboBoxSelection.DESC);
+     private void cmdBrand() {
+          JavaComboBoxSelection.addComboBox(cmbBrand,
+               JavaRoute.brand,
+               "brandNameEn",
+               JavaComboBoxSelection.DESC);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                slotId = id;
-            }
-        };
-        cmdSlot.initEvent(event);
-    }
-    
-    
-    
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    brandId = id;
+               }
+          };
+          cmbBrand.initEvent(event);
+     }
+
+     private void cmdSubCategory() {
+          JavaComboBoxSelection.addComboBox(cmbSubCategory,
+               JavaRoute.subcategory,
+               "catNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    subCatId = id;
+               }
+          };
+          cmbSubCategory.initEvent(event);
+     }
+
+     private void cmdAttribute() {
+          JavaComboBoxSelection.addComboBox(cmbAttribute,
+               JavaRoute.attribute,
+               "attrNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    attributeId = id;
+               }
+          };
+          cmbAttribute.initEvent(event);
+     }
+
+     private void cmdUom() {
+          JavaComboBoxSelection.addComboBox(cmbUom,
+               JavaRoute.uom,
+               "uomNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    uomId = id;
+               }
+          };
+          cmbUom.initEvent(event);
+     }
+
+     private void cmdStatus() {
+          JavaComboBoxSelection.addComboBox(cmbStatus,
+               JavaRoute.status,
+               "statusName",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    statusId = id;
+               }
+          };
+          cmbStatus.initEvent(event);
+     }
+
+     private void cmdCountry() {
+          JavaComboBoxSelection.addComboBox(cmbCountry,
+               JavaRoute.country,
+               "countryName",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    countryId = id;
+               }
+          };
+          cmbCountry.initEvent(event);
+     }
+
+     private void cmdTax() {
+          JavaComboBoxSelection.addComboBox(cmbTax,
+               JavaRoute.tax,
+               "tax_name",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    taxId = id;
+               }
+          };
+          cmbTax.initEvent(event);
+     }
+
+     private void cmdWarehouse() {
+          JavaComboBoxSelection.addComboBox(cmdWharehouse,
+               JavaRoute.warehouse,
+               "warehouseNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    warehouseId = id;
+                    cmdRange(id);
+               }
+          };
+          cmdWharehouse.initEvent(event);
+     }
+
+     private void cmdRange(String warehouseId) {
+          JavaComboBoxSelection.addComboBox(cmdRange,
+               JavaRoute.ranges + "/readByWarehouseId/" + warehouseId,
+               "rangeNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    rangeId = id;
+                    cmdSlot(id);
+               }
+          };
+          cmdRange.initEvent(event);
+     }
+
+     private void cmdSlot(String rangeId) {
+          JavaComboBoxSelection.addComboBox(cmdSlot,
+               JavaRoute.slots + "/readByRangeId/" + rangeId,
+               "slotNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    slotId = id;
+               }
+          };
+          cmdSlot.initEvent(event);
+     }
+
 //     private void groupEventCmd() {
 //          //  ============== combobox brand ================
 //          ButtonEvent brandEvent = new ButtonEvent() {
@@ -546,9 +541,7 @@ public class InsertProduct extends javax.swing.JDialog {
 //               }
 //          };
 //          cmdSlot.initEvent(slotEvent);
-
 //     }
-
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -820,7 +813,7 @@ public class InsertProduct extends javax.swing.JDialog {
          saveFunction(); // save
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    private void saveFunction() {
+     private void saveFunction() {
 //          if (barcode == null || barcode.isEmpty()) {
 //               JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
 //               return;
@@ -885,307 +878,308 @@ public class InsertProduct extends javax.swing.JDialog {
 //               return;
 //          }
 
-        try {
+          try {
 
-            boolean isCheck = JavaValidation.checkValidation(jPanel1);
+               boolean isCheck = JavaValidation.checkValidation(jPanel1);
 
-            if (isCheck) {
-                JSONObject json = new JSONObject();
-                json.put("subCatId", subCatId);
-                json.put("proNameKh", productNameKh);
-                json.put("proNameEn", productName);
-                json.put("cost", cost);
-                json.put("price", price);
-                json.put("margin", margin);
-                json.put("brandId", brandId);
-                json.put("barcode", barcode);
-                json.put("createBy", JavaConstant.cashierId);
-                json.put("taxId", taxId);
-                json.put("vendorId", vendorId);
-                json.put("uomId", uomId);
-                json.put("attributeId", attributeId);
-                json.put("productActiveId", statusId);
-                json.put("countryId", countryId);
-                json.put("choices", choiceValue);
-                json.put("warehouseId", warehouseId);
-                json.put("rangeId", rangeId);
-                json.put("slotId", slotId);
+               if (isCheck) {
+                    JSONObject json = new JSONObject();
+                    json.put("subCatId", subCatId);
+                    json.put("proNameKh", productNameKh);
+                    json.put("proNameEn", productName);
+                    json.put("cost", cost);
+                    json.put("price", price);
+                    json.put("margin", margin);
+                    json.put("brandId", brandId);
+                    json.put("barcode", barcode);
+                    json.put("createBy", JavaConstant.cashierId);
+                    json.put("taxId", taxId);
+                    json.put("vendorId", vendorId);
+                    json.put("uomId", uomId);
+                    json.put("attributeId", attributeId);
+                    json.put("productActiveId", statusId);
+                    json.put("countryId", countryId);
+                    json.put("choices", choiceValue);
 
-                if (id == null) { // add new
-                    if (path != null) {
-                        Response responseImg = JavaConnection.postFile(path);
-                        try {
-                            if (responseImg.isSuccessful()) {
-                                String fileName = responseImg.body().string();
-                                JSONObject obj = new JSONObject(fileName);
-                                fileName = obj.getString("fileName");
-                                json.put("proImageName", fileName);
-                                responseAddProduct(json);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Save Failed!");
-                            }
-                        } catch (Exception e) {
-                            System.out.println("erro : " + e);
-                        }
-                    } else {
-                        responseAddProduct(json);
+                    json.put("warehouseId", warehouseId.equals("-1") ? JSONObject.NULL : warehouseId);
+                    json.put("rangeId", rangeId.equals("-1") ? JSONObject.NULL : rangeId);
+                    json.put("slotId", slotId.equals("-1") ? JSONObject.NULL : slotId);
+
+                    if (id == null) { // add new
+                         if (path != null) {
+                              Response responseImg = JavaConnection.postFile(path);
+                              try {
+                                   if (responseImg.isSuccessful()) {
+                                        String fileName = responseImg.body().string();
+                                        JSONObject obj = new JSONObject(fileName);
+                                        fileName = obj.getString("fileName");
+                                        json.put("proImageName", fileName);
+                                        responseAddProduct(json);
+                                   } else {
+                                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                                   }
+                              } catch (Exception e) {
+                                   System.out.println("erro : " + e);
+                              }
+                         } else {
+                              responseAddProduct(json);
+                         }
+                    } else { // update
+
+                         if (path != null) {
+                              Response responseImg = JavaConnection.postFile(path);
+                              try {
+                                   if (responseImg.isSuccessful()) {
+                                        String fileName = responseImg.body().string();
+                                        JSONObject obj = new JSONObject(fileName);
+                                        fileName = obj.getString("fileName");
+                                        json.put("proImageName", fileName);
+                                        responseUpdateProduct(json);
+                                   } else {
+                                        JOptionPane.showMessageDialog(this, "Save Failed!");
+                                   }
+                              } catch (Exception e) {
+                                   System.out.println("erro : " + e);
+                              }
+                         } else {
+                              if (proImageName != null) {
+                                   json.put("proImageName", proImageName);
+                              }
+                              responseUpdateProduct(json);
+                         }
                     }
-                } else { // update
+               }
 
-                    if (path != null) {
-                        Response responseImg = JavaConnection.postFile(path);
-                        try {
-                            if (responseImg.isSuccessful()) {
-                                String fileName = responseImg.body().string();
-                                JSONObject obj = new JSONObject(fileName);
-                                fileName = obj.getString("fileName");
-                                json.put("proImageName", fileName);
-                                responseUpdateProduct(json);
-                            } else {
-                                JOptionPane.showMessageDialog(this, "Save Failed!");
-                            }
-                        } catch (Exception e) {
-                            System.out.println("erro : " + e);
-                        }
+          } catch (Exception e) {
+               System.err.println("errr -- " + e);
+          }
+
+     }
+
+     private void responseUpdateProduct(JSONObject json) {
+          Response response = JavaConnection.put(JavaRoute.productV1 + "/" + id, json);
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jSONObject = new JSONObject(responseData);
+                    if (jSONObject.has("error")) {
+                         JSONObject error = jSONObject.getJSONObject("error");
+                         String reason = error.getString("reason");
+                         JOptionPane.showMessageDialog(this, reason);
                     } else {
-                        if (proImageName != null) {
-                            json.put("proImageName", proImageName);
-                        }
-                        responseUpdateProduct(json);
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
-
-    }
-
-    private void responseUpdateProduct(JSONObject json) {
-        Response response = JavaConnection.put(JavaRoute.productV1 + "/" + id, json);
-        try {
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                JSONObject jSONObject = new JSONObject(responseData);
-                if (jSONObject.has("error")) {
-                    JSONObject error = jSONObject.getJSONObject("error");
-                    String reason = error.getString("reason");
-                    JOptionPane.showMessageDialog(this, reason);
-                } else {
 //                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
 //                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
-                    dispose();
+                         dispose();
 //                         listProduct.getProduct(listGetProduct, true, 0);
-                    reloadList();
+                         reloadList();
 
-                    proImageName = null;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("erro : " + e);
-        }
-    }
+                         proImageName = null;
+                    }
+               }
+          } catch (Exception e) {
+               System.out.println("erro : " + e);
+          }
+     }
 
-    private void responseAddProduct(JSONObject json) {
-        Response response = JavaConnection.post(JavaRoute.productV1, json);
-        
-        
-        System.out.println("response : " + response);
-        System.out.println("json : " + json);
-        
-        try {
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                JSONObject jSONObject = new JSONObject(responseData);
-                if (jSONObject.has("error")) {
-                    JSONObject error = jSONObject.getJSONObject("error");
-                    String reason = error.getString("reason");
-                    JOptionPane.showMessageDialog(this, reason);
-                } else {
-                    afterSuccess();
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("erro : " + e);
-        }
-    }
+     private void responseAddProduct(JSONObject json) {
+          Response response = JavaConnection.post(JavaRoute.productV1, json);
 
-    private void afterSuccess() {
-        JavaConstant.restoreDefaultCursor(this);
+          System.out.println("response : " + response);
+          System.out.println("json : " + json);
 
-        txtBarcode.setValueTextField(null);
-        txtProductName.setValueTextField(null);
-        txtProductNameKh.setValueTextField(null);
-        txtCost.setValueTextField(null);
-        txtPrice.setValueTextField(null);
-        txtMargin.setValueTextField(null);
-        txtChoiceValue.setValueTextField(null);
+          try {
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    JSONObject jSONObject = new JSONObject(responseData);
+                    if (jSONObject.has("error")) {
+                         JSONObject error = jSONObject.getJSONObject("error");
+                         String reason = error.getString("reason");
+                         JOptionPane.showMessageDialog(this, reason);
+                    } else {
+                         afterSuccess();
+                    }
+               }
+          } catch (Exception e) {
+               System.out.println("erro : " + e);
+          }
+     }
 
-        cmbVendorName.setToFirstItem();
-        cmbBrand.setToFirstItem();
-        cmbSubCategory.setToFirstItem();
-        cmbAttribute.setToFirstItem();
-        cmbUom.setToFirstItem();
-        cmbStatus.setToFirstItem();
-        cmbCountry.setToFirstItem();
-        cmbTax.setToFirstItem();
+     private void afterSuccess() {
+          dispose();
+          
+          JavaConstant.restoreDefaultCursor(this);
 
-        if (warehouseId != null) {
-            cmdWharehouse.setToFirstItem();
-        }
-        if (rangeId != null) {
-            cmdRange.setToFirstItem();
-        }
-        if (slotId != null) {
-            cmdSlot.setToFirstItem();
-        }
+          txtBarcode.setValueTextField(null);
+          txtProductName.setValueTextField(null);
+          txtProductNameKh.setValueTextField(null);
+          txtCost.setValueTextField(null);
+          txtPrice.setValueTextField(null);
+          txtMargin.setValueTextField(null);
+          txtChoiceValue.setValueTextField(null);
 
-        lbPicture.setIcon(null);
+          cmbVendorName.setToFirstItem();
+          cmbBrand.setToFirstItem();
+          cmbSubCategory.setToFirstItem();
+          cmbAttribute.setToFirstItem();
+          cmbUom.setToFirstItem();
+          cmbStatus.setToFirstItem();
+          cmbCountry.setToFirstItem();
+          cmbTax.setToFirstItem();
 
-        warehouseId = null;
-        rangeId = null;
-        slotId = null;
-        brandId = null;
-        taxId = null;
-        uomId = null;
-        attributeId = null;
-        subCatId = null;
-        vendorId = null;
-        countryId = null;
+          if (warehouseId != null) {
+               cmdWharehouse.setToFirstItem();
+          }
+          if (rangeId != null) {
+               cmdRange.setToFirstItem();
+          }
+          if (slotId != null) {
+               cmdSlot.setToFirstItem();
+          }
 
-        txtPrice.setValueTextField("Price");
-        txtCost.setValueTextField("Cost");
-        txtProductNameKh.setValueTextField("Product Name Kh");
-        txtChoiceValue.setValueTextField("Choice Value");
-        txtProductName.setValueTextField("Product Name");
+          lbPicture.setIcon(null);
 
-        txtBarcode.setFocus();
-        reloadList();
+          warehouseId = null;
+          rangeId = null;
+          slotId = null;
+          brandId = null;
+          taxId = null;
+          uomId = null;
+          attributeId = null;
+          subCatId = null;
+          vendorId = null;
+          countryId = null;
+
+          txtPrice.setValueTextField("Price");
+          txtCost.setValueTextField("Cost");
+          txtProductNameKh.setValueTextField("Product Name Kh");
+          txtChoiceValue.setValueTextField("Choice Value");
+          txtProductName.setValueTextField("Product Name");
+
+          txtBarcode.setFocus();
+          reloadList();
 
 //          System.out.println(" add category id : " + jdLogin.getCatId());
 //          jdLogin.onClickCategory("new items", jdLogin.getCatId());
 //          panelCategory.getComponents()[1].setBackground(WindowColor.black);
 //          panelCategory.revalidate();
 //          panelCategory.repaint();
-    }
+     }
 
-    public void reloadList() {
-        // refresh list product
-        listGetProduct.removeAll();
-        listGetProduct.repaint();
-        listGetProduct.revalidate();
+     public void reloadList() {
+          // refresh list product
+          listGetProduct.removeAll();
+          listGetProduct.repaint();
+          listGetProduct.revalidate();
 
-        if (status.equals("allProduct")) {
-            listProduct.getProduct(listGetProduct, true, 0);
-        } else if (status.equals("active")) {
-            listProduct.getProduct(listGetProduct, true, 1);
-        } else if (status.equals("inActive")) {
-            listProduct.getProduct(listGetProduct, true, 2);
-        }
+          if (status.equals("allProduct")) {
+               listProduct.getProduct(listGetProduct, true, 0);
+          } else if (status.equals("active")) {
+               listProduct.getProduct(listGetProduct, true, 1);
+          } else if (status.equals("inActive")) {
+               listProduct.getProduct(listGetProduct, true, 2);
+          }
 
-    }
+     }
 
-    public ListProduct getListProduct() {
-        return listProduct;
-    }
+     public ListProduct getListProduct() {
+          return listProduct;
+     }
 
-    public void setListProduct(ListProduct listProduct) {
-        this.listProduct = listProduct;
-    }
+     public void setListProduct(ListProduct listProduct) {
+          this.listProduct = listProduct;
+     }
 
-    public JPanel getListGetProduct() {
-        return listGetProduct;
-    }
+     public JPanel getListGetProduct() {
+          return listGetProduct;
+     }
 
-    public void setListGetProduct(JPanel listGetProduct) {
-        this.listGetProduct = listGetProduct;
-    }
+     public void setListGetProduct(JPanel listGetProduct) {
+          this.listGetProduct = listGetProduct;
+     }
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        labelPopUpTitle1.setLabelTitle("Edit Product");
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          labelPopUpTitle1.setLabelTitle("Edit Product");
+     }
 
 
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
-        dispose();
-        ImportFile importF = new ImportFile(new JFrame(), true);
-        importF.setInsertProduct(this);
-        importF.setVisible(true);
-
+         dispose();
+         ImportFile importF = new ImportFile(new JFrame(), true);
+         importF.setInsertProduct(this);
+         importF.setVisible(true);
     }//GEN-LAST:event_button1MouseClicked
 
     private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
-        try {
-            path = JNAFileChooser.funChooseFile();
-            JavaConstant.coverImagePath(path, lbPicture, 124, 235);
-        } catch (IOException ex) {
-            Logger.getLogger(AddProduct.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
+         try {
+              path = JNAFileChooser.funChooseFile();
+              JavaConstant.coverImagePath(path, lbPicture, 124, 235);
+         } catch (IOException ex) {
+              Logger.getLogger(AddProduct.class
+                   .getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_browseMouseClicked
 
     private void browseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseEntered
-        browse.setForeground(WindowColor.light_Blue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
+         browse.setForeground(WindowColor.light_Blue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.light_Blue));
     }//GEN-LAST:event_browseMouseEntered
 
     private void browseMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseExited
-        browse.setForeground(WindowColor.darkBlue);
-        browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+         browse.setForeground(WindowColor.darkBlue);
+         browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
     }//GEN-LAST:event_browseMouseExited
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
 
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InsertProduct.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(InsertProduct.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel browse;

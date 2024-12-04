@@ -6,235 +6,234 @@ import Fonts.WindowFonts;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
-    public GetProduct() {
-        initComponents();
-        JavaConstant.setPointer(btnDelete);
-        JavaConstant.setPointer(btnEdit);
-        JavaConstant.setPointer(btnDetail);
-        proNameKh.setFont(WindowFonts.khmerOsContent12);
-    }
+     public GetProduct() {
+          initComponents();
+          JavaConstant.setPointer(btnDelete);
+          JavaConstant.setPointer(btnEdit);
+          JavaConstant.setPointer(btnDetail);
+          proNameKh.setFont(WindowFonts.khmerOsContent12);
+     }
 
-    private String productName;
-    private String productBarcode;
-    private String productPrice;
-    private int quantity;
-    private int productId;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    private JPanel panelProduct;
-    private String productStatus;
-    private Icon iconDetail;
-    private String choiceValue;
+     private String productName;
+     private String productBarcode;
+     private String productPrice;
+     private int quantity;
+     private int productId;
+     private Icon iconEdit;
+     private Icon iconDelete;
+     private JPanel panelProduct;
+     private String productStatus;
+     private Icon iconDetail;
+     private String choiceValue;
 
-    private JPanel listGetProduct;
+     private JPanel listGetProduct;
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setData(
-            String _barcode,
-            String _itemCode,
-            String _division,
-            String _vendorCode,
-            String _vendorName,
-            String _productName,
-            String _productNameKh,
-            String _qty,
-            String _price,
-            String _cost,
-            String _productId,
-            String _choiceValue
-    ) {
-        barcode.setText(_barcode);
-        itemCode.setText(_itemCode);
-        division.setText(_division);
-        vendorCode.setText(_vendorCode);
-        vendorName.setText(_vendorName);
-        proName.setText(_productName + " " +_choiceValue);
-        
-        if (_productNameKh != null) {
-            proNameKh.setText(_productNameKh + " " + _choiceValue);
-        }else{
-            proNameKh.setText("");
-        }
-        
-        qty.setText(_qty);
-        price.setText(_price);
-        cost.setText(_cost);
-        productId = Integer.parseInt(_productId);
-    }
+     public void setData(
+          String _barcode,
+          String _itemCode,
+          String _division,
+          String _vendorCode,
+          String _vendorName,
+          String _productName,
+          String _productNameKh,
+          String _qty,
+          String _price,
+          String _cost,
+          String _productId,
+          String _choiceValue
+     ) {
+          barcode.setText(_barcode);
+          itemCode.setText(_itemCode);
+          division.setText(_division);
+          vendorCode.setText(_vendorCode);
+          vendorName.setText(_vendorName);
+          proName.setText(_productName + " " + _choiceValue);
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+          if (_productNameKh != null && !_productNameKh.isEmpty()) {
+               proNameKh.setText(_productNameKh + " " + _choiceValue);
+          } else {
+               proNameKh.setText("");
+          }
 
-    @SuppressWarnings("unchecked")
+          qty.setText(_qty);
+          price.setText(_price);
+          cost.setText(_cost);
+          productId = Integer.parseInt(_productId);
+     }
 
-    public JPanel getListGetProduct() {
-        return listGetProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    public void setListGetProduct(JPanel listGetProduct) {
-        this.listGetProduct = listGetProduct;
-    }
+     @SuppressWarnings("unchecked")
 
-    public int getProductId() {
-        return productId;
-    }
+     public JPanel getListGetProduct() {
+          return listGetProduct;
+     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
+     public void setListGetProduct(JPanel listGetProduct) {
+          this.listGetProduct = listGetProduct;
+     }
 
-    public String getProductName() {
-        return productName;
-    }
+     public int getProductId() {
+          return productId;
+     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-        proName.setText(productName);
-    }
+     public void setProductId(int productId) {
+          this.productId = productId;
+     }
 
-    public String getProductBarcode() {
-        return productBarcode;
-    }
+     public String getProductName() {
+          return productName;
+     }
 
-    public void setProductBarcode(String productBarcode) {
-        this.productBarcode = productBarcode;
-    }
+     public void setProductName(String productName) {
+          this.productName = productName;
+          proName.setText(productName);
+     }
 
-    public String getProductPrice() {
-        return productPrice;
-    }
+     public String getProductBarcode() {
+          return productBarcode;
+     }
 
-    public void setProductPrice(String productPrice) {
-        this.productPrice = productPrice;
-        price.setText(productPrice);
-    }
+     public void setProductBarcode(String productBarcode) {
+          this.productBarcode = productBarcode;
+     }
 
-    public int getQty() {
-        return quantity;
-    }
+     public String getProductPrice() {
+          return productPrice;
+     }
 
-    public void setQty(int quantity) {
-        this.quantity = quantity;
-        qty.setText("" + quantity);
-    }
+     public void setProductPrice(String productPrice) {
+          this.productPrice = productPrice;
+          price.setText(productPrice);
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public int getQty() {
+          return quantity;
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public void setQty(int quantity) {
+          this.quantity = quantity;
+          qty.setText("" + quantity);
+     }
 
-    public String getProductStatus() {
-        return productStatus;
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public void setProductStatus(String productStatus) {
-        this.productStatus = productStatus;
-        price.setText(productStatus);
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public String getProductStatus() {
+          return productStatus;
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
+     public void setProductStatus(String productStatus) {
+          this.productStatus = productStatus;
+          price.setText(productStatus);
+     }
 
-    public Icon getIconDetail() {
-        return iconDetail;
-    }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-    public void setIconDetail(Icon iconDetail) {
-        this.iconDetail = iconDetail;
-        btnDetail.setIcon(iconDetail);
-    }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                 System.err.println("productID : " + productId);
-                event.onSelect("" + productId);
-            }
+     public Icon getIconDetail() {
+          return iconDetail;
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public void setIconDetail(Icon iconDetail) {
+          this.iconDetail = iconDetail;
+          btnDetail.setIcon(iconDetail);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    System.err.println("productID : " + productId);
+                    event.onSelect("" + productId);
+               }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
 
-        btnDelete.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onRemove("" + productId);
-            }
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + productId);
+               }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
 
-        btnDetail.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelectDetail("" + productId);
-            }
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+          btnDetail.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onSelectDetail("" + productId);
+               }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
 
-    }
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
