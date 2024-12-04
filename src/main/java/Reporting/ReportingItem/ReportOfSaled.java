@@ -81,81 +81,65 @@ public class ReportOfSaled extends javax.swing.JPanel {
         header.setPreferredSize(new java.awt.Dimension(1839, 35));
 
         number.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        number.setForeground(new java.awt.Color(0, 0, 0));
         number.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         number.setText("#");
 
         taxType.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        taxType.setForeground(new java.awt.Color(0, 0, 0));
         taxType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         taxType.setText("Tax Type ");
 
         productName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        productName.setForeground(new java.awt.Color(0, 0, 0));
         productName.setText("Product Name");
 
         price.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        price.setForeground(new java.awt.Color(0, 0, 0));
         price.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         price.setText("Price");
 
         amount.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        amount.setForeground(new java.awt.Color(0, 0, 0));
         amount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         amount.setText("Amount (Include Tax) ");
 
         totalSaled.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        totalSaled.setForeground(new java.awt.Color(0, 0, 0));
         totalSaled.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         totalSaled.setText("Total Sale Exclude VAT ");
 
         cost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        cost.setForeground(new java.awt.Color(0, 0, 0));
         cost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cost.setText("Cost ");
 
         date.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        date.setForeground(new java.awt.Color(0, 0, 0));
         date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         date.setText("Date");
 
         qty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        qty.setForeground(new java.awt.Color(0, 0, 0));
         qty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         qty.setText("Qty");
 
         margin.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        margin.setForeground(new java.awt.Color(0, 0, 0));
         margin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         margin.setText("Margin ");
 
         transactionNumber.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        transactionNumber.setForeground(new java.awt.Color(0, 0, 0));
         transactionNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         transactionNumber.setText("# Trans. ");
 
         discount.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        discount.setForeground(new java.awt.Color(0, 0, 0));
         discount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         discount.setText("Discount");
 
         vatAmt.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        vatAmt.setForeground(new java.awt.Color(0, 0, 0));
         vatAmt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vatAmt.setText("VAT Amt ");
 
         plt.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        plt.setForeground(new java.awt.Color(0, 0, 0));
         plt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         plt.setText("PLT ");
 
         netSale.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        netSale.setForeground(new java.awt.Color(0, 0, 0));
         netSale.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         netSale.setText("Net Sale ");
 
         staff.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        staff.setForeground(new java.awt.Color(0, 0, 0));
         staff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         staff.setText("staff");
 
@@ -200,26 +184,22 @@ public class ReportOfSaled extends javax.swing.JPanel {
         );
         headerLayout.setVerticalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(number)
-                    .addComponent(price)
-                    .addComponent(cost)
-                    .addComponent(productName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(qty)
-                    .addComponent(margin)
-                    .addComponent(transactionNumber)
-                    .addComponent(plt)
-                    .addComponent(netSale)
-                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(discount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(amount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(taxType, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(totalSaled, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vatAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(staff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(staff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(margin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(netSale, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(plt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(vatAmt, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(totalSaled, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(taxType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(amount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(discount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(price, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(qty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(productName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(transactionNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(number, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -234,10 +214,10 @@ public class ReportOfSaled extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
+            .addGap(0, 37, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addGap(0, 0, 0)))
         );
     }// </editor-fold>//GEN-END:initComponents

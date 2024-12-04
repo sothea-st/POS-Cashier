@@ -16,12 +16,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel" alignment="0" pref="1398" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="panel" min="-2" pref="1394" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel" pref="32" max="32767" attributes="0"/>
+          <Component id="panel" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -44,72 +47,62 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="lbNumber" min="-2" pref="23" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbId" min="-2" pref="7" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="vendorName" min="-2" pref="289" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="transactionNo" min="-2" pref="120" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="referenceNo" min="-2" pref="126" max="-2" attributes="0"/>
+                  <Component id="lbNumber" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="transactionDate" min="-2" pref="138" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="lbReceiveBy" min="-2" pref="136" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="totalQty" min="-2" pref="140" max="-2" attributes="0"/>
+                  <Component id="lbId" min="-2" pref="8" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="totalCost" min="-2" pref="146" max="-2" attributes="0"/>
+                  <Component id="lbVendorName" min="-2" pref="286" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="status" min="-2" pref="134" max="-2" attributes="0"/>
+                  <Component id="lbTranactionNo" min="-2" pref="140" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbReferenceNo" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="lbTransactionDate" min="-2" pref="136" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbReceiveBy" min="-2" pref="150" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbTotalQty" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbTotalCost" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbremark" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Component id="lbNumber" alignment="1" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="referenceNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="vendorName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbTransactionDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbTotalQty" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbTotalCost" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbTranactionNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbremark" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbReceiveBy" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbNumber" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="lbId" pref="27" max="32767" attributes="0"/>
               </Group>
+              <Component id="lbReferenceNo" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbTranactionNo" max="32767" attributes="0"/>
+              <Component id="lbVendorName" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbTotalQty" alignment="0" max="32767" attributes="0"/>
+              <Component id="lbReceiveBy" alignment="0" max="32767" attributes="0"/>
+              <Component id="lbTransactionDate" alignment="0" max="32767" attributes="0"/>
+              <Component id="lbremark" max="32767" attributes="0"/>
+              <Component id="lbTotalCost" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="referenceNo">
+        <Component class="javax.swing.JLabel" name="lbReferenceNo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Reference &#x2116;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="vendorName">
+        <Component class="javax.swing.JLabel" name="lbVendorName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="2"/>
             <Property name="text" type="java.lang.String" value="Vendor Name"/>
@@ -125,68 +118,49 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="transactionDate">
+        <Component class="javax.swing.JLabel" name="lbTransactionDate">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Transaction Date"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="totalQty">
+        <Component class="javax.swing.JLabel" name="lbTotalQty">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Total Qty"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="totalCost">
+        <Component class="javax.swing.JLabel" name="lbTotalCost">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Total Cost"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="transactionNo">
+        <Component class="javax.swing.JLabel" name="lbTranactionNo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Transaction &#x2116;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="status">
+        <Component class="javax.swing.JLabel" name="lbremark">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="status"/>
@@ -196,9 +170,6 @@
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Received By"/>
           </Properties>

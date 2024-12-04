@@ -18,73 +18,67 @@ import okhttp3.Response;
  */
 public class JdailogCustomer extends javax.swing.JDialog {
 
-     /**
-      * Creates new form JdailogCustomer
-      */
-     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
+    /**
+     * Creates new form JdailogCustomer
+     */
+    DecimalFormat dm = new DecimalFormat("$ #,##0.00");
 
-     public JdailogCustomer(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
-          buttonSave.setTitleButton("+ Create New Customer");
-          buttonSave.setBgColor(WindowColor.primary);
-          pCustomer.setBackground(WindowColor.mediumGreen);
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
-          event();
-          getPointCustomer();
-          txtCustomerName.requestFocusInWindow();
-          txtPhone.add3digitsToPhoneNumber();
-     }
+    public JdailogCustomer(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        buttonSave.setTitleButton("+ Create New Customer");
+        buttonSave.setBgColor(WindowColor.primary);
+        pCustomer.setBackground(WindowColor.mediumGreen);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
+        getPointCustomer();
+        txtCustomerName.requestFocusInWindow();
+        txtPhone.setValidatePhoneNumber();
+    }
 
-     void event() {
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
 
-               }
-          };
-          txtCustomerName.initEvent(btnevent);
-          txtPhone.initEvent(btnevent);
-          txtPoint.initEvent(btnevent);
-          txtAmount.initEvent(btnevent);
-     }
+    void getPointCustomer() {
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onKeyRelease() {
+                String phone = txtPhone.getValueTextField();
+                
+                if (phone == null) {
+                    phone = txtCustomerName.getValueTextField();
+                }else{
+                    phone = phone.replace(" ", "");
+                }
+                
+                Response response = JavaConnection.get(JavaRoute.getPoint + phone);
+                
+                System.err.println("resonpse er = " + response);
 
-     void getPointCustomer() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onKeyRelease() {
-                    String phone = txtPhone.getValueTextField();
-                    if( phone == null ) phone = txtCustomerName.getValueTextField();
-                  
-                    Response response = JavaConnection.get(JavaRoute.getPoint + phone);
-                    System.err.println("resonpse er = " + response);
-            
-                    try {
-                         if (response.isSuccessful()) {
-                              String data = response.body().string();
-                            
-                              ObjectMapper objMap = new ObjectMapper();
-                              PointCustomer obj = objMap.readValue(data, PointCustomer.class);
-                              CustomerPointModel cusData = obj.getData();
-                              txtPoint.setValueTextField("" + cusData.getPointEarned());
-                              if (cusData.getTotalAmountEarned() == null) {
-                                   txtAmount.setValueTextField(dm.format(0));
-                              } else {
-                                   txtAmount.setValueTextField(dm.format(cusData.getTotalAmountEarned()));
-                              }
-                              txtCustomerName.setValueTextField(cusData.getCustomerID());
-                              txtPhone.setValueTextField(cusData.getContact());
+                try {
+                    if (response.isSuccessful()) {
+                        String data = response.body().string();
 
-                         }
-                    } catch (Exception e) {
+                        ObjectMapper objMap = new ObjectMapper();
+                        PointCustomer obj = objMap.readValue(data, PointCustomer.class);
+                        CustomerPointModel cusData = obj.getData();
+
+                        txtPoint.setText("" + cusData.getPointEarned());
+                        if (cusData.getTotalAmountEarned() == null) {
+                            txtAmount.setText(dm.format(0));
+                        } else {
+                            txtAmount.setText(dm.format(cusData.getTotalAmountEarned()));
+                        }
+                        txtCustomerName.setText(cusData.getCustomerID());
+                        txtPhone.setText(cusData.getContact());
+
                     }
-               }
-          };
+                } catch (Exception e) {
+                }
+            }
+        };
 
-          txtPhone.initEvent(event);
-          txtCustomerName.initEvent(event);
-     }
+        txtPhone.initEvent(event);
+        txtCustomerName.initEvent(event);
+    }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -93,10 +87,10 @@ public class JdailogCustomer extends javax.swing.JDialog {
         labelPopUpTitle1 = new Components.LabelPopUpTitle();
         pCustomer = new javax.swing.JPanel();
         buttonSave = new ButtonPackage.ButtonSave();
-        txtCustomerName = new Components.TextField();
-        txtPhone = new Components.TextField();
-        txtPoint = new Components.TextField();
-        txtAmount = new Components.TextField();
+        txtCustomerName = new FormComponent.JavaTextField();
+        txtPoint = new FormComponent.JavaTextField();
+        txtPhone = new FormComponent.JavaTextField();
+        txtAmount = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -109,57 +103,61 @@ public class JdailogCustomer extends javax.swing.JDialog {
             }
         });
 
-        txtCustomerName.setLabelTextField("Customer Code");
+        txtCustomerName.setLabelName(" ");
+        txtCustomerName.setPlaceHolder("Customer Code");
 
-        txtPhone.setLabelTextField("000 000 0000");
+        txtPoint.setLabelName(" ");
+        txtPoint.setPlaceHolder("Total Point Earned");
 
-        txtPoint.setEnabled(false);
-        txtPoint.setLabelTextField("Total Point earned");
+        txtPhone.setLabelName(" ");
+        txtPhone.setPlaceHolder("000 000 0000");
 
-        txtAmount.setLabelTextField("Total Amount earned");
+        txtAmount.setLabelName("");
+        txtAmount.setPlaceHolder("Total Amount Earned");
 
         javax.swing.GroupLayout pCustomerLayout = new javax.swing.GroupLayout(pCustomer);
         pCustomer.setLayout(pCustomerLayout);
         pCustomerLayout.setHorizontalGroup(
             pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pCustomerLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pCustomerLayout.createSequentialGroup()
-                        .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCustomerLayout.createSequentialGroup()
                         .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCustomerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pCustomerLayout.createSequentialGroup()
+                        .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(20, Short.MAX_VALUE))))
+            .addGroup(pCustomerLayout.createSequentialGroup()
+                .addGap(227, 227, 227)
                 .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(152, 152, 152))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         pCustomerLayout.setVerticalGroup(
             pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCustomerLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addGroup(pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtPoint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+            .addComponent(labelPopUpTitle1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -229,9 +227,9 @@ public class JdailogCustomer extends javax.swing.JDialog {
     private ButtonPackage.ButtonSave buttonSave;
     private Components.LabelPopUpTitle labelPopUpTitle1;
     private javax.swing.JPanel pCustomer;
-    private Components.TextField txtAmount;
-    private Components.TextField txtCustomerName;
-    private Components.TextField txtPhone;
-    private Components.TextField txtPoint;
+    private FormComponent.JavaTextField txtAmount;
+    private FormComponent.JavaTextField txtCustomerName;
+    private FormComponent.JavaTextField txtPhone;
+    private FormComponent.JavaTextField txtPoint;
     // End of variables declaration//GEN-END:variables
 }

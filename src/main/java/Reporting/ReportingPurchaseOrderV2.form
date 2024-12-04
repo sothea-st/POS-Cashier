@@ -23,12 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -41,13 +41,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="header" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="paginationPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="header" alignment="1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
@@ -57,18 +57,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="header" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="645" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnCancel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="paginationPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,50 +82,33 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="searchField" min="-2" pref="226" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="groupButtonExport" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dateFrom" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label1" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dateTo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label2" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="requestBy" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label3" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkedBy" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label4" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="approvedBy" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label5" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="rejectedBy" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label6" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="label7" min="-2" pref="88" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="status" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonApply" max="32767" attributes="0"/>
+                                      <Component id="buttonApply" min="-2" pref="87" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="dateFrom" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                      <Component id="dateTo" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                      <Component id="requestBy" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkedBy" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="approvedBy" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="rejectedBy" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -135,47 +118,39 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="label1" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="rejectedBy" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="requestBy" min="-2" max="-2" attributes="0"/>
+                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="dateFrom" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="dateTo" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="checkedBy" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="status" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Component id="buttonApply" min="-2" pref="34" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label2" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label3" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label4" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label5" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label6" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="label7" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="approvedBy" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="requestBy" max="32767" attributes="0"/>
-                          <Component id="dateFrom" alignment="0" max="32767" attributes="0"/>
-                          <Component id="dateTo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="status" alignment="0" max="32767" attributes="0"/>
-                          <Component id="buttonApply" alignment="1" pref="0" max="32767" attributes="0"/>
-                          <Component id="checkedBy" alignment="1" max="32767" attributes="0"/>
-                          <Component id="approvedBy" alignment="0" max="32767" attributes="0"/>
-                          <Component id="rejectedBy" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="groupButtonExport" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="searchField" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -202,53 +177,39 @@
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonApplyMouseEntered"/>
               </Events>
             </Component>
-            <Component class="DatePicker.DatePicker" name="dateFrom">
-            </Component>
-            <Component class="DatePicker.DatePicker" name="dateTo">
-            </Component>
-            <Component class="Components.ComboBox" name="requestBy">
-            </Component>
-            <Component class="Components.ComboBox" name="status">
-            </Component>
-            <Component class="Components.ComboBox" name="checkedBy">
-            </Component>
-            <Component class="Components.ComboBox" name="approvedBy">
-            </Component>
-            <Component class="Components.ComboBox" name="rejectedBy">
-            </Component>
-            <Component class="Components.Label" name="label1">
-              <Properties>
-                <Property name="labelName" type="java.lang.String" value="Date From"/>
-              </Properties>
-            </Component>
-            <Component class="Components.Label" name="label2">
-              <Properties>
-                <Property name="labelName" type="java.lang.String" value="Date To"/>
-              </Properties>
-            </Component>
-            <Component class="Components.Label" name="label3">
+            <Component class="FormComponent.combobox.JavaCombobox" name="requestBy">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Requested By"/>
               </Properties>
             </Component>
-            <Component class="Components.Label" name="label4">
+            <Component class="FormComponent.combobox.JavaCombobox" name="checkedBy">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Checked By"/>
               </Properties>
             </Component>
-            <Component class="Components.Label" name="label5">
+            <Component class="FormComponent.combobox.JavaCombobox" name="approvedBy">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Approved By"/>
               </Properties>
             </Component>
-            <Component class="Components.Label" name="label6">
+            <Component class="FormComponent.combobox.JavaCombobox" name="rejectedBy">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Rejected By"/>
               </Properties>
             </Component>
-            <Component class="Components.Label" name="label7">
+            <Component class="FormComponent.combobox.JavaCombobox" name="status">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Status"/>
+              </Properties>
+            </Component>
+            <Component class="FormComponent.datepicker.JavaDatePicker" name="dateFrom">
+              <Properties>
+                <Property name="labelName" type="java.lang.String" value="Date From *"/>
+              </Properties>
+            </Component>
+            <Component class="FormComponent.datepicker.JavaDatePicker" name="dateTo">
+              <Properties>
+                <Property name="labelName" type="java.lang.String" value="Date To"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -283,7 +244,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" pref="132" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel3" pref="164" max="32767" attributes="0"/>
+                      <Component id="jLabel3" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel9" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -304,24 +265,18 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel8" alignment="1" pref="35" max="32767" attributes="0"/>
+                  <Component id="jLabel6" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel5" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel12" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel10" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel11" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel9" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel7" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -346,7 +301,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Reference &#x2116;"/>
               </Properties>
             </Component>
@@ -405,7 +359,6 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="Transaction &#x2116;"/>
               </Properties>
             </Component>
@@ -494,7 +447,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="645" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="559" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

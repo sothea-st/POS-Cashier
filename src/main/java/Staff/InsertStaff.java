@@ -111,8 +111,8 @@ public class InsertStaff extends javax.swing.JDialog {
       
         try {
             LinkedHashMap<String, String> map = new LinkedHashMap<>();
-            map.put("male", "Male");
-            map.put("female", "Female");
+            map.put("Male", "Male");
+            map.put("Female", "Female");
             gender.setMap(map);
 
             ButtonEvent event = new ButtonEvent() {

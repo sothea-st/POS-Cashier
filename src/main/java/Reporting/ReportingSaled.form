@@ -28,7 +28,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="mainPanel" alignment="0" max="32767" attributes="0"/>
+          <Component id="mainPanel" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -57,18 +57,18 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Component id="header" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jScrollPaneProduct" min="-2" pref="617" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+                  <Component id="jScrollPaneProduct" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                       <Component id="paginationPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -82,35 +82,21 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="dateFrom" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="dateTo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                              <Component id="userCombobox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonSave" min="-2" pref="87" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="searchField" min="-2" pref="226" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="groupButtonExport" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dateFrom" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label1" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dateTo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="label2" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="label3" min="-2" pref="88" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Component id="userCombobox" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -119,24 +105,22 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="label1" max="32767" attributes="0"/>
-                          <Component id="label2" max="32767" attributes="0"/>
-                          <Component id="label3" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="dateFrom" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="dateTo" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dateFrom" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dateTo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="userCombobox" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="buttonSave" alignment="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="userCombobox" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="buttonSave" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="groupButtonExport" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="searchField" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -162,23 +146,17 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
               </Events>
             </Component>
-            <Component class="DatePicker.DatePicker" name="dateFrom">
-            </Component>
-            <Component class="DatePicker.DatePicker" name="dateTo">
-            </Component>
-            <Component class="Components.ComboBox" name="userCombobox">
-            </Component>
-            <Component class="Components.Label" name="label1">
+            <Component class="FormComponent.datepicker.JavaDatePicker" name="dateFrom">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="Date From"/>
+                <Property name="labelName" type="java.lang.String" value="Date From *"/>
               </Properties>
             </Component>
-            <Component class="Components.Label" name="label2">
+            <Component class="FormComponent.datepicker.JavaDatePicker" name="dateTo">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="Date To"/>
+                <Property name="labelName" type="java.lang.String" value="Date To *"/>
               </Properties>
             </Component>
-            <Component class="Components.Label" name="label3">
+            <Component class="FormComponent.combobox.JavaCombobox" name="userCombobox">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Staff"/>
               </Properties>
@@ -223,9 +201,9 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel16" min="-2" pref="85" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel9" min="-2" pref="78" max="-2" attributes="0"/>
+                      <Component id="jLabel9" min="-2" pref="84" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel17" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jLabel17" min="-2" pref="74" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel11" min="-2" pref="97" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
@@ -234,28 +212,22 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" max="32767" attributes="0"/>
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel11" alignment="1" pref="35" max="32767" attributes="0"/>
+                  <Component id="jLabel17" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel9" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel16" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel15" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel14" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel8" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel7" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel13" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel5" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel6" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel4" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel10" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel12" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -480,7 +452,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="617" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="559" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
