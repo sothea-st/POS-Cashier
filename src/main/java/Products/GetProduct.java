@@ -3,14 +3,16 @@ package Products;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
-
-     public GetProduct() {
+     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail; 
+     public GetProduct(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
+          this.roleHasPermissionDetail = roleHasPermissionDetail;
           initComponents();
           JavaConstant.setPointer(btnDelete);
           JavaConstant.setPointer(btnEdit);
@@ -67,6 +69,10 @@ public class GetProduct extends javax.swing.JPanel {
           price.setText(_price);
           cost.setText(_cost);
           productId = Integer.parseInt(_productId);
+          
+          btnEdit.setVisible(roleHasPermissionDetail.getIsUpdate());
+          btnDetail.setVisible(roleHasPermissionDetail.getIsView());
+          btnDelete.setVisible(roleHasPermissionDetail.getIsDelete());
      }
 
      public void setPanelProduct(JPanel panelProduct) {

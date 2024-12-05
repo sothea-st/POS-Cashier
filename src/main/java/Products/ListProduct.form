@@ -63,7 +63,7 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="cmdPageSize" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="button1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       <Component id="header" alignment="1" max="32767" attributes="0"/>
@@ -79,7 +79,7 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="button1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
                               <Component id="searchField" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="1" max="-2" attributes="0">
@@ -332,7 +332,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="Button.Button" name="button1">
+        <Component class="Button.Button" name="btnAdd">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="9b" red="2f" type="rgb"/>
@@ -340,7 +340,7 @@
             <Property name="buttonName" type="java.lang.String" value="+ Add Product"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddMouseClicked"/>
           </Events>
         </Component>
         <Component class="Button.Button" name="btnExcel">

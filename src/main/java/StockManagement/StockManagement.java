@@ -1,23 +1,28 @@
 package StockManagement;
 
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
+import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Products.ListProduct;
 import Stock.PurchaseOrderView.PurchaseOrderView;
 import Stock.PurchaseReceive.ListPurchaseReceive;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
 
 public class StockManagement extends javax.swing.JDialog {
 
      private JPanel panelProduct;
      private JPanel panelCategory;
-
      private LoginFormJdailog jdLogin;
+     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
 
      public StockManagement(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -35,6 +40,58 @@ public class StockManagement extends javax.swing.JDialog {
 
           JavaConstant.addTitleAndLogo(this, "Stock");
           getImageAndTitle();
+
+          // check permission
+          checkPermission();
+     }
+
+     private void checkPermission() {
+
+          Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "?roleId=" + JavaConstant.roleId + "&parentId=5");
+
+          try {
+               // convert response to string 
+               String responseData = response.body().string();
+
+               // create object mapper
+               ObjectMapper object = new ObjectMapper();
+
+               // convert responseData to objectMapper
+               RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
+
+               JavaConstant.roleHasPermissionModel = model;
+
+               boolean isProduct = false;
+               boolean isPurchaseOrder = false;
+               boolean isPurchaseReceive = false;
+
+               for (RoleHasPermissionModel.RoleHasPermissionDetail data : model.getData()) {
+
+                    if (data.getPermissionName().equals("Product")) {
+                         isProduct = data.getIsVisible();
+                         roleHasPermissionDetail = data;
+                    }
+
+                    if (data.getPermissionName().equals("Purchase Order")) {
+                         isPurchaseOrder = data.getIsVisible();
+                         roleHasPermissionDetail = data;
+                    }
+
+                    if (data.getPermissionName().equals("Purchase Receive")) {
+                         isPurchaseReceive = data.getIsVisible();
+                         roleHasPermissionDetail = data;
+                    }
+
+               }
+
+               product.setVisible(isProduct);
+               purchaseOrder.setVisible(isPurchaseOrder);
+               purchaseOrderReceive.setVisible(isPurchaseReceive);
+
+          } catch (Exception e) {
+               System.err.println("error :" + e);
+          }
+
      }
 
      private void getImageAndTitle() {
@@ -43,23 +100,6 @@ public class StockManagement extends javax.swing.JDialog {
           purchaseOrder.setTitle("Purchase Order");
           purchaseOrderReceive.setTitle("Purchase Receive");
 
-//          TimerTask task = new TimerTask() {
-//               @Override
-//               public void run() {
-//                    try {
-//                         // Task to be executed
-//                         product.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/item.png");
-//                         purchaseOrder.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/PurchaseOrder.png");
-//                         purchaseOrderReceive.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/63157d93-b4c9-4c60-b9f3-8eb7e789c039");
-//                      
-//                    } catch (IOException ex) {
-//                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//               }
-//          };
-//
-//          Timer timer = new Timer();
-//          timer.schedule(task, 500); // Delays task execution by 1 second
      }
 
      @SuppressWarnings("unchecked")
@@ -160,6 +200,7 @@ public class StockManagement extends javax.swing.JDialog {
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
          ListProduct list = new ListProduct(new JFrame(), true);
+         list.setRoleHasPermissionDetail(roleHasPermissionDetail); // assing roleHasPermission and get Data
          list.setPanelProduct(panelProduct);
          list.setJdLogin(jdLogin);
          list.setPanelCategory(panelCategory);
@@ -167,13 +208,13 @@ public class StockManagement extends javax.swing.JDialog {
     }//GEN-LAST:event_productMouseClicked
 
     private void purchaseOrderReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderReceiveMouseClicked
-        ListPurchaseReceive list = new ListPurchaseReceive(new JFrame(), true);
-        list.setVisible(true);
+         ListPurchaseReceive list = new ListPurchaseReceive(new JFrame(), true);
+         list.setVisible(true);
     }//GEN-LAST:event_purchaseOrderReceiveMouseClicked
 
     private void purchaseOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderMouseClicked
-        PurchaseOrderView purchase = new PurchaseOrderView(new JFrame(), true);
-        purchase.setVisible(true);
+         PurchaseOrderView purchase = new PurchaseOrderView(new JFrame(), true);
+         purchase.setVisible(true);
     }//GEN-LAST:event_purchaseOrderMouseClicked
 
      private void purchaseOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderMouseEntered
