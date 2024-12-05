@@ -47,12 +47,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import lombok.Getter;
 import lombok.Setter;
 import main_validation.JavaValidation;
 import password.ChangePasswordForm;
-
 @Setter
 @Getter
 public class LoginFormJdailog extends javax.swing.JDialog {

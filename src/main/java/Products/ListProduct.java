@@ -327,7 +327,7 @@ public class ListProduct extends javax.swing.JDialog {
                ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String id) {
-                         System.err.println("dddddddddddddddddddddddddd");
+                         
                          eventEdit(id);
                     }
 
@@ -440,16 +440,15 @@ public class ListProduct extends javax.swing.JDialog {
                     ProductResponseByIdV1 productResponseByIdV1 = objectMapper.readValue(responseData, ProductResponseByIdV1.class);
                     ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
                     InsertProduct insertProduct = new InsertProduct(new Frame(), true);
-                    
-                    System.err.println("warehouseID : " + data.getWarehouseId());
-                    System.err.println("rangeId : " + data.getRangeId());
-                    System.err.println("slotId : " + data.getSlotId());
+ 
 
                     insertProduct.setId(data.getID());
                     insertProduct.setStatus(status);
                     insertProduct.setListGetProduct(listGetProduct);
                     insertProduct.setListProduct(this);
-
+                    
+                    
+                    System.err.println("data.getProNameKh() : " + data.getProNameKh());
                     insertProduct.setEdit(
                          data.getBarcode(),
                          String.valueOf(data.getVendorID()),

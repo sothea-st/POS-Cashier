@@ -115,9 +115,10 @@ public class InsertProduct extends javax.swing.JDialog {
           cmbBrand.setSelectedItem(_brandId);
           cmbSubCategory.setSelectedItem(_subCatId);
           txtProductName.setText(_proName);
-
-          if (_proNameKh != null && _proNameKh != "") {
-               txtProductNameKh.setValueTextField(_proNameKh);
+          System.err.println("_proNameKh : " + _proNameKh);
+          if (_proNameKh != null && !_proNameKh.isEmpty()) {
+               System.err.println("_proNameKhdddddddddddddddddddd : " + _proNameKh);
+               txtProductNameKh.setText(_proNameKh);
           }
 
           txtCost.setText(_cost);
@@ -126,7 +127,7 @@ public class InsertProduct extends javax.swing.JDialog {
           txtMargin.setDisable();
           cmbAttribute.setSelectedItem(_attributeId);
 
-          if (_choice != null && _choice != "") {
+          if (_choice != null && !_choice.isEmpty()) {
                txtChoiceValue.setText(_choice);
           }
 
