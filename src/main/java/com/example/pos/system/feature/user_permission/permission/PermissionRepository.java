@@ -19,6 +19,8 @@ public interface PermissionRepository extends JpaRepository<Permission,Integer> 
 
     Optional<Permission> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
 
+    Optional<Permission> findByParentIdAndStatusTrueAndIsDeletedFalse(Integer parentId);
+
     Boolean existsByParentId(Integer parentId);
     List<Permission> findByStatusTrueAndIsDeletedFalseAndParentId(Integer parentId);
 

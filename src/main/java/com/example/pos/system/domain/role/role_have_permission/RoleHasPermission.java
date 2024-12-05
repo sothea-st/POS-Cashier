@@ -2,14 +2,11 @@ package com.example.pos.system.domain.role.role_have_permission;
 
 import java.util.Date;
 
+import com.example.pos.system.domain.role.Role;
+import com.example.pos.system.domain.role.permission.Permission;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,11 +20,16 @@ public class RoleHasPermission {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Integer id;
 
-     @Column(name = "role_id")
-     private Integer roleId;
-     
-     @Column(name = "permission_id")
-     private Integer permissionId;
+     @ManyToOne
+     @JoinColumn(name = "role_id")
+     private Role role;
+
+     @ManyToOne
+     @JoinColumn(name = "permission_id")
+     private Permission permission;
+
+     @Column(name = "parent_id")
+     private Integer parentId;
 
      @Column(name = "is_visible")
      private Boolean isVisible;
@@ -35,8 +37,8 @@ public class RoleHasPermission {
      @Column(name = "is_create")
      private Boolean isCreate;
 
-     @Column(name = "is_read")
-     private Boolean isRead;
+     @Column(name = "is_view")
+     private Boolean isView;
 
      @Column(name = "is_update")
      private Boolean isUpdate;

@@ -1,0 +1,32 @@
+package com.example.pos.system.feature.user_permission.role_has_permission;
+
+import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
+import com.example.pos.system.constant.util.response_success.ResponseSuccess;
+import com.example.pos.system.feature.user_permission.role_has_permission.dto.RoleHasPermissionRequest;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/roleHasPermissions")
+public class RoleHasPermissionController {
+    // inject bean service
+    private final RoleHasPermissionService roleHasPermissionService;
+
+    @PostMapping
+    ResponseSuccess create(@Valid @RequestBody RoleHasPermissionRequest roleHasPermissionRequest){
+        return roleHasPermissionService.create(roleHasPermissionRequest);
+    }
+
+    @GetMapping
+    public JavaCollectionResponse<?> readByParentIdAndRoleId(
+            @RequestParam(name = "parentId") Integer parentId,
+            @RequestParam(name = "roleId") Integer roleId
+    ) {
+        return roleHasPermissionService.readByParentIdAndRoleId(parentId,roleId);
+    }
+
+
+}
