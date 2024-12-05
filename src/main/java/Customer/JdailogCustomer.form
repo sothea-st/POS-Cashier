@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="labelPopUpTitle1" alignment="0" pref="501" max="32767" attributes="0"/>
+          <Component id="labelPopUpTitle1" alignment="0" max="32767" attributes="0"/>
           <Component id="pCustomer" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
@@ -50,44 +50,45 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtCustomerName" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtPhone" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Group type="102" attributes="0">
                           <Component id="txtPoint" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtAmount" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="txtCustomerName" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="txtPhone" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="20" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="227" max="-2" attributes="0"/>
                   <Component id="buttonSave" min="-2" pref="183" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="152" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtCustomerName" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPhone" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtPoint" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAmount" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCustomerName" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPhone" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="20" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtPoint" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAmount" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -103,25 +104,28 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Components.TextField" name="txtCustomerName">
+        <Component class="FormComponent.JavaTextField" name="txtCustomerName">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Customer Code"/>
+            <Property name="labelName" type="java.lang.String" value=" "/>
+            <Property name="placeHolder" type="java.lang.String" value="Customer Code"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="txtPhone">
+        <Component class="FormComponent.JavaTextField" name="txtPoint">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="000 000 0000"/>
+            <Property name="labelName" type="java.lang.String" value=" "/>
+            <Property name="placeHolder" type="java.lang.String" value="Total Point Earned"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="txtPoint">
+        <Component class="FormComponent.JavaTextField" name="txtPhone">
           <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-            <Property name="labelTextField" type="java.lang.String" value="Total Point earned"/>
+            <Property name="labelName" type="java.lang.String" value=" "/>
+            <Property name="placeHolder" type="java.lang.String" value="000 000 0000"/>
           </Properties>
         </Component>
-        <Component class="Components.TextField" name="txtAmount">
+        <Component class="FormComponent.JavaTextField" name="txtAmount">
           <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Total Amount earned"/>
+            <Property name="labelName" type="java.lang.String" value=""/>
+            <Property name="placeHolder" type="java.lang.String" value="Total Amount Earned"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -16,13 +16,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel" alignment="0" pref="1841" max="32767" attributes="0"/>
+          <Component id="panel" min="-2" pref="1831" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="panel" pref="38" max="32767" attributes="0"/>
+              <Component id="panel" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -53,17 +53,17 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbId" min="-2" pref="7" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="vendorName" min="-2" pref="289" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="transactionNo" min="-2" pref="120" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="referenceNo" min="-2" pref="126" max="-2" attributes="0"/>
+                  <Component id="vendorName" min="-2" pref="286" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="transactionDate" min="-2" pref="167" max="-2" attributes="0"/>
+                  <Component id="transactionNo" min="-2" pref="138" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="referenceNo" min="-2" pref="132" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="transactionDate" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="requestedBy" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="checkedBy" min="-2" pref="159" max="-2" attributes="0"/>
+                  <Component id="checkedBy" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="approvedBy" min="-2" pref="160" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -72,33 +72,31 @@
                   <Component id="totalQty" min="-2" pref="120" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="totalCost" min="-2" pref="120" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="status" min="-2" pref="84" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="status" min="-2" pref="110" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="vendorName" alignment="1" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="referenceNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="vendorName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbId" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="transactionDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="totalQty" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="totalCost" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="transactionNo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="status" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="requestedBy" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="number" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
-                      <Component id="checkedBy" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="approvedBy" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rejectedBy" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbId" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
               </Group>
+              <Component id="number" alignment="1" max="32767" attributes="0"/>
+              <Component id="transactionNo" alignment="1" max="32767" attributes="0"/>
+              <Component id="referenceNo" alignment="1" max="32767" attributes="0"/>
+              <Component id="transactionDate" alignment="1" max="32767" attributes="0"/>
+              <Component id="requestedBy" alignment="1" max="32767" attributes="0"/>
+              <Component id="checkedBy" alignment="1" max="32767" attributes="0"/>
+              <Component id="approvedBy" alignment="1" max="32767" attributes="0"/>
+              <Component id="rejectedBy" alignment="1" max="32767" attributes="0"/>
+              <Component id="totalQty" alignment="1" max="32767" attributes="0"/>
+              <Component id="totalCost" alignment="1" max="32767" attributes="0"/>
+              <Component id="status" alignment="1" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -108,7 +106,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Reference &#x2116;"/>
           </Properties>
         </Component>
@@ -167,7 +164,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Transaction &#x2116;"/>
           </Properties>
         </Component>

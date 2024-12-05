@@ -59,119 +59,116 @@ public class ReportOfPurchaseOrder extends javax.swing.JPanel {
           panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
           panel.setPreferredSize(new java.awt.Dimension(615, 35));
 
-          referenceNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          referenceNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          referenceNo.setText("Reference №");
+        referenceNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        referenceNo.setText("Reference №");
 
-          vendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          vendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-          vendorName.setText("Vendor Name");
+        vendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        vendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vendorName.setText("Vendor Name");
 
           lbId.setText("jLabel1");
 
-          number.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          number.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          number.setText("1");
+        number.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        number.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        number.setText("1");
 
-          transactionDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          transactionDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          transactionDate.setText("Transaction Date");
+        transactionDate.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        transactionDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        transactionDate.setText("Transaction Date");
 
-          totalQty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          totalQty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          totalQty.setText("Total Qty");
+        totalQty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        totalQty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalQty.setText("Total Qty");
 
-          totalCost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          totalCost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          totalCost.setText("Total Cost");
+        totalCost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        totalCost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalCost.setText("Total Cost");
 
-          transactionNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          transactionNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          transactionNo.setText("Transaction №");
+        transactionNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        transactionNo.setText("Transaction №");
 
-          status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          status.setText("Status");
+        status.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        status.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        status.setText("Status");
 
-          requestedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          requestedBy.setText("Requested By");
+        requestedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        requestedBy.setText("Requested By");
 
-          checkedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          checkedBy.setText("Checked By");
+        checkedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        checkedBy.setText("Checked By");
 
-          approvedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          approvedBy.setText("Approved By");
+        approvedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        approvedBy.setText("Approved By");
 
-          rejectedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          rejectedBy.setText("Rejected By");
+        rejectedBy.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        rejectedBy.setText("Rejected By");
 
-          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-          panel.setLayout(panelLayout);
-          panelLayout.setHorizontalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(transactionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(referenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(transactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(requestedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(checkedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(approvedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(rejectedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(totalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(totalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(12, 12, 12))
-          );
-          panelLayout.setVerticalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(12, 12, 12)
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                         .addComponent(referenceNo)
-                         .addComponent(vendorName)
-                         .addComponent(lbId)
-                         .addComponent(transactionDate)
-                         .addComponent(totalQty)
-                         .addComponent(totalCost)
-                         .addComponent(transactionNo)
-                         .addComponent(status)
-                         .addComponent(requestedBy)
-                         .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(checkedBy)
-                         .addComponent(approvedBy)
-                         .addComponent(rejectedBy))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-          );
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbId, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(transactionNo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(referenceNo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(transactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(requestedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(approvedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rejectedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(vendorName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbId)
+                .addContainerGap(11, Short.MAX_VALUE))
+            .addComponent(number, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(transactionNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(referenceNo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(transactionDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(requestedBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(checkedBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(approvedBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(rejectedBy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(totalQty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(totalCost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(status, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-          this.setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1841, Short.MAX_VALUE)
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addGap(0, 0, 0))
-          );
-     }// </editor-fold>//GEN-END:initComponents
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 1831, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables

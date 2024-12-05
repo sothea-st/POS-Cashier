@@ -66,7 +66,7 @@ public class InsertStaff extends javax.swing.JDialog {
           gender.setSelectedItem(genderIdValue);
           role.setSelectedItem(roleIdValue);
           phoneNumber.setText(contactValue);
-               
+
           System.err.println("urlImg : " + urlImg);
           if (urlImg != null) {
                String _urlImg = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + urlImg;
@@ -85,13 +85,26 @@ public class InsertStaff extends javax.swing.JDialog {
 
           cmdRole();
 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    roleId = id;
+               }
+          };
+          role.initEvent(event);
+          
+          
           cmdgender();
+ 
+     }
 
-//        try {
-//            JavaConstant.coverImage(JavaBaseUrl.baseUrlDefaultImageStaff, lbFile, 150, 135);
-//        } catch (IOException ex) {
-//            Logger.getLogger(InsertStaff.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+     // Action Select Gender
+     private void cmdgender() {
+
+          LinkedHashMap<String, String> map = new LinkedHashMap<>();
+          map.put("Male", "Male");
+          map.put("Female", "Female");
+          gender.setMap(map);
           browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
      }
 
@@ -111,27 +124,7 @@ public class InsertStaff extends javax.swing.JDialog {
           role.initEvent(event);
      }
 
-     // Action Select Gender
-     private void cmdgender() {
-
-          try {
-               LinkedHashMap<String, String> map = new LinkedHashMap<>();
-               map.put("male", "Male");
-               map.put("female", "Female");
-               gender.setMap(map);
-
-               ButtonEvent event = new ButtonEvent() {
-                    @Override
-                    public void onSelected(String id) {
-                         genderId = id;
-                    }
-               };
-               gender.initEvent(event);
-
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
-     }
+      
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
