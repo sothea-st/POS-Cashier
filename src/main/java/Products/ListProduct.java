@@ -103,7 +103,7 @@ public class ListProduct extends javax.swing.JDialog {
           setBackground();
           panelListProduct.setBackground(WindowColor.mediumGreen);
           header.setBackground(WindowColor.darkGreen);
-//          getProduct(listGetProduct, true, 0);
+          getProduct(listGetProduct, true, 0);
           eventSearchProduct(this);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -192,17 +192,17 @@ public class ListProduct extends javax.swing.JDialog {
      
      
      // assing roleHasPermission and get Data
-     public void setRoleHasPermissionDetail(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
-          this.roleHasPermissionDetail = roleHasPermissionDetail;
-          
-          getProduct(listGetProduct, true, 0);
-          
-          
-          System.err.println("isCreated : " + roleHasPermissionDetail.getIsCreate());
-          
-          btnAdd.setVisible(roleHasPermissionDetail.getIsCreate());
-          
-     }
+//     public void setRoleHasPermissionDetail(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
+//          this.roleHasPermissionDetail = roleHasPermissionDetail;
+//          
+//          getProduct(listGetProduct, true, 0);
+//          
+//          
+//          System.err.println("isCreated : " + roleHasPermissionDetail.getIsCreate());
+//          
+////          btnAdd.setVisible(roleHasPermissionDetail.getIsCreate());
+//          
+//     }
      
      public void getProduct(JPanel jpanelData, boolean isCheck, int code) {
           
@@ -306,7 +306,7 @@ public class ListProduct extends javax.swing.JDialog {
                     y++;
                }
                
-               Products.GetProduct prod = new Products.GetProduct(roleHasPermissionDetail);
+               Products.GetProduct prod = new Products.GetProduct();
                prod.setData(
                     p.getBarcode(),
                     p.getItemCode(),
