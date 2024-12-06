@@ -195,9 +195,10 @@ public class ListProduct extends javax.swing.JDialog {
      public void setRoleHasPermissionDetail(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
           this.roleHasPermissionDetail = roleHasPermissionDetail;
           
-          System.err.println("roleHasPermissionDetail : " + roleHasPermissionDetail);
-          
           getProduct(listGetProduct, true, 0);
+          
+          
+          System.err.println("isCreated : " + roleHasPermissionDetail.getIsCreate());
           
           btnAdd.setVisible(roleHasPermissionDetail.getIsCreate());
           

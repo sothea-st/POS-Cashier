@@ -4,13 +4,16 @@ import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
-     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail; 
+
+     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
+
      public GetProduct(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
           this.roleHasPermissionDetail = roleHasPermissionDetail;
           initComponents();
@@ -18,6 +21,10 @@ public class GetProduct extends javax.swing.JPanel {
           JavaConstant.setPointer(btnEdit);
           JavaConstant.setPointer(btnDetail);
           proNameKh.setFont(WindowFonts.khmerOsContent12);
+
+ 
+          getProduct.setPreferredSize(new Dimension(1641,40));
+
      }
 
      private String productName;
@@ -31,9 +38,7 @@ public class GetProduct extends javax.swing.JPanel {
      private String productStatus;
      private Icon iconDetail;
      private String choiceValue;
-
      private JPanel listGetProduct;
-
      public JPanel getPanelProduct() {
           return panelProduct;
      }
@@ -69,10 +74,11 @@ public class GetProduct extends javax.swing.JPanel {
           price.setText(_price);
           cost.setText(_cost);
           productId = Integer.parseInt(_productId);
-          
+
           btnEdit.setVisible(roleHasPermissionDetail.getIsUpdate());
           btnDetail.setVisible(roleHasPermissionDetail.getIsView());
           btnDelete.setVisible(roleHasPermissionDetail.getIsDelete());
+
      }
 
      public void setPanelProduct(JPanel panelProduct) {
@@ -240,160 +246,160 @@ public class GetProduct extends javax.swing.JPanel {
           });
 
      }
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        getProduct = new javax.swing.JPanel();
-        proName = new javax.swing.JLabel();
-        qty = new javax.swing.JLabel();
-        btnEdit = new javax.swing.JLabel();
-        price = new javax.swing.JLabel();
-        barcode = new javax.swing.JLabel();
-        itemCode = new javax.swing.JLabel();
-        division = new javax.swing.JLabel();
-        vendorCode = new javax.swing.JLabel();
-        vendorName = new javax.swing.JLabel();
-        proNameKh = new javax.swing.JLabel();
-        cost = new javax.swing.JLabel();
-        btnDelete = new javax.swing.JLabel();
-        btnDetail = new javax.swing.JLabel();
+          getProduct = new javax.swing.JPanel();
+          proName = new javax.swing.JLabel();
+          qty = new javax.swing.JLabel();
+          btnEdit = new javax.swing.JLabel();
+          price = new javax.swing.JLabel();
+          barcode = new javax.swing.JLabel();
+          itemCode = new javax.swing.JLabel();
+          division = new javax.swing.JLabel();
+          vendorCode = new javax.swing.JLabel();
+          vendorName = new javax.swing.JLabel();
+          proNameKh = new javax.swing.JLabel();
+          cost = new javax.swing.JLabel();
+          btnDelete = new javax.swing.JLabel();
+          btnDetail = new javax.swing.JLabel();
 
-        getProduct.setBackground(new java.awt.Color(255, 255, 255));
-        getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+          getProduct.setBackground(new java.awt.Color(255, 255, 255));
+          getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        proName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        proName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        proName.setText("Product Name");
+          proName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          proName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          proName.setText("Product Name");
 
-        qty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        qty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        qty.setText("Quantity");
+          qty.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          qty.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          qty.setText("Quantity");
 
-        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
+          btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
 
-        price.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        price.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        price.setText("Price");
+          price.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          price.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          price.setText("Price");
 
-        barcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        barcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        barcode.setText("barcode");
+          barcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          barcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          barcode.setText("barcode");
 
-        itemCode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        itemCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        itemCode.setText("item code");
+          itemCode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          itemCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          itemCode.setText("item code");
 
-        division.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        division.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        division.setText("Divisoon");
+          division.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          division.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          division.setText("Divisoon");
 
-        vendorCode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        vendorCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        vendorCode.setText("Vendor Code");
+          vendorCode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          vendorCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          vendorCode.setText("Vendor Code");
 
-        vendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        vendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        vendorName.setText("Vendor Name");
+          vendorName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          vendorName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          vendorName.setText("Vendor Name");
 
-        proNameKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        proNameKh.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        proNameKh.setText("Product Name Khmer");
+          proNameKh.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          proNameKh.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          proNameKh.setText("Product Name Khmer");
 
-        cost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        cost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cost.setText("Cost");
+          cost.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          cost.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          cost.setText("Cost");
 
-        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
+          btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
 
-        btnDetail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
+          btnDetail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
 
-        javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
-        getProduct.setLayout(getProductLayout);
-        getProductLayout.setHorizontalGroup(
-            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(getProductLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itemCode, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(vendorCode, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(proName, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(proNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        getProductLayout.setVerticalGroup(
-            getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(division, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(price, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(qty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(proNameKh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(proName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(vendorCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(vendorName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(itemCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(barcode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+          javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
+          getProduct.setLayout(getProductLayout);
+          getProductLayout.setHorizontalGroup(
+               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(getProductLayout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(5, 5, 5)
+                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(barcode, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(itemCode, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(vendorCode, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(vendorName, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(proName, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(proNameKh, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap())
+          );
+          getProductLayout.setVerticalGroup(
+               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+               .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(division, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(cost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(price, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(qty, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(proNameKh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(proName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(vendorCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(vendorName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(itemCode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(barcode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(getProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+          this.setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(0, 0, 0))
+          );
+     }// </editor-fold>//GEN-END:initComponents
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel barcode;
-    private javax.swing.JLabel btnDelete;
-    private javax.swing.JLabel btnDetail;
-    private javax.swing.JLabel btnEdit;
-    private javax.swing.JLabel cost;
-    private javax.swing.JLabel division;
-    private javax.swing.JPanel getProduct;
-    private javax.swing.JLabel itemCode;
-    private javax.swing.JLabel price;
-    private javax.swing.JLabel proName;
-    private javax.swing.JLabel proNameKh;
-    private javax.swing.JLabel qty;
-    private javax.swing.JLabel vendorCode;
-    private javax.swing.JLabel vendorName;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JLabel barcode;
+     private javax.swing.JLabel btnDelete;
+     private javax.swing.JLabel btnDetail;
+     private javax.swing.JLabel btnEdit;
+     private javax.swing.JLabel cost;
+     private javax.swing.JLabel division;
+     private javax.swing.JPanel getProduct;
+     private javax.swing.JLabel itemCode;
+     private javax.swing.JLabel price;
+     private javax.swing.JLabel proName;
+     private javax.swing.JLabel proNameKh;
+     private javax.swing.JLabel qty;
+     private javax.swing.JLabel vendorCode;
+     private javax.swing.JLabel vendorName;
+     // End of variables declaration//GEN-END:variables
 }

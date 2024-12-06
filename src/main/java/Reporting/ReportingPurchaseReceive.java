@@ -624,7 +624,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
-                         paginationPanel.resetPage();
+                         paginationPanel.resetPage((int)data.getCount());
                     }
 
                     listDetail.clear();

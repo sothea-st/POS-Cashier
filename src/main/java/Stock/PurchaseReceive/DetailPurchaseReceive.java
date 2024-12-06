@@ -531,20 +531,23 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
               return;
          }
 
-         LocalDate currentDate = LocalDate.now();
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-         String checkDate = currentDate.format(formatter);
+//         LocalDate currentDate = LocalDate.now();
+//         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//         String checkDate = currentDate.format(formatter);
 
          if (pOCheckDetailsModel.getDetails().length == 0) {
               JOptionPane.showMessageDialog(this, "Invalid!");
               return;
          }
 
+         
+         System.err.println("ddddddddddddddddddd = " + JavaConstant.formatDate(pOCheckDetailsModel.getOrderDate()));
+         
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
          json.put("empId", JavaConstant.empId);
          json.put("sub_id", pOCheckDetailsModel.getVendorID());
-         json.put("impDate", pOCheckDetailsModel.getOrderDate());
+         json.put("impDate", JavaConstant.formatDate(pOCheckDetailsModel.getOrderDate()));
          json.put("discount", 0);
          json.put("total", pOCheckDetailsModel.getTotalCost());
          json.put("impId", id);
@@ -568,7 +571,8 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
          }
 
          json.put("details", details);
-         //System.out.println("json : " + json);
+         
+         System.out.println("1111111111111111111json : " + json);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
          //System.out.println("response : " + response);
