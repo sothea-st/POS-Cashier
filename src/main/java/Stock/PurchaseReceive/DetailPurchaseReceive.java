@@ -541,7 +541,6 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
          }
 
          
-         System.err.println("ddddddddddddddddddd = " + JavaConstant.formatDate(pOCheckDetailsModel.getOrderDate()));
          
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
@@ -572,7 +571,6 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
          json.put("details", details);
          
-         System.out.println("1111111111111111111json : " + json);
 
          Response response = JavaConnection.post(JavaRoute.imports, json);
          //System.out.println("response : " + response);
