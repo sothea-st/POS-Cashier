@@ -95,6 +95,11 @@ public class JavaValidation {
             throw new JavaDataAlreadyExists(JavaMessage.nameAlreadyExits());
     }
 
+    public static void checkDataAlreadyExists(boolean value,String msg) {
+        if (value)
+            throw new JavaDataAlreadyExists(msg);
+    }
+
     public static void emailAlreadyExist(boolean value) {
         if (value)
             throw new JavaDataAlreadyExists(JavaMessage.emailAlreadyExits);

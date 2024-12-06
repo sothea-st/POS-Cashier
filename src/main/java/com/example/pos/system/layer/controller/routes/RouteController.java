@@ -280,13 +280,9 @@ public class RouteController {
      @RequestMapping("/api/sale")
      @RequiredArgsConstructor
      public static class RouteSale {
-
           private final SaleService service;
-
           private final HttpSession session;
-
           private final OpenShiftRepository repoOpen;
-
           private final SaleRepository saleRepository;
 
           @PostMapping
@@ -606,7 +602,6 @@ public class RouteController {
 
           @PostMapping
           public ResponseEntity<?> returnProduct(@Valid @RequestBody ReturnProduct r) {
-               System.out.println("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
                Map<String, Object> map = service.returnProduct(r);
                return JavaResponse.success(map);
           }

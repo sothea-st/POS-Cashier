@@ -46,15 +46,20 @@ public class CategoryService {
                                     "Parent Id has not been found."));
         }
 
-        // boolean catNameKh = repo.existsByCatNameKh(c.getCatNameKh());
 
-        boolean catNameEn = repo.existsByCatNameEnAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameEn(),c.code());
-        boolean catNameKh = repo.existsByCatNameKhAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.catNameKh(),c.code());
-        // JavaValidation.checkDataAlreadyExists(catNameKh); // check catName already
-        // exists or not
+        System.out.println("nameEn : " + c.catNameEn() + "  code : " + c.code());
 
-        JavaValidation.checkDataAlreadyExists(catNameEn); // check catName already exists or not
-        JavaValidation.checkDataAlreadyExists(catNameKh); // check catNameKh already exists or not
+        JavaValidation.checkDataAlreadyExists(
+                repo.existsCatNameEnAndCode(c.catNameEn(),c.code()),
+                "The field catNameEn already exits."
+        ); // check catName already exists or not
+
+
+        JavaValidation.checkDataAlreadyExists(
+                repo.existsCatNameKhAndCode(c.catNameKh(), c.code()),
+                "The field catNameKh already exists."
+        ); // check catNameKh already exists or not
+
 
         int count = repo.countLengthRow();
         count++;
@@ -89,19 +94,30 @@ public class CategoryService {
         String catNameKh = c.getCatNameKh();
 
 
-        if( catNameKh != null ) {
-            if (!Objects.equals(obj.getCatNameKh(),catNameKh)) {
-                boolean isExist = repo.existsByCatNameKhAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameKh(),c.getCode());
-                JavaValidation.checkDataAlreadyExists(isExist);
+        if (catNameKh != null) {
+            boolean isExist = false;
+
+            // Use a null-safe check to compare catNameKh values
+            if (!Objects.equals(obj.getCatNameKh(), catNameKh) && repo.existsCatNameKhAndCode(catNameKh, c.getCode())) {
+                isExist = true;
             }
+
+            // Check if data already exists and throw an error or handle it
+            JavaValidation.checkDataAlreadyExists(isExist, "The field catNameKh already exists.");
         }
 
 
-        if (!Objects.equals(obj.getCatNameEn(), c.getCatNameEn())) {
 
-            boolean isExist = repo.existsByCatNameEnAndCodeIgnoreCaseAndStatusTrueAndIsDeletedFalse(c.getCatNameEn(),c.getCode());
-            JavaValidation.checkDataAlreadyExists(isExist);
+        // Check if category name en is already existed?
+        if(!obj.getCatNameEn().toLowerCase().trim().equals(c.getCatNameEn().toLowerCase().trim()) &&
+                repo.existsCatNameEnAndCode(c.getCatNameEn(),c.getCode())){
+            // Validate if the new catNameEn already exists in another record
+            JavaValidation.checkDataAlreadyExists(
+                    true,
+                    "The field catNameEn already exists."
+            );
         }
+
 
         obj.setCatNameKh(c.getCatNameKh());
         obj.setCatNameEn(c.getCatNameEn());

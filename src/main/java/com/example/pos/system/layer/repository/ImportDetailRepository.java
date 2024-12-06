@@ -15,12 +15,14 @@ import java.util.List;
 @Repository
 public interface ImportDetailRepository extends JpaRepository<ImportDetail,Integer> {
 
+    @Query(nativeQuery = true,value = "select sum(pid.qty_old)  from pos_import_detail pid where pro_id = ?")
+    Integer sumQtyByProId(Integer productId);
+
+
     // Optional<ImportDetail> findByImpId(int impId);
 
     @Query(nativeQuery = true,value = "select * from pos_import_detail pid where status =true and is_deleted =false and pid.qty_old >= 0 and pid.pro_id = ? order by id desc limit 1")
     ImportDetail getDataImportDetail(int productId);
-
-
 
 
     List<ImportDetail> findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(Optional<Product> product, int qtyOld);
