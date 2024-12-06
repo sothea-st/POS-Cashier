@@ -7,8 +7,7 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
-import Model.Userlogin.UserDataModel;
-import Model.Userlogin.UserSuccessModel;
+import FormComponent.combobox.JavaComboBoxSelection;
 import Products.ListProduct;
 import Reporting.ReportingItem.ReportOfReceive;
 import Reporting.export.ExportReportReceiveToCSV;
@@ -23,7 +22,6 @@ import java.awt.GridBagLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -45,7 +43,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
      private String dateToValue;
      private String userId;
      private String pageNumber = "0";
-     private int pageSize = 10;
+     private int pageSize = 15;
      private boolean isCheckSearch = true;
      private String searchValue;
      public ArrayList<ReportReceiveDetail> listDetail = new ArrayList<>();
@@ -72,25 +70,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
 
           addComboUser();
-          // action get select brand
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelect(String key) {
-                    userId = key;
-               }
-          };
-          userCombobox.initEvent(event);
 
           eventPagination();
-
-          ButtonEvent btnevent = new ButtonEvent() {
-               @Override
-               public void onFocusGain() {
-
-               }
-          };
-          dateFrom.initEvent(btnevent);
-          dateTo.initEvent(btnevent);
 
           eventSearchPurchaseReceive();
           groupEvent();
@@ -186,27 +167,18 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
      //Combobox
      private void addComboUser() {
-          try {
-               HashMap<String, String> map = new HashMap<>();
-               Response response = JavaConnection.get(JavaRoute.userAccount);
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
-                    UserDataModel[] listData = data.getData();
-                    for (UserDataModel user : listData) {
-                         int userId = user.getId();
-                         String userName = user.getFullName();
-                         map.put(userName, "" + userId);
-                    }
-                    userCombobox.setMap(map);
-               } else {
-                    System.err.println("fail loading user");
-               }
+        JavaComboBoxSelection.addComboBox(userCombobox,
+                JavaRoute.userAccount,
+                "fullName",
+                JavaComboBoxSelection.DESC);
 
-          } catch (Exception e) {
-               System.err.println("error = " + e);
-          }
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onSelected(String id) {
+                userId = id;
+            }
+        };
+        userCombobox.initEvent(event);
      }
 
      //Pagination
@@ -324,12 +296,9 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
         searchField = new Components.SearchField();
         groupButtonExport = new Reporting.GroupButtonExport();
         buttonSave = new ButtonPackage.ButtonSave();
-        dateFrom = new DatePicker.DatePicker();
-        dateTo = new DatePicker.DatePicker();
-        userCombobox = new Components.ComboBox();
-        label1 = new Components.Label();
-        label2 = new Components.Label();
-        label3 = new Components.Label();
+        dateFrom = new FormComponent.datepicker.JavaDatePicker();
+        dateTo = new FormComponent.datepicker.JavaDatePicker();
+        userCombobox = new FormComponent.combobox.JavaCombobox();
         btnCancel = new Button.Button();
         paginationPanel = new pagination.PaginationPanel();
         header = new javax.swing.JPanel();
@@ -357,11 +326,11 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
             }
         });
 
-        label1.setLabelName("Date From");
+        dateFrom.setLabelName(" Date From *");
 
-        label2.setLabelName("Date To");
+        dateTo.setLabelName("Date To *");
 
-        label3.setLabelName("Received By");
+        userCombobox.setLabelName("Received By");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -371,40 +340,32 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(userCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(userCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(20, 20, 20))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dateTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(dateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dateTo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(userCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -483,7 +444,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         headerLayout.setVerticalGroup(
@@ -512,7 +473,7 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
         );
         listGetOrderLayout.setVerticalGroup(
             listGetOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 559, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(listGetOrder);
@@ -536,14 +497,14 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
@@ -570,8 +531,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
      private void getReport(boolean isCheck) {
 
-          dateFromValue = dateFrom.getValueTextField();
-          dateToValue = dateTo.getValueTextField();
+          dateFromValue = JavaConstant.formatDate(dateFrom.getSelectedDate());
+          dateToValue = JavaConstant.formatDate(dateTo.getSelectedDate());
 
           if (dateFromValue == null || dateFromValue.isEmpty()) {
                JOptionPane.showMessageDialog(this, "Date From can not be empty!");
@@ -620,7 +581,6 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     ReportReceiveDetail[] lists = data.getData();
 
                     //paginatin code
-//                    paginationPanel.setPageSize(pageSize);
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
@@ -691,8 +651,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnCancel;
     private ButtonPackage.ButtonSave buttonSave;
-    private DatePicker.DatePicker dateFrom;
-    private DatePicker.DatePicker dateTo;
+    private FormComponent.datepicker.JavaDatePicker dateFrom;
+    private FormComponent.datepicker.JavaDatePicker dateTo;
     private Reporting.GroupButtonExport groupButtonExport;
     private javax.swing.JPanel header;
     private javax.swing.JLabel jLabel1;
@@ -707,12 +667,9 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private Components.Label label1;
-    private Components.Label label2;
-    private Components.Label label3;
     private javax.swing.JPanel listGetOrder;
     private pagination.PaginationPanel paginationPanel;
     private Components.SearchField searchField;
-    private Components.ComboBox userCombobox;
+    private FormComponent.combobox.JavaCombobox userCombobox;
     // End of variables declaration//GEN-END:variables
 }
