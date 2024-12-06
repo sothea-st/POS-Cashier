@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.reports.report_inventoory;
+package com.example.pos.system.feature.user_permission.reports.report_inventoory;
 
 import com.example.pos.system.domain.report.ReportInventory;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.reports.report_purchase_order;
+package com.example.pos.system.feature.user_permission.reports.report_purchase_order;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -13,5 +13,7 @@ public interface RoleHasPermissionRepository extends JpaRepository<RoleHasPermis
         @Query("SELECT rhp FROM RoleHasPermission rhp WHERE rhp.parentId = :parentId AND rhp.role = :role")
         List<RoleHasPermission> findByParentIdAndRole(@Param("parentId") Integer parentId, @Param("role") Role role);
 
+        Boolean existsByParentIdAndRole(Integer parentId,Role role);
+
 
 }

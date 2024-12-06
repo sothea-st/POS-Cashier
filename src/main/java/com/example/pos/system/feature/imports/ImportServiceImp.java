@@ -1,8 +1,8 @@
 package com.example.pos.system.feature.imports;
 
-import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryRepository;
-import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
-import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
+import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryRepository;
+import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryService;
+import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryRequest;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

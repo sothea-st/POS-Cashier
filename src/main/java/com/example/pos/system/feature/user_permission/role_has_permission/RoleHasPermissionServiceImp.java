@@ -32,6 +32,10 @@ public class RoleHasPermissionServiceImp implements RoleHasPermissionService {
         Permission permission = permissionRepository.findByIdAndStatusTrueAndIsDeletedFalse(roleHasPermissionRequest.permissionId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Permission not found with id : " + roleHasPermissionRequest.permissionId()));
 
+        // parentId and role already exist
+        if( roleHasPermissionRepository.existsByParentIdAndRole(roleHasPermissionRequest.parentId(), role) ) {
+            return ResponseSuccess.builder().build();
+        }
 
         RoleHasPermission roleHasPermission = new RoleHasPermission();
         roleHasPermission.setParentId(roleHasPermissionRequest.parentId());

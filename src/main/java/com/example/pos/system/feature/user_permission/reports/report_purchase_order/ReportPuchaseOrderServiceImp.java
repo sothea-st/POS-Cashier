@@ -1,5 +1,7 @@
-package com.example.pos.system.feature.reports.report_purchase_order;
+package com.example.pos.system.feature.user_permission.reports.report_purchase_order;
 
+import com.example.pos.system.feature.user_permission.reports.report_purchase_order.dto.ReportPOResponse;
+import com.example.pos.system.feature.user_permission.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -9,8 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.User;
 import com.example.pos.system.feature.imports.ImportRepository;
-import com.example.pos.system.feature.reports.report_purchase_order.dto.ReportPOResponse;
-import com.example.pos.system.feature.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
 import com.example.pos.system.feature.mapper.ImportMapper;
 import com.example.pos.system.layer.repository.UserRepository;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;

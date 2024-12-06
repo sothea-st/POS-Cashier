@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.reports.report_receive;
+package com.example.pos.system.feature.user_permission.reports.report_receive;
 
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 import lombok.RequiredArgsConstructor;
