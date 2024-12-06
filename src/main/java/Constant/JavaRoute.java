@@ -86,5 +86,6 @@ public class JavaRoute {
      public static String range = "/ranges";
      public static String slot = "/slots";
      public static String roleHasPermissions = "/roleHasPermissions";
+     public static String permissionByParentId = "/permissions/parentId";
 
 }

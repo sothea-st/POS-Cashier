@@ -326,7 +326,6 @@ public class ListProduct extends javax.swing.JDialog {
                ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String id) {
-                         
                          eventEdit(id);
                     }
                     
@@ -444,8 +443,8 @@ public class ListProduct extends javax.swing.JDialog {
                     insertProduct.setStatus(status);
                     insertProduct.setListGetProduct(listGetProduct);
                     insertProduct.setListProduct(this);
-                    
-                    System.err.println("data.getProNameKh() : " + data.getProNameKh());
+                   
+                  
                     insertProduct.setEdit(
                          data.getBarcode(),
                          String.valueOf(data.getVendorID()),
@@ -477,24 +476,7 @@ public class ListProduct extends javax.swing.JDialog {
           }
      }
 
-//     private void search() {
-//          isCheckSearch = false;
-//          Response response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?pageNumber=0&pageSize=50");
-//          if (response.isSuccessful()) {
-//               String responseData;
-//               try {
-//                    responseData = response.body().string();
-//                    ObjectMapper objMap = new ObjectMapper();
-//                    ProductResponseV1 data = objMap.readValue(responseData, ProductResponseV1.class);
-//                    paginationPanel.resetPage();
-//                    listData = data.getData();
-//                    setProduct(listData);
-//               } catch (IOException ex) {
-//                    Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
-//               }
-//
-//          }
-//     }
+ 
      //Action Search
      private void eventSearchProduct(ListProduct listP) {
           // this event was called when user type on searchTextField 
