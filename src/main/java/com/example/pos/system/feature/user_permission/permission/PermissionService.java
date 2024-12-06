@@ -16,7 +16,8 @@ public interface PermissionService {
 
     ResponseSuccess deleteById(Integer id);
 
-
     ResponseSuccess updateById(PermissionRequest permissionRequest, Integer id);
+
+
 
 }
