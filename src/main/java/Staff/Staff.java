@@ -9,87 +9,94 @@ public class Staff extends javax.swing.JDialog {
           initComponents();
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
-    
+          
+          btnUserPermission.setVisible(false);
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        panelReprint = new javax.swing.JPanel();
-        btnStaffInfo = new Button.Button();
-        btnUserlogin = new Button.Button();
-        lbTitle = new Components.LabelPopUpTitle();
+          panelReprint = new javax.swing.JPanel();
+          btnStaffInfo = new Button.Button();
+          btnUserlogin = new Button.Button();
+          lbTitle = new Components.LabelPopUpTitle();
+          btnUserPermission = new Button.Button();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelReprint.setForeground(new java.awt.Color(0, 0, 0));
-        panelReprint.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelReprintMouseClicked(evt);
-            }
-        });
+          panelReprint.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    panelReprintMouseClicked(evt);
+               }
+          });
 
-        btnStaffInfo.setButtonName("Staff Information");
-        btnStaffInfo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStaffInfoMouseClicked(evt);
-            }
-        });
+          btnStaffInfo.setButtonName("Staff Information");
+          btnStaffInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    btnStaffInfoMouseClicked(evt);
+               }
+          });
 
-        btnUserlogin.setBackground(new java.awt.Color(47, 155, 70));
-        btnUserlogin.setButtonName("User Login");
-        btnUserlogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnUserloginMouseClicked(evt);
-            }
-        });
+          btnUserlogin.setBackground(new java.awt.Color(47, 155, 70));
+          btnUserlogin.setButtonName("User Login");
+          btnUserlogin.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    btnUserloginMouseClicked(evt);
+               }
+          });
 
-        lbTitle.setLabelTitle("Staff");
+          lbTitle.setLabelTitle("Staff");
 
-        javax.swing.GroupLayout panelReprintLayout = new javax.swing.GroupLayout(panelReprint);
-        panelReprint.setLayout(panelReprintLayout);
-        panelReprintLayout.setHorizontalGroup(
-            panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelReprintLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(btnStaffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUserlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-            .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panelReprintLayout.setVerticalGroup(
-            panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelReprintLayout.createSequentialGroup()
-                .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelReprintLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnStaffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnUserlogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(30, 30, 30))
-        );
+          btnUserPermission.setButtonName("User Permission");
+          btnUserPermission.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    btnUserPermissionMouseClicked(evt);
+               }
+          });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelReprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelReprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+          javax.swing.GroupLayout panelReprintLayout = new javax.swing.GroupLayout(panelReprint);
+          panelReprint.setLayout(panelReprintLayout);
+          panelReprintLayout.setHorizontalGroup(
+               panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addGroup(panelReprintLayout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(btnStaffInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnUserlogin, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(btnUserPermission, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20))
+          );
+          panelReprintLayout.setVerticalGroup(
+               panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelReprintLayout.createSequentialGroup()
+                    .addComponent(lbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(30, 30, 30)
+                    .addGroup(panelReprintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(btnUserlogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(btnStaffInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(btnUserPermission, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(68, Short.MAX_VALUE))
+          );
 
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+          getContentPane().setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(panelReprint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(panelReprint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE))
+          );
+
+          pack();
+          setLocationRelativeTo(null);
+     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStaffInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStaffInfoMouseClicked
          StaffInformation staffInfo = new StaffInformation(new JFrame(), true);
@@ -104,6 +111,10 @@ public class Staff extends javax.swing.JDialog {
     private void panelReprintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelReprintMouseClicked
 
     }//GEN-LAST:event_panelReprintMouseClicked
+
+     private void btnUserPermissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserPermissionMouseClicked
+        
+     }//GEN-LAST:event_btnUserPermissionMouseClicked
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
@@ -144,10 +155,11 @@ public class Staff extends javax.swing.JDialog {
           });
      }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Button.Button btnStaffInfo;
-    private Button.Button btnUserlogin;
-    private Components.LabelPopUpTitle lbTitle;
-    private javax.swing.JPanel panelReprint;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private Button.Button btnStaffInfo;
+     private Button.Button btnUserPermission;
+     private Button.Button btnUserlogin;
+     private Components.LabelPopUpTitle lbTitle;
+     private javax.swing.JPanel panelReprint;
+     // End of variables declaration//GEN-END:variables
 }

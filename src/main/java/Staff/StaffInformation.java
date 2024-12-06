@@ -1,15 +1,12 @@
 package Staff;
 
 import Color.WindowColor;
-import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
-
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-
 import Model.Staff.DetailGetDataModel;
 import Model.Staff.StaffDataSuccessModel;
 import Model.Staff.StaffGetDataModel;
