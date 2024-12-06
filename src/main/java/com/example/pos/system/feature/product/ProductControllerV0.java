@@ -2,7 +2,7 @@ package com.example.pos.system.feature.product;
 
 import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.JavaConstant;
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.domain.models.UpdateProductDiscount;
 import com.example.pos.system.feature.product.dto.ProductDataRequest;

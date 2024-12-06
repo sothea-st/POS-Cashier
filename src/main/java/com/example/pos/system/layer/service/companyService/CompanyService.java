@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import com.example.pos.system.constant.JavaStorage;
 import com.example.pos.system.constant.JavaConstant;
-import com.example.pos.system.domain.Company;
-import com.example.pos.system.domain.FileStore;
+import com.example.pos.system.domain.settings.Company;
+import com.example.pos.system.domain.general.FileStore;
 import com.example.pos.system.layer.repository.FileStoreRepository;
 import com.example.pos.system.layer.repository.companyRepository.CompanyRepository;
 import com.example.pos.system.constant.util.exception.customeException.JavaNotFoundByIdGiven;

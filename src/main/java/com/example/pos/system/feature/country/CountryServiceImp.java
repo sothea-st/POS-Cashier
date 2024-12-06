@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.pos.system.domain.Country;
+import com.example.pos.system.domain.settings.Country;
 import com.example.pos.system.feature.country.dto.CountryRequest;
 import com.example.pos.system.feature.country.dto.CountryResponse;
 import com.example.pos.system.feature.country.dto.CountryUpdateRequest;

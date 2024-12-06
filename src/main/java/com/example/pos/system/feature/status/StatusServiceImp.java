@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.pos.system.domain.Status;
+import com.example.pos.system.domain.settings.Status;
 import com.example.pos.system.feature.status.dto.StatusRequest;
 import com.example.pos.system.feature.status.dto.StatusResponse;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;

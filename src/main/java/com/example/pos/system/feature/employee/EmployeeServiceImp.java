@@ -18,8 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.example.pos.system.constant.JavaStorage;
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.constant.JavaValidation;
-import com.example.pos.system.domain.Employee;
-import com.example.pos.system.domain.FileStore;
+import com.example.pos.system.domain.settings.Employee;
+import com.example.pos.system.domain.general.FileStore;
 import com.example.pos.system.domain.User;
 import com.example.pos.system.feature.employee.dto.UerAccountResponse;
 import com.example.pos.system.feature.employee.dto.EmployeeResponse;
@@ -97,7 +97,7 @@ public class EmployeeServiceImp implements EmployeeService {
         emp.setRoleId(e.getRoleId());
 
         if (file == null || file.isEmpty()) {
-            emp.setImageName(JavaConstant.defaultNameImage);
+            //emp.setImageName(JavaConstant.defaultNameImage);
         } else {
             // JavaStorage.storeImage(file); for save image to path assests/product in
             // project
@@ -199,7 +199,7 @@ public class EmployeeServiceImp implements EmployeeService {
     @Override
     public JavaCollectionResponse<?> searchEmployee(Integer pageSize, Integer pageNumber, String searchValue) {
 
-        System.out.println("pageNume : " + pageNumber +  "pageSize : " + pageSize );
+        //System.out.println("pageNume : " + pageNumber +  "pageSize : " + pageSize );
 
         if (pageNumber != null && pageSize != null) {
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");

@@ -1,6 +1,6 @@
 package com.example.pos.system.domain.report;
 
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.settings.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

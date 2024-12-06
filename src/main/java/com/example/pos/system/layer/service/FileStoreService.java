@@ -1,6 +1,6 @@
 package com.example.pos.system.layer.service;
 
-import com.example.pos.system.domain.FileStore;
+import com.example.pos.system.domain.general.FileStore;
 
 import com.example.pos.system.layer.repository.FileStoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;

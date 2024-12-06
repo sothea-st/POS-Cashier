@@ -1,7 +1,7 @@
 package com.example.pos.system.feature.category;
 
 import com.example.pos.system.layer.DTO.categoryDto.CategoryResponse;
-import com.example.pos.system.domain.Category;
+import com.example.pos.system.domain.settings.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

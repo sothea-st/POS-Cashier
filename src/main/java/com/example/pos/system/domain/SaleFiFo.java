@@ -1,5 +1,7 @@
 package com.example.pos.system.domain;
 
+import com.example.pos.system.domain.settings.Product;
+import com.example.pos.system.domain.stock.Import;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

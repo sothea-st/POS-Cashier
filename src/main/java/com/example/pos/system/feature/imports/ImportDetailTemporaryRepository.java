@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.pos.system.domain.ImportDetailTemporary;
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.stock.ImportDetailTemporary;
+import com.example.pos.system.domain.settings.Product;
 
 @Repository
 public interface ImportDetailTemporaryRepository extends JpaRepository<ImportDetailTemporary, Integer> {

@@ -26,7 +26,7 @@ import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.constant.JavaMessage;
 import com.example.pos.system.layer.controller.generateBarcode.BarcodeGenerator;
-import com.example.pos.system.domain.Hold;
+import com.example.pos.system.domain.general.Hold;
 import com.example.pos.system.domain.branch.Branch;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.domain.people.Customer;

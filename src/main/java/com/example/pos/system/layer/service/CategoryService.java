@@ -4,7 +4,7 @@ import com.example.pos.system.constant.util.exception.customeException.JavaNotFo
 import com.example.pos.system.layer.DTO.categoryDto.CategoryRequest;
 import com.example.pos.system.layer.DTO.categoryDto.CategoryResponse;
 import com.example.pos.system.constant.JavaValidation;
-import com.example.pos.system.domain.Category;
+import com.example.pos.system.domain.settings.Category;
 import com.example.pos.system.layer.repository.CategoryRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -47,7 +47,7 @@ public class CategoryService {
         }
 
 
-        System.out.println("nameEn : " + c.catNameEn() + "  code : " + c.code());
+        //System.out.println("nameEn : " + c.catNameEn() + "  code : " + c.code());
 
         JavaValidation.checkDataAlreadyExists(
                 repo.existsCatNameEnAndCode(c.catNameEn(),c.code()),
@@ -130,6 +130,7 @@ public class CategoryService {
     public CategoryResponse getCategoryById(int id) {
         Category c = repo.getCategoryById(id);
         if (c == null)
+
             throw new JavaNotFoundByIdGiven();
 
         return CategoryResponse.builder()
@@ -139,7 +140,6 @@ public class CategoryService {
                 .parentId(c.getParentId())
                 .movePosition(c.getMovePosition())
                 .build();
-
     }
 
     public void deleteCategory(int id) {

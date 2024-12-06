@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import com.example.pos.system.domain.Vendor;
+import com.example.pos.system.domain.settings.Vendor;
 import com.example.pos.system.feature.vendor.dto.VendorRequest;
 import com.example.pos.system.feature.vendor.dto.VendorResponse;
 import com.example.pos.system.feature.vendor.dto.VendorUpdateRequest;

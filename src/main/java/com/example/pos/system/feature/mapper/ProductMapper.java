@@ -1,6 +1,6 @@
 package com.example.pos.system.feature.mapper;
 
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.settings.Product;
 
 import com.example.pos.system.feature.product.productV1.dto.ProductRequest;
 import com.example.pos.system.feature.product.productV1.dto.ProductResponse;

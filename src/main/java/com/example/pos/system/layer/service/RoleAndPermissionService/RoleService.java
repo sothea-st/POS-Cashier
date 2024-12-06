@@ -8,7 +8,9 @@ import com.example.pos.system.layer.repository.UserRepository;
 import com.example.pos.system.layer.repository.roleAndPermissionRepository.RoleRepository;
 import com.example.pos.system.constant.util.exception.customeException.JavaNotFoundByIdGiven;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,11 @@ public class RoleService {
      private UserRepository userRepo;
 
      public Role add(Role role) {
+
+          if( repo.existsByRoleName(role.getRoleName()) ) {
+               throw new ResponseStatusException(HttpStatus.CONFLICT,"Role name already exists.");
+          }
+
           Role r = new Role();
           r.setRoleName(role.getRoleName());
           r.setCreateBy(role.getCreateBy());

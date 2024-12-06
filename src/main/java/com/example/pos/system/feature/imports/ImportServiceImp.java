@@ -1,9 +1,8 @@
 package com.example.pos.system.feature.imports;
 
-import com.example.pos.system.domain.report.ReportInventory;
-import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryRepository;
-import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
-import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
+import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryRepository;
+import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryService;
+import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryRequest;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,13 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.pos.system.constant.JavaConstant;
-import com.example.pos.system.domain.Category;
-import com.example.pos.system.domain.Employee;
-import com.example.pos.system.domain.Import;
-import com.example.pos.system.domain.ImportDetail;
-import com.example.pos.system.domain.ImportDetailTemporary;
-import com.example.pos.system.domain.Product;
-import com.example.pos.system.domain.Vendor;
+import com.example.pos.system.domain.settings.Category;
+import com.example.pos.system.domain.settings.Employee;
+import com.example.pos.system.domain.stock.Import;
+import com.example.pos.system.domain.stock.ImportDetail;
+import com.example.pos.system.domain.stock.ImportDetailTemporary;
+import com.example.pos.system.domain.settings.Product;
+import com.example.pos.system.domain.settings.Vendor;
 import com.example.pos.system.feature.employee.EmployeeRepository;
 import com.example.pos.system.feature.imports.dto.CheckingRequest;
 import com.example.pos.system.feature.imports.dto.ImportDetailResponse;

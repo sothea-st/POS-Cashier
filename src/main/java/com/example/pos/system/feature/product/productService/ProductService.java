@@ -1,10 +1,10 @@
 package com.example.pos.system.feature.product.productService;
 
 import com.example.pos.system.constant.JavaConstant;
-import com.example.pos.system.domain.FileStore;
-import com.example.pos.system.domain.Import;
-import com.example.pos.system.domain.ImportDetail;
-import com.example.pos.system.domain.Product;
+import com.example.pos.system.domain.general.FileStore;
+import com.example.pos.system.domain.stock.Import;
+import com.example.pos.system.domain.stock.ImportDetail;
+import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.feature.attribute.AttributeRepository;
 import com.example.pos.system.feature.country.CountryRepository;

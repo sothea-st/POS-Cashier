@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.*;
 import java.time.*;
-import com.example.pos.system.domain.Import;
+import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.layer.projections.ReportImport.ReportImportProjection;
 public interface ImportRepository extends JpaRepository<Import, Integer> {
 

@@ -1,6 +1,6 @@
 package com.example.pos.system.layer.repository;
 
-import com.example.pos.system.domain.Import;
+import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.layer.projections.ReportImport.ReportImportProjection;
  
 import org.springframework.data.jpa.repository.JpaRepository;

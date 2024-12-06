@@ -3,9 +3,9 @@ package com.example.pos.system.feature.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.example.pos.system.domain.Import;
+import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.feature.imports.dto.ImportResponse;
-import com.example.pos.system.feature.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
+import com.example.pos.system.feature.user_permission.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
 
 @Mapper(componentModel = "spring")
 public interface ImportMapper {

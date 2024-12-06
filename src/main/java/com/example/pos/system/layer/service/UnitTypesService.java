@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.pos.system.constant.JavaValidation;
-import com.example.pos.system.domain.UnitType;
+import com.example.pos.system.domain.settings.UnitType;
 import com.example.pos.system.layer.repository.UnitTypeRepository;
 import com.example.pos.system.constant.util.exception.customeException.JavaNotFoundByIdGiven;
 
