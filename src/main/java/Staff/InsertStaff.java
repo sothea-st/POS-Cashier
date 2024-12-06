@@ -83,17 +83,7 @@ public class InsertStaff extends javax.swing.JDialog {
           setResizable(false);
           phoneNumber.setValidatePhoneNumber();
 
-          cmdRole();
-
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelected(String id) {
-                    roleId = id;
-               }
-          };
-          role.initEvent(event);
-          
-          
+          cmdRole();   
           cmdgender();
  
      }
@@ -101,11 +91,23 @@ public class InsertStaff extends javax.swing.JDialog {
      // Action Select Gender
      private void cmdgender() {
 
-          LinkedHashMap<String, String> map = new LinkedHashMap<>();
-          map.put("Male", "Male");
-          map.put("Female", "Female");
-          gender.setMap(map);
-          browse.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, WindowColor.darkBlue));
+          try {
+            LinkedHashMap<String, String> map = new LinkedHashMap<>();
+            map.put("Male", "Male");
+            map.put("Female", "Female");
+            gender.setMap(map);
+
+            ButtonEvent event = new ButtonEvent() {
+                @Override
+                public void onSelected(String id) {
+                    genderId = id;
+                }
+            };
+            gender.initEvent(event);
+
+        } catch (Exception e) {
+            System.err.println("error = " + e);
+        }
      }
 
      // Action Select Role

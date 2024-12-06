@@ -51,16 +51,16 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="17" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Component id="btnEdit" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnDetail" min="-2" pref="23" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="lbId" min="-2" pref="6" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="lbVendorName" min="-2" pref="280" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lbVendorName" min="-2" pref="288" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbTranactionNo" min="-2" pref="138" max="-2" attributes="0"/>
+                  <Component id="lbTranactionNo" min="-2" pref="135" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbReferenceNo" min="-2" pref="138" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>

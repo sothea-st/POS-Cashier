@@ -38,7 +38,9 @@ public class NoData extends javax.swing.JPanel {
         user.setLayout(userLayout);
         userLayout.setHorizontalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(userLayout.createSequentialGroup()
+                .addComponent(lbName, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         userLayout.setVerticalGroup(
             userLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
