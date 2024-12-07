@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Repository
 public interface UomRepository extends JpaRepository<Uom, Integer> {
 
+    // Check if uom name en is already existed?
+    Boolean existsByUomNameEnAndStatusTrueAndIsDeletedFalse(String uomNameEn);
+
+    // Check if uom name kh is already existed?
+    Boolean existsByUomNameKhAndStatusTrueAndIsDeletedFalseAndUomNameKhIsNotNull(String uomNameKh);
+
     // List Uom with pageNumber and pageSize
     Page<Uom> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
 

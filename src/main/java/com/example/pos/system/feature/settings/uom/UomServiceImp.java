@@ -30,6 +30,9 @@ public class UomServiceImp implements UomService{
     // variable not found
     private final String uomIdNotFound = "Uom not found with id : ";
 
+    private final String nameEnAlreadyExist = "UomNameEn is already existed!";
+    private final String nameKhAlreadyExist = "UomNameKh is already existed!";
+
     /**
      * read uom
      * @param pageNumber
@@ -147,9 +150,22 @@ public class UomServiceImp implements UomService{
      */
     @Override
     public ResponseSuccess create(UomRequest uomRequest) {
+
+        String uomNameKh = uomRequest.uomNameKh();
+        if (uomNameKh != null) {
+            uomNameKh = uomNameKh.isEmpty() ? null : uomRequest.uomNameKh();
+        }
+
+        if (uomRepository.existsByUomNameEnAndStatusTrueAndIsDeletedFalse(uomRequest.uomNameEn())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExist);
+        }
+        if (uomRepository.existsByUomNameKhAndStatusTrueAndIsDeletedFalseAndUomNameKhIsNotNull(uomRequest.uomNameKh()) && uomNameKh != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExist);
+        }
+
         Uom uom = new Uom();
         uom.setUomNameEn(uomRequest.uomNameEn());
-        uom.setUomNameKh(uomRequest.uomNameKh());
+        uom.setUomNameKh(uomNameKh);
         uom.setCreatedBy(uomRequest.createdBy());
         uom.setStatus(true);
         uom.setIsDeleted(false);
@@ -165,12 +181,27 @@ public class UomServiceImp implements UomService{
      */
     @Override
     public ResponseSuccess update(UomRequest uomRequest, Integer id) {
+
+        String uomNameKh = uomRequest.uomNameKh();
+        if (uomNameKh != null) {
+            uomNameKh = uomNameKh.isEmpty() ? null : uomRequest.uomNameKh();
+        }
+
         // validate uom id exist or not
         Uom uom = uomRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,uomIdNotFound+id));
 
+        if (!uom.getUomNameEn().equals(uomRequest.uomNameEn()) &&
+                uomRepository.existsByUomNameEnAndStatusTrueAndIsDeletedFalse(uomRequest.uomNameEn())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExist);
+        }
+        if (!uom.getUomNameKh().equals(uomRequest.uomNameKh()) &&
+                uomRepository.existsByUomNameKhAndStatusTrueAndIsDeletedFalseAndUomNameKhIsNotNull(uomRequest.uomNameKh()) && uomNameKh != null) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExist);
+        }
+
         uom.setUomNameEn(uomRequest.uomNameEn());
-        uom.setUomNameKh(uomRequest.uomNameKh());
+        uom.setUomNameKh(uomNameKh);
         uom.setCreatedBy(uomRequest.createdBy());
         uomRepository.save(uom);
         return ResponseSuccess.builder().build();
