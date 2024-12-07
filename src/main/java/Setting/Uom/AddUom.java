@@ -198,8 +198,6 @@ public class AddUom extends javax.swing.JDialog {
                         listGetUom.repaint();
                         list.getUom(listGetUom,true,pageNumber);
                         dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Save Failed!");
                     }
 
                 } catch (Exception e) {
