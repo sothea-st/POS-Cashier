@@ -109,9 +109,9 @@ public class CashierPreview extends javax.swing.JDialog {
 
           var data = getData.getData();
           try {
-               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
-               byte[] images = response.body().bytes();
-               lbLogo.setIcon(new ImageIcon(images));
+//               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
+//               byte[] images = response.body().bytes();
+//               lbLogo.setIcon(new ImageIcon(images));
                companyname.setText(data.getCompanyName());
                posID.setLabelName("POS № : " + data.getPosID());
                pfdNameInvoice = "Pos_ID_" + data.getPosID();
@@ -337,9 +337,9 @@ public class CashierPreview extends javax.swing.JDialog {
         reportPanel.setPreferredSize(new java.awt.Dimension(420, 1200));
 
         lbLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/company/logoTT_small.png"))); // NOI18N
 
         companyname.setFont(new java.awt.Font("Khmer OS Muol", 1, 11)); // NOI18N
-        companyname.setForeground(new java.awt.Color(0, 0, 0));
         companyname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         companyname.setText("រេដ​ អាន អិចប្រេស ឯ.ក");
 
@@ -356,7 +356,6 @@ public class CashierPreview extends javax.swing.JDialog {
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel46.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(0, 0, 0));
         jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel46.setText("SHIFT REPORT");
 
@@ -369,30 +368,24 @@ public class CashierPreview extends javax.swing.JDialog {
         invoicenumber.setLabelName("Invoice № : 101-01-C124000001 To 101-01-C124000150");
 
         jLabel34.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
         jLabel34.setText("..............................................................................................................................................");
 
         openCashKhr.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        openCashKhr.setForeground(new java.awt.Color(0, 0, 0));
         openCashKhr.setText("KHR 200,000");
 
         openCashUsd.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        openCashUsd.setForeground(new java.awt.Color(0, 0, 0));
         openCashUsd.setText("USD 50");
 
         labelReceipt9.setLabelName("Reason of cash different :");
 
         openTill.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        openTill.setForeground(new java.awt.Color(0, 0, 0));
         openTill.setText("Open Till : $ 99.98");
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("# Num");
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel5.setText("Amounts");
 
@@ -400,7 +393,6 @@ public class CashierPreview extends javax.swing.JDialog {
         jSeparator2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("SALES SUMMARY");
 
         summarySale.setBackground(new java.awt.Color(255, 255, 255));
@@ -420,13 +412,11 @@ public class CashierPreview extends javax.swing.JDialog {
         jSeparator3.setForeground(new java.awt.Color(102, 102, 102));
 
         lbSubTotal.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        lbSubTotal.setForeground(new java.awt.Color(0, 0, 0));
         lbSubTotal.setText("Subtotal :");
 
         jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Net Sale");
 
         jSeparator5.setBackground(new java.awt.Color(102, 102, 102));
@@ -448,7 +438,6 @@ public class CashierPreview extends javax.swing.JDialog {
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("PAYMENT SUMMARY");
 
         labelReceipt20.setLabelName("Cash Payment :");
@@ -467,11 +456,9 @@ public class CashierPreview extends javax.swing.JDialog {
         );
 
         lbTotal.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lbTotal.setForeground(new java.awt.Color(0, 0, 0));
         lbTotal.setText("Total");
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("TRANSACTION DISCOUNT");
 
         summaryDiscount.setBackground(new java.awt.Color(255, 255, 255));
@@ -488,48 +475,39 @@ public class CashierPreview extends javax.swing.JDialog {
         );
 
         jLabel14.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Cashier Count");
 
         cashierCount.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        cashierCount.setForeground(new java.awt.Color(0, 0, 0));
         cashierCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cashierCount.setText("700.03");
 
         sumTotal.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        sumTotal.setForeground(new java.awt.Color(0, 0, 0));
         sumTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         sumTotal.setText("727.23");
 
         jLabel19.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel19.setText("637.50");
 
         subTotal.setFont(new java.awt.Font("Times New Roman", 1, 10)); // NOI18N
-        subTotal.setForeground(new java.awt.Color(0, 0, 0));
         subTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         subTotal.setText("701.25");
 
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
 
         cashier.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        cashier.setForeground(new java.awt.Color(0, 0, 0));
         cashier.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         cashier.setText("Cashier : RAE-004 davin");
 
         transactionSale.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        transactionSale.setForeground(new java.awt.Color(0, 0, 0));
         transactionSale.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         transactionSale.setText("Transaction Sale : $ 701.25");
 
         closedAmount.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        closedAmount.setForeground(new java.awt.Color(0, 0, 0));
         closedAmount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         closedAmount.setText("Closed Amount : $ 700.03");
 
         countedDifferent.setFont(new java.awt.Font("Times New Roman", 0, 10)); // NOI18N
-        countedDifferent.setForeground(new java.awt.Color(0, 0, 0));
         countedDifferent.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         countedDifferent.setText("Counted Different : $ 0.00");
 
@@ -554,11 +532,9 @@ public class CashierPreview extends javax.swing.JDialog {
         jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel37.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(0, 0, 0));
         jLabel37.setText("................................................................................................................................................");
 
         jLabel38.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(0, 0, 0));
         jLabel38.setText(".................................................................................................................................................");
 
         javax.swing.GroupLayout reportPanelLayout = new javax.swing.GroupLayout(reportPanel);

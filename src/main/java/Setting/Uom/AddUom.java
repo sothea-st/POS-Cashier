@@ -94,7 +94,7 @@ public class AddUom extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtUomKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtUom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,23 +168,29 @@ public class AddUom extends javax.swing.JDialog {
                     response = JavaConnection.post(JavaRoute.uom, json);
                 }
                 
-//                // check if name already exist
-//                List<JavaConflicValidation> fields = new ArrayList<>();
-//
-//                fields.add(JavaConflicValidation.builder()
-//                        .key("Name") // specific word that exist in key "reason"
-//                        .msg("This name is already existed!") // message to show 
-//                        .field(txtUomKh) // obj of JavaTextField
-//                        .build());
-//
-//                /* 
-//                        isExist = true ( name not yet used )
-//                        isExist =  false ( name already used )
-//                 */
-//                boolean isExist = JavaValidation.checkNameExist(response, fields);
+                // check if name already exist
+                List<JavaConflicValidation> fields = new ArrayList<>();
+
+                fields.add(JavaConflicValidation.builder()
+                        .key("UomNameEn") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtUom) // obj of JavaTextField
+                        .build());
+                
+                fields.add(JavaConflicValidation.builder()
+                        .key("UomNameKh") // specific word that exist in key "reason"
+                        .msg("This name is already existed!") // message to show 
+                        .field(txtUomKh) // obj of JavaTextField
+                        .build());
+
+                /* 
+                        isExist = true ( name not yet used )
+                        isExist =  false ( name already used )
+                 */
+                boolean isExist = JavaValidation.checkNameExist(response, fields);
 
                 try {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && isExist) {
 
                         listUom list = new listUom(new JFrame(), true);
                         listGetUom.removeAll();

@@ -30,7 +30,7 @@ import static pdf.PrintToExcel.folderPath;
 
 public class ExportReportInventoryToExcel {
 
-     public static String file = "Reporting Inventory";
+     public static String file = "Stock Balance Report";
 
      public static void toExcel(ArrayList<ReportInventoryModel.ReportInventoryDetail> list) {
           String fileName = JavaConstant.getFileName(file);

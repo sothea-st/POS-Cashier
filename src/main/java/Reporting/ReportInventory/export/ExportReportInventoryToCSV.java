@@ -17,7 +17,7 @@ import static pdf.PrintToCSV.folderPath;
 public class ExportReportInventoryToCSV {
        public static void toCSV(ArrayList<ReportInventoryModel.ReportInventoryDetail> list) {
 
-          String fileName = JavaConstant.getFileName("Report Inventory");
+          String fileName = JavaConstant.getFileName("Stock Balance Report");
 
           // Create the directory if it doesn't exist
           Path directoryPath = Paths.get(folderPath);

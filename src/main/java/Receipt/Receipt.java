@@ -220,6 +220,7 @@ public class Receipt extends javax.swing.JDialog {
         print.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/company/logoTT_small.png"))); // NOI18N
 
         companyname.setFont(new java.awt.Font("Khmer OS Muol", 1, 10)); // NOI18N
         companyname.setForeground(new java.awt.Color(56, 56, 56));
@@ -623,13 +624,12 @@ public class Receipt extends javax.swing.JDialog {
                                 .addComponent(jLabel39)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(totalKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(receiveKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(receiveKhr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(3, 3, 3)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -740,11 +740,9 @@ public class Receipt extends javax.swing.JDialog {
         exchangeDollar.setText("jLabel9");
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
         jLabel42.setText("................................................................................................................................................");
 
         jLabel47.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(0, 0, 0));
         jLabel47.setText("...................................................................................................................................................");
 
         javax.swing.GroupLayout printLayout = new javax.swing.GroupLayout(print);
@@ -1021,9 +1019,9 @@ public class Receipt extends javax.swing.JDialog {
           var data = dataSuccess.getData();
           try {
                displayProduct(data);
-               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
-               byte[] images = response.body().bytes();
-               logo.setIcon(new ImageIcon(images));
+//               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
+//               byte[] images = response.body().bytes();
+//               logo.setIcon(new ImageIcon(images));
                companyname.setText(data.getCompanyName());
 
                address.setText("<html>អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>");

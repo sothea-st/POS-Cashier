@@ -37,7 +37,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 
     public ReportInventoryForm(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        setTitle("Report Inventory");
+        setTitle("Stock Balance Report");
         initComponents();
 
         searchField.setFocus();
