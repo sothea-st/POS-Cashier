@@ -22,9 +22,7 @@ public class GetProduct extends javax.swing.JPanel {
           JavaConstant.setPointer(btnDetail);
           proNameKh.setFont(WindowFonts.khmerOsContent12);
 
- 
           getProduct.setPreferredSize(new Dimension(1641,40));
-
      }
 
      private String productName;
