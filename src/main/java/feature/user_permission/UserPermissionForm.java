@@ -115,9 +115,19 @@ public class UserPermissionForm extends javax.swing.JDialog {
             @Override
             public void onSelected(String id) {
                 roleId = id;
+                
+                updateIcon(lbStock,true);
             }
         };
         role.initEvent(event);
+    }
+    
+     private void updateIcon(JLabel label, boolean state) {
+        if (state) { // checked box
+            label.setIcon(new ImageIcon(getClass().getResource("/icon/checked.png")));
+        } else { // uncheck box
+            label.setIcon(new ImageIcon(getClass().getResource("/icon/check.png")));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -2663,13 +2673,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
         }
     }
 
-    private void updateIcon(JLabel label, boolean state) {
-        if (state) {
-            label.setIcon(new ImageIcon(getClass().getResource("/icon/checked.png")));
-        } else {
-            label.setIcon(new ImageIcon(getClass().getResource("/icon/check.png")));
-        }
-    }
+   
 
     private void setCreate(
             int permissionId,
