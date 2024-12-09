@@ -1,5 +1,6 @@
 package Staff;
 
+import feature.user_permission.UserPermissionForm;
 import javax.swing.JFrame;
 
 public class Staff extends javax.swing.JDialog {
@@ -113,7 +114,8 @@ public class Staff extends javax.swing.JDialog {
     }//GEN-LAST:event_panelReprintMouseClicked
 
      private void btnUserPermissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserPermissionMouseClicked
-        
+        UserPermissionForm userPermissionForm = new UserPermissionForm(new JFrame(), true);
+        userPermissionForm.setVisible(true);
      }//GEN-LAST:event_btnUserPermissionMouseClicked
 
      public static void main(String args[]) {
