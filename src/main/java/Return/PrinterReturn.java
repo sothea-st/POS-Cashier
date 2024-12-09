@@ -95,9 +95,9 @@ public class PrinterReturn extends javax.swing.JDialog {
      private void assignValue(DataSuccessModel dataSuccess) {
           var data = dataSuccess.getData();
           try {
-               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
-               byte[] images = response.body().bytes();
-               logo.setIcon(new ImageIcon(images));
+//               Response response = JavaConnection.get(JavaRoute.readImage + data.getCompanyLogo());
+//               byte[] images = response.body().bytes();
+//               logo.setIcon(new ImageIcon(images));
                companyname.setText(data.getCompanyName());
                address.setText("<html>អាសយដ្ឋាន៖ " + data.getCompanyAddres() + "</html>");
                vattin.setText(data.getVattin());
@@ -244,6 +244,7 @@ public class PrinterReturn extends javax.swing.JDialog {
         printerReturn.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/company/logoTT_small.png"))); // NOI18N
 
         companyname.setFont(new java.awt.Font("Khmer OS Muol", 1, 10)); // NOI18N
         companyname.setForeground(new java.awt.Color(56, 56, 56));
@@ -624,11 +625,9 @@ public class PrinterReturn extends javax.swing.JDialog {
         );
 
         jLabel42.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
         jLabel42.setText("..............................................................................................................................................");
 
         jLabel43.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(0, 0, 0));
         jLabel43.setText("..............................................................................................................................................");
 
         javax.swing.GroupLayout printerReturnLayout = new javax.swing.GroupLayout(printerReturn);

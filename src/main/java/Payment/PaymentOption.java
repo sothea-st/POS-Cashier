@@ -54,8 +54,8 @@ public class PaymentOption extends javax.swing.JDialog {
     private String sign = "khr";
     private Component[] listCom;
 
-    private String cusTypeId = "-1";
-    private String sourceId = "-1";
+    private String cusTypeId;
+    private String sourceId;
     private String paymentType = JavaConstant.typeCash;
     private JPanel detailItem;
     private JPanel boxOne;
@@ -1970,7 +1970,7 @@ public class PaymentOption extends javax.swing.JDialog {
                 print.revalidate();
                 print.repaint();
                 print.printReceipt(); // print paper with device
-//                    print.setVisible(true);
+//                print.setVisible(true);
 
                 // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                 ReturnDialog r = new ReturnDialog(new JFrame(), true);
