@@ -8,11 +8,14 @@ import com.example.pos.system.domain.role.role_have_permission.RoleHasPermission
 import com.example.pos.system.feature.user_permission.permission.PermissionRepository;
 import com.example.pos.system.feature.user_permission.role_has_permission.dto.RoleHasPermissionRequest;
 import com.example.pos.system.feature.user_permission.role_has_permission.dto.RoleHasPermissionResponse;
+import com.example.pos.system.feature.user_permission.role_has_permission.dto.RoleHasRequest;
 import com.example.pos.system.layer.repository.roleAndPermissionRepository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,31 +27,41 @@ public class RoleHasPermissionServiceImp implements RoleHasPermissionService {
     private final PermissionRepository permissionRepository;
 
     @Override
-    public ResponseSuccess create(RoleHasPermissionRequest roleHasPermissionRequest) {
+    public ResponseSuccess create(RoleHasRequest roleHasRequests) {
 
-        Role role = roleRepository.findById(roleHasPermissionRequest.roleId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found with id : " + roleHasPermissionRequest.roleId()));
+        List<RoleHasPermission> roleHasPermissions = new ArrayList<>();
+        for (RoleHasPermissionRequest request : roleHasRequests.roleHasPermissionRequestList()) {
+            Role role = roleRepository.findById(request.roleId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found with id : " + request.roleId()));
 
-        Permission permission = permissionRepository.findByIdAndStatusTrueAndIsDeletedFalse(roleHasPermissionRequest.permissionId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Permission not found with id : " + roleHasPermissionRequest.permissionId()));
+            Permission permission = permissionRepository.findByIdAndStatusTrueAndIsDeletedFalse(request.permissionId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Permission not found with id : " + request.permissionId()));
 
-        // parentId and role already exist
-        if( roleHasPermissionRepository.existsByParentIdAndRole(roleHasPermissionRequest.parentId(), role) ) {
-            return ResponseSuccess.builder().build();
+
+            // Delete all existing mappings for the role
+            roleHasPermissionRepository.deleteAllByRole(role);
+
+
+            // Create and prepare a new RoleHasPermission
+            RoleHasPermission roleHasPermission = new RoleHasPermission();
+            roleHasPermission.setParentId(request.parentId());
+            roleHasPermission.setPermission(permission);
+            roleHasPermission.setRole(role);
+            roleHasPermission.setIsVisible(request.isVisible());
+            roleHasPermission.setIsCreate(request.isCreate());
+            roleHasPermission.setIsView(request.isView());
+            roleHasPermission.setIsUpdate(request.isUpdate());
+            roleHasPermission.setIsDelete(request.isDelete());
+            roleHasPermissions.add(roleHasPermission);
+
         }
 
-        RoleHasPermission roleHasPermission = new RoleHasPermission();
-        roleHasPermission.setParentId(roleHasPermissionRequest.parentId());
-        roleHasPermission.setPermission(permission);
-        roleHasPermission.setRole(role);
-        roleHasPermission.setIsVisible(roleHasPermissionRequest.isVisible());
-        roleHasPermission.setIsCreate(roleHasPermissionRequest.isCreate());
-        roleHasPermission.setIsView(roleHasPermissionRequest.isView());
-        roleHasPermission.setIsUpdate(roleHasPermissionRequest.isUpdate());
-        roleHasPermission.setIsDelete(roleHasPermissionRequest.isDelete());
-        roleHasPermissionRepository.save(roleHasPermission);
+        // sale all
+        roleHasPermissionRepository.saveAll(roleHasPermissions);
+
 
         return ResponseSuccess.builder().build();
+
     }
 
     @Override
