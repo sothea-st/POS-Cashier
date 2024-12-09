@@ -51,11 +51,11 @@ import pdf.PrintToCSV;
 import pdf.PrintToExcel;
 
 public class ListProduct extends javax.swing.JDialog {
-     
+
      DecimalFormat dm = new DecimalFormat("$ #,##0.00");
      private String searchValue;
      private int id;
-     
+
      private JPanel panelProduct;
      private JPanel panelCategory;
      private LoginFormJdailog jdLogin;
@@ -69,35 +69,10 @@ public class ListProduct extends javax.swing.JDialog {
      private int dataCount = 0;
      private String pageType;
      ArrayList<ProductModel> listProduct = new ArrayList<>();
-     
-     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
-     
-     public JPanel getPanelProduct() {
-          return panelProduct;
-     }
-     
-     public void setPanelProduct(JPanel panelProduct) {
-          this.panelProduct = panelProduct;
-     }
-     
-     public LoginFormJdailog getJdLogin() {
-          return jdLogin;
-     }
-     
-     public void setJdLogin(LoginFormJdailog jdLogin) {
-          this.jdLogin = jdLogin;
-     }
-     
-     public JPanel getPanelCategory() {
-          return panelCategory;
-     }
-     
-     public void setPanelCategory(JPanel panelCategory) {
-          this.panelCategory = panelCategory;
-     }
-     
+
+     //private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
      public ListProduct(java.awt.Frame parent, boolean modal) {
-          
+
           super(parent, modal);
           initComponents();
           setBackground();
@@ -117,18 +92,22 @@ public class ListProduct extends javax.swing.JDialog {
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
           JavaConstant.addTitleAndLogo(this, "Product");
-          
+
           allProduct.setBorder(new UnderlineBorder());
           JavaConstant.setPointer(allProduct);
           JavaConstant.setPointer(active);
           JavaConstant.setPointer(inActive);
-          
+
           eventPagination();
           eventPageNumber();
-          
+
           cmdPageSize.setVisible(false);
+
+          
+          // check permission
+          btnAdd.setVisible(JavaConstant.permissionDetail.getIsCreate());
      }
-     
+
      private void eventPageNumber() {
           // Add ActionListener to the JComboBox
           cmdPageSize.addActionListener(new ActionListener() {
@@ -139,19 +118,19 @@ public class ListProduct extends javax.swing.JDialog {
 
                     // Perform an action with the selected item
                     System.out.println("Selected: " + selectedItem);
-                    
+
                     if (selectedItem.equals("All")) {
                          getProduct(listGetProduct, true, 3);
                          return;
                     }
                     pageSize = Integer.valueOf(selectedItem);
-                    
+
                     getProduct(listGetProduct, true, 0);
                }
           });
-          
+
      }
-     
+
      private void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
@@ -173,7 +152,7 @@ public class ListProduct extends javax.swing.JDialog {
                                    break;
                               }
                          }
-                         
+
                     }
                }
 
@@ -185,34 +164,29 @@ public class ListProduct extends javax.swing.JDialog {
           };
           paginationPanel.initEvent(event);
      }
-     
+
      void setBackground() {
           header.setBackground(WindowColor.darkGreen);
      }
-     
-     
+
      // assing roleHasPermission and get Data
 //     public void setRoleHasPermissionDetail(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
 //          this.roleHasPermissionDetail = roleHasPermissionDetail;
 //          
 //          getProduct(listGetProduct, true, 0);
 //          
-//          
-//          System.err.println("isCreated : " + roleHasPermissionDetail.getIsCreate());
-//          
-////          btnAdd.setVisible(roleHasPermissionDetail.getIsCreate());
+//          btnAdd.setVisible(roleHasPermissionDetail.getIsCreate());
 //          
 //     }
-     
      public void getProduct(JPanel jpanelData, boolean isCheck, int code) {
-          
+
           try {
                Response response = null;
                switch (code) {
                     case 0 -> { // all product
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
-                              
+
                          } else { // isCheck false search
                               isCheckSearch = false;
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue);
@@ -229,7 +203,7 @@ public class ListProduct extends javax.swing.JDialog {
                     case 2 -> { // Inactive
                          if (isCheck) { // isCheck true get itmes
                               response = JavaConnection.get(JavaRoute.productV1 + "/status" + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&status=Inactive");
-                              
+
                          } else { // isCheck false search
                               isCheckSearch = false;
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?status=Inactive");
@@ -243,9 +217,9 @@ public class ListProduct extends javax.swing.JDialog {
                               response = JavaConnection.get(JavaRoute.productV1 + "/search/" + searchValue + "?&status=Active");
                          }
                     }
-                    
+
                }
-               
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -258,7 +232,7 @@ public class ListProduct extends javax.swing.JDialog {
                     } else {
                          paginationPanel.resetPage(dataCount);
                     }
-                    
+
                     listData = data.getData();
                     setProduct(listData);
                } else {
@@ -268,9 +242,9 @@ public class ListProduct extends javax.swing.JDialog {
                System.err.println("error getting product " + e);
           }
      }
-     
+
      public void setProduct(ProductResponseDetailV1[] listProductData) {
-          
+
           listGetProduct.removeAll();
           listGetProduct.revalidate();
           listGetProduct.repaint();
@@ -279,9 +253,9 @@ public class ListProduct extends javax.swing.JDialog {
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          
+
           listGetProduct.setLayout(gridBagLayout);
-          
+
           int x = 0;
           int y = 0;
           if (listProductData.length == 0) {
@@ -293,7 +267,7 @@ public class ListProduct extends javax.swing.JDialog {
                listGetProduct.repaint();
                paginationPanel.setVisible(false);
           }
-          
+
           for (ProductResponseDetailV1 p : listProductData) {
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
@@ -305,7 +279,7 @@ public class ListProduct extends javax.swing.JDialog {
                     x = 0;
                     y++;
                }
-               
+
                Products.GetProduct prod = new Products.GetProduct();
                prod.setData(
                     p.getBarcode(),
@@ -322,23 +296,23 @@ public class ListProduct extends javax.swing.JDialog {
                     String.valueOf(p.getChoices())
                );
                prod.setProductId(p.getID());
-               
+
                ButtonEvent events = new ButtonEvent() {
                     @Override
                     public void onSelect(String id) {
                          eventEdit(id);
                     }
-                    
+
                     @Override
                     public void onRemove(String id) {
                          eventRemove(id);
                     }
-                    
+
                     @Override
                     public void onSelectDetail(String id) {
                          try {
                               DetailProduct detail = new DetailProduct(new JFrame(), true, id);
-                              
+
                               detail.setDetailValue(
                                    String.valueOf(p.getProNameEn()),
                                    String.valueOf(p.getProNameKh()),
@@ -359,42 +333,42 @@ public class ListProduct extends javax.swing.JDialog {
                                    String.valueOf(p.getSlot()),
                                    String.valueOf(p.getChoices())
                               );
-                              
+
                               detail.setVisible(true);
-                              
+
                          } catch (IOException ex) {
                               Logger.getLogger(ListProduct.class.getName()).log(Level.SEVERE, null, ex);
                          }
                     }
-                    
+
                };
                prod.initEvent(events);
-               
+
                paginationPanel.setVisible(true);
-               
+
                if (status.equals("allProduct")) {
                     listGetProduct.add(prod, gbc);
                } else if (status.toLowerCase().equals(p.getStatusName().toLowerCase())) {
                     listGetProduct.add(prod, gbc);
                }
           }
-          
+
      }
-     
+
      private void eventRemove(String id) {
           try {
                UIManager UI = new UIManager();
                UI.put("OptionPane.background", WindowColor.mediumGreen);
                UI.put("Panel.background", WindowColor.mediumGreen);
                UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-               
+
                int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this product?",
                     "Delete Product?", JOptionPane.YES_NO_OPTION);
-               
+
                if (resp == JOptionPane.YES_OPTION) {
                     Response response = JavaConnection.delete(JavaRoute.productV1 + "/" + id);
                     if (response.isSuccessful()) {
-                         
+
                          listGetProduct.removeAll();
                          listGetProduct.revalidate();
                          listGetProduct.repaint();
@@ -416,18 +390,18 @@ public class ListProduct extends javax.swing.JDialog {
                          } else if (status.equals("inActive")) {
                               getProduct(listGetProduct, true, 2);
                          }
-                         
+
                          System.out.println("Successful deleted ");
                     }
                } else {
                     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                }
-               
+
           } catch (Exception e) {
                System.err.println("error getting product " + e);
           }
      }
-     
+
      private void eventEdit(String id) {
           Response response = JavaConnection.get(JavaRoute.productV1 + "/" + id);
           System.err.println("response : " + response);
@@ -438,13 +412,12 @@ public class ListProduct extends javax.swing.JDialog {
                     ProductResponseByIdV1 productResponseByIdV1 = objectMapper.readValue(responseData, ProductResponseByIdV1.class);
                     ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
                     InsertProduct insertProduct = new InsertProduct(new Frame(), true);
-                    
+
                     insertProduct.setId(data.getID());
                     insertProduct.setStatus(status);
                     insertProduct.setListGetProduct(listGetProduct);
                     insertProduct.setListProduct(this);
-                   
-                  
+
                     insertProduct.setEdit(
                          data.getBarcode(),
                          String.valueOf(data.getVendorID()),
@@ -476,7 +449,30 @@ public class ListProduct extends javax.swing.JDialog {
           }
      }
 
- 
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
+
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
+
+     public LoginFormJdailog getJdLogin() {
+          return jdLogin;
+     }
+
+     public void setJdLogin(LoginFormJdailog jdLogin) {
+          this.jdLogin = jdLogin;
+     }
+
+     public JPanel getPanelCategory() {
+          return panelCategory;
+     }
+
+     public void setPanelCategory(JPanel panelCategory) {
+          this.panelCategory = panelCategory;
+     }
+
      //Action Search
      private void eventSearchProduct(ListProduct listP) {
           // this event was called when user type on searchTextField 
@@ -489,7 +485,7 @@ public class ListProduct extends javax.swing.JDialog {
                               searchValue = searchField.getValueTextSearch();
                               paginationPanel.resetPage();
                               pageNumber = "0";
-                              
+
                               if (searchValue.isEmpty()) {
                                    isCheckSearch = true;
                                    pageNumber = "0";
@@ -499,15 +495,15 @@ public class ListProduct extends javax.swing.JDialog {
                               searchCode(false);
                          }
                     };
-                    
+
                     Timer timer = new Timer();
                     timer.schedule(task, JavaConstant.seconds);
-                    
+
                }
           };
           searchField.initEvent(event);
      }
-     
+
      private void searchCode(boolean isC) {
           switch (code) {
                case 0 -> {
@@ -524,7 +520,7 @@ public class ListProduct extends javax.swing.JDialog {
                }
           }
      }
-     
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -821,24 +817,24 @@ public class ListProduct extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      static class UnderlineBorder implements Border {
-          
+
           private final MatteBorder matteBorder;
-          
+
           public UnderlineBorder() {
                matteBorder = new MatteBorder(0, 0, 1, 0, Color.BLACK);
           }
-          
+
           @Override
           public void paintBorder(java.awt.Component c, Graphics g, int x, int y, int width, int height) {
                Insets insets = matteBorder.getBorderInsets(c);
                matteBorder.paintBorder(c, g, x, y + height - insets.bottom, width, insets.bottom);
           }
-          
+
           @Override
           public Insets getBorderInsets(java.awt.Component c) {
                return matteBorder.getBorderInsets(c);
           }
-          
+
           @Override
           public boolean isBorderOpaque() {
                return matteBorder.isBorderOpaque();
@@ -846,7 +842,7 @@ public class ListProduct extends javax.swing.JDialog {
      }
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-         
+
          InsertProduct add = new InsertProduct(new JFrame(), true);
          add.setJdLogin(jdLogin);
          add.setPanelCategory(panelCategory);
@@ -868,13 +864,13 @@ public class ListProduct extends javax.swing.JDialog {
      private void btnExcelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcelMouseClicked
           exportFunc("excel");
      }//GEN-LAST:event_btnExcelMouseClicked
-     
+
      private void exportFunc(String typeExport) {
 
           //System.out.println("status data : " + status);
           setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
           Response response = null;
-          
+
           if (status.equals("active")) {
                response = JavaConnection.get(JavaRoute.productV1 + "/status?status=Active");
           } else if (status.equals("inActive")) {
@@ -882,7 +878,7 @@ public class ListProduct extends javax.swing.JDialog {
           } else {
                response = JavaConnection.get(JavaRoute.productV1);
           }
-          
+
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -906,7 +902,7 @@ public class ListProduct extends javax.swing.JDialog {
                               break;
                          }
                     }
-                    
+
                }
           } catch (Exception e) {
                System.out.println("error export : " + e);
@@ -949,14 +945,14 @@ public class ListProduct extends javax.swing.JDialog {
           pageNumber = "0";
           paginationPanel.resetPage();
           getProduct(listGetProduct, true, 2);
-          
+
 
      }//GEN-LAST:event_inActiveMouseClicked
-     
+
      private void removeBorder(JLabel label) {
           label.setBorder(new EmptyBorder(0, 0, 0, 0));
      }
-     
+
      public static void msgPrint(String path) {
           JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
           j.setIsShow(true);
@@ -964,7 +960,7 @@ public class ListProduct extends javax.swing.JDialog {
           j.setPathOpen(path);
           j.setVisible(true);
      }
-     
+
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

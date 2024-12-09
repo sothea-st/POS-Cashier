@@ -8,6 +8,7 @@ import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
@@ -53,6 +54,32 @@ public class PurchaseOrder extends javax.swing.JDialog {
           getListPurchase(listGetOrder, true);
           eventSearchPuchaseOrder();
           eventPagination();
+     }
+     
+     
+     private void checkPermission() {
+
+          // note: parentId = 11 from table pos_permission  
+          Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "?roleId=" + JavaConstant.roleId + "&parentId=11");
+
+          try {
+               // convert response to string 
+               String responseData = response.body().string();
+
+               // create object mapper
+               ObjectMapper object = new ObjectMapper();
+
+               // convert responseData to objectMapper
+               RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
+
+                
+
+             
+
+          } catch (Exception e) {
+               System.err.println("error :" + e);
+          }
+
      }
 
      private void eventPagination() {

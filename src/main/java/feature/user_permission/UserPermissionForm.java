@@ -24,184 +24,7 @@ import org.json.JSONObject;
 public class UserPermissionForm extends javax.swing.JDialog {
 
      private String roleId = "-1";
-     private boolean isStock = false;
-     private boolean isAll = false;
-     //========= product =============
-     private boolean isProduct = false;
-     private boolean isProductCreate = false;
-     private boolean isProductUpdate = false;
-     private boolean isProductView = false;
-     private boolean isProductDelete = false;
-     //========= end product =============
-
-     //========= purchase order =============
-     private boolean isPO = false;
-     private boolean isPORequest = false;
-     private boolean isPOCreate = false;
-     private boolean isPOUpdate = false;
-     private boolean isPOView = false;
-     private boolean isPODelete = false;
-     //========= end purchase order =============
-
-     //========= purchase order =============
-     private boolean isPOCheck = false;
-     private boolean isPOCheckCreate = false;
-     private boolean isPOCheckUpdate = false;
-     private boolean isPOCheckView = false;
-     private boolean isPOCheckDelete = false;
-     //========= end purchase order =============
-
-     //========= purchase approval =============
-     private boolean isPOApproval = false;
-     private boolean isPOApprovalCreate = false;
-     private boolean isPOApprovalUpdate = false;
-     private boolean isPOApprovalView = false;
-     private boolean isPOApprovalDelete = false;
-     //========= end purchase approval =============
-
-     //========= purchase receive =============
-     private boolean isPOReceive = false;
-     private boolean isPOReceiveCreate = false;
-     private boolean isPOReceiveUpdate = false;
-     private boolean isPOReceiveView = false;
-     private boolean isPOReceiveDelete = false;
-     //========= end purchase receive =============
-
-     //========= reportting =============
-     private boolean isReport = false;
-     private boolean isReportingSale = false;
-     private boolean isReportPO = false;
-     private boolean isReportingPurchaseReceive = false;
-     private boolean isReportingInventory = false;
-     //=========  end reportting =============
-
-     private boolean isSfaff = false;
-     //========= staff =============
-     private boolean isSfaffInfo = false;
-     private boolean isSfaffInfoCreate = false;
-     private boolean isSfaffInfoView = false;
-     private boolean isSfaffInfoUpdate = false;
-     private boolean isSfaffInfoDelete = false;
-     //========= end staff =============
-
-     // ========= user permission ========
-     private boolean isUserLogin = false;
-     private boolean isUserLoginUpdate = false;
-     private boolean isUserPermission = false;
-     // ========= end user permission =======
-
-     private boolean isSettings = false;
-     //========= division =============
-     private boolean isDivision = false;
-     private boolean isDivisionCreate = false;
-     private boolean isDivisionView = false;
-     private boolean isDivisionUpdate = false;
-     private boolean isDivisionoDelete = false;
-     //========= end division =============
-
-     //========= department =============
-     private boolean isDepartment = false;
-     private boolean isDepartmentCreate = false;
-     private boolean isDepartmentView = false;
-     private boolean isDepartmentUpdate = false;
-     private boolean isDepartmentDelete = false;
-     //========= end department =============
-
-     //========= category =============
-     private boolean isCategory = false;
-     private boolean isCategoryCreate = false;
-     private boolean isCategoryView = false;
-     private boolean isCategoryUpdate = false;
-     private boolean isCategoryDelete = false;
-     //========= end category =============
-
-     //========= subCategory =============
-     private boolean isSubCategory = false;
-     private boolean isSubCategoryCreate = false;
-     private boolean isSubCategoryView = false;
-     private boolean isSubCategoryUpdate = false;
-     private boolean isSubCategoryDelete = false;
-     //========= end subCategory =============
-
-     //========= brand =============
-     private boolean isBrand = false;
-     private boolean isBrandCreate = false;
-     private boolean isBrandView = false;
-     private boolean isBrandUpdate = false;
-     private boolean isBrandDelete = false;
-     //========= end brand =============
-
-     //========= vendor =============
-     private boolean isVendor = false;
-     private boolean isVendorCreate = false;
-     private boolean isVendorView = false;
-     private boolean isVendorUpdate = false;
-     private boolean isVendorDelete = false;
-     //========= end vendor =============
-
-     //========= attribute =============
-     private boolean isAttribute = false;
-     private boolean isAttributeCreate = false;
-     private boolean isAttributeView = false;
-     private boolean isAttributeUpdate = false;
-     private boolean isAttributeDelete = false;
-     //========= end attribute =============
-
-     //========= uom =============
-     private boolean isUom = false;
-     private boolean isUomCreate = false;
-     private boolean isUomView = false;
-     private boolean isUomUpdate = false;
-     private boolean isUomDelete = false;
-     //========= end uom =============
-
-     //========= country =============
-     private boolean isCountry = false;
-     private boolean isCountryCreate = false;
-     private boolean isCountryView = false;
-     private boolean isCountryUpdate = false;
-     private boolean isCountryDelete = false;
-     //========= end country =============
-
-     //========= tax =============
-     private boolean isTax = false;
-     private boolean isTaxCreate = false;
-     private boolean isTaxView = false;
-     private boolean isTaxUpdate = false;
-     private boolean isTaxDelete = false;
-     //========= end tax =============
-
-     //========= status =============
-     private boolean isStatus = false;
-     private boolean isStatusCreate = false;
-     private boolean isStatusView = false;
-     private boolean isStatusUpdate = false;
-     private boolean isStatusDelete = false;
-     //========= end status =============
-
-     //========= warehouse =============
-     private boolean isWarehouse = false;
-     private boolean isWarehouseCreate = false;
-     private boolean isWarehouseView = false;
-     private boolean isWarehouseUpdate = false;
-     private boolean isWarehouseDelete = false;
-     //========= end warehouse =============
-
-     //========= range =============
-     private boolean isRange = false;
-     private boolean isRangeCreate = false;
-     private boolean isRangeView = false;
-     private boolean isRangeUpdate = false;
-     private boolean isRangeDelete = false;
-     //========= end range =============
-
-     //========= slot =============
-     private boolean isSlot = false;
-     private boolean isSlotCreate = false;
-     private boolean isSlotView = false;
-     private boolean isSlotUpdate = false;
-     private boolean isSlotDelete = false;
-     //========= end slot =============
+   
 
      private List<RoleHasPermission> listRoles = new ArrayList<>();
 
@@ -623,7 +446,6 @@ public class UserPermissionForm extends javax.swing.JDialog {
           btnCheck18 = new javax.swing.JLabel();
           permissionName18 = new javax.swing.JLabel();
           panel = new javax.swing.JPanel();
-          objRole = new FormComponent.combobox.JavaCombobox();
           jScrollPane1 = new javax.swing.JScrollPane();
           panelData = new javax.swing.JPanel();
           lbStock = new javax.swing.JLabel();
@@ -854,6 +676,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
           lbCheckAll = new javax.swing.JLabel();
           permissionName139 = new javax.swing.JLabel();
           btnSave = new ButtonPackage.ButtonSave();
+          objRole = new FormComponent.combobox.JavaCombobox();
 
           btnCheck15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
 
@@ -876,9 +699,6 @@ public class UserPermissionForm extends javax.swing.JDialog {
           permissionName18.setPreferredSize(new java.awt.Dimension(37, 20));
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-          objRole.setLabelName("Role *");
-          objRole.setName(""); // NOI18N
 
           panelData.setPreferredSize(new java.awt.Dimension(1100, 992));
 
@@ -2791,6 +2611,8 @@ public class UserPermissionForm extends javax.swing.JDialog {
                }
           });
 
+          objRole.setLabelName("Role *");
+
           javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
           panel.setLayout(panelLayout);
           panelLayout.setHorizontalGroup(
@@ -2814,9 +2636,9 @@ public class UserPermissionForm extends javax.swing.JDialog {
           panelLayout.setVerticalGroup(
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
+                    .addGap(18, 18, 18)
                     .addComponent(objRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(permissionName139, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(lbCheckAll, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -3539,10 +3361,10 @@ public class UserPermissionForm extends javax.swing.JDialog {
                case "PO" -> {
                     isPO = !isPO;
                     updateIcon(label, isPO);
-                    // note : permissionId = 10 and parentId = 5 from database table pos_permission
+                    // note : permissionId = 11 and parentId = 5 from database table pos_permission
                     setRoleHasPermission(
                          isPO,
-                         10,
+                         11,
                          5,
                          isPOCreate,
                          isPOView,
@@ -3555,7 +3377,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     updateIcon(label, isPORequest);
                     // note : permissionId = 12 and parentId = 11 from database table pos_permission
                     setRoleHasPermission(
-                         isPO,
+                         isPORequest,
                          12,
                          11,
                          isPOCreate,
@@ -3673,10 +3495,10 @@ public class UserPermissionForm extends javax.swing.JDialog {
                case "POReceive" -> {
                     isPOReceive = !isPOReceive;
                     updateIcon(label, isPOReceive);
-                    // note : permissionId = 11 and parentId = 11 from database table pos_permission
+                    // note : permissionId = 10 and parentId = 11 from database table pos_permission
                     setRoleHasPermission(
                          isPOReceive,
-                         11,
+                         10,
                          5,
                          isPOReceiveCreate,
                          isPOReceiveView,
@@ -3686,26 +3508,26 @@ public class UserPermissionForm extends javax.swing.JDialog {
                case "POReceiveCreate" -> {
                     isPOReceiveCreate = !isPOReceiveCreate;
                     updateIcon(label, isPOReceiveCreate);
-                    // note : permissionId = 11 from database table pos_permission
-                    setCreate(11, isPOReceiveCreate);
+                    // note : permissionId = 10 from database table pos_permission
+                    setCreate(10, isPOReceiveCreate);
                }
                case "POReceiveUpdate" -> {
                     isPOReceiveUpdate = !isPOReceiveUpdate;
                     updateIcon(label, isPOReceiveUpdate);
-                    // note : permissionId = 11 from database table pos_permission
-                    setUpdate(11, isPOReceiveUpdate);
+                    // note : permissionId = 10 from database table pos_permission
+                    setUpdate(10, isPOReceiveUpdate);
                }
                case "POReceiveView" -> {
                     isPOReceiveView = !isPOReceiveView;
                     updateIcon(label, isPOReceiveView);
-                    // note : permissionId = 11 from database table pos_permission
-                    setView(11, isPOReceiveView);
+                    // note : permissionId = 10 from database table pos_permission
+                    setView(10, isPOReceiveView);
                }
                case "POReceiveDelete" -> {
                     isPOReceiveDelete = !isPOReceiveDelete;
                     updateIcon(label, isPOReceiveDelete);
-                    // note : permissionId = 11from database table pos_permission
-                    setDelete(11, isPOReceiveDelete);
+                    // note : permissionId = 10 from database table pos_permission
+                    setDelete(10, isPOReceiveDelete);
                }
                // =============== end Purchase Receive ================
 
@@ -4556,6 +4378,185 @@ public class UserPermissionForm extends javax.swing.JDialog {
           });
      }
 
+     
+       private boolean isStock = false;
+     private boolean isAll = false;
+     //========= product =============
+     private boolean isProduct = false;
+     private boolean isProductCreate = false;
+     private boolean isProductUpdate = false;
+     private boolean isProductView = false;
+     private boolean isProductDelete = false;
+     //========= end product =============
+
+     //========= purchase order =============
+     private boolean isPO = false;
+     private boolean isPORequest = false;
+     private boolean isPOCreate = false;
+     private boolean isPOUpdate = false;
+     private boolean isPOView = false;
+     private boolean isPODelete = false;
+     //========= end purchase order =============
+
+     //========= purchase order =============
+     private boolean isPOCheck = false;
+     private boolean isPOCheckCreate = false;
+     private boolean isPOCheckUpdate = false;
+     private boolean isPOCheckView = false;
+     private boolean isPOCheckDelete = false;
+     //========= end purchase order =============
+
+     //========= purchase approval =============
+     private boolean isPOApproval = false;
+     private boolean isPOApprovalCreate = false;
+     private boolean isPOApprovalUpdate = false;
+     private boolean isPOApprovalView = false;
+     private boolean isPOApprovalDelete = false;
+     //========= end purchase approval =============
+
+     //========= purchase receive =============
+     private boolean isPOReceive = false;
+     private boolean isPOReceiveCreate = false;
+     private boolean isPOReceiveUpdate = false;
+     private boolean isPOReceiveView = false;
+     private boolean isPOReceiveDelete = false;
+     //========= end purchase receive =============
+
+     //========= reportting =============
+     private boolean isReport = false;
+     private boolean isReportingSale = false;
+     private boolean isReportPO = false;
+     private boolean isReportingPurchaseReceive = false;
+     private boolean isReportingInventory = false;
+     //=========  end reportting =============
+
+     private boolean isSfaff = false;
+     //========= staff =============
+     private boolean isSfaffInfo = false;
+     private boolean isSfaffInfoCreate = false;
+     private boolean isSfaffInfoView = false;
+     private boolean isSfaffInfoUpdate = false;
+     private boolean isSfaffInfoDelete = false;
+     //========= end staff =============
+
+     // ========= user permission ========
+     private boolean isUserLogin = false;
+     private boolean isUserLoginUpdate = false;
+     private boolean isUserPermission = false;
+     // ========= end user permission =======
+
+     private boolean isSettings = false;
+     //========= division =============
+     private boolean isDivision = false;
+     private boolean isDivisionCreate = false;
+     private boolean isDivisionView = false;
+     private boolean isDivisionUpdate = false;
+     private boolean isDivisionoDelete = false;
+     //========= end division =============
+
+     //========= department =============
+     private boolean isDepartment = false;
+     private boolean isDepartmentCreate = false;
+     private boolean isDepartmentView = false;
+     private boolean isDepartmentUpdate = false;
+     private boolean isDepartmentDelete = false;
+     //========= end department =============
+
+     //========= category =============
+     private boolean isCategory = false;
+     private boolean isCategoryCreate = false;
+     private boolean isCategoryView = false;
+     private boolean isCategoryUpdate = false;
+     private boolean isCategoryDelete = false;
+     //========= end category =============
+
+     //========= subCategory =============
+     private boolean isSubCategory = false;
+     private boolean isSubCategoryCreate = false;
+     private boolean isSubCategoryView = false;
+     private boolean isSubCategoryUpdate = false;
+     private boolean isSubCategoryDelete = false;
+     //========= end subCategory =============
+
+     //========= brand =============
+     private boolean isBrand = false;
+     private boolean isBrandCreate = false;
+     private boolean isBrandView = false;
+     private boolean isBrandUpdate = false;
+     private boolean isBrandDelete = false;
+     //========= end brand =============
+
+     //========= vendor =============
+     private boolean isVendor = false;
+     private boolean isVendorCreate = false;
+     private boolean isVendorView = false;
+     private boolean isVendorUpdate = false;
+     private boolean isVendorDelete = false;
+     //========= end vendor =============
+
+     //========= attribute =============
+     private boolean isAttribute = false;
+     private boolean isAttributeCreate = false;
+     private boolean isAttributeView = false;
+     private boolean isAttributeUpdate = false;
+     private boolean isAttributeDelete = false;
+     //========= end attribute =============
+
+     //========= uom =============
+     private boolean isUom = false;
+     private boolean isUomCreate = false;
+     private boolean isUomView = false;
+     private boolean isUomUpdate = false;
+     private boolean isUomDelete = false;
+     //========= end uom =============
+
+     //========= country =============
+     private boolean isCountry = false;
+     private boolean isCountryCreate = false;
+     private boolean isCountryView = false;
+     private boolean isCountryUpdate = false;
+     private boolean isCountryDelete = false;
+     //========= end country =============
+
+     //========= tax =============
+     private boolean isTax = false;
+     private boolean isTaxCreate = false;
+     private boolean isTaxView = false;
+     private boolean isTaxUpdate = false;
+     private boolean isTaxDelete = false;
+     //========= end tax =============
+
+     //========= status =============
+     private boolean isStatus = false;
+     private boolean isStatusCreate = false;
+     private boolean isStatusView = false;
+     private boolean isStatusUpdate = false;
+     private boolean isStatusDelete = false;
+     //========= end status =============
+
+     //========= warehouse =============
+     private boolean isWarehouse = false;
+     private boolean isWarehouseCreate = false;
+     private boolean isWarehouseView = false;
+     private boolean isWarehouseUpdate = false;
+     private boolean isWarehouseDelete = false;
+     //========= end warehouse =============
+
+     //========= range =============
+     private boolean isRange = false;
+     private boolean isRangeCreate = false;
+     private boolean isRangeView = false;
+     private boolean isRangeUpdate = false;
+     private boolean isRangeDelete = false;
+     //========= end range =============
+
+     //========= slot =============
+     private boolean isSlot = false;
+     private boolean isSlotCreate = false;
+     private boolean isSlotView = false;
+     private boolean isSlotUpdate = false;
+     private boolean isSlotDelete = false;
+     //========= end slot =============
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Button.Button btnCancel;
      private javax.swing.JLabel btnCheck15;

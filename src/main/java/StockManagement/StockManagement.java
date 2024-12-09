@@ -22,7 +22,7 @@ public class StockManagement extends javax.swing.JDialog {
      private JPanel panelProduct;
      private JPanel panelCategory;
      private LoginFormJdailog jdLogin;
-     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
+     //private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
 
      public StockManagement(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -42,57 +42,58 @@ public class StockManagement extends javax.swing.JDialog {
           getImageAndTitle();
 
           // check permission
-//          checkPermission();
+          checkPermission();
      }
 
-//     private void checkPermission() {
-//
-//          Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "?roleId=" + JavaConstant.roleId + "&parentId=5");
-//
-//          try {
-//               // convert response to string 
-//               String responseData = response.body().string();
-//
-//               // create object mapper
-//               ObjectMapper object = new ObjectMapper();
-//
-//               // convert responseData to objectMapper
-//               RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
-//
-//               JavaConstant.roleHasPermissionModel = model;
-//
-//               boolean isProduct = false;
-//               boolean isPurchaseOrder = false;
-//               boolean isPurchaseReceive = false;
-//
-//               for (RoleHasPermissionModel.RoleHasPermissionDetail data : model.getData()) {
-//
-//                    if (data.getPermissionName().equals("Product")) {
-//                         isProduct = data.getIsVisible();
-//                         roleHasPermissionDetail = data;
-//                    }
-//
-//                    if (data.getPermissionName().equals("Purchase Order")) {
-//                         isPurchaseOrder = data.getIsVisible();
-//                         roleHasPermissionDetail = data;
-//                    }
-//
-//                    if (data.getPermissionName().equals("Purchase Receive")) {
-//                         isPurchaseReceive = data.getIsVisible();
-//                         roleHasPermissionDetail = data;
-//                    }
-//
-//               }
-//
-//               product.setVisible(isProduct);
-//               purchaseOrder.setVisible(isPurchaseOrder);
-//               purchaseOrderReceive.setVisible(isPurchaseReceive);
-//
-//          } catch (Exception e) {
-//               System.err.println("error :" + e);
-//          }
-//
-//     }
+     private void checkPermission() {
+
+          // note: parentId = 5 from table pos_permission  
+          Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "?roleId=" + JavaConstant.roleId + "&parentId=5");
+
+          try {
+               // convert response to string 
+               String responseData = response.body().string();
+
+               // create object mapper
+               ObjectMapper object = new ObjectMapper();
+
+               // convert responseData to objectMapper
+               RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
+
+                
+
+               boolean isProduct = false;
+               boolean isPurchaseOrder = false;
+               boolean isPurchaseReceive = false;
+
+               for (RoleHasPermissionModel.RoleHasPermissionDetail data : model.getData()) {
+
+                    if (data.getPermissionName().equals("Product")) {
+                         isProduct = data.getIsVisible();
+                         JavaConstant.permissionDetail = data;
+                    }
+
+                    if (data.getPermissionName().equals("Purchase Order")) {
+                         isPurchaseOrder = data.getIsVisible();
+                         JavaConstant.permissionDetail = data;
+                    }
+
+                    if (data.getPermissionName().equals("Purchase Receive")) {
+                         isPurchaseReceive = data.getIsVisible();
+                         JavaConstant.permissionDetail = data;
+                    }
+
+               }
+
+               product.setVisible(isProduct);
+               purchaseOrder.setVisible(isPurchaseOrder);
+               purchaseOrderReceive.setVisible(isPurchaseReceive);
+
+          } catch (Exception e) {
+               System.err.println("error :" + e);
+          }
+
+     }
 
      private void getImageAndTitle() {
 
@@ -200,7 +201,7 @@ public class StockManagement extends javax.swing.JDialog {
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
          ListProduct list = new ListProduct(new JFrame(), true);
-//         list.setRoleHasPermissionDetail(roleHasPermissionDetail); // assing roleHasPermission and get Data
+         //list.setRoleHasPermissionDetail(roleHasPermissionDetail); // assing roleHasPermission and get Data
          list.setPanelProduct(panelProduct);
          list.setJdLogin(jdLogin);
          list.setPanelCategory(panelCategory);

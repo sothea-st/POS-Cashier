@@ -24,7 +24,7 @@ public class JavaCheckPermission {
                RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
                     
                
-               JavaConstant.roleHasPermissionModel = model;
+               //JavaConstant.roleHasPermissionModel = model;
                
                boolean isStock = false;
                boolean isStaff = false;
