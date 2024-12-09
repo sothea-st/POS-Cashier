@@ -11,7 +11,7 @@ public class Staff extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           
-//          btnUserPermission.setVisible(false);
+          btnUserPermission.setVisible(false);
      }
 
      @SuppressWarnings("unchecked")

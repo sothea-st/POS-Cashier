@@ -54,8 +54,8 @@ public class PaymentOption extends javax.swing.JDialog {
     private String sign = "khr";
     private Component[] listCom;
 
-    private String cusTypeId = "-1";
-    private String sourceId = "-1";
+    private String cusTypeId;
+    private String sourceId;
     private String paymentType = JavaConstant.typeCash;
     private JPanel detailItem;
     private JPanel boxOne;

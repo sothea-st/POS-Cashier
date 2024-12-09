@@ -116,7 +116,7 @@
                           <Group type="102" attributes="0">
                               <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSave" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="1217" max="-2" attributes="0"/>
                       </Group>
@@ -136,10 +136,10 @@
                       <Component id="btnCheck139" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="553" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" pref="594" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="buttonSave" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSave" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancel" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -179,7 +179,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="POReceive" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOReceive" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                                   <Component id="permissionName3" max="32767" attributes="0"/>
                                               </Group>
@@ -204,7 +204,7 @@
                                                           <Component id="permissionName9" max="32767" attributes="0"/>
                                                       </Group>
                                                       <Group type="102" attributes="0">
-                                                          <Component id="poApproval" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="lbPOApproval" min="-2" max="-2" attributes="0"/>
                                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                                           <Component id="permissionName10" max="32767" attributes="0"/>
                                                       </Group>
@@ -214,19 +214,19 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="productCreate" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbProductCreate" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName4" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="productUpdate" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbProductUpdate" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName5" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="productView" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbProductView" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName6" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="productDelete" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbProductDelete" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName7" min="-2" pref="51" max="-2" attributes="0"/>
                                               </Group>
@@ -265,36 +265,36 @@
                                                   <Component id="permissionName22" min="-2" pref="51" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
-                                                  <Component id="poApprovalCreate" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOApprovalCreate" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName23" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="poApprovalUpdate" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOApprovalUpdate" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName24" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="poApprovalView" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOApprovalView" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName25" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="poApprovalDelete" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOApprovalDelete" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName26" min="-2" pref="51" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
-                                                  <Component id="POReceiveCreate" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOReceiveCreate" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName27" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="POReceiveUpdate" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOReceiveUpdate" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName28" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="POReceiveView" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOReceiveView" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName29" min="-2" pref="51" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="POReceiveDelete" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbPOReceiveDelete" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                   <Component id="permissionName30" min="-2" pref="51" max="-2" attributes="0"/>
                                               </Group>
@@ -303,301 +303,301 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="btnCheck31" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbSettings" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck32" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDivision" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName32" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck33" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDivisionCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName33" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck34" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDivisionUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName34" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck35" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDivisionView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName35" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck36" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDivisionDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName36" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="permissionName31" min="-2" pref="752" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck37" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDepartment" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName37" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck38" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDepartmentCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName38" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck39" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDepartmentUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName39" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck40" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDepartmentView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName40" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck41" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDepartmentDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName41" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck45" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCategory" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName43" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck42" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCategoryCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName46" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck43" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCategoryUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName44" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck46" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCategoryView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName45" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck44" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCategoryDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName42" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck47" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSubCategory" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName47" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck50" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSubCategoryCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName50" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck49" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSubCategoryUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName48" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck48" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSubCategoryView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName51" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck51" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSubCategoryDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName49" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck54" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbBrand" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName55" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck53" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbBrandCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName53" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck55" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbBrandUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName56" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck52" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbBrandView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName54" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck56" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbBrandDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName52" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck59" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbVendor" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName61" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck58" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbVendorCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName57" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck57" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbVendorUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName59" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck61" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbVendorView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName58" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck60" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbVendorDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName60" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck66" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbAttribute" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName64" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck62" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbAttributeCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName66" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck64" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbAttributeUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName63" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck65" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbAttributeView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName62" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck63" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbAttributeDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName65" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck68" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUom" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName71" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck69" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUomCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName69" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck67" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUomUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName67" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck71" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUomView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName70" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck70" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUomDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName68" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck72" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCountry" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName72" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck73" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCountryCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName73" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck74" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCountryUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName74" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck75" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCountryView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName75" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck76" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbCountryDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName76" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck78" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbTax" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName81" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck81" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbTaxCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName78" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck80" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbTaxUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName79" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck79" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbTaxView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName80" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck77" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbTaxDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName77" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck86" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbStatus" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName84" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck83" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbStatusCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName86" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck84" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbStatusUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName82" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck85" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbStatusView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName85" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck82" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbStatusDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName83" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck88" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbWarehouse" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName87" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck89" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbWarehouseCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName88" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck91" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbWarehouseUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName89" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck87" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbWarehouseView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName90" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck90" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbWarehouseDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName91" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck92" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbRange" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName92" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck93" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbRangeCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName93" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck94" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbRangeUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName94" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck95" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbRangeView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName95" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck96" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbRangeDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName96" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck98" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSlot" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName99" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck100" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSlotCreate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName98" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck99" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSlotUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName100" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck97" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSlotView" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName97" min="-2" pref="51" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnCheck101" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbSlotDelete" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName101" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
@@ -657,16 +657,16 @@
                                       </Group>
                                       <Component id="permissionName123" min="-2" pref="752" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck129" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUserLogin" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName129" min="-2" pref="257" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
-                                          <Component id="btnCheck131" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUserLoginUpdate" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName131" min="-2" pref="51" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
-                                          <Component id="btnCheck136" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbUserPermission" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="permissionName134" min="-2" pref="257" max="-2" attributes="0"/>
                                       </Group>
@@ -690,13 +690,13 @@
                               <Component id="permissionName1" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="lbProduct" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName4" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="productCreate" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbProductCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName5" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="productUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbProductUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName6" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="productView" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbProductView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName7" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="productDelete" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbProductDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -740,219 +740,219 @@
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Component id="permissionName10" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="poApproval" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbPOApproval" alignment="1" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="permissionName23" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="poApprovalCreate" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPOApprovalCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="permissionName24" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="poApprovalUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPOApprovalUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="permissionName25" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="poApprovalView" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPOApprovalView" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="permissionName26" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="poApprovalDelete" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPOApprovalDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="permissionName3" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="POReceive" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbPOReceive" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="permissionName27" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="POReceiveCreate" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbPOReceiveCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName28" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="POReceiveUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbPOReceiveUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName29" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="POReceiveView" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbPOReceiveView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName30" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="POReceiveDelete" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbPOReceiveDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName31" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck31" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSettings" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName32" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck32" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDivision" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName33" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck33" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDivisionCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName34" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck34" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDivisionUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName35" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck35" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDivisionView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName36" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck36" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDivisionDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName37" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck37" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDepartment" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName38" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck38" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDepartmentCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName39" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck39" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDepartmentUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName40" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck40" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDepartmentView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName41" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck41" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbDepartmentDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName43" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck45" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCategory" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName46" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck42" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCategoryCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName44" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck43" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCategoryUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName45" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck46" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCategoryView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName42" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck44" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCategoryDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName47" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck47" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSubCategory" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName50" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck50" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSubCategoryCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName48" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck49" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSubCategoryUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName51" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck48" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSubCategoryView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName49" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck51" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSubCategoryDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName55" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck54" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbBrand" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName53" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck53" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbBrandCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName56" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck55" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbBrandUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName54" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck52" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbBrandView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName52" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck56" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbBrandDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName61" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck59" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbVendor" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName57" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck58" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbVendorCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName59" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck57" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbVendorUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName58" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck61" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbVendorView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName60" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck60" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbVendorDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName64" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck66" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbAttribute" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName66" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck62" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbAttributeCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName63" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck64" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbAttributeUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName62" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck65" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbAttributeView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName65" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck63" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbAttributeDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName71" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck68" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUom" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName69" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck69" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUomCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName67" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck67" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUomUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName70" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck71" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUomView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName68" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck70" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUomDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName72" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck72" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCountry" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName73" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck73" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCountryCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName74" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck74" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCountryUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName75" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck75" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCountryView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName76" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck76" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbCountryDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName81" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck78" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbTax" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName78" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck81" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbTaxCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName79" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck80" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbTaxUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName80" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck79" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbTaxView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName77" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck77" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbTaxDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName84" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck86" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbStatus" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName86" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck83" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbStatusCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName82" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck84" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbStatusUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName85" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck85" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbStatusView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName83" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck82" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbStatusDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName87" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck88" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbWarehouse" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName88" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck89" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbWarehouseCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName89" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck91" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbWarehouseUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName90" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck87" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbWarehouseView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName91" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck90" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbWarehouseDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName92" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck92" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbRange" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName93" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck93" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbRangeCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName94" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck94" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbRangeUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName95" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck95" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbRangeView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName96" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck96" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbRangeDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName99" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck98" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSlot" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName98" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck100" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSlotCreate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName100" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck99" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSlotUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName97" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck97" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSlotView" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName101" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck101" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbSlotDelete" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -1000,14 +1000,14 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName129" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck129" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUserLogin" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="permissionName131" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck131" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUserLoginUpdate" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="permissionName134" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCheck136" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbUserPermission" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
@@ -1069,14 +1069,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="POReceive">
+                <Component class="javax.swing.JLabel" name="lbPOReceive">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="POReceiveMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOReceiveMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName3">
@@ -1095,24 +1095,24 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="productCreate">
+                <Component class="javax.swing.JLabel" name="lbProductCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productCreateMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbProductCreateMouseClicked"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="productUpdate">
+                <Component class="javax.swing.JLabel" name="lbProductUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productUpdateMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbProductUpdateMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName5">
@@ -1123,14 +1123,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="productView">
+                <Component class="javax.swing.JLabel" name="lbProductView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productViewMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbProductViewMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName6">
@@ -1141,14 +1141,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="productDelete">
+                <Component class="javax.swing.JLabel" name="lbProductDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productDeleteMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbProductDeleteMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName7">
@@ -1195,14 +1195,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="poApproval">
+                <Component class="javax.swing.JLabel" name="lbPOApproval">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="poApprovalMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOApprovalMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName10">
@@ -1357,14 +1357,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="poApprovalCreate">
+                <Component class="javax.swing.JLabel" name="lbPOApprovalCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="poApprovalCreateMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOApprovalCreateMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName23">
@@ -1375,14 +1375,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="poApprovalUpdate">
+                <Component class="javax.swing.JLabel" name="lbPOApprovalUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="poApprovalUpdateMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOApprovalUpdateMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName24">
@@ -1393,14 +1393,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="poApprovalView">
+                <Component class="javax.swing.JLabel" name="lbPOApprovalView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="poApprovalViewMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOApprovalViewMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName25">
@@ -1411,14 +1411,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="poApprovalDelete">
+                <Component class="javax.swing.JLabel" name="lbPOApprovalDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="poApprovalDeleteMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOApprovalDeleteMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName26">
@@ -1429,14 +1429,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="POReceiveCreate">
+                <Component class="javax.swing.JLabel" name="lbPOReceiveCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="POReceiveCreateMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOReceiveCreateMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName27">
@@ -1447,14 +1447,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="POReceiveUpdate">
+                <Component class="javax.swing.JLabel" name="lbPOReceiveUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="POReceiveUpdateMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOReceiveUpdateMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName28">
@@ -1465,14 +1465,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="POReceiveView">
+                <Component class="javax.swing.JLabel" name="lbPOReceiveView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="POReceiveViewMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOReceiveViewMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName29">
@@ -1483,14 +1483,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="POReceiveDelete">
+                <Component class="javax.swing.JLabel" name="lbPOReceiveDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="POReceiveDeleteMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbPOReceiveDeleteMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName30">
@@ -1501,12 +1501,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck31">
+                <Component class="javax.swing.JLabel" name="lbSettings">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSettingsMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName31">
                   <Properties>
@@ -1516,12 +1519,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck32">
+                <Component class="javax.swing.JLabel" name="lbDivision">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDivisionMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName32">
                   <Properties>
@@ -1531,12 +1537,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck33">
+                <Component class="javax.swing.JLabel" name="lbDivisionCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDivisionCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName33">
                   <Properties>
@@ -1546,12 +1555,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck34">
+                <Component class="javax.swing.JLabel" name="lbDivisionUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDivisionUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName34">
                   <Properties>
@@ -1561,12 +1573,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck35">
+                <Component class="javax.swing.JLabel" name="lbDivisionView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDivisionViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName35">
                   <Properties>
@@ -1576,12 +1591,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck36">
+                <Component class="javax.swing.JLabel" name="lbDivisionDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDivisionDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName36">
                   <Properties>
@@ -1591,12 +1609,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck37">
+                <Component class="javax.swing.JLabel" name="lbDepartment">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDepartmentMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName37">
                   <Properties>
@@ -1606,12 +1627,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck38">
+                <Component class="javax.swing.JLabel" name="lbDepartmentCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDepartmentCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName38">
                   <Properties>
@@ -1621,12 +1645,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck39">
+                <Component class="javax.swing.JLabel" name="lbDepartmentUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDepartmentUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName39">
                   <Properties>
@@ -1636,12 +1663,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck40">
+                <Component class="javax.swing.JLabel" name="lbDepartmentView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDepartmentViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName40">
                   <Properties>
@@ -1651,12 +1681,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck41">
+                <Component class="javax.swing.JLabel" name="lbDepartmentDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbDepartmentDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName41">
                   <Properties>
@@ -1666,12 +1699,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck42">
+                <Component class="javax.swing.JLabel" name="lbCategoryCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCategoryCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName42">
                   <Properties>
@@ -1689,26 +1725,35 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck43">
+                <Component class="javax.swing.JLabel" name="lbCategoryUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCategoryUpdateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck44">
+                <Component class="javax.swing.JLabel" name="lbCategoryDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCategoryDeleteMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck45">
+                <Component class="javax.swing.JLabel" name="lbCategory">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCategoryMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName44">
                   <Properties>
@@ -1734,19 +1779,25 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck46">
+                <Component class="javax.swing.JLabel" name="lbCategoryView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCategoryViewMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck47">
+                <Component class="javax.swing.JLabel" name="lbSubCategory">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSubCategoryMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName47">
                   <Properties>
@@ -1764,12 +1815,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck48">
+                <Component class="javax.swing.JLabel" name="lbSubCategoryView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSubCategoryViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName49">
                   <Properties>
@@ -1779,12 +1833,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck49">
+                <Component class="javax.swing.JLabel" name="lbSubCategoryUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSubCategoryUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName50">
                   <Properties>
@@ -1802,19 +1859,25 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck50">
+                <Component class="javax.swing.JLabel" name="lbSubCategoryCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSubCategoryCreateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck51">
+                <Component class="javax.swing.JLabel" name="lbSubCategoryDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSubCategoryDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName52">
                   <Properties>
@@ -1824,12 +1887,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck52">
+                <Component class="javax.swing.JLabel" name="lbBrandView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbBrandViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName53">
                   <Properties>
@@ -1855,12 +1921,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck53">
+                <Component class="javax.swing.JLabel" name="lbBrandCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbBrandCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName56">
                   <Properties>
@@ -1870,40 +1939,55 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck54">
+                <Component class="javax.swing.JLabel" name="lbBrand">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbBrandMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck55">
+                <Component class="javax.swing.JLabel" name="lbBrandUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbBrandUpdateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck56">
+                <Component class="javax.swing.JLabel" name="lbBrandDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbBrandDeleteMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck57">
+                <Component class="javax.swing.JLabel" name="lbVendorUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbVendorUpdateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck58">
+                <Component class="javax.swing.JLabel" name="lbVendorCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbVendorCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName57">
                   <Properties>
@@ -1913,12 +1997,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck59">
+                <Component class="javax.swing.JLabel" name="lbVendor">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbVendorMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName58">
                   <Properties>
@@ -1936,12 +2023,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck60">
+                <Component class="javax.swing.JLabel" name="lbVendorDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbVendorDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName60">
                   <Properties>
@@ -1951,12 +2041,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck61">
+                <Component class="javax.swing.JLabel" name="lbVendorView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbVendorViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName61">
                   <Properties>
@@ -1966,12 +2059,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck62">
+                <Component class="javax.swing.JLabel" name="lbAttributeCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbAttributeCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName62">
                   <Properties>
@@ -1989,26 +2085,35 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck63">
+                <Component class="javax.swing.JLabel" name="lbAttributeDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbAttributeDeleteMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck64">
+                <Component class="javax.swing.JLabel" name="lbAttributeUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbAttributeUpdateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck65">
+                <Component class="javax.swing.JLabel" name="lbAttributeView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbAttributeViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName64">
                   <Properties>
@@ -2018,12 +2123,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck66">
+                <Component class="javax.swing.JLabel" name="lbAttribute">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbAttributeMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName65">
                   <Properties>
@@ -2057,12 +2165,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck67">
+                <Component class="javax.swing.JLabel" name="lbUomUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUomUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName69">
                   <Properties>
@@ -2080,33 +2191,45 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck68">
+                <Component class="javax.swing.JLabel" name="lbUom">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUomMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck69">
+                <Component class="javax.swing.JLabel" name="lbUomCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUomCreateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck70">
+                <Component class="javax.swing.JLabel" name="lbUomDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUomDeleteMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck71">
+                <Component class="javax.swing.JLabel" name="lbUomView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUomViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName71">
                   <Properties>
@@ -2116,12 +2239,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck72">
+                <Component class="javax.swing.JLabel" name="lbCountry">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCountryMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName72">
                   <Properties>
@@ -2131,12 +2257,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck73">
+                <Component class="javax.swing.JLabel" name="lbCountryCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCountryCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName73">
                   <Properties>
@@ -2146,12 +2275,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck74">
+                <Component class="javax.swing.JLabel" name="lbCountryUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCountryUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName74">
                   <Properties>
@@ -2161,12 +2293,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck75">
+                <Component class="javax.swing.JLabel" name="lbCountryView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCountryViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName75">
                   <Properties>
@@ -2176,12 +2311,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck76">
+                <Component class="javax.swing.JLabel" name="lbCountryDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbCountryDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName76">
                   <Properties>
@@ -2191,19 +2329,25 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck77">
+                <Component class="javax.swing.JLabel" name="lbTaxDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbTaxDeleteMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck78">
+                <Component class="javax.swing.JLabel" name="lbTax">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbTaxMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName77">
                   <Properties>
@@ -2213,12 +2357,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck79">
+                <Component class="javax.swing.JLabel" name="lbTaxView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbTaxViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName78">
                   <Properties>
@@ -2228,12 +2375,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck80">
+                <Component class="javax.swing.JLabel" name="lbTaxUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbTaxUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName79">
                   <Properties>
@@ -2251,12 +2401,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck81">
+                <Component class="javax.swing.JLabel" name="lbTaxCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbTaxCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName81">
                   <Properties>
@@ -2266,12 +2419,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck82">
+                <Component class="javax.swing.JLabel" name="lbStatusDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbStatusDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName82">
                   <Properties>
@@ -2289,19 +2445,25 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck83">
+                <Component class="javax.swing.JLabel" name="lbStatusCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbStatusCreateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck84">
+                <Component class="javax.swing.JLabel" name="lbStatusUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbStatusUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName84">
                   <Properties>
@@ -2319,12 +2481,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck85">
+                <Component class="javax.swing.JLabel" name="lbStatusView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbStatusViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName86">
                   <Properties>
@@ -2334,26 +2499,35 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck86">
+                <Component class="javax.swing.JLabel" name="lbStatus">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbStatusMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck87">
+                <Component class="javax.swing.JLabel" name="lbWarehouseView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbWarehouseViewMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck88">
+                <Component class="javax.swing.JLabel" name="lbWarehouse">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbWarehouseMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName87">
                   <Properties>
@@ -2379,12 +2553,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck89">
+                <Component class="javax.swing.JLabel" name="lbWarehouseCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbWarehouseCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName90">
                   <Properties>
@@ -2394,12 +2571,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck90">
+                <Component class="javax.swing.JLabel" name="lbWarehouseDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbWarehouseDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName91">
                   <Properties>
@@ -2409,19 +2589,25 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck91">
+                <Component class="javax.swing.JLabel" name="lbWarehouseUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbWarehouseUpdateMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck92">
+                <Component class="javax.swing.JLabel" name="lbRange">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbRangeMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName92">
                   <Properties>
@@ -2431,12 +2617,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck93">
+                <Component class="javax.swing.JLabel" name="lbRangeCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbRangeCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName93">
                   <Properties>
@@ -2446,12 +2635,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck94">
+                <Component class="javax.swing.JLabel" name="lbRangeUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbRangeUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName94">
                   <Properties>
@@ -2461,12 +2653,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck95">
+                <Component class="javax.swing.JLabel" name="lbRangeView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbRangeViewMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName95">
                   <Properties>
@@ -2476,12 +2671,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck96">
+                <Component class="javax.swing.JLabel" name="lbRangeDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbRangeDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName96">
                   <Properties>
@@ -2499,19 +2697,25 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck97">
+                <Component class="javax.swing.JLabel" name="lbSlotView">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSlotViewMouseClicked"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck98">
+                <Component class="javax.swing.JLabel" name="lbSlot">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSlotMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName98">
                   <Properties>
@@ -2521,12 +2725,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck99">
+                <Component class="javax.swing.JLabel" name="lbSlotUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSlotUpdateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName99">
                   <Properties>
@@ -2536,12 +2743,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck100">
+                <Component class="javax.swing.JLabel" name="lbSlotCreate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSlotCreateMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName100">
                   <Properties>
@@ -2551,12 +2761,15 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck101">
+                <Component class="javax.swing.JLabel" name="lbSlotDelete">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbSlotDeleteMouseClicked"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName101">
                   <Properties>
@@ -2764,14 +2977,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck129">
+                <Component class="javax.swing.JLabel" name="lbUserLogin">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCheck129MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUserLoginMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName129">
@@ -2782,14 +2995,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck131">
+                <Component class="javax.swing.JLabel" name="lbUserLoginUpdate">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCheck131MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUserLoginUpdateMouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="permissionName131">
@@ -2808,14 +3021,14 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="btnCheck136">
+                <Component class="javax.swing.JLabel" name="lbUserPermission">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icon/check.png"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCheck136MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lbUserPermissionMouseClicked"/>
                   </Events>
                 </Component>
               </SubComponents>
@@ -2845,9 +3058,9 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="ButtonPackage.ButtonSave" name="buttonSave">
+        <Component class="ButtonPackage.ButtonSave" name="btnSave">
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnSaveMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
