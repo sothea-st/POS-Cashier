@@ -87,6 +87,8 @@ public class JavaCombobox extends javax.swing.JPanel {
                 }
             }
         });
+        
+        
          cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
     }
 

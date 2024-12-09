@@ -10,6 +10,7 @@ import FormComponent.combobox.JavaComboBoxSelection;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.model.RoleHasPermission;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
      private String roleId = "-1";
      private boolean isStock = false;
+     private boolean isAll = false;
      //========= product =============
      private boolean isProduct = false;
      private boolean isProductCreate = false;
@@ -225,7 +227,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
      // Action Select Role
      private void cmdRole() {
-          JavaComboBoxSelection.addComboBox(role,
+          JavaComboBoxSelection.addComboBox(objRole,
                JavaRoute.role,
                "role_name",
                JavaComboBoxSelection.DESC);
@@ -235,18 +237,33 @@ public class UserPermissionForm extends javax.swing.JDialog {
                public void onSelected(String id) {
                     roleId = id;
                     // get permission by role
-                    getPermissionByRole();
+                    getPermissionByRole(roleId);
+
                }
           };
-          role.initEvent(event);
+          objRole.initEvent(event);
      }
 
-     private void getPermissionByRole() {
+     private void unCheckBox() {
+          Component[] listCom = panelData.getComponents();
+          for (Component com : listCom) {
+               if (com instanceof JLabel) {
+                    String title = ((JLabel) com).getText();
+                    if (title.isEmpty()) {
+                         ((JLabel) com).setIcon(new ImageIcon(getClass().getResource("/icon/check.png")));
+                    }
+               }
+          }
+
+     }
+
+     private void getPermissionByRole(String _roleId) {
           try {
 
+               unCheckBox();
                listRoles.clear(); // clear 
 
-               Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "/readByRole?roleId=" + roleId);
+               Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "/readByRole?roleId=" + _roleId);
 
                String responseData = response.body().string();
 
@@ -257,7 +274,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                // add data to listRoles
                for (RoleHasPermissionModel.RoleHasPermissionDetail result : data.getData()) {
                     listRoles.add(RoleHasPermission.builder()
-                         .roleId(result.getRoleId())
+                         .roleId(Integer.valueOf(roleId))
                          .permissionId(result.getPermissionId())
                          .parentId(result.getParentId())
                          .isVisible(result.getIsVisible())
@@ -281,165 +298,258 @@ public class UserPermissionForm extends javax.swing.JDialog {
                               isStock = isVisible;
                          }
                          case "product" -> {
-                              updateIcon(lbProduct, isVisible); isProduct = isVisible;
-                              updateIcon(lbProductCreate, isCreate); isProductCreate = isCreate;
-                              updateIcon(lbProductView, isView); isProductView = isView;
-                              updateIcon(lbProductUpdate, isUpdate); isProductUpdate = isUpdate;
-                              updateIcon(lbProductDelete, isDelete); isProductDelete = isDelete;
+                              updateIcon(lbProduct, isVisible);
+                              isProduct = isVisible;
+                              updateIcon(lbProductCreate, isCreate);
+                              isProductCreate = isCreate;
+                              updateIcon(lbProductView, isView);
+                              isProductView = isView;
+                              updateIcon(lbProductUpdate, isUpdate);
+                              isProductUpdate = isUpdate;
+                              updateIcon(lbProductDelete, isDelete);
+                              isProductDelete = isDelete;
                          }
                          case "purchase order" -> {
                               updateIcon(lbPO, isVisible);
                               isPO = isVisible;
                          }
                          case "purchase request" -> {
-                              updateIcon(lbPORequest, isVisible); isPORequest = isVisible;
-                              updateIcon(lbPOCreate, isCreate); isPOCreate = isCreate;
-                              updateIcon(lbPOView, isView); isPOView = isView;
-                              updateIcon(lbPOUpdate, isUpdate); isPOUpdate = isUpdate;
-                              updateIcon(lbPODelete, isDelete); isPODelete = isDelete;
+                              updateIcon(lbPORequest, isVisible);
+                              isPORequest = isVisible;
+                              updateIcon(lbPOCreate, isCreate);
+                              isPOCreate = isCreate;
+                              updateIcon(lbPOView, isView);
+                              isPOView = isView;
+                              updateIcon(lbPOUpdate, isUpdate);
+                              isPOUpdate = isUpdate;
+                              updateIcon(lbPODelete, isDelete);
+                              isPODelete = isDelete;
                          }
                          case "purchase check" -> {
-                              updateIcon(lbPOCheck, isVisible); isPOCheck = isVisible;
-                              updateIcon(lbPOCheckCreate, isCreate);isPOCheckCreate = isCreate;
-                              updateIcon(lbPOCheckView, isView); isPOCheckView = isView;
-                              updateIcon(lbPOCheckUpdate, isUpdate); isPOCheckUpdate = isUpdate;
-                              updateIcon(lbPOCheckDelete, isDelete); isPOCheckDelete = isDelete;
+                              updateIcon(lbPOCheck, isVisible);
+                              isPOCheck = isVisible;
+                              updateIcon(lbPOCheckCreate, isCreate);
+                              isPOCheckCreate = isCreate;
+                              updateIcon(lbPOCheckView, isView);
+                              isPOCheckView = isView;
+                              updateIcon(lbPOCheckUpdate, isUpdate);
+                              isPOCheckUpdate = isUpdate;
+                              updateIcon(lbPOCheckDelete, isDelete);
+                              isPOCheckDelete = isDelete;
                          }
                          case "purchase approval" -> {
-                              updateIcon(lbPOApproval, isVisible); isPOApproval = isVisible;
-                              updateIcon(lbPOApprovalCreate, isCreate); isPOApprovalCreate = isCreate;
-                              updateIcon(lbPOApprovalView, isView); isPOApprovalView = isView;
-                              updateIcon(lbPOApprovalUpdate, isUpdate);  isPOApprovalUpdate = isUpdate;
-                              updateIcon(lbPOApprovalDelete, isDelete);isPOApprovalDelete = isDelete;
+                              updateIcon(lbPOApproval, isVisible);
+                              isPOApproval = isVisible;
+                              updateIcon(lbPOApprovalCreate, isCreate);
+                              isPOApprovalCreate = isCreate;
+                              updateIcon(lbPOApprovalView, isView);
+                              isPOApprovalView = isView;
+                              updateIcon(lbPOApprovalUpdate, isUpdate);
+                              isPOApprovalUpdate = isUpdate;
+                              updateIcon(lbPOApprovalDelete, isDelete);
+                              isPOApprovalDelete = isDelete;
                          }
                          case "purchase receive" -> {
-                              updateIcon(lbPOReceive, isVisible); isPOReceive = isVisible;
-                              updateIcon(lbPOReceiveCreate, isCreate); isPOReceiveCreate = isCreate;
-                              updateIcon(lbPOReceiveView, isView); isPOReceiveView = isView;
-                              updateIcon(lbPOReceiveUpdate, isUpdate); isPOReceiveUpdate = isUpdate;
-                              updateIcon(lbPOReceiveDelete, isDelete); isPOReceiveDelete = isDelete;
+                              updateIcon(lbPOReceive, isVisible);
+                              isPOReceive = isVisible;
+                              updateIcon(lbPOReceiveCreate, isCreate);
+                              isPOReceiveCreate = isCreate;
+                              updateIcon(lbPOReceiveView, isView);
+                              isPOReceiveView = isView;
+                              updateIcon(lbPOReceiveUpdate, isUpdate);
+                              isPOReceiveUpdate = isUpdate;
+                              updateIcon(lbPOReceiveDelete, isDelete);
+                              isPOReceiveDelete = isDelete;
                          }
                          case "settings" -> {
                               updateIcon(lbSettings, isVisible);
                               isSettings = isVisible;
                          }
                          case "division" -> {
-                              updateIcon(lbDivision, isVisible); isDivision = isVisible;
-                              updateIcon(lbDivisionCreate, isCreate); isDivisionCreate = isCreate;
-                              updateIcon(lbDivisionView, isView); isDivisionView = isView;
-                              updateIcon(lbDivisionUpdate, isUpdate); isDivisionUpdate = isUpdate;
-                              updateIcon(lbDivisionDelete, isDelete); isDivisionoDelete = isDelete;
+                              updateIcon(lbDivision, isVisible);
+                              isDivision = isVisible;
+                              updateIcon(lbDivisionCreate, isCreate);
+                              isDivisionCreate = isCreate;
+                              updateIcon(lbDivisionView, isView);
+                              isDivisionView = isView;
+                              updateIcon(lbDivisionUpdate, isUpdate);
+                              isDivisionUpdate = isUpdate;
+                              updateIcon(lbDivisionDelete, isDelete);
+                              isDivisionoDelete = isDelete;
                          }
                          case "department" -> {
-                              updateIcon(lbDepartment, isVisible); isDepartment = isVisible;
-                              updateIcon(lbDepartmentCreate, isCreate); isDepartmentCreate = isCreate;
-                              updateIcon(lbDepartmentView, isView); isDepartmentView = isView;
-                              updateIcon(lbDepartmentUpdate, isUpdate); isDepartmentUpdate = isUpdate;
-                              updateIcon(lbDepartmentDelete, isDelete); isDepartmentDelete = isDelete;
+                              updateIcon(lbDepartment, isVisible);
+                              isDepartment = isVisible;
+                              updateIcon(lbDepartmentCreate, isCreate);
+                              isDepartmentCreate = isCreate;
+                              updateIcon(lbDepartmentView, isView);
+                              isDepartmentView = isView;
+                              updateIcon(lbDepartmentUpdate, isUpdate);
+                              isDepartmentUpdate = isUpdate;
+                              updateIcon(lbDepartmentDelete, isDelete);
+                              isDepartmentDelete = isDelete;
                          }
-                          case "category" -> {
-                              updateIcon(lbCategory, isVisible); isCategory = isVisible;
-                              updateIcon(lbCategoryCreate, isCreate); isCategoryCreate = isCreate;
-                              updateIcon(lbCategoryView, isView); isCategoryView = isView;
-                              updateIcon(lbCategoryUpdate, isUpdate); isCategoryUpdate = isUpdate;
-                              updateIcon(lbCategoryDelete, isDelete); isCategoryDelete = isDelete;
+                         case "category" -> {
+                              updateIcon(lbCategory, isVisible);
+                              isCategory = isVisible;
+                              updateIcon(lbCategoryCreate, isCreate);
+                              isCategoryCreate = isCreate;
+                              updateIcon(lbCategoryView, isView);
+                              isCategoryView = isView;
+                              updateIcon(lbCategoryUpdate, isUpdate);
+                              isCategoryUpdate = isUpdate;
+                              updateIcon(lbCategoryDelete, isDelete);
+                              isCategoryDelete = isDelete;
                          }
-                          
-                          case "sub category" -> {
-                              updateIcon(lbSubCategory, isVisible); isSubCategory = isVisible;
-                              updateIcon(lbSubCategoryCreate, isCreate); isSubCategoryCreate = isCreate;
-                              updateIcon(lbSubCategoryView, isView); isSubCategoryView = isView;
-                              updateIcon(lbSubCategoryUpdate, isUpdate); isSubCategoryUpdate = isUpdate;
-                              updateIcon(lbSubCategoryDelete, isDelete); isSubCategoryDelete = isDelete;
+
+                         case "sub category" -> {
+                              updateIcon(lbSubCategory, isVisible);
+                              isSubCategory = isVisible;
+                              updateIcon(lbSubCategoryCreate, isCreate);
+                              isSubCategoryCreate = isCreate;
+                              updateIcon(lbSubCategoryView, isView);
+                              isSubCategoryView = isView;
+                              updateIcon(lbSubCategoryUpdate, isUpdate);
+                              isSubCategoryUpdate = isUpdate;
+                              updateIcon(lbSubCategoryDelete, isDelete);
+                              isSubCategoryDelete = isDelete;
                          }
-                          
-                            case "brand" -> {
-                              updateIcon(lbBrand, isVisible); isBrand = isVisible;
-                              updateIcon(lbBrandCreate, isCreate); isBrandCreate = isCreate;
-                              updateIcon(lbBrandView, isView); isBrandView = isView;
-                              updateIcon(lbBrandUpdate, isUpdate); isBrandUpdate = isUpdate;
-                              updateIcon(lbBrandDelete, isDelete); isBrandDelete = isDelete;
+
+                         case "brand" -> {
+                              updateIcon(lbBrand, isVisible);
+                              isBrand = isVisible;
+                              updateIcon(lbBrandCreate, isCreate);
+                              isBrandCreate = isCreate;
+                              updateIcon(lbBrandView, isView);
+                              isBrandView = isView;
+                              updateIcon(lbBrandUpdate, isUpdate);
+                              isBrandUpdate = isUpdate;
+                              updateIcon(lbBrandDelete, isDelete);
+                              isBrandDelete = isDelete;
                          }
-                         
-                            
+
                          case "vendor" -> {
-                              updateIcon(lbVendor, isVisible); isVendor = isVisible;
-                              updateIcon(lbVendorCreate, isCreate); isVendorCreate = isCreate;
-                              updateIcon(lbVendorView, isView); isVendorView = isView;
-                              updateIcon(lbVendorUpdate, isUpdate); isVendorUpdate = isUpdate;
-                              updateIcon(lbVendorDelete, isDelete); isVendorDelete = isDelete;
+                              updateIcon(lbVendor, isVisible);
+                              isVendor = isVisible;
+                              updateIcon(lbVendorCreate, isCreate);
+                              isVendorCreate = isCreate;
+                              updateIcon(lbVendorView, isView);
+                              isVendorView = isView;
+                              updateIcon(lbVendorUpdate, isUpdate);
+                              isVendorUpdate = isUpdate;
+                              updateIcon(lbVendorDelete, isDelete);
+                              isVendorDelete = isDelete;
                          }
-                         
+
                          case "attribute" -> {
-                              updateIcon(lbAttribute, isVisible); isAttribute = isVisible;
-                              updateIcon(lbAttributeCreate, isCreate); isAttributeCreate = isCreate;
-                              updateIcon(lbAttributeView, isView); isAttributeView = isView;
-                              updateIcon(lbAttributeUpdate, isUpdate); isAttributeUpdate = isUpdate;
-                              updateIcon(lbAttributeDelete, isDelete); isAttributeDelete = isDelete;
+                              updateIcon(lbAttribute, isVisible);
+                              isAttribute = isVisible;
+                              updateIcon(lbAttributeCreate, isCreate);
+                              isAttributeCreate = isCreate;
+                              updateIcon(lbAttributeView, isView);
+                              isAttributeView = isView;
+                              updateIcon(lbAttributeUpdate, isUpdate);
+                              isAttributeUpdate = isUpdate;
+                              updateIcon(lbAttributeDelete, isDelete);
+                              isAttributeDelete = isDelete;
                          }
-                         
-                          case "uom" -> {
-                              updateIcon(lbUom, isVisible); isUom = isVisible;
-                              updateIcon(lbUomCreate, isCreate); isUomCreate = isCreate;
-                              updateIcon(lbUomView, isView); isUomView = isView;
-                              updateIcon(lbUomUpdate, isUpdate); isUomUpdate = isUpdate;
-                              updateIcon(lbUomDelete, isDelete); isUomDelete = isDelete;
+
+                         case "uom" -> {
+                              updateIcon(lbUom, isVisible);
+                              isUom = isVisible;
+                              updateIcon(lbUomCreate, isCreate);
+                              isUomCreate = isCreate;
+                              updateIcon(lbUomView, isView);
+                              isUomView = isView;
+                              updateIcon(lbUomUpdate, isUpdate);
+                              isUomUpdate = isUpdate;
+                              updateIcon(lbUomDelete, isDelete);
+                              isUomDelete = isDelete;
                          }
-                          
-                           case "country" -> {
-                              updateIcon(lbCountry, isVisible); isCountry = isVisible;
-                              updateIcon(lbCountryCreate, isCreate); isCountryCreate = isCreate;
-                              updateIcon(lbCountryView, isView); isCountryView = isView;
-                              updateIcon(lbCountryUpdate, isUpdate); isCountryUpdate = isUpdate;
-                              updateIcon(lbCountryDelete, isDelete); isCountryDelete = isDelete;
+
+                         case "country" -> {
+                              updateIcon(lbCountry, isVisible);
+                              isCountry = isVisible;
+                              updateIcon(lbCountryCreate, isCreate);
+                              isCountryCreate = isCreate;
+                              updateIcon(lbCountryView, isView);
+                              isCountryView = isView;
+                              updateIcon(lbCountryUpdate, isUpdate);
+                              isCountryUpdate = isUpdate;
+                              updateIcon(lbCountryDelete, isDelete);
+                              isCountryDelete = isDelete;
                          }
-                           
+
                          case "tax" -> {
-                              updateIcon(lbTax, isVisible); isTax = isVisible;
-                              updateIcon(lbTaxCreate, isCreate); isTaxCreate = isCreate;
-                              updateIcon(lbTaxView, isView); isTaxView = isView;
-                              updateIcon(lbTaxUpdate, isUpdate); isTaxUpdate = isUpdate;
-                              updateIcon(lbTaxDelete, isDelete); isTaxDelete = isDelete;
+                              updateIcon(lbTax, isVisible);
+                              isTax = isVisible;
+                              updateIcon(lbTaxCreate, isCreate);
+                              isTaxCreate = isCreate;
+                              updateIcon(lbTaxView, isView);
+                              isTaxView = isView;
+                              updateIcon(lbTaxUpdate, isUpdate);
+                              isTaxUpdate = isUpdate;
+                              updateIcon(lbTaxDelete, isDelete);
+                              isTaxDelete = isDelete;
                          }
-                         
-                           case "status" -> {
-                              updateIcon(lbStatus, isVisible); isStatus = isVisible;
-                              updateIcon(lbStatusCreate, isCreate); isStatusCreate = isCreate;
-                              updateIcon(lbStatusView, isView); isStatusView = isView;
-                              updateIcon(lbStatusUpdate, isUpdate); isStatusUpdate = isUpdate;
-                              updateIcon(lbStatusDelete, isDelete); isStatusDelete = isDelete;
+
+                         case "status" -> {
+                              updateIcon(lbStatus, isVisible);
+                              isStatus = isVisible;
+                              updateIcon(lbStatusCreate, isCreate);
+                              isStatusCreate = isCreate;
+                              updateIcon(lbStatusView, isView);
+                              isStatusView = isView;
+                              updateIcon(lbStatusUpdate, isUpdate);
+                              isStatusUpdate = isUpdate;
+                              updateIcon(lbStatusDelete, isDelete);
+                              isStatusDelete = isDelete;
                          }
-                           
-                            case "warehouse" -> {
-                              updateIcon(lbWarehouse, isVisible); isWarehouse = isVisible;
-                              updateIcon(lbWarehouseCreate, isCreate); isWarehouseCreate = isCreate;
-                              updateIcon(lbWarehouseView, isView); isWarehouseView = isView;
-                              updateIcon(lbWarehouseUpdate, isUpdate); isWarehouseUpdate = isUpdate;
-                              updateIcon(lbWarehouseDelete, isDelete); isWarehouseDelete = isDelete;
+
+                         case "warehouse" -> {
+                              updateIcon(lbWarehouse, isVisible);
+                              isWarehouse = isVisible;
+                              updateIcon(lbWarehouseCreate, isCreate);
+                              isWarehouseCreate = isCreate;
+                              updateIcon(lbWarehouseView, isView);
+                              isWarehouseView = isView;
+                              updateIcon(lbWarehouseUpdate, isUpdate);
+                              isWarehouseUpdate = isUpdate;
+                              updateIcon(lbWarehouseDelete, isDelete);
+                              isWarehouseDelete = isDelete;
                          }
-                            
+
                          case "range" -> {
-                              updateIcon(lbRange, isVisible); isRange = isVisible;
-                              updateIcon(lbRangeCreate, isCreate); isRangeCreate = isCreate;
-                              updateIcon(lbRangeView, isView); isRangeView = isView;
-                              updateIcon(lbRangeUpdate, isUpdate); isRangeUpdate = isUpdate;
-                              updateIcon(lbRangeDelete, isDelete); isRangeDelete = isDelete;
+                              updateIcon(lbRange, isVisible);
+                              isRange = isVisible;
+                              updateIcon(lbRangeCreate, isCreate);
+                              isRangeCreate = isCreate;
+                              updateIcon(lbRangeView, isView);
+                              isRangeView = isView;
+                              updateIcon(lbRangeUpdate, isUpdate);
+                              isRangeUpdate = isUpdate;
+                              updateIcon(lbRangeDelete, isDelete);
+                              isRangeDelete = isDelete;
                          }
-                         
+
                          case "slot" -> {
-                              updateIcon(lbSlot, isVisible); isSlot = isVisible;
-                              updateIcon(lbSlotCreate, isCreate); isSlotCreate = isCreate;
-                              updateIcon(lbSlotView, isView); isSlotView = isView;
-                              updateIcon(lbSlotUpdate, isUpdate); isSlotUpdate = isUpdate;
-                              updateIcon(lbSlotDelete, isDelete); isSlotDelete = isDelete;
+                              updateIcon(lbSlot, isVisible);
+                              isSlot = isVisible;
+                              updateIcon(lbSlotCreate, isCreate);
+                              isSlotCreate = isCreate;
+                              updateIcon(lbSlotView, isView);
+                              isSlotView = isView;
+                              updateIcon(lbSlotUpdate, isUpdate);
+                              isSlotUpdate = isUpdate;
+                              updateIcon(lbSlotDelete, isDelete);
+                              isSlotDelete = isDelete;
                          }
-                         
-                         
+
                          case "reporting" -> {
                               updateIcon(lbReporting, isVisible);
                               isReport = isVisible;
                          }
-                         
+
                          case "reporting sale" -> {
                               updateIcon(lbReportingSale, isVisible);
                               isReportingSale = isVisible;
@@ -456,25 +566,33 @@ public class UserPermissionForm extends javax.swing.JDialog {
                               updateIcon(lbReportingInventory, isVisible);
                               isReportingInventory = isVisible;
                          }
-                         
+
                          case "staff" -> {
                               updateIcon(lbStaff, isVisible);
                               isSfaff = isVisible;
                          }
                          case "staff information" -> {
-                               updateIcon(lbStaffInfo, isVisible); isSfaffInfo = isVisible;
-                              updateIcon(lbStaffCreate, isCreate); isSfaffInfoCreate = isCreate;
-                              updateIcon(lbstaffView, isView); isSfaffInfoView = isView;
-                              updateIcon(lbstaffUpdate, isUpdate); isSfaffInfoUpdate = isUpdate;
-                              updateIcon(lbstaffDelete, isDelete); isSfaffInfoDelete = isDelete;
+                              updateIcon(lbStaffInfo, isVisible);
+                              isSfaffInfo = isVisible;
+                              updateIcon(lbStaffCreate, isCreate);
+                              isSfaffInfoCreate = isCreate;
+                              updateIcon(lbstaffView, isView);
+                              isSfaffInfoView = isView;
+                              updateIcon(lbstaffUpdate, isUpdate);
+                              isSfaffInfoUpdate = isUpdate;
+                              updateIcon(lbstaffDelete, isDelete);
+                              isSfaffInfoDelete = isDelete;
                          }
-                         
-                          case "user login" -> {
-                              updateIcon(lbUserLogin, isVisible); isUserLogin = isVisible;
-                              updateIcon(lbUserLoginUpdate, isUpdate); isUserLoginUpdate = isUpdate;
+
+                         case "user login" -> {
+                              updateIcon(lbUserLogin, isVisible);
+                              isUserLogin = isVisible;
+                              updateIcon(lbUserLoginUpdate, isUpdate);
+                              isUserLoginUpdate = isUpdate;
                          }
-                           case "user permission" -> {
-                              updateIcon(lbUserPermission, isVisible); isUserPermission = isVisible;
+                         case "user permission" -> {
+                              updateIcon(lbUserPermission, isVisible);
+                              isUserPermission = isVisible;
                          }
                     }
                }
@@ -505,7 +623,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
           btnCheck18 = new javax.swing.JLabel();
           permissionName18 = new javax.swing.JLabel();
           panel = new javax.swing.JPanel();
-          role = new FormComponent.combobox.JavaCombobox();
+          objRole = new FormComponent.combobox.JavaCombobox();
           jScrollPane1 = new javax.swing.JScrollPane();
           panelData = new javax.swing.JPanel();
           lbStock = new javax.swing.JLabel();
@@ -733,7 +851,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
           permissionName134 = new javax.swing.JLabel();
           lbUserPermission = new javax.swing.JLabel();
           btnCancel = new Button.Button();
-          btnCheck139 = new javax.swing.JLabel();
+          lbCheckAll = new javax.swing.JLabel();
           permissionName139 = new javax.swing.JLabel();
           btnSave = new ButtonPackage.ButtonSave();
 
@@ -759,8 +877,8 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-          role.setLabelName("Role *");
-          role.setName(""); // NOI18N
+          objRole.setLabelName("Role *");
+          objRole.setName(""); // NOI18N
 
           panelData.setPreferredSize(new java.awt.Dimension(1100, 992));
 
@@ -2657,7 +2775,12 @@ public class UserPermissionForm extends javax.swing.JDialog {
                }
           });
 
-          btnCheck139.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
+          lbCheckAll.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
+          lbCheckAll.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    lbCheckAllMouseClicked(evt);
+               }
+          });
 
           permissionName139.setText("All");
           permissionName139.setPreferredSize(new java.awt.Dimension(37, 20));
@@ -2675,11 +2798,11 @@ public class UserPermissionForm extends javax.swing.JDialog {
                .addGroup(panelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(objRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(panelLayout.createSequentialGroup()
-                              .addComponent(btnCheck139)
+                              .addComponent(lbCheckAll)
                               .addGap(12, 12, 12)
-                              .addComponent(permissionName139, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addComponent(permissionName139, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                               .addGroup(panelLayout.createSequentialGroup()
                                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2692,12 +2815,12 @@ public class UserPermissionForm extends javax.swing.JDialog {
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(permissionName139, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(btnCheck139))
-                    .addGap(10, 10, 10)
+                    .addComponent(objRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(permissionName139, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(lbCheckAll, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(20, 20, 20)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2788,11 +2911,17 @@ public class UserPermissionForm extends javax.swing.JDialog {
     }//GEN-LAST:event_lbPODeleteMouseClicked
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
-         for (RoleHasPermission data : listRoles) {
-              System.err.println("RoleId : " + data.getRoleId() + " PermissionId : " + data.getPermissionId() + " isVisible : " + data.getIsVisible() + " "
-                   + " isCreate : " + data.getIsCreate() + " isView : " + data.getIsView() + " isUpdata : " + data.getIsUpdate() + " isDelete : " + data.getIsDelete());
-         }
+//         for (RoleHasPermission data : listRoles) {
+//              System.err.println("RoleId : " + data.getRoleId() + " PermissionId : " + data.getPermissionId() + " isVisible : " + data.getIsVisible() + " "
+//                   + " isCreate : " + data.getIsCreate() + " isView : " + data.getIsView() + " isUpdata : " + data.getIsUpdate() + " isDelete : " + data.getIsDelete());
+//         }
 
+         if (roleId.equals("-1")) {
+              JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+              j.setMessage("Please select Role first!");
+              j.setVisible(true);
+              return;
+         }
          // Set cursor to loading
          setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
          btnSave.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -3318,6 +3447,29 @@ public class UserPermissionForm extends javax.swing.JDialog {
           JLabel label = (JLabel) evt.getSource();
           setAction(label, "slotDelete");
      }//GEN-LAST:event_lbSlotDeleteMouseClicked
+
+     private void lbCheckAllMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCheckAllMouseClicked
+
+          if (roleId.equals("-1")) {
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage("Please select Role first!");
+               j.setVisible(true);
+               return;
+          }
+
+          JLabel label = (JLabel) evt.getSource();
+          isAll = !isAll;
+          listRoles.clear(); // clear list
+          if (isAll) { // checked box
+               label.setIcon(new ImageIcon(getClass().getResource("/icon/checked.png")));
+               getPermissionByRole("1"); // get all role has permission
+
+          } else { // uncheck box
+               label.setIcon(new ImageIcon(getClass().getResource("/icon/check.png")));
+               unCheckBox(); // clear all box
+               listRoles.clear(); // clear list
+          }
+     }//GEN-LAST:event_lbCheckAllMouseClicked
 
      private void setAction(JLabel label, String actionType) {
 
@@ -4406,7 +4558,6 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Button.Button btnCancel;
-     private javax.swing.JLabel btnCheck139;
      private javax.swing.JLabel btnCheck15;
      private javax.swing.JLabel btnCheck16;
      private javax.swing.JLabel btnCheck17;
@@ -4428,6 +4579,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
      private javax.swing.JLabel lbCategoryDelete;
      private javax.swing.JLabel lbCategoryUpdate;
      private javax.swing.JLabel lbCategoryView;
+     private javax.swing.JLabel lbCheckAll;
      private javax.swing.JLabel lbCountry;
      private javax.swing.JLabel lbCountryCreate;
      private javax.swing.JLabel lbCountryDelete;
@@ -4525,6 +4677,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
      private javax.swing.JLabel lbstaffDelete;
      private javax.swing.JLabel lbstaffUpdate;
      private javax.swing.JLabel lbstaffView;
+     private FormComponent.combobox.JavaCombobox objRole;
      private javax.swing.JPanel panel;
      private javax.swing.JPanel panelData;
      private javax.swing.JLabel permissionName;
@@ -4644,6 +4797,5 @@ public class UserPermissionForm extends javax.swing.JDialog {
      private javax.swing.JLabel permissionName97;
      private javax.swing.JLabel permissionName98;
      private javax.swing.JLabel permissionName99;
-     private FormComponent.combobox.JavaCombobox role;
      // End of variables declaration//GEN-END:variables
 }
