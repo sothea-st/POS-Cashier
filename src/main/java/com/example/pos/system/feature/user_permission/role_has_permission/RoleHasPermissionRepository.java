@@ -17,6 +17,9 @@ public interface RoleHasPermissionRepository extends JpaRepository<RoleHasPermis
         @Query("SELECT rhp FROM RoleHasPermission rhp WHERE rhp.parentId = :parentId AND rhp.role = :role")
         List<RoleHasPermission> findByParentIdAndRole(@Param("parentId") Integer parentId, @Param("role") Role role);
 
+
+        List<RoleHasPermission> findByRole(Role role);
+
         Boolean existsByPermissionAndRole(Permission permission, Role role);
 
         // Custom method to delete all RoleHasPermission entries for a specific Role

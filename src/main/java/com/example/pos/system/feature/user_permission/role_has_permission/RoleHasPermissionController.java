@@ -32,4 +32,12 @@ public class RoleHasPermissionController {
     }
 
 
+    @GetMapping("/readByRole")
+    public JavaCollectionResponse<?> readByRoleId(
+            @RequestParam(name = "roleId") Integer roleId
+    ) {
+        return roleHasPermissionService.readByRoleId(roleId);
+    }
+
+
 }

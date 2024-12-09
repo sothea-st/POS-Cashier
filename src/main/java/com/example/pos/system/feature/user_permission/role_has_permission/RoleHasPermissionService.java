@@ -10,4 +10,6 @@ public interface RoleHasPermissionService {
 
     JavaCollectionResponse<?> readByParentIdAndRoleId(Integer parentId,Integer roleId);
 
+    JavaCollectionResponse<?> readByRoleId(Integer roleId);
+
 }

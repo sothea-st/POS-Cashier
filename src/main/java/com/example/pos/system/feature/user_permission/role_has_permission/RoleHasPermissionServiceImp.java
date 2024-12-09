@@ -86,9 +86,25 @@ public class RoleHasPermissionServiceImp implements RoleHasPermissionService {
                 .build();
     }
 
+    @Override
+    public JavaCollectionResponse<?> readByRoleId(Integer roleId) {
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found with id : " + roleId));
+
+
+        List<RoleHasPermissionResponse> data = roleHasPermissionRepository.findByRole(role).stream()
+                .map(this::mapToRoleHasPermission)
+                .toList();
+
+        return JavaCollectionResponse.builder()
+                .count(data.size())
+                .data(data)
+                .build();
+    }
+
     private RoleHasPermissionResponse mapToRoleHasPermission(RoleHasPermission roleHasPermission) {
         return RoleHasPermissionResponse.builder()
-                .roleId(roleHasPermission.getId())
+                .roleId(roleHasPermission.getRole().getId())
                 .roleName(roleHasPermission.getRole().getRoleName())
                 .permissionId(roleHasPermission.getPermission().getId())
                 .permissionName(roleHasPermission.getPermission().getPermissionName())
