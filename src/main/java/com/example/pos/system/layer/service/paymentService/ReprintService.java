@@ -54,41 +54,6 @@ public class ReprintService {
         map.put("receiveKhr", paymentData.getReceive_khr());
         map.put("changeKhr", paymentData.getChange_khr());
 
-        // if (paymentData.getReceive_khr() != null) {
-        // map.put("receiveKhr", paymentData.getReceive_khr());
-        // map.put("changeKhr", paymentData.getChange_khr());
-        // } else {
-        // map.put("receiveKhr", 0);
-        // map.put("changeKhr", 0);
-        // }
-
-        // if (paymentData.getReceive_usd() != null) {
-        // map.put("receiveUsd", paymentData.getReceive_usd());
-        // map.put("changeUsd", paymentData.getChange_usd());
-        // } else {
-        // map.put("receiveUsd", 0);
-        // map.put("changeUsd", 0);
-        // }
-
-        // if (paymentData.getReceive_khr() != null && paymentData.getReceive_usd() !=
-        // null) {
-        // double totalUSD = paymentData.getTotal().doubleValue();
-        // double _receivUsd = paymentData.getReceive_usd().doubleValue();
-        // double _receiveKhr = Double.parseDouble(paymentData.getReceive_khr()) /
-        // JavaConstant.exchangeRate;
-        // _receiveKhr = JavaConstant.getTwoPrecision(_receiveKhr);
-        // double _change = (_receivUsd + _receiveKhr) - totalUSD;
-        // _change = JavaConstant.getTwoPrecision(_change);
-        // if (_change >= 5) {
-        // map.put("changeUsd", _change);
-        // map.put("changeKhr", 0);
-        // } else {
-        // map.put("changeUsd", 0);
-        // map.put("changeKhr", _change * JavaConstant.exchangeRate);
-        // }
-        // }
-
-        System.out.println("jjjjj = " + paymentData.getPayment_no());
         map.put("paymentNo", paymentData.getPayment_no());
         map.put("paymentBarcode", paymentData.getPayment_barcode());
         map.put("saleDate", paymentData.getSale_date());

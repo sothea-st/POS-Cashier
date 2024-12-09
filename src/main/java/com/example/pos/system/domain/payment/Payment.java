@@ -70,7 +70,7 @@ public class Payment {
      private String paymentType;
 
      @Column(name = "customer_type_id")
-     private int customerTypeId;
+     private Integer customerTypeId;
 
      @Column(name = "source_id")
      private int sourceId;

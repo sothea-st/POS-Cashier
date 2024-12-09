@@ -434,6 +434,8 @@ public class SaleService {
     public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode, String posId)
             throws Exception {
 
+        System.out.println(" p.getCustomerTypeId() : " + p.getCustomerTypeId());
+
         Payment data = new Payment();
         data.setPaymentBarcode(paymentBarcode);
         data.setPaymentNo(paymentNo);
@@ -445,7 +447,7 @@ public class SaleService {
         data.setChangeKhr(p.getChangeKhr());
         data.setChangeUsd(p.getChangeUsd());
         data.setPaymentType(p.getPaymentType());
-        data.setCustomerTypeId(p.getCustomerTypeId());
+        data.setCustomerTypeId(p.getCustomerTypeId() == null ? 1 : p.getCustomerTypeId());
         data.setSourceId(p.getSourceId());
         data.setDiscountType(p.getDiscountType());
         data.setDiscountValue(p.getDiscountValue());
