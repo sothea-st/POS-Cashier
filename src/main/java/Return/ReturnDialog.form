@@ -40,47 +40,23 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="labelPopUpTitle" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="buttonCancel" min="-2" pref="78" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="button1" min="-2" pref="78" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                          <Component id="buttonSave" min="-2" pref="78" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lbInvoiceNo" min="-2" pref="63" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lbBrcode" min="-2" pref="49" max="-2" attributes="0"/>
-                                      <Component id="lbReason" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="txtinvoice" min="-2" pref="275" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace pref="25" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="comboBoxReason" min="-2" pref="275" max="-2" attributes="0"/>
-                                      <Component id="txtBarcode" min="-2" pref="275" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="comboBoxReason" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtinvoice" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
+                  <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -88,29 +64,18 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="labelPopUpTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtinvoice" max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="lbInvoiceNo" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Component id="txtinvoice" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtBarcode" max="32767" attributes="0"/>
-                      <Component id="lbBrcode" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="txtBarcode" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel3" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="comboBoxReason" max="32767" attributes="0"/>
-                      <Component id="lbReason" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboBoxReason" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
-                      <Component id="button1" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="18" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -121,70 +86,36 @@
             <Property name="labelTitle" type="java.lang.String" value="Return"/>
           </Properties>
         </Component>
-        <Component class="Components.Label" name="lbInvoiceNo">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Invoice &#x2116;"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbBrcode">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Barcode"/>
-          </Properties>
-        </Component>
-        <Component class="Components.Label" name="lbReason">
-          <Properties>
-            <Property name="labelName" type="java.lang.String" value="Reason"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtinvoice">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Scan or input"/>
-          </Properties>
-        </Component>
-        <Component class="Components.TextField" name="txtBarcode">
-          <Properties>
-            <Property name="labelTextField" type="java.lang.String" value="Scan or input"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ComboBox" name="comboBoxReason">
-        </Component>
         <Component class="ButtonPackage.ButtonCancel" name="buttonCancel">
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonCancelMouseClicked"/>
           </Events>
         </Component>
-        <Component class="Button.Button" name="button1">
+        <Component class="FormComponent.JavaTextField" name="txtinvoice">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="46" green="98" red="2f" type="rgb"/>
-            </Property>
-            <Property name="buttonName" type="java.lang.String" value="Search"/>
+            <Property name="labelName" type="java.lang.String" value="Invoice &#x2116; *"/>
+            <Property name="placeHolder" type="java.lang.String" value="Scan or input"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.JavaTextField" name="txtBarcode">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Barcode"/>
+            <Property name="placeHolder" type="java.lang.String" value="Scan or input"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="comboBoxReason">
+          <Properties>
+            <Property name="labelName" type="java.lang.String" value="Reason *"/>
+          </Properties>
+        </Component>
+        <Component class="ButtonPackage.ButtonSave" name="buttonSave">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+            <Property name="titleButton" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="button1MouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="cc" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="*"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>
