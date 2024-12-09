@@ -1,6 +1,8 @@
 package com.example.pos.system.feature.user_permission.role_has_permission;
 
+import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
+import com.example.pos.system.constant.util.response.JavaMessageResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 import com.example.pos.system.feature.user_permission.role_has_permission.dto.RoleHasRequest;
 
@@ -11,5 +13,7 @@ public interface RoleHasPermissionService {
     JavaCollectionResponse<?> readByParentIdAndRoleId(Integer parentId,Integer roleId);
 
     JavaCollectionResponse<?> readByRoleId(Integer roleId);
+
+    JavaMessageResponse<?> readById(Integer id);
 
 }

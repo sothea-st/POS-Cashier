@@ -28,5 +28,7 @@ public interface RoleHasPermissionRepository extends JpaRepository<RoleHasPermis
         @Query("DELETE FROM RoleHasPermission rhp WHERE rhp.role = :role")
         void deleteAllByRole(Role role);
 
+        Optional<RoleHasPermission> findByPermissionAndRole(Permission permission,Role role);
+
 
 }

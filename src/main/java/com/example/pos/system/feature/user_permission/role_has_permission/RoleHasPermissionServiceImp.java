@@ -1,6 +1,8 @@
 package com.example.pos.system.feature.user_permission.role_has_permission;
 
+import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
+import com.example.pos.system.constant.util.response.JavaMessageResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 import com.example.pos.system.domain.role.Role;
 import com.example.pos.system.domain.role.permission.Permission;
@@ -100,6 +102,19 @@ public class RoleHasPermissionServiceImp implements RoleHasPermissionService {
                 .count(data.size())
                 .data(data)
                 .build();
+    }
+
+    @Override
+    public JavaMessageResponse<?> readById(Integer id) {
+//        RoleHasPermission roleHasPermission = roleHasPermissionRepository.findByPermissionAndRole(id)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "RoleHasPermission not found with id : " + id));
+//
+//        var data = mapToRoleHasPermission(roleHasPermission);
+//        return JavaMessageResponse.builder()
+//                .data(data)
+//                .build();
+        return  null;
+
     }
 
     private RoleHasPermissionResponse mapToRoleHasPermission(RoleHasPermission roleHasPermission) {

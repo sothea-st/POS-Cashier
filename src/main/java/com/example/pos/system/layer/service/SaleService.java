@@ -434,7 +434,7 @@ public class SaleService {
     public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode, String posId)
             throws Exception {
 
-        System.out.println(" p.getCustomerTypeId() : " + p.getCustomerTypeId());
+
 
         Payment data = new Payment();
         data.setPaymentBarcode(paymentBarcode);
