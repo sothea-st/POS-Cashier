@@ -40,11 +40,12 @@ public class RoleHasPermissionController {
         return roleHasPermissionService.readByRoleId(roleId);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/readByPermissionAndRole")
     public JavaMessageResponse<?> readById(
-            @PathVariable(name = "id") Integer id
+            @RequestParam(name = "permissionId") Integer permissionId,
+            @RequestParam(name = "roleId") Integer roleId
     ) {
-        return roleHasPermissionService.readById(id);
+        return roleHasPermissionService.readByPermissionAndRole(permissionId,roleId);
     }
 
 

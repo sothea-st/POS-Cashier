@@ -14,6 +14,6 @@ public interface RoleHasPermissionService {
 
     JavaCollectionResponse<?> readByRoleId(Integer roleId);
 
-    JavaMessageResponse<?> readById(Integer id);
+    JavaMessageResponse<?> readByPermissionAndRole(Integer permissionId,Integer roleId);
 
 }

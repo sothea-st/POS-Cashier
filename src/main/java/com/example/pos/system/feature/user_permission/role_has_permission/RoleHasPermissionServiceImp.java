@@ -1,6 +1,5 @@
 package com.example.pos.system.feature.user_permission.role_has_permission;
 
-import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 import com.example.pos.system.constant.util.response.JavaMessageResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
@@ -16,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,15 +103,22 @@ public class RoleHasPermissionServiceImp implements RoleHasPermissionService {
     }
 
     @Override
-    public JavaMessageResponse<?> readById(Integer id) {
-//        RoleHasPermission roleHasPermission = roleHasPermissionRepository.findByPermissionAndRole(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "RoleHasPermission not found with id : " + id));
-//
-//        var data = mapToRoleHasPermission(roleHasPermission);
-//        return JavaMessageResponse.builder()
-//                .data(data)
-//                .build();
-        return  null;
+    public JavaMessageResponse<?> readByPermissionAndRole(Integer permissionId,Integer roleId) {
+
+        Role role = roleRepository.findById(roleId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role not found with id : " + roleId));
+
+        Permission permission = permissionRepository.findByIdAndStatusTrueAndIsDeletedFalse(permissionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Permission not found with id : " + permissionId));
+
+        RoleHasPermission roleHasPermission = roleHasPermissionRepository.findByPermissionAndRole(permission,role)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "RoleHasPermission not found with id : " + permissionId));
+
+        return JavaMessageResponse.builder()
+                .data(mapToRoleHasPermission(roleHasPermission))
+                .msg("success")
+                .status(200)
+                .build();
 
     }
 
