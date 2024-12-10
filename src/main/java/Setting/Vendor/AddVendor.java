@@ -238,12 +238,14 @@ public class AddVendor extends javax.swing.JDialog {
                 try {
                     if (response.isSuccessful() && isExist) {
 
+                        dispose();
                         ListVendor list = new ListVendor(new JFrame(), true);
+                        list.setVisible(true);
                         listGetVendor.removeAll();
                         listGetVendor.revalidate();
                         listGetVendor.repaint();
                         list.getVendor(listGetVendor, true,pageNumber);
-                        dispose();
+                       
                     }
 
                 } catch (Exception e) {

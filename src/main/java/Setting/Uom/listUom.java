@@ -174,6 +174,8 @@ public class listUom extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
+                             
+                              dispose();
                               AddUom edit = new AddUom(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.uom + "/" + listData.getId());
@@ -438,6 +440,7 @@ public class listUom extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+         dispose();
          AddUom add = new AddUom(new JFrame(), true);
          add.setPageNumber(pageNumber);
          add.setListGetUom(listGetUom);

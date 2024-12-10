@@ -194,13 +194,15 @@ public class ReportingView extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      private void reportSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportSaleMouseClicked
-          ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
-          reportingSaled.setVisible(true);
+         dispose();
+         ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
+         reportingSaled.setVisible(true);
      }//GEN-LAST:event_reportSaleMouseClicked
 
     private void reportPurhaseRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseRequestMouseClicked
 //         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
 //         purchaseOrder.setVisible(true);
+         dispose();
          ReportingPurchaseOrderV2 request = new ReportingPurchaseOrderV2(new JFrame(), true);
          request.setTitle("Reporting Purchase Order");
          request.setVisible(true);
@@ -208,11 +210,13 @@ public class ReportingView extends javax.swing.JDialog {
     }//GEN-LAST:event_reportPurhaseRequestMouseClicked
 
     private void reportPurhaseReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseReceiveMouseClicked
+         dispose();
          ReportingPurchaseReceive receive = new ReportingPurchaseReceive(new JFrame(), true);
          receive.setVisible(true);
     }//GEN-LAST:event_reportPurhaseReceiveMouseClicked
 
      private void reportInventoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportInventoryMouseClicked
+          dispose();
           ReportInventoryForm reportInventoryForm = new ReportInventoryForm(new JFrame(), true);
           reportInventoryForm.setVisible(true);
      }//GEN-LAST:event_reportInventoryMouseClicked

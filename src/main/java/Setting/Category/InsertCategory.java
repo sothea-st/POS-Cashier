@@ -256,13 +256,15 @@ public class InsertCategory extends javax.swing.JDialog {
 
                    try {
                         if (response.isSuccessful() && isExist) {
-
+                             dispose();
                              Category list = new Category(new JFrame(), true, code);
+                             list.setCode(code);
+                             list.setVisible(true);
                              listGetCategory.removeAll();
                              listGetCategory.revalidate();
                              listGetCategory.repaint();
                              list.getCategory(listGetCategory, code, true, pageNumber);
-                             dispose();
+                             
                         }
 
                    } catch (Exception e) {

@@ -17,6 +17,7 @@ import java.awt.GridBagLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -68,13 +69,13 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
           txtVendorName.setDisable();
           txtReference.setText(data.getReferenceNo());
           txtReference.setDisable();
-          orderDate.setText(data.getOrderDate());
+          orderDate.setText(JavaConstant.formatDate(data.getOrderDate()));
           orderDate.setDisable();
           txtTransactionNo.setText(data.getTransactionNo() + "");
           txtTransactionNo.setDisable();
           txtPurchaseOrderNo.setText(data.getPurchaseOrderNo());
           txtPurchaseOrderNo.setDisable();
-          transactionDate.setText(data.getTransactionDate());
+          transactionDate.setText(JavaConstant.formatDate(data.getTransactionDate()));
           transactionDate.setDisable();
           lbTotalQty.setText(String.valueOf(data.getTotalQty()));
           lbTotalCost.setText("$ ".concat(String.valueOf(data.getTotalCost())));
@@ -433,6 +434,8 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
                    System.out.println("responseData : " + responseData);
                    DetailPurchaseReceive.isAccept = true;
                    dispose();
+                   ListPurchaseReceive list = new ListPurchaseReceive(new JFrame(), true);
+                   list.setVisible(true);
               }
          } catch (Exception e) {
               System.out.println("error : " + e);

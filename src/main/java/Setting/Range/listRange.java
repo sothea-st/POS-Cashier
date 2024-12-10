@@ -174,6 +174,8 @@ public class ListRange extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
+                             
+                              dispose();
                               AddRange edit = new AddRange(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.range + "/" + listData.getId());
@@ -448,6 +450,7 @@ public class ListRange extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+         dispose();
          AddRange add = new AddRange(new JFrame(), true);
          add.setPageNumber(pageNumber);
          add.setListGetRange(listGetRange);

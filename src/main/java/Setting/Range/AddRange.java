@@ -6,6 +6,7 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
 import java.io.IOException;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
@@ -184,11 +185,15 @@ public class AddRange extends javax.swing.JDialog {
 
                 try {
                     if (response.isSuccessful()) {
+                        
+                        dispose();
+                        ListRange list = new ListRange(new JFrame(), true);
+                        list.setVisible(true);
                         listGetRange.removeAll();
                         listGetRange.revalidate();
                         listGetRange.repaint();
-                        obj.getRange(listGetRange,true,pageNumber);
-                        dispose();
+                        list.getRange(listGetRange,true,pageNumber);
+                       
                     }
 
                 } catch (Exception e) {

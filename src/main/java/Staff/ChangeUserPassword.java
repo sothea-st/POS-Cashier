@@ -4,6 +4,7 @@ import Constant.JavaConnection;
 import Constant.JavaRoute;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JRootPane;
 import main_validation.JavaPasswordConflicValidation;
 import main_validation.JavaValidation;
@@ -167,7 +168,11 @@ public class ChangeUserPassword extends javax.swing.JDialog {
 
                 try {
                     if (response.isSuccessful() && isExist) {
+                        
                         this.dispose();
+                        Userlogin list = new Userlogin(new JFrame(), true);
+                        list.setVisible(true);
+                        
                     }
 
                 } catch (Exception e) {

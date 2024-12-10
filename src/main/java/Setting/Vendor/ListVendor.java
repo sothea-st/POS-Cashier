@@ -173,6 +173,7 @@ public class ListVendor extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
+                              dispose();
                               AddVendor edit = new AddVendor(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.vendor + "/" + listData.getId());
@@ -468,6 +469,7 @@ public class ListVendor extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+         dispose();
          AddVendor add = new AddVendor(new JFrame(), true);
          add.setPageNumber(pageNumber);
          add.setListGetVendor(listGetVendor);

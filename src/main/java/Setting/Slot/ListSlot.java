@@ -173,6 +173,8 @@ public class ListSlot extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
+                             
+                              dispose();
                               AddSlot edit = new AddSlot(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.slot + "/" + listData.getId());
@@ -447,6 +449,7 @@ public class ListSlot extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+         dispose();
          AddSlot add = new AddSlot(new JFrame(), true);
          add.setPageNumber(pageNumber);
          add.setListGetSlot(listGetSlot);

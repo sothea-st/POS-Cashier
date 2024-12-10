@@ -149,11 +149,14 @@ public class Staff extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
     private void btnStaffInfoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStaffInfoMouseClicked
+         
+         dispose();
          StaffInformation staffInfo = new StaffInformation(new JFrame(), true);
          staffInfo.setVisible(true);
     }//GEN-LAST:event_btnStaffInfoMouseClicked
 
     private void btnUserloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserloginMouseClicked
+         dispose();
          Userlogin user = new Userlogin(new JFrame(), true);
          user.setVisible(true);
     }//GEN-LAST:event_btnUserloginMouseClicked
@@ -163,6 +166,7 @@ public class Staff extends javax.swing.JDialog {
     }//GEN-LAST:event_panelReprintMouseClicked
 
      private void btnUserPermissionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnUserPermissionMouseClicked
+        dispose();
         UserPermissionForm userPermissionForm = new UserPermissionForm(new JFrame(), true);
         userPermissionForm.setVisible(true);
      }//GEN-LAST:event_btnUserPermissionMouseClicked

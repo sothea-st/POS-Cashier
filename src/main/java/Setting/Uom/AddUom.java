@@ -192,12 +192,13 @@ public class AddUom extends javax.swing.JDialog {
                 try {
                     if (response.isSuccessful() && isExist) {
 
+                        dispose();
                         listUom list = new listUom(new JFrame(), true);
+                        list.setVisible(true);
                         listGetUom.removeAll();
                         listGetUom.revalidate();
                         listGetUom.repaint();
                         list.getUom(listGetUom,true,pageNumber);
-                        dispose();
                     }
 
                 } catch (Exception e) {

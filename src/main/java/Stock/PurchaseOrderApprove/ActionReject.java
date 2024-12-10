@@ -7,6 +7,7 @@ import Event.ButtonEvent;
 import Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import javax.swing.JOptionPane;
+import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ public class ActionReject extends javax.swing.JDialog {
     private Integer id;
     private ListPurchaseOrderCheck obj;
     private DetailPurchaseOrderCheck detail;
+    private String typeForm;
     
     public ActionReject(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -42,17 +44,13 @@ public class ActionReject extends javax.swing.JDialog {
 
         panelReject = new javax.swing.JPanel();
         labelPopUpTitle = new Components.LabelPopUpTitle();
-        lbReason = new Components.Label();
         buttonCancel = new ButtonPackage.ButtonCancel();
         button1 = new Button.Button();
-        txtComment = new Components.TextField();
-        jLabel12 = new javax.swing.JLabel();
+        txtComment = new FormComponent.JavaTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelPopUpTitle.setLabelTitle("Reject");
-
-        lbReason.setLabelName("Comment");
 
         buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -68,11 +66,9 @@ public class ActionReject extends javax.swing.JDialog {
             }
         });
 
-        txtComment.setLabelTextField("Comment");
-
-        jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel12.setText("*");
+        txtComment.setLabelName("Comment *");
+        txtComment.setName(""); // NOI18N
+        txtComment.setPlaceHolder("Comment");
 
         javax.swing.GroupLayout panelRejectLayout = new javax.swing.GroupLayout(panelReject);
         panelReject.setLayout(panelRejectLayout);
@@ -82,34 +78,27 @@ public class ActionReject extends javax.swing.JDialog {
             .addGroup(panelRejectLayout.createSequentialGroup()
                 .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelRejectLayout.createSequentialGroup()
-                        .addContainerGap(245, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRejectLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRejectLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(lbReason, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
         );
         panelRejectLayout.setVerticalGroup(
             panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRejectLayout.createSequentialGroup()
                 .addComponent(labelPopUpTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtComment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbReason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(20, 20, 20)
+                .addComponent(txtComment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(panelRejectLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -134,29 +123,45 @@ public class ActionReject extends javax.swing.JDialog {
     private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
         
         String comment = txtComment.getValueTextField();
-        
-        if (comment == null || comment.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Comment is required!");
-            return;
-        }
-        
-        JSONObject json = new JSONObject();
-        json.put("rejectBy", JavaConstant.cashierId);
-        json.put("msg", comment);
-  
-        Response response = JavaConnection.post(JavaRoute.imports + "/rejectPurchaseOrder/" + getId() , json);
-        
-        System.out.println("response : " + response);
-        System.out.println("json : " + json);
-        
+
         try {
-             if (response.isSuccessful()) {
-                  dispose();
-                  detail.dispose();
-                  obj.getData(obj,true);
-             }
+            
+            boolean isCheck = JavaValidation.checkValidation(panelReject);
+            
+            if (isCheck) {
+                JSONObject json = new JSONObject();
+                json.put("rejectBy", JavaConstant.cashierId);
+                json.put("msg", comment);
+
+                Response response = JavaConnection.post(JavaRoute.imports + "/rejectPurchaseOrder/" + getId() , json);
+
+                System.out.println("response : " + response);
+                System.out.println("json : " + json);
+
+                try {
+                     if (response.isSuccessful()) {
+                        dispose();
+                        detail.dispose();
+                        
+                        if(typeForm.equals("checked")){
+                             obj.setTypeForm("checked");
+                             obj.setTitle("Purchase Check");
+                             obj.setVisible(true);
+                         }else {
+                             obj.setTypeForm("approved");
+                             obj.setTitle("Purchase Approval");
+                             obj.setVisible(true);
+                         }
+                        
+                         obj.getData(obj,true);
+                     }
+                } catch (Exception e) {
+                     System.out.println("error : " + e);
+                }
+            }
+            
         } catch (Exception e) {
-             System.out.println("error : " + e);
+            System.err.println("errr -- " + e);
         }
     }//GEN-LAST:event_button1MouseClicked
 
@@ -183,6 +188,15 @@ public class ActionReject extends javax.swing.JDialog {
     public void setDetail(DetailPurchaseOrderCheck detail) {
         this.detail = detail;
     }
+
+    public String getTypeForm() {
+        return typeForm;
+    }
+
+    public void setTypeForm(String typeForm) {
+        this.typeForm = typeForm;
+    }
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -226,10 +240,8 @@ public class ActionReject extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button button1;
     private ButtonPackage.ButtonCancel buttonCancel;
-    private javax.swing.JLabel jLabel12;
     private Components.LabelPopUpTitle labelPopUpTitle;
-    private Components.Label lbReason;
     private javax.swing.JPanel panelReject;
-    private Components.TextField txtComment;
+    private FormComponent.JavaTextField txtComment;
     // End of variables declaration//GEN-END:variables
 }

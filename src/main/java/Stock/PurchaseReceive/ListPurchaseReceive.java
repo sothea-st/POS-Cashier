@@ -162,13 +162,15 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
                     b.setVendorName(data.getVendorName());
                     b.setTransactionNo(data.getTransactionNo());
                     b.setReferenceNo(data.getReferenceNo());
-                    b.setTransactionDate(data.getTransactionDate());
+                    b.setTransactionDate(JavaConstant.formatDate(data.getTransactionDate()));
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
                     b.setTotalCost("$ " + String.format("%.2f", data.getTotalCost()));
                     b.setRemark(StringUtils.capitalize(data.getRemark()));
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event detail
+                             
+                              dispose();
                               DetailPurchaseReceive detail = new DetailPurchaseReceive(new JFrame(), true);
 
                               //System.out.println("JavaConstant.roleName : " + JavaConstant.roleName);
@@ -193,6 +195,8 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
 
                          @Override
                          public void onSelect(String Key) {  // event edit
+                             
+                              dispose();
                               EditPurchaseReceive edit = new EditPurchaseReceive(new JFrame(), true);
                               //System.out.println("JavaConstant.roleName : " + JavaConstant.roleName);
                               if (!JavaConstant.roleName.equals("Admin")) {

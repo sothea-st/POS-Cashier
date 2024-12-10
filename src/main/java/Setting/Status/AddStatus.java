@@ -156,12 +156,14 @@ public class AddStatus extends javax.swing.JDialog {
                 try {
                     if (response.isSuccessful() && isExist) {
 
+                        dispose();
                         ListStatus list = new ListStatus(new JFrame(), true);
+                        list.setVisible(true);
                         listGetStatus.removeAll();
                         listGetStatus.revalidate();
                         listGetStatus.repaint();
                         list.getStatus(listGetStatus,true,pageNumber);
-                        dispose();
+                        
                     }
 
                 } catch (Exception e) {

@@ -6,6 +6,7 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
 import java.io.IOException;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
@@ -181,11 +182,15 @@ public class AddSlot extends javax.swing.JDialog {
 
                 try {
                     if (response.isSuccessful()) {
-                         listGetSlot.removeAll();
+                        
+                        dispose();
+                        ListSlot list = new ListSlot(new JFrame(), true);
+                        list.setVisible(true);
+                        listGetSlot.removeAll();
                         listGetSlot.revalidate();
                         listGetSlot.repaint();
-                        obj.getSlot(listGetSlot,true,pageNumber);
-                        dispose();
+                        list.getSlot(listGetSlot,true,pageNumber);
+                        
                     }
 
                 } catch (Exception e) {

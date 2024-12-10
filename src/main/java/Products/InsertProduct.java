@@ -1085,18 +1085,22 @@ public class InsertProduct extends javax.swing.JDialog {
      }
 
      public void reloadList() {
+
+          if (status.equals("allProduct")) {
+               listProduct.setVisible(true);
+               listProduct.getProduct(listGetProduct, true, 0);
+          } else if (status.equals("active")) {
+               listProduct.setVisible(true);
+               listProduct.getProduct(listGetProduct, true, 1);
+          } else if (status.equals("inActive")) {
+               listProduct.setVisible(true);
+               listProduct.getProduct(listGetProduct, true, 2);
+          }
+          
           // refresh list product
           listGetProduct.removeAll();
           listGetProduct.repaint();
           listGetProduct.revalidate();
-
-          if (status.equals("allProduct")) {
-               listProduct.getProduct(listGetProduct, true, 0);
-          } else if (status.equals("active")) {
-               listProduct.getProduct(listGetProduct, true, 1);
-          } else if (status.equals("inActive")) {
-               listProduct.getProduct(listGetProduct, true, 2);
-          }
 
      }
 

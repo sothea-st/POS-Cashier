@@ -108,7 +108,6 @@ public class PurchaseOrderView extends javax.swing.JDialog {
         request = new Components.SettingBox();
         check = new Components.SettingBox();
         approve = new Components.SettingBox();
-        buttonCancel = new ButtonPackage.ButtonCancel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,13 +137,6 @@ public class PurchaseOrderView extends javax.swing.JDialog {
             }
         });
 
-        buttonCancel.setButtonName("Close");
-        buttonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonCancelMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -157,10 +149,6 @@ public class PurchaseOrderView extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(approve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(170, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,9 +158,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
                     .addComponent(approve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(check, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(request, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
-                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel2);
@@ -195,11 +181,13 @@ public class PurchaseOrderView extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseClicked
+         dispose();
          PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
          purchase.setVisible(true);
     }//GEN-LAST:event_requestMouseClicked
 
     private void checkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkMouseClicked
+         dispose();
          ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
          listCheck.setTypeForm("checked");
          listCheck.setTitle("Purchase Check");
@@ -207,16 +195,12 @@ public class PurchaseOrderView extends javax.swing.JDialog {
     }//GEN-LAST:event_checkMouseClicked
 
     private void approveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_approveMouseClicked
-
+         dispose();
          ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
          listCheck.setTypeForm("approved");
          listCheck.setTitle("Purchase Approval");
          listCheck.setVisible(true);
     }//GEN-LAST:event_approveMouseClicked
-
-     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-          this.dispose();
-     }//GEN-LAST:event_buttonCancelMouseClicked
 
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
@@ -259,7 +243,6 @@ public class PurchaseOrderView extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.SettingBox approve;
-    private ButtonPackage.ButtonCancel buttonCancel;
     private Components.SettingBox check;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
