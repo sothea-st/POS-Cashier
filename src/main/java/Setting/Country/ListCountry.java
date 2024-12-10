@@ -13,6 +13,7 @@ import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
@@ -61,6 +62,10 @@ public class ListCountry extends javax.swing.JDialog {
           getListCountry(listGetCountry, true, pageNumber);
           eventSearchCountry();
           eventPagination();
+
+          // check permission
+          // permissionId: 23 is primary key id from table pos_permission
+          btnAdd.setVisible(JavaPermission.getPermissionDetail(23).getIsCreate());
 
      }
 

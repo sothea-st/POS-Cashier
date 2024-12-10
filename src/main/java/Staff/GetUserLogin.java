@@ -1,63 +1,68 @@
 package Staff;
 
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 
 public class GetUserLogin extends javax.swing.JPanel {
 
-    public GetUserLogin() {
-        initComponents();
-        lbId.setVisible(false);
-    }
-    
-    private int id;
-    private String userName;
-    private String userCode;
-    private Icon iconEdit;
+     public GetUserLogin() {
+          initComponents();
+          lbId.setVisible(false);
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+          // check permission
+          // permissionId: 34 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(34).getIsUpdate());
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     private int id;
+     private String userName;
+     private String userCode;
+     private Icon iconEdit;
 
-    public int getId() {
-        return id;
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public void setId(int id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public String getUserName() {
-        return userName;
-    }
+     public int getId() {
+          return id;
+     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-        lbName.setText(userName);
-    }
+     public void setId(int id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public String getUserCode() {
-        return userCode;
-    }
+     public String getUserName() {
+          return userName;
+     }
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
-        lbUserCode.setText(userCode);
-    }
-    
-    public void initEvent(ButtonEvent event) {
+     public void setUserName(String userName) {
+          this.userName = userName;
+          lbName.setText(userName);
+     }
+
+     public String getUserCode() {
+          return userCode;
+     }
+
+     public void setUserCode(String userCode) {
+          this.userCode = userCode;
+          lbUserCode.setText(userCode);
+     }
+
+     public void initEvent(ButtonEvent event) {
           btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onSelect(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -76,11 +81,10 @@ public class GetUserLogin extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
-     }
-    
 
-    @SuppressWarnings("unchecked")
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

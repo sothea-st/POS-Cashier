@@ -13,6 +13,7 @@ import Model.Slot.SlotModel;
 import Model.Slot.SlotModel.SlotDetail;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -30,265 +31,268 @@ import org.json.JSONObject;
 
 public class ListSlot extends javax.swing.JDialog {
 
-    String searchValue;
-    private String pageNumber = "0";
-    private int pageSize = 10;
-    private boolean isCheckSearch = true;
-    private int dataCount = 0;
-    private String pageType;
-    
-    public ListSlot(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        
-        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        
-        header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "Slot");
-        
-        getSlot(listGetSlot,true,pageNumber);
-        eventSearchRange();
-        eventPagination();
-    }
-    
-    private void eventPagination() {
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onMouseClick(String value) {
-                 if (isCheckSearch) {
-                      int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                      pageNumber = String.valueOf(_value);
-                      getSlot(listGetSlot,true,pageNumber);
-                 }
-            }
-             
-            // for pagination
-            @Override
-            public void onMouseClick(String value, String pType) {
-                 pageType = pType;
-            }
-        };
-        paginationPanel.initEvent(event);
-    }
-    
-    public void getSlot(JPanel jpanelData, boolean isCheck, String pageNumber) {
-        try {
-            
-            Response response = null;
-            if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.slot + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
-            } else { // isCheck false search
-                 isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.slot + "/search?search=" + searchValue);
-            }
+     String searchValue;
+     private String pageNumber = "0";
+     private int pageSize = 10;
+     private boolean isCheckSearch = true;
+     private int dataCount = 0;
+     private String pageType;
 
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                SlotModel data = objMap.readValue(responseData, SlotModel.class);
-                SlotDetail[] listData = data.getData();
-                
-                if (isCheck) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-                } else {
-                    paginationPanel.resetPage(data.getCount());
-                }
-                              
-                assignSlot(listData, jpanelData);
-            } else {
-                System.err.println("fail loading slot");
-            }
-        } catch (Exception e) {
-            System.err.println("error getting slot " + e);
-        }
-    }
-     
-    public void assignSlot(SlotDetail[] listData, JPanel listGetSlot) {
-        ArrayList<Slot> slot = new ArrayList<>();
-          
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            Slot getSlot = new Slot(
+     public ListSlot(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+
+          jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
+          header.setBackground(WindowColor.darkGreen);
+          JavaConstant.addTitleAndLogo(this, "Slot");
+
+          getSlot(listGetSlot, true, pageNumber);
+          eventSearchRange();
+          eventPagination();
+
+          // check permission
+          // permissionId: 28 is primary key id from table pos_permission
+          btnAdd.setVisible(JavaPermission.getPermissionDetail(28).getIsCreate());
+     }
+
+     private void eventPagination() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getSlot(listGetSlot, true, pageNumber);
+                    }
+               }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+          };
+          paginationPanel.initEvent(event);
+     }
+
+     public void getSlot(JPanel jpanelData, boolean isCheck, String pageNumber) {
+          try {
+
+               Response response = null;
+               if (isCheck) { // isCheck true get items
+                    response = JavaConnection.get(JavaRoute.slot + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+               } else { // isCheck false search
+                    isCheckSearch = false;
+                    response = JavaConnection.get(JavaRoute.slot + "/search?search=" + searchValue);
+               }
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    SlotModel data = objMap.readValue(responseData, SlotModel.class);
+                    SlotDetail[] listData = data.getData();
+
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize);
+                    } else {
+                         paginationPanel.resetPage(data.getCount());
+                    }
+
+                    assignSlot(listData, jpanelData);
+               } else {
+                    System.err.println("fail loading slot");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting slot " + e);
+          }
+     }
+
+     public void assignSlot(SlotDetail[] listData, JPanel listGetSlot) {
+          ArrayList<Slot> slot = new ArrayList<>();
+
+          for (int i = 0; i < listData.length; i++) {
+               var obj = listData[i];
+               Slot getSlot = new Slot(
                     obj.getId(),
                     obj.getSlotNameEn(),
                     obj.getSlotNameKh(),
                     obj.getRange().getRangeNameEn()
-            );
-            slot.add(getSlot);
-        }
+               );
+               slot.add(getSlot);
+          }
 
-        appenSlot(slot, listGetSlot);
-    }
-    
-    private void reloadPanel() {
-        listGetSlot.removeAll();
-        listGetSlot.revalidate();
-        listGetSlot.repaint();
-    }
-    
-    void appenSlot(ArrayList<Slot> listSlot, JPanel listGetSlot) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          appenSlot(slot, listGetSlot);
+     }
 
-        listGetSlot.setLayout(gridBagLayout);
-        reloadPanel();
-        
-        int x = 0;
-        int y = 0;
-             
-        if(listSlot.size() > 0){
-            for (int i = 0; i < listSlot.size(); i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
-                    x = 0;
-                    y++;
-                }
+     private void reloadPanel() {
+          listGetSlot.removeAll();
+          listGetSlot.revalidate();
+          listGetSlot.repaint();
+     }
 
-                var listData = listSlot.get(i);
-                
-                GetSlot b = new GetSlot();
+     void appenSlot(ArrayList<Slot> listSlot, JPanel listGetSlot) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-                ButtonEvent events = new ButtonEvent() {
-                    @Override
-                    public void onSelect(String Key) {  // event edit
-                        AddSlot edit = new AddSlot(new JFrame(), true);
-                        try {
-                            Response response = JavaConnection.get(JavaRoute.slot + "/" + listData.getId());
-                            String responseData = response.body().string();
-                            ObjectMapper objMap = new ObjectMapper();
-                            SlotDetailModel data = objMap.readValue(responseData, SlotDetailModel.class);
-                            
-                            System.out.println("data : " + data);
+          listGetSlot.setLayout(gridBagLayout);
+          reloadPanel();
 
-                            edit.setId(data.getData().getId());
-                            edit.setListGetSlot(listGetSlot);
-                            edit.setPageNumber(pageNumber);
-                            edit.setObj(ListSlot.this);
+          int x = 0;
+          int y = 0;
 
-                            edit.setValueEdit(
-                                data.getData().getSlotNameEn(),
-                                data.getData().getSlotNameKh(),
-                                ""+data.getData().getRange().getId()
-                            );
-
-                            edit.setVisible(true);
-                        } catch (Exception e) {
-                             System.err.println("error getting warehouse " + e);
-                        }
+          if (listSlot.size() > 0) {
+               for (int i = 0; i < listSlot.size(); i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
                     }
-                    
-                    
-                    @Override
-                    public void onRemove(String Key) {  // event delete brand
-                        try {
-                            UIManager UI = new UIManager();
-                            UI.put("OptionPane.background", WindowColor.mediumGreen);
-                            UI.put("Panel.background", WindowColor.mediumGreen);
-                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this slot?",
-                                    "Delete Slot?", JOptionPane.YES_NO_OPTION);
+                    var listData = listSlot.get(i);
 
-                            if (resp == JOptionPane.YES_OPTION) {
-                                JSONObject json = new JSONObject();
-                                json.put("status", false);
-                                json.put("isDeleted", true);
-                                Response response = JavaConnection.delete(JavaRoute.slot + "/" + listData.getId(), json);
+                    GetSlot b = new GetSlot();
 
-                                if (response.isSuccessful()) {
-                                    
-                                    dataCount = dataCount - 1;
-                                    int totalP = pageSize * Integer.valueOf(pageNumber);
-                                    if (dataCount == totalP) {
-                                         paginationPanel.resetPage(pageType, pageNumber);
-                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
-                                         pageNumber = String.valueOf(_value);
-                                    }
-                                    
-                                    listGetSlot.removeAll();
-                                    listGetSlot.revalidate();
-                                    listGetSlot.repaint();
-                                    getSlot(listGetSlot,true,pageNumber);
-                                    System.out.println("Successful deleted ");
-                                }
-                            } else {
-                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                            }
+                    ButtonEvent events = new ButtonEvent() {
+                         @Override
+                         public void onSelect(String Key) {  // event edit
+                              AddSlot edit = new AddSlot(new JFrame(), true);
+                              try {
+                                   Response response = JavaConnection.get(JavaRoute.slot + "/" + listData.getId());
+                                   String responseData = response.body().string();
+                                   ObjectMapper objMap = new ObjectMapper();
+                                   SlotDetailModel data = objMap.readValue(responseData, SlotDetailModel.class);
 
-                        } catch (Exception e) {
-                            System.err.println("error getting slot " + e);
-                        }
-                    }
-                };
+                                   System.out.println("data : " + data);
 
-                b.initEvent(events);
-                b.setId(listData.getId());
-                
-                b.setSlotNameEn(listData.getSlotNameEn());
-                b.setSlotNameKh(listData.getSlotNameKh());
-                b.setRange(listData.getRange());
-                paginationPanel.setVisible(true);
-                listGetSlot.add(b, gbc);
-            }  
-        }else{
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetSlot.add(no);
-            paginationPanel.setVisible(false);
-        }
-        
-        listGetSlot.revalidate();
-        listGetSlot.repaint();
-    }
-    
-    //Action Search
-    private void eventSearchRange() {        
-        // this event was called when user type on searchTextField 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                 TimerTask task = new TimerTask() {
-                      @Override
-                      public void run() {
-                           searchValue = searchField.getValueTextSearch();
-                           paginationPanel.resetPage();
-                           pageNumber = "0";
+                                   edit.setId(data.getData().getId());
+                                   edit.setListGetSlot(listGetSlot);
+                                   edit.setPageNumber(pageNumber);
+                                   edit.setObj(ListSlot.this);
 
-                           if (searchValue.isEmpty()) {
-                                isCheckSearch = true;
-                                pageNumber = "0";
-                                getSlot(listGetSlot,true,pageNumber);
-                                return;
-                           }
-                           getSlot(listGetSlot,false,pageNumber);
-                      }
-                 };
+                                   edit.setValueEdit(
+                                        data.getData().getSlotNameEn(),
+                                        data.getData().getSlotNameKh(),
+                                        "" + data.getData().getRange().getId()
+                                   );
 
-                 Timer timer = new Timer();
-                 timer.schedule(task, 500);
+                                   edit.setVisible(true);
+                              } catch (Exception e) {
+                                   System.err.println("error getting warehouse " + e);
+                              }
+                         }
 
-            }
-        };
-        searchField.initEvent(event);
-    }
+                         @Override
+                         public void onRemove(String Key) {  // event delete brand
+                              try {
+                                   UIManager UI = new UIManager();
+                                   UI.put("OptionPane.background", WindowColor.mediumGreen);
+                                   UI.put("Panel.background", WindowColor.mediumGreen);
+                                   UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-    @SuppressWarnings("unchecked")
+                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this slot?",
+                                        "Delete Slot?", JOptionPane.YES_NO_OPTION);
+
+                                   if (resp == JOptionPane.YES_OPTION) {
+                                        JSONObject json = new JSONObject();
+                                        json.put("status", false);
+                                        json.put("isDeleted", true);
+                                        Response response = JavaConnection.delete(JavaRoute.slot + "/" + listData.getId(), json);
+
+                                        if (response.isSuccessful()) {
+
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+
+                                             listGetSlot.removeAll();
+                                             listGetSlot.revalidate();
+                                             listGetSlot.repaint();
+                                             getSlot(listGetSlot, true, pageNumber);
+                                             System.out.println("Successful deleted ");
+                                        }
+                                   } else {
+                                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                                   }
+
+                              } catch (Exception e) {
+                                   System.err.println("error getting slot " + e);
+                              }
+                         }
+                    };
+
+                    b.initEvent(events);
+                    b.setId(listData.getId());
+
+                    b.setSlotNameEn(listData.getSlotNameEn());
+                    b.setSlotNameKh(listData.getSlotNameKh());
+                    b.setRange(listData.getRange());
+                    paginationPanel.setVisible(true);
+                    listGetSlot.add(b, gbc);
+               }
+          } else {
+               NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+               listGetSlot.add(no);
+               paginationPanel.setVisible(false);
+          }
+
+          listGetSlot.revalidate();
+          listGetSlot.repaint();
+     }
+
+     //Action Search
+     private void eventSearchRange() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
+
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getSlot(listGetSlot, true, pageNumber);
+                                   return;
+                              }
+                              getSlot(listGetSlot, false, pageNumber);
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+
+               }
+          };
+          searchField.initEvent(event);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -439,62 +443,62 @@ public class ListSlot extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-        dispose();
+         dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AddSlot add = new AddSlot(new JFrame(), true);
-        add.setPageNumber(pageNumber);
-        add.setListGetSlot(listGetSlot);
-        add.setObj(this);
-        add.setVisible(true);
+         AddSlot add = new AddSlot(new JFrame(), true);
+         add.setPageNumber(pageNumber);
+         add.setListGetSlot(listGetSlot);
+         add.setObj(this);
+         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ListSlot dialog = new ListSlot(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ListSlot.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ListSlot dialog = new ListSlot(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnAdd;

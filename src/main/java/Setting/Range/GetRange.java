@@ -2,6 +2,7 @@ package Setting.Range;
 
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -9,17 +10,22 @@ import javax.swing.JLabel;
 
 public class GetRange extends javax.swing.JPanel {
 
-    private Integer id;
-    private String rangeNameKh;
-    private String rangeNameEn;
-    private String warehouseName;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    
-    public GetRange() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     private Integer id;
+     private String rangeNameKh;
+     private String rangeNameEn;
+     private String warehouseName;
+     private Icon iconEdit;
+     private Icon iconDelete;
+
+     public GetRange() {
+          initComponents();
+          lbId.setVisible(false);
+
+          // check permission
+          // permissionId: 27 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(27).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(27).getIsUpdate());
+     }
 
      public JLabel getLbId() {
           return lbId;
@@ -29,92 +35,67 @@ public class GetRange extends javax.swing.JPanel {
           this.lbId = lbId;
      }
 
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
+     public String getRangeNameKh() {
+          return rangeNameKh;
+     }
 
-    public String getRangeNameKh() {
-        return rangeNameKh;
-    }
+     public void setRangeNameKh(String rangeNameKh) {
+          this.rangeNameKh = rangeNameKh;
 
-    public void setRangeNameKh(String rangeNameKh) {
-        this.rangeNameKh = rangeNameKh;
-      
-        lbRangeNameKh.setText(rangeNameKh);
-        lbRangeNameKh.setFont(WindowFonts.khmerOsContent12);
-    }
+          lbRangeNameKh.setText(rangeNameKh);
+          lbRangeNameKh.setFont(WindowFonts.khmerOsContent12);
+     }
 
-    public String getRangeNameEn() {
-        return rangeNameEn;
-    }
+     public String getRangeNameEn() {
+          return rangeNameEn;
+     }
 
-    public void setRangeNameEn(String rangeNameEn) {
-        this.rangeNameEn = rangeNameEn;
-        lbRangeNameEn.setText(rangeNameEn);
-    }
+     public void setRangeNameEn(String rangeNameEn) {
+          this.rangeNameEn = rangeNameEn;
+          lbRangeNameEn.setText(rangeNameEn);
+     }
 
-    public String getWarehouseName() {
-        return warehouseName;
-    }
+     public String getWarehouseName() {
+          return warehouseName;
+     }
 
-    public void setWarehouseName(String warehouseName) {
-        this.warehouseName = warehouseName;
-        lbWarehouse.setText(warehouseName);
-    }
-    
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public void setWarehouseName(String warehouseName) {
+          this.warehouseName = warehouseName;
+          lbWarehouse.setText(warehouseName);
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
-    
-    
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -132,12 +113,34 @@ public class GetRange extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
-    
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

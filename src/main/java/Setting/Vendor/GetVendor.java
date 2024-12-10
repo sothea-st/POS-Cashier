@@ -1,136 +1,120 @@
 package Setting.Vendor;
 
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 
 public class GetVendor extends javax.swing.JPanel {
 
-    private Integer id;
-    private String vendorName;
-    private String vendorCode;
-    private String phoneNumber;
-    private String email;
-    private String address;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    private String website;
-    
-    public GetVendor() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     private Integer id;
+     private String vendorName;
+     private String vendorCode;
+     private String phoneNumber;
+     private String email;
+     private String address;
+     private Icon iconEdit;
+     private Icon iconDelete;
+     private String website;
 
-    public Integer getId() {
-        return id;
-    }
+     public GetVendor() {
+          initComponents();
+          lbId.setVisible(false);
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+          // check permission
+          // permissionId: 20 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(20).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(20).getIsUpdate());
 
-    public String getVendorName() {
-        return vendorName;
-    }
+     }
 
-    public void setVendorName(String vendorName) {
-        this.vendorName = vendorName;
-        lbVendorName.setText(vendorName);
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public String getVendorCode() {
-        return vendorCode;
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public void setVendorCode(String vendorCode) {
-        this.vendorCode = vendorCode;
-        lbVendorCode.setText(vendorCode);
-    }
+     public String getVendorName() {
+          return vendorName;
+     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+     public void setVendorName(String vendorName) {
+          this.vendorName = vendorName;
+          lbVendorName.setText(vendorName);
+     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-        lbPhoneNumber.setText(phoneNumber);
-    }
+     public String getVendorCode() {
+          return vendorCode;
+     }
 
-    public String getEmail() {
-        return email;
-    }
+     public void setVendorCode(String vendorCode) {
+          this.vendorCode = vendorCode;
+          lbVendorCode.setText(vendorCode);
+     }
 
-    public void setEmail(String email) {
-        this.email = email;
-        lbEmail.setText(email);
-    }
+     public String getPhoneNumber() {
+          return phoneNumber;
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public void setPhoneNumber(String phoneNumber) {
+          this.phoneNumber = phoneNumber;
+          lbPhoneNumber.setText(phoneNumber);
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public String getEmail() {
+          return email;
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public void setEmail(String email) {
+          this.email = email;
+          lbEmail.setText(email);
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public String getAddress() {
-        return address;
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public void setAddress(String address) {
-        this.address = address;
-        lbAddress.setText(address);
-    }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-    public String getWebsite() {
-        return website;
-    }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-    public void setWebsite(String website) {
-        this.website = website;
-        lbWebsite.setText(website);
-    }
-    
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public String getAddress() {
+          return address;
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public void setAddress(String address) {
+          this.address = address;
+          lbAddress.setText(address);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+     public String getWebsite() {
+          return website;
+     }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+     public void setWebsite(String website) {
+          this.website = website;
+          lbWebsite.setText(website);
+     }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -148,11 +132,34 @@ public class GetVendor extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

@@ -2,6 +2,7 @@ package Setting.Uom;
 
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -9,16 +10,22 @@ import javax.swing.JLabel;
 
 public class GetUom extends javax.swing.JPanel {
 
-    private Integer id;
-    private String uomNameKh;
-    private String uomNameEn;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    
-    public GetUom() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     private Integer id;
+     private String uomNameKh;
+     private String uomNameEn;
+     private Icon iconEdit;
+     private Icon iconDelete;
+
+     public GetUom() {
+          initComponents();
+          lbId.setVisible(false);
+
+          // check permission
+          // permissionId: 22 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(22).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(22).getIsDelete());
+
+     }
 
      public JLabel getLbId() {
           return lbId;
@@ -28,84 +35,58 @@ public class GetUom extends javax.swing.JPanel {
           this.lbId = lbId;
      }
 
-    
-    
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public String getUomNameKh() {
-        return uomNameKh;
-    }
+     public String getUomNameKh() {
+          return uomNameKh;
+     }
 
-    public void setUomNameKh(String uomNameKh) {
-        this.uomNameKh = uomNameKh;
-        lbUomNameKh.setText(uomNameKh);
-        lbUomNameKh.setFont(WindowFonts.khmerOsContent12);
-        
-    }
+     public void setUomNameKh(String uomNameKh) {
+          this.uomNameKh = uomNameKh;
+          lbUomNameKh.setText(uomNameKh);
+          lbUomNameKh.setFont(WindowFonts.khmerOsContent12);
 
-    public String getUomNameEn() {
-        return uomNameEn;
-    }
+     }
 
-    public void setUomNameEn(String uomNameEn) {
-        this.uomNameEn = uomNameEn;
-        lbUomName.setText(uomNameEn);
-    }
-    
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public String getUomNameEn() {
+          return uomNameEn;
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public void setUomNameEn(String uomNameEn) {
+          this.uomNameEn = uomNameEn;
+          lbUomName.setText(uomNameEn);
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
-    
-    
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -123,12 +104,34 @@ public class GetUom extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
-    
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

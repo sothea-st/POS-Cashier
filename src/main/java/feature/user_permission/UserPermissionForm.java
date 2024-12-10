@@ -3643,7 +3643,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isSfaffInfoUpdate = !isSfaffInfoUpdate;
                     updateIcon(label, isSfaffInfoUpdate);
                     // note : permissionId = 33 from database table pos_permission
-                    setDelete(33, isSfaffInfoUpdate);
+                    setUpdate(33, isSfaffInfoUpdate);
                }
                case "staffInfoDelete" -> {
                     isSfaffInfoDelete = !isSfaffInfoDelete;
@@ -3735,7 +3735,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isDivisionUpdate = !isDivisionUpdate;
                     updateIcon(label, isDivisionUpdate);
                     // note : permissionId = 15 from database table pos_permission
-                    setDelete(15, isDivisionUpdate);
+                    setUpdate(15, isDivisionUpdate);
                }
                case "divisionDelete" -> {
                     isDivisionoDelete = !isDivisionoDelete;
@@ -3776,7 +3776,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isDepartmentUpdate = !isDepartmentUpdate;
                     updateIcon(label, isDepartmentUpdate);
                     // note : permissionId = 16 from database table pos_permission
-                    setDelete(16, isDepartmentUpdate);
+                    setUpdate(16, isDepartmentUpdate);
                }
                case "departmentDelete" -> {
                     isDepartmentDelete = !isDepartmentDelete;
@@ -3817,7 +3817,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isCategoryUpdate = !isCategoryUpdate;
                     updateIcon(label, isCategoryUpdate);
                     // note : permissionId = 17 from database table pos_permission
-                    setDelete(17, isCategoryUpdate);
+                    setUpdate(17, isCategoryUpdate);
                }
                case "categoryDelete" -> {
                     isCategoryDelete = !isCategoryDelete;
@@ -3858,7 +3858,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isSubCategoryUpdate = !isSubCategoryUpdate;
                     updateIcon(label, isSubCategoryUpdate);
                     // note : permissionId = 18 from database table pos_permission
-                    setDelete(18, isSubCategoryUpdate);
+                    setUpdate(18, isSubCategoryUpdate);
                }
                case "subCategoryDelete" -> {
                     isSubCategoryDelete = !isSubCategoryDelete;
@@ -3899,7 +3899,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isBrandUpdate = !isBrandUpdate;
                     updateIcon(label, isBrandUpdate);
                     // note : permissionId = 19 from database table pos_permission
-                    setDelete(19, isBrandUpdate);
+                    setUpdate(19, isBrandUpdate);
                }
                case "brandDelete" -> {
                     isBrandDelete = !isBrandDelete;
@@ -3940,7 +3940,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isVendorUpdate = !isVendorUpdate;
                     updateIcon(label, isVendorUpdate);
                     // note : permissionId = 20 from database table pos_permission
-                    setDelete(20, isVendorUpdate);
+                    setUpdate(20, isVendorUpdate);
                }
                case "vendorDelete" -> {
                     isVendorDelete = !isVendorDelete;
@@ -3981,7 +3981,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isAttributeUpdate = !isAttributeUpdate;
                     updateIcon(label, isAttributeUpdate);
                     // note : permissionId = 21 from database table pos_permission
-                    setDelete(21, isAttributeUpdate);
+                    setUpdate(21, isAttributeUpdate);
                }
                case "attributeDelete" -> {
                     isAttributeDelete = !isAttributeDelete;
@@ -4022,7 +4022,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isUomUpdate = !isUomUpdate;
                     updateIcon(label, isUomUpdate);
                     // note : permissionId = 22 from database table pos_permission
-                    setDelete(22, isUomUpdate);
+                    setUpdate(22, isUomUpdate);
                }
                case "uomDelete" -> {
                     isUomDelete = !isUomDelete;
@@ -4063,7 +4063,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isCountryUpdate = !isCountryUpdate;
                     updateIcon(label, isCountryUpdate);
                     // note : permissionId = 23 from database table pos_permission
-                    setDelete(23, isCountryUpdate);
+                    setUpdate(23, isCountryUpdate);
                }
                case "countryDelete" -> {
                     isCountryDelete = !isCountryDelete;
@@ -4104,7 +4104,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isTaxUpdate = !isTaxUpdate;
                     updateIcon(label, isTaxUpdate);
                     // note : permissionId = 24 from database table pos_permission
-                    setDelete(24, isTaxUpdate);
+                    setUpdate(24, isTaxUpdate);
                }
                case "taxDelete" -> {
                     isTaxDelete = !isTaxDelete;
@@ -4145,7 +4145,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isStatusUpdate = !isStatusUpdate;
                     updateIcon(label, isStatusUpdate);
                     // note : permissionId = 25 from database table pos_permission
-                    setDelete(25, isStatusUpdate);
+                    setUpdate(25, isStatusUpdate);
                }
                case "statusDelete" -> {
                     isStatusDelete = !isStatusDelete;
@@ -4186,7 +4186,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isWarehouseUpdate = !isWarehouseUpdate;
                     updateIcon(label, isWarehouseUpdate);
                     // note : permissionId = 26 from database table pos_permission
-                    setDelete(26, isWarehouseUpdate);
+                    setUpdate(26, isWarehouseUpdate);
                }
                case "warehouseDelete" -> {
                     isWarehouseDelete = !isWarehouseDelete;
@@ -4227,7 +4227,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isRangeUpdate = !isRangeUpdate;
                     updateIcon(label, isRangeUpdate);
                     // note : permissionId = 27 from database table pos_permission
-                    setDelete(27, isRangeUpdate);
+                    setUpdate(27, isRangeUpdate);
                }
                case "rangeDelete" -> {
                     isRangeDelete = !isRangeDelete;
@@ -4268,7 +4268,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     isSlotUpdate = !isSlotUpdate;
                     updateIcon(label, isSlotUpdate);
                     // note : permissionId = 28 from database table pos_permission
-                    setDelete(28, isSlotUpdate);
+                    setUpdate(28, isSlotUpdate);
                }
                case "slotDelete" -> {
                     isSlotDelete = !isSlotDelete;

@@ -10,6 +10,7 @@ import Model.Userlogin.UserDataModel;
 import Model.Userlogin.UserModel;
 import Model.Userlogin.UserSuccessModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -46,6 +47,9 @@ public class Userlogin extends javax.swing.JDialog {
         
         eventPagination();
         JavaConstant.addTitleAndLogo(this, "User Login");
+        
+        
+      
     }
       
     private void eventPagination() {

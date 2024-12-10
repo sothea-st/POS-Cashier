@@ -14,6 +14,7 @@ import Model.Tax.ListTaxModel;
 import Model.Tax.TaxModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -32,212 +33,214 @@ import org.json.JSONObject;
 
 public class ListTax extends javax.swing.JDialog {
 
-    String searchValue;
-    private String pageNumber = "0";
-    private int pageSize = 10;
-    private boolean isCheckSearch = true;
-    private int dataCount = 0;
-    private String pageType;
-    
-    public ListTax(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        
-        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        
-        header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "Tax");
-        getTax(listGetTax,true,pageNumber);
-        eventSearchtax();
-        eventPagination();
-    }
-    
-    private void eventPagination() {
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onMouseClick(String value) {
-                 if (isCheckSearch) {
-                      int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                      pageNumber = String.valueOf(_value);
-                      getTax(listGetTax,true,pageNumber);
-                 }
-            }
-             
-            // for pagination
-            @Override
-            public void onMouseClick(String value, String pType) {
-                 pageType = pType;
-            }
-        };
-        paginationPanel.initEvent(event);
-    }
-    
-    public void getTax(JPanel jpanelData, boolean isCheck, String pageNumber) {
-        try {
+     String searchValue;
+     private String pageNumber = "0";
+     private int pageSize = 10;
+     private boolean isCheckSearch = true;
+     private int dataCount = 0;
+     private String pageType;
 
-            Response response = null;
-            if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.tax + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
-            } else { // isCheck false search
-                 isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.searchTax + searchValue);
-            }
-            
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                ListTaxModel data = objMap.readValue(responseData, ListTaxModel.class);
-                DataTaxModel[] listData = data.getData();
-                
-                if (isCheck) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-                } else {
-                    paginationPanel.resetPage(data.getCount());
-                }
-                
-                assignTax(listData, jpanelData);
-            } else {
-                System.err.println("fail loading tax");
-            }
-        } catch (Exception e) {
-            System.err.println("error getting tax " + e);
-        }
-    }
-    
-    public void assignTax(DataTaxModel[] listData, JPanel listGetTax) {
-        ArrayList<TaxModel> tax = new ArrayList<>();
-          
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            TaxModel getTax = new TaxModel(
+     public ListTax(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+
+          jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
+
+          header.setBackground(WindowColor.darkGreen);
+          JavaConstant.addTitleAndLogo(this, "Tax");
+          getTax(listGetTax, true, pageNumber);
+          eventSearchtax();
+          eventPagination();
+
+          // check permission
+          // permissionId: 24 is primary key id from table pos_permission
+          btnAdd.setVisible(JavaPermission.getPermissionDetail(24).getIsCreate());
+     }
+
+     private void eventPagination() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getTax(listGetTax, true, pageNumber);
+                    }
+               }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+          };
+          paginationPanel.initEvent(event);
+     }
+
+     public void getTax(JPanel jpanelData, boolean isCheck, String pageNumber) {
+          try {
+
+               Response response = null;
+               if (isCheck) { // isCheck true get items
+                    response = JavaConnection.get(JavaRoute.tax + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+               } else { // isCheck false search
+                    isCheckSearch = false;
+                    response = JavaConnection.get(JavaRoute.searchTax + searchValue);
+               }
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ListTaxModel data = objMap.readValue(responseData, ListTaxModel.class);
+                    DataTaxModel[] listData = data.getData();
+
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize);
+                    } else {
+                         paginationPanel.resetPage(data.getCount());
+                    }
+
+                    assignTax(listData, jpanelData);
+               } else {
+                    System.err.println("fail loading tax");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting tax " + e);
+          }
+     }
+
+     public void assignTax(DataTaxModel[] listData, JPanel listGetTax) {
+          ArrayList<TaxModel> tax = new ArrayList<>();
+
+          for (int i = 0; i < listData.length; i++) {
+               var obj = listData[i];
+               TaxModel getTax = new TaxModel(
                     obj.getId(),
                     obj.getTax_name(),
                     obj.getRate_tax()
-                    
-            );
-            tax.add(getTax);
-        }
+               );
+               tax.add(getTax);
+          }
 
-        appendTax(tax, listGetTax);
-    }
-    
-    private void reloadPanel() {
-        listGetTax.removeAll();
-        listGetTax.revalidate();
-        listGetTax.repaint();
-    }
-    
-    void appendTax(ArrayList<TaxModel> list, JPanel listGetTax) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          appendTax(tax, listGetTax);
+     }
 
-        listGetTax.setLayout(gridBagLayout);
-        reloadPanel();
+     private void reloadPanel() {
+          listGetTax.removeAll();
+          listGetTax.revalidate();
+          listGetTax.repaint();
+     }
 
-        int x = 0;
-        int y = 0;
-        if(list.size() > 0){
-            for (int i = 0; i < list.size(); i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
-                    x = 0;
-                    y++;
-                }
+     void appendTax(ArrayList<TaxModel> list, JPanel listGetTax) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-                var listData = list.get(i);
-                
-                GetTax b = new GetTax();
+          listGetTax.setLayout(gridBagLayout);
+          reloadPanel();
 
-                ButtonEvent events = new ButtonEvent() {
-                    @Override
-                    public void onSelect(String Key) {  // event edit
-                        AddTax edit = new AddTax(new JFrame(), true);
-                        try {
-                            Response response = JavaConnection.get(JavaRoute.tax + "/" + listData.getId());
-                            String responseData = response.body().string();
-                            ObjectMapper objMap = new ObjectMapper();
-                            DetailTaxModel listData = objMap.readValue(responseData, DetailTaxModel.class);
-
-                            edit.setId(listData.getId());
-                            edit.setListGetTax(listGetTax);
-                            edit.setPageNumber(pageNumber);
-
-                            edit.setValueEdit(
-                                listData.getTax_name(),
-                                listData.getRate_tax()
-                            );
-
-                            edit.setVisible(true);
-                        } catch (Exception e) {
-                             System.err.println("error getting tax " + e);
-                        }
+          int x = 0;
+          int y = 0;
+          if (list.size() > 0) {
+               for (int i = 0; i < list.size(); i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
                     }
-                    
-                    
-                    @Override
-                    public void onRemove(String Key) {  // event delete brand
-                        try {
-                            UIManager UI = new UIManager();
-                            UI.put("OptionPane.background", WindowColor.mediumGreen);
-                            UI.put("Panel.background", WindowColor.mediumGreen);
-                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this tax?",
-                                    "Delete Tax?", JOptionPane.YES_NO_OPTION);
+                    var listData = list.get(i);
 
-                            if (resp == JOptionPane.YES_OPTION) {
-                                JSONObject json = new JSONObject();
-                                json.put("status", false);
-                                json.put("isDeleted", true);
-                                Response response = JavaConnection.delete(JavaRoute.tax + "/" + listData.getId(), json);
+                    GetTax b = new GetTax();
 
-                                if (response.isSuccessful()) {
-                                    
-                                    dataCount = dataCount - 1;
-                                    int totalP = pageSize * Integer.valueOf(pageNumber);
-                                    if (dataCount == totalP) {
-                                         paginationPanel.resetPage(pageType, pageNumber);
-                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
-                                         pageNumber = String.valueOf(_value);
-                                    }
-                                    
-                                    listGetTax.removeAll();
-                                    listGetTax.revalidate();
-                                    listGetTax.repaint();
-                                    getTax(listGetTax,true,pageNumber);
-                                    System.out.println("Successful deleted ");
-                                }
-                            } else {
-                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                            }
+                    ButtonEvent events = new ButtonEvent() {
+                         @Override
+                         public void onSelect(String Key) {  // event edit
+                              AddTax edit = new AddTax(new JFrame(), true);
+                              try {
+                                   Response response = JavaConnection.get(JavaRoute.tax + "/" + listData.getId());
+                                   String responseData = response.body().string();
+                                   ObjectMapper objMap = new ObjectMapper();
+                                   DetailTaxModel listData = objMap.readValue(responseData, DetailTaxModel.class);
 
-                        } catch (Exception e) {
-                            System.err.println("error getting tax " + e);
-                        }
-                    }
-                };
-                
-                b.initEvent(events);
-                b.setId(listData.getId());
-                b.setTaxName(listData.getTaxName());
-                b.setTaxRate(listData.getRateTax() + "%");
+                                   edit.setId(listData.getId());
+                                   edit.setListGetTax(listGetTax);
+                                   edit.setPageNumber(pageNumber);
+
+                                   edit.setValueEdit(
+                                        listData.getTax_name(),
+                                        listData.getRate_tax()
+                                   );
+
+                                   edit.setVisible(true);
+                              } catch (Exception e) {
+                                   System.err.println("error getting tax " + e);
+                              }
+                         }
+
+                         @Override
+                         public void onRemove(String Key) {  // event delete brand
+                              try {
+                                   UIManager UI = new UIManager();
+                                   UI.put("OptionPane.background", WindowColor.mediumGreen);
+                                   UI.put("Panel.background", WindowColor.mediumGreen);
+                                   UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this tax?",
+                                        "Delete Tax?", JOptionPane.YES_NO_OPTION);
+
+                                   if (resp == JOptionPane.YES_OPTION) {
+                                        JSONObject json = new JSONObject();
+                                        json.put("status", false);
+                                        json.put("isDeleted", true);
+                                        Response response = JavaConnection.delete(JavaRoute.tax + "/" + listData.getId(), json);
+
+                                        if (response.isSuccessful()) {
+
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+
+                                             listGetTax.removeAll();
+                                             listGetTax.revalidate();
+                                             listGetTax.repaint();
+                                             getTax(listGetTax, true, pageNumber);
+                                             System.out.println("Successful deleted ");
+                                        }
+                                   } else {
+                                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                                   }
+
+                              } catch (Exception e) {
+                                   System.err.println("error getting tax " + e);
+                              }
+                         }
+                    };
+
+                    b.initEvent(events);
+                    b.setId(listData.getId());
+                    b.setTaxName(listData.getTaxName());
+                    b.setTaxRate(listData.getRateTax() + "%");
 
 //                try {
 //
@@ -256,53 +259,52 @@ public class ListTax extends javax.swing.JDialog {
 //                } catch (Exception e) {
 //                    System.err.println("error read image = " + e);
 //                }
+                    paginationPanel.setVisible(true);
+                    listGetTax.add(b, gbc);
+               }
+          } else {
+               NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+               listGetTax.add(no);
+               paginationPanel.setVisible(false);
+          }
 
-                paginationPanel.setVisible(true);
-                listGetTax.add(b, gbc);
-            }  
-        }else{
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetTax.add(no);
-            paginationPanel.setVisible(false);
-        }
-        
-        listGetTax.revalidate();
-        listGetTax.repaint();
-    }
-    
-    //Action Search
-    private void eventSearchtax() {
-        
-        // this event was called when user type on searchTextField 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                 TimerTask task = new TimerTask() {
-                      @Override
-                      public void run() {
-                           searchValue = searchField.getValueTextSearch();
-                           paginationPanel.resetPage();
-                           pageNumber = "0";
+          listGetTax.revalidate();
+          listGetTax.repaint();
+     }
 
-                           if (searchValue.isEmpty()) {
-                                isCheckSearch = true;
-                                pageNumber = "0";
-                                getTax(listGetTax,true,pageNumber);
-                                return;
-                           }
-                           getTax(listGetTax,false,pageNumber);
-                      }
-                 };
+     //Action Search
+     private void eventSearchtax() {
 
-                 Timer timer = new Timer();
-                 timer.schedule(task, 500);
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
 
-            }
-        };
-        searchField.initEvent(event);
-    }
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getTax(listGetTax, true, pageNumber);
+                                   return;
+                              }
+                              getTax(listGetTax, false, pageNumber);
+                         }
+                    };
 
-    @SuppressWarnings("unchecked")
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+
+               }
+          };
+          searchField.initEvent(event);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -446,55 +448,55 @@ public class ListTax extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-        dispose();
+         dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AddTax add = new AddTax(new JFrame(), true);
-        add.setPageNumber(pageNumber);
-        add.setListGetTax(listGetTax);
-        add.setObj(this);
-        add.setVisible(true);
+         AddTax add = new AddTax(new JFrame(), true);
+         add.setPageNumber(pageNumber);
+         add.setListGetTax(listGetTax);
+         add.setObj(this);
+         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ListTax dialog = new ListTax(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ListTax.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ListTax dialog = new ListTax(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnAdd;

@@ -14,6 +14,7 @@ import Model.Warehouse.WarehouseModel.WarehouseDetail;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -30,14 +31,14 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class ListWarehouse extends javax.swing.JDialog {
-     
+
      String searchValue;
      private String pageNumber = "0";
      private int pageSize = 10;
      private boolean isCheckSearch = true;
      private int dataCount = 0;
      private String pageType;
-     
+
      public ListWarehouse(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
@@ -51,14 +52,18 @@ public class ListWarehouse extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
-          getWarehouse(listGetWarehouse, true,pageNumber);
-          
+          getWarehouse(listGetWarehouse, true, pageNumber);
+
           JavaConstant.addTitleAndLogo(this, "Warehouse");
-          
+
           eventSearchBrand();
           eventPagination();
+
+          // check permission
+          // permissionId: 26 is primary key id from table pos_permission
+          btnAdd.setVisible(JavaPermission.getPermissionDetail(26).getIsCreate());
      }
-     
+
      private void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
@@ -69,7 +74,7 @@ public class ListWarehouse extends javax.swing.JDialog {
                          getWarehouse(listGetWarehouse, true, pageNumber);
                     }
                }
-               
+
                // for pagination
                @Override
                public void onMouseClick(String value, String pType) {
@@ -78,31 +83,31 @@ public class ListWarehouse extends javax.swing.JDialog {
           };
           paginationPanel.initEvent(event);
      }
-     
-     public void getWarehouse(JPanel jpanelData, boolean isCheck,String pageNumber) {
+
+     public void getWarehouse(JPanel jpanelData, boolean isCheck, String pageNumber) {
           try {
-               
+
                Response response = null;
                if (isCheck) { // isCheck true get items
-                    response = JavaConnection.get(JavaRoute.warehouse + "?pageNumber=" + pageNumber + "&pageSize="+pageSize);
+                    response = JavaConnection.get(JavaRoute.warehouse + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
                } else { // isCheck false search
                     isCheckSearch = false;
                     response = JavaConnection.get(JavaRoute.warehouse + "/search?search=" + searchValue);
                     System.err.println("response : " + response);
                }
-               
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
                     WarehouseModel data = objMap.readValue(responseData, WarehouseModel.class);
                     WarehouseDetail[] listData = data.getData();
-                    
+
                     if (isCheck) {
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
                          paginationPanel.resetPage(data.getCount());
                     }
-                    
+
                     assignWarehouse(listData, jpanelData);
                } else {
                     System.err.println("fail loading warehouse");
@@ -111,13 +116,13 @@ public class ListWarehouse extends javax.swing.JDialog {
                System.err.println("error getting warehouse " + e);
           }
      }
-     
+
      public void assignWarehouse(WarehouseDetail[] listData, JPanel listGetBrand) {
           ArrayList<Warehouse> warehouse = new ArrayList<>();
-          
+
           for (int i = 0; i < listData.length; i++) {
                var obj = listData[i];
-               
+
                Warehouse getWarehouse = new Warehouse(
                     obj.getId(),
                     obj.getWarehouseNameEn(),
@@ -125,26 +130,26 @@ public class ListWarehouse extends javax.swing.JDialog {
                );
                warehouse.add(getWarehouse);
           }
-          
+
           appendWarehouse(warehouse, listGetWarehouse);
      }
-     
+
      private void reloadPanel() {
           listGetWarehouse.removeAll();
           listGetWarehouse.revalidate();
           listGetWarehouse.repaint();
      }
-     
+
      void appendWarehouse(ArrayList<Warehouse> listWarehouse, JPanel listGetWarehouse) {
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          
+
           listGetWarehouse.setLayout(gridBagLayout);
           reloadPanel();
-          
+
           int x = 0;
           int y = 0;
           if (!listWarehouse.isEmpty()) {
@@ -159,39 +164,40 @@ public class ListWarehouse extends javax.swing.JDialog {
                          x = 0;
                          y++;
                     }
-                    
+
                     var listData = listWarehouse.get(i);
                     GetCategory b = new GetCategory();
-                    
+                    b.checkPermission("warehouse");
+
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
                               InsertWarehouse edit = new InsertWarehouse(new JFrame(), true);
-                              
+
                               try {
                                    Response response = JavaConnection.get(JavaRoute.warehouse + "/" + listData.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
                                    WarehouseDetailModel listData = objMap.readValue(responseData, WarehouseDetailModel.class);
-                               
+
                                    edit.setId(listData.getData().getId());
                                    edit.setPageNumber(pageNumber);
-                             
+
                                    edit.setListGetWarehouse(listGetWarehouse);
                                    edit.setObj(ListWarehouse.this);
-                                   
+
                                    edit.setValueEdit(
                                         listData.getData().getWarehouseNameEn(),
                                         listData.getData().getWarehouseNameKh()
                                    );
-                                   
+
                                    edit.setVisible(true);
                               } catch (Exception e) {
                                    System.err.println("error getting warehouse " + e);
                               }
-                              
+
                          }
-                         
+
                          @Override
                          public void onRemove(String Key) {  // event delete brand
                               try {
@@ -199,18 +205,18 @@ public class ListWarehouse extends javax.swing.JDialog {
                                    UI.put("OptionPane.background", WindowColor.mediumGreen);
                                    UI.put("Panel.background", WindowColor.mediumGreen);
                                    UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-                                   
+
                                    int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this warehouse?",
                                         "Delete Warehouse?", JOptionPane.YES_NO_OPTION);
-                                   
+
                                    if (resp == JOptionPane.YES_OPTION) {
                                         JSONObject json = new JSONObject();
                                         json.put("status", false);
                                         json.put("isDeleted", true);
                                         Response response = JavaConnection.delete(JavaRoute.warehouse + "/" + listData.getId(), json);
-                                        
+
                                         if (response.isSuccessful()) {
-                                            
+
                                              dataCount = dataCount - 1;
                                              int totalP = pageSize * Integer.valueOf(pageNumber);
                                              if (dataCount == totalP) {
@@ -218,72 +224,72 @@ public class ListWarehouse extends javax.swing.JDialog {
                                                   int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
                                                   pageNumber = String.valueOf(_value);
                                              }
-                                             
+
                                              listGetWarehouse.removeAll();
                                              listGetWarehouse.revalidate();
                                              listGetWarehouse.repaint();
-                                             getWarehouse(listGetWarehouse, true,pageNumber);
+                                             getWarehouse(listGetWarehouse, true, pageNumber);
                                              System.out.println("Successful deleted ");
                                         }
                                    } else {
                                         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
                                    }
-                                   
+
                               } catch (Exception e) {
                                    System.err.println("error getting Warehouse " + e);
                               }
                          }
                     };
-                    
+
                     b.initEvent(events);
                     b.setId(listData.getId());
                     b.setCategoryNameEn(listData.getWarehouseNameEn());
                     b.setCategoryNameKh(listData.getWarehouseNameKh());
-                    
+
                     paginationPanel.setVisible(true);
                     listGetWarehouse.add(b, gbc);
-               }               
+               }
           } else {
                NoDataAvaibalePanel no = new NoDataAvaibalePanel();
                listGetWarehouse.add(no);
                paginationPanel.setVisible(false);
           }
-          
+
           listGetWarehouse.revalidate();
           listGetWarehouse.repaint();
      }
 
      //Action Search
      private void eventSearchBrand() {
-        // this event was called when user type on searchTextField 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                 TimerTask task = new TimerTask() {
-                      @Override
-                      public void run() {
-                           searchValue = searchField.getValueTextSearch();
-                           paginationPanel.resetPage();
-                           pageNumber = "0";
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
 
-                           if (searchValue.isEmpty()) {
-                                isCheckSearch = true;
-                                pageNumber = "0";
-                                 getWarehouse(listGetWarehouse, true,pageNumber);
-                                return;
-                           }
-                           getWarehouse(listGetWarehouse, false,pageNumber);
-                      }
-                 };
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getWarehouse(listGetWarehouse, true, pageNumber);
+                                   return;
+                              }
+                              getWarehouse(listGetWarehouse, false, pageNumber);
+                         }
+                    };
 
-                 Timer timer = new Timer();
-                 timer.schedule(task, 500);
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
 
-            }
-        };
-        searchField.initEvent(event);
+               }
+          };
+          searchField.initEvent(event);
      }
-     
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -436,7 +442,7 @@ public class ListWarehouse extends javax.swing.JDialog {
          insert.setObj(this);
          insert.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
-     
+
      public static void main(String args[]) {
           /* Set the Nimbus look and feel */
           //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

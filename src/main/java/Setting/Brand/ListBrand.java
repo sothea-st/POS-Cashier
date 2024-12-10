@@ -14,6 +14,7 @@ import Model.Brand.DetailBrandModel;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -55,8 +56,15 @@ public class ListBrand extends javax.swing.JDialog {
           
           JavaConstant.addTitleAndLogo(this, "Brand");
           
+          
           eventSearchBrand();
           eventPagination();
+          
+          
+          // check permission
+          // permissionId: 19 is primary key id from table pos_permission
+          btnAdd.setVisible(JavaPermission.getPermissionDetail(19).getIsCreate());
+          
      }
      
      private void eventPagination() {
@@ -160,7 +168,7 @@ public class ListBrand extends javax.swing.JDialog {
                     
                     var listData = listBrand.get(i);
                     GetCategory b = new GetCategory();
-                    
+                    b.checkPermission("brand");
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit

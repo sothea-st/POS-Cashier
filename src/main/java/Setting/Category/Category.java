@@ -17,6 +17,7 @@ import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
 import Setting.Subcategory.InsertSubcategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -65,12 +66,25 @@ public class Category extends javax.swing.JDialog {
 
           if (codeType.equals("division")) {
                JavaConstant.addTitleAndLogo(this, "Division");
+               // check permission
+               // permissionId: 15 is primary key id from table pos_permission
+               System.err.println("division data : " + JavaPermission.getPermissionDetail(15).getIsCreate());
+               btnAdd.setVisible(JavaPermission.getPermissionDetail(15).getIsCreate());
           } else if (codeType.equals("category")) {
                JavaConstant.addTitleAndLogo(this, "Category");
+               // check permission
+               // permissionId: 17 is primary key id from table pos_permission
+               btnAdd.setVisible(JavaPermission.getPermissionDetail(17).getIsCreate());
           } else if (codeType.equals("department")) {
                JavaConstant.addTitleAndLogo(this, "Department");
+               // check permission
+               // permissionId: 16 is primary key id from table pos_permission
+               btnAdd.setVisible(JavaPermission.getPermissionDetail(16).getIsCreate());
           } else if (codeType.equals("subcategory")) {
                JavaConstant.addTitleAndLogo(this, "Sub Category");
+               // check permission
+               // permissionId: 18 is primary key id from table pos_permission
+               btnAdd.setVisible(JavaPermission.getPermissionDetail(18).getIsCreate());
           }
 
           eventSearchCategory(codeType);
@@ -115,7 +129,7 @@ public class Category extends javax.swing.JDialog {
 
                // code pagination
                this.pageNumber = pageNumber;
-              
+
                Response response = null;
                if (isCheck) { // isCheck true get items
                     response = JavaConnection.get(JavaRoute.getCategoryByCode + codeCategory + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
@@ -200,7 +214,7 @@ public class Category extends javax.swing.JDialog {
 
                     var listData = listCategory.get(i);
                     GetCategory category = new GetCategory();
-
+                    category.checkPermission(codeType);
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
@@ -216,7 +230,7 @@ public class Category extends javax.swing.JDialog {
                                         DetailCategoryModel listCategory = datas.getData();
                                         edit.setCategory(pCategory);
                                         edit.setJdLogin(jdLogin);
-                                        
+
                                         edit.setPageNumber(pageNumber);
 
                                         edit.setId(listCategory.getId());
@@ -241,7 +255,7 @@ public class Category extends javax.swing.JDialog {
                                         ObjectMapper objMap = new ObjectMapper();
                                         DetailCategorySuccessModel datas = objMap.readValue(responseData, DetailCategorySuccessModel.class);
                                         DetailCategoryModel listCategory = datas.getData();
-                                      
+
                                         edit.setPageNumber(pageNumber);
 
                                         edit.setId(listCategory.getId());
@@ -366,7 +380,7 @@ public class Category extends javax.swing.JDialog {
                                                             break;
                                                        }
                                                   }
-                                                  
+
                                                   // delete for pagination
                                                   dataCount = dataCount - 1;
                                                   int totalP = pageSize * Integer.parseInt(pageNumber);
@@ -375,7 +389,7 @@ public class Category extends javax.swing.JDialog {
                                                        int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
                                                        pageNumber = String.valueOf(_value);
                                                   }
-                                                  
+
                                                   // end delete for pagination
                                                   getCategory(listGetCategory, codeType, true, pageNumber);
 
@@ -456,18 +470,22 @@ public class Category extends javax.swing.JDialog {
                jLabel10.setText("Divison Name");
                jLabel8.setText("Divison Name (KH)");
                btnAdd.setButtonName("+ Add Division");
+
           } else if (code.equals("department")) {
                jLabel10.setText("Department Name");
                jLabel8.setText("Department Name (KH)");
                btnAdd.setButtonName("+ Add Department");
+
           } else if (code.equals("category")) {
                jLabel10.setText("Category Name");
                jLabel8.setText("Category Name (KH)");
                btnAdd.setButtonName("+ Add Category");
+
           } else if (code.equals("subcategory")) {
                jLabel10.setText("Sub Category Name");
                jLabel8.setText("Sub Category Name (KH)");
                btnAdd.setButtonName("+ Add Sub Category");
+
           }
      }
 

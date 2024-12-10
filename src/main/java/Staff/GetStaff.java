@@ -1,126 +1,130 @@
 package Staff;
 
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 
 public class GetStaff extends javax.swing.JPanel {
 
-    public GetStaff() {
-        initComponents();
-        lbId.setVisible(false);
-    }
-    
-    
-    private int id;
-    private String StaffName;
-    private String dateOfBirth;
-    private String contact;
-    private String gender;
-    private String address;
-    private String roleName;
-    private String startDate;
-    private Icon iconEdit;
-    private Icon iconDelete;
+     public GetStaff() {
+          initComponents();
+          lbId.setVisible(false);
 
-    public int getId() {
-        return id;
-    }
+          // check permission
+          // permissionId: 33 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(33).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(33).getIsDelete());
 
-    public void setId(int id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+     }
 
-    public String getStaffName() {
-        return StaffName;
-    }
+     private int id;
+     private String StaffName;
+     private String dateOfBirth;
+     private String contact;
+     private String gender;
+     private String address;
+     private String roleName;
+     private String startDate;
+     private Icon iconEdit;
+     private Icon iconDelete;
 
-    public void setStaffName(String StaffName) {
-        this.StaffName = StaffName;
-        lbName.setText(StaffName);
-    }
+     public int getId() {
+          return id;
+     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
+     public void setId(int id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-        lbDob.setText(dateOfBirth);
-    }
+     public String getStaffName() {
+          return StaffName;
+     }
 
-    public String getContact() {
-        return contact;
-    }
+     public void setStaffName(String StaffName) {
+          this.StaffName = StaffName;
+          lbName.setText(StaffName);
+     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
-        lbContact.setText(contact);
-    }
+     public String getDateOfBirth() {
+          return dateOfBirth;
+     }
 
-    public String getGender() {
-        return gender;
-    }
+     public void setDateOfBirth(String dateOfBirth) {
+          this.dateOfBirth = dateOfBirth;
+          lbDob.setText(dateOfBirth);
+     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-        lbGender.setText(gender);
-    }
+     public String getContact() {
+          return contact;
+     }
 
-    public String getAdress() {
-        return address;
-    }
+     public void setContact(String contact) {
+          this.contact = contact;
+          lbContact.setText(contact);
+     }
 
-    public void setAddress(String address) {
-        this.address = address;
-        lbAddress.setText(address);
-    }
+     public String getGender() {
+          return gender;
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public void setGender(String gender) {
+          this.gender = gender;
+          lbGender.setText(gender);
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public String getAdress() {
+          return address;
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public void setAddress(String address) {
+          this.address = address;
+          lbAddress.setText(address);
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public String getRoleName() {
-        return roleName;
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-        role.setText(roleName);
-    }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-    public String getStartDate() {
-        return startDate;
-    }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-        lbStartDate.setText(startDate);
-    }
-    
-    
-    
-    public void initEvent(ButtonEvent event) {
+     public String getRoleName() {
+          return roleName;
+     }
+
+     public void setRoleName(String roleName) {
+          this.roleName = roleName;
+          role.setText(roleName);
+     }
+
+     public String getStartDate() {
+          return startDate;
+     }
+
+     public void setStartDate(String startDate) {
+          this.startDate = startDate;
+          lbStartDate.setText(startDate);
+     }
+
+     public void initEvent(ButtonEvent event) {
           btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onSelect(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -139,11 +143,11 @@ public class GetStaff extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
+
           btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onRemove("" + id);
                }
 
                @Override
@@ -162,12 +166,10 @@ public class GetStaff extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
-     }
-    
-    
 
-    @SuppressWarnings("unchecked")
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

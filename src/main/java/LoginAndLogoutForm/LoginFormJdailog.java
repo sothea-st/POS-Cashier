@@ -449,7 +449,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                         dispose();
                         getBtnLogin().setButtonName("Logout");
-                        lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "            POS ID : " + JavaConstant.posId);
+                        lbPOSId.setText(JavaConstant.fullName.toUpperCase() + " , " + " USER ID : " + JavaConstant.userCode + "   POS ID : " + JavaConstant.posId);
 
                         //         ==== event on profile image for change password ====
                         //Icon icon = new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "UserIcon.png"));
@@ -490,8 +490,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         eventSelectBrand();
                         // end brand
 
-                        txtUserId.setValueTextField(null);
-                        txtPassword.setValueTextField(null);
+                        txtUserId.setText(null);
+                        txtPassword.setText(null);
 
                         if (JavaConstant.checkOpenShift) {
                              textField.setFocus();
@@ -501,6 +501,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                         JavaConstant.restoreDefaultCursor(mainFrame);
 
+                        
+                        
                    } else {
                         JavaConstant.restoreDefaultCursor(mainFrame);
                         JOptionPane.showMessageDialog(this, "Wrong user code or password!");

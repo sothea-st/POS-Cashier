@@ -2,6 +2,7 @@ package Setting.Country;
 
 import Constant.JavaConstant;
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -19,6 +20,12 @@ public class GetCountry extends javax.swing.JPanel {
      public GetCountry() {
           initComponents();
           lbId.setVisible(false);
+
+          // check permission
+          // permissionId: 23 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(23).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(23).getIsDelete());
+
      }
 
      public Integer getId() {

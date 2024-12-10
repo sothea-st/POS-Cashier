@@ -1,5 +1,7 @@
 package Staff;
 
+import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import feature.user_permission.JavaPermission;
 import feature.user_permission.UserPermissionForm;
 import javax.swing.JFrame;
 
@@ -12,8 +14,55 @@ public class Staff extends javax.swing.JDialog {
           setResizable(false);
           
 //          btnUserPermission.setVisible(false);
+
+               //checkPermission();
+               checkPermission();
      }
 
+     
+       private void checkPermission() {
+
+          boolean isStaffInformation = false;
+          boolean isUserLogin = false;
+          boolean isUserPermission = false;
+ 
+
+          // parentId : 8 is primary key id from the table pos_permission
+          for (RoleHasPermissionModel.RoleHasPermissionDetail data : JavaPermission.getPermissions(8)) {
+
+               // Check each permission and set the corresponding flag
+               String permissionName = data.getPermissionName().toLowerCase();
+
+               switch (permissionName) {
+                    case "staff information":
+                         isStaffInformation = data.getIsVisible();
+                         break;
+
+                    case "user login":
+                         isUserLogin = data.getIsVisible();
+                         break;
+
+                    case "user permission":
+                         isUserPermission = data.getIsVisible();
+                         break;
+
+                   
+                    default:
+                         System.err.println("Unknown permission: " + data.getPermissionName());
+                         break;
+               }
+
+          }
+
+          // Set visibility for UI components
+          btnStaffInfo.setVisible(isStaffInformation);
+          btnUserlogin.setVisible(isUserLogin);
+          btnUserPermission.setVisible(isUserPermission);
+ 
+           
+
+     }
+     
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {

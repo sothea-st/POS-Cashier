@@ -14,6 +14,7 @@ import Model.Status.ListStatusModel;
 import Model.Status.StatusModel;
 import Setting.Category.NoDataAvaibalePanel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -32,215 +33,216 @@ import org.json.JSONObject;
 
 public class ListStatus extends javax.swing.JDialog {
 
-    String searchValue;
-    private String pageNumber = "0";
-    private int pageSize = 10;
-    private boolean isCheckSearch = true;
-    private int dataCount = 0;
-    private String pageType;
-    
-    public ListStatus(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        
-        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        
-        header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "Status");
+     String searchValue;
+     private String pageNumber = "0";
+     private int pageSize = 10;
+     private boolean isCheckSearch = true;
+     private int dataCount = 0;
+     private String pageType;
 
-        getStatus(listGetStatus,true,pageNumber);
-        eventSearchStatus();
-        eventPagination();
-        
-    }
-    
-    private void eventPagination() {
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onMouseClick(String value) {
-                 if (isCheckSearch) {
-                      int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                      pageNumber = String.valueOf(_value);
-                      getStatus(listGetStatus,true,pageNumber);
-                 }
-            }
-             
-            // for pagination
-            @Override
-            public void onMouseClick(String value, String pType) {
-                 pageType = pType;
-            }
-        };
-        paginationPanel.initEvent(event);
-    }
-    
-    public void getStatus(JPanel jpanelData, boolean isCheck, String pageNumber) {
-        try {
+     public ListStatus(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
 
-            Response response = null;
-            if (isCheck) { // isCheck true get items
-                 response = JavaConnection.get(JavaRoute.status + "?pageNumber=" + pageNumber + "&pageSize=10");
-            } else { // isCheck false search
-                 isCheckSearch = false;
-                 response = JavaConnection.get(JavaRoute.searchStatus + searchValue);
-            }
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                ListStatusModel data = objMap.readValue(responseData, ListStatusModel.class);
-                GetStatusModel[] listData = data.getData();
-                
-                if (isCheck) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-                } else {
-                    paginationPanel.resetPage(data.getCount());
-                }
-                
-                assignStatus(listData, jpanelData);
-            } else {
-                System.err.println("fail loading status");
-            }
-        } catch (Exception e) {
-            System.err.println("error getting status " + e);
-        }
-    }
-     
+          jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-    public void assignStatus(GetStatusModel[] listData, JPanel listGetStatus) {
-        ArrayList<StatusModel> status = new ArrayList<>();
-          
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            StatusModel getStat = new StatusModel(
+          header.setBackground(WindowColor.darkGreen);
+          JavaConstant.addTitleAndLogo(this, "Status");
+
+          getStatus(listGetStatus, true, pageNumber);
+          eventSearchStatus();
+          eventPagination();
+
+          // check permission
+          // permissionId: 25 is primary key id from table pos_permission
+          btnAdd.setVisible(JavaPermission.getPermissionDetail(25).getIsCreate());
+
+     }
+
+     private void eventPagination() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getStatus(listGetStatus, true, pageNumber);
+                    }
+               }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+          };
+          paginationPanel.initEvent(event);
+     }
+
+     public void getStatus(JPanel jpanelData, boolean isCheck, String pageNumber) {
+          try {
+
+               Response response = null;
+               if (isCheck) { // isCheck true get items
+                    response = JavaConnection.get(JavaRoute.status + "?pageNumber=" + pageNumber + "&pageSize=10");
+               } else { // isCheck false search
+                    isCheckSearch = false;
+                    response = JavaConnection.get(JavaRoute.searchStatus + searchValue);
+               }
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    ListStatusModel data = objMap.readValue(responseData, ListStatusModel.class);
+                    GetStatusModel[] listData = data.getData();
+
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize);
+                    } else {
+                         paginationPanel.resetPage(data.getCount());
+                    }
+
+                    assignStatus(listData, jpanelData);
+               } else {
+                    System.err.println("fail loading status");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting status " + e);
+          }
+     }
+
+     public void assignStatus(GetStatusModel[] listData, JPanel listGetStatus) {
+          ArrayList<StatusModel> status = new ArrayList<>();
+
+          for (int i = 0; i < listData.length; i++) {
+               var obj = listData[i];
+               StatusModel getStat = new StatusModel(
                     obj.getId(),
                     obj.getStatusName()
-            );
-            status.add(getStat);
-        }
+               );
+               status.add(getStat);
+          }
 
-        appendStatus(status, listGetStatus);
-    }
-    
-    private void reloadPanel() {
-        listGetStatus.removeAll();
-        listGetStatus.revalidate();
-        listGetStatus.repaint();
-    }
-    
-    void appendStatus(ArrayList<StatusModel> listStatus, JPanel listGetStatus) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          appendStatus(status, listGetStatus);
+     }
 
-        listGetStatus.setLayout(gridBagLayout);
-        reloadPanel();
-        
-        int x = 0;
-        int y = 0;
-        
-        if(listStatus.size() > 0){
-            for (int i = 0; i < listStatus.size(); i++) {
-                GridBagConstraints gbc = new GridBagConstraints();
-                gbc.gridx = x;
-                gbc.gridy = y;
-                gbc.gridwidth = 1;
-                gbc.anchor = gbc.NORTH;
-                x++;
-                if (x == 1) {
-                    x = 0;
-                    y++;
-                }
+     private void reloadPanel() {
+          listGetStatus.removeAll();
+          listGetStatus.revalidate();
+          listGetStatus.repaint();
+     }
 
-                var listData = listStatus.get(i);
-                
-                GetStatus b = new GetStatus();
-                ButtonEvent events = new ButtonEvent() {
-                    @Override
-                    public void onSelect(String Key) {  // event edit
-                        AddStatus edit = new AddStatus(new JFrame(), true);
-                        try {
-                            Response response = JavaConnection.get(JavaRoute.status + "/" + listData.getId());
-                            String responseData = response.body().string();
-                            ObjectMapper objMap = new ObjectMapper();
-                            DetailStatusModel data = objMap.readValue(responseData, DetailStatusModel.class);
-                            
-                            System.out.println("data : " + data);
+     void appendStatus(ArrayList<StatusModel> listStatus, JPanel listGetStatus) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-                            edit.setId(data.getId());
-                            edit.setListGetStatus(listGetStatus);
-                            edit.setPageNumber(pageNumber);
+          listGetStatus.setLayout(gridBagLayout);
+          reloadPanel();
 
-                            edit.setValueEdit(
-                                data.getStatusName()
-                            );
+          int x = 0;
+          int y = 0;
 
-                            edit.setVisible(true);
-                        } catch (Exception e) {
-                             System.err.println("error getting status " + e);
-                        }
+          if (listStatus.size() > 0) {
+               for (int i = 0; i < listStatus.size(); i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
                     }
-                    
-                    
-                    @Override
-                    public void onRemove(String Key) {  // event delete status
-                        try {
-                            UIManager UI = new UIManager();
-                            UI.put("OptionPane.background", WindowColor.mediumGreen);
-                            UI.put("Panel.background", WindowColor.mediumGreen);
-                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this status?",
-                                    "Delete Status?", JOptionPane.YES_NO_OPTION);
+                    var listData = listStatus.get(i);
 
-                            if (resp == JOptionPane.YES_OPTION) {
-                                JSONObject json = new JSONObject();
-                                json.put("status", false);
-                                json.put("isDeleted", true);
-                                Response response = JavaConnection.delete(JavaRoute.status + "/" + listData.getId(), json);
+                    GetStatus b = new GetStatus();
+                    ButtonEvent events = new ButtonEvent() {
+                         @Override
+                         public void onSelect(String Key) {  // event edit
+                              AddStatus edit = new AddStatus(new JFrame(), true);
+                              try {
+                                   Response response = JavaConnection.get(JavaRoute.status + "/" + listData.getId());
+                                   String responseData = response.body().string();
+                                   ObjectMapper objMap = new ObjectMapper();
+                                   DetailStatusModel data = objMap.readValue(responseData, DetailStatusModel.class);
 
-                                if (response.isSuccessful()) {
-                                    
-                                    dataCount = dataCount - 1;
-                                    int totalP = pageSize * Integer.valueOf(pageNumber);
-                                    if (dataCount == totalP) {
-                                         paginationPanel.resetPage(pageType, pageNumber);
-                                         int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
-                                         pageNumber = String.valueOf(_value);
-                                    }
-                                    
-                                    listGetStatus.removeAll();
-                                    listGetStatus.revalidate();
-                                    listGetStatus.repaint();
-                                    getStatus(listGetStatus,true,pageNumber);
-                                    System.out.println("Successful deleted ");
-                                }
-                            } else {
-                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                            }
+                                   System.out.println("data : " + data);
 
-                        } catch (Exception e) {
-                            System.err.println("error getting status " + e);
-                        }
-                    }
-                };
+                                   edit.setId(data.getId());
+                                   edit.setListGetStatus(listGetStatus);
+                                   edit.setPageNumber(pageNumber);
 
-                b.initEvent(events);
-                
-                b.setId(listData.getId());
-                b.setStatusName(listData.getStatusName());
-                
+                                   edit.setValueEdit(
+                                        data.getStatusName()
+                                   );
+
+                                   edit.setVisible(true);
+                              } catch (Exception e) {
+                                   System.err.println("error getting status " + e);
+                              }
+                         }
+
+                         @Override
+                         public void onRemove(String Key) {  // event delete status
+                              try {
+                                   UIManager UI = new UIManager();
+                                   UI.put("OptionPane.background", WindowColor.mediumGreen);
+                                   UI.put("Panel.background", WindowColor.mediumGreen);
+                                   UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this status?",
+                                        "Delete Status?", JOptionPane.YES_NO_OPTION);
+
+                                   if (resp == JOptionPane.YES_OPTION) {
+                                        JSONObject json = new JSONObject();
+                                        json.put("status", false);
+                                        json.put("isDeleted", true);
+                                        Response response = JavaConnection.delete(JavaRoute.status + "/" + listData.getId(), json);
+
+                                        if (response.isSuccessful()) {
+
+                                             dataCount = dataCount - 1;
+                                             int totalP = pageSize * Integer.valueOf(pageNumber);
+                                             if (dataCount == totalP) {
+                                                  paginationPanel.resetPage(pageType, pageNumber);
+                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                                  pageNumber = String.valueOf(_value);
+                                             }
+
+                                             listGetStatus.removeAll();
+                                             listGetStatus.revalidate();
+                                             listGetStatus.repaint();
+                                             getStatus(listGetStatus, true, pageNumber);
+                                             System.out.println("Successful deleted ");
+                                        }
+                                   } else {
+                                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                                   }
+
+                              } catch (Exception e) {
+                                   System.err.println("error getting status " + e);
+                              }
+                         }
+                    };
+
+                    b.initEvent(events);
+
+                    b.setId(listData.getId());
+                    b.setStatusName(listData.getStatusName());
 
 //                try {
 //
@@ -259,53 +261,52 @@ public class ListStatus extends javax.swing.JDialog {
 //                } catch (Exception e) {
 //                    System.err.println("error read image = " + e);
 //                }
+                    paginationPanel.setVisible(true);
+                    listGetStatus.add(b, gbc);
+               }
+          } else {
+               NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+               listGetStatus.add(no);
+               paginationPanel.setVisible(false);
+          }
 
-                paginationPanel.setVisible(true);
-                listGetStatus.add(b, gbc);
-            }  
-        }else{
-            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-            listGetStatus.add(no);
-            paginationPanel.setVisible(false);
-        }
-        
-        listGetStatus.revalidate();
-        listGetStatus.repaint();
-    }
-    
-    //Action Search
-    private void eventSearchStatus() {
-        
-        // this event was called when user type on searchTextField 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                 TimerTask task = new TimerTask() {
-                      @Override
-                      public void run() {
-                           searchValue = searchField.getValueTextSearch();
-                           paginationPanel.resetPage();
-                           pageNumber = "0";
+          listGetStatus.revalidate();
+          listGetStatus.repaint();
+     }
 
-                           if (searchValue.isEmpty()) {
-                                isCheckSearch = true;
-                                pageNumber = "0";
-                                getStatus(listGetStatus,true,pageNumber);
-                                return;
-                           }
-                           getStatus(listGetStatus,false,pageNumber);
-                      }
-                 };
+     //Action Search
+     private void eventSearchStatus() {
 
-                 Timer timer = new Timer();
-                 timer.schedule(task, 500);
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
 
-            }
-        };
-        searchField.initEvent(event);
-    }
-    
-    @SuppressWarnings("unchecked")
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   getStatus(listGetStatus, true, pageNumber);
+                                   return;
+                              }
+                              getStatus(listGetStatus, false, pageNumber);
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+
+               }
+          };
+          searchField.initEvent(event);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -440,55 +441,55 @@ public class ListStatus extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-        dispose();
+         dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-       AddStatus add = new AddStatus(new JFrame(),true);
-       add.setPageNumber(pageNumber);
-       add.setListGetStatus(listGetStatus);
-       add.setObj(this);
-       add.setVisible(true);
+         AddStatus add = new AddStatus(new JFrame(), true);
+         add.setPageNumber(pageNumber);
+         add.setListGetStatus(listGetStatus);
+         add.setObj(this);
+         add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ListStatus dialog = new ListStatus(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ListStatus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ListStatus dialog = new ListStatus(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnAdd;

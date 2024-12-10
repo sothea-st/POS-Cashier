@@ -1,96 +1,80 @@
 package Setting.Tax;
 
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 
 public class GetTax extends javax.swing.JPanel {
 
-    private Integer id;
-    private String taxName;
-    private String taxRate;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    
-    public GetTax() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     private Integer id;
+     private String taxName;
+     private String taxRate;
+     private Icon iconEdit;
+     private Icon iconDelete;
 
-    public Integer getId() {
-        return id;
-    }
+     public GetTax() {
+          initComponents();
+          lbId.setVisible(false);
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+          // check permission
+          // permissionId: 24 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(24).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(24).getIsUpdate());
 
-    public String getTaxName() {
-        return taxName;
-    }
+     }
 
-    public void setTaxName(String taxName) {
-        this.taxName = taxName;
-        lbTaxName.setText(taxName);
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public String getTaxRate() {
-        return taxRate;
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public void setTaxRate(String taxRate) {
-        this.taxRate = taxRate;
-        lbTaxRate.setText(taxRate);
-    }
+     public String getTaxName() {
+          return taxName;
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public void setTaxName(String taxName) {
+          this.taxName = taxName;
+          lbTaxName.setText(taxName);
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public String getTaxRate() {
+          return taxRate;
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public void setTaxRate(String taxRate) {
+          this.taxRate = taxRate;
+          lbTaxRate.setText(taxRate);
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
-    
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -108,11 +92,34 @@ public class GetTax extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

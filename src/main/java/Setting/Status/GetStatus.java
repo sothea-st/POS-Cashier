@@ -1,86 +1,69 @@
 package Setting.Status;
 
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 
 public class GetStatus extends javax.swing.JPanel {
 
-    private Integer id;
-    private String statusName;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    
-    public GetStatus() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     private Integer id;
+     private String statusName;
+     private Icon iconEdit;
+     private Icon iconDelete;
 
-    public Integer getId() {
-        return id;
-    }
+     public GetStatus() {
+          initComponents();
+          lbId.setVisible(false);
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+          // check permission
+          // permissionId: 25 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(25).getIsUpdate());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(25).getIsUpdate());
+     }
 
-    public String getStatusName() {
-        return statusName;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-        lbStatusName.setText(statusName);
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public String getStatusName() {
+          return statusName;
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public void setStatusName(String statusName) {
+          this.statusName = statusName;
+          lbStatusName.setText(statusName);
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -98,11 +81,34 @@ public class GetStatus extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
-    
-    @SuppressWarnings("unchecked")
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

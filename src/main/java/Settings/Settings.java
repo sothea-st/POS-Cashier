@@ -1,11 +1,8 @@
 package Settings;
 
-import Constant.JavaConnection;
 import Constant.JavaConstant;
-import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
-import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import LoginAndLogoutForm.model.RoleHasPermissionModel.RoleHasPermissionDetail;
 import Setting.Attribute.ListAttribute;
 import Setting.Brand.ListBrand;
@@ -18,17 +15,13 @@ import Setting.Tax.ListTax;
 import Setting.Uom.listUom;
 import Setting.Vendor.ListVendor;
 import Setting.Warehouse.ListWarehouse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import lombok.Getter;
 import lombok.Setter;
-import okhttp3.Response;
 
 @Setter
 @Getter
@@ -60,6 +53,8 @@ public class Settings extends javax.swing.JDialog {
           checkPermission();
 
      }
+
+  
 
      private void checkPermission() {
 
@@ -164,244 +159,228 @@ public class Settings extends javax.swing.JDialog {
           range.setVisible(isRange);
           slot.setVisible(isSlot);
 
-          // Debug log for verification
-          System.out.println("Permissions set successfully:");
-          System.out.println("Division: " + isDivision);
-          System.out.println("Department: " + isDepartment);
-          System.out.println("Category: " + isCategory);
-          System.out.println("SubCategory: " + isSubCategory);
-          System.out.println("Brand: " + isBrand);
-          System.out.println("Vendor: " + isVendor);
-          System.out.println("Attribute: " + isAttribute);
-          System.out.println("UoM: " + isUom);
-          System.out.println("Country: " + isCountry);
-          System.out.println("Tax: " + isTax);
-          System.out.println("Status: " + isStatus);
-          System.out.println("Warehouse: " + isWarehouse);
-          System.out.println("Range: " + isRange);
-          System.out.println("Slot: " + isSlot);
      }
 
      @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jPanel2 = new javax.swing.JPanel();
-        division = new Components.SettingBox();
-        department = new Components.SettingBox();
-        category = new Components.SettingBox();
-        subCategory = new Components.SettingBox();
-        brand = new Components.SettingBox();
-        vendor = new Components.SettingBox();
-        attribute = new Components.SettingBox();
-        uom = new Components.SettingBox();
-        country = new Components.SettingBox();
-        tax = new Components.SettingBox();
-        status = new Components.SettingBox();
-        warehouse = new Components.SettingBox();
-        range = new Components.SettingBox();
-        slot = new Components.SettingBox();
+          jScrollPane1 = new javax.swing.JScrollPane();
+          panel = new javax.swing.JPanel();
+          division = new Components.SettingBox();
+          department = new Components.SettingBox();
+          category = new Components.SettingBox();
+          subCategory = new Components.SettingBox();
+          brand = new Components.SettingBox();
+          vendor = new Components.SettingBox();
+          attribute = new Components.SettingBox();
+          uom = new Components.SettingBox();
+          country = new Components.SettingBox();
+          tax = new Components.SettingBox();
+          status = new Components.SettingBox();
+          warehouse = new Components.SettingBox();
+          range = new Components.SettingBox();
+          slot = new Components.SettingBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jScrollPane1.setBorder(null);
+          jScrollPane1.setBorder(null);
 
-        division.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/division.png"))); // NOI18N
-        division.setTitle("Division");
-        division.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                divisionMouseClicked(evt);
-            }
-        });
+          division.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/division.png"))); // NOI18N
+          division.setTitle("Division");
+          division.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    divisionMouseClicked(evt);
+               }
+          });
 
-        department.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/department.png"))); // NOI18N
-        department.setTitle("Department");
-        department.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                departmentMouseClicked(evt);
-            }
-        });
+          department.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/department.png"))); // NOI18N
+          department.setTitle("Department");
+          department.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    departmentMouseClicked(evt);
+               }
+          });
 
-        category.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/Category.png"))); // NOI18N
-        category.setTitle("Category");
-        category.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                categoryMouseClicked(evt);
-            }
-        });
+          category.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/Category.png"))); // NOI18N
+          category.setTitle("Category");
+          category.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    categoryMouseClicked(evt);
+               }
+          });
 
-        subCategory.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/sub_category.png"))); // NOI18N
-        subCategory.setTitle("Sub Category");
-        subCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                subCategoryMouseClicked(evt);
-            }
-        });
+          subCategory.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/sub_category.png"))); // NOI18N
+          subCategory.setTitle("Sub Category");
+          subCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    subCategoryMouseClicked(evt);
+               }
+          });
 
-        brand.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/brand.png"))); // NOI18N
-        brand.setTitle("Brand");
-        brand.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                brandMouseClicked(evt);
-            }
-        });
+          brand.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/brand.png"))); // NOI18N
+          brand.setTitle("Brand");
+          brand.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    brandMouseClicked(evt);
+               }
+          });
 
-        vendor.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/vendor.png"))); // NOI18N
-        vendor.setTitle("Vendor");
-        vendor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                vendorMouseClicked(evt);
-            }
-        });
+          vendor.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/vendor.png"))); // NOI18N
+          vendor.setTitle("Vendor");
+          vendor.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    vendorMouseClicked(evt);
+               }
+          });
 
-        attribute.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/attribute.png"))); // NOI18N
-        attribute.setTitle("Attribute");
-        attribute.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                attributeMouseClicked(evt);
-            }
-        });
+          attribute.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/attribute.png"))); // NOI18N
+          attribute.setTitle("Attribute");
+          attribute.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    attributeMouseClicked(evt);
+               }
+          });
 
-        uom.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/measure.png"))); // NOI18N
-        uom.setTitle("UoM");
-        uom.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                uomMouseClicked(evt);
-            }
-        });
+          uom.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/measure.png"))); // NOI18N
+          uom.setTitle("UoM");
+          uom.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    uomMouseClicked(evt);
+               }
+          });
 
-        country.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/countries.png"))); // NOI18N
-        country.setTitle("Country");
-        country.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                countryMouseClicked(evt);
-            }
-        });
+          country.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/countries.png"))); // NOI18N
+          country.setTitle("Country");
+          country.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    countryMouseClicked(evt);
+               }
+          });
 
-        tax.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/taxes.png"))); // NOI18N
-        tax.setTitle("TAX");
-        tax.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                taxMouseClicked(evt);
-            }
-        });
+          tax.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/taxes.png"))); // NOI18N
+          tax.setTitle("TAX");
+          tax.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    taxMouseClicked(evt);
+               }
+          });
 
-        status.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/status.png"))); // NOI18N
-        status.setTitle("Status");
-        status.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                statusMouseClicked(evt);
-            }
-        });
+          status.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/status.png"))); // NOI18N
+          status.setTitle("Status");
+          status.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    statusMouseClicked(evt);
+               }
+          });
 
-        warehouse.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/warehouse.png"))); // NOI18N
-        warehouse.setTitle("Warehouse");
-        warehouse.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                warehouseMouseClicked(evt);
-            }
-        });
+          warehouse.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/warehouse.png"))); // NOI18N
+          warehouse.setTitle("Warehouse");
+          warehouse.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    warehouseMouseClicked(evt);
+               }
+          });
 
-        range.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/range.png"))); // NOI18N
-        range.setTitle("Range");
-        range.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rangeMouseClicked(evt);
-            }
-        });
+          range.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/range.png"))); // NOI18N
+          range.setTitle("Range");
+          range.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    rangeMouseClicked(evt);
+               }
+          });
 
-        slot.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/slot.png"))); // NOI18N
-        slot.setTitle("Slot");
-        slot.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                slotMouseClicked(evt);
-            }
-        });
+          slot.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/slot.png"))); // NOI18N
+          slot.setTitle("Slot");
+          slot.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    slotMouseClicked(evt);
+               }
+          });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(slot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(warehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(department, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(subCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(attribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(uom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(subCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(department, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(attribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(uom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(warehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(slot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+          panel.setLayout(panelLayout);
+          panelLayout.setHorizontalGroup(
+               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelLayout.createSequentialGroup()
+                    .addGap(18, 18, 18)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelLayout.createSequentialGroup()
+                              .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(slot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelLayout.createSequentialGroup()
+                              .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(warehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelLayout.createSequentialGroup()
+                              .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(department, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(subCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelLayout.createSequentialGroup()
+                              .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(vendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(attribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(uom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(18, Short.MAX_VALUE))
+          );
+          panelLayout.setVerticalGroup(
+               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelLayout.createSequentialGroup()
+                    .addGap(15, 15, 15)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(subCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(department, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(division, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(brand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(vendor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(attribute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(uom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(tax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(country, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(warehouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(range, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(slot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(15, Short.MAX_VALUE))
+          );
 
-        jScrollPane1.setViewportView(jPanel2);
+          jScrollPane1.setViewportView(panel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+          getContentPane().setLayout(layout);
+          layout.setHorizontalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(layout.createSequentialGroup()
+                    .addComponent(jScrollPane1)
+                    .addGap(0, 0, 0))
+          );
+          layout.setVerticalGroup(
+               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+          );
 
-        pack();
-        setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+          pack();
+          setLocationRelativeTo(null);
+     }// </editor-fold>//GEN-END:initComponents
 
     private void divisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divisionMouseClicked
 
@@ -545,22 +524,22 @@ public class Settings extends javax.swing.JDialog {
           });
      }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Components.SettingBox attribute;
-    private Components.SettingBox brand;
-    private Components.SettingBox category;
-    private Components.SettingBox country;
-    private Components.SettingBox department;
-    private Components.SettingBox division;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private Components.SettingBox range;
-    private Components.SettingBox slot;
-    private Components.SettingBox status;
-    private Components.SettingBox subCategory;
-    private Components.SettingBox tax;
-    private Components.SettingBox uom;
-    private Components.SettingBox vendor;
-    private Components.SettingBox warehouse;
-    // End of variables declaration//GEN-END:variables
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private Components.SettingBox attribute;
+     private Components.SettingBox brand;
+     private Components.SettingBox category;
+     private Components.SettingBox country;
+     private Components.SettingBox department;
+     private Components.SettingBox division;
+     private javax.swing.JScrollPane jScrollPane1;
+     private javax.swing.JPanel panel;
+     private Components.SettingBox range;
+     private Components.SettingBox slot;
+     private Components.SettingBox status;
+     private Components.SettingBox subCategory;
+     private Components.SettingBox tax;
+     private Components.SettingBox uom;
+     private Components.SettingBox vendor;
+     private Components.SettingBox warehouse;
+     // End of variables declaration//GEN-END:variables
 }

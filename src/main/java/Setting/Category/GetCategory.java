@@ -2,6 +2,7 @@ package Setting.Category;
 
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -9,16 +10,21 @@ import javax.swing.JLabel;
 
 public class GetCategory extends javax.swing.JPanel {
 
-    private Integer id;
-    private String categoryNameKh;
-    private String categoryNameEn;
-    private Icon iconEdit;
-    private Icon iconDelete;
-    
-    public GetCategory() {
-        initComponents();
-        lbId.setVisible(false);
-    }
+     private Integer id;
+     private String categoryNameKh;
+     private String categoryNameEn;
+     private Icon iconEdit;
+     private Icon iconDelete;
+
+     public GetCategory() {
+          initComponents();
+          lbId.setVisible(false);
+
+          // check permission
+          // permissionId: 26 is primary key id from table pos_permission
+//          btnEdit.setVisible(JavaPermission.getPermissionDetail(26).getIsUpdate());
+//          btnDelete.setVisible(JavaPermission.getPermissionDetail(26).getIsUpdate());
+     }
 
      public JLabel getLbId() {
           return lbId;
@@ -28,85 +34,98 @@ public class GetCategory extends javax.swing.JPanel {
           this.lbId = lbId;
      }
 
-    
-    
-    public Integer getId() {
-        return id;
-    }
+     public Integer getId() {
+          return id;
+     }
 
-    public void setId(Integer id) {
-        this.id = id;
-        lbId.setText(""+id);
-    }
+     public void setId(Integer id) {
+          this.id = id;
+          lbId.setText("" + id);
+     }
 
-    public String getCategoryNameKh() {
-        return categoryNameKh;
-    }
+     public String getCategoryNameKh() {
+          return categoryNameKh;
+     }
 
-    public void setCategoryNameKh(String categoryNameKh) {
-        this.categoryNameKh = categoryNameKh;
-        lbCategoryKh.setText(categoryNameKh);
-        lbCategoryKh.setFont(WindowFonts.khmerOsContent12);
-        
-    }
+     public void setCategoryNameKh(String categoryNameKh) {
+          this.categoryNameKh = categoryNameKh;
+          lbCategoryKh.setText(categoryNameKh);
+          lbCategoryKh.setFont(WindowFonts.khmerOsContent12);
 
-    public String getCategoryNameEn() {
-        return categoryNameEn;
-    }
+     }
 
-    public void setCategoryNameEn(String categoryNameEn) {
-        this.categoryNameEn = categoryNameEn;
-        lbCategoryEn.setText(categoryNameEn);
-    }
+     public String getCategoryNameEn() {
+          return categoryNameEn;
+     }
 
-    public Icon getIconEdit() {
-        return iconEdit;
-    }
+     public void setCategoryNameEn(String categoryNameEn) {
+          this.categoryNameEn = categoryNameEn;
+          lbCategoryEn.setText(categoryNameEn);
+     }
 
-    public void setIconEdit(Icon iconEdit) {
-        this.iconEdit = iconEdit;
-        btnEdit.setIcon(iconEdit);
-    }
+     public Icon getIconEdit() {
+          return iconEdit;
+     }
 
-    public Icon getIconDelete() {
-        return iconDelete;
-    }
+     public void setIconEdit(Icon iconEdit) {
+          this.iconEdit = iconEdit;
+          btnEdit.setIcon(iconEdit);
+     }
 
-    public void setIconDelete(Icon iconDelete) {
-        this.iconDelete = iconDelete;
-        btnDelete.setIcon(iconDelete);
-    }
-    
-    
-    
-    public void initEvent(ButtonEvent event) {
-        btnEdit.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                event.onSelect("" + id);
-            }
+     public Icon getIconDelete() {
+          return iconDelete;
+     }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-            }
+     public void setIconDelete(Icon iconDelete) {
+          this.iconDelete = iconDelete;
+          btnDelete.setIcon(iconDelete);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-            }
+     public void checkPermission(String code) {
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            }
+          // check permission 
+          // permissionId : 15,16,17,18,19,21,26 is primary key id from table pos_permission
+          if (code.equals("division")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(15).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(15).getIsDelete());
+          }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            }
-        });
-        
-        btnDelete.addMouseListener(new MouseListener() {
+          if (code.equals("department")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(16).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(16).getIsDelete());
+          }
+
+          if (code.equals("category")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(17).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(17).getIsDelete());
+          }
+
+          if (code.equals("subcategory")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(18).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(18).getIsDelete());
+          }
+
+          if (code.equals("brand")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(19).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(19).getIsDelete());
+          }
+
+          if (code.equals("attribute")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(21).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(21).getIsDelete());
+          }
+
+          if (code.equals("warehouse")) {
+               btnEdit.setVisible(JavaPermission.getPermissionDetail(26).getIsUpdate());
+               btnDelete.setVisible(JavaPermission.getPermissionDetail(26).getIsDelete());
+          }
+     }
+
+     public void initEvent(ButtonEvent event) {
+          btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onRemove(""+id);
+                    event.onSelect("" + id);
                }
 
                @Override
@@ -124,12 +143,34 @@ public class GetCategory extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
-        });
+          });
 
-    }
-    
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onRemove("" + id);
+               }
 
-    @SuppressWarnings("unchecked")
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
