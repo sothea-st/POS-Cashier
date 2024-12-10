@@ -173,15 +173,14 @@ public class ListStatus extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
+                             
+                              dispose();
                               AddStatus edit = new AddStatus(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.status + "/" + listData.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
                                    DetailStatusModel data = objMap.readValue(responseData, DetailStatusModel.class);
-
-                                   System.out.println("data : " + data);
-
                                    edit.setId(data.getId());
                                    edit.setListGetStatus(listGetStatus);
                                    edit.setPageNumber(pageNumber);
@@ -243,24 +242,6 @@ public class ListStatus extends javax.swing.JDialog {
 
                     b.setId(listData.getId());
                     b.setStatusName(listData.getStatusName());
-
-//                try {
-//
-//                    TimerTask task = new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            // Task to be executed
-//                            b.setIconEdit(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "Edit.png")));
-//                            b.setIconDelete(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "DeleteIcon.png")));
-//                        }
-//                    };
-//
-//                    Timer timer = new Timer();
-//                    timer.schedule(task, 500); // Delays task execution by 1 second
-//
-//                } catch (Exception e) {
-//                    System.err.println("error read image = " + e);
-//                }
                     paginationPanel.setVisible(true);
                     listGetStatus.add(b, gbc);
                }
@@ -445,6 +426,7 @@ public class ListStatus extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+         dispose();
          AddStatus add = new AddStatus(new JFrame(), true);
          add.setPageNumber(pageNumber);
          add.setListGetStatus(listGetStatus);

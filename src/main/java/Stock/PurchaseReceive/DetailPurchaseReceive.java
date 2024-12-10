@@ -65,23 +65,23 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
           transactionNo.setLabelName(String.valueOf(p.getTransactionNo()));
           purchaseOrderNo.setLabelName(p.getPurchaseOrderNo());
           referenceNo.setLabelName(p.getReferenceNo());
-          transactionDate.setLabelName(p.getTransactionDate());
-          orderDate.setLabelName(p.getOrderDate());
+          transactionDate.setLabelName(JavaConstant.formatDate(p.getTransactionDate()));
+          orderDate.setLabelName(JavaConstant.formatDate(p.getOrderDate()));
           totalQty.setLabelName(String.valueOf(p.getTotalQty()));
           totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
           requestBy.setLabelName(p.getRequestBy().getName());
-          requestDate.setLabelName(p.getRequestBy().getDate());
+          requestDate.setLabelName(JavaConstant.formatDate(p.getRequestBy().getDate()));
 
           checkBy.setLabelName(p.getCheckedBy().getName());
 
           if (p.getCheckedBy().getDate() != null) {
-               checkDate.setLabelName(JavaConstant.formateDateDDMMYYYY(p.getCheckedBy().getDate()));
+               checkDate.setLabelName(JavaConstant.formatDate(p.getCheckedBy().getDate()));
           }
 
           approveBy.setLabelName(p.getApprovedBy().getName());
 
           if (p.getApprovedBy().getDate() != null) {
-               approveDate.setLabelName(JavaConstant.formateDateDDMMYYYY(p.getApprovedBy().getDate()));
+               approveDate.setLabelName(JavaConstant.formatDate(p.getApprovedBy().getDate()));
           }
           appendPurchaseReceive(p.getDetails());
           this.id = id;
@@ -190,6 +190,7 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
         buttonSave = new ButtonPackage.ButtonSave();
         lbApproveDate = new Components.Label();
         approveDate = new Components.Label();
+        btnCancel = new Button.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -359,6 +360,13 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
 
         approveDate.setLabelName("");
 
+        btnCancel.setButtonName("Close");
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -368,6 +376,8 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -503,7 +513,9 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                 .addGap(0, 0, 0)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -583,11 +595,17 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
                    dispose();
                    DetailPurchaseReceive.isAccept = false;
                    receive.getData(true, receive);
+                   receive.setVisible(true);
               }
          } catch (Exception e) {
               System.out.println("error : " + e);
          }
     }//GEN-LAST:event_buttonSaveMouseClicked
+
+    private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
+        dispose();
+        receive.setVisible(true);
+    }//GEN-LAST:event_btnCancelMouseClicked
 
      /**
       * @param args the command line
@@ -635,6 +653,7 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.Label approveBy;
     private Components.Label approveDate;
+    private Button.Button btnCancel;
     private ButtonPackage.ButtonSave buttonSave;
     private Components.Label checkBy;
     private Components.Label checkDate;

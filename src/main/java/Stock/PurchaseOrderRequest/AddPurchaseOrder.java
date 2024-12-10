@@ -467,6 +467,7 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                         //                   cmbVendorName.requestFocus();
                         dispose();
                         purchaseOrder.getListPurchase(jpanelData, true);
+                        purchaseOrder.setVisible(true);
 
                     }
                 } catch (Exception e) {

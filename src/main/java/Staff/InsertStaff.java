@@ -357,12 +357,15 @@ public class InsertStaff extends javax.swing.JDialog {
                    boolean isExist = JavaValidation.checkNameExistSecondFunction(response, fields);
 
                    if (response.isSuccessful() && isExist) {
+                       
+                        dispose();
                         StaffInformation list = new StaffInformation(new JFrame(), true);
+                        list.setVisible(true);
                         listGetStaff.removeAll();
                         listGetStaff.revalidate();
                         listGetStaff.repaint();
                         list.getStaff(listGetStaff, true, pageNumber);
-                        dispose();
+                        
                    }
 
               }

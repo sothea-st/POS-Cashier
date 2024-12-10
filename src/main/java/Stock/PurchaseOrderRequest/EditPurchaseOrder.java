@@ -564,13 +564,15 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
          JavaConstant.setCircleLoadingCursor(this);
          try {
               if (response.isSuccessful()) {
+                   dispose();
                    JavaConstant.restoreDefaultCursor(this);
                    PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
+                   purchase.setVisible(true);
                    listGetOrder.removeAll();
                    listGetOrder.revalidate();
                    listGetOrder.repaint();
                    purchase.getListPurchase(listGetOrder, true);
-                   dispose();
+                   
 
               }
          } catch (Exception e) {

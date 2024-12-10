@@ -311,6 +311,8 @@ public class ListProduct extends javax.swing.JDialog {
                     @Override
                     public void onSelectDetail(String id) {
                          try {
+                             
+                              dispose();
                               DetailProduct detail = new DetailProduct(new JFrame(), true, id);
 
                               detail.setDetailValue(
@@ -411,6 +413,8 @@ public class ListProduct extends javax.swing.JDialog {
                     ObjectMapper objectMapper = new ObjectMapper();
                     ProductResponseByIdV1 productResponseByIdV1 = objectMapper.readValue(responseData, ProductResponseByIdV1.class);
                     ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
+                    
+                    dispose();
                     InsertProduct insertProduct = new InsertProduct(new Frame(), true);
 
                     insertProduct.setId(data.getID());
@@ -842,7 +846,7 @@ public class ListProduct extends javax.swing.JDialog {
      }
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-
+         dispose();
          InsertProduct add = new InsertProduct(new JFrame(), true);
          add.setJdLogin(jdLogin);
          add.setPanelCategory(panelCategory);

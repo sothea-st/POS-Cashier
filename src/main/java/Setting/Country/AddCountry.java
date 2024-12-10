@@ -256,13 +256,13 @@ public class AddCountry extends javax.swing.JDialog {
 
                    try {
                         if (response.isSuccessful() && isExist) {
-
+                             dispose();
                              ListCountry list = new ListCountry(new JFrame(), true);
+                             list.setVisible(true);
                              listGetCountry.removeAll();
                              listGetCountry.revalidate();
                              listGetCountry.repaint();
                              list.getListCountry(listGetCountry, true, pageNumber);
-                             dispose();
                         }
 
                    } catch (Exception e) {

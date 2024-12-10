@@ -170,7 +170,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                     b.setVendorName(data.getVendorName());
                     b.setTransactionNo(data.getTransactionNo());
                     b.setReferenceNo(data.getReferenceNo());
-                    b.setTransactionDate(data.getTransactionDate());
+                    b.setTransactionDate(JavaConstant.formatDate(data.getTransactionDate()));
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
                     b.setTotalCost("$ " + String.format("%.2f", data.getTotalCost()));
                     b.setRemark(StringUtils.capitalize(data.getRemark()));
@@ -178,6 +178,8 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelectDetail(String Key) {  // event checked
+                             
+                              dispose();
                               DetailPurchaseOrderCheck detail = new DetailPurchaseOrderCheck(new JFrame(), true);
                               
                               try {

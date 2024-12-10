@@ -172,6 +172,8 @@ public class ListWarehouse extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
+                             
+                              dispose();
                               InsertWarehouse edit = new InsertWarehouse(new JFrame(), true);
 
                               try {
@@ -435,6 +437,7 @@ public class ListWarehouse extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+         dispose();
          InsertWarehouse insert = new InsertWarehouse(new JFrame(), true);
          insert.setListGetWarehouse(listGetWarehouse);
          insert.setPaginationPanel(paginationPanel);

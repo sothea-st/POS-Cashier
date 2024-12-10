@@ -6,6 +6,7 @@ import Constant.JavaRoute;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
@@ -185,10 +186,14 @@ public class InsertWarehouse extends javax.swing.JDialog {
 
                 try {
                     if (response.isSuccessful() && isExist) {
+                        
+                        dispose();
+                        ListWarehouse list = new ListWarehouse(new JFrame(), true);
+                        list.setVisible(true);
                         listGetWarehouse.removeAll();
                         listGetWarehouse.revalidate();
                         listGetWarehouse.repaint();
-                        obj.getWarehouse(listGetWarehouse, true, pageNumber);
+                        list.getWarehouse(listGetWarehouse, true, pageNumber);
                         dispose();
                     }
 

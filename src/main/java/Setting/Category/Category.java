@@ -219,6 +219,7 @@ public class Category extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
 
+                              dispose();
                               if (codeType.equals("division")) { // edit division
                                    InsertDivision edit = new InsertDivision(new JFrame(), true, codeType);
 
@@ -466,6 +467,7 @@ public class Category extends javax.swing.JDialog {
 
      public void setCode(String code) {
           this.code = code;
+          
           if (code.equals("division")) {
                jLabel10.setText("Divison Name");
                jLabel8.setText("Divison Name (KH)");
@@ -635,6 +637,7 @@ public class Category extends javax.swing.JDialog {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
 
+         dispose();
          if (code.equals("division")) {
               InsertDivision addDivision = new InsertDivision(new JFrame(), true, code);
               addDivision.setListGetCategory(listGetCategory);

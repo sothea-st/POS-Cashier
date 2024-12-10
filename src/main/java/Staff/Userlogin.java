@@ -10,7 +10,6 @@ import Model.Userlogin.UserDataModel;
 import Model.Userlogin.UserModel;
 import Model.Userlogin.UserSuccessModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feature.user_permission.JavaPermission;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -154,7 +153,7 @@ public class Userlogin extends javax.swing.JDialog {
             ButtonEvent events = new ButtonEvent() {
                 @Override
                 public void onSelect(String Key) {  // event edit
-
+                    dispose();
                     ChangeUserPassword edit = new ChangeUserPassword(new JFrame(), true);
                     //edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
                     edit.setEmId(listData.getEmId());

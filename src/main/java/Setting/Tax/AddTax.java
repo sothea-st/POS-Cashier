@@ -185,12 +185,13 @@ public class AddTax extends javax.swing.JDialog {
                 try {
                     if (response.isSuccessful() && isExist) {
 
+                        dispose();
                         ListTax list = new ListTax(new JFrame(), true);
+                        list.setVisible(true);
                         listGetTax.removeAll();
                         listGetTax.revalidate();
                         listGetTax.repaint();
                         list.getTax(listGetTax,true,pageNumber);
-                        dispose();
                     }
 
                 } catch (Exception e) {

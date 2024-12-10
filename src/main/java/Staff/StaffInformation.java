@@ -181,6 +181,7 @@ public class StaffInformation extends javax.swing.JDialog {
 
                     @Override
                     public void onSelect(String Key) {  // event edit
+                         dispose();
                          InsertStaff edit = new InsertStaff(new JFrame(), true);
 
                          try {
@@ -495,6 +496,7 @@ public class StaffInformation extends javax.swing.JDialog {
 
     private void btnAddStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddStaffMouseClicked
 
+         dispose();
          InsertStaff addStaff = new InsertStaff(new JFrame(), true);
          addStaff.setPageNumber(pageNumber);
          addStaff.setListGetStaff(listGetStaff);
