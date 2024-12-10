@@ -50,7 +50,9 @@ public class ExportProductFormatEXCEL {
                     "Status",
                     "Country",
                     "Tax",
-                    "Warehouse"
+                    "Warehouse",
+                    "Range",
+                    "Slot"
                },
                new String[]{
                     "8.85051E+12",
@@ -68,7 +70,9 @@ public class ExportProductFormatEXCEL {
                     "1 => Active",
                     "9 => USA",
                     "3 => VAT",
-                    "3 => Location 1"
+                    "3 => Location 1",
+                    "1 => Range 1",
+                    "1 => Slot 1"
                }
           );
 
@@ -159,6 +163,18 @@ public class ExportProductFormatEXCEL {
                String[] warehouses = listWarehouse.toArray(new String[0]); // convert list to an array
                //======== end warehouse ===========
 
+               //======== range ===========
+               List<String> listRanges = JavaExportHelper.getRanges().stream()
+                    .map(c -> c.getId() + " => " + c.getRangeNameEn()).toList();
+               String[] ranges = listRanges.toArray(new String[0]); // convert list to an array
+               //======== end range ===========
+
+               //======== range ===========
+               List<String> listSlots = JavaExportHelper.getslots().stream()
+                    .map(c -> c.getId() + " => " + c.getSlotNameEn()).toList();
+               String[] slots = listSlots.toArray(new String[0]); // convert list to an array
+               //======== end range ===========
+
                addDropdownList(sheet, vendorNames, 1, data.size(), 1);
                addDropdownList(sheet, brands, 1, data.size(), 2);
                addDropdownList(sheet, subCategories, 1, data.size(), 3);
@@ -169,6 +185,8 @@ public class ExportProductFormatEXCEL {
                addDropdownList(sheet, countries, 1, data.size(), 13);
                addDropdownList(sheet, taxes, 1, data.size(), 14);
                addDropdownList(sheet, warehouses, 1, data.size(), 15);
+               addDropdownList(sheet, ranges, 1, data.size(), 16);
+               addDropdownList(sheet, slots, 1, data.size(), 17);
 
                // Create folder
                try {

@@ -10,6 +10,10 @@ import Model.Category.CategoryGetdataModel;
 import Model.Category.CategorySuccessModel;
 import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
+import Model.Range.RangeModel;
+import Model.Range.RangeModel.RangeDetail;
+import Model.Slot.SlotModel;
+import Model.Slot.SlotModel.SlotDetail;
 import Model.Status.GetStatusModel;
 import Model.Status.ListStatusModel;
 import Model.Tax.DataTaxModel;
@@ -217,4 +221,47 @@ public class JavaExportHelper {
 
           return list;
      }
+
+     public static List<RangeDetail> getRanges() {
+          List<RangeDetail> list = new ArrayList<>();
+          Response respsone = JavaConnection.get(JavaRoute.range);
+
+          try {
+               String responseData = respsone.body().string();
+               ObjectMapper object = new ObjectMapper();
+
+               RangeModel model = object.readValue(responseData, RangeModel.class);
+
+               for (RangeDetail data : model.getData()) {
+                    list.add(data);
+               }
+
+          } catch (Exception e) {
+               System.err.println("error : " + e);
+          }
+
+          return list;
+     }
+
+     public static List<SlotDetail> getslots() {
+          List<SlotDetail> list = new ArrayList<>();
+          Response respsone = JavaConnection.get(JavaRoute.slot);
+
+          try {
+               String responseData = respsone.body().string();
+               ObjectMapper object = new ObjectMapper();
+
+               SlotModel model = object.readValue(responseData, SlotModel.class);
+
+               for (SlotDetail data : model.getData()) {
+                    list.add(data);
+               }
+
+          } catch (Exception e) {
+               System.err.println("error : " + e);
+          }
+
+          return list;
+     }
+
 }
