@@ -44,7 +44,6 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
-import lombok.Setter;
 import okhttp3.Response;
 import pdf.PrintListPDF;
 import pdf.PrintToCSV;

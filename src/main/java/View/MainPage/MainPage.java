@@ -549,7 +549,6 @@ public class MainPage extends javax.swing.JFrame {
           jScrollPane2.setViewportView(panelProduct);
 
           lbPOSId.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-          lbPOSId.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
           jScrollPaneDetail.setBorder(null);
 

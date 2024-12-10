@@ -138,7 +138,7 @@ public class Category extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.searchCategory + codeType + "/search/" + searchValue);
                }
 
-//               System.out.println("response dddddd : " + response);
+ 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();

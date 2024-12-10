@@ -1846,7 +1846,7 @@ public class PaymentOption extends javax.swing.JDialog {
                     }
                 }
 
-                // ===== print receipt
+                // ===== print receipt ========
                 Response responsePrint = JavaConnection.get(JavaRoute.reprintByLast);
                 if (response.isSuccessful()) {
                     try {
