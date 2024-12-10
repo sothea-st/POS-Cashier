@@ -122,7 +122,7 @@ public class ListRange extends javax.swing.JDialog {
             Range getRange = new Range(
                     obj.getId(),
                     obj.getRangeNameEn(),
-                    obj.getRangeNameEn(),
+                    obj.getRangeNameKh(),
                     obj.getWarehouse().getWarehouseNameEn()
             );
             range.add(getRange);
