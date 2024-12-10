@@ -3,11 +3,7 @@ package Model.Range;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- *
- * @author FRONT-END.06
- */
-
+ 
  @Setter
  @Getter
 public class Range {

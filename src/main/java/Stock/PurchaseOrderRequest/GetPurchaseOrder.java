@@ -7,6 +7,7 @@ import javax.swing.Icon;
 
 import Constant.JavaConstant;
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 
 public class GetPurchaseOrder extends javax.swing.JPanel {
 
@@ -28,6 +29,13 @@ public class GetPurchaseOrder extends javax.swing.JPanel {
           JavaConstant.setPointer(btnDelete);
           JavaConstant.setPointer(btnEdit);
           JavaConstant.setPointer(btnDetail);
+
+          // check permission
+          // permissonId: 12 is primary key id from table pos_permission
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(12).getIsUpdate());
+          btnDetail.setVisible(JavaPermission.getPermissionDetail(12).getIsView());
+          btnDelete.setVisible(JavaPermission.getPermissionDetail(12).getIsDelete());
+
      }
 
      public Integer getId() {

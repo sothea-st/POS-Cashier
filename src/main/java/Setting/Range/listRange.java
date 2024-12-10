@@ -91,7 +91,7 @@ public class ListRange extends javax.swing.JDialog {
                  response = JavaConnection.get(JavaRoute.range + "/search?search=" + searchValue);
             }
             
-            System.out.println("response : " + response);
+            //System.out.println("response : " + response);
 
             if (response.isSuccessful()) {
                 String responseData = response.body().string();
@@ -122,7 +122,7 @@ public class ListRange extends javax.swing.JDialog {
             Range getRange = new Range(
                     obj.getId(),
                     obj.getRangeNameEn(),
-                    obj.getRangeNameEn(),
+                    obj.getRangeNameKh(),
                     obj.getWarehouse().getWarehouseNameEn()
             );
             range.add(getRange);
@@ -177,7 +177,7 @@ public class ListRange extends javax.swing.JDialog {
                             ObjectMapper objMap = new ObjectMapper();
                             RangeDetailModel data = objMap.readValue(responseData, RangeDetailModel.class);
                             
-                            System.out.println("data : " + data);
+                            //System.out.println("data : " + data);
 
                             edit.setId(data.getData().getId());
                             edit.setListGetRange(listGetRange);
@@ -242,9 +242,11 @@ public class ListRange extends javax.swing.JDialog {
 
                 b.initEvent(events);
                 b.setId(listData.getId());
-                
+               
                 b.setRangeNameEn(listData.getRangeNameEn());
                 b.setRangeNameKh(listData.getRangeNameKh());
+                
+                
                 b.setWarehouseName(listData.getWarehouse());
                 paginationPanel.setVisible(true);
                 listGetRange.add(b, gbc);

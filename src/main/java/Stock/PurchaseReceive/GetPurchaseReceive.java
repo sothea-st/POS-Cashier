@@ -2,6 +2,7 @@ package Stock.PurchaseReceive;
 
 import Constant.JavaConstant;
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
@@ -26,6 +27,11 @@ public class GetPurchaseReceive extends javax.swing.JPanel {
 
           JavaConstant.setPointer(btnDetail);
           JavaConstant.setPointer(btnEdit);
+
+          // check permission
+          // permissonId: 10 is primary key id from table pos_permission
+          btnDetail.setVisible(JavaPermission.getPermissionDetail(10).getIsView());
+          btnEdit.setVisible(JavaPermission.getPermissionDetail(10).getIsUpdate());
 
      }
 

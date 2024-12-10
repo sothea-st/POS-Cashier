@@ -1107,24 +1107,20 @@ public class MainPage extends javax.swing.JFrame {
 
     private void buttonStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStaffMouseClicked
          if (JavaConstant.token != null) {
-//              if (JavaConstant.checkOpenShift) {
               JFrame j = new JFrame();
               j.setIconImage(null);
               Staff sta = new Staff(j, true);
               sta.setVisible(true);
-//              }
          }
     }//GEN-LAST:event_buttonStaffMouseClicked
 
     private void btnSettingsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSettingsMouseClicked
          if (JavaConstant.token != null) {
-//              if (JavaConstant.checkOpenShift) {
               Settings setting = new Settings(new JFrame(), true);
               setting.setPanelProduct(panelProduct);
               setting.setJdLogin(jdFormLogin);
               setting.setPCategory(category);
               setting.setVisible(true);
-//              }
          }
     }//GEN-LAST:event_btnSettingsMouseClicked
 

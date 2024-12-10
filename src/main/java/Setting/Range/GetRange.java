@@ -45,6 +45,7 @@ public class GetRange extends javax.swing.JPanel {
 
     public void setRangeNameKh(String rangeNameKh) {
         this.rangeNameKh = rangeNameKh;
+      
         lbRangeNameKh.setText(rangeNameKh);
         lbRangeNameKh.setFont(WindowFonts.khmerOsContent12);
     }
