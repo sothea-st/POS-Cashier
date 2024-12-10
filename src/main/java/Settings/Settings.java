@@ -1,8 +1,12 @@
 package Settings;
 
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.LoginFormJdailog;
+import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import LoginAndLogoutForm.model.RoleHasPermissionModel.RoleHasPermissionDetail;
 import Setting.Attribute.ListAttribute;
 import Setting.Brand.ListBrand;
 import Setting.Category.Category;
@@ -14,12 +18,17 @@ import Setting.Tax.ListTax;
 import Setting.Uom.listUom;
 import Setting.Vendor.ListVendor;
 import Setting.Warehouse.ListWarehouse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.user_permission.JavaPermission;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import lombok.Getter;
 import lombok.Setter;
+import okhttp3.Response;
 
 @Setter
 @Getter
@@ -33,7 +42,7 @@ public class Settings extends javax.swing.JDialog {
      public Settings(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
-          getImageAndTitle();
+
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -46,46 +55,131 @@ public class Settings extends javax.swing.JDialog {
           verticalScrollBar.setBlockIncrement(35);
 
           JavaConstant.addTitleAndLogo(this, "Settings");
+
+          // check permission
+          checkPermission();
+
      }
 
-     private void getImageAndTitle() {
-//          division.setTitle("Division");
-//          department.setTitle("Department");
-//          category.setTitle("Category");
-//          subCategory.setTitle("Sub Category");
-//          brand.setTitle("Brand");
-//          vendor.setTitle("Vendor");
-//          attribute.setTitle("Attribute");
-//          uom.setTitle("UOM");
-//          country.setTitle("Country");
-//          tax.setTitle("Tax");
-//          status.setTitle("Status");
+     private void checkPermission() {
 
-//          TimerTask task = new TimerTask() {
-//               @Override
-//               public void run() {
-//                    try {
-//                         // Task to be executed
-//                         division.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "division.png");
-//                         subCategory.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "sub_category.png");
-//                         brand.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "brand.png");
-//                         category.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "Category.png");
-//                         department.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "department.png");
-//                         vendor.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "vendor.png");
-//                         attribute.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "attribute.png");
-//                         uom.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "measure.png");
-//                         country.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "countries.png");
-//                         tax.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "taxes.png");
-//                         status.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + "db5e86b7-6cb4-4b3b-a148-da227bd048de");
-//
-//                    } catch (IOException ex) {
-//                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//               }
-//          };
-//
-//          Timer timer = new Timer();
-//          timer.schedule(task, 500); // Delays task execution by 1 second
+          boolean isDivision = false;
+          boolean isDepartment = false;
+          boolean isCategory = false;
+          boolean isSubCategory = false;
+          boolean isBrand = false;
+          boolean isVendor = false;
+          boolean isAttribute = false;
+          boolean isUom = false;
+          boolean isCountry = false;
+          boolean isTax = false;
+          boolean isStatus = false;
+          boolean isWarehouse = false;
+          boolean isRange = false;
+          boolean isSlot = false;
+
+          // parentId : 6 is primary key id from the table pos_permission
+          for (RoleHasPermissionDetail data : JavaPermission.getPermissions(6)) {
+
+               // Check each permission and set the corresponding flag
+               String permissionName = data.getPermissionName().toLowerCase();
+
+               switch (permissionName) {
+                    case "division":
+                         isDivision = data.getIsVisible();
+                         break;
+
+                    case "department":
+                         isDepartment = data.getIsVisible();
+                         break;
+
+                    case "category":
+                         isCategory = data.getIsVisible();
+                         break;
+
+                    case "sub category":
+                         isSubCategory = data.getIsVisible();
+                         break;
+
+                    case "brand":
+                         isBrand = data.getIsVisible();
+                         break;
+
+                    case "vendor":
+                         isVendor = data.getIsVisible();
+                         break;
+
+                    case "attribute":
+                         isAttribute = data.getIsVisible();
+                         break;
+
+                    case "uom":
+                         isUom = data.getIsVisible();
+                         break;
+
+                    case "country":
+                         isCountry = data.getIsVisible();
+                         break;
+
+                    case "tax":
+                         isTax = data.getIsVisible();
+                         break;
+
+                    case "status":
+                         isStatus = data.getIsVisible();
+                         break;
+
+                    case "warehouse":
+                         isWarehouse = data.getIsVisible();
+                         break;
+
+                    case "range":
+                         isRange = data.getIsVisible();
+                         break;
+
+                    case "slot":
+                         isSlot = data.getIsVisible();
+                         break;
+
+                    default:
+                         System.err.println("Unknown permission: " + data.getPermissionName());
+                         break;
+               }
+
+          }
+
+          // Set visibility for UI components
+          division.setVisible(isDivision);
+          department.setVisible(isDepartment);
+          category.setVisible(isCategory);
+          subCategory.setVisible(isSubCategory);
+          brand.setVisible(isBrand);
+          vendor.setVisible(isVendor);
+          attribute.setVisible(isAttribute);
+          uom.setVisible(isUom);
+          country.setVisible(isCountry);
+          tax.setVisible(isTax);
+          status.setVisible(isStatus);
+          warehouse.setVisible(isWarehouse);
+          range.setVisible(isRange);
+          slot.setVisible(isSlot);
+
+          // Debug log for verification
+          System.out.println("Permissions set successfully:");
+          System.out.println("Division: " + isDivision);
+          System.out.println("Department: " + isDepartment);
+          System.out.println("Category: " + isCategory);
+          System.out.println("SubCategory: " + isSubCategory);
+          System.out.println("Brand: " + isBrand);
+          System.out.println("Vendor: " + isVendor);
+          System.out.println("Attribute: " + isAttribute);
+          System.out.println("UoM: " + isUom);
+          System.out.println("Country: " + isCountry);
+          System.out.println("Tax: " + isTax);
+          System.out.println("Status: " + isStatus);
+          System.out.println("Warehouse: " + isWarehouse);
+          System.out.println("Range: " + isRange);
+          System.out.println("Slot: " + isSlot);
      }
 
      @SuppressWarnings("unchecked")

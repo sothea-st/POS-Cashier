@@ -1,14 +1,19 @@
 package Stock.PurchaseOrderView;
 
 
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
+import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Stock.PurchaseOrderRequest.PurchaseOrder;
 import Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import okhttp3.Response;
 
 public class PurchaseOrderView extends javax.swing.JDialog {
 
@@ -28,6 +33,61 @@ public class PurchaseOrderView extends javax.swing.JDialog {
 
           JavaConstant.addTitleAndLogo(this, "Purchase Order");
           getImageAndTitle();
+          
+          // checkPermission
+          checkPermission();
+     }
+     
+     
+     
+     private void checkPermission() {
+
+          // note: parentId = 11 from table pos_permission  
+          Response response = JavaConnection.get(JavaRoute.roleHasPermissions + "?roleId=" + JavaConstant.roleId + "&parentId=11");
+
+          try {
+               // convert response to string 
+               String responseData = response.body().string();
+
+               // create object mapper
+               ObjectMapper object = new ObjectMapper();
+
+               // convert responseData to objectMapper
+               RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
+
+                
+
+               boolean isRequest = false;
+               boolean isPOCheck = false;
+               boolean isPOApproval = false;
+
+               for (RoleHasPermissionModel.RoleHasPermissionDetail data : model.getData()) {
+
+                    if (data.getPermissionName().equals("Purchase Request")) {
+                         isRequest = data.getIsVisible();
+                         //JavaConstant.permissionDetail = data;
+                    }
+
+                    if (data.getPermissionName().equals("Purchase Check")) {
+                         isPOCheck = data.getIsVisible();
+                         //JavaConstant.permissionDetail = data;
+                    }
+
+                    if (data.getPermissionName().equals("Purchase Approval")) {
+                         isPOApproval = data.getIsVisible();
+                         //JavaConstant.permissionDetail = data;
+                    }
+
+               }
+
+               request.setVisible(isRequest);
+               check.setVisible(isPOCheck);
+               approve.setVisible(isPOApproval);
+
+          } catch (Exception e) {
+               System.err.println("error :" + e);
+          }
+
      }
 
      private void getImageAndTitle() {
@@ -36,22 +96,7 @@ public class PurchaseOrderView extends javax.swing.JDialog {
           check.setTitle("Purchase Check");
           approve.setTitle("Purchase Approval");
 
-//          TimerTask task = new TimerTask() {
-//               @Override
-//               public void run() {
-//                    try {
-//                         // Task to be executed
-//                         request.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/purchaseRequest.png");
-//                         check.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/purchaseCheck.png");
-//                         approve.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/purchaseApprove.png");
-//                    } catch (IOException ex) {
-//                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//               }
-//          };
-//
-//          Timer timer = new Timer();
-//          timer.schedule(task, 500); // Delays task execution by 1 second
+
      }
 
      @SuppressWarnings("unchecked")
@@ -166,7 +211,6 @@ public class PurchaseOrderView extends javax.swing.JDialog {
          ListPurchaseOrderCheck listCheck = new ListPurchaseOrderCheck(new JFrame(), true);
          listCheck.setTypeForm("approved");
          listCheck.setTitle("Purchase Approval");
-
          listCheck.setVisible(true);
     }//GEN-LAST:event_approveMouseClicked
 

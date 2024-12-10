@@ -2,12 +2,13 @@ package Stock.PurchaseOrderCheck;
 
 import Constant.JavaConstant;
 import Event.ButtonEvent;
+import feature.user_permission.JavaPermission;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.Icon;
 
 public class GetPurchaseOrderCheck extends javax.swing.JPanel {
-     
+
      private Integer id;
      private String vendorName;
      private String referenceNo;
@@ -19,138 +20,149 @@ public class GetPurchaseOrderCheck extends javax.swing.JPanel {
      private Icon iconEdit;
      private Icon iconDetail;
      private Icon iconDelete;
-     
-     public GetPurchaseOrderCheck() {
+
+     public GetPurchaseOrderCheck(String typeForm) {
           initComponents();
           lbId.setVisible(false);
           JavaConstant.setPointer(btnDetail);
+
+ 
+
+          // check permission
+          // permissonId: 13,14 is primary key id from table pos_permission
+          if (typeForm.equals("approved")) {
+               btnDetail.setVisible(JavaPermission.getPermissionDetail(14).getIsView());
+          } else if (typeForm.equals("checked")) {
+               btnDetail.setVisible(JavaPermission.getPermissionDetail(13).getIsView());
+          }
+
      }
-     
+
      public String getRemark() {
           return remark;
      }
-     
+
      public void setRemark(String remark) {
           this.remark = remark;
           lbremark.setText(remark);
      }
-     
+
      public Integer getId() {
           return id;
      }
-     
+
      public void setId(Integer id) {
           this.id = id;
           lbId.setText("" + id);
      }
-     
+
      public String getVendorName() {
           return vendorName;
      }
-     
+
      public void setVendorName(String vendorName) {
           this.vendorName = vendorName;
           lbVendorName.setText(vendorName);
      }
-     
+
      public String getReferenceNo() {
           return referenceNo;
      }
-     
+
      public void setReferenceNo(String referenceNo) {
           this.referenceNo = referenceNo;
           lbReferenceNo.setText(referenceNo);
      }
-     
+
      public String getTransactionNo() {
           return transactionNo;
      }
-     
+
      public void setTransactionNo(String transactionNo) {
           this.transactionNo = transactionNo;
           lbTranactionNo.setText(transactionNo);
      }
-     
+
      public String getTransactionDate() {
           return transactionDate;
      }
-     
+
      public void setTransactionDate(String transactionDate) {
           this.transactionDate = transactionDate;
           lbTransactionDate.setText(transactionDate);
      }
-     
+
      public String getTotalQty() {
           return totalQty;
      }
-     
+
      public void setTotalQty(String totalQty) {
           this.totalQty = totalQty;
           lbTotalQty.setText(totalQty);
      }
-     
+
      public String getTotalCost() {
           return totalCost;
      }
-     
+
      public void setTotalCost(String totalCost) {
           this.totalCost = totalCost;
           lbTotalCost.setText(totalCost);
      }
-     
+
      public Icon getIconEdit() {
           return iconEdit;
      }
-     
+
      public void setIconEdit(Icon iconEdit) {
           this.iconEdit = iconEdit;
 //        btnEdit.setIcon(iconEdit);
      }
-     
+
      public Icon getIconDetail() {
           return iconDetail;
      }
-     
+
      public void setIconDetail(Icon iconDetail) {
           this.iconDetail = iconDetail;
           btnDetail.setIcon(iconDetail);
      }
-     
+
      public Icon getIconDelete() {
           return iconDelete;
      }
-     
+
      public void setIconDelete(Icon iconDelete) {
           this.iconDelete = iconDelete;
 //        btnDelete.setIcon(iconDelete);
      }
-     
+
      public void initEvent(ButtonEvent event) {
-          
+
           btnDetail.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
                     event.onSelectDetail("" + id);
                }
-               
+
                @Override
                public void mousePressed(MouseEvent e) {
                }
-               
+
                @Override
                public void mouseReleased(MouseEvent e) {
                }
-               
+
                @Override
                public void mouseEntered(MouseEvent e) {
                }
-               
+
                @Override
                public void mouseExited(MouseEvent e) {
                }
           });
      }
-     
+
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

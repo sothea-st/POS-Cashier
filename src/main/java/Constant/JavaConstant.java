@@ -112,7 +112,7 @@ public class JavaConstant {
      public static boolean isCheckProductAll = false;
      public static String categoryName = "new items";
      public static int seconds = 500;
-     public static RoleHasPermissionModel roleHasPermissionModel;
+     public static RoleHasPermissionModel.RoleHasPermissionDetail permissionDetail;
 
      public static void setLookAndFeel() {
           // Set FlatDarkLaf Look and Feel

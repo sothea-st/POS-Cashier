@@ -397,18 +397,18 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
                         
                         // check permission 
-                        //JavaCheckPermission javaCheckPermission = new JavaCheckPermission(model.getRoleID(),this);
+                        JavaCheckPermission javaCheckPermission = new JavaCheckPermission(model.getRoleID(),this);
                         
-                        if (model.getRoleName().equals("Admin") || model.getRoleName().equals("Supervisor")) {
-                             stock.setVisible(true);
-                             buttonStaff.setVisible(true);
-                             btnReporting.setVisible(true);
-                             btnSettings.setVisible(true);
-                             stock.setBackground(WindowColor.green);
-                             btnReporting.setBackground(WindowColor.green);
-                             btnSettings.setBackground(WindowColor.green);
-                             buttonStaff.setBackground(WindowColor.green);
-                        }
+//                        if (model.getRoleName().equals("Admin") || model.getRoleName().equals("Supervisor")) {
+//                             stock.setVisible(true);
+//                             buttonStaff.setVisible(true);
+//                             btnReporting.setVisible(true);
+//                             btnSettings.setVisible(true);
+//                             stock.setBackground(WindowColor.green);
+//                             btnReporting.setBackground(WindowColor.green);
+//                             btnSettings.setBackground(WindowColor.green);
+//                             buttonStaff.setBackground(WindowColor.green);
+//                        }
 
                         if (responseOpenShift.isSuccessful()) {
                              btnOpenShift.setBackground(WindowColor.green);
@@ -417,12 +417,15 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                              OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                              if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
 
-                                  if (model.getRoleName().equals("Admin")) {
-                                       stock.setVisible(true);
-                                       buttonStaff.setVisible(true);
-                                       btnReporting.setVisible(true);
-                                       btnSettings.setVisible(true);
-                                  }
+//                                  if (model.getRoleName().equals("Admin")) {
+//                                       stock.setVisible(true);
+//                                       buttonStaff.setVisible(true);
+//                                       btnReporting.setVisible(true);
+//                                       btnSettings.setVisible(true);
+//                                  }
+                                  
+                                  
+                                  
                                   JavaConstant.checkOpenShift = true;
 
                                   searchBox.disabledTextField(true);

@@ -1,6 +1,5 @@
 package Stock.PurchaseOrderCheck;
 
-import BlogCode.JavaBlogImage;
 import Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -15,9 +14,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -169,7 +166,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                          y++;
                     }
                     var data = listData[i];
-                    GetPurchaseOrderCheck b = new GetPurchaseOrderCheck();
+                    GetPurchaseOrderCheck b = new GetPurchaseOrderCheck(typeForm);
                     b.setVendorName(data.getVendorName());
                     b.setTransactionNo(data.getTransactionNo());
                     b.setReferenceNo(data.getReferenceNo());

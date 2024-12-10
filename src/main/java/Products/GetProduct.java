@@ -4,6 +4,7 @@ import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import LoginAndLogoutForm.model.RoleHasPermissionModel.RoleHasPermissionDetail;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,17 +13,16 @@ import javax.swing.JPanel;
 
 public class GetProduct extends javax.swing.JPanel {
 
-     private RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail;
-
+//     private RoleHasPermissionDetail roleHasPermissionDetail;
      public GetProduct() {
-          //this.roleHasPermissionDetail = roleHasPermissionDetail;
+
           initComponents();
           JavaConstant.setPointer(btnDelete);
           JavaConstant.setPointer(btnEdit);
           JavaConstant.setPointer(btnDetail);
           proNameKh.setFont(WindowFonts.khmerOsContent12);
 
-          getProduct.setPreferredSize(new Dimension(1641,40));
+          getProduct.setPreferredSize(new Dimension(1641, 40));
      }
 
      private String productName;
@@ -37,6 +37,7 @@ public class GetProduct extends javax.swing.JPanel {
      private Icon iconDetail;
      private String choiceValue;
      private JPanel listGetProduct;
+
      public JPanel getPanelProduct() {
           return panelProduct;
      }
@@ -73,9 +74,10 @@ public class GetProduct extends javax.swing.JPanel {
           cost.setText(_cost);
           productId = Integer.parseInt(_productId);
 
-//          btnEdit.setVisible(roleHasPermissionDetail.getIsUpdate());
-//          btnDetail.setVisible(roleHasPermissionDetail.getIsView());
-//          btnDelete.setVisible(roleHasPermissionDetail.getIsDelete());
+          // check permission
+          btnEdit.setVisible(JavaConstant.permissionDetail.getIsUpdate());
+          btnDetail.setVisible(JavaConstant.permissionDetail.getIsView());
+          btnDelete.setVisible(JavaConstant.permissionDetail.getIsDelete());
 
      }
 
