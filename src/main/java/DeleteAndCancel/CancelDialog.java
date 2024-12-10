@@ -54,7 +54,7 @@ public class CancelDialog extends javax.swing.JDialog {
     private SubtotalPanel totalPanel;
     private Button btnPayment;
     private HashMap<String, String> map = new HashMap<>();
-    private String reasonId = "-1";
+    private String reasonId;
     private Component[] listCom;
     private ButtonCancel btnCancel;
     private Button buttonHoldOrder;

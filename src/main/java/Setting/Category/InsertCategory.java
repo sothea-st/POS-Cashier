@@ -22,8 +22,8 @@ import org.json.JSONObject;
 @Getter
 public class InsertCategory extends javax.swing.JDialog {
 
-     private String departmentId = "-1";
-     private String divisionId = "-1";
+     private String departmentId;
+     private String divisionId;
      private Integer id;
      private String code;
      private JPanel listGetCategory;

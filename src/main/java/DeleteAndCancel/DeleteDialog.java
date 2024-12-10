@@ -35,7 +35,7 @@ public class DeleteDialog extends javax.swing.JDialog {
     private SubtotalPanel subtotalPanel;
     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
     DecimalFormat kh = new DecimalFormat("#,##0");
-    private String reasonId = "-1";
+    private String reasonId;
     private Button.Button btnPayment;
     private ButtonPackage.ButtonCancel btnCancel;
     private Button.Button buttonHoldOrder;
@@ -236,7 +236,7 @@ public class DeleteDialog extends javax.swing.JDialog {
             if (isCheck) {
                 JSONObject json = new JSONObject();
                 json.put("createBy", JavaConstant.cashierId);
-                json.put("reasonId", 1);
+                json.put("reasonId", reasonId);
                 ArrayList<ProductIDModel> listCancelDetail = new ArrayList<>();
                 listCancelDetail.add(new ProductIDModel(productId));
                 json.put("listCancelDetail", listCancelDetail);

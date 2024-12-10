@@ -33,14 +33,14 @@ public class InsertProduct extends javax.swing.JDialog {
      private Integer id;
      private String status;
 
-     private String brandId = "-1";
-     private String taxId = "-1";
-     private String uomId = "-1";
-     private String attributeId = "-1";
-     private String subCatId = "-1";
-     private String vendorId = "-1";
-     private String countryId = "-1";
-     private String statusId = "-1";
+     private String brandId;
+     private String taxId;
+     private String uomId;
+     private String attributeId;
+     private String subCatId;
+     private String vendorId ;
+     private String countryId;
+     private String statusId;
      private String warehouseId = "-1";
      private String rangeId = "-1";
      private String slotId = "-1";
@@ -650,7 +650,7 @@ public class InsertProduct extends javax.swing.JDialog {
         txtPrice.setLabelName("Sale Price *");
         txtPrice.setPlaceHolder("$ 0.00");
 
-        txtMargin.setLabelName("Margin *");
+        txtMargin.setLabelName("Margin");
         txtMargin.setPlaceHolder("Margin");
 
         txtChoiceValue.setLabelName("Choice Value *");

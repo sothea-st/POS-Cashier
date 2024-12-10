@@ -404,11 +404,12 @@ public class ListAttribute extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-         AddAttribute add = new AddAttribute(new JFrame(), true);
-         add.setPageNumber(pageNumber);
-         add.setListGetAttribute(listGetAttribute);
-         add.setObj(this);
-         add.setVisible(true);
+        dispose();
+        AddAttribute add = new AddAttribute(new JFrame(), true);
+        add.setPageNumber(pageNumber);
+        add.setListGetAttribute(listGetAttribute);
+        add.setObj(this);
+        add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
      //Action Search

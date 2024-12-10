@@ -183,13 +183,13 @@ public class AddAttribute extends javax.swing.JDialog {
 
                 try {
                     if (response.isSuccessful() && isExist) {
-
+                        dispose();
                         ListAttribute list = new ListAttribute(new JFrame(), true);
+                        list.setVisible(true);
                         listGetAttribute.removeAll();
                         listGetAttribute.revalidate();
                         listGetAttribute.repaint();
                         list.getAttribute(listGetAttribute, true, pageNumber);
-                        dispose();
                     }
 
                 } catch (Exception e) {
