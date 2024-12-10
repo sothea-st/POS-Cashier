@@ -185,12 +185,15 @@ public class InsertBrand extends javax.swing.JDialog {
                 try {
                     if (response.isSuccessful() && isExist) {
 
+                        dispose();
                         ListBrand list = new ListBrand(new JFrame(), true);
+                        list.setVisible(true);
                         listGetBrand.removeAll();
                         listGetBrand.revalidate();
                         listGetBrand.repaint();
                         list.getBrand(listGetBrand, true, pageNumber);
-                        dispose();
+                        
+                        
                     }
 
                 } catch (Exception e) {

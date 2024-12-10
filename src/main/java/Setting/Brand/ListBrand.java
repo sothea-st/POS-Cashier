@@ -164,7 +164,8 @@ public class ListBrand extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
-                              InsertBrand edit = new InsertBrand(new JFrame(), true);
+                             dispose(); 
+                             InsertBrand edit = new InsertBrand(new JFrame(), true);
                               
                               try {
                                    Response response = JavaConnection.get(JavaRoute.brand + "/" + listData.getId());
@@ -190,8 +191,8 @@ public class ListBrand extends javax.swing.JDialog {
                          }
                          
                          @Override
-                         public void onRemove(String Key) {  // event delete brand
-                              try {
+                         public void onRemove(String Key) {  // event delete brand 
+                             try {
                                    UIManager UI = new UIManager();
                                    UI.put("OptionPane.background", WindowColor.mediumGreen);
                                    UI.put("Panel.background", WindowColor.mediumGreen);
@@ -427,12 +428,15 @@ public class ListBrand extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
+        
+         dispose();
          InsertBrand insert = new InsertBrand(new JFrame(), true);
          insert.setListGetBrand(listGetBrand);
          insert.setPaginationPanel(paginationPanel);
          insert.setPageNumber(pageNumber);
          insert.setObj(this);
          insert.setVisible(true);
+         
     }//GEN-LAST:event_btnAddMouseClicked
      
      public static void main(String args[]) {

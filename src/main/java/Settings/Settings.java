@@ -404,7 +404,7 @@ public class Settings extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void divisionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_divisionMouseClicked
-
+         dispose();
          Category cat = new Category(new JFrame(), true, "division");
          cat.setCode("division");
          cat.setPCategory(pCategory);
@@ -413,7 +413,7 @@ public class Settings extends javax.swing.JDialog {
     }//GEN-LAST:event_divisionMouseClicked
 
     private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
-
+         dispose();
          Category cat = new Category(new JFrame(), true, "category");
          cat.setCode("category");
          cat.setPCategory(pCategory);
@@ -422,7 +422,7 @@ public class Settings extends javax.swing.JDialog {
     }//GEN-LAST:event_categoryMouseClicked
 
     private void departmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_departmentMouseClicked
-
+         dispose();
          Category cat = new Category(new JFrame(), true, "department");
          cat.setCode("department");
          cat.setPCategory(pCategory);
@@ -431,7 +431,7 @@ public class Settings extends javax.swing.JDialog {
     }//GEN-LAST:event_departmentMouseClicked
 
     private void subCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subCategoryMouseClicked
-
+         dispose();
          Category cat = new Category(new JFrame(), true, "subcategory");
          cat.setCode("subcategory");
          cat.setPCategory(pCategory);
@@ -440,52 +440,62 @@ public class Settings extends javax.swing.JDialog {
     }//GEN-LAST:event_subCategoryMouseClicked
 
     private void brandMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandMouseClicked
+         dispose();
          ListBrand brand = new ListBrand(new JFrame(), true);
          brand.setVisible(true);
     }//GEN-LAST:event_brandMouseClicked
 
     private void vendorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_vendorMouseClicked
+         dispose();
          ListVendor vendor = new ListVendor(new JFrame(), true);
          vendor.setVisible(true);
     }//GEN-LAST:event_vendorMouseClicked
 
     private void attributeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_attributeMouseClicked
+         dispose();
          ListAttribute attribute = new ListAttribute(new JFrame(), true);
          attribute.setVisible(true);
 
     }//GEN-LAST:event_attributeMouseClicked
 
     private void uomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uomMouseClicked
+         dispose();
          listUom uom = new listUom(new JFrame(), true);
          uom.setVisible(true);
     }//GEN-LAST:event_uomMouseClicked
 
     private void countryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_countryMouseClicked
+         dispose();
          ListCountry list = new ListCountry(new JFrame(), true);
          list.setVisible(true);
     }//GEN-LAST:event_countryMouseClicked
 
     private void taxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taxMouseClicked
+         dispose();
          ListTax list = new ListTax(new JFrame(), true);
          list.setVisible(true);
     }//GEN-LAST:event_taxMouseClicked
 
     private void statusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_statusMouseClicked
+         dispose();
          ListStatus list = new ListStatus(new JFrame(), true);
          list.setVisible(true);
     }//GEN-LAST:event_statusMouseClicked
 
     private void warehouseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_warehouseMouseClicked
+         dispose();
          ListWarehouse list = new ListWarehouse(new JFrame(), true);
          list.setVisible(true);
     }//GEN-LAST:event_warehouseMouseClicked
 
     private void rangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rangeMouseClicked
+         dispose();
          ListRange list = new ListRange(new JFrame(), true);
          list.setVisible(true);
     }//GEN-LAST:event_rangeMouseClicked
 
     private void slotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_slotMouseClicked
+         dispose();
          ListSlot list = new ListSlot(new JFrame(), true);
          list.setVisible(true);
     }//GEN-LAST:event_slotMouseClicked

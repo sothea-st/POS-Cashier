@@ -22,7 +22,7 @@ import org.json.JSONObject;
 @Getter
 public class InsertDepartment extends javax.swing.JDialog {
 
-     private String divisionId = "-1";
+     private String divisionId;
      private String code;
      private JPanel listGetCategory;
      private Integer id;

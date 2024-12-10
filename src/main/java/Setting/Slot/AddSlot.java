@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class AddSlot extends javax.swing.JDialog {
 
-    private String rangeId = "-1";
+    private String rangeId;
     private Integer id;
     private JPanel listGetSlot;
     private String pageNumber;

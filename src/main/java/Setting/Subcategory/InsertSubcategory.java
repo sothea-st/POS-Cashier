@@ -22,9 +22,9 @@ import main_validation.JavaValidation;
 @Getter
 public class InsertSubcategory extends javax.swing.JDialog {
 
-     private String departmentId = "-1";
-     private String divisionId = "-1";
-     private String categoryId = "-1";
+     private String departmentId;
+     private String divisionId;
+     private String categoryId;
      private Integer id;
      private String code;
      private JPanel listGetCategory;

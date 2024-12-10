@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class AddRange extends javax.swing.JDialog {
 
-    private String warehouseId = "-1";
+    private String warehouseId;
     private Integer id;
     private JPanel listGetRange;
     private String pageNumber;
