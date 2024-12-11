@@ -43,10 +43,13 @@ import HoldOrder.HoldModelDir.DataListHold;
 import HoldOrder.HoldModelDir.ListDetailHold;
 import HoldOrder.HoldModelDir.ResultHoldSuccess;
 import Products.ProductBox;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
 import lombok.Getter;
 import lombok.Setter;
 import main_validation.JavaValidation;
@@ -362,7 +365,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
               if (isCheck) {
                    Response response = JavaConnection.login(JavaRoute.login, json);
-                  
+
                    if (response.isSuccessful()) {
                         String responseData = response.body().string();
 
@@ -395,10 +398,10 @@ public class LoginFormJdailog extends javax.swing.JDialog {
                         JavaConstant.roleId = model.getRoleID();
 
                         Response responseOpenShift = JavaConnection.get(JavaRoute.openShift + "/" + JavaConstant.userCode);
-                        
+
                         // check permission 
-                        JavaCheckPermission javaCheckPermission = new JavaCheckPermission(model.getRoleID(),this);
-                        
+                        JavaCheckPermission javaCheckPermission = new JavaCheckPermission(model.getRoleID(), this);
+
 //                        if (model.getRoleName().equals("Admin") || model.getRoleName().equals("Supervisor")) {
 //                             stock.setVisible(true);
 //                             buttonStaff.setVisible(true);
@@ -409,7 +412,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //                             btnSettings.setBackground(WindowColor.green);
 //                             buttonStaff.setBackground(WindowColor.green);
 //                        }
-
                         if (responseOpenShift.isSuccessful()) {
                              btnOpenShift.setBackground(WindowColor.green);
                              String result = responseOpenShift.body().string();
@@ -423,9 +425,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 //                                       btnReporting.setVisible(true);
 //                                       btnSettings.setVisible(true);
 //                                  }
-                                  
-                                  
-                                  
                                   JavaConstant.checkOpenShift = true;
 
                                   searchBox.disabledTextField(true);
@@ -501,8 +500,30 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                         JavaConstant.restoreDefaultCursor(mainFrame);
 
-                        
-                        
+                        if (!JavaConstant.checkOpenShift) {
+
+                             //============ set bg image =============
+                             BackgroundImage bgimg = new BackgroundImage();
+                             // Create a JLabel
+                             JLabel bg = new JLabel();
+                             ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("company/logoTT.png"));
+                             bg.setIcon(icon);
+                             panelProduct.setLayout(new GridBagLayout());
+                             panelProduct.removeAll();
+                             panelProduct.add(bg);
+                             panelProduct.revalidate();
+                             panelProduct.repaint();
+                             // Set the label to be centered within the panel
+                             GridBagConstraints constraints = new GridBagConstraints();
+                             constraints.gridx = 0;
+                             constraints.gridy = 0;
+                             constraints.weightx = 1.0;
+                             constraints.weighty = 1.0;
+                             constraints.anchor = GridBagConstraints.CENTER;
+                             panelProduct.add(bgimg, constraints);
+
+                        }
+
                    } else {
                         JavaConstant.restoreDefaultCursor(mainFrame);
                         JOptionPane.showMessageDialog(this, "Wrong user code or password!");
@@ -514,7 +535,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          }
     }//GEN-LAST:event_buttonLogin1MouseClicked
 
-     public void checkPermission(boolean isStock,boolean isStaff,boolean isReporting,boolean isSetting) {
+     public void checkPermission(boolean isStock, boolean isStaff, boolean isReporting, boolean isSetting) {
           stock.setVisible(isStock);
           buttonStaff.setVisible(isStaff);
           btnReporting.setVisible(isReporting);

@@ -183,14 +183,10 @@ public class InsertProduct extends javax.swing.JDialog {
 
      private void groupCalculation() {
 
-          System.out.println("Hiiiiiiiiiiiiiii");
-
           ButtonEvent eventCost = new ButtonEvent() {
                @Override
                public void onKeyRelease() {
                     cal();
-
-                    System.out.println("Helllllllllooooo");
                }
           };
           txtCost.initEvent(eventCost);
@@ -210,8 +206,12 @@ public class InsertProduct extends javax.swing.JDialog {
           String _price = txtPrice.getValueTextField();
           String _cost = txtCost.getValueTextField();
 
-          System.out.println("_price : " + _price);
-          System.out.println("_cost : " + _cost);
+          //System.out.println("_price : " + _price);
+          //System.out.println("_cost : " + _cost);
+          if ( _price != null && _price.equals("0") && _cost != null && _cost.equals("0")) {
+               txtMargin.setText("0");
+               return;
+          }
 
           if (_cost != null
                && _price != null
@@ -244,7 +244,6 @@ public class InsertProduct extends javax.swing.JDialog {
           cmdCountry();
           cmdTax();
           cmdWarehouse();
-
      }
 
      private void cmdVendor() {
@@ -414,136 +413,6 @@ public class InsertProduct extends javax.swing.JDialog {
           cmdSlot.initEvent(event);
      }
 
-//     private void groupEventCmd() {
-//          //  ============== combobox brand ================
-//          ButtonEvent brandEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    brandId = key;
-//               }
-//          };
-//          cmbBrand.initEvent(brandEvent);
-//          // brandNameEn is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbBrand, JavaRoute.brand, "brandNameEn");
-//          //  ============== end ================
-//
-//          //  ============== combobox tax ================
-//          ButtonEvent taxEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    taxId = key;
-//               }
-//          };
-//          cmbTax.initEvent(taxEvent);
-//          // tax_name is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbTax, JavaRoute.tax, "tax_name");
-//          //  ============== end ================
-//
-//          //  ============== combobox cmbUom ================
-//          ButtonEvent uomEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    uomId = key;
-//               }
-//          };
-//          cmbUom.initEvent(uomEvent);
-//          // nameEn is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbUom, JavaRoute.uom, "uomNameEn");
-//          //  ============== end ================
-//
-//          //  ============== combobox cmbAttribute ================
-//          ButtonEvent attributeEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    attributeId = key;
-//               }
-//          };
-//          cmbAttribute.initEvent(attributeEvent);
-//          // attrNameEn is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbAttribute, JavaRoute.attribute, "attrNameEn");
-//          //  ============== end ================
-//
-//          //  ============== combobox cmbSubCategory ================
-//          ButtonEvent subCatEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    subCatId = key;
-//               }
-//          };
-//          cmbSubCategory.initEvent(subCatEvent);
-//          // catNameEn is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbSubCategory, JavaRoute.subcategory, "catNameEn");
-//          //  ============== end ================
-//
-//          //  ============== combobox cmbVendorName ================
-//          ButtonEvent vendorEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    vendorId = key;
-//               }
-//          };
-//          cmbVendorName.initEvent(vendorEvent);
-//          // vendorName is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbVendorName, JavaRoute.vendor, "vendorName");
-//          //  ============== end ================
-//
-//          //  ============== combobox cmbCountry ================
-//          ButtonEvent countryEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    countryId = key;
-//               }
-//          };
-//          cmbCountry.initEvent(countryEvent);
-//          // countryName is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbCountry, JavaRoute.country, "countryName");
-//          //  ============== end ================
-//
-//          //  ============== combobox status ================
-//          ButtonEvent statusEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    statusId = key;
-//               }
-//          };
-//          cmbStatus.initEvent(statusEvent);
-//          // countryName is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmbStatus, JavaRoute.status, "statusName");
-//          //  ============== end ================
-//
-//          //  ============== combobox wharehouse ================
-//          ButtonEvent wharehouseEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    warehouseId = key;
-//                    // rangeNameEn is field from response that we want data add in combo
-//                    ComboBoxSelection.addComboBox(cmdRange, JavaRoute.ranges + "/readByWarehouseId/" + warehouseId, "rangeNameEn");
-//               }
-//          };
-//          cmdWharehouse.initEvent(wharehouseEvent);
-//          // brandNameEn is field from response that we want data add in combo
-//          ComboBoxSelection.addComboBox(cmdWharehouse, JavaRoute.warehouse, "warehouseNameEn");
-//
-//          //  ============== combobox ranges ================
-//          ButtonEvent rangeEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    rangeId = key;
-//                    // brandNameEn is field from response that we want data add in combo
-//                    ComboBoxSelection.addComboBox(cmdSlot, JavaRoute.slots + "/readByRangeId/" + rangeId, "slotNameEn");
-//               }
-//          };
-//          cmdRange.initEvent(rangeEvent);
-//
-//          //  ============== combobox ranges ================
-//          ButtonEvent slotEvent = new ButtonEvent() {
-//               @Override
-//               public void onSelect(String key) {
-//                    slotId = key;
-//               }
-//          };
-//          cmdSlot.initEvent(slotEvent);
-//     }
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -834,70 +703,6 @@ public class InsertProduct extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void saveFunction() {
-//          if (barcode == null || barcode.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Barcode can not be empty!");
-//               return;
-//          }
-//
-//          if (barcode.length() != 13) {
-//               JOptionPane.showMessageDialog(this, "barcode must be 13 length!");
-//               return;
-//          }
-//
-//          if (productName == null || productName.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Product Name can not be empty!");
-//               return;
-//          }
-//
-//          if (cost == null || cost.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Cost can not be empty!");
-//               return;
-//          }
-//
-//          if (price == null || price.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Price can not be empty!");
-//               return;
-//          }
-//
-////          if (choiceValue == null || choiceValue.isEmpty()) {
-////               JOptionPane.showMessageDialog(this, "Choice Value can not be empty!");
-////               return;
-////          }
-//          if (brandId == null || brandId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select Brand!");
-//               return;
-//          }
-//
-//          if (taxId == null || taxId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select Tax!");
-//               return;
-//          }
-//
-//          if (uomId == null || uomId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select UOM!");
-//               return;
-//          }
-//
-//          if (attributeId == null || attributeId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select Attribute!");
-//               return;
-//          }
-//
-//          if (subCatId == null || subCatId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select Sub Category!");
-//               return;
-//          }
-//
-//          if (vendorId == null || vendorId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select Vendor Name!");
-//               return;
-//          }
-//
-//          if (countryId == null || countryId.isEmpty()) {
-//               JOptionPane.showMessageDialog(this, "Please Select Country!");
-//               return;
-//          }
-
           try {
 
                boolean isCheck = JavaValidation.checkValidation(jPanel1);
@@ -987,12 +792,8 @@ public class InsertProduct extends javax.swing.JDialog {
                          String reason = error.getString("reason");
                          JOptionPane.showMessageDialog(this, reason);
                     } else {
-//                         jdLogin.onClickCategory("new items", jdLogin.getCatId());
-//                         panelCategory.getComponents()[1].setBackground(WindowColor.black);
                          dispose();
-//                         listProduct.getProduct(listGetProduct, true, 0);
                          reloadList();
-
                          proImageName = null;
                     }
                }
@@ -1004,9 +805,8 @@ public class InsertProduct extends javax.swing.JDialog {
      private void responseAddProduct(JSONObject json) {
           Response response = JavaConnection.post(JavaRoute.productV1, json);
 
-          System.out.println("response : " + response);
-          System.out.println("json : " + json);
-
+          //System.out.println("response : " + response);
+          //System.out.println("json : " + json);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -1016,6 +816,7 @@ public class InsertProduct extends javax.swing.JDialog {
                          String reason = error.getString("reason");
                          JOptionPane.showMessageDialog(this, reason);
                     } else {
+                         reloadList();
                          afterSuccess();
                     }
                }
@@ -1088,16 +889,16 @@ public class InsertProduct extends javax.swing.JDialog {
      public void reloadList() {
 
           if (status.equals("allProduct")) {
-               listProduct.setVisible(true);
                listProduct.getProduct(listGetProduct, true, 0);
+               listProduct.setVisible(true);
           } else if (status.equals("active")) {
-               listProduct.setVisible(true);
                listProduct.getProduct(listGetProduct, true, 1);
-          } else if (status.equals("inActive")) {
                listProduct.setVisible(true);
+          } else if (status.equals("inActive")) {
                listProduct.getProduct(listGetProduct, true, 2);
+               listProduct.setVisible(true);
           }
-          
+
           // refresh list product
           listGetProduct.removeAll();
           listGetProduct.repaint();

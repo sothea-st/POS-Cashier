@@ -13,7 +13,11 @@ import Constant.JavaRoute;
 import Print.EpsonPrinter;
 
 import View.MainPage.MainPage;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -27,43 +31,43 @@ import org.json.JSONObject;
 @Getter
 public class CloseShift extends javax.swing.JDialog {
 
-    private Button btnOpenShift;
-    private JPanel panelProduct;
-    private JPanel panelPagination;
-    private JPanel category;
-    private SearchField searchBox;
-    private TextField textField;
-    private Button btnreturn;
-    private Button btnReprint;
-    private Button buttonDiscount;
-    private Button buttonCustomer;
-    private Button buttonCashier;
-    private Button btnHold;
-    private Button btnLogin;
-    private BackgroundImage bgImage;
-    private ButtonCancel btnCancel;
-    private Button stock;
-    private Button buttonStaff;
-    private MainPage mainPage;
+     private Button btnOpenShift;
+     private JPanel panelProduct;
+     private JPanel panelPagination;
+     private JPanel category;
+     private SearchField searchBox;
+     private TextField textField;
+     private Button btnreturn;
+     private Button btnReprint;
+     private Button buttonDiscount;
+     private Button buttonCustomer;
+     private Button buttonCashier;
+     private Button btnHold;
+     private Button btnLogin;
+     private BackgroundImage bgImage;
+     private ButtonCancel btnCancel;
+     private Button stock;
+     private Button buttonStaff;
+     private MainPage mainPage;
 
-    public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
-        super(parent, modal);
-        initComponents();
-        panelCloseShift.setBackground(WindowColor.mediumGreen);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        this.btnOpenShift = btnOpenShift;
-        
-        redexpress.setValidateAmount();
-        qrMnk.setValidateAmount();
-        qrAba.setValidateAmount();
-        abaCreditCard.setValidateAmount();
-        cashUs.setValidateAmount();
-        cashKh.setValidateAmount();
-        redexpress.requestFocus();
-    }
+     public CloseShift(java.awt.Frame parent, boolean modal, Button btnOpenShift) {
+          super(parent, modal);
+          initComponents();
+          panelCloseShift.setBackground(WindowColor.mediumGreen);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          this.btnOpenShift = btnOpenShift;
 
-    @SuppressWarnings("unchecked")
+          redexpress.setValidateAmount();
+          qrMnk.setValidateAmount();
+          qrAba.setValidateAmount();
+          abaCreditCard.setValidateAmount();
+          cashUs.setValidateAmount();
+          cashKh.setValidateAmount();
+          redexpress.requestFocus();
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -184,280 +188,301 @@ public class CloseShift extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
+         this.dispose();
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-        String express = redexpress.getValueTextField();
-        String khqrMnk = qrMnk.getValueTextField();
-        String khqrAba = qrAba.getValueTextField();
-        String creditCard = abaCreditCard.getValueTextField();
-        String cashKhr = cashKh.getValueTextField();
-        String cashUsd = cashUs.getValueTextField();
+         String express = redexpress.getValueTextField();
+         String khqrMnk = qrMnk.getValueTextField();
+         String khqrAba = qrAba.getValueTextField();
+         String creditCard = abaCreditCard.getValueTextField();
+         String cashKhr = cashKh.getValueTextField();
+         String cashUsd = cashUs.getValueTextField();
 
-        try {
+         try {
 
-            boolean isCheck = JavaValidation.checkValidation(panelCloseShift);
+              boolean isCheck = JavaValidation.checkValidation(panelCloseShift);
 
-            if (isCheck) {
-                
-                int count = new MainPage().countHold();
-                if (count > 0) {
-                    JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
-                    j.setMessage("There are some transactions not complete yet in Hold function!");
-                    j.setVisible(true);
-                    return;
-                }
+              if (isCheck) {
 
-                express = express.replace(",", "");
-                khqrMnk = khqrMnk.replace(",", "");
-                khqrAba = khqrAba.replace(",", "");
-                creditCard = creditCard.replace(",", "");
-                cashKhr = cashKhr.replace(",", "");
-                cashUsd = cashUsd.replace(",", "");
+                   int count = new MainPage().countHold();
+                   if (count > 0) {
+                        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                        j.setMessage("There are some transactions not complete yet in Hold function!");
+                        j.setVisible(true);
+                        return;
+                   }
 
-                JSONObject json = new JSONObject();
-                json.put("express", express);
-                json.put("khqrMnk", khqrMnk);
-                json.put("khqrAba", khqrAba);
-                json.put("creditCard", creditCard);
-                json.put("cashKhr", cashKhr);
-                json.put("cashUsd", cashUsd);
-                json.put("userCode", JavaConstant.userCode);
-                json.put("userId", JavaConstant.cashierId);
-                json.put("posId", JavaConstant.posId);
+                   express = express.replace(",", "");
+                   khqrMnk = khqrMnk.replace(",", "");
+                   khqrAba = khqrAba.replace(",", "");
+                   creditCard = creditCard.replace(",", "");
+                   cashKhr = cashKhr.replace(",", "");
+                   cashUsd = cashUsd.replace(",", "");
 
-                Response response = JavaConnection.post(JavaRoute.closeShift, json);
-                
-                System.err.println("json : " + json);
-                System.err.println("response : " + response);
+                   JSONObject json = new JSONObject();
+                   json.put("express", express);
+                   json.put("khqrMnk", khqrMnk);
+                   json.put("khqrAba", khqrAba);
+                   json.put("creditCard", creditCard);
+                   json.put("cashKhr", cashKhr);
+                   json.put("cashUsd", cashUsd);
+                   json.put("userCode", JavaConstant.userCode);
+                   json.put("userId", JavaConstant.cashierId);
+                   json.put("posId", JavaConstant.posId);
 
-                if (response.isSuccessful()) {
+                   Response response = JavaConnection.post(JavaRoute.closeShift, json);
 
-                    searchBox.disabledTextField(false);
-                    searchBox.setPlaceholder("Search by name or barcode");
+                   System.err.println("json : " + json);
+                   System.err.println("response : " + response);
 
-                    textField.disabledTextField(false);
-                    textField.setLabelTextField("Scan or input barcode");
+                   if (response.isSuccessful()) {
 
-                    panelProduct.removeAll();
-                    panelProduct.revalidate();
-                    panelProduct.repaint();
-                    getPanelPagination().setVisible(false);
-                    if (category.getComponentCount() > 0) {
-                        category.getComponents()[0].setBackground(WindowColor.darkGreen);
-                    }
+                        searchBox.disabledTextField(false);
+                        searchBox.setPlaceholder("Search by name or barcode");
 
-                    dispose();
+                        textField.disabledTextField(false);
+                        textField.setLabelTextField("Scan or input barcode");
 
-                    btnreturn.setBackground(WindowColor.lightGray);
-                    buttonCustomer.setBackground(WindowColor.lightGray);
-                    buttonDiscount.setBackground(WindowColor.lightGray);
-                    btnReprint.setBackground(WindowColor.lightGray);
-                    btnHold.setBackground(WindowColor.lightGray);
-                    buttonCashier.setBackground(WindowColor.green);
-                    stock.setBackground(WindowColor.lightGray);
-                    buttonStaff.setBackground(WindowColor.lightGray);
-                    dispose();
-                    btnOpenShift.setButtonName("Open Shift");
-                    btnOpenShift.setBackground(WindowColor.lightGray);
-                    // btnLogin.setBackground(WindowColor.green);
+                        panelProduct.removeAll();
+                        panelProduct.revalidate();
+                        panelProduct.repaint();
+                        getPanelPagination().setVisible(false);
+                        if (category.getComponentCount() > 0) {
+                             category.getComponents()[0].setBackground(WindowColor.darkGreen);
+                        }
 
-                    JavaConstant.checkCloseShift = 0l;
-                    JavaConstant.checkOpenShift = false;
-                    JavaConstant.isOpenShift = "Can not openshift";
+                        dispose();
 
-                    category.removeAll();
-                    category.revalidate();
-                    category.repaint();
+                        btnreturn.setBackground(WindowColor.lightGray);
+                        buttonCustomer.setBackground(WindowColor.lightGray);
+                        buttonDiscount.setBackground(WindowColor.lightGray);
+                        btnReprint.setBackground(WindowColor.lightGray);
+                        btnHold.setBackground(WindowColor.lightGray);
+                        buttonCashier.setBackground(WindowColor.green);
+                        stock.setBackground(WindowColor.lightGray);
+                        buttonStaff.setBackground(WindowColor.lightGray);
+                        dispose();
+                        btnOpenShift.setButtonName("Open Shift");
+                        btnOpenShift.setBackground(WindowColor.lightGray);
+                        // btnLogin.setBackground(WindowColor.green);
 
-                    if (JavaConstant.roleName.toLowerCase().equals(JavaConstant.admin.toLowerCase())) {
-                        mainPage.setBackgroundButton();
-                    }
+                        JavaConstant.checkCloseShift = 0l;
+                        JavaConstant.checkOpenShift = false;
+                        JavaConstant.isOpenShift = "Can not openshift";
 
-                    EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
-                } else {
-                    JOptionPane.showMessageDialog(this, "Save Failed!");
+                        category.removeAll();
+                        category.revalidate();
+                        category.repaint();
 
-                }
-            }
-            
+                        if (JavaConstant.roleName.toLowerCase().equals(JavaConstant.admin.toLowerCase())) {
+                             mainPage.setBackgroundButton();
+                        }
 
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+                        //==============Add Background===============
+                        BackgroundImage bgimg = new BackgroundImage();
+                        // Create a JLabel
+                        JLabel bg = new JLabel();
+                        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("company/logoTT.png"));
+                        bg.setIcon(icon);
+                        panelProduct.setLayout(new GridBagLayout());
+                        panelProduct.removeAll();
+                        panelProduct.add(bg);
+                        panelProduct.revalidate();
+                        panelProduct.repaint();
+                        // Set the label to be centered within the panel
+                        GridBagConstraints constraints = new GridBagConstraints();
+                        constraints.gridx = 0;
+                        constraints.gridy = 0;
+                        constraints.weightx = 1.0;
+                        constraints.weighty = 1.0;
+                        constraints.anchor = GridBagConstraints.CENTER;
+                        panelProduct.add(bgimg, constraints);
+                        //===========================================
+
+                        EpsonPrinter.printReceipt(new JPanel()); // for open cash drawer
+                   } else {
+                        JOptionPane.showMessageDialog(this, "Save Failed!");
+
+                   }
+              }
+
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
-    public BackgroundImage getBgImage() {
-        return bgImage;
-    }
+     public BackgroundImage getBgImage() {
+          return bgImage;
+     }
 
-    public void setBgImage(BackgroundImage bgImage) {
-        this.bgImage = bgImage;
-    }
+     public void setBgImage(BackgroundImage bgImage) {
+          this.bgImage = bgImage;
+     }
 
-    public Button getBtnHold() {
-        return btnHold;
-    }
+     public Button getBtnHold() {
+          return btnHold;
+     }
 
-    public void setBtnHold(Button btnHold) {
-        this.btnHold = btnHold;
-    }
+     public void setBtnHold(Button btnHold) {
+          this.btnHold = btnHold;
+     }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    public JPanel getPanelPagination() {
-        return panelPagination;
-    }
+     public JPanel getPanelPagination() {
+          return panelPagination;
+     }
 
-    public void setPanelPagination(JPanel panelPagination) {
-        this.panelPagination = panelPagination;
-    }
+     public void setPanelPagination(JPanel panelPagination) {
+          this.panelPagination = panelPagination;
+     }
 
-    public JPanel getCategory() {
-        return category;
-    }
+     public JPanel getCategory() {
+          return category;
+     }
 
-    public void setCategory(JPanel category) {
-        this.category = category;
-    }
+     public void setCategory(JPanel category) {
+          this.category = category;
+     }
 
-    public SearchField getSearchBox() {
-        return searchBox;
-    }
+     public SearchField getSearchBox() {
+          return searchBox;
+     }
 
-    public void setSearchBox(SearchField searchBox) {
-        this.searchBox = searchBox;
-    }
+     public void setSearchBox(SearchField searchBox) {
+          this.searchBox = searchBox;
+     }
 
-    public TextField getTextField() {
-        return textField;
-    }
+     public TextField getTextField() {
+          return textField;
+     }
 
-    public void setTextField(TextField textField) {
-        this.textField = textField;
-    }
+     public void setTextField(TextField textField) {
+          this.textField = textField;
+     }
 
-    public Button getBtnreturn() {
-        return btnreturn;
-    }
+     public Button getBtnreturn() {
+          return btnreturn;
+     }
 
-    public void setBtnreturn(Button btnreturn) {
-        this.btnreturn = btnreturn;
-    }
+     public void setBtnreturn(Button btnreturn) {
+          this.btnreturn = btnreturn;
+     }
 
-    public Button getBtnReprint() {
-        return btnReprint;
-    }
+     public Button getBtnReprint() {
+          return btnReprint;
+     }
 
-    public void setBtnReprint(Button btnReprint) {
-        this.btnReprint = btnReprint;
-    }
+     public void setBtnReprint(Button btnReprint) {
+          this.btnReprint = btnReprint;
+     }
 
-    public Button getButtonDiscount() {
-        return buttonDiscount;
-    }
+     public Button getButtonDiscount() {
+          return buttonDiscount;
+     }
 
-    public void setButtonDiscount(Button buttonDiscount) {
-        this.buttonDiscount = buttonDiscount;
-    }
+     public void setButtonDiscount(Button buttonDiscount) {
+          this.buttonDiscount = buttonDiscount;
+     }
 
-    public Button getButtonCustomer() {
-        return buttonCustomer;
-    }
+     public Button getButtonCustomer() {
+          return buttonCustomer;
+     }
 
-    public void setButtonCustomer(Button buttonCustomer) {
-        this.buttonCustomer = buttonCustomer;
-    }
+     public void setButtonCustomer(Button buttonCustomer) {
+          this.buttonCustomer = buttonCustomer;
+     }
 
-    public Button getButtonCashier() {
-        return buttonCashier;
-    }
+     public Button getButtonCashier() {
+          return buttonCashier;
+     }
 
-    public void setButtonCashier(Button buttonCashier) {
-        this.buttonCashier = buttonCashier;
-    }
+     public void setButtonCashier(Button buttonCashier) {
+          this.buttonCashier = buttonCashier;
+     }
 
-    public Button getBtnLogin() {
-        return btnLogin;
-    }
+     public Button getBtnLogin() {
+          return btnLogin;
+     }
 
-    public void setBtnLogin(Button btnLogin) {
-        this.btnLogin = btnLogin;
-    }
+     public void setBtnLogin(Button btnLogin) {
+          this.btnLogin = btnLogin;
+     }
 
-    public Button getStock() {
-        return stock;
-    }
+     public Button getStock() {
+          return stock;
+     }
 
-    public void setStock(Button stock) {
-        this.stock = stock;
-    }
+     public void setStock(Button stock) {
+          this.stock = stock;
+     }
 
-    public Button getButtonStaff() {
-        return buttonStaff;
-    }
+     public Button getButtonStaff() {
+          return buttonStaff;
+     }
 
-    public void setButtonStaff(Button buttonStaff) {
-        this.buttonStaff = buttonStaff;
-    }
+     public void setButtonStaff(Button buttonStaff) {
+          this.buttonStaff = buttonStaff;
+     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     /**
+      * @param args the command line
+      * arguments
+      */
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CloseShift dialog = new CloseShift(new javax.swing.JFrame(), true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(CloseShift.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    CloseShift dialog = new CloseShift(new javax.swing.JFrame(), true, null);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private FormComponent.JavaTextField abaCreditCard;

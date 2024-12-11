@@ -406,7 +406,7 @@ public class ListProduct extends javax.swing.JDialog {
 
      private void eventEdit(String id) {
           Response response = JavaConnection.get(JavaRoute.productV1 + "/" + id);
-          System.err.println("response : " + response);
+          //System.err.println("response : " + response);
           try {
                if (response.isSuccessful()) {
                     String responseData = response.body().string();

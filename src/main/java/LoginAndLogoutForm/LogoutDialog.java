@@ -16,6 +16,7 @@ import View.MainPage.MainPage;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -239,22 +240,24 @@ public class LogoutDialog extends javax.swing.JDialog {
                    detailItem.repaint();
 
                    //==============Add Background===============
-                   BackgroundImage bgimg = new BackgroundImage();
-                   panelProduct.setLayout(new GridBagLayout());
-//                   JLabel lbImg = new JLabel();
-//                   JavaConnection.getImage(lbImg, "King Mart Background.png");
-                   panelProduct.removeAll();
-                   panelProduct.add(bgimg);
-                   panelProduct.revalidate();
-                   panelProduct.repaint();
-                   // Set the label to be centered within the panel
-                   GridBagConstraints constraints = new GridBagConstraints();
-                   constraints.gridx = 0;
-                   constraints.gridy = 0;
-                   constraints.weightx = 1.0;
-                   constraints.weighty = 1.0;
-                   constraints.anchor = GridBagConstraints.CENTER;
-                   panelProduct.add(bgimg, constraints);
+                        BackgroundImage bgimg = new BackgroundImage();
+                        // Create a JLabel
+                        JLabel bg = new JLabel();
+                        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("company/logoTT.png"));
+                        bg.setIcon(icon);
+                        panelProduct.setLayout(new GridBagLayout());
+                        panelProduct.removeAll();
+                        panelProduct.add(bg);
+                        panelProduct.revalidate();
+                        panelProduct.repaint();
+                        // Set the label to be centered within the panel
+                        GridBagConstraints constraints = new GridBagConstraints();
+                        constraints.gridx = 0;
+                        constraints.gridy = 0;
+                        constraints.weightx = 1.0;
+                        constraints.weighty = 1.0;
+                        constraints.anchor = GridBagConstraints.CENTER;
+                        panelProduct.add(bgimg, constraints);
                    //===========================================
 
                    btnLogin.setButtonName("Login");
@@ -282,6 +285,11 @@ public class LogoutDialog extends javax.swing.JDialog {
 
                    JavaConstant.resetValuePagination(); // set variable relative with pagination to deafult value
 
+                   
+                   
+                   
+                   
+                   
                    dispose();
               }
          } catch (Exception e) {

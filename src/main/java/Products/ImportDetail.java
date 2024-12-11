@@ -44,6 +44,7 @@ import okhttp3.Response;
 import org.json.JSONObject;
 
 public class ImportDetail extends javax.swing.JDialog {
+
      private InsertProduct insertProduct;
      private List<ProductResponse> listProductResponse;
      private String[] columnName = {
@@ -65,7 +66,10 @@ public class ImportDetail extends javax.swing.JDialog {
           "Status",
           "Country",
           "Tax",
-          "Path"
+          "Path",
+          "Warehouse",
+          "Range",
+          "Slot"
      };
 
      private String path;
@@ -93,7 +97,7 @@ public class ImportDetail extends javax.swing.JDialog {
           verticalScrollBars.setUnitIncrement(30);
           verticalScrollBars.setBlockIncrement(35);
 
-          btnSave.setContentAreaFilled(false);
+ 
 
      }
 
@@ -113,9 +117,8 @@ public class ImportDetail extends javax.swing.JDialog {
           this.insertProduct = insertProduct;
      }
 
-     
      public void setCustomTable(List<ProductResponse> list) {
-          Object[][] rows = new Object[list.size()][19];
+          Object[][] rows = new Object[list.size()][22];
 
           // Loop through the list and populate the 2D array
           int count = 0;
@@ -145,7 +148,10 @@ public class ImportDetail extends javax.swing.JDialog {
                     rows[i][15] = p.getStatusId(); // Status
                     rows[i][16] = p.getCountryId(); // Country
                     rows[i][17] = p.getTaxId(); // Tax
-                    rows[i][18] = ""; // Tax
+                    rows[i][18] = null;
+                    rows[i][19] = p.getWarehouseId();
+                    rows[i][20] = p.getRangeId();
+                    rows[i][21] = p.getSlotId();
 
                } else {
                     count++;
@@ -155,7 +161,7 @@ public class ImportDetail extends javax.swing.JDialog {
 
           if (count > 0) {
                int l = rows.length - count;
-               Object[][] rowsData = new Object[l][19];
+               Object[][] rowsData = new Object[l][22];
                for (int i = 0; i < l; i++) {
                     ProductResponse p = list.get(i);
                     if (p.getBarcode() != null
@@ -181,7 +187,10 @@ public class ImportDetail extends javax.swing.JDialog {
                          rowsData[i][15] = p.getStatusId(); // Status
                          rowsData[i][16] = p.getCountryId(); // Country
                          rowsData[i][17] = p.getTaxId(); // Tax
-                         rows[i][18] = ""; // Tax
+                         rows[i][18] = null; // Tax
+                         rows[i][19] = p.getWarehouseId();
+                         rows[i][20] = p.getRangeId();
+                         rows[i][21] = p.getSlotId();
                     }
                }
                appendTable(rowsData);
@@ -218,20 +227,24 @@ public class ImportDetail extends javax.swing.JDialog {
           columnModel.getColumn(1).setPreferredWidth(80);
           columnModel.getColumn(2).setPreferredWidth(100);
           columnModel.getColumn(3).setPreferredWidth(130);
-          columnModel.getColumn(4).setPreferredWidth(100);
+          columnModel.getColumn(4).setPreferredWidth(140);
           columnModel.getColumn(5).setPreferredWidth(80);
           columnModel.getColumn(6).setPreferredWidth(150);
           columnModel.getColumn(7).setPreferredWidth(300);
-          columnModel.getColumn(8).setPreferredWidth(300);
+          columnModel.getColumn(8).setPreferredWidth(200);
           columnModel.getColumn(9).setPreferredWidth(70);
           columnModel.getColumn(10).setPreferredWidth(70);
           columnModel.getColumn(11).setPreferredWidth(70);
           columnModel.getColumn(12).setPreferredWidth(80);
           columnModel.getColumn(13).setPreferredWidth(120);
           columnModel.getColumn(14).setPreferredWidth(60);
-          columnModel.getColumn(15).setPreferredWidth(70);
-          columnModel.getColumn(16).setPreferredWidth(70);
+          columnModel.getColumn(15).setPreferredWidth(60);
+          columnModel.getColumn(16).setPreferredWidth(60);
           columnModel.getColumn(17).setPreferredWidth(70);
+          columnModel.getColumn(18).setPreferredWidth(80);
+          columnModel.getColumn(19).setPreferredWidth(120);
+          columnModel.getColumn(20).setPreferredWidth(100);
+          columnModel.getColumn(21).setPreferredWidth(100);
 
           // Customize table header
           JTableHeader header = table.getTableHeader();
@@ -297,9 +310,10 @@ public class ImportDetail extends javax.swing.JDialog {
 
           // Set row height
           table.setRowHeight(30);
-          table.setBackground(Color.WHITE);
+          //table.setBackground(Color.gray);
           table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
           table.getTableHeader().setReorderingAllowed(false);
+
      }
 
      @SuppressWarnings("unchecked")
@@ -310,14 +324,13 @@ public class ImportDetail extends javax.swing.JDialog {
           jScrollPane1 = new javax.swing.JScrollPane();
           table = new javax.swing.JTable();
           jLabel1 = new javax.swing.JLabel();
-          btnSave = new javax.swing.JButton();
+          buttonSave = new ButtonPackage.ButtonSave();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
           jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
           jScrollPane1.setBorder(null);
 
-          table.setBackground(new java.awt.Color(255, 255, 255));
           table.setModel(new javax.swing.table.DefaultTableModel(
                new Object [][] {
                     {null, null, null, null},
@@ -333,10 +346,9 @@ public class ImportDetail extends javax.swing.JDialog {
 
           jLabel1.setText("Import");
 
-          btnSave.setText("Save");
-          btnSave.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnSaveActionPerformed(evt);
+          buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonSaveMouseClicked(evt);
                }
           });
 
@@ -353,7 +365,7 @@ public class ImportDetail extends javax.swing.JDialog {
                               .addGap(0, 0, Short.MAX_VALUE))))
                .addGroup(panelImpLayout.createSequentialGroup()
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave))
+                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
           );
           panelImpLayout.setVerticalGroup(
                panelImpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,9 +374,9 @@ public class ImportDetail extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSave)
-                    .addGap(20, 20, 20))
+                    .addGap(18, 18, 18)
+                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(22, Short.MAX_VALUE))
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -384,28 +396,22 @@ public class ImportDetail extends javax.swing.JDialog {
           setLocationRelativeTo(null);
      }// </editor-fold>//GEN-END:initComponents
 
-//     private void showLoadingDialog(String msg) {
-//          JDialog loadingDialog = new JDialog(new JFrame(), "Conflict", true); // true for modal
-//          JLabel label = new JLabel(msg);
-//          loadingDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-//          loadingDialog.setResizable(false);
-//          label.setHorizontalAlignment(SwingConstants.CENTER);
-//          loadingDialog.add(label);
-//          loadingDialog.setSize(500, 200);
-//          loadingDialog.setLocationRelativeTo(this); // Center dialog on the JFrame
-//          loadingDialog.getContentPane().setBackground(Color.WHITE);
-//          loadingDialog.setVisible(true);
-//     }
-     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
+     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+
+          save();
+     }//GEN-LAST:event_buttonSaveMouseClicked
+
+     private void save() {
           String url = new JavaBaseUrl().getBaseUrl() + JavaRoute.addMultipleDataFromExcel; // this one for insert image 
-          MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
-               .setType(MultipartBody.FORM);
+          MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
           for (int i = 0; i < table.getRowCount(); i++) {
                String pathImg = null;
+               System.err.println("table.getValueAt(i, 18)  : " + table.getValueAt(i, 18));
                if (table.getValueAt(i, 18) == null) {
                     pathImg = "productImage/default.jpg";
+
                     // Load the resource using ClassLoader
                     InputStream inputStream = getClass().getClassLoader().getResourceAsStream(pathImg);
                     if (inputStream != null) {
@@ -469,33 +475,6 @@ public class ImportDetail extends javax.swing.JDialog {
                     }
 
                     System.out.println("before legth   : " + listProductResponse.size());
-//                    List<ProductResponse> productResponses = new ArrayList<>();
-//                    if (count > 0) {
-//                         int l = listProductResponse.size() - count;
-//                         for (int i = 0; i < l; i++) {
-//                              var datas = listProductResponse.get(i);
-//                              productResponses.add(ProductResponse.builder()
-//                                   .barcode(datas.getBarcode())
-//                                   .vendorId(datas.getVendorId())
-//                                   .brandId(datas.getBrandId())
-//                                   .catId(datas.getCatId())
-//                                   .productName(datas.getProductName())
-//                                   .productNameKh(datas.getProductNameKh())
-//                                   .cost(datas.getCost())
-//                                   .price(datas.getPrice())
-//                                   .margin(datas.getMargin())
-//                                   .attributeId(datas.getAttributeId())
-//                                   .choiceValue(datas.getChoiceValue())
-//                                   .uomId(datas.getUomId())
-//                                   .status(datas.getStatus())
-//                                   .countryId(datas.getCountryId())
-//                                   .link(datas.getLink())
-//                                   .photo(datas.getPhoto())
-//                                   .number(datas.getNumber())
-//                                   .build()
-//                              );
-//                         }
-//                    }
 
                     try {
                          JSONObject json = new JSONObject();
@@ -538,8 +517,7 @@ public class ImportDetail extends javax.swing.JDialog {
           } catch (IOException e) {
                System.out.println("err = " + e);
           }
-
-     }//GEN-LAST:event_btnSaveActionPerformed
+     }
 
      public static void main(String args[]) {
 
@@ -558,7 +536,7 @@ public class ImportDetail extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JButton btnSave;
+     private ButtonPackage.ButtonSave buttonSave;
      private javax.swing.JLabel jLabel1;
      private javax.swing.JScrollPane jScrollPane1;
      private javax.swing.JPanel panelImp;

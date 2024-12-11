@@ -20,10 +20,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-/**
- *
- * @author MOBILE-APP.02
- */
 public class JavaGetDataFromExcel {
 
      public List<ProductResponse> readExcelFile(String filePath) {
@@ -75,6 +71,12 @@ public class JavaGetDataFromExcel {
                                              pro.setCountryId(returnId(value));
                                         case 14 ->
                                              pro.setTaxId(returnId(value));
+                                        case 15 ->
+                                             pro.setWarehouseId(returnId(value));
+                                        case 16 ->
+                                             pro.setRangeId(returnId(value));
+                                        case 17 ->
+                                             pro.setSlotId(returnId(value));
                                         default -> {
                                         }
                                    }
@@ -83,7 +85,7 @@ public class JavaGetDataFromExcel {
                               case NUMERIC -> {
                                    double numericValue = currentCell.getNumericCellValue();
                                    BigDecimal decimalValue = BigDecimal.valueOf(numericValue);
-                                   Double percenTag = numericValue*100;
+                                   Double percenTag = numericValue * 100;
                                    switch (cellIndex) {
                                         case 0 -> {
                                              BigDecimal bigDecimalValue = new BigDecimal(
@@ -95,7 +97,8 @@ public class JavaGetDataFromExcel {
                                              pro.setCost(decimalValue);
                                         case 7 ->
                                              pro.setPrice(decimalValue);
-                                        case 8 ->  pro.setMargin(percenTag + "%");
+                                        case 8 ->
+                                             pro.setMargin(percenTag + "%");
                                         default -> {
                                         }
                                    }

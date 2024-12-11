@@ -4,7 +4,6 @@
  */
 package Model.PackageProduct;
 
-import Constant.JavaConstant;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +17,7 @@ import lombok.Setter;
 @Builder
 @AllArgsConstructor
 public class ProductResponse {
-     
+
      private String barcode;
      private Integer vendorId;
      private Integer brandId;
@@ -38,5 +37,9 @@ public class ProductResponse {
      private String photo;
      private String number;
      private Integer createBy;
-     
+
+     private Integer warehouseId;
+     private Integer rangeId;
+     private Integer slotId;
+
 }
