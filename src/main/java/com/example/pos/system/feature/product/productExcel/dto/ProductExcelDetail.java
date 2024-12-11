@@ -26,4 +26,8 @@ public class ProductExcelDetail {
      private String photo;
      private String number;
      private Integer createBy;
+     private Integer warehouseId;
+     private Integer rangeId;
+     private Integer slotId;
+
 }

@@ -556,6 +556,10 @@ public class ProductServiceImp implements ProductService {
         String fileName = productRequest.proImageName() == null ? JavaConstant.defaultNameImage
                 : productRequest.proImageName();
 
+        String proNameKh = productRequest.proNameKh();
+        if (proNameKh != null && proNameKh.isEmpty()) {
+            proNameKh = null;
+        }
 
         Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
 
@@ -579,6 +583,7 @@ public class ProductServiceImp implements ProductService {
             product.setSlot(slot);
         }
 
+        product.setProNameKh(proNameKh);
         product.setSubCategory(subCategory);
         product.setBrand(brand);
         product.setTaxProduct(tax);
