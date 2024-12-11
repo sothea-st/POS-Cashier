@@ -93,10 +93,10 @@ public class listUom extends javax.swing.JDialog {
                     response = JavaConnection.get(JavaRoute.uom + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
                } else { // isCheck false search
                     isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.uom + "/search?" + searchValue);
-               }
+                    response = JavaConnection.get(JavaRoute.uom + "/search?search=" + searchValue);
+                    System.out.println("response search : " + response);
 
-               System.out.println("response : " + response);
+               }
 
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
@@ -174,7 +174,7 @@ public class listUom extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
-                             
+
                               dispose();
                               AddUom edit = new AddUom(new JFrame(), true);
                               try {
