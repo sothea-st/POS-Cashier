@@ -81,6 +81,7 @@ public class JavaGetDataFromExcel {
                                         }
                                    }
                               }
+                              //
 
                               case NUMERIC -> {
                                    double numericValue = currentCell.getNumericCellValue();
