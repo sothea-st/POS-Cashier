@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.example.pos.system.domain.settings.Warehouse;
 import com.example.pos.system.feature.settings.uom.dto.UomResponse;
 import com.example.pos.system.constant.util.response_success.JavaResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
+import com.example.pos.system.feature.settings.warehouse.dto.WarehouseResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -49,7 +51,7 @@ public class UomServiceImp implements UomService{
             // map value to List
             data = uomRepository.findByStatusTrueAndIsDeletedFalse().stream()
                     .sorted(Comparator.comparing(Uom::getId).reversed())
-                    .map(this::mapToUomResponse)
+                    .map(this::mapToUomResponses)
                     .toList();
 
             // assign total pages
@@ -70,7 +72,7 @@ public class UomServiceImp implements UomService{
 
             // map value to List
             data = pages.getContent().stream()
-                    .map(this::mapToUomResponse)
+                    .map(this::mapToUomResponses)
                     .toList();
         }
 
@@ -92,30 +94,31 @@ public class UomServiceImp implements UomService{
         long totalPageNumber = 0;
         List<UomResponse> data = new ArrayList<>();
 
-        if(pageNumber == null && pageSize == null){
+        if (pageNumber == null && pageSize == null) {
             // map value to List
             data = uomRepository.searchByUomNameEnOrUomNameKh(searchValue).stream()
                     .sorted(Comparator.comparing(Uom::getId).reversed())
-                    .map(this::mapToUomResponse)
+                    .map(this::mapToUomResponses)
                     .toList();
 
             // assign total pages
             totalPageNumber = data.size();
 
-        }else{
+        } else {
+            System.out.println("fffffffffffffffffffffffffff");
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
 
             // page request
             // pageNumber start from 0
-            PageRequest pageRequest = PageRequest.of(pageNumber,pageSize,sortById);
-            Page<Uom> pages = uomRepository.searchByUomNameEnOrUomNameKh(pageRequest,searchValue);
+            PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
+            Page<Uom> pages = uomRepository.searchByUomNameEnOrUomNameKh(pageRequest, searchValue);
 
             // assign total pages
             totalPageNumber = pages.getTotalElements();
 
             // map value to List
             data = pages.getContent().stream()
-                    .map(this::mapToUomResponse)
+                    .map(this::mapToUomResponses)
                     .toList();
         }
 
@@ -138,7 +141,7 @@ public class UomServiceImp implements UomService{
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,uomIdNotFound+id));
 
         return JavaResponse.builder()
-                .data(mapToUomResponse(uom))
+                .data(mapToUomResponses(uom))
                 .build();
 
     }
@@ -230,7 +233,8 @@ public class UomServiceImp implements UomService{
      * @param uom
      * @return
      */
-    private UomResponse mapToUomResponse(Uom uom){
+    private UomResponse mapToUomResponses(Uom uom){
+        System.out.println("hhhhhhhhhhhhhhhhh = " + uom.getUomNameEn());
         return UomResponse.builder()
                 .id(uom.getId())
                 .uomNameEn(uom.getUomNameEn())

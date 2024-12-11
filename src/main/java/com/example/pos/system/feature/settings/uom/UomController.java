@@ -92,7 +92,8 @@ public class UomController {
     JavaCollectionResponse<?> search(
             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
             @RequestParam(name = "pageSize", required = false) Integer pageSize,
-            @RequestParam(name = "search", required = false) String searchValue){
+            @RequestParam(name = "search") String searchValue){
+        System.out.println("11111111111111111111111");
         return uomService.search(pageNumber,pageSize,searchValue);
     }
 
