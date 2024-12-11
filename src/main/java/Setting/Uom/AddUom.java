@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
@@ -133,12 +132,13 @@ public class AddUom extends javax.swing.JDialog {
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
         this.dispose();
+        listUom list = new listUom(new JFrame(), true);
+        list.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String uomNameEn = txtUom.getValueTextField();
         String uomNameKh = txtUomKh.getValueTextField();
-        
         
         try {
             

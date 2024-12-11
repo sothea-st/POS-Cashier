@@ -13,6 +13,7 @@ import Model.Attribute.DetailAttributeModel;
 import Model.Attribute.ListAttributeModel;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -172,13 +173,15 @@ public class ListAttribute extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
-                              AddAttribute edit = new AddAttribute(new JFrame(), true);
+                              
                               try {
                                    Response response = JavaConnection.get(JavaRoute.attribute + "/" + listData.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
                                    DetailAttributeModel data = objMap.readValue(responseData, DetailAttributeModel.class);
 
+                                   dispose();
+                                   AddAttribute edit = new AddAttribute(new JFrame(), true);
                                    System.out.println("data : " + data);
 
                                    edit.setId(data.getId());
@@ -401,6 +404,8 @@ public class ListAttribute extends javax.swing.JDialog {
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          dispose();
+         Settings settings = new Settings(new JFrame(), true);
+         settings.setVisible(true);
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked

@@ -11,12 +11,14 @@ import Products.ListProduct;
 import Reporting.ReportInventory.ReportInventoryModel.ReportInventoryDetail;
 import Reporting.ReportInventory.export.ExportReportInventoryToCSV;
 import Reporting.ReportInventory.export.ExportReportInventoryToExcel;
+import Reporting.ReportingView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -433,20 +435,14 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
         this.dispose();
+        ReportingView reportingView = new ReportingView(new JFrame(), true);
+        reportingView.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
     public void groupEvent(ReportInventoryForm re) {
 
         groupButtonExport.setPdf(); // hide btnPdf
 
-//          ButtonEvent btnevent = new ButtonEvent() {
-//               @Override
-//               public void onFocusGain() {
-//
-//               }
-//          };
-//          dateFrom.initEvent(btnevent);
-//          dateTo.initEvent(btnevent);
         ButtonEvent searchEvent = new ButtonEvent() {
             @Override
             public void onKeyRelease() {

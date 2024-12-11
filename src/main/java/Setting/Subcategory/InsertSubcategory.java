@@ -303,7 +303,10 @@ public class InsertSubcategory extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
+        this.dispose();
+        Category list = new Category(new JFrame(), true, code);
+        list.setCode(code);
+        list.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
      public String getCode() {

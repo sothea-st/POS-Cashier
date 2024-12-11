@@ -12,6 +12,7 @@ import Model.Uom.DetailUomModel;
 import Model.Uom.ListUomModel;
 import Model.Uom.UomModel;
 import Setting.Category.NoDataAvaibalePanel;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -175,8 +176,7 @@ public class listUom extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
                              
-                              dispose();
-                              AddUom edit = new AddUom(new JFrame(), true);
+                              
                               try {
                                    Response response = JavaConnection.get(JavaRoute.uom + "/" + listData.getId());
                                    String responseData = response.body().string();
@@ -184,6 +184,9 @@ public class listUom extends javax.swing.JDialog {
                                    DetailUomModel data = objMap.readValue(responseData, DetailUomModel.class);
 
                                    System.out.println("data : " + data);
+                                   
+                                   dispose();
+                                   AddUom edit = new AddUom(new JFrame(), true);
 
                                    edit.setId(data.getData().getId());
                                    edit.setListGetUom(listGetUom);
@@ -437,6 +440,8 @@ public class listUom extends javax.swing.JDialog {
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          dispose();
+         Settings settings = new Settings(new JFrame(), true);
+         settings.setVisible(true);
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked

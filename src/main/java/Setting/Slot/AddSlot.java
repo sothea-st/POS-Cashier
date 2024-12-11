@@ -155,6 +155,8 @@ public class AddSlot extends javax.swing.JDialog {
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
         this.dispose();
+        ListSlot list = new ListSlot(new JFrame(), true);
+        list.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
@@ -202,55 +204,6 @@ public class AddSlot extends javax.swing.JDialog {
             System.err.println("errr -- " + e);
         }
         
-//        
-//
-//        try {
-//
-//            JSONObject json = new JSONObject();
-//            json.put("slotNameEn", slotNameEn);
-//            json.put("slotNameKh", slotNameKh);
-//            json.put("rangeId", rangeId);
-//            json.put("createBy", JavaConstant.cashierId);
-//
-//            if (id != null) {
-//                Response response = JavaConnection.put(JavaRoute.slot + '/' + id, json);
-//                
-//                String responeData = response.body().string();
-//                JSONObject jsonResponse = new JSONObject(responeData);
-//                
-//                if (jsonResponse.has("error")) {
-//
-//                    JOptionPane.showMessageDialog(this, "Save Failed!");
-//                    
-//                }else{
-//                    listGetSlot.removeAll();
-//                    listGetSlot.revalidate();
-//                    listGetSlot.repaint();
-//                    obj.getSlot(listGetSlot,true,pageNumber);
-//                    dispose();
-//                }
-//
-//            } else {
-//                Response response = JavaConnection.post(JavaRoute.range, json);
-//                String responeData = response.body().string();
-//                JSONObject jsonResponse = new JSONObject(responeData);
-//                
-//                if (jsonResponse.has("error")) {
-//                    
-//                    JOptionPane.showMessageDialog(this, "Save Failed!");
-//                    
-//                }else{
-//                    listGetSlot.removeAll();
-//                    listGetSlot.revalidate();
-//                    listGetSlot.repaint();
-//                    obj.getSlot(listGetSlot,true,pageNumber);
-//                    dispose();
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            System.err.println("errr -- " + e);
-//        }
     }//GEN-LAST:event_buttonSaveMouseClicked
 
     public Integer getId() {

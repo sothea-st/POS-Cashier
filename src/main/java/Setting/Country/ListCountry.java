@@ -12,6 +12,7 @@ import Model.Country.CountryModel;
 import Model.Country.DataCountryModel;
 import Model.Country.ListCountryModel;
 import Setting.Category.NoDataAvaibalePanel;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -177,14 +178,16 @@ public class ListCountry extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
                              
-                              dispose();
-                              AddCountry edit = new AddCountry(new JFrame(), true);
+                              
                               try {
                                    Response response = JavaConnection.get(JavaRoute.country + "/" + listData.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
                                    DataCountryModel data = objMap.readValue(responseData, DataCountryModel.class);
 
+                                   dispose();
+                                   AddCountry edit = new AddCountry(new JFrame(), true);
+                                   
                                    edit.setId(data.getId());
                                    edit.setListGetCountry(listGetCountry);
                                    edit.setPageNumber(pageNumber);
@@ -445,7 +448,9 @@ public class ListCountry extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-         dispose();
+        dispose();
+        Settings settings = new Settings(new JFrame(), true);
+        settings.setVisible(true);
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked

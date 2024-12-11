@@ -387,7 +387,9 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
+        this.dispose();
+        purchaseOrder.getListPurchase(jpanelData, true);
+        purchaseOrder.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     public JPanel getJpanelData() {

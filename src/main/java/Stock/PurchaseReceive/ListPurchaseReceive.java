@@ -11,6 +11,7 @@ import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Stock.PurchaseOrderRequest.PurchaseNoData;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
+import StockManagement.StockManagement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -418,6 +419,8 @@ public class ListPurchaseReceive extends javax.swing.JDialog {
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
+         StockManagement stock = new StockManagement(new JFrame(), true);
+         stock.setVisible(true);
     }//GEN-LAST:event_btnCancelMouseClicked
 
      public static void main(String args[]) {

@@ -11,6 +11,7 @@ import Model.Vendor.DataVendorModel;
 import Model.Vendor.DetailVendorModel;
 import Model.Vendor.ListVendorModel;
 import Model.Vendor.VendorModel;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -173,14 +174,15 @@ public class ListVendor extends javax.swing.JDialog {
                     ButtonEvent events = new ButtonEvent() {
                          @Override
                          public void onSelect(String Key) {  // event edit
-                              dispose();
-                              AddVendor edit = new AddVendor(new JFrame(), true);
+                              
                               try {
                                    Response response = JavaConnection.get(JavaRoute.vendor + "/" + listData.getId());
                                    String responseData = response.body().string();
                                    ObjectMapper objMap = new ObjectMapper();
                                    DetailVendorModel data = objMap.readValue(responseData, DetailVendorModel.class);
 
+                                   dispose();
+                                   AddVendor edit = new AddVendor(new JFrame(), true);
                                    edit.setId(data.getId());
                                    edit.setListGetVendor(listGetVendor);
                                    edit.setPageNumber(pageNumber);
@@ -479,6 +481,8 @@ public class ListVendor extends javax.swing.JDialog {
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
+         Settings settings = new Settings(new JFrame(), true);
+         settings.setVisible(true);
     }//GEN-LAST:event_btnCancelMouseClicked
 
      /**

@@ -9,6 +9,7 @@ import Event.ButtonEvent;
 import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Stock.PurchaseOrderRequest.PurchaseNoData;
+import Stock.PurchaseOrderView.PurchaseOrderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -401,6 +402,8 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
+         PurchaseOrderView purchaseOrderView = new PurchaseOrderView(new JFrame(), true);
+         purchaseOrderView.setVisible(true);
     }//GEN-LAST:event_btnCancelMouseClicked
 
      /**
