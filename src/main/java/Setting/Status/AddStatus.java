@@ -116,11 +116,12 @@ public class AddStatus extends javax.swing.JDialog {
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
         this.dispose();
+        ListStatus list = new ListStatus(new JFrame(), true);
+        list.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
         String statusName = txtStatus.getValueTextField();
-        
         
         try {
             

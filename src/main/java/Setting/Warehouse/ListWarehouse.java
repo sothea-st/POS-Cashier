@@ -13,6 +13,7 @@ import Model.Warehouse.WarehouseModel;
 import Model.Warehouse.WarehouseModel.WarehouseDetail;
 import Setting.Category.GetCategory;
 import Setting.Category.NoDataAvaibalePanel;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -173,8 +174,6 @@ public class ListWarehouse extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
                              
-                              dispose();
-                              InsertWarehouse edit = new InsertWarehouse(new JFrame(), true);
 
                               try {
                                    Response response = JavaConnection.get(JavaRoute.warehouse + "/" + listData.getId());
@@ -182,6 +181,9 @@ public class ListWarehouse extends javax.swing.JDialog {
                                    ObjectMapper objMap = new ObjectMapper();
                                    WarehouseDetailModel listData = objMap.readValue(responseData, WarehouseDetailModel.class);
 
+                                   dispose();
+                                   InsertWarehouse edit = new InsertWarehouse(new JFrame(), true);
+                                   
                                    edit.setId(listData.getData().getId());
                                    edit.setPageNumber(pageNumber);
 
@@ -434,6 +436,8 @@ public class ListWarehouse extends javax.swing.JDialog {
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          dispose();
+         Settings settings = new Settings(new JFrame(), true);
+         settings.setVisible(true);
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked

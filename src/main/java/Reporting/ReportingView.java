@@ -30,8 +30,6 @@ public class ReportingView extends javax.swing.JDialog {
           JavaConstant.addTitleAndLogo(this, "Reporting");
           getImageAndTitle();
           
-          
-          
 //          reportImport.setVisible(false);
 //          reportPurhaseCheck.setVisible(false);
 //          reportPurhaseApproval.setVisible(false);
@@ -200,8 +198,6 @@ public class ReportingView extends javax.swing.JDialog {
      }//GEN-LAST:event_reportSaleMouseClicked
 
     private void reportPurhaseRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseRequestMouseClicked
-//         ReportingPurchaseOrder purchaseOrder = new ReportingPurchaseOrder(new JFrame(), true);
-//         purchaseOrder.setVisible(true);
          dispose();
          ReportingPurchaseOrderV2 request = new ReportingPurchaseOrderV2(new JFrame(), true);
          request.setTitle("Reporting Purchase Order");

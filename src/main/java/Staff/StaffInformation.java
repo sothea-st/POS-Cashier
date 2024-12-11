@@ -181,8 +181,6 @@ public class StaffInformation extends javax.swing.JDialog {
 
                     @Override
                     public void onSelect(String Key) {  // event edit
-                         dispose();
-                         InsertStaff edit = new InsertStaff(new JFrame(), true);
 
                          try {
                               Response response = JavaConnection.get(JavaRoute.employee + "/" + listData.getId());
@@ -190,6 +188,9 @@ public class StaffInformation extends javax.swing.JDialog {
                               ObjectMapper objMap = new ObjectMapper();
                               DetailGetDataModel data = objMap.readValue(responseData, DetailGetDataModel.class);
 
+                              dispose();
+                              InsertStaff edit = new InsertStaff(new JFrame(), true);
+                              
                               edit.setId(data.getId());
                               edit.setListGetStaff(listGetStaff);
 
@@ -507,6 +508,8 @@ public class StaffInformation extends javax.swing.JDialog {
 
      private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
           dispose();
+          Staff staff = new Staff(new JFrame(), true);
+          staff.setVisible(true);
      }//GEN-LAST:event_buttonCancel1MouseClicked
 
      /**

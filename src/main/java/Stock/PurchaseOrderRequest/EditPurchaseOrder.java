@@ -519,6 +519,8 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
          this.dispose();
+         PurchaseOrder purchase = new PurchaseOrder(new JFrame(), true);
+         purchase.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked

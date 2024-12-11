@@ -8,6 +8,7 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import Staff.Staff;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.model.RoleHasPermission;
 import java.awt.Component;
@@ -2670,6 +2671,8 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
+          Staff staff = new Staff(new JFrame(), true);
+          staff.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void lbStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStockMouseClicked

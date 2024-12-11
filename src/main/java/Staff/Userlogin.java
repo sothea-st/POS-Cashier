@@ -334,6 +334,8 @@ public class Userlogin extends javax.swing.JDialog {
 
      private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          dispose();
+         Staff staff = new Staff(new JFrame(), true);
+         staff.setVisible(true);
      }//GEN-LAST:event_buttonCancel1MouseClicked
 
     public static void main(String args[]) {

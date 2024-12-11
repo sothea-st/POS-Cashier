@@ -192,7 +192,10 @@ public class InsertCategory extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-         this.dispose();
+        this.dispose();
+        Category list = new Category(new JFrame(), true, code);
+        list.setCode(code);
+        list.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked

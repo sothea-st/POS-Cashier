@@ -16,6 +16,7 @@ import Model.PackageProduct.ProductModel;
 import Model.ProductModelV1.ProductResponseByIdV1;
 import Model.ProductModelV1.ProductResponseDetailV1;
 import Model.ProductModelV1.ProductResponseV1;
+import StockManagement.StockManagement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -914,6 +915,8 @@ public class ListProduct extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
+          StockManagement stock = new StockManagement(new JFrame(), true);
+          stock.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void allProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_allProductMouseClicked

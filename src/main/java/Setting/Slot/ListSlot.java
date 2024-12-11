@@ -12,6 +12,7 @@ import Model.Slot.SlotDetailModel;
 import Model.Slot.SlotModel;
 import Model.Slot.SlotModel.SlotDetail;
 import Setting.Category.NoDataAvaibalePanel;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -174,8 +175,6 @@ public class ListSlot extends javax.swing.JDialog {
                          @Override
                          public void onSelect(String Key) {  // event edit
                              
-                              dispose();
-                              AddSlot edit = new AddSlot(new JFrame(), true);
                               try {
                                    Response response = JavaConnection.get(JavaRoute.slot + "/" + listData.getId());
                                    String responseData = response.body().string();
@@ -183,7 +182,8 @@ public class ListSlot extends javax.swing.JDialog {
                                    SlotDetailModel data = objMap.readValue(responseData, SlotDetailModel.class);
 
                                    System.out.println("data : " + data);
-
+                                   dispose();
+                                   AddSlot edit = new AddSlot(new JFrame(), true);
                                    edit.setId(data.getData().getId());
                                    edit.setListGetSlot(listGetSlot);
                                    edit.setPageNumber(pageNumber);
@@ -446,6 +446,8 @@ public class ListSlot extends javax.swing.JDialog {
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          dispose();
+         Settings settings = new Settings(new JFrame(), true);
+         settings.setVisible(true);
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked

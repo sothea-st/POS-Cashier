@@ -11,6 +11,7 @@ import Model.PurchaseOrder.DataPurchaseModel;
 import Model.PurchaseOrder.ListPurchaseOrderModel;
 import Stock.PurchaseOrderCheck.POCheckDetailsModel;
 import Stock.PurchaseOrderCheck.PurchaseOrderCheckModel;
+import Stock.PurchaseOrderView.PurchaseOrderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -171,41 +172,43 @@ public class PurchaseOrder extends javax.swing.JDialog {
 
                          @Override
                          public void onSelect(String Key) {  // event edit
-                              dispose();
-                              EditPurchaseOrder edit = new EditPurchaseOrder(new JFrame(), true, data.getId());
-                              System.out.println("status = " + data.getRemark());
+                             
 
-                              if (data.getRemark().toLowerCase().equals("requested")) {
-                                   try {
-                                        Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
+                            if (data.getRemark().toLowerCase().equals("requested")) {
+                                dispose();
+                                EditPurchaseOrder edit = new EditPurchaseOrder(new JFrame(), true, data.getId());
+                                System.out.println("status = " + data.getRemark());
+                                
+                                try {
+                                     Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
 
-                                        String responseData = response.body().string();
-                                        ObjectMapper objMap = new ObjectMapper();
-                                        PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
-                                        POCheckDetailsModel detailData = model.getData();
+                                     String responseData = response.body().string();
+                                     ObjectMapper objMap = new ObjectMapper();
+                                     PurchaseOrderCheckModel model = objMap.readValue(responseData, PurchaseOrderCheckModel.class);
+                                     POCheckDetailsModel detailData = model.getData();
 
-                                        edit.setListGetOrder(listGetOrder);
-                                        edit.setDetailData(detailData);
-                                        edit.setValue(
-                                             String.valueOf(detailData.getVendorName()),
-                                             String.valueOf(detailData.getReferenceNo()),
-                                             String.valueOf(detailData.getTransactionNo()),
-                                             String.valueOf(detailData.getPurchaseOrderNo()),
-                                             String.valueOf(detailData.getTotalQty()),
-                                             String.valueOf(detailData.getTotalCost()),
-                                             String.valueOf(detailData.getVendorID()),
-                                             String.valueOf(JavaConstant.formatDate(detailData.getOrderDate())),
-                                             String.valueOf(JavaConstant.formatDate(detailData.getTransactionDate())),
-                                             String.valueOf(detailData.getRemark())
-                                        );
+                                     edit.setListGetOrder(listGetOrder);
+                                     edit.setDetailData(detailData);
+                                     edit.setValue(
+                                          String.valueOf(detailData.getVendorName()),
+                                          String.valueOf(detailData.getReferenceNo()),
+                                          String.valueOf(detailData.getTransactionNo()),
+                                          String.valueOf(detailData.getPurchaseOrderNo()),
+                                          String.valueOf(detailData.getTotalQty()),
+                                          String.valueOf(detailData.getTotalCost()),
+                                          String.valueOf(detailData.getVendorID()),
+                                          String.valueOf(JavaConstant.formatDate(detailData.getOrderDate())),
+                                          String.valueOf(JavaConstant.formatDate(detailData.getTransactionDate())),
+                                          String.valueOf(detailData.getRemark())
+                                     );
 
-                                        edit.setVisible(true);
-                                   } catch (Exception e) {
-                                        System.err.println("error getting purchase order " + e);
-                                   }
-                              } else {
-                                   JOptionPane.showMessageDialog(null, "Status already " + data.getRemark());
-                              }
+                                     edit.setVisible(true);
+                                } catch (Exception e) {
+                                     System.err.println("error getting purchase order " + e);
+                                }
+                            } else {
+                                 JOptionPane.showMessageDialog(null, "Status already " + data.getRemark());
+                            }
                          }
 
                          @Override
@@ -472,6 +475,8 @@ public class PurchaseOrder extends javax.swing.JDialog {
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
+         PurchaseOrderView purchaseOrderView = new PurchaseOrderView(new JFrame(), true);
+         purchaseOrderView.setVisible(true);
     }//GEN-LAST:event_btnCancelMouseClicked
 
      private void eventSearchPuchaseOrder() {

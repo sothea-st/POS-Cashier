@@ -26,6 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -603,6 +604,8 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
+         ReportingView reportingView = new ReportingView(new JFrame(), true);
+         reportingView.setVisible(true);
     }//GEN-LAST:event_btnCancelMouseClicked
 
      /**

@@ -16,6 +16,7 @@ import Model.Category.ModelCategory;
 import Setting.Department.InsertDepartment;
 import Setting.Division.InsertDivision;
 import Setting.Subcategory.InsertSubcategory;
+import Settings.Settings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -633,6 +634,8 @@ public class Category extends javax.swing.JDialog {
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          dispose();
+         Settings settings = new Settings(new JFrame(), true);
+         settings.setVisible(true);
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
