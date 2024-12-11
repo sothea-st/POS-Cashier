@@ -207,8 +207,8 @@ public class ListAttribute extends javax.swing.JDialog {
                                    UI.put("Panel.background", WindowColor.mediumGreen);
                                    UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this attribute?",
-                                        "Delete Attribute?", JOptionPane.YES_NO_OPTION);
+                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this?",
+                                        "Delete", JOptionPane.YES_NO_OPTION);
 
                                    if (resp == JOptionPane.YES_OPTION) {
                                         JSONObject json = new JSONObject();
