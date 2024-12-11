@@ -30,7 +30,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class listUom extends javax.swing.JDialog {
+public class ListUom extends javax.swing.JDialog {
 
      String searchValue;
      private String pageNumber = "0";
@@ -39,7 +39,7 @@ public class listUom extends javax.swing.JDialog {
      private int dataCount = 0;
      private String pageType;
 
-     public listUom(java.awt.Frame parent, boolean modal) {
+     public ListUom(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
 
@@ -467,20 +467,20 @@ public class listUom extends javax.swing.JDialog {
                     }
                }
           } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+               java.util.logging.Logger.getLogger(ListUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
           } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+               java.util.logging.Logger.getLogger(ListUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
           } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+               java.util.logging.Logger.getLogger(ListUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
           } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(listUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+               java.util.logging.Logger.getLogger(ListUom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
           }
           //</editor-fold>
 
           /* Create and display the dialog */
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
-                    listUom dialog = new listUom(new javax.swing.JFrame(), true);
+                    ListUom dialog = new ListUom(new javax.swing.JFrame(), true);
                     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                          @Override
                          public void windowClosing(java.awt.event.WindowEvent e) {

@@ -14,15 +14,15 @@ import main_validation.JavaConflicValidation;
 import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
+
 @Setter
 @Getter
-
 public class AddUom extends javax.swing.JDialog {
 
     private Integer id;
     private JPanel listGetUom;
     private String pageNumber;
-    private listUom obj;
+    private ListUom obj;
     
     public AddUom(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -132,7 +132,7 @@ public class AddUom extends javax.swing.JDialog {
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
         this.dispose();
-        listUom list = new listUom(new JFrame(), true);
+        ListUom list = new ListUom(new JFrame(), true);
         list.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
@@ -193,7 +193,7 @@ public class AddUom extends javax.swing.JDialog {
                     if (response.isSuccessful() && isExist) {
 
                         dispose();
-                        listUom list = new listUom(new JFrame(), true);
+                        ListUom list = new ListUom(new JFrame(), true);
                         list.setVisible(true);
                         listGetUom.removeAll();
                         listGetUom.revalidate();
