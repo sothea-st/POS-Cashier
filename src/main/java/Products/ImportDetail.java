@@ -21,6 +21,8 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -96,9 +98,6 @@ public class ImportDetail extends javax.swing.JDialog {
           JScrollBar verticalScrollBars = jScrollPane1.getVerticalScrollBar();
           verticalScrollBars.setUnitIncrement(30);
           verticalScrollBars.setBlockIncrement(35);
-
- 
-
      }
 
      public List<ProductResponse> getListProductResponse() {
@@ -130,6 +129,12 @@ public class ImportDetail extends javax.swing.JDialog {
                     && p.getSubCatId() != null
                     && p.getProductName() != null) {
 
+                    double margin = ((p.getPrice().doubleValue() - p.getCost().doubleValue()) * 100) / p.getPrice().doubleValue();
+                    DecimalFormat df = new DecimalFormat("#.##");
+                    String formattedMargin = df.format(margin);
+
+                    System.out.println("Margin: " + formattedMargin + "%");
+
                     rows[i][0] = String.valueOf(i + 1); // Index
                     rows[i][1] = p.getLink(); // File column
                     rows[i][2] = p.getPhoto(); // Placeholder for now, adjust as needed
@@ -141,7 +146,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     rows[i][8] = p.getProductNameKh(); // Product Name Kh
                     rows[i][9] = p.getCost(); // Cost
                     rows[i][10] = p.getPrice(); // Price
-                    rows[i][11] = p.getMargin(); // Margin
+                    rows[i][11] = formattedMargin + "%"; // Margin
                     rows[i][12] = p.getAttributeId(); // Attribute
                     rows[i][13] = p.getChoiceValue(); // Choice Value
                     rows[i][14] = p.getUomId(); // UOM
@@ -169,6 +174,12 @@ public class ImportDetail extends javax.swing.JDialog {
                          && p.getSubCatId() != null
                          && p.getProductName() != null) {
 
+                         double margin = ((p.getPrice().doubleValue() - p.getCost().doubleValue()) * 100) / p.getPrice().doubleValue();
+                         DecimalFormat df = new DecimalFormat("#.##");
+                         String formattedMargin = df.format(margin);
+
+                         System.out.println("Margin: " + formattedMargin + "%");
+
                          rowsData[i][0] = String.valueOf(i + 1); // Index
                          rowsData[i][1] = p.getLink(); // File column
                          rowsData[i][2] = p.getPhoto(); // Placeholder for now, adjust as needed
@@ -180,7 +191,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          rowsData[i][8] = p.getProductNameKh(); // Product Name Kh
                          rowsData[i][9] = p.getCost(); // Cost
                          rowsData[i][10] = p.getPrice(); // Price
-                         rowsData[i][11] = p.getMargin(); // Margin
+                         rows[i][11]     = formattedMargin + "%"; // Margin
                          rowsData[i][12] = p.getAttributeId(); // Attribute
                          rowsData[i][13] = p.getChoiceValue(); // Choice Value
                          rowsData[i][14] = p.getUomId(); // UOM
@@ -398,7 +409,6 @@ public class ImportDetail extends javax.swing.JDialog {
 
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-
           save();
      }//GEN-LAST:event_buttonSaveMouseClicked
 
@@ -408,7 +418,7 @@ public class ImportDetail extends javax.swing.JDialog {
 
           for (int i = 0; i < table.getRowCount(); i++) {
                String pathImg = null;
-               System.err.println("table.getValueAt(i, 18)  : " + table.getValueAt(i, 18));
+               //System.err.println("table.getValueAt(i, 18)  : " + table.getValueAt(i, 18));
                if (table.getValueAt(i, 18) == null) {
                     pathImg = "productImage/default.jpg";
 
@@ -474,8 +484,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          }
                     }
 
-                    System.out.println("before legth   : " + listProductResponse.size());
-
+                    //System.out.println("before legth   : " + listProductResponse.size());
                     try {
                          JSONObject json = new JSONObject();
                          json.put("lists", listProductResponse);
