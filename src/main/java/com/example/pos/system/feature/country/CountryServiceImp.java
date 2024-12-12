@@ -42,7 +42,7 @@ public class CountryServiceImp implements CountryService {
 
           if (!countryUpdateRequest.countryName().equals(country.getCountryName())) {
                // validate name already exist
-               if (countryRepository.existsByCountryName(countryUpdateRequest.countryName())) {
+               if (countryRepository.existsByCountryNameAndStatusTrueAndIsDeletedFalse(countryUpdateRequest.countryName())) {
                     throw new ResponseStatusException(HttpStatus.CONFLICT, nameAlreadyExisted);
                }
           }
@@ -101,7 +101,7 @@ public class CountryServiceImp implements CountryService {
      public CountryResponse create(CountryRequest countryRequest) {
 
           // validate name already exist
-          if (countryRepository.existsByCountryName(countryRequest.countryName())) {
+          if (countryRepository.existsByCountryNameAndStatusTrueAndIsDeletedFalse(countryRequest.countryName())) {
                throw new ResponseStatusException(
                          HttpStatus.CONFLICT, nameAlreadyExisted);
           }

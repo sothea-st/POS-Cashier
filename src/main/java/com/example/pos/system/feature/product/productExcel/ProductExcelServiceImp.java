@@ -72,7 +72,45 @@ public class ProductExcelServiceImp implements ProductExcelService {
                     productExcelDetail.getSubCatId() != null &&
                     productExcelDetail.getProductName() != null) {
 
-//                System.out.println("");
+
+
+                if( productExcelDetail.getBarcode().length() != 13 ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "barcode must be 13 digits at product Name : " + productExcelDetail.getProductName() +
+                            " with barcode : " + productExcelDetail.getBarcode());
+                }
+
+                if( productExcelDetail.getVendorId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Vendor Name is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getBrandId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Brand is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getSubCatId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Sub category is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getAttributeId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Attribute is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getUomId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Uom is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getStatusId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Status is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getCountryId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Country is required at product Name : " + productExcelDetail.getProductName());
+                }
+
+                if( productExcelDetail.getTaxId() == null ) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Tax is required at product Name : " + productExcelDetail.getProductName());
+                }
+
 
                 String proNameKh = productExcelDetail.getProductNameKh();
                 if (proNameKh != null && proNameKh.isEmpty()) {

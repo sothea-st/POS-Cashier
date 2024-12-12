@@ -1,5 +1,6 @@
 package com.example.pos.system.feature.product.productExcel;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,8 @@ public class ProductExcelController {
      private final ProductExcelService productExcelService;
 
      @PostMapping
-     public JavaMessageResponse<?> create(@RequestBody ProductMultipleInsert productMultipleInsert){ 
+     public JavaMessageResponse<?> create(@Valid @RequestBody ProductMultipleInsert productMultipleInsert){
+
           productExcelService.create(productMultipleInsert);
           return JavaMessageResponse.builder()
                     .status(HttpStatus.OK.value())

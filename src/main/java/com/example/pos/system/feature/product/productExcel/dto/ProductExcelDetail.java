@@ -29,5 +29,4 @@ public class ProductExcelDetail {
      private Integer warehouseId;
      private Integer rangeId;
      private Integer slotId;
-
 }

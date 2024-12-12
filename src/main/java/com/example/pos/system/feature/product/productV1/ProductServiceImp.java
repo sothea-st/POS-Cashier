@@ -329,6 +329,11 @@ public class ProductServiceImp implements ProductService {
         Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productIdNotFound + id));
 
+        String proNameKh = productRequest.proNameKh();
+        if( proNameKh != null && proNameKh.isEmpty() ) {
+            proNameKh = null;
+        }
+
         // validate subCategory
         Category subCategory = subCategory(productRequest.subCatId());
 
@@ -386,7 +391,7 @@ public class ProductServiceImp implements ProductService {
         }
 
 
-        product.setProNameKh(productRequest.proNameKh());
+        product.setProNameKh(proNameKh);
         product.setProNameEn(productRequest.proNameEn());
         product.setCost(productRequest.cost());
         product.setPrice(productRequest.price());

@@ -12,7 +12,7 @@ import com.example.pos.system.domain.settings.Country;
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
 
-    boolean existsByCountryName(String countryName);
+    boolean existsByCountryNameAndStatusTrueAndIsDeletedFalse(String countryName);
 
     // List with pagination
     Page<Country> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
