@@ -11,6 +11,7 @@ import Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
 import LoginAndLogoutForm.LoginFormJdailog;
 import feature.export_product_format_excel.ExportProductFormatEXCEL;
+import static feature.export_product_format_excel.ExportProductFormatEXCEL.sourcePDFPath;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.Timer;
@@ -751,6 +752,7 @@ public class InsertProduct extends javax.swing.JDialog {
                          }
                     } else { // update
 
+                         //System.err.println("json : " + json);
                          if (path != null) {
                               Response responseImg = JavaConnection.postFile(path);
                               try {

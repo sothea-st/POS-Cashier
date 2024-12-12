@@ -69,7 +69,6 @@ public class Category extends javax.swing.JDialog {
                JavaConstant.addTitleAndLogo(this, "Division");
                // check permission
                // permissionId: 15 is primary key id from table pos_permission
-               System.err.println("division data : " + JavaPermission.getPermissionDetail(15).getIsCreate());
                btnAdd.setVisible(JavaPermission.getPermissionDetail(15).getIsCreate());
           } else if (codeType.equals("category")) {
                JavaConstant.addTitleAndLogo(this, "Category");
@@ -215,6 +214,7 @@ public class Category extends javax.swing.JDialog {
 
                     var listData = listCategory.get(i);
                     GetCategory category = new GetCategory();
+         
                     category.checkPermission(codeType);
                     ButtonEvent events = new ButtonEvent() {
                          @Override
@@ -360,7 +360,7 @@ public class Category extends javax.swing.JDialog {
                                    if (resp == JOptionPane.YES_OPTION) {
                                         JSONObject json = new JSONObject();
                                         Response response = JavaConnection.delete(JavaRoute.addCategory + "/" + listData.getId(), json);
-                                        System.out.println("bug delete : " + response);
+                                        //System.out.println("bug delete : " + response);
                                         try {
                                              String responseData = response.body().string();
 

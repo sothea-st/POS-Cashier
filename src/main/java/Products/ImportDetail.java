@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,7 +106,18 @@ public class ImportDetail extends javax.swing.JDialog {
      }
 
      public void setListProductResponse(List<ProductResponse> listProductResponse) {
-          this.listProductResponse = listProductResponse;
+          //this.listProductResponse = listProductResponse;
+          List<ProductResponse> list = new ArrayList<>();
+          for (ProductResponse p : listProductResponse) {
+               double margin = ((p.getPrice().doubleValue() - p.getCost().doubleValue()) * 100) / p.getPrice().doubleValue();
+               DecimalFormat df = new DecimalFormat("#.##");
+               String formattedMargin = df.format(margin);
+               p.setMargin(formattedMargin);
+               list.add(p);
+          }
+          
+          this.listProductResponse = list;
+
      }
 
      public InsertProduct getInsertProduct() {
@@ -178,7 +190,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          DecimalFormat df = new DecimalFormat("#.##");
                          String formattedMargin = df.format(margin);
 
-                         System.out.println("Margin: " + formattedMargin + "%");
+                         System.out.println("Margin11111: " + formattedMargin + "%");
 
                          rowsData[i][0] = String.valueOf(i + 1); // Index
                          rowsData[i][1] = p.getLink(); // File column
@@ -191,7 +203,7 @@ public class ImportDetail extends javax.swing.JDialog {
                          rowsData[i][8] = p.getProductNameKh(); // Product Name Kh
                          rowsData[i][9] = p.getCost(); // Cost
                          rowsData[i][10] = p.getPrice(); // Price
-                         rows[i][11]     = formattedMargin + "%"; // Margin
+                         rows[i][11] = formattedMargin + "%"; // Margin
                          rowsData[i][12] = p.getAttributeId(); // Attribute
                          rowsData[i][13] = p.getChoiceValue(); // Choice Value
                          rowsData[i][14] = p.getUomId(); // UOM

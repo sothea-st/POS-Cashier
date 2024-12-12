@@ -4,17 +4,12 @@ import Color.WindowColor;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
-/**
- *
- * @author FRONT-END.06
- */
+ 
 public class LabelTitle extends javax.swing.JPanel {
 
      /**

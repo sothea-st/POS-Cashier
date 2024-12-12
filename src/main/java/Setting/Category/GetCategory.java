@@ -25,6 +25,11 @@ public class GetCategory extends javax.swing.JPanel {
 //          btnEdit.setVisible(JavaPermission.getPermissionDetail(26).getIsUpdate());
 //          btnDelete.setVisible(JavaPermission.getPermissionDetail(26).getIsUpdate());
      }
+     
+     public void hideBtnDelete(){
+          btnDelete.setVisible(false);
+          btnEdit.setVisible(false);
+     }
 
      public JLabel getLbId() {
           return lbId;

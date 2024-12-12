@@ -116,7 +116,10 @@ public class JavaGetDataFromExcel {
           return products;
      }
 
-     private int returnId(String value) {
+     private Integer returnId(String value) {
+          if( value.contains("---") ) {
+               return null;
+          }
           String[] str = value.split("=>");
           int id = Integer.parseInt(str[0].trim());
           return id;

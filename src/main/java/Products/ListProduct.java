@@ -951,8 +951,6 @@ public class ListProduct extends javax.swing.JDialog {
           pageNumber = "0";
           paginationPanel.resetPage();
           getProduct(listGetProduct, true, 2);
-
-
      }//GEN-LAST:event_inActiveMouseClicked
 
      private void removeBorder(JLabel label) {

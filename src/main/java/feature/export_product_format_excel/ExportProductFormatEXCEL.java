@@ -1,27 +1,15 @@
 package feature.export_product_format_excel;
 
-import Constant.JavaConnection;
-import Constant.JavaRoute;
-import Model.Brand.BrandModel;
-import Model.Brand.BrandSuccessModel;
-import Model.Category.CategoryGetdataModel;
-import Model.Category.CategorySuccessModel;
-import Model.Vendor.DataVendorModel;
-import Model.Vendor.ListVendorModel;
-import com.fasterxml.jackson.databind.ObjectMapper;
+ 
 import org.apache.poi.xssf.usermodel.*;
-
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import okhttp3.Response;
 import org.apache.poi.ss.util.CellRangeAddressList;
 
 public class ExportProductFormatEXCEL {
@@ -35,21 +23,21 @@ public class ExportProductFormatEXCEL {
           // Sample data
           List<String[]> data = Arrays.asList(
                new String[]{
-                    "Barcode",
-                    "Vendor Name",
-                    "Brand",
-                    "Sub Category",
+                    "Barcode *",
+                    "Vendor Name *",
+                    "Brand *",
+                    "Sub Category *",
                     "Product Name",
-                    "Product Name Kh",
-                    "Cost",
-                    "Price",
+                    "Product Name Kh *",
+                    "Cost *",
+                    "Price *",
                     "Margin",
-                    "Attribute",
-                    "Choice Value",
-                    "UOM",
-                    "Status",
-                    "Country",
-                    "Tax",
+                    "Attribute *",
+                    "Choice Value *",
+                    "UOM *",
+                    "Status *",
+                    "Country *",
+                    "Tax *",
                     "Warehouse",
                     "Range",
                     "Slot"
@@ -216,7 +204,7 @@ public class ExportProductFormatEXCEL {
                }
 
                // Specify PDF file path
-               sourcePDFPath = downloadFolderPaths + "/Downloads/EXCEL_Downloads/Product Format.xlsx";
+               sourcePDFPath = downloadFolderPaths + "\\Downloads\\EXCEL_Downloads\\Product_Sample_For_Import.xlsx";
 
                // Write the workbook content to a file
                try (FileOutputStream outputStream = new FileOutputStream(sourcePDFPath)) {

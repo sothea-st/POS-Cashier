@@ -9,20 +9,16 @@ import Setting.Brand.ListBrand;
 import Setting.Category.Category;
 import Setting.Country.ListCountry;
 import Setting.Range.ListRange;
- 
 import Setting.Slot.ListSlot;
 import Setting.Status.ListStatus;
 import Setting.Tax.ListTax;
- 
 import Setting.Vendor.ListVendor;
 import Setting.Warehouse.ListWarehouse;
 import feature.user_permission.JavaPermission;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-
 import Setting.Uom.ListUom;
 import lombok.Getter;
 import lombok.Setter;
