@@ -106,7 +106,6 @@ public class LoginFormJdailog extends javax.swing.JDialog {
      public LoginFormJdailog(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
-          txtUserId.requestFocus();
           panelLogin.setBackground(WindowColor.mediumGreen);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
