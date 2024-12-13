@@ -397,7 +397,7 @@ public class ActionProduct {
                     product.setProductStatus("Out Stock");
                }
 
-//==========================================================================
+ 
                product.setDiscountPercentag(listData.getDiscount(), price);
 
                product.setDiscountPercent(listData.getDiscount());
