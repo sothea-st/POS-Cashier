@@ -10,6 +10,7 @@ import Model.Userlogin.UserDataModel;
 import Model.Userlogin.UserModel;
 import Model.Userlogin.UserSuccessModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.staff.StaffInformationForm;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,190 +23,188 @@ import okhttp3.Response;
 
 public class Userlogin extends javax.swing.JDialog {
 
-    private String searchValue;
-    private String pageNumber = "0";
-    private int pageSize = 10;
-    private boolean isCheckSearch = true;
-    
-    public Userlogin(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        getUserLogin(listGetUserLogin,true);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        header1.setBackground(WindowColor.darkGreen);
-        eventSearchUser();
-        
-        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
-        
-        eventPagination();
-        JavaConstant.addTitleAndLogo(this, "User Login");
-        
-        
-      
-    }
-      
-    private void eventPagination() {
-        ButtonEvent event = new ButtonEvent() {
-             @Override
-             public void onMouseClick(String value) {
-                  if (isCheckSearch) {
-                       int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                       pageNumber = String.valueOf(_value);
-                       getUserLogin(listGetUserLogin, true);
-                  }
-             }
-        };
-        paginationPanel.initEvent(event);
-    }
-    
-    public void getUserLogin(JPanel jpanelData,boolean isCheck) {
-        try {
+     private String searchValue;
+     private String pageNumber = "0";
+     private int pageSize = 10;
+     private boolean isCheckSearch = true;
 
-            Response response = null;
-            if (isCheck) { // isCheck true get items
-                response = JavaConnection.get(JavaRoute.userAccount + "?pageNumber=" + pageNumber + "&pageSize=10");
-            } else { // isCheck false search
-                isCheckSearch = false;
-                response = JavaConnection.get(JavaRoute.searchUserAccount + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
-            }
-            
-             System.err.println("response : " + response);
+     public Userlogin(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          getUserLogin(listGetUserLogin, true);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          header1.setBackground(WindowColor.darkGreen);
+          eventSearchUser();
 
-            if (response.isSuccessful()) {
-                String responseData = response.body().string();
-                ObjectMapper objMap = new ObjectMapper();
-                UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
-                UserDataModel[] listData = data.getData();
+          jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-                if (isCheck) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-                } else {
-                    paginationPanel.resetPage();
-                }
+          eventPagination();
+          JavaConstant.addTitleAndLogo(this, "User Login");
 
-                assignUser(listData, jpanelData);
+     }
 
-            } else {
-                System.err.println("fail loading user");
-            }
-        } catch (Exception e) {
-            System.err.println("error getting user " + e);
-        }
-    }
-    
-    public void assignUser(UserDataModel[] listData, JPanel listGetUserLogin) {
-        ArrayList<UserModel> user = new ArrayList<>();
+     private void eventPagination() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getUserLogin(listGetUserLogin, true);
+                    }
+               }
+          };
+          paginationPanel.initEvent(event);
+     }
 
-        for (int i = 0; i < listData.length; i++) {
-            var obj = listData[i];
-            UserModel userLogin = new UserModel(
+     public void getUserLogin(JPanel jpanelData, boolean isCheck) {
+          try {
+
+               Response response = null;
+               if (isCheck) { // isCheck true get items
+                    response = JavaConnection.get(JavaRoute.userAccount + "?pageNumber=" + pageNumber + "&pageSize=10");
+               } else { // isCheck false search
+                    isCheckSearch = false;
+                    response = JavaConnection.get(JavaRoute.searchUserAccount + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50");
+               }
+
+               System.err.println("response : " + response);
+
+               if (response.isSuccessful()) {
+                    String responseData = response.body().string();
+                    ObjectMapper objMap = new ObjectMapper();
+                    UserSuccessModel data = objMap.readValue(responseData, UserSuccessModel.class);
+                    UserDataModel[] listData = data.getData();
+
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize);
+                    } else {
+                         paginationPanel.resetPage();
+                    }
+
+                    assignUser(listData, jpanelData);
+
+               } else {
+                    System.err.println("fail loading user");
+               }
+          } catch (Exception e) {
+               System.err.println("error getting user " + e);
+          }
+     }
+
+     public void assignUser(UserDataModel[] listData, JPanel listGetUserLogin) {
+          ArrayList<UserModel> user = new ArrayList<>();
+
+          for (int i = 0; i < listData.length; i++) {
+               var obj = listData[i];
+               UserModel userLogin = new UserModel(
                     obj.getId(),
                     obj.getEmpId(),
                     obj.getFullName(),
                     obj.getUserCode()
-            );
-            user.add(userLogin);
-        }
+               );
+               user.add(userLogin);
+          }
 
-        appendUser(user, listGetUserLogin);
-    }
-    
-    private void reloadPanel() {
-        listGetUserLogin.removeAll();
-        listGetUserLogin.revalidate();
-        listGetUserLogin.repaint();
-    }
-    
-    void appendUser(ArrayList<UserModel> listUser, JPanel listGetUserLogin) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          appendUser(user, listGetUserLogin);
+     }
 
-        listGetUserLogin.setLayout(gridBagLayout);
-        reloadPanel();
+     private void reloadPanel() {
+          listGetUserLogin.removeAll();
+          listGetUserLogin.revalidate();
+          listGetUserLogin.repaint();
+     }
 
-        int x = 0;
-        int y = 0;
-        for (int i = 0; i < listUser.size(); i++) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = x;
-            gbc.gridy = y;
-            gbc.gridwidth = 1;
-            gbc.anchor = gbc.NORTH;
-            x++;
-            if (x == 1) {
-                x = 0;
-                y++;
-            }
+     void appendUser(ArrayList<UserModel> listUser, JPanel listGetUserLogin) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-            var listData = listUser.get(i);
-            GetUserLogin user = new GetUserLogin();
+          listGetUserLogin.setLayout(gridBagLayout);
+          reloadPanel();
 
-            ButtonEvent events = new ButtonEvent() {
-                @Override
-                public void onSelect(String Key) {  // event edit
-                    dispose();
-                    ChangeUserPassword edit = new ChangeUserPassword(new JFrame(), true);
-                    //edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
-                    edit.setEmId(listData.getEmId());
-                    edit.setUserCode(listData.getUserCode());
-                    edit.setVisible(true);
+          int x = 0;
+          int y = 0;
+          for (int i = 0; i < listUser.size(); i++) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
+                    x = 0;
+                    y++;
+               }
 
-                }
-            };
+               var listData = listUser.get(i);
+               GetUserLogin user = new GetUserLogin();
 
-            user.initEvent(events);
-            user.setId(listData.getId());
-            user.setUserName(listData.getUserName());
-            user.setUserCode(listData.getUserCode());
-            paginationPanel.setVisible(true);
-            listGetUserLogin.add(user, gbc);
-        }
-        
-        if (listUser.size() == 0) {
-            listGetUserLogin.setLayout(new BorderLayout());
-            UserNotFound nofound = new UserNotFound();
-            listGetUserLogin.add(nofound, BorderLayout.CENTER);
-            listGetUserLogin.add(nofound);
-            listGetUserLogin.revalidate();
-            listGetUserLogin.repaint();
-            paginationPanel.setVisible(false);
-        }
-        
-        listGetUserLogin.revalidate();
-        listGetUserLogin.repaint();
-    }
+               ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                         dispose();
+                         ChangeUserPassword edit = new ChangeUserPassword(new JFrame(), true);
+                         //edit.setIconImage(new ImageIcon(JavaBlogImage.getImage(JavaRoute.bgImage + "bgwhite.jpg")).getImage());
+                         edit.setEmId(listData.getEmId());
+                         edit.setUserCode(listData.getUserCode());
+                         edit.setVisible(true);
 
-    //Action Search
-    private void eventSearchUser() {
-        // this event was called when user type on searchTextField 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-                searchValue = searchField.getValueTextSearch();
+                    }
+               };
 
-                if (searchValue.isEmpty()) {
-                    isCheckSearch = true;
-                    pageNumber = "0";
-                    getUserLogin(listGetUserLogin, true);
-                    return;
-                }
-                getUserLogin(listGetUserLogin, false);
-            }
-        };
-        searchField.initEvent(event);
-    }
-    
-    @SuppressWarnings("unchecked")
+               user.initEvent(events);
+               user.setId(listData.getId());
+               user.setUserName(listData.getUserName());
+               user.setUserCode(listData.getUserCode());
+               paginationPanel.setVisible(true);
+               listGetUserLogin.add(user, gbc);
+          }
+
+          if (listUser.size() == 0) {
+               listGetUserLogin.setLayout(new BorderLayout());
+               UserNotFound nofound = new UserNotFound();
+               listGetUserLogin.add(nofound, BorderLayout.CENTER);
+               listGetUserLogin.add(nofound);
+               listGetUserLogin.revalidate();
+               listGetUserLogin.repaint();
+               paginationPanel.setVisible(false);
+          }
+
+          listGetUserLogin.revalidate();
+          listGetUserLogin.repaint();
+     }
+
+     //Action Search
+     private void eventSearchUser() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    searchValue = searchField.getValueTextSearch();
+
+                    if (searchValue.isEmpty()) {
+                         isCheckSearch = true;
+                         pageNumber = "0";
+                         getUserLogin(listGetUserLogin, true);
+                         return;
+                    }
+                    getUserLogin(listGetUserLogin, false);
+               }
+          };
+          searchField.initEvent(event);
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -333,49 +332,49 @@ public class Userlogin extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
      private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
-         dispose();
-         Staff staff = new Staff(new JFrame(), true);
-         staff.setVisible(true);
+          dispose();
+          StaffInformationForm sif = new StaffInformationForm(new JFrame(), true);
+          sif.setVisible(true);
      }//GEN-LAST:event_buttonCancel1MouseClicked
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Userlogin dialog = new Userlogin(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(Userlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    Userlogin dialog = new Userlogin(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ButtonPackage.ButtonCancel buttonCancel1;

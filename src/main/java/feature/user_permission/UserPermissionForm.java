@@ -10,6 +10,7 @@ import FormComponent.combobox.JavaComboBoxSelection;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Staff.Staff;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.staff.StaffInformationForm;
 import feature.user_permission.model.RoleHasPermission;
 import java.awt.Component;
 import java.awt.Cursor;
@@ -25,7 +26,6 @@ import org.json.JSONObject;
 public class UserPermissionForm extends javax.swing.JDialog {
 
      private String roleId = "-1";
-   
 
      private List<RoleHasPermission> listRoles = new ArrayList<>();
 
@@ -2671,8 +2671,8 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
-          Staff staff = new Staff(new JFrame(), true);
-          staff.setVisible(true);
+          StaffInformationForm sif = new StaffInformationForm(new JFrame(), true);
+          sif.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void lbStockMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbStockMouseClicked
@@ -4381,8 +4381,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
           });
      }
 
-     
-       private boolean isStock = false;
+     private boolean isStock = false;
      private boolean isAll = false;
      //========= product =============
      private boolean isProduct = false;
