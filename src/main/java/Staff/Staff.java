@@ -59,8 +59,6 @@ public class Staff extends javax.swing.JDialog {
           btnUserlogin.setVisible(isUserLogin);
           btnUserPermission.setVisible(isUserPermission);
  
-           
-
      }
      
      @SuppressWarnings("unchecked")

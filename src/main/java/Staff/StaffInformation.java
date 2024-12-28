@@ -189,13 +189,14 @@ public class StaffInformation extends javax.swing.JDialog {
                               ObjectMapper objMap = new ObjectMapper();
                               DetailGetDataModel data = objMap.readValue(responseData, DetailGetDataModel.class);
                               
-                              dispose();
+                              //dispose();
                               InsertStaff edit = new InsertStaff(new JFrame(), true);
                               
                               edit.setId(data.getId());
                               edit.setListGetStaff(listGetStaff);
                               
                               String _urlImg = listData.getImageName();
+                              System.err.println("_urlImg : " + _urlImg);
 //                        if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
 //                            _urlImg = JavaConstant.urlImage + listData.getImageName();
 //                        } else {
