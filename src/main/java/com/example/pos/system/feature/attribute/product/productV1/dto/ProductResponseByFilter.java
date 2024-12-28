@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.product.productV1.dto;
+package com.example.pos.system.feature.attribute.product.productV1.dto;
 import java.math.*;
 
 import lombok.Builder;

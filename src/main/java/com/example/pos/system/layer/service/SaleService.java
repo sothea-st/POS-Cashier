@@ -9,7 +9,7 @@ import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.feature.imports.ImportRepository;
-import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
 import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryService;
 import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryRequest;
 import com.example.pos.system.layer.controller.generateBarcode.BarcodeGenerator;

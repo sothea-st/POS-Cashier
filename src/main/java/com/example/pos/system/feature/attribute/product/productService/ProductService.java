@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.product.productService;
+package com.example.pos.system.feature.attribute.product.productService;
 
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.general.FileStore;
@@ -8,13 +8,13 @@ import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.feature.attribute.AttributeRepository;
 import com.example.pos.system.feature.country.CountryRepository;
-import com.example.pos.system.feature.product.dto.ProductDataRequest;
+import com.example.pos.system.feature.attribute.product.dto.ProductDataRequest;
 import com.example.pos.system.feature.tax.TaxRepository;
 import com.example.pos.system.feature.settings.uom.UomRepository;
 import com.example.pos.system.feature.vendor.VendorRepository;
 import com.example.pos.system.layer.repository.FileStoreRepository;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
-import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
 // import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import com.example.pos.system.layer.service.ImportService;

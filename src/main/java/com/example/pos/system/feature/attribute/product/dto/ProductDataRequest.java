@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.product.dto;
+package com.example.pos.system.feature.attribute.product.dto;
 
 import com.example.pos.system.constant.JavaMessage;
 import jakarta.validation.constraints.NotBlank;

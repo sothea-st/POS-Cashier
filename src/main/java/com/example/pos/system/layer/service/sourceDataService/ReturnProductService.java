@@ -11,7 +11,7 @@ import com.example.pos.system.domain.sourceData.Reason;
 import com.example.pos.system.domain.sourceData.ReturnDetails;
 import com.example.pos.system.domain.sourceData.ReturnProduct;
 import com.example.pos.system.domain.stock.ImportDetail;
-import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
 import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryService;
 import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryRequest;
 import com.example.pos.system.layer.repository.ImportDetailRepository;

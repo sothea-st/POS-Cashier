@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.product.productService;
+package com.example.pos.system.feature.attribute.product.productService;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,8 +14,8 @@ import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.general.FileStore;
 import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.layer.repository.FileStoreRepository;
-import com.example.pos.system.feature.product.ProductRepository;
-import com.example.pos.system.feature.product.dto.ProductResponse;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.dto.ProductResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import java.io.File;

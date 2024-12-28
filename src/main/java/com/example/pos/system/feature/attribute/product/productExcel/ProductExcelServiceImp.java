@@ -1,6 +1,7 @@
-package com.example.pos.system.feature.product.productExcel;
+package com.example.pos.system.feature.attribute.product.productExcel;
 
 import com.example.pos.system.domain.settings.*;
+import com.example.pos.system.feature.attribute.product.productExcel.dto.ProductMultipleInsert;
 import com.example.pos.system.feature.settings.range.RangeRepository;
 import com.example.pos.system.feature.settings.slot.SlotRepository;
 import com.example.pos.system.feature.settings.warehouse.WarehouseRepository;
@@ -12,9 +13,8 @@ import com.example.pos.system.domain.sourceData.TaxProduct;
 import com.example.pos.system.feature.attribute.AttributeRepository;
 import com.example.pos.system.feature.brand.BrandRepository;
 import com.example.pos.system.feature.country.CountryRepository;
-import com.example.pos.system.feature.product.ProductRepository;
-import com.example.pos.system.feature.product.productExcel.dto.ProductExcelDetail;
-import com.example.pos.system.feature.product.productExcel.dto.ProductMultipleInsert;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.productExcel.dto.ProductExcelDetail;
 import com.example.pos.system.feature.status.StatusRepository;
 import com.example.pos.system.feature.tax.TaxRepository;
 import com.example.pos.system.feature.settings.uom.UomRepository;

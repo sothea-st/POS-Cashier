@@ -28,7 +28,7 @@ import com.example.pos.system.feature.imports.dto.ImportResponse;
 import com.example.pos.system.feature.imports.dto.ImportResponseById;
 import com.example.pos.system.feature.imports.dto.PurchaseOrderResponse;
 import com.example.pos.system.feature.imports.dto.RejectPurchaseOrderRequest;
-import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
 import com.example.pos.system.feature.vendor.VendorRepository;
 import com.example.pos.system.feature.mapper.ImportMapper;
 import com.example.pos.system.layer.repository.CategoryRepository;

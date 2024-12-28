@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.product.dto;
+package com.example.pos.system.feature.attribute.product.dto;
 
 import java.math.*;
 

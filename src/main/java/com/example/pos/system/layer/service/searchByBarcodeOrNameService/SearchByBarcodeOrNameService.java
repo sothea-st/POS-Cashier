@@ -4,11 +4,11 @@ import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.models.PaymentModel;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
-import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.attribute.product.ProductRepository;
 import com.example.pos.system.layer.repository.paymentRepository.PaymentRepository;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
 import com.example.pos.system.layer.repository.productProjection.ProductQty;
-import com.example.pos.system.feature.product.productService.ProductService;
+import com.example.pos.system.feature.attribute.product.productService.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

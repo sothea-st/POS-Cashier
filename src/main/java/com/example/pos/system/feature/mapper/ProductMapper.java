@@ -2,10 +2,10 @@ package com.example.pos.system.feature.mapper;
 
 import com.example.pos.system.domain.settings.Product;
 
-import com.example.pos.system.feature.product.productV1.dto.ProductRequest;
-import com.example.pos.system.feature.product.productV1.dto.ProductResponse;
+import com.example.pos.system.feature.attribute.product.productV1.dto.ProductRequest;
+import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponse;
 
-import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadById;
+import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseReadById;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.product.productExcel.dto;
+package com.example.pos.system.feature.attribute.product.productExcel.dto;
 
 import lombok.Getter;
 import lombok.Setter;
