@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.user_permission.reports.report_purchase_order.dto;
+package com.example.pos.system.feature.reports.report_purchase_order.dto;
 import java.math.BigDecimal;
 
 import lombok.Builder;

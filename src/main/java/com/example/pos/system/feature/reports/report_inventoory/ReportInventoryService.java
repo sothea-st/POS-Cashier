@@ -1,11 +1,11 @@
-package com.example.pos.system.feature.user_permission.reports.report_inventoory;
+package com.example.pos.system.feature.reports.report_inventoory;
 
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.report.ReportInventory;
 import com.example.pos.system.feature.attribute.product.ProductRepository;
-import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryRequest;
-import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryResponse;
+import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
+import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryResponse;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

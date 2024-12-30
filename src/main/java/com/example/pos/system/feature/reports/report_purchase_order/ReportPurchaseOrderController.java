@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.user_permission.reports.report_purchase_order;
+package com.example.pos.system.feature.reports.report_purchase_order;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +44,7 @@ public class ReportPurchaseOrderController {
             @RequestParam(name = "approvedId", required = false) Integer approvedId,
             @RequestParam(name = "rejectId", required = false) Integer rejectId,
             @RequestParam(name = "remark", required = false) String remark) {
-
+        System.out.println("getReportPoByRemark : " + remark );
         return reportPurchaseOrderService.getReportByRemark(pageNumber, pageSize, dateFrom, dateTo, requestId, checkId,
                 approvedId, rejectId, remark);
     }
@@ -62,7 +62,6 @@ public class ReportPurchaseOrderController {
             @RequestParam(name = "remark", required = false) String remark,
             @PathVariable(name = "value") String value
     ) {
-        System.out.println("111111111111111111111111111111111");
         return reportPurchaseOrderService.search(pageNumber, pageSize, dateFrom, dateTo, requestId, checkId,
                 approvedId, rejectId, remark, value);
     }

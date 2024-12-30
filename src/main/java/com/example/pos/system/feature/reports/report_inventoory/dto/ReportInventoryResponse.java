@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.user_permission.reports.report_inventoory.dto;
+package com.example.pos.system.feature.reports.report_inventoory.dto;
 
 import lombok.Builder;
 

@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.user_permission.reports.report_receive.dto;
+package com.example.pos.system.feature.reports.report_receive.dto;
 
 import lombok.Builder;
 
