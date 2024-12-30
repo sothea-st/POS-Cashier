@@ -33,10 +33,7 @@ import main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-/**
- *
- * @author FRONT-END.06
- */
+ 
 public class OpenShiftJdailog extends javax.swing.JDialog {
 
     private SearchField searchBox;
@@ -117,6 +114,7 @@ public class OpenShiftJdailog extends javax.swing.JDialog {
         txtTotalKhr.setValidateAmount();
         
         txtDateTime.requestFocus();
+        
 
     }
 

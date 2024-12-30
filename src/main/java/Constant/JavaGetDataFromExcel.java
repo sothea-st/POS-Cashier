@@ -1,4 +1,3 @@
- 
 package Constant;
 
 import Model.PackageProduct.ProductResponse;
@@ -57,7 +56,7 @@ public class JavaGetDataFromExcel {
                                              pro.setProductNameKh(value);
                                         case 9 ->
                                              pro.setAttributeId(returnId(value));
-                                        case 10 ->
+                                        case 10 ->  
                                              pro.setChoiceValue(value);
                                         case 11 ->
                                              pro.setUomId(returnId(value));
@@ -117,7 +116,7 @@ public class JavaGetDataFromExcel {
      }
 
      private Integer returnId(String value) {
-          if( value.contains("---") ) {
+          if (value.contains("---")) {
                return null;
           }
           String[] str = value.split("=>");

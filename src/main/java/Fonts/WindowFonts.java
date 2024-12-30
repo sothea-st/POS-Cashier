@@ -2,10 +2,7 @@ package Fonts;
 
 import java.awt.Font;
 
-/**
- *
- * @author FRONT-END.06
- */
+ 
 public class WindowFonts {
     public static Font timeNewRoman16 = new Font("Times New Roman", Font.PLAIN, 16);
     public static Font timeNewRomanBold16 = new Font("Times New Roman", Font.BOLD, 16);
@@ -25,5 +22,6 @@ public class WindowFonts {
     public static Font timeNewRoman14 = new Font("Times New Roman", Font.PLAIN, 14);
     public static Font timeNewRomanBold14 = new Font("Times New Roman", Font.BOLD, 14);
     public static Font khmerOsContent12 = new Font("Khmer OS Content", Font.PLAIN, 12);
+     public static Font khmerOsContent14 = new Font("Khmer OS Content", Font.PLAIN, 14);
     public static Font khmerOsContentBold12 = new Font("Khmer OS Content", Font.BOLD, 12);
 }

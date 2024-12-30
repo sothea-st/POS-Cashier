@@ -115,7 +115,7 @@ public class ImportDetail extends javax.swing.JDialog {
                p.setMargin(formattedMargin);
                list.add(p);
           }
-          
+
           this.listProductResponse = list;
 
      }
@@ -485,6 +485,17 @@ public class ImportDetail extends javax.swing.JDialog {
                     int count = 0;
                     for (int i = 0; i < listProductResponse.size(); i++) {
                          var p = listProductResponse.get(i);
+                         System.err.println("choice value : " + p.getChoiceValue());
+
+                         if (p.getChoiceValue() == null || p.getChoiceValue().isEmpty()) {
+                              JavaMessageDialog j = new JavaMessageDialog(new JFrame(), true);
+                              j.setTitleLabel("Choice Value is required!");
+                              j.setTitle("Message");
+                              j.setVisible(true);
+                              JavaConstant.restoreDefaultCursor(this);
+                              return;
+                         }
+
                          if (p.getBarcode() != null
                               && p.getVendorId() != null
                               && p.getSubCatId() != null
@@ -500,7 +511,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     try {
                          JSONObject json = new JSONObject();
                          json.put("lists", listProductResponse);
-                         System.out.println("json : " + json);
+                         //System.out.println("json : " + json);
                          Response responseImp = JavaConnection.post(JavaRoute.productExcel, json);
                          JavaConstant.setCircleLoadingCursor(this);
                          if (responseImp.isSuccessful()) {

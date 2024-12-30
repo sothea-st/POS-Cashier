@@ -11,7 +11,6 @@ import Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
 import LoginAndLogoutForm.LoginFormJdailog;
 import feature.export_product_format_excel.ExportProductFormatEXCEL;
-import static feature.export_product_format_excel.ExportProductFormatEXCEL.sourcePDFPath;
 import java.awt.Font;
 import java.io.IOException;
 import java.util.Timer;
@@ -119,7 +118,7 @@ public class InsertProduct extends javax.swing.JDialog {
           txtProductName.setText(_proName);
           System.err.println("_proNameKh : " + _proNameKh);
           if (_proNameKh != null && !_proNameKh.isEmpty()) {
-               System.err.println("_proNameKhdddddddddddddddddddd : " + _proNameKh);
+
                txtProductNameKh.setText(_proNameKh);
           }
 
@@ -163,7 +162,7 @@ public class InsertProduct extends javax.swing.JDialog {
                                    if (_proImageName.contains("media/file/crm/uploadfile/")) {
                                         JavaConstant.coverImage(JavaConstant.urlImage + _proImageName, lbPicture, 125, 135);
                                    } else {
-                                        JavaConstant.coverImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + _proImageName, lbPicture, 125, 135);
+                                        JavaConstant.coverImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + _proImageName, lbPicture, 124, 135);
                                         lbPicture.repaint();
                                         lbPicture.revalidate();
                                    }
@@ -209,7 +208,7 @@ public class InsertProduct extends javax.swing.JDialog {
 
           //System.out.println("_price : " + _price);
           //System.out.println("_cost : " + _cost);
-          if ( _price != null && _price.equals("0") && _cost != null && _cost.equals("0")) {
+          if (_price != null && _price.equals("0") && _cost != null && _cost.equals("0")) {
                txtMargin.setText("0");
                return;
           }
@@ -818,7 +817,8 @@ public class InsertProduct extends javax.swing.JDialog {
                          String reason = error.getString("reason");
                          JOptionPane.showMessageDialog(this, reason);
                     } else {
-                         reloadList();
+                         //reloadList();
+
                          afterSuccess();
                     }
                }
@@ -967,7 +967,7 @@ public class InsertProduct extends javax.swing.JDialog {
      }//GEN-LAST:event_btnImportMouseClicked
 
      public static void main(String args[]) {
-        
+
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     InsertProduct dialog = new InsertProduct(new javax.swing.JFrame(), true);

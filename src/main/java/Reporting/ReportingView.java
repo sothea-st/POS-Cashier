@@ -202,7 +202,6 @@ public class ReportingView extends javax.swing.JDialog {
          ReportingPurchaseOrderV2 request = new ReportingPurchaseOrderV2(new JFrame(), true);
          request.setTitle("Reporting Purchase Order");
          request.setVisible(true);
-
     }//GEN-LAST:event_reportPurhaseRequestMouseClicked
 
     private void reportPurhaseReceiveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseReceiveMouseClicked

@@ -41,314 +41,315 @@ import pdf.PrintToExcel;
 
 public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
 
-    private String requestById;
-    private String checkedById;
-    private String approvedById;
-    private String rejectedById;
-    private String statusValue;
+     private String requestById;
+     private String checkedById;
+     private String approvedById;
+     private String rejectedById;
+     private String statusValue;
 
-    public ArrayList<ReportingDetailResponse> listDetail = new ArrayList<>();
-    private String pageNumber = "0";
-    private int pageSize = 15;
-    private boolean isCheckSearch = true;
-    private String searchValue;
-    private String dateFromValue;
-    private String dateToValue;
+     public ArrayList<ReportingDetailResponse> listDetail = new ArrayList<>();
+     private String pageNumber = "0";
+     private int pageSize = 15;
+     private boolean isCheckSearch = true;
+     private String searchValue;
+     private String dateFromValue;
+     private String dateToValue;
 
-    public ReportingPurchaseOrderV2(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        initComponents();
-        searchField.setFocus();
-        // custome scrollbar ui
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
+     public ReportingPurchaseOrderV2(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          initComponents();
+          searchField.setFocus();
+          // custome scrollbar ui
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-        // set background color
-        listGetPurchaseOrder.setBackground(WindowColor.mediumGreen);
-        header.setBackground(WindowColor.darkGreen);
-        JavaConstant.addTitleAndLogo(this, "");
+          // set background color
+          listGetPurchaseOrder.setBackground(WindowColor.mediumGreen);
+          header.setBackground(WindowColor.darkGreen);
+          JavaConstant.addTitleAndLogo(this, "");
 
-        eventPagination();
-        paginationPanel.setVisible(false);
-        eventSearchPurchaseOrder();
-        groupEvent();
-        groupButtonExport.setPdf();
+          eventPagination();
+          paginationPanel.setVisible(false);
+          eventSearchPurchaseOrder();
+          groupEvent();
+          groupButtonExport.setPdf();
 
-        addComboRequestBy();
-        addComboCheckedBy();
-        addComboApprovedBy();
-        addComboRejectedBy();
-        addComboStatus();
+          addComboRequestBy();
+          addComboCheckedBy();
+          addComboApprovedBy();
+          addComboRejectedBy();
+          addComboStatus();
 
-    }
+     }
 
-    private void addComboRequestBy() {
-        JavaComboBoxSelection.addComboBox(requestBy,
-                JavaRoute.userAccount,
-                "fullName",
-                JavaComboBoxSelection.DESC);
+     private void addComboRequestBy() {
+          JavaComboBoxSelection.addComboBox(requestBy,
+               JavaRoute.userAccount,
+               "fullName",
+               JavaComboBoxSelection.DESC);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                requestById = id;
-            }
-        };
-        requestBy.initEvent(event);
-    }
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    requestById = id;
+               }
+          };
+          requestBy.initEvent(event);
+     }
 
-    private void addComboCheckedBy() {
-        JavaComboBoxSelection.addComboBox(checkedBy,
-                JavaRoute.userAccount,
-                "fullName",
-                JavaComboBoxSelection.DESC);
+     private void addComboCheckedBy() {
+          JavaComboBoxSelection.addComboBox(checkedBy,
+               JavaRoute.userAccount,
+               "fullName",
+               JavaComboBoxSelection.DESC);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                checkedById = id;
-            }
-        };
-        checkedBy.initEvent(event);
-    }
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    checkedById = id;
+               }
+          };
+          checkedBy.initEvent(event);
+     }
 
-    private void addComboApprovedBy() {
-        JavaComboBoxSelection.addComboBox(approvedBy,
-                JavaRoute.userAccount,
-                "fullName",
-                JavaComboBoxSelection.DESC);
+     private void addComboApprovedBy() {
+          JavaComboBoxSelection.addComboBox(approvedBy,
+               JavaRoute.userAccount,
+               "fullName",
+               JavaComboBoxSelection.DESC);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                approvedById = id;
-            }
-        };
-        approvedBy.initEvent(event);
-    }
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    approvedById = id;
+               }
+          };
+          approvedBy.initEvent(event);
+     }
 
-    private void addComboRejectedBy() {
-        JavaComboBoxSelection.addComboBox(rejectedBy,
-                JavaRoute.userAccount,
-                "fullName",
-                JavaComboBoxSelection.DESC);
+     private void addComboRejectedBy() {
+          JavaComboBoxSelection.addComboBox(rejectedBy,
+               JavaRoute.userAccount,
+               "fullName",
+               JavaComboBoxSelection.DESC);
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                requestById = id;
-            }
-        };
-        rejectedBy.initEvent(event);
-    }
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    requestById = id;
+               }
+          };
+          rejectedBy.initEvent(event);
+     }
 
-    private void addComboStatus() {
-        try {
-            LinkedHashMap<String, String> map = new LinkedHashMap<>();
-            map.put("Requested", "requested");
-            map.put("Checked", "checked");
-            map.put("Approved", "approved");
-            map.put("Rejected", "rejected");
-            status.setMap(map);
+     private void addComboStatus() {
+          try {
+               LinkedHashMap<String, String> map = new LinkedHashMap<>();
+               map.put("Stocked", "stocked");
+               map.put("Requested", "requested");
+               map.put("Checked", "checked");
+               map.put("Approved", "approved");
+               map.put("Rejected", "rejected");
+               status.setMap(map);
 
-            ButtonEvent event = new ButtonEvent() {
-                @Override
-                public void onSelected(String id) {
-                    statusValue = id;
-                }
-            };
-            status.initEvent(event);
-
-        } catch (Exception e) {
-            System.err.println("error = " + e);
-        }
-    }
-
-    private void groupEvent() {
-        // event export to excel
-        ButtonEvent excel = new ButtonEvent() {
-            @Override
-            public void onMouseClick() {
-                export(1);
-            }
-        };
-
-        groupButtonExport.excelEvent(excel);
-
-        // event export to csv
-        ButtonEvent csv = new ButtonEvent() {
-            @Override
-            public void onMouseClick() {
-                export(2);
-            }
-        };
-
-        groupButtonExport.csvEvent(csv);
-        // event export to pdf
-        ButtonEvent pdf = new ButtonEvent() {
-            @Override
-            public void onMouseClick() {
-                export(3);
-            }
-        };
-
-        groupButtonExport.pdfEvent(pdf);
-    }
-
-    private void export(int type) {
-        if (listDetail.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Can not export .");
-            return;
-        }
-
-        Response response = null;
-
-        String route = JavaRoute.getReportPurchaseOrderByStatus + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue;
-
-        if (requestById != null) {
-            route = route + "&requestId=" + requestById;
-        }
-
-        if (checkedById != null) {
-            route = route + "&checkId=" + checkedById;
-        }
-
-        if (approvedById != null) {
-            route = route + "&approvedId=" + approvedById;
-        }
-
-        if (rejectedById != null) {
-            route = route + "&rejectId=" + rejectedById;
-        }
-
-        if (statusValue != null) {
-            route = route + "&remark=" + statusValue;
-        }
-
-        response = JavaConnection.get(route);
-
-        try {
-            String responeData = response.body().string();
-            ObjectMapper objectMapper = new ObjectMapper();
-            ReportingRespone data = objectMapper.readValue(responeData, ReportingRespone.class);
-            ReportingDetailResponse[] lists = data.getData();
-
-            listDetail.clear();
-            listDetail.addAll(Arrays.asList(lists));
-
-            switch (type) {
-                case 1 -> {
-                    ListProduct.msgPrint(PrintToExcel.folderPath);
-                    ExportReportPurchaseOrderToExcel.toExcel(listDetail);
-                    break;
-                }
-                case 2 -> {
-                    ListProduct.msgPrint(PrintToCSV.folderPath);
-                    ExportReportPurchaseOrderToCSV.toCSV(listDetail);
-                    break;
-                }
-
-                case 3 -> {
-                    ListProduct.msgPrint(PrintListPDF.folderPath);
-                    try {
-                        ExportReportPurchaseOrderToPDF.printListPdf(listDetail);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-
-            }
-
-        } catch (Exception e) {
-            System.err.println("error export : " + e);
-        }
-    }
-
-    private void eventPagination() {
-
-        ButtonEvent paginationEvent = new ButtonEvent() {
-            @Override
-            public void onMouseClick(String value) {
-                if (isCheckSearch) {
-                    int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                    pageNumber = String.valueOf(_value);
-                    setData(true);
-                }
-            }
-        };
-        paginationPanel.initEvent(paginationEvent);
-    }
-
-    //Action Search
-    private void eventSearchPurchaseOrder() {
-        // this event was called when user type on searchTextField 
-        ButtonEvent events = new ButtonEvent() {
-            @Override
-            public void onKeyType() {
-
-                TimerTask task = new TimerTask() {
+               ButtonEvent event = new ButtonEvent() {
                     @Override
-                    public void run() {
-                        searchValue = searchField.getValueTextSearch();
-                        paginationPanel.resetPage();
-                        pageNumber = "0";
-                        if (searchValue.isEmpty()) {
-                            isCheckSearch = true;
-                            pageNumber = "0";
-                            setData(true);
-                            return;
-                        }
-                        setData(false);
+                    public void onSelected(String id) {
+                         statusValue = id;
                     }
-                };
-                Timer timer = new Timer();
-                timer.schedule(task, 500);
-            }
-        };
-        searchField.initEvent(events);
-    }
+               };
+               status.initEvent(event);
 
-    public void reloadPanel() {
-        listGetPurchaseOrder.removeAll();
-        listGetPurchaseOrder.repaint();
-        listGetPurchaseOrder.revalidate();
-    }
+          } catch (Exception e) {
+               System.err.println("error = " + e);
+          }
+     }
 
-    public void appendPurchaeOrder(ReportingDetailResponse[] list) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        reloadPanel();
-        listGetPurchaseOrder.setLayout(gridBagLayout);
+     private void groupEvent() {
+          // event export to excel
+          ButtonEvent excel = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    export(1);
+               }
+          };
 
-        int x = 0;
-        int y = 0;
-        int index = 0;
-        for (ReportingDetailResponse data : list) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = x;
-            gbc.gridy = y;
-            gbc.gridwidth = 1;
-            gbc.anchor = gbc.NORTH;
-            x++;
-            if (x == 1) {
-                x = 0;
-                y++;
-            }
+          groupButtonExport.excelEvent(excel);
 
-            index++;
-            ReportOfPurchaseOrder b = new ReportOfPurchaseOrder();
+          // event export to csv
+          ButtonEvent csv = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    export(2);
+               }
+          };
 
-            b.setData(
+          groupButtonExport.csvEvent(csv);
+          // event export to pdf
+          ButtonEvent pdf = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    export(3);
+               }
+          };
+
+          groupButtonExport.pdfEvent(pdf);
+     }
+
+     private void export(int type) {
+          if (listDetail.isEmpty()) {
+               JOptionPane.showMessageDialog(null, "Can not export .");
+               return;
+          }
+
+          Response response = null;
+
+          String route = JavaRoute.getReportPurchaseOrderByStatus + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue;
+
+          if (requestById != null) {
+               route = route + "&requestId=" + requestById;
+          }
+
+          if (checkedById != null) {
+               route = route + "&checkId=" + checkedById;
+          }
+
+          if (approvedById != null) {
+               route = route + "&approvedId=" + approvedById;
+          }
+
+          if (rejectedById != null) {
+               route = route + "&rejectId=" + rejectedById;
+          }
+
+          if (statusValue != null) {
+               route = route + "&remark=" + statusValue;
+          }
+
+          response = JavaConnection.get(route);
+
+          try {
+               String responeData = response.body().string();
+               ObjectMapper objectMapper = new ObjectMapper();
+               ReportingRespone data = objectMapper.readValue(responeData, ReportingRespone.class);
+               ReportingDetailResponse[] lists = data.getData();
+
+               listDetail.clear();
+               listDetail.addAll(Arrays.asList(lists));
+
+               switch (type) {
+                    case 1 -> {
+                         ListProduct.msgPrint(PrintToExcel.folderPath);
+                         ExportReportPurchaseOrderToExcel.toExcel(listDetail);
+                         break;
+                    }
+                    case 2 -> {
+                         ListProduct.msgPrint(PrintToCSV.folderPath);
+                         ExportReportPurchaseOrderToCSV.toCSV(listDetail);
+                         break;
+                    }
+
+                    case 3 -> {
+                         ListProduct.msgPrint(PrintListPDF.folderPath);
+                         try {
+                              ExportReportPurchaseOrderToPDF.printListPdf(listDetail);
+                         } catch (IOException ex) {
+                              Logger.getLogger(ReportingImportDetail.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                    }
+
+               }
+
+          } catch (Exception e) {
+               System.err.println("error export : " + e);
+          }
+     }
+
+     private void eventPagination() {
+
+          ButtonEvent paginationEvent = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         setData(true);
+                    }
+               }
+          };
+          paginationPanel.initEvent(paginationEvent);
+     }
+
+     //Action Search
+     private void eventSearchPurchaseOrder() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent events = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "0";
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "0";
+                                   setData(true);
+                                   return;
+                              }
+                              setData(false);
+                         }
+                    };
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+               }
+          };
+          searchField.initEvent(events);
+     }
+
+     public void reloadPanel() {
+          listGetPurchaseOrder.removeAll();
+          listGetPurchaseOrder.repaint();
+          listGetPurchaseOrder.revalidate();
+     }
+
+     public void appendPurchaeOrder(ReportingDetailResponse[] list) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          reloadPanel();
+          listGetPurchaseOrder.setLayout(gridBagLayout);
+
+          int x = 0;
+          int y = 0;
+          int index = 0;
+          for (ReportingDetailResponse data : list) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
+                    x = 0;
+                    y++;
+               }
+
+               index++;
+               ReportOfPurchaseOrder b = new ReportOfPurchaseOrder();
+
+               b.setData(
                     String.valueOf(index),
                     String.valueOf(data.getVendorName()),
                     String.valueOf(data.getTransactionNo()),
@@ -361,27 +362,27 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     String.valueOf(data.getTotalQty()),
                     String.valueOf("$ " + String.format("%.2f", data.getTotalCost())),
                     String.valueOf(String.valueOf(StringUtils.capitalize(data.getRemark())))
-            );
+               );
 
-            paginationPanel.setVisible(true);
-            listGetPurchaseOrder.add(b, gbc);
-        }
+               paginationPanel.setVisible(true);
+               listGetPurchaseOrder.add(b, gbc);
+          }
 
-        if (list.length == 0) {
-            listGetPurchaseOrder.setLayout(new BorderLayout());
-            NotFound nofound = new NotFound();
-            listGetPurchaseOrder.add(nofound, BorderLayout.CENTER);
-            listGetPurchaseOrder.add(nofound);
-            listGetPurchaseOrder.revalidate();
-            listGetPurchaseOrder.repaint();
-            paginationPanel.setVisible(false);
-        }
+          if (list.length == 0) {
+               listGetPurchaseOrder.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               listGetPurchaseOrder.add(nofound, BorderLayout.CENTER);
+               listGetPurchaseOrder.add(nofound);
+               listGetPurchaseOrder.revalidate();
+               listGetPurchaseOrder.repaint();
+               paginationPanel.setVisible(false);
+          }
 
-        listGetPurchaseOrder.revalidate();
-        listGetPurchaseOrder.repaint();
-    }
+          listGetPurchaseOrder.revalidate();
+          listGetPurchaseOrder.repaint();
+     }
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -682,116 +683,117 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonApplyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonApplyMouseClicked
-        setData(true);
+         setData(true);
     }//GEN-LAST:event_buttonApplyMouseClicked
 
-    void setData(boolean isCheck) {
-        dateFromValue = JavaConstant.formatDate(dateFrom.getSelectedDate());
-        dateToValue = JavaConstant.formatDate(dateTo.getSelectedDate());
+     void setData(boolean isCheck) {
+          dateFromValue = JavaConstant.formatDate(dateFrom.getSelectedDate());
+          dateToValue = JavaConstant.formatDate(dateTo.getSelectedDate());
 
-        if (dateFromValue == null || dateFromValue.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Date From can not be empty!");
-            return;
-        }
+          if (dateFromValue == null || dateFromValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date From can not be empty!");
+               return;
+          }
 
-        if (dateToValue == null || dateToValue.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Date To can not be empty!");
-            return;
-        }
+          if (dateToValue == null || dateToValue.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "Date To can not be empty!");
+               return;
+          }
 
-        dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
-        dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
-        
-        try {
+          dateFromValue = JavaConstant.formateDateYYYYMMDD(dateFromValue);
+          dateToValue = JavaConstant.formateDateYYYYMMDD(dateToValue);
 
-            Response response = null;
-            if (isCheck) { // isCheck true is get items
+          try {
 
-                String route = JavaRoute.getReportPurchaseOrderByStatus + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize
-                        + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue;
+               Response response = null;
 
-                if (requestById != null) {
-                    route = route + "&requestId=" + requestById;
-                }
+               if (isCheck) { // isCheck true is get items
 
-                if (checkedById != null) {
-                    route = route + "&checkId=" + checkedById;
-                }
+                    String route = JavaRoute.getReportPurchaseOrderByStatus + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize
+                         + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue;
 
-                if (approvedById != null) {
-                    route = route + "&approvedId=" + approvedById;
-                }
+                    if (requestById != null) {
+                         route = route + "&requestId=" + requestById;
+                    }
 
-                if (rejectedById != null) {
-                    route = route + "&rejectId=" + rejectedById;
-                }
+                    if (checkedById != null) {
+                         route = route + "&checkId=" + checkedById;
+                    }
 
-                if (statusValue != null) {
-                    route = route + "&remark=" + statusValue;
-                }
+                    if (approvedById != null) {
+                         route = route + "&approvedId=" + approvedById;
+                    }
 
-                response = JavaConnection.get(route);
+                    if (rejectedById != null) {
+                         route = route + "&rejectId=" + rejectedById;
+                    }
 
-            } else { // isCheck false is search
-                isCheckSearch = false;
+                    if (statusValue != null) {
+                         route = route + "&remark=" + statusValue;
+                    }
 
-                String route = JavaRoute.searchReportPurchaseOrder + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50"
-                        + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue;
+                    response = JavaConnection.get(route);
 
-                if (requestById != null) {
-                    route = route + "&requestId=" + requestById;
-                }
+               } else { // isCheck false is search
+                    isCheckSearch = false;
 
-                if (checkedById != null) {
-                    route = route + "&checkId=" + checkedById;
-                }
+                    String route = JavaRoute.searchReportPurchaseOrder + searchValue + "?pageNumber=" + pageNumber + "&pageSize=50"
+                         + "&dateFrom=" + dateFromValue + "&dateTo=" + dateToValue;
 
-                if (approvedById != null) {
-                    route = route + "&approvedId=" + approvedById;
-                }
+                    if (requestById != null) {
+                         route = route + "&requestId=" + requestById;
+                    }
 
-                if (rejectedById != null) {
-                    route = route + "&rejectId=" + rejectedById;
-                }
+                    if (checkedById != null) {
+                         route = route + "&checkId=" + checkedById;
+                    }
 
-                if (statusValue != null) {
-                    route = route + "&remark=" + statusValue;
-                }
+                    if (approvedById != null) {
+                         route = route + "&approvedId=" + approvedById;
+                    }
 
-                response = JavaConnection.get(route);
-            }
+                    if (rejectedById != null) {
+                         route = route + "&rejectId=" + rejectedById;
+                    }
 
-            System.out.println("response : " + response);
+                    if (statusValue != null) {
+                         route = route + "&remark=" + statusValue;
+                    }
 
-            String dataResponse = response.body().string();
-            JSONObject jsonResponse = new JSONObject(dataResponse);
-            if (jsonResponse.has("error")) {
-                JSONObject error = jsonResponse.getJSONObject("error");
-                String reason = error.getString("reason");
-                JOptionPane.showMessageDialog(null, reason);
-            } else {
-                ObjectMapper objectMapper = new ObjectMapper();
-                ReportingRespone data = objectMapper.readValue(dataResponse, ReportingRespone.class);
-                ReportingDetailResponse[] lists = data.getData();
+                    response = JavaConnection.get(route);
+               }
 
-                //paginatin code
-                if (isCheck) {
-                    paginationPanel.setTotalPage(data.getCount(), pageSize);
-                } else {
-                    paginationPanel.resetPage();
-                }
+               System.out.println("response : " + response);
 
-                listDetail.clear();
-                listDetail.addAll(Arrays.asList(lists));
-                appendPurchaeOrder(lists);
-                if (lists.length != 0) {
-                    paginationPanel.setVisible(true);
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("error : " + e);
-        }
-    }
+               String dataResponse = response.body().string();
+               JSONObject jsonResponse = new JSONObject(dataResponse);
+               if (jsonResponse.has("error")) {
+                    JSONObject error = jsonResponse.getJSONObject("error");
+                    String reason = error.getString("reason");
+                    JOptionPane.showMessageDialog(null, reason);
+               } else {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    ReportingRespone data = objectMapper.readValue(dataResponse, ReportingRespone.class);
+                    ReportingDetailResponse[] lists = data.getData();
+
+                    //paginatin code
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize);
+                    } else {
+                         paginationPanel.resetPage();
+                    }
+
+                    listDetail.clear();
+                    listDetail.addAll(Arrays.asList(lists));
+                    appendPurchaeOrder(lists);
+                    if (lists.length != 0) {
+                         paginationPanel.setVisible(true);
+                    }
+               }
+          } catch (Exception e) {
+               System.out.println("error : " + e);
+          }
+     }
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
          this.dispose();
@@ -800,50 +802,50 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelMouseClicked
 
      private void buttonApplyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonApplyMouseEntered
-         // TODO add your handling code here:
+          // TODO add your handling code here:
      }//GEN-LAST:event_buttonApplyMouseEntered
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+     public static void main(String args[]) {
+          /* Set the Nimbus look and feel */
+          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ReportingPurchaseOrderV2 dialog = new ReportingPurchaseOrderV2(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+           */
+          try {
+               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                         break;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+               }
+          } catch (ClassNotFoundException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (InstantiationException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (IllegalAccessException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+               java.util.logging.Logger.getLogger(ReportingPurchaseOrderV2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+          }
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+          //</editor-fold>
+
+          /* Create and display the dialog */
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    ReportingPurchaseOrderV2 dialog = new ReportingPurchaseOrderV2(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private FormComponent.combobox.JavaCombobox approvedBy;

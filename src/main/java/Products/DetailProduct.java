@@ -1,7 +1,6 @@
 package Products;
 
 import Color.WindowColor;
-import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
@@ -18,15 +17,10 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import okhttp3.Response;
 
-/**
- *
- * @author FRONT-END.06
- */
 public class DetailProduct extends javax.swing.JDialog {
 
-    
      private String _choiceValue;
-    
+
      public DetailProduct(java.awt.Frame parent, boolean modal, String id) {
           super(parent, modal);
           initComponents();
@@ -40,6 +34,9 @@ public class DetailProduct extends javax.swing.JDialog {
           verticalScrollBar.setBlockIncrement(35);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           getList(listGetDetail, id);
+
+        
+
      }
 
      //Value Edit
@@ -80,19 +77,18 @@ public class DetailProduct extends javax.swing.JDialog {
           status.setLabelName(statusValue);
           country.setLabelName(countryValue);
           tax.setLabelName(taxValue);
-          
+
           warehouse.setLabelName(warehouseValue);
           range.setLabelName(rangeValue);
           slot.setLabelName(slotValue);
           _choiceValue = choiceValue;
-          
+
      }
 
      private void getList(JPanel listGetDetail, String id) {
           try {
                Response response = JavaConnection.get(JavaRoute.productV1 + "/detail/" + id);
 
-               System.out.println(" response ddd = " + response);
                String responseData = response.body().string();
                ObjectMapper objMap = new ObjectMapper();
                DetailProductSuccess model = objMap.readValue(responseData, DetailProductSuccess.class);
@@ -132,7 +128,7 @@ public class DetailProduct extends javax.swing.JDialog {
                     // Define the input formatter with milliseconds
                     DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
                     LocalDateTime localDateTime = null;
-                    String formattedDateTime=null;
+                    String formattedDateTime = null;
                     if (data.getLocal_date() != null) {
                          // Parse the input string to LocalDateTime
                          localDateTime = LocalDateTime.parse(data.getLocal_date(), inputFormatter);
@@ -146,7 +142,7 @@ public class DetailProduct extends javax.swing.JDialog {
 
                     b.setValue(
                          String.valueOf(index++),
-                         data.getLocal_date()!= null ? formattedDateTime : "N/A",
+                         data.getLocal_date() != null ? formattedDateTime : "N/A",
                          String.valueOf(data.getQty_old()),
                          String.valueOf(data.getCost()),
                          String.valueOf(data.getPrice())
@@ -534,11 +530,11 @@ public class DetailProduct extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
-        this.dispose();
-        
-        // Go Back To List
-        ListProduct listProduct = new ListProduct(new JFrame(), true);
-        listProduct.setVisible(true);
+         this.dispose();
+
+         // Go Back To List
+         ListProduct listProduct = new ListProduct(new JFrame(), true);
+         listProduct.setVisible(true);
     }//GEN-LAST:event_btnCancelMouseClicked
 
      public static void main(String args[]) {

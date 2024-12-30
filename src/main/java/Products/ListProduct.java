@@ -415,6 +415,7 @@ public class ListProduct extends javax.swing.JDialog {
                     ProductResponseByIdV1.Data data = productResponseByIdV1.getData();
                     
                     dispose();
+                  
                     InsertProduct insertProduct = new InsertProduct(new Frame(), true);
 
                     insertProduct.setId(data.getID());

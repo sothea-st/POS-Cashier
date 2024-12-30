@@ -3,8 +3,6 @@ package Products;
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
-import LoginAndLogoutForm.model.RoleHasPermissionModel;
-import LoginAndLogoutForm.model.RoleHasPermissionModel.RoleHasPermissionDetail;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -68,6 +66,7 @@ public class GetProduct extends javax.swing.JPanel {
           } else {
                proNameKh.setText("");
           }
+          proNameKh.setFont(WindowFonts.khmerOsContent12);
 
           qty.setText(_qty);
           price.setText(_price);
@@ -178,7 +177,6 @@ public class GetProduct extends javax.swing.JPanel {
           btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    System.err.println("productID : " + productId);
                     event.onSelect("" + productId);
                }
 

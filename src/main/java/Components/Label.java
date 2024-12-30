@@ -1,39 +1,27 @@
 package Components;
 
 import Color.WindowColor;
-import static Components.TextField.containsKhmer;
 import Fonts.WindowFonts;
-
-/**
- *
- * @author FRONT-END.06
- */
+ 
 public class Label extends javax.swing.JPanel {
 
-    /**
-     * @return the labelName
-     */
+ 
     public String getLabelName() {
         return labelName;
     }
 
-    /**
-     * @param labelName the labelName to set
-     */
+    
     public void setLabelName(String labelName) {
         this.labelName = labelName;
         lbLabel.setText(labelName);
         if(containsKhmer(lbLabel.getText())){
-            lbLabel.setFont(WindowFonts.khmerOsContent12);
+            lbLabel.setFont(WindowFonts.khmerOsContent14);
         }else{
             lbLabel.setFont(WindowFonts.timeNewRomanBold14);
         }
     }
     
-
-    /**
-     * Creates new form Label
-     */
+ 
     public Label() {
         initComponents();
         setBackground(WindowColor.mediumGreen);
