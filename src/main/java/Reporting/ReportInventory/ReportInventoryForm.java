@@ -338,10 +338,10 @@ public class ReportInventoryForm extends javax.swing.JDialog {
                 isCheckSearch = false;
                 response = JavaConnection.get(JavaRoute.reportInventory + "/search?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&search=" + searchValue);
 
-                System.err.println("response search : " + response);
+                //System.err.println("response search : " + response);
             }
 
-            System.err.println("response: " + response);
+            //System.err.println("response: " + response);
 
             String dataResponse = response.body().string();
             JSONObject jsonResponse = new JSONObject(dataResponse);
@@ -354,7 +354,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
                 ReportInventoryModel data = objectMapper.readValue(dataResponse, ReportInventoryModel.class);
                 ReportInventoryModel.ReportInventoryDetail[] lists = data.getData();
 
-                System.err.println("length : " + lists.length);
+                //System.err.println("length : " + lists.length);
 
                 if (isCheck) {
                     paginationPanel.setTotalPage(data.getCount(), pageSize);
@@ -376,10 +376,10 @@ public class ReportInventoryForm extends javax.swing.JDialog {
 
     public void appendPurchaeOrder(ReportInventoryDetail[] list) {
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0};
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0};
         reloadPanel();
         panelItem.setLayout(gridBagLayout);
         if (list.length == 0) {

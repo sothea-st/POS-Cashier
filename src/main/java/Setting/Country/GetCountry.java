@@ -56,7 +56,7 @@ public class GetCountry extends javax.swing.JPanel {
      }
 
      public void setFlag(String url) throws IOException {
-          JavaConstant.coverImage(url, imgFlag, 30, 15);
+          JavaConstant.coverImage(url, imgFlag, 50, 35);
      }
 
      public void setDefaultImage() throws IOException {

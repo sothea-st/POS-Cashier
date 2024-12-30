@@ -79,7 +79,7 @@ public class ListHoldOrder extends javax.swing.JDialog {
           JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
           verticalScrollBar.setUnitIncrement(30);
           verticalScrollBar.setBlockIncrement(35);
-          JavaConstant.addTitleAndLogo(this, "Hold Order");
+//          JavaConstant.addTitleAndLogo(this, "Hold Order");
      }
 
      DataListHold[] listData;

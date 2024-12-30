@@ -196,12 +196,7 @@ public class StaffInformation extends javax.swing.JDialog {
                               edit.setListGetStaff(listGetStaff);
                               
                               String _urlImg = listData.getImageName();
-                            
-//                        if (listData.getImageName().contains("media/file/crm/uploadfile/")) {
-//                            _urlImg = JavaConstant.urlImage + listData.getImageName();
-//                        } else {
-//                            _urlImg = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getImageName();
-//                        }
+ 
 
                               edit.setPageNumber(pageNumber);
                               

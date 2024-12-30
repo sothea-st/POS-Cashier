@@ -354,7 +354,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     String.valueOf(data.getVendorName()),
                     String.valueOf(data.getTransactionNo()),
                     String.valueOf(data.getReferenceNo()),
-                    String.valueOf(data.getTransactionDate()),
+                    JavaConstant.formateDateDDMMYYYY(String.valueOf(data.getTransactionDate())),
                     String.valueOf(data.getRequestBy()),
                     String.valueOf(data.getCheckBy()),
                     String.valueOf(data.getApprovedBy()),

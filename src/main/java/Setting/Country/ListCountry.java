@@ -35,276 +35,278 @@ import org.json.JSONObject;
 
 public class ListCountry extends javax.swing.JDialog {
 
-     String searchValue;
-     private String pageNumber = "0";
-     private int pageSize = 10;
-     private boolean isCheckSearch = true;
-     private int dataCount = 0;
-     private String pageType;
+    String searchValue;
+    private String pageNumber = "0";
+    private int pageSize = 10;
+    private boolean isCheckSearch = true;
+    private int dataCount = 0;
+    private String pageType;
 
-     public ListCountry(java.awt.Frame parent, boolean modal) {
-          super(parent, modal);
-          initComponents();
+    public ListCountry(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
 
-          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-          setResizable(false);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-          jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-          jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-          jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-          // custom scroll speed jscrollPane for vertical
-          JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
-          verticalScrollBar.setUnitIncrement(30);
-          verticalScrollBar.setBlockIncrement(35);
+        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        jScrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        // custom scroll speed jscrollPane for vertical
+        JScrollBar verticalScrollBar = jScrollPane.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(30);
+        verticalScrollBar.setBlockIncrement(35);
 
-          header.setBackground(WindowColor.darkGreen);
-          JavaConstant.addTitleAndLogo(this, "Country");
+        header.setBackground(WindowColor.darkGreen);
+        JavaConstant.addTitleAndLogo(this, "Country");
 
-          getListCountry(listGetCountry, true, pageNumber);
-          eventSearchCountry();
-          eventPagination();
+        getListCountry(listGetCountry, true, pageNumber);
+        eventSearchCountry();
+        eventPagination();
 
-          // check permission
-          // permissionId: 23 is primary key id from table pos_permission
-          btnAdd.setVisible(JavaPermission.getPermissionDetail(23).getIsCreate());
+        // check permission
+        // permissionId: 23 is primary key id from table pos_permission
+        btnAdd.setVisible(JavaPermission.getPermissionDetail(23).getIsCreate());
 
-     }
+    }
 
-     private void eventPagination() {
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onMouseClick(String value) {
-                    if (isCheckSearch) {
-                         int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
-                         pageNumber = String.valueOf(_value);
-                         getListCountry(listGetCountry, true, pageNumber);
-                    }
-               }
+    private void eventPagination() {
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onMouseClick(String value) {
+                if (isCheckSearch) {
+                    int _value = Integer.parseInt(value) - 1; // value pageNumber star from 0 
+                    pageNumber = String.valueOf(_value);
+                    getListCountry(listGetCountry, true, pageNumber);
+                }
+            }
 
-               // for pagination
-               @Override
-               public void onMouseClick(String value, String pType) {
-                    pageType = pType;
-               }
-          };
-          paginationPanel.initEvent(event);
-     }
+            // for pagination
+            @Override
+            public void onMouseClick(String value, String pType) {
+                pageType = pType;
+            }
+        };
+        paginationPanel.initEvent(event);
+    }
 
-     public void getListCountry(JPanel jpanelData, boolean isCheck, String pageNumber) {
-          try {
+    public void getListCountry(JPanel jpanelData, boolean isCheck, String pageNumber) {
+        try {
 
-               Response response = null;
-               if (isCheck) { // isCheck true get items
-                    response = JavaConnection.get(JavaRoute.country + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
-               } else { // isCheck false search
-                    isCheckSearch = false;
-                    response = JavaConnection.get(JavaRoute.searchCountry + searchValue);
-               }
+            Response response = null;
+            if (isCheck) { // isCheck true get items
+                response = JavaConnection.get(JavaRoute.country + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
+            } else { // isCheck false search
+                isCheckSearch = false;
+                response = JavaConnection.get(JavaRoute.searchCountry + searchValue);
+            }
 
-               if (response.isSuccessful()) {
-                    String responseData = response.body().string();
-                    ObjectMapper objMap = new ObjectMapper();
-                    ListCountryModel data = objMap.readValue(responseData, ListCountryModel.class);
-                    DataCountryModel[] listData = data.getData();
+            if (response.isSuccessful()) {
+                String responseData = response.body().string();
+                ObjectMapper objMap = new ObjectMapper();
+                ListCountryModel data = objMap.readValue(responseData, ListCountryModel.class);
+                DataCountryModel[] listData = data.getData();
 
-                    if (isCheck) {
-                         paginationPanel.setTotalPage(data.getCount(), pageSize);
-                    } else {
-                         paginationPanel.resetPage(data.getCount());
-                    }
+                if (isCheck) {
+                    paginationPanel.setTotalPage(data.getCount(), pageSize);
+                } else {
+                    paginationPanel.resetPage(data.getCount());
+                }
 
-                    assignCountry(listData, jpanelData);
-               } else {
-                    System.err.println("fail loading country");
-               }
-          } catch (Exception e) {
-               System.err.println("error getting country " + e);
-          }
-     }
+                assignCountry(listData, jpanelData);
+            } else {
+                System.err.println("fail loading country");
+            }
+        } catch (Exception e) {
+            System.err.println("error getting country " + e);
+        }
+    }
 
-     public void assignCountry(DataCountryModel[] listData, JPanel listGetCountry) {
-          ArrayList<CountryModel> country = new ArrayList<>();
+    public void assignCountry(DataCountryModel[] listData, JPanel listGetCountry) {
+        ArrayList<CountryModel> country = new ArrayList<>();
 
-          for (int i = 0; i < listData.length; i++) {
-               var obj = listData[i];
-               CountryModel countries = new CountryModel(
+        for (int i = 0; i < listData.length; i++) {
+            var obj = listData[i];
+            CountryModel countries = new CountryModel(
                     obj.getId(),
                     obj.getCountryName(),
                     obj.getUuid()
-               );
-               country.add(countries);
-          }
+            );
+            country.add(countries);
+        }
 
-          appendCountry(country, listGetCountry);
-     }
+        appendCountry(country, listGetCountry);
+    }
 
-     private void reloadPanel() {
-          listGetCountry.removeAll();
-          listGetCountry.revalidate();
-          listGetCountry.repaint();
-     }
+    private void reloadPanel() {
+        listGetCountry.removeAll();
+        listGetCountry.revalidate();
+        listGetCountry.repaint();
+    }
 
-     void appendCountry(ArrayList<CountryModel> list, JPanel listGetCountry) {
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
-          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    void appendCountry(ArrayList<CountryModel> list, JPanel listGetCountry) {
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}; // one row has 5 column
+        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-          listGetCountry.setLayout(gridBagLayout);
-          reloadPanel();
+        listGetCountry.setLayout(gridBagLayout);
+        reloadPanel();
 
-          int x = 0;
-          int y = 0;
+        int x = 0;
+        int y = 0;
 
-          if (list.size() > 0) {
-               for (int i = 0; i < list.size(); i++) {
-                    GridBagConstraints gbc = new GridBagConstraints();
-                    gbc.gridx = x;
-                    gbc.gridy = y;
-                    gbc.gridwidth = 1;
-                    gbc.anchor = gbc.NORTH;
-                    x++;
-                    if (x == 1) {
-                         x = 0;
-                         y++;
-                    }
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                GridBagConstraints gbc = new GridBagConstraints();
+                gbc.gridx = x;
+                gbc.gridy = y;
+                gbc.gridwidth = 1;
+                gbc.anchor = gbc.NORTH;
+                x++;
+                if (x == 1) {
+                    x = 0;
+                    y++;
+                }
 
-                    var listData = list.get(i);
+                var listData = list.get(i);
 
-                    GetCountry b = new GetCountry();
+                GetCountry b = new GetCountry();
 
-                    ButtonEvent events = new ButtonEvent() {
-                         @Override
-                         public void onSelect(String Key) {  // event edit
+                ButtonEvent events = new ButtonEvent() {
+                    @Override
+                    public void onSelect(String Key) {  // event edit
+                       
+                        dispose();
+                        try {
+                            Response response = JavaConnection.get(JavaRoute.country + "/" + listData.getId());
+                            
+
+                            String responseData = response.body().string();
+                            ObjectMapper objMap = new ObjectMapper();
+                            DataCountryModel data = objMap.readValue(responseData, DataCountryModel.class);
+
+                            AddCountry edit = new AddCountry(new JFrame(), true);
+
+                            edit.setId(data.getId());
+                            edit.setListGetCountry(listGetCountry);
+                            edit.setPageNumber(pageNumber);
                              
-                              
-                              try {
-                                   Response response = JavaConnection.get(JavaRoute.country + "/" + listData.getId());
-                                   String responseData = response.body().string();
-                                   ObjectMapper objMap = new ObjectMapper();
-                                   DataCountryModel data = objMap.readValue(responseData, DataCountryModel.class);
 
-                                   dispose();
-                                   AddCountry edit = new AddCountry(new JFrame(), true);
-                                   
-                                   edit.setId(data.getId());
-                                   edit.setListGetCountry(listGetCountry);
-                                   edit.setPageNumber(pageNumber);
+                            edit.setValueEdit(
+                                    data.getCountryName(),
+                 
+                                    data.getUuid()
+                            );
 
-                                   edit.setValueEdit(
-                                        data.getCountryName(),
-                                        new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid(),
-                                        data.getUuid()
-                                   );
-
-                                   edit.setVisible(true);
-                              } catch (Exception e) {
-                                   System.err.println("error getting country " + e);
-                              }
-                         }
-
-                         @Override
-                         public void onRemove(String Key) {  // event delete country
-                              try {
-                                   UIManager UI = new UIManager();
-                                   UI.put("OptionPane.background", WindowColor.mediumGreen);
-                                   UI.put("Panel.background", WindowColor.mediumGreen);
-                                   UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
-                                   int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this?",
-                                        "Delete", JOptionPane.YES_NO_OPTION);
-
-                                   if (resp == JOptionPane.YES_OPTION) {
-                                        JSONObject json = new JSONObject();
-                                        Response response = JavaConnection.delete(JavaRoute.country + "/" + listData.getId(), json);
-
-                                        if (response.isSuccessful()) {
-
-                                             dataCount = dataCount - 1;
-                                             int totalP = pageSize * Integer.valueOf(pageNumber);
-                                             if (dataCount == totalP) {
-                                                  paginationPanel.resetPage(pageType, pageNumber);
-                                                  int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
-                                                  pageNumber = String.valueOf(_value);
-                                             }
-
-                                             listGetCountry.removeAll();
-                                             listGetCountry.revalidate();
-                                             listGetCountry.repaint();
-                                             getListCountry(listGetCountry, true, pageNumber);
-                                             System.out.println("Successful deleted ");
-                                        }
-                                   } else {
-                                        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-                                   }
-
-                              } catch (Exception e) {
-                                   System.err.println("error getting country " + e);
-                              }
-                         }
-                    };
-
-                    b.initEvent(events);
-                    b.setId(listData.getId());
-                    b.setCountry(listData.getCountryName());
-
-                    try {
-                         if (listData.getUuid() != null) {
-                              b.setFlag(new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid());
-                         } else {
-                              b.setDefaultImage();
-                         }
-
-                    } catch (IOException ex) {
-                         Logger.getLogger(ListCountry.class.getName()).log(Level.SEVERE, null, ex);
+                            edit.setVisible(true);
+                        } catch (Exception e) {
+                            System.err.println("error getting country " + e);
+                        }
                     }
 
-                    paginationPanel.setVisible(true);
-                    listGetCountry.add(b, gbc);
-               }
-          } else {
-               NoDataAvaibalePanel no = new NoDataAvaibalePanel();
-               listGetCountry.add(no);
-               paginationPanel.setVisible(false);
-          }
+                    @Override
+                    public void onRemove(String Key) {  // event delete country
+                        try {
+                            UIManager UI = new UIManager();
+                            UI.put("OptionPane.background", WindowColor.mediumGreen);
+                            UI.put("Panel.background", WindowColor.mediumGreen);
+                            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-          listGetCountry.revalidate();
-          listGetCountry.repaint();
-     }
+                            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this?",
+                                    "Delete", JOptionPane.YES_NO_OPTION);
 
-     //Action Search
-     private void eventSearchCountry() {
-          // this event was called when user type on searchTextField 
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onKeyType() {
-                    TimerTask task = new TimerTask() {
-                         @Override
-                         public void run() {
-                              searchValue = searchField.getValueTextSearch();
-                              paginationPanel.resetPage();
-                              pageNumber = "0";
+                            if (resp == JOptionPane.YES_OPTION) {
+                                JSONObject json = new JSONObject();
+                                Response response = JavaConnection.delete(JavaRoute.country + "/" + listData.getId(), json);
 
-                              if (searchValue.isEmpty()) {
-                                   isCheckSearch = true;
-                                   pageNumber = "0";
-                                   getListCountry(listGetCountry, true, pageNumber);
-                                   return;
-                              }
-                              getListCountry(listGetCountry, false, pageNumber);
-                         }
-                    };
+                                if (response.isSuccessful()) {
 
-                    Timer timer = new Timer();
-                    timer.schedule(task, 500);
+                                    dataCount = dataCount - 1;
+                                    int totalP = pageSize * Integer.valueOf(pageNumber);
+                                    if (dataCount == totalP) {
+                                        paginationPanel.resetPage(pageType, pageNumber);
+                                        int _value = Integer.parseInt(pageNumber) - 1; // value pageNumber star from 0 
+                                        pageNumber = String.valueOf(_value);
+                                    }
 
-               }
-          };
-          searchField.initEvent(event);
-     }
+                                    listGetCountry.removeAll();
+                                    listGetCountry.revalidate();
+                                    listGetCountry.repaint();
+                                    getListCountry(listGetCountry, true, pageNumber);
+                                    System.out.println("Successful deleted ");
+                                }
+                            } else {
+                                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                            }
 
-     @SuppressWarnings("unchecked")
+                        } catch (Exception e) {
+                            System.err.println("error getting country " + e);
+                        }
+                    }
+                };
+
+                b.initEvent(events);
+                b.setId(listData.getId());
+                b.setCountry(listData.getCountryName());
+
+                try {
+                    if (listData.getUuid() != null) {
+                        b.setFlag(new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + listData.getUuid());
+                    } else {
+                        b.setDefaultImage();
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(ListCountry.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                paginationPanel.setVisible(true);
+                listGetCountry.add(b, gbc);
+            }
+        } else {
+            NoDataAvaibalePanel no = new NoDataAvaibalePanel();
+            listGetCountry.add(no);
+            paginationPanel.setVisible(false);
+        }
+
+        listGetCountry.revalidate();
+        listGetCountry.repaint();
+    }
+
+    //Action Search
+    private void eventSearchCountry() {
+        // this event was called when user type on searchTextField 
+        ButtonEvent event = new ButtonEvent() {
+            @Override
+            public void onKeyType() {
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        searchValue = searchField.getValueTextSearch();
+                        paginationPanel.resetPage();
+                        pageNumber = "0";
+
+                        if (searchValue.isEmpty()) {
+                            isCheckSearch = true;
+                            pageNumber = "0";
+                            getListCountry(listGetCountry, true, pageNumber);
+                            return;
+                        }
+                        getListCountry(listGetCountry, false, pageNumber);
+                    }
+                };
+
+                Timer timer = new Timer();
+                timer.schedule(task, 500);
+
+            }
+        };
+        searchField.initEvent(event);
+    }
+
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -454,52 +456,52 @@ public class ListCountry extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancel1MouseClicked
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-         dispose();
-         AddCountry add = new AddCountry(new JFrame(), true);
-         add.setPageNumber(pageNumber);
-         add.setListGetCountry(listGetCountry);
-         add.setObj(this);
-         add.setVisible(true);
+        dispose();
+        AddCountry add = new AddCountry(new JFrame(), true);
+        add.setPageNumber(pageNumber);
+        add.setListGetCountry(listGetCountry);
+        add.setObj(this);
+        add.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
-     public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ListCountry.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
-          /* Create and display the dialog */
-          java.awt.EventQueue.invokeLater(new Runnable() {
-               public void run() {
-                    ListCountry dialog = new ListCountry(new javax.swing.JFrame(), true);
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                         @Override
-                         public void windowClosing(java.awt.event.WindowEvent e) {
-                              System.exit(0);
-                         }
-                    });
-                    dialog.setVisible(true);
-               }
-          });
-     }
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                ListCountry dialog = new ListCountry(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Button.Button btnAdd;

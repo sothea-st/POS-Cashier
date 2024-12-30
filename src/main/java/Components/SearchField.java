@@ -12,100 +12,101 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
- 
 public class SearchField extends javax.swing.JPanel {
 
-     /**
-      * @return the placeholder
-      */
-     public String getPlaceholder() {
-          return placeholder;
-     }
+    /**
+     * @return the placeholder
+     */
+    public String getPlaceholder() {
+        return placeholder;
+    }
 
-     /**
-      * @param placeholder the
-      * placeholder to set
-      */
-     public void setPlaceholder(String placeholder) {
-          this.placeholder = placeholder;
-          textSearch.setText(placeholder);
-          textSearch.setForeground(Color.LIGHT_GRAY);
+    /**
+     * @param placeholder the placeholder to set
+     */
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+        textSearch.setText(placeholder);
+        textSearch.setForeground(Color.LIGHT_GRAY);
 
-     }
+    }
 
-     public void initEvent(ButtonEvent event) {
-          textSearch.addFocusListener(new FocusListener() {
-               @Override
-               public void focusGained(FocusEvent e) {
-                    if (textSearch.getText().trim().equals(placeholder)) {
-                         textSearch.setText("");
-                    }
-                    textSearch.setForeground(Color.BLACK);
-               }
+    public void initEvent(ButtonEvent event) {
+        textSearch.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textSearch.getText().trim().equals(placeholder)) {
+                    textSearch.setText("");
+                }
+                textSearch.setForeground(Color.BLACK);
+            }
 
-               @Override
-               public void focusLost(FocusEvent e) {
-                    if (textSearch.getText().trim().equals("")) {
-                         textSearch.setText(placeholder);
-                         textSearch.setForeground(Color.LIGHT_GRAY);
-                    }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textSearch.getText().trim().equals("")) {
+                    textSearch.setText(placeholder);
+                    textSearch.setForeground(Color.LIGHT_GRAY);
+                }
 
-                    if (textSearch.getText().trim().equals(placeholder)) {
-                         textSearch.setForeground(Color.LIGHT_GRAY);
-                    }
-               }
-          });
+                if (textSearch.getText().trim().equals(placeholder)) {
+                    textSearch.setForeground(Color.LIGHT_GRAY);
+                }
+            }
+        });
 
-          textSearch.addKeyListener(new KeyListener() {
-               @Override
-               public void keyTyped(KeyEvent e) {
-               }
+        textSearch.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
 
-               @Override
-               public void keyPressed(KeyEvent e) {
-               }
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
 
-               @Override
-               public void keyReleased(KeyEvent e) {
-                    String valueText = textSearch.getText();
-                    setValueTextSearch(valueText);
-                    event.onKeyType();
-                    event.onKeyRelease();
-               }
-          });
-     }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                String valueText = textSearch.getText();
+                setValueTextSearch(valueText);
+                if (JavaConstant.containsKhmer(valueText)) {
+                    textSearch.setFont(WindowFonts.khmerOsContent12);
+                } else {
+                    textSearch.setFont(WindowFonts.timeNewRoman14);
+                }
+                event.onKeyType();
+                event.onKeyRelease();
+            }
+        });
+    }
 
-     /**
-      * Creates new form SearchField
-      */
-     public SearchField() {
-          initComponents();
-          setBackground(WindowColor.white);
-          textSearch.setFont(WindowFonts.timeNewRoman14);
-          JavaConstant.setPointer(textSearch);
-          
-          textSearch.setBackground(WindowColor.white);
-     }
+    /**
+     * Creates new form SearchField
+     */
+    public SearchField() {
+        initComponents();
+        setBackground(WindowColor.white);
+        textSearch.setFont(WindowFonts.timeNewRoman14);
+        JavaConstant.setPointer(textSearch);
 
-     public void disabledTextField(boolean value) {
-          textSearch.setEnabled(value);
-     }
+        textSearch.setBackground(WindowColor.white);
+    }
 
-     public void setFocus() {
-          textSearch.requestFocus();
-     }
+    public void disabledTextField(boolean value) {
+        textSearch.setEnabled(value);
+    }
 
-     //======================Create Shadow Box===========================
-     @Override
-     protected void paintComponent(Graphics grphcs) {
-          setOpaque(false);
-          UtilShadow.createShadowSearch(grphcs,getWidth(),getHeight(),getBackground());
-          super.paintComponent(grphcs);
-     }
+    public void setFocus() {
+        textSearch.requestFocus();
+    }
 
-     
+    //======================Create Shadow Box===========================
+    @Override
+    protected void paintComponent(Graphics grphcs) {
+        setOpaque(false);
+        UtilShadow.createShadowSearch(grphcs, getWidth(), getHeight(), getBackground());
+        super.paintComponent(grphcs);
+    }
 
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -146,16 +147,16 @@ public class SearchField extends javax.swing.JPanel {
 
      }//GEN-LAST:event_textSearchKeyReleased
 
-     private String placeholder;
-     private String valueTextSearch;
+    private String placeholder;
+    private String valueTextSearch;
 
-     public String getValueTextSearch() {
-          return valueTextSearch;
-     }
+    public String getValueTextSearch() {
+        return valueTextSearch;
+    }
 
-     public void setValueTextSearch(String valueTextSearch) {
-          this.valueTextSearch = valueTextSearch;
-     }
+    public void setValueTextSearch(String valueTextSearch) {
+        this.valueTextSearch = valueTextSearch;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
