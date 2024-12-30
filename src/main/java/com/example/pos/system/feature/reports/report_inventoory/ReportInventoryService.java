@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -107,6 +108,7 @@ public class ReportInventoryService {
 
             // map value to List
             reportInventoryResponses = pages.getContent().stream()
+                    .sorted(Comparator.comparing(ReportInventory::getCreateDate)) // Sort by ID
                     .map(this::mapToReportInventoryResponse)
                     .toList();
 
