@@ -113,6 +113,12 @@ public class LoginFormJdailog extends javax.swing.JDialog {
           addWindowListener(new WindowAdapter() {
                @Override
                public void windowClosing(WindowEvent e) {
+ 
+
+                    txtUserId.resetTextValue();
+                    txtPassword.resetTextValue();
+                  
+
                     JavaConstant.restoreDefaultCursor(mainFrame);
                     dispose(); // Ensure the dialog is closed
                }
@@ -340,6 +346,7 @@ public class LoginFormJdailog extends javax.swing.JDialog {
          String userId = txtUserId.getValueTextField();
          String password = txtPassword.getValueTextField();
 
+ 
          JSONObject json = new JSONObject();
          String deviceName = JavaConstant.getDeviceName();
          String ipAddress;

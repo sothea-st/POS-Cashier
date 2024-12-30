@@ -23,8 +23,12 @@ public class JavaTextFieldPassword extends javax.swing.JPanel {
 
           initEvent(); //to get value from field must be initialize initEvent without paramater
 
- 
           initTxtPass();
+     }
+
+     public void resetTextValue() {
+          setValueTextField(null);
+          txtPass.setText(null);
      }
 
      private void initTxtPass() {
@@ -125,7 +129,7 @@ public class JavaTextFieldPassword extends javax.swing.JPanel {
      }
 
      public void setFieldError(String text) {
-          lbError.setText( "<html>" + text + "</html>");
+          lbError.setText("<html>" + text + "</html>");
           lbError.setVisible(true);
      }
 
