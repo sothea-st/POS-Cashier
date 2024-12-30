@@ -17,6 +17,11 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.parentId = :parentId ORDER BY c.movePosition ASC")
     List<Category> getCategory(int parentId);
 
+    @Query("SELECT c FROM Category c WHERE c.code = :code AND c.status = true AND c.isDeleted = false ORDER BY c.createDate DESC")
+    Page<Category> findByCodeAndStatusTrueAndIsDeletedFalseWithSorting(@Param("code") String code, PageRequest pageable);
+
+    @Query("SELECT c FROM Category c WHERE c.code = :code AND c.status = true AND c.isDeleted = false ORDER BY c.createDate DESC")
+    List<Category> findByCodeAndStatusTrueAndIsDeletedFalseWithSorting(@Param("code") String code);
 
     //List get category with pagination
     Page<Category> findByCodeAndStatusTrueAndIsDeletedFalse(String code, PageRequest pageRequest);

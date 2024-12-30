@@ -65,7 +65,7 @@ public class CategoryServiceImp implements CategoryService {
         List<CategoryResponse> data = null;
 
         if (pageNumber == null && pageSize == null) {
-            data = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalse(code).stream()
+            data = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalseWithSorting(code).stream()
                     .map(p -> CategoryResponse.builder()
                             .id(p.getId())
                             .catNameEn(p.getCatNameEn())
@@ -83,7 +83,7 @@ public class CategoryServiceImp implements CategoryService {
 
             Sort sortById = Sort.by(Sort.Direction.ASC, "id");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-            Page<Category> pages = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalse(code, pageRequest);
+            Page<Category> pages = categoryRepository.findByCodeAndStatusTrueAndIsDeletedFalseWithSorting(code, pageRequest);
 
             List<CategoryResponse> content = pages.getContent().stream()
                     .map(p -> CategoryResponse.builder()
