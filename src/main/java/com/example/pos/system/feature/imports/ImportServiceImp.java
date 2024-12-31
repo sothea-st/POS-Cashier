@@ -28,7 +28,7 @@ import com.example.pos.system.feature.imports.dto.ImportResponse;
 import com.example.pos.system.feature.imports.dto.ImportResponseById;
 import com.example.pos.system.feature.imports.dto.PurchaseOrderResponse;
 import com.example.pos.system.feature.imports.dto.RejectPurchaseOrderRequest;
-import com.example.pos.system.feature.attribute.product.ProductRepository;
+import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.vendor.VendorRepository;
 import com.example.pos.system.feature.mapper.ImportMapper;
 import com.example.pos.system.layer.repository.CategoryRepository;
@@ -479,8 +479,6 @@ public class ImportServiceImp implements ImportService {
                 }
                 reportInventoryService.create(reportInventoryRequests);
 
-
-
             } else if (importRequest.remark().equalsIgnoreCase("received")) { // for receive ; receive can full qty or lack qty
                 for (ImportDetailsRequest data : importRequest.details()) {
                     Product product = productRepository.findById(data.productId())
@@ -508,6 +506,7 @@ public class ImportServiceImp implements ImportService {
     }
 
     /**
+     *
      * Generates a formatted import number based on the current count.
      *
      * @param count The current count of imports.
@@ -523,8 +522,8 @@ public class ImportServiceImp implements ImportService {
         // Format the count as a 3-digit number with leading zeros
         String countPart = String.format("%03d", count + 1);
 
-        // Combine all parts into the final POD code
-        return "POD-" + datePart + countPart;
+        // Combine all parts into the final PO code
+        return "PO-" + datePart + countPart;
 
     }
 

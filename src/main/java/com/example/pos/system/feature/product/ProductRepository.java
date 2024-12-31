@@ -1,7 +1,7 @@
-package com.example.pos.system.feature.attribute.product;
+package com.example.pos.system.feature.product;
 
 import com.example.pos.system.domain.settings.Status;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseReadByProductId;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
 import com.example.pos.system.layer.repository.productProjection.ProductQty;
 import com.example.pos.system.domain.settings.Product;

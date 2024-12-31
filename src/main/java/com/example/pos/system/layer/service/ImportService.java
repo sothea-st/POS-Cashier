@@ -12,7 +12,7 @@ import com.example.pos.system.layer.repository.ImportDetailRepository;
 import lombok.RequiredArgsConstructor;
 
 import com.example.pos.system.feature.employee.EmployeeRepository;
-import com.example.pos.system.feature.attribute.product.ProductRepository;
+import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.vendor.VendorRepository;
 
 import org.springframework.http.HttpStatus;

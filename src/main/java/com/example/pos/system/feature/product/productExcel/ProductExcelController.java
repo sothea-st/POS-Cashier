@@ -1,6 +1,6 @@
-package com.example.pos.system.feature.attribute.product.productExcel;
+package com.example.pos.system.feature.product.productExcel;
 
-import com.example.pos.system.feature.attribute.product.productExcel.dto.ProductMultipleInsert;
+import com.example.pos.system.feature.product.productExcel.dto.ProductMultipleInsert;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

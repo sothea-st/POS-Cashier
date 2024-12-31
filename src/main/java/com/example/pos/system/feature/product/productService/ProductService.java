@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.attribute.product.productService;
+package com.example.pos.system.feature.product.productService;
 
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.general.FileStore;
@@ -8,13 +8,13 @@ import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.feature.attribute.AttributeRepository;
 import com.example.pos.system.feature.country.CountryRepository;
-import com.example.pos.system.feature.attribute.product.dto.ProductDataRequest;
+import com.example.pos.system.feature.product.dto.ProductDataRequest;
 import com.example.pos.system.feature.tax.TaxRepository;
 import com.example.pos.system.feature.settings.uom.UomRepository;
 import com.example.pos.system.feature.vendor.VendorRepository;
 import com.example.pos.system.layer.repository.FileStoreRepository;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
-import com.example.pos.system.feature.attribute.product.ProductRepository;
+import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
 // import com.example.pos.connection1.repository.sourceDataRepository.TaxProductRepository;
 import com.example.pos.system.layer.service.ImportService;
@@ -262,6 +262,7 @@ public class ProductService {
 
         List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
 
+
         List<ProductModel> list = new ArrayList<>();
 
         for (int i = 0; i < listData.size(); i++) {
@@ -274,18 +275,6 @@ public class ProductService {
         }
         return list;
 
-        // for (int i = 0; i < listData.size(); i++) {
-
-        // if (i >= limit - 20) {
-        // var data = listData.get(i);
-        // Integer qty = repoImp.getQty(data.getId());
-        // if (qty == null)
-        // qty = 0;
-        // ProductModel p = proModel(data, qty);
-        // list.add(p);
-        // }
-        // }
-        // return list;
     }
 
     public int count(int catId) {

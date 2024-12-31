@@ -9,7 +9,7 @@ import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.feature.imports.ImportRepository;
-import com.example.pos.system.feature.attribute.product.ProductRepository;
+import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
 import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
 import com.example.pos.system.layer.controller.generateBarcode.BarcodeGenerator;
@@ -152,7 +152,7 @@ public class SaleService {
             String[] arrDateTo = dateFromValue.split("-");
             String dateToStr = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
 
-//            reportSaled = repo.getReportSaleInToday(dateToStr, userId);
+
             reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
             return reportResponse(reportSaled, null);
         }
@@ -175,34 +175,34 @@ public class SaleService {
             double total = report.getAmount().doubleValue();
             BigDecimal cost = BigDecimal.valueOf(0);
 
-//            System.out.println("total before = " + total);
-//            System.out.println("report.getDiscount_case() = " + report.getDiscount_case());
             if (report.getDiscount_case() != null) {
                 total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
-//                System.out.println("total after = " + total);
-                // calculate
             }
 
-            double calCost = report.getCost().doubleValue() * report.getQty();
+            double calCost = report.getCost().doubleValue();
             cost = BigDecimal.valueOf(calCost);
 
-            String _total = String.format("%.2f", total / 1.1);
+            totalSaledExcludeVAT = total; // Non-VAT
+            netSale = total;// Non-VAT
 
-            totalSaledExcludeVAT = Double.parseDouble(_total);
-//            System.out.println("ddddddddd = " + totalSaledExcludeVAT);
+            if( !report.getTax_name().equals("Non-VAT") ) {
+                String _total = String.format("%.2f", total / 1.1);
+                totalSaledExcludeVAT = Double.parseDouble(_total);
+                String _totalSaledExludeVAT = String.format("%.2f", totalSaledExcludeVAT * 0.1);
+                if (report.getTax_name().equals("PLT")) {
+                    plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
+                }
 
-            String _totalSaledExludeVAT = String.format("%.2f", totalSaledExcludeVAT * 0.1);
-//            System.out.println("aaaaaaaaaaaaaaaa = " + _totalSaledExludeVAT);
-            if (report.getTax_name().equals("PLT")) {
-                plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
+                vatAmt = Double.parseDouble(_totalSaledExludeVAT);
+
+                String _netSale = String.format("%.2f", total - vatAmt - plt);
+
+                netSale = Double.parseDouble(_netSale);
+
             }
-            vatAmt = Double.parseDouble(_totalSaledExludeVAT);
 
-            String _netSale = String.format("%.2f", total - vatAmt - plt);
 
-            netSale = Double.parseDouble(_netSale);
-
-            String _margin = String.format("%.2f", netSale - cost.doubleValue());
+            String _margin = String.format("%.2f", netSale - (cost.doubleValue() * report.getQty()));
 
             margin = Double.parseDouble(_margin);
 
@@ -288,7 +288,6 @@ public class SaleService {
 
         int saleId = sale.getId();
         List<SaleDetail> details = s.getDataSale();
-
 
 
         for (int i = 0; i < details.size(); i++) {
@@ -433,7 +432,6 @@ public class SaleService {
 
     public void addPayment(String paymentNo, int saleId, Payment p, int createBy, String paymentBarcode, String posId)
             throws Exception {
-
 
 
         Payment data = new Payment();

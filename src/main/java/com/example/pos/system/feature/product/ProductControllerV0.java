@@ -1,14 +1,14 @@
-package com.example.pos.system.feature.attribute.product;
+package com.example.pos.system.feature.product;
 
 import com.example.pos.system.constant.JavaResponse;
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.domain.models.UpdateProductDiscount;
-import com.example.pos.system.feature.attribute.product.productService.ProductExcelServic;
-import com.example.pos.system.feature.attribute.product.dto.ProductDataRequest;
-import com.example.pos.system.feature.attribute.product.productService.ProductService;
-import com.example.pos.system.feature.attribute.product.dto.ProductMultiple;
+import com.example.pos.system.feature.product.productService.ProductExcelServic;
+import com.example.pos.system.feature.product.dto.ProductDataRequest;
+import com.example.pos.system.feature.product.productService.ProductService;
+import com.example.pos.system.feature.product.dto.ProductMultiple;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

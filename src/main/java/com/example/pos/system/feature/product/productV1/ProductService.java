@@ -1,12 +1,12 @@
-package com.example.pos.system.feature.attribute.product.productV1;
+package com.example.pos.system.feature.product.productV1;
 
 import java.util.List;
 
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductRequest;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductRequestVendorOrSubCateId;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponse;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseReadById;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseReadByProductId;
+import com.example.pos.system.feature.product.productV1.dto.ProductRequest;
+import com.example.pos.system.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponse;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadById;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 
 public interface ProductService {

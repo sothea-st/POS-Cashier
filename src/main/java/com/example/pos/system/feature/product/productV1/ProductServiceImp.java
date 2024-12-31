@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.attribute.product.productV1;
+package com.example.pos.system.feature.product.productV1;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -32,13 +32,13 @@ import com.example.pos.system.domain.sourceData.TaxProduct;
 import com.example.pos.system.feature.attribute.AttributeRepository;
 import com.example.pos.system.feature.brand.BrandRepository;
 import com.example.pos.system.feature.country.CountryRepository;
-import com.example.pos.system.feature.attribute.product.ProductRepository;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductRequest;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductRequestVendorOrSubCateId;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponse;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseByFilter;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseReadById;
-import com.example.pos.system.feature.attribute.product.productV1.dto.ProductResponseReadByProductId;
+import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.product.productV1.dto.ProductRequest;
+import com.example.pos.system.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponse;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponseByFilter;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadById;
+import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.system.feature.status.StatusRepository;
 import com.example.pos.system.feature.tax.TaxRepository;
 import com.example.pos.system.feature.settings.uom.UomRepository;
@@ -566,6 +566,7 @@ public class ProductServiceImp implements ProductService {
             proNameKh = null;
         }
 
+        // get division id by subCatId
         Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
 
         Product product = productMapper.mapToProduct(productRequest);
