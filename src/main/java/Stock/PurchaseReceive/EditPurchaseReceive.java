@@ -78,7 +78,7 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
           transactionDate.setText(JavaConstant.formatDate(data.getTransactionDate()));
           transactionDate.setDisable();
           lbTotalQty.setText(String.valueOf(data.getTotalQty()));
-          lbTotalCost.setText("$ ".concat(String.valueOf(data.getTotalCost())));
+          lbTotalCost.setText(JavaConstant.setAmount(data.getTotalCost()));
      }
 
      void appendPurchaseReceive(PODetailItemModel[] details) {
@@ -114,8 +114,8 @@ public class EditPurchaseReceive extends javax.swing.JDialog {
                          String.valueOf(data.getBarcode()),
                          String.valueOf(data.getProNameEn()),
                          String.valueOf(data.getOrderQty()),
-                         String.valueOf("$ " + String.format("%.2f", data.getCost())),
-                         String.valueOf("$ " + String.format("%.2f", data.getTotalCost()))
+                         JavaConstant.setAmount(data.getCost()),
+                         JavaConstant.setAmount(data.getTotalCost())
                     );
                     listGetDetailReceive.add(b, gbc);
                }

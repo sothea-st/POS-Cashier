@@ -15,6 +15,7 @@ import Stock.PurchaseReceive.ListPurchaseReceive;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
           transactionDate.setLabelName(JavaConstant.formatDate(p.getTransactionDate()));
           orderDate.setLabelName(JavaConstant.formatDate(p.getOrderDate()));
           totalQty.setLabelName(String.valueOf(p.getTotalQty()));
-          totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
+          totalCost.setLabelName(JavaConstant.setAmount(p.getTotalCost()));
           requestBy.setLabelName(p.getRequestBy().getName());
           requestDate.setLabelName(JavaConstant.formatDate(p.getRequestBy().getDate()));
           checkBy.setLabelName(p.getCheckedBy().getName());
@@ -145,8 +146,8 @@ public class DetailPurchaseOrderCheck extends javax.swing.JDialog {
                          String.valueOf(listData.getSubCategory()),
                          String.valueOf(listData.getAvailableQty()),
                          String.valueOf(listData.getOrderQty()),
-                         String.valueOf("$ " + String.format("%.2f", listData.getCost())),
-                         String.valueOf("$ " + String.format("%.2f", listData.getTotalCost()))
+                         JavaConstant.setAmount( listData.getCost()),
+                         JavaConstant.setAmount( listData.getTotalCost())
                     );
 
                     listGetDetailOrder.add(b, gbc);

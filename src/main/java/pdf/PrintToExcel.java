@@ -54,11 +54,18 @@ public class PrintToExcel {
                     byte[] imageBytes = null;
 
                     if (p.getProImageName().equals("default.jpg")) {
-                         
+
                          imageBytes = getDefaultImage();
 
                     } else {
                          imageBytes = getImageBytes(url);
+                    }
+
+                    String proNameKh = p.getProNameKh();
+                    if (proNameKh == null || proNameKh.isEmpty()) {
+                         proNameKh = "";
+                    } else {
+                         proNameKh = p.getProNameKh() + " " + p.getChoices();
                     }
 
                     dataList.add(
@@ -68,8 +75,8 @@ public class PrintToExcel {
                               String.valueOf(p.getSubCatNameEn()),
                               String.valueOf(p.getVendorCode()),
                               String.valueOf(p.getVendorName()),
-                              String.valueOf(p.getProNameEn()),
-                              String.valueOf(p.getProNameEn()),
+                              String.valueOf(p.getProNameEn()) + " " + p.getChoices(),
+                              proNameKh,
                               String.valueOf(p.getQty()),
                               "$".concat(String.valueOf(p.getPrice())),
                               "$".concat(String.valueOf(p.getCost())),

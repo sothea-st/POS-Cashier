@@ -1,4 +1,3 @@
- 
 package pdf;
 
 import Constant.JavaBaseUrl;
@@ -81,6 +80,12 @@ public class PrintListPDF {
                     } else {
                          image = resizeImage(url, 30, 30);
                     }
+                    String proNameKh = p.getProNameKh();
+                    if (proNameKh == null || proNameKh.isEmpty()) {
+                         proNameKh = "";
+                    } else {
+                         proNameKh = p.getProNameKh() + " " + p.getChoices();
+                    }
 
                     dataList.add(new Object[]{
                          String.valueOf(p.getBarcode()),
@@ -88,8 +93,8 @@ public class PrintListPDF {
                          String.valueOf(p.getSubCatNameEn()),
                          String.valueOf(p.getVendorCode()),
                          String.valueOf(p.getVendorName()),
-                         String.valueOf(p.getProNameEn()),
-                         String.valueOf(p.getProNameEn()),
+                         String.valueOf(p.getProNameEn()) + " " + p.getChoices(),
+                         proNameKh,
                          String.valueOf(p.getQty()),
                          "$".concat(String.valueOf(p.getPrice())),
                          "$".concat(String.valueOf(p.getCost())),

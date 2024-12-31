@@ -3,7 +3,9 @@ package Products;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaBaseUrl;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import Event.ButtonEvent;
 import Fonts.WindowFonts;
 import java.awt.Color;
@@ -72,9 +74,19 @@ public class ProductBox extends javax.swing.JPanel {
           return flagImage;
      }
 
-     public void setFlagImage(Icon flagImage) {
-          this.flagImage = flagImage;
-          flagImg.setIcon(flagImage);
+     public void setFlagImage(String flagImage) throws IOException {
+//          this.flagImage = flagImage;
+//          flagImg.setIcon(flagImage);
+          
+           if (flagImage != null) {
+               String _url = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + flagImage;
+
+               // Check if the URL exists
+               if (JavaConstant.doesUrlExist(_url)) { // return true url exist
+                    JavaConstant.coverImage(_url, flagImg, 30, 15);
+               }
+          } 
+          
      }
 
      public String getBarcode() {
@@ -114,8 +126,15 @@ public class ProductBox extends javax.swing.JPanel {
           productImg.setIcon(productImage);
      }
 
-     public void setProductImage(String url) throws IOException {
-          JavaConstant.coverImage(url, productImg, 120, 85);
+     public void setProductImage(String imageName) throws IOException {
+          if (imageName != null) {
+               String _url = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + imageName;
+
+               // Check if the URL exists
+               if (JavaConstant.doesUrlExist(_url)) { // return true url exist
+                    JavaConstant.coverImage(_url, productImg, 120, 85);
+               }
+          } 
      }
 
      public void setImage(String url) throws MalformedURLException, IOException {
@@ -317,6 +336,7 @@ public class ProductBox extends javax.swing.JPanel {
           productBox.add(txtBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 110, 20));
 
           flagImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          flagImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/flag.png"))); // NOI18N
           productBox.add(flagImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 30, 15));
           productBox.add(buttonStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 80, 20));
 
@@ -333,6 +353,7 @@ public class ProductBox extends javax.swing.JPanel {
           productBox.add(percent, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, -1, 50));
 
           productImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          productImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/default-product.png"))); // NOI18N
           productBox.add(productImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 105));
 
           jLabel2.setText("Qty :");

@@ -5,6 +5,7 @@ import Button.ButtonAddProduct;
 import Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
+import Constant.JavaBaseUrl;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaMessage;
@@ -143,8 +144,15 @@ public class BoxItem extends javax.swing.JPanel {
           img.setIcon(iconImage);
      }
 
-     public void setIconImage(String url) throws IOException {
-          JavaConstant.coverImage(url, img, 60, 100);
+     public void setIconImage(String imageName) throws IOException {
+          
+          if( imageName != null ) {
+                 String _url = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + imageName;
+                 if( JavaConstant.doesUrlExist(_url) ) {
+                      JavaConstant.coverImage(_url, img, 60, 100);
+                 }
+          }
+          
      }
 
      public String getLabelProductName() {
@@ -775,6 +783,7 @@ public class BoxItem extends javax.swing.JPanel {
           });
 
           img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          img.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/default-product-small.png"))); // NOI18N
 
           title.setText("Pizza");
 

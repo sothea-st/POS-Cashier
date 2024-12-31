@@ -13,6 +13,7 @@ import Stock.PurchaseOrderView.PurchaseOrderView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.math.BigDecimal;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -173,7 +174,7 @@ public class ListPurchaseOrderCheck extends javax.swing.JDialog {
                     b.setReferenceNo(data.getReferenceNo());
                     b.setTransactionDate(JavaConstant.formatDate(data.getTransactionDate()));
                     b.setTotalQty(String.valueOf(data.getTotalQty()));
-                    b.setTotalCost("$ " + String.format("%.2f", data.getTotalCost()));
+                    b.setTotalCost(JavaConstant.setAmount(BigDecimal.valueOf(data.getTotalCost())));
                     b.setRemark(StringUtils.capitalize(data.getRemark()));
 
                     ButtonEvent events = new ButtonEvent() {

@@ -144,8 +144,8 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                          String.valueOf(listData.getSubCategory()),
                          String.valueOf(listData.getAvailableQty()),
                          String.valueOf(listData.getOrderQty()),
-                         String.valueOf("$ " + String.format("%.2f", listData.getCost())),
-                         String.valueOf("$ " + String.format("%.2f", listData.getTotalCost())),
+                         JavaConstant.setAmount(BigDecimal.valueOf(listData.getCost())),
+                         JavaConstant.setAmount(BigDecimal.valueOf(listData.getTotalCost())),
                          String.valueOf(listData.getId()),
                          String.valueOf(listData.getProductId())
                     );
@@ -175,7 +175,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
           }
 
           lbTotalQty.setText(String.valueOf(totalQty));
-          lbTotalCost.setText("$ ".concat(String.format("%.2f", totalCost)));
+          lbTotalCost.setText(JavaConstant.setAmount(BigDecimal.valueOf(totalCost)));
 
           listGetDetailOrder.revalidate();
           listGetDetailOrder.repaint();
@@ -199,7 +199,7 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                Integer _qty = Integer.valueOf(objData.getQtyUnit());
                totalQty += _qty;
           }
-          lbTotalCost.setText("$ ".concat(String.format("%.2f", totalCost)));
+          lbTotalCost.setText(JavaConstant.setAmount(BigDecimal.valueOf(totalCost)));
           lbTotalQty.setText(String.valueOf(totalQty));
 
           for (int i = 0; i < listCom.length; i++) {
@@ -560,9 +560,8 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
 
          json.put("details", details);
 
-         System.out.println("jjjjjjjjjjjjjjjj = " + json);
          Response response = JavaConnection.put(JavaRoute.imports + "/" + _Id, json);
-         System.err.println("response + " + response);
+
          JavaConstant.setCircleLoadingCursor(this);
          try {
               if (response.isSuccessful()) {
@@ -574,7 +573,6 @@ public class EditPurchaseOrder extends javax.swing.JDialog {
                    listGetOrder.revalidate();
                    listGetOrder.repaint();
                    purchase.getListPurchase(listGetOrder, true);
-                   
 
               }
          } catch (Exception e) {

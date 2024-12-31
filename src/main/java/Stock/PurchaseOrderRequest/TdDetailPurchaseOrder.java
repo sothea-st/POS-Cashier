@@ -6,12 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigDecimal;
 import javax.swing.Icon;
-
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class TdDetailPurchaseOrder extends javax.swing.JPanel {
 
      private String id;
@@ -20,8 +17,6 @@ public class TdDetailPurchaseOrder extends javax.swing.JPanel {
      private String amountValue;
      private String productId;
      
- 
- 
 
      public TdDetailPurchaseOrder() {
           initComponents();
@@ -39,6 +34,7 @@ public class TdDetailPurchaseOrder extends javax.swing.JPanel {
           String _amount,
           String _productId
      ) {
+       
           number.setText(_number);
           barcode.setText(_barcode);
           productName.setText(_proName);
@@ -173,7 +169,7 @@ public class TdDetailPurchaseOrder extends javax.swing.JPanel {
                     double costValue = Double.parseDouble(_cost);
                     double result = qtyValue * costValue;
 
-                    String _text = "$ ".concat(String.format("%.2f", result));
+                    String _text = JavaConstant.setAmount(BigDecimal.valueOf(result));
                     amount.setText(_text);
                     event.onKeyPress();
                }

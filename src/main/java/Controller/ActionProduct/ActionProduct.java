@@ -93,7 +93,7 @@ public class ActionProduct {
           try {
 
                Response response = JavaConnection.get(JavaRoute.getProductByCatId + "?catId=" + catId + "&limit=" + limit + "&page=" + JavaConstant.page);
-               System.err.println("respnse ddddddddddd = " + response);
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -124,7 +124,7 @@ public class ActionProduct {
      public void newProduct(int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getNewPrdduct + "?limit=" + JavaConstant.limit + "&page=" + JavaConstant.page);
-             
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -181,7 +181,7 @@ public class ActionProduct {
      public void getPromotion(int catId, int limit, JPanel panelProduct) {
           try {
                Response response = JavaConnection.get(JavaRoute.getPromotion);
-              
+
                if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     ObjectMapper objMap = new ObjectMapper();
@@ -316,6 +316,7 @@ public class ActionProduct {
                                              j.setVisible(true);
                                              return;
                                         }
+                                        //=============== event buy ============
                                         eventBtnBuy(listData, 1, product);
                                         qty--;
                                         product.setQty("" + qty);
@@ -397,7 +398,6 @@ public class ActionProduct {
                     product.setProductStatus("Out Stock");
                }
 
- 
                product.setDiscountPercentag(listData.getDiscount(), price);
 
                product.setDiscountPercent(listData.getDiscount());
@@ -423,17 +423,7 @@ public class ActionProduct {
                               public void run() {
                                    try {
                                         // Task to be executed
-                                        if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
-                                             product.setProductImage(JavaBaseUrl.baseUrlImage + listData.getProImageName());
-                                             boolean imageExists = JavaConstant.checkImageExists(JavaBaseUrl.baseUrlImage + listData.getProImageName());
-                                             if (!imageExists) {
-                                                  product.setProductImage(JavaBaseUrl.baseUrlDefaultImage);
-                                             }
-
-                                        } else {
-                                             System.err.println("hello worl : " + listData.getProImageName());
-                                             product.setProductImage(JavaBaseUrl.baseUrlBgImage + listData.getProImageName());
-                                        }
+                                        product.setProductImage(listData.getProImageName());
 
                                    } catch (IOException ex) {
                                         Logger.getLogger(ActionProduct.class.getName()).log(Level.SEVERE, null, ex);
@@ -450,9 +440,9 @@ public class ActionProduct {
                }
 
                try {
-                    Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
-                    byte[] imgs = img.body().bytes();
-                    product.setFlagImage(new ImageIcon(imgs));
+//                    Response img = JavaConnection.get(JavaRoute.readImage + listData.getFlag());
+//                    byte[] imgs = img.body().bytes();
+                    product.setFlagImage(listData.getFlag());
 
                } catch (Exception e) {
                     System.err.println("error read image = " + e);
@@ -609,12 +599,7 @@ public class ActionProduct {
           }
 
           try {
-               if (listData.getProImageName().contains("media/file/crm/uploadfile/")) {
-                    box.setIconImage(JavaConstant.urlImage + listData.getProImageName());
-               } else {
-                    box.setIconImage(new JavaBaseUrl().getBaseUrl() + "/public/addImageForBackground/" + listData.getProImageName());
-               }
-
+               box.setIconImage(listData.getProImageName());
           } catch (Exception e) {
           }
           box.setProductId(listData.getId());

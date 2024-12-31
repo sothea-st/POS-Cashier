@@ -44,7 +44,7 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
           transactionDate.setLabelName(JavaConstant.formatDate(p.getTransactionDate()));
           orderDate.setLabelName(JavaConstant.formatDate(p.getOrderDate()));
           totalQty.setLabelName(String.valueOf(p.getTotalQty()));
-          totalCost.setLabelName("$ ".concat(String.valueOf(p.getTotalCost())));
+          totalCost.setLabelName(JavaConstant.setAmount(p.getTotalCost()));
           requestBy.setLabelName(p.getRequestBy().getName());
           requestDate.setLabelName(JavaConstant.formatDate(p.getRequestBy().getDate()));
           checkBy.setLabelName(p.getCheckedBy().getName());
@@ -105,8 +105,8 @@ public class DetailPurchaseOrder extends javax.swing.JDialog {
                          String.valueOf(listData.getSubCategory()),
                          String.valueOf(listData.getAvailableQty()),
                          String.valueOf(listData.getOrderQty()),
-                         String.valueOf("$ " + String.format("%.2f", listData.getCost())),
-                         String.valueOf("$ " + String.format("%.2f", BigDecimal.valueOf(_totalCost)))
+                         JavaConstant.setAmount(listData.getCost()),
+                         JavaConstant.setAmount(BigDecimal.valueOf(_totalCost))
                     );
 
                     listGetDetailOrder.add(b, gbc);

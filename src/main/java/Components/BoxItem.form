@@ -132,6 +132,9 @@
     <Component class="javax.swing.JLabel" name="img">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icon/default-product-small.png"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="title">

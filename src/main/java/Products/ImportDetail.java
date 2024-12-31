@@ -10,6 +10,7 @@ import Constant.JavaMessage;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import Event.ButtonEvent;
+import Fonts.WindowFonts;
 import MessageAlert.JavaMessageDialog;
 import Model.PackageProduct.ProductResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -145,8 +146,7 @@ public class ImportDetail extends javax.swing.JDialog {
                     DecimalFormat df = new DecimalFormat("#.##");
                     String formattedMargin = df.format(margin);
 
-                    System.out.println("Margin: " + formattedMargin + "%");
-
+                    //System.out.println("Margin: " + formattedMargin + "%");
                     rows[i][0] = String.valueOf(i + 1); // Index
                     rows[i][1] = p.getLink(); // File column
                     rows[i][2] = p.getPhoto(); // Placeholder for now, adjust as needed
@@ -155,7 +155,11 @@ public class ImportDetail extends javax.swing.JDialog {
                     rows[i][5] = p.getBrandId(); // Brand
                     rows[i][6] = p.getSubCatId(); // Sub Category
                     rows[i][7] = p.getProductName(); // Product Name
-                    rows[i][8] = p.getProductNameKh(); // Product Name Kh
+
+                    rows[i][8] = "<html><p style='font-family: Khmer OS Content; font-size:9px;'>"
+                         + p.getProductNameKh() + "</p></html>"; // Product Name Kh
+
+                    //rows[i][8] = p.getProductNameKh(); // Product Name Kh
                     rows[i][9] = p.getCost(); // Cost
                     rows[i][10] = p.getPrice(); // Price
                     rows[i][11] = formattedMargin + "%"; // Margin
@@ -189,8 +193,6 @@ public class ImportDetail extends javax.swing.JDialog {
                          double margin = ((p.getPrice().doubleValue() - p.getCost().doubleValue()) * 100) / p.getPrice().doubleValue();
                          DecimalFormat df = new DecimalFormat("#.##");
                          String formattedMargin = df.format(margin);
-
-                         System.out.println("Margin11111: " + formattedMargin + "%");
 
                          rowsData[i][0] = String.valueOf(i + 1); // Index
                          rowsData[i][1] = p.getLink(); // File column
@@ -249,12 +251,12 @@ public class ImportDetail extends javax.swing.JDialog {
           columnModel.getColumn(0).setPreferredWidth(30);
           columnModel.getColumn(1).setPreferredWidth(80);
           columnModel.getColumn(2).setPreferredWidth(100);
-          columnModel.getColumn(3).setPreferredWidth(130);
+          columnModel.getColumn(3).setPreferredWidth(160);
           columnModel.getColumn(4).setPreferredWidth(140);
           columnModel.getColumn(5).setPreferredWidth(80);
           columnModel.getColumn(6).setPreferredWidth(150);
           columnModel.getColumn(7).setPreferredWidth(300);
-          columnModel.getColumn(8).setPreferredWidth(200);
+          columnModel.getColumn(8).setPreferredWidth(450);
           columnModel.getColumn(9).setPreferredWidth(70);
           columnModel.getColumn(10).setPreferredWidth(70);
           columnModel.getColumn(11).setPreferredWidth(70);
@@ -330,13 +332,16 @@ public class ImportDetail extends javax.swing.JDialog {
           };
 
           table.getColumn("File").setCellEditor(new ButtonEditor(event));
+           
 
           // Set row height
           table.setRowHeight(30);
           //table.setBackground(Color.gray);
           table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
           table.getTableHeader().setReorderingAllowed(false);
-
+       
+          table.setShowGrid(true); // Ensure the grid is visible
+ 
      }
 
      @SuppressWarnings("unchecked")

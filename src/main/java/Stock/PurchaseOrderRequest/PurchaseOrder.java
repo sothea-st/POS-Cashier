@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.math.BigDecimal;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -171,13 +172,11 @@ public class PurchaseOrder extends javax.swing.JDialog {
                          }
 
                          @Override
-                         public void onSelect(String Key) {  // event edit
-                             
-
+                         public void onSelect(String Key) {  // event edit 
                             if (data.getRemark().toLowerCase().equals("requested")) {
                                 dispose();
                                 EditPurchaseOrder edit = new EditPurchaseOrder(new JFrame(), true, data.getId());
-                                System.out.println("status = " + data.getRemark());
+                                //System.out.println("status = " + data.getRemark());
                                 
                                 try {
                                      Response response = JavaConnection.get(JavaRoute.imports + "/" + data.getId());
@@ -195,7 +194,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                                           String.valueOf(detailData.getTransactionNo()),
                                           String.valueOf(detailData.getPurchaseOrderNo()),
                                           String.valueOf(detailData.getTotalQty()),
-                                          String.valueOf(detailData.getTotalCost()),
+                                          JavaConstant.setAmount(detailData.getTotalCost()),
                                           String.valueOf(detailData.getVendorID()),
                                           String.valueOf(JavaConstant.formatDate(detailData.getOrderDate())),
                                           String.valueOf(JavaConstant.formatDate(detailData.getTransactionDate())),
@@ -262,7 +261,7 @@ public class PurchaseOrder extends javax.swing.JDialog {
                     b.setReferenceNo(data.getReferenceNo());
                     b.setTransactionDate(JavaConstant.formatDate(data.getTransactionDate()));
                     b.setTotalQty("" + data.getTotalQty());
-                    b.setTotalCost("$ " + String.format("%.2f", data.getTotalCost()));
+                    b.setTotalCost(JavaConstant.setAmount(BigDecimal.valueOf(data.getTotalCost())));
                     b.setTransactionNo(data.getTransactionNo());
                     b.setStatus(StringUtils.capitalize(data.getRemark()));
 

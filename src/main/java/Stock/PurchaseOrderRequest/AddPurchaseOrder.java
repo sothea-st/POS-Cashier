@@ -1,6 +1,5 @@
 package Stock.PurchaseOrderRequest;
 
- 
 import Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;
@@ -19,7 +18,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.math.BigDecimal;
 import java.util.ArrayList;
- 
+
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -34,71 +33,70 @@ import org.json.JSONObject;
 
 public class AddPurchaseOrder extends javax.swing.JDialog {
 
-    private String vendorId = "-1";
-    private String subCatId;
-    private PurchaseOrder purchaseOrder;
-    private ArrayList<ImportDetailOrder> listImport = new ArrayList<>();
-    private int totalQty = 0;
-    private double totalCost = 0;
-    ArrayList<ImportDetailRequest> details = new ArrayList<>();
-    private JPanel jpanelData;
-    private ArrayList<PurchaseOrderDetailResponse> pListDetail = new ArrayList<>();
+     private String vendorId = "-1";
+     private String subCatId;
+     private PurchaseOrder purchaseOrder;
+     private ArrayList<ImportDetailOrder> listImport = new ArrayList<>();
+     private int totalQty = 0;
+     private double totalCost = 0;
+     ArrayList<ImportDetailRequest> details = new ArrayList<>();
+     private JPanel jpanelData;
+     private ArrayList<PurchaseOrderDetailResponse> pListDetail = new ArrayList<>();
 
-    public AddPurchaseOrder(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        header.setBackground(WindowColor.darkGreen);
-        txtReference.requestFocus();
-        jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
-        jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        // custom scroll speed jscrollPane for vertical
-        JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
-        verticalScrollBar.setUnitIncrement(30);
-        verticalScrollBar.setBlockIncrement(35);
+     public AddPurchaseOrder(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          header.setBackground(WindowColor.darkGreen);
+          txtReference.requestFocus();
+          jScrollPane1.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+          // custom scroll speed jscrollPane for vertical
+          JScrollBar verticalScrollBar = jScrollPane1.getVerticalScrollBar();
+          verticalScrollBar.setUnitIncrement(30);
+          verticalScrollBar.setBlockIncrement(35);
 
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
 
-        lbTotalCost.setText("$ 0.00");
-        lbTotalQty.setText("0");
-        buttonSave.setVisible(false);
-        Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
-        borderUnderLine.setBorder(topBorder);
-        cmdVendor();
-        cmdSubCategory();
-    }
-    
-    
-    private void cmdVendor() {
-         JavaComboBoxSelection.addComboBox(cmbVendorName,
-                JavaRoute.vendor,
-                "vendorName",
-                JavaComboBoxSelection.DESC);
+          lbTotalCost.setText("$ 0.00");
+          lbTotalQty.setText("0");
+          buttonSave.setVisible(false);
+          Border topBorder = BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK);
+          borderUnderLine.setBorder(topBorder);
+          cmdVendor();
+          cmdSubCategory();
+     }
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                vendorId = id;
-            }
-        };
-        cmbVendorName.initEvent(event);
-    }
+     private void cmdVendor() {
+          JavaComboBoxSelection.addComboBox(cmbVendorName,
+               JavaRoute.vendor,
+               "vendorName",
+               JavaComboBoxSelection.DESC);
 
-    private void cmdSubCategory() {
-        JavaComboBoxSelection.addComboBox(cmbSubCategory,
-                JavaRoute.subcategory,
-                "catNameEn",
-                JavaComboBoxSelection.DESC);
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    vendorId = id;
+               }
+          };
+          cmbVendorName.initEvent(event);
+     }
 
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                subCatId = id;
-            }
-        };
-        cmbSubCategory.initEvent(event);
-    }
+     private void cmdSubCategory() {
+          JavaComboBoxSelection.addComboBox(cmbSubCategory,
+               JavaRoute.subcategory,
+               "catNameEn",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    subCatId = id;
+               }
+          };
+          cmbSubCategory.initEvent(event);
+     }
 
      @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -387,143 +385,143 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancelMouseClicked
-        this.dispose();
-        purchaseOrder.getListPurchase(jpanelData, true);
-        purchaseOrder.setVisible(true);
+         this.dispose();
+         purchaseOrder.getListPurchase(jpanelData, true);
+         purchaseOrder.setVisible(true);
     }//GEN-LAST:event_buttonCancelMouseClicked
 
-    public JPanel getJpanelData() {
-        return jpanelData;
-    }
+     public JPanel getJpanelData() {
+          return jpanelData;
+     }
 
-    public void setJpanelData(JPanel jpanelData) {
-        this.jpanelData = jpanelData;
-    }
+     public void setJpanelData(JPanel jpanelData) {
+          this.jpanelData = jpanelData;
+     }
 
-    public PurchaseOrder getPurchaseOrder() {
-        return purchaseOrder;
-    }
+     public PurchaseOrder getPurchaseOrder() {
+          return purchaseOrder;
+     }
 
-    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-        this.purchaseOrder = purchaseOrder;
-    }
+     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+          this.purchaseOrder = purchaseOrder;
+     }
 
 
     private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
 
-        String orderDateValue = orderDate.getSelectedDate();
-        String referenceNo = txtReference.getValueTextField();
-        String transactionDateValue = transactionDate.getSelectedDate();
+         String orderDateValue = orderDate.getSelectedDate();
+         String referenceNo = txtReference.getValueTextField();
+         String transactionDateValue = transactionDate.getSelectedDate();
 
-        try {
-            boolean isCheck = JavaValidation.checkValidation(jPanel2);
+         try {
+              boolean isCheck = JavaValidation.checkValidation(jPanel2);
 
-            if (isCheck) {
-                JSONObject json = new JSONObject();
-                json.put("createBy", JavaConstant.cashierId);
-                json.put("empId", JavaConstant.empId);
-                json.put("vendorId", vendorId);
-                json.put("impDate", orderDateValue);
-                json.put("discount", "0");
-                json.put("referenceNo", referenceNo);
-                json.put("transactionDate", transactionDateValue);
-                String _totalCost = lbTotalCost.getText().replace("$", "");
-                _totalCost = _totalCost.replace(",", "");
-                json.put("total", _totalCost);
-                json.put("totalQty", lbTotalQty.getText());
-                json.put("remark", "requested");
-                json.put("impId", "0");
+              if (isCheck) {
+                   JSONObject json = new JSONObject();
+                   json.put("createBy", JavaConstant.cashierId);
+                   json.put("empId", JavaConstant.empId);
+                   json.put("vendorId", vendorId);
+                   json.put("impDate", orderDateValue);
+                   json.put("discount", "0");
+                   json.put("referenceNo", referenceNo);
+                   json.put("transactionDate", transactionDateValue);
+                   String _totalCost = lbTotalCost.getText().replace("$", "");
+                   _totalCost = _totalCost.replace(",", "");
+                   json.put("total", _totalCost);
+                   json.put("totalQty", lbTotalQty.getText());
+                   json.put("remark", "requested");
+                   json.put("impId", "0");
 
-                Component[] listCom = panel.getComponents();
+                   Component[] listCom = panel.getComponents();
 
-                for (Component p : listCom) {
-                    var data = ((TdDetailPurchaseOrder) p);
-                    ImportRequest importRequest = new ImportRequest();
-                    ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
-                            data.getProductId(),
-                            Integer.valueOf(data.getQtyUnit()),
-                            BigDecimal.valueOf(Double.parseDouble(data.getCost())),
-                            BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
-                            "");
+                   for (Component p : listCom) {
+                        var data = ((TdDetailPurchaseOrder) p);
+                        ImportRequest importRequest = new ImportRequest();
+                        ImportRequest.ImportDetailRequest imps = importRequest.new ImportDetailRequest(
+                             data.getProductId(),
+                             Integer.valueOf(data.getQtyUnit()),
+                             BigDecimal.valueOf(Double.parseDouble(data.getCost())),
+                             BigDecimal.valueOf(Double.parseDouble(data.getAmount())),
+                             "");
 
-                    details.add(imps);
-                }
-                json.put("details", details);
+                        details.add(imps);
+                   }
+                   json.put("details", details);
 
-                Response response = JavaConnection.post(JavaRoute.imports, json);
+                   Response response = JavaConnection.post(JavaRoute.imports, json);
 
-                JavaConstant.setCircleLoadingCursor(this);
+                   JavaConstant.setCircleLoadingCursor(this);
 
-                try {
-                    if (response.isSuccessful()) {
-                        JavaConstant.restoreDefaultCursor(this);
-                        String dataString = response.body().string();
+                   try {
+                        if (response.isSuccessful()) {
+                             JavaConstant.restoreDefaultCursor(this);
+                             String dataString = response.body().string();
 
-                        buttonSave.setVisible(false);
-                        reloadPanel();
-                        //                   cmbVendorName.setToFirstItem();
-                        //                   cmbSubCategory.setToFirstItem();
-                        //                   lbTotalCost.setText("$ 0.00");
-                        //                   lbTotalQty.setText("0");
-                        //                   txtReference.setText(null);
-                        //                   cmbVendorName.requestFocus();
-                        dispose();
-                        purchaseOrder.getListPurchase(jpanelData, true);
-                        purchaseOrder.setVisible(true);
+                             buttonSave.setVisible(false);
+                             reloadPanel();
+                             //                   cmbVendorName.setToFirstItem();
+                             //                   cmbSubCategory.setToFirstItem();
+                             //                   lbTotalCost.setText("$ 0.00");
+                             //                   lbTotalQty.setText("0");
+                             //                   txtReference.setText(null);
+                             //                   cmbVendorName.requestFocus();
+                             dispose();
+                             purchaseOrder.getListPurchase(jpanelData, true);
+                             purchaseOrder.setVisible(true);
 
-                    }
-                } catch (Exception e) {
-                    System.out.println("import request fails : " + e);
-                }
-            }
+                        }
+                   } catch (Exception e) {
+                        System.out.println("import request fails : " + e);
+                   }
+              }
 
-        } catch (Exception e) {
-            System.err.println("errr -- " + e);
-        }
+         } catch (Exception e) {
+              System.err.println("errr -- " + e);
+         }
 
     }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void button1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_button1MouseClicked
 
-         try {
-             boolean isCheck = JavaValidation.checkValidation(jPanel2);
+          try {
+               boolean isCheck = JavaValidation.checkValidation(jPanel2);
 
-             if (isCheck) {
-                 JSONObject json = new JSONObject();
-                 json.put("vendorId", vendorId);
-                 if (subCatId != null) {
-                     json.put("subCatId", subCatId);
-                 }
+               if (isCheck) {
+                    JSONObject json = new JSONObject();
+                    json.put("vendorId", vendorId);
+                    if (subCatId != null) {
+                         json.put("subCatId", subCatId);
+                    }
 
-                 Response response = JavaConnection.post(JavaRoute.vendorOrSubCategory, json);
+                    Response response = JavaConnection.post(JavaRoute.vendorOrSubCategory, json);
 
-                 try {
-                     if (response.isSuccessful()) {
-                         String responseData = response.body().string();
-                         ObjectMapper obj = new ObjectMapper();
-                         PurchaseOrderResponse data = obj.readValue(responseData, PurchaseOrderResponse.class);
+                    try {
+                         if (response.isSuccessful()) {
+                              String responseData = response.body().string();
+                              ObjectMapper obj = new ObjectMapper();
+                              PurchaseOrderResponse data = obj.readValue(responseData, PurchaseOrderResponse.class);
 
-                         PurchaseOrderDetailResponse[] listPurchase = data.getData();
+                              PurchaseOrderDetailResponse[] listPurchase = data.getData();
 
-                         pListDetail.clear();
-                         listImport.clear();
-                         appendData(listPurchase);
-                         buttonSave.setVisible(true);
-                     }
-                 } catch (Exception e) {
-                     System.out.println("error : " + e);
-                 }
-             }
-         } catch (Exception e) {
-             System.err.println("errr -- " + e);
-         }
+                              pListDetail.clear();
+                              listImport.clear();
+                              appendData(listPurchase);
+                              buttonSave.setVisible(true);
+                         }
+                    } catch (Exception e) {
+                         System.out.println("error : " + e);
+                    }
+               }
+          } catch (Exception e) {
+               System.err.println("errr -- " + e);
+          }
 
      }//GEN-LAST:event_button1MouseClicked
 
-    private void appendData(PurchaseOrderDetailResponse[] listPurchase) {
-        reloadPanel();
-        for (PurchaseOrderDetailResponse p : listPurchase) {
-            ImportDetailOrder pp = new ImportDetailOrder(
+     private void appendData(PurchaseOrderDetailResponse[] listPurchase) {
+          reloadPanel();
+          for (PurchaseOrderDetailResponse p : listPurchase) {
+               ImportDetailOrder pp = new ImportDetailOrder(
                     p.getID(),
                     p.getBarcode(),
                     p.getProNameEn(),
@@ -532,174 +530,174 @@ public class AddPurchaseOrder extends javax.swing.JDialog {
                     p.getQty(),
                     p.getCost(),
                     p.getAmount()
-            );
-            listImport.add(pp);
-            pListDetail.add(p);
-        }
-        setDetail(listImport);
-    }
+               );
+               listImport.add(pp);
+               pListDetail.add(p);
+          }
+          setDetail(listImport);
+     }
 
-    private void setDetail(ArrayList<ImportDetailOrder> list) {
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
-        gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+     private void setDetail(ArrayList<ImportDetailOrder> list) {
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        panel.setLayout(gridBagLayout);
+          panel.setLayout(gridBagLayout);
 
-        int x = 0;
-        int y = 0;
-        if (list.isEmpty()) {
-            panel.setLayout(new BorderLayout());
-            GetDetailNotFound nofound = new GetDetailNotFound();
-            panel.add(nofound, BorderLayout.CENTER);
-            panel.add(nofound);
-            panel.revalidate();
-            panel.repaint();
+          int x = 0;
+          int y = 0;
+          if (list.isEmpty()) {
+               panel.setLayout(new BorderLayout());
+               GetDetailNotFound nofound = new GetDetailNotFound();
+               panel.add(nofound, BorderLayout.CENTER);
+               panel.add(nofound);
+               panel.revalidate();
+               panel.repaint();
 
-        }
-        int i = 0;
-        for (ImportDetailOrder p : list) {
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.gridx = x;
-            gbc.gridy = y;
-            gbc.gridwidth = 1;
-            gbc.anchor = gbc.NORTH;
-            x++;
-            if (x == 1) {
-                x = 0;
-                y++;
-            }
-            i++;
-            TdDetailPurchaseOrder detail = new TdDetailPurchaseOrder();
-            detail.setDetail(
+          }
+          int i = 0;
+          for (ImportDetailOrder p : list) {
+               GridBagConstraints gbc = new GridBagConstraints();
+               gbc.gridx = x;
+               gbc.gridy = y;
+               gbc.gridwidth = 1;
+               gbc.anchor = gbc.NORTH;
+               x++;
+               if (x == 1) {
+                    x = 0;
+                    y++;
+               }
+               i++;
+               TdDetailPurchaseOrder detail = new TdDetailPurchaseOrder();
+               detail.setDetail(
                     String.valueOf(i),
                     String.valueOf(p.getBarcode()),
                     String.valueOf(p.getProNameEn()),
                     String.valueOf(p.getDivision()),
                     String.valueOf(p.getAvailableQty()),
                     String.valueOf(p.getQty()),
-                    "$ ".concat(String.valueOf(p.getCost())),
-                    "$ ".concat(String.valueOf(p.getAmount())),
+                    JavaConstant.setAmount(p.getCost()),
+                    JavaConstant.setAmount(p.getAmount()),
                     String.valueOf(p.getID())
-            );
+               );
 
-            totalQty += p.getQty();
-            totalCost += p.getCost().doubleValue();
+               totalQty += p.getQty();
+               totalCost += p.getCost().doubleValue();
 
-            ButtonEvent event = new ButtonEvent() {
-                @Override
-                public void onRemove(String index) {
-                    System.out.println("barcode : " + p.getBarcode());
-                    eventRemove(index, p.getBarcode());
-                }
+               ButtonEvent event = new ButtonEvent() {
+                    @Override
+                    public void onRemove(String index) {
+                         eventRemove(index, p.getBarcode());
+                    }
 
-                @Override
-                public void onKeyPress() {
-                    calculate();
-                }
-            };
+                    @Override
+                    public void onKeyPress() {
+                         System.err.println("3333333333333333333333");
+                         calculate();
+                    }
+               };
 
-            detail.initEvent(event);
-            panel.add(detail, gbc);
-        }
+               detail.initEvent(event);
+               panel.add(detail, gbc);
+          }
 
-        lbTotalQty.setText(String.valueOf(totalQty));
-        lbTotalCost.setText("$ ".concat(String.format("%.2f", totalCost)));
+          lbTotalQty.setText(String.valueOf(totalQty));
+          lbTotalCost.setText(JavaConstant.setAmount(BigDecimal.valueOf(totalCost)));
 
-    }
+     }
 
-    private void reloadPanel() {
-        panel.removeAll();
-        panel.revalidate();
-        panel.repaint();
-    }
+     private void reloadPanel() {
+          panel.removeAll();
+          panel.revalidate();
+          panel.repaint();
+     }
 
-    private void calculate() {
-        Component[] listCom = panel.getComponents();
+     private void calculate() {
+          Component[] listCom = panel.getComponents();
 
-        totalCost = 0;
-        totalQty = 0;
-        for (Component c : listCom) {
-            var objData = ((TdDetailPurchaseOrder) c);
-            String _amount = objData.getAmountValue().replace("$", "");
-            _amount = _amount.replace(",", "");
-            totalCost += Double.parseDouble(_amount);
-            Integer _qty = Integer.valueOf(objData.getQtyUnit());
-            totalQty += _qty;
-        }
-        lbTotalCost.setText("$ ".concat(String.format("%.2f", totalCost)));
-        lbTotalQty.setText(String.valueOf(totalQty));
+          totalCost = 0;
+          totalQty = 0;
+          for (Component c : listCom) {
+               var objData = ((TdDetailPurchaseOrder) c);
+               String _amount = objData.getAmountValue().replace("$", "");
+               _amount = _amount.replace(",", "");
+               totalCost += Double.parseDouble(_amount);
+               Integer _qty = Integer.valueOf(objData.getQtyUnit());
+               totalQty += _qty;
+          }
+          lbTotalCost.setText(JavaConstant.setAmount(BigDecimal.valueOf(totalCost)));
+          lbTotalQty.setText(String.valueOf(totalQty));
 
-        for (int i = 0; i < listCom.length; i++) {
-            var obj = ((TdDetailPurchaseOrder) listCom[i]);
-            String ind = String.valueOf(i + 1);
-            obj.setIndex(ind);
-        }
+          for (int i = 0; i < listCom.length; i++) {
+               var obj = ((TdDetailPurchaseOrder) listCom[i]);
+               String ind = String.valueOf(i + 1);
+               obj.setIndex(ind);
+          }
 
-    }
+     }
 
-    private void eventRemove(String index, String barcode) { // event delete
-        try {
-            UIManager UI = new UIManager();
-            UI.put("OptionPane.background", WindowColor.mediumGreen);
-            UI.put("Panel.background", WindowColor.mediumGreen);
-            UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+     private void eventRemove(String index, String barcode) { // event delete
+          try {
+               UIManager UI = new UIManager();
+               UI.put("OptionPane.background", WindowColor.mediumGreen);
+               UI.put("Panel.background", WindowColor.mediumGreen);
+               UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
-            int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
+               int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this ?",
                     "Delete?", JOptionPane.YES_NO_OPTION);
 
-            if (resp == JOptionPane.YES_OPTION) {
-                int ind = Integer.parseInt(index) - 1;
-                for (ImportDetailOrder p : listImport) {
-                    if (p.getBarcode().equals(barcode)) {
-                        listImport.remove(p);
-                        break;
+               if (resp == JOptionPane.YES_OPTION) {
+                    int ind = Integer.parseInt(index) - 1;
+                    for (ImportDetailOrder p : listImport) {
+                         if (p.getBarcode().equals(barcode)) {
+                              listImport.remove(p);
+                              break;
+                         }
                     }
-                }
 
-                panel.removeAll();
-                panel.revalidate();
-                panel.repaint();
-                if (listImport.isEmpty()) {
-                    lbTotalQty.setText("0");
-                    lbTotalCost.setText("$ 0.00");
-                    panel.setLayout(new BorderLayout());
-                    NotFound nofound = new NotFound();
-                    panel.add(nofound, BorderLayout.CENTER);
-                    panel.add(nofound);
+                    panel.removeAll();
                     panel.revalidate();
                     panel.repaint();
-                    return;
-                }
-
-                setDetail(listImport);
-                calculate();
-
-            } else {
-                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            }
-
-        } catch (Exception e) {
-            System.err.println("error getting product " + e);
-        }
-    }
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddPurchaseOrder dialog = new AddPurchaseOrder(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                    if (listImport.isEmpty()) {
+                         lbTotalQty.setText("0");
+                         lbTotalCost.setText("$ 0.00");
+                         panel.setLayout(new BorderLayout());
+                         NotFound nofound = new NotFound();
+                         panel.add(nofound, BorderLayout.CENTER);
+                         panel.add(nofound);
+                         panel.revalidate();
+                         panel.repaint();
+                         return;
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+
+                    setDetail(listImport);
+                    calculate();
+
+               } else {
+                    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+               }
+
+          } catch (Exception e) {
+               System.err.println("error getting product " + e);
+          }
+     }
+
+     public static void main(String args[]) {
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    AddPurchaseOrder dialog = new AddPurchaseOrder(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel borderUnderLine;

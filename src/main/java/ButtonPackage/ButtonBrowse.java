@@ -1,22 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+ 
 package ButtonPackage;
 
-import Color.WindowColor;
+ 
 import Constant.JavaConstant;
 import Event.ButtonEvent;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.border.EmptyBorder;
-
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class ButtonBrowse extends javax.swing.JPanel {
 
      public ButtonBrowse() {
