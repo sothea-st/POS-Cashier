@@ -6,6 +6,7 @@ import Constant.JavaConstant;
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Reporting.ReportInventory.ReportInventoryForm;
+import feature.report.report_sale_return.ReportSaleReturnForm;
 import feature.user_permission.JavaPermission;
  
 import javax.swing.JFrame;
@@ -99,97 +100,110 @@ public class ReportingView extends javax.swing.JDialog {
      }
 
      @SuppressWarnings("unchecked")
-     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-          jScrollPane1 = new javax.swing.JScrollPane();
-          jPanel1 = new javax.swing.JPanel();
-          reportSale = new Components.SettingBox();
-          reportPurhaseRequest = new Components.SettingBox();
-          reportPurhaseReceive = new Components.SettingBox();
-          reportInventory = new Components.SettingBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        reportSale = new Components.SettingBox();
+        reportPurhaseRequest = new Components.SettingBox();
+        reportPurhaseReceive = new Components.SettingBox();
+        reportInventory = new Components.SettingBox();
+        objReportReturn = new Components.SettingBox();
 
-          setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-          jScrollPane1.setBorder(null);
+        jScrollPane1.setBorder(null);
 
-          reportSale.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/report image/sale.png"))); // NOI18N
-          reportSale.setTitle("Reporting Sales");
-          reportSale.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    reportSaleMouseClicked(evt);
-               }
-          });
+        reportSale.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/report image/sale.png"))); // NOI18N
+        reportSale.setTitle("Reporting Sales");
+        reportSale.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportSaleMouseClicked(evt);
+            }
+        });
 
-          reportPurhaseRequest.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/report image/PurchaseOrder.png"))); // NOI18N
-          reportPurhaseRequest.setTitle("Reporting Purchase Request");
-          reportPurhaseRequest.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    reportPurhaseRequestMouseClicked(evt);
-               }
-          });
+        reportPurhaseRequest.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/report image/PurchaseOrder.png"))); // NOI18N
+        reportPurhaseRequest.setTitle("Reporting Purchase Request");
+        reportPurhaseRequest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportPurhaseRequestMouseClicked(evt);
+            }
+        });
 
-          reportPurhaseReceive.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/purchaseReceive.png"))); // NOI18N
-          reportPurhaseReceive.setTitle("Reporting Purchase Receive");
-          reportPurhaseReceive.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    reportPurhaseReceiveMouseClicked(evt);
-               }
-          });
+        reportPurhaseReceive.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/purchaseReceive.png"))); // NOI18N
+        reportPurhaseReceive.setTitle("Reporting Purchase Receive");
+        reportPurhaseReceive.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportPurhaseReceiveMouseClicked(evt);
+            }
+        });
 
-          reportInventory.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/balance.png"))); // NOI18N
-          reportInventory.setTitle("Stock Balance Report");
-          reportInventory.addMouseListener(new java.awt.event.MouseAdapter() {
-               public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    reportInventoryMouseClicked(evt);
-               }
-          });
+        reportInventory.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/balance.png"))); // NOI18N
+        reportInventory.setTitle("Stock Balance Report");
+        reportInventory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                reportInventoryMouseClicked(evt);
+            }
+        });
 
-          javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-          jPanel1.setLayout(jPanel1Layout);
-          jPanel1Layout.setHorizontalGroup(
-               jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        objReportReturn.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/balance.png"))); // NOI18N
+        objReportReturn.setTitle("Report Sale Return");
+        objReportReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                objReportReturnMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(objReportReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(18, Short.MAX_VALUE))
-          );
-          jPanel1Layout.setVerticalGroup(
-               jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(388, Short.MAX_VALUE))
-          );
+                    .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(objReportReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(203, Short.MAX_VALUE))
+        );
 
-          jScrollPane1.setViewportView(jPanel1);
+        jScrollPane1.setViewportView(jPanel1);
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-          getContentPane().setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jScrollPane1)
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(layout.createSequentialGroup()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                    .addGap(15, 15, 15))
-          );
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
+        );
 
-          pack();
-          setLocationRelativeTo(null);
-     }// </editor-fold>//GEN-END:initComponents
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
 
      private void reportSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportSaleMouseClicked
          dispose();
@@ -216,6 +230,12 @@ public class ReportingView extends javax.swing.JDialog {
           reportInventoryForm.setVisible(true);
      }//GEN-LAST:event_reportInventoryMouseClicked
 
+    private void objReportReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objReportReturnMouseClicked
+          dispose();
+          ReportSaleReturnForm reportSaleReturnForm = new ReportSaleReturnForm(new JFrame(), true);
+          reportSaleReturnForm.setVisible(true);
+    }//GEN-LAST:event_objReportReturnMouseClicked
+
    
      public static void main(String args[]) {
        
@@ -233,12 +253,13 @@ public class ReportingView extends javax.swing.JDialog {
           });
      }
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JPanel jPanel1;
-     private javax.swing.JScrollPane jScrollPane1;
-     private Components.SettingBox reportInventory;
-     private Components.SettingBox reportPurhaseReceive;
-     private Components.SettingBox reportPurhaseRequest;
-     private Components.SettingBox reportSale;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private Components.SettingBox objReportReturn;
+    private Components.SettingBox reportInventory;
+    private Components.SettingBox reportPurhaseReceive;
+    private Components.SettingBox reportPurhaseRequest;
+    private Components.SettingBox reportSale;
+    // End of variables declaration//GEN-END:variables
 }

@@ -52,7 +52,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="reportSale" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="objReportReturn" min="-2" max="-2" attributes="0"/>
+                          <Component id="reportSale" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="reportPurhaseRequest" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -73,7 +76,9 @@
                           <Component id="reportPurhaseReceive" min="-2" max="-2" attributes="0"/>
                           <Component id="reportInventory" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="388" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="objReportReturn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="203" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -121,6 +126,17 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reportInventoryMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="Components.SettingBox" name="objReportReturn">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/image/balance.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Report Sale Return"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objReportReturnMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>
