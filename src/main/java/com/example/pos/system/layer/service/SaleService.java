@@ -172,11 +172,16 @@ public class SaleService {
             double plt = 0;
             double netSale = 0;
             double margin = 0;
-            double total = report.getAmount().doubleValue();
+            double total = report.getPrice().doubleValue() * report.getQty();
             BigDecimal cost = BigDecimal.valueOf(0);
 
+            /**
+             * blog calculate vat
+             */
+
             if (report.getDiscount_case() != null) {
-                total = report.getAmount().doubleValue() - report.getDiscount(); // getDiscount is value already
+
+                total = total - report.getDiscount(); // getDiscount is value already
             }
 
             double calCost = report.getCost().doubleValue();
@@ -192,19 +197,27 @@ public class SaleService {
                 if (report.getTax_name().equals("PLT")) {
                     plt = (totalSaledExcludeVAT / 1.006) * 0.2 * 0.03;
                 }
-
                 vatAmt = Double.parseDouble(_totalSaledExludeVAT);
-
                 String _netSale = String.format("%.2f", total - vatAmt - plt);
-
                 netSale = Double.parseDouble(_netSale);
+                String _margin = String.format("%.2f", netSale - (cost.doubleValue() * report.getQty()));
+                margin = Double.parseDouble(_margin);
+            } else { // Non-VAT
+                totalSaledExcludeVAT = total;
 
+                vatAmt = 0;
+                String _netSale = String.format("%.2f", total - vatAmt - plt);
+                netSale = Double.parseDouble(_netSale);
+                String _margin = String.format("%.2f", netSale - (cost.doubleValue() * report.getQty()));
+                margin = Double.parseDouble(_margin);
             }
 
+            /**
+             * end blog calculate vat
+             */
 
-            String _margin = String.format("%.2f", netSale - (cost.doubleValue() * report.getQty()));
 
-            margin = Double.parseDouble(_margin);
+
 
 
             ReportSaledResponse reportSaledResponse = ReportSaledResponse.builder()

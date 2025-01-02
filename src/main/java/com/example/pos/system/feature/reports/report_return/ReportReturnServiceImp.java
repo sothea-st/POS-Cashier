@@ -1,0 +1,66 @@
+package com.example.pos.system.feature.reports.report_return;
+
+import com.example.pos.system.constant.JavaConstant;
+import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
+import com.example.pos.system.feature.reports.report_return.dto.ReportReturnProjection;
+import com.example.pos.system.layer.repository.sourceDataRepository.ReturnProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class ReportReturnServiceImp implements ReportReturnService {
+    // inject bean repository
+    private final ReturnProductRepository returnProductRepository;
+
+    @Override
+    public JavaCollectionResponse<?> search(String dateFrom, String dateTo, String search) {
+
+        // validate date from and date to
+        JavaConstant.validationDate(dateFrom,dateTo);
+
+        LocalDate dateFromLocalDate = LocalDate.parse(dateFrom);
+        LocalDate dateToLocalDate = LocalDate.parse(dateTo);
+        List<ReportReturnProjection> data = new ArrayList<>();
+        Integer count = returnProductRepository.getCountResultSearch(dateFromLocalDate, dateToLocalDate,search);
+        System.out.println("3333333333333333 = " + count);
+        count = count == null ? 0 : count;
+
+        data = returnProductRepository.searchReportReturn(dateFromLocalDate, dateToLocalDate,search);
+
+        return JavaCollectionResponse.builder()
+                .data(data)
+                .count(count)
+                .build();
+    }
+
+    @Override
+    public JavaCollectionResponse<?> reportReturn(String dateFrom, String dateTo, Integer pageSize, Integer pageNumber) {
+
+        // validate date from and date to
+        JavaConstant.validationDate(dateFrom,dateTo);
+
+        LocalDate dateFromLocalDate = LocalDate.parse(dateFrom);
+        LocalDate dateToLocalDate = LocalDate.parse(dateTo);
+        List<ReportReturnProjection> data = new ArrayList<>();
+        if (pageNumber == null && pageSize == null) {
+            data = returnProductRepository.getReportReturns(dateFromLocalDate, dateToLocalDate);
+        } else {
+            data = returnProductRepository.getReportReturn(dateFromLocalDate, dateToLocalDate, pageSize, pageNumber - 1);
+        }
+
+
+        Integer count = returnProductRepository.getCountResult(dateFromLocalDate, dateToLocalDate);
+        System.out.println("count ddddddddddddd = " + count);
+        count = count == null ? 0 : count;
+        return JavaCollectionResponse.builder()
+                .data(data)
+                .count(count)
+                .build();
+    }
+}

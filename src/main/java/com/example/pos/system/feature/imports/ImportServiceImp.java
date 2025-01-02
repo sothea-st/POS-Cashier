@@ -326,12 +326,13 @@ public class ImportServiceImp implements ImportService {
             Category division = category(deparment.getParentId(), "division");
             Integer qty = repoImp.sumQtyByProId(value.getProduct().getId());
             if (qty == null) qty = 0;
+
             // Create ImportDetailResponse object and add to details list
             ImportDetailResponse importDetailResponse = ImportDetailResponse.builder()
                     .id(value != null ? value.getId() : null)
                     .productId(value != null && value.getProduct() != null ? value.getProduct().getId() : null)
                     .barcode(value != null && value.getProduct() != null ? value.getProduct().getBarcode() : null)
-                    .proNameEn(value != null && value.getProduct() != null ? value.getProduct().getProNameEn() : null)
+                    .proNameEn(value != null && value.getProduct()+" "+value.getProduct().getChoices() != null ? value.getProduct().getProNameEn()+" "+value.getProduct().getChoices()  : null)
                     .proNameKh(value != null && value.getProduct() != null ? value.getProduct().getProNameKh() : null)
                     .division(division != null ? division.getCatNameEn() : null)
                     .department(deparment != null ? deparment.getCatNameEn() : null)

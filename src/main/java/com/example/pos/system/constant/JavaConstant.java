@@ -1,6 +1,12 @@
 package com.example.pos.system.constant;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 
 public class JavaConstant {
@@ -39,6 +45,13 @@ public class JavaConstant {
 
     public static String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
 
+    public static String formatDateYYYYMMDD(String dateValue) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate date = LocalDate.parse(dateValue, inputFormatter);
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return date.format(outputFormatter);
+    }
+
     public static double getTwoPrecision(double amount) {
         String value = String.valueOf(amount);
         if (value.length() > 5) {
@@ -70,5 +83,39 @@ public class JavaConstant {
             sb.insert(i, ",");
         }
         return sb.toString();
+    }
+
+    public static void validationDate(String dateFrom, String dateTo) {
+        if (dateFrom == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateFrom can not be null.");
+        if (dateTo == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateTo can not be null.");
+        LocalDate dateFromLocal;
+        LocalDate dateToLocal;
+
+        try {
+            // Parse dateFrom and dateTo from the request
+            dateFromLocal = LocalDate.parse(dateFrom);
+            dateToLocal = LocalDate.parse(dateTo);
+
+            // Validate date ranges
+            LocalDate currentDate = LocalDate.now();
+            if (dateToLocal.isAfter(currentDate)) {
+                // Throw exception if dateTo is in the future
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "The field dateTo cannot be greater than the current date: " + currentDate);
+            }
+            if (dateFromLocal.isAfter(dateToLocal)) {
+                // Throw exception if dateFrom is after dateTo
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "The field dateFrom must be smaller than field dateTo.");
+            }
+
+        } catch (DateTimeParseException e) {
+            // Handle invalid date format
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid date format. Expected format: yyyy-MM-dd", e);
+        }
     }
 }

@@ -83,7 +83,7 @@ public class ReturnProductService {
         r.setCreateBy(re.getCreateBy());
         r.setPaymentNo(re.getPaymentNo());
         r.setReturnTime(time);
-        r.setReturnDate(JavaConstant.currentDate);
+        r.setReturnDate(JavaConstant.formatDateYYYYMMDD(JavaConstant.currentDate));
         r.setReasonId(re.getReasonId());
         r.setReturnAmount(re.getReturnAmount());
         r.setSaleId(re.getSaleId());
