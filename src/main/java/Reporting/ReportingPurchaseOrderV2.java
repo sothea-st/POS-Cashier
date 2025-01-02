@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -152,11 +153,11 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
      private void addComboStatus() {
           try {
                LinkedHashMap<String, String> map = new LinkedHashMap<>();
-               map.put("Stocked", "stocked");
-               map.put("Requested", "requested");
-               map.put("Checked", "checked");
-               map.put("Approved", "approved");
-               map.put("Rejected", "rejected");
+               map.put("Stocked", "Stocked");
+               map.put("Requested", "Requested");
+               map.put("Checked", "Checked");
+               map.put("Approved", "Approved");
+               map.put("Rejected", "Rejected");
                status.setMap(map);
 
                ButtonEvent event = new ButtonEvent() {
@@ -360,7 +361,7 @@ public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
                     String.valueOf(data.getApprovedBy()),
                     String.valueOf(data.getRejectBy()),
                     String.valueOf(data.getTotalQty()),
-                    String.valueOf("$ " + String.format("%.2f", data.getTotalCost())),
+                    JavaConstant.setAmount(BigDecimal.valueOf(data.getTotalCost())),
                     String.valueOf(String.valueOf(StringUtils.capitalize(data.getRemark())))
                );
 

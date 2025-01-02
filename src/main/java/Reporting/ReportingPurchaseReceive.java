@@ -274,10 +274,10 @@ public class ReportingPurchaseReceive extends javax.swing.JDialog {
                     String.valueOf(data.getVendorName()),
                     String.valueOf(data.getTransactionNo()),
                     String.valueOf(data.getReferenceNo()),
-                    String.valueOf(data.getTransactionDate()),
+                    JavaConstant.formatPhoneNumber(data.getTransactionDate()),
                     String.valueOf(data.getReceiveBy()),
                     String.valueOf(data.getTotalQty()),
-                    "$ ".concat(String.valueOf(data.getTotalCost())),
+                    JavaConstant.setAmount(data.getTotalCost()),
                     String.valueOf(StringUtils.capitalize(data.getRemark())));
 
                paginationPanel.setVisible(true);

@@ -309,7 +309,6 @@ public class ListProduct extends javax.swing.JDialog {
                     @Override
                     public void onSelectDetail(String id) {
                          try {
-                              
                               dispose();
                               DetailProduct detail = new DetailProduct(new JFrame(), true, id);
                               

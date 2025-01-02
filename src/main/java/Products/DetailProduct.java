@@ -2,6 +2,7 @@ package Products;
 
 import Color.WindowColor;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import CustomeUI.CustomScrollBarUI;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,8 +10,10 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -34,8 +37,6 @@ public class DetailProduct extends javax.swing.JDialog {
           verticalScrollBar.setBlockIncrement(35);
           jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
           getList(listGetDetail, id);
-
-        
 
      }
 
@@ -88,8 +89,9 @@ public class DetailProduct extends javax.swing.JDialog {
      private void getList(JPanel listGetDetail, String id) {
           try {
                Response response = JavaConnection.get(JavaRoute.productV1 + "/detail/" + id);
-
+            
                String responseData = response.body().string();
+      
                ObjectMapper objMap = new ObjectMapper();
                DetailProductSuccess model = objMap.readValue(responseData, DetailProductSuccess.class);
                DataDetailProduct[] listData = model.getData();
@@ -125,26 +127,36 @@ public class DetailProduct extends javax.swing.JDialog {
                     }
                     var data = listData[i];
                     GetDetailProduct b = new GetDetailProduct();
-                    // Define the input formatter with milliseconds
-                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+                    // Define the input formatter to handle optional milliseconds and varying lengths
+                    DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSS][.SS]");
+
                     LocalDateTime localDateTime = null;
                     String formattedDateTime = null;
+
                     if (data.getLocal_date() != null) {
-                         // Parse the input string to LocalDateTime
-                         localDateTime = LocalDateTime.parse(data.getLocal_date(), inputFormatter);
+                         try {
+                              // Parse the input string to LocalDateTime
+                              localDateTime = LocalDateTime.parse(data.getLocal_date(), inputFormatter);
 
-                         // Define the output formatter in the desired format
-                         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm:ss");
+                              // Define the output formatter in the desired format
+                              DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-                         // Format the LocalDateTime to the desired output string
-                         formattedDateTime = localDateTime.format(outputFormatter);
+                              // Format the LocalDateTime to the desired output string
+                              formattedDateTime = localDateTime.format(outputFormatter);
+
+                              // Print or use the formatted date
+                              System.out.println("Formatted DateTime: " + formattedDateTime);
+                         } catch (DateTimeParseException e) {
+                              System.err.println("Error parsing date: " + e.getMessage());
+                         }
                     }
 
                     b.setValue(
                          String.valueOf(index++),
                          data.getLocal_date() != null ? formattedDateTime : "N/A",
                          String.valueOf(data.getQty_old()),
-                         String.valueOf(data.getCost()),
+                         JavaConstant.setAmount(data.getCost()),
                          String.valueOf(data.getPrice())
                     );
 

@@ -415,6 +415,24 @@ public class JavaTextField extends javax.swing.JPanel {
           });
      }
 
+     public void setData() {
+          String text = txt.getText();
+
+          // Remove existing commas and $ sign
+          text = text.replaceAll("[,$]", "");
+
+          try {
+               // Parse the number and format it
+               long number = Long.parseLong(text);
+               DecimalFormat formatter = new DecimalFormat("$#,###");
+               txt.setText(formatter.format(number));
+          } catch (NumberFormatException ex) {
+               if (!text.isEmpty()) {
+                    txt.setText("$"); // Reset if invalid input
+               }
+          }
+     }
+
      // method initEvent with paramate for do specific action 
      public void initEvent(ButtonEvent event) {
           txt.addKeyListener(new KeyListener() {
@@ -431,6 +449,9 @@ public class JavaTextField extends javax.swing.JPanel {
                     valueTextField = txt.getText();
                     resetError();
                     event.onKeyRelease();
+                    
+                    setData();
+                    
                     //Check if khmer font
                     if (JavaConstant.containsKhmer(valueTextField)) {
                          txt.setFont(WindowFonts.khmerOsContent12);

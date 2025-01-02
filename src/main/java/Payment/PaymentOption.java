@@ -1810,8 +1810,8 @@ public class PaymentOption extends javax.swing.JDialog {
 
         Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
-        System.err.println("response = " + response);
-        System.err.println("jsonData = " + jsonData);
+       // System.err.println("response = " + response);
+        //System.err.println("jsonData = " + jsonData);
 
         try {
             if (response.isSuccessful()) {
@@ -1922,7 +1922,7 @@ public class PaymentOption extends javax.swing.JDialog {
         }
         jsonReturnData.put("dataDetails", dataDetails);
 
-        System.out.println("jsonReturnData  : " + jsonReturnData);
+        //System.out.println("jsonReturnData  : " + jsonReturnData);
 
         Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
         //System.out.println("responseReturn : " + responseReturn);

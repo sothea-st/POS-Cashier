@@ -409,7 +409,7 @@ public class ReportInventoryForm extends javax.swing.JDialog {
             ReportInventoryItem b = new ReportInventoryItem();
             b.setData(
                     String.valueOf(i + 1),
-                    String.valueOf(data.getDate()),
+                    JavaConstant.formateDateDDMMYYYY(data.getDate()),
                     String.valueOf(data.getProductName()),
                     String.valueOf(data.getBeginningQty()),
                     String.valueOf(data.getStockInQty()),
