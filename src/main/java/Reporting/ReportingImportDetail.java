@@ -1,18 +1,18 @@
 package Reporting;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import CustomeUI.CustomScrollBarUI;
-import Event.ButtonEvent;
+import Components.CustomeUI.CustomScrollBarUI;
+import Components.Event.ButtonEvent;
 import GroupExport.ReportImportToExcel.ExportReportImportToCSV;
 import GroupExport.ReportImportToExcel.ExportReportImportToExcel;
 import GroupExport.ReportImportToExcel.ExportReportImportToPDF;
 import Model.Report.ReportImportDetail;
 import Model.Report.ReportResponse;
-import Products.ListProduct;
+import feature.Stock.Products.ListProduct;
 import Reporting.ReportingItem.ReportOfImport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
@@ -26,9 +26,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import okhttp3.Response;
 import org.json.JSONObject;
-import pdf.PrintListPDF;
-import pdf.PrintToCSV;
-import pdf.PrintToExcel;
+import feature.Print.pdf.PrintListPDF;
+import feature.Print.pdf.PrintToCSV;
+import feature.Print.pdf.PrintToExcel;
 
 public class ReportingImportDetail extends javax.swing.JDialog {
 

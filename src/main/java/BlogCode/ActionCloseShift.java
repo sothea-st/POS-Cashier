@@ -8,8 +8,8 @@ import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.TextField;
 import Constant.JavaConstant;
-import LoginAndLogoutForm.LoginFormJdailog;
-import OpenAndCloseShift.CloseShift;
+import feature.LoginAndLogoutForm.LoginFormJdailog;
+import feature.OpenAndCloseShift.CloseShift;
 import View.MainPage.MainPage;
 import java.awt.Component;
 import javax.swing.JFrame;
@@ -53,7 +53,7 @@ public class ActionCloseShift {
           }
 
           if (listCom1.length != 0) {
-               j.setMessage(MessageAlert.Message.clearItemMsg);
+               j.setMessage(Components.MessageAlert.Message.clearItemMsg);
                j.setVisible(true);
                return;
           }    

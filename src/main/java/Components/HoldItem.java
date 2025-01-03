@@ -1,7 +1,7 @@
 package Components;
 
-import Color.WindowColor;
-import Event.ButtonEvent;
+import Components.Color.WindowColor;
+import Components.Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

@@ -3,7 +3,7 @@ package feature.user_permission;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import feature.LoginAndLogoutForm.model.RoleHasPermissionModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.model.PermissionModel;
 import java.util.ArrayList;

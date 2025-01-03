@@ -4,13 +4,13 @@
  */
 package BlogCode;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.LabelFontGreen;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
-import LoginAndLogoutForm.LoginFormJdailog;
+import Components.Event.ButtonEvent;
+import feature.LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;

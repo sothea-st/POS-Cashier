@@ -1,13 +1,13 @@
 package Reporting.ReportInventory;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import CustomeUI.CustomScrollBarUI;
-import Event.ButtonEvent;
-import Products.ListProduct;
+import Components.CustomeUI.CustomScrollBarUI;
+import Components.Event.ButtonEvent;
+import feature.Stock.Products.ListProduct;
 import Reporting.ReportInventory.ReportInventoryModel.ReportInventoryDetail;
 import Reporting.ReportInventory.export.ExportReportInventoryToCSV;
 import Reporting.ReportInventory.export.ExportReportInventoryToExcel;
@@ -24,8 +24,8 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import okhttp3.Response;
 import org.json.JSONObject;
-import pdf.PrintToCSV;
-import pdf.PrintToExcel;
+import feature.Print.pdf.PrintToCSV;
+import feature.Print.pdf.PrintToExcel;
 
 public class ReportInventoryForm extends javax.swing.JDialog {
 

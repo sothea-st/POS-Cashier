@@ -1,7 +1,7 @@
 package feature.staff;
 
-import Staff.StaffInformation;
-import Staff.Userlogin;
+import feature.staff.Staff.StaffInformation;
+import feature.staff.Staff.Userlogin;
 import feature.user_permission.UserPermissionForm;
 import javax.swing.JFrame;
 

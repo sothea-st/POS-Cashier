@@ -1,6 +1,6 @@
 package Components;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

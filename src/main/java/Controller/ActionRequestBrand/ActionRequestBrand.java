@@ -3,7 +3,7 @@ package Controller.ActionRequestBrand;
 import Components.ComboBox;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
+import Components.Event.ButtonEvent;
 import Model.Brand.BrandModel;
 import Model.Brand.BrandSuccessModel;
 import com.fasterxml.jackson.databind.ObjectMapper;

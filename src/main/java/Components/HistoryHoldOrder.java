@@ -1,11 +1,11 @@
 package Components;
 
 import Button.Button;
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
 import java.awt.Component;
 import java.awt.Dimension;

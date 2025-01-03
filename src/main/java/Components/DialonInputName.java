@@ -1,10 +1,10 @@
 package Components;
 
 import Button.Button;
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import Model.HoldOrder.HoldOrderModel;
 import java.awt.Component;
 import javax.swing.JFrame;

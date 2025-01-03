@@ -1,7 +1,7 @@
 package Components;
 
 import Constant.JavaConstant;
-import Fonts.WindowFonts;
+import Components.Fonts.WindowFonts;
 
 public class labelDis extends javax.swing.JPanel {
 

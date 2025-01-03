@@ -5,15 +5,15 @@
 package BlogCode;
 
 import Button.Button;
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.BoxItem;
 import Components.SubtotalPanel;
 import Components.countCircleShape;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Fonts.WindowFonts;
-import HoldOrder.HoldeModel;
+import Components.Fonts.WindowFonts;
+import feature.HoldOrder.HoldeModel;
 import View.MainPage.MainPage;
 import java.awt.Component;
 import java.util.ArrayList;

@@ -1,8 +1,8 @@
 
 package Components;
 
-import Color.WindowColor;
-import Fonts.WindowFonts;
+import Components.Color.WindowColor;
+import Components.Fonts.WindowFonts;
 
 /**
  *

@@ -1,14 +1,14 @@
 package feature.report.report_sale_return;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import CustomeUI.CustomScrollBarUI;
-import Event.ButtonEvent;
+import Components.CustomeUI.CustomScrollBarUI;
+import Components.Event.ButtonEvent;
  
-import Products.ListProduct;
+import feature.Stock.Products.ListProduct;
  
 import Reporting.ReportingSaled;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,9 +32,8 @@ import javax.swing.JScrollPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.json.JSONObject;
-import pdf.PrintToCSV;
- 
-import pdf.PrintToExcel;
+import feature.Print.pdf.PrintToCSV;
+import feature.Print.pdf.PrintToExcel;
 
 public class ReportSaleReturnForm extends javax.swing.JDialog {
 

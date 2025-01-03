@@ -6,7 +6,7 @@ package BlogCode;
 
 import Button.Button;
 import ButtonPackage.ButtonCancel;
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;
 import Components.SearchField;
@@ -14,8 +14,8 @@ import Components.TextField;
 import Constant.JavaConstant;
 import Controller.ActionScanBarcodeAddProduct.ActionScanBarcodeAddProduct;
 import Controller.ActionSearchProductController.ActionSearchProduct;
-import Event.ButtonEvent;
-import LoginAndLogoutForm.LoginFormJdailog;
+import Components.Event.ButtonEvent;
+import feature.LoginAndLogoutForm.LoginFormJdailog;
 
 import java.awt.Component;
 import javax.swing.JFrame;
@@ -62,7 +62,7 @@ public class JavaSearchByNameAndCode {
                               j.setVisible(true);
                          }
                     } else {
-                         j.setMessage(MessageAlert.Message.OverallMessage);
+                         j.setMessage(Components.MessageAlert.Message.OverallMessage);
                          j.setVisible(true);
                     }
                }
@@ -117,7 +117,7 @@ public class JavaSearchByNameAndCode {
                               }
                          }
                     } else {
-                         j.setMessage(MessageAlert.Message.OverallMessage);
+                         j.setMessage(Components.MessageAlert.Message.OverallMessage);
                          j.setVisible(true);
                     }
                }

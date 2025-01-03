@@ -1,8 +1,8 @@
 package feature.user_permission;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
-import Event.ButtonEvent;
+import Components.Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;

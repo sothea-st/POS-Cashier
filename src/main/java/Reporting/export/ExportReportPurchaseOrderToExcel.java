@@ -27,8 +27,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import static pdf.PrintToExcel.downloadFolderPath;
-import static pdf.PrintToExcel.folderPath;
+import static feature.Print.pdf.PrintToExcel.downloadFolderPath;
+import static feature.Print.pdf.PrintToExcel.folderPath;
 
 public class ExportReportPurchaseOrderToExcel {
      public static String reportingPurchaseOrder = "Reporting Purchase Order";

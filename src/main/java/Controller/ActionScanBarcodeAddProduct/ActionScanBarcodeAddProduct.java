@@ -1,7 +1,7 @@
 package Controller.ActionScanBarcodeAddProduct;
 
 import Button.Button;
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.JavaAlertMessage;
 import Components.SubtotalPanel;
 import Constant.JavaConnection;
@@ -9,7 +9,7 @@ import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
-import LoginAndLogoutForm.LoginFormJdailog;
+import feature.LoginAndLogoutForm.LoginFormJdailog;
 import Model.PackageProduct.ProductModel;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;

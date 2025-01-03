@@ -1,13 +1,13 @@
 package Components;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
 import Constant.JavaRoundDown;
 import Constant.JavaRoundUpKhr;
 import Constant.UtilShadow;
-import Fonts.WindowFonts;
+import Components.Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;

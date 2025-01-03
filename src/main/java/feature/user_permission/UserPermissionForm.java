@@ -1,13 +1,13 @@
 package feature.user_permission;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.JavaAlertMessage;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Event.ButtonEvent;
+import Components.Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
-import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import feature.LoginAndLogoutForm.model.RoleHasPermissionModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.staff.StaffInformationForm;
 import feature.user_permission.model.RoleHasPermission;

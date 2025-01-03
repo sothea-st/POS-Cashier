@@ -10,7 +10,7 @@ import Components.LabelFontGreen;
 import Components.SubtotalPanel;
 import Constant.JavaConstant;
 import Controller.ActionProduct.ActionProduct;
-import LoginAndLogoutForm.LoginFormJdailog;
+import feature.LoginAndLogoutForm.LoginFormJdailog;
 import View.MainPage.MainPage;
 import static View.MainPage.MainPage.isFullScreen;
 import java.awt.Dimension;

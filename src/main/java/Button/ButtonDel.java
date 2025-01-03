@@ -1,7 +1,7 @@
 package Button;
 
-import Color.WindowColor;
-import Fonts.WindowFonts;
+import Components.Color.WindowColor;
+import Components.Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

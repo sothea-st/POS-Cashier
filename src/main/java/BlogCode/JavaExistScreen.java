@@ -4,8 +4,8 @@
  */
 package BlogCode;
 
-import Color.WindowColor;
-import Fonts.WindowFonts;
+import Components.Color.WindowColor;
+import Components.Fonts.WindowFonts;
 import View.MainPage.MainPage;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import java.awt.event.WindowAdapter;
