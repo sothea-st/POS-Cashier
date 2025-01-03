@@ -21,7 +21,7 @@ import Model.Reprint.DataSuccessModel;
 import Model.ReturnModel.ModelReturnData;
 import Model.ReturnModel.ReturnProductModel;
 import Model.Sale.ProductSaleModel;
-import Receipt.Receipt;
+import feature.Receipt.Receipt;
 import feature.Return.PrinterReturn;
 import feature.Return.ReturnDialog;
 import com.fasterxml.jackson.databind.ObjectMapper;

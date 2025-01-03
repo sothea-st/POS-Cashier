@@ -12,7 +12,7 @@ public class ReceiptBox extends javax.swing.JPanel {
  
     public ReceiptBox() {
         initComponents();
-        Receipt.Receipt.setFontSizeForLabels(this, 11);
+        feature.Receipt.Receipt.setFontSizeForLabels(this, 11);
     }
 
 

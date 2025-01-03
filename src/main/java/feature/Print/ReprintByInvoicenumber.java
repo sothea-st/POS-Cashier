@@ -5,8 +5,9 @@ import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Components.Event.ButtonEvent;
 import Model.Reprint.DataSuccessModel;
-import Receipt.Receipt;
+ 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.Receipt.Receipt;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

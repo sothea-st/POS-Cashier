@@ -1,4 +1,4 @@
-package feature.password;
+package password;
 
 import Constant.JavaConnection;
 import Constant.JavaConstant;

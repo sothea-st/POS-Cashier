@@ -11,16 +11,12 @@ import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
+ 
 
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class JdailogCustomer extends javax.swing.JDialog {
 
-    /**
-     * Creates new form JdailogCustomer
-     */
+ 
     DecimalFormat dm = new DecimalFormat("$ #,##0.00");
 
     public JdailogCustomer(java.awt.Frame parent, boolean modal) {

@@ -10,7 +10,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Model.Reprint.DataSuccessModel;
-import Receipt.Receipt;
+import feature.Receipt.Receipt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import javax.swing.JFrame;

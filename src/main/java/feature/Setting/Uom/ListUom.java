@@ -11,9 +11,9 @@ import Model.Uom.DataUomModel;
 import Model.Uom.DetailUomModel;
 import Model.Uom.ListUomModel;
 import Model.Uom.UomModel;
+
 import feature.Setting.Category.NoDataAvaibalePanel;
 import feature.Setting.Settings;
- 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.user_permission.JavaPermission;
 import java.awt.GridBagConstraints;
@@ -188,6 +188,7 @@ public class ListUom extends javax.swing.JDialog {
                                    
                                    dispose();
                                    AddUom edit = new AddUom(new JFrame(), true);
+ 
 
                                    edit.setId(data.getData().getId());
                                    edit.setListGetUom(listGetUom);

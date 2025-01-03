@@ -1,4 +1,4 @@
-package DefaultPrice;
+package Constant.DefaultPrice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -10,7 +10,7 @@ public class ReturnBox extends javax.swing.JPanel {
      
     public ReturnBox() {
         initComponents();
-        Receipt.Receipt.setFontSizeForLabels(this, 11);
+        feature.Receipt.Receipt.setFontSizeForLabels(this, 11);
     }
     
     public void setQtyStr(String qtyStr) {

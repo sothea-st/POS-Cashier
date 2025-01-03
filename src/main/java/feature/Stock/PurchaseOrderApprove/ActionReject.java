@@ -1,9 +1,10 @@
 package feature.Stock.PurchaseOrderApprove;
 
+import Components.Event.ButtonEvent;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import Components.Event.ButtonEvent;
+ 
 import feature.Stock.PurchaseOrderCheck.DetailPurchaseOrderCheck;
 import feature.Stock.PurchaseOrderCheck.ListPurchaseOrderCheck;
 import javax.swing.JOptionPane;
@@ -29,13 +30,14 @@ public class ActionReject extends javax.swing.JDialog {
     
     //Place Holder
     void event() {
-        ButtonEvent btnevent = new ButtonEvent() {
-            @Override
-            public void onFocusGain() {
-
-            }
-        };
-        txtComment.initEvent(btnevent);
+ 
+          ButtonEvent btnEvent = new ButtonEvent() {
+               @Override
+               public void onFocusGain() {
+                   
+               }
+          };
+        txtComment.initEvent(btnEvent);
     }
 
     @SuppressWarnings("unchecked")

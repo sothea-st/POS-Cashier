@@ -1,4 +1,4 @@
-package Receipt;
+package feature.Receipt;
 
 import Components.JavaAlertMessage;
 import Components.ReceiptBox;

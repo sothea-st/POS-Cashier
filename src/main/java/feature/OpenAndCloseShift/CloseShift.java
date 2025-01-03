@@ -10,9 +10,8 @@ import Components.TextField;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import feature.Print.EpsonPrinter;
-
 import View.MainPage.MainPage;
+import feature.Print.EpsonPrinter;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.ImageIcon;

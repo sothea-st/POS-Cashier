@@ -13,9 +13,10 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Controller.ActionProduct.ActionProduct;
-import DefaultPrice.DataModelDefaultPrice;
+ 
  
 import Components.Fonts.WindowFonts;
+import Constant.DefaultPrice.DataModelDefaultPrice;
 import feature.LoginAndLogoutForm.LoginFormJdailog;
 import feature.Print.EpsonPrinter;
 import View.MainPage.MainPage;

@@ -13,7 +13,7 @@ import Model.Reprint.DataSuccessModel;
 import Model.Reprint.ReprintModel;
 import Model.Reprint.SaleDetailModel;
 import feature.Print.EpsonPrinter;
-import static Receipt.Receipt.formatString;
+import static feature.Receipt.Receipt.formatString;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
