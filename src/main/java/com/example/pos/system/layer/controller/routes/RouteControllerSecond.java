@@ -395,7 +395,7 @@ public class RouteControllerSecond {
                return ResponseEntity.status(HttpStatus.OK)
                          .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
                          .body(imageData);
-          } 
+          }
 
           @GetMapping("/readImage")
           public ResponseEntity<byte[]> getImage() {
