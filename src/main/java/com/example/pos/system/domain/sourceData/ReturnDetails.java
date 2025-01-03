@@ -48,6 +48,5 @@ public class ReturnDetails {
 
     @Column(name = "discount_amt")
     private double discountAmt;
-
    
 }
