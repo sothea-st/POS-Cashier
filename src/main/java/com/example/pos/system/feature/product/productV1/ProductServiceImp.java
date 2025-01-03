@@ -237,7 +237,7 @@ public class ProductServiceImp implements ProductService {
                     return ProductResponseByFilter.builder()
                             .id(product.getId())
                             .barcode(product.getBarcode())
-                            .proNameEn(product.getProNameEn())
+                            .proNameEn(product.getProNameEn()+" "+product.getChoices())
                             .division(product.getSubCategory().getCatNameEn())
                             .availableQty(qty)
                             .qty(1)
