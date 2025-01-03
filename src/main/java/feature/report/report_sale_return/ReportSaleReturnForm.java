@@ -172,13 +172,14 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
 //          groupButtonExport.pdfEvent(pdf);
      }
 
-     //Action Search
+     
      private void eventPagination() {
           ButtonEvent paginationEvent = new ButtonEvent() {
                @Override
                public void onMouseClick(String value) {
                     if (isCheckSearch) {
                          int _value = Integer.parseInt(value); // value pageNumber star from 1 
+                         
                          pageNumber = String.valueOf(_value);
                          getReport(true);
                     }
@@ -443,8 +444,8 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
-                    .addComponent(jScrollPaneProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addGap(10, 10, 10)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -493,6 +494,7 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
 
           //System.err.println("dateFromValue : " + dateFromValue);
           //System.err.println("dateToValue : " + dateToValue);
+          
           Response response = null;
           String endpoint = "";
 
@@ -502,7 +504,7 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
                isCheckSearch = false;
                response = JavaConnection.get(JavaRoute.returnReport + "/search?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue + "&search=" + searchValue);
           }
-
+          
           try {
 
                String responseData = response.body().string();
