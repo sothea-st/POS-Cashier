@@ -47,13 +47,10 @@ public class ReprintService {
         }
 
         map.put("total", paymentData.getTotal());
-
         map.put("receiveUsd", paymentData.getReceive_usd());
         map.put("changeUsd", paymentData.getChange_usd());
-
         map.put("receiveKhr", paymentData.getReceive_khr());
         map.put("changeKhr", paymentData.getChange_khr());
-
         map.put("paymentNo", paymentData.getPayment_no());
         map.put("paymentBarcode", paymentData.getPayment_barcode());
         map.put("saleDate", paymentData.getSale_date());

@@ -28,7 +28,7 @@ public class ReportReturnServiceImp implements ReportReturnService {
         LocalDate dateToLocalDate = LocalDate.parse(dateTo);
         List<ReportReturnProjection> data = new ArrayList<>();
         Integer count = returnProductRepository.getCountResultSearch(dateFromLocalDate, dateToLocalDate,search);
-        System.out.println("3333333333333333 = " + count);
+
         count = count == null ? 0 : count;
 
         data = returnProductRepository.searchReportReturn(dateFromLocalDate, dateToLocalDate,search);
@@ -56,7 +56,7 @@ public class ReportReturnServiceImp implements ReportReturnService {
 
 
         Integer count = returnProductRepository.getCountResult(dateFromLocalDate, dateToLocalDate);
-        System.out.println("count ddddddddddddd = " + count);
+
         count = count == null ? 0 : count;
         return JavaCollectionResponse.builder()
                 .data(data)

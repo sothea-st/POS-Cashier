@@ -44,7 +44,7 @@ public interface ReturnProductRepository  extends JpaRepository<ReturnProduct,In
              "    p.discount_amt AS discount, " +
              "    pp.cost, " +
              "    pr.reason, " +
-             "    pu.full_name AS staff " +
+             "    pu.full_name AS staff ,  pp.choices  " +
              "FROM " +
              "    pos_return_product r " +
              "LEFT JOIN pos_return_details p " +
@@ -71,7 +71,7 @@ public interface ReturnProductRepository  extends JpaRepository<ReturnProduct,In
              "    p.discount_amt AS discount, " +
              "    pp.cost, " +
              "    pr.reason, " +
-             "    pu.full_name AS staff " +
+             "    pu.full_name AS staff ,  pp.choices  " +
              "FROM " +
              "    pos_return_product r " +
              "LEFT JOIN pos_return_details p " +
@@ -120,7 +120,7 @@ public interface ReturnProductRepository  extends JpaRepository<ReturnProduct,In
              "    p.discount_amt AS discount, " +
              "    pp.cost, " +
              "    pr.reason, " +
-             "    pu.full_name AS staff " +
+             "    pu.full_name AS staff,  pp.choices " +
              "FROM " +
              "    pos_return_product r " +
              "LEFT JOIN pos_return_details p ON r.id = p.return_id " +

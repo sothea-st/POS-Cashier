@@ -7,6 +7,7 @@ import com.example.pos.system.layer.projections.discountProjection.DiscountProje
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -22,11 +23,23 @@ public interface SaleDetailsRepository extends JpaRepository<SaleDetail, Integer
         SaleDetailProjection getDataDetailReturn(int userId, int saleId, int productId);
 
 
-        @Query(nativeQuery = true, value = "select psd.price,psd.qty,pp.pro_name_en,pp.barcode from pos_sale ps \r\n" + //
-                        " inner join pos_sale_details psd on psd.sale_id = ps.id\r\n" + //
-                        " inner join pos_product pp on pp.id = psd.pro_id\r\n" + //
-                        " where ps.user_id = ? and psd.sale_id = ?  ")
-        List<SaleDetailProjection> getDataDetail(int userId, int saleId);
+        @Query(nativeQuery = true, value = "" +
+                "select\n" +
+                "    psd.price,\n" +
+                "    psd.qty,\n" +
+                "    pp.pro_name_en || ' ' || pp.choices as pro_name_en,\n" +
+                "    pp.barcode\n" +
+                "from\n" +
+                "    pos_sale ps\n" +
+                "inner join pos_sale_details psd on\n" +
+                "    psd.sale_id = ps.id\n" +
+                "inner join pos_product pp on\n" +
+                "    pp.id = psd.pro_id\n" +
+                "where\n" +
+                "    ps.user_id = :userId\n" +
+                "    and psd.sale_id = :saleId")
+        List<SaleDetailProjection> getDataDetail(@Param("userId") int userId, @Param("saleId") int saleId);
+
 
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\tsum( ( ( psd.price * psd.discount )/ 100 )* psd.qty )\r\n" + //

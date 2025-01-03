@@ -218,11 +218,9 @@ public class SaleService {
 
 
 
-
-
             ReportSaledResponse reportSaledResponse = ReportSaledResponse.builder()
                     .saleDate(report.getSale_date())
-                    .proNameEn(report.getPro_name_en())
+                    .proNameEn(report.getPro_name_en()+" "+report.getChoice())
                     .proImageName(report.getPro_image_name())
                     .qty(report.getQty())
                     .discountCase(report.getDiscount_case())

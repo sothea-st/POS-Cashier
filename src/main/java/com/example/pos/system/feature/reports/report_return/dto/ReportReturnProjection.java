@@ -18,4 +18,6 @@ public interface ReportReturnProjection {
     String getReason();
 
     String getStaff();
+
+    String getChoices();
 }
