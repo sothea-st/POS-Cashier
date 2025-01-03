@@ -1,14 +1,13 @@
 package Reporting;
 
- 
 import Constant.JavaConstant;
- 
+
 import CustomeUI.CustomScrollBarUI;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Reporting.ReportInventory.ReportInventoryForm;
 import feature.report.report_sale_return.ReportSaleReturnForm;
 import feature.user_permission.JavaPermission;
- 
+
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -30,24 +29,21 @@ public class ReportingView extends javax.swing.JDialog {
           setResizable(false);
           JavaConstant.addTitleAndLogo(this, "Reporting");
           getImageAndTitle();
-          
+
 //          reportImport.setVisible(false);
 //          reportPurhaseCheck.setVisible(false);
 //          reportPurhaseApproval.setVisible(false);
-          
-          
           // checkPermission()
           checkPermission();
      }
-     
-     
+
      private void checkPermission() {
 
           boolean isReportSale = false;
           boolean isReportPurhaseRequest = false;
           boolean isReportPurhaseReceive = false;
           boolean isReportInventory = false;
- 
+          boolean isReportSaleReturn = false;
 
           // parentId : 7 is primary key id from the table pos_permission
           for (RoleHasPermissionModel.RoleHasPermissionDetail data : JavaPermission.getPermissions(7)) {
@@ -72,6 +68,10 @@ public class ReportingView extends javax.swing.JDialog {
                          isReportInventory = data.getIsVisible();
                          break;
 
+                    case "reporting sale return":
+                         isReportSaleReturn = data.getIsVisible();
+                         break;
+
                     default:
                          System.err.println("Unknown permission: " + data.getPermissionName());
                          break;
@@ -84,7 +84,7 @@ public class ReportingView extends javax.swing.JDialog {
           reportPurhaseRequest.setVisible(isReportPurhaseRequest);
           reportPurhaseReceive.setVisible(isReportPurhaseReceive);
           reportInventory.setVisible(isReportInventory);
-           
+          objReportReturn.setVisible(isReportSaleReturn);
 
      }
 
@@ -92,11 +92,10 @@ public class ReportingView extends javax.swing.JDialog {
           //reportImport.setTitle("Reporting Import");
           reportSale.setTitle("Reporting Sale");
           reportPurhaseRequest.setTitle("<html>" + "Reporting Purchase Order" + "</html>");
-          //reportPurhaseCheck.setTitle("<html>" + "Reporting Purchase Check" + "</html>");
+          objReportReturn.setTitle("<html>" + "Reporting Return" + "</html>");
           //reportPurhaseApproval.setTitle("<html>" + "Reporting Purchase Approval" + "</html>");
           reportPurhaseReceive.setTitle("<html>" + "Reporting Purchase Receive" + "</html>");
 
- 
      }
 
      @SuppressWarnings("unchecked")
@@ -150,7 +149,7 @@ public class ReportingView extends javax.swing.JDialog {
           });
 
           objReportReturn.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/return.jpg"))); // NOI18N
-          objReportReturn.setTitle("Report Sale Return");
+          objReportReturn.setTitle("Reporting Sale Return");
           objReportReturn.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     objReportReturnMouseClicked(evt);
@@ -210,9 +209,9 @@ public class ReportingView extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      private void reportSaleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportSaleMouseClicked
-         dispose();
-         ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
-         reportingSaled.setVisible(true);
+          dispose();
+          ReportingSaled reportingSaled = new ReportingSaled(new JFrame(), true);
+          reportingSaled.setVisible(true);
      }//GEN-LAST:event_reportSaleMouseClicked
 
     private void reportPurhaseRequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reportPurhaseRequestMouseClicked
@@ -235,14 +234,13 @@ public class ReportingView extends javax.swing.JDialog {
      }//GEN-LAST:event_reportInventoryMouseClicked
 
     private void objReportReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objReportReturnMouseClicked
-          dispose();
-          ReportSaleReturnForm reportSaleReturnForm = new ReportSaleReturnForm(new JFrame(), true);
-          reportSaleReturnForm.setVisible(true);
+         dispose();
+         ReportSaleReturnForm reportSaleReturnForm = new ReportSaleReturnForm(new JFrame(), true);
+         reportSaleReturnForm.setVisible(true);
     }//GEN-LAST:event_objReportReturnMouseClicked
 
-   
      public static void main(String args[]) {
-       
+
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     ReportingView dialog = new ReportingView(new javax.swing.JFrame(), true);

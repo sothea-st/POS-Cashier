@@ -1970,7 +1970,7 @@ public class PaymentOption extends javax.swing.JDialog {
                 print.revalidate();
                 print.repaint();
                 print.printReceipt(); // print paper with device
-//                print.setVisible(true);
+                print.setVisible(true);
 
                 // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
                 ReturnDialog r = new ReturnDialog(new JFrame(), true);

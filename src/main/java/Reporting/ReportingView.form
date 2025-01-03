@@ -141,7 +141,7 @@
                 <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icon/return.jpg"/>
                 </Property>
-                <Property name="title" type="java.lang.String" value="Report Sale Return"/>
+                <Property name="title" type="java.lang.String" value="Reporting Sale Return"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objReportReturnMouseClicked"/>

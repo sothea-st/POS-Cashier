@@ -283,87 +283,87 @@ public class JavaTextField extends javax.swing.JPanel {
           });
      }
 
-     public void setValidateAmountWith$() {
-          typeTextField = amount;
-          txt.addKeyListener(new KeyAdapter() {
-               @Override
-               public void keyTyped(KeyEvent e) {
-                    char c = e.getKeyChar();
-                    String currentText = txt.getText().replaceAll("[$,]", ""); // Remove $ and commas for processing
-
-                    // Allow only digits, backspace, delete, and one dot (.)
-                    if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE && c != '.') {
-                         e.consume(); // Ignore invalid characters
-                    }
-
-                    // Ensure only one decimal point is allowed
-                    if (c == '.' && (currentText.isEmpty() || currentText.contains("."))) {
-                         e.consume(); // Disallow multiple or invalid decimal points
-                    }
-
-                    // Restrict the length to 12 digits before the decimal
-                    if (currentText.contains(".")) {
-                         String[] parts = currentText.split("\\.");
-                         if (parts[0].length() >= 12) {
-                              e.consume(); // Stop input if length exceeds 12 digits before the decimal
-                         }
-                    } else if (currentText.length() >= 12) {
-                         e.consume(); // Stop input if length exceeds 12 digits without a decimal
-                    }
-               }
-
-               @Override
-               public void keyReleased(KeyEvent e) {
-                    if (txt.getText().isEmpty()) {
-                         lbError.setVisible(false); // Hide error if valid
-                         return;
-                    }
-
-                    lbError.setVisible(false); // Hide error if valid
-                    String text = txt.getText().replaceAll("[$,]", ""); // Remove $ and commas for formatting
-
-                    try {
-                         // Check if the input contains a decimal point
-                         if (text.contains(".")) {
-                              // Split integer part and decimal part
-                              String[] parts = text.split("\\.");
-                              String integerPart = parts[0];
-                              String decimalPart = parts.length > 1 ? parts[1] : "";
-
-                              // Format integer part with commas
-                              String formattedIntegerPart = formatWithCommas(integerPart);
-
-                              // Ensure the decimal part has at most two digits
-                              if (decimalPart.length() > 2) {
-                                   decimalPart = decimalPart.substring(0, 2);
-                              }
-
-                              // Set formatted text with $ sign
-                              txt.setText("$ " + formattedIntegerPart + "." + decimalPart);
-                         } else {
-                              // No decimal point, just format the integer part
-                              String formattedIntegerPart = formatWithCommas(text);
-                              txt.setText("$ " + formattedIntegerPart);
-                         }
-                    } catch (NumberFormatException ex) {
-                         lbError.setVisible(true); // Show error if the input is not a valid number
-                    }
-               }
-
-               private String formatWithCommas(String number) {
-                    try {
-                         BigDecimal value = new BigDecimal(number);
-                         DecimalFormat formatter = new DecimalFormat("#,###");
-                         return formatter.format(value);
-                    } catch (NumberFormatException e) {
-                         return number; // Return original if formatting fails
-                    }
-               }
-          });
-
-          // Initialize the text field with a $ sign
-          txt.setText("$ ");
-     }
+//     public void setValidateAmountWith$() {
+//          typeTextField = amount;
+//          txt.addKeyListener(new KeyAdapter() {
+//               @Override
+//               public void keyTyped(KeyEvent e) {
+//                    char c = e.getKeyChar();
+//                    String currentText = txt.getText().replaceAll("[$,]", ""); // Remove $ and commas for processing
+//
+//                    // Allow only digits, backspace, delete, and one dot (.)
+//                    if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE && c != '.') {
+//                         e.consume(); // Ignore invalid characters
+//                    }
+//
+//                    // Ensure only one decimal point is allowed
+//                    if (c == '.' && (currentText.isEmpty() || currentText.contains("."))) {
+//                         e.consume(); // Disallow multiple or invalid decimal points
+//                    }
+//
+//                    // Restrict the length to 12 digits before the decimal
+//                    if (currentText.contains(".")) {
+//                         String[] parts = currentText.split("\\.");
+//                         if (parts[0].length() >= 12) {
+//                              e.consume(); // Stop input if length exceeds 12 digits before the decimal
+//                         }
+//                    } else if (currentText.length() >= 12) {
+//                         e.consume(); // Stop input if length exceeds 12 digits without a decimal
+//                    }
+//               }
+//
+//               @Override
+//               public void keyReleased(KeyEvent e) {
+//                    if (txt.getText().isEmpty()) {
+//                         lbError.setVisible(false); // Hide error if valid
+//                         return;
+//                    }
+//
+//                    lbError.setVisible(false); // Hide error if valid
+//                    String text = txt.getText().replaceAll("[$,]", ""); // Remove $ and commas for formatting
+//
+//                    try {
+//                         // Check if the input contains a decimal point
+//                         if (text.contains(".")) {
+//                              // Split integer part and decimal part
+//                              String[] parts = text.split("\\.");
+//                              String integerPart = parts[0];
+//                              String decimalPart = parts.length > 1 ? parts[1] : "";
+//
+//                              // Format integer part with commas
+//                              String formattedIntegerPart = formatWithCommas(integerPart);
+//
+//                              // Ensure the decimal part has at most two digits
+//                              if (decimalPart.length() > 2) {
+//                                   decimalPart = decimalPart.substring(0, 2);
+//                              }
+//
+//                              // Set formatted text with $ sign
+//                              txt.setText("$ " + formattedIntegerPart + "." + decimalPart);
+//                         } else {
+//                              // No decimal point, just format the integer part
+//                              String formattedIntegerPart = formatWithCommas(text);
+//                              txt.setText("$ " + formattedIntegerPart);
+//                         }
+//                    } catch (NumberFormatException ex) {
+//                         lbError.setVisible(true); // Show error if the input is not a valid number
+//                    }
+//               }
+//
+//               private String formatWithCommas(String number) {
+//                    try {
+//                         BigDecimal value = new BigDecimal(number);
+//                         DecimalFormat formatter = new DecimalFormat("#,###");
+//                         return formatter.format(value);
+//                    } catch (NumberFormatException e) {
+//                         return number; // Return original if formatting fails
+//                    }
+//               }
+//          });
+//
+//          // Initialize the text field with a $ sign
+//          txt.setText("$ ");
+//     }
 
      // method for allow only number
      public void setValidateNumber() {
@@ -449,8 +449,6 @@ public class JavaTextField extends javax.swing.JPanel {
                     valueTextField = txt.getText();
                     resetError();
                     event.onKeyRelease();
-                    
-                    setData();
                     
                     //Check if khmer font
                     if (JavaConstant.containsKhmer(valueTextField)) {

@@ -1,6 +1,5 @@
 package Components;
  
-import javax.swing.JLabel;
 
 public class ReceiptBox extends javax.swing.JPanel {
      

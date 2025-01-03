@@ -27,6 +27,7 @@ public class ReportSaleReturnResponse {
           @JsonProperty("invoice_no")
           private String invoiceNo;
           private String reason;
+          private String choices;
 
      }
 }

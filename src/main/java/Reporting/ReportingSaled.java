@@ -684,7 +684,7 @@ public class ReportingSaled extends javax.swing.JDialog {
                }
           }
 
-          //System.out.println("response : " + response);
+          System.out.println("response : " + response);
 
           try {
 

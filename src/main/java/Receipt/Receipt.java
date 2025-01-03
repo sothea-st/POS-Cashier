@@ -14,7 +14,6 @@ import Model.Reprint.SaleDetailModel;
 import PanelToImageConverter.FrameReceiptForPrint;
 import PanelToImageConverter.TestPanel;
 import Print.EpsonPrinter;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -29,6 +28,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +44,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
 import pdf.MyPrinter;
@@ -1039,13 +1038,13 @@ public class Receipt extends javax.swing.JDialog {
                }
 
                if (data.getCompanyContact() != null || !data.getCompanyContact().isEmpty()) {
-                    contact.setText(formatString(data.getCompanyContact()));
+                    contact.setText(JavaConstant.formatPhoneNumber(data.getCompanyContact()));
                }
 
                saleDate.setText(data.getSaleDate());
                cashierName.setText(data.getEmpName());
 
-               totalprice.setText(dm.format(data.getTotal()));
+               totalprice.setText(JavaConstant.setAmount(BigDecimal.valueOf(data.getTotal())));
                double totalkh = JavaRoundDown.roundDown("" + data.getTotal() * JavaConstant.exchangeRate);
                totalKhr.setText(JavaRoundUpKhr.setRoundNumber(totalkh));
 
@@ -1056,14 +1055,14 @@ public class Receipt extends javax.swing.JDialog {
                     }
 
                     if (data.getChangeUsd() != 0) {
-                         changeUsd.setText(dm.format(data.getChangeUsd()));
+                         changeUsd.setText(JavaConstant.setAmount(BigDecimal.valueOf(data.getChangeUsd())));
                     }
-                    receiveUsd.setText(dm.format(data.getReceiveUsd()));
+                    receiveUsd.setText(JavaConstant.setAmount(BigDecimal.valueOf(data.getReceiveUsd())));
                     receiveKhr.setText(kh.format(data.getReceiveKhr()));
                } else {
                     if (data.getReceiveUsd() != 0) {
-                         receiveUsd.setText(dm.format(data.getReceiveUsd()));
-                         changeUsd.setText(dm.format(data.getChangeUsd()));
+                         receiveUsd.setText(JavaConstant.setAmount(BigDecimal.valueOf(data.getReceiveUsd())));
+                         changeUsd.setText(JavaConstant.setAmount(BigDecimal.valueOf(data.getChangeUsd())));
                     }
 
                     if (data.getReceiveKhr() != 0) {
@@ -1108,9 +1107,9 @@ public class Receipt extends javax.swing.JDialog {
                re.setProductName(list.getProNameEn());
                re.setBarcodeStr(list.getBarcode());
                re.setQtyStr("" + list.getQty());
-               re.setUnitPriceStr(dm.format(list.getPrice()));
+               re.setUnitPriceStr(JavaConstant.setAmount(BigDecimal.valueOf(list.getPrice())));
                double amount = list.getQty() * list.getPrice();
-               re.setAmountStr(dm.format(amount));
+               re.setAmountStr(JavaConstant.setAmount(BigDecimal.valueOf(amount)));
                countProduct.add(re);
                countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
                countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));

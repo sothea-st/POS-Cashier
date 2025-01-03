@@ -21,6 +21,7 @@ import java.awt.print.Paper;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.Year;
 import java.util.logging.Level;
@@ -118,7 +119,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                saleDate.setText(data.getSaleDate());
 
                if (data.getCompanyContact() != null || !data.getCompanyContact().isEmpty()) {
-                    contact.setText(formatString(data.getCompanyContact()));
+                    contact.setText(JavaConstant.formatPhoneNumber(data.getCompanyContact()));
                }
 
                displayProduct(data);
@@ -133,7 +134,7 @@ public class PrinterReturn extends javax.swing.JDialog {
                     sum = sum - data.getDiscount();
                }
 
-               totalprice.setText(dm.format(sum));
+               totalprice.setText(JavaConstant.setAmount(BigDecimal.valueOf(sum)));
                double totalkh = JavaRoundDown.roundDown("" + sum * JavaConstant.exchangeRate);
                totalKhr.setText(JavaRoundUpKhr.setRoundNumber(totalkh));
 
@@ -167,9 +168,9 @@ public class PrinterReturn extends javax.swing.JDialog {
                re.setProductName(list.getProNameEn());
                re.setBarcodeStr(list.getBarcode());
                re.setQtyStr("" + list.getQty());
-               re.setUnitPriceStr(dm.format(list.getPrice()));
+               re.setUnitPriceStr(JavaConstant.setAmount(BigDecimal.valueOf(list.getPrice())));
                double amount = list.getQty() * list.getPrice();
-               re.setAmountStr(dm.format(amount));
+               re.setAmountStr(JavaConstant.setAmount(BigDecimal.valueOf(amount)));
                countProduct.add(re);
                countProduct.add(Box.createRigidArea(new Dimension(2, 2)));
                countProduct.setLayout(new BoxLayout(countProduct, BoxLayout.Y_AXIS));

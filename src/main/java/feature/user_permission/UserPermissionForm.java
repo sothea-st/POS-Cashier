@@ -8,7 +8,6 @@ import Constant.JavaRoute;
 import Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
 import LoginAndLogoutForm.model.RoleHasPermissionModel;
-import Staff.Staff;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.staff.StaffInformationForm;
 import feature.user_permission.model.RoleHasPermission;
@@ -19,7 +18,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -32,7 +30,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
      public UserPermissionForm(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
-
+ 
           //call init
           init();
 
@@ -673,6 +671,8 @@ public class UserPermissionForm extends javax.swing.JDialog {
           permissionName131 = new javax.swing.JLabel();
           permissionName134 = new javax.swing.JLabel();
           lbUserPermission = new javax.swing.JLabel();
+          lbReportingSaleReturn = new javax.swing.JLabel();
+          permissionName119 = new javax.swing.JLabel();
           btnCancel = new Button.Button();
           lbCheckAll = new javax.swing.JLabel();
           permissionName139 = new javax.swing.JLabel();
@@ -701,7 +701,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-          panelData.setPreferredSize(new java.awt.Dimension(1100, 992));
+          panelData.setPreferredSize(new java.awt.Dimension(1100, 1000));
 
           lbStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
           lbStock.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1823,6 +1823,16 @@ public class UserPermissionForm extends javax.swing.JDialog {
                }
           });
 
+          lbReportingSaleReturn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
+          lbReportingSaleReturn.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    lbReportingSaleReturnMouseClicked(evt);
+               }
+          });
+
+          permissionName119.setText("Reporting Sale Return");
+          permissionName119.setPreferredSize(new java.awt.Dimension(37, 20));
+
           javax.swing.GroupLayout panelDataLayout = new javax.swing.GroupLayout(panelData);
           panelData.setLayout(panelDataLayout);
           panelDataLayout.setHorizontalGroup(
@@ -2249,7 +2259,11 @@ public class UserPermissionForm extends javax.swing.JDialog {
                                    .addGroup(panelDataLayout.createSequentialGroup()
                                         .addComponent(lbReportingInventory)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(permissionName118, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(permissionName118, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addGroup(panelDataLayout.createSequentialGroup()
+                                        .addComponent(lbReportingSaleReturn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(permissionName119, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE))))
                          .addGroup(panelDataLayout.createSequentialGroup()
                               .addComponent(lbStaff)
                               .addGap(12, 12, 12)
@@ -2287,7 +2301,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                                         .addComponent(lbUserPermission)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(permissionName134, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addContainerGap(415, Short.MAX_VALUE))
+                    .addContainerGap(698, Short.MAX_VALUE))
           );
           panelDataLayout.setVerticalGroup(
                panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2560,6 +2574,10 @@ public class UserPermissionForm extends javax.swing.JDialog {
                          .addComponent(lbReportingInventory))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                         .addComponent(permissionName119, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(lbReportingSaleReturn))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(permissionName123, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(lbStaff))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2584,7 +2602,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     .addGroup(panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(permissionName134, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(lbUserPermission))
-                    .addContainerGap(24, Short.MAX_VALUE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
 
           jScrollPane1.setViewportView(panelData);
@@ -2619,19 +2637,23 @@ public class UserPermissionForm extends javax.swing.JDialog {
           panelLayout.setHorizontalGroup(
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(objRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGroup(panelLayout.createSequentialGroup()
-                              .addComponent(lbCheckAll)
-                              .addGap(12, 12, 12)
-                              .addComponent(permissionName139, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                              .addGroup(panelLayout.createSequentialGroup()
-                                   .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addGap(12, 12, 12)
-                                   .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                              .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                              .addGap(20, 20, 20)
+                              .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                   .addComponent(objRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addGroup(panelLayout.createSequentialGroup()
+                                        .addComponent(lbCheckAll)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(permissionName139, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                   .addGroup(panelLayout.createSequentialGroup()
+                                        .addGap(1330, 1330, 1330)
+                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                         .addGroup(panelLayout.createSequentialGroup()
+                              .addContainerGap()
+                              .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1500, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(20, Short.MAX_VALUE))
           );
           panelLayout.setVerticalGroup(
@@ -2643,9 +2665,9 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(permissionName139, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(lbCheckAll, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3296,6 +3318,11 @@ public class UserPermissionForm extends javax.swing.JDialog {
           }
      }//GEN-LAST:event_lbCheckAllMouseClicked
 
+     private void lbReportingSaleReturnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbReportingSaleReturnMouseClicked
+          JLabel label = (JLabel) evt.getSource();
+          setAction(label, "reporttingSaleReturn");
+     }//GEN-LAST:event_lbReportingSaleReturnMouseClicked
+
      private void setAction(JLabel label, String actionType) {
 
           if (roleId.equals("-1")) {
@@ -3594,6 +3621,20 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     setRoleHasPermission(
                          isReportingInventory,
                          32,
+                         7,
+                         false,
+                         false,
+                         false,
+                         false);
+               }
+
+               case "reporttingSaleReturn" -> {
+                    isReportingSaleReturn = !isReportingSaleReturn;
+                    updateIcon(label, isReportingSaleReturn);
+                    // note : permissionId = 36 and parentId = 7 from database table pos_permission
+                    setRoleHasPermission(
+                         isReportingSaleReturn,
+                         36,
                          7,
                          false,
                          false,
@@ -4430,6 +4471,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
      private boolean isReportPO = false;
      private boolean isReportingPurchaseReceive = false;
      private boolean isReportingInventory = false;
+     private boolean isReportingSaleReturn = false;
      //=========  end reportting =============
 
      private boolean isSfaff = false;
@@ -4634,6 +4676,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
      private javax.swing.JLabel lbReportingPO;
      private javax.swing.JLabel lbReportingPurchaseReceive;
      private javax.swing.JLabel lbReportingSale;
+     private javax.swing.JLabel lbReportingSaleReturn;
      private javax.swing.JLabel lbSettings;
      private javax.swing.JLabel lbSlot;
      private javax.swing.JLabel lbSlotCreate;
@@ -4694,6 +4737,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
      private javax.swing.JLabel permissionName11;
      private javax.swing.JLabel permissionName113;
      private javax.swing.JLabel permissionName118;
+     private javax.swing.JLabel permissionName119;
      private javax.swing.JLabel permissionName12;
      private javax.swing.JLabel permissionName123;
      private javax.swing.JLabel permissionName124;

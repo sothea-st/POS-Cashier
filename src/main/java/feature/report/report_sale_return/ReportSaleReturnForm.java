@@ -519,7 +519,6 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
 
                     // pagination blog
                     if (isCheck) {
-                        
                          paginationPanel.setTotalPage(data.getCount(), pageSize);
                     } else {
                          paginationPanel.resetPage(data.getCount());
@@ -591,7 +590,7 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
                     String.valueOf(i + 1),
                     String.valueOf(item.getInvoiceNo()),
                     String.valueOf(JavaConstant.formateDateDDMMYYYY(item.getDate())),
-                    String.valueOf(item.getProductName()),
+                    String.valueOf(item.getProductName()+" "+item.getChoices()),
                     String.valueOf(item.getQty()),
                     JavaConstant.setAmount(item.getPrice()),
                     JavaConstant.setAmount(item.getDiscount()),
