@@ -1,6 +1,6 @@
 package Components;
 
-import BlogCode.JavaActionDiscount;
+import Constant.BlogCode.JavaActionDiscount;
 import Button.ButtonAddProduct;
 import Components.Color.WindowColor;
 import Components.Shadow.ShadowRenderer;

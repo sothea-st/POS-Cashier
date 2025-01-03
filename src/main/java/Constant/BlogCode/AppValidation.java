@@ -1,4 +1,4 @@
-package BlogCode;
+package Constant.BlogCode;
 
 import Components.TextFieldCenter;
 import javax.swing.JTextField;

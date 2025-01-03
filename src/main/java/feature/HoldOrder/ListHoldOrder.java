@@ -1,6 +1,6 @@
 package feature.HoldOrder;
 
-import BlogCode.JavaCountHold;
+import Constant.BlogCode.JavaCountHold;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Components.Color.WindowColor;

@@ -1,6 +1,6 @@
 package feature.Payment;
 
-import BlogCode.AppValidation;
+import Constant.BlogCode.AppValidation;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Components.Color.WindowColor;

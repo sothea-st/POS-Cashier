@@ -1,12 +1,12 @@
 package View.MainPage;
 
-import BlogCode.ActionCloseShift;
-import BlogCode.JavaActionAddHold;
-import BlogCode.JavaActionDiscount;
-import BlogCode.JavaEventNextPrevious;
-import BlogCode.JavaExistScreen;
-import BlogCode.JavaSearchByNameAndCode;
-import BlogCode.ResponsiveSize;
+import Constant.BlogCode.ActionCloseShift;
+import Constant.BlogCode.JavaActionAddHold;
+import Constant.BlogCode.JavaActionDiscount;
+import Constant.BlogCode.JavaEventNextPrevious;
+import Constant.BlogCode.JavaExistScreen;
+import Constant.BlogCode.JavaSearchByNameAndCode;
+import Constant.BlogCode.ResponsiveSize;
 import Components.Color.WindowColor;
 import Components.BackgroundImage;
 import Components.JavaAlertMessage;

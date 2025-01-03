@@ -1,6 +1,6 @@
 package feature.Setting.Status;
 
-import BlogCode.JavaBlogImage;
+import Constant.BlogCode.JavaBlogImage;
 import Components.Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;

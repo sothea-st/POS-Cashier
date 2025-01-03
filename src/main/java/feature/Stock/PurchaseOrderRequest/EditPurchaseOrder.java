@@ -1,6 +1,6 @@
 package feature.Stock.PurchaseOrderRequest;
 
-import BlogCode.JavaBlogImage;
+import Constant.BlogCode.JavaBlogImage;
 import Components.Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;

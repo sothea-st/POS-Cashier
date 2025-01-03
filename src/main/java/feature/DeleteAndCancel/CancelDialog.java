@@ -1,6 +1,6 @@
 package feature.DeleteAndCancel;
 
-import BlogCode.JavaCountHold;
+import Constant.BlogCode.JavaCountHold;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Components.Color.WindowColor;
@@ -24,7 +24,7 @@ import feature.HoldOrder.HoldeModel;
 import Model.PackageProduct.ProductIDModel;
 import Model.PackageProduct.ProductModel;
 import feature.Stock.Products.ProductBox;
-import BlogCode.UpdateQty.UpdateQtyModel;
+import Constant.BlogCode.UpdateQty.UpdateQtyModel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.Component;
 import java.awt.GridBagConstraints;

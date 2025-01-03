@@ -1,6 +1,6 @@
 package NewDiscounts;
 
-import BlogCode.AppValidation;
+import Constant.BlogCode.AppValidation;
 import Components.Color.WindowColor;
 import Components.BoxItem;
 import Components.JavaAlertMessage;

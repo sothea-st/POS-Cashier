@@ -1,5 +1,5 @@
  
-package BlogCode.UpdateQty;
+package Constant.BlogCode.UpdateQty;
  
 public class UpdateQtyModel {
      private int proId;

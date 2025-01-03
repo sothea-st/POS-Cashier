@@ -1,4 +1,4 @@
-package BlogCode;
+package Constant.BlogCode;
 
 import Components.JavaAlertMessage;
 import Constant.JavaConnection;
@@ -6,7 +6,7 @@ import Constant.JavaConstant;
 import Constant.JavaMessage;
 import Constant.JavaRoute;
 import feature.Stock.Products.ProductBox;
-import BlogCode.UpdateQty.UpdateQtyModel;
+import Constant.BlogCode.UpdateQty.UpdateQtyModel;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import okhttp3.Response;

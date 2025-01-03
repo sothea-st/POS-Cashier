@@ -1,5 +1,5 @@
 
-package BlogCode;
+package Constant.BlogCode;
 
 import Components.BoxItem;
 import Components.JavaAlertMessage;
