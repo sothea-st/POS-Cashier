@@ -388,6 +388,11 @@ public class UserPermissionForm extends javax.swing.JDialog {
                               updateIcon(lbReportingInventory, isVisible);
                               isReportingInventory = isVisible;
                          }
+                         
+                         case "reporting sale return" -> {
+                              updateIcon(lbReportingSaleReturn, isVisible);
+                              isReportingSale = isVisible;
+                         }
 
                          case "staff" -> {
                               updateIcon(lbStaff, isVisible);

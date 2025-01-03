@@ -94,7 +94,7 @@ public class ReportSaleReturnForm extends javax.swing.JDialog {
                          }
 
                          Response response = JavaConnection.get(JavaRoute.returnReport + "?dateFrom=" + dateFromValue + "&dateTo=" + dateToValue);
-
+                        
                          String responseData = response.body().string();
                          JSONObject jsonResponse = new JSONObject(responseData);
                          if (jsonResponse.has("error")) {

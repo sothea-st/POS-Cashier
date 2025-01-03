@@ -57,7 +57,7 @@ public class ExportReportReturnToCSV {
                          String.valueOf(index),
                          String.valueOf(detail.getInvoiceNo()),
                          String.valueOf(detail.getDate()),
-                         String.valueOf(detail.getProductName()),
+                         String.valueOf(detail.getProductName() +" "+detail.getChoices()),
                          String.valueOf(detail.getQty()),
                          JavaConstant.setAmount(detail.getPrice()),
                          String.valueOf(detail.getDiscount()),

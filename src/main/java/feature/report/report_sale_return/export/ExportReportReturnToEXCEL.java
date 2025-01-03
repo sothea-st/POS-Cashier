@@ -70,7 +70,7 @@ public class ExportReportReturnToEXCEL {
                          String.valueOf(i + 1),
                          String.valueOf(detail.getInvoiceNo()),
                          String.valueOf(detail.getDate()),
-                         String.valueOf(detail.getProductName()),
+                         String.valueOf(detail.getProductName() +" "+detail.getChoices()),
                          String.valueOf(detail.getQty()),
                          JavaConstant.setAmount(detail.getPrice()),
                          String.valueOf(detail.getDiscount()),
