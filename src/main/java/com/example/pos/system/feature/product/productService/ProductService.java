@@ -262,6 +262,7 @@ public class ProductService {
 
         List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
 
+
         List<ProductModel> list = new ArrayList<>();
 
         for (int i = 0; i < listData.size(); i++) {
@@ -274,18 +275,6 @@ public class ProductService {
         }
         return list;
 
-        // for (int i = 0; i < listData.size(); i++) {
-
-        // if (i >= limit - 20) {
-        // var data = listData.get(i);
-        // Integer qty = repoImp.getQty(data.getId());
-        // if (qty == null)
-        // qty = 0;
-        // ProductModel p = proModel(data, qty);
-        // list.add(p);
-        // }
-        // }
-        // return list;
     }
 
     public int count(int catId) {

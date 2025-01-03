@@ -1,5 +1,6 @@
 package com.example.pos.system.feature.product.productV1;
 
+import com.example.pos.system.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pos.system.feature.product.productV1.dto.ProductRequest;
-import com.example.pos.system.feature.product.productV1.dto.ProductRequestVendorOrSubCateId;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 import com.example.pos.system.constant.util.response.JavaMessageResponse;
 

@@ -21,6 +21,7 @@ public class FileStore {
 
     @Lob
     @Column(name = "byte_data")
+    @Basic(fetch = FetchType.EAGER)
     private byte[] byteData;
 
     public FileStore() {

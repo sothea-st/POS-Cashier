@@ -1,7 +1,7 @@
-package com.example.pos.system.feature.user_permission.reports.report_purchase_order;
+package com.example.pos.system.feature.reports.report_purchase_order;
 
-import com.example.pos.system.feature.user_permission.reports.report_purchase_order.dto.ReportPOResponse;
-import com.example.pos.system.feature.user_permission.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
+import com.example.pos.system.feature.reports.report_purchase_order.dto.ReportPOResponse;
+import com.example.pos.system.feature.reports.report_purchase_order.dto.ReportPurchaseOrderResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -35,7 +35,7 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
     public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, Integer requestId, Integer checkId, Integer approvedId, Integer rejectId, String remark, String search) {
         validationDate(dateFrom, dateTo);
 
-        System.out.println("gggggggggggggggggddddddddddddddddddddddddddddddddddddddgg");
+
 
         boolean check1 = requestId != null && checkId != null && approvedId != null && remark != null && rejectId == null;
         boolean check2 = requestId != null && checkId != null && approvedId != null && remark == null && rejectId == null;
@@ -273,7 +273,8 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
         boolean check13 = rejectId != null && remark == null && requestId != null && approvedId == null && checkId == null;
         boolean check14 = rejectId != null && remark == null && requestId != null && approvedId == null && checkId != null;
         boolean check15 = rejectId == null && remark == null && requestId == null && approvedId == null && checkId == null;
-
+        boolean check16 = requestId == null && remark != null && checkId == null && approvedId == null && rejectId == null;
+        if( remark != null ) remark = remark.toLowerCase();
 
         if (pageNumber != null && pageSize != null) {
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
@@ -389,6 +390,14 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         pageRequest);
+            } else if (check16) {
+
+                pages = importRepository.findByDateLocalBetweenAndRemark(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        pageRequest,
+                        remark);
+
             } else {
                 return JavaCollectionResponse.builder()
                         .count(0)
@@ -450,6 +459,8 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         .build();
                 list.add(d);
             }
+
+
 
         } else {
 
@@ -551,14 +562,21 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo)
                          );
-            } else {
+            }
+            else if ( check16 ) {
+
+                datas = importRepository.findByDateLocalBetweenAndRemark(
+                        LocalDate.parse(dateFrom),
+                        LocalDate.parse(dateTo),
+                        remark);
+
+            }
+            else {
                 return JavaCollectionResponse.builder()
                         .count(0)
                         .data(list)
                         .build();
             }
-
-
 
             totalCount = datas.size();
             for (Import data : datas) {
@@ -616,6 +634,9 @@ public class ReportPuchaseOrderServiceImp implements ReportPurchaseOrderService 
                 list.add(d);
             }
         }
+
+
+        System.out.println("list : " + list);
 
         // Build and return JavaCollectionResponse with results
         return JavaCollectionResponse.builder()

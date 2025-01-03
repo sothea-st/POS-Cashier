@@ -43,9 +43,9 @@ public class Category  {
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
 
-    @CreationTimestamp
-    @Column(updatable = false,name = "create_date")
-    private Date createDate;
+        @CreationTimestamp
+        @Column(updatable = false,name = "create_date")
+        private Date createDate;
 
     @Column(name = "create_by")
     private int createBy;

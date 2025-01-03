@@ -1,8 +1,8 @@
 package com.example.pos.system.feature.imports;
 
-import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryRepository;
-import com.example.pos.system.feature.user_permission.reports.report_inventoory.ReportInventoryService;
-import com.example.pos.system.feature.user_permission.reports.report_inventoory.dto.ReportInventoryRequest;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryRepository;
+import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
+import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -326,12 +326,13 @@ public class ImportServiceImp implements ImportService {
             Category division = category(deparment.getParentId(), "division");
             Integer qty = repoImp.sumQtyByProId(value.getProduct().getId());
             if (qty == null) qty = 0;
+
             // Create ImportDetailResponse object and add to details list
             ImportDetailResponse importDetailResponse = ImportDetailResponse.builder()
                     .id(value != null ? value.getId() : null)
                     .productId(value != null && value.getProduct() != null ? value.getProduct().getId() : null)
                     .barcode(value != null && value.getProduct() != null ? value.getProduct().getBarcode() : null)
-                    .proNameEn(value != null && value.getProduct() != null ? value.getProduct().getProNameEn() : null)
+                    .proNameEn(value != null && value.getProduct()+" "+value.getProduct().getChoices() != null ? value.getProduct().getProNameEn()+" "+value.getProduct().getChoices()  : null)
                     .proNameKh(value != null && value.getProduct() != null ? value.getProduct().getProNameKh() : null)
                     .division(division != null ? division.getCatNameEn() : null)
                     .department(deparment != null ? deparment.getCatNameEn() : null)
@@ -479,8 +480,6 @@ public class ImportServiceImp implements ImportService {
                 }
                 reportInventoryService.create(reportInventoryRequests);
 
-
-
             } else if (importRequest.remark().equalsIgnoreCase("received")) { // for receive ; receive can full qty or lack qty
                 for (ImportDetailsRequest data : importRequest.details()) {
                     Product product = productRepository.findById(data.productId())
@@ -508,6 +507,7 @@ public class ImportServiceImp implements ImportService {
     }
 
     /**
+     *
      * Generates a formatted import number based on the current count.
      *
      * @param count The current count of imports.
@@ -523,8 +523,8 @@ public class ImportServiceImp implements ImportService {
         // Format the count as a 3-digit number with leading zeros
         String countPart = String.format("%03d", count + 1);
 
-        // Combine all parts into the final POD code
-        return "POD-" + datePart + countPart;
+        // Combine all parts into the final PO code
+        return "PO-" + datePart + countPart;
 
     }
 

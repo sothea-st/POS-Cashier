@@ -566,6 +566,7 @@ public class ProductServiceImp implements ProductService {
             proNameKh = null;
         }
 
+        // get division id by subCatId
         Integer divisionId = categoryRepository.getDivisionId(productRequest.subCatId());
 
         Product product = productMapper.mapToProduct(productRequest);
