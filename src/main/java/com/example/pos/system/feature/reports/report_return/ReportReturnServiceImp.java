@@ -42,6 +42,11 @@ public class ReportReturnServiceImp implements ReportReturnService {
     @Override
     public JavaCollectionResponse<?> reportReturn(String dateFrom, String dateTo, Integer pageSize, Integer pageNumber) {
 
+
+        pageNumber = (pageNumber-1) * 10;
+
+
+
         // validate date from and date to
         JavaConstant.validationDate(dateFrom,dateTo);
 
@@ -51,9 +56,8 @@ public class ReportReturnServiceImp implements ReportReturnService {
         if (pageNumber == null && pageSize == null) {
             data = returnProductRepository.getReportReturns(dateFromLocalDate, dateToLocalDate);
         } else {
-            data = returnProductRepository.getReportReturn(dateFromLocalDate, dateToLocalDate, pageSize, pageNumber - 1);
+            data = returnProductRepository.getReportReturn(dateFromLocalDate, dateToLocalDate, pageSize, pageNumber);
         }
-
 
         Integer count = returnProductRepository.getCountResult(dateFromLocalDate, dateToLocalDate);
 
