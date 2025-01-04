@@ -1,10 +1,10 @@
 package Components;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
 import Constant.UtilShadow;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;

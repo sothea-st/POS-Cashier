@@ -11,8 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import static pdf.PrintToCSV.downloadFolderPath;
-import static pdf.PrintToCSV.folderPath;
+import static feature.Print.pdf.PrintToCSV.downloadFolderPath;
+import static feature.Print.pdf.PrintToCSV.folderPath;
 
 /**
  *

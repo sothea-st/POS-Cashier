@@ -1,4 +1,4 @@
-package Receipt;
+package feature.Receipt;
 
 import Components.JavaAlertMessage;
 import Components.ReceiptBox;
@@ -11,9 +11,9 @@ import Constant.JavaRoute;
 import Model.Reprint.DataSuccessModel;
 import Model.Reprint.ReprintModel;
 import Model.Reprint.SaleDetailModel;
-import PanelToImageConverter.FrameReceiptForPrint;
-import PanelToImageConverter.TestPanel;
-import Print.EpsonPrinter;
+import Constant.PanelToImageConverter.FrameReceiptForPrint;
+import Constant.PanelToImageConverter.TestPanel;
+import feature.Print.EpsonPrinter;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -46,8 +46,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import okhttp3.Response;
-import pdf.MyPrinter;
-import pdf.PrintPanelToPDF;
+import feature.Print.pdf.MyPrinter;
+import feature.Print.pdf.PrintPanelToPDF;
 
 public class Receipt extends javax.swing.JDialog {
 

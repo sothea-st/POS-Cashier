@@ -1,9 +1,9 @@
 package Button;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
 import Constant.UtilShadow;
-import Fonts.WindowFonts;
+import Components.Fonts.WindowFonts;
 import java.awt.Graphics;
 
 public class Button extends javax.swing.JPanel {

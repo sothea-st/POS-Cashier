@@ -1,6 +1,6 @@
 package Components;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import java.awt.Color;

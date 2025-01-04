@@ -1,4 +1,4 @@
-package Receipt;
+package feature.Receipt;
 
 import Components.ReportBox;
 import Constant.JavaConnection;

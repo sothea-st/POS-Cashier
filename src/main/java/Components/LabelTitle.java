@@ -1,9 +1,9 @@
 package Components;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

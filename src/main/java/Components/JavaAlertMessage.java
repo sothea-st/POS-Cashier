@@ -1,13 +1,13 @@
 package Components;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import pdf.PrintPanelToPDF;
+import feature.Print.pdf.PrintPanelToPDF;
 
 public class JavaAlertMessage extends javax.swing.JDialog {
 

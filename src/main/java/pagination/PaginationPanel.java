@@ -1,8 +1,8 @@
 package pagination;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
-import Event.ButtonEvent;
+import Components.Event.ButtonEvent;
 
 import java.awt.Color;
 import java.awt.Component;

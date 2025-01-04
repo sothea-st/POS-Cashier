@@ -1,8 +1,8 @@
 package FormComponent.combobox;
 
-import Color.WindowColor;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Color.WindowColor;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
 import java.awt.event.ActionEvent;

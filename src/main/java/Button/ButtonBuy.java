@@ -1,6 +1,6 @@
 package Button;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
 import Constant.JavaConstant;
@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import Fonts.WindowFonts;
+import Components.Fonts.WindowFonts;
 import java.awt.Dimension;
 
 /**

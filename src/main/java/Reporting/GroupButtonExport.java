@@ -4,10 +4,10 @@
  */
 package Reporting;
 
-import Event.ButtonEvent;
+import Components.Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import pdf.PrintToCSV;
+import feature.Print.pdf.PrintToCSV;
 
 /**
  *

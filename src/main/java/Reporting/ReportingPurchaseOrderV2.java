@@ -1,14 +1,14 @@
 package Reporting;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import CustomeUI.CustomScrollBarUI;
-import Event.ButtonEvent;
+import Components.CustomeUI.CustomScrollBarUI;
+import Components.Event.ButtonEvent;
 import FormComponent.combobox.JavaComboBoxSelection;
-import Products.ListProduct;
+import feature.Stock.Products.ListProduct;
 import Reporting.ReportingItem.ReportOfPurchaseOrder;
 import Reporting.export.ExportReportPurchaseOrderToCSV;
 import Reporting.export.ExportReportPurchaseOrderToExcel;
@@ -36,9 +36,9 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
-import pdf.PrintListPDF;
-import pdf.PrintToCSV;
-import pdf.PrintToExcel;
+import feature.Print.pdf.PrintListPDF;
+import feature.Print.pdf.PrintToCSV;
+import feature.Print.pdf.PrintToExcel;
 
 public class ReportingPurchaseOrderV2 extends javax.swing.JDialog {
 

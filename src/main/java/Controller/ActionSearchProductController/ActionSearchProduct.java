@@ -3,7 +3,7 @@ package Controller.ActionSearchProductController;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
-import LoginAndLogoutForm.LoginFormJdailog;
+import feature.LoginAndLogoutForm.LoginFormJdailog;
 import Model.ProductModel.ProductDataModel;
 import Model.ProductModel.ProductSuccessData;
 import com.fasterxml.jackson.databind.ObjectMapper;

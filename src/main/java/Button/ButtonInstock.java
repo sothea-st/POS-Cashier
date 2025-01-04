@@ -1,9 +1,9 @@
 package Button;
 
-import Color.WindowColor;
+import Components.Color.WindowColor;
 import Components.Shadow.ShadowRenderer;
 import Components.Shadow.ShadowType;
-import Fonts.WindowFonts;
+import Components.Fonts.WindowFonts;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

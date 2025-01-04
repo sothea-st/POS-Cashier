@@ -1,11 +1,11 @@
 package Components;
 
-import Combobox.ComboItem;
-import Color.WindowColor;
+import Constant.Combobox.ComboItem;
+import Components.Color.WindowColor;
 import Constant.JavaConstant;
 import Constant.UtilShadow;
-import Event.ButtonEvent;
-import Fonts.WindowFonts;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

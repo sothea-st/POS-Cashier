@@ -29,8 +29,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.io.IOUtils;
-import static pdf.PrintListPDF.downloadFolderPath;
-import static pdf.PrintListPDF.folderPath;
+import static feature.Print.pdf.PrintListPDF.downloadFolderPath;
+import static feature.Print.pdf.PrintListPDF.folderPath;
 
 public class ExportReportImportToPDF {
 

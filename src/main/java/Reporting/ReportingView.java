@@ -2,8 +2,8 @@ package Reporting;
 
 import Constant.JavaConstant;
 
-import CustomeUI.CustomScrollBarUI;
-import LoginAndLogoutForm.model.RoleHasPermissionModel;
+import Components.CustomeUI.CustomScrollBarUI;
+import feature.LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Reporting.ReportInventory.ReportInventoryForm;
 import feature.report.report_sale_return.ReportSaleReturnForm;
 import feature.user_permission.JavaPermission;

@@ -15,8 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import static pdf.PrintToCSV.downloadFolderPath;
-import static pdf.PrintToCSV.folderPath;
+import static feature.Print.pdf.PrintToCSV.downloadFolderPath;
+import static feature.Print.pdf.PrintToCSV.folderPath;
 
 /**
  *

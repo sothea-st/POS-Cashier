@@ -3,7 +3,7 @@ package Components;
  
 import Constant.JavaConstant;
 import Constant.UtilShadow;
-import Fonts.WindowFonts;
+import Components.Fonts.WindowFonts;
  
 import java.awt.Graphics;
  
