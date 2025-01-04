@@ -14,12 +14,10 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import Components.CustomeUI.CustomScrollBarUI;
- 
 import Constant.DefaultPrice.DataModelDefaultPrice;
 import feature.DeleteAndCancel.CancelDialog;
 import Components.Event.ButtonEvent;
 import Components.Fonts.WindowFonts;
-
 import feature.HoldOrder.ListHoldOrder;
 import feature.LoginAndLogoutForm.LoginFormJdailog;
 import feature.LoginAndLogoutForm.LogoutDialog;
