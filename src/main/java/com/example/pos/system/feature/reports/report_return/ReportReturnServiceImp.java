@@ -5,9 +5,7 @@ import com.example.pos.system.constant.util.collection_response.JavaCollectionRe
 import com.example.pos.system.feature.reports.report_return.dto.ReportReturnProjection;
 import com.example.pos.system.layer.repository.sourceDataRepository.ReturnProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
