@@ -194,10 +194,11 @@ public class ListCountry extends javax.swing.JDialog {
                             edit.setListGetCountry(listGetCountry);
                             edit.setPageNumber(pageNumber);
                              
-
+                              
+                            
+                            
                             edit.setValueEdit(
                                     data.getCountryName(),
-                 
                                     data.getUuid()
                             );
 

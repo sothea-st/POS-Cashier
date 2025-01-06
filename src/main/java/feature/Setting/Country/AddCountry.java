@@ -68,6 +68,9 @@ public class AddCountry extends javax.swing.JDialog {
 
         if (uuid != null) {
             String _url = new JavaBaseUrl().getBaseUrl() + JavaRoute.bgImage + uuid;
+             System.err.println("ffffffffffffff = " + _url);
+                
+                 
 
             // Check if the URL exists
             if (JavaConstant.doesUrlExist(_url)) { // return true url exist
