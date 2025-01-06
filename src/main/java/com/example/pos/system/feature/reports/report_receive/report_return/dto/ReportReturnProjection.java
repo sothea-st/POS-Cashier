@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.reports.report_return.dto;
+package com.example.pos.system.feature.reports.report_receive.report_return.dto;
 
 import java.math.BigDecimal;
 
