@@ -180,7 +180,6 @@ public class SaleService {
              */
 
             if (report.getDiscount_case() != null) {
-
                 total = total - report.getDiscount(); // getDiscount is value already
             }
 
