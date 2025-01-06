@@ -391,11 +391,28 @@ public class RouteControllerSecond {
 
           @GetMapping("/{id}")
           public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
+               System.out.println("333333333333333 eeeeeeeeeeeeee");
                byte[] imageData = service.getFile(id);
                return ResponseEntity.status(HttpStatus.OK)
                          .contentType(MediaType.valueOf(IMAGE_PNG_VALUE))
                          .body(imageData);
           }
+
+//          @GetMapping("/{id}")
+//          public ResponseEntity<byte[]> getFile(@PathVariable String id) throws IOException {
+//               System.out.println("Getting file with ID: " + id);
+//               byte[] imageData = service.getFile(id);
+//               String fileType = "image/jpeg"; // Default type
+//
+//               // Optionally, set different content types based on file type
+////               if (imageData.length > 0) {
+////                    fileType = "image/" + service.getFileType(id); // For example, "image/jpeg"
+////               }
+//
+//               return ResponseEntity.status(HttpStatus.OK)
+//                       .contentType(MediaType.valueOf(fileType))
+//                       .body(imageData);
+//          }
 
           @GetMapping("/readImage")
           public ResponseEntity<byte[]> getImage() {

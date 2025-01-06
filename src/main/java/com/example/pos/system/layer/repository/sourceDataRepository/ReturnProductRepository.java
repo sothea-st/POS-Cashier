@@ -1,6 +1,6 @@
 package com.example.pos.system.layer.repository.sourceDataRepository;
 
-import com.example.pos.system.feature.reports.report_return.dto.ReportReturnProjection;
+import com.example.pos.system.feature.reports.report_receive.report_return.dto.ReportReturnProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

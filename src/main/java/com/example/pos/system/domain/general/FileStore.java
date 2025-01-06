@@ -21,7 +21,7 @@ public class FileStore {
 
     @Lob
     @Column(name = "byte_data")
-    @Basic(fetch = FetchType.EAGER)
+    @Basic(fetch = FetchType.EAGER) // Change to EAGER
     private byte[] byteData;
 
     public FileStore() {
