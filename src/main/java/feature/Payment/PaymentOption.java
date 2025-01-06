@@ -45,541 +45,541 @@ import org.json.JSONObject;
 
 public class PaymentOption extends javax.swing.JDialog {
 
-    private HashMap<String, String> map = new HashMap<>();
-    private String totalUsd;
-    DecimalFormat dm = new DecimalFormat("#,##0");
-    DecimalFormat df = new DecimalFormat("$ #,##0.00");
-    DecimalFormat dd = new DecimalFormat("#,##0.00");
+     private HashMap<String, String> map = new HashMap<>();
+     private String totalUsd;
+     DecimalFormat dm = new DecimalFormat("#,##0");
+     DecimalFormat df = new DecimalFormat("$ #,##0.00");
+     DecimalFormat dd = new DecimalFormat("#,##0.00");
 
-    private String sign = "khr";
-    private Component[] listCom;
+     private String sign = "khr";
+     private Component[] listCom;
 
-    private String cusTypeId;
-    private String sourceId;
-    private String paymentType = JavaConstant.typeCash;
-    private JPanel detailItem;
-    private JPanel boxOne;
-    private JPanel panelProduct;
-    private Button btnPayment;
-    private Button buttonHoldOrder;
-    private ButtonCancel btnCancel;
-    private SubtotalPanel subtotalPanel;
-    private Button btnReturn;
-    private Button btnDiscount;
-    private JLabel titleOrder;
+     private String cusTypeId;
+     private String sourceId;
+     private String paymentType = JavaConstant.typeCash;
+     private JPanel detailItem;
+     private JPanel boxOne;
+     private JPanel panelProduct;
+     private Button btnPayment;
+     private Button buttonHoldOrder;
+     private ButtonCancel btnCancel;
+     private SubtotalPanel subtotalPanel;
+     private Button btnReturn;
+     private Button btnDiscount;
+     private JLabel titleOrder;
 
-    public JPanel getPanelProduct() {
-        return panelProduct;
-    }
+     public JPanel getPanelProduct() {
+          return panelProduct;
+     }
 
-    public void setPanelProduct(JPanel panelProduct) {
-        this.panelProduct = panelProduct;
-    }
+     public void setPanelProduct(JPanel panelProduct) {
+          this.panelProduct = panelProduct;
+     }
 
-    private JScrollPane jScrollPaneDetail;
+     private JScrollPane jScrollPaneDetail;
 
-    public JScrollPane getjScrollPaneDetail() {
-        return jScrollPaneDetail;
-    }
+     public JScrollPane getjScrollPaneDetail() {
+          return jScrollPaneDetail;
+     }
 
-    public void setjScrollPaneDetail(JScrollPane jScrollPaneDetail) {
-        this.jScrollPaneDetail = jScrollPaneDetail;
-    }
+     public void setjScrollPaneDetail(JScrollPane jScrollPaneDetail) {
+          this.jScrollPaneDetail = jScrollPaneDetail;
+     }
 
-    public PaymentOption(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setResizable(false);
-        addComboCustomerType();
-        addComboSource();
+     public PaymentOption(java.awt.Frame parent, boolean modal) {
+          super(parent, modal);
+          initComponents();
+          setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          setResizable(false);
+          addComboCustomerType();
+          addComboSource();
 
-        genderGroupButton();
-        nationalityGroupButton();
-        setColor();
+          genderGroupButton();
+          nationalityGroupButton();
+          setColor();
 
-        paymentType = "cash";
-        txtCustomerId.requestFocus();
-        radioButtonKhmer.setSelected(true);
-        radioButtonMale.setSelected(true);
-        txtReceiveKhr.requestFocus();
+          paymentType = "cash";
+          txtCustomerId.requestFocus();
+          radioButtonKhmer.setSelected(true);
+          radioButtonMale.setSelected(true);
+          txtReceiveKhr.requestFocus();
 
-        txtReceiveUsd.setBorder(null);
-        txtReceiveKhr.setBorder(null);
+          txtReceiveUsd.setBorder(null);
+          txtReceiveKhr.setBorder(null);
 
-        txtEarning.setValidateAmount();
-        evenGroup();
-        customerFun();
+          txtEarning.setValidateAmount();
+          evenGroup();
+          customerFun();
 
-        setRoundRadius(2, 3, 2);
-    }
+          setRoundRadius(2, 3, 2);
+     }
 
-    void setRoundRadius(int radius, int padding, int left) {
-        lbOne.setRoundRadious(radius);
-        lbTwo.setRoundRadious(radius);
-        lbThree.setRoundRadious(radius);
-        lbFour.setRoundRadious(radius);
-        lbFive.setRoundRadious(radius);
-        lbSix.setRoundRadious(radius);
-        lbSeven.setRoundRadious(radius);
-        lbEight.setRoundRadious(radius);
-        lbNine.setRoundRadious(radius);
-        lbZero.setRoundRadious(radius);
-        lbDelete.setRoundRadious(radius);
-        lbDot.setRoundRadious(radius);
+     void setRoundRadius(int radius, int padding, int left) {
+          lbOne.setRoundRadious(radius);
+          lbTwo.setRoundRadious(radius);
+          lbThree.setRoundRadious(radius);
+          lbFour.setRoundRadious(radius);
+          lbFive.setRoundRadious(radius);
+          lbSix.setRoundRadious(radius);
+          lbSeven.setRoundRadious(radius);
+          lbEight.setRoundRadious(radius);
+          lbNine.setRoundRadious(radius);
+          lbZero.setRoundRadious(radius);
+          lbDelete.setRoundRadious(radius);
+          lbDot.setRoundRadious(radius);
 
-        lbOne.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbTwo.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbThree.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbFour.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbFive.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbSix.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbSeven.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbEight.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbNine.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbZero.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbDelete.setBorder(new EmptyBorder(padding, left, padding, left));
-        lbDot.setBorder(new EmptyBorder(padding, left, padding, left));
-    }
+          lbOne.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbTwo.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbThree.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbFour.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbFive.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbSix.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbSeven.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbEight.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbNine.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbZero.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbDelete.setBorder(new EmptyBorder(padding, left, padding, left));
+          lbDot.setBorder(new EmptyBorder(padding, left, padding, left));
+     }
 
-    void customerFun() {
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onKeyRelease() {
-                changeBackGroundBtn();
-            }
-        };
+     void customerFun() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyRelease() {
+                    changeBackGroundBtn();
+               }
+          };
 
-        txtCustomerId.initEvent(event);
-        txtCustomerName.initEvent(event);
-        txtCustomerPhone.initEvent(event);
-    }
+          txtCustomerId.initEvent(event);
+          txtCustomerName.initEvent(event);
+          txtCustomerPhone.initEvent(event);
+     }
 
-    void changeBackGroundBtn() {
+     void changeBackGroundBtn() {
 
-        String custId = txtCustomerId.getValueTextField();
-        String cusName = txtCustomerName.getValueTextField();
-        String phone = txtCustomerPhone.getValueTextField();
+          String custId = txtCustomerId.getValueTextField();
+          String cusName = txtCustomerName.getValueTextField();
+          String phone = txtCustomerPhone.getValueTextField();
 
-        if (custId != null
-                && cusName != null
-                && phone != null) {
-            btnEinvoice.setBackground(WindowColor.green);
-        }
+          if (custId != null
+               && cusName != null
+               && phone != null) {
+               btnEinvoice.setBackground(WindowColor.green);
+          }
 
-        if (custId.isEmpty()
-                || cusName.isEmpty()
-                || phone.isEmpty()) {
-            btnEinvoice.setBackground(WindowColor.lightGray);
-        }
-    }
+          if (custId.isEmpty()
+               || cusName.isEmpty()
+               || phone.isEmpty()) {
+               btnEinvoice.setBackground(WindowColor.lightGray);
+          }
+     }
 
-    void evenGroup() {
-        txtReceiveUsd.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
+     void evenGroup() {
+          txtReceiveUsd.addKeyListener(new KeyListener() {
+               @Override
+               public void keyTyped(KeyEvent e) {
 
-            }
+               }
 
-            @Override
-            public void keyPressed(KeyEvent e) {
+               @Override
+               public void keyPressed(KeyEvent e) {
 
-            }
+               }
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                    keyDelete("keyboard");
-                } else {
-                    String _val = txtReceiveUsd.getText().replace(",", "");
-                    addCommaUsd(_val);
-                }
-            }
-
-        });
-
-        txtReceiveKhr.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-
-                    keyDelete("keyboard");
-
-                } else {
-                    String _val = txtReceiveKhr.getText().replace(",", "");
-                    addCommaKhr(_val);
-                }
-            }
-
-        });
-
-    }
-
-    private void getCusomerId() {
-        Response response = JavaConnection.get(JavaRoute.getCustomerId);
-        try {
-            if (response.isSuccessful()) {
-                String data = response.body().string();
-
-                JSONObject obj = new JSONObject(data);
-                String customerID = obj.getString("data");
-                txtCustomerId.setText(customerID);
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    //=================================================
-    private void setColor() {
-        panelPayment.setBackground(WindowColor.mediumGreen);
-        panelTotal.setBackground(WindowColor.mediumGreen);
-        lbCashPayment.setFontColor(WindowColor.white);
-        lbCash.setFontColor(WindowColor.white);
-        lbCreditCard.setFontColor(WindowColor.white);
-        labelFontBlack2.setFontColor(WindowColor.white);
-        btnEinvoice.setFontColor(WindowColor.white);
-        buttonChargeAndPrint.setFontColor(WindowColor.white);
-        lbCreditCard.setBackground(WindowColor.lightBlue);
-        lbCash.setBackground(WindowColor.green);
-    }
-
-    //================ Gender Option ===================
-    private void genderGroupButton() {
-        ButtonGroup group = new ButtonGroup();
-        group.add(radioButtonMale);
-        group.add(radioButtonFemale);
-    }
-
-    //================ Nationality Option ===================
-    private void nationalityGroupButton() {
-        ButtonGroup group = new ButtonGroup();
-        group.add(radioButtonKhmer);
-        group.add(radioButtonAsian);
-        group.add(radioButtonChinese);
-        group.add(radioButtonWhite);
-        group.add(radioButtonBlack);
-    }
-
-    //Set Combo box Customer Type
-    private void addComboCustomerType() {
-
-        JavaComboBoxSelection.addComboBox(cmbCustomerType,
-                JavaRoute.customerType,
-                "name",
-                JavaComboBoxSelection.DESC);
-
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                cusTypeId = id;
-            }
-        };
-        cmbCustomerType.initEvent(event);
-    }
-
-    //Set Combo box Source
-    private void addComboSource() {
-
-        JavaComboBoxSelection.addComboBox(cmbSource,
-                JavaRoute.source,
-                "name",
-                JavaComboBoxSelection.DESC);
-
-        ButtonEvent event = new ButtonEvent() {
-            @Override
-            public void onSelected(String id) {
-                sourceId = id;
-            }
-        };
-        cmbSource.initEvent(event);
-
-    }
-
-    private void inputAmount(String value) {
-
-        if (JavaConstant.isReturn != null) {
-            return;
-        }
-
-        String receviUsd = txtReceiveUsd.getText();
-        String receviKhr = txtReceiveKhr.getText();
-        receviKhr = receviKhr.replace(",", "");
-        receviUsd = receviUsd.replace(",", "");
-
-        if ("usd".equals(sign)) {
-
-            receviUsd += value;
-            txtReceiveUsd.setText(receviUsd);
-
-            double doubleTotalUsd = JavaConstant.getReplace(getTotalUsd());
-
-            //    ======= check some validattion =======
-            boolean isCheck = AppValidation.checkValidation(txtReceiveUsd);
-            if (isCheck) {
-                return;
-            }
-            //  =======  end =======
-
-            if (!receviUsd.isEmpty()) {
-
-                double doubleReceviceUsd = JavaConstant.getReplace(receviUsd);
-                double result = doubleReceviceUsd - doubleTotalUsd;
-
-                if (result < 0) {
-                    setValueLabelUsd(result, 0);
-                } else if (result > 0) {
-                    if (result > 5) {
-                        setValueLabelUsd(0, result);
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                         keyDelete("keyboard");
                     } else {
-                        setValueLabelUsd(0, result);
+                         String _val = txtReceiveUsd.getText().replace(",", "");
+                         addCommaUsd(_val);
                     }
-                } else if (result == 0) {
-                    setValueLabelUsd(0, 0);
-                }
-            } else {
+               }
 
-                receviUsd = "0";
+          });
 
-                String stringReceiveUsd = receviUsd.replace(",", "");
-                double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
-                double result = doubleReceviceUsd - doubleTotalUsd;
+          txtReceiveKhr.addKeyListener(new KeyListener() {
+               @Override
+               public void keyTyped(KeyEvent e) {
 
-                if (result < 0) {
-                    setValueLabelUsd(result, 0);
-                } else if (result > 0) {
-                    setValueLabelUsd(0, result);
-                } else if (result == 0) {
-                    setValueLabelUsd(0, 0);
-                }
+               }
 
-                if (txtReceiveUsd.getText().isEmpty() && txtReceiveKhr.getText().isEmpty()) {
+               @Override
+               public void keyPressed(KeyEvent e) {
+
+               }
+
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+
+                         keyDelete("keyboard");
+
+                    } else {
+                         String _val = txtReceiveKhr.getText().replace(",", "");
+                         addCommaKhr(_val);
+                    }
+               }
+
+          });
+
+     }
+
+     private void getCusomerId() {
+          Response response = JavaConnection.get(JavaRoute.getCustomerId);
+          try {
+               if (response.isSuccessful()) {
+                    String data = response.body().string();
+
+                    JSONObject obj = new JSONObject(data);
+                    String customerID = obj.getString("data");
+                    txtCustomerId.setText(customerID);
+               }
+          } catch (Exception e) {
+          }
+     }
+
+     //=================================================
+     private void setColor() {
+          panelPayment.setBackground(WindowColor.mediumGreen);
+          panelTotal.setBackground(WindowColor.mediumGreen);
+          lbCashPayment.setFontColor(WindowColor.white);
+          lbCash.setFontColor(WindowColor.white);
+          lbCreditCard.setFontColor(WindowColor.white);
+          labelFontBlack2.setFontColor(WindowColor.white);
+          btnEinvoice.setFontColor(WindowColor.white);
+          buttonChargeAndPrint.setFontColor(WindowColor.white);
+          lbCreditCard.setBackground(WindowColor.lightBlue);
+          lbCash.setBackground(WindowColor.green);
+     }
+
+     //================ Gender Option ===================
+     private void genderGroupButton() {
+          ButtonGroup group = new ButtonGroup();
+          group.add(radioButtonMale);
+          group.add(radioButtonFemale);
+     }
+
+     //================ Nationality Option ===================
+     private void nationalityGroupButton() {
+          ButtonGroup group = new ButtonGroup();
+          group.add(radioButtonKhmer);
+          group.add(radioButtonAsian);
+          group.add(radioButtonChinese);
+          group.add(radioButtonWhite);
+          group.add(radioButtonBlack);
+     }
+
+     //Set Combo box Customer Type
+     private void addComboCustomerType() {
+
+          JavaComboBoxSelection.addComboBox(cmbCustomerType,
+               JavaRoute.customerType,
+               "name",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    cusTypeId = id;
+               }
+          };
+          cmbCustomerType.initEvent(event);
+     }
+
+     //Set Combo box Source
+     private void addComboSource() {
+
+          JavaComboBoxSelection.addComboBox(cmbSource,
+               JavaRoute.source,
+               "name",
+               JavaComboBoxSelection.DESC);
+
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onSelected(String id) {
+                    sourceId = id;
+               }
+          };
+          cmbSource.initEvent(event);
+
+     }
+
+     private void inputAmount(String value) {
+
+          if (JavaConstant.isReturn != null) {
+               return;
+          }
+
+          String receviUsd = txtReceiveUsd.getText();
+          String receviKhr = txtReceiveKhr.getText();
+          receviKhr = receviKhr.replace(",", "");
+          receviUsd = receviUsd.replace(",", "");
+
+          if ("usd".equals(sign)) {
+
+               receviUsd += value;
+               txtReceiveUsd.setText(receviUsd);
+
+               double doubleTotalUsd = JavaConstant.getReplace(getTotalUsd());
+
+               //    ======= check some validattion =======
+               boolean isCheck = AppValidation.checkValidation(txtReceiveUsd);
+               if (isCheck) {
+                    return;
+               }
+               //  =======  end =======
+
+               if (!receviUsd.isEmpty()) {
+
+                    double doubleReceviceUsd = JavaConstant.getReplace(receviUsd);
+                    double result = doubleReceviceUsd - doubleTotalUsd;
+
+                    if (result < 0) {
+                         setValueLabelUsd(result, 0);
+                    } else if (result > 0) {
+                         if (result > 5) {
+                              setValueLabelUsd(0, result);
+                         } else {
+                              setValueLabelUsd(0, result);
+                         }
+                    } else if (result == 0) {
+                         setValueLabelUsd(0, 0);
+                    }
+               } else {
+
+                    receviUsd = "0";
+
+                    String stringReceiveUsd = receviUsd.replace(",", "");
+                    double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
+                    double result = doubleReceviceUsd - doubleTotalUsd;
+
+                    if (result < 0) {
+                         setValueLabelUsd(result, 0);
+                    } else if (result > 0) {
+                         setValueLabelUsd(0, result);
+                    } else if (result == 0) {
+                         setValueLabelUsd(0, 0);
+                    }
+
+                    if (txtReceiveUsd.getText().isEmpty() && txtReceiveKhr.getText().isEmpty()) {
+                         lbRemainingKhr.setLabelName(dm.format(0));
+                         lbRemainingUsd.setLabelName(df.format(0));
+                         lbChangeKhr.setLabelName(dm.format(0));
+                         lbChangeUsd.setLabelName(df.format(0));
+                    }
+
+                    if (!receviKhr.isEmpty()) {
+                         funKhr(receviKhr);
+                    }
+                    return;
+
+               }
+
+          } else if ("khr".equals(sign)) {
+               receviKhr += value;
+               txtReceiveKhr.setText(receviKhr);
+               String strTotalKhr = lbTotalKhr.getLabelName();
+               strTotalKhr = strTotalKhr.replace(",", "");
+               double doubleTotalKhr = Double.parseDouble(strTotalKhr);
+               // =============== check validataion =============
+               boolean isCheck = AppValidation.checkValidation(txtReceiveKhr);
+               if (isCheck) {
+                    return;
+               }
+               // ============ end =============
+               if (!receviKhr.isEmpty()) {
+                    String stringReceiveKhr = receviKhr.replace(",", "");
+                    double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
+
+                    double result = doubleReceviceKhr - doubleTotalKhr;
+                    if (result < 0) {
+                         setValueLabelKhr(result, 0);
+                    } else if (result > 0) {
+                         setValueLabelKhr(0, result);
+                    } else if (result == 0) {
+                         setValueLabelKhr(0, 0);
+                    }
+               } else {
+                    receviKhr = "0";
+
+                    String stringReceiveKhr = receviKhr.replace(",", "");
+                    double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
+
+                    double result = doubleReceviceKhr - doubleTotalKhr;
+                    if (result < 0) {
+                         setValueLabelKhr(result, 0);
+                    } else if (result > 0) {
+                         setValueLabelKhr(0, result);
+                    } else if (result == 0) {
+                         setValueLabelKhr(0, 0);
+                    }
+
+                    if (txtReceiveUsd.getText().isEmpty() && txtReceiveKhr.getText().isEmpty()) {
+                         lbRemainingKhr.setLabelName(dm.format(0));
+                         lbRemainingUsd.setLabelName(df.format(0));
+                         lbChangeKhr.setLabelName(dm.format(0));
+                         lbChangeUsd.setLabelName(df.format(0));
+                    }
+
+                    if (!receviUsd.isEmpty()) {
+                         funUsd(receviUsd);
+                    }
+
+               }
+
+          }
+
+          checkBothValueTextField(receviKhr, receviUsd);
+          //         =============== validation ==========
+          addCommaKhr(receviKhr);
+          addCommaUsd(receviUsd);
+     }
+
+     void checkBothValueTextField(String receviKhr, String receviUsd) {
+          if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
+
+               if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
                     lbRemainingKhr.setLabelName(dm.format(0));
                     lbRemainingUsd.setLabelName(df.format(0));
                     lbChangeKhr.setLabelName(dm.format(0));
                     lbChangeUsd.setLabelName(df.format(0));
-                }
+               }
 
-                if (!receviKhr.isEmpty()) {
-                    funKhr(receviKhr);
-                }
-                return;
+               double _totalUsd = JavaConstant.getReplace(getTotalUsd());
+               double _convertToUsd = Double.parseDouble(receviKhr) / JavaConstant.exchangeRate;
+               double _usd = Double.parseDouble(receviUsd) + _convertToUsd;
+               double result = _usd - _totalUsd;
+               if (Double.parseDouble(receviUsd) > _convertToUsd) { // usd > khr
+                    paidBothValue(result, "usd");
+               } else {
+                    paidBothValue(result, "khr"); // khr > usd
+               }
+          }
+     }
 
-            }
+     void addCommaKhr(String receviKhr) {
 
-        } else if ("khr".equals(sign)) {
-            receviKhr += value;
-            txtReceiveKhr.setText(receviKhr);
-            String strTotalKhr = lbTotalKhr.getLabelName();
-            strTotalKhr = strTotalKhr.replace(",", "");
-            double doubleTotalKhr = Double.parseDouble(strTotalKhr);
-            // =============== check validataion =============
-            boolean isCheck = AppValidation.checkValidation(txtReceiveKhr);
-            if (isCheck) {
-                return;
-            }
-            // ============ end =============
-            if (!receviKhr.isEmpty()) {
-                String stringReceiveKhr = receviKhr.replace(",", "");
-                double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
+          // ================ 3 length insert comma =========
+          if (receviKhr.length() > 3) {
+               StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
+               for (int i = builder.length() - 3; i > 0; i -= 3) {
+                    builder.insert(i, ",");
+               }
+               setValueTextField(builder.toString());
+          }
+     }
 
-                double result = doubleReceviceKhr - doubleTotalKhr;
-                if (result < 0) {
-                    setValueLabelKhr(result, 0);
-                } else if (result > 0) {
-                    setValueLabelKhr(0, result);
-                } else if (result == 0) {
-                    setValueLabelKhr(0, 0);
-                }
-            } else {
-                receviKhr = "0";
+     void addCommaUsd(String receviUsd) {
 
-                String stringReceiveKhr = receviKhr.replace(",", "");
-                double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
+          //          boolean isCheck = onlyDigits(receviKhr);
+          // ================ 3 length insert comma =========
+          if (receviUsd.length() > 3 && !receviUsd.contains(".")) {
+               StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
 
-                double result = doubleReceviceKhr - doubleTotalKhr;
-                if (result < 0) {
-                    setValueLabelKhr(result, 0);
-                } else if (result > 0) {
-                    setValueLabelKhr(0, result);
-                } else if (result == 0) {
-                    setValueLabelKhr(0, 0);
-                }
+               for (int i = builder.length() - 3; i > 0; i -= 3) {
+                    builder.insert(i, ",");
+               }
+               txtReceiveUsd.setText(builder.toString());
+               txtReceiveUsd.setForeground(Color.BLACK);
+          }
 
-                if (txtReceiveUsd.getText().isEmpty() && txtReceiveKhr.getText().isEmpty()) {
-                    lbRemainingKhr.setLabelName(dm.format(0));
-                    lbRemainingUsd.setLabelName(df.format(0));
-                    lbChangeKhr.setLabelName(dm.format(0));
-                    lbChangeUsd.setLabelName(df.format(0));
-                }
+     }
 
-                if (!receviUsd.isEmpty()) {
-                    funUsd(receviUsd);
-                }
+     private void paidBothValue(double value, String types) {
+          String strValue = "" + value;
+          strValue = strValue.replace("-", "");
+          double _d = Double.parseDouble(strValue);
+          double _remainingUsd = _d * JavaConstant.exchangeRate;
+          String receviUsd = txtReceiveUsd.getText();
+          String receviKhr = txtReceiveKhr.getText();
 
-            }
+          double lastPoint = 0;
+          if (value < 0) { // remaining
+               lbRemainingUsd.setLabelName(df.format(_d));
+               String _khr = JavaRoundUpKhr.setRoundNumber(_remainingUsd);
+               lbRemainingKhr.setLabelName(_khr);
 
-        }
+               lbChangeKhr.setLabelName(dm.format(0));
+               lbChangeUsd.setLabelName(df.format(0));
 
-        checkBothValueTextField(receviKhr, receviUsd);
-        //         =============== validation ==========
-        addCommaKhr(receviKhr);
-        addCommaUsd(receviUsd);
-    }
+          } else {
+               lbRemainingKhr.setLabelName(dm.format(0));
+               lbRemainingUsd.setLabelName(df.format(0));
 
-    void checkBothValueTextField(String receviKhr, String receviUsd) {
-        if (!receviKhr.isEmpty() && !receviUsd.isEmpty()) {
+               if (types.equals("usd")) {
+                    lastPoint = _d * JavaConstant.exchangeRate4050;
+               } else {
+                    lastPoint = _d * JavaConstant.exchangeRate;
+               }
 
-            if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
-                lbRemainingKhr.setLabelName(dm.format(0));
-                lbRemainingUsd.setLabelName(df.format(0));
-                lbChangeKhr.setLabelName(dm.format(0));
-                lbChangeUsd.setLabelName(df.format(0));
-            }
+               int cashChange = 0;
+               int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
 
-            double _totalUsd = JavaConstant.getReplace(getTotalUsd());
-            double _convertToUsd = Double.parseDouble(receviKhr) / JavaConstant.exchangeRate;
-            double _usd = Double.parseDouble(receviUsd) + _convertToUsd;
-            double result = _usd - _totalUsd;
-            if (Double.parseDouble(receviUsd) > _convertToUsd) { // usd > khr
-                paidBothValue(result, "usd");
-            } else {
-                paidBothValue(result, "khr"); // khr > usd
-            }
-        }
-    }
+               for (int i = 0; i < arrInt.length; i++) {
+                    if (_d >= arrInt[i]) {
 
-    void addCommaKhr(String receviKhr) {
-
-        // ================ 3 length insert comma =========
-        if (receviKhr.length() > 3) {
-            StringBuilder builder = new StringBuilder(receviKhr.replaceAll(",", ""));
-            for (int i = builder.length() - 3; i > 0; i -= 3) {
-                builder.insert(i, ",");
-            }
-            setValueTextField(builder.toString());
-        }
-    }
-
-    void addCommaUsd(String receviUsd) {
-
-        //          boolean isCheck = onlyDigits(receviKhr);
-        // ================ 3 length insert comma =========
-        if (receviUsd.length() > 3 && !receviUsd.contains(".")) {
-            StringBuilder builder = new StringBuilder(receviUsd.replaceAll(",", ""));
-
-            for (int i = builder.length() - 3; i > 0; i -= 3) {
-                builder.insert(i, ",");
-            }
-            txtReceiveUsd.setText(builder.toString());
-            txtReceiveUsd.setForeground(Color.BLACK);
-        }
-
-    }
-
-    private void paidBothValue(double value, String types) {
-        String strValue = "" + value;
-        strValue = strValue.replace("-", "");
-        double _d = Double.parseDouble(strValue);
-        double _remainingUsd = _d * JavaConstant.exchangeRate;
-        String receviUsd = txtReceiveUsd.getText();
-        String receviKhr = txtReceiveKhr.getText();
-
-        double lastPoint = 0;
-        if (value < 0) { // remaining
-            lbRemainingUsd.setLabelName(df.format(_d));
-            String _khr = JavaRoundUpKhr.setRoundNumber(_remainingUsd);
-            lbRemainingKhr.setLabelName(_khr);
-
-            lbChangeKhr.setLabelName(dm.format(0));
-            lbChangeUsd.setLabelName(df.format(0));
-
-        } else {
-            lbRemainingKhr.setLabelName(dm.format(0));
-            lbRemainingUsd.setLabelName(df.format(0));
-
-            if (types.equals("usd")) {
-                lastPoint = _d * JavaConstant.exchangeRate4050;
-            } else {
-                lastPoint = _d * JavaConstant.exchangeRate;
-            }
-
-            int cashChange = 0;
-            int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
-
-            for (int i = 0; i < arrInt.length; i++) {
-                if (_d >= arrInt[i]) {
-
-                    if (types.equals("usd")) {
-                        lastPoint = (_d - arrInt[i]) * JavaConstant.exchangeRate4050;
-                    } else {
-                        lastPoint = (_d - arrInt[i]) * JavaConstant.exchangeRate;
+                         if (types.equals("usd")) {
+                              lastPoint = (_d - arrInt[i]) * JavaConstant.exchangeRate4050;
+                         } else {
+                              lastPoint = (_d - arrInt[i]) * JavaConstant.exchangeRate;
+                         }
+                         cashChange = arrInt[i];
+                         break;
                     }
-                    cashChange = arrInt[i];
-                    break;
-                }
-            }
+               }
 
-            lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(lastPoint));
+               lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(lastPoint));
 
-            lbChangeUsd.setLabelName(df.format(cashChange));
+               lbChangeUsd.setLabelName(df.format(cashChange));
 
-        }
+          }
 
-        if (types.equals("khr") && txtReceiveUsd.getText().isEmpty()) {
+          if (types.equals("khr") && txtReceiveUsd.getText().isEmpty()) {
 
-            lbChangeUsd.setLabelName(df.format(0));
-            lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_remainingUsd));
-        }
+               lbChangeUsd.setLabelName(df.format(0));
+               lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_remainingUsd));
+          }
 
-    }
+     }
 
-    private void funKhr(String receviKhr) {
-        String strTotalKhr = lbTotalKhr.getLabelName();
-        strTotalKhr = strTotalKhr.replace(",", "");
-        double doubleTotalKhr = Double.parseDouble(strTotalKhr);
-        String stringReceiveKhr = receviKhr.replace(",", "");
-        double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
+     private void funKhr(String receviKhr) {
+          String strTotalKhr = lbTotalKhr.getLabelName();
+          strTotalKhr = strTotalKhr.replace(",", "");
+          double doubleTotalKhr = Double.parseDouble(strTotalKhr);
+          String stringReceiveKhr = receviKhr.replace(",", "");
+          double doubleReceviceKhr = Double.parseDouble(stringReceiveKhr);
 
-        double result = doubleReceviceKhr - doubleTotalKhr;
+          double result = doubleReceviceKhr - doubleTotalKhr;
 
-        if (result < 0) {
+          if (result < 0) {
 
-            setValueLabelKhr(result, 0);
-        } else if (result > 0) {
-            setValueLabelKhr(0, result);
-        } else if (result == 0) {
-            setValueLabelKhr(0, 0);
-        }
+               setValueLabelKhr(result, 0);
+          } else if (result > 0) {
+               setValueLabelKhr(0, result);
+          } else if (result == 0) {
+               setValueLabelKhr(0, 0);
+          }
 
-        lbChangeUsd.setLabelName(df.format(0));
-    }
+          lbChangeUsd.setLabelName(df.format(0));
+     }
 
-    private void funUsd(String receviUsd) {
-        String stringReceiveUsd = receviUsd.replace(",", "");
-        double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
-        double doubleTotalUsd = JavaConstant.getReplace(getTotalUsd());
-        double result = doubleReceviceUsd - doubleTotalUsd;
+     private void funUsd(String receviUsd) {
+          String stringReceiveUsd = receviUsd.replace(",", "");
+          double doubleReceviceUsd = Double.valueOf(stringReceiveUsd);
+          double doubleTotalUsd = JavaConstant.getReplace(getTotalUsd());
+          double result = doubleReceviceUsd - doubleTotalUsd;
 
-        if (result < 0) {
-            setValueLabelUsd(result, 0);
-        } else if (result > 0) {
-            setValueLabelUsd(0, result);
-        } else if (result == 0) {
-            setValueLabelUsd(0, 0);
-        }
-    }
+          if (result < 0) {
+               setValueLabelUsd(result, 0);
+          } else if (result > 0) {
+               setValueLabelUsd(0, result);
+          } else if (result == 0) {
+               setValueLabelUsd(0, 0);
+          }
+     }
 
-    @SuppressWarnings("unchecked")
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -1382,92 +1382,92 @@ public class PaymentOption extends javax.swing.JDialog {
          keyDelete("");
     }//GEN-LAST:event_lbDeleteMouseClicked
 
-    void keyDelete(String valueCheck) {
-        if (!txtReceiveUsd.getText().isEmpty() && !txtReceiveKhr.getText().isEmpty()) {
-            if (sign.equals("khr")) {
-                String _khr = txtReceiveKhr.getText().replace(",", "");
-                if (valueCheck.isEmpty()) {
-                    khr(_khr);
-                } else {
-                    khrKey(_khr);
-                }
-
-            } else if (sign.equals("usd")) {
-                String _usd = txtReceiveUsd.getText().replace(",", "");
-                if (valueCheck.isEmpty()) {
-                    usd(_usd);
-                } else {
-                    usdKey(_usd);
-                }
-            }
-        } else {
-            if (sign.equals("usd")) {
-                if (!txtReceiveUsd.getText().isEmpty()) {
+     void keyDelete(String valueCheck) {
+          if (!txtReceiveUsd.getText().isEmpty() && !txtReceiveKhr.getText().isEmpty()) {
+               if (sign.equals("khr")) {
+                    String _khr = txtReceiveKhr.getText().replace(",", "");
                     if (valueCheck.isEmpty()) {
-                        usd(txtReceiveUsd.getText());
+                         khr(_khr);
                     } else {
-                        usdKey(txtReceiveUsd.getText());
+                         khrKey(_khr);
                     }
-                } else {
-                    usd("0");
-                }
-            } else if (sign.equals("khr")) {
-                if (!txtReceiveKhr.getText().isEmpty()) {
+
+               } else if (sign.equals("usd")) {
+                    String _usd = txtReceiveUsd.getText().replace(",", "");
                     if (valueCheck.isEmpty()) {
-                        khr(txtReceiveKhr.getText());
+                         usd(_usd);
                     } else {
-                        khrKey(txtReceiveKhr.getText());
+                         usdKey(_usd);
                     }
-                } else {
-                    khr("0");
-                }
-            }
-        }
-    }
+               }
+          } else {
+               if (sign.equals("usd")) {
+                    if (!txtReceiveUsd.getText().isEmpty()) {
+                         if (valueCheck.isEmpty()) {
+                              usd(txtReceiveUsd.getText());
+                         } else {
+                              usdKey(txtReceiveUsd.getText());
+                         }
+                    } else {
+                         usd("0");
+                    }
+               } else if (sign.equals("khr")) {
+                    if (!txtReceiveKhr.getText().isEmpty()) {
+                         if (valueCheck.isEmpty()) {
+                              khr(txtReceiveKhr.getText());
+                         } else {
+                              khrKey(txtReceiveKhr.getText());
+                         }
+                    } else {
+                         khr("0");
+                    }
+               }
+          }
+     }
 
-    void khr(String value) {
+     void khr(String value) {
 
-        value = value.substring(0, value.length() - 1);
+          value = value.substring(0, value.length() - 1);
 
-        txtReceiveKhr.setText("");
-        if (value.isEmpty()) {
-            setValueLabelKhr(0, 0);
-        }
-        inputAmount(value);
-    }
+          txtReceiveKhr.setText("");
+          if (value.isEmpty()) {
+               setValueLabelKhr(0, 0);
+          }
+          inputAmount(value);
+     }
 
-    void khrKey(String value) {
+     void khrKey(String value) {
 //          value = value.substring(0, value.length() - 1);
 
-        txtReceiveKhr.setText("");
-        if (value.isEmpty()) {
-            setValueLabelKhr(0, 0);
-        }
-        inputAmount(value);
-    }
+          txtReceiveKhr.setText("");
+          if (value.isEmpty()) {
+               setValueLabelKhr(0, 0);
+          }
+          inputAmount(value);
+     }
 
-    void usd(String value) {
+     void usd(String value) {
 
-        value = value.substring(0, value.length() - 1);
+          value = value.substring(0, value.length() - 1);
 
-        txtReceiveUsd.setText("");
-        if (value.isEmpty()) {
-            setValueLabelUsd(0, 0);
-        }
-        inputAmount(value);
+          txtReceiveUsd.setText("");
+          if (value.isEmpty()) {
+               setValueLabelUsd(0, 0);
+          }
+          inputAmount(value);
 
-    }
+     }
 
-    void usdKey(String value) {
+     void usdKey(String value) {
 
 //          value = value.substring(0, value.length() - 1);
-        txtReceiveUsd.setText("");
-        if (value.isEmpty()) {
-            setValueLabelUsd(0, 0);
-        }
-        inputAmount(value);
+          txtReceiveUsd.setText("");
+          if (value.isEmpty()) {
+               setValueLabelUsd(0, 0);
+          }
+          inputAmount(value);
 
-    }
+     }
 
     private void txtReceiveUsdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtReceiveUsdMouseClicked
          sign = "usd";
@@ -1477,289 +1477,289 @@ public class PaymentOption extends javax.swing.JDialog {
          sign = "khr";
     }//GEN-LAST:event_txtReceiveKhrMouseClicked
 
-    void _checkUsd(String usd) {
-        if (usd.length() == 1 && usd.equals(".")) {
-            String newValue = usd.substring(0, usd.length() - 1) + "";
-            txtReceiveUsd.setText(newValue);
-            return;
-        }
+     void _checkUsd(String usd) {
+          if (usd.length() == 1 && usd.equals(".")) {
+               String newValue = usd.substring(0, usd.length() - 1) + "";
+               txtReceiveUsd.setText(newValue);
+               return;
+          }
 
-        int count = 0;
-        for (int i = 0; i < usd.length(); i++) {
-            if (usd.charAt(i) == '.') {
-                count++;
-            }
-            if (count > 1) {
-                String newValue = usd.substring(0, usd.length() - 1);
-                txtReceiveUsd.setText(newValue);
-                return;
-            }
-        }
+          int count = 0;
+          for (int i = 0; i < usd.length(); i++) {
+               if (usd.charAt(i) == '.') {
+                    count++;
+               }
+               if (count > 1) {
+                    String newValue = usd.substring(0, usd.length() - 1);
+                    txtReceiveUsd.setText(newValue);
+                    return;
+               }
+          }
 
-        for (int i = 0; i < usd.length(); i++) {
-            if (usd.charAt(i) == '.' || usd.charAt(i) == ',') {
-                continue;
-            }
-            if (usd.charAt(i) < '0' || usd.charAt(i) > '9') {
-                String newValue = usd.substring(0, usd.length() - 1) + "";
-                txtReceiveUsd.setText(newValue);
-                return;
-            }
-        }
-    }
-    
+          for (int i = 0; i < usd.length(); i++) {
+               if (usd.charAt(i) == '.' || usd.charAt(i) == ',') {
+                    continue;
+               }
+               if (usd.charAt(i) < '0' || usd.charAt(i) > '9') {
+                    String newValue = usd.substring(0, usd.length() - 1) + "";
+                    txtReceiveUsd.setText(newValue);
+                    return;
+               }
+          }
+     }
+
     private void txtReceiveUsdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyReleased
 
-        String khr = txtReceiveKhr.getText();
-        String usd = txtReceiveUsd.getText();
-        _checkUsd(usd);
-        khr = khr.replace(",", "");
-        usd = usd.replace(",", "");
-        if (usd.length() > 0 && khr.length() > 0) {
-            checkBothValueTextField(khr, usd);
-            return;
-        }
+         String khr = txtReceiveKhr.getText();
+         String usd = txtReceiveUsd.getText();
+         _checkUsd(usd);
+         khr = khr.replace(",", "");
+         usd = usd.replace(",", "");
+         if (usd.length() > 0 && khr.length() > 0) {
+              checkBothValueTextField(khr, usd);
+              return;
+         }
 
-        if (khr.length() > 0 || usd.isEmpty()) {
-            return;
-        }
+         if (khr.length() > 0 || usd.isEmpty()) {
+              return;
+         }
 
-        if (txtReceiveUsd.getText().length() > 0) {
-            catculateUsd();
-        } else {
-            setValueLabelUsd(0, 0);
-        }
+         if (txtReceiveUsd.getText().length() > 0) {
+              catculateUsd();
+         } else {
+              setValueLabelUsd(0, 0);
+         }
     }//GEN-LAST:event_txtReceiveUsdKeyReleased
 
-    void twoReceiveBox(String khr, String usd) {
-        double k = Double.parseDouble(khr) / JavaConstant.exchangeRate;
-        double u = Double.parseDouble(usd);
+     void twoReceiveBox(String khr, String usd) {
+          double k = Double.parseDouble(khr) / JavaConstant.exchangeRate;
+          double u = Double.parseDouble(usd);
 
-        double _usd = JavaConstant.getReplace(lbTotalUsd.getLabelName());
-        double _khr = JavaConstant.getReplace(lbTotalKhr.getLabelName());
+          double _usd = JavaConstant.getReplace(lbTotalUsd.getLabelName());
+          double _khr = JavaConstant.getReplace(lbTotalKhr.getLabelName());
 
-        double _t = k + u;
+          double _t = k + u;
 
-        _t = Double.parseDouble(dd.format(_t));
+          _t = Double.parseDouble(dd.format(_t));
 
-        double _r = _t - _usd;
+          double _r = _t - _usd;
 
-        if (_t == _usd) {
-            setValueLabelKhr(0, 0);
-        } else if (_t < _usd) {
-            setValueLabelKhr(_r, 0);
-            setValueLabelUsd(_r, 0);
-        } else if (_t > _usd) {
-            setValueLabelKhr(0, _r);
-            setValueLabelUsd(0, _r);
-        }
-    }
+          if (_t == _usd) {
+               setValueLabelKhr(0, 0);
+          } else if (_t < _usd) {
+               setValueLabelKhr(_r, 0);
+               setValueLabelUsd(_r, 0);
+          } else if (_t > _usd) {
+               setValueLabelKhr(0, _r);
+               setValueLabelUsd(0, _r);
+          }
+     }
 
-    void catculateUsd() {
-        double totalUsdValue = JavaConstant.getReplace(totalUsd);
-        double rUsdValue = JavaConstant.getReplace(txtReceiveUsd.getText());
-        double resultValueUsd = rUsdValue - totalUsdValue;
-        if (resultValueUsd == 0) {
-            setValueLabelUsd(resultValueUsd, resultValueUsd);
-        } else if (resultValueUsd > 0) {
-            setValueLabelUsd(0, resultValueUsd);
-        } else if (resultValueUsd < 0) {
-            setValueLabelUsd(resultValueUsd, 0);
-        }
-    }
+     void catculateUsd() {
+          double totalUsdValue = JavaConstant.getReplace(totalUsd);
+          double rUsdValue = JavaConstant.getReplace(txtReceiveUsd.getText());
+          double resultValueUsd = rUsdValue - totalUsdValue;
+          if (resultValueUsd == 0) {
+               setValueLabelUsd(resultValueUsd, resultValueUsd);
+          } else if (resultValueUsd > 0) {
+               setValueLabelUsd(0, resultValueUsd);
+          } else if (resultValueUsd < 0) {
+               setValueLabelUsd(resultValueUsd, 0);
+          }
+     }
 
-    void _checkKhr(String khr) {
-        if (khr.length() == 1 && khr.equals(".")) {
-            String newValue = khr.substring(0, khr.length() - 1) + "";
-            txtReceiveKhr.setText(newValue);
-            return;
-        }
+     void _checkKhr(String khr) {
+          if (khr.length() == 1 && khr.equals(".")) {
+               String newValue = khr.substring(0, khr.length() - 1) + "";
+               txtReceiveKhr.setText(newValue);
+               return;
+          }
 
-        int count = 0;
-        for (int i = 0; i < khr.length(); i++) {
-            if (khr.charAt(i) == '.') {
-                count++;
-            }
-            if (count > 1) {
-                String newValue = khr.substring(0, khr.length() - 1);
-                txtReceiveKhr.setText(newValue);
-                return;
-            }
-        }
+          int count = 0;
+          for (int i = 0; i < khr.length(); i++) {
+               if (khr.charAt(i) == '.') {
+                    count++;
+               }
+               if (count > 1) {
+                    String newValue = khr.substring(0, khr.length() - 1);
+                    txtReceiveKhr.setText(newValue);
+                    return;
+               }
+          }
 
-        for (int i = 0; i < khr.length(); i++) {
-            if (khr.charAt(i) == '.' || khr.charAt(i) == ',') {
-                continue;
-            }
-            if (khr.charAt(i) < '0' || khr.charAt(i) > '9') {
-                String newValue = khr.substring(0, khr.length() - 1) + "";
-                txtReceiveKhr.setText(newValue);
-                return;
-            }
-        }
-    }
-    
-    
+          for (int i = 0; i < khr.length(); i++) {
+               if (khr.charAt(i) == '.' || khr.charAt(i) == ',') {
+                    continue;
+               }
+               if (khr.charAt(i) < '0' || khr.charAt(i) > '9') {
+                    String newValue = khr.substring(0, khr.length() - 1) + "";
+                    txtReceiveKhr.setText(newValue);
+                    return;
+               }
+          }
+     }
+
+
     private void txtReceiveKhrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveKhrKeyReleased
 
-        String khr = txtReceiveKhr.getText();
-        _checkKhr(khr);
-        String usd = txtReceiveUsd.getText();
-        khr = khr.replace(",", "");
-        usd = usd.replace(",", "");
-        if (usd.length() > 0 && khr.length() > 0) {
+         String khr = txtReceiveKhr.getText();
+         _checkKhr(khr);
+         String usd = txtReceiveUsd.getText();
+         khr = khr.replace(",", "");
+         usd = usd.replace(",", "");
+         if (usd.length() > 0 && khr.length() > 0) {
 //              twoReceiveBox(khr, usd);
-            checkBothValueTextField(khr, usd);
-            return;
-        }
+              checkBothValueTextField(khr, usd);
+              return;
+         }
 
-        if (usd.length() > 0 || khr.isEmpty()) {
-            return;
-        }
+         if (usd.length() > 0 || khr.isEmpty()) {
+              return;
+         }
 
-        if (txtReceiveKhr.getText().length() > 0) {
-            calculateKhr(lbTotalKhr.getLabelName(), txtReceiveKhr.getText());
-        } else {
-            setValueLabelKhr(0, 0);
-        }
+         if (txtReceiveKhr.getText().length() > 0) {
+              calculateKhr(lbTotalKhr.getLabelName(), txtReceiveKhr.getText());
+         } else {
+              setValueLabelKhr(0, 0);
+         }
 
     }//GEN-LAST:event_txtReceiveKhrKeyReleased
 
-    public void setValueTextField(String valueTextField) {
-        txtReceiveKhr.setText(valueTextField);
-        txtReceiveKhr.setForeground(Color.BLACK);
-    }
+     public void setValueTextField(String valueTextField) {
+          txtReceiveKhr.setText(valueTextField);
+          txtReceiveKhr.setForeground(Color.BLACK);
+     }
 
-    void calculateKhr(String totalStr, String receiveStr) {
-        double totalKhrValue = JavaConstant.getReplace(totalStr);
-        double rKhrValue = JavaConstant.getReplace(receiveStr);
-        double resultValueKhr = rKhrValue - totalKhrValue;
+     void calculateKhr(String totalStr, String receiveStr) {
+          double totalKhrValue = JavaConstant.getReplace(totalStr);
+          double rKhrValue = JavaConstant.getReplace(receiveStr);
+          double resultValueKhr = rKhrValue - totalKhrValue;
 
-        if (resultValueKhr == 0) {
-            setValueLabelKhr(resultValueKhr, resultValueKhr);
-        } else if (resultValueKhr > 0) {
+          if (resultValueKhr == 0) {
+               setValueLabelKhr(resultValueKhr, resultValueKhr);
+          } else if (resultValueKhr > 0) {
 
-            setValueLabelKhr(0, resultValueKhr);
-        } else if (resultValueKhr < 0) {
-            setValueLabelKhr(resultValueKhr, 0);
-        }
-    }
+               setValueLabelKhr(0, resultValueKhr);
+          } else if (resultValueKhr < 0) {
+               setValueLabelKhr(resultValueKhr, 0);
+          }
+     }
 
 
     private void buttonChargeAndPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChargeAndPrintMouseClicked
-        charge();
+         charge();
     }//GEN-LAST:event_buttonChargeAndPrintMouseClicked
 
-    private void charge() {
-        JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+     private void charge() {
+          JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
 
-        if (JavaConstant.isReturn == null) {
+          if (JavaConstant.isReturn == null) {
 
-            boolean isCheckKhr = TextField.onlyDigits(txtReceiveKhr.getText());
+               boolean isCheckKhr = TextField.onlyDigits(txtReceiveKhr.getText());
 
-            if (!isCheckKhr) {
-                j.setMessage("Invaid receive khr !");
-                j.setVisible(true);
-                return;
-            }
+               if (!isCheckKhr) {
+                    j.setMessage("Invaid receive khr !");
+                    j.setVisible(true);
+                    return;
+               }
 
-            boolean isCheckUsd = TextField.onlyDigits(txtReceiveUsd.getText());
+               boolean isCheckUsd = TextField.onlyDigits(txtReceiveUsd.getText());
 
-            if (!isCheckUsd) {
-                j.setMessage("Invaid receive usd !");
-                j.setVisible(true);
-                return;
-            }
+               if (!isCheckUsd) {
+                    j.setMessage("Invaid receive usd !");
+                    j.setVisible(true);
+                    return;
+               }
 
-            if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
-                j.setMessage("Please pay to charge !");
-                j.setVisible(true);
-                return;
-            }
+               if (txtReceiveKhr.getText().isEmpty() && txtReceiveUsd.getText().isEmpty()) {
+                    j.setMessage("Please pay to charge !");
+                    j.setVisible(true);
+                    return;
+               }
 
-            double valueRemainingUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
-            double valueRemainingKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
-            if (valueRemainingUsd > 0 || valueRemainingKhr > 0) {
-                j.setMessage(" remainning Usd : " + lbRemainingUsd.getLabelName() + " <br><br> remainning KHR : " + lbRemainingKhr.getLabelName());
-                j.setVisible(true);
-                return;
-            }
+               double valueRemainingUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
+               double valueRemainingKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
+               if (valueRemainingUsd > 0 || valueRemainingKhr > 0) {
+                    j.setMessage(" remainning Usd : " + lbRemainingUsd.getLabelName() + " <br><br> remainning KHR : " + lbRemainingKhr.getLabelName());
+                    j.setVisible(true);
+                    return;
+               }
 
-        }
+          }
 
-        double discount = JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd());
-        // double deliveryFee = JavaConstant.getReplace(subtotalPanel.getLableDeliveryUsd());
-        double subTotal = JavaConstant.getReplace(subtotalPanel.getLabelSubtotalUsd());
-        double total = JavaConstant.getReplace(subtotalPanel.getLableTotalUsd());
-        double remainningUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
-        double remainningKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
-        double changeUsd = JavaConstant.getReplace(lbChangeUsd.getLabelName());
-        double changeKhr = JavaConstant.getReplace(lbChangeKhr.getLabelName());
+          double discount = JavaConstant.getReplace(subtotalPanel.getLableDiscountUsd());
+          // double deliveryFee = JavaConstant.getReplace(subtotalPanel.getLableDeliveryUsd());
+          double subTotal = JavaConstant.getReplace(subtotalPanel.getLabelSubtotalUsd());
+          double total = JavaConstant.getReplace(subtotalPanel.getLableTotalUsd());
+          double remainningUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
+          double remainningKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
+          double changeUsd = JavaConstant.getReplace(lbChangeUsd.getLabelName());
+          double changeKhr = JavaConstant.getReplace(lbChangeKhr.getLabelName());
 
-        JSONObject jsonData = new JSONObject();
-        jsonData.put("userId", JavaConstant.cashierId);
-        jsonData.put("userCode", JavaConstant.userCode);
-        jsonData.put("saleDate", JavaConstant.currentDate);
-        jsonData.put("discount", discount);
-        jsonData.put("subTotal", subTotal);
-        jsonData.put("deliveryFee", "0");
-        jsonData.put("posId", JavaConstant.posId);
-        jsonData.put("total", total);
+          JSONObject jsonData = new JSONObject();
+          jsonData.put("userId", JavaConstant.cashierId);
+          jsonData.put("userCode", JavaConstant.userCode);
+          jsonData.put("saleDate", JavaConstant.currentDate);
+          jsonData.put("discount", discount);
+          jsonData.put("subTotal", subTotal);
+          jsonData.put("deliveryFee", "0");
+          jsonData.put("posId", JavaConstant.posId);
+          jsonData.put("total", total);
 
-        String _khr = txtReceiveKhr.getText().replace(",", "");
-        String _usd = txtReceiveUsd.getText().replace(",", "");
+          String _khr = txtReceiveKhr.getText().replace(",", "");
+          String _usd = txtReceiveUsd.getText().replace(",", "");
 
-        //get dataPay
-        HashMap<String, Object> dataPay = new HashMap<>();
-        dataPay.put("sourceId", sourceId);
-        dataPay.put("customerTypeId", cusTypeId);
-        dataPay.put("paymentType", paymentType);
-        dataPay.put("receiveKhr", _khr);
-        dataPay.put("receiveUsd", _usd);
-        dataPay.put("remainingUsd", remainningUsd);
-        dataPay.put("remainingKhr", remainningKhr);
-        dataPay.put("changeUsd", changeUsd);
-        dataPay.put("changeKhr", changeKhr);
+          //get dataPay
+          HashMap<String, Object> dataPay = new HashMap<>();
+          dataPay.put("sourceId", sourceId);
+          dataPay.put("customerTypeId", cusTypeId);
+          dataPay.put("paymentType", paymentType);
+          dataPay.put("receiveKhr", _khr);
+          dataPay.put("receiveUsd", _usd);
+          dataPay.put("remainingUsd", remainningUsd);
+          dataPay.put("remainingKhr", remainningKhr);
+          dataPay.put("changeUsd", changeUsd);
+          dataPay.put("changeKhr", changeKhr);
 
-        if ((txtCustomerName.getValueTextField() == null || txtCustomerName.getValueTextField().isEmpty())
-                && (txtCustomerId.getValueTextField() == null || txtCustomerId.getValueTextField().isEmpty())
-                && (txtCustomerPhone.getValueTextField() == null || txtCustomerPhone.getValueTextField().isEmpty())) {
+          if ((txtCustomerName.getValueTextField() == null || txtCustomerName.getValueTextField().isEmpty())
+               && (txtCustomerId.getValueTextField() == null || txtCustomerId.getValueTextField().isEmpty())
+               && (txtCustomerPhone.getValueTextField() == null || txtCustomerPhone.getValueTextField().isEmpty())) {
 
-        } else {
+          } else {
 
-            String earn = txtEarning.getValueTextField();
-            if (earn != null) {
-                earn = earn.replace(",", "");
-            }
+               String earn = txtEarning.getValueTextField();
+               if (earn != null) {
+                    earn = earn.replace(",", "");
+               }
 
-            //get customer 
-            HashMap<String, Object> customer = new HashMap<>();
-            customer.put("cusName", txtCustomerName.getValueTextField());
-            customer.put("customerId", txtCustomerId.getValueTextField());
-            customer.put("contact", txtCustomerPhone.getValueTextField());
-            customer.put("email", txtCustomerEmail.getValueTextField());
-            customer.put("earning", earn);
+               //get customer 
+               HashMap<String, Object> customer = new HashMap<>();
+               customer.put("cusName", txtCustomerName.getValueTextField());
+               customer.put("customerId", txtCustomerId.getValueTextField());
+               customer.put("contact", txtCustomerPhone.getValueTextField());
+               customer.put("email", txtCustomerEmail.getValueTextField());
+               customer.put("earning", earn);
 //          customer.put("sourceId", sourceId);
 //          customer.put("customerTypeId", cusTypeId);
 
-            if (radioButtonKhmer.isSelected()) {
-                customer.put("nationality", radioButtonKhmer.getText());
-            } else if (radioButtonAsian.isSelected()) {
-                customer.put("nationality", radioButtonAsian.getText());
-            } else if (radioButtonChinese.isSelected()) {
-                customer.put("nationality", radioButtonChinese.getText());
-            } else if (radioButtonWhite.isSelected()) {
-                customer.put("nationality", radioButtonWhite.getText());
-            } else if (radioButtonBlack.isSelected()) {
-                customer.put("nationality", radioButtonBlack.getText());
-            }
-            if (radioButtonMale.isSelected()) {
-                customer.put("gender", radioButtonMale.getText());
-            } else if (radioButtonFemale.isSelected()) {
-                customer.put("gender", radioButtonFemale.getText());
-            }
-            jsonData.put("customer", customer);
-        }
+               if (radioButtonKhmer.isSelected()) {
+                    customer.put("nationality", radioButtonKhmer.getText());
+               } else if (radioButtonAsian.isSelected()) {
+                    customer.put("nationality", radioButtonAsian.getText());
+               } else if (radioButtonChinese.isSelected()) {
+                    customer.put("nationality", radioButtonChinese.getText());
+               } else if (radioButtonWhite.isSelected()) {
+                    customer.put("nationality", radioButtonWhite.getText());
+               } else if (radioButtonBlack.isSelected()) {
+                    customer.put("nationality", radioButtonBlack.getText());
+               }
+               if (radioButtonMale.isSelected()) {
+                    customer.put("gender", radioButtonMale.getText());
+               } else if (radioButtonFemale.isSelected()) {
+                    customer.put("gender", radioButtonFemale.getText());
+               }
+               jsonData.put("customer", customer);
+          }
 
 //          if(txtCustomerName.getValueTextFieldCenter().isEmpty() && 
 //              txtCustomerId.getValueTextFieldCenter().isEmpty() && 
@@ -1769,29 +1769,29 @@ public class PaymentOption extends javax.swing.JDialog {
 //          }else{
 //              jsonData.put("customer", "");
 //          }
-        String discountType = "";
-        //get dataSale 
-        ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
-        for (int i = 0; i < listCom.length; i++) {
-            var obj = ((BoxItem) listCom[i]);
-            double price = JavaConstant.getReplace(obj.getLabelPrice());
+          String discountType = "";
+          //get dataSale 
+          ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
+          for (int i = 0; i < listCom.length; i++) {
+               var obj = ((BoxItem) listCom[i]);
+               double price = JavaConstant.getReplace(obj.getLabelPrice());
 
-            //System.err.println("cost ======== " + obj.getCost());
-            double discountDigit = obj.getDiscountDigit();
-            double unitPrice = price - (price * discountDigit) / 100;
-            double p = JavaConstant.getReplace(df.format(unitPrice));
+               //System.err.println("cost ======== " + obj.getCost());
+               double discountDigit = obj.getDiscountDigit();
+               double unitPrice = price - (price * discountDigit) / 100;
+               double p = JavaConstant.getReplace(df.format(unitPrice));
 
-            double discountVale = obj.getDiscountValue();
-            double amount = obj.getQty() * p;
-            double a = JavaConstant.getReplace(df.format(amount));
+               double discountVale = obj.getDiscountValue();
+               double amount = obj.getQty() * p;
+               double a = JavaConstant.getReplace(df.format(amount));
 
-            if (obj.getOldDiscount() > 0) {
-                discountType = "promotion";
-            } else {
-                discountType = obj.getDiscountType();
-            }
+               if (obj.getOldDiscount() > 0) {
+                    discountType = "promotion";
+               } else {
+                    discountType = obj.getDiscountType();
+               }
 
-            ProductSaleModel pro = new ProductSaleModel(
+               ProductSaleModel pro = new ProductSaleModel(
                     obj.getProductId(),
                     obj.getQty(),
                     price,
@@ -1799,116 +1799,115 @@ public class PaymentOption extends javax.swing.JDialog {
                     discountVale,
                     discountType,
                     Double.valueOf(obj.getCost())
-            );
-            dataSale.add(pro);
-        }
-        jsonData.put("dataSale", dataSale);
-        dataPay.put("discountType", discountType);
-        dataPay.put("discountValue", discount);
-        jsonData.put("dataPay", dataPay);
-        jsonData.put("discountCase", discountType);
+               );
+               dataSale.add(pro);
+          }
+          jsonData.put("dataSale", dataSale);
+          dataPay.put("discountType", discountType);
+          dataPay.put("discountValue", discount);
+          jsonData.put("dataPay", dataPay);
+          jsonData.put("discountCase", discountType);
 
-        Response response = JavaConnection.post(JavaRoute.sale, jsonData);
+          Response response = JavaConnection.post(JavaRoute.sale, jsonData);
 
-       // System.err.println("response = " + response);
-        //System.err.println("jsonData = " + jsonData);
+          // System.err.println("response = " + response);
+          //System.err.println("jsonData = " + jsonData);
+          try {
+               if (response.isSuccessful()) {
+                    detailItem.removeAll();
+                    detailItem.revalidate();
+                    detailItem.repaint();
+                    dispose();
+                    btnCancel.setBackground(WindowColor.lightGray);
+                    buttonHoldOrder.setBackground(WindowColor.lightGray);
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    subtotalPanel.setLabelSubTitleToZero();
+                    btnReturn.setBackground(WindowColor.brown);
+                    btnPayment.setBackground(WindowColor.lightGray);
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    titleOrder.setVisible(false);
+                    detailItem.setBorder(null);
 
-        try {
-            if (response.isSuccessful()) {
-                detailItem.removeAll();
-                detailItem.revalidate();
-                detailItem.repaint();
-                dispose();
-                btnCancel.setBackground(WindowColor.lightGray);
-                buttonHoldOrder.setBackground(WindowColor.lightGray);
-                detailItem.setBackground(WindowColor.slightGreen);
-                subtotalPanel.setLabelSubTitleToZero();
-                btnReturn.setBackground(WindowColor.brown);
-                btnPayment.setBackground(WindowColor.lightGray);
-                detailItem.setBackground(WindowColor.slightGreen);
-                titleOrder.setVisible(false);
-                detailItem.setBorder(null);
+                    JavaConstant.productId = 0;
 
-                JavaConstant.productId = 0;
+                    // remove hole order
+                    if (JavaConstant.holdId != 0) {
+                         ArrayList<HoldeModel> holdId = new ArrayList<>();
+                         holdId.add(new HoldeModel(JavaConstant.holdId));
+                         JSONObject json = new JSONObject();
+                         json.put("reasonId", 0); // 0 meaning product was paid
+                         json.put("listHoldDetail", holdId);
 
-                // remove hole order
-                if (JavaConstant.holdId != 0) {
-                    ArrayList<HoldeModel> holdId = new ArrayList<>();
-                    holdId.add(new HoldeModel(JavaConstant.holdId));
-                    JSONObject json = new JSONObject();
-                    json.put("reasonId", 0); // 0 meaning product was paid
-                    json.put("listHoldDetail", holdId);
+                         Response responseHold = JavaConnection.delete(JavaRoute.holdOrder, json);
 
-                    Response responseHold = JavaConnection.delete(JavaRoute.holdOrder, json);
-
-                    if (responseHold.isSuccessful()) {
-                        JavaConstant.holdId = 0;
+                         if (responseHold.isSuccessful()) {
+                              JavaConstant.holdId = 0;
+                         }
                     }
-                }
 
-                // ===== print receipt ========
-                Response responsePrint = JavaConnection.get(JavaRoute.reprintByLast);
-                if (response.isSuccessful()) {
-                    try {
-                        String myObject = responsePrint.body().string();
-                        ObjectMapper objMap = new ObjectMapper();
-                        DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
-                        Receipt re = new Receipt(new JFrame(), true);
-                        re.setDataSuccess(d);
-                        re.revalidate();
-                        re.repaint();
-//                              re.printReceipt(); // for print with device
-                        re.setVisible(true);
+                    // ===== print receipt ========
+                    Response responsePrint = JavaConnection.get(JavaRoute.reprintByLast);
+                    if (response.isSuccessful()) {
+                         try {
+                              String myObject = responsePrint.body().string();
+                              ObjectMapper objMap = new ObjectMapper();
+                              DataSuccessModel d = objMap.readValue(myObject, DataSuccessModel.class);
+                              Receipt re = new Receipt(new JFrame(), true);
+                              re.setDataSuccess(d);
+                              re.revalidate();
+                              re.repaint();
+                              re.printReceipt(); // for print with device
+//                        re.setVisible(true); // for view
 
 //                             FrameReceiptForPrint te = new FrameReceiptForPrint();
 //                             te.setDataSuccess(d);
 //                             te.revalidate();
 //                             te.repaint();
 //                             te.printPanel(d);
-                    } catch (Exception e) {
-                        System.err.println("err while loding = " + e);
+                         } catch (Exception e) {
+                              System.err.println("err while loding = " + e);
+                         }
                     }
-                }
 
-            } else {
-                JOptionPane.showMessageDialog(this, "Charge Failed!");
-            }
-        } catch (Exception e) {
-            System.err.println("errir = " + e);
-        }
-    }
+               } else {
+                    JOptionPane.showMessageDialog(this, "Charge Failed!");
+               }
+          } catch (Exception e) {
+               System.err.println("errir = " + e);
+          }
+     }
 
-    public void returnProduct() {
-        DecimalFormat df = new DecimalFormat("#.##");
-        double totalReturn = 0.0;
-        if (!txtReceiveUsd.getText().isEmpty()) {
-            totalReturn = Double.valueOf(txtReceiveUsd.getText());
-        }
+     public void returnProduct() {
+          DecimalFormat df = new DecimalFormat("#.##");
+          double totalReturn = 0.0;
+          if (!txtReceiveUsd.getText().isEmpty()) {
+               totalReturn = Double.valueOf(txtReceiveUsd.getText());
+          }
 
-        if (!txtReceiveKhr.getText().isEmpty()) {
-            double returnAmountKhr = Double.valueOf(txtReceiveKhr.getText());
-            totalReturn = returnAmountKhr / JavaConstant.exchangeRate;
-        }
+          if (!txtReceiveKhr.getText().isEmpty()) {
+               double returnAmountKhr = Double.valueOf(txtReceiveKhr.getText());
+               totalReturn = returnAmountKhr / JavaConstant.exchangeRate;
+          }
 
-        JSONObject jsonReturnData = new JSONObject();
-        jsonReturnData.put("paymentNo", JavaConstant.invoiceNo);
-        jsonReturnData.put("reasonId", Integer.valueOf(JavaConstant.reasonId));
-        jsonReturnData.put("createBy", JavaConstant.returnerId);
-        jsonReturnData.put("returnAmount", df.format(totalReturn));
-        jsonReturnData.put("saleId", JavaConstant.saleId);
+          JSONObject jsonReturnData = new JSONObject();
+          jsonReturnData.put("paymentNo", JavaConstant.invoiceNo);
+          jsonReturnData.put("reasonId", Integer.valueOf(JavaConstant.reasonId));
+          jsonReturnData.put("createBy", JavaConstant.returnerId);
+          jsonReturnData.put("returnAmount", df.format(totalReturn));
+          jsonReturnData.put("saleId", JavaConstant.saleId);
 
-        //get dataSale 
-        ArrayList<ReturnProductModel> dataDetails = new ArrayList<>();
-        for (int i = 0; i < listCom.length; i++) {
-            var obj = ((BoxItem) listCom[i]);
-            double price = JavaConstant.getReplace(obj.getLabelPrice());
-            double amount = JavaConstant.getReplace(obj.getLabelAmountUsd());
-            double discountDigit = obj.getDiscountDigit();
-            double discountValue = obj.getDiscountValue();
+          //get dataSale 
+          ArrayList<ReturnProductModel> dataDetails = new ArrayList<>();
+          for (int i = 0; i < listCom.length; i++) {
+               var obj = ((BoxItem) listCom[i]);
+               double price = JavaConstant.getReplace(obj.getLabelPrice());
+               double amount = JavaConstant.getReplace(obj.getLabelAmountUsd());
+               double discountDigit = obj.getDiscountDigit();
+               double discountValue = obj.getDiscountValue();
 
-            double disAmt = JavaConstant.getReplace(obj.getDiscountAmount());
+               double disAmt = JavaConstant.getReplace(obj.getDiscountAmount());
 
-            ReturnProductModel pro = new ReturnProductModel(
+               ReturnProductModel pro = new ReturnProductModel(
                     obj.getProductId(),
                     obj.getQty(),
                     price,
@@ -1917,450 +1916,449 @@ public class PaymentOption extends javax.swing.JDialog {
                     obj.getLabelProductName(),
                     obj.getLabelBarcode(),
                     disAmt
-            );
-            dataDetails.add(pro);
-        }
-        jsonReturnData.put("dataDetails", dataDetails);
+               );
+               dataDetails.add(pro);
+          }
+          jsonReturnData.put("dataDetails", dataDetails);
 
-        //System.out.println("jsonReturnData  : " + jsonReturnData);
-
-        Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-        //System.out.println("responseReturn : " + responseReturn);
-        try {
-            if (responseReturn.isSuccessful()) {
+          //System.out.println("jsonReturnData  : " + jsonReturnData);
+          Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
+          //System.out.println("responseReturn : " + responseReturn);
+          try {
+               if (responseReturn.isSuccessful()) {
 
 //               ============ after return reset value ==================
-                // check reason damaged or expired
-                Response responseReason = JavaConnection.get("/reason/" + JavaConstant.reasonId);
-                String reasonString = responseReason.body().string();
-                ObjectMapper object = new ObjectMapper();
+                    // check reason damaged or expired
+                    Response responseReason = JavaConnection.get("/reason/" + JavaConstant.reasonId);
+                    String reasonString = responseReason.body().string();
+                    ObjectMapper object = new ObjectMapper();
 
-                ReasonModel model = object.readValue(reasonString, ReasonModel.class);
+                    ReasonModel model = object.readValue(reasonString, ReasonModel.class);
 
-                // check if reason is Damaged or  Expired
-                if (model.getData().getReason().equals("Damaged") || model.getData().getReason().equals("Expired")) {
+                    // check if reason is Damaged or  Expired
+                    if (model.getData().getReason().equals("Damaged") || model.getData().getReason().equals("Expired")) {
 
-                } else {
-                    // will reset qty on ui 
-                    JavaConstant.setBackQty(detailItem, panelProduct);
-                }
+                    } else {
+                         // will reset qty on ui 
+                         JavaConstant.setBackQty(detailItem, panelProduct);
+                    }
 
-                JavaConstant.resetValueReturn();
+                    JavaConstant.resetValueReturn();
 
-                String _data = responseReturn.body().string();
-                dispose();
-                detailItem.removeAll();
-                detailItem.revalidate();
-                detailItem.repaint();
-                subtotalPanel.setLabelSubTitleToZero();
-                btnPayment.setBackground(WindowColor.lightGray);
-                btnCancel.setBackground(WindowColor.lightGray);
-                buttonHoldOrder.setBackground(WindowColor.lightGray);
-                btnReturn.setBackground(WindowColor.brown);
-                btnDiscount.setBackground(WindowColor.green);
-                detailItem.setBackground(WindowColor.slightGreen);
-                detailItem.setBorder(null);
-                btnPayment.setButtonName("Payment");
-                titleOrder.setVisible(false);
+                    String _data = responseReturn.body().string();
+                    dispose();
+                    detailItem.removeAll();
+                    detailItem.revalidate();
+                    detailItem.repaint();
+                    subtotalPanel.setLabelSubTitleToZero();
+                    btnPayment.setBackground(WindowColor.lightGray);
+                    btnCancel.setBackground(WindowColor.lightGray);
+                    buttonHoldOrder.setBackground(WindowColor.lightGray);
+                    btnReturn.setBackground(WindowColor.brown);
+                    btnDiscount.setBackground(WindowColor.green);
+                    detailItem.setBackground(WindowColor.slightGreen);
+                    detailItem.setBorder(null);
+                    btnPayment.setButtonName("Payment");
+                    titleOrder.setVisible(false);
 
-                PrinterReturn print = new PrinterReturn(new JFrame(), true);
-                ObjectMapper objMap = new ObjectMapper();
-                DataSuccessModel d = objMap.readValue(_data, DataSuccessModel.class);
-                print.setDataSuccess(d);
-                print.revalidate();
-                print.repaint();
-                print.printReceipt(); // print paper with device
-                print.setVisible(true);
+                    PrinterReturn print = new PrinterReturn(new JFrame(), true);
+                    ObjectMapper objMap = new ObjectMapper();
+                    DataSuccessModel d = objMap.readValue(_data, DataSuccessModel.class);
+                    print.setDataSuccess(d);
+                    print.revalidate();
+                    print.repaint();
+                    print.printReceipt(); // print paper with device
+                    //print.setVisible(true);
 
-                // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
-                ReturnDialog r = new ReturnDialog(new JFrame(), true);
-                r.setResetReturn();
+                    // assign JavaConstant.isReturn , reasonId , inovoiceNo to null
+                    ReturnDialog r = new ReturnDialog(new JFrame(), true);
+                    r.setResetReturn();
 
-                ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
-            } else {
-                System.err.println("err = 4444");
-            }
-        } catch (Exception e) {
-            System.err.println("eror return : " + e);
-        }
+                    ModelReturnData.setReceiveToNull(); // assign value null to receive_usd and receive_khr 
+               } else {
+                    System.err.println("err = 4444");
+               }
+          } catch (Exception e) {
+               System.err.println("eror return : " + e);
+          }
 
-    }
+     }
 
 
      private void lbCashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCashMouseClicked
-         paymentType = "cash";
-         lbCreditCard.setBackground(WindowColor.lightBlue);
-         lbCash.setBackground(WindowColor.green);
+          paymentType = "cash";
+          lbCreditCard.setBackground(WindowColor.lightBlue);
+          lbCash.setBackground(WindowColor.green);
      }//GEN-LAST:event_lbCashMouseClicked
 
      private void lbCreditCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCreditCardMouseClicked
-         paymentType = JavaConstant.typeCredit;
-         lbCreditCard.setBackground(WindowColor.green);
-         lbCash.setBackground(WindowColor.lightBlue);
+          paymentType = JavaConstant.typeCredit;
+          lbCreditCard.setBackground(WindowColor.green);
+          lbCash.setBackground(WindowColor.lightBlue);
      }//GEN-LAST:event_lbCreditCardMouseClicked
 
      private void txtReceiveKhrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReceiveKhrActionPerformed
-         // TODO add your handling code here:
+          // TODO add your handling code here:
      }//GEN-LAST:event_txtReceiveKhrActionPerformed
 
      private void buttonChargeAndPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonChargeAndPrintMouseEntered
-         // TODO add your handling code here:
+          // TODO add your handling code here:
      }//GEN-LAST:event_buttonChargeAndPrintMouseEntered
 
     private void lbOneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseEntered
-        lbOne.setBackground(WindowColor.slighWhite);
+         lbOne.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbOneMouseEntered
 
     private void lbOneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOneMouseExited
-        lbOne.setBackground(WindowColor.white);
+         lbOne.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbOneMouseExited
 
     private void lbTwoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTwoMouseEntered
-        lbTwo.setBackground(WindowColor.slighWhite);
+         lbTwo.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbTwoMouseEntered
 
     private void lbTwoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTwoMouseExited
-        lbTwo.setBackground(WindowColor.white);
+         lbTwo.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbTwoMouseExited
 
     private void lbThreeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThreeMouseEntered
-        lbThree.setBackground(WindowColor.slighWhite);
+         lbThree.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbThreeMouseEntered
 
     private void lbThreeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbThreeMouseExited
-        lbThree.setBackground(WindowColor.white);
+         lbThree.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbThreeMouseExited
 
     private void lbFourMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFourMouseEntered
-        lbFour.setBackground(WindowColor.slighWhite);
+         lbFour.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbFourMouseEntered
 
     private void lbFourMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFourMouseExited
-        lbFour.setBackground(WindowColor.white);
+         lbFour.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbFourMouseExited
 
     private void lbFiveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFiveMouseEntered
-        lbFive.setBackground(WindowColor.slighWhite);
+         lbFive.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbFiveMouseEntered
 
     private void lbFiveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbFiveMouseExited
-        lbFive.setBackground(WindowColor.white);
+         lbFive.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbFiveMouseExited
 
     private void lbSixMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSixMouseEntered
-        lbSix.setBackground(WindowColor.slighWhite);
+         lbSix.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbSixMouseEntered
 
     private void lbSixMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSixMouseExited
-        lbSix.setBackground(WindowColor.white);
+         lbSix.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbSixMouseExited
 
     private void lbSevenMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSevenMouseEntered
-        lbSeven.setBackground(WindowColor.slighWhite);
+         lbSeven.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbSevenMouseEntered
 
     private void lbSevenMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSevenMouseExited
-        lbSeven.setBackground(WindowColor.white);
+         lbSeven.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbSevenMouseExited
 
     private void lbEightMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEightMouseEntered
-        lbEight.setBackground(WindowColor.slighWhite);
+         lbEight.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbEightMouseEntered
 
     private void lbEightMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEightMouseExited
-        lbEight.setBackground(WindowColor.white);
+         lbEight.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbEightMouseExited
 
     private void lbNineMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNineMouseEntered
-        lbNine.setBackground(WindowColor.slighWhite);
+         lbNine.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbNineMouseEntered
 
     private void lbNineMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNineMouseExited
-        lbNine.setBackground(WindowColor.white);
+         lbNine.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbNineMouseExited
 
     private void lbDeleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseEntered
-        lbDelete.setBackground(WindowColor.slighWhite);
+         lbDelete.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbDeleteMouseEntered
 
     private void lbDeleteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDeleteMouseExited
-        lbDelete.setBackground(WindowColor.white);
+         lbDelete.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbDeleteMouseExited
 
     private void lbDotMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDotMouseEntered
-        lbDot.setBackground(WindowColor.slighWhite);
+         lbDot.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbDotMouseEntered
 
     private void lbDotMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDotMouseExited
-        lbDot.setBackground(WindowColor.white);
+         lbDot.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbDotMouseExited
 
     private void lbZeroMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbZeroMouseEntered
-        lbZero.setBackground(WindowColor.slighWhite);
+         lbZero.setBackground(WindowColor.slighWhite);
     }//GEN-LAST:event_lbZeroMouseEntered
 
     private void lbZeroMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbZeroMouseExited
-        lbZero.setBackground(WindowColor.white);
+         lbZero.setBackground(WindowColor.white);
     }//GEN-LAST:event_lbZeroMouseExited
 
     private void btnEinvoiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEinvoiceMouseClicked
 
-        String custId = txtCustomerId.getValueTextField();
-        String cusName = txtCustomerName.getValueTextField();
-        String phone = txtCustomerPhone.getValueTextField();
+         String custId = txtCustomerId.getValueTextField();
+         String cusName = txtCustomerName.getValueTextField();
+         String phone = txtCustomerPhone.getValueTextField();
 
-        if ((custId == null || custId.isEmpty())
-                && (cusName == null || cusName.isEmpty())
-                && (phone == null || phone.isEmpty())) {
-            return;
-        } else {
-            charge();
-        }
+         if ((custId == null || custId.isEmpty())
+              && (cusName == null || cusName.isEmpty())
+              && (phone == null || phone.isEmpty())) {
+              return;
+         } else {
+              charge();
+         }
     }//GEN-LAST:event_btnEinvoiceMouseClicked
 
      private void txtReceiveUsdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyPressed
-         _checkUsd(txtReceiveUsd.getText());
+          _checkUsd(txtReceiveUsd.getText());
      }//GEN-LAST:event_txtReceiveUsdKeyPressed
 
      private void txtReceiveUsdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveUsdKeyTyped
-         _checkUsd(txtReceiveUsd.getText());
+          _checkUsd(txtReceiveUsd.getText());
      }//GEN-LAST:event_txtReceiveUsdKeyTyped
 
      private void txtReceiveKhrKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveKhrKeyPressed
-         _checkKhr(txtReceiveKhr.getText());
+          _checkKhr(txtReceiveKhr.getText());
      }//GEN-LAST:event_txtReceiveKhrKeyPressed
 
      private void txtReceiveKhrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtReceiveKhrKeyTyped
-         _checkKhr(txtReceiveKhr.getText());
+          _checkKhr(txtReceiveKhr.getText());
      }//GEN-LAST:event_txtReceiveKhrKeyTyped
 
-    DecimalFormat kh = new DecimalFormat("#");
+     DecimalFormat kh = new DecimalFormat("#");
 
-    private void setValueLabelUsd(double remaining, double change) {
-        String receviUsd = txtReceiveUsd.getText();
-        String receviKhr = txtReceiveKhr.getText();
+     private void setValueLabelUsd(double remaining, double change) {
+          String receviUsd = txtReceiveUsd.getText();
+          String receviKhr = txtReceiveKhr.getText();
 
-        if (remaining == 0 && change == 0) {
-            lbRemainingUsd.setLabelName(df.format(0));
-            lbRemainingKhr.setLabelName(dm.format(0));
-            lbChangeKhr.setLabelName(dm.format(change));
-            lbChangeUsd.setLabelName(df.format(change));
-            return;
-        }
+          if (remaining == 0 && change == 0) {
+               lbRemainingUsd.setLabelName(df.format(0));
+               lbRemainingKhr.setLabelName(dm.format(0));
+               lbChangeKhr.setLabelName(dm.format(change));
+               lbChangeUsd.setLabelName(df.format(change));
+               return;
+          }
 
-        if (remaining < 0) {
-            String convertDoubleToStr = "" + remaining;
-            convertDoubleToStr = convertDoubleToStr.replace("-", "");
-            double stringToDouble = Double.parseDouble(convertDoubleToStr);
-            lbRemainingUsd.setLabelName(df.format(Double.valueOf(stringToDouble)));
-            double _re = stringToDouble * JavaConstant.exchangeRate;
+          if (remaining < 0) {
+               String convertDoubleToStr = "" + remaining;
+               convertDoubleToStr = convertDoubleToStr.replace("-", "");
+               double stringToDouble = Double.parseDouble(convertDoubleToStr);
+               lbRemainingUsd.setLabelName(df.format(Double.valueOf(stringToDouble)));
+               double _re = stringToDouble * JavaConstant.exchangeRate;
 
-            lbRemainingKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_re));
-            lbChangeKhr.setLabelName(dm.format(change));
-            lbChangeUsd.setLabelName(df.format(change));
+               lbRemainingKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_re));
+               lbChangeKhr.setLabelName(dm.format(change));
+               lbChangeUsd.setLabelName(df.format(change));
 
-        } else {
+          } else {
 
-            if (change < 5) {
-                change = change * JavaConstant.exchangeRate4050;
+               if (change < 5) {
+                    change = change * JavaConstant.exchangeRate4050;
 
-                lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(change));
+                    lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(change));
 
-                lbRemainingKhr.setLabelName(dm.format(0));
-                lbRemainingUsd.setLabelName(df.format(0));
-                lbChangeUsd.setLabelName(df.format(0));
-            } else {
+                    lbRemainingKhr.setLabelName(dm.format(0));
+                    lbRemainingUsd.setLabelName(df.format(0));
+                    lbChangeUsd.setLabelName(df.format(0));
+               } else {
 
-                double lastPoint = 0;
-                int cashChange = 0;
-                int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
+                    double lastPoint = 0;
+                    int cashChange = 0;
+                    int[] arrInt = {100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5};
 
-                for (int i = 0; i < arrInt.length; i++) {
-                    if (change >= arrInt[i]) {
-                        lastPoint = change - arrInt[i];
-                        cashChange = arrInt[i];
-                        break;
+                    for (int i = 0; i < arrInt.length; i++) {
+                         if (change >= arrInt[i]) {
+                              lastPoint = change - arrInt[i];
+                              cashChange = arrInt[i];
+                              break;
+                         }
                     }
-                }
-                lbChangeUsd.setLabelName(df.format(cashChange));
-                lastPoint = lastPoint * JavaConstant.exchangeRate4050;
-                if (lastPoint == 0) {
-                    lbChangeKhr.setLabelName(dm.format(lastPoint));
-                } else {
-                    lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(lastPoint));
-                }
-
-                lbRemainingKhr.setLabelName(dm.format(0));
-                lbRemainingUsd.setLabelName(df.format(0));
-            }
-        }
-
-    }
-
-    private void setValueLabelKhr(double remaining, double change) {
-        String receviUsd = txtReceiveUsd.getText();
-        String receviKhr = txtReceiveKhr.getText();
-        String convertDoubleToStr = "" + remaining;
-        convertDoubleToStr = convertDoubleToStr.replace("-", "");
-        double _d = Double.parseDouble(convertDoubleToStr);
-        double _remainingUsd = _d / JavaConstant.exchangeRate;
-
-        if (remaining == 0 && change == 0) {
-            lbRemainingKhr.setLabelName(dm.format(0));
-            lbRemainingUsd.setLabelName(df.format(0));
-            lbChangeKhr.setLabelName(dm.format(0));
-            lbChangeUsd.setLabelName(df.format(0));
-            return;
-        }
-
-        if (remaining < 0) {
-
-            convertDoubleToStr = JavaRoundUpKhr.setRoundNumber(_d);
-            if (txtReceiveKhr.getText().isEmpty()) {
-                lbRemainingKhr.setLabelName(lbTotalKhr.getLabelName());
-            } else {
-                lbRemainingKhr.setLabelName(convertDoubleToStr);
-            }
-            lbRemainingUsd.setLabelName(df.format(_remainingUsd));
-            lbChangeKhr.setLabelName(dm.format(0));
-            lbChangeUsd.setLabelName(df.format(0));
-
-        } else {
-
-            if (sign.equals("khr")) {
-                lbRemainingUsd.setLabelName(df.format(0));
-            } else if (sign.equals("usd")) {
-                lbRemainingUsd.setLabelName(df.format(_d));
-            }
-            lbRemainingKhr.setLabelName(dm.format(0));
-            String khrValue = JavaRoundUpKhr.setRoundNumber(change);
-            lbChangeKhr.setLabelName(khrValue);
-            lbChangeUsd.setLabelName(df.format(0));
-        }
-
-    }
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PaymentOption dialog = new PaymentOption(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                    lbChangeUsd.setLabelName(df.format(cashChange));
+                    lastPoint = lastPoint * JavaConstant.exchangeRate4050;
+                    if (lastPoint == 0) {
+                         lbChangeKhr.setLabelName(dm.format(lastPoint));
+                    } else {
+                         lbChangeKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(lastPoint));
                     }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
-    public String getTotalUsd() {
-        return totalUsd;
-    }
+                    lbRemainingKhr.setLabelName(dm.format(0));
+                    lbRemainingUsd.setLabelName(df.format(0));
+               }
+          }
 
-    public void setTotalUsd(String totalUsd) {
-        this.totalUsd = totalUsd;
-        lbTotalUsd.setLabelName(totalUsd);
-        String moneyUsd = totalUsd.replace("$", "");
-        moneyUsd = moneyUsd.replace(",", "");
-        double totalKhr = Double.valueOf(moneyUsd);
-        double _totalKh = JavaRoundDown.roundDown("" + totalKhr * JavaConstant.exchangeRate);
-        lbTotalKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_totalKh));
+     }
 
-        if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
-            txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
-            txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
-            lbChangeKhr.setLabelName(dm.format(Double.parseDouble(ModelReturnData.change_khr)));
-            lbChangeUsd.setLabelName(df.format(ModelReturnData.change_usd));
+     private void setValueLabelKhr(double remaining, double change) {
+          String receviUsd = txtReceiveUsd.getText();
+          String receviKhr = txtReceiveKhr.getText();
+          String convertDoubleToStr = "" + remaining;
+          convertDoubleToStr = convertDoubleToStr.replace("-", "");
+          double _d = Double.parseDouble(convertDoubleToStr);
+          double _remainingUsd = _d / JavaConstant.exchangeRate;
 
-            txtReceiveKhr.setFocusable(false);
-            txtReceiveUsd.setFocusable(false);
-            txtCustomerId.requestFocusInWindow();
-        }
+          if (remaining == 0 && change == 0) {
+               lbRemainingKhr.setLabelName(dm.format(0));
+               lbRemainingUsd.setLabelName(df.format(0));
+               lbChangeKhr.setLabelName(dm.format(0));
+               lbChangeUsd.setLabelName(df.format(0));
+               return;
+          }
 
-    }
+          if (remaining < 0) {
 
-    public Button getBtnDiscount() {
-        return btnDiscount;
-    }
+               convertDoubleToStr = JavaRoundUpKhr.setRoundNumber(_d);
+               if (txtReceiveKhr.getText().isEmpty()) {
+                    lbRemainingKhr.setLabelName(lbTotalKhr.getLabelName());
+               } else {
+                    lbRemainingKhr.setLabelName(convertDoubleToStr);
+               }
+               lbRemainingUsd.setLabelName(df.format(_remainingUsd));
+               lbChangeKhr.setLabelName(dm.format(0));
+               lbChangeUsd.setLabelName(df.format(0));
 
-    public void setBtnDiscount(Button btnDiscount) {
-        this.btnDiscount = btnDiscount;
-    }
+          } else {
 
-    public Component[] getListCom() {
-        return listCom;
-    }
+               if (sign.equals("khr")) {
+                    lbRemainingUsd.setLabelName(df.format(0));
+               } else if (sign.equals("usd")) {
+                    lbRemainingUsd.setLabelName(df.format(_d));
+               }
+               lbRemainingKhr.setLabelName(dm.format(0));
+               String khrValue = JavaRoundUpKhr.setRoundNumber(change);
+               lbChangeKhr.setLabelName(khrValue);
+               lbChangeUsd.setLabelName(df.format(0));
+          }
 
-    public void setListCom(Component[] listCom) {
-        this.listCom = listCom;
-    }
+     }
 
-    public SubtotalPanel getSubtotalPanel() {
-        return subtotalPanel;
-    }
+     public static void main(String args[]) {
 
-    public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
-        this.subtotalPanel = subtotalPanel;
-    }
+          java.awt.EventQueue.invokeLater(new Runnable() {
+               public void run() {
+                    PaymentOption dialog = new PaymentOption(new javax.swing.JFrame(), true);
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                         @Override
+                         public void windowClosing(java.awt.event.WindowEvent e) {
+                              System.exit(0);
+                         }
+                    });
+                    dialog.setVisible(true);
+               }
+          });
+     }
 
-    public JPanel getDetailItem() {
-        return detailItem;
-    }
+     public String getTotalUsd() {
+          return totalUsd;
+     }
 
-    public void setDetailItem(JPanel detailItem) {
-        this.detailItem = detailItem;
-    }
+     public void setTotalUsd(String totalUsd) {
+          this.totalUsd = totalUsd;
+          lbTotalUsd.setLabelName(totalUsd);
+          String moneyUsd = totalUsd.replace("$", "");
+          moneyUsd = moneyUsd.replace(",", "");
+          double totalKhr = Double.valueOf(moneyUsd);
+          double _totalKh = JavaRoundDown.roundDown("" + totalKhr * JavaConstant.exchangeRate);
+          lbTotalKhr.setLabelName(JavaRoundUpKhr.setRoundNumber(_totalKh));
 
-    public JPanel getBoxOne() {
-        return boxOne;
-    }
+          if (JavaConstant.isReturn != null || JavaConstant.returnByBarcode != null) {
+               txtReceiveKhr.setText("" + ModelReturnData.receive_khr);
+               txtReceiveUsd.setText("" + ModelReturnData.receive_usd);
+               lbChangeKhr.setLabelName(dm.format(Double.parseDouble(ModelReturnData.change_khr)));
+               lbChangeUsd.setLabelName(df.format(ModelReturnData.change_usd));
 
-    public void setBoxOne(JPanel boxOne) {
-        this.boxOne = boxOne;
-    }
+               txtReceiveKhr.setFocusable(false);
+               txtReceiveUsd.setFocusable(false);
+               txtCustomerId.requestFocusInWindow();
+          }
 
-    public Button getBtnPayment() {
-        return btnPayment;
-    }
+     }
 
-    public void setBtnPayment(Button btnPayment) {
-        this.btnPayment = btnPayment;
-    }
+     public Button getBtnDiscount() {
+          return btnDiscount;
+     }
 
-    public Button getButtonHoldOrder() {
-        return buttonHoldOrder;
-    }
+     public void setBtnDiscount(Button btnDiscount) {
+          this.btnDiscount = btnDiscount;
+     }
 
-    public void setButtonHoldOrder(Button buttonHoldOrder) {
-        this.buttonHoldOrder = buttonHoldOrder;
-    }
+     public Component[] getListCom() {
+          return listCom;
+     }
 
-    public ButtonCancel getBtnCancel() {
-        return btnCancel;
-    }
+     public void setListCom(Component[] listCom) {
+          this.listCom = listCom;
+     }
 
-    public void setBtnCancel(ButtonCancel btnCancel) {
-        this.btnCancel = btnCancel;
-    }
+     public SubtotalPanel getSubtotalPanel() {
+          return subtotalPanel;
+     }
 
-    public Button getBtnReturn() {
-        return btnReturn;
-    }
+     public void setSubtotalPanel(SubtotalPanel subtotalPanel) {
+          this.subtotalPanel = subtotalPanel;
+     }
 
-    public void setBtnReturn(Button btnReturn) {
-        this.btnReturn = btnReturn;
-    }
+     public JPanel getDetailItem() {
+          return detailItem;
+     }
 
-    public JLabel getTitleOrder() {
-        return titleOrder;
-    }
+     public void setDetailItem(JPanel detailItem) {
+          this.detailItem = detailItem;
+     }
 
-    public void setTitleOrder(JLabel titleOrder) {
-        this.titleOrder = titleOrder;
-    }
+     public JPanel getBoxOne() {
+          return boxOne;
+     }
+
+     public void setBoxOne(JPanel boxOne) {
+          this.boxOne = boxOne;
+     }
+
+     public Button getBtnPayment() {
+          return btnPayment;
+     }
+
+     public void setBtnPayment(Button btnPayment) {
+          this.btnPayment = btnPayment;
+     }
+
+     public Button getButtonHoldOrder() {
+          return buttonHoldOrder;
+     }
+
+     public void setButtonHoldOrder(Button buttonHoldOrder) {
+          this.buttonHoldOrder = buttonHoldOrder;
+     }
+
+     public ButtonCancel getBtnCancel() {
+          return btnCancel;
+     }
+
+     public void setBtnCancel(ButtonCancel btnCancel) {
+          this.btnCancel = btnCancel;
+     }
+
+     public Button getBtnReturn() {
+          return btnReturn;
+     }
+
+     public void setBtnReturn(Button btnReturn) {
+          this.btnReturn = btnReturn;
+     }
+
+     public JLabel getTitleOrder() {
+          return titleOrder;
+     }
+
+     public void setTitleOrder(JLabel titleOrder) {
+          this.titleOrder = titleOrder;
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
