@@ -21,8 +21,8 @@ public class CategoryServiceImp implements CategoryService {
         List<CategoryResponse> data = null;
 
         if (pageNumber == null && pageSize == null) {
-            data = categoryRepository.findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(code,
-                            value).stream()
+            data = categoryRepository.searchByCatNameEnOrCatNameKh(null,value,code
+                            ).stream()
                     .map(p -> CategoryResponse.builder()
                             .id(p.getId())
                             .catNameEn(p.getCatNameEn())
@@ -40,8 +40,7 @@ public class CategoryServiceImp implements CategoryService {
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
             Page<Category> pages = categoryRepository
-                    .findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(code,
-                            value, pageRequest);
+                    .searchByCatNameEnOrCatNameKh(pageRequest,value, code);
 
             List<CategoryResponse> content = pages.getContent().stream()
                     .map(p -> CategoryResponse.builder()

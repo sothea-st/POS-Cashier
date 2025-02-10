@@ -118,12 +118,8 @@ public class BrandServiceImp implements BrandServices{
     @Override
     public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue) {
         List<BrandResponse> data = null;
-
-        System.out.println("pageNumber " + pageNumber);
-        System.out.println("pageSize " + pageSize);
-
         if (pageNumber == null && pageSize == null) {
-            data = brandRepository.searchBrand(searchValue).stream()
+            data = brandRepository.searchByNameEnOrNameKh(null,searchValue).stream()
                     .map(this::mBrandResponse)
                     .toList();
             return JavaCollectionResponse.builder()
@@ -133,7 +129,7 @@ public class BrandServiceImp implements BrandServices{
         }else{
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-            Page<Brand> pages = brandRepository.searchBrand(pageRequest, searchValue);
+            Page<Brand> pages = brandRepository.searchByNameEnOrNameKh(pageRequest, searchValue);
             
             List<BrandResponse> content = pages.getContent()
                                 .stream()

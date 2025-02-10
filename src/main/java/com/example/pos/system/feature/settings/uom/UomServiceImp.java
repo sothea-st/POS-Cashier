@@ -186,6 +186,8 @@ public class UomServiceImp implements UomService{
     public ResponseSuccess update(UomRequest uomRequest, Integer id) {
 
         String uomNameKh = uomRequest.uomNameKh();
+
+        System.out.println("uomNameKh  : " + uomNameKh);
         if (uomNameKh != null) {
             uomNameKh = uomNameKh.isEmpty() ? null : uomRequest.uomNameKh();
         }
@@ -198,7 +200,7 @@ public class UomServiceImp implements UomService{
                 uomRepository.existsByUomNameEnAndStatusTrueAndIsDeletedFalse(uomRequest.uomNameEn())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, nameEnAlreadyExist);
         }
-        if (!uom.getUomNameKh().equals(uomRequest.uomNameKh()) &&
+        if ( uom.getUomNameKh() != null && !uom.getUomNameKh().equals(uomRequest.uomNameKh()) &&
                 uomRepository.existsByUomNameKhAndStatusTrueAndIsDeletedFalseAndUomNameKhIsNotNull(uomRequest.uomNameKh()) && uomNameKh != null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, nameKhAlreadyExist);
         }
