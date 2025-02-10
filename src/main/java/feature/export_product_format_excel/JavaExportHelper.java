@@ -233,6 +233,9 @@ public class JavaExportHelper {
                RangeModel model = object.readValue(responseData, RangeModel.class);
 
                for (RangeDetail data : model.getData()) {
+                    
+                    System.err.println(" rangId : " + data.getId() + " rangeNameEn : " + 
+                         data.getRangeNameEn() + " wharehouseId : " + data.getWarehouse().getId() + " wharehouseNameEn : " + data.getWarehouse().getWarehouseNameEn());
                     list.add(data);
                }
 

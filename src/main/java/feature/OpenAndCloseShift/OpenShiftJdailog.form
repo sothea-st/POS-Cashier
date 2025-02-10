@@ -155,7 +155,7 @@
         <Component class="FormComponent.JavaTextField" name="txtTotalKhr">
           <Properties>
             <Property name="labelName" type="java.lang.String" value="Total Cash (KHR) *"/>
-            <Property name="placeHolder" type="java.lang.String" value="0"/>
+            <Property name="placeHolder" type="java.lang.String" value="0&#x179a;"/>
           </Properties>
         </Component>
         <Component class="FormComponent.JavaTextField" name="txtDateTime">

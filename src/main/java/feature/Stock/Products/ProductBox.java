@@ -330,7 +330,7 @@ public class ProductBox extends javax.swing.JPanel {
           productBox.add(lbName, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 160, 40));
 
           lbWeight.setText("Weight");
-          productBox.add(lbWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 77, 15));
+          productBox.add(lbWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 120, 15));
 
           txtBarcode.setText("Barcode :");
           productBox.add(txtBarcode, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 110, 20));
@@ -366,7 +366,7 @@ public class ProductBox extends javax.swing.JPanel {
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(15, Short.MAX_VALUE)
                     .addComponent(productBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(19, Short.MAX_VALUE))
+                    .addGap(19, 19, 19))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -66,7 +66,7 @@ public class GetProduct extends javax.swing.JPanel {
           } else {
                proNameKh.setText("");
           }
-          proNameKh.setFont(WindowFonts.khmerOsContent12);
+//          proNameKh.setFont(WindowFonts.khmerOsContentBold12);
 
           qty.setText(_qty);
           price.setText(_price);

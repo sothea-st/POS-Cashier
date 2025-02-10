@@ -405,30 +405,14 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
                         // check permission 
                         JavaCheckPermission javaCheckPermission = new JavaCheckPermission(model.getRoleID(), this);
-
-//                        if (model.getRoleName().equals("Admin") || model.getRoleName().equals("Supervisor")) {
-//                             stock.setVisible(true);
-//                             buttonStaff.setVisible(true);
-//                             btnReporting.setVisible(true);
-//                             btnSettings.setVisible(true);
-//                             stock.setBackground(WindowColor.green);
-//                             btnReporting.setBackground(WindowColor.green);
-//                             btnSettings.setBackground(WindowColor.green);
-//                             buttonStaff.setBackground(WindowColor.green);
-//                        }
+ 
                         if (responseOpenShift.isSuccessful()) {
                              btnOpenShift.setBackground(WindowColor.green);
                              String result = responseOpenShift.body().string();
                              ObjectMapper objectMapper = new ObjectMapper();
                              OpenShiftDataModel data = objectMapper.readValue(result, OpenShiftDataModel.class);
                              if (data.getData().getNumberOpenShift() == 1) { // == 1 user still open shift
-
-//                                  if (model.getRoleName().equals("Admin")) {
-//                                       stock.setVisible(true);
-//                                       buttonStaff.setVisible(true);
-//                                       btnReporting.setVisible(true);
-//                                       btnSettings.setVisible(true);
-//                                  }
+ 
                                   JavaConstant.checkOpenShift = true;
 
                                   searchBox.disabledTextField(true);
@@ -552,6 +536,8 @@ public class LoginFormJdailog extends javax.swing.JDialog {
 
     private void buttonCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonCancel1MouseClicked
          JavaConstant.restoreDefaultCursor(mainFrame);
+         txtUserId.setText(null);
+         txtPassword.setText(null);
          this.dispose();
     }//GEN-LAST:event_buttonCancel1MouseClicked
 

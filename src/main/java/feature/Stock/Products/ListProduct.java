@@ -167,15 +167,7 @@ public class ListProduct extends javax.swing.JDialog {
           header.setBackground(WindowColor.darkGreen);
      }
 
-     // assing roleHasPermission and get Data
-//     public void setRoleHasPermissionDetail(RoleHasPermissionModel.RoleHasPermissionDetail roleHasPermissionDetail) {
-//          this.roleHasPermissionDetail = roleHasPermissionDetail;
-//          
-//          getProduct(listGetProduct, true, 0);
-//          
-//          btnAdd.setVisible(roleHasPermissionDetail.getIsCreate());
-//          
-//     }
+ 
      public void getProduct(JPanel jpanelData, boolean isCheck, int code) {
           
           try {

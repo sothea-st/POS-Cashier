@@ -172,13 +172,13 @@ public class ExportProductFormatEXCEL {
 
                //======== range ===========
                List<String> listRanges = JavaExportHelper.getRanges().stream()
-                    .map(c -> c.getId() + " => " + c.getRangeNameEn()).toList();
+                    .map(c -> c.getId() + " => " + c.getWarehouse().getWarehouseNameEn() + "->" + c.getRangeNameEn()).toList();
                String[] ranges = listRanges.toArray(new String[0]); // convert list to an array
                //======== end range ===========
 
                //======== range ===========
                List<String> listSlots = JavaExportHelper.getslots().stream()
-                    .map(c -> c.getId() + " => " + c.getSlotNameEn()).toList();
+                    .map(c -> c.getId() + " => " + c.getRange().getRangeNameEn() + "->" + c.getSlotNameEn()).toList();
                String[] slots = listSlots.toArray(new String[0]); // convert list to an array
                //======== end range ===========
 
