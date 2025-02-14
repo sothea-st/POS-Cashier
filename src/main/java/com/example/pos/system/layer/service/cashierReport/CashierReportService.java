@@ -9,6 +9,7 @@ import com.example.pos.system.layer.projections.LastInvoiceProjection;
 import com.example.pos.system.layer.projections.SaleSomeFieldProject;
 import com.example.pos.system.layer.projections.discountProjection.DiscountProjection;
 // import com.example.pos.connection1.repository.EmployeeRepository;
+import com.example.pos.system.layer.projections.exchange_projection.ExchangeProjection;
 import com.example.pos.system.layer.repository.SaleDetailsRepository;
 import com.example.pos.system.layer.repository.SaleRepository;
 import com.example.pos.system.layer.repository.UserRepository;
@@ -16,6 +17,7 @@ import com.example.pos.system.layer.repository.companyRepository.CompanyReposito
 import com.example.pos.system.layer.repository.paymentRepository.PaymentRepository;
 import com.example.pos.system.layer.repository.shiftRepository.CloseShiftRepository;
 import com.example.pos.system.layer.repository.shiftRepository.OpenShiftRepository;
+import org.apache.commons.math3.dfp.DfpField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.pos.system.domain.general.CloseShift;
@@ -91,6 +93,26 @@ public class CashierReportService {
                 closeShift.getCreditCard().doubleValue() +
                 closeShift.getCashUsd().doubleValue() +
                 closeShift.getCashKhr().doubleValue() / JavaConstant.exchangeRate;
+
+
+        List<ExchangeProjection> exchanges = repoSale.getExchange(userCode,posId);
+
+        double sumExchangeUSD = 0;
+        double sumExchangeKHR = 0;
+
+        for( ExchangeProjection val : exchanges ) {
+            System.out.println("sumExchangeUSD = " + val.getChange_usd() + " sumExchangeKHR = " + val.getChange_khr());
+            sumExchangeUSD += val.getChange_usd().doubleValue();
+            sumExchangeKHR += val.getChange_khr().doubleValue();
+        }
+
+
+        sumExchangeUSD = sumExchangeUSD + sumExchangeKHR/ JavaConstant.exchangeRate;
+
+
+        sumExchangeUSD = JavaConstant.getTwoPrecision(sumExchangeUSD);
+
+        cashierCount = cashierCount - sumExchangeUSD;
 
         map.put("closeCash", 1);
         map.put("cashierCount", BigDecimal.valueOf(Double.valueOf(df.format(cashierCount))));

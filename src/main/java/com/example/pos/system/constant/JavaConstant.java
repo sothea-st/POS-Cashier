@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 public class JavaConstant {
     public static String success = "success";
@@ -117,5 +118,25 @@ public class JavaConstant {
                     HttpStatus.BAD_REQUEST,
                     "Invalid date format. Expected format: yyyy-MM-dd", e);
         }
+    }
+
+
+    public static String codeAdjustment(int counter) {
+        // Get current date
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yy");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+
+        Date currentDate = new Date();
+        String year = yearFormat.format(currentDate); // Get last two digits of current year
+        String month = monthFormat.format(currentDate); // Get current month (two digits)
+        String day = dayFormat.format(currentDate); // Get current day (two digits)
+
+        // Get the auto-incrementing value (3-digit format)
+
+        String autoIncrement = String.format("%03d", counter); // Format to 3 digits (e.g., 001, 002, etc.)
+
+        // Concatenate to generate the code
+        return year + month + day + autoIncrement;
     }
 }

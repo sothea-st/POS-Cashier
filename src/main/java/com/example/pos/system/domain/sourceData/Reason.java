@@ -35,6 +35,9 @@ public class Reason {
      @Column(name = "code")
      private String code;
 
+     @Column(name = "return_type")
+     private String returnType;
+
      @Column(name = "create_by")
      private int createBy;
 

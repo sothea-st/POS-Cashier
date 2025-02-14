@@ -149,11 +149,16 @@ public class ProductService {
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
 
-                Integer qty = repoImp.sumQtyByProId(data.getId());
-                if (qty == null)
-                    qty = 0;
-                ProductModel p = proModel(data, qty);
-                list.add(p);
+//                Integer qty = repoImp.sumQtyByProId(data.getId());
+//                if (qty == null)
+//                    qty = 0;
+
+                if( getQty(data.getId()) > 0 ) {
+                    ProductModel p = proModel(data, getQty(data.getId()));
+                    list.add(p);
+                }
+
+
             }
             return list;
         }
@@ -161,11 +166,11 @@ public class ProductService {
         List<ProductProjection> lPro = repo.getProduct(limit);
         for (int i = 0; i < lPro.size(); i++) {
             var data = lPro.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
+            if( getQty(data.getId()) > 0 ) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
+
         }
 
         return list;
@@ -262,16 +267,20 @@ public class ProductService {
 
         List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
 
-
         List<ProductModel> list = new ArrayList<>();
 
         for (int i = 0; i < listData.size(); i++) {
             var data = listData.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
+//            Integer qty = repoImp.sumQtyByProId(data.getId());
+//            if (qty == null)
+//                qty = 0;
+
+            if( getQty(data.getId()) > 0 ) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
+
+
         }
         return list;
 
@@ -287,16 +296,22 @@ public class ProductService {
 
     public List<ProductModel> getProductPromotion() {
         List<ProductProjection> listD = repo.getProductPromotion();
-        List<ProductModel> listModel = new ArrayList<>();
+        List<ProductModel> list = new ArrayList<>();
         for (int i = 0; i < listD.size(); i++) {
             var data = listD.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            listModel.add(p);
+//            Integer qty = repoImp.sumQtyByProId(data.getId());
+//            if (qty == null)
+//                qty = 0;
+
+            if( getQty(data.getId()) > 0 ) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
+
+//            ProductModel p = proModel(data, qty);
+//            listModel.add(p);
         }
-        return listModel;
+        return list;
     }
 
     public List<ProductModel> getListProductByBrandId(int brandId, int limit, int page) {
@@ -306,14 +321,27 @@ public class ProductService {
         List<ProductModel> listModel = new ArrayList<>();
         for (int i = 0; i < listD.size(); i++) {
             var data = listD.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            listModel.add(p);
+//            Integer qty = repoImp.sumQtyByProId(data.getId());
+//            if (qty == null)
+//                qty = 0;
+
+            if( getQty(data.getId()) > 0 ) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                listModel.add(p);
+            }
+
+
         }
         return listModel;
     }
+
+    private int getQty(int productId){
+        Integer  qty = repoImp.sumQtyByProId(productId);
+        if (qty == null)
+            qty = 0;
+        return qty;
+    }
+
 
     public ProductModel proModel(ProductProjection data, int qty) {
         ProductModel p = new ProductModel(
@@ -354,11 +382,14 @@ public class ProductService {
             if (i == limit)
                 break;
             var data = listData.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
+//            Integer qty = repoImp.sumQtyByProId(data.getId());
+//            if (qty == null)
+//                qty = 0;
+            if(  getQty(data.getId()) > 0 ) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
+
         }
         return list;
     }

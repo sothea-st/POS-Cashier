@@ -7,6 +7,7 @@ import com.example.pos.system.layer.projections.discountProjection.DiscountProje
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.pos.system.layer.projections.exchange_projection.ExchangeProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -287,5 +288,21 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                         " where ps.user_id = ? and sale_date = ? and pp.payment_type = 'credit' \r\n" + //
                         " and ps.pos_id = ? and pp.receive_usd > 0 and ps.active = 'Active' and ps.sale_is_return is null")
         Double countSaledCredit(int userId, String saleDate, String posId);
+
+
+
+        @Query(nativeQuery = true , value = "select\n" +
+                "\tpp.change_khr ,\n" +
+                "\tpp.change_usd\n" +
+                "from\n" +
+                "\tpos_sale ps\n" +
+                "inner join pos_payment pp on\n" +
+                "\tpp.sale_id = ps.id\n" +
+                "where\n" +
+                "\tps.user_code = ?\n" +
+                "\tand ps.pos_id = ?\n" +
+                "\tand ps.active = 'Active'\n" +
+                "\tand pp.is_return is null")
+        List<ExchangeProjection> getExchange(String userCode, String posId);
 
 }

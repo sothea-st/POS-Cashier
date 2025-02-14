@@ -41,6 +41,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         boolean existsByProNameKhAndStatusIsTrueAndIsDeletedIsFalse(String proNameKh);
 
 
+
         
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\t*\r\n" + //

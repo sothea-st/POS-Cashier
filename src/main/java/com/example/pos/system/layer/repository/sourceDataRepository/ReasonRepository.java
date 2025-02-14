@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import com.example.pos.system.domain.sourceData.Reason;
 
+import javax.swing.text.html.Option;
+
 @Repository
 public interface ReasonRepository extends JpaRepository<Reason,Integer> {
      @Query(nativeQuery = true , value = "select * from pos_reason where status = true and is_deleted=false order by id desc")
@@ -26,6 +28,8 @@ public interface ReasonRepository extends JpaRepository<Reason,Integer> {
 
      @Query(nativeQuery = true , value = "select * from pos_reason pr where code = ? order by id desc")
      List<Reason> getReasonByCode(String code);
+
+     Optional<Reason> findByIdAndCodeAndStatusTrueAndIsDeletedFalse(Integer id,String code);
 
 
 }

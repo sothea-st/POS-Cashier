@@ -187,7 +187,7 @@ public class UomServiceImp implements UomService{
 
         String uomNameKh = uomRequest.uomNameKh();
 
-        System.out.println("uomNameKh  : " + uomNameKh);
+
         if (uomNameKh != null) {
             uomNameKh = uomNameKh.isEmpty() ? null : uomRequest.uomNameKh();
         }

@@ -52,6 +52,9 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
     List<Category> getCategoryByCode(String code);
 
+    @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code or c.code=:code1 ORDER BY c.movePosition ASC")
+    List<Category> findByStatusTrueAndIsDeletedFalse(@Param("code") String code , @Param("code1") String code1);
+
     Optional<Category> findByParentIdAndStatusTrueAndIsDeletedFalse(int parentId);
 
     Optional<Category> findByIdAndStatusTrueAndIsDeletedFalse(int id);
