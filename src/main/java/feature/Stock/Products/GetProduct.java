@@ -20,7 +20,7 @@ public class GetProduct extends javax.swing.JPanel {
           JavaConstant.setPointer(btnDetail);
           proNameKh.setFont(WindowFonts.khmerOsContent12);
 
-          getProduct.setPreferredSize(new Dimension(1641, 40));
+          panel.setPreferredSize(new Dimension(1641, 40));
      }
 
      private String productName;
@@ -247,7 +247,7 @@ public class GetProduct extends javax.swing.JPanel {
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
-          getProduct = new javax.swing.JPanel();
+          panel = new javax.swing.JPanel();
           proName = new javax.swing.JLabel();
           qty = new javax.swing.JLabel();
           btnEdit = new javax.swing.JLabel();
@@ -262,8 +262,8 @@ public class GetProduct extends javax.swing.JPanel {
           btnDelete = new javax.swing.JLabel();
           btnDetail = new javax.swing.JLabel();
 
-          getProduct.setBackground(new java.awt.Color(255, 255, 255));
-          getProduct.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+          panel.setBackground(new java.awt.Color(255, 255, 255));
+          panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
           proName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           proName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -317,11 +317,11 @@ public class GetProduct extends javax.swing.JPanel {
           btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
 
-          javax.swing.GroupLayout getProductLayout = new javax.swing.GroupLayout(getProduct);
-          getProduct.setLayout(getProductLayout);
-          getProductLayout.setHorizontalGroup(
-               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(getProductLayout.createSequentialGroup()
+          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+          panel.setLayout(panelLayout);
+          panelLayout.setHorizontalGroup(
+               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(panelLayout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(5, 5, 5)
@@ -350,8 +350,8 @@ public class GetProduct extends javax.swing.JPanel {
                     .addComponent(cost, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
           );
-          getProductLayout.setVerticalGroup(
-               getProductLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          panelLayout.setVerticalGroup(
+               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .addComponent(btnDetail, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -373,12 +373,12 @@ public class GetProduct extends javax.swing.JPanel {
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addGap(0, 0, 0)
-                    .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(getProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(0, 0, 0))
           );
      }// </editor-fold>//GEN-END:initComponents
@@ -391,8 +391,8 @@ public class GetProduct extends javax.swing.JPanel {
      private javax.swing.JLabel btnEdit;
      private javax.swing.JLabel cost;
      private javax.swing.JLabel division;
-     private javax.swing.JPanel getProduct;
      private javax.swing.JLabel itemCode;
+     private javax.swing.JPanel panel;
      private javax.swing.JLabel price;
      private javax.swing.JLabel proName;
      private javax.swing.JLabel proNameKh;

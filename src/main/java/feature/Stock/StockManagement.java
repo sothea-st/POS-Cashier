@@ -10,6 +10,8 @@ import feature.Stock.Products.ListProduct;
 import feature.Stock.PurchaseOrderView.PurchaseOrderView;
 import feature.Stock.PurchaseReceive.ListPurchaseReceive;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.adjustment.AdjustmentForm;
+import java.awt.Frame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -41,8 +43,16 @@ public class StockManagement extends javax.swing.JDialog {
           JavaConstant.addTitleAndLogo(this, "Stock");
           getImageAndTitle();
 
+          
+          custom();
+          
           // check permission
           checkPermission();
+     }
+
+     private void custom() {
+          jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+          jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
      }
 
      private void checkPermission() {
@@ -59,8 +69,6 @@ public class StockManagement extends javax.swing.JDialog {
 
                // convert responseData to objectMapper
                RoleHasPermissionModel model = object.readValue(responseData, RoleHasPermissionModel.class);
-
-                
 
                boolean isProduct = false;
                boolean isPurchaseOrder = false;
@@ -112,6 +120,7 @@ public class StockManagement extends javax.swing.JDialog {
           product = new Components.SettingBox();
           purchaseOrder = new Components.SettingBox();
           purchaseOrderReceive = new Components.SettingBox();
+          category = new Components.SettingBox();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,6 +153,14 @@ public class StockManagement extends javax.swing.JDialog {
                }
           });
 
+          category.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/Category.png"))); // NOI18N
+          category.setTitle("Adjustment");
+          category.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    categoryMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
           jPanel3.setLayout(jPanel3Layout);
           jPanel3Layout.setHorizontalGroup(
@@ -155,17 +172,20 @@ public class StockManagement extends javax.swing.JDialog {
                     .addComponent(purchaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(170, Short.MAX_VALUE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(18, Short.MAX_VALUE))
           );
           jPanel3Layout.setVerticalGroup(
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(15, 15, 15)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(purchaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(390, Short.MAX_VALUE))
+                    .addContainerGap(534, Short.MAX_VALUE))
           );
 
           jScrollPane1.setViewportView(jPanel3);
@@ -178,7 +198,7 @@ public class StockManagement extends javax.swing.JDialog {
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jScrollPane1)
+               .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
           );
 
           pack();
@@ -186,7 +206,7 @@ public class StockManagement extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
     private void productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_productMouseClicked
-         
+
          dispose();
          ListProduct list = new ListProduct(new JFrame(), true);
          //list.setRoleHasPermissionDetail(roleHasPermissionDetail); // assing roleHasPermission and get Data
@@ -211,6 +231,11 @@ public class StockManagement extends javax.swing.JDialog {
      private void purchaseOrderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchaseOrderMouseEntered
           // TODO add your handling code here:
      }//GEN-LAST:event_purchaseOrderMouseEntered
+
+     private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
+         AdjustmentForm adjustmentForm = new AdjustmentForm(new JFrame(), true);
+         adjustmentForm.setVisible(true);
+     }//GEN-LAST:event_categoryMouseClicked
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -277,6 +302,7 @@ public class StockManagement extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private Components.SettingBox category;
      private javax.swing.JPanel jPanel3;
      private javax.swing.JScrollPane jScrollPane1;
      private Components.SettingBox product;

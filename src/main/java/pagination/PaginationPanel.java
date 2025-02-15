@@ -154,8 +154,8 @@ public class PaginationPanel extends javax.swing.JPanel {
           showPageSize.setText(String.valueOf(dataCount));
           showTotal.setText(String.valueOf(dataCount));
      }
-     
-       public void resetPage() {
+
+     public void resetPage() {
           page = "pageOne";
           pageNumber = 1;
           totalPage = 1;
@@ -163,11 +163,10 @@ public class PaginationPanel extends javax.swing.JPanel {
           setUIBorder(pageOne, pageFour, previousPage, pageNext, pageTwo, pageThree, pageFive);
           setValueText(1, 2, 3, 4, 5);
           checkPageNumber();
-          
-          
+
           showPageSize.setText("100");
           showTotal.setText("100");
-          
+
      }
 
      public void resetPage(String page, String pageNum) {
@@ -241,6 +240,7 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mousePressed(MouseEvent e) {
+
                     Color bg = previousPage.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
                          return;
@@ -250,6 +250,7 @@ public class PaginationPanel extends javax.swing.JPanel {
 
                @Override
                public void mouseReleased(MouseEvent e) {
+
                     Color bg = previousPage.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
                          return;
@@ -379,6 +380,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                @Override
                public void mouseClicked(MouseEvent e) {
                     if (totalPage < 2) {
+                         pageTwo.setForeground(WindowColor.white);
                          return;
                     }
                     pageNumber = Integer.parseInt(pageTwo.getText());
@@ -395,21 +397,24 @@ public class PaginationPanel extends javax.swing.JPanel {
                     String value = pageTwo.getText();
                     event.onMouseClick(value);
                     event.onMouseClick(String.valueOf(pageNumber), "pageTwo");
+
                }
 
                @Override
                public void mousePressed(MouseEvent e) {
                     Color bg = pageTwo.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageTwo.setForeground(WindowColor.white);
                          return;
                     }
-                    pageTwo.setForeground(WindowColor.gray);
+                    pageTwo.setForeground(WindowColor.black);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
                     Color bg = pageTwo.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageTwo.setForeground(WindowColor.white);
                          return;
                     }
                     pageTwo.setForeground(WindowColor.black);
@@ -428,6 +433,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                @Override
                public void mouseClicked(MouseEvent e) {
                     if (totalPage < 3) {
+                         pageThree.setForeground(WindowColor.white);
                          return;
                     }
                     pageNumber = Integer.parseInt(pageThree.getText());
@@ -451,18 +457,20 @@ public class PaginationPanel extends javax.swing.JPanel {
                public void mousePressed(MouseEvent e) {
                     Color bg = pageThree.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageThree.setForeground(WindowColor.white);
                          return;
                     }
-                    pageThree.setForeground(Color.GRAY);
+                    pageThree.setForeground(WindowColor.black);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
                     Color bg = pageThree.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageThree.setForeground(WindowColor.white);
                          return;
                     }
-                    pageThree.setForeground(Color.black);
+                    pageThree.setForeground(WindowColor.black);
                }
 
                @Override
@@ -478,6 +486,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                @Override
                public void mouseClicked(MouseEvent e) {
                     if (totalPage < 4) {
+                         pageFour.setForeground(WindowColor.white);
                          return;
                     }
                     pageNumber = Integer.parseInt(pageFour.getText());
@@ -501,15 +510,17 @@ public class PaginationPanel extends javax.swing.JPanel {
                public void mousePressed(MouseEvent e) {
                     Color bg = pageFour.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageFour.setForeground(WindowColor.white);
                          return;
                     }
-                    pageFour.setForeground(WindowColor.gray);
+                    pageFour.setForeground(WindowColor.black);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
                     Color bg = pageFour.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageFour.setForeground(WindowColor.white);
                          return;
                     }
                     pageFour.setForeground(WindowColor.black);
@@ -528,6 +539,7 @@ public class PaginationPanel extends javax.swing.JPanel {
                @Override
                public void mouseClicked(MouseEvent e) {
                     if (totalPage < 5) {
+                         pageFive.setForeground(WindowColor.white);
                          return;
                     }
                     pageNumber = Integer.parseInt(pageFive.getText());
@@ -539,15 +551,17 @@ public class PaginationPanel extends javax.swing.JPanel {
                public void mousePressed(MouseEvent e) {
                     Color bg = pageFive.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageFive.setForeground(WindowColor.white);
                          return;
                     }
-                    pageFive.setForeground(WindowColor.gray);
+                    pageFive.setForeground(WindowColor.black);
                }
 
                @Override
                public void mouseReleased(MouseEvent e) {
                     Color bg = pageFive.getBackground();
                     if (bg.equals(new Color(238, 238, 238))) {
+                         pageFive.setForeground(WindowColor.white);
                          return;
                     }
                     pageFive.setForeground(WindowColor.black);

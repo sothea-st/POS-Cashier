@@ -92,6 +92,10 @@ public class JavaCombobox extends javax.swing.JPanel {
          cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
     }
 
+    
+    public void hideLabel(){
+         label.setVisible(false);
+    }
     private void search() {
         cmd.setEditable(true); // Make JComboBox editable for search
         JTextField textField = (JTextField) cmd.getEditor().getEditorComponent();

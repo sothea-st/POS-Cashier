@@ -105,6 +105,9 @@ public class ListProduct extends javax.swing.JDialog {
 
           // check permission
           btnAdd.setVisible(JavaConstant.permissionDetail.getIsCreate());
+          
+          
+          btnPdf.setVisible(false);
      }
      
      private void eventPageNumber() {
@@ -487,6 +490,7 @@ public class ListProduct extends javax.swing.JDialog {
                                    return;
                               }
                               searchCode(false);
+                              
                          }
                     };
                     

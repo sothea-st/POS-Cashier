@@ -16,17 +16,14 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-              <Component id="panel" max="32767" attributes="0"/>
-          </Group>
+          <Component id="panel" alignment="0" pref="1451" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="panel" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
+              <Component id="panel" min="-2" pref="48" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -42,77 +39,82 @@
             <LineBorder/>
           </Border>
         </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1604, 40]"/>
+        </Property>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lbNo" min="-2" pref="94" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="btnEdit" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                   <Component id="btnDetail" min="-2" pref="17" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnDelete" min="-2" pref="17" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="barcode" min="-2" pref="106" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="itemCode" min="-2" pref="116" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="division" min="-2" pref="167" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="vendorCode" pref="121" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="vendorName" min="-2" pref="155" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="proName" min="-2" pref="262" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="proNameKh" min="-2" pref="242" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="qty" min="-2" pref="102" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="price" min="-2" pref="118" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cost" min="-2" pref="112" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="lbTransactionNo" min="-2" pref="140" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="lbTransactionDate" min="-2" pref="124" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="lbPostDate" min="-2" pref="108" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lbReferenceName" pref="137" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <Component id="lbApprovalUser" pref="152" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="lbReason" pref="132" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="lbTotalQty" pref="98" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Component id="lbTotalCost" pref="111" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="cmbBrand" min="-2" pref="118" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
-              <Component id="btnDetail" alignment="0" pref="35" max="32767" attributes="0"/>
+              <Component id="btnDetail" alignment="0" max="32767" attributes="0"/>
               <Component id="btnEdit" alignment="0" max="32767" attributes="0"/>
-              <Component id="division" alignment="1" max="32767" attributes="0"/>
-              <Component id="cost" alignment="1" max="32767" attributes="0"/>
-              <Component id="price" alignment="1" max="32767" attributes="0"/>
-              <Component id="qty" alignment="1" max="32767" attributes="0"/>
-              <Component id="proNameKh" alignment="1" max="32767" attributes="0"/>
-              <Component id="proName" alignment="1" max="32767" attributes="0"/>
-              <Component id="vendorCode" alignment="1" max="32767" attributes="0"/>
-              <Component id="vendorName" alignment="1" max="32767" attributes="0"/>
-              <Component id="itemCode" alignment="1" max="32767" attributes="0"/>
-              <Component id="barcode" alignment="1" max="32767" attributes="0"/>
+              <Component id="lbNo" alignment="0" max="32767" attributes="0"/>
+              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                  <Component id="lbTransactionNo" alignment="3" max="32767" attributes="0"/>
+                  <Component id="lbTransactionDate" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="lbPostDate" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="lbReferenceName" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="lbApprovalUser" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="lbReason" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="lbTotalQty" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="lbTotalCost" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+              </Group>
+              <Component id="cmbBrand" alignment="1" pref="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="proName">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Product Name"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="qty">
+        <Component class="javax.swing.JLabel" name="lbApprovalUser">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Quantity"/>
+            <Property name="text" type="java.lang.String" value="ADJ-20250214"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbTotalQty">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="12" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="30"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="btnEdit">
@@ -126,76 +128,58 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="price">
+        <Component class="javax.swing.JLabel" name="lbTotalCost">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Price"/>
+            <Property name="text" type="java.lang.String" value="$44.7"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="barcode">
+        <Component class="javax.swing.JLabel" name="lbTransactionNo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="12" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="ADJ101-250212001"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbTransactionDate">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="12" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="4"/>
+            <Property name="text" type="java.lang.String" value="12-Feb-2025&#x9;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbPostDate">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="barcode"/>
+            <Property name="text" type="java.lang.String" value="14-Feb-2025"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="itemCode">
+        <Component class="javax.swing.JLabel" name="lbReferenceName">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="item code"/>
+            <Property name="text" type="java.lang.String" value="ADJ-20250214"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="division">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Divisoon"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="vendorCode">
+        <Component class="javax.swing.JLabel" name="lbReason">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Vendor Code"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="vendorName">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Vendor Name"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="proNameKh">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="2"/>
-            <Property name="text" type="java.lang.String" value="Product Name Khmer"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="cost">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Times New Roman" size="12" style="1"/>
-            </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Cost"/>
+            <Property name="text" type="java.lang.String" value="Physical Count Out"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="btnDelete">
@@ -218,6 +202,24 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/image/info.png"/>
             </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbNo">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Times New Roman" size="12" style="1"/>
+            </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="No"/>
+          </Properties>
+        </Component>
+        <Component class="FormComponent.combobox.JavaCombobox" name="cmbBrand">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="labelName" type="java.lang.String" value=""/>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
