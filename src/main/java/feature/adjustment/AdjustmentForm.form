@@ -39,12 +39,24 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="panelTop" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="searchField" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="1052" max="-2" attributes="0"/>
+                          <Component id="groupButtonExport" max="32767" attributes="0"/>
+                      </Group>
                       <Component id="jScrollPane" alignment="1" max="32767" attributes="0"/>
-                      <Component id="adjustmentHeader1" min="-2" pref="1532" max="-2" attributes="0"/>
-                      <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="adjustmentHeader1" min="-2" pref="1532" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="paginationPanel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
@@ -54,12 +66,20 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="panelTop" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="10" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="searchField" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="groupButtonExport" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Component id="adjustmentHeader1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Component id="jScrollPane" max="32767" attributes="0"/>
+                  <Component id="jScrollPane" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+                      <Component id="paginationPanel" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -79,23 +99,30 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="dateFrom" min="-2" pref="250" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="dateTo" min="-2" pref="250" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtBarcode" min="-2" pref="250" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmbBrand" min="-2" pref="250" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cmbBrand1" min="-2" pref="250" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="groupButtonExport" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonSave" min="-2" pref="252" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="objDateFrom" min="-2" pref="250" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="objDateTo" min="-2" pref="250" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="objTransaction" min="-2" pref="250" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="objStatus" min="-2" pref="250" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="objReason" min="-2" pref="250" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="1300" pref="1300" max="-2" attributes="0"/>
+                              <Component id="buttonSave1" min="-2" pref="252" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="1462" max="-2" attributes="0"/>
+                              <Component id="buttonSave" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -103,19 +130,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="groupButtonExport" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonSave" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="buttonSave" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="buttonSave1" min="-2" pref="35" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="dateFrom" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="dateTo" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtBarcode" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbBrand" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmbBrand1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="objDateFrom" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="objDateTo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="objStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="objReason" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="objTransaction" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="10" max="32767" attributes="0"/>
@@ -124,43 +151,49 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="Reporting.GroupButtonExport" name="groupButtonExport">
-            </Component>
-            <Component class="FormComponent.datepicker.JavaDatePicker" name="dateFrom">
+            <Component class="FormComponent.datepicker.JavaDatePicker" name="objDateFrom">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Date From *"/>
               </Properties>
             </Component>
-            <Component class="FormComponent.datepicker.JavaDatePicker" name="dateTo">
+            <Component class="FormComponent.datepicker.JavaDatePicker" name="objDateTo">
               <Properties>
                 <Property name="labelName" type="java.lang.String" value="Date To *"/>
               </Properties>
             </Component>
             <Component class="ButtonPackage.ButtonSave" name="buttonSave">
               <Properties>
-                <Property name="titleButton" type="java.lang.String" value="Apply"/>
+                <Property name="titleButton" type="java.lang.String" value="+ Add"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
               </Events>
             </Component>
-            <Component class="FormComponent.JavaTextField" name="txtBarcode">
+            <Component class="FormComponent.JavaTextField" name="objTransaction">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="Barcode *"/>
-                <Property name="placeHolder" type="java.lang.String" value="Barcode"/>
+                <Property name="labelName" type="java.lang.String" value="Transaction"/>
+                <Property name="placeHolder" type="java.lang.String" value="Transaction"/>
               </Properties>
             </Component>
-            <Component class="FormComponent.combobox.JavaCombobox" name="cmbBrand">
+            <Component class="FormComponent.combobox.JavaCombobox" name="objStatus">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="Brand *"/>
+                <Property name="labelName" type="java.lang.String" value="Status"/>
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
               </Properties>
             </Component>
-            <Component class="FormComponent.combobox.JavaCombobox" name="cmbBrand1">
+            <Component class="FormComponent.combobox.JavaCombobox" name="objReason">
               <Properties>
-                <Property name="labelName" type="java.lang.String" value="Brand *"/>
+                <Property name="labelName" type="java.lang.String" value=" Reason"/>
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
               </Properties>
+            </Component>
+            <Component class="ButtonPackage.ButtonSave" name="buttonSave1">
+              <Properties>
+                <Property name="titleButton" type="java.lang.String" value="Find"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSave1MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -197,6 +230,16 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="pagination.PaginationPanel" name="paginationPanel">
+        </Component>
+        <Component class="Components.SearchField" name="searchField">
+          <Properties>
+            <Property name="placeholder" type="java.lang.String" value="Search by name or barcode"/>
+            <Property name="valueTextSearch" type="java.lang.String" value=""/>
+          </Properties>
+        </Component>
+        <Component class="Reporting.GroupButtonExport" name="groupButtonExport">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

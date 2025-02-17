@@ -1,27 +1,140 @@
 package feature.adjustment;
 
 import Components.Color.WindowColor;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
+import Components.NotFound;
+import Constant.JavaConnection;
+import Constant.JavaConstant;
+
+import Constant.JavaRoute;
+import FormComponent.combobox.JavaComboBoxSelection;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.adjustment.adjustment_controller.AdjustmentController;
 import feature.adjustment.component.AdjustmentItem;
+import feature.adjustment.model.AdjustmentModel;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 public class AdjustmentForm extends javax.swing.JDialog {
-
+     
+     private String pageNumber = "1";
+     private int pageSize = 10;
+     private boolean isCheckSearch = true;
+     private String searchValue;
+     private int dataCount = 0;
+     private String pageType;
+     
+     private AdjustmentModel.AdjustmentDetail[] listData;
+     
+     private AdjustmentForm adjustmentForm;
+     
+     private AdjustmentController adjustmentController;
+     
      public AdjustmentForm(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
-
+          adjustmentForm = this;
+          adjustmentController = new AdjustmentController(this);
+          
+          groupButtonExport.setPdf();
+          
           custom();
+          
+          cmdStatus();
+          
+          cmdVendor();
+          
+          getAdjustment();
+          
+          eventSearch();
+          
+          eventPagination();
+     }
+     
+     private void eventPagination() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value); // value pageNumber star from 0 
+                         pageNumber = String.valueOf(_value);
+                         getData(true);
+                    }
+               }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+          };
+          paginationPanel.initEvent(event);
      }
 
+     //Action Search
+     private void eventSearch() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+                              paginationPanel.resetPage();
+                              pageNumber = "1";
+                              
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "1";
+                                   getData(true);
+                                   return;
+                              }
+                              getData(false);
+                         }
+                    };
+                    
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+                    
+               }
+          };
+          searchField.initEvent(event);
+     }
+     
+     private void getAdjustment() {
+          // Get current date
+          LocalDate currentDate = LocalDate.now();
+          String endDate = currentDate.toString();
+
+          // Get the start of the month
+          LocalDate startOfMonth = currentDate.withDayOfMonth(1);
+          String statDate = startOfMonth.toString();
+          
+          objDateFrom.setSelectedDate(JavaConstant.formateDateDDMMYYYY(statDate));
+          objDateTo.setSelectedDate(JavaConstant.formateDateDDMMYYYY(endDate));
+          
+          getData(true);
+     }
+     
      private void custom() {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           panelData.setBackground(WindowColor.mediumGreen);
-
      }
-
+     
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -29,16 +142,19 @@ public class AdjustmentForm extends javax.swing.JDialog {
           panel = new javax.swing.JPanel();
           btnCancel = new Button.Button();
           panelTop = new javax.swing.JPanel();
-          groupButtonExport = new Reporting.GroupButtonExport();
-          dateFrom = new FormComponent.datepicker.JavaDatePicker();
-          dateTo = new FormComponent.datepicker.JavaDatePicker();
+          objDateFrom = new FormComponent.datepicker.JavaDatePicker();
+          objDateTo = new FormComponent.datepicker.JavaDatePicker();
           buttonSave = new ButtonPackage.ButtonSave();
-          txtBarcode = new FormComponent.JavaTextField();
-          cmbBrand = new FormComponent.combobox.JavaCombobox();
-          cmbBrand1 = new FormComponent.combobox.JavaCombobox();
+          objTransaction = new FormComponent.JavaTextField();
+          objStatus = new FormComponent.combobox.JavaCombobox();
+          objReason = new FormComponent.combobox.JavaCombobox();
+          buttonSave1 = new ButtonPackage.ButtonSave();
           adjustmentHeader1 = new feature.adjustment.component.AdjustmentHeader();
           jScrollPane = new javax.swing.JScrollPane();
           panelData = new javax.swing.JPanel();
+          paginationPanel = new pagination.PaginationPanel();
+          searchField = new Components.SearchField();
+          groupButtonExport = new Reporting.GroupButtonExport();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -49,63 +165,74 @@ public class AdjustmentForm extends javax.swing.JDialog {
                }
           });
 
-          dateFrom.setLabelName("Date From *");
+          objDateFrom.setLabelName("Date From *");
 
-          dateTo.setLabelName("Date To *");
+          objDateTo.setLabelName("Date To *");
 
-          buttonSave.setTitleButton("Apply");
+          buttonSave.setTitleButton("+ Add");
           buttonSave.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     buttonSaveMouseClicked(evt);
                }
           });
 
-          txtBarcode.setLabelName("Barcode *");
-          txtBarcode.setPlaceHolder("Barcode");
+          objTransaction.setLabelName("Transaction");
+          objTransaction.setPlaceHolder("Transaction");
 
-          cmbBrand.setLabelName("Brand *");
-          cmbBrand.setName(""); // NOI18N
+          objStatus.setLabelName("Status");
+          objStatus.setName(""); // NOI18N
 
-          cmbBrand1.setLabelName("Brand *");
-          cmbBrand1.setName(""); // NOI18N
+          objReason.setLabelName(" Reason");
+          objReason.setName(""); // NOI18N
+
+          buttonSave1.setTitleButton("Find");
+          buttonSave1.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonSave1MouseClicked(evt);
+               }
+          });
 
           javax.swing.GroupLayout panelTopLayout = new javax.swing.GroupLayout(panelTop);
           panelTop.setLayout(panelTopLayout);
           panelTopLayout.setHorizontalGroup(
                panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelTopLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(txtBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(cmbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(cmbBrand1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE))
+                         .addGroup(panelTopLayout.createSequentialGroup()
+                              .addGap(20, 20, 20)
+                              .addComponent(objDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objReason, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelTopLayout.createSequentialGroup()
+                              .addGap(1300, 1300, 1300)
+                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(panelTopLayout.createSequentialGroup()
+                              .addGap(1462, 1462, 1462)
+                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           );
           panelTopLayout.setVerticalGroup(
                panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelTopLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
                     .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addGroup(panelTopLayout.createSequentialGroup()
-                              .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addGap(8, 8, 8))
                          .addGroup(panelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                              .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addComponent(txtBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addComponent(cmbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addComponent(cmbBrand1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                              .addComponent(objDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(objDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(objStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(objReason, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(objTransaction, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(10, Short.MAX_VALUE))
           );
 
@@ -126,29 +253,47 @@ public class AdjustmentForm extends javax.swing.JDialog {
 
           jScrollPane.setViewportView(panelData);
 
+          searchField.setPlaceholder("Search by name or barcode");
+          searchField.setValueTextSearch("");
+
           javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
           panel.setLayout(panelLayout);
           panelLayout.setHorizontalGroup(
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(panelTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+               .addGroup(panelLayout.createSequentialGroup()
                     .addGap(20, 20, 20)
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(jScrollPane)
-                         .addComponent(adjustmentHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 1532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(panelLayout.createSequentialGroup()
+                              .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(1052, 1052, 1052)
+                              .addComponent(groupButtonExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                         .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                              .addGap(0, 0, Short.MAX_VALUE)
+                              .addComponent(adjustmentHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, 1532, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                              .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(20, 20, 20))
           );
           panelLayout.setVerticalGroup(
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                     .addComponent(panelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(searchField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(groupButtonExport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(10, 10, 10)
                     .addComponent(adjustmentHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
-                    .addComponent(jScrollPane)
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(20, 20, 20)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(20, 20, 20))
           );
 
@@ -169,56 +314,195 @@ public class AdjustmentForm extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
-
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-          setData();
+          getData(true);
      }//GEN-LAST:event_buttonSaveMouseClicked
 
-     private void setData() {
-
-          panelData.setLayout(new GridBagLayout());
-          GridBagConstraints gbc = new GridBagConstraints();
-
-          gbc.gridx = 0;  // All items in the first column
-          gbc.fill = GridBagConstraints.HORIZONTAL; // Makes the items stretch horizontally
-          gbc.weightx = 1.0; // Allows item to expand horizontally
-          //gbc.insets = new Insets(0, 5, 0, 5); // Adds spacing between items
-
-          for (int i = 0; i < 10; i++) {
-               AdjustmentItem item = new AdjustmentItem();
-               gbc.gridy = i; // Set each item to a new row
-               panelData.add(item, gbc);
+     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
+          // TODO add your handling code here:
+     }//GEN-LAST:event_buttonSave1MouseClicked
+     
+     public void getData(boolean isCheck) {
+          
+          String transaction = objTransaction.getValueTextField();
+          String status = objStatus.getSelectedItem();
+          String reason = objReason.getSelectedItem();
+          
+          StringBuilder filterBuilder = new StringBuilder();
+          
+          if (isCheck) { // true  get data
+               if (transaction != null && !transaction.isEmpty()) {
+                    filterBuilder.append("&transaction=").append(transaction);
+               }
+          } else { // false search
+               System.err.println("searchValue  : " + searchValue);
+               if (searchValue != null && !searchValue.isEmpty()) {
+                    isCheckSearch = false;
+                    filterBuilder.append("&transaction=").append(searchValue);
+               }
           }
+          
+          if (!"0".equals(status)) {
+               filterBuilder.append("&status=").append(status);
+          }
+          
+          if (!"0".equals(reason)) {
+               filterBuilder.append("&reasonId=").append(reason);
+          }
+          
+          String filter = filterBuilder.toString();
+          
+          Response response = null;
+          
+          response = JavaConnection.get(JavaRoute.filterAdjustment + ""
+               + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom="
+               + objDateFrom.getSelectedDate() + "&dateTo=" + objDateTo.getSelectedDate() + filter);
+          
+          System.err.println("response = " + response);
+          
+          try {
+               
+               if (response.isSuccessful()) {
+                    String responeData = response.body().string();
 
+                    // create ojbect mapper 
+                    ObjectMapper objMapper = new ObjectMapper();
+
+                    // convert responseData to Object
+                    AdjustmentModel data = objMapper.readValue(responeData, AdjustmentModel.class);
+
+                    // pagination code
+                    dataCount = (int) data.getCount();
+                    if (isCheck) {
+                         paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
+                    } else {
+                         paginationPanel.resetPage(dataCount);
+                    }
+                    
+                    if (listData != null) {
+                         Arrays.fill(listData, null);
+                    }
+                    listData = data.getData(); // Assign new data
+
+                    setData();
+                    
+               } else {
+                    System.err.println("fail loading product");
+               }
+               
+          } catch (Exception e) {
+               System.err.println("error get adjustmens : " + e);
+          }
+     }
+     
+     private void setData() {
+          
+          panelData.removeAll();
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          
+          panelData.setLayout(gridBagLayout);
+          
+          int x = 0;
+          int y = 0;
+          
+          if (listData.length > 0) {
+               for (int i = 0; i < listData.length; i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
+                    }
+                    Integer adjustmentId = listData[i].getId();
+                    
+                    AdjustmentItem item = new AdjustmentItem(listData[i], (i + 1));
+                    
+                    ButtonEvent statusEvent = new ButtonEvent() {
+                         @Override
+                         public void onSelected(String key) {
+                              adjustmentController.updateStatus(adjustmentId, key);
+                         }
+                         
+                         @Override
+                         public void onDelete() {
+                              adjustmentController.data(adjustmentId);
+                         }
+                         
+                    };
+                    item.initEvent(statusEvent);
+                    
+                    paginationPanel.setVisible(true);
+                    panelData.add(item, gbc);
+               }
+          } else {
+               panelData.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               panelData.add(nofound, BorderLayout.CENTER);
+               panelData.add(nofound);
+               panelData.revalidate();
+               panelData.repaint();
+               paginationPanel.setVisible(false);
+          }
+          
           panelData.revalidate();
           panelData.repaint();
-
      }
 
+//     private void updateStatus(Integer adjustmentId, String statuValue) {
+//          
+//          if( statuValue.equals("Draft") ) {
+//               return;
+//          }
+//          
+//          UIManager UI = new UIManager();
+//          UI.put("OptionPane.background", WindowColor.mediumGreen);
+//          UI.put("Panel.background", WindowColor.mediumGreen);
+//          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+//
+//          int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to update status?",
+//               "Delete", JOptionPane.YES_NO_OPTION);
+//
+//          if (resp == JOptionPane.YES_OPTION) {
+//               JSONObject json = new JSONObject();
+//               json.put("approvalBy", JavaConstant.cashierId);
+//               json.put("status", statuValue);
+//
+//               Response response = JavaConnection.put(JavaRoute.adjustment + "/updateStatus/" + adjustmentId, json);
+//
+//               if (response.isSuccessful()) {
+//                    getData(true); // reload
+//               }
+//          } else {
+//               setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//          }
+//
+//     }
+     private void cmdStatus() {
+          LinkedHashMap<String, String> map = new LinkedHashMap<>();
+          map.put("Draft", "Draft");
+          map.put("Posted", "Posted");
+          map.put("Cancelled", "Cancelled");
+          objStatus.setMap(map);
+     }
+     
+     private void cmdVendor() {
+          JavaComboBoxSelection.addComboBox(objReason,
+               JavaRoute.reason + "Adjustment",
+               "reason",
+               JavaComboBoxSelection.DESC);
+     }
+     
      public static void main(String args[]) {
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(AdjustmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(AdjustmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(AdjustmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(AdjustmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     AdjustmentForm dialog = new AdjustmentForm(new javax.swing.JFrame(), true);
@@ -237,15 +521,18 @@ public class AdjustmentForm extends javax.swing.JDialog {
      private feature.adjustment.component.AdjustmentHeader adjustmentHeader1;
      private Button.Button btnCancel;
      private ButtonPackage.ButtonSave buttonSave;
-     private FormComponent.combobox.JavaCombobox cmbBrand;
-     private FormComponent.combobox.JavaCombobox cmbBrand1;
-     private FormComponent.datepicker.JavaDatePicker dateFrom;
-     private FormComponent.datepicker.JavaDatePicker dateTo;
+     private ButtonPackage.ButtonSave buttonSave1;
      private Reporting.GroupButtonExport groupButtonExport;
      private javax.swing.JScrollPane jScrollPane;
+     private FormComponent.datepicker.JavaDatePicker objDateFrom;
+     private FormComponent.datepicker.JavaDatePicker objDateTo;
+     private FormComponent.combobox.JavaCombobox objReason;
+     private FormComponent.combobox.JavaCombobox objStatus;
+     private FormComponent.JavaTextField objTransaction;
+     private pagination.PaginationPanel paginationPanel;
      private javax.swing.JPanel panel;
      private javax.swing.JPanel panelData;
      private javax.swing.JPanel panelTop;
-     private FormComponent.JavaTextField txtBarcode;
+     private Components.SearchField searchField;
      // End of variables declaration//GEN-END:variables
 }

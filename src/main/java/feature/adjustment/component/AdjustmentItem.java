@@ -1,11 +1,84 @@
 package feature.adjustment.component;
 
+import Components.Event.ButtonEvent;
+import Constant.JavaConstant;
+import feature.adjustment.model.AdjustmentModel.AdjustmentDetail;
+import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.LinkedHashMap;
+
 public class AdjustmentItem extends javax.swing.JPanel {
 
-     public AdjustmentItem() {
+     private AdjustmentDetail detail;
+     private Integer number;
+
+     public AdjustmentItem(AdjustmentDetail detail, Integer number) {
+          this.detail = detail;
+          this.number = number;
           initComponents();
+          setPreferredSize(new Dimension(1530, 45));
+          cmdStatus();
+
+          setData();
      }
 
+     private void setData() {
+          lbNo.setText(String.valueOf(number));
+          lbTransactionNo.setText(detail.getTransaction());
+          lbTransactionDate.setText(JavaConstant.formateDateDDMMYYYY(detail.getTransactionDate()));
+          lbPostDate.setText(detail.getPostDate() == null ? "" : JavaConstant.formateDateDDMMYYYY(detail.getPostDate()));
+          lbReferenceName.setText(detail.getReferenceName());
+          lbApprovalUser.setText(detail.getApprovalUser());
+          lbReason.setText(detail.getReason());
+          lbTotalQty.setText(String.valueOf(detail.getTotalQty()));
+          lbTotalCost.setText(JavaConstant.setAmount(detail.getTotalCost()));
+
+          if (detail.getApprovalUser() == null || detail.getApprovalUser().isEmpty()) {
+               cmdStatus.setSelectedItem(detail.getStatus());
+          } else {
+               cmdStatus.setSelectedItem(detail.getStatus());
+               cmdStatus.setDiable();
+          }
+     }
+
+     private void cmdStatus() {
+          LinkedHashMap<String, String> map = new LinkedHashMap<>();
+          map.put("Draft", "Draft");
+          map.put("Posted", "Posted");
+          map.put("Cancelled", "Cancelled");
+          cmdStatus.setMap(map);
+     }
+
+     public void initEvent(ButtonEvent event) {
+          cmdStatus.initEvent(event);
+          btnDelete.addMouseListener(new MouseListener(){
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onDelete();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          
+          });
+     }
+
+ 
+     
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -23,7 +96,7 @@ public class AdjustmentItem extends javax.swing.JPanel {
           btnDelete = new javax.swing.JLabel();
           btnDetail = new javax.swing.JLabel();
           lbNo = new javax.swing.JLabel();
-          cmbBrand = new FormComponent.combobox.JavaCombobox();
+          cmdStatus = new FormComponent.combobox.JavaCombobox();
 
           panel.setBackground(new java.awt.Color(255, 255, 255));
           panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -77,9 +150,9 @@ public class AdjustmentItem extends javax.swing.JPanel {
           lbNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           lbNo.setText("No");
 
-          cmbBrand.setBackground(new java.awt.Color(255, 255, 255));
-          cmbBrand.setLabelName("");
-          cmbBrand.setName(""); // NOI18N
+          cmdStatus.setBackground(new java.awt.Color(255, 255, 255));
+          cmdStatus.setLabelName("");
+          cmdStatus.setName(""); // NOI18N
 
           javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
           panel.setLayout(panelLayout);
@@ -111,7 +184,7 @@ public class AdjustmentItem extends javax.swing.JPanel {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(lbTotalCost, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                     .addGap(25, 25, 25)
-                    .addComponent(cmbBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmdStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
           );
           panelLayout.setVerticalGroup(
@@ -129,7 +202,7 @@ public class AdjustmentItem extends javax.swing.JPanel {
                     .addComponent(lbReason, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTotalQty, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTotalCost, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addComponent(cmbBrand, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+               .addComponent(cmdStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
           );
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -141,8 +214,8 @@ public class AdjustmentItem extends javax.swing.JPanel {
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addGap(0, 0, 0))
           );
      }// </editor-fold>//GEN-END:initComponents
 
@@ -151,7 +224,7 @@ public class AdjustmentItem extends javax.swing.JPanel {
      private javax.swing.JLabel btnDelete;
      private javax.swing.JLabel btnDetail;
      private javax.swing.JLabel btnEdit;
-     private FormComponent.combobox.JavaCombobox cmbBrand;
+     private FormComponent.combobox.JavaCombobox cmdStatus;
      private javax.swing.JLabel lbApprovalUser;
      private javax.swing.JLabel lbNo;
      private javax.swing.JLabel lbPostDate;

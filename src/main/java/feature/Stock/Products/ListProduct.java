@@ -62,7 +62,7 @@ public class ListProduct extends javax.swing.JDialog {
      String status = "allProduct";
      ProductResponseDetailV1[] listData;
      private String pageNumber = "0";
-     private long totalPage = 0;
+ 
      private int pageSize = 15;
      private int code = 0;
      private boolean isCheckSearch = true;
@@ -490,7 +490,6 @@ public class ListProduct extends javax.swing.JDialog {
                                    return;
                               }
                               searchCode(false);
-                              
                          }
                     };
                     

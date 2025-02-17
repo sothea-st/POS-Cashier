@@ -89,4 +89,7 @@ public class JavaRoute {
      public static String roleHasPermissions = "/roleHasPermissions";
      public static String permissionByParentId = "/permissions/parentId";
 
+     public static String filterAdjustment = "/v1/adjustments/filter";
+     public static String adjustment = "/v1/adjustments";
+
 }
