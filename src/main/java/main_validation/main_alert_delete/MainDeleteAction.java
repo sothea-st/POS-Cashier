@@ -1,19 +1,14 @@
-package feature.adjustment.adjustment_controller;
+package main_validation.main_alert_delete;
 
 import Components.Color.WindowColor;
 import Components.Fonts.WindowFonts;
-import Constant.JavaConnection;
-import Constant.JavaRoute;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import okhttp3.Response;
 
-public abstract class Controller {
+public abstract class MainDeleteAction {
      
-     public abstract void setData(Integer adjustmentId);
 
-     public void data(Integer adjustmentId) {
+     public void alertOption(Integer adjustmentId) {
           UIManager UI = new UIManager();
           UI.put("OptionPane.background", WindowColor.mediumGreen);
           UI.put("Panel.background", WindowColor.mediumGreen);
@@ -23,10 +18,12 @@ public abstract class Controller {
                "Delete", JOptionPane.YES_NO_OPTION);
 
           if (resp == JOptionPane.YES_OPTION) {
-               setData(adjustmentId);
-          } else {
-//               adjustmentForm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+               yesOption(adjustmentId);
           }
      }
+     
+    
+
+     public abstract void yesOption(Integer id);
 
 }

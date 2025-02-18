@@ -16,20 +16,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panel" alignment="0" pref="1451" max="32767" attributes="0"/>
+          <Component id="btnDedit" alignment="0" pref="1451" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="panel" pref="48" max="32767" attributes="0"/>
+              <Component id="btnDedit" pref="48" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="panel">
+    <Container class="javax.swing.JPanel" name="btnDedit">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -53,7 +53,7 @@
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                   <Component id="btnEdit" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  <Component id="btnDetail" min="-2" pref="17" max="-2" attributes="0"/>
+                  <Component id="btnInfo" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnDelete" min="-2" pref="17" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
@@ -81,7 +81,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="btnDelete" alignment="0" max="32767" attributes="0"/>
-              <Component id="btnDetail" alignment="0" max="32767" attributes="0"/>
+              <Component id="btnInfo" alignment="0" max="32767" attributes="0"/>
               <Component id="btnEdit" alignment="0" max="32767" attributes="0"/>
               <Component id="lbNo" alignment="0" max="32767" attributes="0"/>
               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -193,7 +193,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="btnDetail">
+        <Component class="javax.swing.JLabel" name="btnInfo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="12" style="1"/>

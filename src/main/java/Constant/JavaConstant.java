@@ -404,6 +404,12 @@ public class JavaConstant {
           return formattedDateTime;
      }
 
+     public static String getCurrentDate() {
+          LocalDate currentDate = LocalDate.now(); // Get only the date
+          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+          return currentDate.format(formatter);
+     }
+
      public static String formateDateYYYYMMDD(String dateValue) {
           DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
           LocalDate date = LocalDate.parse(dateValue, inputFormatter);
@@ -412,7 +418,7 @@ public class JavaConstant {
      }
 
      public static String formateDateDDMMYYYY(String dateValue) {
-          if( dateValue == null ) {
+          if (dateValue == null) {
                return null;
           }
           DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

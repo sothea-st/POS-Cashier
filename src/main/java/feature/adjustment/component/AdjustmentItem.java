@@ -20,6 +20,10 @@ public class AdjustmentItem extends javax.swing.JPanel {
           setPreferredSize(new Dimension(1530, 45));
           cmdStatus();
 
+          JavaConstant.setPointer(btnEdit);
+          JavaConstant.setPointer(btnInfo);
+          JavaConstant.setPointer(btnDedit);
+
           setData();
      }
 
@@ -52,7 +56,7 @@ public class AdjustmentItem extends javax.swing.JPanel {
 
      public void initEvent(ButtonEvent event) {
           cmdStatus.initEvent(event);
-          btnDelete.addMouseListener(new MouseListener(){
+          btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
                     event.onDelete();
@@ -73,17 +77,37 @@ public class AdjustmentItem extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
+          });
           
+          btnInfo.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onInfo();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
           });
      }
 
- 
-     
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
-          panel = new javax.swing.JPanel();
+          btnDedit = new javax.swing.JPanel();
           lbApprovalUser = new javax.swing.JLabel();
           lbTotalQty = new javax.swing.JLabel();
           btnEdit = new javax.swing.JLabel();
@@ -94,13 +118,13 @@ public class AdjustmentItem extends javax.swing.JPanel {
           lbReferenceName = new javax.swing.JLabel();
           lbReason = new javax.swing.JLabel();
           btnDelete = new javax.swing.JLabel();
-          btnDetail = new javax.swing.JLabel();
+          btnInfo = new javax.swing.JLabel();
           lbNo = new javax.swing.JLabel();
           cmdStatus = new FormComponent.combobox.JavaCombobox();
 
-          panel.setBackground(new java.awt.Color(255, 255, 255));
-          panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-          panel.setPreferredSize(new java.awt.Dimension(1604, 40));
+          btnDedit.setBackground(new java.awt.Color(255, 255, 255));
+          btnDedit.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+          btnDedit.setPreferredSize(new java.awt.Dimension(1604, 40));
 
           lbApprovalUser.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           lbApprovalUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -142,9 +166,9 @@ public class AdjustmentItem extends javax.swing.JPanel {
           btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
 
-          btnDetail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnDetail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
+          btnInfo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
 
           lbNo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           lbNo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,17 +178,17 @@ public class AdjustmentItem extends javax.swing.JPanel {
           cmdStatus.setLabelName("");
           cmdStatus.setName(""); // NOI18N
 
-          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-          panel.setLayout(panelLayout);
-          panelLayout.setHorizontalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
+          javax.swing.GroupLayout btnDeditLayout = new javax.swing.GroupLayout(btnDedit);
+          btnDedit.setLayout(btnDeditLayout);
+          btnDeditLayout.setHorizontalGroup(
+               btnDeditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(btnDeditLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(lbNo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(6, 6, 6)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(5, 5, 5)
-                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(17, 17, 17)
@@ -187,13 +211,13 @@ public class AdjustmentItem extends javax.swing.JPanel {
                     .addComponent(cmdStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap())
           );
-          panelLayout.setVerticalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          btnDeditLayout.setVerticalGroup(
+               btnDeditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addComponent(btnDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+               .addComponent(btnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .addComponent(lbNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnDeditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTransactionNo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbTransactionDate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbPostDate, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,21 +233,22 @@ public class AdjustmentItem extends javax.swing.JPanel {
           this.setLayout(layout);
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1451, Short.MAX_VALUE)
+               .addComponent(btnDedit, javax.swing.GroupLayout.DEFAULT_SIZE, 1451, Short.MAX_VALUE)
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
-                    .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(btnDedit, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
                     .addGap(0, 0, 0))
           );
      }// </editor-fold>//GEN-END:initComponents
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JPanel btnDedit;
      private javax.swing.JLabel btnDelete;
-     private javax.swing.JLabel btnDetail;
      private javax.swing.JLabel btnEdit;
+     private javax.swing.JLabel btnInfo;
      private FormComponent.combobox.JavaCombobox cmdStatus;
      private javax.swing.JLabel lbApprovalUser;
      private javax.swing.JLabel lbNo;
@@ -234,7 +259,6 @@ public class AdjustmentItem extends javax.swing.JPanel {
      private javax.swing.JLabel lbTotalQty;
      private javax.swing.JLabel lbTransactionDate;
      private javax.swing.JLabel lbTransactionNo;
-     private javax.swing.JPanel panel;
      // End of variables declaration//GEN-END:variables
 
 }

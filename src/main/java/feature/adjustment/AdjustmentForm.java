@@ -14,6 +14,7 @@ import feature.adjustment.adjustment_controller.AdjustmentController;
 import feature.adjustment.component.AdjustmentItem;
 import feature.adjustment.model.AdjustmentModel;
 import java.awt.BorderLayout;
+import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.time.LocalDate;
@@ -21,48 +22,44 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import okhttp3.Response;
-import org.json.JSONObject;
 
 public class AdjustmentForm extends javax.swing.JDialog {
-     
+
      private String pageNumber = "1";
      private int pageSize = 10;
      private boolean isCheckSearch = true;
      private String searchValue;
      private int dataCount = 0;
      private String pageType;
-     
+
      private AdjustmentModel.AdjustmentDetail[] listData;
-     
+
      private AdjustmentForm adjustmentForm;
-     
+
      private AdjustmentController adjustmentController;
-     
+
      public AdjustmentForm(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
           adjustmentForm = this;
           adjustmentController = new AdjustmentController(this);
-          
+
           groupButtonExport.setPdf();
-          
+
           custom();
-          
+
           cmdStatus();
-          
+
           cmdVendor();
-          
+
           getAdjustment();
-          
+
           eventSearch();
-          
+
           eventPagination();
      }
-     
+
      private void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
@@ -95,7 +92,7 @@ public class AdjustmentForm extends javax.swing.JDialog {
                               searchValue = searchField.getValueTextSearch();
                               paginationPanel.resetPage();
                               pageNumber = "1";
-                              
+
                               if (searchValue.isEmpty()) {
                                    isCheckSearch = true;
                                    pageNumber = "1";
@@ -105,15 +102,15 @@ public class AdjustmentForm extends javax.swing.JDialog {
                               getData(false);
                          }
                     };
-                    
+
                     Timer timer = new Timer();
                     timer.schedule(task, 500);
-                    
+
                }
           };
           searchField.initEvent(event);
      }
-     
+
      private void getAdjustment() {
           // Get current date
           LocalDate currentDate = LocalDate.now();
@@ -122,19 +119,19 @@ public class AdjustmentForm extends javax.swing.JDialog {
           // Get the start of the month
           LocalDate startOfMonth = currentDate.withDayOfMonth(1);
           String statDate = startOfMonth.toString();
-          
+
           objDateFrom.setSelectedDate(JavaConstant.formateDateDDMMYYYY(statDate));
           objDateTo.setSelectedDate(JavaConstant.formateDateDDMMYYYY(endDate));
-          
+
           getData(true);
      }
-     
+
      private void custom() {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           panelData.setBackground(WindowColor.mediumGreen);
      }
-     
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -205,13 +202,12 @@ public class AdjustmentForm extends javax.swing.JDialog {
                               .addComponent(objDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(objTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addGap(12, 12, 12)
                               .addComponent(objStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(objReason, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGroup(panelTopLayout.createSequentialGroup()
-                              .addGap(1300, 1300, 1300)
-                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addGap(12, 12, 12)
+                              .addComponent(objReason, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addGap(12, 12, 12)
+                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(panelTopLayout.createSequentialGroup()
                               .addGap(1462, 1462, 1462)
                               .addComponent(buttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -266,8 +262,8 @@ public class AdjustmentForm extends javax.swing.JDialog {
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addGroup(panelLayout.createSequentialGroup()
                               .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(1052, 1052, 1052)
-                              .addComponent(groupButtonExport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(groupButtonExport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
                          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                               .addGap(0, 0, Short.MAX_VALUE)
@@ -282,15 +278,15 @@ public class AdjustmentForm extends javax.swing.JDialog {
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
                     .addComponent(panelTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addGap(20, 20, 20)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(searchField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(groupButtonExport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(10, 10, 10)
                     .addComponent(adjustmentHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
-                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)
+                    .addComponent(jScrollPane)
+                    .addGap(10, 10, 10)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -301,7 +297,7 @@ public class AdjustmentForm extends javax.swing.JDialog {
           getContentPane().setLayout(layout);
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,21 +313,23 @@ public class AdjustmentForm extends javax.swing.JDialog {
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-          getData(true);
+          dispose();
+          AdjustmentCreateForm adjustmentCreateForm = new AdjustmentCreateForm(new Frame(), true);
+          adjustmentCreateForm.setVisible(true);
      }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
-          // TODO add your handling code here:
+          getData(true);
      }//GEN-LAST:event_buttonSave1MouseClicked
-     
+
      public void getData(boolean isCheck) {
-          
+
           String transaction = objTransaction.getValueTextField();
           String status = objStatus.getSelectedItem();
           String reason = objReason.getSelectedItem();
-          
+
           StringBuilder filterBuilder = new StringBuilder();
-          
+
           if (isCheck) { // true  get data
                if (transaction != null && !transaction.isEmpty()) {
                     filterBuilder.append("&transaction=").append(transaction);
@@ -343,27 +341,27 @@ public class AdjustmentForm extends javax.swing.JDialog {
                     filterBuilder.append("&transaction=").append(searchValue);
                }
           }
-          
+
           if (!"0".equals(status)) {
                filterBuilder.append("&status=").append(status);
           }
-          
+
           if (!"0".equals(reason)) {
                filterBuilder.append("&reasonId=").append(reason);
           }
-          
+
           String filter = filterBuilder.toString();
-          
+
           Response response = null;
-          
+
           response = JavaConnection.get(JavaRoute.filterAdjustment + ""
                + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom="
                + objDateFrom.getSelectedDate() + "&dateTo=" + objDateTo.getSelectedDate() + filter);
-          
+
           System.err.println("response = " + response);
-          
+
           try {
-               
+
                if (response.isSuccessful()) {
                     String responeData = response.body().string();
 
@@ -380,37 +378,37 @@ public class AdjustmentForm extends javax.swing.JDialog {
                     } else {
                          paginationPanel.resetPage(dataCount);
                     }
-                    
+
                     if (listData != null) {
                          Arrays.fill(listData, null);
                     }
                     listData = data.getData(); // Assign new data
 
                     setData();
-                    
+
                } else {
                     System.err.println("fail loading product");
                }
-               
+
           } catch (Exception e) {
                System.err.println("error get adjustmens : " + e);
           }
      }
-     
+
      private void setData() {
-          
+
           panelData.removeAll();
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-          
+
           panelData.setLayout(gridBagLayout);
-          
+
           int x = 0;
           int y = 0;
-          
+
           if (listData.length > 0) {
                for (int i = 0; i < listData.length; i++) {
                     GridBagConstraints gbc = new GridBagConstraints();
@@ -424,23 +422,28 @@ public class AdjustmentForm extends javax.swing.JDialog {
                          y++;
                     }
                     Integer adjustmentId = listData[i].getId();
-                    
+
                     AdjustmentItem item = new AdjustmentItem(listData[i], (i + 1));
-                    
+
                     ButtonEvent statusEvent = new ButtonEvent() {
                          @Override
                          public void onSelected(String key) {
                               adjustmentController.updateStatus(adjustmentId, key);
                          }
-                         
+
                          @Override
                          public void onDelete() {
-                              adjustmentController.data(adjustmentId);
+                              adjustmentController.alertOption(adjustmentId);
                          }
-                         
+
+                         @Override
+                         public void onInfo() {
+                               
+                         }
+
                     };
                     item.initEvent(statusEvent);
-                    
+
                     paginationPanel.setVisible(true);
                     panelData.add(item, gbc);
                }
@@ -453,7 +456,7 @@ public class AdjustmentForm extends javax.swing.JDialog {
                panelData.repaint();
                paginationPanel.setVisible(false);
           }
-          
+
           panelData.revalidate();
           panelData.repaint();
      }
@@ -494,14 +497,14 @@ public class AdjustmentForm extends javax.swing.JDialog {
           map.put("Cancelled", "Cancelled");
           objStatus.setMap(map);
      }
-     
+
      private void cmdVendor() {
           JavaComboBoxSelection.addComboBox(objReason,
                JavaRoute.reason + "Adjustment",
                "reason",
                JavaComboBoxSelection.DESC);
      }
-     
+
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {

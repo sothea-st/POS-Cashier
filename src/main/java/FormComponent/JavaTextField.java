@@ -430,6 +430,91 @@ public class JavaTextField extends javax.swing.JPanel {
                }
           });
      }
+     
+     
+      public void setOnlyDigit() {
+          typeTextField = amount;
+          txt.addKeyListener(new KeyListener() {
+               @Override
+               public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    String currentText = txt.getText().replaceAll(",", ""); // Remove commas for length checking
+
+                    // Allow only digits, backspace, delete, and one dot (.)
+                    if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE && c != '.') {
+                         e.consume(); // Ignore non-digit characters
+                    }
+
+                    // Ensure only one decimal point is allowed, and it can't be the first character
+                    if (c == '.' && (currentText.isEmpty() || currentText.contains("."))) {
+                         e.consume(); // Disallow if no digits before decimal or if already a decimal point
+                    }
+
+                    // Restrict the length to 12 digits before the decimal
+                    if (currentText.contains(".")) {
+                         String[] parts = currentText.split("\\.");
+                         if (parts[0].length() >= 12 && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+                              e.consume(); // Stop input if length exceeds 12 digits before the decimal
+                         }
+                    } else if (currentText.length() >= 12 && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+                         e.consume(); // Stop input if length exceeds 12 digits without a decimal
+                    }
+               }
+
+               @Override
+               public void keyPressed(KeyEvent e) {
+                    // No specific action needed for keyPressed
+               }
+
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    if (txt.getText().isEmpty()) {
+                         lbError.setVisible(false); // Hide error if valid
+                         return;
+                    }
+                    lbError.setVisible(false); // Hide error if valid
+                    // Remove commas for proper formatting
+                    String text = txt.getText().replaceAll(",", "");
+                    try {
+                         // Check if the input contains a decimal point
+                         if (text.contains(".")) {
+                              // Split integer part and decimal part
+                              String[] parts = text.split("\\.");
+                              String integerPart = parts[0];
+                              String decimalPart = parts.length > 1 ? parts[1] : "";
+
+                              // Format integer part with commas every 3 digits
+                              String formattedIntegerPart = formatWithCommas(integerPart);
+
+                              // Ensure the decimal part has at most two digits
+                              if (decimalPart.length() > 2) {
+                                   decimalPart = decimalPart.substring(0, 2);
+                              }
+
+                              // Combine integer and decimal parts
+                              txt.setText(formattedIntegerPart + "." + decimalPart);
+                         } else {
+                              // No decimal point, just format the integer part
+                              String formattedIntegerPart = formatWithCommas(text);
+                              txt.setText(formattedIntegerPart);
+                         }
+                    } catch (NumberFormatException ex) {
+                         lbError.setVisible(true); // Show error if the input is not a valid number
+                    }
+               }
+
+               // Helper method to format the integer part with commas every 3 digits
+               private String formatWithCommas(String number) {
+                    try {
+                         BigDecimal value = new BigDecimal(number);
+                         DecimalFormat formatter = new DecimalFormat("####");
+                         return formatter.format(value);
+                    } catch (NumberFormatException e) {
+                         return number; // Return original if formatting fails
+                    }
+               }
+          });
+     }
 
      // method for allow only number
      public void setValidateNumber() {

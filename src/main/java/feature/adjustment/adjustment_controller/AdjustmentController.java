@@ -9,10 +9,11 @@ import feature.adjustment.AdjustmentForm;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import main_validation.main_alert_delete.MainDeleteAction;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class AdjustmentController extends Controller {
+public class AdjustmentController extends MainDeleteAction {
 
      private AdjustmentForm adjustmentForm;
 
@@ -32,7 +33,7 @@ public class AdjustmentController extends Controller {
           UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
 
           int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to update status?",
-               "Delete", JOptionPane.YES_NO_OPTION);
+               "Status", JOptionPane.YES_NO_OPTION);
 
           if (resp == JOptionPane.YES_OPTION) {
                JSONObject json = new JSONObject();
@@ -50,30 +51,9 @@ public class AdjustmentController extends Controller {
 
      }
 
-//     public void delete(Integer adjustmentId) {
-//
-//          UIManager UI = new UIManager();
-//          UI.put("OptionPane.background", WindowColor.mediumGreen);
-//          UI.put("Panel.background", WindowColor.mediumGreen);
-//          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-//
-//          int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to update status?",
-//               "Delete", JOptionPane.YES_NO_OPTION);
-//
-//          if (resp == JOptionPane.YES_OPTION) {
-//               Response response = JavaConnection.delete(JavaRoute.adjustment + "/" + adjustmentId);
-//               if (response.isSuccessful()) {
-//                    adjustmentForm.getData(true);
-//               }
-//          } else {
-//               adjustmentForm.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//          }
-//
-//     }
-
      @Override
-     public void setData(Integer adjustmentId) {
-          Response response = JavaConnection.delete(JavaRoute.adjustment + "/" + adjustmentId);
+     public void yesOption(Integer id) {
+          Response response = JavaConnection.delete(JavaRoute.adjustment + "/" + id);
           if (response.isSuccessful()) {
                adjustmentForm.getData(true);
           }

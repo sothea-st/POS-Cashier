@@ -75,6 +75,8 @@ public interface ButtonEvent {
 
      default public void onFocusLost() {
      }
-;
+     
+     default public void onInfo(){};
+ 
 
 }
