@@ -8,6 +8,7 @@ import java.util.List;
 @Builder
 public record AdjustmentResponseDetail(
 
+
         ReasonData reason,
         String reference,
         String transactionDate,

@@ -20,7 +20,6 @@ public record AdjustmentRequest(
         @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "The field transactionDate format is yyyy-MM-dd.")
         String transactionDate,
 
-
         String comment,
 
 

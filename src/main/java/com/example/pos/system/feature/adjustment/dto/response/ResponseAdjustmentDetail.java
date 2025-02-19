@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 @Builder
 public record ResponseAdjustmentDetail(
+        Integer productId,
         String itemCode,
         String barcode,
         String productNameEn,

@@ -249,7 +249,7 @@ public class AdjustmentServiceImp implements AdjustmentService {
 
         // Handle pageRequest if pageSize or pageNumber is provided
         if (pageNumber != null && pageSize != null) {
-            Sort sortById = Sort.by(Sort.Direction.DESC, "id"); // Sort by ID in descending order
+            Sort sortById = Sort.by(Sort.Direction.DESC, "transactionDate"); // Sort by ID in descending order
             pageRequest = PageRequest.of(pageNumber - 1, pageSize, sortById); // Page number starts from 0, so subtract 1
         }
 
@@ -334,6 +334,7 @@ public class AdjustmentServiceImp implements AdjustmentService {
                 .transaction(adjustment.getTransaction())
                 .details(adjustment.getAdjustmentDetails().stream()
                         .map(val -> ResponseAdjustmentDetail.builder()
+                                .productId(val.getProduct().getId())
                                 .itemCode(val.getProduct().getItemCode())
                                 .barcode(val.getProduct().getBarcode())
                                 .productNameEn(val.getProduct().getProNameEn())

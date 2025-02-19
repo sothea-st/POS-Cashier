@@ -55,7 +55,6 @@ public class ReportAdjustmentServiceImp implements ReportAdjustmentService {
                     resultAdjustment.setDepartment(department);
 
 
-
                     List<AdjustmentProjection> adjustmentProjectionList = adjustmentRepository.listAdjustmentProjection(
                             divisionId,
                             departmentId,
@@ -86,8 +85,6 @@ public class ReportAdjustmentServiceImp implements ReportAdjustmentService {
                                                     .totalQty(val.getQty())
                                                     .totalCost(val.getTotal_cost())
                                                     .build()).toList();
-
-
 
                             resultAdjustment.setDetails(details);
 //                            break;
