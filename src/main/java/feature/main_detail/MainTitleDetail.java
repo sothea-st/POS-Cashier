@@ -2,12 +2,15 @@ package feature.main_detail;
 
 import Components.Fonts.WindowFonts;
 import static Components.Label.containsKhmer;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class MainTitleDetail extends javax.swing.JPanel {
 
      public MainTitleDetail() {
           initComponents();
-          
 
      }
 
@@ -22,6 +25,11 @@ public class MainTitleDetail extends javax.swing.JPanel {
 
      public void setData(String text) {
           lbDetail.setText(text);
+          if (containsKhmer(lbTitle.getText())) {
+               lbDetail.setFont(WindowFonts.khmerOsContent14);
+          } else {
+               lbDetail.setFont(WindowFonts.timeNewRomanBold14);
+          }
      }
 
      @SuppressWarnings("unchecked")

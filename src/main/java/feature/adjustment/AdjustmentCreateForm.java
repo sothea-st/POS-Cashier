@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import lombok.Getter;
 import lombok.Setter;
 import main_validation.JavaValidation;
@@ -27,11 +26,16 @@ public class AdjustmentCreateForm extends javax.swing.JDialog {
      private List<ProductBarcodeDetail> listItems = new ArrayList<>();
      private AdjustmentCreateForm adjustmentCreateForm;
      private CreateAdjustmentController controller;
+     private Integer adjustmentId;
 
      public AdjustmentCreateForm(java.awt.Frame parent, boolean modal) {
+
           super(parent, modal);
+
           initComponents();
+
           this.adjustmentCreateForm = this;
+          controller = new CreateAdjustmentController(adjustmentCreateForm);
 
           cmdReason();
 
@@ -47,8 +51,12 @@ public class AdjustmentCreateForm extends javax.swing.JDialog {
      }
 
      private void barcodeController() {
-          controller = new CreateAdjustmentController(adjustmentCreateForm);
           controller.eventBarcode();
+     }
+
+     public void update(Integer id) {
+          this.adjustmentId = id;
+          controller.update(id);
      }
 
      private void cmdReason() {
@@ -238,6 +246,12 @@ public class AdjustmentCreateForm extends javax.swing.JDialog {
 
      private void save(boolean isClose) {
 
+          System.err.println("reasonId : " + objReason.getSelectedItem());
+          System.err.println("reference : " + objReference.getValueTextField());
+          System.err.println("transactionDate : " + objTransactionDate.getSelectedDate());
+          System.err.println("comment : " + objComment.getValueTextField());
+          System.err.println("totalQty : " + boxTotal.getTxtTotalQty().getText());
+
           Boolean isCheck = JavaValidation.checkValidation(panelTop);
 
           if (isCheck) {
@@ -281,7 +295,14 @@ public class AdjustmentCreateForm extends javax.swing.JDialog {
                }
                json.put("details", details);
 
-               Response response = JavaConnection.post(JavaRoute.adjustment, json);
+               Response response = null;
+
+               if (adjustmentId == null) {
+                    response = JavaConnection.post(JavaRoute.adjustment, json);
+               } else {
+                    response = JavaConnection.put(JavaRoute.adjustment + "/" + adjustmentId, json);
+               }
+
                System.err.println("low view json : " + json);
                System.err.println("low view response : " + response);
 

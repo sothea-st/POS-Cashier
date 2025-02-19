@@ -2,15 +2,22 @@ package feature.adjustment.adjustment_controller;
 
 import Components.Event.ButtonEvent;
 import Constant.JavaConnection;
+import Constant.JavaConstant;
 import Constant.JavaRoute;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.adjustment.AdjustmentCreateForm;
+import feature.adjustment.adjustmetn_detail.model.AdjustmentDetailResponse;
 import feature.adjustment.component.ItemFormCreate;
 import feature.adjustment.model.ProductAdjustment;
 import feature.adjustment.model.ProductBarcode;
 import feature.adjustment.model.ProductBarcode.ProductBarcodeDetail;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -90,10 +97,13 @@ public class CreateAdjustmentController {
                }
           }
 
+          addData();
+     }
+
+     private void addData() {
           form.getPanelData().removeAll();
 
-          int i = 1; 
-
+          int i = 1;
           for (ProductAdjustment data : listTmp) {
                ItemFormCreate item = new ItemFormCreate(data, i);
                item.setForm(form);
@@ -107,6 +117,50 @@ public class CreateAdjustmentController {
 
           // reload total qty and cost
           form.getBoxTotal().setAdjustmentCreateForm(form);
-
      }
+
+     public void update(Integer adjustmentId) {
+
+          Response response = JavaConnection.get(JavaRoute.adjustment + "/" + adjustmentId);
+
+          try {
+
+               String responseData = response.body().string();
+
+               ObjectMapper objMapper = new ObjectMapper();
+
+               AdjustmentDetailResponse model = objMapper.readValue(responseData, AdjustmentDetailResponse.class);
+
+               AdjustmentDetailResponse.AdjustmentData data = model.getData();
+               
+               System.err.println("data.getTransactionDate() : " + data.getTransactionDate());
+               
+               form.getObjTransactionDate().setSelectedDate(JavaConstant.formateDateDDMMYYYY(data.getTransactionDate()));
+               form.getObjReason().setSelectedItem(data.getReason().getId());
+               form.getObjReference().setText(data.getReference());
+               form.getObjComment().setText(data.getComment());
+
+               for (AdjustmentDetailResponse.Detail detail : data.getDetails()) {
+                    ProductAdjustment productAdjustment = ProductAdjustment.builder()
+                         .id(detail.getProductId())
+                         .itemCode(detail.getItemCode())
+                         .barcode(detail.getBarcode())
+                         .proNameEn(detail.getProductNameEn())
+                         .proNameKh(detail.getProductNameKh())
+                         .uom(detail.getOum())
+                         .onHandQty(detail.getOnHandQty())
+                         .adjustQty(detail.getAdjustQty())
+                         .cost(detail.getCost())
+                         .build();
+
+                    listTmp.add(productAdjustment);
+               }
+               
+               addData();
+
+          } catch (Exception e) {
+               System.err.println("error read adjustment detail : " + e);
+          }
+     }
+ 
 }

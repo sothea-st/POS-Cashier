@@ -1,5 +1,6 @@
 package feature.adjustment;
 
+import feature.adjustment.adjustmetn_detail.AdjustmentDetail;
 import Components.Color.WindowColor;
 import Components.Event.ButtonEvent;
 import Components.Fonts.WindowFonts;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JFrame;
 import okhttp3.Response;
 
 public class AdjustmentForm extends javax.swing.JDialog {
@@ -358,7 +360,7 @@ public class AdjustmentForm extends javax.swing.JDialog {
                + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom="
                + objDateFrom.getSelectedDate() + "&dateTo=" + objDateTo.getSelectedDate() + filter);
 
-          System.err.println("response = " + response);
+ 
 
           try {
 
@@ -438,7 +440,17 @@ public class AdjustmentForm extends javax.swing.JDialog {
 
                          @Override
                          public void onInfo() {
-                               
+                              AdjustmentDetail detail = new AdjustmentDetail(new JFrame(), true);
+                              detail.setAdjustmentId(adjustmentId);
+                              detail.setVisible(true);
+                         }
+
+                         @Override
+                         public void onEdit() {
+                              dispose();
+                              AdjustmentCreateForm adjustmentCreateForm = new AdjustmentCreateForm(new Frame(), true);
+                              adjustmentCreateForm.update(adjustmentId);
+                              adjustmentCreateForm.setVisible(true);
                          }
 
                     };
@@ -461,35 +473,6 @@ public class AdjustmentForm extends javax.swing.JDialog {
           panelData.repaint();
      }
 
-//     private void updateStatus(Integer adjustmentId, String statuValue) {
-//          
-//          if( statuValue.equals("Draft") ) {
-//               return;
-//          }
-//          
-//          UIManager UI = new UIManager();
-//          UI.put("OptionPane.background", WindowColor.mediumGreen);
-//          UI.put("Panel.background", WindowColor.mediumGreen);
-//          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-//
-//          int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to update status?",
-//               "Delete", JOptionPane.YES_NO_OPTION);
-//
-//          if (resp == JOptionPane.YES_OPTION) {
-//               JSONObject json = new JSONObject();
-//               json.put("approvalBy", JavaConstant.cashierId);
-//               json.put("status", statuValue);
-//
-//               Response response = JavaConnection.put(JavaRoute.adjustment + "/updateStatus/" + adjustmentId, json);
-//
-//               if (response.isSuccessful()) {
-//                    getData(true); // reload
-//               }
-//          } else {
-//               setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//          }
-//
-//     }
      private void cmdStatus() {
           LinkedHashMap<String, String> map = new LinkedHashMap<>();
           map.put("Draft", "Draft");

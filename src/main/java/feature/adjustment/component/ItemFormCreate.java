@@ -5,6 +5,7 @@ import Constant.JavaConstant;
 import feature.adjustment.AdjustmentCreateForm;
 import feature.adjustment.adjustment_controller.CreateAdjustmentController;
 import feature.adjustment.model.ProductAdjustment;
+import java.awt.Dimension;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,8 +30,17 @@ public class ItemFormCreate extends javax.swing.JPanel {
           setData();
 
           eventAdjustQty();
+ 
+     }
+     
+     public void setDisable(){
+          objAdjustQty.setDisable();
      }
 
+     public void hideDelete(){
+          btnDelete.setVisible(false);
+     }
+     
      public void eventAdjustQty() {
           ButtonEvent event = new ButtonEvent() {
                @Override

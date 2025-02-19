@@ -24,6 +24,16 @@ public class AdjustmentItem extends javax.swing.JPanel {
           JavaConstant.setPointer(btnInfo);
           JavaConstant.setPointer(btnDedit);
 
+          if (detail.getApprovalUser() != null) {
+               btnEdit.setIcon(null);
+               btnEdit.setText("   ");
+               btnEdit.setEnabled(false);
+
+               btnDelete.setIcon(null);
+               btnDelete.setText("   ");
+               btnDelete.setEnabled(false);
+          }
+
           setData();
      }
 
@@ -59,6 +69,11 @@ public class AdjustmentItem extends javax.swing.JPanel {
           btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
+
+                    if (btnDelete.getIcon() == null) {
+                         return;
+                    }
+
                     event.onDelete();
                }
 
@@ -78,7 +93,7 @@ public class AdjustmentItem extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
+
           btnInfo.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
@@ -100,6 +115,34 @@ public class AdjustmentItem extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
+          });
+
+          btnEdit.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+
+                    if (btnEdit.getIcon() == null) {
+                         return;
+                    }
+                    event.onEdit();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+
           });
      }
 
