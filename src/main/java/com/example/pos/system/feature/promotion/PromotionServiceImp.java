@@ -266,7 +266,7 @@ public class PromotionServiceImp implements PromotionService {
                 .promotionType(promotion.getPromotionType())
                 .startDate(promotion.getStartDate().toString())
                 .endDate(promotion.getEndDate().toString())
-                .percentage(promotion.getPromotionType())
+                .percentage(String.valueOf(promotion.getPercentage()).concat("%"))
                 .salePrice(promotion.getTotalPrice())
                 .afterDiscount(promotion.getAfterDiscount())
                 .isStatus(promotion.getActive())
