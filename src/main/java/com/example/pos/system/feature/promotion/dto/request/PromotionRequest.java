@@ -1,4 +1,4 @@
-package com.example.pos.system.feature.promotion.dto;
+package com.example.pos.system.feature.promotion.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

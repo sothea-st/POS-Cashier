@@ -107,7 +107,7 @@ public class AdjustmentServiceImp implements AdjustmentService {
                     Category department = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(category.getParentId(),"department")
                             .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND ,"Department not found with id : " + category.getParentId()) );
 
-                    System.out.println("department.getParentId() : " + department.getParentId());
+
 
                     // get division
                     Category division = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(department.getParentId(),"division")

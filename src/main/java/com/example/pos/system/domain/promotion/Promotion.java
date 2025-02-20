@@ -22,7 +22,7 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "promotion",orphanRemoval = true,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "promotion",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<PromotionDetail> promotionDetails;
 
     @Column(name = "promotion_type",nullable = false)
@@ -45,8 +45,6 @@ public class Promotion {
 
     @Column(name = "active")
     private Boolean active;
-
-
 
 
     @ManyToOne

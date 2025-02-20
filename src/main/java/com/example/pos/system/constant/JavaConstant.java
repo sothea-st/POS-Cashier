@@ -120,6 +120,32 @@ public class JavaConstant {
         }
     }
 
+    public static void dateFromSmallerDateTo(String dateFrom, String dateTo) {
+        if (dateFrom == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateFrom can not be null.");
+        if (dateTo == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateTo can not be null.");
+        LocalDate dateFromLocal;
+        LocalDate dateToLocal;
+
+        try {
+            // Parse dateFrom and dateTo from the request
+            dateFromLocal = LocalDate.parse(dateFrom);
+            dateToLocal = LocalDate.parse(dateTo);
+
+            if (dateFromLocal.isAfter(dateToLocal)) {
+                // Throw exception if dateFrom is after dateTo
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "The field dateFrom must be smaller than field dateTo.");
+            }
+
+        } catch (DateTimeParseException e) {
+            // Handle invalid date format
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid date format. Expected format: yyyy-MM-dd", e);
+        }
+    }
+
 
     public static String codeAdjustment(int counter) {
         // Get current date
