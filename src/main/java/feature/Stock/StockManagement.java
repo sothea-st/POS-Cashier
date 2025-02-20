@@ -121,6 +121,7 @@ public class StockManagement extends javax.swing.JDialog {
           purchaseOrder = new Components.SettingBox();
           purchaseOrderReceive = new Components.SettingBox();
           category = new Components.SettingBox();
+          objPromotion = new Components.SettingBox();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -153,11 +154,19 @@ public class StockManagement extends javax.swing.JDialog {
                }
           });
 
-          category.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/image/Category.png"))); // NOI18N
+          category.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/stock/adjustment.png"))); // NOI18N
           category.setTitle("Adjustment");
           category.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     categoryMouseClicked(evt);
+               }
+          });
+
+          objPromotion.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/stock/promotion.png"))); // NOI18N
+          objPromotion.setTitle("Promotion");
+          objPromotion.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objPromotionMouseClicked(evt);
                }
           });
 
@@ -167,13 +176,16 @@ public class StockManagement extends javax.swing.JDialog {
                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(jPanel3Layout.createSequentialGroup()
                     .addGap(18, 18, 18)
-                    .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(purchaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(objPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addGroup(jPanel3Layout.createSequentialGroup()
+                              .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(purchaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(category, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(18, Short.MAX_VALUE))
           );
           jPanel3Layout.setVerticalGroup(
@@ -185,6 +197,8 @@ public class StockManagement extends javax.swing.JDialog {
                          .addComponent(purchaseOrderReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(purchaseOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(objPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(534, Short.MAX_VALUE))
           );
 
@@ -236,6 +250,10 @@ public class StockManagement extends javax.swing.JDialog {
          AdjustmentForm adjustmentForm = new AdjustmentForm(new JFrame(), true);
          adjustmentForm.setVisible(true);
      }//GEN-LAST:event_categoryMouseClicked
+
+     private void objPromotionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objPromotionMouseClicked
+          // TODO add your handling code here:
+     }//GEN-LAST:event_objPromotionMouseClicked
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -305,6 +323,7 @@ public class StockManagement extends javax.swing.JDialog {
      private Components.SettingBox category;
      private javax.swing.JPanel jPanel3;
      private javax.swing.JScrollPane jScrollPane1;
+     private Components.SettingBox objPromotion;
      private Components.SettingBox product;
      private Components.SettingBox purchaseOrder;
      private Components.SettingBox purchaseOrderReceive;
