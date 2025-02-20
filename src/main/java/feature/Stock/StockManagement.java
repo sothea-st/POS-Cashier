@@ -11,6 +11,7 @@ import feature.Stock.PurchaseOrderView.PurchaseOrderView;
 import feature.Stock.PurchaseReceive.ListPurchaseReceive;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.adjustment.AdjustmentForm;
+import feature.promotion.view.PromotionView;
 import java.awt.Frame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -252,7 +253,8 @@ public class StockManagement extends javax.swing.JDialog {
      }//GEN-LAST:event_categoryMouseClicked
 
      private void objPromotionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objPromotionMouseClicked
-          // TODO add your handling code here:
+          PromotionView promotionView = new PromotionView(new JFrame(), true);
+          promotionView.setVisible(true);
      }//GEN-LAST:event_objPromotionMouseClicked
 
      public JPanel getPanelProduct() {

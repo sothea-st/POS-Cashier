@@ -91,5 +91,6 @@ public class JavaRoute {
 
      public static String filterAdjustment = "/v1/adjustments/filter";
      public static String adjustment = "/v1/adjustments";
+     public static String promotion = "/v1/promotions";
 
 }

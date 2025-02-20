@@ -3,7 +3,6 @@ package feature.adjustment;
 import feature.adjustment.adjustmetn_detail.AdjustmentDetail;
 import Components.Color.WindowColor;
 import Components.Event.ButtonEvent;
-import Components.Fonts.WindowFonts;
 import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
@@ -337,7 +336,7 @@ public class AdjustmentForm extends javax.swing.JDialog {
                     filterBuilder.append("&transaction=").append(transaction);
                }
           } else { // false search
-               System.err.println("searchValue  : " + searchValue);
+               
                if (searchValue != null && !searchValue.isEmpty()) {
                     isCheckSearch = false;
                     filterBuilder.append("&transaction=").append(searchValue);
@@ -360,8 +359,6 @@ public class AdjustmentForm extends javax.swing.JDialog {
                + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&dateFrom="
                + objDateFrom.getSelectedDate() + "&dateTo=" + objDateTo.getSelectedDate() + filter);
 
- 
-
           try {
 
                if (response.isSuccessful()) {
@@ -375,9 +372,9 @@ public class AdjustmentForm extends javax.swing.JDialog {
 
                     // pagination code
                     dataCount = (int) data.getCount();
-                    if (isCheck) {
+                    if (isCheck) { // true get
                          paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
-                    } else {
+                    } else { // false search
                          paginationPanel.resetPage(dataCount);
                     }
 

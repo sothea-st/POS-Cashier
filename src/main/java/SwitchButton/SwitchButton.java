@@ -1,6 +1,6 @@
-
 package SwitchButton;
 
+import Components.Color.WindowColor;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,119 +20,126 @@ import javax.swing.Timer;
 
 public class SwitchButton extends Component {
 
-    public boolean isSelected() {
-        return selected;
-    }
+     public boolean isSelected() {
+          return selected;
+     }
 
-    public void setSelected(boolean selected) {
-        this.selected = selected;
-        timer.start();
-        runEvent();
-    }
+     public void setSelected(boolean selected) {
+          this.selected = selected;
+          timer.start();
+          runEvent();
+     }
 
-    private Timer timer;
-    private float location;
-    private boolean selected;
-    private boolean mouseOver;
-    private float speed = 0.1f;
-    private List<EventSwitchSelected> events;
+     private Timer timer;
+     private float location;
+     private boolean selected;
+     private boolean mouseOver;
+     private float speed = 0.1f;
+     private List<EventSwitchSelected> events;
 
-    public SwitchButton() {
-        setBackground(new Color(255, 255, 255));
-        setPreferredSize(new Dimension(50, 25));
-        setForeground(new Color(51,153,255));
-        setCursor(new Cursor(Cursor.HAND_CURSOR));
-        events = new ArrayList<>();
-        location = 2;
-        timer = new Timer(0, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (isSelected()) {
-                    int endLocation = getWidth() - getHeight() + 2;
-                    if (location < endLocation) {
-                        location += speed;
-                        repaint();
+     public SwitchButton() {
+//          setBackground(new Color(255, 255, 255));
+          setBackground(Color.GRAY);
+
+          setPreferredSize(new Dimension(50, 25));
+          setForeground(new Color(51, 153, 255));
+          setCursor(new Cursor(Cursor.HAND_CURSOR));
+          events = new ArrayList<>();
+          location = 2;
+          timer = new Timer(0, new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent ae) {
+                    if (isSelected()) {
+                         int endLocation = getWidth() - getHeight() + 2;
+                         if (location < endLocation) {
+                              location += speed;
+                              repaint();
+                         } else {
+                              timer.stop();
+                              location = endLocation;
+                              repaint();
+                         }
                     } else {
-                        timer.stop();
-                        location = endLocation;
-                        repaint();
+                         int endLocation = 2;
+                         if (location > endLocation) {
+                              location -= speed;
+                              repaint();
+                         } else {
+                              timer.stop();
+                              location = endLocation;
+                              repaint();
+                         }
                     }
-                } else {
-                    int endLocation = 2;
-                    if (location > endLocation) {
-                        location -= speed;
-                        repaint();
-                    } else {
-                        timer.stop();
-                        location = endLocation;
-                        repaint();
+               }
+          });
+          addMouseListener(new MouseAdapter() {
+               @Override
+               public void mouseEntered(MouseEvent me) {
+                    mouseOver = true;
+               }
+
+               @Override
+               public void mouseExited(MouseEvent me) {
+                    mouseOver = false;
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent me) {
+                    if (SwingUtilities.isLeftMouseButton(me)) {
+                         if (mouseOver) {
+                              selected = !selected;
+                              timer.start();
+                              runEvent();
+                         }
                     }
-                }
-            }
-        });
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent me) {
-                mouseOver = true;
-            }
+               }
+          });
+     }
 
-            @Override
-            public void mouseExited(MouseEvent me) {
-                mouseOver = false;
-            }
+     @Override
+     public void paint(Graphics grphcs) {
+          Graphics2D g2 = (Graphics2D) grphcs;
+          g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+          int width = getWidth();
+          int height = getHeight();
+          float alpha = getAlpha();
+          if (alpha < 1) {
+               g2.setColor(WindowColor.slightGreen);
+               g2.fillRoundRect(0, 0, width, height, 25, 25);
+          }
+          g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+          g2.setColor(WindowColor.slightGreen);
+          g2.fillRoundRect(0, 0, width, height, 25, 25);
+          if( alpha < 1 ) {
+               g2.setColor(WindowColor.white);
+          } else {
+               g2.setColor(WindowColor.green);
+          }
+          
+          g2.setComposite(AlphaComposite.SrcOver);
+          g2.fillOval((int) location, 2, height - 4, height - 4);
+          super.paint(grphcs);
+     }
 
-            @Override
-            public void mouseReleased(MouseEvent me) {
-                if (SwingUtilities.isLeftMouseButton(me)) {
-                    if (mouseOver) {
-                        selected = !selected;
-                        timer.start();
-                        runEvent();
-                    }
-                }
-            }
-        });
-    }
+     private float getAlpha() {
+          float width = getWidth() - getHeight();
+          float alpha = (location - 2) / width;
+          if (alpha < 0) {
+               alpha = 0;
+          }
+          if (alpha > 1) {
+               alpha = 1;
+          }
+          return alpha;
+     }
 
-    @Override
-    public void paint(Graphics grphcs) {
-        Graphics2D g2 = (Graphics2D) grphcs;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        int width = getWidth();
-        int height = getHeight();
-        float alpha = getAlpha();
-        if (alpha < 1) {
-            g2.setColor(new Color(255, 255, 255));
-            g2.fillRoundRect(0, 0, width, height, 25, 25);
-        }
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-        g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, width, height, 25, 25);
-        g2.setColor(getForeground());
-        g2.setComposite(AlphaComposite.SrcOver);
-        g2.fillOval((int) location, 2, height - 4, height - 4);
-        super.paint(grphcs);
-    }
+     private void runEvent() {
+          for (EventSwitchSelected event : events) {
+               event.onSelected(selected);
+          }
+     }
 
-    private float getAlpha() {
-        float width = getWidth() - getHeight();
-        float alpha = (location - 2) / width;
-        if (alpha < 0) {
-            alpha = 0;
-        }
-        if (alpha > 1) {
-            alpha = 1;
-        }
-        return alpha;
-    }
-
-    private void runEvent() {
-        for (EventSwitchSelected event : events) {
-            event.onSelected(selected);
-        }
-    }
-
-    public void addEventSelected(EventSwitchSelected event) {
-        events.add(event);
-    }
+     public void addEventSelected(EventSwitchSelected event) {
+          events.add(event);
+     }
 }
