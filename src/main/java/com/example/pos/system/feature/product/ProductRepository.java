@@ -1,5 +1,6 @@
 package com.example.pos.system.feature.product;
 
+import com.example.pos.system.domain.settings.Category;
 import com.example.pos.system.domain.settings.Status;
 import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
@@ -16,13 +17,13 @@ import java.util.*;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+        List<Product> findBySubCategoryAndStatusTrueAndIsDeletedFalse(Category category);
+
         List<Product> findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(int vendorId, int subCategoryId);
         List<Product> findByVendorIdAndStatusTrueAndIsDeletedFalse(int vendorId);
         Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
         Page<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(PageRequest pageRequest, Status status);
-
         List<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(Status status);
-
         List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();
         Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
         Page<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);

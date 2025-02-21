@@ -10,12 +10,16 @@ import com.example.pos.system.domain.promotion.PromotionDetail;
 import com.example.pos.system.domain.settings.Category;
 import com.example.pos.system.domain.settings.Product;
 import com.example.pos.system.feature.product.ProductRepository;
+import com.example.pos.system.feature.promotion.dto.request.CategoryIdRequest;
+import com.example.pos.system.feature.promotion.dto.request.ListCategoryRequest;
 import com.example.pos.system.feature.promotion.dto.request.PromotionRequest;
 import com.example.pos.system.feature.promotion.dto.request.PromotionStatusRequest;
+import com.example.pos.system.feature.promotion.dto.response.ListProductResponse;
 import com.example.pos.system.feature.promotion.dto.response.PromotionDataDetailResponse;
 import com.example.pos.system.feature.promotion.dto.response.PromotionDetailResponse;
 import com.example.pos.system.feature.promotion.dto.response.PromotionResponse;
 import com.example.pos.system.layer.repository.CategoryRepository;
+import com.example.pos.system.layer.repository.ImportDetailRepository;
 import com.example.pos.system.layer.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,6 +42,7 @@ public class PromotionServiceImp implements PromotionService {
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ImportDetailRepository repoImp;
 
     // variable not found
     private String userNotFound = "User not found with id : ";
@@ -48,6 +53,48 @@ public class PromotionServiceImp implements PromotionService {
     private String departmentNotFound = "Department not found with  id : ";
     private String divisionNotFound = "Division not found with  id : ";
 
+
+    @Override
+    public JavaCollectionResponse<?> readProductByCategory(ListCategoryRequest listCategoryRequest) {
+
+        List<ListProductResponse> listProductResponses = new ArrayList<>();
+
+        for( CategoryIdRequest categoryId : listCategoryRequest.listCategoryId() ) {
+
+            Category category = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(categoryId.categoryId(), "category")
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, categoryNotFound + categoryId.categoryId()));
+
+            Category department = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(category.getParentId(), "department")
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, departmentNotFound + category.getParentId()));
+
+            Category division = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(department.getParentId(), "division")
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, divisionNotFound + department.getParentId()));
+
+            Category subcategory = categoryRepository.findByParentIdAndStatusTrueAndIsDeletedFalse(category.getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, subCategoryNotFound + category.getParentId()));
+
+            List<Product> products = productRepository.findBySubCategoryAndStatusTrueAndIsDeletedFalse(subcategory);
+
+            for( Product product : products ) {
+                Integer onHandQty = repoImp.sumQtyByProId(product.getId());
+                if (onHandQty == null) onHandQty = 0;
+                listProductResponses.add(ListProductResponse.builder()
+                        .productId(product.getId())
+                        .barcode(product.getBarcode())
+                        .categoryName(product.getSubCategory().getCatNameEn())
+                        .englishDescription(product.getProNameEn())
+                        .onHandQty(onHandQty)
+                        .salePrice(product.getPrice())
+                        .build());
+            }
+
+        }
+
+        return JavaCollectionResponse.builder()
+                .count(listProductResponses.size())
+                .data(listProductResponses)
+                .build();
+    }
 
     @Override
     public ResponseSuccess create(PromotionRequest promotionRequest) {

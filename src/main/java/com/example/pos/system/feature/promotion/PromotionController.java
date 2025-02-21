@@ -3,6 +3,7 @@ package com.example.pos.system.feature.promotion;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
 import com.example.pos.system.constant.util.response_success.JavaResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
+import com.example.pos.system.feature.promotion.dto.request.ListCategoryRequest;
 import com.example.pos.system.feature.promotion.dto.request.PromotionRequest;
 import com.example.pos.system.feature.promotion.dto.request.PromotionStatusRequest;
 import jakarta.validation.Valid;
@@ -57,5 +58,12 @@ public class PromotionController {
     public ResponseSuccess updateStatus(@PathVariable Integer id , @Valid @RequestBody PromotionStatusRequest promotionStatusRequest){
         return promotionService.updateStatus(id,promotionStatusRequest);
     }
+
+    @PostMapping("/readByCategoryId")
+    public JavaCollectionResponse<?> readByCategoryId(@Valid @RequestBody ListCategoryRequest listCategoryRequest){
+        return promotionService.readProductByCategory(listCategoryRequest);
+    }
+
+
 
 }
