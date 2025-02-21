@@ -2,6 +2,7 @@ package feature.promotion.controller;
 
 import feature.promotion.view.PromotionCreateView;
 import feature.promotion.view.component.PromotionCreateRowData;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
@@ -32,7 +33,8 @@ public class PromotionCreateController {
           int x = 0;
           int y = 0;
 
-          for (int i = 0 ; i < 24 ; i++) {
+          int l = 4;
+          for (int i = 0; i < l; i++) {
 
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
@@ -44,11 +46,14 @@ public class PromotionCreateController {
                     x = 0;
                     y++;
                }
- 
 
                PromotionCreateRowData rowData = new PromotionCreateRowData();
+               if (l > 10) {
+                    rowData.setPreferredSize(new Dimension(1353, 45));
+               } else {
+                    rowData.setPreferredSize(new Dimension(1360, 45));
+               }
 
-              
                //view.getPaginationPanel().setVisible(true);
                panelData.add(rowData, gbc);
           }

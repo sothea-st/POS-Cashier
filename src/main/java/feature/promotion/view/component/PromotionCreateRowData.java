@@ -5,13 +5,10 @@ import java.awt.Dimension;
  
 public class PromotionCreateRowData extends javax.swing.JPanel {
 
-     /**
-      * Creates new form
-      * PromotionCreateRowData
-      */
+ 
      public PromotionCreateRowData() {
           initComponents();
-          setPreferredSize(new Dimension(1360,45));
+         
      }
 
      

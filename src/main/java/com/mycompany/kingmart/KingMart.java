@@ -13,9 +13,7 @@ public class KingMart {
           
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
-
-//            ImportFile i = new ImportFile(new JFrame(), true);
-//            i.setVisible(true);
+ 
      }
 
 }

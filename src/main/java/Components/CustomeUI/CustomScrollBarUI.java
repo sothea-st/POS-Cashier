@@ -14,10 +14,7 @@ import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class CustomScrollBarUI extends BasicScrollBarUI {
 
      // Set the preferred size of the scrollbar
