@@ -90,7 +90,7 @@ public class PromotionController {
                response = JavaConnection.get(JavaRoute.promotion + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
           }
 
-          System.err.println(" ============ log view response : " + response);
+         // System.err.println(" ============ log view response : " + response);
 
           try {
 

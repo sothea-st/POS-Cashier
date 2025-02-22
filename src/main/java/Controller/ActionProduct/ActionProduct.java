@@ -276,7 +276,6 @@ public class ActionProduct {
                gbc.gridx = x;
                gbc.gridy = y;
                gbc.gridwidth = 1;
-//               gbc.weightx=1;
                gbc.anchor = gbc.NORTH;
 
                gbc.insets = new Insets(0, 0, 5, 4);

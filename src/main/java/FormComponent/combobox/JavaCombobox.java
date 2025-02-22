@@ -3,18 +3,23 @@ package FormComponent.combobox;
 import Components.Color.WindowColor;
 import Components.Event.ButtonEvent;
 import Components.Fonts.WindowFonts;
+import Constant.JavaConstant;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import lombok.Getter;
@@ -22,299 +27,329 @@ import lombok.Getter;
 @Getter
 public class JavaCombobox extends javax.swing.JPanel {
 
-    private LinkedHashMap<String, String> linkMap; // Map where key is id and value is name
-    private String labelName;
-    private String placeHolder = "---Select---";
+     private LinkedHashMap<String, String> linkMap; // Map where key is id and value is name
+     private String labelName;
+     private String placeHolder = "---Select---";
 
-    public JavaCombobox() {
-        initComponents();
+     public JavaCombobox() {
+          initComponents();
 
-        // label error
-        lbError.setVisible(false);
-        lbError.setForeground(WindowColor.red);
-        lbError.setFont(WindowFonts.timeNewRomanBold14);
-        setBackground(WindowColor.bgDefault);
-        cmd.setFont(WindowFonts.timeNewRoman14);
-        label.setFont(WindowFonts.timeNewRomanBold14);
+          // label error
+          lbError.setVisible(false);
+          lbError.setForeground(WindowColor.red);
+          lbError.setFont(WindowFonts.timeNewRomanBold14);
+          setBackground(WindowColor.bgDefault);
+          cmd.setFont(WindowFonts.timeNewRoman14);
+          label.setFont(WindowFonts.timeNewRomanBold14);
 
-        // Enable search in JComboBox
-        search();
-        setPlaceholder(placeHolder);
-        setBackground(WindowColor.mediumGreen);
-        cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
-    }
+          // Enable search in JComboBox
+          search();
+          setPlaceholder(placeHolder);
+          setBackground(WindowColor.mediumGreen);
+          cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
+     }
 
-    private void setPlaceholder(String placeholder) {
-        JTextField textField = (JTextField) cmd.getEditor().getEditorComponent();
-        textField.putClientProperty("JTextField.placeholderText", placeholder);
+     private void setPlaceholder(String placeholder) {
+          JTextField textField = (JTextField) cmd.getEditor().getEditorComponent();
+          textField.putClientProperty("JTextField.placeholderText", placeholder);
 
-        // Set initial placeholder text
-        textField.setText(placeholder);
-        textField.setForeground(Color.GRAY);
+          // Set initial placeholder text
+          textField.setText(placeholder);
+          textField.setForeground(Color.GRAY);
 
-        textField.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (textField.getText().equals(placeholder)) {
-                    textField.setText("");
+          textField.addFocusListener(new FocusAdapter() {
+               @Override
+               public void focusGained(FocusEvent e) {
+                    if (textField.getText().equals(placeholder)) {
+                         textField.setText("");
+                         textField.setForeground(Color.BLACK);
+                    }
+               }
+
+               @Override
+               public void focusLost(FocusEvent e) {
+                    if (textField.getText().isEmpty()) {
+                         textField.setText(placeholder);
+                         textField.setForeground(Color.GRAY);
+                    }
+               }
+          });
+
+          // Add action listener to clear placeholder when an item is selected
+          cmd.addActionListener(e -> {
+               if (cmd.getSelectedItem() != null && !cmd.getSelectedItem().toString().equals(placeholder)) {
                     textField.setForeground(Color.BLACK);
-                }
-            }
+               }
+          });
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()) {
-                    textField.setText(placeholder);
-                    textField.setForeground(Color.GRAY);
-                }
-            }
-        });
-
-        // Add action listener to clear placeholder when an item is selected
-        cmd.addActionListener(e -> {
-            if (cmd.getSelectedItem() != null && !cmd.getSelectedItem().toString().equals(placeholder)) {
-                textField.setForeground(Color.BLACK);
-            }
-        });
-
-        // Add focus listener to reset placeholder when losing focus
-        cmd.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (textField.getText().isEmpty()) {
-                    textField.setText(placeholder);
-                    textField.setForeground(Color.GRAY);
-                }
-            }
-        });
-        
-        
-         cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
-    }
-
-    
-    public void hideLabel(){
-         label.setVisible(false);
-    }
-    private void search() {
-        cmd.setEditable(true); // Make JComboBox editable for search
-        JTextField textField = (JTextField) cmd.getEditor().getEditorComponent();
-
-        // Add key listener for filtering items
-        textField.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent e) {
-                String input = textField.getText().toLowerCase();
-                List<JavaItem> filteredItems = new ArrayList<>();
-
-                // Filter the items in linkMap based on the input
-                for (Map.Entry<String, String> entry : linkMap.entrySet()) {
-                    if (entry.getValue().toLowerCase().contains(input)) {
-                        filteredItems.add(new JavaItem(entry.getValue(), entry.getKey()));
+          // Add focus listener to reset placeholder when losing focus
+          cmd.addFocusListener(new FocusAdapter() {
+               @Override
+               public void focusLost(FocusEvent e) {
+                    if (textField.getText().isEmpty()) {
+                         textField.setText(placeholder);
+                         textField.setForeground(Color.GRAY);
                     }
-                }
+               }
+          });
 
-                // Update JComboBox with filtered items
-                cmd.removeAllItems();
-                for (JavaItem item : filteredItems) {
-                    cmd.addItem(item);
-                }
+          cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
+     }
 
-                textField.setText(input); // Keep user input
-                cmd.showPopup(); // Keep dropdown open
-            }
-        });
+     public void hideLabel() {
+          label.setVisible(false);
+     }
 
-    }
+     private void search() {
+          cmd.setEditable(true); // Make JComboBox editable for search
+          JTextField textField = (JTextField) cmd.getEditor().getEditorComponent();
 
-//    public String getSelectedItem() {
-//        JavaItem item = (JavaItem) cmd.getSelectedItem();
-//        System.err.println("irem :: " + item);
-//        if (item == null) {
-//            return "0";
-//        }
-//        return item.getValue();
-//    }
-    public String getSelectedItem() {
-        Object selected = cmd.getSelectedItem();
-        if (selected instanceof JavaItem) {
-            JavaItem item = (JavaItem) selected;
-            //System.err.println("Item :: " + item);
-            return item.getValue();
-        } else {
-            //System.err.println("Selected item is not a JavaItem: " + selected);
-            return "0";
-        }
-    }
+          // Add key listener for filtering items
+          textField.addKeyListener(new KeyAdapter() {
+               @Override
+               public void keyReleased(KeyEvent e) {
+                    String input = textField.getText().toLowerCase();
+                    List<JavaItem> filteredItems = new ArrayList<>();
 
-    public void setLabelName(String labelName) {
-        this.labelName = labelName;
-        if (labelName.contains("*")) {
-            labelName = labelName.replace("*", "");
-            label.setText("<html>" + labelName + " <span style='color:red;font-size:16;'>*</span></html>");
-        } else {
-            label.setText(labelName);
-        }
-    }
+                    // Filter the items in linkMap based on the input
+                    for (Map.Entry<String, String> entry : linkMap.entrySet()) {
+                         if (entry.getValue().toLowerCase().contains(input)) {
+                              filteredItems.add(new JavaItem(entry.getValue(), entry.getKey()));
+                         }
+                    }
 
-    private void customComboBox() {
-        // Set background and foreground colors
-        cmd.setBackground(WindowColor.bgDefault);  // Set background color
-        cmd.setForeground(WindowColor.black);       // Set text color
-    }
+                    // Update JComboBox with filtered items
+                    cmd.removeAllItems();
+                    for (JavaItem item : filteredItems) {
+                         cmd.addItem(item);
+                    }
 
-    private void roundedBorder() {
-        label.setFont(WindowFonts.timeNewRomanBold12);
-        // cmd.setFont(WindowFonts.timeNewRoman14);
-        //cmd.setBorder(new RoundedBorder(0, WindowColor.gray));
-    }
+                    textField.setText(input); // Keep user input
+                    cmd.showPopup(); // Keep dropdown open
+               }
+          });
 
-    public void setFieldError(boolean value) {
-        lbError.setVisible(value);
-    }
+     }
 
-    public void setFieldError(String text) {
-        lbError.setText(text);
-        lbError.setVisible(true);
-    }
+     public String getSelectedItem() {
+          Object selected = cmd.getSelectedItem();
+          if (selected instanceof JavaItem) {
+               JavaItem item = (JavaItem) selected;
+               //System.err.println("Item :: " + item);
+               return item.getValue();
+          } else {
+               //System.err.println("Selected item is not a JavaItem: " + selected);
+               return "0";
+          }
+     }
 
-    public void setLabel(String text) {
-        label.setText(text);
-    }
+     public void setLabelName(String labelName) {
+          this.labelName = labelName;
+          if (labelName.contains("*")) {
+               labelName = labelName.replace("*", "");
+               label.setText("<html>" + labelName + " <span style='color:red;font-size:16;'>*</span></html>");
+          } else {
+               label.setText(labelName);
+          }
+     }
 
-    public void initEvent(ButtonEvent event) {
+     public void setFieldError(boolean value) {
+          lbError.setVisible(value);
+     }
 
-        cmd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Object selectedObject = cmd.getSelectedItem();
+     public void setFieldError(String text) {
+          lbError.setText(text);
+          lbError.setVisible(true);
+     }
 
-                // Check if selectedObject is an instance of JavaItem
-                if (selectedObject instanceof JavaItem) {
-                    resetError();
-                    JavaItem selectedItem = (JavaItem) selectedObject;
+     public void setLabel(String text) {
+          label.setText(text);
+     }
 
-                    if (selectedItem.getValue().equals("0")) {
-                        SwingUtilities.invokeLater(() -> cmd.setSelectedIndex(-1)); // Reset selection
-                        
+     public void initEvent(ButtonEvent event) {
+
+          cmd.addActionListener(new ActionListener() {
+               @Override
+               public void actionPerformed(ActionEvent e) {
+                    Object selectedObject = cmd.getSelectedItem();
+
+                    // Check if selectedObject is an instance of JavaItem
+                    if (selectedObject instanceof JavaItem) {
+                         resetError();
+                         JavaItem selectedItem = (JavaItem) selectedObject;
+
+                         if (selectedItem.getValue().equals("0")) {
+                              SwingUtilities.invokeLater(() -> cmd.setSelectedIndex(-1)); // Reset selection
+
+                         } else {
+                              event.onSelected(selectedItem.getValue());
+                              //System.err.println("selectedItem " + selectedItem.getValue());
+                         }
+
+                         cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
+
                     } else {
-                        event.onSelected(selectedItem.getValue());
-                        //System.err.println("selectedItem " + selectedItem.getValue());
+                         System.err.println("Unexpected item type: " + selectedObject);
                     }
-                    
-                     cmd.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
 
-                } else {
-                    System.err.println("Unexpected item type: " + selectedObject);
-                }
+               }
+          });
+     }
 
-            }
-        });
-    }
+     // set combobox item value
+     public void setMap(LinkedHashMap<String, String> linkMap) {
+          this.linkMap = linkMap;
+          cmd.removeAllItems(); // Clear existing items
 
-    // set combobox item value
-    public void setMap(LinkedHashMap<String, String> linkMap) {
-        this.linkMap = linkMap;
-        cmd.removeAllItems(); // Clear existing items
+          // Add the placeholder item as a JavaItem
+          JavaItem placeholderItem = new JavaItem(placeHolder, "0"); // -1 as ID for the placeholder
+          cmd.addItem(placeholderItem);
 
-        // Add the placeholder item as a JavaItem
-        JavaItem placeholderItem = new JavaItem(placeHolder, "0"); // -1 as ID for the placeholder
-        cmd.addItem(placeholderItem);
+          // Add the actual data from the linkMap
+          for (Map.Entry<String, String> entry : linkMap.entrySet()) {
+               JavaItem item = new JavaItem(entry.getValue(), entry.getKey()); // value is name, key is id
+               cmd.addItem(item); // Add the JavaItem object directly to the combo box
+          }
 
-        // Add the actual data from the linkMap
-        for (Map.Entry<String, String> entry : linkMap.entrySet()) {
-            JavaItem item = new JavaItem(entry.getValue(), entry.getKey()); // value is name, key is id
-            cmd.addItem(item); // Add the JavaItem object directly to the combo box
-        }
+          // Set up the placeholder
+          setPlaceholder(placeHolder);
+     }
 
-        // Add an item listener to disable the first item
-//        cmd.addItemListener(e -> {
-//            if (e.getStateChange() == ItemEvent.SELECTED) {
-//                JavaItem selectedItem = (JavaItem) cmd.getSelectedItem();
-//                if (selectedItem != null && "0".equals(selectedItem.getValue())) {
-//                    // If the placeholder is selected, deselect it
-//                    SwingUtilities.invokeLater(() -> cmd.setSelectedIndex(-1)); // Reset selection
-////                    JOptionPane.showMessageDialog(null, "Please select a valid option.");
-//                }
-//            }
-//        });
-        // Set up the placeholder
-        setPlaceholder(placeHolder);
-    }
+     public void setData(String text, int id) {
+          // Add the placeholder item as a JavaItem
+          cmd.removeAllItems(); // Clear existing items
+          JavaItem placeholderItem = new JavaItem(text, String.valueOf(id));
+          cmd.addItem(placeholderItem);
+     }
 
-    public void setData(String text, int id) {
-        // Add the placeholder item as a JavaItem
-        cmd.removeAllItems(); // Clear existing items
-        JavaItem placeholderItem = new JavaItem(text, String.valueOf(id));
-        cmd.addItem(placeholderItem);
-    }
+     // set combobox item value
+     public void setMapWithNoPlaceHolder(LinkedHashMap<String, String> linkMap) {
+          this.linkMap = linkMap;
+          cmd.removeAllItems(); // Clear existing items
 
-    // set combobox item value
-    public void setMapWithNoPlaceHolder(LinkedHashMap<String, String> linkMap) {
-        this.linkMap = linkMap;
-        cmd.removeAllItems(); // Clear existing items
+          // Add the actual data from the linkMap
+          for (Map.Entry<String, String> entry : linkMap.entrySet()) {
+               JavaItem item = new JavaItem(entry.getValue(), entry.getKey()); // value is name, key is id
+               cmd.addItem(item); // Add the JavaItem object directly to the combo box
+          }
+     }
 
-        // Add the actual data from the linkMap
-        for (Map.Entry<String, String> entry : linkMap.entrySet()) {
-            JavaItem item = new JavaItem(entry.getValue(), entry.getKey()); // value is name, key is id
-            cmd.addItem(item); // Add the JavaItem object directly to the combo box
-        }
-    }
+     // reset value to first item
+     public void setToFirstItem() {
+          cmd.removeAllItems(); // Clear existing items
+          // Add the placeholder item as a JavaItem
+          JavaItem placeholderItem = new JavaItem("--- Select Item ---", "-1"); // -1 as ID for the placeholder
+          // Set the default selection to the placeholder item
+          cmd.setSelectedItem(placeholderItem);
+     }
 
-    // reset value to first item
-    public void setToFirstItem() {
-        cmd.removeAllItems(); // Clear existing items
-        // Add the placeholder item as a JavaItem
-        JavaItem placeholderItem = new JavaItem("--- Select Item ---", "-1"); // -1 as ID for the placeholder
-        // Set the default selection to the placeholder item
-        cmd.setSelectedItem(placeholderItem);
-    }
+     public void setSelectedItem(Integer id) {
+          // Loop through existing items in the JComboBox
+          for (int i = 0; i < cmd.getItemCount(); i++) {
+               JavaItem item = cmd.getItemAt(i);
+               // Compare both name and id to find a match
+               if (item.getValue().equals(String.valueOf(id))) {
+                    cmd.setSelectedItem(item);  // Select the matching item
+                    return;
+               }
+          }
+     }
 
-    public void setSelectedItem(Integer id) {
-        // Loop through existing items in the JComboBox
-        for (int i = 0; i < cmd.getItemCount(); i++) {
-            JavaItem item = cmd.getItemAt(i);
-            // Compare both name and id to find a match
-            if (item.getValue().equals(String.valueOf(id))) {
-                cmd.setSelectedItem(item);  // Select the matching item
-                return;
-            }
-        }
-    }
+     public void setSelectedItem(String value) {
+          // Loop through existing items in the JComboBox
+          for (int i = 0; i < cmd.getItemCount(); i++) {
+               JavaItem item = cmd.getItemAt(i);
+               // Compare both name and id to find a match
+               if (item.getValue().equals(String.valueOf(value))) {
+                    cmd.setSelectedItem(item);  // Select the matching item
+                    return;
+               }
+          }
+     }
 
-    public void setSelectedItem(String value) {
-        // Loop through existing items in the JComboBox
-        for (int i = 0; i < cmd.getItemCount(); i++) {
-            JavaItem item = cmd.getItemAt(i);
-            // Compare both name and id to find a match
-            if (item.getValue().equals(String.valueOf(value))) {
-                cmd.setSelectedItem(item);  // Select the matching item
-                return;
-            }
-        }
-    }
+     public void setFocusable() {
+          cmd.setFocusable(false);
+          cmd.setForeground(Color.BLACK); // Change the text color when disabled
+     }
 
-    public void setDiable() {
-        cmd.setEnabled(false);
-        cmd.setForeground(Color.BLACK); // Change the text color when disabled
+     public void setDiable() {
+          cmd.setEnabled(false);
+          cmd.setForeground(Color.BLACK); // Change the text color when disabled
+     }
 
-    }
+     public void setEnable() {
+          cmd.setEnabled(true);
+     }
 
-    public void setEnable() {
-        cmd.setEnabled(true);
-    }
+     // Method to set the red border for JTextField
+     public void setErrorBorder() {
+          cmd.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000; arc:10;");
+     }
 
-    // Method to set the red border for JTextField
-    public void setErrorBorder() {
-        cmd.putClientProperty(FlatClientProperties.STYLE, "borderColor:#FF0000; arc:10;");
-    }
+     // Method to reset the border to the default color for JTextField
+     public void resetError() {
+          cmd.putClientProperty(FlatClientProperties.STYLE, "");
+     }
 
-    // Method to reset the border to the default color for JTextField
-    public void resetError() {
-        cmd.putClientProperty(FlatClientProperties.STYLE, "");
-    }
+     public void eventCall(ButtonEvent event) {
 
-    @SuppressWarnings("unchecked")
+          for (Component com : cmd.getComponents()) {
+               if (com instanceof JComboBox) {
+                    cmd.addMouseListener(new MouseListener() {
+                         @Override
+                         public void mouseClicked(MouseEvent e) {
+                              event.onMouseClick();
+                         }
+
+                         @Override
+                         public void mousePressed(MouseEvent e) {
+                         }
+
+                         @Override
+                         public void mouseReleased(MouseEvent e) {
+                         }
+
+                         @Override
+                         public void mouseEntered(MouseEvent e) {
+                         }
+
+                         @Override
+                         public void mouseExited(MouseEvent e) {
+                         }
+
+                    });
+               } else if (com instanceof JTextField textField) {
+                    textField.setFocusable(false);
+                    JavaConstant.setPointer(textField);
+                    textField.addMouseListener(new MouseListener() {
+                         @Override
+                         public void mouseClicked(MouseEvent e) {
+                              event.onMouseClick();
+                         }
+
+                         @Override
+                         public void mousePressed(MouseEvent e) {
+                         }
+
+                         @Override
+                         public void mouseReleased(MouseEvent e) {
+                         }
+
+                         @Override
+                         public void mouseEntered(MouseEvent e) {
+                         }
+
+                         @Override
+                         public void mouseExited(MouseEvent e) {
+                         }
+
+                    });
+               }
+          }
+
+     }
+
+     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

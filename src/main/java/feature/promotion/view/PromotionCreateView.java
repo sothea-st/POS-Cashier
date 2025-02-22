@@ -1,12 +1,16 @@
 package feature.promotion.view;
 
 import Components.Color.WindowColor;
+import Components.Event.ButtonEvent;
 import Constant.JavaConstant;
 import feature.promotion.controller.PromotionCreateController;
+import feature.promotion.view.component.dialog_category.DialogCategory;
 import java.util.LinkedHashMap;
+import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import lombok.Getter;
 import lombok.Setter;
+
 @Setter
 @Getter
 public class PromotionCreateView extends javax.swing.JDialog {
@@ -19,12 +23,14 @@ public class PromotionCreateView extends javax.swing.JDialog {
 
           // call cmdPromotionType
           cmdPromotionType();
-          
+
           new PromotionCreateController(this);
+
+          categoryEvent();
      }
 
      private void custom() {
-          objCategory.setDiable();
+          objCategory.setFocusable();
           objEngDesc.setDiable();
           JavaConstant.setPointer(objCategory);
           JavaConstant.setPointer(objEngDesc);
@@ -34,6 +40,8 @@ public class PromotionCreateView extends javax.swing.JDialog {
           setResizable(false);
           panelData.setBackground(WindowColor.mediumGreen);
           JavaConstant.setScroll(jScrollPane);
+
+          objPercentage.setFocus();
      }
 
      private void cmdPromotionType() {
@@ -208,6 +216,18 @@ public class PromotionCreateView extends javax.swing.JDialog {
      private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
 
      }//GEN-LAST:event_buttonSave1MouseClicked
+
+     private void categoryEvent() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    DialogCategory dialogCategory = new DialogCategory(new JFrame(), true);
+                    dialogCategory.setVisible(true);
+               }
+          };
+          objCategory.eventCall(event);
+
+     }
 
      public static void main(String args[]) {
 
