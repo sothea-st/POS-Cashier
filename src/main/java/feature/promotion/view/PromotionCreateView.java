@@ -5,6 +5,7 @@ import Components.Event.ButtonEvent;
 import Constant.JavaConstant;
 import feature.promotion.controller.PromotionCreateController;
 import feature.promotion.view.component.dialog_category.DialogCategory;
+import feature.promotion.view.component.dialog_description.DialogDescription;
 import java.util.LinkedHashMap;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
@@ -226,6 +227,15 @@ public class PromotionCreateView extends javax.swing.JDialog {
                }
           };
           objCategory.eventCall(event);
+
+          ButtonEvent eventDesc = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    DialogDescription dialogDescription = new DialogDescription(new JFrame(), true);
+                    dialogDescription.setVisible(true);
+               }
+          };
+          objEngDesc.eventCall(eventDesc);
 
      }
 

@@ -1,14 +1,9 @@
 package feature.promotion.view.component.dialog_category;
 
 import Components.Color.WindowColor;
-import Components.Event.ButtonEvent;
 import Components.Fonts.WindowFonts;
 import Constant.JavaConstant;
 import feature.promotion.controller.DialogCategoryController;
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import javax.swing.ImageIcon;
 import lombok.Getter;
 import lombok.Setter;
