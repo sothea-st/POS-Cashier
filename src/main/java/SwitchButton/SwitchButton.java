@@ -36,6 +36,7 @@ public class SwitchButton extends Component {
      private boolean mouseOver;
      private float speed = 0.1f;
      private List<EventSwitchSelected> events;
+ 
 
      public SwitchButton() {
 //          setBackground(new Color(255, 255, 255));
@@ -72,6 +73,10 @@ public class SwitchButton extends Component {
                     }
                }
           });
+
+     }
+
+     public void initEvent() {
           addMouseListener(new MouseAdapter() {
                @Override
                public void mouseEntered(MouseEvent me) {
@@ -94,6 +99,7 @@ public class SwitchButton extends Component {
                     }
                }
           });
+
      }
 
      @Override
@@ -110,12 +116,12 @@ public class SwitchButton extends Component {
           g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
           g2.setColor(WindowColor.slightGreen);
           g2.fillRoundRect(0, 0, width, height, 25, 25);
-          if( alpha < 1 ) {
+          if (alpha < 1) {
                g2.setColor(WindowColor.white);
           } else {
                g2.setColor(WindowColor.green);
           }
-          
+
           g2.setComposite(AlphaComposite.SrcOver);
           g2.fillOval((int) location, 2, height - 4, height - 4);
           super.paint(grphcs);

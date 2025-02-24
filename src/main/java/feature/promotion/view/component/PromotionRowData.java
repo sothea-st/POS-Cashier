@@ -1,17 +1,22 @@
 package feature.promotion.view.component;
 
+
 import Components.Event.ButtonEvent;
 import Constant.JavaConstant;
 import feature.promotion.model.PromotionModel.PromotionDetail;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import lombok.Getter;
+import lombok.Setter;
+@Setter
+@Getter
 public class PromotionRowData extends javax.swing.JPanel {
 
      private PromotionDetail promotionDetail;
 
      public PromotionRowData(PromotionDetail promotionDetail) {
+
           this.promotionDetail = promotionDetail;
 
           initComponents();
@@ -19,8 +24,10 @@ public class PromotionRowData extends javax.swing.JPanel {
           setPreferredSize(new Dimension(1360, 45));
 
           custom();
-          
+
           setData();
+          
+          btnInfo.setVisible(false);
      }
 
      private void custom() {
@@ -39,9 +46,8 @@ public class PromotionRowData extends javax.swing.JPanel {
 //          }
      }
 
-     
      public void initEvent(ButtonEvent event) {
-          btnDelete.addMouseListener(new MouseListener(){
+          btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
                     event.onDelete();
@@ -62,10 +68,59 @@ public class PromotionRowData extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
+          });
+
+          switchStatus.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onMouseClick();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          });
           
+          btnEdit.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onEdit();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
           });
      }
-     
+
+     public void runEventSwitchButton() {
+          switchStatus.initEvent();
+     }
+
      private void setData() {
 
           lbCreatedData.setText(JavaConstant.formateDateDDMMYYYY(promotionDetail.getCreatedDate()));
@@ -78,6 +133,8 @@ public class PromotionRowData extends javax.swing.JPanel {
           lbAfterDiscount.setText(JavaConstant.setAmount(promotionDetail.getAfterDiscount()));
           switchStatus.setSelected(promotionDetail.getIsStatus());
      }
+
+    
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

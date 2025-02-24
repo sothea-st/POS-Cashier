@@ -43,13 +43,21 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="panel" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="panelDetail" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonSave1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="boxTotal" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="panelDetail" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonSave1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -62,7 +70,9 @@
                   <Component id="panel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="panelDetail" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="boxTotal" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="buttonSave1" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -215,6 +225,8 @@
             </Container>
           </SubComponents>
         </Container>
+        <Component class="feature.promotion.view.component.BoxTotal" name="boxTotal">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

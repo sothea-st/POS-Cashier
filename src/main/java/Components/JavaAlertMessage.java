@@ -2,8 +2,6 @@ package Components;
 
 import Components.Color.WindowColor;
 import Constant.JavaConstant;
-import Components.Event.ButtonEvent;
-import Components.Fonts.WindowFonts;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;

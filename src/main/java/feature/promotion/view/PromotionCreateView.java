@@ -2,22 +2,57 @@ package feature.promotion.view;
 
 import Components.Color.WindowColor;
 import Components.Event.ButtonEvent;
+import Components.JavaAlertMessage;
+import Constant.JavaConnection;
 import Constant.JavaConstant;
+import Constant.JavaRoute;
 import feature.promotion.controller.PromotionCreateController;
+import feature.promotion.model.ProductPromotionResponse;
+import feature.promotion.model.ProductPromotionResponse.ProductPromotionResponseDetail;
+import feature.promotion.model.PromotionDetailModel.PromotionDetail;
+import feature.promotion.model.PromotionDetailModel.PromotionDetailData;
+import feature.promotion.model.PromotionDetailRequest;
+
+import feature.promotion.view.component.PromotionCreateRowData;
 import feature.promotion.view.component.dialog_category.DialogCategory;
 import feature.promotion.view.component.dialog_description.DialogDescription;
+import java.awt.Component;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import lombok.Getter;
 import lombok.Setter;
+import main_validation.JavaValidation;
+import okhttp3.Response;
+import org.json.JSONObject;
 
 @Setter
 @Getter
 public class PromotionCreateView extends javax.swing.JDialog {
 
+     private List<ProductPromotionResponseDetail> detailDescriptions = new ArrayList<>();
+
+     private PromotionCreateView promotionCreateView;
+
+     private PromotionCreateController promotionController;
+
+     private DialogCategory dialogCategory;
+
+     private DialogDescription dialogDescription = new DialogDescription(new JFrame(), true);
+
+     private PromotionView promotionView;
+
+     private Integer promotionId;
+
+     private PromotionDetailData data;
+
      public PromotionCreateView(java.awt.Frame parent, boolean modal) {
+
           super(parent, modal);
+
           initComponents();
 
           custom();
@@ -25,9 +60,44 @@ public class PromotionCreateView extends javax.swing.JDialog {
           // call cmdPromotionType
           cmdPromotionType();
 
-          new PromotionCreateController(this);
+          // the controller will do action
+          promotionController = new PromotionCreateController(this);
 
           categoryEvent();
+
+          promotionCreateView = this;
+
+     }
+
+     public void update() {
+
+          if (data != null) {
+
+               objPromotionType.setSelectedItem(data.getPromotionType());
+               objPercentage.setText(String.valueOf(data.getPercentage()));
+               objStartDate.setSelectedDate(JavaConstant.formateDateDDMMYYYY(data.getStartDate()));
+               objEndDate.setSelectedDate(JavaConstant.formateDateDDMMYYYY(data.getEndDate()));
+
+               for (PromotionDetail detail : data.getDetails()) {
+
+                    ProductPromotionResponse.ProductPromotionResponseDetail p = new ProductPromotionResponseDetail();
+                    p.setProductId(detail.getProductId());
+                    p.setBarcode(detail.getBarcode());
+                    p.setCategoryName(detail.getCategory());
+                    p.setEnglishDescription(detail.getDescEng());
+                    p.setOnHandQty(0);
+                    p.setSalePrice(detail.getSalePrice());
+                    p.setKhrDescription(detail.getDescKhr());
+                    p.setDivision(detail.getDivision());
+                    p.setDepartment(detail.getDepartment());
+                    p.setPercentage(detail.getPercentage());
+                    p.setAfterDiscount(detail.getAfterDiscount());
+                    promotionController.getDetailDescriptions().add(p);
+               }
+
+               promotionController.read();
+          }
+
      }
 
      private void custom() {
@@ -46,10 +116,8 @@ public class PromotionCreateView extends javax.swing.JDialog {
      }
 
      private void cmdPromotionType() {
-
           LinkedHashMap<String, String> map = new LinkedHashMap<>();
           map.put("Percentage", "Percentage");
-
           objPromotionType.setMapWithNoPlaceHolder(map);
      }
 
@@ -71,6 +139,7 @@ public class PromotionCreateView extends javax.swing.JDialog {
           promotionCreateHeader1 = new feature.promotion.view.component.PromotionCreateHeader();
           jScrollPane = new javax.swing.JScrollPane();
           panelData = new javax.swing.JPanel();
+          boxTotal = new feature.promotion.view.component.BoxTotal();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -171,13 +240,18 @@ public class PromotionCreateView extends javax.swing.JDialog {
                mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                         .addComponent(panelDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addGroup(mainPanelLayout.createSequentialGroup()
-                              .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                              .addComponent(boxTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(mainPanelLayout.createSequentialGroup()
+                              .addGap(20, 20, 20)
+                              .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                   .addComponent(panelDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                   .addGroup(mainPanelLayout.createSequentialGroup()
+                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGap(20, 20, 20))
           );
           mainPanelLayout.setVerticalGroup(
@@ -186,7 +260,9 @@ public class PromotionCreateView extends javax.swing.JDialog {
                     .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(panelDetail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(18, 18, 18)
+                    .addGap(10, 10, 10)
+                    .addComponent(boxTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(10, 10, 10)
                     .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,14 +291,84 @@ public class PromotionCreateView extends javax.swing.JDialog {
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
-
+          create();
      }//GEN-LAST:event_buttonSave1MouseClicked
 
+     private void create() {
+
+          boolean isCheck = JavaValidation.checkValidation(panel);
+
+          if (panelData.getComponents().length == 0) {
+
+               JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+               j.setMessage("Invalid save !");
+               j.setVisible(true);
+               return;
+          }
+
+          if (isCheck) {
+
+               JSONObject json = new JSONObject();
+               json.put("promotionType", objPromotionType.getSelectedItem());
+               json.put("startDate", objStartDate.getSelectedDate());
+               json.put("endDate", objStartDate.getSelectedDate());
+               json.put("percentage", objPercentage.getValueTextField());
+               json.put("createdBy", JavaConstant.cashierId);
+               json.put("totalPrice", JavaConstant.getReplace(boxTotal.getTxtTotalSalePrice().getText()));
+               json.put("afterDiscount", JavaConstant.getReplace(boxTotal.getTxtTotalAfterDiscount().getText()));
+
+               List<PromotionDetailRequest> detailRequests = new ArrayList<>();
+               for (Component com : panelData.getComponents()) {
+                    if (com instanceof PromotionCreateRowData rowData) {
+                         Integer percentage = Integer.valueOf(objPercentage.getValueTextField());
+                         Double afterDiscount = JavaConstant.getReplace(rowData.getLbAfterDiscount().getText());
+
+                         detailRequests.add(PromotionDetailRequest.builder()
+                              .productId(rowData.getProductId())
+                              .percentage(percentage)
+                              .afterDiscount(BigDecimal.valueOf(afterDiscount))
+                              .build());
+                    }
+               }
+               json.put("details", detailRequests);
+
+               Response response = null;
+
+               if (data == null) { // add new
+                    response = JavaConnection.post(JavaRoute.promotion, json);
+               } else { // update
+                    response = JavaConnection.put(JavaRoute.promotion+"/"+data.getPromotionId(), json);
+               }
+
+               System.err.println("log view response : " + response);
+               System.err.println("log view json data : " + json);
+
+               try {
+
+                    if (response.isSuccessful()) {
+
+                         dispose();
+
+                         // reload list
+                         promotionView.getPromotionController().read(true);
+
+                    }
+
+               } catch (Exception e) {
+                    System.err.println("error post promotion : " + e);
+               }
+
+          }
+
+     }
+
      private void categoryEvent() {
+
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onMouseClick() {
                     DialogCategory dialogCategory = new DialogCategory(new JFrame(), true);
+                    dialogCategory.setPromotionCreateView(promotionCreateView);
                     dialogCategory.setVisible(true);
                }
           };
@@ -231,7 +377,16 @@ public class PromotionCreateView extends javax.swing.JDialog {
           ButtonEvent eventDesc = new ButtonEvent() {
                @Override
                public void onMouseClick() {
-                    DialogDescription dialogDescription = new DialogDescription(new JFrame(), true);
+
+                    if (detailDescriptions.isEmpty()) {
+                         JavaAlertMessage j = new JavaAlertMessage(new JFrame(), true);
+                         j.setMessage("Please select category first !");
+                         j.setVisible(true);
+                         return;
+                    }
+
+                    dialogDescription.setPromotionCreateView(promotionCreateView);
+                    dialogDescription.getController().read(detailDescriptions);
                     dialogDescription.setVisible(true);
                }
           };
@@ -256,6 +411,7 @@ public class PromotionCreateView extends javax.swing.JDialog {
      }
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
+     private feature.promotion.view.component.BoxTotal boxTotal;
      private Button.Button btnCancel;
      private ButtonPackage.ButtonSave buttonSave1;
      private javax.swing.JScrollPane jScrollPane;

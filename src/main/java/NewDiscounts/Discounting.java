@@ -36,13 +36,15 @@ public class Discounting extends javax.swing.JDialog {
           type = "percent";
           event();
 //        removeBorder(this);
+
+          switchButton.initEvent();
      }
 
      String type;
      String percentType;
 
      private void switchButton() {
-          switchButton1.addEventSelected(new EventSwitchSelected() {
+          switchButton.addEventSelected(new EventSwitchSelected() {
                @Override
                public void onSelected(boolean selected) {
 
@@ -152,7 +154,7 @@ public class Discounting extends javax.swing.JDialog {
           nine = new Components.labelDis();
           zero = new Components.labelDis();
           btnDone = new Button.Button();
-          switchButton1 = new SwitchButton.SwitchButton();
+          switchButton = new SwitchButton.SwitchButton();
           inputDis = new Components.TextFieldCenter();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -164,7 +166,6 @@ public class Discounting extends javax.swing.JDialog {
           label2.setLabelName("$");
 
           tenPercents.setBackground(new java.awt.Color(153, 204, 255));
-          tenPercents.setForeground(new java.awt.Color(0, 0, 0));
           tenPercents.setLabelDiscount("10%");
           tenPercents.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -464,7 +465,7 @@ public class Discounting extends javax.swing.JDialog {
                                    .addGroup(discountPanelLayout.createSequentialGroup()
                                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(switchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(206, 206, 206)
@@ -490,7 +491,7 @@ public class Discounting extends javax.swing.JDialog {
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addGroup(discountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, discountPanelLayout.createSequentialGroup()
-                                        .addComponent(switchButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(switchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(12, 12, 12))
                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, discountPanelLayout.createSequentialGroup()
                                         .addComponent(inputDis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1001,7 +1002,7 @@ public class Discounting extends javax.swing.JDialog {
      private Components.labelDis one;
      private Components.labelDis seven;
      private Components.labelDis six;
-     private SwitchButton.SwitchButton switchButton1;
+     private SwitchButton.SwitchButton switchButton;
      private Components.labelDis tenPercents;
      private Components.labelDis thirtyPercent;
      private Components.labelDis three;

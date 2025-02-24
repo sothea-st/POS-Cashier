@@ -6,6 +6,7 @@ import Components.Fonts.WindowFonts;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.promotion.model.PromotionDetailModel;
 import feature.promotion.model.PromotionModel;
 import feature.promotion.model.PromotionModel.PromotionDetail;
 import feature.promotion.view.PromotionView;
@@ -17,8 +18,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import okhttp3.Response;
+import org.json.JSONObject;
 
 public class PromotionController {
 
@@ -77,7 +80,7 @@ public class PromotionController {
           view.getSearchField().initEvent(event);
      }
 
-     private void read(boolean isCheck) {
+     public void read(boolean isCheck) {
 
           Response response = null;
 
@@ -90,8 +93,7 @@ public class PromotionController {
                response = JavaConnection.get(JavaRoute.promotion + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize);
           }
 
-         // System.err.println(" ============ log view response : " + response);
-
+          // System.err.println(" ============ log view response : " + response);
           try {
 
                String responseData = response.body().string();
@@ -161,6 +163,40 @@ public class PromotionController {
                     public void onDelete() {
                          delete(promotionId);
                     }
+
+                    @Override
+                    public void onMouseClick() {
+                         status(promotionId, rowData);
+                    }
+
+                    @Override
+                    public void onEdit() {
+
+                         Response response = JavaConnection.get(JavaRoute.promotion + "/" + promotionId);
+
+                         System.err.println("log view response : " + response);
+
+                         try {
+
+                              if (response.isSuccessful()) {
+
+                                   String stringData = response.body().string();
+
+                                   ObjectMapper objMapper = new ObjectMapper();
+
+                                   PromotionDetailModel model = objMapper.readValue(stringData, PromotionDetailModel.class);
+                                   
+                                   System.err.println("ddddddddddddddd = " + model.getData().getDetails().length);
+
+                                   view.addPromotion(model.getData());
+                              }
+
+                         } catch (Exception e) {
+                              System.err.println("error get detail promotion : " + e);
+                         }
+
+                    }
+
                };
                rowData.initEvent(event);
 
@@ -213,6 +249,36 @@ public class PromotionController {
                } catch (Exception e) {
                     System.err.println("error delete promotion : " + e);
                }
+          }
+     }
+
+     private void status(Integer promotionId, PromotionRowData rowData) {
+
+          UIManager UI = new UIManager();
+          UI.put("OptionPane.background", WindowColor.mediumGreen);
+          UI.put("Panel.background", WindowColor.mediumGreen);
+          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+          int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to change status ?",
+               "Status", JOptionPane.YES_NO_OPTION);
+
+          if (resp == JOptionPane.YES_OPTION) {
+
+               boolean isStatus = !rowData.getSwitchStatus().isSelected();
+               JSONObject json = new JSONObject();
+               json.put("isStatus", isStatus);
+
+               Response response = JavaConnection.put(JavaRoute.promotion + "/updateStatus/" + promotionId, json);
+               System.err.println("log view response : " + response);
+
+               try {
+                    if (response.isSuccessful()) {
+                         SwingUtilities.invokeLater(() -> rowData.getSwitchStatus().setSelected(isStatus));
+                    }
+               } catch (Exception e) {
+                    System.err.println("error update status promotion : " + e);
+               }
+
           }
      }
 

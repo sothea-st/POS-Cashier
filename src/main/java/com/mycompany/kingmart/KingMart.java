@@ -8,12 +8,9 @@ import java.io.FileNotFoundException;
 public class KingMart {
 
      public static void main(String[] args) throws FileNotFoundException {
-
           JavaConstant.setLookAndFeel();
-          
           MainPage mainPage = new MainPage();
           mainPage.setVisible(true);
- 
      }
 
 }

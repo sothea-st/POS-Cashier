@@ -1,50 +1,29 @@
 package feature.promotion.view.component.dialog_description;
 
 import Components.Color.WindowColor;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import Constant.JavaConstant;
+import feature.promotion.controller.DialogDescriptionController;
+import feature.promotion.view.PromotionCreateView;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class DialogDescription extends javax.swing.JDialog {
 
+     private DialogDescriptionController controller;
+
+     private PromotionCreateView promotionCreateView;
+
      public DialogDescription(java.awt.Frame parent, boolean modal) {
+
           super(parent, modal);
+
           initComponents();
 
           custom();
 
-          appendData();
-     }
-
-     private void appendData() {
-
-          panelData.removeAll();
-
-          GridBagLayout gridBagLayout = new GridBagLayout();
-          gridBagLayout.columnWidths = new int[]{0}; // Only one column
-          gridBagLayout.columnWeights = new double[]{1}; // Column stretches properly
-          gridBagLayout.rowWeights = new double[10]; // Dynamic row sizing
-
-          panelData.setLayout(gridBagLayout);
-
-          for (int i = 0; i < 10; i++) {
-               GridBagConstraints gbc = new GridBagConstraints();
-               gbc.gridx = 0; // Always in the first column
-               gbc.gridy = i; // Stack items vertically
-               gbc.gridwidth = 1;
-               gbc.fill = GridBagConstraints.HORIZONTAL; // Stretch horizontally
-               gbc.anchor = GridBagConstraints.NORTH; // Align items to the top
-               gbc.insets = new Insets(5, 5, 5, 5); // Padding between items
-
-               DescriptionRowData rowData = new DescriptionRowData();
-               // rowData.setPreferredSize(new Dimension(200, 30)); // Optional: Set size
-
-               panelData.add(rowData, gbc);
-          }
-
-// Refresh UI
-          panelData.revalidate();
-          panelData.repaint();
+          controller = new DialogDescriptionController(this);
 
      }
 
@@ -52,8 +31,16 @@ public class DialogDescription extends javax.swing.JDialog {
           setBackground(WindowColor.slightGreen);
           setResizable(false);
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+          JavaConstant.setScroll(jScrollPane);
      }
 
+     
+     public void reloadPanelData(){
+          panelData.removeAll();
+          panelData.revalidate();
+          panelData.repaint();
+     }
+     
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -140,34 +127,13 @@ public class DialogDescription extends javax.swing.JDialog {
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void btnSelectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSelectMouseClicked
-
+          
+          controller.select();
+         
      }//GEN-LAST:event_btnSelectMouseClicked
 
      public static void main(String args[]) {
-          /* Set the Nimbus look and feel */
-          //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-          /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-           */
-          try {
-               for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                    if ("Nimbus".equals(info.getName())) {
-                         javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                         break;
-                    }
-               }
-          } catch (ClassNotFoundException ex) {
-               java.util.logging.Logger.getLogger(DialogDescription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (InstantiationException ex) {
-               java.util.logging.Logger.getLogger(DialogDescription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (IllegalAccessException ex) {
-               java.util.logging.Logger.getLogger(DialogDescription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-               java.util.logging.Logger.getLogger(DialogDescription.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-          }
-          //</editor-fold>
 
-          /* Create and display the dialog */
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     DialogDescription dialog = new DialogDescription(new javax.swing.JFrame(), true);

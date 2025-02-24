@@ -4,6 +4,7 @@ import Components.Color.WindowColor;
 import Components.Fonts.WindowFonts;
 import Constant.JavaConstant;
 import feature.promotion.controller.DialogCategoryController;
+import feature.promotion.view.PromotionCreateView;
 import javax.swing.ImageIcon;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,8 @@ public class DialogCategory extends javax.swing.JDialog {
      private Boolean isSelectAll = false;
 
      private DialogCategoryController controller;
+     
+     private PromotionCreateView promotionCreateView;
 
      public DialogCategory(java.awt.Frame parent, boolean modal) {
 

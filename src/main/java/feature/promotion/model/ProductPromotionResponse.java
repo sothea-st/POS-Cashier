@@ -2,6 +2,7 @@ package feature.promotion.model;
 
 import java.math.BigDecimal;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
@@ -13,6 +14,7 @@ public class ProductPromotionResponse {
 
      @Setter
      @Getter
+     @NoArgsConstructor
      public static class ProductPromotionResponseDetail {
 
           private int productId;
@@ -21,5 +23,11 @@ public class ProductPromotionResponse {
           private String englishDescription;
           private int onHandQty;
           private BigDecimal salePrice;
+          private String khrDescription;
+          private String division;
+          private String department;
+          private String percentage;
+          private BigDecimal afterDiscount;
+
      }
 }

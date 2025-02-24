@@ -1,81 +1,146 @@
- 
 package feature.promotion.view.component;
 
-import java.awt.Dimension;
- 
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
+import Constant.JavaConstant;
+import feature.promotion.model.ProductPromotionResponse;
+import feature.promotion.model.ProductPromotionResponse.ProductPromotionResponseDetail;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class PromotionCreateRowData extends javax.swing.JPanel {
 
- 
-     public PromotionCreateRowData() {
+     private ProductPromotionResponse.ProductPromotionResponseDetail detail;
+     private Integer number;
+     private Integer productId;
+     
+     public PromotionCreateRowData(ProductPromotionResponseDetail detail, Integer number) {
+
+          this.detail = detail;
+          this.number = number;
+
           initComponents();
-         
+
+          setData();
+
+          JavaConstant.setPointer(btnDelete);
      }
 
-     
+     public void initEvent(ButtonEvent event) {
+
+          btnDelete.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onMouseClick();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+
+          });
+     }
+
+     public void setData() {
+          this.productId = detail.getProductId();
+          lbNumber.setText(String.valueOf(number));
+          lbBarcode.setText(detail.getBarcode());
+          lbCategoryName.setText(detail.getCategoryName());
+          lbEnglishDesc.setText(detail.getEnglishDescription());
+
+          if (JavaConstant.containsKhmer(detail.getKhrDescription())) {
+               lbKhrDesc.setFont(WindowFonts.khmerOsContent12);
+          }
+
+          lbKhrDesc.setText(detail.getKhrDescription());
+
+          lbDivision.setText(detail.getDivision());
+          lbDepartment.setText(detail.getDepartment());
+          lbPercentage.setText(detail.getPercentage());
+          lbSalePrice.setText(JavaConstant.setAmount(detail.getSalePrice()));
+          lbAfterDiscount.setText(JavaConstant.setAmount(detail.getAfterDiscount()));
+     }
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
           panel = new javax.swing.JPanel();
-          jLabel1 = new javax.swing.JLabel();
-          jLabel2 = new javax.swing.JLabel();
-          jLabel3 = new javax.swing.JLabel();
-          jLabel4 = new javax.swing.JLabel();
-          jLabel5 = new javax.swing.JLabel();
-          jLabel6 = new javax.swing.JLabel();
-          jLabel7 = new javax.swing.JLabel();
-          jLabel8 = new javax.swing.JLabel();
-          jLabel9 = new javax.swing.JLabel();
-          jLabel11 = new javax.swing.JLabel();
-          jLabel10 = new javax.swing.JLabel();
+          lbBarcode = new javax.swing.JLabel();
+          lbNumber = new javax.swing.JLabel();
+          lbCategoryName = new javax.swing.JLabel();
+          lbKhrDesc = new javax.swing.JLabel();
+          lbEnglishDesc = new javax.swing.JLabel();
+          lbDepartment = new javax.swing.JLabel();
+          btnDelete = new javax.swing.JLabel();
+          lbSalePrice = new javax.swing.JLabel();
+          lbDivision = new javax.swing.JLabel();
+          lbPercentage = new javax.swing.JLabel();
+          lbAfterDiscount = new javax.swing.JLabel();
 
           panel.setBackground(new java.awt.Color(255, 255, 255));
           panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
           panel.setPreferredSize(new java.awt.Dimension(400, 45));
 
-          jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel1.setText("Barcode");
+          lbBarcode.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbBarcode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbBarcode.setText("Barcode");
 
-          jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel2.setText("No");
+          lbNumber.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbNumber.setText("No");
 
-          jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel3.setText("Category Name");
+          lbCategoryName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbCategoryName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbCategoryName.setText("Category Name");
 
-          jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel4.setText("Khmer Description");
+          lbKhrDesc.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbKhrDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbKhrDesc.setText("Khmer Description");
 
-          jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel5.setText("English Description");
+          lbEnglishDesc.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbEnglishDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbEnglishDesc.setText("English Description");
 
-          jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel6.setText("Department Name");
+          lbDepartment.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbDepartment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbDepartment.setText("Department Name");
 
-          jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
+          btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+          btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
 
-          jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel8.setText("Sale Price");
+          lbSalePrice.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbSalePrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbSalePrice.setText("Sale Price");
 
-          jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel9.setText("Division Name");
+          lbDivision.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbDivision.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbDivision.setText("Division Name");
 
-          jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel11.setText("Percentage");
+          lbPercentage.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbPercentage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbPercentage.setText("Percentage");
 
-          jLabel10.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          jLabel10.setText("\tAfter Discount");
+          lbAfterDiscount.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          lbAfterDiscount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          lbAfterDiscount.setText("\tAfter Discount");
 
           javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
           panel.setLayout(panelLayout);
@@ -83,49 +148,50 @@ public class PromotionCreateRowData extends javax.swing.JPanel {
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelLayout.createSequentialGroup()
                     .addGap(97, 97, 97)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                    .addComponent(lbBarcode, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                    .addComponent(lbCategoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(lbEnglishDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                    .addComponent(lbKhrDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(lbDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(lbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                    .addComponent(lbPercentage, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                    .addComponent(lbSalePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                    .addComponent(lbAfterDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                     .addGap(18, 18, 18)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addGap(18, 18, 18))
                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                         .addComponent(lbNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                          .addGap(1257, 1257, 1257)))
           );
           panelLayout.setVerticalGroup(
                panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(panelLayout.createSequentialGroup()
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                              .addComponent(lbBarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbCategoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbKhrDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbEnglishDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbDivision, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(lbAfterDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGap(0, 0, Short.MAX_VALUE))
                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(lbNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addGap(0, 14, Short.MAX_VALUE)))
           );
 
@@ -143,17 +209,17 @@ public class PromotionCreateRowData extends javax.swing.JPanel {
 
 
      // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JLabel jLabel1;
-     private javax.swing.JLabel jLabel10;
-     private javax.swing.JLabel jLabel11;
-     private javax.swing.JLabel jLabel2;
-     private javax.swing.JLabel jLabel3;
-     private javax.swing.JLabel jLabel4;
-     private javax.swing.JLabel jLabel5;
-     private javax.swing.JLabel jLabel6;
-     private javax.swing.JLabel jLabel7;
-     private javax.swing.JLabel jLabel8;
-     private javax.swing.JLabel jLabel9;
+     private javax.swing.JLabel btnDelete;
+     private javax.swing.JLabel lbAfterDiscount;
+     private javax.swing.JLabel lbBarcode;
+     private javax.swing.JLabel lbCategoryName;
+     private javax.swing.JLabel lbDepartment;
+     private javax.swing.JLabel lbDivision;
+     private javax.swing.JLabel lbEnglishDesc;
+     private javax.swing.JLabel lbKhrDesc;
+     private javax.swing.JLabel lbNumber;
+     private javax.swing.JLabel lbPercentage;
+     private javax.swing.JLabel lbSalePrice;
      private javax.swing.JPanel panel;
      // End of variables declaration//GEN-END:variables
 }

@@ -13,6 +13,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
 import okhttp3.Response;
@@ -121,19 +122,26 @@ public class DialogCategoryController {
 
           Response response = JavaConnection.post(JavaRoute.promotion + "/readByCategoryId", json);
 
-          System.err.println("log view response : " + response);
-          System.err.println("log view json : " + json);
+//          System.err.println("log view response : " + response);
+//          System.err.println("log view json : " + json);
 
           try {
 
-               String responseData = response.body().string();
+               if (response.isSuccessful()) {
+                    
+                    controller.getPromotionCreateView().getDialogDescription().reloadPanelData();
+                    
+                    String responseData = response.body().string();
 
-               ObjectMapper objMapper = new ObjectMapper();
+                    ObjectMapper objMapper = new ObjectMapper();
 
-               ProductPromotionResponse model = objMapper.readValue(responseData, ProductPromotionResponse.class);
+                    ProductPromotionResponse model = objMapper.readValue(responseData, ProductPromotionResponse.class);
 
-               for (ProductPromotionResponse.ProductPromotionResponseDetail detail : model.getData()) {
-                    System.err.println("productName : " + detail.getEnglishDescription());
+                    controller.getPromotionCreateView().getDetailDescriptions().clear();
+                    
+                    controller.getPromotionCreateView().getDetailDescriptions().addAll(Arrays.asList(model.getData()));
+
+                    controller.dispose();
                }
 
           } catch (Exception e) {

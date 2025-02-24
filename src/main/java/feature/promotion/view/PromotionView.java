@@ -3,6 +3,7 @@ package feature.promotion.view;
 import Components.Color.WindowColor;
 import Constant.JavaConstant;
 import feature.promotion.controller.PromotionController;
+import feature.promotion.model.PromotionDetailModel.PromotionDetailData;
 import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import lombok.Getter;
@@ -11,27 +12,29 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PromotionView extends javax.swing.JDialog {
-     
+
+     private PromotionController promotionController;
+
      public PromotionView(java.awt.Frame parent, boolean modal) {
-          
+
           super(parent, modal);
-          
+
           initComponents();
-          
+
           custom();
 
           // call controller
-          new PromotionController(this);
-          
+          promotionController = new PromotionController(this);
+
      }
-     
+
      private void custom() {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           panelData.setBackground(WindowColor.mediumGreen);
           JavaConstant.setScroll(jScrollPane);
      }
-     
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -150,14 +153,21 @@ public class PromotionView extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-          PromotionCreateView promotionCreateView = new PromotionCreateView(new JFrame(), true);
-          promotionCreateView.setVisible(true);
+          addPromotion(null);
      }//GEN-LAST:event_buttonSaveMouseClicked
+
+     public void addPromotion(PromotionDetailData data) {
+          PromotionCreateView promotionCreateView = new PromotionCreateView(new JFrame(), true);
+          promotionCreateView.setPromotionView(this);
+          promotionCreateView.setData(data);
+          promotionCreateView.update();
+          promotionCreateView.setVisible(true);
+     }
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
-     
+
      public static void main(String args[]) {
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
