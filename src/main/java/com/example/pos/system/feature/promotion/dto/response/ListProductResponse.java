@@ -11,7 +11,13 @@ public record ListProductResponse(
         String categoryName,
         String englishDescription,
         Integer onHandQty,
-        BigDecimal salePrice
+        BigDecimal salePrice,
+
+        String khrDescription,
+        String division,
+        String department,
+        String percentage,
+        BigDecimal afterDiscount
 
 ) {
 }

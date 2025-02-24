@@ -28,6 +28,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class PromotionServiceImp implements PromotionService {
 
         List<ListProductResponse> listProductResponses = new ArrayList<>();
 
-        for( CategoryIdRequest categoryId : listCategoryRequest.listCategoryId() ) {
+        for (CategoryIdRequest categoryId : listCategoryRequest.listCategoryId()) {
 
             Category category = categoryRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(categoryId.categoryId(), "category")
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, categoryNotFound + categoryId.categoryId()));
@@ -74,7 +75,7 @@ public class PromotionServiceImp implements PromotionService {
 
             List<Product> products = productRepository.findBySubCategoryAndStatusTrueAndIsDeletedFalse(subcategory);
 
-            for( Product product : products ) {
+            for (Product product : products) {
                 Integer onHandQty = repoImp.sumQtyByProId(product.getId());
                 if (onHandQty == null) onHandQty = 0;
                 listProductResponses.add(ListProductResponse.builder()
@@ -84,6 +85,11 @@ public class PromotionServiceImp implements PromotionService {
                         .englishDescription(product.getProNameEn())
                         .onHandQty(onHandQty)
                         .salePrice(product.getPrice())
+                        .khrDescription(product.getProNameKh())
+                        .division(division.getCatNameEn())
+                        .department(department.getCatNameEn())
+                        .percentage("%".concat(String.valueOf(0)))
+                        .afterDiscount(product.getPrice())
                         .build());
             }
 
@@ -98,7 +104,7 @@ public class PromotionServiceImp implements PromotionService {
     @Override
     public ResponseSuccess create(PromotionRequest promotionRequest) {
 
-        createAndUpdate(promotionRequest,null);
+        createAndUpdate(promotionRequest, null);
 
         return ResponseSuccess.builder().build();
     }
@@ -161,13 +167,13 @@ public class PromotionServiceImp implements PromotionService {
         long count = 0;
 
         if (pageNumber == null && pageSize == null) {
-            pages = promotionRepository.findByUserName(null,value);
+            pages = promotionRepository.findByUserName(null, value);
         } else {
             // sort by id
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
             // create page request
             PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, sortById);
-            pages = promotionRepository.findByUserName(pageRequest,value);
+            pages = promotionRepository.findByUserName(pageRequest, value);
         }
 
         list = pages.getContent().stream().map(this::mapToPromotionResponse).toList();
@@ -182,7 +188,7 @@ public class PromotionServiceImp implements PromotionService {
     @Override
     public ResponseSuccess update(Integer id, PromotionRequest promotionRequest) {
 
-        createAndUpdate(promotionRequest,id);
+        createAndUpdate(promotionRequest, id);
 
         return ResponseSuccess.builder().build();
     }
@@ -208,13 +214,13 @@ public class PromotionServiceImp implements PromotionService {
 
         Promotion promotion = null;
 
-        // update
-        if (id != null) {
+
+        if (id != null) {   // update
             // validate promotion
             promotion = promotionRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, promotionNotFound + id));
             promotion.getPromotionDetails().clear(); // clear previous record
-        } else {
+        } else { // add new
             promotion = new Promotion();
             promotion.setActive(true);
         }
@@ -254,6 +260,12 @@ public class PromotionServiceImp implements PromotionService {
                     Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(item.productId())
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productNotFound + item.productId()));
 
+                    // ==== update discount product ======
+                    product.setDiscount(BigDecimal.valueOf(promotionRequest.percentage()));
+                    productRepository.save(product);
+                    // ==== end discount product ======
+
+
                     return PromotionDetail.builder()
                             .promotion(finalPromotion)
                             .product(product)
@@ -264,10 +276,13 @@ public class PromotionServiceImp implements PromotionService {
 
         promotion.setPromotionDetails(promotionDetails);
         promotionRepository.save(promotion);
+
+
     }
 
     private PromotionDetailResponse mapToPromotionDetailResponse(Promotion promotion) {
         return PromotionDetailResponse.builder()
+                .promotionId(promotion.getId())
                 .promotionType(promotion.getPromotionType())
                 .startDate(promotion.getStartDate().toString())
                 .endDate(promotion.getEndDate().toString())
@@ -288,6 +303,7 @@ public class PromotionServiceImp implements PromotionService {
                                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, divisionNotFound + department.getParentId()));
 
                             return PromotionDataDetailResponse.builder()
+                                    .productId(item.getProduct().getId())
                                     .barcode(item.getProduct().getBarcode())
                                     .category(category.getCatNameEn())
                                     .descEng(item.getProduct().getProNameEn())
@@ -304,7 +320,40 @@ public class PromotionServiceImp implements PromotionService {
     }
 
     private PromotionResponse mapToPromotionResponse(Promotion promotion) {
+
         String createdDate = promotion.getCreatedDate().toString().split(" ")[0];
+
+        // Convert endDate to LocalDate
+        LocalDate endDate = LocalDate.parse(promotion.getEndDate().toString());
+        LocalDate currentDate = LocalDate.now();
+
+
+        Boolean isActive = null;
+        if (endDate.isAfter(currentDate)) {
+            isActive = promotion.getActive();
+        } else {
+
+            isActive = false;
+
+            Promotion promotionUpdate = promotionRepository.findByIdAndStatusTrueAndIsDeletedFalse(Integer.valueOf(String.valueOf(promotion.getId())))
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, promotionNotFound + promotion.getId()));
+
+            promotionUpdate.setActive(isActive);
+            promotionRepository.save(promotionUpdate);
+
+
+            // ==== update discount product ======
+            for( PromotionDetail detail : promotion.getPromotionDetails() ) {
+                Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(detail.getProduct().getId())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productNotFound + detail.getProduct().getId()));
+
+                product.setDiscount(BigDecimal.valueOf(0));
+                productRepository.save(product);
+            }
+            // ==== end discount product ======
+
+        }
+
         return PromotionResponse.builder()
                 .id(promotion.getId())
                 .createdDate(createdDate)
@@ -315,7 +364,7 @@ public class PromotionServiceImp implements PromotionService {
                 .percentage(String.valueOf(promotion.getPercentage()).concat("%"))
                 .salePrice(promotion.getTotalPrice())
                 .afterDiscount(promotion.getAfterDiscount())
-                .isStatus(promotion.getActive())
+                .isStatus(isActive)
                 .build();
     }
 

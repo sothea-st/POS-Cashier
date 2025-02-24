@@ -8,6 +8,7 @@ import java.util.List;
 @Builder
 
 public record PromotionDetailResponse(
+        Long promotionId,
         String promotionType,
         String startDate,
         String endDate,
