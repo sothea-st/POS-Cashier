@@ -58,7 +58,7 @@ public class PromotionController {
                          @Override
                          public void run() {
                               searchValue = view.getSearchField().getValueTextSearch();
-                              System.err.println("searchValue === " + searchValue);
+                           
                               view.getPaginationPanel().resetPage();
                               pageNumber = "1";
 

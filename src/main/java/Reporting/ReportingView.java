@@ -85,7 +85,6 @@ public class ReportingView extends javax.swing.JDialog {
           reportPurhaseReceive.setVisible(isReportPurhaseReceive);
           reportInventory.setVisible(isReportInventory);
           objReportReturn.setVisible(isReportSaleReturn);
-
      }
 
      private void getImageAndTitle() {
@@ -95,7 +94,6 @@ public class ReportingView extends javax.swing.JDialog {
           objReportReturn.setTitle("<html>" + "Reporting Return" + "</html>");
           //reportPurhaseApproval.setTitle("<html>" + "Reporting Purchase Approval" + "</html>");
           reportPurhaseReceive.setTitle("<html>" + "Reporting Purchase Receive" + "</html>");
-
      }
 
      @SuppressWarnings("unchecked")

@@ -7,7 +7,7 @@ package Constant.BlogCode;
 import Button.Button;
 import ButtonPackage.ButtonCancel;
 import Components.Color.WindowColor;
-import Components.BoxItem;
+ 
 import Components.JavaAlertMessage;
 import Components.SearchField;
 import Components.TextField;
