@@ -50,7 +50,6 @@ public interface AdjustmentRepository extends JpaRepository<Adjustment, Long> {
 
     Optional<Adjustment> findByIdAndIsDeletedTrue(Integer id);
 
-
     @Query(value = """
             select u from Adjustment u
             where u.isDeleted = true

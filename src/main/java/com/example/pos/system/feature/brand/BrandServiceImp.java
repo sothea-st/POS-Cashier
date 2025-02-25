@@ -21,11 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class BrandServiceImp implements BrandServices{
+public class BrandServiceImp implements BrandServices {
     
     private final BrandRepository brandRepository;
     private String idNotFound = "Id has not been found .";
     private String nameAlreadyExisted = "The Brand Name is already existed.";
+
 
     //get brand by id
     @Override
@@ -35,6 +36,7 @@ public class BrandServiceImp implements BrandServices{
 
         return mBrandResponse(brand);
     }
+
 
     //get list brand 
     @Override
@@ -81,7 +83,9 @@ public class BrandServiceImp implements BrandServices{
         brand.setCreateBy(brandRequest.createBy());
         brand.setStatus(true);
         brand.setDeleted(false);
+
         brandRepository.save(brand);
+
         return mBrandResponse(brand);
     }
 

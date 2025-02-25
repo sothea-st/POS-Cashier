@@ -204,6 +204,18 @@ public class PromotionServiceImp implements PromotionService {
 
         promotionRepository.save(promotion);
 
+
+        // ==== update discount product ======
+        for (PromotionDetail detail : promotion.getPromotionDetails()) {
+            Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(detail.getProduct().getId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productNotFound + detail.getProduct().getId()));
+
+            product.setDiscount(promotionStatusRequest.isStatus() ? BigDecimal.valueOf(promotion.getPercentage()) : BigDecimal.valueOf(0));
+            productRepository.save(product);
+        }
+        // ==== end discount product ======
+
+
         return ResponseSuccess.builder().build();
     }
 
@@ -343,7 +355,7 @@ public class PromotionServiceImp implements PromotionService {
 
 
             // ==== update discount product ======
-            for( PromotionDetail detail : promotion.getPromotionDetails() ) {
+            for (PromotionDetail detail : promotion.getPromotionDetails()) {
                 Product product = productRepository.findByIdAndStatusTrueAndIsDeletedFalse(detail.getProduct().getId())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productNotFound + detail.getProduct().getId()));
 

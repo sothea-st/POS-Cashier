@@ -23,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/brand")
 @RequiredArgsConstructor
 public class BrandController {
+
     private final BrandServices brandServices;
 
     @GetMapping("/{id}")

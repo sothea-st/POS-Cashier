@@ -28,8 +28,6 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
     // List without pagination
     List<Brand> findByStatusTrueAndIsDeletedFalse();
 
-
-
     @Query(value = """
             select u from Brand u
             where u.status = true
