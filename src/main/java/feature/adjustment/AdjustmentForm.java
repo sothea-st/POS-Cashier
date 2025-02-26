@@ -17,7 +17,6 @@ import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Timer;
@@ -113,16 +112,8 @@ public class AdjustmentForm extends javax.swing.JDialog {
      }
 
      private void getAdjustment() {
-          // Get current date
-          LocalDate currentDate = LocalDate.now();
-          String endDate = currentDate.toString();
-
-          // Get the start of the month
-          LocalDate startOfMonth = currentDate.withDayOfMonth(1);
-          String statDate = startOfMonth.toString();
-
-          objDateFrom.setSelectedDate(JavaConstant.formateDateDDMMYYYY(statDate));
-          objDateTo.setSelectedDate(JavaConstant.formateDateDDMMYYYY(endDate));
+          objDateFrom.setSelectedDate(JavaConstant.formateDateDDMMYYYY(JavaConstant.getStartDate()));
+          objDateTo.setSelectedDate(JavaConstant.formateDateDDMMYYYY(JavaConstant.getEndDate()));
 
           getData(true);
      }
@@ -203,11 +194,11 @@ public class AdjustmentForm extends javax.swing.JDialog {
                               .addComponent(objDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(objTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(12, 12, 12)
+                              .addGap(6, 6, 6)
                               .addComponent(objStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(12, 12, 12)
+                              .addGap(6, 6, 6)
                               .addComponent(objReason, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(12, 12, 12)
+                              .addGap(6, 6, 6)
                               .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(panelTopLayout.createSequentialGroup()
                               .addGap(1462, 1462, 1462)

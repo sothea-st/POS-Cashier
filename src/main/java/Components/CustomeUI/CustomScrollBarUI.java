@@ -11,16 +11,20 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
- 
 public class CustomScrollBarUI extends BasicScrollBarUI {
 
      // Set the preferred size of the scrollbar
      @Override
      public Dimension getPreferredSize(JComponent c) {
-          return new Dimension(8, 20);
+          if (((JScrollBar) c).getOrientation() == JScrollBar.HORIZONTAL) {
+               return new Dimension(10, 10); // Height of horizontal scrollbar
+          } else {
+               return new Dimension(8, 20); // Width of vertical scrollbar
+          }
      }
 
      // Paint the track (the area behind the thumb)
@@ -35,13 +39,11 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
      protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
           g.setColor(Color.GRAY); // Set thumb color
           g.fillRoundRect(thumbBounds.x, thumbBounds.y, thumbBounds.width, thumbBounds.height, 0, 0); // Round thumb
-//            g.fillRoundRect(10, 10, 10, 10, 10, 10); remove scrollbar
      }
 
      // Paint the buttons (arrows at the ends of the scrollbar)
      protected void paintButton(Graphics g, JComponent c, Rectangle buttonBounds, int direction) {
           // Override this method if you want to customize the scrollbar buttons
-          // For example, you can change their shape or appearance
      }
 
      // Create decrease button

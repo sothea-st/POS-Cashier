@@ -1,38 +1,61 @@
 package feature.invoice_listing;
 
-import Constant.JavaConstant;
 
- 
+import Constant.JavaConstant;
+import feature.invoice_listing.controller.InvoiceController;
+import lombok.Getter;
+import lombok.Setter;
+@Setter
+@Getter
 public class InvoiceListingView extends javax.swing.JDialog {
 
+     private InvoiceController invoiceController;
+
      public InvoiceListingView(java.awt.Frame parent, boolean modal) {
+
           super(parent, modal);
+
           initComponents();
 
           JavaConstant.setScroll(jScrollPane);
-          
-          invoicePanel1.setData(10);
+
+          custom();
+
+          // call controller
+          invoiceController = new InvoiceController(
+               this,
+               objDateFrom.getSelectedDate(),
+               objDateTo.getSelectedDate());
+
      }
 
-   
+     
+    
+     
+     private void custom() {
+          objDateFrom.setSelectedDate(JavaConstant.formateDateDDMMYYYY(JavaConstant.getStartDate()));
+          objDateTo.setSelectedDate(JavaConstant.formateDateDDMMYYYY(JavaConstant.getEndDate()));
+     }
 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
 
           jScrollPane = new javax.swing.JScrollPane();
-          invoicePanel1 = new feature.invoice_listing.component.InvoicePanel();
+          invoicePanel = new feature.invoice_listing.component.InvoicePanel();
           paginationPanel = new pagination.PaginationPanel();
           btnCancel = new Button.Button();
-          objEndDate = new FormComponent.datepicker.JavaDatePicker();
-          objStartDate = new FormComponent.datepicker.JavaDatePicker();
+          objDateFrom = new FormComponent.datepicker.JavaDatePicker();
+          objDateTo = new FormComponent.datepicker.JavaDatePicker();
           objEngDesc = new FormComponent.combobox.JavaCombobox();
           buttonSave1 = new ButtonPackage.ButtonSave();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
           jScrollPane.setBorder(null);
-          jScrollPane.setViewportView(invoicePanel1);
+
+          invoicePanel.setPreferredSize(new java.awt.Dimension(2090, 475));
+          jScrollPane.setViewportView(invoicePanel);
 
           btnCancel.setButtonName("Close");
           btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -41,9 +64,9 @@ public class InvoiceListingView extends javax.swing.JDialog {
                }
           });
 
-          objEndDate.setLabelName("Date From *");
+          objDateFrom.setLabelName("Date From *");
 
-          objStartDate.setLabelName("Date To *");
+          objDateTo.setLabelName("Date To *");
 
           objEngDesc.setLabelName("POS ID");
 
@@ -54,25 +77,25 @@ public class InvoiceListingView extends javax.swing.JDialog {
           getContentPane().setLayout(layout);
           layout.setHorizontalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                .addGroup(layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                          .addGroup(layout.createSequentialGroup()
-                              .addContainerGap()
-                              .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                              .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                         .addGroup(layout.createSequentialGroup()
-                              .addGap(20, 20, 20)
-                              .addComponent(objEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(objDateFrom, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(objStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addComponent(objDateTo, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(objEngDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(0, 20, Short.MAX_VALUE)))
-                    .addContainerGap())
+                              .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(26, 26, 26))
+               .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18))
           );
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,16 +104,16 @@ public class InvoiceListingView extends javax.swing.JDialog {
                          .addGroup(layout.createSequentialGroup()
                               .addGap(20, 20, 20)
                               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                   .addComponent(objEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                   .addComponent(objStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(objDateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                   .addComponent(objDateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                    .addComponent(objEngDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE))
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                               .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                               .addComponent(buttonSave1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                              .addGap(28, 28, 28)))
-                    .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -124,11 +147,11 @@ public class InvoiceListingView extends javax.swing.JDialog {
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private Button.Button btnCancel;
      private ButtonPackage.ButtonSave buttonSave1;
-     private feature.invoice_listing.component.InvoicePanel invoicePanel1;
+     private feature.invoice_listing.component.InvoicePanel invoicePanel;
      private javax.swing.JScrollPane jScrollPane;
-     private FormComponent.datepicker.JavaDatePicker objEndDate;
+     private FormComponent.datepicker.JavaDatePicker objDateFrom;
+     private FormComponent.datepicker.JavaDatePicker objDateTo;
      private FormComponent.combobox.JavaCombobox objEngDesc;
-     private FormComponent.datepicker.JavaDatePicker objStartDate;
      private pagination.PaginationPanel paginationPanel;
      // End of variables declaration//GEN-END:variables
 }

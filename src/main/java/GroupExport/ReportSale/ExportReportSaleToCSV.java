@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package GroupExport.ReportSale;
 
 import Constant.JavaConstant;
-import Model.Report.ReportImportDetail;
 import Model.Report.ReportSaleDetail;
 import com.opencsv.CSVWriter;
 import java.io.FileWriter;
@@ -13,15 +9,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import static feature.Print.pdf.PrintToCSV.downloadFolderPath;
 import static feature.Print.pdf.PrintToCSV.folderPath;
 
-/**
- *
- * @author MOBILE-APP.02
- */
+
 public class ExportReportSaleToCSV {
 
      public static void toCSV(ReportSaleDetail[] list) {
@@ -81,7 +72,7 @@ public class ExportReportSaleToCSV {
                          String.valueOf(detail.getTaxType()),
                          "$".concat(String.valueOf(detail.getTotalSaledExcludeVAT())),
                          "$".concat(String.valueOf(detail.getVatAmt())),
-                         "$".concat(String.valueOf(detail.getPLT())),
+                         "$".concat(String.valueOf(detail.getPlt())),
                          "$".concat(String.valueOf(detail.getNetSale())),
                          "$".concat(String.valueOf(detail.getCost())),
                          "$".concat(String.valueOf(detail.getMargin())),

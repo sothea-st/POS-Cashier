@@ -285,6 +285,9 @@ public class PaymentOption extends javax.swing.JDialog {
                }
           };
           cmbCustomerType.initEvent(event);
+          
+          cmbCustomerType.setSelectedItem(1); // 1 is id 
+          cusTypeId = "1";
      }
 
      //Set Combo box Source
@@ -302,6 +305,9 @@ public class PaymentOption extends javax.swing.JDialog {
                }
           };
           cmbSource.initEvent(event);
+          
+          cmbSource.setSelectedItem(1);
+          sourceId = "1";
 
      }
 
@@ -1708,6 +1714,9 @@ public class PaymentOption extends javax.swing.JDialog {
 
           String _khr = txtReceiveKhr.getText().replace(",", "");
           String _usd = txtReceiveUsd.getText().replace(",", "");
+
+          System.err.println("sourceId : " + sourceId);
+          System.err.println("cusTypeId : " + cusTypeId);
 
           //get dataPay
           HashMap<String, Object> dataPay = new HashMap<>();

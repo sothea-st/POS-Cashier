@@ -566,4 +566,19 @@ public class JavaConstant {
           }
      }
 
+     public static String getEndDate() {
+          // Get current date
+          LocalDate currentDate = LocalDate.now();
+          String endDate = currentDate.toString();
+          return endDate;
+     }
+
+     public static String getStartDate() {
+          LocalDate currentDate = LocalDate.now();
+          // Get the start of the month
+          LocalDate startOfMonth = currentDate.withDayOfMonth(1);
+          String statDate = startOfMonth.toString();
+          return statDate;
+     }
+
 }

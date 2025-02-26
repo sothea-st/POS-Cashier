@@ -81,7 +81,7 @@ public class ExportReportSaleToExcel {
                          String.valueOf(detail.getTaxType()),
                          "$".concat(String.valueOf(detail.getTotalSaledExcludeVAT())),
                          "$".concat(String.valueOf(detail.getVatAmt())),
-                         "$".concat(String.valueOf(detail.getPLT())),
+                         "$".concat(String.valueOf(detail.getPlt())),
                          "$".concat(String.valueOf(detail.getNetSale())),
                          "$".concat(String.valueOf(detail.getCost())),
                          "$".concat(String.valueOf(detail.getMargin())),

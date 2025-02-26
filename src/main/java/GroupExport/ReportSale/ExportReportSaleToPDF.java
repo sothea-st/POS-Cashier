@@ -2,7 +2,6 @@ package GroupExport.ReportSale;
 
 
 import Constant.JavaConstant;
-import Model.Report.ReportImportDetail;
 import Model.Report.ReportSaleDetail;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -24,8 +23,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -35,15 +32,7 @@ import org.apache.commons.io.IOUtils;
 import static feature.Print.pdf.PrintListPDF.downloadFolderPath;
 import static feature.Print.pdf.PrintListPDF.folderPath;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class ExportReportSaleToPDF {
       public static void printListPdf(ReportSaleDetail[] list) throws IOException {
           try {
@@ -85,7 +74,7 @@ public class ExportReportSaleToPDF {
                          String.valueOf(detail.getTaxType()),
                          String.valueOf(detail.getTotalSaledExcludeVAT()),
                          String.valueOf(detail.getVatAmt()),
-                         String.valueOf(detail.getPLT()),
+                         String.valueOf(detail.getPlt()),
                          String.valueOf(detail.getNetSale()),
                          String.valueOf(detail.getCost()),
                          String.valueOf(detail.getMargin()),

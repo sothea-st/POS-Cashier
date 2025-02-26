@@ -108,11 +108,11 @@
                               <Component id="objDateTo" min="-2" pref="250" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="objTransaction" min="-2" pref="250" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="objStatus" min="-2" pref="250" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="objReason" min="-2" pref="250" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                               <Component id="buttonSave1" min="-2" pref="233" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
