@@ -399,7 +399,6 @@ public class ProductService {
         LocalDate currentDate = LocalDate.now();
 
 
-        System.out.println("promotions.size " + promotions.size());
         for (Promotion promotion : promotions) {
 
             Promotion promotionUpdate = promotionRepository.findByIdAndStatusTrueAndIsDeletedFalse(
@@ -408,9 +407,7 @@ public class ProductService {
 
             // Check if endDate is before or equal to the current date
             if (!promotion.getEndDate().isAfter(currentDate)) { // Equivalent to endDate <= currentDate
-                System.out.println("Promotion expired, updating status...");
 
-//                discount = 0.0;
                 promotionUpdate.setActive(false);
                 promotionRepository.save(promotionUpdate);
 
@@ -423,9 +420,6 @@ public class ProductService {
                     repo.save(product);
                 }
                 // ==== End discount update ======
-            } else {
-                System.out.println("nnnnnnnnnnnnnnnnnnnn");
-
             }
         }
 

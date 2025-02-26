@@ -23,7 +23,15 @@ public record ReportSaledResponse(
      BigDecimal margin,
      String userName,
      String barcode,
-     String invoiceNumber
+     String invoiceNumber,
+     String transactionType,
+     String posId,
+     String paymentStatus,
+     String paymentMethod,
+     BigDecimal totalOrder,
+     String orderSource,
+     String customerType,
+     BigDecimal khqrCode
 ) {
      
 }

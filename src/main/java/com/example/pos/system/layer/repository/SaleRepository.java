@@ -25,7 +25,7 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
                                                       String searchValue , Integer userId , Integer pageSize , Integer pageNumber );
 
         @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data_with_pagination(?,?, ?, ?, ?)")
-        List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId , Integer pageNumber , Integer pageSize);
+                List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId , Integer pageNumber , Integer pageSize);
 
         // @Query(nativeQuery = true, value = "SELECT * FROM get_sales_data(?,?, ?)")
         // List<ReportSaledProjection> getReportSaleds(LocalDate dateFrom, LocalDate dateTo, Integer userId);

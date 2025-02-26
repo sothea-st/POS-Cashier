@@ -149,6 +149,8 @@ public class SaleService {
 
         if (dateFromValue.equals(dateToValue) && userId != null) {
 
+
+
             String[] arrDateTo = dateFromValue.split("-");
             String dateToStr = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
 
@@ -156,6 +158,9 @@ public class SaleService {
             reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
             return reportResponse(reportSaled, null);
         }
+
+        System.out.println("2222222222222222");
+
 
         reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
         return reportResponse(reportSaled, null);
@@ -237,6 +242,14 @@ public class SaleService {
                     .barcode(report.getBarcode())
                     .invoiceNumber(report.getinvoice_number())
                     .userName(report.getfull_name() == null ? null : report.getfull_name())
+                    .transactionType(report.getinvoice_number().contains("SCN")? "Returned" : "Sale POS")
+                    .posId("POS-"+report.getpos_id())
+                    .paymentStatus("Paid")
+                    .paymentMethod(report.getpayment_method())
+                    .totalOrder(report.gettotal_order())
+                    .orderSource(report.getorder_source())
+                    .customerType(report.getcustomer_type())
+                    .khqrCode(report.getpayment_method().equals("credit") ? report.gettotal_order(): BigDecimal.valueOf(0.00))
                     .build();
 
             if (searchProductName != null) {
