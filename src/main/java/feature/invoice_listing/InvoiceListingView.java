@@ -29,7 +29,6 @@ public class InvoiceListingView extends javax.swing.JDialog {
 
      }
 
-     
     
      
      private void custom() {
@@ -72,6 +71,11 @@ public class InvoiceListingView extends javax.swing.JDialog {
 
           buttonSave1.setPreferredSize(new java.awt.Dimension(78, 32));
           buttonSave1.setTitleButton("Find");
+          buttonSave1.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    buttonSave1MouseClicked(evt);
+               }
+          });
 
           javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
           getContentPane().setLayout(layout);
@@ -127,6 +131,12 @@ public class InvoiceListingView extends javax.swing.JDialog {
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
      }//GEN-LAST:event_btnCancelMouseClicked
+
+     private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked
+          invoiceController.setDateFrom(objDateFrom.getSelectedDate());
+          invoiceController.setDateTo(objDateTo.getSelectedDate());
+          invoiceController.read();
+     }//GEN-LAST:event_buttonSave1MouseClicked
 
      public static void main(String args[]) {
 
