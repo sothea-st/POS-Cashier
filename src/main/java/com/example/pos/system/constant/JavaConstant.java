@@ -5,6 +5,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
@@ -164,5 +165,24 @@ public class JavaConstant {
 
         // Concatenate to generate the code
         return year + month + day + autoIncrement;
+    }
+
+
+    public static void validateAge(String dob) {
+        if (dob == null || dob.isBlank()) {
+            throw new IllegalArgumentException("Date of Birth is required!");
+        }
+
+        try {
+            LocalDate birthDate = LocalDate.parse(dob); // Ensures yyyy-MM-dd format
+            LocalDate today = LocalDate.now();
+            int age = Period.between(birthDate, today).getYears();
+
+            if (age < 18) {
+                throw new IllegalArgumentException("Dob must be at least 18 years old!");
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format! Please use yyyy-MM-dd.");
+        }
     }
 }

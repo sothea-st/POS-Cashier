@@ -48,8 +48,6 @@ public class Sale {
     @Column(name = "total" , precision = 10 , scale = 2)
     private BigDecimal total;
 
-
-
     @Column(name = "total_return" , precision = 10 , scale = 2)
     private BigDecimal totalReturn;
 
@@ -58,7 +56,6 @@ public class Sale {
 
     @Column(name = "active")
     private String active;
-
 
     @Column(name = "sub_total" , precision = 10 , scale = 2)
     private BigDecimal subTotal;
@@ -81,7 +78,6 @@ public class Sale {
     @OneToOne 
     @JoinColumn(name = "data_pay_id")
     private Payment dataPay;
-
  
     @OneToOne(cascade = CascadeType.ALL)
     private Customer customer;
