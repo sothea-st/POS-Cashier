@@ -93,4 +93,11 @@ public class JavaRoute {
      public static String adjustment = "/v1/adjustments";
      public static String promotion = "/v1/promotions";
 
+     public static String companyProfile = "/v1/companyProfiles";
+
+     public static String province = "/gazetteer/provinces";
+     public static String district = "/gazetteer/districts";
+     public static String commune = "/gazetteer/communes";
+     public static String village = "/gazetteer/villages";
+
 }

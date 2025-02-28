@@ -11,6 +11,8 @@ import feature.Stock.PurchaseOrderView.PurchaseOrderView;
 import feature.Stock.PurchaseReceive.ListPurchaseReceive;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.adjustment.AdjustmentForm;
+import feature.company_profile.CompanyProfileView;
+import feature.company_profile.individual.IndividualView;
 import feature.invoice_listing.InvoiceListingView;
 import feature.promotion.view.PromotionView;
 import java.awt.Frame;
@@ -45,9 +47,8 @@ public class StockManagement extends javax.swing.JDialog {
           JavaConstant.addTitleAndLogo(this, "Stock");
           getImageAndTitle();
 
-          
           custom();
-          
+
           // check permission
           checkPermission();
      }
@@ -125,6 +126,7 @@ public class StockManagement extends javax.swing.JDialog {
           category = new Components.SettingBox();
           objPromotion = new Components.SettingBox();
           objPromotion1 = new Components.SettingBox();
+          objCompanyProfile = new Components.SettingBox();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -173,11 +175,19 @@ public class StockManagement extends javax.swing.JDialog {
                }
           });
 
-          objPromotion1.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/stock/promotion.png"))); // NOI18N
+          objPromotion1.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/stock/invoice_listing.png"))); // NOI18N
           objPromotion1.setTitle("Invoice Listing");
           objPromotion1.addMouseListener(new java.awt.event.MouseAdapter() {
                public void mouseClicked(java.awt.event.MouseEvent evt) {
                     objPromotion1MouseClicked(evt);
+               }
+          });
+
+          objCompanyProfile.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/stock/company_profile.png"))); // NOI18N
+          objCompanyProfile.setTitle("Company Profile");
+          objCompanyProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objCompanyProfileMouseClicked(evt);
                }
           });
 
@@ -191,7 +201,9 @@ public class StockManagement extends javax.swing.JDialog {
                          .addGroup(jPanel3Layout.createSequentialGroup()
                               .addComponent(objPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(objPromotion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addComponent(objPromotion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objCompanyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(jPanel3Layout.createSequentialGroup()
                               .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,7 +226,8 @@ public class StockManagement extends javax.swing.JDialog {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(objPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(objPromotion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(objPromotion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(objCompanyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(707, Short.MAX_VALUE))
           );
 
@@ -263,8 +276,8 @@ public class StockManagement extends javax.swing.JDialog {
      }//GEN-LAST:event_purchaseOrderMouseEntered
 
      private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
-         AdjustmentForm adjustmentForm = new AdjustmentForm(new JFrame(), true);
-         adjustmentForm.setVisible(true);
+          AdjustmentForm adjustmentForm = new AdjustmentForm(new JFrame(), true);
+          adjustmentForm.setVisible(true);
      }//GEN-LAST:event_categoryMouseClicked
 
      private void objPromotionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objPromotionMouseClicked
@@ -273,9 +286,15 @@ public class StockManagement extends javax.swing.JDialog {
      }//GEN-LAST:event_objPromotionMouseClicked
 
      private void objPromotion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objPromotion1MouseClicked
-        InvoiceListingView invoiceListingView = new InvoiceListingView(new JFrame(), true);
-        invoiceListingView.setVisible(true);
+          InvoiceListingView invoiceListingView = new InvoiceListingView(new JFrame(), true);
+          invoiceListingView.setVisible(true);
      }//GEN-LAST:event_objPromotion1MouseClicked
+
+     private void objCompanyProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objCompanyProfileMouseClicked
+
+          CompanyProfileView companyProfileView = new CompanyProfileView(new JFrame(), true);
+          companyProfileView.setVisible(true);
+     }//GEN-LAST:event_objCompanyProfileMouseClicked
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -345,6 +364,7 @@ public class StockManagement extends javax.swing.JDialog {
      private Components.SettingBox category;
      private javax.swing.JPanel jPanel3;
      private javax.swing.JScrollPane jScrollPane1;
+     private Components.SettingBox objCompanyProfile;
      private Components.SettingBox objPromotion;
      private Components.SettingBox objPromotion1;
      private Components.SettingBox product;

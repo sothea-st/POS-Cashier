@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="objFirstName" alignment="1" max="32767" attributes="0"/>
+                          <Component id="objGender" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="objLastName" min="-2" pref="400" max="-2" attributes="0"/>
+                          <Component id="objNationality" min="-2" pref="400" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="objLat" min="-2" pref="400" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="objLng" min="-2" pref="400" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="objPhoneNumber" max="32767" attributes="0"/>
+                          <Component id="objDob" min="-2" pref="400" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="objEmail" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                          <Component id="objHome" alignment="1" min="-2" pref="400" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="objStreet" alignment="0" min="-2" pref="400" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="406" pref="406" max="-2" attributes="0"/>
+                      <Component id="objProvince" min="-2" pref="400" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="objDistrict" min="-2" pref="400" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="objCommune" min="-2" pref="400" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="objVillage" min="-2" pref="400" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnCancel1" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="579" max="-2" attributes="0"/>
+                  <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
+                  <EmptySpace pref="593" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="objFirstName" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="objLastName" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="objNationality" min="-2" max="-2" attributes="0"/>
+                  <Component id="objGender" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="objPhoneNumber" pref="69" max="32767" attributes="0"/>
+                  <Component id="objEmail" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="objDob" min="-2" max="-2" attributes="0"/>
+                  <Component id="objHome" min="-2" pref="64" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="objLng" min="-2" max="-2" attributes="0"/>
+                  <Component id="objLat" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="objStreet" min="-2" max="-2" attributes="0"/>
+                  <Component id="objProvince" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="objDistrict" min="-2" max="-2" attributes="0"/>
+                  <Component id="objCommune" min="-2" max="-2" attributes="0"/>
+                  <Component id="objVillage" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnCancel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonSave" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="23" max="32767" attributes="0"/>
+          </Group>
+          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="333" max="-2" attributes="0"/>
+                  <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="223" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="FormComponent.combobox.JavaCombobox" name="objGender">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=" Gender *"/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objFirstName">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="First Name *"/>
+        <Property name="placeHolder" type="java.lang.String" value="First Name"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.datepicker.JavaDatePicker" name="objDob">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Date of Birth *"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objLastName">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Last Name *"/>
+        <Property name="placeHolder" type="java.lang.String" value="Last Name"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objPhoneNumber">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Phone Number *"/>
+        <Property name="placeHolder" type="java.lang.String" value="Phone Number"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objEmail">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Email *"/>
+        <Property name="placeHolder" type="java.lang.String" value="Email"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objHome">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Home"/>
+        <Property name="placeHolder" type="java.lang.String" value="Home"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objLat">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Latitude"/>
+        <Property name="placeHolder" type="java.lang.String" value="Latitude"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objLng">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Longitude"/>
+        <Property name="placeHolder" type="java.lang.String" value="Longitude"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.JavaTextField" name="objStreet">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Street"/>
+        <Property name="placeHolder" type="java.lang.String" value="Street"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.combobox.JavaCombobox" name="objDistrict">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=" District  *"/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.combobox.JavaCombobox" name="objProvince">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=" City / Province *"/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.combobox.JavaCombobox" name="objCommune">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=" Commune *"/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="FormComponent.combobox.JavaCombobox" name="objVillage">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=" Village *"/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+    </Component>
+    <Component class="Button.Button" name="btnCancel">
+      <Properties>
+        <Property name="buttonName" type="java.lang.String" value="Close"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="Button.Button" name="btnCancel1">
+      <Properties>
+        <Property name="buttonName" type="java.lang.String" value="Close"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancel1MouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="ButtonPackage.ButtonSave" name="buttonSave">
+    </Component>
+    <Component class="FormComponent.combobox.JavaCombobox" name="objNationality">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Nationality"/>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

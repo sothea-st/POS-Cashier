@@ -207,8 +207,13 @@ public class JavaCombobox extends javax.swing.JPanel {
 
           // Add the actual data from the linkMap
           for (Map.Entry<String, String> entry : linkMap.entrySet()) {
+
                JavaItem item = new JavaItem(entry.getValue(), entry.getKey()); // value is name, key is id
+
+               System.err.println("item : " + item.getKey());
+
                cmd.addItem(item); // Add the JavaItem object directly to the combo box
+               
           }
 
           // Set up the placeholder

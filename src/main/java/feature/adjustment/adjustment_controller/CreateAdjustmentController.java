@@ -11,13 +11,8 @@ import feature.adjustment.component.ItemFormCreate;
 import feature.adjustment.model.ProductAdjustment;
 import feature.adjustment.model.ProductBarcode;
 import feature.adjustment.model.ProductBarcode.ProductBarcodeDetail;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.Setter;
 
