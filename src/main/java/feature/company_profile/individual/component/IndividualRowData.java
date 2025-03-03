@@ -23,8 +23,8 @@ public class IndividualRowData extends javax.swing.JPanel {
 
      
      private void setData(){
-          lbCusomterId.setText(detail.getCustomerId());
-          lbGender.setText(detail.getGender());
+          lbCusomterId.setText("        "+detail.getCustomerId());
+          lbGender.setText("   "+detail.getGender());
           lbNationality.setText(detail.getNationality());
           lbEngName.setText(detail.getLastName()+" "+detail.getFirstName());
           lbKhName.setText(null);
@@ -66,6 +66,30 @@ public class IndividualRowData extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
+          
+          btnInfo.addMouseListener(new MouseListener(){
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                   event.onClick();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
+          
+          });
      }
      
      @SuppressWarnings("unchecked")
@@ -92,15 +116,15 @@ public class IndividualRowData extends javax.swing.JPanel {
           lbCusomterId.setText("Customer ID");
 
           lbGender.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbGender.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          lbGender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           lbGender.setText("Gender");
 
           lbNationality.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbNationality.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          lbNationality.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           lbNationality.setText("Nationality");
 
           lbEngName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbEngName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          lbEngName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           lbEngName.setText("English Name");
 
           lbKhName.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -112,7 +136,7 @@ public class IndividualRowData extends javax.swing.JPanel {
           lbPhoneNumber.setText("Phone Number");
 
           lbEmail.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbEmail.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+          lbEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           lbEmail.setText("Email");
 
           lbTotalAmount.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N

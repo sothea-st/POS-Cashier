@@ -22,6 +22,7 @@ public class JavaBaseUrl {
      public static String baseUrlImage = "http://10.2.3.2:2010//";
      public static String baseUrlBgImage = "http://localhost:8080/api/public/addImageForBackground/";
      public static String baseUrlDefaultImage = "http://localhost:8080/api/public/addImageForBackground/default.jpg";
+     public static String urlReadImage ="http://localhost:8080/image/";
 
      public JavaBaseUrl() {
 

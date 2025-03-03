@@ -208,12 +208,20 @@ public class JavaCombobox extends javax.swing.JPanel {
           // Add the actual data from the linkMap
           for (Map.Entry<String, String> entry : linkMap.entrySet()) {
 
-               JavaItem item = new JavaItem(entry.getValue(), entry.getKey()); // value is name, key is id
+               String _value = entry.getValue();
 
-               System.err.println("item : " + item.getKey());
+               // Check if the value contains Khmer characters
+               if (JavaConstant.containsKhmer(_value)) {
+                    // Apply Khmer font
+                    cmd.setFont(WindowFonts.khmerOsContent12);
+               } else {
+                    // Apply English font
+                    cmd.setFont(WindowFonts.timeNewRoman14);
+               }
 
+               JavaItem item = new JavaItem(_value, entry.getKey()); // value is name, key is id
                cmd.addItem(item); // Add the JavaItem object directly to the combo box
-               
+ 
           }
 
           // Set up the placeholder

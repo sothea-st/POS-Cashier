@@ -19,9 +19,7 @@ public class IndividualView extends javax.swing.JDialog {
 
           // call individualController
           individualController = new IndividualController(this);
-          individualController.read(true); // read data from db
-          individualController.eventPagination();
-          individualController.eventSearch();
+          individualController.init();
 
      }
 
@@ -30,6 +28,8 @@ public class IndividualView extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           setBackground(WindowColor.slightGreen);
+          
+          setTitle("Individual List");
      }
 
      @SuppressWarnings("unchecked")
@@ -41,7 +41,7 @@ public class IndividualView extends javax.swing.JDialog {
           groupButtonExport = new Reporting.GroupButtonExport();
           paginationPanel = new pagination.PaginationPanel();
           btnCancel = new Button.Button();
-          individualHeader1 = new feature.company_profile.individual.component.IndividualHeader();
+          individualHeader = new feature.company_profile.individual.component.IndividualHeader();
           jScrollPane = new javax.swing.JScrollPane();
           panelData = new javax.swing.JPanel();
 
@@ -87,7 +87,7 @@ public class IndividualView extends javax.swing.JDialog {
                     .addGap(20, 20, 20)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(jScrollPane)
-                         .addComponent(individualHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(individualHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addGroup(layout.createSequentialGroup()
                               .addComponent(paginationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -111,7 +111,7 @@ public class IndividualView extends javax.swing.JDialog {
                          .addComponent(searchField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(groupButtonExport, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(12, 12, 12)
-                    .addComponent(individualHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(individualHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, 0)
                     .addComponent(jScrollPane)
                     .addGap(12, 12, 12)
@@ -126,8 +126,8 @@ public class IndividualView extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
-          dispose();
           IndividualCreate individualCreate = new IndividualCreate(new JFrame(), true);
+          individualCreate.setIndividualView(this);
           individualCreate.setVisible(true);
      }//GEN-LAST:event_buttonSaveMouseClicked
 
@@ -155,7 +155,7 @@ public class IndividualView extends javax.swing.JDialog {
      private Button.Button btnCancel;
      private ButtonPackage.ButtonSave buttonSave;
      private Reporting.GroupButtonExport groupButtonExport;
-     private feature.company_profile.individual.component.IndividualHeader individualHeader1;
+     private feature.company_profile.individual.component.IndividualHeader individualHeader;
      private javax.swing.JScrollPane jScrollPane;
      private pagination.PaginationPanel paginationPanel;
      private javax.swing.JPanel panelData;

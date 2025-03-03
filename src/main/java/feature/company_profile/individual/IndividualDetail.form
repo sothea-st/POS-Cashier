@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="labelPopUpTitle2" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lbProductName" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbEnglishName" min="-2" pref="311" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lbProductNameKh" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbPhoneNumber" min="-2" pref="311" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lbProductNameKh1" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbEmail" min="-2" pref="311" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lbProductNameKh2" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbAddress" min="-2" pref="311" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lbProductNameKh3" min="-2" pref="165" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbRegisterDate" min="-2" pref="311" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+              <Component id="lbFile" min="-2" pref="124" max="-2" attributes="0"/>
+              <EmptySpace pref="171" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <Component id="labelPopUpTitle2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="lbEnglishName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductName" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductNameKh" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbEmail" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductNameKh1" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbAddress" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductNameKh2" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lbRegisterDate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductNameKh3" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="lbFile" alignment="0" min="-2" pref="135" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="Components.Label" name="lbProductName">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="English Name :"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbEnglishName">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductNameKh">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Phone Number :"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbPhoneNumber">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.LabelPopUpTitle" name="labelPopUpTitle2">
+      <Properties>
+        <Property name="labelTitle" type="java.lang.String" value="Individual Detail"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductNameKh1">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Email :"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbEmail">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductNameKh2">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Address :"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbAddress">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductNameKh3">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Registered Date :"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbRegisterDate">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbFile">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icon/user_default.jpg"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+            <LineBorder/>
+          </Border>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="Button.Button" name="btnCancel">
+      <Properties>
+        <Property name="buttonName" type="java.lang.String" value="Close"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseClicked"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>

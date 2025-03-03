@@ -7,6 +7,7 @@ import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.company_profile.individual.IndividualDetail;
 import feature.company_profile.individual.IndividualView;
 import feature.company_profile.individual.component.IndividualRowData;
 import feature.company_profile.individual.model.IndividualModel;
@@ -18,14 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import lombok.Getter;
+import lombok.Setter;
 import okhttp3.Response;
 import pagination.PaginationPanel;
 
+@Setter
+@Getter
 public class IndividualController {
-
+     
      private String pageNumber = "1";
      private int pageSize = 10;
      private boolean isCheckSearch = true;
@@ -38,14 +44,19 @@ public class IndividualController {
      private PaginationPanel paginationPanel;
      private JPanel panelData;
      private List<IndividualModel.IndividualDetail> listData = new ArrayList<>();
-
+     
      public IndividualController(IndividualView individualView) {
           this.individualView = individualView;
           panelData = individualView.getPanelData();
           paginationPanel = individualView.getPaginationPanel();
-
      }
-
+     
+     public void init() {
+          read(true); // read data
+          eventPagination(); // pagination action
+          eventSearch(); // search action
+     }
+     
      public void eventPagination() {
           ButtonEvent event = new ButtonEvent() {
                @Override
@@ -78,7 +89,7 @@ public class IndividualController {
                               searchValue = individualView.getSearchField().getValueTextSearch();
                               paginationPanel.resetPage();
                               pageNumber = "1";
-
+                              
                               if (searchValue.isEmpty()) {
                                    isCheckSearch = true;
                                    pageNumber = "1";
@@ -88,29 +99,34 @@ public class IndividualController {
                               read(false);
                          }
                     };
-
+                    
                     Timer timer = new Timer();
                     timer.schedule(task, 500);
-
+                    
                }
           };
           individualView.getSearchField().initEvent(event);
      }
-
+     
      public void read(boolean isCheck) {
-
-          Response response = JavaConnection.get(JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual");
-
+          
+          Response response = null;
+          
+          if (isCheck) { // get data
+               response = JavaConnection.get(JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual");
+          } else { // search
+               response = JavaConnection.get(JavaRoute.companyProfile + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual&search=" + searchValue);
+          }
+          
           System.err.println("log view response : " + response);
-
           try {
-
+               
                if (response.isSuccessful()) {
-
+                    
                     String responseData = response.body().string();
-
+                    
                     ObjectMapper objMapper = new ObjectMapper();
-
+                    
                     IndividualModel data = objMapper.readValue(responseData, IndividualModel.class);
 
                     // pagination code
@@ -120,35 +136,35 @@ public class IndividualController {
                     } else { // false search
                          paginationPanel.resetPage(dataCount);
                     }
-
+                    
                     listData.clear();
-
+                    
                     listData = data.getData();
-
+                    
                     appendData();
-
+                    
                }
-
+               
           } catch (Exception e) {
                System.err.println("error get individual : " + e);
           }
-
+          
      }
-
+     
      private void appendData() {
-
+          
           panelData.removeAll();
           GridBagLayout gridBagLayout = new GridBagLayout();
           gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
           gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
           gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+          
           panelData.setLayout(gridBagLayout);
-
+          
           int x = 0;
           int y = 0;
-
+          
           if (!listData.isEmpty()) {
                for (int i = 0; i < listData.size(); i++) {
                     GridBagConstraints gbc = new GridBagConstraints();
@@ -161,21 +177,29 @@ public class IndividualController {
                          x = 0;
                          y++;
                     }
-
+                    
                     IndividualModel.IndividualDetail detail = listData.get(i);
-
+                    
                     Integer id = detail.getId();
-
+                    
                     IndividualRowData rowData = new IndividualRowData(detail);
-
+                    
                     ButtonEvent event = new ButtonEvent() {
                          @Override
                          public void onMouseClick() {
                               delete(id);
                          }
+                         
+                         @Override
+                         public void onClick() {
+                              IndividualDetail individualDetail = new IndividualDetail(new JFrame(), true);
+                              individualDetail.setDetail(detail);
+                              individualDetail.setVisible(true);
+                         }
+                         
                     };
                     rowData.initEvent(event);
-
+                    
                     rowData.setPreferredSize(new Dimension(1489, 45));
                     paginationPanel.setVisible(true);
                     panelData.add(rowData, gbc);
@@ -189,25 +213,25 @@ public class IndividualController {
                panelData.repaint();
                paginationPanel.setVisible(false);
           }
-
+          
           panelData.revalidate();
           panelData.repaint();
-
+          
      }
-
+     
      private void delete(Integer id) {
-
+          
           UIManager UI = new UIManager();
           UI.put("OptionPane.background", WindowColor.mediumGreen);
           UI.put("Panel.background", WindowColor.mediumGreen);
           UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
-
+          
           int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete ?",
                "Delete", JOptionPane.YES_NO_OPTION);
-
+          
           if (resp == JOptionPane.YES_OPTION) {
                Response response = JavaConnection.delete(JavaRoute.companyProfile + "/" + id + "?code=Individual");
-
+               
                try {
                     if (response.isSuccessful()) {
                          read(true);
@@ -217,4 +241,5 @@ public class IndividualController {
                }
           }
      }
+     
 }

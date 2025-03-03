@@ -2,6 +2,7 @@ package Constant;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import okhttp3.MediaType;
@@ -36,7 +37,6 @@ public class JavaConnection {
           closeConnection(client);
           return response;
      }
-
 
      public static Response getWithoutToken(String route) {
           Response response = null;
@@ -213,4 +213,34 @@ public class JavaConnection {
           return bg;
      }
 
+     public static Response uploadFile(File file) throws IOException {
+          Response response = null;
+          OkHttpClient client = new OkHttpClient();
+          String url = new JavaBaseUrl().getBaseUrl() + "/public/fileUploadPath";
+          // Read the file bytes
+          byte[] fileBytes = Files.readAllBytes(file.toPath());
+          RequestBody fileBody = RequestBody.create(fileBytes, MediaType.parse("application/octet-stream"));
+
+          // Create MultipartBody to send file as multipart/form-data
+          MultipartBody requestBody = new MultipartBody.Builder()
+               .setType(MultipartBody.FORM)
+               .addFormDataPart("file", file.getName(), fileBody)
+               .build();
+
+          // Build the HTTP request with the specified URL and POST method
+          Request request = new Request.Builder()
+               .url(url)
+               .post(requestBody)
+               .build();
+
+          try {
+               response = client.newCall(request).execute();
+          } catch (Exception e) {
+               System.err.println("Error during DELETE request: " + e);
+          } finally {
+               closeConnection(client); // Close connection should be handled in a separate method.
+          }
+
+          return response;
+     }
 }

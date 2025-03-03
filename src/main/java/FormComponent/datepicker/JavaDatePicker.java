@@ -4,6 +4,7 @@ import Components.Color.WindowColor;
 import Components.Fonts.WindowFonts;
 import com.formdev.flatlaf.FlatClientProperties;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -27,14 +28,6 @@ public class JavaDatePicker extends javax.swing.JPanel {
           UIManager.put("TextComponent.arc", 5);
 
           // label error
-          lbError.setVisible(false);
-          lbError.setFont(WindowFonts.timeNewRomanBold12);
-
-          label.setFont(WindowFonts.timeNewRomanBold14);
-
-          txtDate.putClientProperty(FlatClientProperties.STYLE, ""
-               + "arc:10;");
-
           datePicker = new raven.datetime.component.date.DatePicker();
           datePicker.setCloseAfterSelected(false);
           datePicker.setEditor(txtDate);
@@ -49,6 +42,25 @@ public class JavaDatePicker extends javax.swing.JPanel {
 
           setBackground(WindowColor.mediumGreen);
 
+//          lbError.setVisible(false);
+//          lbError.setFont(WindowFonts.timeNewRomanBold12);
+//
+//          label.setFont(WindowFonts.timeNewRomanBold14);
+
+//          txtDate.putClientProperty(FlatClientProperties.STYLE, ""
+//               + "arc:10;");
+          init();
+
+     }
+     
+       private void init() {
+          label.setFont(WindowFonts.timeNewRomanBold14); // set font
+          // label error
+          lbError.setVisible(false);
+          lbError.setForeground(WindowColor.red);
+          lbError.setFont(WindowFonts.timeNewRomanBold14);
+          txtDate.putClientProperty(FlatClientProperties.STYLE, "arc:10;");
+          setBackground(WindowColor.mediumGreen);
      }
 
      public String getLabelName() {
@@ -120,7 +132,7 @@ public class JavaDatePicker extends javax.swing.JPanel {
           txtDate = new javax.swing.JFormattedTextField();
 
           lbError.setText("The field email is required.");
-          lbError.setPreferredSize(new java.awt.Dimension(63, 20));
+          lbError.setPreferredSize(new java.awt.Dimension(63, 16));
 
           label.setText("label Name");
 
@@ -140,11 +152,11 @@ public class JavaDatePicker extends javax.swing.JPanel {
           layout.setVerticalGroup(
                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
                     .addGap(6, 6, 6)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbError, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
           );
      }// </editor-fold>//GEN-END:initComponents
 

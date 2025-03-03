@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
 package feature.company_profile.individual.component;
 
 import Components.Event.ButtonEvent;
@@ -15,10 +12,7 @@ import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class JavaComboBoxSelectionV1 {
       public static int ASC = 0;
      public static int DESC = 1;

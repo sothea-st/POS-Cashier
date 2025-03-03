@@ -1,20 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
 package Constant;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import java.awt.FileDialog;
-import java.io.File;
 import java.io.IOException;
 import javax.swing.JFrame;
 
-/**
- *
- * @author MOBILE-APP.02
- */
+ 
 public class JNAFileChooser {
 
      public interface User32 extends Library {
@@ -51,4 +44,8 @@ public class JNAFileChooser {
 
           return path;
      }
+     
+     
+     
+     
 }

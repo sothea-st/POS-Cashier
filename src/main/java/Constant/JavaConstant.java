@@ -53,6 +53,7 @@ import Model.HoldOrder.HoldOrderModel;
 import Model.HoldOrder.NewHoldOrderModel;
 import Model.ProductModel.ProductDataModel;
 import feature.Stock.Products.ProductBox;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeParseException;
@@ -285,6 +286,75 @@ public class JavaConstant {
                Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
                ImageIcon icon = new ImageIcon(scaledImage);
                lable.setIcon(icon);
+          }
+     }
+
+     public static void coverImageUrl(String imageUrl, JLabel label, int labelWidth, int labelHeight) {
+
+//          try {
+//               // Read image from the URL
+//               Image image = ImageIO.read(new URL(JavaBaseUrl.urlReadImage+imageName));
+//
+//               if (image != null) {
+//                    // Calculate the scale factor to maintain aspect ratio
+//                    double scaleX = (double) labelWidth / image.getWidth(null);
+//                    double scaleY = (double) labelHeight / image.getHeight(null);
+//                    double scale = Math.min(scaleX, scaleY);
+//
+//                    // Scale the image
+//                    int scaledWidth = (int) (image.getWidth(null) * scale);
+//                    int scaledHeight = (int) (image.getHeight(null) * scale);
+//                    Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+//
+//                    // Set the scaled image to JLabel
+//                    label.setIcon(new ImageIcon(scaledImage));
+//               }
+//          } catch (IOException e) {
+//               e.printStackTrace();
+//               label.setText("Image not found");
+//          }
+          Image image = null;
+          
+          String baseUrl = JavaBaseUrl.urlReadImage+imageUrl;
+          
+          if (imageUrl != null && !imageUrl.trim().isEmpty()) {
+               try {
+                    URL url = new URL(baseUrl);
+                    image = ImageIO.read(url);
+                    if (image == null) {
+                         System.out.println("Invalid image URL: " + baseUrl);
+                         throw new IOException("Invalid image format");
+                    }
+               } catch (MalformedURLException e) {
+                    System.out.println("Malformed URL: " + imageUrl);
+               } catch (IOException e) {
+                    System.out.println("Cannot read image from URL: " + imageUrl);
+               }
+          }
+          // Fallback to default image if URL is invalid
+          if (image == null) {
+               return;
+//                    InputStream defaultImageStream = JavaConstant.class.getResourceAsStream("/default_image.png");
+//                    if (defaultImageStream != null) {
+//                         image = ImageIO.read(defaultImageStream);
+//                    } else {
+//                         System.out.println("Default image not found in resources!");
+//                    }
+          }
+          if (image != null) {
+               // Scale the image
+               double scaleX = (double) labelWidth / image.getWidth(null);
+               double scaleY = (double) labelHeight / image.getHeight(null);
+               double scale = Math.min(scaleX, scaleY);
+               
+               int scaledWidth = (int) (image.getWidth(null) * scale);
+               int scaledHeight = (int) (image.getHeight(null) * scale);
+               Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);
+               
+               // Set image to JLabel
+               label.setIcon(new ImageIcon(scaledImage));
+          } else {
+               label.setText("Image not available");
           }
      }
 
