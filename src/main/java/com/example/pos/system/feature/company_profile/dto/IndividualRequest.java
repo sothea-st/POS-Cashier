@@ -1,12 +1,13 @@
 package com.example.pos.system.feature.company_profile.dto;
 
-import com.example.pos.system.constant.JavaMessage;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public record IndividualRequest(
+
         @NotBlank(message = "The field firstName is required!")
         String firstName,
 
@@ -32,13 +33,21 @@ public record IndividualRequest(
         String dob,
 
         String home,
+
         String lat,
+
         String lng,
+
         String street,
+
         String province,
+
         String district,
+
         String commune,
+
         String village,
+
         String profileName,
 
         @NotNull(message = "The field createdBy is required!")

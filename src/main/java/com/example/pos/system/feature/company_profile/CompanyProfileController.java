@@ -5,6 +5,7 @@ import com.example.pos.system.constant.util.response_success.JavaResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 import com.example.pos.system.feature.company_profile.dto.BusinessRequest;
 import com.example.pos.system.feature.company_profile.dto.IndividualRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ public class CompanyProfileController {
     private final CompanyProfileService companyProfileService;
 
     @PostMapping("/individual")
-    public ResponseSuccess createIndividual(@RequestBody IndividualRequest individualRequest){
+    public ResponseSuccess createIndividual(@Valid @RequestBody IndividualRequest individualRequest){
         return companyProfileService.createIndividual(individualRequest);
     }
 
@@ -32,6 +33,16 @@ public class CompanyProfileController {
             @RequestParam String code
     ) {
         return companyProfileService.read(pageNumber,pageSize,code);
+    }
+
+    @GetMapping("/search")
+    public JavaCollectionResponse<?> search(
+            @RequestParam(required = false) Integer pageNumber,
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam String code,
+            @RequestParam String search
+    ) {
+        return companyProfileService.search(pageNumber,pageSize,code,search);
     }
 
     @GetMapping("/{id}")

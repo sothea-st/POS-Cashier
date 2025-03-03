@@ -34,6 +34,9 @@ public class CompanyProfile {
     @Column(name = "nationality",length = 50)
     private String nationality;
 
+    @Column(name = "customer_id")
+    private String customerId;
+
     @Column(name = "phone_name",length = 12,nullable = false)
     private String phoneNumber;
 

@@ -6,10 +6,12 @@ import com.example.pos.system.constant.util.response_success.JavaResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 import com.example.pos.system.domain.User;
 import com.example.pos.system.domain.company_profile.CompanyProfile;
+import com.example.pos.system.domain.promotion.Promotion;
 import com.example.pos.system.feature.company_profile.dto.BusinessRequest;
 import com.example.pos.system.feature.company_profile.dto.BusinessResponse;
 import com.example.pos.system.feature.company_profile.dto.IndividualRequest;
 import com.example.pos.system.feature.company_profile.dto.IndividualResponse;
+import com.example.pos.system.feature.promotion.dto.response.PromotionResponse;
 import com.example.pos.system.layer.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,7 +20,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,22 +61,22 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
         CompanyProfile companyProfile = new CompanyProfile();
 
         // call updateAndSave
-        updateAndSave(companyProfile,user,individualRequest);
+        updateAndSave(companyProfile, user, individualRequest);
         return ResponseSuccess.builder().build();
     }
 
     @Override
-    public ResponseSuccess updateIndividual(Integer id , IndividualRequest individualRequest) {
+    public ResponseSuccess updateIndividual(Integer id, IndividualRequest individualRequest) {
 
         // validate age 18
         JavaConstant.validateAge(individualRequest.dob());
 
         CompanyProfile companyProfile = companyProfileRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(id, "Individual")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,individualNotFound + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, individualNotFound + id));
 
         if (
                 !companyProfile.getPhoneNumber().equals(individualRequest.phoneNumber()) &&
-                companyProfileRepository.existsByPhoneNumberAndCode(individualRequest.phoneNumber(), "Individual")
+                        companyProfileRepository.existsByPhoneNumberAndCode(individualRequest.phoneNumber(), "Individual")
         ) {
 
             throw new ResponseStatusException(HttpStatus.CONFLICT, phoneNumberAlreadyExist + individualRequest.phoneNumber());
@@ -80,7 +84,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
 
         if (
                 companyProfile.getEmail().equals(individualRequest.email()) &&
-                companyProfileRepository.existsByEmailAndCode(individualRequest.email(), "Individual")
+                        companyProfileRepository.existsByEmailAndCode(individualRequest.email(), "Individual")
         ) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, emailAlreadyExist + individualRequest.email());
         }
@@ -91,7 +95,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
 
 
         // call updateAndSave
-        updateAndSave(companyProfile,user,individualRequest);
+        updateAndSave(companyProfile, user, individualRequest);
 
 
         return ResponseSuccess.builder().build();
@@ -114,7 +118,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
 
         CompanyProfile companyProfile = new CompanyProfile();
         // call updateAndSave
-        updateAndSave(companyProfile,user,businessRequest);
+        updateAndSave(companyProfile, user, businessRequest);
 
         return ResponseSuccess.builder().build();
     }
@@ -123,18 +127,18 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
     public ResponseSuccess updateBusiness(Integer id, BusinessRequest businessRequest) {
 
         CompanyProfile companyProfile = companyProfileRepository.findByIdAndStatusTrueAndIsDeletedFalseAndCode(id, "Business")
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,individualNotFound + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, individualNotFound + id));
 
         if (
                 !companyProfile.getPhoneNumber().equals(businessRequest.phoneNumber()) &&
-                companyProfileRepository.existsByPhoneNumberAndCode(businessRequest.phoneNumber(), "Business")
+                        companyProfileRepository.existsByPhoneNumberAndCode(businessRequest.phoneNumber(), "Business")
         ) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, phoneNumberAlreadyExist + businessRequest.phoneNumber());
         }
 
         if (
                 !companyProfile.getEmail().equals(businessRequest.email()) &&
-                companyProfileRepository.existsByEmailAndCode(businessRequest.email(), "Business")
+                        companyProfileRepository.existsByEmailAndCode(businessRequest.email(), "Business")
         ) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, emailAlreadyExist + businessRequest.email());
         }
@@ -144,7 +148,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
 
 
         // call updateAndSave
-        updateAndSave(companyProfile,user,businessRequest);
+        updateAndSave(companyProfile, user, businessRequest);
 
         return ResponseSuccess.builder().build();
     }
@@ -155,6 +159,39 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
             throw new IllegalArgumentException("Invalid code: " + code);
         }
         return fetchData(pageNumber, pageSize, code);
+    }
+
+    @Override
+    public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, String code, String searchValue) {
+        List<?> data = new ArrayList<>();
+        long totalElements = 0;
+
+
+        boolean isPagination = (pageNumber != null && pageSize != null);
+        if (isPagination) {
+            Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+            PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize, sortById);
+            Page<CompanyProfile> pages = companyProfileRepository.search(pageRequest, searchValue, code);
+
+            data = pages.stream()
+                    .map(code.equals("Individual") ? this::mapToIndividualResponse : this::mapTopBusinessResponse)
+                    .toList();
+
+            totalElements = pages.getTotalElements();
+        } else {
+            data = companyProfileRepository.search(null, searchValue, code).stream()
+                    .map(code.equals("Individual") ? this::mapToIndividualResponse : this::mapTopBusinessResponse)
+                    .toList();
+
+            totalElements = data.size();
+        }
+
+
+        return JavaCollectionResponse.builder()
+                .data(data)
+                .count(totalElements)
+                .build();
+
     }
 
 
@@ -186,7 +223,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
     }
 
 
-    private void updateAndSave(CompanyProfile companyProfile , User user , BusinessRequest businessRequest){
+    private void updateAndSave(CompanyProfile companyProfile, User user, BusinessRequest businessRequest) {
         companyProfile.setStatus(true);
         companyProfile.setIsDeleted(false);
         companyProfile.setCreatedBy(user);
@@ -206,11 +243,12 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
     }
 
 
-    private void updateAndSave(CompanyProfile companyProfile , User user , IndividualRequest individualRequest){
+    private void updateAndSave(CompanyProfile companyProfile, User user, IndividualRequest individualRequest) {
         companyProfile.setStatus(true);
         companyProfile.setIsDeleted(false);
         companyProfile.setCreatedBy(user);
         companyProfile.setCode("Individual");
+        companyProfile.setCustomerId(generateCustomerId());
 
         companyProfile.setFirstName(individualRequest.firstName());
         companyProfile.setLastName(individualRequest.lastName());
@@ -231,6 +269,11 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
         companyProfile.setVillage(individualRequest.village());
         companyProfile.setProfileImage(individualRequest.profileName());
         companyProfileRepository.save(companyProfile);
+    }
+
+    private String generateCustomerId() {
+        long count = companyProfileRepository.countByCode("Individual") + 1;
+        return String.format("CID-%06d", count);
     }
 
 
@@ -276,7 +319,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
                 .build();
     }
 
-    private BusinessResponse mapTopBusinessResponse(CompanyProfile companyProfile){
+    private BusinessResponse mapTopBusinessResponse(CompanyProfile companyProfile) {
         return BusinessResponse.builder()
                 .customerName(companyProfile.getCustomerName())
                 .companyName(companyProfile.getCompanyName())
@@ -298,6 +341,8 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
     private IndividualResponse mapToIndividualResponse(CompanyProfile companyProfile) {
 
         return IndividualResponse.builder()
+                .id(companyProfile.getId())
+                .customerId(companyProfile.getCustomerId())
                 .firstName(companyProfile.getFirstName())
                 .lastName(companyProfile.getLastName())
                 .gender(companyProfile.getGender())
@@ -316,6 +361,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
                 .profileImage(companyProfile.getProfileImage())
                 .fullAddressKh(companyProfileRepository.getFullAddressKh(companyProfile.getVillage()))
                 .fullAddressEn(companyProfileRepository.getFullAddressEn(companyProfile.getVillage()))
+                .createdDate(JavaConstant.convertCreatedDateToTime(companyProfile.getCreatedDate().toString()))
                 .build();
     }
 

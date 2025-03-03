@@ -4,6 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record IndividualResponse(
+    Integer id,
+    String customerId,
     String firstName,
     String lastName,
     String gender,
@@ -21,6 +23,7 @@ public record IndividualResponse(
     String commune,
     String village,
     String fullAddressKh,
-    String fullAddressEn
+    String fullAddressEn,
+        String createdDate
 ) {
 }

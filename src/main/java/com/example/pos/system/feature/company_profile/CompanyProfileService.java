@@ -17,6 +17,8 @@ public interface CompanyProfileService {
 
     JavaCollectionResponse<?> read(Integer pageNumber,Integer pageSize,String code);
 
+    JavaCollectionResponse<?> search(Integer pageNumber,Integer pageSize,String code,String searchValue);
+
     JavaResponse<?> readByIdAndCode(Integer id,String code);
 
     ResponseSuccess deleteByIdAndCode(Integer id,String code);
@@ -26,6 +28,7 @@ public interface CompanyProfileService {
     ResponseSuccess updateBusiness(Integer id , BusinessRequest businessRequest);
 
     ResponseSuccess updateIndividual(Integer id , IndividualRequest individualRequest);
+
 
 
 }

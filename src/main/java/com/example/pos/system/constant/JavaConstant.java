@@ -5,6 +5,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -19,7 +20,6 @@ public class JavaConstant {
     public static String approved = "approved";
     public static String requested = "requested";
     public static String rejected = "rejected";
-
 
 
     public static String statusCode = "statusCode";
@@ -179,10 +179,28 @@ public class JavaConstant {
             int age = Period.between(birthDate, today).getYears();
 
             if (age < 18) {
-                throw new IllegalArgumentException("Dob must be at least 18 years old!");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Dob : "+dob+" must be at least 18 years old! ");
             }
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException("Invalid date format! Please use yyyy-MM-dd.");
         }
+    }
+
+    public static String convertCreatedDateToTime(String inputDateTime) {
+
+        // Define input formatter
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+
+        // Define output formatter
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm:ss a");
+
+        // Parse input string to LocalDateTime
+        LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
+
+        // Format the output
+        String formattedDate = dateTime.format(outputFormatter);
+
+        // Print result
+        return formattedDate;
     }
 }
