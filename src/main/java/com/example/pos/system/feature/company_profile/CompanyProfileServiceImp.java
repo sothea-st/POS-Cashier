@@ -83,7 +83,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
         }
 
         if (
-                companyProfile.getEmail().equals(individualRequest.email()) &&
+                !companyProfile.getEmail().equals(individualRequest.email()) &&
                         companyProfileRepository.existsByEmailAndCode(individualRequest.email(), "Individual")
         ) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, emailAlreadyExist + individualRequest.email());

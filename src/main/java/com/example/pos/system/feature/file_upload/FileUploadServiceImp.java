@@ -21,7 +21,6 @@ public class FileUploadServiceImp implements FileUploadService{
     @Value("${server.path.image}")
     private String pathImage;
 
-
     @Override
     public FileUploadResponse fileUpload(MultipartFile file) {
 
