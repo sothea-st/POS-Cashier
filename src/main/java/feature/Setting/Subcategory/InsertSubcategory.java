@@ -15,8 +15,8 @@ import okhttp3.Response;
 import org.json.JSONObject;
 import lombok.Getter;
 import lombok.Setter;
-import main_validation.JavaConflicValidation;
-import main_validation.JavaValidation;
+import main.main_validation.JavaConflicValidation;
+import main.main_validation.JavaValidation;
 
 @Setter
 @Getter

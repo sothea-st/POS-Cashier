@@ -1,18 +1,20 @@
-package feature.company_profile.individual;
+package feature.company_profile.individual.view;
 
+import feature.company_profile.individual.view.IndividualView;
 import Components.Color.WindowColor;
 import Constant.JavaConnection;
 import Constant.JavaConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.company_profile.individual.controller.IndividualCreateController;
+import feature.company_profile.individual.model.IndividualModel;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.BorderFactory;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import lombok.Getter;
 import lombok.Setter;
-import mainJNAFileChooser.JavaChooseFile;
-import mainJNAFileChooser.model.FileUploadResponse;
+import main.mainJNAFileChooser.JavaChooseFile;
+import main.mainJNAFileChooser.model.FileUploadResponse;
 import okhttp3.Response;
 
 @Setter
@@ -22,7 +24,7 @@ public class IndividualCreate extends javax.swing.JDialog {
      private IndividualCreateController individualCreateController;
      private IndividualView individualView;
      private String pathImg;
-     
+     private IndividualModel.IndividualDetail detail;
 
      public IndividualCreate(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -32,7 +34,6 @@ public class IndividualCreate extends javax.swing.JDialog {
 
           individualCreateController = new IndividualCreateController(this);
           individualCreateController.init(); // initialize 
-
      }
 
      private void custom() {
@@ -44,6 +45,32 @@ public class IndividualCreate extends javax.swing.JDialog {
           objEmail.setValidateEmail();
 
           setTitle("Individual Create");
+     }
+
+     public void update(IndividualModel.IndividualDetail detail,IndividualView individualView) {
+          this.detail = detail;
+          this.individualView = individualView;
+
+          objFirstName.setText(detail.getFirstName());
+          objLastName.setText(detail.getLastName());
+          objGender.setSelectedItem(detail.getGender());
+          objNationality.setSelectedItem(detail.getNationality());
+         
+          objDate.setSelectedDate(JavaConstant.formateDateDDMMYYYY(detail.getDob()));
+          objEmail.setText(detail.getEmail());
+          objPhoneNumber.setText(JavaConstant.formatPhoneNumber(detail.getPhoneNumber()));
+          objHome.setText(detail.getHome());
+          objLat.setText(detail.getLat());
+          objLng.setText(detail.getLng());
+          objStreet.setText(detail.getStreet());
+          objProvince.setSelectedItem(detail.getProvince());
+          objDistrict.setSelectedItem(detail.getDistrict());
+          objCommune.setSelectedItem(detail.getCommune());
+          objVillage.setSelectedItem(detail.getVillage());
+
+          if (detail.getProfileImage() != null && !detail.getProfileImage().isEmpty()) {
+               JavaConstant.coverImageUrl(detail.getProfileImage(), lbFile, 124, 235);
+          }
      }
 
      @SuppressWarnings("unchecked")
@@ -284,20 +311,20 @@ public class IndividualCreate extends javax.swing.JDialog {
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
           individualCreateController.setIndividualView(individualView);
+          individualCreateController.setDetail(detail);
           individualCreateController.create();
      }//GEN-LAST:event_buttonSaveMouseClicked
 
      private void browseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_browseMouseClicked
           try {
                File file = JavaChooseFile.funChooseFile();
-               
+
                if (file != null) {
-                    
-                    JavaConstant.coverImagePath(file.getAbsolutePath(), lbFile, 124, 235);
 
                     Response response = JavaConnection.uploadFile(file);
 
                     try {
+
                          String respnseData = response.body().string();
 
                          ObjectMapper objMapper = new ObjectMapper();
@@ -305,9 +332,8 @@ public class IndividualCreate extends javax.swing.JDialog {
                          FileUploadResponse fileUpload = objMapper.readValue(respnseData, FileUploadResponse.class);
 
                          pathImg = fileUpload.getFileName();
-                         
+
                          JavaConstant.coverImagePath(file.getAbsolutePath(), lbFile, 124, 235); // display image to label
-                         
 
                     } catch (Exception e) {
                          System.err.print("Erro : " + e);

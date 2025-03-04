@@ -1,5 +1,5 @@
  
-package main_validation;
+package main.main_validation;
 
 import FormComponent.JavaTextFieldPassword;
 import lombok.Builder;

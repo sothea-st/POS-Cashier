@@ -9,7 +9,7 @@ import feature.adjustment.AdjustmentForm;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import main_validation.main_alert_delete.MainDeleteAction;
+import main.main_validation.main_alert_delete.MainDeleteAction;
 import okhttp3.Response;
 import org.json.JSONObject;
 

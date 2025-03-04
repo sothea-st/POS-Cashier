@@ -1,4 +1,4 @@
-package main_validation;
+package main.main_validation;
 
 import FormComponent.JavaTextField;
 import FormComponent.JavaTextFieldPassword;

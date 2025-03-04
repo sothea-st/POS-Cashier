@@ -15,7 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import lombok.Getter;
 import lombok.Setter;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 

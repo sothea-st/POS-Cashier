@@ -1,7 +1,7 @@
 package feature.company_profile;
 
 import Components.Color.WindowColor;
-import feature.company_profile.individual.IndividualView;
+import feature.company_profile.individual.view.IndividualView;
 import javax.swing.JFrame;
 
 public class CompanyProfileView extends javax.swing.JDialog {

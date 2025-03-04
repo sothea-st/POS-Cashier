@@ -18,7 +18,7 @@ import ButtonPackage.ButtonCancel;
 import feature.Print.ReprintJdailog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 
 public class ApprovalCode extends javax.swing.JDialog {
 

@@ -1,4 +1,4 @@
-package mainJNAFileChooser.model;
+package main.mainJNAFileChooser.model;
 
 import lombok.Getter;
 import lombok.Setter;

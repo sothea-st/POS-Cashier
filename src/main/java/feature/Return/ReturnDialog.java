@@ -14,7 +14,7 @@ import Button.Button;
 import ButtonPackage.ButtonCancel;
 import FormComponent.combobox.JavaComboBoxSelection;
 import javax.swing.JPanel;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 
 
 public class ReturnDialog extends javax.swing.JDialog {

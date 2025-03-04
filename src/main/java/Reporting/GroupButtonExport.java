@@ -1,29 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Reporting;
 
 import Components.Event.ButtonEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import feature.Print.pdf.PrintToCSV;
 
-/**
- *
- * @author MOBILE-APP.02
- */
 public class GroupButtonExport extends javax.swing.JPanel {
 
      public GroupButtonExport() {
           initComponents();
      }
-     
-     
-     
-     public void setPdf(){
+
+     public void setPdf() {
           btnPdf.setVisible(false);
      }
+
+     public void hideCsv() {
+          btnCsv.setVisible(false);
+     }
+
      public void excelEvent(ButtonEvent event) {
           btnExcel.addMouseListener(new MouseListener() {
                @Override
@@ -75,8 +69,8 @@ public class GroupButtonExport extends javax.swing.JPanel {
 
           });
      }
-     
-      public void pdfEvent(ButtonEvent event) {
+
+     public void pdfEvent(ButtonEvent event) {
           btnPdf.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
@@ -102,8 +96,6 @@ public class GroupButtonExport extends javax.swing.JPanel {
           });
      }
 
-
- 
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {

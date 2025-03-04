@@ -1,4 +1,4 @@
-package main_validation.ResponseException;
+package main.main_validation.ResponseException;
 
 import lombok.Getter;
 import lombok.Setter;

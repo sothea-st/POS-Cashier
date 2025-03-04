@@ -1,4 +1,4 @@
-package main_validation.main_alert_delete;
+package main.main_validation.main_alert_delete;
 
 import Components.Color.WindowColor;
 import Components.Fonts.WindowFonts;

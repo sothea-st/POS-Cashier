@@ -53,7 +53,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import lombok.Getter;
 import lombok.Setter;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 import password.ChangePasswordForm;
 
 

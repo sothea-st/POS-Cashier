@@ -88,7 +88,29 @@ public class IndividualRowData extends javax.swing.JPanel {
                @Override
                public void mouseExited(MouseEvent e) {
                }
+          });
           
+          btnEdit.addMouseListener(new MouseListener() {
+               @Override
+               public void mouseClicked(MouseEvent e) {
+                    event.onEdit();
+               }
+
+               @Override
+               public void mousePressed(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseReleased(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseEntered(MouseEvent e) {
+               }
+
+               @Override
+               public void mouseExited(MouseEvent e) {
+               }
           });
      }
      

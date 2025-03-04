@@ -5,8 +5,8 @@ import Constant.JavaConstant;
 import Constant.JavaRoute;
 import java.util.ArrayList;
 import java.util.List;
-import main_validation.JavaPasswordConflicValidation;
-import main_validation.JavaValidation;
+import main.main_validation.JavaPasswordConflicValidation;
+import main.main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 

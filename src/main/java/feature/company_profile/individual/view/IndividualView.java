@@ -1,4 +1,4 @@
-package feature.company_profile.individual;
+package feature.company_profile.individual.view;
 
 import Components.Color.WindowColor;
 import feature.company_profile.individual.controller.IndividualController;
@@ -24,11 +24,11 @@ public class IndividualView extends javax.swing.JDialog {
      }
 
      private void custom() {
-          groupButtonExport.setPdf();
+          groupButtonExport.hideCsv();
+          
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           setBackground(WindowColor.slightGreen);
-          
           setTitle("Individual List");
      }
 

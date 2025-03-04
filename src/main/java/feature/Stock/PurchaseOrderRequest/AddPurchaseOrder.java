@@ -27,7 +27,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 

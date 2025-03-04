@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package mainJNAFileChooser;
+package main.mainJNAFileChooser;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -10,13 +10,14 @@ import FormComponent.JavaTextField;
 import FormComponent.combobox.JavaCombobox;
 import FormComponent.datepicker.JavaDatePicker;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feature.company_profile.individual.IndividualCreate;
-import feature.company_profile.individual.IndividualView;
+import feature.company_profile.individual.view.IndividualCreate;
+import feature.company_profile.individual.view.IndividualView;
 import feature.company_profile.individual.component.JavaComboBoxSelectionV1;
+import feature.company_profile.individual.model.IndividualModel;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.Setter;
-import main_validation.JavaValidation;
+import main.main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ public class IndividualCreateController {
 
      private IndividualCreate individualCreate;
      private IndividualView individualView;
+     private IndividualModel.IndividualDetail detail;
 
      // variable combobox
      private JavaCombobox objProvince;
@@ -99,7 +101,15 @@ public class IndividualCreateController {
                json.put("profileName", individualCreate.getPathImg());  // Since profileName is null in your logs
                json.put("createdBy", JavaConstant.cashierId);
 
-               Response response = JavaConnection.post(JavaRoute.companyProfile + "/individual", json);
+               Response response = null;
+               
+               System.err.println("detail : " + detail);
+
+               if (detail == null) { // add new
+                    response = JavaConnection.post(JavaRoute.companyProfile + "/individual", json);
+               } else { // update
+                    response = JavaConnection.put(JavaRoute.companyProfile + "/individual/"+detail.getId(), json);
+               }
 
                System.err.println("log view json : " + json);
                System.err.println("log view response : " + response);
@@ -192,8 +202,8 @@ public class IndividualCreateController {
 
      }
 
-     private void cmdProvince() {
-          // name is field from response 
+     public void cmdProvince() {
+          // name is field from response     
           JavaComboBoxSelectionV1.addComboBox(
                objProvince,
                JavaRoute.province,
