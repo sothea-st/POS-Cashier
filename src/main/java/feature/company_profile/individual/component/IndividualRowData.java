@@ -3,17 +3,17 @@ package feature.company_profile.individual.component;
 import Components.Color.WindowColor;
 import Components.Event.ButtonEvent;
 import Constant.JavaConstant;
-import feature.company_profile.individual.model.IndividualModel;
-import feature.company_profile.individual.model.IndividualModel.IndividualDetail;
+import feature.company_profile.individual.model.IndividualResponseModel;
+import feature.company_profile.individual.model.IndividualResponseModel.IndividualResponseDetail;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 
 public class IndividualRowData extends javax.swing.JPanel {
 
-     private IndividualModel.IndividualDetail detail;
+     private IndividualResponseModel.IndividualResponseDetail detail;
      
-     public IndividualRowData(IndividualDetail detail) {
+     public IndividualRowData(IndividualResponseDetail detail) {
           this.detail = detail;
           initComponents();
           custom();

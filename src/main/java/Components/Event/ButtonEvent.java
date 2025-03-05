@@ -1,9 +1,6 @@
 package Components.Event;
 
-/**
- *
- * @author FRONT-END.06
- */
+ 
 public interface ButtonEvent {
 
      default public void onClick() {
@@ -64,12 +61,10 @@ public interface ButtonEvent {
      default public void onMousePress() {
      }
 
-     ;
+
      default public void onMouseRelease() {
      }
 
-     ;
-      
      default public void onSelectDetail(String key) {
      }
 

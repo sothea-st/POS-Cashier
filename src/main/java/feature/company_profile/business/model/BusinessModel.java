@@ -9,12 +9,12 @@ import lombok.Setter;
 public class BusinessModel {
 
      private int count;
-     private List<BusinessModel> data;
+     private List<BusinessModelDetail> data;
 
      @Setter
      @Getter
      public static class BusinessModelDetail {
-
+          private Integer id;
           private String customerName;
           private String companyName;
           private String phoneNumber;
@@ -28,6 +28,7 @@ public class BusinessModel {
           private String village;
           private String fullAddressKh;
           private String fullAddressEn;
+          private String createdDate;
      }
 
 }

@@ -11,8 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import main.man_message.MainAlertMessage;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -226,7 +224,6 @@ public abstract class MainExportExcel extends MainExport {
 
      }
 
-     
 
      private void addCenteredRow(Object content, int totalColumns) {
 

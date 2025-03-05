@@ -6,7 +6,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.company_profile.individual.controller.IndividualCreateController;
-import feature.company_profile.individual.model.IndividualModel;
+import feature.company_profile.individual.model.IndividualResponseModel;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.BorderFactory;
@@ -24,7 +24,7 @@ public class IndividualCreate extends javax.swing.JDialog {
      private IndividualCreateController individualCreateController;
      private IndividualView individualView;
      private String pathImg;
-     private IndividualModel.IndividualDetail detail;
+     private IndividualResponseModel.IndividualResponseDetail detail;
 
      public IndividualCreate(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
@@ -32,7 +32,13 @@ public class IndividualCreate extends javax.swing.JDialog {
 
           custom();
 
-          individualCreateController = new IndividualCreateController(this);
+          individualCreateController = new IndividualCreateController(
+               this,
+               objProvince,
+               objDistrict,
+               objCommune,
+               objVillage
+          );
           individualCreateController.init(); // initialize 
      }
 
@@ -47,7 +53,7 @@ public class IndividualCreate extends javax.swing.JDialog {
           setTitle("Individual Create");
      }
 
-     public void update(IndividualModel.IndividualDetail detail,IndividualView individualView) {
+     public void update(IndividualResponseModel.IndividualResponseDetail detail, IndividualView individualView) {
           this.detail = detail;
           this.individualView = individualView;
 
@@ -55,7 +61,7 @@ public class IndividualCreate extends javax.swing.JDialog {
           objLastName.setText(detail.getLastName());
           objGender.setSelectedItem(detail.getGender());
           objNationality.setSelectedItem(detail.getNationality());
-         
+
           objDate.setSelectedDate(JavaConstant.formateDateDDMMYYYY(detail.getDob()));
           objEmail.setText(detail.getEmail());
           objPhoneNumber.setText(JavaConstant.formatPhoneNumber(detail.getPhoneNumber()));

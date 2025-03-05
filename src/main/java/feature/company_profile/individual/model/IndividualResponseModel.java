@@ -3,17 +3,18 @@ package feature.company_profile.individual.model;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import pagination.PaginationData;
 
 @Setter
 @Getter
-public class IndividualModel {
+public class IndividualResponseModel implements PaginationData{
 
      private int count;
-     private List<IndividualDetail> data;
+     private List<IndividualResponseDetail> data;
 
      @Setter
      @Getter
-     public static class IndividualDetail {
+     public static class IndividualResponseDetail {
           private Integer id;
           private String customerId;
           private String firstName;

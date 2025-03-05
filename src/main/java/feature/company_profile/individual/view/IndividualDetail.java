@@ -3,7 +3,7 @@ package feature.company_profile.individual.view;
 import Components.Color.WindowColor;
 
 import Constant.JavaConstant;
-import feature.company_profile.individual.model.IndividualModel;
+import feature.company_profile.individual.model.IndividualResponseModel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 public class IndividualDetail extends javax.swing.JDialog {
@@ -22,7 +22,7 @@ public class IndividualDetail extends javax.swing.JDialog {
           setTitle("Individual Detail");
      }
 
-     public void setDetail(IndividualModel.IndividualDetail detail) {
+     public void setDetail(IndividualResponseModel.IndividualResponseDetail detail) {
           lbEnglishName.setLabelName(detail.getLastName() + " " + detail.getFirstName());
           lbPhoneNumber.setLabelName(JavaConstant.formatPhoneNumber(detail.getPhoneNumber()));
           lbEmail.setLabelName(detail.getEmail());

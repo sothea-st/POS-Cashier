@@ -4,7 +4,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feature.company_profile.individual.model.IndividualModel;
+import feature.company_profile.individual.model.IndividualResponseModel;
 import java.math.BigDecimal;
 import java.util.List;
 import okhttp3.Response;
@@ -23,9 +23,9 @@ public class ExportIndividual {
 
                     ObjectMapper objMapper = new ObjectMapper();
 
-                    IndividualModel data = objMapper.readValue(responseData, IndividualModel.class);
+                    IndividualResponseModel data = objMapper.readValue(responseData, IndividualResponseModel.class);
 
-                    for (IndividualModel.IndividualDetail detail : data.getData()) {
+                    for (IndividualResponseModel.IndividualResponseDetail detail : data.getData()) {
                          dataList.add(new Object[]{
                               detail.getCustomerId(),
                               detail.getGender(),

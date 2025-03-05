@@ -1,24 +1,25 @@
 package feature.company_profile;
 
 import Components.Color.WindowColor;
+import feature.company_profile.business.view.BusinessView;
 import feature.company_profile.individual.view.IndividualView;
 import javax.swing.JFrame;
 
 public class CompanyProfileView extends javax.swing.JDialog {
-
+     
      public CompanyProfileView(java.awt.Frame parent, boolean modal) {
           super(parent, modal);
           initComponents();
-
+          
           custom();
      }
-
+     
      private void custom() {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           setBackground(WindowColor.slightGreen);
      }
-
+     
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -78,12 +79,12 @@ public class CompanyProfileView extends javax.swing.JDialog {
      }//GEN-LAST:event_objPromotion1MouseClicked
 
      private void objCompanyProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objCompanyProfileMouseClicked
-
-
+          BusinessView businessView = new BusinessView(new JFrame(), true);
+          businessView.setVisible(true);
      }//GEN-LAST:event_objCompanyProfileMouseClicked
-
+     
      public static void main(String args[]) {
-
+          
           java.awt.EventQueue.invokeLater(new Runnable() {
                public void run() {
                     CompanyProfileView dialog = new CompanyProfileView(new javax.swing.JFrame(), true);

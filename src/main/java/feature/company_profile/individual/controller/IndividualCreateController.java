@@ -12,28 +12,24 @@ import FormComponent.datepicker.JavaDatePicker;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.company_profile.individual.view.IndividualCreate;
 import feature.company_profile.individual.view.IndividualView;
-import feature.company_profile.individual.component.JavaComboBoxSelectionV1;
-import feature.company_profile.individual.model.IndividualModel;
+import feature.company_profile.individual.model.IndividualResponseModel;
 import java.util.LinkedHashMap;
 import lombok.Getter;
 import lombok.Setter;
+import main.main_province.MainProvince;
 import main.main_validation.JavaValidation;
 import okhttp3.Response;
 import org.json.JSONObject;
 
 @Setter
 @Getter
-public class IndividualCreateController {
+public class IndividualCreateController extends MainProvince {
 
      private IndividualCreate individualCreate;
      private IndividualView individualView;
-     private IndividualModel.IndividualDetail detail;
+     private IndividualResponseModel.IndividualResponseDetail detail;
 
      // variable combobox
-     private JavaCombobox objProvince;
-     private JavaCombobox objDistrict;
-     private JavaCombobox objCommune;
-     private JavaCombobox objVillage;
      private JavaCombobox objGender;
      private JavaCombobox objNationality;
      // variable form
@@ -47,14 +43,17 @@ public class IndividualCreateController {
      private JavaTextField objLng;
      private JavaTextField objStreet;
 
-     public IndividualCreateController(IndividualCreate individualCreate) {
+     public IndividualCreateController(
+          IndividualCreate individualCreate,
+          JavaCombobox objProvince,
+          JavaCombobox objDistrict,
+          JavaCombobox objCommune,
+          JavaCombobox objVillage
+     ) {
+          super(objProvince, objDistrict, objCommune, objVillage);
 
           this.individualCreate = individualCreate;
-          // variable combobox
-          this.objProvince = individualCreate.getObjProvince();
-          this.objDistrict = individualCreate.getObjDistrict();
-          this.objCommune = individualCreate.getObjCommune();
-          this.objVillage = individualCreate.getObjVillage();
+          // variable combobo
           this.objGender = individualCreate.getObjGender();
           this.objNationality = individualCreate.getObjNationality();
 
@@ -68,11 +67,9 @@ public class IndividualCreateController {
           this.objLat = individualCreate.getObjLat();
           this.objLng = individualCreate.getObjLng();
           this.objStreet = individualCreate.getObjStreet();
-
      }
-
+ 
      public void init() {
-          cmdProvince();
           cmdMap();
      }
 
@@ -102,13 +99,13 @@ public class IndividualCreateController {
                json.put("createdBy", JavaConstant.cashierId);
 
                Response response = null;
-               
+
                System.err.println("detail : " + detail);
 
                if (detail == null) { // add new
                     response = JavaConnection.post(JavaRoute.companyProfile + "/individual", json);
                } else { // update
-                    response = JavaConnection.put(JavaRoute.companyProfile + "/individual/"+detail.getId(), json);
+                    response = JavaConnection.put(JavaRoute.companyProfile + "/individual/" + detail.getId(), json);
                }
 
                System.err.println("log view json : " + json);
@@ -199,79 +196,6 @@ public class IndividualCreateController {
                }
           };
           objNationality.initEvent(event1);
-
-     }
-
-     public void cmdProvince() {
-          // name is field from response     
-          JavaComboBoxSelectionV1.addComboBox(
-               objProvince,
-               JavaRoute.province,
-               "nameKh",
-               JavaComboBoxSelectionV1.DESC);
-
-          // event select company
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelected(String id) {
-                    if (!objProvince.getSelectedItem().equals("0")) {
-                         // name is field from response 
-                         JavaComboBoxSelectionV1.addComboBox(
-                              objDistrict,
-                              JavaRoute.district + "/" + objProvince.getSelectedItem(),
-                              "nameKh",
-                              JavaComboBoxSelectionV1.DESC);
-
-                         cmdCommune();
-                    } else {
-                         objDistrict.setToFirstItem();
-                    }
-               }
-          };
-          objProvince.initEvent(event);
-     }
-
-     private void cmdCommune() {
-
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelected(String id) {
-                    if (!objDistrict.getSelectedItem().equals("0")) {
-                         // name is field from response 
-                         JavaComboBoxSelectionV1.addComboBox(
-                              objCommune,
-                              JavaRoute.commune + "/" + objDistrict.getSelectedItem(),
-                              "nameKh",
-                              JavaComboBoxSelectionV1.DESC);
-
-                         cmdVillage();
-                    } else {
-                         objVillage.setToFirstItem();
-                    }
-               }
-          };
-          objDistrict.initEvent(event);
-
-     }
-
-     private void cmdVillage() {
-
-          ButtonEvent event = new ButtonEvent() {
-               @Override
-               public void onSelected(String id) {
-                    if (!objCommune.getSelectedItem().equals("0")) {
-                         // name is field from response 
-                         JavaComboBoxSelectionV1.addComboBox(
-                              objVillage,
-                              JavaRoute.village + "/" + objCommune.getSelectedItem(),
-                              "nameKh",
-                              JavaComboBoxSelectionV1.DESC);
-                    } else {
-                         objVillage.setToFirstItem();
-                    }
-               }
-          };
-          objCommune.initEvent(event);
 
      }
 }
