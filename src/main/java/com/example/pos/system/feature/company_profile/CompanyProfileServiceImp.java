@@ -6,12 +6,10 @@ import com.example.pos.system.constant.util.response_success.JavaResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 import com.example.pos.system.domain.User;
 import com.example.pos.system.domain.company_profile.CompanyProfile;
-import com.example.pos.system.domain.promotion.Promotion;
 import com.example.pos.system.feature.company_profile.dto.BusinessRequest;
 import com.example.pos.system.feature.company_profile.dto.BusinessResponse;
 import com.example.pos.system.feature.company_profile.dto.IndividualRequest;
 import com.example.pos.system.feature.company_profile.dto.IndividualResponse;
-import com.example.pos.system.feature.promotion.dto.response.PromotionResponse;
 import com.example.pos.system.layer.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,7 +18,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -321,6 +318,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
 
     private BusinessResponse mapTopBusinessResponse(CompanyProfile companyProfile) {
         return BusinessResponse.builder()
+                .id(companyProfile.getId())
                 .customerName(companyProfile.getCustomerName())
                 .companyName(companyProfile.getCompanyName())
                 .phoneNumber(companyProfile.getPhoneNumber())
@@ -334,12 +332,12 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
                 .village(companyProfile.getVillage())
                 .fullAddressKh(companyProfileRepository.getFullAddressKh(companyProfile.getVillage()))
                 .fullAddressEn(companyProfileRepository.getFullAddressEn(companyProfile.getVillage()))
+                .createdDate(JavaConstant.convertCreatedDateToTime(companyProfile.getCreatedDate().toString()))
                 .build();
 
     }
 
     private IndividualResponse mapToIndividualResponse(CompanyProfile companyProfile) {
-
         return IndividualResponse.builder()
                 .id(companyProfile.getId())
                 .customerId(companyProfile.getCustomerId())

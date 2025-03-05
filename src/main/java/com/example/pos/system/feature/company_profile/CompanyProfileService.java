@@ -29,6 +29,4 @@ public interface CompanyProfileService {
 
     ResponseSuccess updateIndividual(Integer id , IndividualRequest individualRequest);
 
-
-
 }

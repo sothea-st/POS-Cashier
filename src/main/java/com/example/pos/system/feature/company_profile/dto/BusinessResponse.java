@@ -4,6 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record BusinessResponse(
+        Integer id,
         String customerName,
         String companyName,
         String phoneNumber,
@@ -16,6 +17,7 @@ public record BusinessResponse(
         String commune,
         String village,
         String fullAddressKh,
-        String fullAddressEn
+        String fullAddressEn,
+        String createdDate
 ) {
 }
