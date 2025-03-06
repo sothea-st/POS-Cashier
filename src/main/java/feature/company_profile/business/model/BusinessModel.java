@@ -3,14 +3,15 @@ package feature.company_profile.business.model;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import pagination.PaginationData;
 
 @Setter
 @Getter
-public class BusinessModel {
+public class BusinessModel implements PaginationData {
 
      private int count;
      private List<BusinessModelDetail> data;
-
+ 
      @Setter
      @Getter
      public static class BusinessModelDetail {

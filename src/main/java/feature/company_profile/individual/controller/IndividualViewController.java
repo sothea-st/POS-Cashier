@@ -1,6 +1,5 @@
 package feature.company_profile.individual.controller;
 
-
 import Components.Event.ButtonEvent;
 import Constant.JavaRoute;
 import feature.company_profile.individual.view.IndividualCreate;
@@ -20,7 +19,7 @@ import pagination.MainPaginationWithData;
 
 @Setter
 @Getter
-public class IndividualViewController extends MainPaginationWithData<IndividualResponseModel.IndividualResponseDetail> {
+public class IndividualViewController extends MainPaginationWithData<IndividualResponseModel> {
 
      // variable
      private IndividualView individualView;
@@ -42,6 +41,7 @@ public class IndividualViewController extends MainPaginationWithData<IndividualR
      // constructor
      public IndividualViewController(IndividualView view) {
           super(
+               IndividualResponseModel.class,
                view.getSearchField(),
                view.getPaginationPanel(),
                view.getPanelData(),
@@ -51,35 +51,20 @@ public class IndividualViewController extends MainPaginationWithData<IndividualR
           this.individualView = view;
      }
 
-     public void init() {
-          read(true); // read data
-     }
-
      @Override
-     protected void fetchData(boolean isCheck) {
-          try {
-               IndividualResponseModel data = objMapper.readValue(responseData, IndividualResponseModel.class);
-               // pagination code
-               dataCount = (int) data.getCount();
-
-               if (isCheck) { // true get
-                    paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
-               } else { // false search
-                    paginationPanel.resetPage(dataCount);
-               }
-
-               listData.clear();
-
-               listData = data.getData();
-
-          } catch (Exception e) {
-               System.err.println("error get individual : " + e);
+     protected String routeName(boolean isCheck) {
+          String route;
+          if (isCheck) { // get data
+               route = JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual";
+          } else { // search
+               route = JavaRoute.companyProfile + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual&search=";
           }
+          return route;
      }
 
      @Override
-     protected void appendItem(GridBagConstraints gbc,int i) {
-          
+     protected void appendItem(GridBagConstraints gbc, int i) {
+
           IndividualResponseDetail detail = (IndividualResponseDetail) listData.get(i);
 
           Integer id = detail.getId();
@@ -112,7 +97,6 @@ public class IndividualViewController extends MainPaginationWithData<IndividualR
           panelData.add(rowData, gbc);
      }
 
-     
      @Override
      protected void exportExcel() {
           new ExportIndividualExcel(columnHeader, titleEn, titleKh).export();
@@ -121,21 +105,6 @@ public class IndividualViewController extends MainPaginationWithData<IndividualR
      @Override
      protected void exportPDF() {
           new ExportIndividualPDF(columnHeader, titleEn, titleKh).export();
-     }
-
-     @Override
-     protected void exportCSV() {
-     }
-
-     @Override
-     protected String routeName(boolean isCheck) {
-          String route;
-          if (isCheck) { // get data
-               route = JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual";
-          } else { // search
-               route = JavaRoute.companyProfile + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual&search=";
-          }
-          return route;
      }
 
 }

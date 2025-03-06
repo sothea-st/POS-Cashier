@@ -159,7 +159,7 @@ public class IndividualCreateController extends MainProvince {
                          } else {
                               individualCreate.dispose();
                               individualView.getPanelData().removeAll();
-                              individualView.getIndividualController().read(true); // reload
+                              individualView.getIndividualController().init(); // reload
                          }
 
                     }

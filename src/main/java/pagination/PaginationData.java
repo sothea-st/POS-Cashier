@@ -2,9 +2,10 @@ package pagination;
 
 import java.util.List;
 
-public interface PaginationData {
+public interface PaginationData<T> {
 
-     int getCount();  // to get the count
+     int getCount();  
 
-     List<?> getData();  // to get the data list
+     List<T> getData(); 
+     
 }

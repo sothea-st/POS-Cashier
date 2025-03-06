@@ -127,7 +127,7 @@ public class BusinessCreateController extends MainProvince {
 
                          } else {
                               businessCreate.dispose();
-                              businessView.getBusinessController().read(true); // reload panel
+                              businessView.getBusinessController().init(); // reload panel
                          }
 
                     }
