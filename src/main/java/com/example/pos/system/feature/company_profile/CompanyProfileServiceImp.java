@@ -333,6 +333,7 @@ public class CompanyProfileServiceImp implements CompanyProfileService {
                 .fullAddressKh(companyProfileRepository.getFullAddressKh(companyProfile.getVillage()))
                 .fullAddressEn(companyProfileRepository.getFullAddressEn(companyProfile.getVillage()))
                 .createdDate(JavaConstant.convertCreatedDateToTime(companyProfile.getCreatedDate().toString()))
+                //.createdDate(companyProfile.getCreatedDate().toString())
                 .build();
 
     }

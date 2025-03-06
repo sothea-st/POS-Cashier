@@ -177,6 +177,7 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public JavaCollectionResponse<?> listByStatus(Integer pageNumber, Integer pageSize, String status) {
+
         List<ProductResponse> data = null;
 
         if (pageNumber == null && pageSize == null) {
@@ -184,13 +185,14 @@ public class ProductServiceImp implements ProductService {
                     () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with StatusName : " + status)
             );
             data = productRepository.findByStatusTrueAndIsDeletedFalseAndProductActive(status1).stream()
-                    .map(productMapper::mapToProductResponse)
+                    .map(this::mapToProductResponse)
                     .toList();
             return JavaCollectionResponse.builder()
                     .count(data.size())
                     .data(data)
                     .build();
         } else {
+
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
 
@@ -200,7 +202,7 @@ public class ProductServiceImp implements ProductService {
 
             Page<Product> pages = productRepository.findByStatusTrueAndIsDeletedFalseAndProductActive(pageRequest, status1);
             data = pages.getContent().stream()
-                    .map(productMapper::mapToProductResponse)
+                    .map(this::mapToProductResponse)
                     .toList();
             return JavaCollectionResponse.builder()
                     .count(pages.getTotalElements())
@@ -590,6 +592,7 @@ public class ProductServiceImp implements ProductService {
         }
 
         product.setProNameKh(proNameKh);
+        product.setProQty(0);
         product.setSubCategory(subCategory);
         product.setBrand(brand);
         product.setTaxProduct(tax);

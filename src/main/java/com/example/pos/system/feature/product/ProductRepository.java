@@ -22,6 +22,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         List<Product> findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(int vendorId, int subCategoryId);
         List<Product> findByVendorIdAndStatusTrueAndIsDeletedFalse(int vendorId);
         Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
+
         Page<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(PageRequest pageRequest, Status status);
         List<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(Status status);
         List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();

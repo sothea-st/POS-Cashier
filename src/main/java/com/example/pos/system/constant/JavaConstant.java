@@ -188,19 +188,30 @@ public class JavaConstant {
 
     public static String convertCreatedDateToTime(String inputDateTime) {
 
-        // Define input formatter
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        // Define input formatters
+        DateTimeFormatter inputFormatterWithMicroseconds = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        DateTimeFormatter inputFormatterWithoutMicroseconds = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
         // Define output formatter
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm:ss a");
 
-        // Parse input string to LocalDateTime
-        LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
+        LocalDateTime dateTime = null;
+
+        // Try to parse the input string with both formats
+        try {
+            dateTime = LocalDateTime.parse(inputDateTime, inputFormatterWithMicroseconds);
+        } catch (Exception e) {
+            try {
+                dateTime = LocalDateTime.parse(inputDateTime, inputFormatterWithoutMicroseconds);
+            } catch (Exception ex) {
+                System.err.println("Failed to parse date: " + ex.getMessage());
+                return null; // Return null if parsing fails
+            }
+        }
 
         // Format the output
         String formattedDate = dateTime.format(outputFormatter);
 
-        // Print result
         return formattedDate;
     }
 }
