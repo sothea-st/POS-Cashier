@@ -7,7 +7,6 @@ import Components.NotFound;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feature.company_profile.business.model.BusinessModel;
 import feature.company_profile.individual.view.IndividualCreate;
 import feature.company_profile.individual.view.IndividualDetail;
 import feature.company_profile.individual.view.IndividualView;
@@ -17,7 +16,6 @@ import feature.company_profile.individual.export.ExportIndividualPDF;
 import feature.company_profile.individual.model.IndividualResponseModel;
 import feature.company_profile.individual.model.IndividualResponseModel.IndividualResponseDetail;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -30,7 +28,6 @@ import javax.swing.UIManager;
 import lombok.Getter;
 import lombok.Setter;
 import okhttp3.Response;
-import pagination.MainPagination;
 import pagination.MainPaginationWithData;
 
 @Setter
@@ -39,7 +36,7 @@ public class IndividualViewController extends MainPaginationWithData {
 
      // variable
      private IndividualView individualView;
-//     private List<IndividualResponseDetail> listData = new ArrayList<>();
+     private List<IndividualResponseDetail> listData = new ArrayList<>();
 
      // column header
      private String[] columnHeader = {
@@ -90,48 +87,124 @@ public class IndividualViewController extends MainPaginationWithData {
           groupButtonExport.pdfEvent(eventPdf);
      }
 
-//     public void read(boolean isCheck) {
-//
-//          Response response = null;
-//
-//          if (isCheck) { // get data
-//               response = JavaConnection.get(JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual");
-//          } else { // search
-//               response = JavaConnection.get(JavaRoute.companyProfile + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual&search=" + searchValue);
-//          }
-//
-//          System.err.println("log view response : " + response);
-//          try {
-//
-//               if (response.isSuccessful()) {
-//
-//                    String responseData = response.body().string();
-//
-//                    ObjectMapper objMapper = new ObjectMapper();
-//
-//                    IndividualResponseModel data = objMapper.readValue(responseData, IndividualResponseModel.class);
-//
-//                    // pagination code
-//                    dataCount = (int) data.getCount();
-//                    if (isCheck) { // true get
-//                         paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
-//                    } else { // false search
-//                         paginationPanel.resetPage(dataCount);
-//                    }
-//
-//                    listData.clear();
-//
-//                    listData = data.getData();
-//
-//                    appendData();
-//
-//               }
-//
-//          } catch (Exception e) {
-//               System.err.println("error get individual : " + e);
-//          }
-//
-//     }
+     public void read(boolean isCheck) {
+
+          Response response = null;
+
+          if (isCheck) { // get data
+               response = JavaConnection.get(JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual");
+          } else { // search
+               response = JavaConnection.get(JavaRoute.companyProfile + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual&search=" + searchValue);
+          }
+
+          System.err.println("log view response : " + response);
+          try {
+
+               if (response.isSuccessful()) {
+
+                    String responseData = response.body().string();
+
+                    ObjectMapper objMapper = new ObjectMapper();
+
+                    IndividualResponseModel data = objMapper.readValue(responseData, IndividualResponseModel.class);
+
+                    // pagination code
+                    dataCount = (int) data.getCount();
+                    if (isCheck) { // true get
+                         paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
+                    } else { // false search
+                         paginationPanel.resetPage(dataCount);
+                    }
+
+                    listData.clear();
+
+                    listData = data.getData();
+
+                    appendDatas();
+
+               }
+
+          } catch (Exception e) {
+               System.err.println("error get individual : " + e);
+          }
+
+     }
+
+     private void appendDatas() {
+
+          panelData.removeAll();
+          GridBagLayout gridBagLayout = new GridBagLayout();
+          gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+          gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+          gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+          panelData.setLayout(gridBagLayout);
+
+          int x = 0;
+          int y = 0;
+
+          if (!listData.isEmpty()) {
+               for (int i = 0; i < listData.size(); i++) {
+                    GridBagConstraints gbc = new GridBagConstraints();
+                    gbc.gridx = x;
+                    gbc.gridy = y;
+                    gbc.gridwidth = 1;
+                    gbc.anchor = gbc.NORTH;
+                    x++;
+                    if (x == 1) {
+                         x = 0;
+                         y++;
+                    }
+
+                    IndividualResponseDetail detail = listData.get(i);
+
+                    Integer id = detail.getId();
+
+                    IndividualRowData rowData = new IndividualRowData(detail);
+
+                    ButtonEvent event = new ButtonEvent() {
+
+                         @Override
+                         public void onDelete() {
+                              delete(id);
+                         }
+
+                         @Override
+                         public void onEdit() {
+                              IndividualCreate individualCreate = new IndividualCreate(new JFrame(), true);
+                              individualCreate.update(detail, individualView);
+                              individualCreate.setVisible(true);
+                         }
+
+                         @Override
+                         public void onClick() {
+                              IndividualDetail individualDetail = new IndividualDetail(new JFrame(), true);
+                              individualDetail.setDetail(detail);
+                              individualDetail.setVisible(true);
+                         }
+
+                    };
+                    rowData.initEvent(event);
+
+                    paginationPanel.setVisible(true);
+                    panelData.add(rowData, gbc);
+               }
+          } else {
+               panelData.setLayout(new BorderLayout());
+               NotFound nofound = new NotFound();
+               panelData.add(nofound, BorderLayout.CENTER);
+               panelData.add(nofound);
+               panelData.revalidate();
+               panelData.repaint();
+               paginationPanel.setVisible(false);
+          }
+
+          panelData.revalidate();
+          panelData.repaint();
+
+     }
+
      private void delete(Integer id) {
           UIManager UI = new UIManager();
           UI.put("OptionPane.background", WindowColor.mediumGreen);
@@ -206,23 +279,22 @@ public class IndividualViewController extends MainPaginationWithData {
           individualView.getSearchField().initEvent(event);
      }
 
-     @Override
-     protected void appendData() {
-
-//          IndividualResponseModel data = objMapper.readValue(responseData, IndividualResponseModel.class);
+//     @Override
+//     protected void appendData() {
 //
-//          // pagination code
-//          dataCount = (int) data.getCount();
-//          if (isCheck) { // true get
-//               paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
-//          } else { // false search
-//               paginationPanel.resetPage(dataCount);
-//          }
-//
-//          listData.clear();
-//
-//          listData = data.getData();
-
-     }
+////          IndividualResponseModel data = objMapper.readValue(responseData, IndividualResponseModel.class);
+////
+////          // pagination code
+////          dataCount = (int) data.getCount();
+////          if (isCheck) { // true get
+////               paginationPanel.setTotalPage(data.getCount(), pageSize); // set totalPage and pageSize to pagination
+////          } else { // false search
+////               paginationPanel.resetPage(dataCount);
+////          }
+////
+////          listData.clear();
+////
+////          listData = data.getData();
+//     }
 
 }
