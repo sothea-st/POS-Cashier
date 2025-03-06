@@ -21,5 +21,6 @@ public class ReasonModel {
           private String createDate;
           private boolean status;
           private boolean deleted;
+          private String returnType;
      }
 }

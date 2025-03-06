@@ -61,6 +61,8 @@ public class DetailProduct extends javax.swing.JDialog {
           String slotValue,
           String choiceValue
      ) throws IOException {
+          
+         
           productName.setLabelName(productNameValue + " " + choiceValue);
 
           if (productNameKhValue != "null") {

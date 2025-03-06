@@ -12,9 +12,6 @@ import feature.Stock.PurchaseOrderCheck.PODetailItemModel;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -549,9 +546,8 @@ public class DetailPurchaseReceive extends javax.swing.JDialog {
               JOptionPane.showMessageDialog(this, "Invalid!");
               return;
          }
-
          
-         
+        
          JSONObject json = new JSONObject();
          json.put("createBy", JavaConstant.cashierId);
          json.put("empId", JavaConstant.empId);

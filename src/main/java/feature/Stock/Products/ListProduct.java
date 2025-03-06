@@ -262,6 +262,7 @@ public class ListProduct extends javax.swing.JDialog {
           }
           
           for (ProductResponseDetailV1 p : listProductData) {
+               
                GridBagConstraints gbc = new GridBagConstraints();
                gbc.gridx = x;
                gbc.gridy = y;
@@ -274,6 +275,11 @@ public class ListProduct extends javax.swing.JDialog {
                }
                
                feature.Stock.Products.GetProduct prod = new feature.Stock.Products.GetProduct();
+                    
+               
+               
+               System.err.println("p.getQty() : dddd === " + p.getQty());
+               
                prod.setData(
                     p.getBarcode(),
                     p.getItemCode(),
@@ -306,7 +312,7 @@ public class ListProduct extends javax.swing.JDialog {
                          try {
                               dispose();
                               DetailProduct detail = new DetailProduct(new JFrame(), true, id);
-                              
+                                   System.err.println("gggggggggggggg = " + p.getQty());
                               detail.setDetailValue(
                                    String.valueOf(p.getProNameEn()),
                                    String.valueOf(p.getProNameKh()),

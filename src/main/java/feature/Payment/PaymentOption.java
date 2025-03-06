@@ -1778,6 +1778,7 @@ public class PaymentOption extends javax.swing.JDialog {
 //          }else{
 //              jsonData.put("customer", "");
 //          }
+
           String discountType = "";
           //get dataSale 
           ArrayList<ProductSaleModel> dataSale = new ArrayList<>();
@@ -1930,9 +1931,9 @@ public class PaymentOption extends javax.swing.JDialog {
           }
           jsonReturnData.put("dataDetails", dataDetails);
 
-          //System.out.println("jsonReturnData  : " + jsonReturnData);
+          System.out.println("jsonReturnData json  : " + jsonReturnData);
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-          //System.out.println("responseReturn : " + responseReturn);
+          System.out.println("responseReturn : " + responseReturn);
           try {
                if (responseReturn.isSuccessful()) {
 
@@ -1953,6 +1954,9 @@ public class PaymentOption extends javax.swing.JDialog {
                     }
 
                     JavaConstant.resetValueReturn();
+                    
+                              System.out.println("responseRedddddddddddddddddddddddddddddturn : ");
+
 
                     String _data = responseReturn.body().string();
                     dispose();

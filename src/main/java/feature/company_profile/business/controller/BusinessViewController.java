@@ -25,6 +25,7 @@ public class BusinessViewController extends MainPaginationWithData<BusinessModel
           );
           
           this.businessView = view;
+          
      }
 
      @Override
