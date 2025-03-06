@@ -12,42 +12,40 @@ import java.math.BigDecimal;
 public class IndividualRowData extends javax.swing.JPanel {
 
      private IndividualResponseModel.IndividualResponseDetail detail;
-     
+
      public IndividualRowData(IndividualResponseDetail detail) {
           this.detail = detail;
           initComponents();
           custom();
-          
+
           setData();
      }
 
-     
-     private void setData(){
-          lbCusomterId.setText("        "+detail.getCustomerId());
-          lbGender.setText("   "+detail.getGender());
+     private void setData() {
+          lbCusomterId.setText("        " + detail.getCustomerId());
+          lbGender.setText("   " + detail.getGender());
           lbNationality.setText(detail.getNationality());
-          lbEngName.setText(detail.getLastName()+" "+detail.getFirstName());
+          lbEngName.setText(detail.getLastName() + " " + detail.getFirstName());
           lbKhName.setText(null);
           lbPhoneNumber.setText(JavaConstant.formatPhoneNumber(detail.getPhoneNumber()));
           lbEmail.setText(detail.getEmail());
           lbTotalAmount.setText(JavaConstant.setAmount(BigDecimal.valueOf(0)));
           lbCreatedDate.setText(detail.getCreatedDate());
      }
-     
+
      private void custom() {
           setBackground(WindowColor.white);
 
           JavaConstant.setPointer(btnEdit);
-          JavaConstant.setPointer(btnInfo);
+          JavaConstant.setPointer(btnView);
           JavaConstant.setPointer(btnDelete);
      }
 
-     
-     public void initEvent(ButtonEvent event){
+     public void initEvent(ButtonEvent event) {
           btnDelete.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                    event.onMouseClick();
+                    event.onDelete();
                }
 
                @Override
@@ -66,11 +64,11 @@ public class IndividualRowData extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
-          btnInfo.addMouseListener(new MouseListener(){
+
+          btnView.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
-                   event.onClick();
+                    event.onView();
                }
 
                @Override
@@ -89,7 +87,7 @@ public class IndividualRowData extends javax.swing.JPanel {
                public void mouseExited(MouseEvent e) {
                }
           });
-          
+
           btnEdit.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
@@ -113,7 +111,7 @@ public class IndividualRowData extends javax.swing.JPanel {
                }
           });
      }
-     
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {
@@ -128,7 +126,7 @@ public class IndividualRowData extends javax.swing.JPanel {
           lbTotalAmount = new javax.swing.JLabel();
           lbCreatedDate = new javax.swing.JLabel();
           btnEdit = new javax.swing.JLabel();
-          btnInfo = new javax.swing.JLabel();
+          btnView = new javax.swing.JLabel();
           btnDelete = new javax.swing.JLabel();
 
           setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -173,9 +171,9 @@ public class IndividualRowData extends javax.swing.JPanel {
           btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
           btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
 
-          btnInfo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
+          btnView.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+          btnView.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+          btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
 
           btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
           btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -189,7 +187,7 @@ public class IndividualRowData extends javax.swing.JPanel {
                     .addGap(15, 15, 15)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(5, 5, 5)
-                    .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -231,7 +229,7 @@ public class IndividualRowData extends javax.swing.JPanel {
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                          .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(btnInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                         .addComponent(btnView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                          .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap())
           );
@@ -241,7 +239,7 @@ public class IndividualRowData extends javax.swing.JPanel {
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JLabel btnDelete;
      private javax.swing.JLabel btnEdit;
-     private javax.swing.JLabel btnInfo;
+     private javax.swing.JLabel btnView;
      private javax.swing.JLabel lbCreatedDate;
      private javax.swing.JLabel lbCusomterId;
      private javax.swing.JLabel lbEmail;

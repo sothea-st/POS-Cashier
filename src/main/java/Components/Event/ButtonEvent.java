@@ -74,6 +74,7 @@ public interface ButtonEvent {
      default public void onInfo(){};
      
      default public void onEdit(){};
- 
+      default public void onView(){};
+
 
 }

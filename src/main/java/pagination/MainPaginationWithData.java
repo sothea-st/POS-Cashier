@@ -1,16 +1,38 @@
 package pagination;
 
+import Components.Color.WindowColor;
+import Components.Event.ButtonEvent;
+import Components.Fonts.WindowFonts;
+import Components.NotFound;
+import Components.SearchField;
 import Constant.JavaConnection;
 import Constant.JavaRoute;
 import Reporting.GroupButtonExport;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feature.company_profile.individual.component.IndividualRowData;
+import feature.company_profile.individual.export.ExportIndividualExcel;
+import feature.company_profile.individual.export.ExportIndividualPDF;
+import feature.company_profile.individual.model.IndividualResponseModel;
+import feature.company_profile.individual.model.IndividualResponseModel.IndividualResponseDetail;
+import feature.company_profile.individual.view.IndividualCreate;
+import feature.company_profile.individual.view.IndividualDetail;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import okhttp3.Response;
 
-public abstract class MainPaginationWithData {
+public abstract class MainPaginationWithData<T> {
 
+     // variable pagination
      protected String pageNumber = "1";
      protected int pageSize = 10;
      protected boolean isCheckSearch = true;
@@ -18,50 +40,220 @@ public abstract class MainPaginationWithData {
      protected int dataCount = 0;
      protected String pageType;
 
+     // variable component
      protected PaginationPanel paginationPanel;
      protected JPanel panelData;
      protected GroupButtonExport groupButtonExport;
-//     protected List<?> listData = new ArrayList<>();
-     Response response = null;
+     protected SearchField searchField;
+
+     // variable response 
+     protected Response response = null;
      protected ObjectMapper objMapper = new ObjectMapper();
+     protected String responseData;
+     protected List<?> listData = new ArrayList<>();
 
-//     public void read(boolean isCheck) {
-//
-//          if (isCheck) { // get data
-//               response = JavaConnection.get(JavaRoute.companyProfile + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual");
-//          } else { // search
-//               response = JavaConnection.get(JavaRoute.companyProfile + "/search?pageNumber=" + pageNumber + "&pageSize=" + pageSize + "&code=Individual&search=" + searchValue);
-//          }
-//
-//          System.err.println("log view response : " + response);
-//          try {
-//
-//               if (response.isSuccessful()) {
-//                    System.err.println("log view response :  111111111111111111");
-//
-//                    String responseData = response.body().string();
-//
-////                    responseType = objMapper.readValue(responseData, classType);
-////
-////                    // pagination code
-////                    dataCount = responseType.getCount();
-////                    if (isCheck) { // true get
-////                         paginationPanel.setTotalPage(dataCount, pageSize);
-////                    } else { // false search
-////                         paginationPanel.resetPage(dataCount);
-////                    }
-////
-////                    listData.clear();
-////                    listData = responseType.getData();
-//                    appendData();
-//               }
-//
-//          } catch (Exception e) {
-//               System.err.println("error get individual : " + e);
-//          }
-//
-//     }
+     public MainPaginationWithData(
+          SearchField searchField,
+          PaginationPanel paginationPanel,
+          JPanel panelData,
+          GroupButtonExport groupButtonExport
+     ) {
+          this.searchField = searchField;
+          this.paginationPanel = paginationPanel;
+          this.panelData = panelData;
+          this.groupButtonExport = groupButtonExport;
+          eventSearch();
+          eventPagination();
+          eventExport();
+     }
 
-//     protected abstract void appendData();
+   
+
+     protected abstract String routeName(boolean isCheck);
+
+     public void read(boolean isCheck) {
+
+          if (isCheck) { // get data
+               response = JavaConnection.get(routeName(isCheck));
+          } else { // search
+               response = JavaConnection.get(routeName(isCheck) + searchValue);
+          }
+
+          //System.err.println("log view response : " + response);
+          try {
+
+               if (response.isSuccessful()) {
+
+                    responseData = response.body().string();
+
+                    objMapper = new ObjectMapper();
+
+                    panelData.removeAll();
+                    GridBagLayout gridBagLayout = new GridBagLayout();
+                    gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                    gridBagLayout.rowWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
+                    gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+                    gridBagLayout.columnWeights = new double[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+                    panelData.setLayout(gridBagLayout);
+
+                    fetchData(isCheck);
+
+                    int x = 0;
+                    int y = 0;
+
+                    if (!listData.isEmpty()) {
+                         for (int i = 0; i < listData.size(); i++) {
+                              
+                              GridBagConstraints gbc = new GridBagConstraints();
+                              gbc.gridx = x;
+                              gbc.gridy = y;
+                              gbc.gridwidth = 1;
+                              gbc.anchor = gbc.NORTH;
+                              x++;
+                              if (x == 1) {
+                                   x = 0;
+                                   y++;
+                              }
+                              
+                              appendItem(gbc,i);
+                              
+                         }
+                         paginationPanel.setVisible(true);
+                    } else {
+                         panelData.setLayout(new BorderLayout());
+                         NotFound nofound = new NotFound();
+                         panelData.add(nofound, BorderLayout.CENTER);
+                         panelData.add(nofound);
+                         panelData.revalidate();
+                         panelData.repaint();
+                         paginationPanel.setVisible(false);
+                    }
+
+                    panelData.revalidate();
+                    panelData.repaint();
+
+               }
+
+          } catch (Exception e) {
+               System.err.println("error get individual : " + e);
+          }
+
+     }
+     protected abstract void fetchData(boolean isCheck);
+     protected abstract void appendItem(GridBagConstraints gbc,int i);
+
+     protected void delete(String route) {
+          UIManager UI = new UIManager();
+          UI.put("OptionPane.background", WindowColor.mediumGreen);
+          UI.put("Panel.background", WindowColor.mediumGreen);
+          UI.put("OptionPane.messageFont", WindowFonts.timeNewRomanBold14);
+
+          int resp = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete ?",
+               "Delete", JOptionPane.YES_NO_OPTION);
+
+          if (resp == JOptionPane.YES_OPTION) {
+//               Response response = JavaConnection.delete(JavaRoute.companyProfile + "/" + id + "?code=Individual");
+               Response response = JavaConnection.delete(route);
+
+
+               try {
+                    if (response.isSuccessful()) {
+                         read(true);
+                    }
+               } catch (Exception e) {
+                    System.err.println("error delete promotion : " + e);
+               }
+          }
+     }
+
+     // action search
+     protected void eventSearch() {
+          // this event was called when user type on searchTextField 
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onKeyType() {
+                    TimerTask task = new TimerTask() {
+                         @Override
+                         public void run() {
+                              searchValue = searchField.getValueTextSearch();
+
+                              paginationPanel.resetPage();
+                              pageNumber = "1";
+
+                              if (searchValue.isEmpty()) {
+                                   isCheckSearch = true;
+                                   pageNumber = "1";
+                                   read(true);
+                                   return;
+                              }
+                              read(false);
+                         }
+                    };
+
+                    Timer timer = new Timer();
+                    timer.schedule(task, 500);
+
+               }
+          };
+          searchField.initEvent(event);
+     }
+
+     // action pagination
+     protected void eventPagination() {
+          ButtonEvent event = new ButtonEvent() {
+               @Override
+               public void onMouseClick(String value) {
+                    if (isCheckSearch) {
+                         int _value = Integer.parseInt(value);
+                         pageNumber = String.valueOf(_value);
+                         read(true);
+                    }
+               }
+
+               // for pagination
+               @Override
+               public void onMouseClick(String value, String pType) {
+                    pageType = pType;
+               }
+          };
+          paginationPanel.initEvent(event);
+     }
+
+     //Action Export
+     protected void eventExport() {
+          ButtonEvent eventExel = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    //new ExportIndividualExcel(columnHeader, titleEn, titleKh).export();
+                    exportExcel();
+               }
+          };
+          groupButtonExport.excelEvent(eventExel);
+
+          ButtonEvent eventPdf = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    //new ExportIndividualPDF(columnHeader, titleEn, titleKh).export();
+                    exportPDF();
+               }
+          };
+          groupButtonExport.pdfEvent(eventPdf);
+
+          ButtonEvent eventCsv = new ButtonEvent() {
+               @Override
+               public void onMouseClick() {
+                    //new ExportIndividualPDF(columnHeader, titleEn, titleKh).export();
+                    exportCSV();
+               }
+          };
+          groupButtonExport.csvEvent(eventCsv);
+     }
+
+     protected abstract void exportExcel();
+
+     protected abstract void exportPDF();
+
+     protected abstract void exportCSV();
 
 }
