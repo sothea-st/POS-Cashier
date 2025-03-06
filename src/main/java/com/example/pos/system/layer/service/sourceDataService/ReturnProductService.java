@@ -7,6 +7,7 @@ import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.*;
 import com.example.pos.system.domain.payment.Payment;
 import com.example.pos.system.domain.settings.Product;
+import com.example.pos.system.domain.settings.Status;
 import com.example.pos.system.domain.sourceData.Reason;
 import com.example.pos.system.domain.sourceData.ReturnDetails;
 import com.example.pos.system.domain.sourceData.ReturnProduct;
@@ -14,6 +15,7 @@ import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
 import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
+import com.example.pos.system.feature.status.StatusRepository;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
 import com.example.pos.system.layer.repository.SaleDetailsRepository;
 import com.example.pos.system.layer.repository.SaleFiFoRepository;
@@ -70,6 +72,9 @@ public class ReturnProductService {
 
     @Autowired
     private ReasonRepository reasonRepository;
+
+    @Autowired
+    private StatusRepository statusRepository;
 
 
     public Map<String, Object> returnProduct(ReturnProduct re) {
@@ -143,7 +148,7 @@ public class ReturnProductService {
             var item = listDetail.get(i);
 
             // Print item quantity for debugging
-            System.out.println("item qty ============ " + item.getQty());
+            //System.out.println("item qty ============ " + item.getQty());
 
             // Retrieve product by ID from product repository, throw exception if not found
             Product product = productRepository.findById(proId).orElseThrow(
@@ -196,6 +201,21 @@ public class ReturnProductService {
                     // Save updated ImportDetail
                     repoImport.save(detail);
 
+
+
+                    // Update product active status when qty > 0 update product to Active
+                    if( qty > 0 ) {
+                        // Safely get status
+                        Optional<Status> statusOpt = statusRepository.findByStatusName("Active");
+                        if (statusOpt.isPresent()) { // Ensure status exists
+                            product.setProductActive(statusOpt.get());
+                            // Save the updated product
+                            productRepository.save(product);
+                        }
+                    }
+
+
+
                     // Set sale quantity to 0 for the current SaleFiFo entry
                     SaleFiFo saleFiFo = saleFiFoRepository.findById(val.getId()).orElseThrow(
                             () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Sale FiFo not found with id : " + val.getId())
@@ -243,6 +263,19 @@ public class ReturnProductService {
 
                         detail.setQtyOld(qty);
                         repoImport.save(detail);
+
+
+                        // Update product active status when qty > 0 update product to Active
+                        if( qty > 0 ) {
+                            // Safely get status
+                            Optional<Status> statusOpt = statusRepository.findByStatusName("Active");
+                            if (statusOpt.isPresent()) { // Ensure status exists
+                                product.setProductActive(statusOpt.get());
+                                // Save the updated product
+                                productRepository.save(product);
+                            }
+                        }
+
 
                         // Update SaleFiFo with adjusted sale quantity
                         saleFiFo.setSaleQty(saleFiFo.getSaleQty() - item.getQty());

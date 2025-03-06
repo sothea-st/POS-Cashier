@@ -354,12 +354,10 @@ public class SaleService {
                             update.setQtyOld(qty);
                             repoImp.save(update);
 
-                            System.out.println("111111111111111111 == " + qty);
+
 
                             // Update product active status when qty = 0
                             if (qty == 0) {
-                                System.out.println("Setting Product to Inactive");
-
                                 // Safely get status
                                 Optional<Status> statusOpt = statusRepository.findByStatusName("Inactive");
                                 if (statusOpt.isPresent()) { // Ensure status exists
@@ -382,10 +380,10 @@ public class SaleService {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(0);
                             repoImp.save(update);
-                            System.out.println("2222222222222222222 == " + qtyCheckStoke);
+
                             // update product active when qty = 0
                             if (qtyCheckStoke == 0) {
-                                System.out.println("save 2222222222222222222 == " + qtyCheckStoke);
+
                                 Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(1) // status = 1 is inActive
                                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with id : 1"));
                                 product.get().setProductActive(status);
@@ -405,11 +403,11 @@ public class SaleService {
                                 update.setQtyOld(qty);
                                 repoImp.save(update);
 
-                                System.out.println("3333333333333333333 == " + qtyCheckStoke);
+
 
                                 // update product active when qtyCheckStoke = 0
                                 if (qtyCheckStoke == 0) {
-                                    System.out.println("save 3333333333333333333 == " + qtyCheckStoke);
+
                                     Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(1) // status = 1 is inActive
                                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with id : 1"));
                                     product.get().setProductActive(status);
@@ -428,12 +426,9 @@ public class SaleService {
                                 update.setQtyOld(0);
                                 repoImp.save(update);
 
-
-                                System.out.println("44444444444444444 == " + qtyCheckStoke);
-
                                 // update product active when qtyCheckStoke = 0
                                 if (qtyCheckStoke == 0) {
-                                    System.out.println("save 44444444444444444 == " + qtyCheckStoke);
+
                                     Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(1) // status = 1 is inActive
                                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with id : 1"));
                                     product.get().setProductActive(status);
