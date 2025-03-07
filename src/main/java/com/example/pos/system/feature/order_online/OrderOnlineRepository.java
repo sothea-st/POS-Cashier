@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public interface OrderOnlineRepository extends JpaRepository<OrderOnline,Integer> {
@@ -106,5 +107,19 @@ public interface OrderOnlineRepository extends JpaRepository<OrderOnline,Integer
             String paymentStatus,
             PageRequest pageRequest
     );
+
+
+    @Query("SELECT count(o) FROM OrderOnline o " +
+            "WHERE o.status = true " +
+            "AND o.isDeleted = false " +
+            "AND o.orderStatus = :orderStatus")
+    long countOrderStatusNew(@Param("orderStatus") String orderStatus);
+
+    @Query("SELECT SUM(o.grandTotal) FROM OrderOnline o " +
+            "WHERE o.status = true " +
+            "AND o.isDeleted = false " +
+            "AND o.orderStatus = :orderStatus")
+    BigDecimal sumGrandTotalByOrderStatus(@Param("orderStatus") String orderStatus);
+
 
 }
