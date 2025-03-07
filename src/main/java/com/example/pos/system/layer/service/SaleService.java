@@ -163,7 +163,6 @@ public class SaleService {
             return reportResponse(reportSaled, null);
         }
 
-        System.out.println("2222222222222222");
 
 
         reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
@@ -324,8 +323,6 @@ public class SaleService {
 
             if (product.isPresent()) {
 
-
-
                 SaleDetail dataDetail = new SaleDetail();
                 dataDetail.setSaleId(saleId);
                 dataDetail.setProductId(productId);
@@ -353,8 +350,6 @@ public class SaleService {
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(qty);
                             repoImp.save(update);
-
-
 
                             // Update product active status when qty = 0
                             if (qty == 0) {
@@ -390,7 +385,6 @@ public class SaleService {
                                 productRepository.save(product.get());
                             }
 
-
                             saveFiFo(productId, update.getImpId(), data.getQtyOld(), paymentNo, update.getLocalDate(), update.getCreateDate()); // save data as fifo
                         }
                     } else {
@@ -402,8 +396,6 @@ public class SaleService {
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(qty);
                                 repoImp.save(update);
-
-
 
                                 // update product active when qtyCheckStoke = 0
                                 if (qtyCheckStoke == 0) {

@@ -45,7 +45,6 @@ public class Customer {
     @Column(name = "nationality")
     private String nationality;
 
-
     @Column(name = "coupon")
     private String coupon;
 
