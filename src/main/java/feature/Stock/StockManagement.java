@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feature.adjustment.AdjustmentForm;
 import feature.company_profile.CompanyProfileView;
 import feature.invoice_listing.InvoiceListingView;
+import feature.order_online.view.OrderOnlineView;
 import feature.promotion.view.PromotionView;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -125,6 +126,7 @@ public class StockManagement extends javax.swing.JDialog {
           objPromotion = new Components.SettingBox();
           objPromotion1 = new Components.SettingBox();
           objCompanyProfile = new Components.SettingBox();
+          objOrderOnline = new Components.SettingBox();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -189,6 +191,14 @@ public class StockManagement extends javax.swing.JDialog {
                }
           });
 
+          objOrderOnline.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/order_online.png"))); // NOI18N
+          objOrderOnline.setTitle("Order Online");
+          objOrderOnline.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objOrderOnlineMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
           jPanel3.setLayout(jPanel3Layout);
           jPanel3Layout.setHorizontalGroup(
@@ -201,7 +211,9 @@ public class StockManagement extends javax.swing.JDialog {
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                               .addComponent(objPromotion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                              .addComponent(objCompanyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                              .addComponent(objCompanyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objOrderOnline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                          .addGroup(jPanel3Layout.createSequentialGroup()
                               .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                               .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,7 +237,8 @@ public class StockManagement extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                          .addComponent(objPromotion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(objPromotion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                         .addComponent(objCompanyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(objCompanyProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(objOrderOnline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(707, Short.MAX_VALUE))
           );
 
@@ -293,6 +306,11 @@ public class StockManagement extends javax.swing.JDialog {
           CompanyProfileView companyProfileView = new CompanyProfileView(new JFrame(), true);
           companyProfileView.setVisible(true);
      }//GEN-LAST:event_objCompanyProfileMouseClicked
+
+     private void objOrderOnlineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objOrderOnlineMouseClicked
+        OrderOnlineView orderOnlineView = new OrderOnlineView(new JFrame(), true);
+        orderOnlineView.setVisible(true);
+     }//GEN-LAST:event_objOrderOnlineMouseClicked
 
      public JPanel getPanelProduct() {
           return panelProduct;
@@ -363,6 +381,7 @@ public class StockManagement extends javax.swing.JDialog {
      private javax.swing.JPanel jPanel3;
      private javax.swing.JScrollPane jScrollPane1;
      private Components.SettingBox objCompanyProfile;
+     private Components.SettingBox objOrderOnline;
      private Components.SettingBox objPromotion;
      private Components.SettingBox objPromotion1;
      private Components.SettingBox product;
