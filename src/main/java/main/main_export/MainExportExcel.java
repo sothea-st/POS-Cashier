@@ -88,7 +88,7 @@ public abstract class MainExportExcel extends MainExport {
           // call customStyle
           customStyle();
      }
- 
+
      protected abstract void setData();
 
      public void export() {
@@ -104,6 +104,8 @@ public abstract class MainExportExcel extends MainExport {
                     row.setHeightInPoints(30); // Adjust the height as needed
                     for (int j = 0; j < dataList.get(i).length; j++) {
                          Cell cell = row.createCell(j);
+ 
+
                          String value = String.valueOf(dataList.get(i)[j]);
 
                          if (dataList.get(i)[j] instanceof String) {
@@ -223,7 +225,6 @@ public abstract class MainExportExcel extends MainExport {
           }
 
      }
-
 
      private void addCenteredRow(Object content, int totalColumns) {
 

@@ -312,7 +312,7 @@ public class ListProduct extends javax.swing.JDialog {
                          try {
                               dispose();
                               DetailProduct detail = new DetailProduct(new JFrame(), true, id);
-                                   System.err.println("gggggggggggggg = " + p.getQty());
+                                   
                               detail.setDetailValue(
                                    String.valueOf(p.getProNameEn()),
                                    String.valueOf(p.getProNameKh()),

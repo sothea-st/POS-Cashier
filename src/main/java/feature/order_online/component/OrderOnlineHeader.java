@@ -81,7 +81,7 @@ public class OrderOnlineHeader extends javax.swing.JPanel {
           Division1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
           Division1.setForeground(new java.awt.Color(255, 255, 255));
           Division1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-          Division1.setText("Order Status");
+          Division1.setText("    Order Status");
 
           Division2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
           Division2.setForeground(new java.awt.Color(255, 255, 255));

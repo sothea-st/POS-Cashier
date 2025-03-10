@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbProductName" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="lbProductName1" min="-2" pref="165" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="lbProductName12" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="lbOrderNumber" min="-2" pref="567" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lbProductName2" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lbProductName13" min="-2" pref="15" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lbProductName4" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lbProductName14" min="-2" pref="15" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lbProductName3" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lbProductName15" min="-2" pref="15" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="lbProductName7" min="-2" pref="165" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="lbProductName16" min="-2" pref="15" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lbOrderDate" alignment="0" min="-2" pref="567" max="-2" attributes="0"/>
+                                          <Component id="lbOrderStatus" alignment="0" min="-2" pref="567" max="-2" attributes="0"/>
+                                          <Component id="lbPaymentMethod" alignment="0" min="-2" pref="567" max="-2" attributes="0"/>
+                                          <Component id="lbPaymentStatus" alignment="0" min="-2" pref="567" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbProductName5" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbProductName6" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbProductName8" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbProductName9" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                                  <Component id="lbProductName10" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lbProductName19" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="lbPhoneNumber" min="-2" pref="567" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lbProductName18" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="lbCusomterId" min="-2" pref="567" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lbProductName17" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="lbCustomerName" min="-2" pref="567" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lbProductName20" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="lbEmail" min="-2" pref="567" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="lbProductName21" min="-2" pref="15" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="lbDeliveryAddress" min="-2" pref="567" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="lbProductName11" alignment="0" max="32767" attributes="0"/>
+                          <Component id="detailOrderOnlineHeader1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnViewReason" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                      <Component id="buttonSave" min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnReject" min="-2" pref="125" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="buttonSave" max="32767" attributes="0"/>
+                      <Component id="btnReject" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="btnViewReason" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="lbProductName" min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="lbCustomerName" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lbProductName8" alignment="0" pref="25" max="32767" attributes="0"/>
+                  <Component id="lbProductName1" pref="25" max="32767" attributes="0"/>
+                  <Component id="lbProductName12" pref="25" max="32767" attributes="0"/>
+                  <Component id="lbOrderNumber" max="32767" attributes="0"/>
+                  <Component id="lbProductName17" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbOrderDate" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbProductName2" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbProductName13" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbOrderStatus" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbProductName4" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbProductName14" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbPaymentMethod" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbProductName3" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbProductName15" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="lbPaymentStatus" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductName7" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="lbProductName16" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbCusomterId" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbProductName6" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbProductName18" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbPhoneNumber" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbProductName5" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbProductName19" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lbEmail" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lbProductName9" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lbProductName20" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="lbDeliveryAddress" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbProductName10" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="lbProductName21" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="lbProductName11" min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="detailOrderOnlineHeader1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="449" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="Components.Label" name="lbProductName">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Customer Order Information"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName1">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Order Number"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbOrderNumber">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName2">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Order Date"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbOrderDate">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbPaymentMethod">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName3">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Payment Method"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbOrderStatus">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName4">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Order Status"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName5">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Phone Number"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbCusomterId">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName6">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Customer ID"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbPhoneNumber">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName7">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Payment Status"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbPaymentStatus">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName8">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Customer Name"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbCustomerName">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName9">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Email"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbEmail">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName10">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Delivery Address"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbDeliveryAddress">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName11">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value="Product Detail"/>
+      </Properties>
+    </Component>
+    <Component class="feature.order_online.component.DetailOrderOnlineHeader" name="detailOrderOnlineHeader1">
+    </Component>
+    <Component class="Button.Button" name="btnCancel">
+      <Properties>
+        <Property name="buttonName" type="java.lang.String" value="Close"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="Button.Button" name="btnReject">
+      <Properties>
+        <Property name="buttonName" type="java.lang.String" value="Reject"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRejectMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="ButtonPackage.ButtonSave" name="buttonSave">
+      <Properties>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[78, 35]"/>
+        </Property>
+        <Property name="titleButton" type="java.lang.String" value="Accepted"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonSaveMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="Components.Label" name="lbProductName12">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName13">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName14">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName15">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName16">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName17">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName18">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName19">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName20">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Component class="Components.Label" name="lbProductName21">
+      <Properties>
+        <Property name="labelName" type="java.lang.String" value=":"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+      </Properties>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="panelData">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="1546" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="0" pref="449" max="32767" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+        </Container>
+      </SubComponents>
+    </Container>
+    <Component class="Button.Button" name="btnViewReason">
+      <Properties>
+        <Property name="buttonName" type="java.lang.String" value="View Reaons"/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnViewReasonMouseClicked"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>

@@ -77,6 +77,7 @@ public abstract class MainPaginationWithData<T extends PaginationData> {
                response = JavaConnection.get(routeName(isCheck));
           } else { // search
                response = JavaConnection.get(routeName(isCheck) + searchValue);
+               System.err.println("respnse search : " + response);
           }
 
           //System.err.println("log view response : " + response);
@@ -95,7 +96,7 @@ public abstract class MainPaginationWithData<T extends PaginationData> {
                }
 
           } catch (Exception e) {
-               System.err.println("error get individual : " + e);
+               System.err.println("error get data eeeeeeeeeeeeeeeeeeeeeeeeeeee : " + e);
           }
 
      }
