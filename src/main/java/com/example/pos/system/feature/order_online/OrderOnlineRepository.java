@@ -6,11 +6,28 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public interface OrderOnlineRepository extends JpaRepository<OrderOnline,Integer> {
+
+
+    Optional<OrderOnline> findByIdAndStatusTrueAndIsDeletedFalse(Integer id);
+
+    @Query("Select count(o) from OrderOnline o " +
+            "where o.status = true and o.isDeleted = false " +
+            "and o.orderStatus = :orderStatus")
+    long countByOrderStatus(
+            @Param("orderStatus") String orderStatus
+    );
+
+    @Query("Select sum(o.totalAmount) from OrderOnline o " +
+            "where o.status = true and o.isDeleted = false " +
+            "and o.orderStatus = :orderStatus")
+    BigDecimal subByTotalAmount(
+            @Param("orderStatus") String orderStatus
+    );
 
 
     @Query(nativeQuery = true,value = "select count(*) from pos_order_onlines poo where order_date = :date ")

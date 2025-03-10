@@ -2,6 +2,7 @@ package com.example.pos.system.feature.order_online;
 
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.constant.util.collection_response.JavaCollectionResponse;
+import com.example.pos.system.constant.util.response_success.JavaResponse;
 import com.example.pos.system.constant.util.response_success.ResponseSuccess;
 import com.example.pos.system.domain.SaleFiFo;
 import com.example.pos.system.domain.User;
@@ -12,10 +13,7 @@ import com.example.pos.system.domain.settings.Status;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.feature.imports.ImportRepository;
-import com.example.pos.system.feature.order_online.dto.OrderOnlineDetailRequest;
-import com.example.pos.system.feature.order_online.dto.OrderOnlineRequest;
-import com.example.pos.system.feature.order_online.dto.OrderOnlineResponse;
-import com.example.pos.system.feature.order_online.dto.OrderProductDetailResponse;
+import com.example.pos.system.feature.order_online.dto.*;
 import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.status.StatusRepository;
 import com.example.pos.system.layer.repository.ImportDetailRepository;
@@ -133,8 +131,8 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         null);
-            } else if (orderStatus != null && paymentStatus == null){
-                if( orderStatus.equals("All") ) {
+            } else if (orderStatus != null && paymentStatus == null) {
+                if (orderStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetween(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -147,7 +145,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                             null);
                 }
             } else if (orderStatus == null && paymentStatus != null) {
-                if( paymentStatus.equals("All") ) {
+                if (paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetween(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -160,18 +158,18 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                             null);
                 }
             } else {
-                if( orderStatus.equals("All") && paymentStatus.equals("All") ) {
+                if (orderStatus.equals("All") && paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetween(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
                             null);
-                } else if ( orderStatus.equals("All") && !paymentStatus.equals("All") ) {
+                } else if (orderStatus.equals("All") && !paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetweenAndPaymentStatus(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
                             paymentStatus,
                             null);
-                }  else if ( !orderStatus.equals("All") && paymentStatus.equals("All") ) {
+                } else if (!orderStatus.equals("All") && paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetweenAndOrderStatus(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -195,8 +193,8 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                         LocalDate.parse(dateFrom),
                         LocalDate.parse(dateTo),
                         pageRequest);
-            } else if (orderStatus != null && paymentStatus == null){
-                if( orderStatus.equals("All") ) {
+            } else if (orderStatus != null && paymentStatus == null) {
+                if (orderStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetween(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -209,7 +207,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                             pageRequest);
                 }
             } else if (orderStatus == null && paymentStatus != null) {
-                if( paymentStatus.equals("All") ) {
+                if (paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetween(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -222,18 +220,18 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                             pageRequest);
                 }
             } else {
-                if( orderStatus.equals("All") && paymentStatus.equals("All") ) {
+                if (orderStatus.equals("All") && paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetween(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
                             pageRequest);
-                } else if ( orderStatus.equals("All") && !paymentStatus.equals("All") ) {
+                } else if (orderStatus.equals("All") && !paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetweenAndPaymentStatus(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
                             paymentStatus,
                             pageRequest);
-                }  else if ( !orderStatus.equals("All") && paymentStatus.equals("All") ) {
+                } else if (!orderStatus.equals("All") && paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.findByStatusTrueAndIsDeletedFalseAndOrderDateBetweenAndOrderStatus(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -293,7 +291,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                             search,
                             paymentStatus,
                             pageRequest);
-                } else if ( !orderStatus.equals("All") && paymentStatus.equals("All") ) {
+                } else if (!orderStatus.equals("All") && paymentStatus.equals("All")) {
                     pages = orderOnlineRepository.searchByOrderStatus(
                             LocalDate.parse(dateFrom),
                             LocalDate.parse(dateTo),
@@ -341,6 +339,69 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                 .data(list)
                 .count(count)
                 .build();
+    }
+
+    @Override
+    public JavaResponse<?> calculate() {
+
+        OrderOnlineCalculate orderOnlineCalculate = OrderOnlineCalculate.builder()
+                .newOrders(CalculateCountAndSum.builder()
+                        .count(orderOnlineRepository.countByOrderStatus("New"))
+                        .total(orderOnlineRepository.subByTotalAmount("New"))
+                        .build())
+                .cancelled(CalculateCountAndSum.builder()
+                        .count(orderOnlineRepository.countByOrderStatus("Cancelled"))
+                        .total(orderOnlineRepository.subByTotalAmount("Cancelled"))
+                        .build())
+                .completed(CalculateCountAndSum.builder()
+                        .count(orderOnlineRepository.countByOrderStatus("Completed"))
+                        .total(orderOnlineRepository.subByTotalAmount("Completed"))
+                        .build())
+                .build();
+
+        return JavaResponse.builder()
+                .data(orderOnlineCalculate)
+                .build();
+    }
+
+    @Override
+    public JavaResponse<?> updateOrderStatus(Integer id, String status) {
+
+        List<String> listOrderStatus = List.of("Accepted", "Picked & Packed", "Out for Delivery", "Delivered", "Pay", "Completed");
+
+        OrderOnline orderOnline = orderOnlineRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Online not found with id : " + id));
+
+        if( orderOnline.getOrderStatus().equals("Cancelled") ) {
+
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This order id : "+id+" already cancelled !");
+
+        }
+
+
+        if (!listOrderStatus.contains(status)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid order status: " + status);
+        }
+
+        status = status.equals("Pay") ? "Completed" : status;
+
+        orderOnline.setOrderStatus(status);
+
+        orderOnlineRepository.save(orderOnline);
+
+        return JavaResponse.builder()
+                .data(status)
+                .build();
+    }
+
+    @Override
+    public ResponseSuccess rejectOrder(Integer id, RejectReason rejectReason) {
+        OrderOnline orderOnline = orderOnlineRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Online not found with id : " + id));
+        orderOnline.setOrderStatus("Cancelled");
+        orderOnline.setReason(rejectReason.reason());
+        orderOnlineRepository.save(orderOnline);
+        return ResponseSuccess.builder().build();
     }
 
 
@@ -508,6 +569,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
                 .discount(orderOnline.getDiscount())
                 .deliveryFee(orderOnline.getDeliveryFee())
                 .grandTotal(orderOnline.getGrandTotal())
+                .reason(orderOnline.getReason())
                 .details(orderOnline.getOrderOnlineDetails().stream()
                         .map(product -> OrderProductDetailResponse.builder()
                                 .barcode(product.getProduct().getBarcode())

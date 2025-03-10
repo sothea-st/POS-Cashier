@@ -22,7 +22,7 @@ public record OrderOnlineResponse(
     BigDecimal discount,
     BigDecimal deliveryFee,
     BigDecimal grandTotal,
-    List<OrderProductDetailResponse> details,
-    CalculateCountAndSum countAndSum
+    String reason,
+    List<OrderProductDetailResponse> details
 ) {
 }

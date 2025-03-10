@@ -38,6 +38,9 @@ public class OrderOnline {
     @Column(name = "order_date",nullable = false)
     private LocalDate orderDate;
 
+    @Column(name = "reason")
+    private String reason;
+
     @Column(name = "order_number",nullable = false,unique = true)
     private String orderNumber;
 
