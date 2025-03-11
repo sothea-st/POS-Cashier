@@ -61,15 +61,27 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="objSupplier" min="-2" max="-2" attributes="0"/>
                           <Component id="objReportReturn" min="-2" max="-2" attributes="0"/>
                           <Component id="reportSale" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportPurhaseRequest" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportPurhaseReceive" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="reportInventory" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="reportPurhaseRequest" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="reportPurhaseReceive" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="reportInventory" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="objStockAvailable" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="objStockUnavailable" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="objProductStockIn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace pref="24" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -85,8 +97,15 @@
                           <Component id="reportInventory" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Component id="objReportReturn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="235" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="objReportReturn" min="-2" max="-2" attributes="0"/>
+                          <Component id="objProductStockIn" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="objStockUnavailable" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="objStockAvailable" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="objSupplier" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="62" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -145,6 +164,51 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objReportReturnMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="Components.SettingBox" name="objStockAvailable">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/stock/stockAvailable.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Stock Available"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objStockAvailableMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="Components.SettingBox" name="objStockUnavailable">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/stock/stockUnavailable.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value=" Stock Unavailable"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objStockUnavailableMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objStockUnavailableMouseEntered"/>
+              </Events>
+            </Component>
+            <Component class="Components.SettingBox" name="objProductStockIn">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/stock/productStockIn.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Product Stock In"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objProductStockInMouseClicked"/>
+              </Events>
+            </Component>
+            <Component class="Components.SettingBox" name="objSupplier">
+              <Properties>
+                <Property name="iconImage" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/stock/supplier.png"/>
+                </Property>
+                <Property name="title" type="java.lang.String" value="Supplier"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="objSupplierMouseClicked"/>
               </Events>
             </Component>
           </SubComponents>

@@ -6,6 +6,8 @@ import Components.CustomeUI.CustomScrollBarUI;
 import feature.LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Reporting.ReportInventory.ReportInventoryForm;
 import feature.report.report_sale_return.ReportSaleReturnForm;
+import feature.report.report_stock.view.ReportStockAvailableView;
+import feature.report.report_vendor.view.ReportVendorView;
 import feature.user_permission.JavaPermission;
 
 import javax.swing.JFrame;
@@ -107,6 +109,10 @@ public class ReportingView extends javax.swing.JDialog {
           reportPurhaseReceive = new Components.SettingBox();
           reportInventory = new Components.SettingBox();
           objReportReturn = new Components.SettingBox();
+          objStockAvailable = new Components.SettingBox();
+          objStockUnavailable = new Components.SettingBox();
+          objProductStockIn = new Components.SettingBox();
+          objSupplier = new Components.SettingBox();
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -154,6 +160,41 @@ public class ReportingView extends javax.swing.JDialog {
                }
           });
 
+          objStockAvailable.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/stock/stockAvailable.png"))); // NOI18N
+          objStockAvailable.setTitle("Stock Available");
+          objStockAvailable.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objStockAvailableMouseClicked(evt);
+               }
+          });
+
+          objStockUnavailable.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/stock/stockUnavailable.png"))); // NOI18N
+          objStockUnavailable.setTitle(" Stock Unavailable");
+          objStockUnavailable.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objStockUnavailableMouseClicked(evt);
+               }
+               public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    objStockUnavailableMouseEntered(evt);
+               }
+          });
+
+          objProductStockIn.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/stock/productStockIn.png"))); // NOI18N
+          objProductStockIn.setTitle("Product Stock In");
+          objProductStockIn.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objProductStockInMouseClicked(evt);
+               }
+          });
+
+          objSupplier.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/stock/supplier.png"))); // NOI18N
+          objSupplier.setTitle("Supplier");
+          objSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+               public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    objSupplierMouseClicked(evt);
+               }
+          });
+
           javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
           jPanel1.setLayout(jPanel1Layout);
           jPanel1Layout.setHorizontalGroup(
@@ -161,14 +202,23 @@ public class ReportingView extends javax.swing.JDialog {
                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(15, 15, 15)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                         .addComponent(objSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(objReportReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(reportSale, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                              .addComponent(reportPurhaseRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addGroup(jPanel1Layout.createSequentialGroup()
+                              .addComponent(objStockAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objStockUnavailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                              .addComponent(objProductStockIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(24, Short.MAX_VALUE))
           );
           jPanel1Layout.setVerticalGroup(
@@ -181,8 +231,14 @@ public class ReportingView extends javax.swing.JDialog {
                          .addComponent(reportPurhaseReceive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                          .addComponent(reportInventory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(6, 6, 6)
-                    .addComponent(objReportReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(235, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addComponent(objReportReturn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(objProductStockIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(objStockUnavailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                         .addComponent(objStockAvailable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(objSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(62, Short.MAX_VALUE))
           );
 
           jScrollPane1.setViewportView(jPanel1);
@@ -237,6 +293,30 @@ public class ReportingView extends javax.swing.JDialog {
          reportSaleReturnForm.setVisible(true);
     }//GEN-LAST:event_objReportReturnMouseClicked
 
+     private void objStockAvailableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objStockAvailableMouseClicked
+          ReportStockAvailableView reportStockAvailable = new ReportStockAvailableView(new JFrame(), true,2);
+          //reportStockAvailable.setStatusId(2); // 2 = Available
+          reportStockAvailable.setVisible(true);
+     }//GEN-LAST:event_objStockAvailableMouseClicked
+
+     private void objStockUnavailableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objStockUnavailableMouseClicked
+          ReportStockAvailableView reportStockAvailable = new ReportStockAvailableView(new JFrame(), true,1);
+          reportStockAvailable.setVisible(true);
+     }//GEN-LAST:event_objStockUnavailableMouseClicked
+
+     private void objStockUnavailableMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objStockUnavailableMouseEntered
+          // TODO add your handling code here:
+     }//GEN-LAST:event_objStockUnavailableMouseEntered
+
+     private void objProductStockInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objProductStockInMouseClicked
+
+     }//GEN-LAST:event_objProductStockInMouseClicked
+
+     private void objSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objSupplierMouseClicked
+        ReportVendorView reportVendorView = new ReportVendorView(new JFrame(), true);
+        reportVendorView.setVisible(true);
+     }//GEN-LAST:event_objSupplierMouseClicked
+
      public static void main(String args[]) {
 
           java.awt.EventQueue.invokeLater(new Runnable() {
@@ -256,7 +336,11 @@ public class ReportingView extends javax.swing.JDialog {
      // Variables declaration - do not modify//GEN-BEGIN:variables
      private javax.swing.JPanel jPanel1;
      private javax.swing.JScrollPane jScrollPane1;
+     private Components.SettingBox objProductStockIn;
      private Components.SettingBox objReportReturn;
+     private Components.SettingBox objStockAvailable;
+     private Components.SettingBox objStockUnavailable;
+     private Components.SettingBox objSupplier;
      private Components.SettingBox reportInventory;
      private Components.SettingBox reportPurhaseReceive;
      private Components.SettingBox reportPurhaseRequest;

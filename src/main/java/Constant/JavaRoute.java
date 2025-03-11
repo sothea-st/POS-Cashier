@@ -96,6 +96,7 @@ public class JavaRoute {
      public static String companyProfile = "/v1/companyProfiles";
 
      public static String orderOnline = "/v1/orderOnline";
+     public static String reportStock = "/v1/reportStock";
 
      public static String province = "/gazetteer/provinces";
      public static String district = "/gazetteer/districts";
