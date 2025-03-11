@@ -21,7 +21,18 @@ public class StockController {
             @RequestParam(required = false) Integer pageSize,
             @RequestParam Integer statusId
     ) {
-        return stockService.read(pageNumber,pageSize,statusId);
+        return stockService.read(pageNumber, pageSize, statusId);
+    }
+
+    @GetMapping("/stockAvailable/search")
+    public JavaCollectionResponse<?> search(
+            @RequestParam(required = false) Integer pageNumber,
+            @RequestParam(required = false) Integer pageSize,
+            @RequestParam Integer statusId,
+            @RequestParam String search
+    ) {
+        return stockService.search(pageNumber, pageSize, statusId, search);
+
     }
 
 }

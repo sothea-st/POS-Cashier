@@ -68,4 +68,25 @@ public class VendorController {
                return vendorService.search(pageSize, pageNumber, searchValue);
      }
 
+     @GetMapping("/report")
+     JavaCollectionResponse<?> readByDate(
+             @RequestParam(name = "pageSize", required = false) Integer pageSize,
+             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+             @RequestParam(name = "dateFrom") String dateFrom,
+             @RequestParam(name = "dateTo") String dateTo
+     ) {
+          return vendorService.readByDate(pageSize, pageNumber,dateFrom,dateTo);
+     }
+
+     @GetMapping("/report/search")
+     JavaCollectionResponse<?> searchByDate(
+             @RequestParam(name = "pageSize", required = false) Integer pageSize,
+             @RequestParam(name = "pageNumber", required = false) Integer pageNumber,
+             @RequestParam(name = "dateFrom") String dateFrom,
+             @RequestParam(name = "dateTo") String dateTo,
+             @RequestParam(name = "search") String search
+     ) {
+          return vendorService.searchByDate(pageSize, pageNumber,dateFrom,dateTo,search);
+     }
+
 }

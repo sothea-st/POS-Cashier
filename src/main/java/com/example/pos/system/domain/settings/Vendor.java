@@ -1,5 +1,6 @@
 package com.example.pos.system.domain.settings;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -47,6 +48,9 @@ public class Vendor {
 
      @Column(name = "create_by",length = 20)
      private int createBy;
+
+     @Column(name = "created_local_date")
+     private LocalDate createdLocalDate;
 
      @CreationTimestamp
      @Column(name = "create_date")

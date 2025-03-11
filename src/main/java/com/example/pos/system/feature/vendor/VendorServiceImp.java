@@ -1,7 +1,10 @@
 package com.example.pos.system.feature.vendor;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+
+import com.example.pos.system.constant.JavaConstant;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -115,6 +118,7 @@ public class VendorServiceImp implements VendorService {
           vendor.setWebsite(vendorRequest.website());
           vendor.setVendorCode(getVDCode(count));
           vendor.setCreateBy(vendorRequest.createBy());
+          vendor.setCreatedLocalDate( LocalDate.now());
           vendorRepository.save(vendor);
 
           return VendorResponse.builder()
@@ -229,5 +233,57 @@ public class VendorServiceImp implements VendorService {
                          .data(content)
                          .build();
           }
+     }
+
+     @Override
+     public JavaCollectionResponse<?> readByDate(Integer pageSize, Integer pageNumber, String dateFrom, String dateTo) {
+
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = null;
+          if( pageNumber != null && pageSize != null ) {
+               pageRequest = PageRequest.of(pageNumber-1, pageSize, sortById);
+          }
+          Page<Vendor> pages = vendorRepository.findByStatusTrueAndIsDeletedFalseAndCreatedLocalDateBetween(
+                  LocalDate.parse(dateFrom) ,
+                  LocalDate.parse(dateTo),
+                  pageRequest
+          );
+
+          List<VendorResponse> content = pages.getContent()
+                  .stream()
+                  .map(this::mapToVendorResponse)
+                  .toList();
+
+
+          return JavaCollectionResponse.builder()
+                  .count(pages.getTotalElements())
+                  .data(content)
+                  .build();
+     }
+
+     @Override
+     public JavaCollectionResponse<?> searchByDate(Integer pageSize, Integer pageNumber, String dateFrom, String dateTo, String search) {
+          Sort sortById = Sort.by(Sort.Direction.DESC, "id");
+          PageRequest pageRequest = null;
+          if( pageNumber != null && pageSize != null ) {
+               pageRequest = PageRequest.of(pageNumber-1, pageSize, sortById);
+          }
+          Page<Vendor> pages = vendorRepository.searchVendor(
+                  LocalDate.parse(dateFrom) ,
+                  LocalDate.parse(dateTo),
+                  search,
+                  pageRequest
+          );
+
+          List<VendorResponse> content = pages.getContent()
+                  .stream()
+                  .map(this::mapToVendorResponse)
+                  .toList();
+
+
+          return JavaCollectionResponse.builder()
+                  .count(pages.getTotalElements())
+                  .data(content)
+                  .build();
      }
 }

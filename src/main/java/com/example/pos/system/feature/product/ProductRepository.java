@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 
@@ -43,8 +44,18 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         boolean existsByProNameKhAndStatusIsTrueAndIsDeletedIsFalse(String proNameKh);
 
 
+        @Query("SELECT p FROM Product p " +
+                "JOIN p.productActive s " +
+                "WHERE s.id = :statusId " +
+                "AND p.status = true " +
+                "AND p.isDeleted = false " +
+                "AND lower(p.proNameEn) like lower(concat('%',:productName,'%'))")
+        Page<Product> searchByProductName(
+                @Param("productName") String productName,
+                @Param("statusId") Integer statusId,
+                PageRequest pageRequest);
 
-        
+
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\t*\r\n" + //
                         "from\r\n" + //

@@ -65,6 +65,36 @@ public class StockServiceImp implements StockService {
                 .build();
     }
 
+    @Override
+    public JavaCollectionResponse<?> search(Integer pageNumber, Integer pageSize, Integer statusId, String search) {
+
+        Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(statusId)
+                .orElseThrow( ()-> new ResponseStatusException(HttpStatus.NOT_FOUND , "Status not found with id : " + statusId));
+
+        Sort sortById = Sort.by(Sort.Direction.DESC,"id");
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1 , pageSize,sortById);
+
+        Page<Product> pages = productRepository.searchByProductName(search,statusId,pageRequest);
+
+
+        List<StockResponse> lists  = pages.getContent().stream()
+                .map(product -> StockResponse.builder()
+                        .productName(product.getProNameEn())
+                        .productImage(product.getProImageName())
+                        .categoryName(product.getSubCategory().getCatNameEn())
+                        .supplierName(product.getVendor().getVendorName())
+                        .price(product.getPrice())
+                        .cost(product.getCost())
+                        .qty(getQty(product.getId()))
+                        .build()).toList();
+
+        long count = pages.getTotalElements();
+        return JavaCollectionResponse.builder()
+                .count(count)
+                .data(lists)
+                .build();
+    }
+
 
     private Integer getQty(Integer productId) {
         return importDetailRepository.sumQtyByProId(productId) == null ? 0 : importDetailRepository.sumQtyByProId(productId);

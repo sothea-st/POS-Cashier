@@ -39,4 +39,8 @@ public interface VendorService {
       * value was given from controller
       */
       JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue);
+
+
+     JavaCollectionResponse<?> readByDate(Integer pageSize,Integer pageNumber,String dateFrom,String dateTo);
+    JavaCollectionResponse<?> searchByDate(Integer pageSize,Integer pageNumber,String dateFrom,String dateTo,String search);
 }

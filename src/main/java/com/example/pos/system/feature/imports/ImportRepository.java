@@ -1,4 +1,5 @@
 package com.example.pos.system.feature.imports;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +20,7 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Page<Import> findByStatusTrueAndIsDeletedFalseAndRemark(PageRequest pageRequest,String remark);
 
 
+     Page<Import> findByStatusTrueAndIsDeletedFalseAndDateLocalBetween(LocalDate dateFrom, LocalDate dateTo,PageRequest pageRequest);
 
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
      List<Import> findByStatusTrueAndIsDeletedFalse();
