@@ -5,6 +5,7 @@ import Constant.JavaConstant;
 import Components.CustomeUI.CustomScrollBarUI;
 import feature.LoginAndLogoutForm.model.RoleHasPermissionModel;
 import Reporting.ReportInventory.ReportInventoryForm;
+import feature.report.report_product_stock_in.view.ReportProductStockInView;
 import feature.report.report_sale_return.ReportSaleReturnForm;
 import feature.report.report_stock.view.ReportStockAvailableView;
 import feature.report.report_vendor.view.ReportVendorView;
@@ -309,7 +310,8 @@ public class ReportingView extends javax.swing.JDialog {
      }//GEN-LAST:event_objStockUnavailableMouseEntered
 
      private void objProductStockInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objProductStockInMouseClicked
-
+          ReportProductStockInView reportProductStockInView = new ReportProductStockInView(new JFrame() ,true);
+          reportProductStockInView.setVisible(true);
      }//GEN-LAST:event_objProductStockInMouseClicked
 
      private void objSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objSupplierMouseClicked

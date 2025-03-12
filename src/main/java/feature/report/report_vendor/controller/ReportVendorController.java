@@ -52,7 +52,7 @@ public class ReportVendorController extends MainPaginationWithData<ReportVendorR
 
      @Override
      protected void appendItem(GridBagConstraints gbc, int i) {
-
+          
           ReportVendorResponseDetail detail = (ReportVendorResponseDetail) listData.get(i);
 
           ReportVendorRowData rowData = new ReportVendorRowData(detail, i + 1);
@@ -66,7 +66,7 @@ public class ReportVendorController extends MainPaginationWithData<ReportVendorR
      public void find() {
 
           getDateValue();
-
+          
           init();
 
      }
