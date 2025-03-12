@@ -6,4 +6,6 @@ public interface ReportProductStockInService {
 
     JavaCollectionResponse<?> read(Integer pageNumber,Integer pageSize,String dateFrom,String dateTo);
 
+    JavaCollectionResponse<?> search(Integer pageNumber,Integer pageSize,String dateFrom,String dateTo,String search);
+
 }

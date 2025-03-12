@@ -1,4 +1,6 @@
 package com.example.pos.system.feature.imports;
+import com.example.pos.system.feature.reports.report_product_stock_in.projection.ReportProductStockingProjection;
+import com.example.pos.system.feature.reports.report_stock.stock.dto.StockResponse;
 import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,6 +10,8 @@ import java.util.*;
 import java.time.*;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.layer.projections.ReportImport.ReportImportProjection;
+import org.springframework.data.repository.query.Param;
+
 public interface ImportRepository extends JpaRepository<Import, Integer> {
 
 
@@ -20,7 +24,24 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
      Page<Import> findByStatusTrueAndIsDeletedFalseAndRemark(PageRequest pageRequest,String remark);
 
 
+
+     @Query(nativeQuery = true , value = "SELECT * FROM public.get_report_product_stock_in(:dateFrom, :dateTo, :pageSize, :pageNumber,:search)")
+     List<ReportProductStockingProjection> getReportProductStockIn(
+             @Param("dateFrom") LocalDate dateFrom,
+             @Param("dateTo") LocalDate dateTo,
+             @Param("pageNumber") Integer pageNumber,
+             @Param("pageSize") Integer pageSize,
+             @Param("search") String search
+     );
+
+     @Query(nativeQuery = true , value = "SELECT public.get_report_count_product_stock_in(:dateFrom,:dateTo,:search)")
+     Long countReportProductStockIn( @Param("dateFrom") LocalDate dateFrom,
+                                        @Param("dateTo") LocalDate dateTo,
+                                        @Param("search") String search);
+
+
      Page<Import> findByStatusTrueAndIsDeletedFalseAndDateLocalBetween(LocalDate dateFrom, LocalDate dateTo,PageRequest pageRequest);
+
 
      Page<Import> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
      List<Import> findByStatusTrueAndIsDeletedFalse();
