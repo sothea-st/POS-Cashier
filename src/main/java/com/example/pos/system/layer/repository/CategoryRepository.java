@@ -1,6 +1,7 @@
 package com.example.pos.system.layer.repository;
 
 import com.example.pos.system.domain.settings.Category;
+import com.example.pos.system.domain.settings.Ranges;
 import com.example.pos.system.layer.projections.GetCategoryByCode;
 
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
 
@@ -29,14 +31,29 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     //List get category without pagination
     List<Category> findByCodeAndStatusTrueAndIsDeletedFalse(String code);
 
+
+
     //List get search category with pagination
-    Page<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code, String catNameEn, PageRequest pageRequest);
+//    Page<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code, String catNameEn, PageRequest pageRequest);
+
+    @Query(value = """
+       select u from Category u
+       where u.status = true
+       and u.isDeleted = false
+       and u.code = :code
+       and (lower(u.catNameKh) like lower(concat('%', :name, '%'))
+       or lower(u.catNameEn) like lower(concat('%', :name, '%')))
+       """)
+    Page<Category> searchByCatNameEnOrCatNameKh(PageRequest pageRequest, @PathVariable("name") String name,@PathVariable("code") String code);
 
     //List get search category without pagination
-    List<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code, String catNameEn);
+//    List<Category> findByCodeAndCatNameEnContainingIgnoreCaseAndStatusTrueAndIsDeletedFalse(String code, String catNameEn);
 
     @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code ORDER BY c.movePosition ASC")
     List<Category> getCategoryByCode(String code);
+
+    @Query(value = "SELECT c FROM Category c WHERE c.status = true AND c.isDeleted = false AND c.code = :code or c.code=:code1 ORDER BY c.movePosition ASC")
+    List<Category> findByStatusTrueAndIsDeletedFalse(@Param("code") String code , @Param("code1") String code1);
 
     Optional<Category> findByParentIdAndStatusTrueAndIsDeletedFalse(int parentId);
 

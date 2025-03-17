@@ -11,8 +11,6 @@ public record BrandRequest(
     String brandNameKh,
     @NotNull(message = JavaMessage.required)
     Integer createBy
-
-
 ) {
 
 }

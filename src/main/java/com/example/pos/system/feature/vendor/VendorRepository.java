@@ -5,8 +5,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.*;
 import com.example.pos.system.domain.settings.Vendor;
+import org.springframework.data.repository.query.Param;
 
 public interface VendorRepository extends JpaRepository<Vendor,Integer> {
 
@@ -82,5 +84,26 @@ public interface VendorRepository extends JpaRepository<Vendor,Integer> {
 
      //Get search without pagination
      List<Vendor> findByVendorName(String searchValue);
- 
+
+
+     Page<Vendor> findByStatusTrueAndIsDeletedFalseAndCreatedLocalDateBetween(
+             @Param("startDate") LocalDate startDate,
+             @Param("endDate") LocalDate endDate,
+             PageRequest pageRequest
+     );
+
+
+     @Query("SELECT v FROM Vendor v " +
+             "WHERE v.status = true " +
+             "AND v.isDeleted = false " +
+             "AND v.createdLocalDate BETWEEN :startDate AND :endDate " +
+             "AND LOWER(v.vendorName) LIKE LOWER(CONCAT('%', :vendorName, '%'))")
+     Page<Vendor> searchVendor(
+             @Param("startDate") LocalDate startDate,
+             @Param("endDate") LocalDate endDate,
+             @Param("vendorName") String vendorName,
+             PageRequest pageRequest
+     );
+
+
 }

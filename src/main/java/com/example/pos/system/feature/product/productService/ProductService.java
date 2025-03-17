@@ -2,6 +2,8 @@ package com.example.pos.system.feature.product.productService;
 
 import com.example.pos.system.constant.JavaConstant;
 import com.example.pos.system.domain.general.FileStore;
+import com.example.pos.system.domain.promotion.Promotion;
+import com.example.pos.system.domain.promotion.PromotionDetail;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.domain.settings.Product;
@@ -9,6 +11,7 @@ import com.example.pos.system.domain.models.ProductModel;
 import com.example.pos.system.feature.attribute.AttributeRepository;
 import com.example.pos.system.feature.country.CountryRepository;
 import com.example.pos.system.feature.product.dto.ProductDataRequest;
+import com.example.pos.system.feature.promotion.PromotionRepository;
 import com.example.pos.system.feature.tax.TaxRepository;
 import com.example.pos.system.feature.settings.uom.UomRepository;
 import com.example.pos.system.feature.vendor.VendorRepository;
@@ -25,10 +28,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -44,6 +49,9 @@ public class ProductService {
     private final CountryRepository countryRepository;
     private final UomRepository uomRepository;
     private final AttributeRepository attributeRepository;
+    private final PromotionRepository promotionRepository;
+    private String promotionNotFound = "Promotion not found with id : ";
+    private String productNotFound = "Product not found with id : ";
 
     public Product addProduct(ProductDataRequest p, MultipartFile file) throws IOException {
 
@@ -142,6 +150,8 @@ public class ProductService {
 
     public List<ProductModel> getProduct(int limit, int perPage, int page) {
 
+        checkPromotion();
+
         List<ProductModel> list = new ArrayList<>();
 
         if (limit == 0) {
@@ -149,11 +159,12 @@ public class ProductService {
             for (int i = 0; i < allPro.size(); i++) {
                 var data = allPro.get(i);
 
-                Integer qty = repoImp.sumQtyByProId(data.getId());
-                if (qty == null)
-                    qty = 0;
-                ProductModel p = proModel(data, qty);
-                list.add(p);
+                if (getQty(data.getId()) > 0) {
+                    ProductModel p = proModel(data, getQty(data.getId()));
+                    list.add(p);
+                }
+
+
             }
             return list;
         }
@@ -161,11 +172,11 @@ public class ProductService {
         List<ProductProjection> lPro = repo.getProduct(limit);
         for (int i = 0; i < lPro.size(); i++) {
             var data = lPro.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
+            if (getQty(data.getId()) > 0) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
+
         }
 
         return list;
@@ -228,7 +239,6 @@ public class ProductService {
             import1.setDiscount(BigDecimal.valueOf(0));
             import1.setTotal(BigDecimal.valueOf(editProduct.getProQty() * editProduct.getCost().doubleValue()));
 
-            
 
             List<ImportDetail> listDetail = new ArrayList<>();
             ImportDetail importDetail = new ImportDetail();
@@ -260,18 +270,18 @@ public class ProductService {
 
     public List<ProductModel> getProductByCatId(int catId, int limit, int page) {
 
-        List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
+        checkPromotion();
 
+        List<ProductProjection> listData = repo.getProductByCatId(catId, limit, page);
 
         List<ProductModel> list = new ArrayList<>();
 
         for (int i = 0; i < listData.size(); i++) {
             var data = listData.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
+            if (getQty(data.getId()) > 0) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
         }
         return list;
 
@@ -286,57 +296,45 @@ public class ProductService {
     }
 
     public List<ProductModel> getProductPromotion() {
+
+        checkPromotion();
+
         List<ProductProjection> listD = repo.getProductPromotion();
-        List<ProductModel> listModel = new ArrayList<>();
+        List<ProductModel> list = new ArrayList<>();
         for (int i = 0; i < listD.size(); i++) {
             var data = listD.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            listModel.add(p);
+            if (getQty(data.getId()) > 0) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
         }
-        return listModel;
+        return list;
     }
 
     public List<ProductModel> getListProductByBrandId(int brandId, int limit, int page) {
+
+        checkPromotion();
 
         List<ProductProjection> listD = repo.getProductByBrandId(brandId, limit, page);
 
         List<ProductModel> listModel = new ArrayList<>();
         for (int i = 0; i < listD.size(); i++) {
             var data = listD.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            listModel.add(p);
+            if (getQty(data.getId()) > 0) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                listModel.add(p);
+            }
         }
         return listModel;
     }
 
-    public ProductModel proModel(ProductProjection data, int qty) {
-        ProductModel p = new ProductModel(
-                data.getBrand_id(),
-                data.getPro_name_kh(),
-                data.getPro_image_name(),
-                data.getProduct_status(),
-                data.getPro_name_en(),
-                data.getId(),
-                data.getFlag(),
-                data.getDiscount(),
-                data.getCost(),
-                data.getPrice(),
-                data.getWeight(),
-                data.getBarcode(),
-                data.getCat_id(),
-                data.getCode_expired(),
-                data.getCode_out_stock(),
-                qty,
-                data.getChoices()
-                );
-        return p;
+    private int getQty(int productId) {
+        Integer qty = repoImp.sumQtyByProId(productId);
+        if (qty == null)
+            qty = 0;
+        return qty;
     }
+
 
     public Product updateDiscount(int id, BigDecimal discount) {
         Optional<Product> p = repo.getProductByOptionalId(id);
@@ -347,6 +345,9 @@ public class ProductService {
     }
 
     public List<ProductModel> getNewProduct(int limit, int page, int number) {
+
+        checkPromotion();
+
         List<ProductModel> list = new ArrayList<>();
         List<ProductProjection> listData = repo.getNewProduct(number);
 
@@ -354,13 +355,75 @@ public class ProductService {
             if (i == limit)
                 break;
             var data = listData.get(i);
-            Integer qty = repoImp.sumQtyByProId(data.getId());
-            if (qty == null)
-                qty = 0;
-            ProductModel p = proModel(data, qty);
-            list.add(p);
+
+            if (getQty(data.getId()) > 0) {
+                ProductModel p = proModel(data, getQty(data.getId()));
+                list.add(p);
+            }
         }
         return list;
+    }
+
+    public ProductModel proModel(ProductProjection data, int qty) {
+
+
+        // ================ Check promotion endDate and currentDate ================
+        Double discount = data.getDiscount();
+
+
+        ProductModel p = new ProductModel(
+                data.getBrand_id(),
+                data.getPro_name_kh(),
+                data.getPro_image_name(),
+                data.getProduct_status(),
+                data.getPro_name_en(),
+                data.getId(),
+                data.getFlag(),
+                discount,
+                data.getCost(),
+                data.getPrice(),
+                data.getWeight(),
+                data.getBarcode(),
+                data.getCat_id(),
+                data.getCode_expired(),
+                data.getCode_out_stock(),
+                qty,
+                data.getChoices()
+        );
+        return p;
+    }
+
+    public void checkPromotion() {
+        List<Promotion> promotions = promotionRepository.findByStatusTrueAndIsDeletedFalseOrderByCreatedDateAsc();
+
+        LocalDate currentDate = LocalDate.now();
+
+
+        for (Promotion promotion : promotions) {
+
+            Promotion promotionUpdate = promotionRepository.findByIdAndStatusTrueAndIsDeletedFalse(
+                            Integer.valueOf(String.valueOf(promotion.getId())))
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, promotionNotFound + promotion.getId()));
+
+            // Check if endDate is before or equal to the current date
+            if (!promotion.getEndDate().isAfter(currentDate)) { // Equivalent to endDate <= currentDate
+
+                promotionUpdate.setActive(false);
+                promotionRepository.save(promotionUpdate);
+
+                // ==== Update discount for products ======
+                for (PromotionDetail detail : promotionUpdate.getPromotionDetails()) {
+                    Product product = repo.findByIdAndStatusTrueAndIsDeletedFalse(detail.getProduct().getId())
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, productNotFound + detail.getProduct().getId()));
+
+                    product.setDiscount(BigDecimal.valueOf(0));
+                    repo.save(product);
+                }
+                // ==== End discount update ======
+            }
+        }
+
+
     }
 
 }

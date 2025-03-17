@@ -23,4 +23,5 @@ public interface BrandServices {
 
     //search brand
     JavaCollectionResponse<?> search (Integer pageSize, Integer pageNumber, String searchValue);
+
 }

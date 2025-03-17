@@ -9,6 +9,7 @@ import com.example.pos.system.feature.product.productService.ProductExcelServic;
 import com.example.pos.system.feature.product.dto.ProductDataRequest;
 import com.example.pos.system.feature.product.productService.ProductService;
 import com.example.pos.system.feature.product.dto.ProductMultiple;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,33 +29,19 @@ public class ProductControllerV0 {
         private final ProductService service;
         private final ProductRepository repo;
         private final ProductExcelServic productExcelServic;
- 
+
+//        @PostConstruct
+//        public void checkPromotion(){
+//            System.out.println("ggggggggggggggggg");
+//                service.checkPromotion();
+//        }
 
         @GetMapping(value = "/getHead")
         public ResponseEntity<?> geth() {
             return ResponseEntity.ok().body(repo.getHead());
         }
 
-        @PostMapping("/importMultiple")
-        public void addMultipleProduct(@RequestBody ProductMultiple lists) {
 
-            // Map<String, Object> response = productMultipleService.addMultipleProduct(lists);
-
-            // int code = (int) response.get("code"); // Assuming 'code' is returned as an integer
-
-            // if (code == 409) {
-            //     // Conflict: Barcode already exists
-            //     return ResponseEntity.ok().body(Map.of("msg", "conflict", "data", "Barcode : "
-            //             + response.get("barcode") + " already exists for one or more products in the list."));
-            // } else if (code == 200) {
-            //     // Success: All products imported successfully
-            //     return JavaResponse.success("Import Success");
-            // } else {
-            //     // Handle other status codes as needed
-            //     throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
-            //             "Unexpected status returned from service.");
-            // }
-        }
 
         @PostMapping("/excel")
         public ResponseEntity<?> importFileExcel(@RequestParam("file") MultipartFile multipartFile)
@@ -140,14 +127,8 @@ public class ProductControllerV0 {
         @GetMapping("/getNewProduct")
         public ResponseEntity<?> getNewProduct(@RequestParam("limit") int limit, @RequestParam int page) {
             // return JavaResponse.success(service.getNewProduct(limit,perPage,page));
-            int countRow = repo.countRow();
-            int number = 21;
 
-//            if( countRow == 0 ) {
-//                number = 21;
-//            } else {
-//                number = (countRow * 30) / 100;
-//            }
+            int number = 21;
 
             return ResponseEntity.ok().body(
                     Map.of("count", number, "msg", "success", "data", service.getNewProduct(limit, page, number)));

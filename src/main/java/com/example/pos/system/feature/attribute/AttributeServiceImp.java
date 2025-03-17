@@ -152,14 +152,10 @@ public class AttributeServiceImp implements AttributeService {
       * value was given from controller
       */
      @Override
-     public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String valueSearch) {
+     public JavaCollectionResponse<?> search( Integer pageSize, Integer pageNumber, String valueSearch) {
           List<AttributeResponse> data = null;
-
-          System.out.println("pageSize : " + pageSize);
-          System.out.println("pageNumber : " + pageNumber);
-
           if (pageNumber == null && pageSize == null) {
-               data = attributeRepository.findByAttrNameEn(valueSearch).stream()
+               data = attributeRepository.searchByNameEnOrNameKh(null,valueSearch).stream()
                          .map(this::mAttributeResponse)
                          .toList();
                return JavaCollectionResponse.builder()
@@ -171,7 +167,7 @@ public class AttributeServiceImp implements AttributeService {
                PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById); // pageNumber start:0,1,2,3...
                                                                                      // pageSize:10
                                                                                      // => 1 page has 10 items
-               Page<Attribute> pages = attributeRepository.findByAttrNameEn(pageRequest, valueSearch);
+               Page<Attribute> pages = attributeRepository.searchByNameEnOrNameKh(pageRequest, valueSearch);
 
                List<AttributeResponse> content = pages.getContent()
                          .stream()

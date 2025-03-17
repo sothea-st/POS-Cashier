@@ -1,5 +1,6 @@
 package com.example.pos.system.feature.product;
 
+import com.example.pos.system.domain.settings.Category;
 import com.example.pos.system.domain.settings.Status;
 import com.example.pos.system.feature.product.productV1.dto.ProductResponseReadByProductId;
 import com.example.pos.system.layer.repository.productProjection.ProductProjection;
@@ -10,19 +11,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+        List<Product> findBySubCategoryAndStatusTrueAndIsDeletedFalse(Category category);
+
         List<Product> findByVendorIdAndSubCategoryIdAndStatusTrueAndIsDeletedFalse(int vendorId, int subCategoryId);
         List<Product> findByVendorIdAndStatusTrueAndIsDeletedFalse(int vendorId);
         Page<Product> findByStatusTrueAndIsDeletedFalse(PageRequest pageRequest);
+
         Page<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(PageRequest pageRequest, Status status);
-
         List<Product> findByStatusTrueAndIsDeletedFalseAndProductActive(Status status);
-
         List<Product> findByStatusTrueAndIsDeletedFalseOrderByIdDesc();
         Optional<Product> findByIdAndStatusTrueAndIsDeletedFalse(int id);
         Page<Product> findByProNameEnIgnoreCaseContainingAndStatusTrueAndIsDeletedFalse(PageRequest pageRequest ,String name);
@@ -41,7 +44,18 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         boolean existsByProNameKhAndStatusIsTrueAndIsDeletedIsFalse(String proNameKh);
 
 
-        
+        @Query("SELECT p FROM Product p " +
+                "JOIN p.productActive s " +
+                "WHERE s.id = :statusId " +
+                "AND p.status = true " +
+                "AND p.isDeleted = false " +
+                "AND lower(p.proNameEn) like lower(concat('%',:productName,'%'))")
+        Page<Product> searchByProductName(
+                @Param("productName") String productName,
+                @Param("statusId") Integer statusId,
+                PageRequest pageRequest);
+
+
         @Query(nativeQuery = true, value = "select\r\n" + //
                         "\t*\r\n" + //
                         "from\r\n" + //

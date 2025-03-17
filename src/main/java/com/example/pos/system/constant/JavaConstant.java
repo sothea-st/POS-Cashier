@@ -5,9 +5,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.Date;
 
 public class JavaConstant {
     public static String success = "success";
@@ -17,7 +20,6 @@ public class JavaConstant {
     public static String approved = "approved";
     public static String requested = "requested";
     public static String rejected = "rejected";
-
 
 
     public static String statusCode = "statusCode";
@@ -117,5 +119,99 @@ public class JavaConstant {
                     HttpStatus.BAD_REQUEST,
                     "Invalid date format. Expected format: yyyy-MM-dd", e);
         }
+    }
+
+    public static void dateFromSmallerDateTo(String dateFrom, String dateTo) {
+        if (dateFrom == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateFrom can not be null.");
+        if (dateTo == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dateTo can not be null.");
+        LocalDate dateFromLocal;
+        LocalDate dateToLocal;
+
+        try {
+            // Parse dateFrom and dateTo from the request
+            dateFromLocal = LocalDate.parse(dateFrom);
+            dateToLocal = LocalDate.parse(dateTo);
+
+            if (dateFromLocal.isAfter(dateToLocal)) {
+                // Throw exception if dateFrom is after dateTo
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST,
+                        "The field dateFrom must be smaller than field dateTo.");
+            }
+
+        } catch (DateTimeParseException e) {
+            // Handle invalid date format
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid date format. Expected format: yyyy-MM-dd", e);
+        }
+    }
+
+
+    public static String codeAdjustment(int counter) {
+        // Get current date
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yy");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+        SimpleDateFormat dayFormat = new SimpleDateFormat("dd");
+
+        Date currentDate = new Date();
+        String year = yearFormat.format(currentDate); // Get last two digits of current year
+        String month = monthFormat.format(currentDate); // Get current month (two digits)
+        String day = dayFormat.format(currentDate); // Get current day (two digits)
+
+        // Get the auto-incrementing value (3-digit format)
+
+        String autoIncrement = String.format("%03d", counter); // Format to 3 digits (e.g., 001, 002, etc.)
+
+        // Concatenate to generate the code
+        return year + month + day + autoIncrement;
+    }
+
+
+    public static void validateAge(String dob) {
+        if (dob == null || dob.isBlank()) {
+            throw new IllegalArgumentException("Date of Birth is required!");
+        }
+
+        try {
+            LocalDate birthDate = LocalDate.parse(dob); // Ensures yyyy-MM-dd format
+            LocalDate today = LocalDate.now();
+            int age = Period.between(birthDate, today).getYears();
+
+            if (age < 18) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Dob : "+dob+" must be at least 18 years old! ");
+            }
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format! Please use yyyy-MM-dd.");
+        }
+    }
+
+    public static String convertCreatedDateToTime(String inputDateTime) {
+
+        // Define input formatters
+        DateTimeFormatter inputFormatterWithMicroseconds = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        DateTimeFormatter inputFormatterWithoutMicroseconds = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        // Define output formatter
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy hh:mm:ss a");
+
+        LocalDateTime dateTime = null;
+
+        // Try to parse the input string with both formats
+        try {
+            dateTime = LocalDateTime.parse(inputDateTime, inputFormatterWithMicroseconds);
+        } catch (Exception e) {
+            try {
+                dateTime = LocalDateTime.parse(inputDateTime, inputFormatterWithoutMicroseconds);
+            } catch (Exception ex) {
+                System.err.println("Failed to parse date: " + ex.getMessage());
+                return null; // Return null if parsing fails
+            }
+        }
+
+        // Format the output
+        String formattedDate = dateTime.format(outputFormatter);
+
+        return formattedDate;
     }
 }

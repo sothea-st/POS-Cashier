@@ -21,11 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class BrandServiceImp implements BrandServices{
+public class BrandServiceImp implements BrandServices {
     
     private final BrandRepository brandRepository;
     private String idNotFound = "Id has not been found .";
     private String nameAlreadyExisted = "The Brand Name is already existed.";
+
 
     //get brand by id
     @Override
@@ -35,6 +36,7 @@ public class BrandServiceImp implements BrandServices{
 
         return mBrandResponse(brand);
     }
+
 
     //get list brand 
     @Override
@@ -81,7 +83,9 @@ public class BrandServiceImp implements BrandServices{
         brand.setCreateBy(brandRequest.createBy());
         brand.setStatus(true);
         brand.setDeleted(false);
+
         brandRepository.save(brand);
+
         return mBrandResponse(brand);
     }
 
@@ -118,12 +122,8 @@ public class BrandServiceImp implements BrandServices{
     @Override
     public JavaCollectionResponse<?> search(Integer pageSize, Integer pageNumber, String searchValue) {
         List<BrandResponse> data = null;
-
-        System.out.println("pageNumber " + pageNumber);
-        System.out.println("pageSize " + pageSize);
-
         if (pageNumber == null && pageSize == null) {
-            data = brandRepository.searchBrand(searchValue).stream()
+            data = brandRepository.searchByNameEnOrNameKh(null,searchValue).stream()
                     .map(this::mBrandResponse)
                     .toList();
             return JavaCollectionResponse.builder()
@@ -133,7 +133,7 @@ public class BrandServiceImp implements BrandServices{
         }else{
             Sort sortById = Sort.by(Sort.Direction.DESC, "id");
             PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, sortById);
-            Page<Brand> pages = brandRepository.searchBrand(pageRequest, searchValue);
+            Page<Brand> pages = brandRepository.searchByNameEnOrNameKh(pageRequest, searchValue);
             
             List<BrandResponse> content = pages.getContent()
                                 .stream()

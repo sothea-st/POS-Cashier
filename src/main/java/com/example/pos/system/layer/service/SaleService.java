@@ -6,12 +6,14 @@ import com.example.pos.system.domain.general.FileStore;
 import com.example.pos.system.domain.payment.Payment;
 import com.example.pos.system.domain.people.Customer;
 import com.example.pos.system.domain.settings.Product;
+import com.example.pos.system.domain.settings.Status;
 import com.example.pos.system.domain.stock.Import;
 import com.example.pos.system.domain.stock.ImportDetail;
 import com.example.pos.system.feature.imports.ImportRepository;
 import com.example.pos.system.feature.product.ProductRepository;
 import com.example.pos.system.feature.reports.report_inventoory.ReportInventoryService;
 import com.example.pos.system.feature.reports.report_inventoory.dto.ReportInventoryRequest;
+import com.example.pos.system.feature.status.StatusRepository;
 import com.example.pos.system.layer.controller.generateBarcode.BarcodeGenerator;
 import com.example.pos.system.layer.projections.ReportImport.ReportSaledProjection;
 import com.example.pos.system.layer.projections.ReportImport.ReportSaledResponse;
@@ -88,6 +90,9 @@ public class SaleService {
     @Autowired
     private ReportInventoryService reportInventoryService;
 
+    @Autowired
+    private StatusRepository statusRepository;
+
     //    List<ReportSaledResponse>
     public List<ReportSaledResponse> searchReportSaled(String dateFromValue, String dateToValue, Integer pageNumber,
                                                        Integer pageSize, Integer userId, String searchValue) {
@@ -149,6 +154,7 @@ public class SaleService {
 
         if (dateFromValue.equals(dateToValue) && userId != null) {
 
+
             String[] arrDateTo = dateFromValue.split("-");
             String dateToStr = arrDateTo[2] + "-" + arrDateTo[1] + "-" + arrDateTo[0];
 
@@ -156,6 +162,8 @@ public class SaleService {
             reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
             return reportResponse(reportSaled, null);
         }
+
+
 
         reportSaled = repo.getReportSaleds(dateFrom, dateTo, userId, pageNumber, pageSize);
         return reportResponse(reportSaled, null);
@@ -189,7 +197,7 @@ public class SaleService {
             totalSaledExcludeVAT = total; // Non-VAT
             netSale = total;// Non-VAT
 
-            if( !report.getTax_name().equals("Non-VAT") ) {
+            if (!report.getTax_name().equals("Non-VAT")) {
                 String _total = String.format("%.2f", total / 1.1);
                 totalSaledExcludeVAT = Double.parseDouble(_total);
                 String _totalSaledExludeVAT = String.format("%.2f", totalSaledExcludeVAT * 0.1);
@@ -216,10 +224,9 @@ public class SaleService {
              */
 
 
-
             ReportSaledResponse reportSaledResponse = ReportSaledResponse.builder()
                     .saleDate(report.getSale_date())
-                    .proNameEn(report.getPro_name_en()+" "+report.getChoices())
+                    .proNameEn(report.getPro_name_en() + " " + report.getChoices())
                     .proImageName(report.getPro_image_name())
                     .qty(report.getQty())
                     .discountCase(report.getDiscount_case())
@@ -237,6 +244,14 @@ public class SaleService {
                     .barcode(report.getBarcode())
                     .invoiceNumber(report.getinvoice_number())
                     .userName(report.getfull_name() == null ? null : report.getfull_name())
+                    .transactionType(report.getinvoice_number().contains("SCN") ? "Returned" : "Sale POS")
+                    .posId("POS-" + report.getpos_id())
+                    .paymentStatus("Paid")
+                    .paymentMethod(report.getpayment_method())
+                    .totalOrder(report.gettotal_order())
+                    .orderSource(report.getorder_source())
+                    .customerType(report.getcustomer_type())
+                    .khqrCode(report.getpayment_method().equals("credit") ? report.gettotal_order() : BigDecimal.valueOf(0.00))
                     .build();
 
             if (searchProductName != null) {
@@ -267,7 +282,6 @@ public class SaleService {
         LocalDate currentDate = LocalDate.now();
         // Define a custom date format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-
 
         Sale sale = new Sale();
         sale.setUserId(userId);
@@ -300,12 +314,14 @@ public class SaleService {
         List<SaleDetail> details = s.getDataSale();
 
 
-        for (int i = 0; i < details.size(); i++) {
+        // save sale detail
+        for (int i = 0; i < details.size(); i++) { // loop sale qty
             var detail = details.get(i);
             int productId = detail.getProductId();
             int qtyNew = detail.getQty();
             Optional<Product> product = productRepository.findById(productId);
-            if (product != null) {
+
+            if (product.isPresent()) {
 
                 SaleDetail dataDetail = new SaleDetail();
                 dataDetail.setSaleId(saleId);
@@ -320,7 +336,8 @@ public class SaleService {
                 repoDetail.save(dataDetail);
 
                 int qtyCheckStoke = 0;
-                List<ImportDetail> lists = repoImp.findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(product, 0);
+                List<ImportDetail> lists = repoImp.findByProductAndStatusTrueAndIsDeletedFalseAndQtyOldGreaterThanOrderByCreateDateAsc(product, 0);// get list import where product = ? and qtyOld > 0
+                // loop lists
                 for (int j = 0; j < lists.size(); j++) {
                     var data = lists.get(j);
 
@@ -328,10 +345,24 @@ public class SaleService {
                         int qty = data.getQtyOld() - qtyNew;
                         Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
                         if (updateDetail.isPresent()) {
+
+                            // update qtyOld to importDetail
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(qty);
                             repoImp.save(update);
-                            saveFiFo(productId, update.getImpId(), qtyNew, paymentNo, update.getLocalDate(), update.getCreateDate());
+
+                            // Update product active status when qty = 0
+                            if (qty == 0) {
+                                // Safely get status
+                                Optional<Status> statusOpt = statusRepository.findByStatusName("Inactive");
+                                if (statusOpt.isPresent()) { // Ensure status exists
+                                    product.get().setProductActive(statusOpt.get());
+                                    // Save the updated product
+                                    productRepository.save(product.get());
+                                }
+                            }
+
+                            saveFiFo(productId, update.getImpId(), qtyNew, paymentNo, update.getLocalDate(), update.getCreateDate()); // save data as fifo
                         }
                         break;
                     }
@@ -340,33 +371,67 @@ public class SaleService {
                         qtyCheckStoke = qtyNew - data.getQtyOld();
                         Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
                         if (updateDetail.isPresent()) {
+                            // update qtyOld to importDetail
                             ImportDetail update = updateDetail.get();
                             update.setQtyOld(0);
                             repoImp.save(update);
-                            saveFiFo(productId, update.getImpId(), data.getQtyOld(), paymentNo, update.getLocalDate(), update.getCreateDate());
+
+                            // update product active when qty = 0
+                            if (qtyCheckStoke == 0) {
+
+                                Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(1) // status = 1 is inActive
+                                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with id : 1"));
+                                product.get().setProductActive(status);
+                                productRepository.save(product.get());
+                            }
+
+                            saveFiFo(productId, update.getImpId(), data.getQtyOld(), paymentNo, update.getLocalDate(), update.getCreateDate()); // save data as fifo
                         }
                     } else {
                         if (data.getQtyOld() >= qtyCheckStoke) {
                             int qty = data.getQtyOld() - qtyCheckStoke;
                             Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
                             if (updateDetail.isPresent()) {
+                                // update qtyOld to importDetail
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(qty);
                                 repoImp.save(update);
-                                saveFiFo(productId, update.getImpId(), qtyCheckStoke, paymentNo, update.getLocalDate(), update.getCreateDate());
+
+                                // update product active when qtyCheckStoke = 0
+                                if (qtyCheckStoke == 0) {
+
+                                    Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(1) // status = 1 is inActive
+                                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with id : 1"));
+                                    product.get().setProductActive(status);
+                                    productRepository.save(product.get());
+                                }
+
+                                saveFiFo(productId, update.getImpId(), qtyCheckStoke, paymentNo, update.getLocalDate(), update.getCreateDate()); // save data as fifo
                             }
                             break;
                         } else {
                             qtyCheckStoke = qtyCheckStoke - data.getQtyOld();
                             Optional<ImportDetail> updateDetail = Optional.ofNullable(repoImp.getImpIdAndProduct(data.getImpId(), data.getProduct().getId()));
                             if (updateDetail.isPresent()) {
+                                // update qtyOld to importDetail
                                 ImportDetail update = updateDetail.get();
                                 update.setQtyOld(0);
                                 repoImp.save(update);
+
+                                // update product active when qtyCheckStoke = 0
+                                if (qtyCheckStoke == 0) {
+
+                                    Status status = statusRepository.findByIdAndStatusTrueAndIsDeletedFalse(1) // status = 1 is inActive
+                                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found with id : 1"));
+                                    product.get().setProductActive(status);
+                                    productRepository.save(product.get());
+                                }
+
                                 saveFiFo(productId, update.getImpId(), data.getQtyOld(), paymentNo, update.getLocalDate(), update.getCreateDate());
                             }
                         }
                     }
+
                 }
             }
         }

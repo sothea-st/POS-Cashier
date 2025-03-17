@@ -20,10 +20,10 @@ public class ReasonService {
 
      public Reason addReason(Reason r) {
           Reason data = new Reason();
-          var createBy = session.getAttribute(JavaConstant.userId);
+
           data.setReason(r.getReason());
           data.setCode(r.getCode());
-          data.setCreateBy((Integer)createBy);
+          data.setCreateBy(r.getCreateBy());
           repo.save(data);
           return data;
      }

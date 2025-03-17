@@ -19,4 +19,11 @@ public interface ReportSaledProjection {
      String getinvoice_number();
      String getChoices();
 
+     String getpos_id();
+     String getpayment_method();
+
+     BigDecimal gettotal_order();
+
+     String getorder_source();
+     String getcustomer_type();
 }

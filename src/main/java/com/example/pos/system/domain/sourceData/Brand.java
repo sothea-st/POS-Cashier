@@ -1,6 +1,7 @@
 package com.example.pos.system.domain.sourceData;
 
 import java.util.Date;
+import java.util.List;
 
 import com.example.pos.system.constant.JavaMessage;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,6 +32,7 @@ public class Brand {
     @NotBlank(message = JavaMessage.required)
     @NotNull(message = JavaMessage.required)
     private String brandNameEn;
+
 
     @Column(name = "brand_name_kh")
     private String brandNameKh;
