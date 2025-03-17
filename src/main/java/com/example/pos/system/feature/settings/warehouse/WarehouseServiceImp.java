@@ -29,6 +29,22 @@ public class WarehouseServiceImp implements WarehouseService {
     private final String warehouseIdNotFound = "Warehouse not found with id : ";
 
     /**
+     * read warehouse By id
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public JavaResponse<?> readById(Integer id) {
+        Warehouse warehouse = warehouseRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, warehouseIdNotFound + id));
+
+        return JavaResponse.builder()
+                .data(mapToWarehouseResponse(warehouse))
+                .build();
+    }
+
+    /**
      * read warehouse
      *
      * @param pageNumber
@@ -121,21 +137,7 @@ public class WarehouseServiceImp implements WarehouseService {
                 .build();
     }
 
-    /**
-     * read warehouse By id
-     *
-     * @param id
-     * @return
-     */
-    @Override
-    public JavaResponse<?> readById(Integer id) {
-        Warehouse warehouse = warehouseRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, warehouseIdNotFound + id));
 
-        return JavaResponse.builder()
-                .data(mapToWarehouseResponse(warehouse))
-                .build();
-    }
 
     /**
      * create warehouseRequest
