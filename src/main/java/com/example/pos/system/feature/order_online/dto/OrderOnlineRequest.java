@@ -15,11 +15,11 @@ public record OrderOnlineRequest(
         )
         String orderDate ,
 
-        @NotBlank(message = "The field orderNumber is required !")
-        String orderNumber,
+//        @NotBlank(message = "The field orderNumber is required !")
+//        String orderNumber,
 
-        @NotBlank(message = "The field orderStatus is required !")
-        String orderStatus,
+//        @NotBlank(message = "The field orderStatus is required !")
+//        String orderStatus,
 
         @NotBlank(message = "The field customerId is required !")
         String customerId,
