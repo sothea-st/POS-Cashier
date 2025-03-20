@@ -161,7 +161,7 @@
             <Container class="javax.swing.JPanel" name="panelData">
               <Properties>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[1100, 1000]"/>
+                  <Dimension value="[1100, 2000]"/>
                 </Property>
               </Properties>
 

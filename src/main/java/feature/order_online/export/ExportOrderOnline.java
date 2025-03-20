@@ -10,10 +10,10 @@ import okhttp3.Response;
 
 public class ExportOrderOnline {
 
-     public static void read(List<Object[]> dataList,String dateFrom,String dateTo) {
+     public static void read(List<Object[]> dataList, String dateFrom, String dateTo) {
 
           Response response = JavaConnection.get(JavaRoute.orderOnline + "?dateFrom=" + dateFrom + "&dateTo=" + dateTo);
-          
+
           System.err.println("resposne : " + response);
 
           try {
@@ -37,7 +37,7 @@ public class ExportOrderOnline {
                               detail.getOrderStatus(),
                               detail.getCustomerId(),
                               detail.getCustomerName(),
-                              JavaConstant.formatPhoneNumber(detail.getPhoneNumber()),
+                              JavaConstant.nullValueOrEmpty(detail.getPhoneNumber()),
                               detail.getDeliveryInformation(),
                               JavaConstant.setAmount(detail.getTotalAmount()),
                               detail.getPaymentMethod(),

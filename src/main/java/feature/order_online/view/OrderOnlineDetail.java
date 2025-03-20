@@ -6,6 +6,7 @@ import Constant.JavaConnection;
 import Constant.JavaConstant;
 import Constant.JavaRoute;
 import feature.order_online.component.DetailOrderOnlineRowData;
+import feature.order_online.controller.OrderOnlineViewController;
 import feature.order_online.model.OrderOnlineModelResponse;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -26,6 +27,7 @@ public class OrderOnlineDetail extends javax.swing.JDialog {
      private Integer id;
      private OrderOnlineView view;
      private OrderOnlineModelResponse.OrderOnlineData data;
+     private OrderOnlineViewController controller;
 
      List<String> listOrderStatus = List.of("Accepted", "Picked & Packed", "Out for Delivery", "Delivered", "Pay", "Completed");
 
@@ -67,7 +69,7 @@ public class OrderOnlineDetail extends javax.swing.JDialog {
           } else {
                btnViewReason.setVisible(false);
           }
-System.err.println("data.getOrderStatus()3333333333 : " + data.getOrderStatus());
+ 
           for (int i = 0; i < listOrderStatus.size(); i++) {
                
                String item = listOrderStatus.get(i);
@@ -77,7 +79,7 @@ System.err.println("data.getOrderStatus()3333333333 : " + data.getOrderStatus())
                     buttonSave.setBackground(WindowColor.slightGreen);
                } else {
                     if (data.getOrderStatus().equals(item)) {
-                         System.err.println("data.getOrderStatus() : " + data.getOrderStatus());
+                       
                          buttonSave.setTitleButton(listOrderStatus.get(i + 1));
                          break;
                     }
@@ -465,7 +467,7 @@ System.err.println("data.getOrderStatus()3333333333 : " + data.getOrderStatus())
 
           Response response = JavaConnection.get(JavaRoute.orderOnline + "/update/orderStatus/" + id + "?orderStatus=" + encodedStatus);
 
-          System.err.println("respnsefffffff = " + response);
+          //System.err.println("respnsefffffff = " + response);
           try {
                if (response.isSuccessful()) {
 
@@ -491,6 +493,7 @@ System.err.println("data.getOrderStatus()3333333333 : " + data.getOrderStatus())
                                    buttonSave.setTitleButton("Paid");
                                    buttonSave.setBackground(WindowColor.mediumGreen);
                                    btnReject.setVisible(false);
+                                   controller.calculateOrder(); // refresh 
                               } else {
                                    if (orderStatus.equals(item)) {
                                         buttonSave.setTitleButton(listOrderStatus.get(i + 1));

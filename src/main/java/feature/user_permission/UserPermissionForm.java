@@ -706,7 +706,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
 
           setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-          panelData.setPreferredSize(new java.awt.Dimension(1100, 1000));
+          panelData.setPreferredSize(new java.awt.Dimension(1100, 2000));
 
           lbStock.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/check.png"))); // NOI18N
           lbStock.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -4425,6 +4425,7 @@ public class UserPermissionForm extends javax.swing.JDialog {
                     dialog.setVisible(true);
                }
           });
+          
      }
 
      private boolean isStock = false;

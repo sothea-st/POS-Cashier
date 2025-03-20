@@ -111,7 +111,9 @@ public class OrderReject extends javax.swing.JDialog {
                     dispose();
                     detail.getView().getPanelData().removeAll();
                     detail.getView().getController().init();
+                    detail.getController().calculateOrder();
                     detail.dispose();
+                   
                }
                
                

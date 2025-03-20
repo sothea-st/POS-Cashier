@@ -1,6 +1,5 @@
- 
 package feature.order_online.component;
- 
+
 import Components.Event.ButtonEvent;
 import Constant.JavaConstant;
 import feature.order_online.model.OrderOnlineModelResponse.OrderOnlineData;
@@ -10,35 +9,36 @@ import java.awt.event.MouseListener;
 public class OrderOnlineRowData extends javax.swing.JPanel {
 
      private OrderOnlineData data;
-     
+
      public OrderOnlineRowData(OrderOnlineData data) {
           initComponents();
-          
+
           this.data = data;
-          
+
           setData();
-          
+
           JavaConstant.setPointer(btnInfo);
      }
-     
-     private void setData(){
+
+     private void setData() {
           lbOrderDate.setText(JavaConstant.formateDateDDMMYYYY(data.getOrderDate()));
           lbOrderNumber.setText(data.getOrderNumber());
-          lbOrderStatus.setText("    "+data.getOrderStatus());
+          lbOrderStatus.setText("    " + data.getOrderStatus());
           lbCusomerID.setText(data.getCustomerId());
-          lbCustomerName.setText(" "+data.getCustomerName());
-          lbPhoneNumber.setText("   "+JavaConstant.formatPhoneNumber(data.getPhoneNumber()));
-          lbDeliveryInfomation.setText( "  "+data.getDeliveryInformation());
-          lbTotalAmount.setText("  "+JavaConstant.setAmount(data.getTotalAmount()));
-          lbPaymentMethod.setText("  "+data.getPaymentMethod());
-          lbPaymentStatus.setText("  "+data.getPaymentStatus());
+          lbCustomerName.setText(" " + data.getCustomerName());
+
+          lbPhoneNumber.setText("   " + JavaConstant.nullValueOrEmpty(data.getPhoneNumber()));
+
+          lbDeliveryInfomation.setText("  " + data.getDeliveryInformation());
+          lbTotalAmount.setText("  " + JavaConstant.setAmount(data.getTotalAmount()));
+          lbPaymentMethod.setText("  " + data.getPaymentMethod());
+          lbPaymentStatus.setText("  " + data.getPaymentStatus());
           lbDeliveryAddress.setText(data.getDeliveryAddress());
           lbCustomerNote.setText(data.getCustomerNote());
      }
-     
-     
-     public void initEvent(ButtonEvent event){
-          btnInfo.addMouseListener(new MouseListener(){
+
+     public void initEvent(ButtonEvent event) {
+          btnInfo.addMouseListener(new MouseListener() {
                @Override
                public void mouseClicked(MouseEvent e) {
                     event.onClick();
@@ -61,7 +61,7 @@ public class OrderOnlineRowData extends javax.swing.JPanel {
                }
           });
      }
- 
+
      @SuppressWarnings("unchecked")
      // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
      private void initComponents() {

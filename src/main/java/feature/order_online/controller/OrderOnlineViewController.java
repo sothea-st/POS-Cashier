@@ -29,6 +29,8 @@ public class OrderOnlineViewController extends MainPaginationWithData<OrderOnlin
      private JavaCombobox objOrderStatus;
      private JavaCombobox objPaymentStatus;
      
+     
+     private OrderOnlineViewController controller;
      private String titleEn = "Order Online";
      private String titleKh = "បញ្ជាទិញតាមអ៊ីនធឺណិត";
      private String[] columnHeader = {
@@ -61,6 +63,8 @@ public class OrderOnlineViewController extends MainPaginationWithData<OrderOnlin
           this.objOrderStatus = view.getObjOrderStatus();
           this.objPaymentStatus = view.getObjPaymentStatus();
 
+          controller = this;
+          
           // call initializeDate
           initializeDate();
 
@@ -71,7 +75,7 @@ public class OrderOnlineViewController extends MainPaginationWithData<OrderOnlin
           calculateOrder();
      }
      
-     private void calculateOrder() {
+     public void calculateOrder() {
           
           Response res = JavaConnection.get(JavaRoute.orderOnline + "/calculate");
           
@@ -107,7 +111,6 @@ public class OrderOnlineViewController extends MainPaginationWithData<OrderOnlin
      
      @Override
      protected String routeName(boolean isCheck) {
-          
           String route;
           
           if (isCheck) { // get data
@@ -117,44 +120,34 @@ public class OrderOnlineViewController extends MainPaginationWithData<OrderOnlin
           }
           
           StringBuilder str = new StringBuilder();
-          
           if (!objOrderStatus.getSelectedItem().equals("0")) {
                str.append("&orderStatus=").append(objOrderStatus.getSelectedItem());
           }
-          
           if (!objPaymentStatus.getSelectedItem().equals("0")) {
                str.append("&paymentStatus=").append(objPaymentStatus.getSelectedItem());
           }
-          
           if (!isCheck) {
                str.append("&search=");
           }
-          
           route += str.toString();
-          
           return route;
      }
      
      @Override
      protected void appendItem(GridBagConstraints gbc, int i) {
-          
           OrderOnlineData data = (OrderOnlineData) listData.get(i);
-          
-          Integer id = data.getId();
-          
           OrderOnlineRowData rowData = new OrderOnlineRowData(data);
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onClick() {
                     OrderOnlineDetail detail = new OrderOnlineDetail(new JFrame(), true);
                     detail.setData(data,view);
+                    detail.setController(controller);
                     detail.setVisible(true);
                }
                
           };
-          
           rowData.initEvent(event);
-          
           panelData.add(rowData, gbc);
      }
      
