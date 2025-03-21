@@ -275,6 +275,7 @@ public class ListProduct extends javax.swing.JDialog {
                }
                
                feature.Stock.Products.GetProduct prod = new feature.Stock.Products.GetProduct();
+               
                     
                
                
