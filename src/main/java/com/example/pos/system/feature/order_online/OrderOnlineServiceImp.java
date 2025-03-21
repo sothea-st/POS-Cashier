@@ -304,7 +304,6 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
             }
         } else {
 
-
             if (orderStatus == null && paymentStatus == null) {
 
                 pages = orderOnlineRepository.searchByCustomerNameAndOrderNumber(

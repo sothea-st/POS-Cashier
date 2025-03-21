@@ -101,7 +101,6 @@ public class CashierReportService {
         double sumExchangeKHR = 0;
 
         for( ExchangeProjection val : exchanges ) {
-            System.out.println("sumExchangeUSD = " + val.getChange_usd() + " sumExchangeKHR = " + val.getChange_khr());
             sumExchangeUSD += val.getChange_usd().doubleValue();
             sumExchangeKHR += val.getChange_khr().doubleValue();
         }
@@ -363,6 +362,8 @@ public class CashierReportService {
             }
 
         }
+
+        System.out.println("_sumTotal = " + _sumTotal);
 
         ArrayList<SummeryCashierReport> summery = new ArrayList<>();
 
