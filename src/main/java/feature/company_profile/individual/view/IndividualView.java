@@ -20,7 +20,7 @@ public class IndividualView extends javax.swing.JDialog {
           // call individualController
           individualController = new IndividualViewController(this);
           individualController.init();
-
+  
      }
 
      private void custom() {
