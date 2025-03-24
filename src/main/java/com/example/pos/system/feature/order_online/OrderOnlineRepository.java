@@ -17,16 +17,16 @@ public interface OrderOnlineRepository extends JpaRepository<OrderOnline,Integer
 
     @Query("Select count(o) from OrderOnline o " +
             "where o.status = true and o.isDeleted = false " +
-            "and o.orderStatus = :orderStatus")
+            "and o.accept = :accept")
     long countByOrderStatus(
-            @Param("orderStatus") String orderStatus
+            @Param("accept") String accept
     );
 
     @Query("Select sum(o.totalAmount) from OrderOnline o " +
             "where o.status = true and o.isDeleted = false " +
-            "and o.orderStatus = :orderStatus")
+            "and o.accept = :accept")
     BigDecimal subByTotalAmount(
-            @Param("orderStatus") String orderStatus
+            @Param("accept") String accept
     );
 
 

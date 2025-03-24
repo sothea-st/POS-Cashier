@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
 
         orderOnline.setOrderDate(LocalDate.parse(request.orderDate()));
         orderOnline.setOrderNumber(_paymentNo);
-        orderOnline.setOrderStatus(request.orderStatus());
+        orderOnline.setOrderStatus("New");
         orderOnline.setCustomerId(request.customerId());
         orderOnline.setCustomerName(request.customerName());
         orderOnline.setDeliveryInformation(request.deliveryInformation());
@@ -114,6 +115,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
 
         return ResponseSuccess.builder().build();
     }
+
 
     @Override
     public JavaCollectionResponse<?> read(Integer pageNumber, Integer pageSize, String dateFrom, String dateTo, String orderStatus, String paymentStatus) {
@@ -302,7 +304,6 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
             }
         } else {
 
-
             if (orderStatus == null && paymentStatus == null) {
 
                 pages = orderOnlineRepository.searchByCustomerNameAndOrderNumber(
@@ -386,7 +387,9 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
         status = status.equals("Pay") ? "Completed" : status;
 
         orderOnline.setOrderStatus(status);
-
+        if( status.equals("Completed") ) {
+            orderOnline.setAccept("Completed");
+        }
         orderOnlineRepository.save(orderOnline);
 
         return JavaResponse.builder()
@@ -399,6 +402,7 @@ public class OrderOnlineServiceImp implements OrderOnlineService {
         OrderOnline orderOnline = orderOnlineRepository.findByIdAndStatusTrueAndIsDeletedFalse(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Order Online not found with id : " + id));
         orderOnline.setOrderStatus("Cancelled");
+        orderOnline.setAccept("Cancelled");
         orderOnline.setReason(rejectReason.reason());
         orderOnlineRepository.save(orderOnline);
         return ResponseSuccess.builder().build();

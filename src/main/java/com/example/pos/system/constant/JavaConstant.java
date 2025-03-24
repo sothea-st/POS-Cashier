@@ -2,6 +2,8 @@ package com.example.pos.system.constant;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
+import java.math.BigDecimal;
+
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -54,18 +56,14 @@ public class JavaConstant {
         return date.format(outputFormatter);
     }
 
+
+
     public static double getTwoPrecision(double amount) {
-        String value = String.valueOf(amount);
-        if (value.length() > 5) {
-            String data = value.substring(0, 5);
-            double d = Double.parseDouble(data);
-            return d;
-        }
-        return Double.parseDouble(value);
-        // double value = new BigDecimal(amount).setScale(2,
-        // RoundingMode.DOWN).doubleValue();
-        // return value;
+        BigDecimal bd = new BigDecimal(amount);
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP); // Use BigDecimal's rounding mode
+        return bd.doubleValue();
     }
+
 
     public static boolean onlyDigits(String str, int n) {
         for (int i = 0; i < n; i++) {
@@ -214,4 +212,7 @@ public class JavaConstant {
 
         return formattedDate;
     }
+
+
+
 }
