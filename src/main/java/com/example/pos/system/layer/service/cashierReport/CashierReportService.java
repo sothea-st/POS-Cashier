@@ -57,6 +57,8 @@ public class CashierReportService {
     private SaleDetailsRepository repoSaleDetail;
 
     private HashMap<String, Object> map = new HashMap<>();
+    private Double vat10 = 0.00;
+
     public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
 
         int id = userId;
@@ -155,10 +157,12 @@ public class CashierReportService {
     public void vatProductSummery(String posId, String userCode) {
         ArrayList<VatProductModel> data = new ArrayList<>();
 
-        Double vat10 = repoSaleDetail.vat10(JavaConstant.currentDate, posId, userCode);
-        vat10 = vat10 == null ? 0 : vat10;
+        // old code
+//        Double vat10 = repoSaleDetail.vat10(JavaConstant.currentDate, posId, userCode);
+//        vat10 = vat10 == null ? 0 : vat10;
 
         Double vat3 = repoSaleDetail.vat3(JavaConstant.currentDate, posId, userCode);
+
         vat3 = vat3 == null ? 0 : vat3;
 
         data.add(new VatProductModel("VAT 10 %", BigDecimal.valueOf(vat10)));
@@ -334,19 +338,18 @@ public class CashierReportService {
                 }
         }
 
-
-
-       
-
         List<Integer> returnQty = repoSaleDetail.numRetured(userId , JavaConstant.currentDate , posId);
 
         // double returnAmount = 0;
-        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(JavaConstant.currentDate, posId,
+        Double returnAmountDiscount = repoSaleDetail.totalReturnAmountDiscount(
+                JavaConstant.currentDate,
+                posId,
                 userCode);
+
+
         returnAmountDiscount = returnAmountDiscount == null ? 0 : returnAmountDiscount;
 
         int numOfSale = repoSaleDetail.numOfSale(JavaConstant.currentDate, posId, userCode);
-
         List<SaleSomeFieldProject> totalAmount = repoSaleDetail.totalSaledAmount(JavaConstant.currentDate, posId,userCode);
 
         double _sumTotal = 0;
@@ -363,21 +366,24 @@ public class CashierReportService {
 
         }
 
-        System.out.println("_sumTotal = " + _sumTotal);
-
         ArrayList<SummeryCashierReport> summery = new ArrayList<>();
 
-        // totalAmount = JavaConstant.getTwoPrecision(totalAmount == null ? 0 :
-        // totalAmount);
         returnAmountDiscount = JavaConstant.getTwoPrecision(returnAmountDiscount);
-        // amountDiscount = JavaConstant.getTwoPrecision(amountDiscount);
-        summery.add(new SummeryCashierReport("Total Sales", numOfSale,
-                BigDecimal.valueOf(Double.valueOf(df.format(_sumTotal)))));
-        summery.add(
-                new SummeryCashierReport("Total Refund/Return", returnQty.size(), BigDecimal.valueOf(returnAmountDiscount)));
+
+        summery.add(new SummeryCashierReport("Total Sales", numOfSale,BigDecimal.valueOf(JavaConstant.getTwoPrecision(_sumTotal))));
+
+        summery.add(new SummeryCashierReport("Total Refund/Return", returnQty.size(), BigDecimal.valueOf(returnAmountDiscount)));
+
         summery.add(new SummeryCashierReport("Total Voids", 0, BigDecimal.valueOf(0)));
-        summery.add(new SummeryCashierReport("Discounts", qtyDiscount.size(),
-                BigDecimal.valueOf(Double.valueOf(df.format(amountDiscounts)))));
+
+        summery.add(new SummeryCashierReport("Discounts", qtyDiscount.size(),BigDecimal.valueOf(JavaConstant.getTwoPrecision(amountDiscounts))));
+
+
+        // calculate vat10
+        vat10 =  JavaConstant.getTwoPrecision(_sumTotal) - returnAmountDiscount - JavaConstant.getTwoPrecision(amountDiscounts);
+        vat10 = (vat10/1.1)*0.1;
+        vat10 = JavaConstant.getTwoPrecision(vat10);
+
         map.put("SummerySale", summery);
     }
 
