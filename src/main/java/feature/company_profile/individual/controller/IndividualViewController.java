@@ -79,6 +79,7 @@ public class IndividualViewController extends MainPaginationWithData<IndividualR
 
                @Override
                public void onView() {
+                    individualView.dispose();
                     IndividualDetail individualDetail = new IndividualDetail(new JFrame(), true);
                     individualDetail.setDetail(detail);
                     individualDetail.setVisible(true);
@@ -86,6 +87,7 @@ public class IndividualViewController extends MainPaginationWithData<IndividualR
 
                @Override
                public void onEdit() {
+                    individualView.dispose();
                     IndividualCreate individualCreate = new IndividualCreate(new JFrame(), true);
                     individualCreate.update(detail, individualView);
                     individualCreate.setVisible(true);

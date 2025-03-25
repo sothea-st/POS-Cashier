@@ -180,6 +180,8 @@ public class PromotionController {
 
                               if (response.isSuccessful()) {
 
+                                   view.dispose();
+                                   
                                    String stringData = response.body().string();
 
                                    ObjectMapper objMapper = new ObjectMapper();

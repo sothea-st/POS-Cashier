@@ -31,16 +31,18 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnCancel" min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="searchField" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="businessHeader1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="buttonSave" min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane" alignment="0" pref="1587" max="32767" attributes="0"/>
+                  <Component id="jScrollPane" alignment="0" pref="1598" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="searchField" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="businessHeader1" alignment="0" min="-2" pref="1597" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           </Group>
@@ -57,7 +59,7 @@
               <Component id="businessHeader1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="jScrollPane" min="-2" pref="450" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
                   <Component id="paginationPanel" min="-2" max="-2" attributes="0"/>

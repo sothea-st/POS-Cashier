@@ -287,27 +287,31 @@ public class StockManagement extends javax.swing.JDialog {
      }//GEN-LAST:event_purchaseOrderMouseEntered
 
      private void categoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryMouseClicked
+          dispose();
           AdjustmentForm adjustmentForm = new AdjustmentForm(new JFrame(), true);
           adjustmentForm.setVisible(true);
      }//GEN-LAST:event_categoryMouseClicked
 
      private void objPromotionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objPromotionMouseClicked
+          dispose();
           PromotionView promotionView = new PromotionView(new JFrame(), true);
           promotionView.setVisible(true);
      }//GEN-LAST:event_objPromotionMouseClicked
 
      private void objPromotion1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objPromotion1MouseClicked
+          dispose();
           InvoiceListingView invoiceListingView = new InvoiceListingView(new JFrame(), true);
           invoiceListingView.setVisible(true);
      }//GEN-LAST:event_objPromotion1MouseClicked
 
      private void objCompanyProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objCompanyProfileMouseClicked
-
+          dispose();
           CompanyProfileView companyProfileView = new CompanyProfileView(new JFrame(), true);
           companyProfileView.setVisible(true);
      }//GEN-LAST:event_objCompanyProfileMouseClicked
 
      private void objOrderOnlineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objOrderOnlineMouseClicked
+        dispose();
         OrderOnlineView orderOnlineView = new OrderOnlineView(new JFrame(), true);
         orderOnlineView.setVisible(true);
      }//GEN-LAST:event_objOrderOnlineMouseClicked

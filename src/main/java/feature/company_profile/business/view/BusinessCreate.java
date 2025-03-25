@@ -5,6 +5,7 @@ import Constant.JavaConstant;
 
 import feature.company_profile.business.controller.BusinessCreateController;
 import feature.company_profile.business.model.BusinessModel.BusinessModelDetail;
+import javax.swing.JFrame;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import lombok.Getter;
 import lombok.Setter;
@@ -213,6 +214,8 @@ public class BusinessCreate extends javax.swing.JDialog {
 
      private void btnCancel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancel1MouseClicked
           dispose();
+          BusinessView businessView = new BusinessView(new JFrame(), true);
+          businessView.setVisible(true);
      }//GEN-LAST:event_btnCancel1MouseClicked
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked

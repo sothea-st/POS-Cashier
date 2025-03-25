@@ -447,6 +447,8 @@ public class OrderOnlineDetail extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
+          OrderOnlineView orderOnlineView = new OrderOnlineView(new JFrame(), true);
+          orderOnlineView.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void btnRejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRejectMouseClicked

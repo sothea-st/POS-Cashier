@@ -18,6 +18,7 @@ public class CompanyProfileView extends javax.swing.JDialog {
           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
           setResizable(false);
           setBackground(WindowColor.slightGreen);
+          setTitle("Company Profile");
      }
      
      @SuppressWarnings("unchecked")
@@ -79,6 +80,7 @@ public class CompanyProfileView extends javax.swing.JDialog {
      }//GEN-LAST:event_objPromotion1MouseClicked
 
      private void objCompanyProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_objCompanyProfileMouseClicked
+          dispose();
           BusinessView businessView = new BusinessView(new JFrame(), true);
           businessView.setVisible(true);
      }//GEN-LAST:event_objCompanyProfileMouseClicked

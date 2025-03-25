@@ -4,6 +4,8 @@
  */
 package feature.report.report_vendor.component;
 
+import Components.Color.WindowColor;
+
 /**
  *
  * @author MOBILE-APP.02
@@ -16,6 +18,7 @@ public class ReportVendorHeader extends javax.swing.JPanel {
       */
      public ReportVendorHeader() {
           initComponents();
+          header.setBackground(WindowColor.darkGreen);
      }
 
      /**

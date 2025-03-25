@@ -143,13 +143,16 @@
                           <Component id="panelCategory" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="textField" alignment="0" pref="43" max="32767" attributes="0"/>
-                                  <Component id="panelCart" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                      <Component id="textField" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="panelCart" pref="43" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -624,7 +627,7 @@
                       <Component id="homeMenu" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="breadcrumb" min="-2" pref="142" max="-2" attributes="0"/>
-                      <EmptySpace pref="472" max="32767" attributes="0"/>
+                      <EmptySpace pref="460" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="cmboxBrand" min="-2" pref="281" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
@@ -633,7 +636,7 @@
                               <Component id="next" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

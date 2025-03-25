@@ -4,6 +4,8 @@
  */
 package feature.order_online.component;
 
+import Components.Color.WindowColor;
+
 /**
  *
  * @author MOBILE-APP.02
@@ -16,6 +18,7 @@ public class DetailOrderOnlineHeader extends javax.swing.JPanel {
       */
      public DetailOrderOnlineHeader() {
           initComponents();
+           header.setBackground(WindowColor.darkGreen);
      }
 
      /**

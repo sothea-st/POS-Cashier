@@ -140,6 +140,7 @@ public class OrderOnlineViewController extends MainPaginationWithData<OrderOnlin
           ButtonEvent event = new ButtonEvent() {
                @Override
                public void onClick() {
+                    view.dispose();
                     OrderOnlineDetail detail = new OrderOnlineDetail(new JFrame(), true);
                     detail.setData(data,view);
                     detail.setController(controller);

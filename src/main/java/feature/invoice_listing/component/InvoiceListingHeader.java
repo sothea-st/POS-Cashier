@@ -1,6 +1,7 @@
  
 package feature.invoice_listing.component;
 
+import Components.Color.WindowColor;
 import java.awt.Dimension;
 
  
@@ -9,6 +10,7 @@ public class InvoiceListingHeader extends javax.swing.JPanel {
      
      public InvoiceListingHeader() {
           initComponents();
+           header.setBackground(WindowColor.darkGreen);
      }
 
      

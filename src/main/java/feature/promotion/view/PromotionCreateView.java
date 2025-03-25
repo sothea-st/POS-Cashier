@@ -288,6 +288,9 @@ public class PromotionCreateView extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           dispose();
+          PromotionView promotionView = new PromotionView(new JFrame(), true);
+          promotionView.setVisible(true);
+          
      }//GEN-LAST:event_btnCancelMouseClicked
 
      private void buttonSave1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSave1MouseClicked

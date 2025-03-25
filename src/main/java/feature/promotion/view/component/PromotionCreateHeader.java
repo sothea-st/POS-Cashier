@@ -4,6 +4,8 @@
  */
 package feature.promotion.view.component;
 
+import Components.Color.WindowColor;
+
 /**
  *
  * @author MOBILE-APP.02
@@ -16,6 +18,7 @@ public class PromotionCreateHeader extends javax.swing.JPanel {
       */
      public PromotionCreateHeader() {
           initComponents();
+           panel.setBackground(WindowColor.darkGreen);
      }
 
      /**

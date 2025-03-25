@@ -1,6 +1,7 @@
 package feature.company_profile.individual.view;
 
 import Components.Color.WindowColor;
+import feature.company_profile.CompanyProfileView;
 import feature.company_profile.individual.controller.IndividualViewController;
 import javax.swing.JFrame;
 import lombok.Getter;
@@ -126,6 +127,7 @@ public class IndividualView extends javax.swing.JDialog {
      }// </editor-fold>//GEN-END:initComponents
 
      private void buttonSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonSaveMouseClicked
+          dispose();
           IndividualCreate individualCreate = new IndividualCreate(new JFrame(), true);
           individualCreate.setIndividualView(this);
           individualCreate.setVisible(true);
@@ -133,6 +135,8 @@ public class IndividualView extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
+          CompanyProfileView companyProfileView = new CompanyProfileView(new JFrame(), true);
+          companyProfileView.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
      public static void main(String args[]) {

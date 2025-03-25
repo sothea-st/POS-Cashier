@@ -1686,7 +1686,7 @@ public class PaymentOption extends javax.swing.JDialog {
                double valueRemainingUsd = JavaConstant.getReplace(lbRemainingUsd.getLabelName());
                double valueRemainingKhr = JavaConstant.getReplace(lbRemainingKhr.getLabelName());
                if (valueRemainingUsd > 0 || valueRemainingKhr > 0) {
-                    j.setMessage(" remainning Usd : " + lbRemainingUsd.getLabelName() + " <br><br> remainning KHR : " + lbRemainingKhr.getLabelName());
+                    j.setMessage(" Remainning USD : " + lbRemainingUsd.getLabelName() + " <br><br> Remainning KHR : " + lbRemainingKhr.getLabelName());
                     j.setVisible(true);
                     return;
                }

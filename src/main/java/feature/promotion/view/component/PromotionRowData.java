@@ -137,155 +137,155 @@ public class PromotionRowData extends javax.swing.JPanel {
     
 
      @SuppressWarnings("unchecked")
-     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-     private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-          panel = new javax.swing.JPanel();
-          lbCreatedData = new javax.swing.JLabel();
-          lbCreatedBy = new javax.swing.JLabel();
-          lbStartDate = new javax.swing.JLabel();
-          lbPromotionType = new javax.swing.JLabel();
-          lbPercentage = new javax.swing.JLabel();
-          lbAfterDiscount = new javax.swing.JLabel();
-          lbEndDate = new javax.swing.JLabel();
-          lbSalePrice = new javax.swing.JLabel();
-          switchStatus = new SwitchButton.SwitchButton();
-          btnEdit = new javax.swing.JLabel();
-          btnInfo = new javax.swing.JLabel();
-          btnDelete = new javax.swing.JLabel();
+        panel = new javax.swing.JPanel();
+        lbCreatedData = new javax.swing.JLabel();
+        lbCreatedBy = new javax.swing.JLabel();
+        lbStartDate = new javax.swing.JLabel();
+        lbPromotionType = new javax.swing.JLabel();
+        lbPercentage = new javax.swing.JLabel();
+        lbAfterDiscount = new javax.swing.JLabel();
+        lbEndDate = new javax.swing.JLabel();
+        lbSalePrice = new javax.swing.JLabel();
+        switchStatus = new SwitchButton.SwitchButton();
+        btnEdit = new javax.swing.JLabel();
+        btnInfo = new javax.swing.JLabel();
+        btnDelete = new javax.swing.JLabel();
 
-          panel.setBackground(new java.awt.Color(255, 255, 255));
-          panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-          panel.setPreferredSize(new java.awt.Dimension(400, 35));
+        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panel.setPreferredSize(new java.awt.Dimension(400, 35));
 
-          lbCreatedData.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbCreatedData.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbCreatedData.setText("Created Date");
+        lbCreatedData.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbCreatedData.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbCreatedData.setText("Created Date");
 
-          lbCreatedBy.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbCreatedBy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbCreatedBy.setText("Create By");
+        lbCreatedBy.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbCreatedBy.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbCreatedBy.setText("Create By");
 
-          lbStartDate.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbStartDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbStartDate.setText("Start Date");
+        lbStartDate.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbStartDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbStartDate.setText("Start Date");
 
-          lbPromotionType.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbPromotionType.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbPromotionType.setText("Promotion Type");
+        lbPromotionType.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbPromotionType.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbPromotionType.setText("Promotion Type");
 
-          lbPercentage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbPercentage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbPercentage.setText("Percentage");
+        lbPercentage.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbPercentage.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbPercentage.setText("Percentage");
 
-          lbAfterDiscount.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbAfterDiscount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbAfterDiscount.setText("After Discount");
+        lbAfterDiscount.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbAfterDiscount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbAfterDiscount.setText("After Discount");
 
-          lbEndDate.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbEndDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbEndDate.setText("End Date");
+        lbEndDate.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbEndDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbEndDate.setText("End Date");
 
-          lbSalePrice.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-          lbSalePrice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          lbSalePrice.setText("Sale Price");
+        lbSalePrice.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        lbSalePrice.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbSalePrice.setText("Sale Price");
 
-          switchStatus.setBackground(new java.awt.Color(204, 204, 204));
+        switchStatus.setBackground(new java.awt.Color(204, 204, 204));
 
-          btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
+        btnEdit.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Edit.png"))); // NOI18N
 
-          btnInfo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
+        btnInfo.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/info.png"))); // NOI18N
 
-          btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-          btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-          btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnDelete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trash.png"))); // NOI18N
 
-          javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
-          panel.setLayout(panelLayout);
-          panelLayout.setHorizontalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
-                    .addGap(17, 17, 17)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(5, 5, 5)
-                    .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(lbCreatedData, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbCreatedBy, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbPromotionType, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbEndDate, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lbPercentage, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                    .addGap(12, 12, 12)
-                    .addComponent(lbSalePrice, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(lbAfterDiscount, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addGap(37, 37, 37)
-                    .addComponent(switchStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(33, 33, 33))
-          );
-          panelLayout.setVerticalGroup(
-               panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(panelLayout.createSequentialGroup()
-                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                         .addGroup(panelLayout.createSequentialGroup()
-                              .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                   .addGroup(panelLayout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(switchStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                   .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(lbCreatedData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbCreatedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbPromotionType, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbAfterDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                              .addGap(0, 0, Short.MAX_VALUE))
-                         .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(btnInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                         .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap())
-          );
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(btnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(lbCreatedData, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbCreatedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbPromotionType, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbAfterDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(switchStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbCreatedData, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbCreatedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbPromotionType, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbPercentage, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbAfterDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbSalePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(panelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(switchStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-          javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-          this.setLayout(layout);
-          layout.setHorizontalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1288, Short.MAX_VALUE)
-          );
-          layout.setVerticalGroup(
-               layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
-          );
-     }// </editor-fold>//GEN-END:initComponents
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 1321, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, Short.MAX_VALUE)
+        );
+    }// </editor-fold>//GEN-END:initComponents
 
 
-     // Variables declaration - do not modify//GEN-BEGIN:variables
-     private javax.swing.JLabel btnDelete;
-     private javax.swing.JLabel btnEdit;
-     private javax.swing.JLabel btnInfo;
-     private javax.swing.JLabel lbAfterDiscount;
-     private javax.swing.JLabel lbCreatedBy;
-     private javax.swing.JLabel lbCreatedData;
-     private javax.swing.JLabel lbEndDate;
-     private javax.swing.JLabel lbPercentage;
-     private javax.swing.JLabel lbPromotionType;
-     private javax.swing.JLabel lbSalePrice;
-     private javax.swing.JLabel lbStartDate;
-     private javax.swing.JPanel panel;
-     private SwitchButton.SwitchButton switchStatus;
-     // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnDelete;
+    private javax.swing.JLabel btnEdit;
+    private javax.swing.JLabel btnInfo;
+    private javax.swing.JLabel lbAfterDiscount;
+    private javax.swing.JLabel lbCreatedBy;
+    private javax.swing.JLabel lbCreatedData;
+    private javax.swing.JLabel lbEndDate;
+    private javax.swing.JLabel lbPercentage;
+    private javax.swing.JLabel lbPromotionType;
+    private javax.swing.JLabel lbSalePrice;
+    private javax.swing.JLabel lbStartDate;
+    private javax.swing.JPanel panel;
+    private SwitchButton.SwitchButton switchStatus;
+    // End of variables declaration//GEN-END:variables
 }

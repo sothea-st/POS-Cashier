@@ -1,11 +1,14 @@
  
 package feature.adjustment.component;
  
+import Components.Color.WindowColor;
+
 public class HeaderFormCreate extends javax.swing.JPanel {
 
      
      public HeaderFormCreate() {
           initComponents();
+           header.setBackground(WindowColor.darkGreen);
      }
 
      public void hideAction(){

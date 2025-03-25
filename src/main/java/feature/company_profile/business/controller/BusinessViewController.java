@@ -56,6 +56,7 @@ public class BusinessViewController extends MainPaginationWithData<BusinessModel
 
                @Override
                public void onEdit() {
+                    businessView.dispose();
                     BusinessCreate businessCreate = new BusinessCreate(new JFrame(), true);
                     businessCreate.update(detail, businessView);
                     businessCreate.setVisible(true);

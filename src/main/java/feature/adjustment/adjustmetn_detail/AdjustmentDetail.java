@@ -1,6 +1,8 @@
 package feature.adjustment.adjustmetn_detail;
 
 import Components.Color.WindowColor;
+import feature.adjustment.AdjustmentForm;
+import javax.swing.JFrame;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -153,6 +155,8 @@ public class AdjustmentDetail extends javax.swing.JDialog {
 
      private void btnCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseClicked
           this.dispose();
+          AdjustmentForm adjustmentForm = new AdjustmentForm(new JFrame(), true);
+          adjustmentForm.setVisible(true);
      }//GEN-LAST:event_btnCancelMouseClicked
 
      public static void main(String args[]) {

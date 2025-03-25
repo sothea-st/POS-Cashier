@@ -4,6 +4,8 @@
  */
 package feature.company_profile.business.component;
 
+import Components.Color.WindowColor;
+
 /**
  *
  * @author MOBILE-APP.02
@@ -15,6 +17,8 @@ public class BusinessHeader extends javax.swing.JPanel {
       */
      public BusinessHeader() {
           initComponents();
+          header.setBackground(WindowColor.darkGreen);
+          
      }
 
      /**
