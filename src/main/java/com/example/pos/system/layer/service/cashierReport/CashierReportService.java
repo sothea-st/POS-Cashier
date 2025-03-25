@@ -57,7 +57,7 @@ public class CashierReportService {
     private SaleDetailsRepository repoSaleDetail;
 
     private HashMap<String, Object> map = new HashMap<>();
-    private Double vat10 = 0.00;
+    private Double subTotal = 0.00;
 
     public Map<String, Object> cashierReport(String userCode, int userId, String posId) {
 
@@ -133,10 +133,10 @@ public class CashierReportService {
     public void summerAllProVat(String posId, String userCode, double totalWithdrawal) {
         ArrayList<VatProductModel> data = new ArrayList<>();
 
-        Double vat = repoSaleDetail.vat(JavaConstant.currentDate, posId, userCode);
-        vat = vat == null ? 0 : vat;
+//        Double vat = repoSaleDetail.vat(JavaConstant.currentDate, posId, userCode);
+//        vat = vat == null ? 0 : vat;
         map.put("totalWithdrawal", 0);
-        map.put("cashierTotal", vat - 0);
+        map.put("cashierTotal",  0);
 
         Double noneVat = repoSaleDetail.noneVat(JavaConstant.currentDate, posId, userCode);
         noneVat = noneVat == null ? 0 : noneVat;
@@ -146,11 +146,12 @@ public class CashierReportService {
 
         Double plt = repoSaleDetail.plt(JavaConstant.currentDate, posId, userCode);
         plt = plt == null ? 0 : plt;
-        data.add(new VatProductModel("VAT Taxable Value", BigDecimal.valueOf(Double.valueOf(df.format(vat)))));
-        data.add(new VatProductModel("Non-VAT Taxable Value", BigDecimal.valueOf(Double.valueOf(df.format(noneVat)))));
+
+        data.add(new VatProductModel("VAT Taxable Value", BigDecimal.valueOf(Double.valueOf(JavaConstant.getTwoPrecision(subTotal)))));
+        data.add(new VatProductModel("Non-VAT Taxable Value", BigDecimal.valueOf(Double.valueOf(JavaConstant.getTwoPrecision(noneVat)))));
         data.add(new VatProductModel("VAT State Charge Value",
                 BigDecimal.valueOf(Double.valueOf(df.format(vatStateChrge)))));
-        data.add(new VatProductModel("Public Lighting Tax Base", BigDecimal.valueOf(Double.valueOf(df.format(plt)))));
+        data.add(new VatProductModel("Public Lighting Tax Base", BigDecimal.valueOf(Double.valueOf(JavaConstant.getTwoPrecision(plt)))));
         map.put("SummeryAllProVat", data);
     }
 
@@ -164,6 +165,9 @@ public class CashierReportService {
         Double vat3 = repoSaleDetail.vat3(JavaConstant.currentDate, posId, userCode);
 
         vat3 = vat3 == null ? 0 : vat3;
+
+        Double vat10 = (subTotal/1.1)*0.1;
+        vat10 = JavaConstant.getTwoPrecision(vat10);
 
         data.add(new VatProductModel("VAT 10 %", BigDecimal.valueOf(vat10)));
         data.add(new VatProductModel("Public Lighting Tax", BigDecimal.valueOf(vat3)));
@@ -379,10 +383,9 @@ public class CashierReportService {
         summery.add(new SummeryCashierReport("Discounts", qtyDiscount.size(),BigDecimal.valueOf(JavaConstant.getTwoPrecision(amountDiscounts))));
 
 
-        // calculate vat10
-        vat10 =  JavaConstant.getTwoPrecision(_sumTotal) - returnAmountDiscount - JavaConstant.getTwoPrecision(amountDiscounts);
-        vat10 = (vat10/1.1)*0.1;
-        vat10 = JavaConstant.getTwoPrecision(vat10);
+        // calculate subTotal
+        subTotal =  JavaConstant.getTwoPrecision(_sumTotal) - returnAmountDiscount - JavaConstant.getTwoPrecision(amountDiscounts);
+
 
         map.put("SummerySale", summery);
     }
