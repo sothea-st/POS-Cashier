@@ -1769,15 +1769,7 @@ public class PaymentOption extends javax.swing.JDialog {
                }
                jsonData.put("customer", customer);
           }
-
-//          if(txtCustomerName.getValueTextFieldCenter().isEmpty() && 
-//              txtCustomerId.getValueTextFieldCenter().isEmpty() && 
-//              txtCustomerPhone.getValueTextFieldCenter().isEmpty()){
-//              jsonData.put("customer", "");
-//              System.out.println("Helllloooo Hiiiii" +txtCustomerName.getValueTextFieldCenter());
-//          }else{
-//              jsonData.put("customer", "");
-//          }
+ 
 
           String discountType = "";
           //get dataSale 
@@ -1931,9 +1923,9 @@ public class PaymentOption extends javax.swing.JDialog {
           }
           jsonReturnData.put("dataDetails", dataDetails);
 
-          System.out.println("jsonReturnData json  : " + jsonReturnData);
+         // System.out.println("jsonReturnData json  : " + jsonReturnData);
           Response responseReturn = JavaConnection.post(JavaRoute.returnProduct, jsonReturnData);
-          System.out.println("responseReturn : " + responseReturn);
+         // System.out.println("responseReturn : " + responseReturn);
           try {
                if (responseReturn.isSuccessful()) {
 
@@ -1955,7 +1947,7 @@ public class PaymentOption extends javax.swing.JDialog {
 
                     JavaConstant.resetValueReturn();
                     
-                              System.out.println("responseRedddddddddddddddddddddddddddddturn : ");
+                            //  System.out.println("responseRedddddddddddddddddddddddddddddturn : ");
 
 
                     String _data = responseReturn.body().string();
